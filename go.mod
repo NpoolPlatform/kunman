@@ -18,7 +18,6 @@ require (
 	github.com/go-chassis/go-archaius v1.5.3
 	github.com/go-chassis/openlog v1.1.3
 	github.com/go-chi/chi/v5 v5.0.8
-	github.com/go-ego/gse v0.80.3
 	github.com/go-redis/redis/v8 v8.11.5
 	github.com/go-resty/resty/v2 v2.7.0
 	github.com/go-sql-driver/mysql v1.6.0
@@ -118,7 +117,6 @@ require (
 	github.com/spf13/pflag v1.0.5 // indirect
 	github.com/subosito/gotenv v1.2.0 // indirect
 	github.com/ugorji/go/codec v1.2.14 // indirect
-	github.com/vcaesar/cedar v0.20.2 // indirect
 	github.com/zclconf/go-cty v1.14.4 // indirect
 	github.com/zclconf/go-cty-yaml v1.1.0 // indirect
 	go.opentelemetry.io/otel/trace v1.8.0 // indirect

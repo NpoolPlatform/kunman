@@ -18,8 +18,9 @@ import (
 // UserSubscriptionChangeUpdate is the builder for updating UserSubscriptionChange entities.
 type UserSubscriptionChangeUpdate struct {
 	config
-	hooks    []Hook
-	mutation *UserSubscriptionChangeMutation
+	hooks     []Hook
+	mutation  *UserSubscriptionChangeMutation
+	modifiers []func(*sql.UpdateBuilder)
 }
 
 // Where appends a list predicates to the UserSubscriptionChangeUpdate builder.
@@ -174,6 +175,12 @@ func (uscu *UserSubscriptionChangeUpdate) ExecX(ctx context.Context) {
 	}
 }
 
+// Modify adds a statement modifier for attaching custom logic to the UPDATE statement.
+func (uscu *UserSubscriptionChangeUpdate) Modify(modifiers ...func(u *sql.UpdateBuilder)) *UserSubscriptionChangeUpdate {
+	uscu.modifiers = append(uscu.modifiers, modifiers...)
+	return uscu
+}
+
 func (uscu *UserSubscriptionChangeUpdate) sqlSave(ctx context.Context) (n int, err error) {
 	_spec := sqlgraph.NewUpdateSpec(usersubscriptionchange.Table, usersubscriptionchange.Columns, sqlgraph.NewFieldSpec(usersubscriptionchange.FieldID, field.TypeUint32))
 	if ps := uscu.mutation.predicates; len(ps) > 0 {
@@ -216,6 +223,7 @@ func (uscu *UserSubscriptionChangeUpdate) sqlSave(ctx context.Context) (n int, e
 	if uscu.mutation.NewPackageIDCleared() {
 		_spec.ClearField(usersubscriptionchange.FieldNewPackageID, field.TypeUUID)
 	}
+	_spec.AddModifiers(uscu.modifiers...)
 	if n, err = sqlgraph.UpdateNodes(ctx, uscu.driver, _spec); err != nil {
 		if _, ok := err.(*sqlgraph.NotFoundError); ok {
 			err = &NotFoundError{usersubscriptionchange.Label}
@@ -231,9 +239,10 @@ func (uscu *UserSubscriptionChangeUpdate) sqlSave(ctx context.Context) (n int, e
 // UserSubscriptionChangeUpdateOne is the builder for updating a single UserSubscriptionChange entity.
 type UserSubscriptionChangeUpdateOne struct {
 	config
-	fields   []string
-	hooks    []Hook
-	mutation *UserSubscriptionChangeMutation
+	fields    []string
+	hooks     []Hook
+	mutation  *UserSubscriptionChangeMutation
+	modifiers []func(*sql.UpdateBuilder)
 }
 
 // SetEntID sets the "ent_id" field.
@@ -395,6 +404,12 @@ func (uscuo *UserSubscriptionChangeUpdateOne) ExecX(ctx context.Context) {
 	}
 }
 
+// Modify adds a statement modifier for attaching custom logic to the UPDATE statement.
+func (uscuo *UserSubscriptionChangeUpdateOne) Modify(modifiers ...func(u *sql.UpdateBuilder)) *UserSubscriptionChangeUpdateOne {
+	uscuo.modifiers = append(uscuo.modifiers, modifiers...)
+	return uscuo
+}
+
 func (uscuo *UserSubscriptionChangeUpdateOne) sqlSave(ctx context.Context) (_node *UserSubscriptionChange, err error) {
 	_spec := sqlgraph.NewUpdateSpec(usersubscriptionchange.Table, usersubscriptionchange.Columns, sqlgraph.NewFieldSpec(usersubscriptionchange.FieldID, field.TypeUint32))
 	id, ok := uscuo.mutation.ID()
@@ -454,6 +469,7 @@ func (uscuo *UserSubscriptionChangeUpdateOne) sqlSave(ctx context.Context) (_nod
 	if uscuo.mutation.NewPackageIDCleared() {
 		_spec.ClearField(usersubscriptionchange.FieldNewPackageID, field.TypeUUID)
 	}
+	_spec.AddModifiers(uscuo.modifiers...)
 	_node = &UserSubscriptionChange{config: uscuo.config}
 	_spec.Assign = _node.assignValues
 	_spec.ScanValues = _node.scanValues

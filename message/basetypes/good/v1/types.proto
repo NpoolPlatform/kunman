@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package basetypes.good.v1;
+
+option go_package = "github.com/NpoolPlatform/kunman/message/basetypes/good/v1";
+
+message GoodCoinInfo {
+    string GoodID = 10;
+    string CoinTypeID = 20;
+    string CoinName = 30;
+    string CoinUnit = 40;
+    string CoinLogo = 50;
+    bool Main = 60;
+    int32 Index = 70;
+}
+

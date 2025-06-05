@@ -1,0 +1,101 @@
+syntax = "proto3";
+
+package order.gateway.order1.coupon.v1;
+
+option go_package = "github.com/NpoolPlatform/kunman/message/order/gateway/v1/order/coupon";
+
+import "google/api/annotations.proto";
+import "basetypes/good/v1/enums.proto";
+import "basetypes/inspire/v1/enums.proto";
+
+// Service Name
+service Gateway {
+    rpc GetOrderCoupons (GetOrderCouponsRequest) returns (GetOrderCouponsResponse) {
+        option (google.api.http) = {
+            post: "/v1/get/ordercoupons"
+            body: "*"
+        };
+    }
+
+    rpc GetMyOrderCoupons (GetMyOrderCouponsRequest) returns (GetMyOrderCouponsResponse) {
+        option (google.api.http) = {
+            post: "/v1/get/my/ordercoupons"
+            body: "*"
+        };
+    }
+
+    rpc AdminGetOrderCoupons (AdminGetOrderCouponsRequest) returns (AdminGetOrderCouponsResponse) {
+        option (google.api.http) = {
+            post: "/v1/admin/get/ordercoupons"
+            body: "*"
+        };
+    }
+}
+
+message OrderCoupon {
+    uint32 ID = 10;
+    string EntID = 20;
+    string AppID = 30;
+    string AppName = 40;
+    string UserID = 50;
+    string EmailAddress = 60;
+    string PhoneNO = 70;
+    string GoodID = 80;
+    basetypes.good.v1.GoodType GoodType = 90;
+    string GoodName = 100;
+    string AppGoodID = 110;
+    string AppGoodName = 120;
+    string OrderID = 130;
+    string AllocatedCouponID = 140;
+    string CouponID = 150;
+    string CouponName = 160;
+    basetypes.inspire.v1.CouponType CouponType = 170;
+    string Denomination = 180;
+
+    uint32 CreatedAt = 1000;
+    uint32 UpdatedAt = 1010;
+}
+
+message OrderCouponInfo {
+    string AllocatedCouponID = 10;
+    string CouponName = 20;
+    basetypes.inspire.v1.CouponType CouponType = 30;
+    string Denomination = 40;
+    uint32 CreatedAt = 50;
+}
+
+message GetOrderCouponsRequest {
+    string AppID = 10;
+    optional string TargetUserID = 20;
+    int32 Offset = 30;
+    int32 Limit = 40;
+}
+
+message GetOrderCouponsResponse {
+    repeated OrderCoupon Infos = 10;
+    uint32 Total = 20;
+}
+
+message GetMyOrderCouponsRequest {
+    string AppID = 10;
+    string UserID = 20;
+    int32 Offset = 30;
+    int32 Limit = 40;
+}
+
+message GetMyOrderCouponsResponse {
+    repeated OrderCoupon Infos = 10;
+    uint32 Total = 20;
+}
+
+message AdminGetOrderCouponsRequest {
+    optional string TargetAppID = 10;
+    int32 Offset = 20;
+    int32 Limit = 30;
+}
+
+message AdminGetOrderCouponsResponse {
+    repeated OrderCoupon Infos = 10;
+    uint32 Total = 20;
+}
+

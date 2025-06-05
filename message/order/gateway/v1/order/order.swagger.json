@@ -1,0 +1,436 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "order/gateway/v1/order/order.proto",
+    "version": "version not set"
+  },
+  "tags": [
+    {
+      "name": "Gateway"
+    }
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/v1/admin/get/orders": {
+      "post": {
+        "operationId": "Gateway_AdminGetOrders",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1AdminGetOrdersResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1AdminGetOrdersRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Gateway"
+        ]
+      }
+    },
+    "/v1/get/my/orders": {
+      "post": {
+        "operationId": "Gateway_GetMyOrders",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetMyOrdersResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1GetMyOrdersRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Gateway"
+        ]
+      }
+    },
+    "/v1/get/orders": {
+      "post": {
+        "operationId": "Gateway_GetOrders",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetOrdersResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1GetOrdersRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Gateway"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "basetypesorderv1BenefitState": {
+      "type": "string",
+      "enum": [
+        "DefaultBenefitState",
+        "BenefitWait",
+        "BenefitCalculated",
+        "BenefitBookKept"
+      ],
+      "default": "DefaultBenefitState"
+    },
+    "protobufAny": {
+      "type": "object",
+      "properties": {
+        "@type": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": {}
+    },
+    "rpcStatus": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "details": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/protobufAny"
+          }
+        }
+      }
+    },
+    "v1AdminGetOrdersRequest": {
+      "type": "object",
+      "properties": {
+        "TargetAppID": {
+          "type": "string"
+        },
+        "Offset": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "Limit": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "v1AdminGetOrdersResponse": {
+      "type": "object",
+      "properties": {
+        "Infos": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1Order"
+          }
+        },
+        "Total": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "v1GetMyOrdersRequest": {
+      "type": "object",
+      "properties": {
+        "AppID": {
+          "type": "string"
+        },
+        "UserID": {
+          "type": "string"
+        },
+        "Offset": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "Limit": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "v1GetMyOrdersResponse": {
+      "type": "object",
+      "properties": {
+        "Infos": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1Order"
+          }
+        },
+        "Total": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "v1GetOrdersRequest": {
+      "type": "object",
+      "properties": {
+        "AppID": {
+          "type": "string"
+        },
+        "TargetUserID": {
+          "type": "string"
+        },
+        "Offset": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "Limit": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "v1GetOrdersResponse": {
+      "type": "object",
+      "properties": {
+        "Infos": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1Order"
+          }
+        },
+        "Total": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "v1GoodType": {
+      "type": "string",
+      "enum": [
+        "DefaultGoodType",
+        "PowerRental",
+        "MachineRental",
+        "MachineCustody",
+        "LegacyPowerRental",
+        "DelegatedStaking",
+        "TechniqueServiceFee",
+        "ElectricityFee"
+      ],
+      "default": "DefaultGoodType"
+    },
+    "v1Order": {
+      "type": "object",
+      "properties": {
+        "ID": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "EntID": {
+          "type": "string"
+        },
+        "AppID": {
+          "type": "string"
+        },
+        "AppName": {
+          "type": "string"
+        },
+        "UserID": {
+          "type": "string"
+        },
+        "EmailAddress": {
+          "type": "string"
+        },
+        "PhoneNO": {
+          "type": "string"
+        },
+        "GoodID": {
+          "type": "string"
+        },
+        "GoodType": {
+          "$ref": "#/definitions/v1GoodType"
+        },
+        "GoodName": {
+          "type": "string"
+        },
+        "AppGoodID": {
+          "type": "string"
+        },
+        "AppGoodName": {
+          "type": "string"
+        },
+        "ParentOrderID": {
+          "type": "string"
+        },
+        "OrderType": {
+          "$ref": "#/definitions/v1OrderType"
+        },
+        "PaymentType": {
+          "$ref": "#/definitions/v1PaymentType"
+        },
+        "CreateMethod": {
+          "$ref": "#/definitions/v1OrderCreateMethod"
+        },
+        "Simulate": {
+          "type": "boolean"
+        },
+        "OrderState": {
+          "$ref": "#/definitions/v1OrderState"
+        },
+        "StartMode": {
+          "$ref": "#/definitions/v1OrderStartMode"
+        },
+        "StartAt": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "LastBenefitAt": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "BenefitState": {
+          "$ref": "#/definitions/basetypesorderv1BenefitState"
+        },
+        "CreatedAt": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "UpdatedAt": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "v1OrderCreateMethod": {
+      "type": "string",
+      "enum": [
+        "DefaultOrderCreateMethod",
+        "OrderCreatedByPurchase",
+        "OrderCreatedByAdmin",
+        "OrderCreatedByRenew"
+      ],
+      "default": "DefaultOrderCreateMethod"
+    },
+    "v1OrderStartMode": {
+      "type": "string",
+      "enum": [
+        "DefaultOrderStartMode",
+        "OrderStartTBD",
+        "OrderStartConfirmed",
+        "OrderStartInstantly",
+        "OrderStartNextDay",
+        "OrderStartPreset"
+      ],
+      "default": "DefaultOrderStartMode"
+    },
+    "v1OrderState": {
+      "type": "string",
+      "enum": [
+        "DefaultOrderState",
+        "OrderStateCreated",
+        "OrderStateWaitPayment",
+        "OrderStatePaymentTransferReceived",
+        "OrderStatePaymentTransferBookKeeping",
+        "OrderStatePaymentSpendBalance",
+        "OrderStateTransferGoodStockLocked",
+        "OrderStateAddCommission",
+        "OrderStateAchievementBookKeeping",
+        "OrderStatePaymentUnlockAccount",
+        "OrderStatePaid",
+        "OrderStateTransferGoodStockWaitStart",
+        "OrderStateCreateOrderUser",
+        "OrderStateSetProportion",
+        "OrderStateSetRevenueAddress",
+        "OrderStateInService",
+        "OrderStatePaymentTimeout",
+        "OrderStatePreCancel",
+        "OrderStatePreExpired",
+        "OrderStateDeleteProportion",
+        "OrderStateCheckProportion",
+        "OrderStateCheckPoolBalance",
+        "OrderStateRestoreExpiredStock",
+        "OrderStateRestoreCanceledStock",
+        "OrderStateDeductLockedCommission",
+        "OrderStateCancelAchievement",
+        "OrderStateReturnCanceledBalance",
+        "OrderStateCanceledTransferBookKeeping",
+        "OrderStateCancelUnlockPaymentAccount",
+        "OrderStateCanceled",
+        "OrderStateExpired"
+      ],
+      "default": "DefaultOrderState",
+      "description": "- OrderStateWaitPayment: Common state\n - OrderStatePaymentTransferReceived: Payment process\n - OrderStatePaid: Paid\n - OrderStateCreateOrderUser: PreInService sub states for miningpool settings\n - OrderStatePaymentTimeout: Timeout of order\n - OrderStatePreCancel: End or order\n - OrderStateDeleteProportion: PreExpired sub states for miningpool settings\n - OrderStateRestoreExpiredStock: Calculation\n - OrderStateCanceled: End state",
+      "title": "clang-format off"
+    },
+    "v1OrderType": {
+      "type": "string",
+      "enum": [
+        "DefaultOrderType",
+        "Normal",
+        "Offline",
+        "Airdrop"
+      ],
+      "default": "DefaultOrderType"
+    },
+    "v1PaymentType": {
+      "type": "string",
+      "enum": [
+        "DefaultPaymentType",
+        "PayWithBalanceOnly",
+        "PayWithTransferOnly",
+        "PayWithTransferAndBalance",
+        "PayWithParentOrder",
+        "PayWithOtherOrder",
+        "PayWithContract",
+        "PayWithOffline",
+        "PayWithNoPayment"
+      ],
+      "default": "DefaultPaymentType"
+    }
+  }
+}

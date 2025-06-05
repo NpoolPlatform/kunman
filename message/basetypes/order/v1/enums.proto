@@ -1,0 +1,293 @@
+syntax = "proto3";
+
+package basetypes.order.v1;
+
+option go_package = "github.com/NpoolPlatform/kunman/message/basetypes/order/v1";
+
+enum OrderType {
+  DefaultOrderType = 0;
+  Normal = 10;
+  Offline = 20;
+  Airdrop = 30;
+}
+
+// clang-format off
+enum OrderState {
+  DefaultOrderState = 0;
+
+  OrderStateCreated = 10; // -> OrderStateWaitPayment
+
+  // Common state
+  OrderStateWaitPayment = 20; // -> OrderStatePaymentTimeout || OrderStatePaymentTransferReceived || OrderStatePreCancel
+
+  // Payment process
+  OrderStatePaymentTransferReceived = 30; // -> OrderStatePaymentTransferBookKeeping
+  OrderStatePaymentTransferBookKeeping = 40; // -> OrderStatePaymentSpendBalance
+  OrderStatePaymentSpendBalance = 50; // -> OrderStateTransferGoodStockLocked
+  OrderStateTransferGoodStockLocked = 60; // -> OrderStateAddCommission
+  OrderStateAddCommission = 70;           // -> OrderStateAchievementBookKeeping
+  OrderStateAchievementBookKeeping = 80;  // -> OrderStatePaymentUnlockAccount
+  OrderStatePaymentUnlockAccount = 90;    // -> OrderStatePaid
+
+  // Paid
+  OrderStatePaid = 110; // -> OrderStatePreCancel || OrderStateTransferGoodStockWaitStart
+  OrderStateTransferGoodStockWaitStart = 120; // -> OrderStateInService
+  
+  // PreInService sub states for miningpool settings
+  OrderStateCreateOrderUser = 137;
+  OrderStateSetProportion = 138;
+  OrderStateSetRevenueAddress = 139;
+
+  OrderStateInService = 140; // -> OrderStatePreCancel || OrderStatePreExpired
+
+  // Timeout of order
+  OrderStatePaymentTimeout = 150; // -> OrderStatePreCancel
+
+/*
+                       Created
+                         |
+                         |
+                         v
+                    WaitPayment----------------------------------------------|
+                         |                                    |              |
+                         |                                    |              |
+                         |                                    |              v
+                         v                                    |         PaymentTimeout
+               PaymentTransferReceived                        |              |
+                         |                                    |              |
+                         |                                    |              |
+                         v                                    |              |
+    Rollback---->PaymentTransferBookKeeping                   |              |
+          |              |                                    |              |
+          |              |                                    |              |
+          |              v                                    |              |
+    Rollback----->PaymentSpendBalance                         |              |
+          |              |                                    |              |
+          |              |                                    |              |
+          |              v                                    |              |
+    Rollback---->TransferGoodStockLocked                      |              |
+          |              |                                    |              |
+          |              |                                    |              |
+          |              v                                    |              |
+    Rollback-------->AddCommission                            |              |
+          |              |                                    |              |
+          |              |                                    |              |
+          |              v                                    |              |
+    Rollback----->AchievementBookKeeping                      |              |
+          |              |                                    |              |
+          |              |                                    |              |
+          |              v                                    |              |
+    Rollback------->PaymentUnlockAccount                      |              |
+          |              |                                    |              |
+          |              |                                    |              |
+          |              v                                    |              |
+    Rollback------------Paid----------------------------------|              |
+                         |                                    |              |
+                         |                                    |              |
+                         v                                    |              |
+                        Paid                                  |              |
+                         |                                    |              |
+                         |                                    |              |
+                         v                                    |              |
+      Rollback---->TransferGoodStockWaitStart                 |              |
+          |              |                                    |              |
+          |              |                                    |              |
+          |              v                                    |              |
+      Rollback----->OrderStateCreateOrderUser                 |              |
+          |              |                                    |              |
+          |              |                                    |              |
+          |              v                                    |              |
+      Rollback----->OrderStateSetProportion                   |              |
+          |              |                                    |              |
+          |              |                                    |              |
+          |              v                                    |              |
+      Rollback----->OrderStateSetRevenueAddress               |              |
+          |              |                                    |              |
+          |              |                                    |              |
+          |              v                                    |              |
+          |---------- InService-------------------------------|--------------|
+                         |                                    |
+                         |                                    |
+                         v                                    |
+      Rollback----->PreExpired                                |
+          |              |                                    |
+          |              |                                    |
+          |              v                                    |
+      Rollback----->OrderStateDeleteProportion                |
+          |              |                                    |
+          |              |                                    |
+          |              v                                    |
+      Rollback----->OrderStateCheckProportion                 |
+          |              |                                    |
+          |              |                                    |
+          |              v                                    |
+      Rollback----->RestoreExpiredStock                       v
+          |              |                                PreCancel
+          |              |                                    |
+          |              v                                    |
+      Rollback------OrderStateCheckPoolBalance                |
+          |              |                                    |
+          |              |                                    |
+          |              v                                    v
+      Rollback--------Expired                         RestoreCanceledStock<----------------Rollback
+                                                              |                               |
+                                                              |                               |
+                                                              v                               |
+                                                       CanceledAchievement<----------------Rollback
+                                                              |                               |
+                                                              |                               |
+                                                              v                               |
+                                                      DeductLockedCommission<--------------Rollback
+                                                              |                               |
+                                                              |                               |
+                                                              v                               |
+                                                      ReturnCanceledBalance<---------------Rollback
+                                                              |                               |
+                                                              |                               |
+                                                              v                               |
+                                                  CancelTransferBookKeeping<---------------Rollback
+                                                              |                               |
+                                                              |                               |
+                                                              v                               |
+                                                    CanceledTransferBookKeeping------------Rollback
+                                                              |                               |
+                                                              |                               |
+                                                              v                               |
+                                                    CancelUnlockPaymentAccount-------------Rollback
+                                                              |                               |
+                                                              |                               |
+                                                              v                               |
+                                                           Canceled------------------------Rollback
+  *
+  */
+
+  // End or order
+  OrderStatePreCancel = 160;  // -> OrderStateRestoreCanceledStock
+  OrderStatePreExpired = 170; // -> OrderStateRestoreExpiredStock
+
+  // PreExpired sub states for miningpool settings
+  OrderStateDeleteProportion = 171;
+  OrderStateCheckProportion = 172;
+  OrderStateCheckPoolBalance = 173;
+
+  // Calculation
+  OrderStateRestoreExpiredStock = 180;    // -> OrderStateExpired
+  OrderStateRestoreCanceledStock = 200;   // -> OrderStateDeductLockedCommission
+  OrderStateDeductLockedCommission = 210; // -> OrderStateCancelAchievement
+  OrderStateCancelAchievement = 220;      // -> OrderStateReturnCanceledBalance
+  OrderStateReturnCanceledBalance = 230; // -> OrderStateCanceledTransferBookKeeping
+  OrderStateCanceledTransferBookKeeping = 240; // -> OrderStateCancelUnlockPaymentAccount
+  OrderStateCancelUnlockPaymentAccount = 250; // -> OrderStateCanceled
+
+  // End state
+  OrderStateCanceled = 270;
+  OrderStateExpired = 280;
+
+  // Delivery order state
+}
+
+enum PaymentState {
+  DefaultPaymentState = 0;
+
+  PaymentStateWait = 10;
+  PaymentStateDone = 20;
+  PaymentStateCanceled = 30;
+  PaymentStateTimeout = 40;
+
+  PaymentStateNoPayment = 1000;
+}
+
+enum PaymentObseleteState {
+    DefaultPaymentObseleteState = 0;
+
+    PaymentObseleteNone = 10;
+    PaymentObseleteWait = 20;
+    PaymentObseleteUnlockBalance  = 30;
+    PaymentObseleteTransferBookKeeping  = 40;
+    PaymentObseleteTransferUnlockAccount = 50;
+    PaymentObseleted = 60;
+    PaymentObseleteFail = 70;
+}
+
+enum InvestmentType {
+  DefaultInvestmentType = 0;
+
+  UnionMining = 10;
+  FullPayment = 20;
+}
+
+enum PaymentType {
+  DefaultPaymentType = 0;
+
+    PayWithBalanceOnly        = 10;
+    PayWithTransferOnly       = 20;
+    PayWithTransferAndBalance = 30;
+    PayWithParentOrder        = 40;
+    PayWithOtherOrder         = 50;
+    PayWithContract           = 60;
+
+  PayWithOffline = 1000;
+  PayWithNoPayment = 1010;
+}
+
+enum CompensateType {
+  DefaultCompensateType = 0;
+
+  CompensateMalfunction = 10;
+  CompensateWalfare = 20;
+  CompensateStarterDelay = 30;
+}
+
+enum BenefitState {
+  DefaultBenefitState = 0;
+
+  BenefitWait = 10;
+  BenefitCalculated = 20;
+  BenefitBookKept = 30;
+}
+
+enum OrderStartMode {
+  DefaultOrderStartMode = 0;
+
+  OrderStartTBD = 10;
+  OrderStartConfirmed = 20;
+  OrderStartInstantly = 30; // Start when order paid
+  OrderStartNextDay = 40;   // Start at next 00:00 UTC
+  OrderStartPreset = 50;    // Start at a preset time
+}
+
+enum OrderLockType {
+  DefaultOrderLockType = 0;
+
+  LockBalance = 10;
+  LockStock = 20;
+  LockCommission = 30;
+}
+
+
+enum SimulateOrderCouponMode {
+    DefaultCouponMode = 0;
+
+  WithoutCoupon = 10;
+  FirstBenifit = 20;
+  RandomBenifit = 30;
+  FirstAndRandomBenifit = 40;
+}
+
+enum OrderRenewState {
+  DefaultOrderRenewState = 0;
+
+  OrderRenewWait = 10;
+  OrderRenewCheck = 20;
+  OrderRenewNotify = 30;
+  OrderRenewExecute = 40;
+  OrderRenewFail = 50;
+}
+
+enum OrderCreateMethod {
+  DefaultOrderCreateMethod = 0;
+
+  OrderCreatedByPurchase = 10;
+  OrderCreatedByAdmin = 20;
+  OrderCreatedByRenew = 30;
+}

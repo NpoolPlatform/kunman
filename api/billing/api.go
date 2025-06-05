@@ -6,7 +6,6 @@ import (
 	addon "github.com/NpoolPlatform/kunman/api/billing/addon"
 	exchange "github.com/NpoolPlatform/kunman/api/billing/credit/exchange"
 	subscription "github.com/NpoolPlatform/kunman/api/billing/subscription"
-	usercharge "github.com/NpoolPlatform/kunman/api/billing/user/charge"
 	record "github.com/NpoolPlatform/kunman/api/billing/user/credit/record"
 	usersubscription "github.com/NpoolPlatform/kunman/api/billing/user/subscription"
 	usersubscriptionchange "github.com/NpoolPlatform/kunman/api/billing/user/subscription/change"
@@ -28,7 +27,6 @@ func Register(server grpc.ServiceRegistrar) {
 	usersubscription.Register(server)
 	record.Register(server)
 	usersubscriptionchange.Register(server)
-	usercharge.Register(server)
 }
 
 func RegisterGateway(mux *runtime.ServeMux, endpoint string, opts []grpc.DialOption) error {
@@ -51,9 +49,6 @@ func RegisterGateway(mux *runtime.ServeMux, endpoint string, opts []grpc.DialOpt
 		return err
 	}
 	if err := usersubscriptionchange.RegisterGateway(mux, endpoint, opts); err != nil {
-		return err
-	}
-	if err := usercharge.RegisterGateway(mux, endpoint, opts); err != nil {
 		return err
 	}
 

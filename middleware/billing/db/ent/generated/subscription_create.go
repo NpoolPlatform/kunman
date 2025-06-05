@@ -7,6 +7,7 @@ import (
 	"errors"
 	"fmt"
 
+	"entgo.io/ent/dialect/sql"
 	"entgo.io/ent/dialect/sql/sqlgraph"
 	"entgo.io/ent/schema/field"
 	"github.com/NpoolPlatform/kunman/middleware/billing/db/ent/generated/subscription"
@@ -19,6 +20,7 @@ type SubscriptionCreate struct {
 	config
 	mutation *SubscriptionMutation
 	hooks    []Hook
+	conflict []sql.ConflictOption
 }
 
 // SetEntID sets the "ent_id" field.
@@ -277,6 +279,7 @@ func (sc *SubscriptionCreate) createSpec() (*Subscription, *sqlgraph.CreateSpec)
 		_node = &Subscription{config: sc.config}
 		_spec = sqlgraph.NewCreateSpec(subscription.Table, sqlgraph.NewFieldSpec(subscription.FieldID, field.TypeUint32))
 	)
+	_spec.OnConflict = sc.conflict
 	if id, ok := sc.mutation.ID(); ok {
 		_node.ID = id
 		_spec.ID.Value = id
@@ -324,11 +327,558 @@ func (sc *SubscriptionCreate) createSpec() (*Subscription, *sqlgraph.CreateSpec)
 	return _node, _spec
 }
 
+// OnConflict allows configuring the `ON CONFLICT` / `ON DUPLICATE KEY` clause
+// of the `INSERT` statement. For example:
+//
+//	client.Subscription.Create().
+//		SetEntID(v).
+//		OnConflict(
+//			// Update the row with the new values
+//			// the was proposed for insertion.
+//			sql.ResolveWithNewValues(),
+//		).
+//		// Override some of the fields with custom
+//		// update values.
+//		Update(func(u *ent.SubscriptionUpsert) {
+//			SetEntID(v+v).
+//		}).
+//		Exec(ctx)
+func (sc *SubscriptionCreate) OnConflict(opts ...sql.ConflictOption) *SubscriptionUpsertOne {
+	sc.conflict = opts
+	return &SubscriptionUpsertOne{
+		create: sc,
+	}
+}
+
+// OnConflictColumns calls `OnConflict` and configures the columns
+// as conflict target. Using this option is equivalent to using:
+//
+//	client.Subscription.Create().
+//		OnConflict(sql.ConflictColumns(columns...)).
+//		Exec(ctx)
+func (sc *SubscriptionCreate) OnConflictColumns(columns ...string) *SubscriptionUpsertOne {
+	sc.conflict = append(sc.conflict, sql.ConflictColumns(columns...))
+	return &SubscriptionUpsertOne{
+		create: sc,
+	}
+}
+
+type (
+	// SubscriptionUpsertOne is the builder for "upsert"-ing
+	//  one Subscription node.
+	SubscriptionUpsertOne struct {
+		create *SubscriptionCreate
+	}
+
+	// SubscriptionUpsert is the "OnConflict" setter.
+	SubscriptionUpsert struct {
+		*sql.UpdateSet
+	}
+)
+
+// SetEntID sets the "ent_id" field.
+func (u *SubscriptionUpsert) SetEntID(v uuid.UUID) *SubscriptionUpsert {
+	u.Set(subscription.FieldEntID, v)
+	return u
+}
+
+// UpdateEntID sets the "ent_id" field to the value that was provided on create.
+func (u *SubscriptionUpsert) UpdateEntID() *SubscriptionUpsert {
+	u.SetExcluded(subscription.FieldEntID)
+	return u
+}
+
+// SetAppID sets the "app_id" field.
+func (u *SubscriptionUpsert) SetAppID(v uuid.UUID) *SubscriptionUpsert {
+	u.Set(subscription.FieldAppID, v)
+	return u
+}
+
+// UpdateAppID sets the "app_id" field to the value that was provided on create.
+func (u *SubscriptionUpsert) UpdateAppID() *SubscriptionUpsert {
+	u.SetExcluded(subscription.FieldAppID)
+	return u
+}
+
+// ClearAppID clears the value of the "app_id" field.
+func (u *SubscriptionUpsert) ClearAppID() *SubscriptionUpsert {
+	u.SetNull(subscription.FieldAppID)
+	return u
+}
+
+// SetPackageName sets the "package_name" field.
+func (u *SubscriptionUpsert) SetPackageName(v string) *SubscriptionUpsert {
+	u.Set(subscription.FieldPackageName, v)
+	return u
+}
+
+// UpdatePackageName sets the "package_name" field to the value that was provided on create.
+func (u *SubscriptionUpsert) UpdatePackageName() *SubscriptionUpsert {
+	u.SetExcluded(subscription.FieldPackageName)
+	return u
+}
+
+// ClearPackageName clears the value of the "package_name" field.
+func (u *SubscriptionUpsert) ClearPackageName() *SubscriptionUpsert {
+	u.SetNull(subscription.FieldPackageName)
+	return u
+}
+
+// SetUsdPrice sets the "usd_price" field.
+func (u *SubscriptionUpsert) SetUsdPrice(v decimal.Decimal) *SubscriptionUpsert {
+	u.Set(subscription.FieldUsdPrice, v)
+	return u
+}
+
+// UpdateUsdPrice sets the "usd_price" field to the value that was provided on create.
+func (u *SubscriptionUpsert) UpdateUsdPrice() *SubscriptionUpsert {
+	u.SetExcluded(subscription.FieldUsdPrice)
+	return u
+}
+
+// ClearUsdPrice clears the value of the "usd_price" field.
+func (u *SubscriptionUpsert) ClearUsdPrice() *SubscriptionUpsert {
+	u.SetNull(subscription.FieldUsdPrice)
+	return u
+}
+
+// SetDescription sets the "description" field.
+func (u *SubscriptionUpsert) SetDescription(v string) *SubscriptionUpsert {
+	u.Set(subscription.FieldDescription, v)
+	return u
+}
+
+// UpdateDescription sets the "description" field to the value that was provided on create.
+func (u *SubscriptionUpsert) UpdateDescription() *SubscriptionUpsert {
+	u.SetExcluded(subscription.FieldDescription)
+	return u
+}
+
+// ClearDescription clears the value of the "description" field.
+func (u *SubscriptionUpsert) ClearDescription() *SubscriptionUpsert {
+	u.SetNull(subscription.FieldDescription)
+	return u
+}
+
+// SetSortOrder sets the "sort_order" field.
+func (u *SubscriptionUpsert) SetSortOrder(v uint32) *SubscriptionUpsert {
+	u.Set(subscription.FieldSortOrder, v)
+	return u
+}
+
+// UpdateSortOrder sets the "sort_order" field to the value that was provided on create.
+func (u *SubscriptionUpsert) UpdateSortOrder() *SubscriptionUpsert {
+	u.SetExcluded(subscription.FieldSortOrder)
+	return u
+}
+
+// AddSortOrder adds v to the "sort_order" field.
+func (u *SubscriptionUpsert) AddSortOrder(v uint32) *SubscriptionUpsert {
+	u.Add(subscription.FieldSortOrder, v)
+	return u
+}
+
+// ClearSortOrder clears the value of the "sort_order" field.
+func (u *SubscriptionUpsert) ClearSortOrder() *SubscriptionUpsert {
+	u.SetNull(subscription.FieldSortOrder)
+	return u
+}
+
+// SetPackageType sets the "package_type" field.
+func (u *SubscriptionUpsert) SetPackageType(v string) *SubscriptionUpsert {
+	u.Set(subscription.FieldPackageType, v)
+	return u
+}
+
+// UpdatePackageType sets the "package_type" field to the value that was provided on create.
+func (u *SubscriptionUpsert) UpdatePackageType() *SubscriptionUpsert {
+	u.SetExcluded(subscription.FieldPackageType)
+	return u
+}
+
+// ClearPackageType clears the value of the "package_type" field.
+func (u *SubscriptionUpsert) ClearPackageType() *SubscriptionUpsert {
+	u.SetNull(subscription.FieldPackageType)
+	return u
+}
+
+// SetCredit sets the "credit" field.
+func (u *SubscriptionUpsert) SetCredit(v uint32) *SubscriptionUpsert {
+	u.Set(subscription.FieldCredit, v)
+	return u
+}
+
+// UpdateCredit sets the "credit" field to the value that was provided on create.
+func (u *SubscriptionUpsert) UpdateCredit() *SubscriptionUpsert {
+	u.SetExcluded(subscription.FieldCredit)
+	return u
+}
+
+// AddCredit adds v to the "credit" field.
+func (u *SubscriptionUpsert) AddCredit(v uint32) *SubscriptionUpsert {
+	u.Add(subscription.FieldCredit, v)
+	return u
+}
+
+// ClearCredit clears the value of the "credit" field.
+func (u *SubscriptionUpsert) ClearCredit() *SubscriptionUpsert {
+	u.SetNull(subscription.FieldCredit)
+	return u
+}
+
+// SetResetType sets the "reset_type" field.
+func (u *SubscriptionUpsert) SetResetType(v string) *SubscriptionUpsert {
+	u.Set(subscription.FieldResetType, v)
+	return u
+}
+
+// UpdateResetType sets the "reset_type" field to the value that was provided on create.
+func (u *SubscriptionUpsert) UpdateResetType() *SubscriptionUpsert {
+	u.SetExcluded(subscription.FieldResetType)
+	return u
+}
+
+// ClearResetType clears the value of the "reset_type" field.
+func (u *SubscriptionUpsert) ClearResetType() *SubscriptionUpsert {
+	u.SetNull(subscription.FieldResetType)
+	return u
+}
+
+// SetQPSLimit sets the "qps_limit" field.
+func (u *SubscriptionUpsert) SetQPSLimit(v uint32) *SubscriptionUpsert {
+	u.Set(subscription.FieldQPSLimit, v)
+	return u
+}
+
+// UpdateQPSLimit sets the "qps_limit" field to the value that was provided on create.
+func (u *SubscriptionUpsert) UpdateQPSLimit() *SubscriptionUpsert {
+	u.SetExcluded(subscription.FieldQPSLimit)
+	return u
+}
+
+// AddQPSLimit adds v to the "qps_limit" field.
+func (u *SubscriptionUpsert) AddQPSLimit(v uint32) *SubscriptionUpsert {
+	u.Add(subscription.FieldQPSLimit, v)
+	return u
+}
+
+// ClearQPSLimit clears the value of the "qps_limit" field.
+func (u *SubscriptionUpsert) ClearQPSLimit() *SubscriptionUpsert {
+	u.SetNull(subscription.FieldQPSLimit)
+	return u
+}
+
+// UpdateNewValues updates the mutable fields using the new values that were set on create except the ID field.
+// Using this option is equivalent to using:
+//
+//	client.Subscription.Create().
+//		OnConflict(
+//			sql.ResolveWithNewValues(),
+//			sql.ResolveWith(func(u *sql.UpdateSet) {
+//				u.SetIgnore(subscription.FieldID)
+//			}),
+//		).
+//		Exec(ctx)
+func (u *SubscriptionUpsertOne) UpdateNewValues() *SubscriptionUpsertOne {
+	u.create.conflict = append(u.create.conflict, sql.ResolveWithNewValues())
+	u.create.conflict = append(u.create.conflict, sql.ResolveWith(func(s *sql.UpdateSet) {
+		if _, exists := u.create.mutation.ID(); exists {
+			s.SetIgnore(subscription.FieldID)
+		}
+	}))
+	return u
+}
+
+// Ignore sets each column to itself in case of conflict.
+// Using this option is equivalent to using:
+//
+//	client.Subscription.Create().
+//	    OnConflict(sql.ResolveWithIgnore()).
+//	    Exec(ctx)
+func (u *SubscriptionUpsertOne) Ignore() *SubscriptionUpsertOne {
+	u.create.conflict = append(u.create.conflict, sql.ResolveWithIgnore())
+	return u
+}
+
+// DoNothing configures the conflict_action to `DO NOTHING`.
+// Supported only by SQLite and PostgreSQL.
+func (u *SubscriptionUpsertOne) DoNothing() *SubscriptionUpsertOne {
+	u.create.conflict = append(u.create.conflict, sql.DoNothing())
+	return u
+}
+
+// Update allows overriding fields `UPDATE` values. See the SubscriptionCreate.OnConflict
+// documentation for more info.
+func (u *SubscriptionUpsertOne) Update(set func(*SubscriptionUpsert)) *SubscriptionUpsertOne {
+	u.create.conflict = append(u.create.conflict, sql.ResolveWith(func(update *sql.UpdateSet) {
+		set(&SubscriptionUpsert{UpdateSet: update})
+	}))
+	return u
+}
+
+// SetEntID sets the "ent_id" field.
+func (u *SubscriptionUpsertOne) SetEntID(v uuid.UUID) *SubscriptionUpsertOne {
+	return u.Update(func(s *SubscriptionUpsert) {
+		s.SetEntID(v)
+	})
+}
+
+// UpdateEntID sets the "ent_id" field to the value that was provided on create.
+func (u *SubscriptionUpsertOne) UpdateEntID() *SubscriptionUpsertOne {
+	return u.Update(func(s *SubscriptionUpsert) {
+		s.UpdateEntID()
+	})
+}
+
+// SetAppID sets the "app_id" field.
+func (u *SubscriptionUpsertOne) SetAppID(v uuid.UUID) *SubscriptionUpsertOne {
+	return u.Update(func(s *SubscriptionUpsert) {
+		s.SetAppID(v)
+	})
+}
+
+// UpdateAppID sets the "app_id" field to the value that was provided on create.
+func (u *SubscriptionUpsertOne) UpdateAppID() *SubscriptionUpsertOne {
+	return u.Update(func(s *SubscriptionUpsert) {
+		s.UpdateAppID()
+	})
+}
+
+// ClearAppID clears the value of the "app_id" field.
+func (u *SubscriptionUpsertOne) ClearAppID() *SubscriptionUpsertOne {
+	return u.Update(func(s *SubscriptionUpsert) {
+		s.ClearAppID()
+	})
+}
+
+// SetPackageName sets the "package_name" field.
+func (u *SubscriptionUpsertOne) SetPackageName(v string) *SubscriptionUpsertOne {
+	return u.Update(func(s *SubscriptionUpsert) {
+		s.SetPackageName(v)
+	})
+}
+
+// UpdatePackageName sets the "package_name" field to the value that was provided on create.
+func (u *SubscriptionUpsertOne) UpdatePackageName() *SubscriptionUpsertOne {
+	return u.Update(func(s *SubscriptionUpsert) {
+		s.UpdatePackageName()
+	})
+}
+
+// ClearPackageName clears the value of the "package_name" field.
+func (u *SubscriptionUpsertOne) ClearPackageName() *SubscriptionUpsertOne {
+	return u.Update(func(s *SubscriptionUpsert) {
+		s.ClearPackageName()
+	})
+}
+
+// SetUsdPrice sets the "usd_price" field.
+func (u *SubscriptionUpsertOne) SetUsdPrice(v decimal.Decimal) *SubscriptionUpsertOne {
+	return u.Update(func(s *SubscriptionUpsert) {
+		s.SetUsdPrice(v)
+	})
+}
+
+// UpdateUsdPrice sets the "usd_price" field to the value that was provided on create.
+func (u *SubscriptionUpsertOne) UpdateUsdPrice() *SubscriptionUpsertOne {
+	return u.Update(func(s *SubscriptionUpsert) {
+		s.UpdateUsdPrice()
+	})
+}
+
+// ClearUsdPrice clears the value of the "usd_price" field.
+func (u *SubscriptionUpsertOne) ClearUsdPrice() *SubscriptionUpsertOne {
+	return u.Update(func(s *SubscriptionUpsert) {
+		s.ClearUsdPrice()
+	})
+}
+
+// SetDescription sets the "description" field.
+func (u *SubscriptionUpsertOne) SetDescription(v string) *SubscriptionUpsertOne {
+	return u.Update(func(s *SubscriptionUpsert) {
+		s.SetDescription(v)
+	})
+}
+
+// UpdateDescription sets the "description" field to the value that was provided on create.
+func (u *SubscriptionUpsertOne) UpdateDescription() *SubscriptionUpsertOne {
+	return u.Update(func(s *SubscriptionUpsert) {
+		s.UpdateDescription()
+	})
+}
+
+// ClearDescription clears the value of the "description" field.
+func (u *SubscriptionUpsertOne) ClearDescription() *SubscriptionUpsertOne {
+	return u.Update(func(s *SubscriptionUpsert) {
+		s.ClearDescription()
+	})
+}
+
+// SetSortOrder sets the "sort_order" field.
+func (u *SubscriptionUpsertOne) SetSortOrder(v uint32) *SubscriptionUpsertOne {
+	return u.Update(func(s *SubscriptionUpsert) {
+		s.SetSortOrder(v)
+	})
+}
+
+// AddSortOrder adds v to the "sort_order" field.
+func (u *SubscriptionUpsertOne) AddSortOrder(v uint32) *SubscriptionUpsertOne {
+	return u.Update(func(s *SubscriptionUpsert) {
+		s.AddSortOrder(v)
+	})
+}
+
+// UpdateSortOrder sets the "sort_order" field to the value that was provided on create.
+func (u *SubscriptionUpsertOne) UpdateSortOrder() *SubscriptionUpsertOne {
+	return u.Update(func(s *SubscriptionUpsert) {
+		s.UpdateSortOrder()
+	})
+}
+
+// ClearSortOrder clears the value of the "sort_order" field.
+func (u *SubscriptionUpsertOne) ClearSortOrder() *SubscriptionUpsertOne {
+	return u.Update(func(s *SubscriptionUpsert) {
+		s.ClearSortOrder()
+	})
+}
+
+// SetPackageType sets the "package_type" field.
+func (u *SubscriptionUpsertOne) SetPackageType(v string) *SubscriptionUpsertOne {
+	return u.Update(func(s *SubscriptionUpsert) {
+		s.SetPackageType(v)
+	})
+}
+
+// UpdatePackageType sets the "package_type" field to the value that was provided on create.
+func (u *SubscriptionUpsertOne) UpdatePackageType() *SubscriptionUpsertOne {
+	return u.Update(func(s *SubscriptionUpsert) {
+		s.UpdatePackageType()
+	})
+}
+
+// ClearPackageType clears the value of the "package_type" field.
+func (u *SubscriptionUpsertOne) ClearPackageType() *SubscriptionUpsertOne {
+	return u.Update(func(s *SubscriptionUpsert) {
+		s.ClearPackageType()
+	})
+}
+
+// SetCredit sets the "credit" field.
+func (u *SubscriptionUpsertOne) SetCredit(v uint32) *SubscriptionUpsertOne {
+	return u.Update(func(s *SubscriptionUpsert) {
+		s.SetCredit(v)
+	})
+}
+
+// AddCredit adds v to the "credit" field.
+func (u *SubscriptionUpsertOne) AddCredit(v uint32) *SubscriptionUpsertOne {
+	return u.Update(func(s *SubscriptionUpsert) {
+		s.AddCredit(v)
+	})
+}
+
+// UpdateCredit sets the "credit" field to the value that was provided on create.
+func (u *SubscriptionUpsertOne) UpdateCredit() *SubscriptionUpsertOne {
+	return u.Update(func(s *SubscriptionUpsert) {
+		s.UpdateCredit()
+	})
+}
+
+// ClearCredit clears the value of the "credit" field.
+func (u *SubscriptionUpsertOne) ClearCredit() *SubscriptionUpsertOne {
+	return u.Update(func(s *SubscriptionUpsert) {
+		s.ClearCredit()
+	})
+}
+
+// SetResetType sets the "reset_type" field.
+func (u *SubscriptionUpsertOne) SetResetType(v string) *SubscriptionUpsertOne {
+	return u.Update(func(s *SubscriptionUpsert) {
+		s.SetResetType(v)
+	})
+}
+
+// UpdateResetType sets the "reset_type" field to the value that was provided on create.
+func (u *SubscriptionUpsertOne) UpdateResetType() *SubscriptionUpsertOne {
+	return u.Update(func(s *SubscriptionUpsert) {
+		s.UpdateResetType()
+	})
+}
+
+// ClearResetType clears the value of the "reset_type" field.
+func (u *SubscriptionUpsertOne) ClearResetType() *SubscriptionUpsertOne {
+	return u.Update(func(s *SubscriptionUpsert) {
+		s.ClearResetType()
+	})
+}
+
+// SetQPSLimit sets the "qps_limit" field.
+func (u *SubscriptionUpsertOne) SetQPSLimit(v uint32) *SubscriptionUpsertOne {
+	return u.Update(func(s *SubscriptionUpsert) {
+		s.SetQPSLimit(v)
+	})
+}
+
+// AddQPSLimit adds v to the "qps_limit" field.
+func (u *SubscriptionUpsertOne) AddQPSLimit(v uint32) *SubscriptionUpsertOne {
+	return u.Update(func(s *SubscriptionUpsert) {
+		s.AddQPSLimit(v)
+	})
+}
+
+// UpdateQPSLimit sets the "qps_limit" field to the value that was provided on create.
+func (u *SubscriptionUpsertOne) UpdateQPSLimit() *SubscriptionUpsertOne {
+	return u.Update(func(s *SubscriptionUpsert) {
+		s.UpdateQPSLimit()
+	})
+}
+
+// ClearQPSLimit clears the value of the "qps_limit" field.
+func (u *SubscriptionUpsertOne) ClearQPSLimit() *SubscriptionUpsertOne {
+	return u.Update(func(s *SubscriptionUpsert) {
+		s.ClearQPSLimit()
+	})
+}
+
+// Exec executes the query.
+func (u *SubscriptionUpsertOne) Exec(ctx context.Context) error {
+	if len(u.create.conflict) == 0 {
+		return errors.New("generated: missing options for SubscriptionCreate.OnConflict")
+	}
+	return u.create.Exec(ctx)
+}
+
+// ExecX is like Exec, but panics if an error occurs.
+func (u *SubscriptionUpsertOne) ExecX(ctx context.Context) {
+	if err := u.create.Exec(ctx); err != nil {
+		panic(err)
+	}
+}
+
+// Exec executes the UPSERT query and returns the inserted/updated ID.
+func (u *SubscriptionUpsertOne) ID(ctx context.Context) (id uint32, err error) {
+	node, err := u.create.Save(ctx)
+	if err != nil {
+		return id, err
+	}
+	return node.ID, nil
+}
+
+// IDX is like ID, but panics if an error occurs.
+func (u *SubscriptionUpsertOne) IDX(ctx context.Context) uint32 {
+	id, err := u.ID(ctx)
+	if err != nil {
+		panic(err)
+	}
+	return id
+}
+
 // SubscriptionCreateBulk is the builder for creating many Subscription entities in bulk.
 type SubscriptionCreateBulk struct {
 	config
 	err      error
 	builders []*SubscriptionCreate
+	conflict []sql.ConflictOption
 }
 
 // Save creates the Subscription entities in the database.
@@ -358,6 +908,7 @@ func (scb *SubscriptionCreateBulk) Save(ctx context.Context) ([]*Subscription, e
 					_, err = mutators[i+1].Mutate(root, scb.builders[i+1].mutation)
 				} else {
 					spec := &sqlgraph.BatchCreateSpec{Nodes: specs}
+					spec.OnConflict = scb.conflict
 					// Invoke the actual operation on the latest mutation in the chain.
 					if err = sqlgraph.BatchCreate(ctx, scb.driver, spec); err != nil {
 						if sqlgraph.IsConstraintError(err) {
@@ -408,6 +959,344 @@ func (scb *SubscriptionCreateBulk) Exec(ctx context.Context) error {
 // ExecX is like Exec, but panics if an error occurs.
 func (scb *SubscriptionCreateBulk) ExecX(ctx context.Context) {
 	if err := scb.Exec(ctx); err != nil {
+		panic(err)
+	}
+}
+
+// OnConflict allows configuring the `ON CONFLICT` / `ON DUPLICATE KEY` clause
+// of the `INSERT` statement. For example:
+//
+//	client.Subscription.CreateBulk(builders...).
+//		OnConflict(
+//			// Update the row with the new values
+//			// the was proposed for insertion.
+//			sql.ResolveWithNewValues(),
+//		).
+//		// Override some of the fields with custom
+//		// update values.
+//		Update(func(u *ent.SubscriptionUpsert) {
+//			SetEntID(v+v).
+//		}).
+//		Exec(ctx)
+func (scb *SubscriptionCreateBulk) OnConflict(opts ...sql.ConflictOption) *SubscriptionUpsertBulk {
+	scb.conflict = opts
+	return &SubscriptionUpsertBulk{
+		create: scb,
+	}
+}
+
+// OnConflictColumns calls `OnConflict` and configures the columns
+// as conflict target. Using this option is equivalent to using:
+//
+//	client.Subscription.Create().
+//		OnConflict(sql.ConflictColumns(columns...)).
+//		Exec(ctx)
+func (scb *SubscriptionCreateBulk) OnConflictColumns(columns ...string) *SubscriptionUpsertBulk {
+	scb.conflict = append(scb.conflict, sql.ConflictColumns(columns...))
+	return &SubscriptionUpsertBulk{
+		create: scb,
+	}
+}
+
+// SubscriptionUpsertBulk is the builder for "upsert"-ing
+// a bulk of Subscription nodes.
+type SubscriptionUpsertBulk struct {
+	create *SubscriptionCreateBulk
+}
+
+// UpdateNewValues updates the mutable fields using the new values that
+// were set on create. Using this option is equivalent to using:
+//
+//	client.Subscription.Create().
+//		OnConflict(
+//			sql.ResolveWithNewValues(),
+//			sql.ResolveWith(func(u *sql.UpdateSet) {
+//				u.SetIgnore(subscription.FieldID)
+//			}),
+//		).
+//		Exec(ctx)
+func (u *SubscriptionUpsertBulk) UpdateNewValues() *SubscriptionUpsertBulk {
+	u.create.conflict = append(u.create.conflict, sql.ResolveWithNewValues())
+	u.create.conflict = append(u.create.conflict, sql.ResolveWith(func(s *sql.UpdateSet) {
+		for _, b := range u.create.builders {
+			if _, exists := b.mutation.ID(); exists {
+				s.SetIgnore(subscription.FieldID)
+			}
+		}
+	}))
+	return u
+}
+
+// Ignore sets each column to itself in case of conflict.
+// Using this option is equivalent to using:
+//
+//	client.Subscription.Create().
+//		OnConflict(sql.ResolveWithIgnore()).
+//		Exec(ctx)
+func (u *SubscriptionUpsertBulk) Ignore() *SubscriptionUpsertBulk {
+	u.create.conflict = append(u.create.conflict, sql.ResolveWithIgnore())
+	return u
+}
+
+// DoNothing configures the conflict_action to `DO NOTHING`.
+// Supported only by SQLite and PostgreSQL.
+func (u *SubscriptionUpsertBulk) DoNothing() *SubscriptionUpsertBulk {
+	u.create.conflict = append(u.create.conflict, sql.DoNothing())
+	return u
+}
+
+// Update allows overriding fields `UPDATE` values. See the SubscriptionCreateBulk.OnConflict
+// documentation for more info.
+func (u *SubscriptionUpsertBulk) Update(set func(*SubscriptionUpsert)) *SubscriptionUpsertBulk {
+	u.create.conflict = append(u.create.conflict, sql.ResolveWith(func(update *sql.UpdateSet) {
+		set(&SubscriptionUpsert{UpdateSet: update})
+	}))
+	return u
+}
+
+// SetEntID sets the "ent_id" field.
+func (u *SubscriptionUpsertBulk) SetEntID(v uuid.UUID) *SubscriptionUpsertBulk {
+	return u.Update(func(s *SubscriptionUpsert) {
+		s.SetEntID(v)
+	})
+}
+
+// UpdateEntID sets the "ent_id" field to the value that was provided on create.
+func (u *SubscriptionUpsertBulk) UpdateEntID() *SubscriptionUpsertBulk {
+	return u.Update(func(s *SubscriptionUpsert) {
+		s.UpdateEntID()
+	})
+}
+
+// SetAppID sets the "app_id" field.
+func (u *SubscriptionUpsertBulk) SetAppID(v uuid.UUID) *SubscriptionUpsertBulk {
+	return u.Update(func(s *SubscriptionUpsert) {
+		s.SetAppID(v)
+	})
+}
+
+// UpdateAppID sets the "app_id" field to the value that was provided on create.
+func (u *SubscriptionUpsertBulk) UpdateAppID() *SubscriptionUpsertBulk {
+	return u.Update(func(s *SubscriptionUpsert) {
+		s.UpdateAppID()
+	})
+}
+
+// ClearAppID clears the value of the "app_id" field.
+func (u *SubscriptionUpsertBulk) ClearAppID() *SubscriptionUpsertBulk {
+	return u.Update(func(s *SubscriptionUpsert) {
+		s.ClearAppID()
+	})
+}
+
+// SetPackageName sets the "package_name" field.
+func (u *SubscriptionUpsertBulk) SetPackageName(v string) *SubscriptionUpsertBulk {
+	return u.Update(func(s *SubscriptionUpsert) {
+		s.SetPackageName(v)
+	})
+}
+
+// UpdatePackageName sets the "package_name" field to the value that was provided on create.
+func (u *SubscriptionUpsertBulk) UpdatePackageName() *SubscriptionUpsertBulk {
+	return u.Update(func(s *SubscriptionUpsert) {
+		s.UpdatePackageName()
+	})
+}
+
+// ClearPackageName clears the value of the "package_name" field.
+func (u *SubscriptionUpsertBulk) ClearPackageName() *SubscriptionUpsertBulk {
+	return u.Update(func(s *SubscriptionUpsert) {
+		s.ClearPackageName()
+	})
+}
+
+// SetUsdPrice sets the "usd_price" field.
+func (u *SubscriptionUpsertBulk) SetUsdPrice(v decimal.Decimal) *SubscriptionUpsertBulk {
+	return u.Update(func(s *SubscriptionUpsert) {
+		s.SetUsdPrice(v)
+	})
+}
+
+// UpdateUsdPrice sets the "usd_price" field to the value that was provided on create.
+func (u *SubscriptionUpsertBulk) UpdateUsdPrice() *SubscriptionUpsertBulk {
+	return u.Update(func(s *SubscriptionUpsert) {
+		s.UpdateUsdPrice()
+	})
+}
+
+// ClearUsdPrice clears the value of the "usd_price" field.
+func (u *SubscriptionUpsertBulk) ClearUsdPrice() *SubscriptionUpsertBulk {
+	return u.Update(func(s *SubscriptionUpsert) {
+		s.ClearUsdPrice()
+	})
+}
+
+// SetDescription sets the "description" field.
+func (u *SubscriptionUpsertBulk) SetDescription(v string) *SubscriptionUpsertBulk {
+	return u.Update(func(s *SubscriptionUpsert) {
+		s.SetDescription(v)
+	})
+}
+
+// UpdateDescription sets the "description" field to the value that was provided on create.
+func (u *SubscriptionUpsertBulk) UpdateDescription() *SubscriptionUpsertBulk {
+	return u.Update(func(s *SubscriptionUpsert) {
+		s.UpdateDescription()
+	})
+}
+
+// ClearDescription clears the value of the "description" field.
+func (u *SubscriptionUpsertBulk) ClearDescription() *SubscriptionUpsertBulk {
+	return u.Update(func(s *SubscriptionUpsert) {
+		s.ClearDescription()
+	})
+}
+
+// SetSortOrder sets the "sort_order" field.
+func (u *SubscriptionUpsertBulk) SetSortOrder(v uint32) *SubscriptionUpsertBulk {
+	return u.Update(func(s *SubscriptionUpsert) {
+		s.SetSortOrder(v)
+	})
+}
+
+// AddSortOrder adds v to the "sort_order" field.
+func (u *SubscriptionUpsertBulk) AddSortOrder(v uint32) *SubscriptionUpsertBulk {
+	return u.Update(func(s *SubscriptionUpsert) {
+		s.AddSortOrder(v)
+	})
+}
+
+// UpdateSortOrder sets the "sort_order" field to the value that was provided on create.
+func (u *SubscriptionUpsertBulk) UpdateSortOrder() *SubscriptionUpsertBulk {
+	return u.Update(func(s *SubscriptionUpsert) {
+		s.UpdateSortOrder()
+	})
+}
+
+// ClearSortOrder clears the value of the "sort_order" field.
+func (u *SubscriptionUpsertBulk) ClearSortOrder() *SubscriptionUpsertBulk {
+	return u.Update(func(s *SubscriptionUpsert) {
+		s.ClearSortOrder()
+	})
+}
+
+// SetPackageType sets the "package_type" field.
+func (u *SubscriptionUpsertBulk) SetPackageType(v string) *SubscriptionUpsertBulk {
+	return u.Update(func(s *SubscriptionUpsert) {
+		s.SetPackageType(v)
+	})
+}
+
+// UpdatePackageType sets the "package_type" field to the value that was provided on create.
+func (u *SubscriptionUpsertBulk) UpdatePackageType() *SubscriptionUpsertBulk {
+	return u.Update(func(s *SubscriptionUpsert) {
+		s.UpdatePackageType()
+	})
+}
+
+// ClearPackageType clears the value of the "package_type" field.
+func (u *SubscriptionUpsertBulk) ClearPackageType() *SubscriptionUpsertBulk {
+	return u.Update(func(s *SubscriptionUpsert) {
+		s.ClearPackageType()
+	})
+}
+
+// SetCredit sets the "credit" field.
+func (u *SubscriptionUpsertBulk) SetCredit(v uint32) *SubscriptionUpsertBulk {
+	return u.Update(func(s *SubscriptionUpsert) {
+		s.SetCredit(v)
+	})
+}
+
+// AddCredit adds v to the "credit" field.
+func (u *SubscriptionUpsertBulk) AddCredit(v uint32) *SubscriptionUpsertBulk {
+	return u.Update(func(s *SubscriptionUpsert) {
+		s.AddCredit(v)
+	})
+}
+
+// UpdateCredit sets the "credit" field to the value that was provided on create.
+func (u *SubscriptionUpsertBulk) UpdateCredit() *SubscriptionUpsertBulk {
+	return u.Update(func(s *SubscriptionUpsert) {
+		s.UpdateCredit()
+	})
+}
+
+// ClearCredit clears the value of the "credit" field.
+func (u *SubscriptionUpsertBulk) ClearCredit() *SubscriptionUpsertBulk {
+	return u.Update(func(s *SubscriptionUpsert) {
+		s.ClearCredit()
+	})
+}
+
+// SetResetType sets the "reset_type" field.
+func (u *SubscriptionUpsertBulk) SetResetType(v string) *SubscriptionUpsertBulk {
+	return u.Update(func(s *SubscriptionUpsert) {
+		s.SetResetType(v)
+	})
+}
+
+// UpdateResetType sets the "reset_type" field to the value that was provided on create.
+func (u *SubscriptionUpsertBulk) UpdateResetType() *SubscriptionUpsertBulk {
+	return u.Update(func(s *SubscriptionUpsert) {
+		s.UpdateResetType()
+	})
+}
+
+// ClearResetType clears the value of the "reset_type" field.
+func (u *SubscriptionUpsertBulk) ClearResetType() *SubscriptionUpsertBulk {
+	return u.Update(func(s *SubscriptionUpsert) {
+		s.ClearResetType()
+	})
+}
+
+// SetQPSLimit sets the "qps_limit" field.
+func (u *SubscriptionUpsertBulk) SetQPSLimit(v uint32) *SubscriptionUpsertBulk {
+	return u.Update(func(s *SubscriptionUpsert) {
+		s.SetQPSLimit(v)
+	})
+}
+
+// AddQPSLimit adds v to the "qps_limit" field.
+func (u *SubscriptionUpsertBulk) AddQPSLimit(v uint32) *SubscriptionUpsertBulk {
+	return u.Update(func(s *SubscriptionUpsert) {
+		s.AddQPSLimit(v)
+	})
+}
+
+// UpdateQPSLimit sets the "qps_limit" field to the value that was provided on create.
+func (u *SubscriptionUpsertBulk) UpdateQPSLimit() *SubscriptionUpsertBulk {
+	return u.Update(func(s *SubscriptionUpsert) {
+		s.UpdateQPSLimit()
+	})
+}
+
+// ClearQPSLimit clears the value of the "qps_limit" field.
+func (u *SubscriptionUpsertBulk) ClearQPSLimit() *SubscriptionUpsertBulk {
+	return u.Update(func(s *SubscriptionUpsert) {
+		s.ClearQPSLimit()
+	})
+}
+
+// Exec executes the query.
+func (u *SubscriptionUpsertBulk) Exec(ctx context.Context) error {
+	if u.create.err != nil {
+		return u.create.err
+	}
+	for i, b := range u.create.builders {
+		if len(b.conflict) != 0 {
+			return fmt.Errorf("generated: OnConflict was set for builder %d. Set it on the SubscriptionCreateBulk instead", i)
+		}
+	}
+	if len(u.create.conflict) == 0 {
+		return errors.New("generated: missing options for SubscriptionCreateBulk.OnConflict")
+	}
+	return u.create.Exec(ctx)
+}
+
+// ExecX is like Exec, but panics if an error occurs.
+func (u *SubscriptionUpsertBulk) ExecX(ctx context.Context) {
+	if err := u.create.Exec(ctx); err != nil {
 		panic(err)
 	}
 }

@@ -7,6 +7,7 @@ import (
 	"errors"
 	"fmt"
 
+	"entgo.io/ent/dialect/sql"
 	"entgo.io/ent/dialect/sql/sqlgraph"
 	"entgo.io/ent/schema/field"
 	"github.com/NpoolPlatform/kunman/middleware/billing/db/ent/generated/usersubscriptionchange"
@@ -18,6 +19,7 @@ type UserSubscriptionChangeCreate struct {
 	config
 	mutation *UserSubscriptionChangeMutation
 	hooks    []Hook
+	conflict []sql.ConflictOption
 }
 
 // SetEntID sets the "ent_id" field.
@@ -204,6 +206,7 @@ func (uscc *UserSubscriptionChangeCreate) createSpec() (*UserSubscriptionChange,
 		_node = &UserSubscriptionChange{config: uscc.config}
 		_spec = sqlgraph.NewCreateSpec(usersubscriptionchange.Table, sqlgraph.NewFieldSpec(usersubscriptionchange.FieldID, field.TypeUint32))
 	)
+	_spec.OnConflict = uscc.conflict
 	if id, ok := uscc.mutation.ID(); ok {
 		_node.ID = id
 		_spec.ID.Value = id
@@ -235,11 +238,363 @@ func (uscc *UserSubscriptionChangeCreate) createSpec() (*UserSubscriptionChange,
 	return _node, _spec
 }
 
+// OnConflict allows configuring the `ON CONFLICT` / `ON DUPLICATE KEY` clause
+// of the `INSERT` statement. For example:
+//
+//	client.UserSubscriptionChange.Create().
+//		SetEntID(v).
+//		OnConflict(
+//			// Update the row with the new values
+//			// the was proposed for insertion.
+//			sql.ResolveWithNewValues(),
+//		).
+//		// Override some of the fields with custom
+//		// update values.
+//		Update(func(u *ent.UserSubscriptionChangeUpsert) {
+//			SetEntID(v+v).
+//		}).
+//		Exec(ctx)
+func (uscc *UserSubscriptionChangeCreate) OnConflict(opts ...sql.ConflictOption) *UserSubscriptionChangeUpsertOne {
+	uscc.conflict = opts
+	return &UserSubscriptionChangeUpsertOne{
+		create: uscc,
+	}
+}
+
+// OnConflictColumns calls `OnConflict` and configures the columns
+// as conflict target. Using this option is equivalent to using:
+//
+//	client.UserSubscriptionChange.Create().
+//		OnConflict(sql.ConflictColumns(columns...)).
+//		Exec(ctx)
+func (uscc *UserSubscriptionChangeCreate) OnConflictColumns(columns ...string) *UserSubscriptionChangeUpsertOne {
+	uscc.conflict = append(uscc.conflict, sql.ConflictColumns(columns...))
+	return &UserSubscriptionChangeUpsertOne{
+		create: uscc,
+	}
+}
+
+type (
+	// UserSubscriptionChangeUpsertOne is the builder for "upsert"-ing
+	//  one UserSubscriptionChange node.
+	UserSubscriptionChangeUpsertOne struct {
+		create *UserSubscriptionChangeCreate
+	}
+
+	// UserSubscriptionChangeUpsert is the "OnConflict" setter.
+	UserSubscriptionChangeUpsert struct {
+		*sql.UpdateSet
+	}
+)
+
+// SetEntID sets the "ent_id" field.
+func (u *UserSubscriptionChangeUpsert) SetEntID(v uuid.UUID) *UserSubscriptionChangeUpsert {
+	u.Set(usersubscriptionchange.FieldEntID, v)
+	return u
+}
+
+// UpdateEntID sets the "ent_id" field to the value that was provided on create.
+func (u *UserSubscriptionChangeUpsert) UpdateEntID() *UserSubscriptionChangeUpsert {
+	u.SetExcluded(usersubscriptionchange.FieldEntID)
+	return u
+}
+
+// SetAppID sets the "app_id" field.
+func (u *UserSubscriptionChangeUpsert) SetAppID(v uuid.UUID) *UserSubscriptionChangeUpsert {
+	u.Set(usersubscriptionchange.FieldAppID, v)
+	return u
+}
+
+// UpdateAppID sets the "app_id" field to the value that was provided on create.
+func (u *UserSubscriptionChangeUpsert) UpdateAppID() *UserSubscriptionChangeUpsert {
+	u.SetExcluded(usersubscriptionchange.FieldAppID)
+	return u
+}
+
+// ClearAppID clears the value of the "app_id" field.
+func (u *UserSubscriptionChangeUpsert) ClearAppID() *UserSubscriptionChangeUpsert {
+	u.SetNull(usersubscriptionchange.FieldAppID)
+	return u
+}
+
+// SetUserID sets the "user_id" field.
+func (u *UserSubscriptionChangeUpsert) SetUserID(v uuid.UUID) *UserSubscriptionChangeUpsert {
+	u.Set(usersubscriptionchange.FieldUserID, v)
+	return u
+}
+
+// UpdateUserID sets the "user_id" field to the value that was provided on create.
+func (u *UserSubscriptionChangeUpsert) UpdateUserID() *UserSubscriptionChangeUpsert {
+	u.SetExcluded(usersubscriptionchange.FieldUserID)
+	return u
+}
+
+// ClearUserID clears the value of the "user_id" field.
+func (u *UserSubscriptionChangeUpsert) ClearUserID() *UserSubscriptionChangeUpsert {
+	u.SetNull(usersubscriptionchange.FieldUserID)
+	return u
+}
+
+// SetUserSubscriptionID sets the "user_subscription_id" field.
+func (u *UserSubscriptionChangeUpsert) SetUserSubscriptionID(v uuid.UUID) *UserSubscriptionChangeUpsert {
+	u.Set(usersubscriptionchange.FieldUserSubscriptionID, v)
+	return u
+}
+
+// UpdateUserSubscriptionID sets the "user_subscription_id" field to the value that was provided on create.
+func (u *UserSubscriptionChangeUpsert) UpdateUserSubscriptionID() *UserSubscriptionChangeUpsert {
+	u.SetExcluded(usersubscriptionchange.FieldUserSubscriptionID)
+	return u
+}
+
+// ClearUserSubscriptionID clears the value of the "user_subscription_id" field.
+func (u *UserSubscriptionChangeUpsert) ClearUserSubscriptionID() *UserSubscriptionChangeUpsert {
+	u.SetNull(usersubscriptionchange.FieldUserSubscriptionID)
+	return u
+}
+
+// SetOldPackageID sets the "old_package_id" field.
+func (u *UserSubscriptionChangeUpsert) SetOldPackageID(v uuid.UUID) *UserSubscriptionChangeUpsert {
+	u.Set(usersubscriptionchange.FieldOldPackageID, v)
+	return u
+}
+
+// UpdateOldPackageID sets the "old_package_id" field to the value that was provided on create.
+func (u *UserSubscriptionChangeUpsert) UpdateOldPackageID() *UserSubscriptionChangeUpsert {
+	u.SetExcluded(usersubscriptionchange.FieldOldPackageID)
+	return u
+}
+
+// ClearOldPackageID clears the value of the "old_package_id" field.
+func (u *UserSubscriptionChangeUpsert) ClearOldPackageID() *UserSubscriptionChangeUpsert {
+	u.SetNull(usersubscriptionchange.FieldOldPackageID)
+	return u
+}
+
+// SetNewPackageID sets the "new_package_id" field.
+func (u *UserSubscriptionChangeUpsert) SetNewPackageID(v uuid.UUID) *UserSubscriptionChangeUpsert {
+	u.Set(usersubscriptionchange.FieldNewPackageID, v)
+	return u
+}
+
+// UpdateNewPackageID sets the "new_package_id" field to the value that was provided on create.
+func (u *UserSubscriptionChangeUpsert) UpdateNewPackageID() *UserSubscriptionChangeUpsert {
+	u.SetExcluded(usersubscriptionchange.FieldNewPackageID)
+	return u
+}
+
+// ClearNewPackageID clears the value of the "new_package_id" field.
+func (u *UserSubscriptionChangeUpsert) ClearNewPackageID() *UserSubscriptionChangeUpsert {
+	u.SetNull(usersubscriptionchange.FieldNewPackageID)
+	return u
+}
+
+// UpdateNewValues updates the mutable fields using the new values that were set on create except the ID field.
+// Using this option is equivalent to using:
+//
+//	client.UserSubscriptionChange.Create().
+//		OnConflict(
+//			sql.ResolveWithNewValues(),
+//			sql.ResolveWith(func(u *sql.UpdateSet) {
+//				u.SetIgnore(usersubscriptionchange.FieldID)
+//			}),
+//		).
+//		Exec(ctx)
+func (u *UserSubscriptionChangeUpsertOne) UpdateNewValues() *UserSubscriptionChangeUpsertOne {
+	u.create.conflict = append(u.create.conflict, sql.ResolveWithNewValues())
+	u.create.conflict = append(u.create.conflict, sql.ResolveWith(func(s *sql.UpdateSet) {
+		if _, exists := u.create.mutation.ID(); exists {
+			s.SetIgnore(usersubscriptionchange.FieldID)
+		}
+	}))
+	return u
+}
+
+// Ignore sets each column to itself in case of conflict.
+// Using this option is equivalent to using:
+//
+//	client.UserSubscriptionChange.Create().
+//	    OnConflict(sql.ResolveWithIgnore()).
+//	    Exec(ctx)
+func (u *UserSubscriptionChangeUpsertOne) Ignore() *UserSubscriptionChangeUpsertOne {
+	u.create.conflict = append(u.create.conflict, sql.ResolveWithIgnore())
+	return u
+}
+
+// DoNothing configures the conflict_action to `DO NOTHING`.
+// Supported only by SQLite and PostgreSQL.
+func (u *UserSubscriptionChangeUpsertOne) DoNothing() *UserSubscriptionChangeUpsertOne {
+	u.create.conflict = append(u.create.conflict, sql.DoNothing())
+	return u
+}
+
+// Update allows overriding fields `UPDATE` values. See the UserSubscriptionChangeCreate.OnConflict
+// documentation for more info.
+func (u *UserSubscriptionChangeUpsertOne) Update(set func(*UserSubscriptionChangeUpsert)) *UserSubscriptionChangeUpsertOne {
+	u.create.conflict = append(u.create.conflict, sql.ResolveWith(func(update *sql.UpdateSet) {
+		set(&UserSubscriptionChangeUpsert{UpdateSet: update})
+	}))
+	return u
+}
+
+// SetEntID sets the "ent_id" field.
+func (u *UserSubscriptionChangeUpsertOne) SetEntID(v uuid.UUID) *UserSubscriptionChangeUpsertOne {
+	return u.Update(func(s *UserSubscriptionChangeUpsert) {
+		s.SetEntID(v)
+	})
+}
+
+// UpdateEntID sets the "ent_id" field to the value that was provided on create.
+func (u *UserSubscriptionChangeUpsertOne) UpdateEntID() *UserSubscriptionChangeUpsertOne {
+	return u.Update(func(s *UserSubscriptionChangeUpsert) {
+		s.UpdateEntID()
+	})
+}
+
+// SetAppID sets the "app_id" field.
+func (u *UserSubscriptionChangeUpsertOne) SetAppID(v uuid.UUID) *UserSubscriptionChangeUpsertOne {
+	return u.Update(func(s *UserSubscriptionChangeUpsert) {
+		s.SetAppID(v)
+	})
+}
+
+// UpdateAppID sets the "app_id" field to the value that was provided on create.
+func (u *UserSubscriptionChangeUpsertOne) UpdateAppID() *UserSubscriptionChangeUpsertOne {
+	return u.Update(func(s *UserSubscriptionChangeUpsert) {
+		s.UpdateAppID()
+	})
+}
+
+// ClearAppID clears the value of the "app_id" field.
+func (u *UserSubscriptionChangeUpsertOne) ClearAppID() *UserSubscriptionChangeUpsertOne {
+	return u.Update(func(s *UserSubscriptionChangeUpsert) {
+		s.ClearAppID()
+	})
+}
+
+// SetUserID sets the "user_id" field.
+func (u *UserSubscriptionChangeUpsertOne) SetUserID(v uuid.UUID) *UserSubscriptionChangeUpsertOne {
+	return u.Update(func(s *UserSubscriptionChangeUpsert) {
+		s.SetUserID(v)
+	})
+}
+
+// UpdateUserID sets the "user_id" field to the value that was provided on create.
+func (u *UserSubscriptionChangeUpsertOne) UpdateUserID() *UserSubscriptionChangeUpsertOne {
+	return u.Update(func(s *UserSubscriptionChangeUpsert) {
+		s.UpdateUserID()
+	})
+}
+
+// ClearUserID clears the value of the "user_id" field.
+func (u *UserSubscriptionChangeUpsertOne) ClearUserID() *UserSubscriptionChangeUpsertOne {
+	return u.Update(func(s *UserSubscriptionChangeUpsert) {
+		s.ClearUserID()
+	})
+}
+
+// SetUserSubscriptionID sets the "user_subscription_id" field.
+func (u *UserSubscriptionChangeUpsertOne) SetUserSubscriptionID(v uuid.UUID) *UserSubscriptionChangeUpsertOne {
+	return u.Update(func(s *UserSubscriptionChangeUpsert) {
+		s.SetUserSubscriptionID(v)
+	})
+}
+
+// UpdateUserSubscriptionID sets the "user_subscription_id" field to the value that was provided on create.
+func (u *UserSubscriptionChangeUpsertOne) UpdateUserSubscriptionID() *UserSubscriptionChangeUpsertOne {
+	return u.Update(func(s *UserSubscriptionChangeUpsert) {
+		s.UpdateUserSubscriptionID()
+	})
+}
+
+// ClearUserSubscriptionID clears the value of the "user_subscription_id" field.
+func (u *UserSubscriptionChangeUpsertOne) ClearUserSubscriptionID() *UserSubscriptionChangeUpsertOne {
+	return u.Update(func(s *UserSubscriptionChangeUpsert) {
+		s.ClearUserSubscriptionID()
+	})
+}
+
+// SetOldPackageID sets the "old_package_id" field.
+func (u *UserSubscriptionChangeUpsertOne) SetOldPackageID(v uuid.UUID) *UserSubscriptionChangeUpsertOne {
+	return u.Update(func(s *UserSubscriptionChangeUpsert) {
+		s.SetOldPackageID(v)
+	})
+}
+
+// UpdateOldPackageID sets the "old_package_id" field to the value that was provided on create.
+func (u *UserSubscriptionChangeUpsertOne) UpdateOldPackageID() *UserSubscriptionChangeUpsertOne {
+	return u.Update(func(s *UserSubscriptionChangeUpsert) {
+		s.UpdateOldPackageID()
+	})
+}
+
+// ClearOldPackageID clears the value of the "old_package_id" field.
+func (u *UserSubscriptionChangeUpsertOne) ClearOldPackageID() *UserSubscriptionChangeUpsertOne {
+	return u.Update(func(s *UserSubscriptionChangeUpsert) {
+		s.ClearOldPackageID()
+	})
+}
+
+// SetNewPackageID sets the "new_package_id" field.
+func (u *UserSubscriptionChangeUpsertOne) SetNewPackageID(v uuid.UUID) *UserSubscriptionChangeUpsertOne {
+	return u.Update(func(s *UserSubscriptionChangeUpsert) {
+		s.SetNewPackageID(v)
+	})
+}
+
+// UpdateNewPackageID sets the "new_package_id" field to the value that was provided on create.
+func (u *UserSubscriptionChangeUpsertOne) UpdateNewPackageID() *UserSubscriptionChangeUpsertOne {
+	return u.Update(func(s *UserSubscriptionChangeUpsert) {
+		s.UpdateNewPackageID()
+	})
+}
+
+// ClearNewPackageID clears the value of the "new_package_id" field.
+func (u *UserSubscriptionChangeUpsertOne) ClearNewPackageID() *UserSubscriptionChangeUpsertOne {
+	return u.Update(func(s *UserSubscriptionChangeUpsert) {
+		s.ClearNewPackageID()
+	})
+}
+
+// Exec executes the query.
+func (u *UserSubscriptionChangeUpsertOne) Exec(ctx context.Context) error {
+	if len(u.create.conflict) == 0 {
+		return errors.New("generated: missing options for UserSubscriptionChangeCreate.OnConflict")
+	}
+	return u.create.Exec(ctx)
+}
+
+// ExecX is like Exec, but panics if an error occurs.
+func (u *UserSubscriptionChangeUpsertOne) ExecX(ctx context.Context) {
+	if err := u.create.Exec(ctx); err != nil {
+		panic(err)
+	}
+}
+
+// Exec executes the UPSERT query and returns the inserted/updated ID.
+func (u *UserSubscriptionChangeUpsertOne) ID(ctx context.Context) (id uint32, err error) {
+	node, err := u.create.Save(ctx)
+	if err != nil {
+		return id, err
+	}
+	return node.ID, nil
+}
+
+// IDX is like ID, but panics if an error occurs.
+func (u *UserSubscriptionChangeUpsertOne) IDX(ctx context.Context) uint32 {
+	id, err := u.ID(ctx)
+	if err != nil {
+		panic(err)
+	}
+	return id
+}
+
 // UserSubscriptionChangeCreateBulk is the builder for creating many UserSubscriptionChange entities in bulk.
 type UserSubscriptionChangeCreateBulk struct {
 	config
 	err      error
 	builders []*UserSubscriptionChangeCreate
+	conflict []sql.ConflictOption
 }
 
 // Save creates the UserSubscriptionChange entities in the database.
@@ -269,6 +624,7 @@ func (usccb *UserSubscriptionChangeCreateBulk) Save(ctx context.Context) ([]*Use
 					_, err = mutators[i+1].Mutate(root, usccb.builders[i+1].mutation)
 				} else {
 					spec := &sqlgraph.BatchCreateSpec{Nodes: specs}
+					spec.OnConflict = usccb.conflict
 					// Invoke the actual operation on the latest mutation in the chain.
 					if err = sqlgraph.BatchCreate(ctx, usccb.driver, spec); err != nil {
 						if sqlgraph.IsConstraintError(err) {
@@ -319,6 +675,239 @@ func (usccb *UserSubscriptionChangeCreateBulk) Exec(ctx context.Context) error {
 // ExecX is like Exec, but panics if an error occurs.
 func (usccb *UserSubscriptionChangeCreateBulk) ExecX(ctx context.Context) {
 	if err := usccb.Exec(ctx); err != nil {
+		panic(err)
+	}
+}
+
+// OnConflict allows configuring the `ON CONFLICT` / `ON DUPLICATE KEY` clause
+// of the `INSERT` statement. For example:
+//
+//	client.UserSubscriptionChange.CreateBulk(builders...).
+//		OnConflict(
+//			// Update the row with the new values
+//			// the was proposed for insertion.
+//			sql.ResolveWithNewValues(),
+//		).
+//		// Override some of the fields with custom
+//		// update values.
+//		Update(func(u *ent.UserSubscriptionChangeUpsert) {
+//			SetEntID(v+v).
+//		}).
+//		Exec(ctx)
+func (usccb *UserSubscriptionChangeCreateBulk) OnConflict(opts ...sql.ConflictOption) *UserSubscriptionChangeUpsertBulk {
+	usccb.conflict = opts
+	return &UserSubscriptionChangeUpsertBulk{
+		create: usccb,
+	}
+}
+
+// OnConflictColumns calls `OnConflict` and configures the columns
+// as conflict target. Using this option is equivalent to using:
+//
+//	client.UserSubscriptionChange.Create().
+//		OnConflict(sql.ConflictColumns(columns...)).
+//		Exec(ctx)
+func (usccb *UserSubscriptionChangeCreateBulk) OnConflictColumns(columns ...string) *UserSubscriptionChangeUpsertBulk {
+	usccb.conflict = append(usccb.conflict, sql.ConflictColumns(columns...))
+	return &UserSubscriptionChangeUpsertBulk{
+		create: usccb,
+	}
+}
+
+// UserSubscriptionChangeUpsertBulk is the builder for "upsert"-ing
+// a bulk of UserSubscriptionChange nodes.
+type UserSubscriptionChangeUpsertBulk struct {
+	create *UserSubscriptionChangeCreateBulk
+}
+
+// UpdateNewValues updates the mutable fields using the new values that
+// were set on create. Using this option is equivalent to using:
+//
+//	client.UserSubscriptionChange.Create().
+//		OnConflict(
+//			sql.ResolveWithNewValues(),
+//			sql.ResolveWith(func(u *sql.UpdateSet) {
+//				u.SetIgnore(usersubscriptionchange.FieldID)
+//			}),
+//		).
+//		Exec(ctx)
+func (u *UserSubscriptionChangeUpsertBulk) UpdateNewValues() *UserSubscriptionChangeUpsertBulk {
+	u.create.conflict = append(u.create.conflict, sql.ResolveWithNewValues())
+	u.create.conflict = append(u.create.conflict, sql.ResolveWith(func(s *sql.UpdateSet) {
+		for _, b := range u.create.builders {
+			if _, exists := b.mutation.ID(); exists {
+				s.SetIgnore(usersubscriptionchange.FieldID)
+			}
+		}
+	}))
+	return u
+}
+
+// Ignore sets each column to itself in case of conflict.
+// Using this option is equivalent to using:
+//
+//	client.UserSubscriptionChange.Create().
+//		OnConflict(sql.ResolveWithIgnore()).
+//		Exec(ctx)
+func (u *UserSubscriptionChangeUpsertBulk) Ignore() *UserSubscriptionChangeUpsertBulk {
+	u.create.conflict = append(u.create.conflict, sql.ResolveWithIgnore())
+	return u
+}
+
+// DoNothing configures the conflict_action to `DO NOTHING`.
+// Supported only by SQLite and PostgreSQL.
+func (u *UserSubscriptionChangeUpsertBulk) DoNothing() *UserSubscriptionChangeUpsertBulk {
+	u.create.conflict = append(u.create.conflict, sql.DoNothing())
+	return u
+}
+
+// Update allows overriding fields `UPDATE` values. See the UserSubscriptionChangeCreateBulk.OnConflict
+// documentation for more info.
+func (u *UserSubscriptionChangeUpsertBulk) Update(set func(*UserSubscriptionChangeUpsert)) *UserSubscriptionChangeUpsertBulk {
+	u.create.conflict = append(u.create.conflict, sql.ResolveWith(func(update *sql.UpdateSet) {
+		set(&UserSubscriptionChangeUpsert{UpdateSet: update})
+	}))
+	return u
+}
+
+// SetEntID sets the "ent_id" field.
+func (u *UserSubscriptionChangeUpsertBulk) SetEntID(v uuid.UUID) *UserSubscriptionChangeUpsertBulk {
+	return u.Update(func(s *UserSubscriptionChangeUpsert) {
+		s.SetEntID(v)
+	})
+}
+
+// UpdateEntID sets the "ent_id" field to the value that was provided on create.
+func (u *UserSubscriptionChangeUpsertBulk) UpdateEntID() *UserSubscriptionChangeUpsertBulk {
+	return u.Update(func(s *UserSubscriptionChangeUpsert) {
+		s.UpdateEntID()
+	})
+}
+
+// SetAppID sets the "app_id" field.
+func (u *UserSubscriptionChangeUpsertBulk) SetAppID(v uuid.UUID) *UserSubscriptionChangeUpsertBulk {
+	return u.Update(func(s *UserSubscriptionChangeUpsert) {
+		s.SetAppID(v)
+	})
+}
+
+// UpdateAppID sets the "app_id" field to the value that was provided on create.
+func (u *UserSubscriptionChangeUpsertBulk) UpdateAppID() *UserSubscriptionChangeUpsertBulk {
+	return u.Update(func(s *UserSubscriptionChangeUpsert) {
+		s.UpdateAppID()
+	})
+}
+
+// ClearAppID clears the value of the "app_id" field.
+func (u *UserSubscriptionChangeUpsertBulk) ClearAppID() *UserSubscriptionChangeUpsertBulk {
+	return u.Update(func(s *UserSubscriptionChangeUpsert) {
+		s.ClearAppID()
+	})
+}
+
+// SetUserID sets the "user_id" field.
+func (u *UserSubscriptionChangeUpsertBulk) SetUserID(v uuid.UUID) *UserSubscriptionChangeUpsertBulk {
+	return u.Update(func(s *UserSubscriptionChangeUpsert) {
+		s.SetUserID(v)
+	})
+}
+
+// UpdateUserID sets the "user_id" field to the value that was provided on create.
+func (u *UserSubscriptionChangeUpsertBulk) UpdateUserID() *UserSubscriptionChangeUpsertBulk {
+	return u.Update(func(s *UserSubscriptionChangeUpsert) {
+		s.UpdateUserID()
+	})
+}
+
+// ClearUserID clears the value of the "user_id" field.
+func (u *UserSubscriptionChangeUpsertBulk) ClearUserID() *UserSubscriptionChangeUpsertBulk {
+	return u.Update(func(s *UserSubscriptionChangeUpsert) {
+		s.ClearUserID()
+	})
+}
+
+// SetUserSubscriptionID sets the "user_subscription_id" field.
+func (u *UserSubscriptionChangeUpsertBulk) SetUserSubscriptionID(v uuid.UUID) *UserSubscriptionChangeUpsertBulk {
+	return u.Update(func(s *UserSubscriptionChangeUpsert) {
+		s.SetUserSubscriptionID(v)
+	})
+}
+
+// UpdateUserSubscriptionID sets the "user_subscription_id" field to the value that was provided on create.
+func (u *UserSubscriptionChangeUpsertBulk) UpdateUserSubscriptionID() *UserSubscriptionChangeUpsertBulk {
+	return u.Update(func(s *UserSubscriptionChangeUpsert) {
+		s.UpdateUserSubscriptionID()
+	})
+}
+
+// ClearUserSubscriptionID clears the value of the "user_subscription_id" field.
+func (u *UserSubscriptionChangeUpsertBulk) ClearUserSubscriptionID() *UserSubscriptionChangeUpsertBulk {
+	return u.Update(func(s *UserSubscriptionChangeUpsert) {
+		s.ClearUserSubscriptionID()
+	})
+}
+
+// SetOldPackageID sets the "old_package_id" field.
+func (u *UserSubscriptionChangeUpsertBulk) SetOldPackageID(v uuid.UUID) *UserSubscriptionChangeUpsertBulk {
+	return u.Update(func(s *UserSubscriptionChangeUpsert) {
+		s.SetOldPackageID(v)
+	})
+}
+
+// UpdateOldPackageID sets the "old_package_id" field to the value that was provided on create.
+func (u *UserSubscriptionChangeUpsertBulk) UpdateOldPackageID() *UserSubscriptionChangeUpsertBulk {
+	return u.Update(func(s *UserSubscriptionChangeUpsert) {
+		s.UpdateOldPackageID()
+	})
+}
+
+// ClearOldPackageID clears the value of the "old_package_id" field.
+func (u *UserSubscriptionChangeUpsertBulk) ClearOldPackageID() *UserSubscriptionChangeUpsertBulk {
+	return u.Update(func(s *UserSubscriptionChangeUpsert) {
+		s.ClearOldPackageID()
+	})
+}
+
+// SetNewPackageID sets the "new_package_id" field.
+func (u *UserSubscriptionChangeUpsertBulk) SetNewPackageID(v uuid.UUID) *UserSubscriptionChangeUpsertBulk {
+	return u.Update(func(s *UserSubscriptionChangeUpsert) {
+		s.SetNewPackageID(v)
+	})
+}
+
+// UpdateNewPackageID sets the "new_package_id" field to the value that was provided on create.
+func (u *UserSubscriptionChangeUpsertBulk) UpdateNewPackageID() *UserSubscriptionChangeUpsertBulk {
+	return u.Update(func(s *UserSubscriptionChangeUpsert) {
+		s.UpdateNewPackageID()
+	})
+}
+
+// ClearNewPackageID clears the value of the "new_package_id" field.
+func (u *UserSubscriptionChangeUpsertBulk) ClearNewPackageID() *UserSubscriptionChangeUpsertBulk {
+	return u.Update(func(s *UserSubscriptionChangeUpsert) {
+		s.ClearNewPackageID()
+	})
+}
+
+// Exec executes the query.
+func (u *UserSubscriptionChangeUpsertBulk) Exec(ctx context.Context) error {
+	if u.create.err != nil {
+		return u.create.err
+	}
+	for i, b := range u.create.builders {
+		if len(b.conflict) != 0 {
+			return fmt.Errorf("generated: OnConflict was set for builder %d. Set it on the UserSubscriptionChangeCreateBulk instead", i)
+		}
+	}
+	if len(u.create.conflict) == 0 {
+		return errors.New("generated: missing options for UserSubscriptionChangeCreateBulk.OnConflict")
+	}
+	return u.create.Exec(ctx)
+}
+
+// ExecX is like Exec, but panics if an error occurs.
+func (u *UserSubscriptionChangeUpsertBulk) ExecX(ctx context.Context) {
+	if err := u.create.Exec(ctx); err != nil {
 		panic(err)
 	}
 }

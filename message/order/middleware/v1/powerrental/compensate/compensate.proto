@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+package order.middleware.powerrental.compensate.v1;
+
+option go_package = "github.com/NpoolPlatform/kunman/message/order/middleware/v1/powerrental/compensate";
+
+import "basetypes/v1/conds.proto";
+import "basetypes/order/v1/enums.proto";
+import "basetypes/good/v1/enums.proto";
+import "order/middleware/v1/compensate/compensate.proto";
+
+message CompensateReq {
+    optional uint32 ID = 10;
+    optional string EntID = 20;
+    optional string GoodID = 30; // If good id is set, we create compensate for all orders of this good
+    optional string OrderID = 40; // If order id is set, we create one compensate for this order
+    optional string CompensateFromID = 50;
+    optional basetypes.order.v1.CompensateType CompensateType = 60;
+    optional uint32 CompensateSeconds = 70;
+}
+

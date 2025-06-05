@@ -1,0 +1,151 @@
+syntax = "proto3";
+
+package order.gateway.app.config.v1;
+
+option go_package = "github.com/NpoolPlatform/kunman/message/order/gateway/v1/app/config";
+
+import "google/api/annotations.proto";
+import "order/middleware/v1/app/config/config.proto";
+import "basetypes/order/v1/enums.proto";
+
+// Service Name
+service Gateway {
+    rpc CreateAppConfig (CreateAppConfigRequest) returns (CreateAppConfigResponse) {
+        option (google.api.http) = {
+            post: "/v1/create/appconfig"
+            body: "*"
+        };
+    }
+
+    rpc UpdateAppConfig (UpdateAppConfigRequest) returns (UpdateAppConfigResponse) {
+        option (google.api.http) = {
+            post: "/v1/update/appconfig"
+            body: "*"
+        };
+    }
+
+    rpc GetAppConfig (GetAppConfigRequest) returns (GetAppConfigResponse) {
+        option (google.api.http) = {
+            post: "/v1/get/appconfig"
+            body: "*"
+        };
+    }
+
+    // Admin apis
+    rpc AdminCreateAppConfig (AdminCreateAppConfigRequest) returns (AdminCreateAppConfigResponse) {
+        option (google.api.http) = {
+            post: "/v1/admin/create/appconfig"
+            body: "*"
+        };
+    }
+
+    rpc AdminUpdateAppConfig (AdminUpdateAppConfigRequest) returns (AdminUpdateAppConfigResponse) {
+      option (google.api.http) = {
+          post: "/v1/admin/update/appconfig"
+          body: "*"
+      };
+    }
+
+    rpc AdminGetAppConfigs (AdminGetAppConfigsRequest) returns (AdminGetAppConfigsResponse) {
+        option (google.api.http) = {
+            post: "/v1/admin/get/appconfigs"
+            body: "*"
+        };
+    }
+
+    rpc AdminDeleteAppConfig (AdminDeleteAppConfigRequest) returns (AdminDeleteAppConfigResponse) {
+        option (google.api.http) = {
+            post: "/v1/admin/delete/appconfig"
+            body: "*"
+        };
+    }
+}
+
+message CreateAppConfigRequest {
+    string AppID = 10;
+    optional bool EnableSimulateOrder = 20;
+    optional basetypes.order.v1.SimulateOrderCouponMode SimulateOrderCouponMode = 50;
+    optional string SimulateOrderCouponProbability = 60;
+    optional string SimulateOrderCashableProfitProbability = 70;
+    optional uint32 MaxUnpaidOrders = 80;
+    optional uint32 MaxTypedCouponsPerOrder = 90;
+}
+
+message CreateAppConfigResponse {
+    order.middleware.app.config.v1.AppConfig Info = 10;
+}
+
+message UpdateAppConfigRequest {
+    uint32 ID = 10;
+    string EntID = 20;
+    string AppID = 30;
+    optional bool EnableSimulateOrder = 40;
+    optional basetypes.order.v1.SimulateOrderCouponMode SimulateOrderCouponMode = 70;
+    optional string SimulateOrderCouponProbability = 80;
+    optional string SimulateOrderCashableProfitProbability = 90;
+    optional uint32 MaxUnpaidOrders = 100;
+    optional uint32 MaxTypedCouponsPerOrder = 110;
+}
+
+message UpdateAppConfigResponse {
+    order.middleware.app.config.v1.AppConfig Info = 10;
+}
+
+message GetAppConfigRequest {
+    string AppID = 10;
+}
+
+message GetAppConfigResponse {
+    order.middleware.app.config.v1.AppConfig Info = 10;
+}
+
+message AdminCreateAppConfigRequest {
+    string TargetAppID = 10;
+    optional bool EnableSimulateOrder = 20;
+    optional basetypes.order.v1.SimulateOrderCouponMode SimulateOrderCouponMode = 50;
+    optional string SimulateOrderCouponProbability = 60;
+    optional string SimulateOrderCashableProfitProbability = 70;
+    optional uint32 MaxUnpaidOrders = 80;
+    optional uint32 MaxTypedCouponsPerOrder = 90;
+}
+
+message AdminCreateAppConfigResponse {
+    order.middleware.app.config.v1.AppConfig Info = 10;
+}
+
+message AdminUpdateAppConfigRequest {
+    uint32 ID = 10;
+    string EntID = 20;
+    string TargetAppID = 30;
+    optional bool EnableSimulateOrder = 40;
+    optional basetypes.order.v1.SimulateOrderCouponMode SimulateOrderCouponMode = 70;
+    optional string SimulateOrderCouponProbability = 80;
+    optional string SimulateOrderCashableProfitProbability = 90;
+    optional uint32 MaxUnpaidOrders = 100;
+    optional uint32 MaxTypedCouponsPerOrder = 110;
+}
+
+message AdminUpdateAppConfigResponse {
+    order.middleware.app.config.v1.AppConfig Info = 10;
+}
+
+message AdminGetAppConfigsRequest {
+    optional string TargetAppID = 10;
+    int32 Offset = 20;
+    int32 Limit = 30;
+}
+
+message AdminGetAppConfigsResponse {
+    repeated order.middleware.app.config.v1.AppConfig Infos = 10;
+    uint32 Total = 20;
+}
+
+message AdminDeleteAppConfigRequest {
+    uint32 ID = 10;
+    string EntID = 20;
+    string TargetAppID = 30;
+}
+
+message AdminDeleteAppConfigResponse {
+    order.middleware.app.config.v1.AppConfig Info = 10;
+}

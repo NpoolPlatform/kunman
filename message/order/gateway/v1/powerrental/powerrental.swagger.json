@@ -1,0 +1,1368 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "order/gateway/v1/powerrental/powerrental.proto",
+    "version": "version not set"
+  },
+  "tags": [
+    {
+      "name": "Gateway"
+    }
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/v1/admin/create/powerrentalorder": {
+      "post": {
+        "summary": "Admin apis",
+        "operationId": "Gateway_AdminCreatePowerRentalOrder",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1AdminCreatePowerRentalOrderResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1AdminCreatePowerRentalOrderRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Gateway"
+        ]
+      }
+    },
+    "/v1/admin/delete/powerrentalorder": {
+      "post": {
+        "operationId": "Gateway_AdminDeletePowerRentalOrder",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1AdminDeletePowerRentalOrderResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1AdminDeletePowerRentalOrderRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Gateway"
+        ]
+      }
+    },
+    "/v1/admin/get/powerrentalorders": {
+      "post": {
+        "operationId": "Gateway_AdminGetPowerRentalOrders",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1AdminGetPowerRentalOrdersResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1AdminGetPowerRentalOrdersRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Gateway"
+        ]
+      }
+    },
+    "/v1/admin/update/powerrentalorder": {
+      "post": {
+        "operationId": "Gateway_AdminUpdatePowerRentalOrder",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1AdminUpdatePowerRentalOrderResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1AdminUpdatePowerRentalOrderRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Gateway"
+        ]
+      }
+    },
+    "/v1/create/powerrentalorder": {
+      "post": {
+        "operationId": "Gateway_CreatePowerRentalOrder",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1CreatePowerRentalOrderResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1CreatePowerRentalOrderRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Gateway"
+        ]
+      }
+    },
+    "/v1/create/user/powerrentalorder": {
+      "post": {
+        "operationId": "Gateway_CreateUserPowerRentalOrder",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1CreateUserPowerRentalOrderResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1CreateUserPowerRentalOrderRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Gateway"
+        ]
+      }
+    },
+    "/v1/get/my/powerrentalorders": {
+      "post": {
+        "operationId": "Gateway_GetMyPowerRentalOrders",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetMyPowerRentalOrdersResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1GetMyPowerRentalOrdersRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Gateway"
+        ]
+      }
+    },
+    "/v1/get/powerrentalorder": {
+      "post": {
+        "operationId": "Gateway_GetPowerRentalOrder",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetPowerRentalOrderResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1GetPowerRentalOrderRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Gateway"
+        ]
+      }
+    },
+    "/v1/get/powerrentalorders": {
+      "post": {
+        "operationId": "Gateway_GetPowerRentalOrders",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetPowerRentalOrdersResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1GetPowerRentalOrdersRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Gateway"
+        ]
+      }
+    },
+    "/v1/update/powerrentalorder": {
+      "post": {
+        "operationId": "Gateway_UpdatePowerRentalOrder",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1UpdatePowerRentalOrderResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1UpdatePowerRentalOrderRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Gateway"
+        ]
+      }
+    },
+    "/v1/update/user/powerrentalorder": {
+      "post": {
+        "operationId": "Gateway_UpdateUserPowerRentalOrder",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1UpdateUserPowerRentalOrderResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1UpdateUserPowerRentalOrderRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Gateway"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "basetypesorderv1BenefitState": {
+      "type": "string",
+      "enum": [
+        "DefaultBenefitState",
+        "BenefitWait",
+        "BenefitCalculated",
+        "BenefitBookKept"
+      ],
+      "default": "DefaultBenefitState"
+    },
+    "protobufAny": {
+      "type": "object",
+      "properties": {
+        "@type": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": {}
+    },
+    "rpcStatus": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "details": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/protobufAny"
+          }
+        }
+      }
+    },
+    "v1AdminCreatePowerRentalOrderRequest": {
+      "type": "object",
+      "properties": {
+        "TargetAppID": {
+          "type": "string"
+        },
+        "TargetUserID": {
+          "type": "string"
+        },
+        "AppGoodID": {
+          "type": "string"
+        },
+        "DurationSeconds": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "Units": {
+          "type": "string"
+        },
+        "OrderType": {
+          "$ref": "#/definitions/v1OrderType"
+        },
+        "AppGoodStockID": {
+          "type": "string"
+        },
+        "InvestmentType": {
+          "$ref": "#/definitions/v1InvestmentType"
+        },
+        "AppSpotUnits": {
+          "type": "string"
+        },
+        "OrderBenefitAccounts": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1OrderBenefitAccountReq"
+          }
+        }
+      }
+    },
+    "v1AdminCreatePowerRentalOrderResponse": {
+      "type": "object",
+      "properties": {
+        "Info": {
+          "$ref": "#/definitions/v1PowerRentalOrder"
+        }
+      }
+    },
+    "v1AdminDeletePowerRentalOrderRequest": {
+      "type": "object",
+      "properties": {
+        "ID": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "EntID": {
+          "type": "string"
+        },
+        "TargetAppID": {
+          "type": "string"
+        },
+        "TargetUserID": {
+          "type": "string"
+        },
+        "OrderID": {
+          "type": "string"
+        }
+      }
+    },
+    "v1AdminDeletePowerRentalOrderResponse": {
+      "type": "object",
+      "properties": {
+        "Info": {
+          "$ref": "#/definitions/v1PowerRentalOrder"
+        }
+      }
+    },
+    "v1AdminGetPowerRentalOrdersRequest": {
+      "type": "object",
+      "properties": {
+        "TargetAppID": {
+          "type": "string"
+        },
+        "GoodID": {
+          "type": "string"
+        },
+        "Offset": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "Limit": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "v1AdminGetPowerRentalOrdersResponse": {
+      "type": "object",
+      "properties": {
+        "Infos": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1PowerRentalOrder"
+          }
+        },
+        "Total": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "v1AdminUpdatePowerRentalOrderRequest": {
+      "type": "object",
+      "properties": {
+        "ID": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "EntID": {
+          "type": "string"
+        },
+        "TargetAppID": {
+          "type": "string"
+        },
+        "TargetUserID": {
+          "type": "string"
+        },
+        "OrderID": {
+          "type": "string"
+        },
+        "Canceled": {
+          "type": "boolean"
+        }
+      }
+    },
+    "v1AdminUpdatePowerRentalOrderResponse": {
+      "type": "object",
+      "properties": {
+        "Info": {
+          "$ref": "#/definitions/v1PowerRentalOrder"
+        }
+      }
+    },
+    "v1BenefitType": {
+      "type": "string",
+      "enum": [
+        "DefaultBenefitType",
+        "BenefitTypePlatform",
+        "BenefitTypePool",
+        "BenefitTypeOffline",
+        "BenefitTypeContract",
+        "BenefitTypeNone"
+      ],
+      "default": "DefaultBenefitType",
+      "title": "- BenefitTypePlatform: Platform receive benefit, then distribute benefit to user\n - BenefitTypePool: User receive benefit from pool directly\n - BenefitTypeOffline: User do not receive any online reward\n - BenefitTypeContract: User receive reward from smart contract\n - BenefitTypeNone: Such as technique fee"
+    },
+    "v1CouponType": {
+      "type": "string",
+      "enum": [
+        "DefaultCouponType",
+        "FixAmount",
+        "Discount"
+      ],
+      "default": "DefaultCouponType"
+    },
+    "v1CreatePowerRentalOrderRequest": {
+      "type": "object",
+      "properties": {
+        "AppID": {
+          "type": "string"
+        },
+        "UserID": {
+          "type": "string"
+        },
+        "AppGoodID": {
+          "type": "string"
+        },
+        "DurationSeconds": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "Units": {
+          "type": "string"
+        },
+        "Balances": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1PaymentBalance"
+          }
+        },
+        "PaymentTransferCoinTypeID": {
+          "type": "string"
+        },
+        "CouponIDs": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "FeeAppGoodIDs": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "FeeDurationSeconds": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "FeeAutoDeduction": {
+          "type": "boolean"
+        },
+        "Simulate": {
+          "type": "boolean"
+        },
+        "AppGoodStockID": {
+          "type": "string"
+        },
+        "InvestmentType": {
+          "$ref": "#/definitions/v1InvestmentType"
+        },
+        "AppSpotUnits": {
+          "type": "string"
+        },
+        "OrderBenefitAccounts": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1OrderBenefitAccountReq"
+          }
+        }
+      }
+    },
+    "v1CreatePowerRentalOrderResponse": {
+      "type": "object",
+      "properties": {
+        "Info": {
+          "$ref": "#/definitions/v1PowerRentalOrder"
+        }
+      }
+    },
+    "v1CreateUserPowerRentalOrderRequest": {
+      "type": "object",
+      "properties": {
+        "AppID": {
+          "type": "string"
+        },
+        "TargetUserID": {
+          "type": "string"
+        },
+        "AppGoodID": {
+          "type": "string"
+        },
+        "DurationSeconds": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "Units": {
+          "type": "string"
+        },
+        "OrderType": {
+          "$ref": "#/definitions/v1OrderType"
+        },
+        "AppGoodStockID": {
+          "type": "string"
+        },
+        "InvestmentType": {
+          "$ref": "#/definitions/v1InvestmentType"
+        },
+        "AppSpotUnits": {
+          "type": "string"
+        },
+        "OrderBenefitAccounts": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1OrderBenefitAccountReq"
+          }
+        }
+      }
+    },
+    "v1CreateUserPowerRentalOrderResponse": {
+      "type": "object",
+      "properties": {
+        "Info": {
+          "$ref": "#/definitions/v1PowerRentalOrder"
+        }
+      }
+    },
+    "v1FeeDuration": {
+      "type": "object",
+      "properties": {
+        "AppGoodID": {
+          "type": "string"
+        },
+        "AppGoodName": {
+          "type": "string"
+        },
+        "TotalDurationSeconds": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "v1GetMyPowerRentalOrdersRequest": {
+      "type": "object",
+      "properties": {
+        "AppID": {
+          "type": "string"
+        },
+        "UserID": {
+          "type": "string"
+        },
+        "AppGoodID": {
+          "type": "string"
+        },
+        "Offset": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "Limit": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "v1GetMyPowerRentalOrdersResponse": {
+      "type": "object",
+      "properties": {
+        "Infos": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1PowerRentalOrder"
+          }
+        },
+        "Total": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "v1GetPowerRentalOrderRequest": {
+      "type": "object",
+      "properties": {
+        "AppID": {
+          "type": "string"
+        },
+        "UserID": {
+          "type": "string"
+        },
+        "OrderID": {
+          "type": "string"
+        }
+      }
+    },
+    "v1GetPowerRentalOrderResponse": {
+      "type": "object",
+      "properties": {
+        "Info": {
+          "$ref": "#/definitions/v1PowerRentalOrder"
+        }
+      }
+    },
+    "v1GetPowerRentalOrdersRequest": {
+      "type": "object",
+      "properties": {
+        "AppID": {
+          "type": "string"
+        },
+        "TargetUserID": {
+          "type": "string"
+        },
+        "AppGoodID": {
+          "type": "string"
+        },
+        "Offset": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "Limit": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "v1GetPowerRentalOrdersResponse": {
+      "type": "object",
+      "properties": {
+        "Infos": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1PowerRentalOrder"
+          }
+        },
+        "Total": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "v1GoodDurationType": {
+      "type": "string",
+      "enum": [
+        "DefaultGoodDurationType",
+        "GoodDurationByHour",
+        "GoodDurationByDay",
+        "GoodDurationByMonth",
+        "GoodDurationByYear"
+      ],
+      "default": "DefaultGoodDurationType"
+    },
+    "v1GoodStockMode": {
+      "type": "string",
+      "enum": [
+        "DefaultGoodStockMode",
+        "GoodStockByMiningPool",
+        "GoodStockByUnique"
+      ],
+      "default": "DefaultGoodStockMode"
+    },
+    "v1GoodType": {
+      "type": "string",
+      "enum": [
+        "DefaultGoodType",
+        "PowerRental",
+        "MachineRental",
+        "MachineCustody",
+        "LegacyPowerRental",
+        "DelegatedStaking",
+        "TechniqueServiceFee",
+        "ElectricityFee"
+      ],
+      "default": "DefaultGoodType"
+    },
+    "v1InvestmentType": {
+      "type": "string",
+      "enum": [
+        "DefaultInvestmentType",
+        "UnionMining",
+        "FullPayment"
+      ],
+      "default": "DefaultInvestmentType"
+    },
+    "v1OrderBenefitAccount": {
+      "type": "object",
+      "properties": {
+        "AccountID": {
+          "type": "string",
+          "title": "for order benefit account"
+        },
+        "CoinTypeID": {
+          "type": "string"
+        },
+        "Address": {
+          "type": "string"
+        }
+      }
+    },
+    "v1OrderBenefitAccountReq": {
+      "type": "object",
+      "properties": {
+        "AccountID": {
+          "type": "string",
+          "title": "for order benefit account"
+        },
+        "CoinTypeID": {
+          "type": "string"
+        },
+        "Address": {
+          "type": "string"
+        }
+      }
+    },
+    "v1OrderCouponInfo": {
+      "type": "object",
+      "properties": {
+        "AllocatedCouponID": {
+          "type": "string"
+        },
+        "CouponName": {
+          "type": "string"
+        },
+        "CouponType": {
+          "$ref": "#/definitions/v1CouponType"
+        },
+        "Denomination": {
+          "type": "string"
+        },
+        "CreatedAt": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "v1OrderCreateMethod": {
+      "type": "string",
+      "enum": [
+        "DefaultOrderCreateMethod",
+        "OrderCreatedByPurchase",
+        "OrderCreatedByAdmin",
+        "OrderCreatedByRenew"
+      ],
+      "default": "DefaultOrderCreateMethod"
+    },
+    "v1OrderStartMode": {
+      "type": "string",
+      "enum": [
+        "DefaultOrderStartMode",
+        "OrderStartTBD",
+        "OrderStartConfirmed",
+        "OrderStartInstantly",
+        "OrderStartNextDay",
+        "OrderStartPreset"
+      ],
+      "default": "DefaultOrderStartMode"
+    },
+    "v1OrderState": {
+      "type": "string",
+      "enum": [
+        "DefaultOrderState",
+        "OrderStateCreated",
+        "OrderStateWaitPayment",
+        "OrderStatePaymentTransferReceived",
+        "OrderStatePaymentTransferBookKeeping",
+        "OrderStatePaymentSpendBalance",
+        "OrderStateTransferGoodStockLocked",
+        "OrderStateAddCommission",
+        "OrderStateAchievementBookKeeping",
+        "OrderStatePaymentUnlockAccount",
+        "OrderStatePaid",
+        "OrderStateTransferGoodStockWaitStart",
+        "OrderStateCreateOrderUser",
+        "OrderStateSetProportion",
+        "OrderStateSetRevenueAddress",
+        "OrderStateInService",
+        "OrderStatePaymentTimeout",
+        "OrderStatePreCancel",
+        "OrderStatePreExpired",
+        "OrderStateDeleteProportion",
+        "OrderStateCheckProportion",
+        "OrderStateCheckPoolBalance",
+        "OrderStateRestoreExpiredStock",
+        "OrderStateRestoreCanceledStock",
+        "OrderStateDeductLockedCommission",
+        "OrderStateCancelAchievement",
+        "OrderStateReturnCanceledBalance",
+        "OrderStateCanceledTransferBookKeeping",
+        "OrderStateCancelUnlockPaymentAccount",
+        "OrderStateCanceled",
+        "OrderStateExpired"
+      ],
+      "default": "DefaultOrderState",
+      "description": "- OrderStateWaitPayment: Common state\n - OrderStatePaymentTransferReceived: Payment process\n - OrderStatePaid: Paid\n - OrderStateCreateOrderUser: PreInService sub states for miningpool settings\n - OrderStatePaymentTimeout: Timeout of order\n - OrderStatePreCancel: End or order\n - OrderStateDeleteProportion: PreExpired sub states for miningpool settings\n - OrderStateRestoreExpiredStock: Calculation\n - OrderStateCanceled: End state",
+      "title": "clang-format off"
+    },
+    "v1OrderType": {
+      "type": "string",
+      "enum": [
+        "DefaultOrderType",
+        "Normal",
+        "Offline",
+        "Airdrop"
+      ],
+      "default": "DefaultOrderType"
+    },
+    "v1PaymentBalance": {
+      "type": "object",
+      "properties": {
+        "CoinTypeID": {
+          "type": "string"
+        },
+        "Amount": {
+          "type": "string"
+        }
+      }
+    },
+    "v1PaymentBalanceInfo": {
+      "type": "object",
+      "properties": {
+        "CoinTypeID": {
+          "type": "string"
+        },
+        "CoinName": {
+          "type": "string"
+        },
+        "CoinUnit": {
+          "type": "string"
+        },
+        "CoinLogo": {
+          "type": "string"
+        },
+        "CoinENV": {
+          "type": "string"
+        },
+        "Amount": {
+          "type": "string"
+        },
+        "CoinUSDCurrency": {
+          "type": "string"
+        },
+        "CreatedAt": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "v1PaymentState": {
+      "type": "string",
+      "enum": [
+        "DefaultPaymentState",
+        "PaymentStateWait",
+        "PaymentStateDone",
+        "PaymentStateCanceled",
+        "PaymentStateTimeout",
+        "PaymentStateNoPayment"
+      ],
+      "default": "DefaultPaymentState"
+    },
+    "v1PaymentTransferInfo": {
+      "type": "object",
+      "properties": {
+        "CoinTypeID": {
+          "type": "string"
+        },
+        "CoinName": {
+          "type": "string"
+        },
+        "CoinUnit": {
+          "type": "string"
+        },
+        "CoinLogo": {
+          "type": "string"
+        },
+        "CoinENV": {
+          "type": "string"
+        },
+        "Amount": {
+          "type": "string"
+        },
+        "AccountID": {
+          "type": "string"
+        },
+        "Address": {
+          "type": "string"
+        },
+        "CoinUSDCurrency": {
+          "type": "string"
+        },
+        "CreatedAt": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "v1PaymentType": {
+      "type": "string",
+      "enum": [
+        "DefaultPaymentType",
+        "PayWithBalanceOnly",
+        "PayWithTransferOnly",
+        "PayWithTransferAndBalance",
+        "PayWithParentOrder",
+        "PayWithOtherOrder",
+        "PayWithContract",
+        "PayWithOffline",
+        "PayWithNoPayment"
+      ],
+      "default": "DefaultPaymentType"
+    },
+    "v1PowerRentalOrder": {
+      "type": "object",
+      "properties": {
+        "ID": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "EntID": {
+          "type": "string"
+        },
+        "AppID": {
+          "type": "string"
+        },
+        "AppName": {
+          "type": "string"
+        },
+        "UserID": {
+          "type": "string"
+        },
+        "EmailAddress": {
+          "type": "string"
+        },
+        "PhoneNO": {
+          "type": "string"
+        },
+        "GoodID": {
+          "type": "string"
+        },
+        "GoodType": {
+          "$ref": "#/definitions/v1GoodType"
+        },
+        "BenefitType": {
+          "$ref": "#/definitions/v1BenefitType"
+        },
+        "GoodName": {
+          "type": "string"
+        },
+        "GoodQuantityUnit": {
+          "type": "string"
+        },
+        "AppGoodID": {
+          "type": "string"
+        },
+        "AppGoodName": {
+          "type": "string"
+        },
+        "OrderID": {
+          "type": "string"
+        },
+        "OrderType": {
+          "$ref": "#/definitions/v1OrderType"
+        },
+        "PaymentType": {
+          "$ref": "#/definitions/v1PaymentType"
+        },
+        "CreateMethod": {
+          "$ref": "#/definitions/v1OrderCreateMethod"
+        },
+        "Simulate": {
+          "type": "boolean"
+        },
+        "OrderState": {
+          "$ref": "#/definitions/v1OrderState"
+        },
+        "StartMode": {
+          "$ref": "#/definitions/v1OrderStartMode"
+        },
+        "StartAt": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "LastBenefitAt": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "BenefitState": {
+          "$ref": "#/definitions/basetypesorderv1BenefitState"
+        },
+        "AppGoodStockID": {
+          "type": "string"
+        },
+        "MiningPoolName": {
+          "type": "string"
+        },
+        "MiningPoolLogo": {
+          "type": "string"
+        },
+        "MiningPoolOrderUserID": {
+          "type": "string"
+        },
+        "MiningPoolOrderUserName": {
+          "type": "string"
+        },
+        "MiningPoolReadPageLink": {
+          "type": "string"
+        },
+        "Units": {
+          "type": "string",
+          "title": "TODO: benefit mode"
+        },
+        "GoodValueUSD": {
+          "type": "string"
+        },
+        "PaymentAmountUSD": {
+          "type": "string"
+        },
+        "DiscountAmountUSD": {
+          "type": "string"
+        },
+        "PromotionID": {
+          "type": "string"
+        },
+        "TopMostTitle": {
+          "type": "string"
+        },
+        "TopMostTargetUrl": {
+          "type": "string"
+        },
+        "DurationDisplayType": {
+          "$ref": "#/definitions/v1GoodDurationType"
+        },
+        "DurationUnit": {
+          "type": "string"
+        },
+        "DurationSeconds": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "Durations": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "InvestmentType": {
+          "$ref": "#/definitions/v1InvestmentType"
+        },
+        "GoodStockMode": {
+          "$ref": "#/definitions/v1GoodStockMode"
+        },
+        "CancelState": {
+          "$ref": "#/definitions/v1OrderState"
+        },
+        "CanceledAt": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "EndAt": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "PaidAt": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "UserSetPaid": {
+          "type": "boolean"
+        },
+        "UserSetCanceled": {
+          "type": "boolean"
+        },
+        "AdminSetCanceled": {
+          "type": "boolean"
+        },
+        "PaymentState": {
+          "$ref": "#/definitions/v1PaymentState"
+        },
+        "OutOfGasSeconds": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "CompensateSeconds": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "Coupons": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1OrderCouponInfo"
+          }
+        },
+        "PaymentBalances": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1PaymentBalanceInfo"
+          }
+        },
+        "PaymentTransfers": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1PaymentTransferInfo"
+          }
+        },
+        "FeeDurations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1FeeDuration"
+          }
+        },
+        "OrderBenefitAccounts": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1OrderBenefitAccount"
+          },
+          "title": "order benefit account"
+        },
+        "CreatedAt": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "UpdatedAt": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "v1UpdatePowerRentalOrderRequest": {
+      "type": "object",
+      "properties": {
+        "ID": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "EntID": {
+          "type": "string"
+        },
+        "AppID": {
+          "type": "string"
+        },
+        "UserID": {
+          "type": "string"
+        },
+        "OrderID": {
+          "type": "string"
+        },
+        "Balances": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1PaymentBalance"
+          }
+        },
+        "PaymentTransferCoinTypeID": {
+          "type": "string"
+        },
+        "Paid": {
+          "type": "boolean"
+        },
+        "Canceled": {
+          "type": "boolean"
+        }
+      }
+    },
+    "v1UpdatePowerRentalOrderResponse": {
+      "type": "object",
+      "properties": {
+        "Info": {
+          "$ref": "#/definitions/v1PowerRentalOrder"
+        }
+      }
+    },
+    "v1UpdateUserPowerRentalOrderRequest": {
+      "type": "object",
+      "properties": {
+        "ID": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "EntID": {
+          "type": "string"
+        },
+        "AppID": {
+          "type": "string"
+        },
+        "TargetUserID": {
+          "type": "string"
+        },
+        "OrderID": {
+          "type": "string"
+        },
+        "Canceled": {
+          "type": "boolean"
+        }
+      }
+    },
+    "v1UpdateUserPowerRentalOrderResponse": {
+      "type": "object",
+      "properties": {
+        "Info": {
+          "$ref": "#/definitions/v1PowerRentalOrder"
+        }
+      }
+    }
+  }
+}

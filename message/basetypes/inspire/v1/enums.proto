@@ -1,0 +1,109 @@
+syntax = "proto3";
+
+package basetypes.inspire.v1;
+
+option go_package = "github.com/NpoolPlatform/kunman/message/basetypes/inspire/v1";
+
+enum SettleType {
+  DefaultSettleType = 0;
+
+  // Divide commission according to order payment amount or good value
+  GoodOrderPayment = 10;
+  // Divice commission according to order technique fee
+  TechniqueServiceFee = 20;
+}
+
+enum SettleMode {
+  DefaultSettleMode = 0;
+
+  SettleWithGoodValue = 10;
+  SettleWithPaymentAmount = 20;
+}
+
+enum SettleAmountType {
+  DefaultSettleAmountType = 0;
+
+  SettleByPercent = 10;
+  SettleByAmount = 20;
+}
+
+enum SettleInterval {
+  DefaultSettleInterval = 0;
+
+  SettleAggregate = 10;
+  SettleMonthly = 20;
+  SettleYearly = 30;
+  SettleEveryOrder = 40;
+}
+
+enum CouponType {
+  DefaultCouponType = 0;
+
+  FixAmount = 10;
+  Discount = 20;
+}
+
+enum CouponConstraint {
+  DefaultCouponConstraint = 0;
+
+  Normal = 10;
+  PaymentThreshold = 20;
+}
+
+enum CouponScope {
+  DefaultCouponScope = 0;
+
+  AllGood = 10;
+  Whitelist = 20;
+  Blacklist = 30;
+}
+
+enum ControlType {
+  DefaultControlType = 0;
+
+  KycApproved = 10;
+  CreditThreshold = 20;        // 积分达到一定数量
+  OrderThreshold = 30;         // 成单数达到一定数量
+  PaymentAmountThreshold = 40; // 已花费的美金达到一定数量
+}
+
+enum CommissionType {
+  DefaultCommissionType = 0;
+
+  LayeredCommission = 10;
+  DirectCommission = 20;
+  LegacyCommission = 30;
+  WithoutCommission = 40;
+}
+
+enum CommissionConfigType {
+  DefaultCommissionConfigType = 0;
+
+  AppCommissionConfig = 10;
+  AppGoodCommissionConfig = 20;
+  LegacyCommissionConfig = 30;
+  WithoutCommissionConfig = 40;
+}
+
+enum TaskType {
+  DefaultTaskType = 0;
+
+  BaseTask   = 10;
+  GrowthTask = 20;
+}
+
+enum TaskState {
+  DefaultTaskState = 0;
+
+  NotStarted = 10;
+  InProgress = 20;
+  Done       = 30;
+}
+
+enum RewardState {
+  DefaultRewardState = 0;
+
+  UnIssued = 10;
+  Issued   = 20;
+  Revoked  = 30;
+}

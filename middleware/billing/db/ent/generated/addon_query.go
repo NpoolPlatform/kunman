@@ -8,6 +8,7 @@ import (
 	"math"
 
 	"entgo.io/ent"
+	"entgo.io/ent/dialect"
 	"entgo.io/ent/dialect/sql"
 	"entgo.io/ent/dialect/sql/sqlgraph"
 	"entgo.io/ent/schema/field"
@@ -22,6 +23,7 @@ type AddonQuery struct {
 	order      []addon.OrderOption
 	inters     []Interceptor
 	predicates []predicate.Addon
+	modifiers  []func(*sql.Selector)
 	// intermediate query (i.e. traversal path).
 	sql  *sql.Selector
 	path func(context.Context) (*sql.Selector, error)
@@ -251,8 +253,9 @@ func (aq *AddonQuery) Clone() *AddonQuery {
 		inters:     append([]Interceptor{}, aq.inters...),
 		predicates: append([]predicate.Addon{}, aq.predicates...),
 		// clone intermediate query.
-		sql:  aq.sql.Clone(),
-		path: aq.path,
+		sql:       aq.sql.Clone(),
+		path:      aq.path,
+		modifiers: append([]func(*sql.Selector){}, aq.modifiers...),
 	}
 }
 
@@ -343,6 +346,9 @@ func (aq *AddonQuery) sqlAll(ctx context.Context, hooks ...queryHook) ([]*Addon,
 		nodes = append(nodes, node)
 		return node.assignValues(columns, values)
 	}
+	if len(aq.modifiers) > 0 {
+		_spec.Modifiers = aq.modifiers
+	}
 	for i := range hooks {
 		hooks[i](ctx, _spec)
 	}
@@ -357,6 +363,9 @@ func (aq *AddonQuery) sqlAll(ctx context.Context, hooks ...queryHook) ([]*Addon,
 
 func (aq *AddonQuery) sqlCount(ctx context.Context) (int, error) {
 	_spec := aq.querySpec()
+	if len(aq.modifiers) > 0 {
+		_spec.Modifiers = aq.modifiers
+	}
 	_spec.Node.Columns = aq.ctx.Fields
 	if len(aq.ctx.Fields) > 0 {
 		_spec.Unique = aq.ctx.Unique != nil && *aq.ctx.Unique
@@ -419,6 +428,9 @@ func (aq *AddonQuery) sqlQuery(ctx context.Context) *sql.Selector {
 	if aq.ctx.Unique != nil && *aq.ctx.Unique {
 		selector.Distinct()
 	}
+	for _, m := range aq.modifiers {
+		m(selector)
+	}
 	for _, p := range aq.predicates {
 		p(selector)
 	}
@@ -434,6 +446,38 @@ func (aq *AddonQuery) sqlQuery(ctx context.Context) *sql.Selector {
 		selector.Limit(*limit)
 	}
 	return selector
+}
+
+// ForUpdate locks the selected rows against concurrent updates, and prevent them from being
+// updated, deleted or "selected ... for update" by other sessions, until the transaction is
+// either committed or rolled-back.
+func (aq *AddonQuery) ForUpdate(opts ...sql.LockOption) *AddonQuery {
+	if aq.driver.Dialect() == dialect.Postgres {
+		aq.Unique(false)
+	}
+	aq.modifiers = append(aq.modifiers, func(s *sql.Selector) {
+		s.ForUpdate(opts...)
+	})
+	return aq
+}
+
+// ForShare behaves similarly to ForUpdate, except that it acquires a shared mode lock
+// on any rows that are read. Other sessions can read the rows, but cannot modify them
+// until your transaction commits.
+func (aq *AddonQuery) ForShare(opts ...sql.LockOption) *AddonQuery {
+	if aq.driver.Dialect() == dialect.Postgres {
+		aq.Unique(false)
+	}
+	aq.modifiers = append(aq.modifiers, func(s *sql.Selector) {
+		s.ForShare(opts...)
+	})
+	return aq
+}
+
+// Modify adds a query modifier for attaching custom logic to queries.
+func (aq *AddonQuery) Modify(modifiers ...func(s *sql.Selector)) *AddonSelect {
+	aq.modifiers = append(aq.modifiers, modifiers...)
+	return aq.Select()
 }
 
 // AddonGroupBy is the group-by builder for Addon entities.
@@ -524,4 +568,10 @@ func (as *AddonSelect) sqlScan(ctx context.Context, root *AddonQuery, v any) err
 	}
 	defer rows.Close()
 	return sql.ScanSlice(rows, v)
+}
+
+// Modify adds a query modifier for attaching custom logic to queries.
+func (as *AddonSelect) Modify(modifiers ...func(s *sql.Selector)) *AddonSelect {
+	as.modifiers = append(as.modifiers, modifiers...)
+	return as
 }

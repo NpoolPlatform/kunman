@@ -1,0 +1,98 @@
+syntax = "proto3";
+
+package order.gateway.order1.v1;
+
+option go_package = "github.com/NpoolPlatform/kunman/message/order/gateway/v1/order";
+
+import "google/api/annotations.proto";
+import "basetypes/order/v1/enums.proto";
+import "basetypes/good/v1/enums.proto";
+
+// Service Name
+service Gateway {
+    rpc GetOrders (GetOrdersRequest) returns (GetOrdersResponse) {
+        option (google.api.http) = {
+            post: "/v1/get/orders"
+            body: "*"
+        };
+    }
+
+    rpc GetMyOrders (GetMyOrdersRequest) returns (GetMyOrdersResponse) {
+        option (google.api.http) = {
+            post: "/v1/get/my/orders"
+            body: "*"
+        };
+    }
+
+    rpc AdminGetOrders (AdminGetOrdersRequest) returns (AdminGetOrdersResponse) {
+        option (google.api.http) = {
+            post: "/v1/admin/get/orders"
+            body: "*"
+        };
+    }
+}
+
+message Order {
+    uint32 ID = 10;
+    string EntID = 20;
+    string AppID = 30;
+    string AppName = 40;
+    string UserID = 50;
+    string EmailAddress = 60;
+    string PhoneNO = 70;
+    string GoodID = 80;
+    basetypes.good.v1.GoodType GoodType = 90;
+    string GoodName = 100;
+    string AppGoodID = 110;
+    string AppGoodName = 120;
+    string ParentOrderID = 130;
+    basetypes.order.v1.OrderType OrderType = 140;
+    basetypes.order.v1.PaymentType PaymentType = 150;
+    basetypes.order.v1.OrderCreateMethod CreateMethod = 160;
+    bool Simulate = 170;
+
+    basetypes.order.v1.OrderState OrderState = 200;
+    basetypes.order.v1.OrderStartMode StartMode = 210;
+    uint32 StartAt = 220;
+    uint32 LastBenefitAt = 230;
+    basetypes.order.v1.BenefitState BenefitState = 240;
+
+    uint32 CreatedAt = 1000;
+    uint32 UpdatedAt = 1010;
+}
+
+message GetOrdersRequest {
+    string AppID = 10;
+    optional string TargetUserID = 20;
+    int32 Offset = 30;
+    int32 Limit = 40;
+}
+
+message GetOrdersResponse {
+    repeated Order Infos = 10;
+    uint32 Total = 20;
+}
+
+message GetMyOrdersRequest {
+    string AppID = 10;
+    string UserID = 20;
+    int32 Offset = 30;
+    int32 Limit = 40;
+}
+
+message GetMyOrdersResponse {
+    repeated Order Infos = 10;
+    uint32 Total = 20;
+}
+
+message AdminGetOrdersRequest {
+    optional string TargetAppID = 10;
+    int32 Offset = 20;
+    int32 Limit = 30;
+}
+
+message AdminGetOrdersResponse {
+    repeated Order Infos = 10;
+    uint32 Total = 20;
+}
+

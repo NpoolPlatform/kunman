@@ -1,0 +1,57 @@
+syntax = "proto3";
+
+package order.middleware.compensate.v1;
+
+option go_package = "github.com/NpoolPlatform/kunman/message/order/middleware/v1/compensate";
+
+import "basetypes/v1/conds.proto";
+import "basetypes/order/v1/enums.proto";
+import "basetypes/good/v1/enums.proto";
+
+message Compensate {
+    // @inject_tag: sql:"id"
+    uint32 ID = 10;
+    // @inject_tag: sql:"ent_id"
+    string EntID = 20;
+    // @inject_tag: sql:"order_id"
+    string OrderID = 30;
+    // @inject_tag: sql:"compensate_from_id"
+    string CompensateFromID = 40;
+    // @inject_tag: sql:"compensate_type"
+    string CompensateTypeStr = 50;
+    basetypes.order.v1.CompensateType CompensateType = 60;
+    // @inject_tag: sql:"compensate_seconds"
+    uint32 CompensateSeconds = 70;
+
+    // order
+    // @inject_tag: sql:"app_id"
+    string AppID = 100;
+    // @inject_tag: sql:"user_id"
+    string UserID = 110;
+    // @inject_tag: sql:"good_id"
+    string GoodID = 120;
+    // @inject_tag: sql:"good_type"
+    string GoodTypeStr = 130;
+    basetypes.good.v1.GoodType GoodType = 140;
+    // @inject_tag: sql:"app_good_id"
+    string AppGoodID = 150;
+
+    // @inject_tag: sql:"created_at"
+    uint32 CreatedAt = 1000;
+    // @inject_tag: sql:"updated_at"
+    uint32 UpdatedAt = 1010;
+}
+
+message Conds {
+    optional basetypes.v1.Uint32Val ID = 10;
+    optional basetypes.v1.StringVal EntID = 20;
+    optional basetypes.v1.StringVal OrderID = 30;
+    optional basetypes.v1.StringSliceVal OrderIDs = 40;
+    optional basetypes.v1.StringVal GoodID = 50;
+    optional basetypes.v1.StringVal AppGoodID = 60;
+    optional basetypes.v1.StringVal CompensateFromID = 70;
+    optional basetypes.v1.Uint32Val CompensateType = 80;
+    optional basetypes.v1.StringVal UserID = 90;
+    optional basetypes.v1.StringVal AppID = 100;
+}
+

@@ -19,8 +19,9 @@ import (
 // AddonUpdate is the builder for updating Addon entities.
 type AddonUpdate struct {
 	config
-	hooks    []Hook
-	mutation *AddonMutation
+	hooks     []Hook
+	mutation  *AddonMutation
+	modifiers []func(*sql.UpdateBuilder)
 }
 
 // Where appends a list predicates to the AddonUpdate builder.
@@ -209,6 +210,12 @@ func (au *AddonUpdate) ExecX(ctx context.Context) {
 	}
 }
 
+// Modify adds a statement modifier for attaching custom logic to the UPDATE statement.
+func (au *AddonUpdate) Modify(modifiers ...func(u *sql.UpdateBuilder)) *AddonUpdate {
+	au.modifiers = append(au.modifiers, modifiers...)
+	return au
+}
+
 func (au *AddonUpdate) sqlSave(ctx context.Context) (n int, err error) {
 	_spec := sqlgraph.NewUpdateSpec(addon.Table, addon.Columns, sqlgraph.NewFieldSpec(addon.FieldID, field.TypeUint32))
 	if ps := au.mutation.predicates; len(ps) > 0 {
@@ -263,6 +270,7 @@ func (au *AddonUpdate) sqlSave(ctx context.Context) (n int, err error) {
 	if au.mutation.DescriptionCleared() {
 		_spec.ClearField(addon.FieldDescription, field.TypeString)
 	}
+	_spec.AddModifiers(au.modifiers...)
 	if n, err = sqlgraph.UpdateNodes(ctx, au.driver, _spec); err != nil {
 		if _, ok := err.(*sqlgraph.NotFoundError); ok {
 			err = &NotFoundError{addon.Label}
@@ -278,9 +286,10 @@ func (au *AddonUpdate) sqlSave(ctx context.Context) (n int, err error) {
 // AddonUpdateOne is the builder for updating a single Addon entity.
 type AddonUpdateOne struct {
 	config
-	fields   []string
-	hooks    []Hook
-	mutation *AddonMutation
+	fields    []string
+	hooks     []Hook
+	mutation  *AddonMutation
+	modifiers []func(*sql.UpdateBuilder)
 }
 
 // SetEntID sets the "ent_id" field.
@@ -476,6 +485,12 @@ func (auo *AddonUpdateOne) ExecX(ctx context.Context) {
 	}
 }
 
+// Modify adds a statement modifier for attaching custom logic to the UPDATE statement.
+func (auo *AddonUpdateOne) Modify(modifiers ...func(u *sql.UpdateBuilder)) *AddonUpdateOne {
+	auo.modifiers = append(auo.modifiers, modifiers...)
+	return auo
+}
+
 func (auo *AddonUpdateOne) sqlSave(ctx context.Context) (_node *Addon, err error) {
 	_spec := sqlgraph.NewUpdateSpec(addon.Table, addon.Columns, sqlgraph.NewFieldSpec(addon.FieldID, field.TypeUint32))
 	id, ok := auo.mutation.ID()
@@ -547,6 +562,7 @@ func (auo *AddonUpdateOne) sqlSave(ctx context.Context) (_node *Addon, err error
 	if auo.mutation.DescriptionCleared() {
 		_spec.ClearField(addon.FieldDescription, field.TypeString)
 	}
+	_spec.AddModifiers(auo.modifiers...)
 	_node = &Addon{config: auo.config}
 	_spec.Assign = _node.assignValues
 	_spec.ScanValues = _node.scanValues

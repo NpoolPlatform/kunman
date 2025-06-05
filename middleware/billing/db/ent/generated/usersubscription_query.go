@@ -8,6 +8,7 @@ import (
 	"math"
 
 	"entgo.io/ent"
+	"entgo.io/ent/dialect"
 	"entgo.io/ent/dialect/sql"
 	"entgo.io/ent/dialect/sql/sqlgraph"
 	"entgo.io/ent/schema/field"
@@ -22,6 +23,7 @@ type UserSubscriptionQuery struct {
 	order      []usersubscription.OrderOption
 	inters     []Interceptor
 	predicates []predicate.UserSubscription
+	modifiers  []func(*sql.Selector)
 	// intermediate query (i.e. traversal path).
 	sql  *sql.Selector
 	path func(context.Context) (*sql.Selector, error)
@@ -251,8 +253,9 @@ func (usq *UserSubscriptionQuery) Clone() *UserSubscriptionQuery {
 		inters:     append([]Interceptor{}, usq.inters...),
 		predicates: append([]predicate.UserSubscription{}, usq.predicates...),
 		// clone intermediate query.
-		sql:  usq.sql.Clone(),
-		path: usq.path,
+		sql:       usq.sql.Clone(),
+		path:      usq.path,
+		modifiers: append([]func(*sql.Selector){}, usq.modifiers...),
 	}
 }
 
@@ -343,6 +346,9 @@ func (usq *UserSubscriptionQuery) sqlAll(ctx context.Context, hooks ...queryHook
 		nodes = append(nodes, node)
 		return node.assignValues(columns, values)
 	}
+	if len(usq.modifiers) > 0 {
+		_spec.Modifiers = usq.modifiers
+	}
 	for i := range hooks {
 		hooks[i](ctx, _spec)
 	}
@@ -357,6 +363,9 @@ func (usq *UserSubscriptionQuery) sqlAll(ctx context.Context, hooks ...queryHook
 
 func (usq *UserSubscriptionQuery) sqlCount(ctx context.Context) (int, error) {
 	_spec := usq.querySpec()
+	if len(usq.modifiers) > 0 {
+		_spec.Modifiers = usq.modifiers
+	}
 	_spec.Node.Columns = usq.ctx.Fields
 	if len(usq.ctx.Fields) > 0 {
 		_spec.Unique = usq.ctx.Unique != nil && *usq.ctx.Unique
@@ -419,6 +428,9 @@ func (usq *UserSubscriptionQuery) sqlQuery(ctx context.Context) *sql.Selector {
 	if usq.ctx.Unique != nil && *usq.ctx.Unique {
 		selector.Distinct()
 	}
+	for _, m := range usq.modifiers {
+		m(selector)
+	}
 	for _, p := range usq.predicates {
 		p(selector)
 	}
@@ -434,6 +446,38 @@ func (usq *UserSubscriptionQuery) sqlQuery(ctx context.Context) *sql.Selector {
 		selector.Limit(*limit)
 	}
 	return selector
+}
+
+// ForUpdate locks the selected rows against concurrent updates, and prevent them from being
+// updated, deleted or "selected ... for update" by other sessions, until the transaction is
+// either committed or rolled-back.
+func (usq *UserSubscriptionQuery) ForUpdate(opts ...sql.LockOption) *UserSubscriptionQuery {
+	if usq.driver.Dialect() == dialect.Postgres {
+		usq.Unique(false)
+	}
+	usq.modifiers = append(usq.modifiers, func(s *sql.Selector) {
+		s.ForUpdate(opts...)
+	})
+	return usq
+}
+
+// ForShare behaves similarly to ForUpdate, except that it acquires a shared mode lock
+// on any rows that are read. Other sessions can read the rows, but cannot modify them
+// until your transaction commits.
+func (usq *UserSubscriptionQuery) ForShare(opts ...sql.LockOption) *UserSubscriptionQuery {
+	if usq.driver.Dialect() == dialect.Postgres {
+		usq.Unique(false)
+	}
+	usq.modifiers = append(usq.modifiers, func(s *sql.Selector) {
+		s.ForShare(opts...)
+	})
+	return usq
+}
+
+// Modify adds a query modifier for attaching custom logic to queries.
+func (usq *UserSubscriptionQuery) Modify(modifiers ...func(s *sql.Selector)) *UserSubscriptionSelect {
+	usq.modifiers = append(usq.modifiers, modifiers...)
+	return usq.Select()
 }
 
 // UserSubscriptionGroupBy is the group-by builder for UserSubscription entities.
@@ -524,4 +568,10 @@ func (uss *UserSubscriptionSelect) sqlScan(ctx context.Context, root *UserSubscr
 	}
 	defer rows.Close()
 	return sql.ScanSlice(rows, v)
+}
+
+// Modify adds a query modifier for attaching custom logic to queries.
+func (uss *UserSubscriptionSelect) Modify(modifiers ...func(s *sql.Selector)) *UserSubscriptionSelect {
+	uss.modifiers = append(uss.modifiers, modifiers...)
+	return uss
 }

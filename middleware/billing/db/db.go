@@ -5,7 +5,7 @@ import (
 
 	"github.com/NpoolPlatform/kunman/framework/logger"
 	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
-	"github.com/NpoolPlatform/kunman/middleware/billing/db/ent/generated"
+	ent "github.com/NpoolPlatform/kunman/middleware/billing/db/ent/generated"
 
 	"entgo.io/ent/dialect"
 	entsql "entgo.io/ent/dialect/sql"

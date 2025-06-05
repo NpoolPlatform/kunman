@@ -1,0 +1,34 @@
+syntax = "proto3";
+
+package order.gateway.powerrental.outofgas.v1;
+
+option go_package = "github.com/NpoolPlatform/kunman/message/order/gateway/v1/powerrental/outofgas";
+
+import "google/api/annotations.proto";
+import "basetypes/order/v1/enums.proto";
+import "basetypes/good/v1/enums.proto";
+import "order/gateway/v1/outofgas/outofgas.proto";
+
+// Service Name
+service Gateway {
+    // Admin apis
+    rpc AdminDeleteOutOfGas (AdminDeleteOutOfGasRequest) returns (AdminDeleteOutOfGasResponse) {
+        option (google.api.http) = {
+            post: "/v1/admin/delete/powerrentaloutofgas"
+            body: "*"
+        };
+    }
+}
+
+message AdminDeleteOutOfGasRequest {
+    string TargetAppID = 10;
+    string TargetUserID = 20;
+    uint32 ID = 30;
+    string EntID = 40;
+    string OrderID = 50;
+}
+
+message AdminDeleteOutOfGasResponse {
+    order.gateway.outofgas.v1.OutOfGas Info = 10;
+}
+

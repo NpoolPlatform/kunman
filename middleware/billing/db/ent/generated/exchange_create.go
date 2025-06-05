@@ -7,6 +7,7 @@ import (
 	"errors"
 	"fmt"
 
+	"entgo.io/ent/dialect/sql"
 	"entgo.io/ent/dialect/sql/sqlgraph"
 	"entgo.io/ent/schema/field"
 	"github.com/NpoolPlatform/kunman/middleware/billing/db/ent/generated/exchange"
@@ -18,6 +19,7 @@ type ExchangeCreate struct {
 	config
 	mutation *ExchangeMutation
 	hooks    []Hook
+	conflict []sql.ConflictOption
 }
 
 // SetEntID sets the "ent_id" field.
@@ -204,6 +206,7 @@ func (ec *ExchangeCreate) createSpec() (*Exchange, *sqlgraph.CreateSpec) {
 		_node = &Exchange{config: ec.config}
 		_spec = sqlgraph.NewCreateSpec(exchange.Table, sqlgraph.NewFieldSpec(exchange.FieldID, field.TypeUint32))
 	)
+	_spec.OnConflict = ec.conflict
 	if id, ok := ec.mutation.ID(); ok {
 		_node.ID = id
 		_spec.ID.Value = id
@@ -235,11 +238,389 @@ func (ec *ExchangeCreate) createSpec() (*Exchange, *sqlgraph.CreateSpec) {
 	return _node, _spec
 }
 
+// OnConflict allows configuring the `ON CONFLICT` / `ON DUPLICATE KEY` clause
+// of the `INSERT` statement. For example:
+//
+//	client.Exchange.Create().
+//		SetEntID(v).
+//		OnConflict(
+//			// Update the row with the new values
+//			// the was proposed for insertion.
+//			sql.ResolveWithNewValues(),
+//		).
+//		// Override some of the fields with custom
+//		// update values.
+//		Update(func(u *ent.ExchangeUpsert) {
+//			SetEntID(v+v).
+//		}).
+//		Exec(ctx)
+func (ec *ExchangeCreate) OnConflict(opts ...sql.ConflictOption) *ExchangeUpsertOne {
+	ec.conflict = opts
+	return &ExchangeUpsertOne{
+		create: ec,
+	}
+}
+
+// OnConflictColumns calls `OnConflict` and configures the columns
+// as conflict target. Using this option is equivalent to using:
+//
+//	client.Exchange.Create().
+//		OnConflict(sql.ConflictColumns(columns...)).
+//		Exec(ctx)
+func (ec *ExchangeCreate) OnConflictColumns(columns ...string) *ExchangeUpsertOne {
+	ec.conflict = append(ec.conflict, sql.ConflictColumns(columns...))
+	return &ExchangeUpsertOne{
+		create: ec,
+	}
+}
+
+type (
+	// ExchangeUpsertOne is the builder for "upsert"-ing
+	//  one Exchange node.
+	ExchangeUpsertOne struct {
+		create *ExchangeCreate
+	}
+
+	// ExchangeUpsert is the "OnConflict" setter.
+	ExchangeUpsert struct {
+		*sql.UpdateSet
+	}
+)
+
+// SetEntID sets the "ent_id" field.
+func (u *ExchangeUpsert) SetEntID(v uuid.UUID) *ExchangeUpsert {
+	u.Set(exchange.FieldEntID, v)
+	return u
+}
+
+// UpdateEntID sets the "ent_id" field to the value that was provided on create.
+func (u *ExchangeUpsert) UpdateEntID() *ExchangeUpsert {
+	u.SetExcluded(exchange.FieldEntID)
+	return u
+}
+
+// SetAppID sets the "app_id" field.
+func (u *ExchangeUpsert) SetAppID(v uuid.UUID) *ExchangeUpsert {
+	u.Set(exchange.FieldAppID, v)
+	return u
+}
+
+// UpdateAppID sets the "app_id" field to the value that was provided on create.
+func (u *ExchangeUpsert) UpdateAppID() *ExchangeUpsert {
+	u.SetExcluded(exchange.FieldAppID)
+	return u
+}
+
+// ClearAppID clears the value of the "app_id" field.
+func (u *ExchangeUpsert) ClearAppID() *ExchangeUpsert {
+	u.SetNull(exchange.FieldAppID)
+	return u
+}
+
+// SetUsageType sets the "usage_type" field.
+func (u *ExchangeUpsert) SetUsageType(v string) *ExchangeUpsert {
+	u.Set(exchange.FieldUsageType, v)
+	return u
+}
+
+// UpdateUsageType sets the "usage_type" field to the value that was provided on create.
+func (u *ExchangeUpsert) UpdateUsageType() *ExchangeUpsert {
+	u.SetExcluded(exchange.FieldUsageType)
+	return u
+}
+
+// ClearUsageType clears the value of the "usage_type" field.
+func (u *ExchangeUpsert) ClearUsageType() *ExchangeUpsert {
+	u.SetNull(exchange.FieldUsageType)
+	return u
+}
+
+// SetCredit sets the "credit" field.
+func (u *ExchangeUpsert) SetCredit(v uint32) *ExchangeUpsert {
+	u.Set(exchange.FieldCredit, v)
+	return u
+}
+
+// UpdateCredit sets the "credit" field to the value that was provided on create.
+func (u *ExchangeUpsert) UpdateCredit() *ExchangeUpsert {
+	u.SetExcluded(exchange.FieldCredit)
+	return u
+}
+
+// AddCredit adds v to the "credit" field.
+func (u *ExchangeUpsert) AddCredit(v uint32) *ExchangeUpsert {
+	u.Add(exchange.FieldCredit, v)
+	return u
+}
+
+// ClearCredit clears the value of the "credit" field.
+func (u *ExchangeUpsert) ClearCredit() *ExchangeUpsert {
+	u.SetNull(exchange.FieldCredit)
+	return u
+}
+
+// SetExchangeThreshold sets the "exchange_threshold" field.
+func (u *ExchangeUpsert) SetExchangeThreshold(v uint32) *ExchangeUpsert {
+	u.Set(exchange.FieldExchangeThreshold, v)
+	return u
+}
+
+// UpdateExchangeThreshold sets the "exchange_threshold" field to the value that was provided on create.
+func (u *ExchangeUpsert) UpdateExchangeThreshold() *ExchangeUpsert {
+	u.SetExcluded(exchange.FieldExchangeThreshold)
+	return u
+}
+
+// AddExchangeThreshold adds v to the "exchange_threshold" field.
+func (u *ExchangeUpsert) AddExchangeThreshold(v uint32) *ExchangeUpsert {
+	u.Add(exchange.FieldExchangeThreshold, v)
+	return u
+}
+
+// ClearExchangeThreshold clears the value of the "exchange_threshold" field.
+func (u *ExchangeUpsert) ClearExchangeThreshold() *ExchangeUpsert {
+	u.SetNull(exchange.FieldExchangeThreshold)
+	return u
+}
+
+// SetPath sets the "path" field.
+func (u *ExchangeUpsert) SetPath(v string) *ExchangeUpsert {
+	u.Set(exchange.FieldPath, v)
+	return u
+}
+
+// UpdatePath sets the "path" field to the value that was provided on create.
+func (u *ExchangeUpsert) UpdatePath() *ExchangeUpsert {
+	u.SetExcluded(exchange.FieldPath)
+	return u
+}
+
+// ClearPath clears the value of the "path" field.
+func (u *ExchangeUpsert) ClearPath() *ExchangeUpsert {
+	u.SetNull(exchange.FieldPath)
+	return u
+}
+
+// UpdateNewValues updates the mutable fields using the new values that were set on create except the ID field.
+// Using this option is equivalent to using:
+//
+//	client.Exchange.Create().
+//		OnConflict(
+//			sql.ResolveWithNewValues(),
+//			sql.ResolveWith(func(u *sql.UpdateSet) {
+//				u.SetIgnore(exchange.FieldID)
+//			}),
+//		).
+//		Exec(ctx)
+func (u *ExchangeUpsertOne) UpdateNewValues() *ExchangeUpsertOne {
+	u.create.conflict = append(u.create.conflict, sql.ResolveWithNewValues())
+	u.create.conflict = append(u.create.conflict, sql.ResolveWith(func(s *sql.UpdateSet) {
+		if _, exists := u.create.mutation.ID(); exists {
+			s.SetIgnore(exchange.FieldID)
+		}
+	}))
+	return u
+}
+
+// Ignore sets each column to itself in case of conflict.
+// Using this option is equivalent to using:
+//
+//	client.Exchange.Create().
+//	    OnConflict(sql.ResolveWithIgnore()).
+//	    Exec(ctx)
+func (u *ExchangeUpsertOne) Ignore() *ExchangeUpsertOne {
+	u.create.conflict = append(u.create.conflict, sql.ResolveWithIgnore())
+	return u
+}
+
+// DoNothing configures the conflict_action to `DO NOTHING`.
+// Supported only by SQLite and PostgreSQL.
+func (u *ExchangeUpsertOne) DoNothing() *ExchangeUpsertOne {
+	u.create.conflict = append(u.create.conflict, sql.DoNothing())
+	return u
+}
+
+// Update allows overriding fields `UPDATE` values. See the ExchangeCreate.OnConflict
+// documentation for more info.
+func (u *ExchangeUpsertOne) Update(set func(*ExchangeUpsert)) *ExchangeUpsertOne {
+	u.create.conflict = append(u.create.conflict, sql.ResolveWith(func(update *sql.UpdateSet) {
+		set(&ExchangeUpsert{UpdateSet: update})
+	}))
+	return u
+}
+
+// SetEntID sets the "ent_id" field.
+func (u *ExchangeUpsertOne) SetEntID(v uuid.UUID) *ExchangeUpsertOne {
+	return u.Update(func(s *ExchangeUpsert) {
+		s.SetEntID(v)
+	})
+}
+
+// UpdateEntID sets the "ent_id" field to the value that was provided on create.
+func (u *ExchangeUpsertOne) UpdateEntID() *ExchangeUpsertOne {
+	return u.Update(func(s *ExchangeUpsert) {
+		s.UpdateEntID()
+	})
+}
+
+// SetAppID sets the "app_id" field.
+func (u *ExchangeUpsertOne) SetAppID(v uuid.UUID) *ExchangeUpsertOne {
+	return u.Update(func(s *ExchangeUpsert) {
+		s.SetAppID(v)
+	})
+}
+
+// UpdateAppID sets the "app_id" field to the value that was provided on create.
+func (u *ExchangeUpsertOne) UpdateAppID() *ExchangeUpsertOne {
+	return u.Update(func(s *ExchangeUpsert) {
+		s.UpdateAppID()
+	})
+}
+
+// ClearAppID clears the value of the "app_id" field.
+func (u *ExchangeUpsertOne) ClearAppID() *ExchangeUpsertOne {
+	return u.Update(func(s *ExchangeUpsert) {
+		s.ClearAppID()
+	})
+}
+
+// SetUsageType sets the "usage_type" field.
+func (u *ExchangeUpsertOne) SetUsageType(v string) *ExchangeUpsertOne {
+	return u.Update(func(s *ExchangeUpsert) {
+		s.SetUsageType(v)
+	})
+}
+
+// UpdateUsageType sets the "usage_type" field to the value that was provided on create.
+func (u *ExchangeUpsertOne) UpdateUsageType() *ExchangeUpsertOne {
+	return u.Update(func(s *ExchangeUpsert) {
+		s.UpdateUsageType()
+	})
+}
+
+// ClearUsageType clears the value of the "usage_type" field.
+func (u *ExchangeUpsertOne) ClearUsageType() *ExchangeUpsertOne {
+	return u.Update(func(s *ExchangeUpsert) {
+		s.ClearUsageType()
+	})
+}
+
+// SetCredit sets the "credit" field.
+func (u *ExchangeUpsertOne) SetCredit(v uint32) *ExchangeUpsertOne {
+	return u.Update(func(s *ExchangeUpsert) {
+		s.SetCredit(v)
+	})
+}
+
+// AddCredit adds v to the "credit" field.
+func (u *ExchangeUpsertOne) AddCredit(v uint32) *ExchangeUpsertOne {
+	return u.Update(func(s *ExchangeUpsert) {
+		s.AddCredit(v)
+	})
+}
+
+// UpdateCredit sets the "credit" field to the value that was provided on create.
+func (u *ExchangeUpsertOne) UpdateCredit() *ExchangeUpsertOne {
+	return u.Update(func(s *ExchangeUpsert) {
+		s.UpdateCredit()
+	})
+}
+
+// ClearCredit clears the value of the "credit" field.
+func (u *ExchangeUpsertOne) ClearCredit() *ExchangeUpsertOne {
+	return u.Update(func(s *ExchangeUpsert) {
+		s.ClearCredit()
+	})
+}
+
+// SetExchangeThreshold sets the "exchange_threshold" field.
+func (u *ExchangeUpsertOne) SetExchangeThreshold(v uint32) *ExchangeUpsertOne {
+	return u.Update(func(s *ExchangeUpsert) {
+		s.SetExchangeThreshold(v)
+	})
+}
+
+// AddExchangeThreshold adds v to the "exchange_threshold" field.
+func (u *ExchangeUpsertOne) AddExchangeThreshold(v uint32) *ExchangeUpsertOne {
+	return u.Update(func(s *ExchangeUpsert) {
+		s.AddExchangeThreshold(v)
+	})
+}
+
+// UpdateExchangeThreshold sets the "exchange_threshold" field to the value that was provided on create.
+func (u *ExchangeUpsertOne) UpdateExchangeThreshold() *ExchangeUpsertOne {
+	return u.Update(func(s *ExchangeUpsert) {
+		s.UpdateExchangeThreshold()
+	})
+}
+
+// ClearExchangeThreshold clears the value of the "exchange_threshold" field.
+func (u *ExchangeUpsertOne) ClearExchangeThreshold() *ExchangeUpsertOne {
+	return u.Update(func(s *ExchangeUpsert) {
+		s.ClearExchangeThreshold()
+	})
+}
+
+// SetPath sets the "path" field.
+func (u *ExchangeUpsertOne) SetPath(v string) *ExchangeUpsertOne {
+	return u.Update(func(s *ExchangeUpsert) {
+		s.SetPath(v)
+	})
+}
+
+// UpdatePath sets the "path" field to the value that was provided on create.
+func (u *ExchangeUpsertOne) UpdatePath() *ExchangeUpsertOne {
+	return u.Update(func(s *ExchangeUpsert) {
+		s.UpdatePath()
+	})
+}
+
+// ClearPath clears the value of the "path" field.
+func (u *ExchangeUpsertOne) ClearPath() *ExchangeUpsertOne {
+	return u.Update(func(s *ExchangeUpsert) {
+		s.ClearPath()
+	})
+}
+
+// Exec executes the query.
+func (u *ExchangeUpsertOne) Exec(ctx context.Context) error {
+	if len(u.create.conflict) == 0 {
+		return errors.New("generated: missing options for ExchangeCreate.OnConflict")
+	}
+	return u.create.Exec(ctx)
+}
+
+// ExecX is like Exec, but panics if an error occurs.
+func (u *ExchangeUpsertOne) ExecX(ctx context.Context) {
+	if err := u.create.Exec(ctx); err != nil {
+		panic(err)
+	}
+}
+
+// Exec executes the UPSERT query and returns the inserted/updated ID.
+func (u *ExchangeUpsertOne) ID(ctx context.Context) (id uint32, err error) {
+	node, err := u.create.Save(ctx)
+	if err != nil {
+		return id, err
+	}
+	return node.ID, nil
+}
+
+// IDX is like ID, but panics if an error occurs.
+func (u *ExchangeUpsertOne) IDX(ctx context.Context) uint32 {
+	id, err := u.ID(ctx)
+	if err != nil {
+		panic(err)
+	}
+	return id
+}
+
 // ExchangeCreateBulk is the builder for creating many Exchange entities in bulk.
 type ExchangeCreateBulk struct {
 	config
 	err      error
 	builders []*ExchangeCreate
+	conflict []sql.ConflictOption
 }
 
 // Save creates the Exchange entities in the database.
@@ -269,6 +650,7 @@ func (ecb *ExchangeCreateBulk) Save(ctx context.Context) ([]*Exchange, error) {
 					_, err = mutators[i+1].Mutate(root, ecb.builders[i+1].mutation)
 				} else {
 					spec := &sqlgraph.BatchCreateSpec{Nodes: specs}
+					spec.OnConflict = ecb.conflict
 					// Invoke the actual operation on the latest mutation in the chain.
 					if err = sqlgraph.BatchCreate(ctx, ecb.driver, spec); err != nil {
 						if sqlgraph.IsConstraintError(err) {
@@ -319,6 +701,253 @@ func (ecb *ExchangeCreateBulk) Exec(ctx context.Context) error {
 // ExecX is like Exec, but panics if an error occurs.
 func (ecb *ExchangeCreateBulk) ExecX(ctx context.Context) {
 	if err := ecb.Exec(ctx); err != nil {
+		panic(err)
+	}
+}
+
+// OnConflict allows configuring the `ON CONFLICT` / `ON DUPLICATE KEY` clause
+// of the `INSERT` statement. For example:
+//
+//	client.Exchange.CreateBulk(builders...).
+//		OnConflict(
+//			// Update the row with the new values
+//			// the was proposed for insertion.
+//			sql.ResolveWithNewValues(),
+//		).
+//		// Override some of the fields with custom
+//		// update values.
+//		Update(func(u *ent.ExchangeUpsert) {
+//			SetEntID(v+v).
+//		}).
+//		Exec(ctx)
+func (ecb *ExchangeCreateBulk) OnConflict(opts ...sql.ConflictOption) *ExchangeUpsertBulk {
+	ecb.conflict = opts
+	return &ExchangeUpsertBulk{
+		create: ecb,
+	}
+}
+
+// OnConflictColumns calls `OnConflict` and configures the columns
+// as conflict target. Using this option is equivalent to using:
+//
+//	client.Exchange.Create().
+//		OnConflict(sql.ConflictColumns(columns...)).
+//		Exec(ctx)
+func (ecb *ExchangeCreateBulk) OnConflictColumns(columns ...string) *ExchangeUpsertBulk {
+	ecb.conflict = append(ecb.conflict, sql.ConflictColumns(columns...))
+	return &ExchangeUpsertBulk{
+		create: ecb,
+	}
+}
+
+// ExchangeUpsertBulk is the builder for "upsert"-ing
+// a bulk of Exchange nodes.
+type ExchangeUpsertBulk struct {
+	create *ExchangeCreateBulk
+}
+
+// UpdateNewValues updates the mutable fields using the new values that
+// were set on create. Using this option is equivalent to using:
+//
+//	client.Exchange.Create().
+//		OnConflict(
+//			sql.ResolveWithNewValues(),
+//			sql.ResolveWith(func(u *sql.UpdateSet) {
+//				u.SetIgnore(exchange.FieldID)
+//			}),
+//		).
+//		Exec(ctx)
+func (u *ExchangeUpsertBulk) UpdateNewValues() *ExchangeUpsertBulk {
+	u.create.conflict = append(u.create.conflict, sql.ResolveWithNewValues())
+	u.create.conflict = append(u.create.conflict, sql.ResolveWith(func(s *sql.UpdateSet) {
+		for _, b := range u.create.builders {
+			if _, exists := b.mutation.ID(); exists {
+				s.SetIgnore(exchange.FieldID)
+			}
+		}
+	}))
+	return u
+}
+
+// Ignore sets each column to itself in case of conflict.
+// Using this option is equivalent to using:
+//
+//	client.Exchange.Create().
+//		OnConflict(sql.ResolveWithIgnore()).
+//		Exec(ctx)
+func (u *ExchangeUpsertBulk) Ignore() *ExchangeUpsertBulk {
+	u.create.conflict = append(u.create.conflict, sql.ResolveWithIgnore())
+	return u
+}
+
+// DoNothing configures the conflict_action to `DO NOTHING`.
+// Supported only by SQLite and PostgreSQL.
+func (u *ExchangeUpsertBulk) DoNothing() *ExchangeUpsertBulk {
+	u.create.conflict = append(u.create.conflict, sql.DoNothing())
+	return u
+}
+
+// Update allows overriding fields `UPDATE` values. See the ExchangeCreateBulk.OnConflict
+// documentation for more info.
+func (u *ExchangeUpsertBulk) Update(set func(*ExchangeUpsert)) *ExchangeUpsertBulk {
+	u.create.conflict = append(u.create.conflict, sql.ResolveWith(func(update *sql.UpdateSet) {
+		set(&ExchangeUpsert{UpdateSet: update})
+	}))
+	return u
+}
+
+// SetEntID sets the "ent_id" field.
+func (u *ExchangeUpsertBulk) SetEntID(v uuid.UUID) *ExchangeUpsertBulk {
+	return u.Update(func(s *ExchangeUpsert) {
+		s.SetEntID(v)
+	})
+}
+
+// UpdateEntID sets the "ent_id" field to the value that was provided on create.
+func (u *ExchangeUpsertBulk) UpdateEntID() *ExchangeUpsertBulk {
+	return u.Update(func(s *ExchangeUpsert) {
+		s.UpdateEntID()
+	})
+}
+
+// SetAppID sets the "app_id" field.
+func (u *ExchangeUpsertBulk) SetAppID(v uuid.UUID) *ExchangeUpsertBulk {
+	return u.Update(func(s *ExchangeUpsert) {
+		s.SetAppID(v)
+	})
+}
+
+// UpdateAppID sets the "app_id" field to the value that was provided on create.
+func (u *ExchangeUpsertBulk) UpdateAppID() *ExchangeUpsertBulk {
+	return u.Update(func(s *ExchangeUpsert) {
+		s.UpdateAppID()
+	})
+}
+
+// ClearAppID clears the value of the "app_id" field.
+func (u *ExchangeUpsertBulk) ClearAppID() *ExchangeUpsertBulk {
+	return u.Update(func(s *ExchangeUpsert) {
+		s.ClearAppID()
+	})
+}
+
+// SetUsageType sets the "usage_type" field.
+func (u *ExchangeUpsertBulk) SetUsageType(v string) *ExchangeUpsertBulk {
+	return u.Update(func(s *ExchangeUpsert) {
+		s.SetUsageType(v)
+	})
+}
+
+// UpdateUsageType sets the "usage_type" field to the value that was provided on create.
+func (u *ExchangeUpsertBulk) UpdateUsageType() *ExchangeUpsertBulk {
+	return u.Update(func(s *ExchangeUpsert) {
+		s.UpdateUsageType()
+	})
+}
+
+// ClearUsageType clears the value of the "usage_type" field.
+func (u *ExchangeUpsertBulk) ClearUsageType() *ExchangeUpsertBulk {
+	return u.Update(func(s *ExchangeUpsert) {
+		s.ClearUsageType()
+	})
+}
+
+// SetCredit sets the "credit" field.
+func (u *ExchangeUpsertBulk) SetCredit(v uint32) *ExchangeUpsertBulk {
+	return u.Update(func(s *ExchangeUpsert) {
+		s.SetCredit(v)
+	})
+}
+
+// AddCredit adds v to the "credit" field.
+func (u *ExchangeUpsertBulk) AddCredit(v uint32) *ExchangeUpsertBulk {
+	return u.Update(func(s *ExchangeUpsert) {
+		s.AddCredit(v)
+	})
+}
+
+// UpdateCredit sets the "credit" field to the value that was provided on create.
+func (u *ExchangeUpsertBulk) UpdateCredit() *ExchangeUpsertBulk {
+	return u.Update(func(s *ExchangeUpsert) {
+		s.UpdateCredit()
+	})
+}
+
+// ClearCredit clears the value of the "credit" field.
+func (u *ExchangeUpsertBulk) ClearCredit() *ExchangeUpsertBulk {
+	return u.Update(func(s *ExchangeUpsert) {
+		s.ClearCredit()
+	})
+}
+
+// SetExchangeThreshold sets the "exchange_threshold" field.
+func (u *ExchangeUpsertBulk) SetExchangeThreshold(v uint32) *ExchangeUpsertBulk {
+	return u.Update(func(s *ExchangeUpsert) {
+		s.SetExchangeThreshold(v)
+	})
+}
+
+// AddExchangeThreshold adds v to the "exchange_threshold" field.
+func (u *ExchangeUpsertBulk) AddExchangeThreshold(v uint32) *ExchangeUpsertBulk {
+	return u.Update(func(s *ExchangeUpsert) {
+		s.AddExchangeThreshold(v)
+	})
+}
+
+// UpdateExchangeThreshold sets the "exchange_threshold" field to the value that was provided on create.
+func (u *ExchangeUpsertBulk) UpdateExchangeThreshold() *ExchangeUpsertBulk {
+	return u.Update(func(s *ExchangeUpsert) {
+		s.UpdateExchangeThreshold()
+	})
+}
+
+// ClearExchangeThreshold clears the value of the "exchange_threshold" field.
+func (u *ExchangeUpsertBulk) ClearExchangeThreshold() *ExchangeUpsertBulk {
+	return u.Update(func(s *ExchangeUpsert) {
+		s.ClearExchangeThreshold()
+	})
+}
+
+// SetPath sets the "path" field.
+func (u *ExchangeUpsertBulk) SetPath(v string) *ExchangeUpsertBulk {
+	return u.Update(func(s *ExchangeUpsert) {
+		s.SetPath(v)
+	})
+}
+
+// UpdatePath sets the "path" field to the value that was provided on create.
+func (u *ExchangeUpsertBulk) UpdatePath() *ExchangeUpsertBulk {
+	return u.Update(func(s *ExchangeUpsert) {
+		s.UpdatePath()
+	})
+}
+
+// ClearPath clears the value of the "path" field.
+func (u *ExchangeUpsertBulk) ClearPath() *ExchangeUpsertBulk {
+	return u.Update(func(s *ExchangeUpsert) {
+		s.ClearPath()
+	})
+}
+
+// Exec executes the query.
+func (u *ExchangeUpsertBulk) Exec(ctx context.Context) error {
+	if u.create.err != nil {
+		return u.create.err
+	}
+	for i, b := range u.create.builders {
+		if len(b.conflict) != 0 {
+			return fmt.Errorf("generated: OnConflict was set for builder %d. Set it on the ExchangeCreateBulk instead", i)
+		}
+	}
+	if len(u.create.conflict) == 0 {
+		return errors.New("generated: missing options for ExchangeCreateBulk.OnConflict")
+	}
+	return u.create.Exec(ctx)
+}
+
+// ExecX is like Exec, but panics if an error occurs.
+func (u *ExchangeUpsertBulk) ExecX(ctx context.Context) {
+	if err := u.create.Exec(ctx); err != nil {
 		panic(err)
 	}
 }

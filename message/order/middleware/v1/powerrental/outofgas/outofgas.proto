@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package order.middleware.powerrental.outofgas.v1;
+
+option go_package = "github.com/NpoolPlatform/kunman/message/order/middleware/v1/powerrental/outofgas";
+
+import "basetypes/v1/conds.proto";
+import "basetypes/good/v1/enums.proto";
+import "order/middleware/v1/outofgas/outofgas.proto";
+
+message OutOfGasReq {
+    optional uint32 ID = 10;
+    optional string EntID = 20;
+    optional string OrderID = 30;
+    optional uint32 StartAt = 40;
+    optional uint32 EndAt = 50;
+}
+

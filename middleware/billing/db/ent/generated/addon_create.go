@@ -7,6 +7,7 @@ import (
 	"errors"
 	"fmt"
 
+	"entgo.io/ent/dialect/sql"
 	"entgo.io/ent/dialect/sql/sqlgraph"
 	"entgo.io/ent/schema/field"
 	"github.com/NpoolPlatform/kunman/middleware/billing/db/ent/generated/addon"
@@ -19,6 +20,7 @@ type AddonCreate struct {
 	config
 	mutation *AddonMutation
 	hooks    []Hook
+	conflict []sql.ConflictOption
 }
 
 // SetEntID sets the "ent_id" field.
@@ -223,6 +225,7 @@ func (ac *AddonCreate) createSpec() (*Addon, *sqlgraph.CreateSpec) {
 		_node = &Addon{config: ac.config}
 		_spec = sqlgraph.NewCreateSpec(addon.Table, sqlgraph.NewFieldSpec(addon.FieldID, field.TypeUint32))
 	)
+	_spec.OnConflict = ac.conflict
 	if id, ok := ac.mutation.ID(); ok {
 		_node.ID = id
 		_spec.ID.Value = id
@@ -258,11 +261,428 @@ func (ac *AddonCreate) createSpec() (*Addon, *sqlgraph.CreateSpec) {
 	return _node, _spec
 }
 
+// OnConflict allows configuring the `ON CONFLICT` / `ON DUPLICATE KEY` clause
+// of the `INSERT` statement. For example:
+//
+//	client.Addon.Create().
+//		SetEntID(v).
+//		OnConflict(
+//			// Update the row with the new values
+//			// the was proposed for insertion.
+//			sql.ResolveWithNewValues(),
+//		).
+//		// Override some of the fields with custom
+//		// update values.
+//		Update(func(u *ent.AddonUpsert) {
+//			SetEntID(v+v).
+//		}).
+//		Exec(ctx)
+func (ac *AddonCreate) OnConflict(opts ...sql.ConflictOption) *AddonUpsertOne {
+	ac.conflict = opts
+	return &AddonUpsertOne{
+		create: ac,
+	}
+}
+
+// OnConflictColumns calls `OnConflict` and configures the columns
+// as conflict target. Using this option is equivalent to using:
+//
+//	client.Addon.Create().
+//		OnConflict(sql.ConflictColumns(columns...)).
+//		Exec(ctx)
+func (ac *AddonCreate) OnConflictColumns(columns ...string) *AddonUpsertOne {
+	ac.conflict = append(ac.conflict, sql.ConflictColumns(columns...))
+	return &AddonUpsertOne{
+		create: ac,
+	}
+}
+
+type (
+	// AddonUpsertOne is the builder for "upsert"-ing
+	//  one Addon node.
+	AddonUpsertOne struct {
+		create *AddonCreate
+	}
+
+	// AddonUpsert is the "OnConflict" setter.
+	AddonUpsert struct {
+		*sql.UpdateSet
+	}
+)
+
+// SetEntID sets the "ent_id" field.
+func (u *AddonUpsert) SetEntID(v uuid.UUID) *AddonUpsert {
+	u.Set(addon.FieldEntID, v)
+	return u
+}
+
+// UpdateEntID sets the "ent_id" field to the value that was provided on create.
+func (u *AddonUpsert) UpdateEntID() *AddonUpsert {
+	u.SetExcluded(addon.FieldEntID)
+	return u
+}
+
+// SetAppID sets the "app_id" field.
+func (u *AddonUpsert) SetAppID(v uuid.UUID) *AddonUpsert {
+	u.Set(addon.FieldAppID, v)
+	return u
+}
+
+// UpdateAppID sets the "app_id" field to the value that was provided on create.
+func (u *AddonUpsert) UpdateAppID() *AddonUpsert {
+	u.SetExcluded(addon.FieldAppID)
+	return u
+}
+
+// ClearAppID clears the value of the "app_id" field.
+func (u *AddonUpsert) ClearAppID() *AddonUpsert {
+	u.SetNull(addon.FieldAppID)
+	return u
+}
+
+// SetUsdPrice sets the "usd_price" field.
+func (u *AddonUpsert) SetUsdPrice(v decimal.Decimal) *AddonUpsert {
+	u.Set(addon.FieldUsdPrice, v)
+	return u
+}
+
+// UpdateUsdPrice sets the "usd_price" field to the value that was provided on create.
+func (u *AddonUpsert) UpdateUsdPrice() *AddonUpsert {
+	u.SetExcluded(addon.FieldUsdPrice)
+	return u
+}
+
+// ClearUsdPrice clears the value of the "usd_price" field.
+func (u *AddonUpsert) ClearUsdPrice() *AddonUpsert {
+	u.SetNull(addon.FieldUsdPrice)
+	return u
+}
+
+// SetCredit sets the "credit" field.
+func (u *AddonUpsert) SetCredit(v uint32) *AddonUpsert {
+	u.Set(addon.FieldCredit, v)
+	return u
+}
+
+// UpdateCredit sets the "credit" field to the value that was provided on create.
+func (u *AddonUpsert) UpdateCredit() *AddonUpsert {
+	u.SetExcluded(addon.FieldCredit)
+	return u
+}
+
+// AddCredit adds v to the "credit" field.
+func (u *AddonUpsert) AddCredit(v uint32) *AddonUpsert {
+	u.Add(addon.FieldCredit, v)
+	return u
+}
+
+// ClearCredit clears the value of the "credit" field.
+func (u *AddonUpsert) ClearCredit() *AddonUpsert {
+	u.SetNull(addon.FieldCredit)
+	return u
+}
+
+// SetSortOrder sets the "sort_order" field.
+func (u *AddonUpsert) SetSortOrder(v uint32) *AddonUpsert {
+	u.Set(addon.FieldSortOrder, v)
+	return u
+}
+
+// UpdateSortOrder sets the "sort_order" field to the value that was provided on create.
+func (u *AddonUpsert) UpdateSortOrder() *AddonUpsert {
+	u.SetExcluded(addon.FieldSortOrder)
+	return u
+}
+
+// AddSortOrder adds v to the "sort_order" field.
+func (u *AddonUpsert) AddSortOrder(v uint32) *AddonUpsert {
+	u.Add(addon.FieldSortOrder, v)
+	return u
+}
+
+// ClearSortOrder clears the value of the "sort_order" field.
+func (u *AddonUpsert) ClearSortOrder() *AddonUpsert {
+	u.SetNull(addon.FieldSortOrder)
+	return u
+}
+
+// SetEnabled sets the "enabled" field.
+func (u *AddonUpsert) SetEnabled(v bool) *AddonUpsert {
+	u.Set(addon.FieldEnabled, v)
+	return u
+}
+
+// UpdateEnabled sets the "enabled" field to the value that was provided on create.
+func (u *AddonUpsert) UpdateEnabled() *AddonUpsert {
+	u.SetExcluded(addon.FieldEnabled)
+	return u
+}
+
+// ClearEnabled clears the value of the "enabled" field.
+func (u *AddonUpsert) ClearEnabled() *AddonUpsert {
+	u.SetNull(addon.FieldEnabled)
+	return u
+}
+
+// SetDescription sets the "description" field.
+func (u *AddonUpsert) SetDescription(v string) *AddonUpsert {
+	u.Set(addon.FieldDescription, v)
+	return u
+}
+
+// UpdateDescription sets the "description" field to the value that was provided on create.
+func (u *AddonUpsert) UpdateDescription() *AddonUpsert {
+	u.SetExcluded(addon.FieldDescription)
+	return u
+}
+
+// ClearDescription clears the value of the "description" field.
+func (u *AddonUpsert) ClearDescription() *AddonUpsert {
+	u.SetNull(addon.FieldDescription)
+	return u
+}
+
+// UpdateNewValues updates the mutable fields using the new values that were set on create except the ID field.
+// Using this option is equivalent to using:
+//
+//	client.Addon.Create().
+//		OnConflict(
+//			sql.ResolveWithNewValues(),
+//			sql.ResolveWith(func(u *sql.UpdateSet) {
+//				u.SetIgnore(addon.FieldID)
+//			}),
+//		).
+//		Exec(ctx)
+func (u *AddonUpsertOne) UpdateNewValues() *AddonUpsertOne {
+	u.create.conflict = append(u.create.conflict, sql.ResolveWithNewValues())
+	u.create.conflict = append(u.create.conflict, sql.ResolveWith(func(s *sql.UpdateSet) {
+		if _, exists := u.create.mutation.ID(); exists {
+			s.SetIgnore(addon.FieldID)
+		}
+	}))
+	return u
+}
+
+// Ignore sets each column to itself in case of conflict.
+// Using this option is equivalent to using:
+//
+//	client.Addon.Create().
+//	    OnConflict(sql.ResolveWithIgnore()).
+//	    Exec(ctx)
+func (u *AddonUpsertOne) Ignore() *AddonUpsertOne {
+	u.create.conflict = append(u.create.conflict, sql.ResolveWithIgnore())
+	return u
+}
+
+// DoNothing configures the conflict_action to `DO NOTHING`.
+// Supported only by SQLite and PostgreSQL.
+func (u *AddonUpsertOne) DoNothing() *AddonUpsertOne {
+	u.create.conflict = append(u.create.conflict, sql.DoNothing())
+	return u
+}
+
+// Update allows overriding fields `UPDATE` values. See the AddonCreate.OnConflict
+// documentation for more info.
+func (u *AddonUpsertOne) Update(set func(*AddonUpsert)) *AddonUpsertOne {
+	u.create.conflict = append(u.create.conflict, sql.ResolveWith(func(update *sql.UpdateSet) {
+		set(&AddonUpsert{UpdateSet: update})
+	}))
+	return u
+}
+
+// SetEntID sets the "ent_id" field.
+func (u *AddonUpsertOne) SetEntID(v uuid.UUID) *AddonUpsertOne {
+	return u.Update(func(s *AddonUpsert) {
+		s.SetEntID(v)
+	})
+}
+
+// UpdateEntID sets the "ent_id" field to the value that was provided on create.
+func (u *AddonUpsertOne) UpdateEntID() *AddonUpsertOne {
+	return u.Update(func(s *AddonUpsert) {
+		s.UpdateEntID()
+	})
+}
+
+// SetAppID sets the "app_id" field.
+func (u *AddonUpsertOne) SetAppID(v uuid.UUID) *AddonUpsertOne {
+	return u.Update(func(s *AddonUpsert) {
+		s.SetAppID(v)
+	})
+}
+
+// UpdateAppID sets the "app_id" field to the value that was provided on create.
+func (u *AddonUpsertOne) UpdateAppID() *AddonUpsertOne {
+	return u.Update(func(s *AddonUpsert) {
+		s.UpdateAppID()
+	})
+}
+
+// ClearAppID clears the value of the "app_id" field.
+func (u *AddonUpsertOne) ClearAppID() *AddonUpsertOne {
+	return u.Update(func(s *AddonUpsert) {
+		s.ClearAppID()
+	})
+}
+
+// SetUsdPrice sets the "usd_price" field.
+func (u *AddonUpsertOne) SetUsdPrice(v decimal.Decimal) *AddonUpsertOne {
+	return u.Update(func(s *AddonUpsert) {
+		s.SetUsdPrice(v)
+	})
+}
+
+// UpdateUsdPrice sets the "usd_price" field to the value that was provided on create.
+func (u *AddonUpsertOne) UpdateUsdPrice() *AddonUpsertOne {
+	return u.Update(func(s *AddonUpsert) {
+		s.UpdateUsdPrice()
+	})
+}
+
+// ClearUsdPrice clears the value of the "usd_price" field.
+func (u *AddonUpsertOne) ClearUsdPrice() *AddonUpsertOne {
+	return u.Update(func(s *AddonUpsert) {
+		s.ClearUsdPrice()
+	})
+}
+
+// SetCredit sets the "credit" field.
+func (u *AddonUpsertOne) SetCredit(v uint32) *AddonUpsertOne {
+	return u.Update(func(s *AddonUpsert) {
+		s.SetCredit(v)
+	})
+}
+
+// AddCredit adds v to the "credit" field.
+func (u *AddonUpsertOne) AddCredit(v uint32) *AddonUpsertOne {
+	return u.Update(func(s *AddonUpsert) {
+		s.AddCredit(v)
+	})
+}
+
+// UpdateCredit sets the "credit" field to the value that was provided on create.
+func (u *AddonUpsertOne) UpdateCredit() *AddonUpsertOne {
+	return u.Update(func(s *AddonUpsert) {
+		s.UpdateCredit()
+	})
+}
+
+// ClearCredit clears the value of the "credit" field.
+func (u *AddonUpsertOne) ClearCredit() *AddonUpsertOne {
+	return u.Update(func(s *AddonUpsert) {
+		s.ClearCredit()
+	})
+}
+
+// SetSortOrder sets the "sort_order" field.
+func (u *AddonUpsertOne) SetSortOrder(v uint32) *AddonUpsertOne {
+	return u.Update(func(s *AddonUpsert) {
+		s.SetSortOrder(v)
+	})
+}
+
+// AddSortOrder adds v to the "sort_order" field.
+func (u *AddonUpsertOne) AddSortOrder(v uint32) *AddonUpsertOne {
+	return u.Update(func(s *AddonUpsert) {
+		s.AddSortOrder(v)
+	})
+}
+
+// UpdateSortOrder sets the "sort_order" field to the value that was provided on create.
+func (u *AddonUpsertOne) UpdateSortOrder() *AddonUpsertOne {
+	return u.Update(func(s *AddonUpsert) {
+		s.UpdateSortOrder()
+	})
+}
+
+// ClearSortOrder clears the value of the "sort_order" field.
+func (u *AddonUpsertOne) ClearSortOrder() *AddonUpsertOne {
+	return u.Update(func(s *AddonUpsert) {
+		s.ClearSortOrder()
+	})
+}
+
+// SetEnabled sets the "enabled" field.
+func (u *AddonUpsertOne) SetEnabled(v bool) *AddonUpsertOne {
+	return u.Update(func(s *AddonUpsert) {
+		s.SetEnabled(v)
+	})
+}
+
+// UpdateEnabled sets the "enabled" field to the value that was provided on create.
+func (u *AddonUpsertOne) UpdateEnabled() *AddonUpsertOne {
+	return u.Update(func(s *AddonUpsert) {
+		s.UpdateEnabled()
+	})
+}
+
+// ClearEnabled clears the value of the "enabled" field.
+func (u *AddonUpsertOne) ClearEnabled() *AddonUpsertOne {
+	return u.Update(func(s *AddonUpsert) {
+		s.ClearEnabled()
+	})
+}
+
+// SetDescription sets the "description" field.
+func (u *AddonUpsertOne) SetDescription(v string) *AddonUpsertOne {
+	return u.Update(func(s *AddonUpsert) {
+		s.SetDescription(v)
+	})
+}
+
+// UpdateDescription sets the "description" field to the value that was provided on create.
+func (u *AddonUpsertOne) UpdateDescription() *AddonUpsertOne {
+	return u.Update(func(s *AddonUpsert) {
+		s.UpdateDescription()
+	})
+}
+
+// ClearDescription clears the value of the "description" field.
+func (u *AddonUpsertOne) ClearDescription() *AddonUpsertOne {
+	return u.Update(func(s *AddonUpsert) {
+		s.ClearDescription()
+	})
+}
+
+// Exec executes the query.
+func (u *AddonUpsertOne) Exec(ctx context.Context) error {
+	if len(u.create.conflict) == 0 {
+		return errors.New("generated: missing options for AddonCreate.OnConflict")
+	}
+	return u.create.Exec(ctx)
+}
+
+// ExecX is like Exec, but panics if an error occurs.
+func (u *AddonUpsertOne) ExecX(ctx context.Context) {
+	if err := u.create.Exec(ctx); err != nil {
+		panic(err)
+	}
+}
+
+// Exec executes the UPSERT query and returns the inserted/updated ID.
+func (u *AddonUpsertOne) ID(ctx context.Context) (id uint32, err error) {
+	node, err := u.create.Save(ctx)
+	if err != nil {
+		return id, err
+	}
+	return node.ID, nil
+}
+
+// IDX is like ID, but panics if an error occurs.
+func (u *AddonUpsertOne) IDX(ctx context.Context) uint32 {
+	id, err := u.ID(ctx)
+	if err != nil {
+		panic(err)
+	}
+	return id
+}
+
 // AddonCreateBulk is the builder for creating many Addon entities in bulk.
 type AddonCreateBulk struct {
 	config
 	err      error
 	builders []*AddonCreate
+	conflict []sql.ConflictOption
 }
 
 // Save creates the Addon entities in the database.
@@ -292,6 +712,7 @@ func (acb *AddonCreateBulk) Save(ctx context.Context) ([]*Addon, error) {
 					_, err = mutators[i+1].Mutate(root, acb.builders[i+1].mutation)
 				} else {
 					spec := &sqlgraph.BatchCreateSpec{Nodes: specs}
+					spec.OnConflict = acb.conflict
 					// Invoke the actual operation on the latest mutation in the chain.
 					if err = sqlgraph.BatchCreate(ctx, acb.driver, spec); err != nil {
 						if sqlgraph.IsConstraintError(err) {
@@ -342,6 +763,274 @@ func (acb *AddonCreateBulk) Exec(ctx context.Context) error {
 // ExecX is like Exec, but panics if an error occurs.
 func (acb *AddonCreateBulk) ExecX(ctx context.Context) {
 	if err := acb.Exec(ctx); err != nil {
+		panic(err)
+	}
+}
+
+// OnConflict allows configuring the `ON CONFLICT` / `ON DUPLICATE KEY` clause
+// of the `INSERT` statement. For example:
+//
+//	client.Addon.CreateBulk(builders...).
+//		OnConflict(
+//			// Update the row with the new values
+//			// the was proposed for insertion.
+//			sql.ResolveWithNewValues(),
+//		).
+//		// Override some of the fields with custom
+//		// update values.
+//		Update(func(u *ent.AddonUpsert) {
+//			SetEntID(v+v).
+//		}).
+//		Exec(ctx)
+func (acb *AddonCreateBulk) OnConflict(opts ...sql.ConflictOption) *AddonUpsertBulk {
+	acb.conflict = opts
+	return &AddonUpsertBulk{
+		create: acb,
+	}
+}
+
+// OnConflictColumns calls `OnConflict` and configures the columns
+// as conflict target. Using this option is equivalent to using:
+//
+//	client.Addon.Create().
+//		OnConflict(sql.ConflictColumns(columns...)).
+//		Exec(ctx)
+func (acb *AddonCreateBulk) OnConflictColumns(columns ...string) *AddonUpsertBulk {
+	acb.conflict = append(acb.conflict, sql.ConflictColumns(columns...))
+	return &AddonUpsertBulk{
+		create: acb,
+	}
+}
+
+// AddonUpsertBulk is the builder for "upsert"-ing
+// a bulk of Addon nodes.
+type AddonUpsertBulk struct {
+	create *AddonCreateBulk
+}
+
+// UpdateNewValues updates the mutable fields using the new values that
+// were set on create. Using this option is equivalent to using:
+//
+//	client.Addon.Create().
+//		OnConflict(
+//			sql.ResolveWithNewValues(),
+//			sql.ResolveWith(func(u *sql.UpdateSet) {
+//				u.SetIgnore(addon.FieldID)
+//			}),
+//		).
+//		Exec(ctx)
+func (u *AddonUpsertBulk) UpdateNewValues() *AddonUpsertBulk {
+	u.create.conflict = append(u.create.conflict, sql.ResolveWithNewValues())
+	u.create.conflict = append(u.create.conflict, sql.ResolveWith(func(s *sql.UpdateSet) {
+		for _, b := range u.create.builders {
+			if _, exists := b.mutation.ID(); exists {
+				s.SetIgnore(addon.FieldID)
+			}
+		}
+	}))
+	return u
+}
+
+// Ignore sets each column to itself in case of conflict.
+// Using this option is equivalent to using:
+//
+//	client.Addon.Create().
+//		OnConflict(sql.ResolveWithIgnore()).
+//		Exec(ctx)
+func (u *AddonUpsertBulk) Ignore() *AddonUpsertBulk {
+	u.create.conflict = append(u.create.conflict, sql.ResolveWithIgnore())
+	return u
+}
+
+// DoNothing configures the conflict_action to `DO NOTHING`.
+// Supported only by SQLite and PostgreSQL.
+func (u *AddonUpsertBulk) DoNothing() *AddonUpsertBulk {
+	u.create.conflict = append(u.create.conflict, sql.DoNothing())
+	return u
+}
+
+// Update allows overriding fields `UPDATE` values. See the AddonCreateBulk.OnConflict
+// documentation for more info.
+func (u *AddonUpsertBulk) Update(set func(*AddonUpsert)) *AddonUpsertBulk {
+	u.create.conflict = append(u.create.conflict, sql.ResolveWith(func(update *sql.UpdateSet) {
+		set(&AddonUpsert{UpdateSet: update})
+	}))
+	return u
+}
+
+// SetEntID sets the "ent_id" field.
+func (u *AddonUpsertBulk) SetEntID(v uuid.UUID) *AddonUpsertBulk {
+	return u.Update(func(s *AddonUpsert) {
+		s.SetEntID(v)
+	})
+}
+
+// UpdateEntID sets the "ent_id" field to the value that was provided on create.
+func (u *AddonUpsertBulk) UpdateEntID() *AddonUpsertBulk {
+	return u.Update(func(s *AddonUpsert) {
+		s.UpdateEntID()
+	})
+}
+
+// SetAppID sets the "app_id" field.
+func (u *AddonUpsertBulk) SetAppID(v uuid.UUID) *AddonUpsertBulk {
+	return u.Update(func(s *AddonUpsert) {
+		s.SetAppID(v)
+	})
+}
+
+// UpdateAppID sets the "app_id" field to the value that was provided on create.
+func (u *AddonUpsertBulk) UpdateAppID() *AddonUpsertBulk {
+	return u.Update(func(s *AddonUpsert) {
+		s.UpdateAppID()
+	})
+}
+
+// ClearAppID clears the value of the "app_id" field.
+func (u *AddonUpsertBulk) ClearAppID() *AddonUpsertBulk {
+	return u.Update(func(s *AddonUpsert) {
+		s.ClearAppID()
+	})
+}
+
+// SetUsdPrice sets the "usd_price" field.
+func (u *AddonUpsertBulk) SetUsdPrice(v decimal.Decimal) *AddonUpsertBulk {
+	return u.Update(func(s *AddonUpsert) {
+		s.SetUsdPrice(v)
+	})
+}
+
+// UpdateUsdPrice sets the "usd_price" field to the value that was provided on create.
+func (u *AddonUpsertBulk) UpdateUsdPrice() *AddonUpsertBulk {
+	return u.Update(func(s *AddonUpsert) {
+		s.UpdateUsdPrice()
+	})
+}
+
+// ClearUsdPrice clears the value of the "usd_price" field.
+func (u *AddonUpsertBulk) ClearUsdPrice() *AddonUpsertBulk {
+	return u.Update(func(s *AddonUpsert) {
+		s.ClearUsdPrice()
+	})
+}
+
+// SetCredit sets the "credit" field.
+func (u *AddonUpsertBulk) SetCredit(v uint32) *AddonUpsertBulk {
+	return u.Update(func(s *AddonUpsert) {
+		s.SetCredit(v)
+	})
+}
+
+// AddCredit adds v to the "credit" field.
+func (u *AddonUpsertBulk) AddCredit(v uint32) *AddonUpsertBulk {
+	return u.Update(func(s *AddonUpsert) {
+		s.AddCredit(v)
+	})
+}
+
+// UpdateCredit sets the "credit" field to the value that was provided on create.
+func (u *AddonUpsertBulk) UpdateCredit() *AddonUpsertBulk {
+	return u.Update(func(s *AddonUpsert) {
+		s.UpdateCredit()
+	})
+}
+
+// ClearCredit clears the value of the "credit" field.
+func (u *AddonUpsertBulk) ClearCredit() *AddonUpsertBulk {
+	return u.Update(func(s *AddonUpsert) {
+		s.ClearCredit()
+	})
+}
+
+// SetSortOrder sets the "sort_order" field.
+func (u *AddonUpsertBulk) SetSortOrder(v uint32) *AddonUpsertBulk {
+	return u.Update(func(s *AddonUpsert) {
+		s.SetSortOrder(v)
+	})
+}
+
+// AddSortOrder adds v to the "sort_order" field.
+func (u *AddonUpsertBulk) AddSortOrder(v uint32) *AddonUpsertBulk {
+	return u.Update(func(s *AddonUpsert) {
+		s.AddSortOrder(v)
+	})
+}
+
+// UpdateSortOrder sets the "sort_order" field to the value that was provided on create.
+func (u *AddonUpsertBulk) UpdateSortOrder() *AddonUpsertBulk {
+	return u.Update(func(s *AddonUpsert) {
+		s.UpdateSortOrder()
+	})
+}
+
+// ClearSortOrder clears the value of the "sort_order" field.
+func (u *AddonUpsertBulk) ClearSortOrder() *AddonUpsertBulk {
+	return u.Update(func(s *AddonUpsert) {
+		s.ClearSortOrder()
+	})
+}
+
+// SetEnabled sets the "enabled" field.
+func (u *AddonUpsertBulk) SetEnabled(v bool) *AddonUpsertBulk {
+	return u.Update(func(s *AddonUpsert) {
+		s.SetEnabled(v)
+	})
+}
+
+// UpdateEnabled sets the "enabled" field to the value that was provided on create.
+func (u *AddonUpsertBulk) UpdateEnabled() *AddonUpsertBulk {
+	return u.Update(func(s *AddonUpsert) {
+		s.UpdateEnabled()
+	})
+}
+
+// ClearEnabled clears the value of the "enabled" field.
+func (u *AddonUpsertBulk) ClearEnabled() *AddonUpsertBulk {
+	return u.Update(func(s *AddonUpsert) {
+		s.ClearEnabled()
+	})
+}
+
+// SetDescription sets the "description" field.
+func (u *AddonUpsertBulk) SetDescription(v string) *AddonUpsertBulk {
+	return u.Update(func(s *AddonUpsert) {
+		s.SetDescription(v)
+	})
+}
+
+// UpdateDescription sets the "description" field to the value that was provided on create.
+func (u *AddonUpsertBulk) UpdateDescription() *AddonUpsertBulk {
+	return u.Update(func(s *AddonUpsert) {
+		s.UpdateDescription()
+	})
+}
+
+// ClearDescription clears the value of the "description" field.
+func (u *AddonUpsertBulk) ClearDescription() *AddonUpsertBulk {
+	return u.Update(func(s *AddonUpsert) {
+		s.ClearDescription()
+	})
+}
+
+// Exec executes the query.
+func (u *AddonUpsertBulk) Exec(ctx context.Context) error {
+	if u.create.err != nil {
+		return u.create.err
+	}
+	for i, b := range u.create.builders {
+		if len(b.conflict) != 0 {
+			return fmt.Errorf("generated: OnConflict was set for builder %d. Set it on the AddonCreateBulk instead", i)
+		}
+	}
+	if len(u.create.conflict) == 0 {
+		return errors.New("generated: missing options for AddonCreateBulk.OnConflict")
+	}
+	return u.create.Exec(ctx)
+}
+
+// ExecX is like Exec, but panics if an error occurs.
+func (u *AddonUpsertBulk) ExecX(ctx context.Context) {
+	if err := u.create.Exec(ctx); err != nil {
 		panic(err)
 	}
 }

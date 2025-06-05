@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+package order.middleware.miningpoolorderuser.v1;
+
+option go_package = "github.com/NpoolPlatform/kunman/message/order/middleware/v1/powerrental/miningpoolorderuser";
+
+import "basetypes/v1/conds.proto";
+
+message PoolOrderUserReq {
+  optional string EntID = 10;
+  optional string OrderID = 20;
+  optional string PoolOrderUserID = 30;
+}
+
+message PoolOrderUser {
+  // @inject_tag: sql:"id"
+  uint32 ID = 10;
+  // @inject_tag: sql:"ent_id"
+  string EntID = 20;
+  // @inject_tag: sql:"order_id"
+  string OrderID = 30;
+  // @inject_tag: sql:"order_user_id"
+  string PoolOrderUserID = 40;
+}
+
+message Conds {
+  optional basetypes.v1.Uint32Val ID = 10;
+  optional basetypes.v1.StringVal EntID = 20;
+  optional basetypes.v1.StringVal OrderID = 30;
+  optional basetypes.v1.StringVal PoolOrderUserID = 40;
+}

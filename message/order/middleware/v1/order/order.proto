@@ -1,0 +1,95 @@
+syntax = "proto3";
+
+package order.middleware.order1.v1;
+
+option go_package = "github.com/NpoolPlatform/kunman/message/order/middleware/v1/order";
+
+import "basetypes/order/v1/enums.proto";
+import "basetypes/good/v1/enums.proto";
+import "basetypes/v1/conds.proto";
+
+message Order {
+    // order
+    // @inject_tag: sql:"id"
+    uint32 ID = 10;
+    // @inject_tag: sql:"ent_id"
+    string EntID = 20;
+    // @inject_tag: sql:"app_id"
+    string AppID = 30;
+    // @inject_tag: sql:"user_id"
+    string UserID = 40;
+    // @inject_tag: sql:"good_id"
+    string GoodID = 50;
+    // @inject_tag: sql:"good_type"
+    string GoodTypeStr = 60;
+    basetypes.good.v1.GoodType GoodType = 70;
+    // @inject_tag: sql:"app_good_id"
+    string AppGoodID = 80;
+    // @inject_tag: sql:"parent_order_id"
+    string ParentOrderID = 90;
+    // @inject_tag: sql:"order_type"
+    string OrderTypeStr = 100;
+    basetypes.order.v1.OrderType OrderType = 110;
+    // @inject_tag: sql:"payment_type"
+    string PaymentTypeStr = 120;
+    basetypes.order.v1.PaymentType PaymentType = 130;
+    // @inject_tag: sql:"create_method"
+    string CreateMethodStr = 140;
+    basetypes.order.v1.OrderCreateMethod CreateMethod = 150;
+    // @inject_tag: sql:"simulate"
+    bool Simulate = 160;
+
+    // @inject_tag: sql:"order_state"
+    string OrderStateStr = 200;
+    basetypes.order.v1.OrderState OrderState = 210;
+    // @inject_tag: sql:"start_mode"
+    string StartModeStr = 220;
+    basetypes.order.v1.OrderStartMode StartMode = 230;
+    // @inject_tag: sql:"start_at"
+    uint32 StartAt = 240;
+    // @inject_tag: sql:"last_benefit_at"
+    uint32 LastBenefitAt = 250;
+    // @inject_tag: sql:"benefit_state"
+    string BenefitStateStr = 260;
+    basetypes.order.v1.BenefitState BenefitState = 270;
+
+    // @inject_tag: sql:"created_at"
+    uint32 CreatedAt = 1000;
+    // @inject_tag: sql:"updated_at"
+    uint32 UpdatedAt = 1010;
+}
+
+message Conds {
+    // order
+    optional basetypes.v1.Uint32Val ID = 10;
+    optional basetypes.v1.Uint32SliceVal IDs = 20;
+    optional basetypes.v1.StringVal EntID = 30;
+    optional basetypes.v1.StringSliceVal EntIDs = 40;
+    optional basetypes.v1.StringVal AppID = 50;
+    optional basetypes.v1.StringVal UserID = 60;
+    optional basetypes.v1.StringVal GoodID = 70;
+    optional basetypes.v1.StringSliceVal GoodIDs = 80;
+    optional basetypes.v1.StringVal AppGoodID = 90;
+    optional basetypes.v1.StringSliceVal AppGoodIDs = 100;
+    optional basetypes.v1.StringVal ParentOrderID = 110;
+    optional basetypes.v1.StringSliceVal ParentOrderIDs = 120;
+    optional basetypes.v1.Uint32Val OrderType = 130;
+    optional basetypes.v1.Uint32Val PaymentType = 140;
+    optional basetypes.v1.Uint32SliceVal PaymentTypes = 150;
+    optional basetypes.v1.BoolVal Simulate = 160;
+
+    // orderstate
+    optional basetypes.v1.Uint32Val OrderState = 170;
+    optional basetypes.v1.Uint32SliceVal OrderStates = 180;
+    optional basetypes.v1.Uint32Val StartMode = 190;
+    optional basetypes.v1.Uint32Val LastBenefitAt = 200;
+    optional basetypes.v1.Uint32Val BenefitState = 210;
+
+    // other
+    optional basetypes.v1.Uint32Val CreatedAt = 220;
+    optional basetypes.v1.Uint32Val UpdatedAt = 230;
+
+    optional basetypes.v1.Uint32Val GoodType = 240;
+    optional basetypes.v1.Uint32SliceVal GoodTypes = 250;
+}
+

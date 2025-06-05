@@ -18,8 +18,9 @@ import (
 // UserSubscriptionUpdate is the builder for updating UserSubscription entities.
 type UserSubscriptionUpdate struct {
 	config
-	hooks    []Hook
-	mutation *UserSubscriptionMutation
+	hooks     []Hook
+	mutation  *UserSubscriptionMutation
+	modifiers []func(*sql.UpdateBuilder)
 }
 
 // Where appends a list predicates to the UserSubscriptionUpdate builder.
@@ -262,6 +263,12 @@ func (usu *UserSubscriptionUpdate) ExecX(ctx context.Context) {
 	}
 }
 
+// Modify adds a statement modifier for attaching custom logic to the UPDATE statement.
+func (usu *UserSubscriptionUpdate) Modify(modifiers ...func(u *sql.UpdateBuilder)) *UserSubscriptionUpdate {
+	usu.modifiers = append(usu.modifiers, modifiers...)
+	return usu
+}
+
 func (usu *UserSubscriptionUpdate) sqlSave(ctx context.Context) (n int, err error) {
 	_spec := sqlgraph.NewUpdateSpec(usersubscription.Table, usersubscription.Columns, sqlgraph.NewFieldSpec(usersubscription.FieldID, field.TypeUint32))
 	if ps := usu.mutation.predicates; len(ps) > 0 {
@@ -334,6 +341,7 @@ func (usu *UserSubscriptionUpdate) sqlSave(ctx context.Context) (n int, err erro
 	if usu.mutation.AddonCreditCleared() {
 		_spec.ClearField(usersubscription.FieldAddonCredit, field.TypeUint32)
 	}
+	_spec.AddModifiers(usu.modifiers...)
 	if n, err = sqlgraph.UpdateNodes(ctx, usu.driver, _spec); err != nil {
 		if _, ok := err.(*sqlgraph.NotFoundError); ok {
 			err = &NotFoundError{usersubscription.Label}
@@ -349,9 +357,10 @@ func (usu *UserSubscriptionUpdate) sqlSave(ctx context.Context) (n int, err erro
 // UserSubscriptionUpdateOne is the builder for updating a single UserSubscription entity.
 type UserSubscriptionUpdateOne struct {
 	config
-	fields   []string
-	hooks    []Hook
-	mutation *UserSubscriptionMutation
+	fields    []string
+	hooks     []Hook
+	mutation  *UserSubscriptionMutation
+	modifiers []func(*sql.UpdateBuilder)
 }
 
 // SetEntID sets the "ent_id" field.
@@ -601,6 +610,12 @@ func (usuo *UserSubscriptionUpdateOne) ExecX(ctx context.Context) {
 	}
 }
 
+// Modify adds a statement modifier for attaching custom logic to the UPDATE statement.
+func (usuo *UserSubscriptionUpdateOne) Modify(modifiers ...func(u *sql.UpdateBuilder)) *UserSubscriptionUpdateOne {
+	usuo.modifiers = append(usuo.modifiers, modifiers...)
+	return usuo
+}
+
 func (usuo *UserSubscriptionUpdateOne) sqlSave(ctx context.Context) (_node *UserSubscription, err error) {
 	_spec := sqlgraph.NewUpdateSpec(usersubscription.Table, usersubscription.Columns, sqlgraph.NewFieldSpec(usersubscription.FieldID, field.TypeUint32))
 	id, ok := usuo.mutation.ID()
@@ -690,6 +705,7 @@ func (usuo *UserSubscriptionUpdateOne) sqlSave(ctx context.Context) (_node *User
 	if usuo.mutation.AddonCreditCleared() {
 		_spec.ClearField(usersubscription.FieldAddonCredit, field.TypeUint32)
 	}
+	_spec.AddModifiers(usuo.modifiers...)
 	_node = &UserSubscription{config: usuo.config}
 	_spec.Assign = _node.assignValues
 	_spec.ScanValues = _node.scanValues

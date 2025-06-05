@@ -1,0 +1,51 @@
+syntax = "proto3";
+
+package order.gateway.powerrental.compensate.v1;
+
+option go_package = "github.com/NpoolPlatform/kunman/message/order/gateway/v1/powerrental/compensate";
+
+import "google/api/annotations.proto";
+import "basetypes/order/v1/enums.proto";
+import "basetypes/good/v1/enums.proto";
+import "order/gateway/v1/compensate/compensate.proto";
+
+// Service Name
+service Gateway {
+    // Admin apis
+    rpc AdminCreateCompensate (AdminCreateCompensateRequest) returns (AdminCreateCompensateResponse) {
+        option (google.api.http) = {
+            post: "/v1/admin/create/powerrentalcompensate"
+            body: "*"
+        };
+    }
+    rpc AdminDeleteCompensate (AdminDeleteCompensateRequest) returns (AdminDeleteCompensateResponse) {
+        option (google.api.http) = {
+            post: "/v1/admin/delete/powerrentalcompensate"
+            body: "*"
+        };
+    }
+}
+
+message AdminCreateCompensateRequest {
+    optional string GoodID = 20;
+    optional string OrderID = 30;
+    string CompensateFromID = 40;
+    basetypes.order.v1.CompensateType CompensateType = 50;
+}
+
+message AdminCreateCompensateResponse {
+    repeated order.gateway.compensate.v1.Compensate Infos = 10;
+}
+
+message AdminDeleteCompensateRequest {
+    string TargetAppID = 10;
+    string TargetUserID = 20;
+    uint32 ID = 30;
+    string EntID = 40;
+    string OrderID = 50;
+}
+
+message AdminDeleteCompensateResponse {
+    order.gateway.compensate.v1.Compensate Info = 10;
+}
+

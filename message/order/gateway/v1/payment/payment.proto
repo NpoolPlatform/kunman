@@ -1,0 +1,44 @@
+syntax = "proto3";
+
+package order.gateway.payment.v1;
+
+option go_package = "github.com/NpoolPlatform/kunman/message/order/gateway/v1/payment";
+
+message PaymentBalance {
+    string CoinTypeID = 10;
+    string Amount = 20;
+}
+
+message PaymentBalanceInfo {
+    string CoinTypeID = 10;
+    string CoinName = 20;
+    string CoinUnit = 30;
+    string CoinLogo = 40;
+    string CoinENV = 50;
+    string Amount = 60;
+    string CoinUSDCurrency = 70;
+    uint32 CreatedAt = 80;
+}
+
+message PaymentContractInfo {
+    string CoinTypeID = 10;
+    string CoinName = 20;
+    string CoinUnit = 30;
+    string CoinLogo = 40;
+    string CoinENV = 50;
+    string Amount = 60;
+    uint32 CreatedAt = 70;
+}
+
+message PaymentTransferInfo {
+    string CoinTypeID = 10;
+    string CoinName = 20;
+    string CoinUnit = 30;
+    string CoinLogo = 40;
+    string CoinENV = 50;
+    string Amount = 60;
+    string AccountID = 70;
+    string Address = 80;
+    string CoinUSDCurrency = 90;
+    uint32 CreatedAt = 100;
+}

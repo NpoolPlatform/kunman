@@ -1,0 +1,92 @@
+syntax = "proto3";
+
+package order.gateway.outofgas.v1;
+
+option go_package = "github.com/NpoolPlatform/kunman/message/order/gateway/v1/outofgas";
+
+import "google/api/annotations.proto";
+import "basetypes/good/v1/enums.proto";
+
+// Service Name
+service Gateway {
+    rpc GetOutOfGases (GetOutOfGasesRequest) returns (GetOutOfGasesResponse) {
+        option (google.api.http) = {
+            post: "/v1/get/outofgases"
+            body: "*"
+        };
+    }
+    rpc GetMyOutOfGases (GetMyOutOfGasesRequest) returns (GetMyOutOfGasesResponse) {
+        option (google.api.http) = {
+            post: "/v1/get/my/outofgases"
+            body: "*"
+        };
+    }
+
+    // Admin apis
+    rpc AdminGetOutOfGases (AdminGetOutOfGasesRequest) returns (AdminGetOutOfGasesResponse) {
+        option (google.api.http) = {
+            post: "/v1/admin/get/outofgases"
+            body: "*"
+        };
+    }
+}
+
+message OutOfGas {
+    uint32 ID = 10;
+    string EntID = 20;
+    string AppID = 30;
+    string AppName = 40;
+    string UserID = 50;
+    string EmailAddress = 60;
+    string PhoneNO = 70;
+    string GoodID = 80;
+    basetypes.good.v1.GoodType GoodType = 90;
+    string GoodName = 100;
+    string AppGoodID = 110;
+    string AppGoodName = 120;
+    string OrderID = 130;
+    uint32 StartAt = 140;
+    uint32 EndAt = 150;
+
+    uint32 CreatedAt = 1000;
+    uint32 UpdatedAt = 1010;
+}
+
+message GetOutOfGasesRequest {
+    string AppID = 10;
+    optional string TargetUserID = 20;
+    optional string AppGoodID = 30;
+    int32 Offset = 40;
+    int32 Limit = 50;
+}
+
+message GetOutOfGasesResponse {
+    repeated OutOfGas Infos = 10;
+    uint32 Total = 20;
+}
+
+message GetMyOutOfGasesRequest {
+    string AppID = 10;
+    string UserID = 20;
+    optional string OrderID = 30;
+    int32 Offset = 40;
+    int32 Limit = 50;
+}
+
+message GetMyOutOfGasesResponse {
+    repeated OutOfGas Infos = 10;
+    uint32 Total = 20;
+}
+
+message AdminGetOutOfGasesRequest {
+    optional string TargetAppID = 10;
+    optional string GoodID = 20;
+    int32 Offset = 30;
+    int32 Limit = 40;
+}
+
+message AdminGetOutOfGasesResponse {
+    repeated OutOfGas Infos = 10;
+    uint32 Total = 20;
+}
+

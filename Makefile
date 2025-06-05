@@ -14,6 +14,14 @@ SERVICEK8SDEPLOYS=$(SERVICES:%=%-k8s-deploy)
 
 SCHEMAS:=$(wildcard ./middleware/*/db/ent)
 
+RED    := \033[31m
+GREEN  := \033[32m
+YELLOW := \033[33m
+BLUE   := \033[34m
+PURPLE := \033[35m
+CYAN   := \033[36m
+RESET  := \033[0m
+
 ##@ init project
 init:
 	cp -f .githooks/* .git/hooks
@@ -56,7 +64,7 @@ verify-spelling: ## Verifies spelling.
 
 gen-ent:
 	go install entgo.io/ent/cmd/ent@latest
-	$(foreach path, $(SCHEMAS), echo "Generating $(path)"; go run -mod=mod entgo.io/ent/cmd/ent generate --feature entql,sql/lock,sql/execquery,sql/upsert,privacy,sql/modifier --target $(path)/generated $(path)/schema;)
+	@$(foreach path, $(SCHEMAS), echo -e "Generating ${GREEN}$(path)${RESET}"; go run -mod=mod entgo.io/ent/cmd/ent generate --feature entql,sql/lock,sql/execquery,sql/upsert,privacy,sql/modifier --target $(path)/generated $(path)/schema;)
 
 all: verify-build
 

@@ -1,0 +1,332 @@
+syntax = "proto3";
+
+package order.gateway.powerrental.v1;
+
+option go_package = "github.com/NpoolPlatform/kunman/message/order/gateway/v1/powerrental";
+
+import "google/api/annotations.proto";
+import "basetypes/order/v1/enums.proto";
+import "basetypes/good/v1/enums.proto";
+import "order/gateway/v1/order/coupon/coupon.proto";
+import "order/gateway/v1/payment/payment.proto";
+import "order/gateway/v1/fee/fee.proto";
+
+// Service Name
+service Gateway {
+  rpc CreatePowerRentalOrder(CreatePowerRentalOrderRequest)
+      returns (CreatePowerRentalOrderResponse) {
+    option (google.api.http) = {
+      post : "/v1/create/powerrentalorder"
+      body : "*"
+    };
+  }
+
+  rpc CreateUserPowerRentalOrder(CreateUserPowerRentalOrderRequest)
+      returns (CreateUserPowerRentalOrderResponse) {
+    option (google.api.http) = {
+      post : "/v1/create/user/powerrentalorder"
+      body : "*"
+    };
+  }
+
+  rpc UpdatePowerRentalOrder(UpdatePowerRentalOrderRequest)
+      returns (UpdatePowerRentalOrderResponse) {
+    option (google.api.http) = {
+      post : "/v1/update/powerrentalorder"
+      body : "*"
+    };
+  }
+
+  rpc UpdateUserPowerRentalOrder(UpdateUserPowerRentalOrderRequest)
+      returns (UpdateUserPowerRentalOrderResponse) {
+    option (google.api.http) = {
+      post : "/v1/update/user/powerrentalorder"
+      body : "*"
+    };
+  }
+
+  rpc GetPowerRentalOrder(GetPowerRentalOrderRequest)
+      returns (GetPowerRentalOrderResponse) {
+    option (google.api.http) = {
+      post : "/v1/get/powerrentalorder"
+      body : "*"
+    };
+  }
+
+  rpc GetPowerRentalOrders(GetPowerRentalOrdersRequest)
+      returns (GetPowerRentalOrdersResponse) {
+    option (google.api.http) = {
+      post : "/v1/get/powerrentalorders"
+      body : "*"
+    };
+  }
+
+  rpc GetMyPowerRentalOrders(GetMyPowerRentalOrdersRequest)
+      returns (GetMyPowerRentalOrdersResponse) {
+    option (google.api.http) = {
+      post : "/v1/get/my/powerrentalorders"
+      body : "*"
+    };
+  }
+
+  // Admin apis
+  rpc AdminCreatePowerRentalOrder(AdminCreatePowerRentalOrderRequest)
+      returns (AdminCreatePowerRentalOrderResponse) {
+    option (google.api.http) = {
+      post : "/v1/admin/create/powerrentalorder"
+      body : "*"
+    };
+  }
+
+  rpc AdminUpdatePowerRentalOrder(AdminUpdatePowerRentalOrderRequest)
+      returns (AdminUpdatePowerRentalOrderResponse) {
+    option (google.api.http) = {
+      post : "/v1/admin/update/powerrentalorder"
+      body : "*"
+    };
+  }
+
+  rpc AdminGetPowerRentalOrders(AdminGetPowerRentalOrdersRequest)
+      returns (AdminGetPowerRentalOrdersResponse) {
+    option (google.api.http) = {
+      post : "/v1/admin/get/powerrentalorders"
+      body : "*"
+    };
+  }
+
+  rpc AdminDeletePowerRentalOrder(AdminDeletePowerRentalOrderRequest)
+      returns (AdminDeletePowerRentalOrderResponse) {
+    option (google.api.http) = {
+      post : "/v1/admin/delete/powerrentalorder"
+      body : "*"
+    };
+  }
+}
+
+message PowerRentalOrder {
+  uint32 ID = 10;
+  string EntID = 20;
+  string AppID = 30;
+  string AppName = 40;
+  string UserID = 50;
+  string EmailAddress = 60;
+  string PhoneNO = 70;
+  string GoodID = 80;
+  basetypes.good.v1.GoodType GoodType = 90;
+  basetypes.good.v1.BenefitType BenefitType = 100;
+  string GoodName = 110;
+  string GoodQuantityUnit = 111;
+  string AppGoodID = 120;
+  string AppGoodName = 130;
+  string OrderID = 140;
+  basetypes.order.v1.OrderType OrderType = 150;
+  basetypes.order.v1.PaymentType PaymentType = 160;
+  basetypes.order.v1.OrderCreateMethod CreateMethod = 170;
+  bool Simulate = 180;
+
+  basetypes.order.v1.OrderState OrderState = 200;
+  basetypes.order.v1.OrderStartMode StartMode = 210;
+  uint32 StartAt = 220;
+  uint32 LastBenefitAt = 230;
+  basetypes.order.v1.BenefitState BenefitState = 240;
+
+  string AppGoodStockID = 300;
+  optional string MiningPoolName = 310;
+  optional string MiningPoolLogo = 320;
+  optional string MiningPoolOrderUserID = 330; // -> miningpool/orderuser
+  optional string MiningPoolOrderUserName = 340;
+  optional string MiningPoolReadPageLink = 350;
+  // TODO: benefit mode
+  string Units = 400;
+  string GoodValueUSD = 410;
+  string PaymentAmountUSD = 420;
+  string DiscountAmountUSD = 430;
+  string PromotionID = 440;
+  string TopMostTitle = 450;
+  string TopMostTargetUrl = 460;
+  basetypes.good.v1.GoodDurationType DurationDisplayType = 470;
+  string DurationUnit = 480;
+  uint32 DurationSeconds = 490;
+  uint32 Durations = 500;
+  basetypes.order.v1.InvestmentType InvestmentType = 510;
+  basetypes.good.v1.GoodStockMode GoodStockMode = 520;
+
+  basetypes.order.v1.OrderState CancelState = 600;
+  uint32 CanceledAt = 610;
+  uint32 EndAt = 620;
+  uint32 PaidAt = 630;
+  bool UserSetPaid = 640;
+  bool UserSetCanceled = 650;
+  bool AdminSetCanceled = 660;
+  basetypes.order.v1.PaymentState PaymentState = 670;
+  uint32 OutOfGasSeconds = 680;
+  uint32 CompensateSeconds = 690;
+
+  repeated order.gateway.order1.coupon.v1.OrderCouponInfo Coupons = 800;
+  repeated order.gateway.payment.v1.PaymentBalanceInfo PaymentBalances = 810;
+  repeated order.gateway.payment.v1.PaymentTransferInfo PaymentTransfers = 820;
+  repeated order.gateway.fee.v1.FeeDuration FeeDurations = 830;
+
+  // order benefit account
+  repeated OrderBenefitAccount OrderBenefitAccounts = 900;
+
+  uint32 CreatedAt = 1000;
+  uint32 UpdatedAt = 1010;
+}
+
+message OrderBenefitAccountReq {
+  // for order benefit account
+  optional string AccountID = 10;
+  optional string CoinTypeID = 20;
+  optional string Address = 30;
+}
+
+message OrderBenefitAccount {
+  // for order benefit account
+  string AccountID = 10;
+  string CoinTypeID = 20;
+  string Address = 30;
+}
+
+message CreatePowerRentalOrderRequest {
+  string AppID = 10;
+  string UserID = 20;
+  string AppGoodID = 30;
+  optional uint32 DurationSeconds = 40;
+  optional string Units = 50;
+  repeated order.gateway.payment.v1.PaymentBalance Balances = 60;
+  optional string PaymentTransferCoinTypeID = 70;
+  repeated string CouponIDs = 80;
+  repeated string FeeAppGoodIDs = 90;
+  optional uint32 FeeDurationSeconds = 100;
+  optional bool FeeAutoDeduction = 110;
+  optional bool Simulate = 120;
+  optional string AppGoodStockID = 130;
+  basetypes.order.v1.InvestmentType InvestmentType = 140;
+  optional string AppSpotUnits = 150;
+  repeated OrderBenefitAccountReq OrderBenefitAccounts = 160;
+}
+
+message CreatePowerRentalOrderResponse { PowerRentalOrder Info = 10; }
+
+message CreateUserPowerRentalOrderRequest {
+  string AppID = 10;
+  string TargetUserID = 20;
+  string AppGoodID = 30;
+  optional uint32 DurationSeconds = 40;
+  optional string Units = 50;
+  basetypes.order.v1.OrderType OrderType = 60;
+  string AppGoodStockID = 70;
+  basetypes.order.v1.InvestmentType InvestmentType = 80;
+  optional string AppSpotUnits = 90;
+  repeated OrderBenefitAccountReq OrderBenefitAccounts = 100;
+}
+
+message CreateUserPowerRentalOrderResponse { PowerRentalOrder Info = 10; }
+
+message UpdatePowerRentalOrderRequest {
+  uint32 ID = 10;
+  string EntID = 20;
+  string AppID = 30;
+  string UserID = 40;
+  string OrderID = 50;
+  repeated order.gateway.payment.v1.PaymentBalance Balances = 60;
+  optional string PaymentTransferCoinTypeID = 70;
+  optional bool Paid = 80;
+  optional bool Canceled = 90;
+}
+
+message UpdatePowerRentalOrderResponse { PowerRentalOrder Info = 10; }
+
+message UpdateUserPowerRentalOrderRequest {
+  uint32 ID = 10;
+  string EntID = 20;
+  string AppID = 30;
+  string TargetUserID = 40;
+  string OrderID = 50;
+  optional bool Canceled = 60;
+}
+
+message UpdateUserPowerRentalOrderResponse { PowerRentalOrder Info = 10; }
+
+message GetPowerRentalOrderRequest {
+  string AppID = 10;
+  string UserID = 20;
+  string OrderID = 30;
+}
+
+message GetPowerRentalOrderResponse { PowerRentalOrder Info = 10; }
+
+message GetPowerRentalOrdersRequest {
+  string AppID = 10;
+  optional string TargetUserID = 20;
+  optional string AppGoodID = 30;
+  int32 Offset = 40;
+  int32 Limit = 50;
+}
+
+message GetPowerRentalOrdersResponse {
+  repeated PowerRentalOrder Infos = 10;
+  uint32 Total = 20;
+}
+
+message GetMyPowerRentalOrdersRequest {
+  string AppID = 10;
+  string UserID = 20;
+  optional string AppGoodID = 30;
+  int32 Offset = 40;
+  int32 Limit = 50;
+}
+
+message GetMyPowerRentalOrdersResponse {
+  repeated PowerRentalOrder Infos = 10;
+  uint32 Total = 20;
+}
+
+message AdminCreatePowerRentalOrderRequest {
+  string TargetAppID = 10;
+  string TargetUserID = 20;
+  string AppGoodID = 30;
+  optional uint32 DurationSeconds = 40;
+  optional string Units = 50;
+  basetypes.order.v1.OrderType OrderType = 60;
+  string AppGoodStockID = 70;
+  basetypes.order.v1.InvestmentType InvestmentType = 80;
+  optional string AppSpotUnits = 90;
+  repeated OrderBenefitAccountReq OrderBenefitAccounts = 100;
+}
+
+message AdminCreatePowerRentalOrderResponse { PowerRentalOrder Info = 10; }
+
+message AdminUpdatePowerRentalOrderRequest {
+  uint32 ID = 10;
+  string EntID = 20;
+  string TargetAppID = 30;
+  string TargetUserID = 40;
+  string OrderID = 50;
+  optional bool Canceled = 60;
+}
+
+message AdminUpdatePowerRentalOrderResponse { PowerRentalOrder Info = 10; }
+
+message AdminGetPowerRentalOrdersRequest {
+  optional string TargetAppID = 10;
+  optional string GoodID = 20;
+  int32 Offset = 30;
+  int32 Limit = 40;
+}
+
+message AdminGetPowerRentalOrdersResponse {
+  repeated PowerRentalOrder Infos = 10;
+  uint32 Total = 20;
+}
+
+message AdminDeletePowerRentalOrderRequest {
+  uint32 ID = 10;
+  string EntID = 20;
+  string TargetAppID = 30;
+  string TargetUserID = 40;
+  string OrderID = 50;
+}
+
+message AdminDeletePowerRentalOrderResponse { PowerRentalOrder Info = 10; }

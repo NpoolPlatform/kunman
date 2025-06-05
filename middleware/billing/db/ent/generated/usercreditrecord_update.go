@@ -18,8 +18,9 @@ import (
 // UserCreditRecordUpdate is the builder for updating UserCreditRecord entities.
 type UserCreditRecordUpdate struct {
 	config
-	hooks    []Hook
-	mutation *UserCreditRecordMutation
+	hooks     []Hook
+	mutation  *UserCreditRecordMutation
+	modifiers []func(*sql.UpdateBuilder)
 }
 
 // Where appends a list predicates to the UserCreditRecordUpdate builder.
@@ -181,6 +182,12 @@ func (ucru *UserCreditRecordUpdate) ExecX(ctx context.Context) {
 	}
 }
 
+// Modify adds a statement modifier for attaching custom logic to the UPDATE statement.
+func (ucru *UserCreditRecordUpdate) Modify(modifiers ...func(u *sql.UpdateBuilder)) *UserCreditRecordUpdate {
+	ucru.modifiers = append(ucru.modifiers, modifiers...)
+	return ucru
+}
+
 func (ucru *UserCreditRecordUpdate) sqlSave(ctx context.Context) (n int, err error) {
 	_spec := sqlgraph.NewUpdateSpec(usercreditrecord.Table, usercreditrecord.Columns, sqlgraph.NewFieldSpec(usercreditrecord.FieldID, field.TypeUint32))
 	if ps := ucru.mutation.predicates; len(ps) > 0 {
@@ -226,6 +233,7 @@ func (ucru *UserCreditRecordUpdate) sqlSave(ctx context.Context) (n int, err err
 	if ucru.mutation.ExtraCleared() {
 		_spec.ClearField(usercreditrecord.FieldExtra, field.TypeString)
 	}
+	_spec.AddModifiers(ucru.modifiers...)
 	if n, err = sqlgraph.UpdateNodes(ctx, ucru.driver, _spec); err != nil {
 		if _, ok := err.(*sqlgraph.NotFoundError); ok {
 			err = &NotFoundError{usercreditrecord.Label}
@@ -241,9 +249,10 @@ func (ucru *UserCreditRecordUpdate) sqlSave(ctx context.Context) (n int, err err
 // UserCreditRecordUpdateOne is the builder for updating a single UserCreditRecord entity.
 type UserCreditRecordUpdateOne struct {
 	config
-	fields   []string
-	hooks    []Hook
-	mutation *UserCreditRecordMutation
+	fields    []string
+	hooks     []Hook
+	mutation  *UserCreditRecordMutation
+	modifiers []func(*sql.UpdateBuilder)
 }
 
 // SetEntID sets the "ent_id" field.
@@ -412,6 +421,12 @@ func (ucruo *UserCreditRecordUpdateOne) ExecX(ctx context.Context) {
 	}
 }
 
+// Modify adds a statement modifier for attaching custom logic to the UPDATE statement.
+func (ucruo *UserCreditRecordUpdateOne) Modify(modifiers ...func(u *sql.UpdateBuilder)) *UserCreditRecordUpdateOne {
+	ucruo.modifiers = append(ucruo.modifiers, modifiers...)
+	return ucruo
+}
+
 func (ucruo *UserCreditRecordUpdateOne) sqlSave(ctx context.Context) (_node *UserCreditRecord, err error) {
 	_spec := sqlgraph.NewUpdateSpec(usercreditrecord.Table, usercreditrecord.Columns, sqlgraph.NewFieldSpec(usercreditrecord.FieldID, field.TypeUint32))
 	id, ok := ucruo.mutation.ID()
@@ -474,6 +489,7 @@ func (ucruo *UserCreditRecordUpdateOne) sqlSave(ctx context.Context) (_node *Use
 	if ucruo.mutation.ExtraCleared() {
 		_spec.ClearField(usercreditrecord.FieldExtra, field.TypeString)
 	}
+	_spec.AddModifiers(ucruo.modifiers...)
 	_node = &UserCreditRecord{config: ucruo.config}
 	_spec.Assign = _node.assignValues
 	_spec.ScanValues = _node.scanValues

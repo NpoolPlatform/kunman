@@ -19,8 +19,9 @@ import (
 // SubscriptionUpdate is the builder for updating Subscription entities.
 type SubscriptionUpdate struct {
 	config
-	hooks    []Hook
-	mutation *SubscriptionMutation
+	hooks     []Hook
+	mutation  *SubscriptionMutation
+	modifiers []func(*sql.UpdateBuilder)
 }
 
 // Where appends a list predicates to the SubscriptionUpdate builder.
@@ -276,6 +277,12 @@ func (su *SubscriptionUpdate) ExecX(ctx context.Context) {
 	}
 }
 
+// Modify adds a statement modifier for attaching custom logic to the UPDATE statement.
+func (su *SubscriptionUpdate) Modify(modifiers ...func(u *sql.UpdateBuilder)) *SubscriptionUpdate {
+	su.modifiers = append(su.modifiers, modifiers...)
+	return su
+}
+
 func (su *SubscriptionUpdate) sqlSave(ctx context.Context) (n int, err error) {
 	_spec := sqlgraph.NewUpdateSpec(subscription.Table, subscription.Columns, sqlgraph.NewFieldSpec(subscription.FieldID, field.TypeUint32))
 	if ps := su.mutation.predicates; len(ps) > 0 {
@@ -351,6 +358,7 @@ func (su *SubscriptionUpdate) sqlSave(ctx context.Context) (n int, err error) {
 	if su.mutation.QPSLimitCleared() {
 		_spec.ClearField(subscription.FieldQPSLimit, field.TypeUint32)
 	}
+	_spec.AddModifiers(su.modifiers...)
 	if n, err = sqlgraph.UpdateNodes(ctx, su.driver, _spec); err != nil {
 		if _, ok := err.(*sqlgraph.NotFoundError); ok {
 			err = &NotFoundError{subscription.Label}
@@ -366,9 +374,10 @@ func (su *SubscriptionUpdate) sqlSave(ctx context.Context) (n int, err error) {
 // SubscriptionUpdateOne is the builder for updating a single Subscription entity.
 type SubscriptionUpdateOne struct {
 	config
-	fields   []string
-	hooks    []Hook
-	mutation *SubscriptionMutation
+	fields    []string
+	hooks     []Hook
+	mutation  *SubscriptionMutation
+	modifiers []func(*sql.UpdateBuilder)
 }
 
 // SetEntID sets the "ent_id" field.
@@ -631,6 +640,12 @@ func (suo *SubscriptionUpdateOne) ExecX(ctx context.Context) {
 	}
 }
 
+// Modify adds a statement modifier for attaching custom logic to the UPDATE statement.
+func (suo *SubscriptionUpdateOne) Modify(modifiers ...func(u *sql.UpdateBuilder)) *SubscriptionUpdateOne {
+	suo.modifiers = append(suo.modifiers, modifiers...)
+	return suo
+}
+
 func (suo *SubscriptionUpdateOne) sqlSave(ctx context.Context) (_node *Subscription, err error) {
 	_spec := sqlgraph.NewUpdateSpec(subscription.Table, subscription.Columns, sqlgraph.NewFieldSpec(subscription.FieldID, field.TypeUint32))
 	id, ok := suo.mutation.ID()
@@ -723,6 +738,7 @@ func (suo *SubscriptionUpdateOne) sqlSave(ctx context.Context) (_node *Subscript
 	if suo.mutation.QPSLimitCleared() {
 		_spec.ClearField(subscription.FieldQPSLimit, field.TypeUint32)
 	}
+	_spec.AddModifiers(suo.modifiers...)
 	_node = &Subscription{config: suo.config}
 	_spec.Assign = _node.assignValues
 	_spec.ScanValues = _node.scanValues

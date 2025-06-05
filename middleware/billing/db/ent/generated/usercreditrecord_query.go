@@ -8,6 +8,7 @@ import (
 	"math"
 
 	"entgo.io/ent"
+	"entgo.io/ent/dialect"
 	"entgo.io/ent/dialect/sql"
 	"entgo.io/ent/dialect/sql/sqlgraph"
 	"entgo.io/ent/schema/field"
@@ -22,6 +23,7 @@ type UserCreditRecordQuery struct {
 	order      []usercreditrecord.OrderOption
 	inters     []Interceptor
 	predicates []predicate.UserCreditRecord
+	modifiers  []func(*sql.Selector)
 	// intermediate query (i.e. traversal path).
 	sql  *sql.Selector
 	path func(context.Context) (*sql.Selector, error)
@@ -251,8 +253,9 @@ func (ucrq *UserCreditRecordQuery) Clone() *UserCreditRecordQuery {
 		inters:     append([]Interceptor{}, ucrq.inters...),
 		predicates: append([]predicate.UserCreditRecord{}, ucrq.predicates...),
 		// clone intermediate query.
-		sql:  ucrq.sql.Clone(),
-		path: ucrq.path,
+		sql:       ucrq.sql.Clone(),
+		path:      ucrq.path,
+		modifiers: append([]func(*sql.Selector){}, ucrq.modifiers...),
 	}
 }
 
@@ -343,6 +346,9 @@ func (ucrq *UserCreditRecordQuery) sqlAll(ctx context.Context, hooks ...queryHoo
 		nodes = append(nodes, node)
 		return node.assignValues(columns, values)
 	}
+	if len(ucrq.modifiers) > 0 {
+		_spec.Modifiers = ucrq.modifiers
+	}
 	for i := range hooks {
 		hooks[i](ctx, _spec)
 	}
@@ -357,6 +363,9 @@ func (ucrq *UserCreditRecordQuery) sqlAll(ctx context.Context, hooks ...queryHoo
 
 func (ucrq *UserCreditRecordQuery) sqlCount(ctx context.Context) (int, error) {
 	_spec := ucrq.querySpec()
+	if len(ucrq.modifiers) > 0 {
+		_spec.Modifiers = ucrq.modifiers
+	}
 	_spec.Node.Columns = ucrq.ctx.Fields
 	if len(ucrq.ctx.Fields) > 0 {
 		_spec.Unique = ucrq.ctx.Unique != nil && *ucrq.ctx.Unique
@@ -419,6 +428,9 @@ func (ucrq *UserCreditRecordQuery) sqlQuery(ctx context.Context) *sql.Selector {
 	if ucrq.ctx.Unique != nil && *ucrq.ctx.Unique {
 		selector.Distinct()
 	}
+	for _, m := range ucrq.modifiers {
+		m(selector)
+	}
 	for _, p := range ucrq.predicates {
 		p(selector)
 	}
@@ -434,6 +446,38 @@ func (ucrq *UserCreditRecordQuery) sqlQuery(ctx context.Context) *sql.Selector {
 		selector.Limit(*limit)
 	}
 	return selector
+}
+
+// ForUpdate locks the selected rows against concurrent updates, and prevent them from being
+// updated, deleted or "selected ... for update" by other sessions, until the transaction is
+// either committed or rolled-back.
+func (ucrq *UserCreditRecordQuery) ForUpdate(opts ...sql.LockOption) *UserCreditRecordQuery {
+	if ucrq.driver.Dialect() == dialect.Postgres {
+		ucrq.Unique(false)
+	}
+	ucrq.modifiers = append(ucrq.modifiers, func(s *sql.Selector) {
+		s.ForUpdate(opts...)
+	})
+	return ucrq
+}
+
+// ForShare behaves similarly to ForUpdate, except that it acquires a shared mode lock
+// on any rows that are read. Other sessions can read the rows, but cannot modify them
+// until your transaction commits.
+func (ucrq *UserCreditRecordQuery) ForShare(opts ...sql.LockOption) *UserCreditRecordQuery {
+	if ucrq.driver.Dialect() == dialect.Postgres {
+		ucrq.Unique(false)
+	}
+	ucrq.modifiers = append(ucrq.modifiers, func(s *sql.Selector) {
+		s.ForShare(opts...)
+	})
+	return ucrq
+}
+
+// Modify adds a query modifier for attaching custom logic to queries.
+func (ucrq *UserCreditRecordQuery) Modify(modifiers ...func(s *sql.Selector)) *UserCreditRecordSelect {
+	ucrq.modifiers = append(ucrq.modifiers, modifiers...)
+	return ucrq.Select()
 }
 
 // UserCreditRecordGroupBy is the group-by builder for UserCreditRecord entities.
@@ -524,4 +568,10 @@ func (ucrs *UserCreditRecordSelect) sqlScan(ctx context.Context, root *UserCredi
 	}
 	defer rows.Close()
 	return sql.ScanSlice(rows, v)
+}
+
+// Modify adds a query modifier for attaching custom logic to queries.
+func (ucrs *UserCreditRecordSelect) Modify(modifiers ...func(s *sql.Selector)) *UserCreditRecordSelect {
+	ucrs.modifiers = append(ucrs.modifiers, modifiers...)
+	return ucrs
 }

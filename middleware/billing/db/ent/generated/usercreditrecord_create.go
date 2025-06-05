@@ -7,6 +7,7 @@ import (
 	"errors"
 	"fmt"
 
+	"entgo.io/ent/dialect/sql"
 	"entgo.io/ent/dialect/sql/sqlgraph"
 	"entgo.io/ent/schema/field"
 	"github.com/NpoolPlatform/kunman/middleware/billing/db/ent/generated/usercreditrecord"
@@ -18,6 +19,7 @@ type UserCreditRecordCreate struct {
 	config
 	mutation *UserCreditRecordMutation
 	hooks    []Hook
+	conflict []sql.ConflictOption
 }
 
 // SetEntID sets the "ent_id" field.
@@ -204,6 +206,7 @@ func (ucrc *UserCreditRecordCreate) createSpec() (*UserCreditRecord, *sqlgraph.C
 		_node = &UserCreditRecord{config: ucrc.config}
 		_spec = sqlgraph.NewCreateSpec(usercreditrecord.Table, sqlgraph.NewFieldSpec(usercreditrecord.FieldID, field.TypeUint32))
 	)
+	_spec.OnConflict = ucrc.conflict
 	if id, ok := ucrc.mutation.ID(); ok {
 		_node.ID = id
 		_spec.ID.Value = id
@@ -235,11 +238,376 @@ func (ucrc *UserCreditRecordCreate) createSpec() (*UserCreditRecord, *sqlgraph.C
 	return _node, _spec
 }
 
+// OnConflict allows configuring the `ON CONFLICT` / `ON DUPLICATE KEY` clause
+// of the `INSERT` statement. For example:
+//
+//	client.UserCreditRecord.Create().
+//		SetEntID(v).
+//		OnConflict(
+//			// Update the row with the new values
+//			// the was proposed for insertion.
+//			sql.ResolveWithNewValues(),
+//		).
+//		// Override some of the fields with custom
+//		// update values.
+//		Update(func(u *ent.UserCreditRecordUpsert) {
+//			SetEntID(v+v).
+//		}).
+//		Exec(ctx)
+func (ucrc *UserCreditRecordCreate) OnConflict(opts ...sql.ConflictOption) *UserCreditRecordUpsertOne {
+	ucrc.conflict = opts
+	return &UserCreditRecordUpsertOne{
+		create: ucrc,
+	}
+}
+
+// OnConflictColumns calls `OnConflict` and configures the columns
+// as conflict target. Using this option is equivalent to using:
+//
+//	client.UserCreditRecord.Create().
+//		OnConflict(sql.ConflictColumns(columns...)).
+//		Exec(ctx)
+func (ucrc *UserCreditRecordCreate) OnConflictColumns(columns ...string) *UserCreditRecordUpsertOne {
+	ucrc.conflict = append(ucrc.conflict, sql.ConflictColumns(columns...))
+	return &UserCreditRecordUpsertOne{
+		create: ucrc,
+	}
+}
+
+type (
+	// UserCreditRecordUpsertOne is the builder for "upsert"-ing
+	//  one UserCreditRecord node.
+	UserCreditRecordUpsertOne struct {
+		create *UserCreditRecordCreate
+	}
+
+	// UserCreditRecordUpsert is the "OnConflict" setter.
+	UserCreditRecordUpsert struct {
+		*sql.UpdateSet
+	}
+)
+
+// SetEntID sets the "ent_id" field.
+func (u *UserCreditRecordUpsert) SetEntID(v uuid.UUID) *UserCreditRecordUpsert {
+	u.Set(usercreditrecord.FieldEntID, v)
+	return u
+}
+
+// UpdateEntID sets the "ent_id" field to the value that was provided on create.
+func (u *UserCreditRecordUpsert) UpdateEntID() *UserCreditRecordUpsert {
+	u.SetExcluded(usercreditrecord.FieldEntID)
+	return u
+}
+
+// SetAppID sets the "app_id" field.
+func (u *UserCreditRecordUpsert) SetAppID(v uuid.UUID) *UserCreditRecordUpsert {
+	u.Set(usercreditrecord.FieldAppID, v)
+	return u
+}
+
+// UpdateAppID sets the "app_id" field to the value that was provided on create.
+func (u *UserCreditRecordUpsert) UpdateAppID() *UserCreditRecordUpsert {
+	u.SetExcluded(usercreditrecord.FieldAppID)
+	return u
+}
+
+// ClearAppID clears the value of the "app_id" field.
+func (u *UserCreditRecordUpsert) ClearAppID() *UserCreditRecordUpsert {
+	u.SetNull(usercreditrecord.FieldAppID)
+	return u
+}
+
+// SetUserID sets the "user_id" field.
+func (u *UserCreditRecordUpsert) SetUserID(v uuid.UUID) *UserCreditRecordUpsert {
+	u.Set(usercreditrecord.FieldUserID, v)
+	return u
+}
+
+// UpdateUserID sets the "user_id" field to the value that was provided on create.
+func (u *UserCreditRecordUpsert) UpdateUserID() *UserCreditRecordUpsert {
+	u.SetExcluded(usercreditrecord.FieldUserID)
+	return u
+}
+
+// ClearUserID clears the value of the "user_id" field.
+func (u *UserCreditRecordUpsert) ClearUserID() *UserCreditRecordUpsert {
+	u.SetNull(usercreditrecord.FieldUserID)
+	return u
+}
+
+// SetOperationType sets the "operation_type" field.
+func (u *UserCreditRecordUpsert) SetOperationType(v string) *UserCreditRecordUpsert {
+	u.Set(usercreditrecord.FieldOperationType, v)
+	return u
+}
+
+// UpdateOperationType sets the "operation_type" field to the value that was provided on create.
+func (u *UserCreditRecordUpsert) UpdateOperationType() *UserCreditRecordUpsert {
+	u.SetExcluded(usercreditrecord.FieldOperationType)
+	return u
+}
+
+// ClearOperationType clears the value of the "operation_type" field.
+func (u *UserCreditRecordUpsert) ClearOperationType() *UserCreditRecordUpsert {
+	u.SetNull(usercreditrecord.FieldOperationType)
+	return u
+}
+
+// SetCreditsChange sets the "credits_change" field.
+func (u *UserCreditRecordUpsert) SetCreditsChange(v int32) *UserCreditRecordUpsert {
+	u.Set(usercreditrecord.FieldCreditsChange, v)
+	return u
+}
+
+// UpdateCreditsChange sets the "credits_change" field to the value that was provided on create.
+func (u *UserCreditRecordUpsert) UpdateCreditsChange() *UserCreditRecordUpsert {
+	u.SetExcluded(usercreditrecord.FieldCreditsChange)
+	return u
+}
+
+// AddCreditsChange adds v to the "credits_change" field.
+func (u *UserCreditRecordUpsert) AddCreditsChange(v int32) *UserCreditRecordUpsert {
+	u.Add(usercreditrecord.FieldCreditsChange, v)
+	return u
+}
+
+// ClearCreditsChange clears the value of the "credits_change" field.
+func (u *UserCreditRecordUpsert) ClearCreditsChange() *UserCreditRecordUpsert {
+	u.SetNull(usercreditrecord.FieldCreditsChange)
+	return u
+}
+
+// SetExtra sets the "extra" field.
+func (u *UserCreditRecordUpsert) SetExtra(v string) *UserCreditRecordUpsert {
+	u.Set(usercreditrecord.FieldExtra, v)
+	return u
+}
+
+// UpdateExtra sets the "extra" field to the value that was provided on create.
+func (u *UserCreditRecordUpsert) UpdateExtra() *UserCreditRecordUpsert {
+	u.SetExcluded(usercreditrecord.FieldExtra)
+	return u
+}
+
+// ClearExtra clears the value of the "extra" field.
+func (u *UserCreditRecordUpsert) ClearExtra() *UserCreditRecordUpsert {
+	u.SetNull(usercreditrecord.FieldExtra)
+	return u
+}
+
+// UpdateNewValues updates the mutable fields using the new values that were set on create except the ID field.
+// Using this option is equivalent to using:
+//
+//	client.UserCreditRecord.Create().
+//		OnConflict(
+//			sql.ResolveWithNewValues(),
+//			sql.ResolveWith(func(u *sql.UpdateSet) {
+//				u.SetIgnore(usercreditrecord.FieldID)
+//			}),
+//		).
+//		Exec(ctx)
+func (u *UserCreditRecordUpsertOne) UpdateNewValues() *UserCreditRecordUpsertOne {
+	u.create.conflict = append(u.create.conflict, sql.ResolveWithNewValues())
+	u.create.conflict = append(u.create.conflict, sql.ResolveWith(func(s *sql.UpdateSet) {
+		if _, exists := u.create.mutation.ID(); exists {
+			s.SetIgnore(usercreditrecord.FieldID)
+		}
+	}))
+	return u
+}
+
+// Ignore sets each column to itself in case of conflict.
+// Using this option is equivalent to using:
+//
+//	client.UserCreditRecord.Create().
+//	    OnConflict(sql.ResolveWithIgnore()).
+//	    Exec(ctx)
+func (u *UserCreditRecordUpsertOne) Ignore() *UserCreditRecordUpsertOne {
+	u.create.conflict = append(u.create.conflict, sql.ResolveWithIgnore())
+	return u
+}
+
+// DoNothing configures the conflict_action to `DO NOTHING`.
+// Supported only by SQLite and PostgreSQL.
+func (u *UserCreditRecordUpsertOne) DoNothing() *UserCreditRecordUpsertOne {
+	u.create.conflict = append(u.create.conflict, sql.DoNothing())
+	return u
+}
+
+// Update allows overriding fields `UPDATE` values. See the UserCreditRecordCreate.OnConflict
+// documentation for more info.
+func (u *UserCreditRecordUpsertOne) Update(set func(*UserCreditRecordUpsert)) *UserCreditRecordUpsertOne {
+	u.create.conflict = append(u.create.conflict, sql.ResolveWith(func(update *sql.UpdateSet) {
+		set(&UserCreditRecordUpsert{UpdateSet: update})
+	}))
+	return u
+}
+
+// SetEntID sets the "ent_id" field.
+func (u *UserCreditRecordUpsertOne) SetEntID(v uuid.UUID) *UserCreditRecordUpsertOne {
+	return u.Update(func(s *UserCreditRecordUpsert) {
+		s.SetEntID(v)
+	})
+}
+
+// UpdateEntID sets the "ent_id" field to the value that was provided on create.
+func (u *UserCreditRecordUpsertOne) UpdateEntID() *UserCreditRecordUpsertOne {
+	return u.Update(func(s *UserCreditRecordUpsert) {
+		s.UpdateEntID()
+	})
+}
+
+// SetAppID sets the "app_id" field.
+func (u *UserCreditRecordUpsertOne) SetAppID(v uuid.UUID) *UserCreditRecordUpsertOne {
+	return u.Update(func(s *UserCreditRecordUpsert) {
+		s.SetAppID(v)
+	})
+}
+
+// UpdateAppID sets the "app_id" field to the value that was provided on create.
+func (u *UserCreditRecordUpsertOne) UpdateAppID() *UserCreditRecordUpsertOne {
+	return u.Update(func(s *UserCreditRecordUpsert) {
+		s.UpdateAppID()
+	})
+}
+
+// ClearAppID clears the value of the "app_id" field.
+func (u *UserCreditRecordUpsertOne) ClearAppID() *UserCreditRecordUpsertOne {
+	return u.Update(func(s *UserCreditRecordUpsert) {
+		s.ClearAppID()
+	})
+}
+
+// SetUserID sets the "user_id" field.
+func (u *UserCreditRecordUpsertOne) SetUserID(v uuid.UUID) *UserCreditRecordUpsertOne {
+	return u.Update(func(s *UserCreditRecordUpsert) {
+		s.SetUserID(v)
+	})
+}
+
+// UpdateUserID sets the "user_id" field to the value that was provided on create.
+func (u *UserCreditRecordUpsertOne) UpdateUserID() *UserCreditRecordUpsertOne {
+	return u.Update(func(s *UserCreditRecordUpsert) {
+		s.UpdateUserID()
+	})
+}
+
+// ClearUserID clears the value of the "user_id" field.
+func (u *UserCreditRecordUpsertOne) ClearUserID() *UserCreditRecordUpsertOne {
+	return u.Update(func(s *UserCreditRecordUpsert) {
+		s.ClearUserID()
+	})
+}
+
+// SetOperationType sets the "operation_type" field.
+func (u *UserCreditRecordUpsertOne) SetOperationType(v string) *UserCreditRecordUpsertOne {
+	return u.Update(func(s *UserCreditRecordUpsert) {
+		s.SetOperationType(v)
+	})
+}
+
+// UpdateOperationType sets the "operation_type" field to the value that was provided on create.
+func (u *UserCreditRecordUpsertOne) UpdateOperationType() *UserCreditRecordUpsertOne {
+	return u.Update(func(s *UserCreditRecordUpsert) {
+		s.UpdateOperationType()
+	})
+}
+
+// ClearOperationType clears the value of the "operation_type" field.
+func (u *UserCreditRecordUpsertOne) ClearOperationType() *UserCreditRecordUpsertOne {
+	return u.Update(func(s *UserCreditRecordUpsert) {
+		s.ClearOperationType()
+	})
+}
+
+// SetCreditsChange sets the "credits_change" field.
+func (u *UserCreditRecordUpsertOne) SetCreditsChange(v int32) *UserCreditRecordUpsertOne {
+	return u.Update(func(s *UserCreditRecordUpsert) {
+		s.SetCreditsChange(v)
+	})
+}
+
+// AddCreditsChange adds v to the "credits_change" field.
+func (u *UserCreditRecordUpsertOne) AddCreditsChange(v int32) *UserCreditRecordUpsertOne {
+	return u.Update(func(s *UserCreditRecordUpsert) {
+		s.AddCreditsChange(v)
+	})
+}
+
+// UpdateCreditsChange sets the "credits_change" field to the value that was provided on create.
+func (u *UserCreditRecordUpsertOne) UpdateCreditsChange() *UserCreditRecordUpsertOne {
+	return u.Update(func(s *UserCreditRecordUpsert) {
+		s.UpdateCreditsChange()
+	})
+}
+
+// ClearCreditsChange clears the value of the "credits_change" field.
+func (u *UserCreditRecordUpsertOne) ClearCreditsChange() *UserCreditRecordUpsertOne {
+	return u.Update(func(s *UserCreditRecordUpsert) {
+		s.ClearCreditsChange()
+	})
+}
+
+// SetExtra sets the "extra" field.
+func (u *UserCreditRecordUpsertOne) SetExtra(v string) *UserCreditRecordUpsertOne {
+	return u.Update(func(s *UserCreditRecordUpsert) {
+		s.SetExtra(v)
+	})
+}
+
+// UpdateExtra sets the "extra" field to the value that was provided on create.
+func (u *UserCreditRecordUpsertOne) UpdateExtra() *UserCreditRecordUpsertOne {
+	return u.Update(func(s *UserCreditRecordUpsert) {
+		s.UpdateExtra()
+	})
+}
+
+// ClearExtra clears the value of the "extra" field.
+func (u *UserCreditRecordUpsertOne) ClearExtra() *UserCreditRecordUpsertOne {
+	return u.Update(func(s *UserCreditRecordUpsert) {
+		s.ClearExtra()
+	})
+}
+
+// Exec executes the query.
+func (u *UserCreditRecordUpsertOne) Exec(ctx context.Context) error {
+	if len(u.create.conflict) == 0 {
+		return errors.New("generated: missing options for UserCreditRecordCreate.OnConflict")
+	}
+	return u.create.Exec(ctx)
+}
+
+// ExecX is like Exec, but panics if an error occurs.
+func (u *UserCreditRecordUpsertOne) ExecX(ctx context.Context) {
+	if err := u.create.Exec(ctx); err != nil {
+		panic(err)
+	}
+}
+
+// Exec executes the UPSERT query and returns the inserted/updated ID.
+func (u *UserCreditRecordUpsertOne) ID(ctx context.Context) (id uint32, err error) {
+	node, err := u.create.Save(ctx)
+	if err != nil {
+		return id, err
+	}
+	return node.ID, nil
+}
+
+// IDX is like ID, but panics if an error occurs.
+func (u *UserCreditRecordUpsertOne) IDX(ctx context.Context) uint32 {
+	id, err := u.ID(ctx)
+	if err != nil {
+		panic(err)
+	}
+	return id
+}
+
 // UserCreditRecordCreateBulk is the builder for creating many UserCreditRecord entities in bulk.
 type UserCreditRecordCreateBulk struct {
 	config
 	err      error
 	builders []*UserCreditRecordCreate
+	conflict []sql.ConflictOption
 }
 
 // Save creates the UserCreditRecord entities in the database.
@@ -269,6 +637,7 @@ func (ucrcb *UserCreditRecordCreateBulk) Save(ctx context.Context) ([]*UserCredi
 					_, err = mutators[i+1].Mutate(root, ucrcb.builders[i+1].mutation)
 				} else {
 					spec := &sqlgraph.BatchCreateSpec{Nodes: specs}
+					spec.OnConflict = ucrcb.conflict
 					// Invoke the actual operation on the latest mutation in the chain.
 					if err = sqlgraph.BatchCreate(ctx, ucrcb.driver, spec); err != nil {
 						if sqlgraph.IsConstraintError(err) {
@@ -319,6 +688,246 @@ func (ucrcb *UserCreditRecordCreateBulk) Exec(ctx context.Context) error {
 // ExecX is like Exec, but panics if an error occurs.
 func (ucrcb *UserCreditRecordCreateBulk) ExecX(ctx context.Context) {
 	if err := ucrcb.Exec(ctx); err != nil {
+		panic(err)
+	}
+}
+
+// OnConflict allows configuring the `ON CONFLICT` / `ON DUPLICATE KEY` clause
+// of the `INSERT` statement. For example:
+//
+//	client.UserCreditRecord.CreateBulk(builders...).
+//		OnConflict(
+//			// Update the row with the new values
+//			// the was proposed for insertion.
+//			sql.ResolveWithNewValues(),
+//		).
+//		// Override some of the fields with custom
+//		// update values.
+//		Update(func(u *ent.UserCreditRecordUpsert) {
+//			SetEntID(v+v).
+//		}).
+//		Exec(ctx)
+func (ucrcb *UserCreditRecordCreateBulk) OnConflict(opts ...sql.ConflictOption) *UserCreditRecordUpsertBulk {
+	ucrcb.conflict = opts
+	return &UserCreditRecordUpsertBulk{
+		create: ucrcb,
+	}
+}
+
+// OnConflictColumns calls `OnConflict` and configures the columns
+// as conflict target. Using this option is equivalent to using:
+//
+//	client.UserCreditRecord.Create().
+//		OnConflict(sql.ConflictColumns(columns...)).
+//		Exec(ctx)
+func (ucrcb *UserCreditRecordCreateBulk) OnConflictColumns(columns ...string) *UserCreditRecordUpsertBulk {
+	ucrcb.conflict = append(ucrcb.conflict, sql.ConflictColumns(columns...))
+	return &UserCreditRecordUpsertBulk{
+		create: ucrcb,
+	}
+}
+
+// UserCreditRecordUpsertBulk is the builder for "upsert"-ing
+// a bulk of UserCreditRecord nodes.
+type UserCreditRecordUpsertBulk struct {
+	create *UserCreditRecordCreateBulk
+}
+
+// UpdateNewValues updates the mutable fields using the new values that
+// were set on create. Using this option is equivalent to using:
+//
+//	client.UserCreditRecord.Create().
+//		OnConflict(
+//			sql.ResolveWithNewValues(),
+//			sql.ResolveWith(func(u *sql.UpdateSet) {
+//				u.SetIgnore(usercreditrecord.FieldID)
+//			}),
+//		).
+//		Exec(ctx)
+func (u *UserCreditRecordUpsertBulk) UpdateNewValues() *UserCreditRecordUpsertBulk {
+	u.create.conflict = append(u.create.conflict, sql.ResolveWithNewValues())
+	u.create.conflict = append(u.create.conflict, sql.ResolveWith(func(s *sql.UpdateSet) {
+		for _, b := range u.create.builders {
+			if _, exists := b.mutation.ID(); exists {
+				s.SetIgnore(usercreditrecord.FieldID)
+			}
+		}
+	}))
+	return u
+}
+
+// Ignore sets each column to itself in case of conflict.
+// Using this option is equivalent to using:
+//
+//	client.UserCreditRecord.Create().
+//		OnConflict(sql.ResolveWithIgnore()).
+//		Exec(ctx)
+func (u *UserCreditRecordUpsertBulk) Ignore() *UserCreditRecordUpsertBulk {
+	u.create.conflict = append(u.create.conflict, sql.ResolveWithIgnore())
+	return u
+}
+
+// DoNothing configures the conflict_action to `DO NOTHING`.
+// Supported only by SQLite and PostgreSQL.
+func (u *UserCreditRecordUpsertBulk) DoNothing() *UserCreditRecordUpsertBulk {
+	u.create.conflict = append(u.create.conflict, sql.DoNothing())
+	return u
+}
+
+// Update allows overriding fields `UPDATE` values. See the UserCreditRecordCreateBulk.OnConflict
+// documentation for more info.
+func (u *UserCreditRecordUpsertBulk) Update(set func(*UserCreditRecordUpsert)) *UserCreditRecordUpsertBulk {
+	u.create.conflict = append(u.create.conflict, sql.ResolveWith(func(update *sql.UpdateSet) {
+		set(&UserCreditRecordUpsert{UpdateSet: update})
+	}))
+	return u
+}
+
+// SetEntID sets the "ent_id" field.
+func (u *UserCreditRecordUpsertBulk) SetEntID(v uuid.UUID) *UserCreditRecordUpsertBulk {
+	return u.Update(func(s *UserCreditRecordUpsert) {
+		s.SetEntID(v)
+	})
+}
+
+// UpdateEntID sets the "ent_id" field to the value that was provided on create.
+func (u *UserCreditRecordUpsertBulk) UpdateEntID() *UserCreditRecordUpsertBulk {
+	return u.Update(func(s *UserCreditRecordUpsert) {
+		s.UpdateEntID()
+	})
+}
+
+// SetAppID sets the "app_id" field.
+func (u *UserCreditRecordUpsertBulk) SetAppID(v uuid.UUID) *UserCreditRecordUpsertBulk {
+	return u.Update(func(s *UserCreditRecordUpsert) {
+		s.SetAppID(v)
+	})
+}
+
+// UpdateAppID sets the "app_id" field to the value that was provided on create.
+func (u *UserCreditRecordUpsertBulk) UpdateAppID() *UserCreditRecordUpsertBulk {
+	return u.Update(func(s *UserCreditRecordUpsert) {
+		s.UpdateAppID()
+	})
+}
+
+// ClearAppID clears the value of the "app_id" field.
+func (u *UserCreditRecordUpsertBulk) ClearAppID() *UserCreditRecordUpsertBulk {
+	return u.Update(func(s *UserCreditRecordUpsert) {
+		s.ClearAppID()
+	})
+}
+
+// SetUserID sets the "user_id" field.
+func (u *UserCreditRecordUpsertBulk) SetUserID(v uuid.UUID) *UserCreditRecordUpsertBulk {
+	return u.Update(func(s *UserCreditRecordUpsert) {
+		s.SetUserID(v)
+	})
+}
+
+// UpdateUserID sets the "user_id" field to the value that was provided on create.
+func (u *UserCreditRecordUpsertBulk) UpdateUserID() *UserCreditRecordUpsertBulk {
+	return u.Update(func(s *UserCreditRecordUpsert) {
+		s.UpdateUserID()
+	})
+}
+
+// ClearUserID clears the value of the "user_id" field.
+func (u *UserCreditRecordUpsertBulk) ClearUserID() *UserCreditRecordUpsertBulk {
+	return u.Update(func(s *UserCreditRecordUpsert) {
+		s.ClearUserID()
+	})
+}
+
+// SetOperationType sets the "operation_type" field.
+func (u *UserCreditRecordUpsertBulk) SetOperationType(v string) *UserCreditRecordUpsertBulk {
+	return u.Update(func(s *UserCreditRecordUpsert) {
+		s.SetOperationType(v)
+	})
+}
+
+// UpdateOperationType sets the "operation_type" field to the value that was provided on create.
+func (u *UserCreditRecordUpsertBulk) UpdateOperationType() *UserCreditRecordUpsertBulk {
+	return u.Update(func(s *UserCreditRecordUpsert) {
+		s.UpdateOperationType()
+	})
+}
+
+// ClearOperationType clears the value of the "operation_type" field.
+func (u *UserCreditRecordUpsertBulk) ClearOperationType() *UserCreditRecordUpsertBulk {
+	return u.Update(func(s *UserCreditRecordUpsert) {
+		s.ClearOperationType()
+	})
+}
+
+// SetCreditsChange sets the "credits_change" field.
+func (u *UserCreditRecordUpsertBulk) SetCreditsChange(v int32) *UserCreditRecordUpsertBulk {
+	return u.Update(func(s *UserCreditRecordUpsert) {
+		s.SetCreditsChange(v)
+	})
+}
+
+// AddCreditsChange adds v to the "credits_change" field.
+func (u *UserCreditRecordUpsertBulk) AddCreditsChange(v int32) *UserCreditRecordUpsertBulk {
+	return u.Update(func(s *UserCreditRecordUpsert) {
+		s.AddCreditsChange(v)
+	})
+}
+
+// UpdateCreditsChange sets the "credits_change" field to the value that was provided on create.
+func (u *UserCreditRecordUpsertBulk) UpdateCreditsChange() *UserCreditRecordUpsertBulk {
+	return u.Update(func(s *UserCreditRecordUpsert) {
+		s.UpdateCreditsChange()
+	})
+}
+
+// ClearCreditsChange clears the value of the "credits_change" field.
+func (u *UserCreditRecordUpsertBulk) ClearCreditsChange() *UserCreditRecordUpsertBulk {
+	return u.Update(func(s *UserCreditRecordUpsert) {
+		s.ClearCreditsChange()
+	})
+}
+
+// SetExtra sets the "extra" field.
+func (u *UserCreditRecordUpsertBulk) SetExtra(v string) *UserCreditRecordUpsertBulk {
+	return u.Update(func(s *UserCreditRecordUpsert) {
+		s.SetExtra(v)
+	})
+}
+
+// UpdateExtra sets the "extra" field to the value that was provided on create.
+func (u *UserCreditRecordUpsertBulk) UpdateExtra() *UserCreditRecordUpsertBulk {
+	return u.Update(func(s *UserCreditRecordUpsert) {
+		s.UpdateExtra()
+	})
+}
+
+// ClearExtra clears the value of the "extra" field.
+func (u *UserCreditRecordUpsertBulk) ClearExtra() *UserCreditRecordUpsertBulk {
+	return u.Update(func(s *UserCreditRecordUpsert) {
+		s.ClearExtra()
+	})
+}
+
+// Exec executes the query.
+func (u *UserCreditRecordUpsertBulk) Exec(ctx context.Context) error {
+	if u.create.err != nil {
+		return u.create.err
+	}
+	for i, b := range u.create.builders {
+		if len(b.conflict) != 0 {
+			return fmt.Errorf("generated: OnConflict was set for builder %d. Set it on the UserCreditRecordCreateBulk instead", i)
+		}
+	}
+	if len(u.create.conflict) == 0 {
+		return errors.New("generated: missing options for UserCreditRecordCreateBulk.OnConflict")
+	}
+	return u.create.Exec(ctx)
+}
+
+// ExecX is like Exec, but panics if an error occurs.
+func (u *UserCreditRecordUpsertBulk) ExecX(ctx context.Context) {
+	if err := u.create.Exec(ctx); err != nil {
 		panic(err)
 	}
 }
