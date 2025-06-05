@@ -1,0 +1,35 @@
+syntax = "proto3";
+
+package good.middleware.app.good1.stock.mining.v1;
+
+option go_package = "github.com/NpoolPlatform/message/good/middleware/v1/app/good/stock/mining";
+
+message StockReq {
+    optional string EntID = 10;
+    optional string MiningGoodStockID = 20;
+    optional string Reserved = 30;
+}
+
+message StockInfo {
+    // @inject_tag: sql:"id"
+    uint32 ID = 10;
+    // @inject_tag: sql:"ent_id"
+    string EntID = 20;
+    // @inject_tag: sql:"app_good_stock_id"
+    string AppGoodStockID = 30;
+    // @inject_tag: sql:"mining_good_stock_id"
+    string MiningGoodStockID = 40;
+    // @inject_tag: sql:"reserved"
+    string Reserved   = 50;
+    // @inject_tag: sql:"spot_quantity"
+    string SpotQuantity = 60;
+    // @inject_tag: sql:"locked"
+    string Locked     = 70;
+    // @inject_tag: sql:"wait_start"
+    string WaitStart  = 80;
+    // @inject_tag: sql:"in_service"
+    string InService  = 90;
+    // @inject_tag: sql:"sold"
+    string Sold       = 100;
+}
+

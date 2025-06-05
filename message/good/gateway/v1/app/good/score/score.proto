@@ -1,0 +1,124 @@
+syntax = "proto3";
+
+package good.gateway.app.good1.score.v1;
+
+option go_package = "github.com/NpoolPlatform/message/good/gateway/v1/app/good/score";
+
+import "google/api/annotations.proto";
+
+service Gateway {
+    rpc CreateScore (CreateScoreRequest) returns (CreateScoreResponse) {
+        option (google.api.http) = {
+            post: "/v1/create/appgoodscore"
+            body: "*"
+        };
+    }
+
+    rpc GetMyScores (GetMyScoresRequest) returns (GetMyScoresResponse) {
+        option (google.api.http) = {
+            post: "/v1/get/my/appgoodscores"
+            body: "*"
+        };
+    }
+
+    rpc GetScores (GetScoresRequest) returns (GetScoresResponse) {
+        option (google.api.http) = {
+            post: "/v1/get/appgoodscores"
+            body: "*"
+        };
+    }
+
+    rpc DeleteScore (DeleteScoreRequest) returns (DeleteScoreResponse) {
+        option (google.api.http) = {
+            post: "/v1/delete/appgoodscore"
+            body: "*"
+        };
+    }
+
+    rpc AdminGetScores (AdminGetScoresRequest) returns (AdminGetScoresResponse) {
+        option (google.api.http) = {
+            post: "/v1/admin/get/appgoodscores"
+            body: "*"
+        };
+    }
+
+}
+
+message Score {
+    uint32 ID = 10;
+    string EntID = 20;
+    string AppID = 30;
+    string AppName = 40;
+    string UserID = 50;
+    optional string Username = 60;
+    optional string EmailAddress = 70;
+    optional string PhoneNO = 80;
+    string AppGoodID = 90;
+    string GoodName = 100;
+    string Score = 110;
+    string GoodID = 120;
+    uint32 CreatedAt = 1000;
+}
+
+message CreateScoreRequest {
+    string AppID = 10;
+    string UserID = 20;
+    string AppGoodID = 30;
+    string Score = 40;
+}
+
+message CreateScoreResponse {
+    Score Info = 10;
+}
+
+message GetMyScoresRequest {
+    string AppID = 10;
+    string UserID = 20;
+    optional string AppGoodID = 30;
+    optional string GoodID = 40;
+    int32 Offset = 50;
+    int32 Limit = 60;
+}
+
+message GetMyScoresResponse {
+    repeated Score Infos = 10;
+    uint32 Total = 20;
+}
+
+message GetScoresRequest {
+    string AppID = 10;
+    optional string TargetUserID = 20;
+    optional string AppGoodID = 30;
+    optional string GoodID = 40;
+    int32 Offset = 50;
+    int32 Limit = 60;
+}
+
+message GetScoresResponse {
+    repeated Score Infos = 10;
+    uint32 Total = 20;
+}
+
+message DeleteScoreRequest {
+    uint32 ID = 10;
+    string EntID = 20;
+    string AppID = 30;
+    string UserID = 40;
+}
+
+message DeleteScoreResponse {
+    Score Info = 10;
+}
+
+message AdminGetScoresRequest {
+    string TargetAppID = 10;
+    optional string AppGoodID = 20;
+    optional string GoodID = 30;
+    int32 Offset = 40;
+    int32 Limit = 50;
+}
+
+message AdminGetScoresResponse {
+    repeated Score Infos = 10;
+    uint32 Total = 20;
+}

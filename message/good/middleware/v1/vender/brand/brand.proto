@@ -1,0 +1,36 @@
+syntax = "proto3";
+
+package good.middleware.vendor.brand.v1;
+
+option go_package = "github.com/NpoolPlatform/message/good/middleware/v1/vender/brand";
+
+import "basetypes/v1/conds.proto";
+
+message BrandReq {
+    optional uint32 ID = 10;
+    optional string EntID = 20;
+    optional string Name = 30;
+    optional string Logo = 40;
+}
+
+message Brand {
+    // @inject_tag: sql:"id"
+    uint32 ID = 10;
+    // @inject_tag: sql:"ent_id"
+    string EntID = 20;
+    // @inject_tag: sql:"name"
+    string Name = 30;
+    // @inject_tag: sql:"logo"
+    string Logo = 40;
+    // @inject_tag: sql:"created_at"
+    uint32 CreatedAt = 1000;
+    // @inject_tag: sql:"updated_at"
+    uint32 UpdatedAt = 1010;
+}
+
+message Conds {
+    optional basetypes.v1.Uint32Val ID = 10;
+    optional basetypes.v1.StringVal EntID = 20;
+    optional basetypes.v1.StringVal Name = 30;
+}
+

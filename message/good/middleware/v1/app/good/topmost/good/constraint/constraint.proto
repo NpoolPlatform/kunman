@@ -1,0 +1,64 @@
+syntax = "proto3";
+
+package good.middleware.app.good1.topmost.good2.constraint.v1;
+
+option go_package = "github.com/NpoolPlatform/message/good/middleware/v1/app/good/topmost/good/constraint";
+
+import "basetypes/good/v1/enums.proto";
+import "basetypes/v1/conds.proto";
+
+message TopMostGoodConstraintReq {
+    optional uint32 ID = 10;
+    optional string EntID = 20;
+    optional string TopMostGoodID = 30;
+    optional basetypes.good.v1.GoodTopMostConstraint Constraint = 40;
+    optional string TargetValue = 50;
+    optional uint32 Index = 60;
+}
+
+message TopMostGoodConstraint {
+    // @inject_tag: sql:"id"
+    uint32 ID = 10;
+    // @inject_tag: sql:"ent_id"
+    string EntID = 20;
+    // @inject_tag: sql:"app_id"
+    string AppID = 30;
+    // @inject_tag: sql:"top_most_id"
+    string TopMostID = 40;
+    // @inject_tag: sql:"top_most_type"
+    string TopMostTypeStr = 50;
+    basetypes.good.v1.GoodTopMostType TopMostType = 60;
+    // @inject_tag: sql:"top_most_title"
+    string TopMostTitle = 70;
+    // @inject_tag: sql:"top_most_message"
+    string TopMostMessage = 80;
+    // @inject_tag: sql:"top_most_target_url"
+    string TopMostTargetUrl = 90;
+    // @inject_tag: sql:"constraint"
+    string ConstraintStr = 100;
+    basetypes.good.v1.GoodTopMostConstraint Constraint = 110;
+    // @inject_tag: sql:"top_most_good_id"
+    string TopMostGoodID = 120;
+    // @inject_tag: sql:"app_good_id"
+    string AppGoodID = 130;
+    // @inject_tag: sql:"app_good_name"
+    string AppGoodName = 140;
+    // @inject_tag: sql:"target_value"
+    string TargetValue = 150;
+    // @inject_tag: sql:"index"
+    uint32 Index = 160;
+    // @inject_tag: sql:"created_at"
+    uint32 CreatedAt = 1000;
+    // @inject_tag: sql:"updated_at"
+    uint32 UpdatedAt = 1010;
+}
+
+message Conds {
+    optional basetypes.v1.Uint32Val ID = 10;
+    optional basetypes.v1.StringVal EntID = 20;
+    optional basetypes.v1.StringVal AppID = 30;
+    optional basetypes.v1.StringVal TopMostID = 40;
+    optional basetypes.v1.Uint32Val TopMostType = 50;
+    optional basetypes.v1.StringVal AppGoodID = 60;
+}
+

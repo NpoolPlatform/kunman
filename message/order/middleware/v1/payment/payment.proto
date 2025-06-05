@@ -33,6 +33,7 @@ message Payment {
 
     repeated PaymentBalanceInfo PaymentBalances = 100;
     repeated PaymentTransferInfo PaymentTransfers = 110;
+    repeated PaymentFiatInfo PaymentFiats = 120;
 
     // @inject_tag: sql:"created_at"
     uint32 CreatedAt = 1000;
@@ -122,4 +123,32 @@ message PaymentTransferInfo {
     string FinishAmount = 100;
     // @inject_tag: sql:"created_at"
     uint32 CreatedAt = 110;
+}
+
+message PaymentFiatReq {
+    optional string EntID = 10;
+    optional string FiatID = 20;
+    optional basetypes.order.v1.FiatPaymentChannel PaymentChannel = 30;
+    optional string Amount = 40;
+    optional string ChannelPaymentID = 50;
+    optional string USDCurrency = 60;
+}
+
+message PaymentFiatInfo {
+    // @inject_tag: sql:"ent_id"
+    string EntID = 10;
+    // @inject_tag: sql:"payment_id"
+    string PaymentID = 20;
+    // @inject_tag: sql:"fiat_id"
+    string FiatID = 30;
+    // @inject_tag: sql:"payment_channel"
+    basetypes.order.v1.FiatPaymentChannel PaymentChannel = 40;
+    // @inject_tag: sql:"amount"
+    string Amount = 50;
+    // @inject_tag: sql:"usd_currency"
+    string USDCurrency = 60;
+    // @inject_tag: sql:"channel_payment_id"
+    string ChannelPaymentID = 70;
+    // @inject_tag: sql:"created_at"
+    uint32 CreatedAt = 200;
 }

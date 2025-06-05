@@ -1,0 +1,49 @@
+syntax = "proto3";
+
+package good.gateway.app.good1.v1;
+
+option go_package = "github.com/NpoolPlatform/message/good/gateway/v1/app/good";
+
+import "basetypes/good/v1/enums.proto";
+import "google/api/annotations.proto";
+import "good/middleware/v1/app/good/good.proto";
+
+// Service Name
+service Gateway {
+    rpc GetGoods (GetGoodsRequest) returns (GetGoodsResponse) {
+        option (google.api.http) = {
+            post: "/v1/get/appgoods"
+            body: "*"
+        };
+    }
+
+    rpc AdminGetGoods (AdminGetGoodsRequest) returns (AdminGetGoodsResponse) {
+        option (google.api.http) = {
+            post: "/v1/admin/get/appgoods"
+            body: "*"
+        };
+    }
+}
+
+message GetGoodsRequest {
+    string AppID = 10;
+    int32 Offset = 20;
+    int32 Limit = 30;
+}
+
+message GetGoodsResponse {
+    repeated good.middleware.app.good1.v1.Good Infos = 10;
+    uint32 Total = 20;
+}
+
+message AdminGetGoodsRequest {
+    string TargetAppID = 10;
+    int32 Offset = 20;
+    int32 Limit = 30;
+}
+
+message AdminGetGoodsResponse {
+    repeated good.middleware.app.good1.v1.Good Infos = 10;
+    uint32 Total = 20;
+}
+

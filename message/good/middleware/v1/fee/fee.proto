@@ -1,0 +1,57 @@
+syntax = "proto3";
+
+package good.middleware.fee.v1;
+
+option go_package = "github.com/NpoolPlatform/message/good/middleware/v1/fee";
+
+import "basetypes/good/v1/enums.proto";
+import "basetypes/v1/conds.proto";
+
+message FeeReq {
+    optional uint32 ID = 10;
+    optional string EntID = 20;
+    optional string GoodID = 30;
+    optional basetypes.good.v1.GoodType GoodType = 40;
+    optional string Name = 50;
+    optional basetypes.good.v1.GoodSettlementType SettlementType = 60;
+    // It could be amount or percent.
+    optional string UnitValue = 70;
+    optional basetypes.good.v1.GoodDurationType DurationDisplayType = 80;
+}
+
+message Fee {
+    // @inject_tag: sql:"id"
+    uint32 ID = 10;
+    // @inject_tag: sql:"ent_id"
+    string EntID = 20;
+    // @inject_tag: sql:"good_id"
+    string GoodID = 30;
+    // @inject_tag: sql:"good_type"
+    string GoodTypeStr = 40;
+    basetypes.good.v1.GoodType GoodType = 50;
+    // @inject_tag: sql:"name"
+    string Name = 60;
+    // @inject_tag: sql:"settlement_type"
+    string SettlementTypeStr = 70;
+    basetypes.good.v1.GoodSettlementType SettlementType = 80;
+    // @inject_tag: sql:"unit_value"
+    string UnitValue = 90;
+    // @inject_tag: sql:"duration_display_type"
+    string DurationDisplayTypeStr = 100;
+    basetypes.good.v1.GoodDurationType DurationDisplayType = 110;
+    // @inject_tag: sql:"created_at"
+    uint32 CreatedAt = 1000;
+    // @inject_tag: sql:"updated_at"
+    uint32 UpdatedAt = 2000;
+}
+
+message Conds {
+    optional basetypes.v1.Uint32Val ID = 10;
+    optional basetypes.v1.Uint32SliceVal IDs = 20;
+    optional basetypes.v1.StringVal EntID = 30;
+    optional basetypes.v1.StringSliceVal EntIDs = 40;
+    optional basetypes.v1.StringVal GoodID = 50;
+    optional basetypes.v1.StringSliceVal GoodIDs = 60;
+    optional basetypes.v1.Uint32Val SettlementType = 70;
+}
+

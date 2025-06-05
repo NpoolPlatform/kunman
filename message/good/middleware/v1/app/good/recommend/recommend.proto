@@ -1,0 +1,57 @@
+syntax = "proto3";
+
+package good.middleware.app.good1.recommend.v1;
+
+option go_package = "github.com/NpoolPlatform/message/good/middleware/v1/app/good/recommend";
+
+import "basetypes/v1/conds.proto";
+import "basetypes/good/v1/enums.proto";
+
+message RecommendReq {
+    optional uint32 ID = 10;
+    optional string EntID = 20;
+    optional string RecommenderID = 30;
+    optional string AppGoodID = 40;
+    optional string RecommendIndex = 50;
+    optional string Message = 60;
+    optional bool Hide = 70;
+    optional basetypes.good.v1.GoodCommentHideReason HideReason = 80;
+}
+
+message Recommend {
+    // @inject_tag: sql:"id"
+    uint32 ID = 10;
+    // @inject_tag: sql:"ent_id"
+    string EntID = 20;
+    // @inject_tag: sql:"app_id"
+    string AppID = 30;
+    // @inject_tag: sql:"recommender_id"
+    string RecommenderID = 40;
+    // @inject_tag: sql:"app_good_id"
+    string AppGoodID = 50;
+    // @inject_tag: sql:"good_name"
+    string GoodName = 60;
+    // @inject_tag: sql:"recommend_index"
+    string RecommendIndex = 70;
+    // @inject_tag: sql:"message"
+    string Message = 80;
+    // @inject_tag: sql:"hide"
+    bool Hide = 90;
+    // @inject_tag: sql:"hide_reason"
+    string HideReasonStr = 100;
+    basetypes.good.v1.GoodCommentHideReason HideReason = 110;
+    // @inject_tag: sql:"created_at"
+    uint32 CreatedAt = 1000;
+    // @inject_tag: sql:"updated_at"
+    uint32 UpdatedAt = 1010;
+}
+
+message Conds {
+    optional basetypes.v1.Uint32Val ID = 10;
+    optional basetypes.v1.StringVal EntID = 20;
+    optional basetypes.v1.StringVal AppID = 30;
+    optional basetypes.v1.StringVal RecommenderID = 40;
+    optional basetypes.v1.StringVal AppGoodID = 50;
+    optional basetypes.v1.StringSliceVal AppGoodIDs = 60;
+}
+

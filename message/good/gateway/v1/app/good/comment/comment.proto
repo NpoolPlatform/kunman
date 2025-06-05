@@ -1,0 +1,235 @@
+syntax = "proto3";
+
+package good.gateway.app.good1.comment.v1;
+
+option go_package = "github.com/NpoolPlatform/message/good/gateway/v1/app/good/comment";
+
+import "google/api/annotations.proto";
+import "basetypes/good/v1/enums.proto";
+
+service Gateway {
+    rpc CreateComment (CreateCommentRequest) returns (CreateCommentResponse) {
+        option (google.api.http) = {
+            post: "/v1/create/goodcomment"
+            body: "*"
+        };
+    }
+
+    rpc UpdateComment (UpdateCommentRequest) returns (UpdateCommentResponse) {
+        option (google.api.http) = {
+            post: "/v1/update/goodcomment"
+            body: "*"
+        };
+    }
+
+    rpc GetMyComments (GetMyCommentsRequest) returns (GetMyCommentsResponse) {
+        option (google.api.http) = {
+            post: "/v1/get/my/goodcomments"
+            body: "*"
+        };
+    }
+
+    rpc GetComments (GetCommentsRequest) returns (GetCommentsResponse) {
+        option (google.api.http) = {
+            post: "/v1/get/goodcomments"
+            body: "*"
+        };
+    }
+
+    rpc DeleteComment (DeleteCommentRequest) returns (DeleteCommentResponse) {
+        option (google.api.http) = {
+            post: "/v1/delete/goodcomment"
+            body: "*"
+        };
+    }
+
+    // Run by app admin to set other user's comment
+    rpc UpdateUserComment (UpdateUserCommentRequest) returns (UpdateUserCommentResponse) {
+        option (google.api.http) = {
+            post: "/v1/update/user/goodcomment"
+            body: "*"
+        };
+    }
+
+    rpc DeleteUserComment (DeleteUserCommentRequest) returns (DeleteUserCommentResponse) {
+        option (google.api.http) = {
+            post: "/v1/delete/user/goodcomment"
+            body: "*"
+        };
+    }
+
+    // Run by admin
+    rpc AdminUpdateComment (AdminUpdateCommentRequest) returns (AdminUpdateCommentResponse) {
+        option (google.api.http) = {
+            post: "/v1/admin/update/goodcomment"
+            body: "*"
+        };
+    }
+
+    rpc AdminDeleteComment (AdminDeleteCommentRequest) returns (AdminDeleteCommentResponse) {
+        option (google.api.http) = {
+            post: "/v1/admin/delete/goodcomment"
+            body: "*"
+        };
+    }
+
+    rpc AdminGetComments (AdminGetCommentsRequest) returns (AdminGetCommentsResponse) {
+        option (google.api.http) = {
+            post: "/v1/admin/get/goodcomments"
+            body: "*"
+        };
+    }
+}
+
+message Comment {
+    uint32 ID = 10;
+    string EntID = 20;
+    string AppID = 30;
+    string AppName = 40;
+    string UserID = 50;
+    optional string Username = 60;
+    optional string EmailAddress = 70;
+    optional string PhoneNO = 80;
+    string AppGoodID = 90;
+    string GoodName = 100;
+    optional string OrderID = 110;
+    string Content = 120;
+    optional string ReplyToID = 130;
+    string GoodID = 140;
+    bool Anonymous = 150;
+    bool PurchasedUser = 160;
+    bool TrialUser = 170;
+    string Score = 180;
+    bool Hide = 190;
+    basetypes.good.v1.GoodCommentHideReason HideReason = 200;
+
+    uint32 CreatedAt  = 1000;
+    uint32 UpdatedAt  = 1010;
+}
+
+message CreateCommentRequest {
+    string AppID = 10;
+    string UserID = 20;
+    string AppGoodID = 30;
+    optional string OrderID = 40;
+    string Content = 50;
+    optional string ReplyToID = 60;
+    optional bool   Anonymous = 70;
+    optional string Score = 80;
+}
+
+message CreateCommentResponse {
+    Comment Info = 10;
+}
+
+message UpdateCommentRequest {
+    uint32 ID = 10;
+    string EntID = 20;
+    string AppID = 30;
+    string UserID = 40;
+    optional string Content = 50;
+    optional bool Anonymous = 60;
+}
+
+message UpdateCommentResponse {
+    Comment Info = 10;
+}
+
+message GetMyCommentsRequest {
+    string AppID = 10;
+    string UserID = 20;
+    optional string AppGoodID = 30;
+    int32 Offset = 40;
+    int32 Limit = 50;
+}
+
+message GetMyCommentsResponse {
+    repeated Comment Infos = 10;
+    uint32 Total = 20;
+}
+
+message GetCommentsRequest {
+    string AppID = 10;
+    optional string TargetUserID = 20;
+    optional string AppGoodID = 30;
+    int32 Offset = 40;
+    int32 Limit = 50;
+}
+
+message GetCommentsResponse {
+    repeated Comment Infos = 10;
+    uint32 Total = 20;
+}
+
+message DeleteCommentRequest {
+    uint32 ID = 10;
+    string EntID = 20;
+    string AppID = 30;
+    string UserID = 40;
+}
+
+message DeleteCommentResponse {
+    Comment Info = 10;
+}
+
+message UpdateUserCommentRequest {
+    uint32 ID = 10;
+    string EntID = 20;
+    string AppID = 30;
+    string TargetUserID = 40;
+    optional bool Hide = 50;
+    optional basetypes.good.v1.GoodCommentHideReason HideReason = 60;
+}
+
+message UpdateUserCommentResponse {
+    Comment Info = 10;
+}
+
+message DeleteUserCommentRequest {
+    uint32 ID = 10;
+    string EntID = 20;
+    string AppID = 30;
+    string TargetUserID = 40;
+}
+
+message DeleteUserCommentResponse {
+    Comment Info = 10;
+}
+
+message AdminUpdateCommentRequest {
+    uint32 ID = 10;
+    string EntID = 20;
+    string TargetAppID = 30;
+    string TargetUserID = 40;
+    optional bool Hide = 50;
+    optional basetypes.good.v1.GoodCommentHideReason HideReason = 60;
+}
+
+message AdminUpdateCommentResponse {
+    Comment Info = 10;
+}
+
+message AdminDeleteCommentRequest {
+    uint32 ID = 10;
+    string EntID = 20;
+    string TargetAppID = 30;
+    string TargetUserID = 40;
+}
+
+message AdminDeleteCommentResponse {
+    Comment Info = 10;
+}
+
+message AdminGetCommentsRequest {
+    string TargetAppID = 10;
+    optional string TargetUserID = 20;
+    optional string AppGoodID = 30;
+    int32 Offset = 40;
+    int32 Limit = 50;
+}
+
+message AdminGetCommentsResponse {
+    repeated Comment Infos = 10;
+    uint32 Total = 20;
+}
+

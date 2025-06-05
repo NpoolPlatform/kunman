@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+package good.gateway.good1.coin.reward.history.v1;
+
+option go_package = "github.com/NpoolPlatform/message/good/gateway/v1/good/coin/reward/history";
+
+import "google/api/annotations.proto";
+import "good/middleware/v1/good/coin/reward/history/history.proto";
+
+service Gateway {
+  rpc GetHistories(GetHistoriesRequest) returns (GetHistoriesResponse) {
+    option (google.api.http) = {
+      post : "/v1/get/goodrewardhistories"
+      body : "*"
+    };
+  }
+}
+
+message GetHistoriesRequest {
+    optional string GoodID = 10;
+    optional string CoinTypeID = 20;
+    optional uint32 StartAt = 30;
+    optional uint32 EndAt  = 40;
+    int32 Offset = 50;
+    int32 Limit = 60;
+}
+
+message GetHistoriesResponse {
+    repeated middleware.good1.coin.reward.history.v1.History Infos = 10;
+    uint32 Total = 20;
+}

@@ -1,0 +1,178 @@
+syntax = "proto3";
+
+package good.gateway.app.powerrental.simulate.v1;
+
+option go_package = "github.com/NpoolPlatform/message/good/gateway/v1/app/powerrental/simulate";
+
+import "google/api/annotations.proto";
+import "good/middleware/v1/good/coin/coin.proto";
+
+// Service Name
+service Gateway {
+    rpc CreateSimulate (CreateSimulateRequest) returns (CreateSimulateResponse) {
+        option (google.api.http) = {
+            post: "/v1/create/apppowerrentalsimulate"
+            body: "*"
+        };
+    }
+
+    rpc GetSimulates (GetSimulatesRequest) returns (GetSimulatesResponse) {
+        option (google.api.http) = {
+            post: "/v1/get/apppowerrentalsimulates"
+            body: "*"
+        };
+    }
+
+    rpc DeleteSimulate (DeleteSimulateRequest) returns (DeleteSimulateResponse) {
+        option (google.api.http) = {
+            post: "/v1/delete/apppowerrentalsimulate"
+            body: "*"
+        };
+    }
+
+    rpc UpdateSimulate (UpdateSimulateRequest) returns (UpdateSimulateResponse) {
+        option (google.api.http) = {
+            post: "/v1/update/apppowerrentalsimulate"
+            body: "*"
+        };
+    }
+
+    // Run by church admin
+    rpc AdminCreateSimulate (AdminCreateSimulateRequest) returns (AdminCreateSimulateResponse) {
+        option (google.api.http) = {
+            post: "/v1/admin/create/apppowerrentalsimulate"
+            body: "*"
+        };
+    }
+
+    rpc AdminGetSimulates (AdminGetSimulatesRequest) returns (AdminGetSimulatesResponse) {
+        option (google.api.http) = {
+            post: "/v1/admin/get/apppowerrentalsimulates"
+            body: "*"
+        };
+    }
+
+    rpc AdminDeleteSimulate (AdminDeleteSimulateRequest) returns (AdminDeleteSimulateResponse) {
+        option (google.api.http) = {
+            post: "/v1/admin/delete/apppowerrentalsimulate"
+            body: "*"
+        };
+    }
+
+    rpc AdminUpdateSimulate (AdminUpdateSimulateRequest) returns (AdminUpdateSimulateResponse) {
+        option (google.api.http) = {
+            post: "/v1/admin/update/apppowerrentalsimulate"
+            body: "*"
+        };
+    }
+}
+
+message Simulate {
+    uint32 ID = 10;
+    string EntID = 20;
+    string AppID = 30;
+    string AppName = 40;
+    string GoodID = 50;
+    string GoodName = 60;
+    string AppGoodID = 70;
+    string AppGoodName = 80;
+    string OrderUnits = 140;
+    uint32 OrderDurationSeconds = 150;
+
+    repeated good.middleware.good1.coin.v1.GoodCoinInfo GoodCoins = 200;
+
+    uint32 CreatedAt = 1000;
+    uint32 UpdatedAt = 1010;
+}
+
+message CreateSimulateRequest {
+    string AppID = 10;
+    string AppGoodID = 20;
+    string OrderUnits = 30;
+    uint32 OrderDurationSeconds = 40;
+}
+
+message CreateSimulateResponse {
+    Simulate Info = 10;
+}
+
+message GetSimulatesRequest {
+    string AppID = 10;
+    int32 Offset = 20;
+    int32 Limit = 30;
+}
+
+message GetSimulatesResponse {
+    repeated Simulate Infos = 10;
+    uint32 Total = 20;
+}
+
+message DeleteSimulateRequest {
+    uint32 ID = 10;
+    string EntID = 20;
+    string AppID = 30;
+    string AppGoodID = 40;
+}
+
+message DeleteSimulateResponse {
+    Simulate Info = 10;
+}
+
+message UpdateSimulateRequest {
+    uint32 ID = 10;
+    string EntID = 20;
+    string AppID = 30;
+    string AppGoodID = 40;
+    optional string OrderUnits = 50;
+    optional uint32 OrderDurationSeconds = 60;
+}
+
+message UpdateSimulateResponse {
+    Simulate Info = 10;
+}
+
+message AdminCreateSimulateRequest {
+    string TargetAppID = 10;
+    string AppGoodID = 20;
+    string OrderUnits = 30;
+    uint32 OrderDurationSeconds = 40;
+}
+
+message AdminCreateSimulateResponse {
+    Simulate Info = 10;
+}
+
+message AdminGetSimulatesRequest {
+    string TargetAppID  = 10;
+    int32 Offset = 20;
+    int32 Limit = 30;
+}
+
+message AdminGetSimulatesResponse {
+    repeated Simulate Infos = 10;
+    uint32 Total = 20;
+}
+
+message AdminDeleteSimulateRequest {
+    uint32 ID = 10;
+    string EntID = 20;
+    string TargetAppID = 30;
+    string AppGoodID = 40;
+}
+
+message AdminDeleteSimulateResponse {
+    Simulate Info = 10;
+}
+
+message AdminUpdateSimulateRequest {
+    uint32 ID = 10;
+    string EntID = 20;
+    string TargetAppID = 30;
+    string AppGoodID = 40;
+    optional string OrderUnits = 50;
+    optional uint32 OrderDurationSeconds = 60;
+}
+
+message AdminUpdateSimulateResponse {
+    Simulate Info = 10;
+}

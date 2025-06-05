@@ -1,0 +1,57 @@
+syntax = "proto3";
+
+package good.middleware.app.good1.topmost.v1;
+
+option go_package = "github.com/NpoolPlatform/message/good/middleware/v1/app/good/topmost";
+
+import "basetypes/good/v1/enums.proto";
+import "basetypes/v1/conds.proto";
+
+message TopMostReq {
+    optional uint32 ID = 10;
+    optional string EntID = 20;
+    optional string AppID = 30;
+    optional basetypes.good.v1.GoodTopMostType TopMostType = 40;
+    optional string Title = 50;
+    optional string Message = 60;
+    optional string TargetUrl = 70;
+    // For promotion
+    optional uint32 StartAt = 80;
+    optional uint32 EndAt = 90;
+}
+
+message TopMost {
+    // @inject_tag: sql:"id"
+    uint32 ID = 10;
+    // @inject_tag: sql:"ent_id"
+    string EntID = 20;
+    // @inject_tag: sql:"app_id"
+    string AppID = 30;
+    // @inject_tag: sql:"top_most_type"
+    string TopMostTypeStr = 40;
+    basetypes.good.v1.GoodTopMostType TopMostType = 50;
+    // @inject_tag: sql:"title"
+    string Title = 60;
+    // @inject_tag: sql:"message"
+    string Message = 70;
+    // @inject_tag: sql:"target_url"
+    string TargetUrl = 80;
+    // @inject_tag: sql:"start_at"
+    uint32 StartAt = 90;
+    // @inject_tag: sql:"end_at"
+    uint32 EndAt = 100;
+    // @inject_tag: sql:"created_at"
+    uint32 CreatedAt = 1000;
+    // @inject_tag: sql:"updated_at"
+    uint32 UpdatedAt = 1010;
+}
+
+message Conds {
+    optional basetypes.v1.Uint32Val ID = 10;
+    optional basetypes.v1.StringVal EntID = 20;
+    optional basetypes.v1.StringSliceVal EntIDs = 30;
+    optional basetypes.v1.StringVal AppID = 40;
+    optional basetypes.v1.Uint32Val TopMostType = 50;
+    optional basetypes.v1.StringVal Title = 60;
+}
+

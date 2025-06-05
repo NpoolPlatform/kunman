@@ -1,0 +1,848 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "good/gateway/v1/powerrental/powerrental.proto",
+    "version": "version not set"
+  },
+  "tags": [
+    {
+      "name": "Gateway"
+    }
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/v1/admin/create/powerrental": {
+      "post": {
+        "operationId": "Gateway_AdminCreatePowerRental",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1AdminCreatePowerRentalResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1AdminCreatePowerRentalRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Gateway"
+        ]
+      }
+    },
+    "/v1/admin/delete/powerrental": {
+      "post": {
+        "operationId": "Gateway_AdminDeletePowerRental",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1AdminDeletePowerRentalResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1AdminDeletePowerRentalRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Gateway"
+        ]
+      }
+    },
+    "/v1/admin/update/powerrental": {
+      "post": {
+        "operationId": "Gateway_AdminUpdatePowerRental",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1AdminUpdatePowerRentalResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1AdminUpdatePowerRentalRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Gateway"
+        ]
+      }
+    },
+    "/v1/get/powerrental": {
+      "post": {
+        "operationId": "Gateway_GetPowerRental",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetPowerRentalResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1GetPowerRentalRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Gateway"
+        ]
+      }
+    },
+    "/v1/get/powerrentals": {
+      "post": {
+        "operationId": "Gateway_GetPowerRentals",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetPowerRentalsResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1GetPowerRentalsRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Gateway"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "protobufAny": {
+      "type": "object",
+      "properties": {
+        "@type": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": {}
+    },
+    "rpcStatus": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "details": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/protobufAny"
+          }
+        }
+      }
+    },
+    "v1AdminCreatePowerRentalRequest": {
+      "type": "object",
+      "properties": {
+        "DeviceTypeID": {
+          "type": "string",
+          "title": "Base of power rental"
+        },
+        "VendorLocationID": {
+          "type": "string"
+        },
+        "UnitPrice": {
+          "type": "string"
+        },
+        "QuantityUnit": {
+          "type": "string"
+        },
+        "QuantityUnitAmount": {
+          "type": "string"
+        },
+        "DeliveryAt": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "UnitLockDeposit": {
+          "type": "string"
+        },
+        "DurationDisplayType": {
+          "$ref": "#/definitions/v1GoodDurationType"
+        },
+        "GoodType": {
+          "$ref": "#/definitions/v1GoodType",
+          "title": "Good information"
+        },
+        "Name": {
+          "type": "string"
+        },
+        "ServiceStartAt": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "StartMode": {
+          "$ref": "#/definitions/v1GoodStartMode"
+        },
+        "TestOnly": {
+          "type": "boolean"
+        },
+        "BenefitIntervalHours": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "Purchasable": {
+          "type": "boolean"
+        },
+        "Online": {
+          "type": "boolean"
+        },
+        "StockMode": {
+          "$ref": "#/definitions/v1GoodStockMode"
+        },
+        "Total": {
+          "type": "string",
+          "title": "Good stock"
+        },
+        "MiningGoodStocks": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1MiningGoodStockReq"
+          }
+        }
+      }
+    },
+    "v1AdminCreatePowerRentalResponse": {
+      "type": "object",
+      "properties": {
+        "Info": {
+          "$ref": "#/definitions/v1PowerRental"
+        }
+      }
+    },
+    "v1AdminDeletePowerRentalRequest": {
+      "type": "object",
+      "properties": {
+        "ID": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "EntID": {
+          "type": "string"
+        },
+        "GoodID": {
+          "type": "string"
+        }
+      }
+    },
+    "v1AdminDeletePowerRentalResponse": {
+      "type": "object",
+      "properties": {
+        "Info": {
+          "$ref": "#/definitions/v1PowerRental"
+        }
+      }
+    },
+    "v1AdminUpdatePowerRentalRequest": {
+      "type": "object",
+      "properties": {
+        "ID": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "EntID": {
+          "type": "string"
+        },
+        "GoodID": {
+          "type": "string"
+        },
+        "DeviceTypeID": {
+          "type": "string"
+        },
+        "VendorLocationID": {
+          "type": "string"
+        },
+        "UnitPrice": {
+          "type": "string"
+        },
+        "QuantityUnit": {
+          "type": "string"
+        },
+        "QuantityUnitAmount": {
+          "type": "string"
+        },
+        "DeliveryAt": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "UnitLockDeposit": {
+          "type": "string"
+        },
+        "DurationDisplayType": {
+          "$ref": "#/definitions/v1GoodDurationType"
+        },
+        "GoodType": {
+          "$ref": "#/definitions/v1GoodType",
+          "title": "Good information"
+        },
+        "Name": {
+          "type": "string"
+        },
+        "ServiceStartAt": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "StartMode": {
+          "$ref": "#/definitions/v1GoodStartMode"
+        },
+        "TestOnly": {
+          "type": "boolean"
+        },
+        "BenefitIntervalHours": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "Purchasable": {
+          "type": "boolean"
+        },
+        "Online": {
+          "type": "boolean"
+        },
+        "StockMode": {
+          "$ref": "#/definitions/v1GoodStockMode"
+        },
+        "State": {
+          "$ref": "#/definitions/v1GoodState"
+        },
+        "Total": {
+          "type": "string",
+          "title": "Good stock"
+        },
+        "MiningGoodStocks": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1MiningGoodStockReq"
+          }
+        }
+      }
+    },
+    "v1AdminUpdatePowerRentalResponse": {
+      "type": "object",
+      "properties": {
+        "Info": {
+          "$ref": "#/definitions/v1PowerRental"
+        }
+      }
+    },
+    "v1BenefitState": {
+      "type": "string",
+      "enum": [
+        "DefaultBenefitState",
+        "BenefitWait",
+        "BenefitTransferring",
+        "BenefitBookKeeping",
+        "BenefitUserBookKeeping",
+        "BenefitSimulateBookKeeping",
+        "BenefitDone",
+        "BenefitFail"
+      ],
+      "default": "DefaultBenefitState",
+      "title": "- BenefitBookKeeping: Good bookkeeping"
+    },
+    "v1BenefitType": {
+      "type": "string",
+      "enum": [
+        "DefaultBenefitType",
+        "BenefitTypePlatform",
+        "BenefitTypePool",
+        "BenefitTypeOffline",
+        "BenefitTypeContract",
+        "BenefitTypeNone"
+      ],
+      "default": "DefaultBenefitType",
+      "title": "- BenefitTypePlatform: Platform receive benefit, then distribute benefit to user\n - BenefitTypePool: User receive benefit from pool directly\n - BenefitTypeOffline: User do not receive any online reward\n - BenefitTypeContract: User receive reward from smart contract\n - BenefitTypeNone: Such as technique fee"
+    },
+    "v1GetPowerRentalRequest": {
+      "type": "object",
+      "properties": {
+        "GoodID": {
+          "type": "string"
+        }
+      }
+    },
+    "v1GetPowerRentalResponse": {
+      "type": "object",
+      "properties": {
+        "Info": {
+          "$ref": "#/definitions/v1PowerRental"
+        }
+      }
+    },
+    "v1GetPowerRentalsRequest": {
+      "type": "object",
+      "properties": {
+        "Offset": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "Limit": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "v1GetPowerRentalsResponse": {
+      "type": "object",
+      "properties": {
+        "Infos": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1PowerRental"
+          }
+        },
+        "Total": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "v1GoodCoinInfo": {
+      "type": "object",
+      "properties": {
+        "CoinTypeID": {
+          "type": "string"
+        },
+        "CoinName": {
+          "type": "string"
+        },
+        "CoinUnit": {
+          "type": "string"
+        },
+        "CoinENV": {
+          "type": "string"
+        },
+        "CoinLogo": {
+          "type": "string"
+        },
+        "Main": {
+          "type": "boolean"
+        },
+        "Index": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "v1GoodDurationType": {
+      "type": "string",
+      "enum": [
+        "DefaultGoodDurationType",
+        "GoodDurationByHour",
+        "GoodDurationByDay",
+        "GoodDurationByMonth",
+        "GoodDurationByYear"
+      ],
+      "default": "DefaultGoodDurationType"
+    },
+    "v1GoodStartMode": {
+      "type": "string",
+      "enum": [
+        "DefaultGoodStartMode",
+        "GoodStartModeTBD",
+        "GoodStartModeConfirmed",
+        "GoodStartModeInstantly",
+        "GoodStartModeNextDay",
+        "GoodStartModePreset",
+        "GoodStartModeWithParent"
+      ],
+      "default": "DefaultGoodStartMode"
+    },
+    "v1GoodState": {
+      "type": "string",
+      "enum": [
+        "DefaultGoodState",
+        "GoodStatePreWait",
+        "GoodStateWait",
+        "GoodStateCreateGoodUser",
+        "GoodStateCheckHashRate",
+        "GoodStateReady",
+        "GoodStateFail"
+      ],
+      "default": "DefaultGoodState",
+      "description": "- GoodStateCreateGoodUser: for miningpoolstock",
+      "title": "initial state: GoodStateWait\n|\nv\nGoodStateCreateGoodUser------------------\n|                             |\nv                             |\nGoodStateCheckHashRate-------------------\n|                             |\nv                             v\nGoodStateReady                 GoodStateFail"
+    },
+    "v1GoodStockMode": {
+      "type": "string",
+      "enum": [
+        "DefaultGoodStockMode",
+        "GoodStockByMiningPool",
+        "GoodStockByUnique"
+      ],
+      "default": "DefaultGoodStockMode"
+    },
+    "v1GoodType": {
+      "type": "string",
+      "enum": [
+        "DefaultGoodType",
+        "PowerRental",
+        "MachineRental",
+        "MachineCustody",
+        "LegacyPowerRental",
+        "DelegatedStaking",
+        "Subscription",
+        "TechniqueServiceFee",
+        "ElectricityFee"
+      ],
+      "default": "DefaultGoodType"
+    },
+    "v1MiningGoodStock": {
+      "type": "object",
+      "properties": {
+        "ID": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "EntID": {
+          "type": "string"
+        },
+        "GoodStockID": {
+          "type": "string"
+        },
+        "MiningPoolID": {
+          "type": "string"
+        },
+        "PoolGoodUserID": {
+          "type": "string"
+        },
+        "Total": {
+          "type": "string"
+        },
+        "SpotQuantity": {
+          "type": "string"
+        },
+        "Locked": {
+          "type": "string"
+        },
+        "WaitStart": {
+          "type": "string"
+        },
+        "InService": {
+          "type": "string"
+        },
+        "Sold": {
+          "type": "string"
+        },
+        "State": {
+          "$ref": "#/definitions/v1MiningGoodStockState"
+        },
+        "MiningPoolName": {
+          "type": "string"
+        },
+        "MiningPoolSite": {
+          "type": "string"
+        },
+        "MiningPoolLogo": {
+          "type": "string"
+        },
+        "MiningPoolReadPageLink": {
+          "type": "string"
+        }
+      }
+    },
+    "v1MiningGoodStockReq": {
+      "type": "object",
+      "properties": {
+        "EntID": {
+          "type": "string"
+        },
+        "PoolRootUserID": {
+          "type": "string"
+        },
+        "Total": {
+          "type": "string"
+        },
+        "State": {
+          "$ref": "#/definitions/v1MiningGoodStockState"
+        }
+      }
+    },
+    "v1MiningGoodStockState": {
+      "type": "string",
+      "enum": [
+        "DefaultMiningGoodStockState",
+        "MiningGoodStockStatePreWait",
+        "MiningGoodStockStateWait",
+        "MiningGoodStockStateCreateGoodUser",
+        "MiningGoodStockStateCheckHashRate",
+        "MiningGoodStockStateReady",
+        "MiningGoodStockStateFail"
+      ],
+      "default": "DefaultMiningGoodStockState",
+      "title": "initial state: MiningGoodStockStateWait\n|\nv\nMiningGoodStockStateCreateGoodUser---------------\n|                             |\nv                             |\nMiningGoodStockStateCheckHashRate----------------\n|                             |\nv                             v\nMiningGoodStockStateReady     MiningGoodStockStateFail"
+    },
+    "v1PowerRental": {
+      "type": "object",
+      "properties": {
+        "ID": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "EntID": {
+          "type": "string"
+        },
+        "GoodID": {
+          "type": "string"
+        },
+        "DeviceTypeID": {
+          "type": "string"
+        },
+        "DeviceType": {
+          "type": "string"
+        },
+        "DeviceManufacturerName": {
+          "type": "string"
+        },
+        "DeviceManufacturerLogo": {
+          "type": "string"
+        },
+        "DevicePowerConsumption": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "DeviceShipmentAt": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "VendorLocationID": {
+          "type": "string"
+        },
+        "VendorBrand": {
+          "type": "string"
+        },
+        "VendorLogo": {
+          "type": "string"
+        },
+        "VendorCountry": {
+          "type": "string"
+        },
+        "VendorProvince": {
+          "type": "string"
+        },
+        "UnitPrice": {
+          "type": "string"
+        },
+        "QuantityUnit": {
+          "type": "string"
+        },
+        "QuantityUnitAmount": {
+          "type": "string"
+        },
+        "DeliveryAt": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "UnitLockDeposit": {
+          "type": "string"
+        },
+        "DurationDisplayType": {
+          "$ref": "#/definitions/v1GoodDurationType"
+        },
+        "GoodType": {
+          "$ref": "#/definitions/v1GoodType"
+        },
+        "BenefitType": {
+          "$ref": "#/definitions/v1BenefitType"
+        },
+        "Name": {
+          "type": "string"
+        },
+        "ServiceStartAt": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "StartMode": {
+          "$ref": "#/definitions/v1GoodStartMode"
+        },
+        "TestOnly": {
+          "type": "boolean"
+        },
+        "BenefitIntervalHours": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "Purchasable": {
+          "type": "boolean"
+        },
+        "Online": {
+          "type": "boolean"
+        },
+        "StockMode": {
+          "$ref": "#/definitions/v1GoodStockMode"
+        },
+        "State": {
+          "$ref": "#/definitions/v1GoodState"
+        },
+        "StockID": {
+          "type": "string"
+        },
+        "Total": {
+          "type": "string"
+        },
+        "SpotQuantity": {
+          "type": "string"
+        },
+        "Locked": {
+          "type": "string"
+        },
+        "InService": {
+          "type": "string"
+        },
+        "WaitStart": {
+          "type": "string"
+        },
+        "Sold": {
+          "type": "string"
+        },
+        "AppReserved": {
+          "type": "string"
+        },
+        "RewardState": {
+          "$ref": "#/definitions/v1BenefitState"
+        },
+        "LastRewardAt": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "GoodCoins": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1GoodCoinInfo"
+          }
+        },
+        "MiningGoodStocks": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1MiningGoodStock"
+          }
+        },
+        "Rewards": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1RewardInfo"
+          }
+        },
+        "CreatedAt": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "UpdatedAt": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "v1RewardInfo": {
+      "type": "object",
+      "properties": {
+        "CoinTypeID": {
+          "type": "string"
+        },
+        "CoinName": {
+          "type": "string"
+        },
+        "CoinUnit": {
+          "type": "string"
+        },
+        "CoinENV": {
+          "type": "string"
+        },
+        "CoinLogo": {
+          "type": "string"
+        },
+        "RewardTID": {
+          "type": "string"
+        },
+        "NextRewardStartAmount": {
+          "type": "string"
+        },
+        "LastRewardAmount": {
+          "type": "string"
+        },
+        "LastUnitRewardAmount": {
+          "type": "string"
+        },
+        "TotalRewardAmount": {
+          "type": "string"
+        },
+        "MainCoin": {
+          "type": "boolean"
+        }
+      }
+    }
+  }
+}

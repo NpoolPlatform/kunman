@@ -1,0 +1,139 @@
+syntax = "proto3";
+
+package good.middleware.fbmcrowdfunding.v1;
+
+option go_package = "github.com/NpoolPlatform/message/good/middleware/v1/fbmcrowdfunding";
+
+import "basetypes/v1/conds.proto";
+import "basetypes/good/v1/enums.proto";
+import "good/middleware/v1/good/coin/coin.proto";
+
+message FbmCrowdFundingReq {
+  // Base of fbm crowd funding
+  optional uint32 ID = 10;
+  optional string EntID = 20;
+  optional string GoodID = 30;
+  optional string MinDepositAmount = 40;
+  optional uint32 DeliveryAt = 50;
+  optional string TargetAmount = 60;
+  optional uint32 DepositStartAt = 70;
+  optional uint32 DepositEndAt = 80;
+  optional string ContractAddress = 90;
+  optional string DepositCoinTypeID = 100;
+  optional bool Redeemable = 110;
+  optional uint32 RedeemDelayHours = 120;
+  optional basetypes.good.v1.GoodDurationType DurationType = 130;
+  optional uint32 Duration = 140;
+
+  // Good information
+  optional basetypes.good.v1.GoodType GoodType = 150;
+  optional basetypes.good.v1.BenefitType BenefitType = 160;
+  optional string Name = 170;
+  optional uint32 ServiceStartAt = 180;
+  optional basetypes.good.v1.GoodStartMode StartMode = 190;
+  optional bool TestOnly = 200;
+  optional uint32 BenefitIntervalHours = 210;
+  optional bool Purchasable = 220;
+  optional bool Online = 230;
+
+  // Reward information
+  optional basetypes.good.v1.BenefitState RewardState = 260;
+  optional uint32 RewardAt = 270;
+  optional string RewardTID = 280;
+  optional string NextRewardStartAmount = 290;
+  optional string RewardAmount = 300;
+}
+
+message FbmCrowdFunding {
+  // @inject_tag: sql:"id"
+  uint32 ID = 10;
+  // @inject_tag: sql:"ent_id"
+  string EntID = 20;
+  // @inject_tag: sql:"good_id"
+  string GoodID = 30;
+  // @inject_tag: sql:"min_deposit_amount"
+  string MinDepositAmount = 40;
+  // @inject_tag: sql:"delivery_at"
+  string DeliveryAt = 50;
+  // @inject_tag: sql:"target_amount"
+  string TargetAmount = 60;
+  // @inject_tag: sql:"deposit_start_at"
+  string DepositStartAt = 70;
+  // @inject_tag: sql:"deposit_end_at"
+  string DepositEndAt = 80;
+  // @inject_tag: sql:"contract_address"
+  string ContractAddress = 90;
+  // @inject_tag: sql:"deposit_coin_type_id"
+  string DepositCoinTypeID = 100;
+  // @inject_tag: sql:"redeemable"
+  string Redeemable = 110;
+  // @inject_tag: sql:"redeem_delay_hours"
+  string RedeemDelayHours = 120;
+  // @inject_tag: sql:"duration_display_type"
+  string DurationDisplayTypeStr = 130;
+  basetypes.good.v1.GoodDurationType DurationDisplayType = 140;
+  // @inject_tag: sql:"duration_seconds"
+  string DurationSeconds = 150;
+
+  // @inject_tag: sql:"good_type"
+  string GoodTypeStr = 220;
+  basetypes.good.v1.GoodType GoodType = 230;
+  // @inject_tag: sql:"benefit_type"
+  string BenefitTypeStr = 240;
+  basetypes.good.v1.BenefitType BenefitType = 250;
+  // @inject_tag: sql:"name"
+  string Name = 260;
+  // @inject_tag: sql:"service_start_at"
+  uint32 ServiceStartAt = 270;
+  // @inject_tag: sql:"start_mode"
+  string StartModeStr = 280;
+  basetypes.good.v1.GoodStartMode StartMode = 290;
+  // @inject_tag: sql:"test_only"
+  bool TestOnly = 300;
+  // @inject_tag: sql:"benefit_interval_hours"
+  uint32 BenefitIntervalHours = 310;
+  // @inject_tag: sql:"purchasable"
+  bool Purchasable = 320;
+  // @inject_tag: sql:"online"
+  bool Online = 330;
+  // @inject_tag: sql:"state"
+  string StateStr = 340;
+  basetypes.good.v1.GoodState State = 341;
+
+  // @inject_tag: sql:"reward_state"
+  string RewardStateStr = 440;
+  basetypes.good.v1.BenefitState RewardState = 450;
+  // @inject_tag: sql:"last_reward_at"
+  uint32 LastRewardAt = 460;
+  // @inject_tag: sql:"reward_tid"
+  string RewardTID = 470;
+  // @inject_tag: sql:"next_reward_start_amount"
+  string NextRewardStartAmount = 480;
+  // @inject_tag: sql:"last_reward_amount"
+  string LastRewardAmount = 490;
+  // @inject_tag: sql:"last_unit_reward_amount"
+  string LastUnitRewardAmount = 500;
+  // @inject_tag: sql:"total_reward_amount"
+  string TotalRewardAmount = 510;
+
+  repeated good.middleware.good1.coin.v1.GoodCoinInfo GoodCoins = 800;
+
+  // @inject_tag: sql:"created_at"
+  uint32 CreatedAt = 1000;
+  // @inject_tag: sql:"updated_at"
+  uint32 UpdatedAt = 1010;
+}
+
+message Conds {
+  optional basetypes.v1.Uint32Val ID = 10;
+  optional basetypes.v1.StringVal EntID = 20;
+  optional basetypes.v1.StringVal GoodID = 30;
+  optional basetypes.v1.StringSliceVal GoodIDs = 40;
+  optional basetypes.v1.Uint32Val GoodType = 50;
+  optional basetypes.v1.Uint32SliceVal GoodTypes = 60;
+  optional basetypes.v1.StringVal CoinTypeID = 70;
+  optional basetypes.v1.StringSliceVal CoinTypeIDs = 80;
+  optional basetypes.v1.Uint32Val RewardState = 90;
+  optional basetypes.v1.Uint32Val RewardAt = 100;
+}
+

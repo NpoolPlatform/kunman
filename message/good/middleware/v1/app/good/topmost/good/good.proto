@@ -1,0 +1,68 @@
+syntax = "proto3";
+
+package good.middleware.app.good1.topmost.good2.v1;
+
+option go_package = "github.com/NpoolPlatform/message/good/middleware/v1/app/good/topmost/good";
+
+import "basetypes/good/v1/enums.proto";
+import "basetypes/v1/conds.proto";
+
+message TopMostGoodReq {
+    optional uint32 ID = 10;
+    optional string EntID = 20;
+    optional string AppGoodID = 30;
+    optional string TopMostID = 40;
+    optional uint32 DisplayIndex = 50;
+    optional string UnitPrice = 60;
+}
+
+message TopMostGood {
+    // @inject_tag: sql:"id"
+    uint32 ID = 10;
+    // @inject_tag: sql:"ent_id"
+    string EntID = 20;
+    // @inject_tag: sql:"app_id"
+    string AppID = 30;
+    // @inject_tag: sql:"good_id"
+    string GoodID = 40;
+    // @inject_tag: sql:"good_type"
+    string GoodTypeStr = 50;
+    basetypes.good.v1.GoodType GoodType = 60;
+    // @inject_tag: sql:"good_name"
+    string GoodName = 70;
+    // @inject_tag: sql:"top_most_id"
+    string TopMostID = 80;
+    // @inject_tag: sql:"top_most_type"
+    string TopMostTypeStr = 90;
+    basetypes.good.v1.GoodTopMostType TopMostType = 100;
+    // @inject_tag: sql:"top_most_title"
+    string TopMostTitle = 110;
+    // @inject_tag: sql:"top_most_message"
+    string TopMostMessage = 120;
+    // @inject_tag: sql:"top_most_target_url"
+    string TopMostTargetUrl = 130;
+    // @inject_tag: sql:"app_good_id"
+    string AppGoodID = 140;
+    // @inject_tag: sql:"app_good_name"
+    string AppGoodName = 150;
+    // @inject_tag: sql:"display_index"
+    uint32 DisplayIndex = 160;
+    // @inject_tag: sql:"unit_price"
+    string UnitPrice = 170;
+    // @inject_tag: sql:"created_at"
+    uint32 CreatedAt = 1000;
+    // @inject_tag: sql:"updated_at"
+    uint32 UpdatedAt = 1010;
+}
+
+message Conds {
+    optional basetypes.v1.Uint32Val ID = 10;
+    optional basetypes.v1.StringVal EntID = 20;
+    optional basetypes.v1.StringVal AppID = 30;
+    optional basetypes.v1.StringVal GoodID = 40;
+    optional basetypes.v1.StringVal AppGoodID = 50;
+    optional basetypes.v1.StringVal TopMostID = 60;
+    optional basetypes.v1.Uint32Val TopMostType = 70;
+    optional basetypes.v1.StringSliceVal AppGoodIDs = 80;
+}
+

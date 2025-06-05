@@ -1,0 +1,54 @@
+syntax = "proto3";
+
+package good.middleware.good1.v1;
+
+option go_package = "github.com/NpoolPlatform/message/good/middleware/v1/good";
+
+import "basetypes/v1/conds.proto";
+import "basetypes/good/v1/enums.proto";
+
+message Good {
+  // @inject_tag: sql:"id"
+  uint32 ID = 10;
+  // @inject_tag: sql:"ent_id"
+  string EntID = 20;
+
+  // @inject_tag: sql:"good_type"
+  string GoodTypeStr = 30;
+  basetypes.good.v1.GoodType GoodType = 40;
+  // @inject_tag: sql:"benefit_type"
+  string BenefitTypeStr = 50;
+  basetypes.good.v1.BenefitType BenefitType = 60;
+  // @inject_tag: sql:"name"
+  string Name = 70;
+  // @inject_tag: sql:"service_start_at"
+  uint32 ServiceStartAt = 80;
+  // @inject_tag: sql:"start_mode"
+  string StartModeStr = 90;
+  basetypes.good.v1.GoodStartMode StartMode = 100;
+  // @inject_tag: sql:"test_only"
+  bool TestOnly = 110;
+  // @inject_tag: sql:"benefit_interval_hours"
+  uint32 BenefitIntervalHours = 120;
+  // @inject_tag: sql:"purchasable"
+  bool Purchasable = 130;
+  // @inject_tag: sql:"online"
+  bool Online = 140;
+  // @inject_tag: sql:"state"
+  string StateStr = 150;
+  basetypes.good.v1.GoodState State = 151;
+  // @inject_tag: sql:"created_at"
+  uint32 CreatedAt = 1000;
+  // @inject_tag: sql:"updated_at"
+  uint32 UpdatedAt = 1010;
+}
+
+message Conds {
+  optional basetypes.v1.Uint32Val ID = 10;
+  optional basetypes.v1.Uint32SliceVal IDs = 20;
+  optional basetypes.v1.StringVal EntID = 30;
+  optional basetypes.v1.StringSliceVal EntIDs = 40;
+  optional basetypes.v1.Uint32Val GoodType = 50;
+  optional basetypes.v1.Uint32SliceVal GoodTypes = 60;
+}
+

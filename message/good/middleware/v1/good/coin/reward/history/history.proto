@@ -1,0 +1,46 @@
+syntax = "proto3";
+
+package good.middleware.good1.coin.reward.history.v1;
+
+option go_package = "github.com/NpoolPlatform/message/good/middleware/v1/good/coin/reward/history";
+
+import "basetypes/v1/conds.proto";
+
+message History {
+  // @inject_tag: sql:"id"
+  uint32 ID = 10;
+  // @inject_tag: sql:"ent_id"
+  string EntID = 20;
+  // @inject_tag: sql:"good_id"
+  string GoodID = 30;
+  // @inject_tag: sql:"good_name"
+  string GoodName = 40;
+  // @inject_tag: sql:"coin_type_id"
+  string CoinTypeID = 50;
+  // @inject_tag: sql:"reward_date"
+  uint32 RewardDate = 60;
+  // @inject_tag: sql:"tid"
+  string TID = 70;
+  // @inject_tag: sql:"amount"
+  string Amount = 80;
+  // @inject_tag: sql:"unit_amount"
+  string UnitAmount = 90;
+
+  // @inject_tag: sql:"created_at"
+  uint32 CreatedAt = 1000;
+  // @inject_tag: sql:"updated_at"
+  uint32 UpdatedAt = 1010;
+}
+
+message Conds {
+  optional basetypes.v1.Uint32Val ID = 10;
+  optional basetypes.v1.StringVal EntID = 20;
+  optional basetypes.v1.StringVal GoodID = 30;
+  optional basetypes.v1.StringSliceVal GoodIDs = 40;
+  optional basetypes.v1.StringVal CoinTypeID = 50;
+  optional basetypes.v1.StringSliceVal CoinTypeIDs = 60;
+  optional basetypes.v1.Uint32Val RewardDate = 70;
+  optional basetypes.v1.Uint32Val StartAt = 80;
+  optional basetypes.v1.Uint32Val EndAt = 90;
+}
+

@@ -64,7 +64,9 @@ verify-spelling: ## Verifies spelling.
 
 gen-ent:
 	go install entgo.io/ent/cmd/ent@latest
-	@$(foreach path, $(SCHEMAS), echo -e "Generating ${GREEN}$(path)${RESET}"; go run -mod=mod entgo.io/ent/cmd/ent generate --feature entql,sql/lock,sql/execquery,sql/upsert,privacy,sql/modifier --target $(path)/generated $(path)/schema;)
+	@$(foreach path, $(SCHEMAS), echo -e "Generating ${GREEN}$(path)${RESET}"; \
+	go run -mod=mod entgo.io/ent/cmd/ent generate --feature entql,sql/lock,sql/execquery,sql/upsert,privacy,sql/modifier --target $(path)/generated $(path)/schema; \
+	go run -mod=mod entgo.io/ent/cmd/ent describe $(path)/schema;)
 
 all: verify-build
 

@@ -1,0 +1,51 @@
+syntax = "proto3";
+
+package good.middleware.vendor.location.v1;
+
+option go_package = "github.com/NpoolPlatform/message/good/middleware/v1/vender/location";
+
+import "basetypes/v1/conds.proto";
+
+message LocationReq {
+    optional uint32 ID = 10;
+    optional string EntID = 20;
+    optional string Country = 30;
+    optional string Province = 40;
+    optional string City = 50;
+    optional string Address = 60;
+    optional string BrandID = 70;
+}
+
+message Location {
+    // @inject_tag: sql:"id"
+    uint32 ID = 10;
+    // @inject_tag: sql:"ent_id"
+    string EntID = 20;
+    // @inject_tag: sql:"country"
+    string Country = 30;
+    // @inject_tag: sql:"province"
+    string Province = 40;
+    // @inject_tag: sql:"city"
+    string City = 50;
+    // @inject_tag: sql:"address"
+    string Address = 60;
+    // @inject_tag: sql:"brand_id"
+    string BrandID = 70;
+    // @inject_tag: sql:"brand_name"
+    string BrandName = 80;
+    // @inject_tag: sql:"brand_logo"
+    string BrandLogo = 90;
+    // @inject_tag: sql:"created_at"
+    uint32 CreatedAt = 1000;
+    // @inject_tag: sql:"updated_at"
+    uint32 UpdatedAt = 1010;
+}
+
+message Conds {
+    optional basetypes.v1.Uint32Val ID = 10;
+    optional basetypes.v1.StringVal EntID = 20;
+    optional basetypes.v1.StringVal Country = 30;
+    optional basetypes.v1.StringVal Province = 40;
+    optional basetypes.v1.StringVal BrandID = 50;
+}
+

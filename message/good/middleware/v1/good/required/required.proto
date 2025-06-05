@@ -1,0 +1,47 @@
+syntax = "proto3";
+
+package good.middleware.good1.required1.v1;
+
+option go_package = "github.com/NpoolPlatform/message/good/middleware/v1/good/required";
+
+import "basetypes/v1/conds.proto";
+
+message RequiredReq {
+    optional uint32 ID = 10;
+    optional string EntID = 20;
+    optional string MainGoodID = 30;
+    optional string RequiredGoodID = 40;
+    optional bool   Must = 50;
+}
+
+message Required {
+    // @inject_tag: sql:"id"
+    uint32 ID = 10;
+    // @inject_tag: sql:"ent_id"
+    string EntID = 20;
+    // @inject_tag: sql:"main_good_id"
+    string MainGoodID = 30;
+    // @inject_tag: sql:"main_good_name"
+    string MainGoodName = 40;
+    // @inject_tag: sql:"required_good_id"
+    string RequiredGoodID = 50;
+    // @inject_tag: sql:"required_good_name"
+    string RequiredGoodName = 60;
+    // @inject_tag: sql:"must"
+    bool Must = 70;
+    // @inject_tag: sql:"created_at"
+    uint32 CreatedAt = 1000;
+    // @inject_tag: sql:"updated_at"
+    uint32 UpdatedAt = 1010;
+}
+
+message Conds {
+    optional basetypes.v1.Uint32Val ID = 10;
+    optional basetypes.v1.StringVal EntID = 20;
+    optional basetypes.v1.StringVal GoodID = 30;
+    optional basetypes.v1.StringSliceVal GoodIDs = 40;
+    optional basetypes.v1.StringVal MainGoodID = 50;
+    optional basetypes.v1.StringVal RequiredGoodID  = 60;
+    optional basetypes.v1.BoolVal Must = 70;
+}
+

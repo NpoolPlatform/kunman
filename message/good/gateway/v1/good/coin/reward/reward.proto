@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package good.gateway.good1.coin.reward.v1;
+
+option go_package = "github.com/NpoolPlatform/message/good/gateway/v1/good/coin/reward";
+
+message RewardInfo {
+  string CoinTypeID = 10;
+  string CoinName = 20;
+  string CoinUnit = 30;
+  string CoinENV = 40;
+  string CoinLogo = 50;
+  string RewardTID = 60;
+  string NextRewardStartAmount = 70;
+  string LastRewardAmount = 80;
+  string LastUnitRewardAmount = 90;
+  string TotalRewardAmount = 100;
+  bool MainCoin = 110;
+}

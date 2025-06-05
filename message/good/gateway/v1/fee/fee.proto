@@ -1,0 +1,98 @@
+syntax = "proto3";
+
+package good.gateway.fee.v1;
+
+option go_package = "github.com/NpoolPlatform/message/good/gateway/v1/fee";
+
+import "good/middleware/v1/fee/fee.proto";
+import "google/api/annotations.proto";
+import "basetypes/good/v1/enums.proto";
+
+// Service Name
+service Gateway {
+    rpc AdminCreateFee(AdminCreateFeeRequest) returns (AdminCreateFeeResponse) {
+        option (google.api.http) = {
+            post: "/v1/admin/create/fee"
+            body: "*"
+        };
+    }
+    rpc AdminUpdateFee(AdminUpdateFeeRequest) returns (AdminUpdateFeeResponse) {
+        option (google.api.http) = {
+            post: "/v1/admin/update/fee"
+            body: "*"
+        };
+    }
+    rpc GetFee(GetFeeRequest) returns (GetFeeResponse) {
+        option (google.api.http) = {
+            post: "/v1/get/fee"
+            body: "*"
+        };
+    }
+    rpc GetFees(GetFeesRequest) returns (GetFeesResponse) {
+        option (google.api.http) = {
+            post: "/v1/get/fees"
+            body: "*"
+        };
+    }
+    rpc AdminDeleteFee(AdminDeleteFeeRequest) returns (AdminDeleteFeeResponse) {
+        option (google.api.http) = {
+            post: "/v1/admin/delete/fee"
+            body: "*"
+        };
+    }
+}
+
+message AdminCreateFeeRequest {
+    basetypes.good.v1.GoodType GoodType = 10;
+    string Name = 20;
+    basetypes.good.v1.GoodSettlementType SettlementType = 30;
+    string UnitValue = 40;
+    basetypes.good.v1.GoodDurationType DurationDisplayType = 50;
+}
+
+message AdminCreateFeeResponse {
+    middleware.fee.v1.Fee Info = 10;
+}
+
+message AdminUpdateFeeRequest {
+    uint32 ID = 10;
+    string EntID = 20;
+    string GoodID = 30;
+    optional basetypes.good.v1.GoodType GoodType = 40;
+    optional string Name = 50;
+    optional basetypes.good.v1.GoodSettlementType SettlementType = 60;
+    optional string UnitValue = 70;
+    optional basetypes.good.v1.GoodDurationType DurationDisplayType = 80;
+}
+
+message AdminUpdateFeeResponse {
+    middleware.fee.v1.Fee Info = 10;
+}
+
+message GetFeeRequest {
+    string GoodID = 10;
+}
+
+message GetFeeResponse {
+    middleware.fee.v1.Fee Info = 10;
+}
+
+message GetFeesRequest {
+    int32 Offset = 10;
+    int32 Limit = 20;
+}
+
+message GetFeesResponse {
+    repeated middleware.fee.v1.Fee Infos = 10;
+    uint32 Total = 20;
+}
+
+message AdminDeleteFeeRequest {
+    uint32 ID = 10;
+    string EntID = 20;
+    string GoodID = 30;
+}
+
+message AdminDeleteFeeResponse {
+    middleware.fee.v1.Fee Info = 10;
+}

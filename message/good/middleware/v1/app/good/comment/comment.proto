@@ -1,0 +1,77 @@
+syntax = "proto3";
+
+package good.middleware.app.good1.comment.v1;
+
+option go_package = "github.com/NpoolPlatform/message/good/middleware/v1/app/good/comment";
+
+import "basetypes/v1/conds.proto";
+import "basetypes/good/v1/enums.proto";
+
+message CommentReq {
+    optional uint32 ID = 10;
+    optional string EntID = 20;
+    optional string UserID = 30;
+    optional string AppGoodID = 40;
+    optional string OrderID = 50;
+    optional string Content = 60;
+    optional string ReplyToID = 70;
+    optional bool Anonymous = 80;
+    optional bool PurchasedUser = 90;
+    optional bool TrialUser = 100;
+    optional string Score = 110;
+    optional bool Hide = 120;
+    optional basetypes.good.v1.GoodCommentHideReason HideReason = 130;
+}
+
+message Comment {
+    // @inject_tag: sql:"id"
+    uint32 ID = 9;
+    // @inject_tag: sql:"ent_id"
+    string EntID = 10;
+    // @inject_tag: sql:"app_id"
+    string AppID = 20;
+    // @inject_tag: sql:"user_id"
+    string UserID = 30;
+    // @inject_tag: sql:"app_good_id"
+    string AppGoodID = 40;
+    // @inject_tag: sql:"good_name"
+    string GoodName = 50;
+    // @inject_tag: sql:"order_id"
+    string OrderID = 60;
+    // @inject_tag: sql:"content"
+    string Content = 70;
+    // @inject_tag: sql:"reply_to_id"
+    string ReplyToID = 80;
+    // @inject_tag: sql:"good_id"
+    string GoodID = 90;
+    // @inject_tag: sql:"anonymous"
+    bool   Anonymous = 100;
+    // @inject_tag: sql:"purchased_user"
+    bool   PurchasedUser = 110;
+    // @inject_tag: sql:"trial_user"
+    bool   TrialUser = 120;
+    // @inject_tag: sql:"score"
+    string Score = 140;
+    // @inject_tag: sql:"hide"
+    bool Hide = 150;
+    // @inject_tag: sql:"hide_reason"
+    string HideReasonStr = 160;
+    basetypes.good.v1.GoodCommentHideReason HideReason = 170;
+    // @inject_tag: sql:"created_at"
+    uint32 CreatedAt = 1000;
+    // @inject_tag: sql:"updated_at"
+    uint32 UpdatedAt = 1010;
+}
+
+message Conds {
+    optional basetypes.v1.Uint32Val ID = 10;
+    optional basetypes.v1.StringVal EntID = 20;
+    optional basetypes.v1.StringVal AppID = 30;
+    optional basetypes.v1.StringVal UserID = 40;
+    optional basetypes.v1.StringVal AppGoodID = 50;
+    optional basetypes.v1.StringSliceVal AppGoodIDs  = 60;
+    optional basetypes.v1.StringVal OrderID = 70;
+    optional basetypes.v1.StringSliceVal OrderIDs = 80;
+    optional basetypes.v1.StringVal GoodID = 90;
+}
+

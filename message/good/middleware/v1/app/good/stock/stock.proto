@@ -1,0 +1,55 @@
+syntax = "proto3";
+
+package good.middleware.app.good1.stock.v1;
+
+option go_package = "github.com/NpoolPlatform/message/good/middleware/v1/app/good/stock";
+
+import "basetypes/v1/conds.proto";
+import "basetypes/good/v1/enums.proto";
+import "good/middleware/v1/good/stock/stock.proto";
+import "good/middleware/v1/app/good/stock/mining/mining.proto";
+
+// If it's mining good, then we update mining pool good stock, then update stock
+// Otherwise we update stock directly
+
+message Stock {
+    // @inject_tag: sql:"id"
+    uint32 ID         = 9;
+    // @inject_tag: sql:"ent_id"
+    string EntID      = 10;
+    // @inject_tag: sql:"app_id"
+    string AppID      = 20;
+    // @inject_tag: sql:"good_id"
+    string GoodID     = 30;
+    // @inject_tag: sql:"good_name"
+    string GoodName   = 40;
+    // @inject_tag: sql:"app_good_id"
+    string AppGoodID  = 50;
+    // @inject_tag: sql:"app_good_name"
+    string AppGoodName = 60;
+    // @inject_tag: sql:"reserved"
+    string Reserved   = 70;
+    // @inject_tag: sql:"spot_quantity"
+    string SpotQuantity = 80;
+    // @inject_tag: sql:"locked"
+    string Locked     = 90;
+    // @inject_tag: sql:"wait_start"
+    string WaitStart  = 100;
+    // @inject_tag: sql:"in_service"
+    string InService  = 110;
+    // @inject_tag: sql:"sold"
+    string Sold       = 120;
+
+    // @inject_tag: sql:"stock_mode"
+    string StockModeStr = 130;
+    basetypes.good.v1.GoodStockMode StockMode = 140;
+
+    repeated good.middleware.good1.stock.v1.MiningGoodStockInfo MiningGoodStocks = 500;
+    repeated good.middleware.app.good1.stock.mining.v1.StockInfo AppMiningGoodStocks = 510;
+
+    // @inject_tag: sql:"created_at"
+    uint32 CreatedAt  = 1000;
+    // @inject_tag: sql:"updated_at"
+    uint32 UpdatedAt  = 1010;
+}
+

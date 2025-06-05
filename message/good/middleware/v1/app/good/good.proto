@@ -1,0 +1,80 @@
+syntax = "proto3";
+
+package good.middleware.app.good1.v1;
+
+option go_package = "github.com/NpoolPlatform/message/good/middleware/v1/app/good";
+
+import "basetypes/v1/conds.proto";
+import "basetypes/good/v1/enums.proto";
+
+message Good {
+  // @inject_tag: sql:"id"
+  uint32 ID = 10;
+  // @inject_tag: sql:"ent_id"
+  string EntID = 20;
+  // @inject_tag: sql:"app_id"
+  string AppID = 30;
+  // @inject_tag: sql:"good_id"
+  string GoodID = 40;
+
+  // @inject_tag: sql:"good_type"
+  string GoodTypeStr = 50;
+  basetypes.good.v1.GoodType GoodType = 60;
+  // @inject_tag: sql:"benefit_type"
+  string BenefitTypeStr = 70;
+  basetypes.good.v1.BenefitType BenefitType = 80;
+  // @inject_tag: sql:"good_name"
+  string GoodName = 90;
+  // @inject_tag: sql:"service_start_at"
+  uint32 ServiceStartAt = 100;
+  // @inject_tag: sql:"start_mode"
+  string StartModeStr = 110;
+  basetypes.good.v1.GoodStartMode StartMode = 120;
+  // @inject_tag: sql:"test_only"
+  bool TestOnly = 130;
+  // @inject_tag: sql:"benefit_interval_hours"
+  uint32 BenefitIntervalHours = 140;
+  // @inject_tag: sql:"good_purchasable"
+  bool GoodPurchasable = 150;
+  // @inject_tag: sql:"good_online"
+  bool GoodOnline = 160;
+  // @inject_tag: sql:"state"
+  string StateStr = 165;
+  basetypes.good.v1.GoodState State = 166;
+
+  // @inject_tag: sql:"app_good_purchasable"
+  bool AppGoodPurchasable = 170;
+  // @inject_tag: sql:"app_good_online"
+  bool AppGoodOnline = 180;
+  // @inject_tag: sql:"enable_product_page"
+  bool EnableProductPage = 190;
+  // @inject_tag: sql:"product_page"
+  string ProductPage = 200;
+  // @inject_tag: sql:"visible"
+  bool Visible = 210;
+  // @inject_tag: sql:"app_good_name"
+  string AppGoodName = 220;
+  // @inject_tag: sql:"display_index"
+  int32 DisplayIndex = 230;
+  // @inject_tag: sql:"banner"
+  string Banner = 240;
+
+  repeated string DisplayNames = 250;
+
+  // @inject_tag: sql:"created_at"
+  uint32 CreatedAt = 1000;
+  // @inject_tag: sql:"updated_at"
+  uint32 UpdatedAt = 1010;
+}
+
+message Conds {
+  optional basetypes.v1.Uint32Val ID = 10;
+  optional basetypes.v1.Uint32SliceVal IDs = 20;
+  optional basetypes.v1.StringVal EntID = 30;
+  optional basetypes.v1.StringSliceVal EntIDs = 40;
+  optional basetypes.v1.StringVal AppID = 50;
+  optional basetypes.v1.StringSliceVal AppIDs = 60;
+  optional basetypes.v1.Uint32Val GoodType = 70;
+  optional basetypes.v1.Uint32SliceVal GoodTypes = 80;
+}
+

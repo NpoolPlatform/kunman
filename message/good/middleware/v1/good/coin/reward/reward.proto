@@ -1,0 +1,74 @@
+syntax = "proto3";
+
+package good.middleware.good1.coin.reward.v1;
+
+option go_package = "github.com/NpoolPlatform/message/good/middleware/v1/good/coin/reward";
+
+import "basetypes/v1/conds.proto";
+
+message RewardReq {
+  optional uint32 ID = 10;
+  optional string EntID = 20;
+  optional string GoodID = 30;
+  optional string CoinTypeID = 40;
+  optional string RewardTID = 50;
+  optional string RewardAmount = 60;
+  optional string NextRewardStartAmount = 70;
+}
+
+message Reward {
+  // @inject_tag: sql:"id"
+  uint32 ID = 10;
+  // @inject_tag: sql:"ent_id"
+  string EntID = 20;
+  // @inject_tag: sql:"good_id"
+  string GoodID = 30;
+  // @inject_tag: sql:"good_name"
+  string GoodName = 40;
+  // @inject_tag: sql:"coin_type_id"
+  string CoinTypeID = 50;
+  // @inject_tag: sql:"reward_tid"
+  string RewardTID = 60;
+  // @inject_tag: sql:"next_reward_start_amount"
+  string NextRewardStartAmount = 70;
+  // @inject_tag: sql:"last_reward_amount"
+  string LastRewardAmount = 80;
+  // @inject_tag: sql:"last_unit_reward_amount"
+  string LastUnitRewardAmount = 90;
+  // @inject_tag: sql:"total_reward_amount"
+  string TotalRewardAmount = 100;
+
+  // @inject_tag: sql:"created_at"
+  uint32 CreatedAt = 1000;
+  // @inject_tag: sql:"updated_at"
+  uint32 UpdatedAt = 1010;
+}
+
+message RewardInfo {
+  // @inject_tag: sql:"good_id"
+  string GoodID = 10;
+  // @inject_tag: sql:"coin_type_id"
+  string CoinTypeID = 20;
+  // @inject_tag: sql:"reward_tid"
+  string RewardTID = 30;
+  // @inject_tag: sql:"next_reward_start_amount"
+  string NextRewardStartAmount = 40;
+  // @inject_tag: sql:"last_reward_amount"
+  string LastRewardAmount = 50;
+  // @inject_tag: sql:"last_unit_reward_amount"
+  string LastUnitRewardAmount = 60;
+  // @inject_tag: sql:"total_reward_amount"
+  string TotalRewardAmount = 70;
+  // @inject_tag: sql:"main_coin"
+  bool MainCoin = 80;
+}
+
+message Conds {
+  optional basetypes.v1.Uint32Val ID = 9;
+  optional basetypes.v1.StringVal EntID = 10;
+  optional basetypes.v1.StringVal GoodID = 20;
+  optional basetypes.v1.StringSliceVal GoodIDs = 30;
+  optional basetypes.v1.StringVal CoinTypeID = 40;
+  optional basetypes.v1.StringSliceVal CoinTypeIDs = 50;
+}
+

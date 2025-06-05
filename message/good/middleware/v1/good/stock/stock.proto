@@ -1,0 +1,68 @@
+syntax = "proto3";
+
+package good.middleware.good1.stock.v1;
+
+option go_package = "github.com/NpoolPlatform/message/good/middleware/v1/good/stock";
+
+import "basetypes/good/v1/enums.proto";
+import "basetypes/v1/conds.proto";
+
+message MiningGoodStockReq {
+  optional string EntID = 10;
+  optional string PoolRootUserID = 20;
+  optional string PoolGoodUserID = 30;
+  optional string Total = 40;
+  optional basetypes.good.v1.MiningGoodStockState State = 50;
+}
+
+message MiningGoodStock {
+  // @inject_tag: sql:"id"
+  uint32 ID = 10;
+  // @inject_tag: sql:"ent_id"
+  string EntID = 20;
+  // @inject_tag: sql:"good_stock_id"
+  string GoodStockID = 30;
+  // @inject_tag: sql:"pool_good_user_id"
+  string PoolGoodUserID = 50;
+  // @inject_tag: sql:"pool_root_user_id"
+  string PoolRootUserID = 51;
+  // @inject_tag: sql:"total"
+  string Total = 60;
+  // @inject_tag: sql:"spot_quantity"
+  string SpotQuantity = 70;
+  // @inject_tag: sql:"locked"
+  string Locked = 80;
+  // @inject_tag: sql:"wait_start"
+  string WaitStart = 90;
+  // @inject_tag: sql:"in_service"
+  string InService = 100;
+  // @inject_tag: sql:"sold"
+  string Sold = 110;
+  // @inject_tag: sql:"state"
+  string StateStr = 120;
+  basetypes.good.v1.MiningGoodStockState State = 121;
+}
+
+message MiningGoodStockInfo {
+  // @inject_tag: sql:"ent_id"
+  string EntID = 10;
+  // @inject_tag: sql:"good_stock_id"
+  string GoodStockID = 20;
+  // @inject_tag: sql:"pool_good_user_id"
+  string PoolGoodUserID = 30;
+  // @inject_tag: sql:"pool_root_user_id"
+  string PoolRootUserID = 31;
+  // @inject_tag: sql:"total"
+  string Total = 40;
+  // @inject_tag: sql:"spot_quantity"
+  string SpotQuantity = 50;
+}
+
+message Conds {
+  optional basetypes.v1.Uint32Val ID = 10;
+  optional basetypes.v1.StringVal EntID = 20;
+  optional basetypes.v1.StringVal GoodStockID = 30;
+  optional basetypes.v1.StringVal PoolGoodUserID = 40;
+  optional basetypes.v1.StringVal PoolRootUserID = 50;
+  optional basetypes.v1.StringVal State = 60;
+}

@@ -1,0 +1,113 @@
+syntax = "proto3";
+
+package good.middleware.delegatedstaking.v1;
+
+option go_package = "github.com/NpoolPlatform/message/good/middleware/v1/delegatedstaking";
+
+import "basetypes/v1/conds.proto";
+import "basetypes/good/v1/enums.proto";
+import "good/middleware/v1/good/coin/coin.proto";
+import "good/middleware/v1/good/coin/reward/reward.proto";
+
+message DelegatedStakingReq {
+    // Base information
+    optional uint32 ID = 10;
+    optional string EntID = 20;
+    optional string GoodID = 30;
+
+    // Good information
+    optional basetypes.good.v1.GoodType GoodType = 120;
+    optional string Name = 140;
+    optional uint32 ServiceStartAt = 150;
+    optional basetypes.good.v1.GoodStartMode StartMode = 160;
+    optional bool TestOnly = 170;
+    optional uint32 BenefitIntervalHours = 180;
+    optional bool Purchasable = 190;
+    optional bool Online = 200;
+
+    // Reward information
+    optional basetypes.good.v1.BenefitState RewardState = 260;
+    optional uint32 RewardAt = 270;
+    repeated good.middleware.good1.coin.reward.v1.RewardReq Rewards = 280;
+
+    // DelegatedStaking information
+    optional string ContractCodeURL = 290;
+    optional string ContractCodeBranch = 300;
+    optional basetypes.good.v1.ContractState ContractState = 310;
+
+    optional bool Rollback = 1000;
+}
+
+message DelegatedStaking {
+  // @inject_tag: sql:"id"
+  uint32 ID = 10;
+  // @inject_tag: sql:"ent_id"
+  string EntID = 20;
+  // @inject_tag: sql:"good_id"
+  string GoodID = 30;
+
+  // @inject_tag: sql:"good_type"
+  string GoodTypeStr = 220;
+  basetypes.good.v1.GoodType GoodType = 230;
+  // @inject_tag: sql:"benefit_type"
+  string BenefitTypeStr = 240;
+  basetypes.good.v1.BenefitType BenefitType = 250;
+  // @inject_tag: sql:"name"
+  string Name = 260;
+  // @inject_tag: sql:"service_start_at"
+  uint32 ServiceStartAt = 270;
+  // @inject_tag: sql:"start_mode"
+  string StartModeStr = 280;
+  basetypes.good.v1.GoodStartMode StartMode = 290;
+  // @inject_tag: sql:"test_only"
+  bool TestOnly = 300;
+  // @inject_tag: sql:"benefit_interval_hours"
+  uint32 BenefitIntervalHours = 310;
+  // @inject_tag: sql:"purchasable"
+  bool Purchasable = 320;
+  // @inject_tag: sql:"online"
+  bool Online = 330;
+  // @inject_tag: sql:"state"
+  string StateStr = 351;
+  basetypes.good.v1.GoodState State = 352;
+
+  // @inject_tag: sql:"reward_state"
+  string RewardStateStr = 440;
+  basetypes.good.v1.BenefitState RewardState = 450;
+  // @inject_tag: sql:"last_reward_at"
+  uint32 LastRewardAt = 460;
+
+  repeated good.middleware.good1.coin.v1.GoodCoinInfo GoodCoins = 800;
+
+  repeated good.middleware.good1.coin.reward.v1.RewardInfo Rewards = 820;
+
+  // @inject_tag: sql:"contract_code_url"
+  string ContractCodeURL = 830;
+  // @inject_tag: sql:"contract_code_branch"
+  string ContractCodeBranch = 840;
+  // @inject_tag: sql:"contract_state"
+  string ContractStateStr = 850;
+  basetypes.good.v1.ContractState ContractState = 860;
+
+  // @inject_tag: sql:"created_at"
+  uint32 CreatedAt = 1000;
+  // @inject_tag: sql:"updated_at"
+  uint32 UpdatedAt = 1010;
+}
+
+message Conds {
+  optional basetypes.v1.Uint32Val ID = 10;
+  optional basetypes.v1.StringVal EntID = 20;
+  optional basetypes.v1.StringVal GoodID = 30;
+  optional basetypes.v1.StringSliceVal GoodIDs = 40;
+  optional basetypes.v1.Uint32Val GoodType = 50;
+  optional basetypes.v1.Uint32SliceVal GoodTypes = 60;
+  optional basetypes.v1.StringVal CoinTypeID = 70;
+  optional basetypes.v1.StringSliceVal CoinTypeIDs = 80;
+  optional basetypes.v1.Uint32Val RewardState = 90;
+  optional basetypes.v1.Uint32Val RewardAt = 100;
+  optional basetypes.v1.Uint32Val State = 110;
+  optional basetypes.v1.Uint32Val ContractState = 120;
+  optional basetypes.v1.Uint32SliceVal ContractStates = 130;
+}
+

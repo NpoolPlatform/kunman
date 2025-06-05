@@ -1,0 +1,79 @@
+syntax = "proto3";
+
+package good.gateway.device.v1;
+
+option go_package = "github.com/NpoolPlatform/message/good/gateway/v1/device";
+
+import "good/middleware/v1/device/device.proto";
+import "google/api/annotations.proto";;
+
+// Service Name
+service Gateway {
+    rpc AdminCreateDeviceType(AdminCreateDeviceTypeRequest) returns (AdminCreateDeviceTypeResponse) {
+        option (google.api.http) = {
+            post: "/v1/admin/create/devicetype"
+            body: "*"
+        };
+    }
+    rpc AdminUpdateDeviceType(AdminUpdateDeviceTypeRequest) returns (AdminUpdateDeviceTypeResponse) {
+        option (google.api.http) = {
+            post: "/v1/admin/update/devicetype"
+            body: "*"
+        };
+    }
+    rpc GetDeviceTypes(GetDeviceTypesRequest) returns (GetDeviceTypesResponse) {
+        option (google.api.http) = {
+            post: "/v1/get/devicetypes"
+            body: "*"
+        };
+    }
+    rpc AdminDeleteDeviceType(AdminDeleteDeviceTypeRequest) returns (AdminDeleteDeviceTypeResponse) {
+        option (google.api.http) = {
+            post: "/v1/admin/delete/devicetype"
+            body: "*"
+        };
+    }
+}
+
+message AdminCreateDeviceTypeRequest {
+    string DeviceType = 10;
+    string ManufacturerID = 20;
+    uint32 PowerConsumption = 30;
+    uint32 ShipmentAt = 40;
+}
+
+message AdminCreateDeviceTypeResponse {
+    middleware.device.v1.DeviceType Info = 10;
+}
+
+message AdminUpdateDeviceTypeRequest {
+    uint32 ID = 10;
+    string EntID = 20;
+    optional string DeviceType = 30;
+    optional string ManufacturerID = 40;
+    optional uint32 PowerConsumption = 50;
+    optional uint32 ShipmentAt = 60;
+}
+
+message AdminUpdateDeviceTypeResponse {
+    middleware.device.v1.DeviceType Info = 10;
+}
+
+message GetDeviceTypesRequest {
+    int32 Offset = 10;
+    int32 Limit = 20;
+}
+
+message GetDeviceTypesResponse {
+    repeated middleware.device.v1.DeviceType Infos = 10;
+    uint32 Total = 20;
+}
+
+message AdminDeleteDeviceTypeRequest {
+    uint32 ID = 10;
+    string EntID = 20;
+}
+
+message AdminDeleteDeviceTypeResponse {
+    middleware.device.v1.DeviceType Info = 10;
+}

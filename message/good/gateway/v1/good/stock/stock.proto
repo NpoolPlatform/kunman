@@ -1,0 +1,45 @@
+syntax = "proto3";
+
+package good.gateway.good1.stock.v1;
+
+option go_package = "github.com/NpoolPlatform/message/good/gateway/v1/good/stock";
+import "basetypes/good/v1/enums.proto";
+
+message MiningGoodStockReq {
+  optional string EntID = 9;
+  optional string PoolRootUserID = 10;
+  optional string Total = 20;
+  optional basetypes.good.v1.MiningGoodStockState State = 30;
+}
+
+message MiningGoodStock {
+  uint32 ID = 10;
+  string EntID = 20;
+  string GoodStockID = 30;
+  string MiningPoolID = 40;
+  string PoolGoodUserID = 50;
+  string Total = 60;
+  string SpotQuantity = 70;
+  string Locked = 80;
+  string WaitStart = 90;
+  string InService = 100;
+  string Sold = 110;
+  basetypes.good.v1.MiningGoodStockState State = 120;
+  string MiningPoolName = 140;
+  string MiningPoolSite = 150;
+  string MiningPoolLogo = 160;
+  string MiningPoolReadPageLink = 170;
+}
+
+message MiningGoodStockInfo {
+  string EntID = 10;
+  string GoodStockID = 20;
+  string MiningPoolID = 30;
+  string PoolGoodUserID = 40;
+  string Total = 50;
+  string SpotQuantity = 60;
+  string MiningPoolName = 90;
+  string MiningPoolSite = 100;
+  string MiningPoolLogo = 110;
+  string MiningPoolReadPageLink = 120;
+}

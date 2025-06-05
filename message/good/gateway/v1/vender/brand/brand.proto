@@ -1,0 +1,76 @@
+syntax = "proto3";
+
+package good.gateway.vendor.brand.v1;
+
+option go_package = "github.com/NpoolPlatform/message/good/gateway/v1/vender/brand";
+
+import "good/middleware/v1/vender/brand/brand.proto";
+import "google/api/annotations.proto";
+;
+
+// Service Name
+service Gateway {
+    rpc AdminCreateBrand (AdminCreateBrandRequest) returns (AdminCreateBrandResponse) {
+        option (google.api.http) = {
+            post: "/v1/admin/create/vendorbrand"
+            body: "*"
+        };
+    }
+    rpc AdminUpdateBrand (AdminUpdateBrandRequest) returns (AdminUpdateBrandResponse) {
+        option (google.api.http) = {
+            post: "/v1/admin/update/vendorbrand"
+            body: "*"
+        };
+    }
+    rpc GetBrands (GetBrandsRequest) returns (GetBrandsResponse) {
+        option (google.api.http) = {
+            post: "/v1/get/vendorbrands"
+            body: "*"
+        };
+    }
+    rpc AdminDeleteBrand (AdminDeleteBrandRequest) returns (AdminDeleteBrandResponse) {
+        option (google.api.http) = {
+            post: "/v1/admin/delete/vendorbrand"
+            body: "*"
+        };
+    }
+}
+
+message AdminCreateBrandRequest {
+    string Name = 10;
+    string Logo = 20;
+}
+
+message AdminCreateBrandResponse {
+    middleware.vendor.brand.v1.Brand Info = 10;
+}
+
+message AdminUpdateBrandRequest {
+    uint32 ID = 10;
+    string EntID = 20;
+    optional string Name = 30;
+    optional string Logo = 40;
+}
+
+message AdminUpdateBrandResponse {
+    middleware.vendor.brand.v1.Brand Info = 10;
+}
+
+message GetBrandsRequest {
+    int32 Offset = 10;
+    int32 Limit = 20;
+}
+
+message GetBrandsResponse {
+    repeated middleware.vendor.brand.v1.Brand Infos = 10;
+    uint32 Total = 20;
+}
+
+message AdminDeleteBrandRequest {
+    uint32 ID    = 9;
+    string EntID = 10;
+}
+
+message AdminDeleteBrandResponse {
+    middleware.vendor.brand.v1.Brand Info = 10;
+}

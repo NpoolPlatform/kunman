@@ -1,0 +1,81 @@
+syntax = "proto3";
+
+package good.middleware.app.good1.required1.v1;
+
+option go_package = "github.com/NpoolPlatform/message/good/middleware/v1/app/good/required";
+
+import "basetypes/v1/conds.proto";
+import "basetypes/good/v1/enums.proto";
+
+message RequiredReq {
+    optional uint32 ID = 10;
+    optional string EntID = 20;
+    optional string MainAppGoodID = 30;
+    optional string RequiredAppGoodID = 40;
+    optional bool   Must = 50;
+}
+
+message Required {
+    // @inject_tag: sql:"id"
+    uint32 ID = 10;
+    // @inject_tag: sql:"ent_id"
+    string EntID = 20;
+    // @inject_tag: sql:"app_id"
+    string AppID = 30;
+    // @inject_tag: sql:"main_good_id"
+    string MainGoodID = 40;
+    // @inject_tag: sql:"main_good_name"
+    string MainGoodName = 50;
+    // @inject_tag: sql:"main_app_good_id"
+    string MainAppGoodID = 60;
+    // @inject_tag: sql:"main_app_good_name"
+    string MainAppGoodName = 70;
+    // @inject_tag: sql:"required_good_id"
+    string RequiredGoodID = 80;
+    // @inject_tag: sql:"required_good_name"
+    string RequiredGoodName = 90;
+    // @inject_tag: sql:"required_app_good_id"
+    string RequiredAppGoodID = 100;
+    // @inject_tag: sql:"required_app_good_name"
+    string RequiredAppGoodName = 110;
+    // @inject_tag: sql:"must"
+    bool   Must = 120;
+    // @inject_tag: sql:"created_at"
+    uint32 CreatedAt = 1000;
+    // @inject_tag: sql:"updated_at"
+    uint32 UpdatedAt = 1010;
+}
+
+message RequiredInfo {
+    // @inject_tag: sql:"main_app_good_id"
+    string MainAppGoodID = 10;
+    // @inject_tag: sql:"required_app_good_id"
+    string RequiredAppGoodID = 20;
+    // @inject_tag: sql:"required_app_good_name"
+    string RequiredAppGoodName = 30;
+    // @inject_tag: sql:"required_good_type"
+    string RequiredGoodTypeStr = 40;
+    basetypes.good.v1.GoodType RequiredGoodType = 50;
+    // @inject_tag: sql:"required_good_settlement_type"
+    string RequiredGoodSettlementTypeStr = 60;
+    basetypes.good.v1.GoodSettlementType RequiredGoodSettlementType = 70;
+    // @inject_tag: sql:"required_app_good_unit_value"
+    string RequiredAppGoodUnitValue = 80;
+    // @inject_tag: sql:"must"
+    uint32 Must = 100;
+}
+
+message Conds {
+    optional basetypes.v1.Uint32Val ID = 10;
+    optional basetypes.v1.StringVal EntID = 20;
+    optional basetypes.v1.StringVal AppID = 30;
+    optional basetypes.v1.StringVal AppGoodID = 40;
+    optional basetypes.v1.StringSliceVal AppGoodIDs = 50;
+    optional basetypes.v1.StringVal MainAppGoodID = 60;
+    optional basetypes.v1.StringSliceVal MainAppGoodIDs = 70;
+    optional basetypes.v1.StringVal RequiredAppGoodID = 80;
+    optional basetypes.v1.BoolVal Must = 90;
+    optional basetypes.v1.Uint32Val RequiredGoodType = 100;
+    optional basetypes.v1.Uint32SliceVal RequiredGoodTypes = 110;
+}
+

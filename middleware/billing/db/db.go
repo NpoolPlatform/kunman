@@ -2,10 +2,12 @@ package db
 
 import (
 	"context"
+	"database/sql"
 
 	"github.com/NpoolPlatform/kunman/framework/logger"
 	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
 	ent "github.com/NpoolPlatform/kunman/middleware/billing/db/ent/generated"
+	servicename "github.com/NpoolPlatform/kunman/middleware/billing/servicename"
 
 	"entgo.io/ent/dialect"
 	entsql "entgo.io/ent/dialect/sql"
@@ -15,26 +17,29 @@ import (
 	_ "github.com/NpoolPlatform/kunman/middleware/billing/db/ent/generated/runtime"
 )
 
-func client() (*ent.Client, error) {
-	conn, err := mysql.GetConn()
+var db *mysql.DB
+
+func init() {
+	var err error
+	db, err = mysql.Initialize(servicename.ServiceName)
 	if err != nil {
-		return nil, err
+		panic(err)
 	}
-	drv := entsql.OpenDB(dialect.MySQL, conn)
-	return ent.NewClient(ent.Driver(drv)), nil
 }
 
-func Init(hooks ...ent.Hook) error {
-	cli, err := client()
-	if err != nil {
-		return wlog.WrapError(err)
-	}
-	cli.Use(hooks...)
-	return cli.Schema.Create(context.Background())
+func client(f func(cli *ent.Client) error) error {
+	return db.SafeRun(func(db *sql.DB) error {
+		drv := entsql.OpenDB(dialect.MySQL, db)
+		cli := ent.NewClient(ent.Driver(drv))
+		return f(cli)
+	})
 }
 
-func Client() (*ent.Client, error) {
-	return client()
+func Initialize(hooks ...ent.Hook) error {
+	return client(func(cli *ent.Client) error {
+		cli.Use(hooks...)
+		return cli.Schema.Create(context.Background())
+	})
 }
 
 func txRun(ctx context.Context, tx *ent.Tx, fn func(ctx context.Context, tx *ent.Tx) error) error {
@@ -61,37 +66,30 @@ func txRun(ctx context.Context, tx *ent.Tx, fn func(ctx context.Context, tx *ent
 }
 
 func WithTx(ctx context.Context, fn func(ctx context.Context, tx *ent.Tx) error) error {
-	cli, err := Client()
-	if err != nil {
-		return wlog.WrapError(err)
-	}
-	tx, err := cli.Tx(ctx)
-	if err != nil {
-		return wlog.Errorf("fail get client transaction: %v", err)
-	}
-	return txRun(ctx, tx, fn)
+	return client(func(cli *ent.Client) error {
+		tx, err := cli.Tx(ctx)
+		if err != nil {
+			return wlog.Errorf("fail get client transaction: %v", err)
+		}
+		return txRun(ctx, tx, fn)
+	})
 }
 
 func WithDebugTx(ctx context.Context, fn func(ctx context.Context, tx *ent.Tx) error) error {
-	cli, err := Client()
-	if err != nil {
-		return wlog.WrapError(err)
-	}
-	tx, err := cli.Debug().Tx(ctx)
-	if err != nil {
-		return wlog.Errorf("fail get client transaction: %v", err)
-	}
-	return txRun(ctx, tx, fn)
+	return client(func(cli *ent.Client) error {
+		tx, err := cli.Debug().Tx(ctx)
+		if err != nil {
+			return wlog.Errorf("fail get client transaction: %v", err)
+		}
+		return txRun(ctx, tx, fn)
+	})
 }
 
 func WithClient(ctx context.Context, fn func(ctx context.Context, cli *ent.Client) error) error {
-	cli, err := Client()
-	if err != nil {
-		return wlog.Errorf("fail get db client: %v", err)
-	}
-
-	if err := fn(ctx, cli); err != nil {
-		return wlog.WrapError(err)
-	}
-	return nil
+	return client(func(cli *ent.Client) error {
+		if err := fn(ctx, cli); err != nil {
+			return wlog.WrapError(err)
+		}
+		return nil
+	})
 }

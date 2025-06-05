@@ -1,0 +1,83 @@
+syntax = "proto3";
+
+package good.gateway.vendor.location.v1;
+
+option go_package = "github.com/NpoolPlatform/message/good/gateway/v1/vender/location";
+
+import "good/middleware/v1/vender/location/location.proto";
+import "google/api/annotations.proto";
+;
+
+// Service Name
+service Gateway {
+    rpc AdminCreateLocation (AdminCreateLocationRequest) returns (AdminCreateLocationResponse) {
+        option (google.api.http) = {
+            post: "/v1/admin/create/vendorlocation"
+            body: "*"
+        };
+    }
+    rpc AdminUpdateLocation (AdminUpdateLocationRequest) returns (AdminUpdateLocationResponse) {
+        option (google.api.http) = {
+            post: "/v1/admin/update/vendorlocation"
+            body: "*"
+        };
+    }
+    rpc GetLocations (GetLocationsRequest) returns (GetLocationsResponse) {
+        option (google.api.http) = {
+            post: "/v1/get/vendorlocations"
+            body: "*"
+        };
+    }
+    rpc AdminDeleteLocation (AdminDeleteLocationRequest) returns (AdminDeleteLocationResponse) {
+        option (google.api.http) = {
+            post: "/v1/admin/delete/vendorlocation"
+            body: "*"
+        };
+    }
+}
+
+message AdminCreateLocationRequest {
+    string Country = 10;
+    string Province = 20;
+    string City = 30;
+    string Address = 40;
+    string BrandID = 50;
+}
+
+message AdminCreateLocationResponse {
+    middleware.vendor.location.v1.Location Info = 10;
+}
+
+message AdminUpdateLocationRequest {
+    uint32 ID = 10;
+    string EntID = 20;
+    optional string Country = 30;
+    optional string Province = 40;
+    optional string City = 50;
+    optional string Address = 60;
+    optional string BrandID = 70;
+}
+
+message AdminUpdateLocationResponse {
+    middleware.vendor.location.v1.Location Info = 10;
+}
+
+message GetLocationsRequest {
+    optional string BrandID = 10;
+    int32 Offset = 20;
+    int32 Limit = 30;
+}
+
+message GetLocationsResponse {
+    repeated middleware.vendor.location.v1.Location Infos = 10;
+    uint32 Total = 20;
+}
+
+message AdminDeleteLocationRequest {
+    uint32 ID = 10;
+    string EntID = 20;
+}
+
+message AdminDeleteLocationResponse {
+    middleware.vendor.location.v1.Location Info = 10;
+}

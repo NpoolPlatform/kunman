@@ -1,0 +1,155 @@
+syntax = "proto3";
+
+package good.gateway.app.good1.required1.v1;
+
+option go_package = "github.com/NpoolPlatform/message/good/gateway/v1/app/good/required";
+
+import "google/api/annotations.proto";
+import "good/middleware/v1/app/good/required/required.proto";
+
+service Gateway {
+    rpc CreateRequired (CreateRequiredRequest) returns (CreateRequiredResponse) {
+        option (google.api.http) = {
+            post: "/v1/create/requiredappgood"
+            body: "*"
+        };
+    }
+
+    rpc UpdateRequired (UpdateRequiredRequest) returns (UpdateRequiredResponse) {
+        option (google.api.http) = {
+            post: "/v1/update/requiredappgood"
+            body: "*"
+        };
+    }
+
+    rpc GetRequireds (GetRequiredsRequest) returns (GetRequiredsResponse) {
+        option (google.api.http) = {
+            post: "/v1/get/requiredappgoods"
+            body: "*"
+        };
+    }
+
+    rpc DeleteRequired (DeleteRequiredRequest) returns (DeleteRequiredResponse) {
+        option (google.api.http) = {
+            post: "/v1/delete/requiredappgood"
+            body: "*"
+        };
+    }
+
+    // Run by church admin
+    rpc AdminCreateRequired (AdminCreateRequiredRequest) returns (AdminCreateRequiredResponse) {
+        option (google.api.http) = {
+            post: "/v1/admin/create/requiredappgood"
+            body: "*"
+        };
+    }
+
+    rpc AdminUpdateRequired (AdminUpdateRequiredRequest) returns (AdminUpdateRequiredResponse) {
+        option (google.api.http) = {
+            post: "/v1/admin/update/requiredappgood"
+            body: "*"
+        };
+    }
+
+    rpc AdminGetRequireds (AdminGetRequiredsRequest) returns (AdminGetRequiredsResponse) {
+        option (google.api.http) = {
+            post: "/v1/admin/get/requiredappgoods"
+            body: "*"
+        };
+    }
+
+    rpc AdminDeleteRequired (AdminDeleteRequiredRequest) returns (AdminDeleteRequiredResponse) {
+        option (google.api.http) = {
+            post: "/v1/admin/delete/requiredappgood"
+            body: "*"
+        };
+    }
+}
+
+message CreateRequiredRequest {
+    string AppID = 10;
+    string MainAppGoodID = 20;
+    string RequiredAppGoodID = 30;
+    optional bool Must = 40;
+}
+
+message CreateRequiredResponse {
+    middleware.app.good1.required1.v1.Required Info = 10;
+}
+
+message UpdateRequiredRequest {
+    uint32 ID = 10;
+    string EntID = 20;
+    string AppID = 30;
+    optional bool Must = 40;
+}
+
+message UpdateRequiredResponse {
+    middleware.app.good1.required1.v1.Required Info = 10;
+}
+
+message GetRequiredsRequest {
+    string AppID = 10;
+    optional string AppGoodID = 20;
+    int32 Offset = 40;
+    int32 Limit = 50;
+}
+
+message GetRequiredsResponse {
+    repeated middleware.app.good1.required1.v1.Required Infos = 10;
+    uint32 Total = 20;
+}
+
+message DeleteRequiredRequest {
+    uint32 ID = 10;
+    string EntID = 20;
+    string AppID = 30;
+}
+
+message DeleteRequiredResponse {
+    middleware.app.good1.required1.v1.Required Info = 10;
+}
+
+message AdminCreateRequiredRequest {
+    string TargetAppID = 10;
+    string MainAppGoodID = 20;
+    string RequiredAppGoodID = 30;
+    optional bool Must = 40;
+}
+
+message AdminCreateRequiredResponse {
+    middleware.app.good1.required1.v1.Required Info = 10;
+}
+
+message AdminUpdateRequiredRequest {
+    uint32 ID = 10;
+    string EntID = 20;
+    string TargetAppID = 30;
+    optional bool Must = 40;
+}
+
+message AdminUpdateRequiredResponse {
+    middleware.app.good1.required1.v1.Required Info = 10;
+}
+
+message AdminGetRequiredsRequest {
+    string TargetAppID = 10;
+    optional string AppGoodID = 20;
+    int32 Offset = 40;
+    int32 Limit = 50;
+}
+
+message AdminGetRequiredsResponse {
+    repeated middleware.app.good1.required1.v1.Required Infos = 10;
+    uint32 Total = 20;
+}
+
+message AdminDeleteRequiredRequest {
+    uint32 ID = 10;
+    string EntID = 20;
+    string TargetAppID = 30;
+}
+
+message AdminDeleteRequiredResponse {
+    middleware.app.good1.required1.v1.Required Info = 10;
+}

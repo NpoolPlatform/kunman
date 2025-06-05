@@ -1,0 +1,120 @@
+syntax = "proto3";
+
+package good.middleware.app.good1.topmost.poster.v1;
+
+option go_package = "github.com/NpoolPlatform/message/good/middleware/v1/app/good/topmost/poster";
+
+import "basetypes/v1/conds.proto";
+import "basetypes/good/v1/enums.proto";
+
+// Service Name
+service Middleware {
+    rpc CreatePoster (CreatePosterRequest) returns (CreatePosterResponse) {}
+    rpc UpdatePoster (UpdatePosterRequest) returns (UpdatePosterResponse) {}
+    rpc GetPoster (GetPosterRequest) returns (GetPosterResponse) {}
+    rpc GetPosters (GetPostersRequest) returns (GetPostersResponse) {}
+    rpc ExistPosterConds (ExistPosterCondsRequest) returns (ExistPosterCondsResponse) {}
+    rpc DeletePoster (DeletePosterRequest) returns (DeletePosterResponse) {}
+}
+
+message PosterReq {
+    optional uint32 ID = 10;
+    optional string EntID = 20;
+    optional string TopMostID = 30;
+    optional string Poster = 40;
+    optional uint32 Index = 50;
+}
+
+message Poster {
+    // @inject_tag: sql:"id"
+    uint32 ID = 10;
+    // @inject_tag: sql:"ent_id"
+    string EntID = 20;
+    // @inject_tag: sql:"app_id"
+    string AppID = 30;
+    // @inject_tag: sql:"top_most_id"
+    string TopMostID = 40;
+    // @inject_tag: sql:"top_most_type"
+    string TopMostTypeStr = 50;
+    basetypes.good.v1.GoodTopMostType TopMostType = 60;
+    // @inject_tag: sql:"top_most_title"
+    string TopMostTitle = 70;
+    // @inject_tag: sql:"top_most_message"
+    string TopMostMessage = 80;
+    // @inject_tag: sql:"top_most_target_url"
+    string TopMostTargetUrl = 90;
+    // @inject_tag: sql:"poster"
+    string Poster = 100;
+    // @inject_tag: sql:"index"
+    uint32 Index = 110;
+    // @inject_tag: sql:"created_at"
+    uint32 CreatedAt = 1000;
+    // @inject_tag: sql:"updated_at"
+    uint32 UpdatedAt = 1010;
+}
+
+message PosterInfo {
+    // @inject_tag: sql:"poster"
+    string Poster = 10;
+    // @inject_tag: sql:"index"
+    uint32 Index = 20;
+}
+
+message Conds {
+    optional basetypes.v1.Uint32Val ID = 10;
+    optional basetypes.v1.StringVal EntID = 20;
+    optional basetypes.v1.StringVal AppID = 30;
+    optional basetypes.v1.StringVal TopMostID = 40;
+    optional basetypes.v1.StringSliceVal TopMostIDs  = 50;
+}
+
+message CreatePosterRequest {
+    PosterReq Info = 10;
+}
+
+message CreatePosterResponse {
+    Poster Info = 10;
+}
+
+message UpdatePosterRequest {
+    PosterReq Info = 10;
+}
+
+message UpdatePosterResponse {
+    Poster Info = 10;
+}
+
+message GetPosterRequest {
+    string EntID = 10;
+}
+
+message GetPosterResponse {
+    Poster Info = 10;
+}
+
+message GetPostersRequest {
+    Conds Conds = 10;
+    int32 Offset = 20;
+    int32 Limit = 30;
+}
+
+message GetPostersResponse {
+    repeated Poster Infos = 10;
+    uint32 Total = 20;
+}
+
+message ExistPosterCondsRequest {
+    Conds Conds = 10;
+}
+
+message ExistPosterCondsResponse {
+    bool Info = 10;
+}
+
+message DeletePosterRequest {
+    PosterReq Info = 10;
+}
+
+message DeletePosterResponse {
+    Poster Info = 10;
+}

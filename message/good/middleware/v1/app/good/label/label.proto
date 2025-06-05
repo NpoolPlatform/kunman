@@ -1,0 +1,81 @@
+syntax = "proto3";
+
+package good.middleware.app.good1.label.v1;
+
+option go_package = "github.com/NpoolPlatform/message/good/middleware/v1/app/good/label";
+
+import "basetypes/v1/conds.proto";
+import "basetypes/good/v1/enums.proto";
+
+message LabelReq {
+    optional uint32 ID = 10;
+    optional string EntID = 20;
+    optional string AppGoodID = 30;
+    optional string Icon = 40;
+    optional string IconBgColor = 50;
+    optional basetypes.good.v1.GoodLabel Label = 60;
+    optional string LabelBgColor = 70;
+    optional uint32 Index = 80;
+}
+
+message Label {
+    // @inject_tag: sql:"id"
+    uint32 ID = 10;
+    // @inject_tag: sql:"ent_id"
+    string EntID = 20;
+    // @inject_tag: sql:"app_id"
+    string AppID = 30;
+    // @inject_tag: sql:"good_id"
+    string GoodID = 40;
+    // @inject_tag: sql:"good_name"
+    string GoodName = 50;
+    // @inject_tag: sql:"app_good_id"
+    string AppGoodID = 60;
+    // @inject_tag: sql:"app_good_name"
+    string AppGoodName = 70;
+    // @inject_tag: sql:"icon"
+    string Icon = 80;
+    // @inject_tag: sql:"icon_bg_color"
+    string IconBgColor = 90;
+    // @inject_tag: sql:"label"
+    string LabelStr = 100;
+    basetypes.good.v1.GoodLabel Label = 110;
+    // @inject_tag: sql:"label_bg_color"
+    string LabelBgColor = 120;
+    // @inject_tag: sql:"good_type"
+    string GoodTypeStr = 130;
+    basetypes.good.v1.GoodType GoodType = 140;
+    // @inject_tag: sql:"index"
+    uint32 Index = 150;
+    // @inject_tag: sql:"created_at"
+    uint32 CreatedAt = 1000;
+    // @inject_tag: sql:"updated_at"
+    uint32 UpdatedAt = 1010;
+}
+
+message LabelInfo {
+    // @inject_tag: sql:"app_good_id"
+    string AppGoodID = 10;
+    // @inject_tag: sql:"icon"
+    string Icon     = 20;
+    // @inject_tag: sql:"icon_bg_color"
+    string IconBgColor = 30;
+    // @inject_tag: sql:"label"
+    string LabelStr = 40;
+    basetypes.good.v1.GoodLabel Label = 50;
+    // @inject_tag: sql:"label_bg_color"
+    string LabelBgColor = 60;
+    // @inject_tag: sql:"index"
+    uint32 Index = 70;
+}
+
+message Conds {
+    optional basetypes.v1.Uint32Val ID = 10;
+    optional basetypes.v1.StringVal EntID = 20;
+    optional basetypes.v1.StringVal AppID = 30;
+    optional basetypes.v1.StringVal GoodID = 40;
+    optional basetypes.v1.StringSliceVal GoodIDs = 50;
+    optional basetypes.v1.StringVal AppGoodID = 60;
+    optional basetypes.v1.StringSliceVal AppGoodIDs = 70;
+}
+

@@ -1,0 +1,51 @@
+syntax = "proto3";
+
+package good.middleware.device.poster.v1;
+
+option go_package = "github.com/NpoolPlatform/message/good/middleware/v1/device/poster";
+
+import "basetypes/v1/conds.proto";
+
+message PosterReq {
+    optional uint32 ID = 10;
+    optional string EntID = 20;
+    optional string DeviceTypeID = 30;
+    optional string Poster = 40;
+    optional uint32 Index = 50;
+}
+
+message Poster {
+    // @inject_tag: sql:"id"
+    uint32 ID = 10;
+    // @inject_tag: sql:"ent_id"
+    string EntID = 20;
+    // @inject_tag: sql:"device_type_id"
+    string DeviceTypeID = 30;
+    // @inject_tag: sql:"device_type"
+    string DeviceType = 40;
+    // @inject_tag: sql:"manufacturer"
+    string Manufacturer = 50;
+    // @inject_tag: sql:"poster"
+    string Poster = 70;
+    // @inject_tag: sql:"index"
+    uint32 Index = 90;
+    // @inject_tag: sql:"created_at"
+    uint32 CreatedAt = 1000;
+    // @inject_tag: sql:"updated_at"
+    uint32 UpdatedAt = 1010;
+}
+
+message PosterInfo {
+    // @inject_tag: sql:"poster"
+    string Poster = 70;
+    // @inject_tag: sql:"index"
+    uint32 Index  = 90;
+}
+
+message Conds {
+    optional basetypes.v1.Uint32Val ID = 10;
+    optional basetypes.v1.StringVal EntID = 20;
+    optional basetypes.v1.StringVal DeviceTypeID = 30;
+    optional basetypes.v1.StringSliceVal DeviceTypeIDs = 40;
+}
+

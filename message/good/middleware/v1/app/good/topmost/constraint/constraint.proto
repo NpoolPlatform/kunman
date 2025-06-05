@@ -1,0 +1,117 @@
+syntax = "proto3";
+
+package good.middleware.app.good1.topmost.constraint.v1;
+
+option go_package = "github.com/NpoolPlatform/message/good/middleware/v1/app/good/topmost/constraint";
+
+import "basetypes/good/v1/enums.proto";
+import "basetypes/v1/conds.proto";
+
+// Service Name
+service Middleware {
+    rpc CreateTopMostConstraint (CreateTopMostConstraintRequest) returns (CreateTopMostConstraintResponse) {}
+    rpc UpdateTopMostConstraint (UpdateTopMostConstraintRequest) returns (UpdateTopMostConstraintResponse) {}
+    rpc GetTopMostConstraint (GetTopMostConstraintRequest) returns (GetTopMostConstraintResponse) {}
+    rpc GetTopMostConstraints (GetTopMostConstraintsRequest) returns (GetTopMostConstraintsResponse) {}
+    rpc ExistTopMostConstraintConds (ExistTopMostConstraintCondsRequest) returns (ExistTopMostConstraintCondsResponse) {}
+    rpc DeleteTopMostConstraint (DeleteTopMostConstraintRequest) returns (DeleteTopMostConstraintResponse) {}
+}
+
+message TopMostConstraintReq {
+    optional uint32 ID = 10;
+    optional string EntID = 20;
+    optional string TopMostID = 30;
+    optional basetypes.good.v1.GoodTopMostConstraint Constraint = 40;
+    optional string TargetValue = 50;
+    optional uint32 Index = 60;
+}
+
+message TopMostConstraint {
+    // @inject_tag: sql:"id"
+    uint32 ID = 10;
+    // @inject_tag: sql:"ent_id"
+    string EntID = 20;
+    // @inject_tag: sql:"app_id"
+    string AppID = 30;
+    // @inject_tag: sql:"top_most_id"
+    string TopMostID = 40;
+    // @inject_tag: sql:"top_most_type"
+    string TopMostTypeStr = 50;
+    basetypes.good.v1.GoodTopMostType TopMostType = 60;
+    // @inject_tag: sql:"top_most_title"
+    string TopMostTitle = 70;
+    // @inject_tag: sql:"top_most_message"
+    string TopMostMessage = 80;
+    // @inject_tag: sql:"top_most_target_url"
+    string TopMostTargetUrl = 90;
+    // @inject_tag: sql:"constraint"
+    string ConstraintStr = 100;
+    basetypes.good.v1.GoodTopMostConstraint Constraint = 110;
+    // @inject_tag: sql:"target_value"
+    string TargetValue = 120;
+    // @inject_tag: sql:"index"
+    uint32 Index = 130;
+    // @inject_tag: sql:"created_at"
+    uint32 CreatedAt = 1000;
+    // @inject_tag: sql:"updated_at"
+    uint32 UpdatedAt = 1010;
+}
+
+message Conds {
+    optional basetypes.v1.Uint32Val ID = 10;
+    optional basetypes.v1.StringVal EntID = 20;
+    optional basetypes.v1.StringVal AppID = 30;
+    optional basetypes.v1.StringVal TopMostID = 40;
+    optional basetypes.v1.Uint32Val TopMostType = 50;
+}
+
+message CreateTopMostConstraintRequest {
+    TopMostConstraintReq Info = 10;
+}
+
+message CreateTopMostConstraintResponse {
+    TopMostConstraint Info = 10;
+}
+
+message UpdateTopMostConstraintRequest {
+    TopMostConstraintReq Info = 10;
+}
+
+message UpdateTopMostConstraintResponse {
+    TopMostConstraint Info = 10;
+}
+
+message GetTopMostConstraintRequest {
+    string EntID = 10;
+}
+
+message GetTopMostConstraintResponse {
+    TopMostConstraint Info = 10;
+}
+
+message GetTopMostConstraintsRequest {
+    Conds Conds = 10;
+    int32 Offset = 20;
+    int32 Limit = 30;
+}
+
+message GetTopMostConstraintsResponse {
+    repeated TopMostConstraint Infos = 10;
+    uint32 Total = 20;
+}
+
+message ExistTopMostConstraintCondsRequest {
+    Conds Conds = 10;
+}
+
+message ExistTopMostConstraintCondsResponse {
+    bool Info = 10;
+}
+
+message DeleteTopMostConstraintRequest {
+    TopMostConstraintReq Info = 10;
+}
+
+message DeleteTopMostConstraintResponse {
+    TopMostConstraint Info = 10;
+}

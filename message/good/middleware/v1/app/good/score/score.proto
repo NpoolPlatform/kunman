@@ -1,0 +1,51 @@
+syntax = "proto3";
+
+package good.middleware.app.good1.score.v1;
+
+option go_package = "github.com/NpoolPlatform/message/good/middleware/v1/app/good/score";
+
+import "basetypes/v1/conds.proto";
+
+message ScoreReq {
+    optional uint32 ID         = 9;
+    optional string EntID      = 10;
+    optional string UserID     = 30;
+    optional string AppGoodID  = 40;
+    optional string Score      = 50;
+}
+
+message Score {
+    // @inject_tag: sql:"id"
+    uint32 ID        = 9;
+    // @inject_tag: sql:"ent_id"
+    string EntID     = 10;
+    // @inject_tag: sql:"app_id"
+    string AppID     = 20;
+    // @inject_tag: sql:"user_id"
+    string UserID    = 30;
+    // @inject_tag: sql:"app_good_id"
+    string AppGoodID    = 40;
+    // @inject_tag: sql:"good_name"
+    string GoodName  = 50;
+    // @inject_tag: sql:"score"
+    string Score     = 60;
+    // @inject_tag: sql:"good_id"
+    string GoodID    = 70;
+    // @inject_tag: sql:"comment_id"
+    string CommentID = 80;
+    // @inject_tag: sql:"created_at"
+    uint32 CreatedAt = 1000;
+    // @inject_tag: sql:"updated_at"
+    uint32 UpdatedAt = 1010;
+}
+
+message Conds {
+    optional basetypes.v1.Uint32Val      ID      = 9;
+    optional basetypes.v1.StringVal      EntID   = 10;
+    optional basetypes.v1.StringVal      AppID   = 20;
+    optional basetypes.v1.StringVal      UserID  = 30;
+    optional basetypes.v1.StringVal      AppGoodID  = 40;
+    optional basetypes.v1.StringSliceVal AppGoodIDs = 50;
+    optional basetypes.v1.StringVal      GoodID     = 60;
+}
+

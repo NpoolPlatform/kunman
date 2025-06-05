@@ -1,0 +1,265 @@
+syntax = "proto3";
+
+package good.middleware.app.powerrental.v1;
+
+option go_package = "github.com/NpoolPlatform/message/good/middleware/v1/app/powerrental";
+
+import "basetypes/v1/conds.proto";
+import "basetypes/good/v1/enums.proto";
+import "good/middleware/v1/good/coin/coin.proto";
+import "good/middleware/v1/app/good/description/description.proto";
+import "good/middleware/v1/app/good/poster/poster.proto";
+import "good/middleware/v1/app/good/label/label.proto";
+import "good/middleware/v1/app/good/display/name/name.proto";
+import "good/middleware/v1/app/good/required/required.proto";
+import "good/middleware/v1/app/good/display/color/color.proto";
+import "good/middleware/v1/app/good/stock/mining/mining.proto";
+import "good/middleware/v1/good/stock/stock.proto";
+import "good/middleware/v1/good/coin/reward/reward.proto";
+
+message PowerRentalReq {
+  // Base of power rental
+  optional uint32 ID = 10;
+  optional string EntID = 20;
+  optional string AppID = 30;
+  optional string GoodID = 40;
+  optional string AppGoodID = 50;
+  optional bool Purchasable = 60;
+  optional bool EnableProductPage = 70;
+  optional string ProductPage = 80;
+  optional bool Online = 90;
+  optional bool Visible = 100;
+  optional string Name = 110;
+  optional int32 DisplayIndex = 120;
+  optional string Banner = 130;
+
+  // Good information
+  optional uint32 ServiceStartAt = 140;
+  optional basetypes.good.v1.GoodStartMode StartMode = 141;
+  optional basetypes.good.v1.CancelMode CancelMode = 150;
+  optional uint32 CancelableBeforeStartSeconds = 160;
+  optional bool EnableSetCommission = 170;
+  optional string MinOrderAmount = 180;
+  optional string MaxOrderAmount = 190;
+  optional string MaxUserAmount = 200;
+  optional uint32 MinOrderDurationSeconds = 210;
+  optional uint32 MaxOrderDurationSeconds = 220;
+  optional string UnitPrice = 230;
+  optional uint32 SaleStartAt = 240;
+  optional uint32 SaleEndAt = 250;
+  optional basetypes.good.v1.GoodSaleMode SaleMode = 260;
+  optional bool FixedDuration = 270;
+  optional bool PackageWithRequireds = 280;
+
+  // Good stock
+  optional string AppGoodStockID = 290;
+}
+
+message PowerRental {
+  // @inject_tag: sql:"id"
+  uint32 ID = 10;
+  // @inject_tag: sql:"ent_id"
+  string EntID = 20;
+  // @inject_tag: sql:"app_id"
+  string AppID = 30;
+  // @inject_tag: sql:"good_id"
+  string GoodID = 40;
+  // @inject_tag: sql:"app_good_id"
+  string AppGoodID = 41;
+
+  // @inject_tag: sql:"device_type_id"
+  string DeviceTypeID = 50;
+  // @inject_tag: sql:"device_type"
+  string DeviceType = 60;
+  // @inject_tag: sql:"device_manufacturer_name"
+  string DeviceManufacturerName = 70;
+  // @inject_tag: sql:"device_manufacturer_logo"
+  string DeviceManufacturerLogo = 80;
+  // @inject_tag: sql:"device_power_consumption"
+  uint32 DevicePowerConsumption = 90;
+  // @inject_tag: sql:"device_shipment_at"
+  uint32 DeviceShipmentAt = 100;
+
+  // @inject_tag: sql:"vendor_location_id"
+  string VendorLocationID = 110;
+  // @inject_tag: sql:"vendor_brand"
+  string VendorBrand = 120;
+  // @inject_tag: sql:"vendor_logo"
+  string VendorLogo = 130;
+  // @inject_tag: sql:"vendor_country"
+  string VendorCountry = 140;
+  // @inject_tag: sql:"vendor_province"
+  string VendorProvince = 150;
+
+  // @inject_tag: sql:"unit_price"
+  string UnitPrice = 160;
+  // @inject_tag: sql:"quantity_unit"
+  string QuantityUnit = 170;
+  // @inject_tag: sql:"quantity_unit_amount"
+  string QuantityUnitAmount = 180;
+  // @inject_tag: sql:"delivery_at"
+  uint32 DeliveryAt = 190;
+  // @inject_tag: sql:"unit_lock_deposit"
+  string UnitLockDeposit = 200;
+  // @inject_tag: sql:"duration_display_type"
+  string DurationDisplayTypeStr = 210;
+  basetypes.good.v1.GoodDurationType DurationDisplayType = 220;
+
+  // @inject_tag: sql:"good_type"
+  string GoodTypeStr = 230;
+  basetypes.good.v1.GoodType GoodType = 240;
+  // @inject_tag: sql:"benefit_type"
+  string BenefitTypeStr = 250;
+  basetypes.good.v1.BenefitType BenefitType = 260;
+  // @inject_tag: sql:"good_name"
+  string GoodName = 270;
+  // @inject_tag: sql:"good_service_start_at"
+  uint32 GoodServiceStartAt = 280;
+  // @inject_tag: sql:"good_start_mode"
+  string GoodStartModeStr = 290;
+  basetypes.good.v1.GoodStartMode GoodStartMode = 300;
+  // @inject_tag: sql:"test_only"
+  bool TestOnly = 310;
+  // @inject_tag: sql:"benefit_interval_hours"
+  uint32 BenefitIntervalHours = 320;
+  // @inject_tag: sql:"good_purchasable"
+  bool GoodPurchasable = 330;
+  // @inject_tag: sql:"good_online"
+  bool GoodOnline = 340;
+  // @inject_tag: sql:"stock_mode"
+  string StockModeStr = 350;
+  basetypes.good.v1.GoodStockMode StockMode = 360;
+  // @inject_tag: sql:"state"
+  string StateStr = 365;
+  basetypes.good.v1.GoodState State = 366;
+
+  // @inject_tag: sql:"app_good_purchasable"
+  bool AppGoodPurchasable = 370;
+  // @inject_tag: sql:"app_good_online"
+  bool AppGoodOnline = 380;
+  // @inject_tag: sql:"enable_product_page"
+  bool EnableProductPage = 390;
+  // @inject_tag: sql:"product_page"
+  string ProductPage = 400;
+  // @inject_tag: sql:"visible"
+  bool Visible = 410;
+  // @inject_tag: sql:"app_good_name"
+  string AppGoodName = 420;
+  // @inject_tag: sql:"display_index"
+  int32 DisplayIndex = 430;
+  // @inject_tag: sql:"banner"
+  string Banner = 440;
+  // @inject_tag: sql:"cancel_mode"
+  string CancelModeStr = 450;
+  basetypes.good.v1.CancelMode CancelMode = 460;
+  // @inject_tag: sql:"cancelable_before_start_seconds"
+  uint32 CancelableBeforeStartSeconds = 470;
+  // @inject_tag: sql:"enable_set_commission"
+  bool EnableSetCommission = 480;
+  // @inject_tag: sql:"min_order_amount"
+  string MinOrderAmount = 490;
+  // @inject_tag: sql:"max_order_amount"
+  string MaxOrderAmount = 500;
+  // @inject_tag: sql:"max_user_amount"
+  string MaxUserAmount = 510;
+  // @inject_tag: sql:"min_order_duration_seconds"
+  uint32 MinOrderDurationSeconds = 520;
+  // @inject_tag: sql:"max_order_duration_seconds"
+  uint32 MaxOrderDurationSeconds = 530;
+  // @inject_tag: sql:"sale_start_at"
+  uint32 SaleStartAt = 540;
+  // @inject_tag: sql:"sale_end_at"
+  uint32 SaleEndAt = 550;
+  // @inject_tag: sql:"sale_mode"
+  string SaleModeStr = 560;
+  basetypes.good.v1.GoodSaleMode SaleMode = 570;
+  // @inject_tag: sql:"fixed_duration"
+  bool FixedDuration = 580;
+  // @inject_tag: sql:"package_with_requireds"
+  bool PackageWithRequireds = 590;
+
+  // @inject_tag: sql:"app_good_service_start_at"
+  uint32 AppGoodServiceStartAt = 700;
+  // @inject_tag: sql:"app_good_start_mode"
+  string AppGoodStartModeStr = 710;
+  basetypes.good.v1.GoodStartMode AppGoodStartMode = 720;
+
+  // Only for legacy good
+  // @inject_tag: sql:"technique_fee_ratio"
+  string TechniqueFeeRatio = 800;
+
+  // Good information
+  // @inject_tag: sql:"good_stock_id"
+  string GoodStockID = 900;
+  // @inject_tag: sql:"good_total"
+  string GoodTotal = 910;
+  // @inject_tag: sql:"good_spot_quantity"
+  string GoodSpotQuantity = 920;
+
+  // @inject_tag: sql:"app_good_stock_id"
+  string AppGoodStockID = 1000;
+  // @inject_tag: sql:"app_good_reserved"
+  string AppGoodReserved = 1010;
+  // @inject_tag: sql:"app_good_spot_quantity"
+  string AppGoodSpotQuantity = 1020;
+  // @inject_tag: sql:"app_good_locked"
+  string AppGoodLocked = 1030;
+  // @inject_tag: sql:"app_good_in_service"
+  string AppGoodInService = 1040;
+  // @inject_tag: sql:"app_good_wait_start"
+  string AppGoodWaitStart = 1050;
+  // @inject_tag: sql:"app_good_sold"
+  string AppGoodSold = 1060;
+
+  // @inject_tag: sql:"likes"
+  uint32 Likes = 1100;
+  // @inject_tag: sql:"dislikes"
+  uint32 Dislikes = 1110;
+  // @inject_tag: sql:"score"
+  string Score = 1120;
+  // @inject_tag: sql:"score_count"
+  uint32 ScoreCount = 1130;
+  // @inject_tag: sql:"recommend_count"
+  uint32 RecommendCount = 1140;
+  // @inject_tag: sql:"comment_count"
+  uint32 CommentCount = 1150;
+
+  // @inject_tag: sql:"last_reward_at"
+  uint32 LastRewardAt = 1200;
+
+  repeated good.middleware.good1.coin.v1.GoodCoinInfo GoodCoins = 1300;
+  repeated good.middleware.app.good1.description.v1.DescriptionInfo
+      Descriptions = 1310;
+  repeated good.middleware.app.good1.poster.v1.PosterInfo Posters = 1320;
+  repeated good.middleware.app.good1.display.name.v1.DisplayNameInfo
+      DisplayNames = 1330;
+  repeated good.middleware.app.good1.display.color.v1.DisplayColorInfo
+      DisplayColors = 1340;
+  repeated good.middleware.app.good1.stock.mining.v1.StockInfo
+      AppMiningGoodStocks = 1350;
+  repeated good.middleware.good1.stock.v1.MiningGoodStockInfo MiningGoodStocks =
+      1360;
+  repeated good.middleware.app.good1.label.v1.LabelInfo Labels = 1370;
+  repeated good.middleware.good1.coin.reward.v1.RewardInfo Rewards = 820;
+  repeated good.middleware.app.good1.required1.v1.RequiredInfo Requireds = 830;
+
+  // @inject_tag: sql:"created_at"
+  uint32 CreatedAt = 2000;
+  // @inject_tag: sql:"updated_at"
+  uint32 UpdatedAt = 2010;
+}
+
+message Conds {
+  optional basetypes.v1.Uint32Val ID = 10;
+  optional basetypes.v1.StringVal EntID = 20;
+  optional basetypes.v1.StringVal AppID = 30;
+  optional basetypes.v1.StringVal GoodID = 40;
+  optional basetypes.v1.StringSliceVal GoodIDs = 50;
+  optional basetypes.v1.StringVal AppGoodID = 60;
+  optional basetypes.v1.StringSliceVal AppGoodIDs = 70;
+  optional basetypes.v1.Uint32Val GoodType = 80;
+  optional basetypes.v1.Uint32SliceVal GoodTypes = 90;
+  optional basetypes.v1.StringVal CoinTypeID = 100;
+  optional basetypes.v1.StringSliceVal CoinTypeIDs = 110;
+}
+

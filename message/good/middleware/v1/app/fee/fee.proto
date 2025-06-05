@@ -1,0 +1,80 @@
+syntax = "proto3";
+
+package good.middleware.app.fee.v1;
+
+option go_package = "github.com/NpoolPlatform/message/good/middleware/v1/fee";
+
+import "basetypes/good/v1/enums.proto";
+import "basetypes/v1/conds.proto";
+
+message FeeReq {
+    optional uint32 ID = 10;
+    optional string EntID = 20;
+    optional string AppID = 30;
+    optional string GoodID = 40;
+    optional string AppGoodID = 50;
+    optional string ProductPage = 60;
+    optional string Name = 70;
+    optional string Banner = 80;
+    // It could be amount or percent.
+    optional string UnitValue = 90;
+    optional basetypes.good.v1.CancelMode CancelMode = 100;
+    optional uint32 MinOrderDurationSeconds = 110;
+}
+
+message Fee {
+    // @inject_tag: sql:"id"
+    uint32 ID = 10;
+    // @inject_tag: sql:"ent_id"
+    string EntID = 20;
+    // @inject_tag: sql:"app_id"
+    string AppID = 30;
+    // @inject_tag: sql:"good_id"
+    string GoodID = 40;
+    // @inject_tag: sql:"app_good_id"
+    string AppGoodID = 50;
+    // @inject_tag: sql:"product_page"
+    string ProductPage = 60;
+    // @inject_tag: sql:"good_type"
+    string GoodTypeStr = 70;
+    basetypes.good.v1.GoodType GoodType = 80;
+    // @inject_tag: sql:"good_name"
+    string GoodName = 90;
+    // @inject_tag: sql:"app_good_name"
+    string AppGoodName = 91;
+    // @inject_tag: sql:"settlement_type"
+    string SettlementTypeStr = 100;
+    basetypes.good.v1.GoodSettlementType SettlementType = 110;
+    // @inject_tag: sql:"unit_value"
+    string UnitValue = 120;
+    // @inject_tag: sql:"duration_display_type"
+    string DurationDisplayTypeStr = 130;
+    basetypes.good.v1.GoodDurationType DurationDisplayType = 140;
+    // @inject_tag: sql:"banner"
+    string Banner = 150;
+    // @inject_tag: sql:"cancel_mode"
+    string CancelModeStr = 160;
+    basetypes.good.v1.CancelMode CancelMode = 170;
+    // @inject_tag: sql:"min_order_duration_seconds"
+    uint32 MinOrderDurationSeconds = 180;
+    // @inject_tag: sql:"created_at"
+    uint32 CreatedAt = 1000;
+    // @inject_tag: sql:"updated_at"
+    uint32 UpdatedAt = 1010;
+}
+
+message Conds {
+    optional basetypes.v1.Uint32Val ID = 10;
+    optional basetypes.v1.Uint32SliceVal IDs = 20;
+    optional basetypes.v1.StringVal AppID = 30;
+    optional basetypes.v1.StringSliceVal AppIDs = 40;
+    optional basetypes.v1.StringVal EntID = 50;
+    optional basetypes.v1.StringSliceVal EntIDs = 60;
+    optional basetypes.v1.StringVal GoodID = 70;
+    optional basetypes.v1.StringSliceVal GoodIDs = 80;
+    optional basetypes.v1.StringVal AppGoodID = 90;
+    optional basetypes.v1.StringSliceVal AppGoodIDs = 100;
+    optional basetypes.v1.Uint32Val SettlementType = 110;
+    optional basetypes.v1.Uint32Val GoodType = 120;
+}
+

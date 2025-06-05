@@ -1,0 +1,81 @@
+syntax = "proto3";
+
+package good.gateway.device.poster.v1;
+
+option go_package = "github.com/NpoolPlatform/message/good/gateway/v1/device/poster";
+
+import "google/api/annotations.proto";
+import "basetypes/good/v1/enums.proto";
+import "good/middleware/v1/device/poster/poster.proto";
+
+service Gateway {
+    rpc AdminCreatePoster (AdminCreatePosterRequest) returns (AdminCreatePosterResponse) {
+        option (google.api.http) = {
+            post: "/v1/admin/create/deviceposter"
+            body: "*"
+        };
+    }
+
+    rpc AdminUpdatePoster (AdminUpdatePosterRequest) returns (AdminUpdatePosterResponse) {
+        option (google.api.http) = {
+            post: "/v1/admin/update/deviceposter"
+            body: "*"
+        };
+    }
+
+    rpc GetPosters (GetPostersRequest) returns (GetPostersResponse) {
+        option (google.api.http) = {
+            post: "/v1/get/deviceposters"
+            body: "*"
+        };
+    }
+
+    rpc AdminDeletePoster (AdminDeletePosterRequest) returns (AdminDeletePosterResponse) {
+        option (google.api.http) = {
+            post: "/v1/admin/delete/deviceposter"
+            body: "*"
+        };
+    }
+}
+
+message AdminCreatePosterRequest {
+    string DeviceTypeID = 10;
+    string Poster = 20;
+    optional uint32 Index = 30;
+}
+
+message AdminCreatePosterResponse {
+    good.middleware.device.poster.v1.Poster Info = 10;
+}
+
+message AdminUpdatePosterRequest {
+    uint32 ID = 10;
+    string EntID = 20;
+    optional string Poster = 30;
+    optional uint32 Index = 40;
+}
+
+message AdminUpdatePosterResponse {
+    good.middleware.device.poster.v1.Poster Info = 10;
+}
+
+message GetPostersRequest {
+    optional string DeviceTypeID = 10;
+    int32 Offset = 20;
+    int32 Limit = 30;
+}
+
+message GetPostersResponse {
+    repeated good.middleware.device.poster.v1.Poster Infos = 10;
+    uint32 Total = 20;
+}
+
+message AdminDeletePosterRequest {
+    uint32 ID = 10;
+    string EntID = 20;
+}
+
+message AdminDeletePosterResponse {
+    good.middleware.device.poster.v1.Poster Info = 10;
+}
+

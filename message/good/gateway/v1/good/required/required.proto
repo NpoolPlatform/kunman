@@ -1,0 +1,78 @@
+syntax = "proto3";
+
+package good.gateway.good1.required1.v1;
+
+option go_package = "github.com/NpoolPlatform/message/good/gateway/v1/good/required";
+
+import "google/api/annotations.proto";
+import "good/middleware/v1/good/required/required.proto";
+
+service Gateway {
+    rpc AdminCreateRequired (AdminCreateRequiredRequest) returns (AdminCreateRequiredResponse) {
+        option (google.api.http) = {
+            post: "/v1/admin/create/requiredgood"
+            body: "*"
+        };
+    }
+
+    rpc AdminUpdateRequired (AdminUpdateRequiredRequest) returns (AdminUpdateRequiredResponse) {
+        option (google.api.http) = {
+            post: "/v1/admin/update/requiredgood"
+            body: "*"
+        };
+    }
+
+  rpc GetRequireds(GetRequiredsRequest) returns (GetRequiredsResponse) {
+    option (google.api.http) = {
+      post : "/v1/get/requiredgoods"
+      body : "*"
+    };
+  }
+
+    rpc AdminDeleteRequired (AdminDeleteRequiredRequest) returns (AdminDeleteRequiredResponse) {
+        option (google.api.http) = {
+            post: "/v1/admin/delete/requiredgood"
+            body: "*"
+        };
+    }
+}
+
+message AdminCreateRequiredRequest {
+    string MainGoodID = 10;
+    string RequiredGoodID = 20;
+    optional bool Must = 30;
+}
+
+message AdminCreateRequiredResponse {
+    middleware.good1.required1.v1.Required Info = 10;
+}
+
+message AdminUpdateRequiredRequest {
+    uint32 ID = 10;
+    string EntID = 20;
+    optional bool Must = 30;
+}
+
+message AdminUpdateRequiredResponse {
+    middleware.good1.required1.v1.Required Info = 10;
+}
+
+message GetRequiredsRequest {
+    optional string GoodID = 10;
+    int32 Offset = 20;
+    int32 Limit = 30;
+}
+
+message GetRequiredsResponse {
+    repeated middleware.good1.required1.v1.Required Infos = 10;
+    uint32 Total = 20;
+}
+
+message AdminDeleteRequiredRequest {
+    uint32 ID = 10;
+    string EntID = 20;
+}
+
+message AdminDeleteRequiredResponse {
+    middleware.good1.required1.v1.Required Info = 10;
+}

@@ -1,0 +1,103 @@
+syntax = "proto3";
+
+package good.gateway.app.good1.like.v1;
+
+option go_package = "github.com/NpoolPlatform/message/good/gateway/v1/app/good/like";
+
+import "google/api/annotations.proto";
+
+service Gateway {
+    rpc CreateLike (CreateLikeRequest) returns (CreateLikeResponse) {
+        option (google.api.http) = {
+            post: "/v1/create/goodlike"
+            body: "*"
+        };
+    }
+
+    rpc GetMyLikes (GetMyLikesRequest) returns (GetMyLikesResponse) {
+        option (google.api.http) = {
+            post: "/v1/get/my/goodlikes"
+            body: "*"
+        };
+    }
+
+    rpc GetLikes (GetLikesRequest) returns (GetLikesResponse) {
+        option (google.api.http) = {
+            post: "/v1/get/goodlikes"
+            body: "*"
+        };
+    }
+
+    rpc DeleteLike (DeleteLikeRequest) returns (DeleteLikeResponse) {
+        option (google.api.http) = {
+            post: "/v1/delete/goodlike"
+            body: "*"
+        };
+    }
+}
+
+message Like {
+    uint32 ID = 10;
+    string EntID = 20;
+    string AppID = 30;
+    string AppName = 40;
+    string UserID = 50;
+    optional string Username = 60;
+    optional string EmailAddress = 70;
+    optional string PhoneNO = 80;
+    string AppGoodID = 90;
+    string GoodName = 100;
+    bool   Like = 110;
+    string GoodID = 120;
+    uint32 CreatedAt = 1000;
+}
+
+message CreateLikeRequest {
+    string AppID = 10;
+    string UserID = 20;
+    string AppGoodID = 30;
+    bool   Like = 40;
+}
+
+message CreateLikeResponse {
+    Like Info = 10;
+}
+
+message GetMyLikesRequest {
+    string AppID = 10;
+    string UserID = 20;
+    optional string AppGoodID = 30;
+    optional string GoodID = 40;
+    int32 Offset = 50;
+    int32 Limit = 60;
+}
+
+message GetMyLikesResponse {
+    repeated Like Infos = 10;
+    uint32 Total = 20;
+}
+
+message GetLikesRequest {
+    string AppID = 10;
+    optional string TargetUserID = 20;
+    optional string AppGoodID = 30;
+    optional string GoodID = 40;
+    int32 Offset = 50;
+    int32 Limit = 60;
+}
+
+message GetLikesResponse {
+    repeated Like Infos = 10;
+    uint32 Total = 20;
+}
+
+message DeleteLikeRequest {
+    uint32 ID = 10;
+    string EntID = 20;
+    string AppID = 30;
+    string UserID = 40;
+}
+
+message DeleteLikeResponse {
+    Like Info = 10;
+}

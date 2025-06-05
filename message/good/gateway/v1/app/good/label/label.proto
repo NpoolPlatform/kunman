@@ -1,0 +1,186 @@
+syntax = "proto3";
+
+package good.gateway.app.good1.label.v1;
+
+option go_package = "github.com/NpoolPlatform/message/good/gateway/v1/app/good/label";
+
+import "google/api/annotations.proto";
+import "basetypes/good/v1/enums.proto";
+
+service Gateway {
+    rpc CreateLabel (CreateLabelRequest) returns (CreateLabelResponse) {
+        option (google.api.http) = {
+            post: "/v1/create/goodlabel"
+            body: "*"
+        };
+    }
+
+    rpc UpdateLabel (UpdateLabelRequest) returns (UpdateLabelResponse) {
+        option (google.api.http) = {
+            post: "/v1/update/goodlabel"
+            body: "*"
+        };
+    }
+
+    rpc GetLabels (GetLabelsRequest) returns (GetLabelsResponse) {
+        option (google.api.http) = {
+            post: "/v1/get/goodlabels"
+            body: "*"
+        };
+    }
+
+    rpc DeleteLabel (DeleteLabelRequest) returns (DeleteLabelResponse) {
+        option (google.api.http) = {
+            post: "/v1/delete/goodlabel"
+            body: "*"
+        };
+    }
+
+    // Run by admin
+    rpc AdminCreateLabel (AdminCreateLabelRequest) returns (AdminCreateLabelResponse) {
+        option (google.api.http) = {
+            post: "/v1/admin/create/goodlabel"
+            body: "*"
+        };
+    }
+
+    rpc AdminUpdateLabel (AdminUpdateLabelRequest) returns (AdminUpdateLabelResponse) {
+        option (google.api.http) = {
+            post: "/v1/admin/update/goodlabel"
+            body: "*"
+        };
+    }
+
+    rpc AdminGetLabels (AdminGetLabelsRequest) returns (AdminGetLabelsResponse) {
+        option (google.api.http) = {
+            post: "/v1/admin/get/goodlabels"
+            body: "*"
+        };
+    }
+
+    rpc AdminDeleteLabel (AdminDeleteLabelRequest) returns (AdminDeleteLabelResponse) {
+        option (google.api.http) = {
+            post: "/v1/admin/delete/goodlabel"
+            body: "*"
+        };
+    }
+}
+
+message Label {
+    uint32 ID = 10;
+    string EntID = 20;
+    string AppID = 30;
+    string AppName = 40;
+    string GoodID = 50;
+    string GoodName = 60;
+    basetypes.good.v1.GoodType GoodType = 70;
+    string AppGoodID = 80;
+    string AppGoodName = 90;
+    string Icon = 100;
+    string IconBgColor = 110;
+    basetypes.good.v1.GoodLabel Label = 120;
+    string LabelBgColor = 130;
+    uint32 Index = 140;
+
+    uint32 CreatedAt  = 1000;
+    uint32 UpdatedAt  = 1010;
+}
+
+message CreateLabelRequest {
+    string AppID = 10;
+    string AppGoodID = 30;
+    optional string Icon = 40;
+    optional string IconBgColor = 50;
+    basetypes.good.v1.GoodLabel Label = 60;
+    optional string LabelBgColor = 70;
+    optional uint32 Index = 80;
+}
+
+message CreateLabelResponse {
+    Label Info = 10;
+}
+
+message UpdateLabelRequest {
+    uint32 ID = 10;
+    string EntID = 20;
+    string AppID = 30;
+    optional string Icon = 40;
+    optional string IconBgColor = 50;
+    optional string LabelBgColor = 60;
+    optional uint32 Index = 70;
+}
+
+message UpdateLabelResponse {
+    Label Info = 10;
+}
+
+message GetLabelsRequest {
+    string AppID = 10;
+    optional string AppGoodID = 20;
+    int32 Offset = 30;
+    int32 Limit = 40;
+}
+
+message GetLabelsResponse {
+    repeated Label Infos = 10;
+    uint32 Total = 20;
+}
+
+message DeleteLabelRequest {
+    uint32 ID = 10;
+    string EntID = 20;
+    string AppID = 30;
+}
+
+message DeleteLabelResponse {
+    Label Info = 10;
+}
+
+message AdminCreateLabelRequest {
+    string TargetAppID = 10;
+    string AppGoodID = 20;
+    optional string Icon = 30;
+    optional string IconBgColor = 40;
+    basetypes.good.v1.GoodLabel Label = 50;
+    optional string LabelBgColor = 60;
+    optional uint32 Index = 70;
+}
+
+message AdminCreateLabelResponse {
+    Label Info = 10;
+}
+
+message AdminGetLabelsRequest {
+    string TargetAppID = 10;
+    int32 Offset = 20;
+    int32 Limit = 30;
+}
+
+message AdminGetLabelsResponse {
+    repeated Label Infos = 10;
+    uint32 Total = 20;
+}
+
+message AdminUpdateLabelRequest {
+    uint32 ID = 10;
+    string EntID = 20;
+    string TargetAppID = 30;
+    optional string Icon = 40;
+    optional string IconBgColor = 50;
+    optional string LabelBgColor = 60;
+    optional uint32 Index = 70;
+}
+
+message AdminUpdateLabelResponse {
+    Label Info = 10;
+}
+
+message AdminDeleteLabelRequest {
+    uint32 ID = 10;
+    string EntID = 20;
+    string TargetAppID = 30;
+}
+
+message AdminDeleteLabelResponse {
+    Label Info = 10;
+}

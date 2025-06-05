@@ -1,0 +1,176 @@
+syntax = "proto3";
+
+package good.gateway.app.good1.topmost.constraint.v1;
+
+option go_package = "github.com/NpoolPlatform/message/good/gateway/v1/app/good/topmost/constraint";
+
+import "google/api/annotations.proto";
+import "basetypes/good/v1/enums.proto";
+
+service Gateway {
+    rpc CreateTopMostConstraint (CreateTopMostConstraintRequest) returns (CreateTopMostConstraintResponse) {
+        option (google.api.http) = {
+            post: "/v1/create/goodtopmostconstraint"
+            body: "*"
+        };
+    }
+
+    rpc UpdateTopMostConstraint (UpdateTopMostConstraintRequest) returns (UpdateTopMostConstraintResponse) {
+        option (google.api.http) = {
+            post: "/v1/update/goodtopmostconstraint"
+            body: "*"
+        };
+    }
+
+    rpc GetTopMostConstraints (GetTopMostConstraintsRequest) returns (GetTopMostConstraintsResponse) {
+        option (google.api.http) = {
+            post: "/v1/get/goodtopmostconstraints"
+            body: "*"
+        };
+    }
+
+    rpc DeleteTopMostConstraint (DeleteTopMostConstraintRequest) returns (DeleteTopMostConstraintResponse) {
+        option (google.api.http) = {
+            post: "/v1/delete/goodtopmostconstraint"
+            body: "*"
+        };
+    }
+
+    // Run by admin
+    rpc AdminCreateTopMostConstraint (AdminCreateTopMostConstraintRequest) returns (AdminCreateTopMostConstraintResponse) {
+        option (google.api.http) = {
+            post: "/v1/admin/create/goodtopmostconstraint"
+            body: "*"
+        };
+    }
+
+    rpc AdminUpdateTopMostConstraint (AdminUpdateTopMostConstraintRequest) returns (AdminUpdateTopMostConstraintResponse) {
+        option (google.api.http) = {
+            post: "/v1/admin/update/goodtopmostconstraint"
+            body: "*"
+        };
+    }
+
+    rpc AdminGetTopMostConstraints (AdminGetTopMostConstraintsRequest) returns (AdminGetTopMostConstraintsResponse) {
+        option (google.api.http) = {
+            post: "/v1/admin/get/goodtopmostconstraints"
+            body: "*"
+        };
+    }
+
+    rpc AdminDeleteTopMostConstraint (AdminDeleteTopMostConstraintRequest) returns (AdminDeleteTopMostConstraintResponse) {
+        option (google.api.http) = {
+            post: "/v1/admin/delete/goodtopmostconstraint"
+            body: "*"
+        };
+    }
+}
+
+message TopMostConstraint {
+    uint32 ID = 10;
+    string EntID = 20;
+    string AppID = 30;
+    string AppName = 40;
+    string TopMostID = 50;
+    basetypes.good.v1.GoodTopMostType TopMostType = 60;
+    string TopMostTitle = 70;
+    string TopMostMessage = 80;
+    string TopMostTargetUrl = 90;
+    basetypes.good.v1.GoodTopMostConstraint Constraint = 100;
+    string TargetValue = 110;
+    uint32 Index = 120;
+
+    uint32 CreatedAt  = 1000;
+    uint32 UpdatedAt  = 1010;
+}
+
+message CreateTopMostConstraintRequest {
+    string AppID = 10;
+    string TopMostID = 20;
+    basetypes.good.v1.GoodTopMostConstraint Constraint = 30;
+    optional string TargetValue = 40;
+    optional uint32 Index = 50;
+}
+
+message CreateTopMostConstraintResponse {
+    TopMostConstraint Info = 10;
+}
+
+message UpdateTopMostConstraintRequest {
+    uint32 ID = 10;
+    string EntID = 20;
+    string AppID = 30;
+    optional string TargetValue = 40;
+    optional uint32 Index = 50;
+}
+
+message UpdateTopMostConstraintResponse {
+    TopMostConstraint Info = 10;
+}
+
+message GetTopMostConstraintsRequest {
+    string AppID = 10;
+    optional string TopMostID = 20;
+    int32 Offset = 30;
+    int32 Limit = 40;
+}
+
+message GetTopMostConstraintsResponse {
+    repeated TopMostConstraint Infos = 10;
+    uint32 Total = 20;
+}
+
+message DeleteTopMostConstraintRequest {
+    uint32 ID = 10;
+    string EntID = 20;
+    string AppID = 30;
+}
+
+message DeleteTopMostConstraintResponse {
+    TopMostConstraint Info = 10;
+}
+
+message AdminCreateTopMostConstraintRequest {
+    string TargetAppID = 10;
+    string TopMostID = 20;
+    basetypes.good.v1.GoodTopMostConstraint Constraint = 30;
+    optional string TargetValue = 40;
+    optional uint32 Index = 50;
+}
+
+message AdminCreateTopMostConstraintResponse {
+    TopMostConstraint Info = 10;
+}
+
+message AdminGetTopMostConstraintsRequest {
+    string TargetAppID = 10;
+    int32 Offset = 20;
+    int32 Limit = 30;
+}
+
+message AdminGetTopMostConstraintsResponse {
+    repeated TopMostConstraint Infos = 10;
+    uint32 Total = 20;
+}
+
+message AdminUpdateTopMostConstraintRequest {
+    uint32 ID = 10;
+    string EntID = 20;
+    string TargetAppID = 30;
+    optional string TargetValue = 40;
+    optional uint32 Index = 50;
+}
+
+message AdminUpdateTopMostConstraintResponse {
+    TopMostConstraint Info = 10;
+}
+
+message AdminDeleteTopMostConstraintRequest {
+    uint32 ID = 10;
+    string EntID = 20;
+    string TargetAppID = 30;
+}
+
+message AdminDeleteTopMostConstraintResponse {
+    TopMostConstraint Info = 10;
+}

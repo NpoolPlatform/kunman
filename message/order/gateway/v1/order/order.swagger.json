@@ -259,6 +259,7 @@
         "MachineCustody",
         "LegacyPowerRental",
         "DelegatedStaking",
+        "Subscription",
         "TechniqueServiceFee",
         "ElectricityFee"
       ],
@@ -427,6 +428,7 @@
         "PayWithParentOrder",
         "PayWithOtherOrder",
         "PayWithContract",
+        "PayWithFiat",
         "PayWithOffline",
         "PayWithNoPayment"
       ],

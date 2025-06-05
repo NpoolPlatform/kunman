@@ -1,0 +1,182 @@
+syntax = "proto3";
+
+package good.gateway.app.good1.topmost.good2.v1;
+
+option go_package = "github.com/NpoolPlatform/message/good/gateway/v1/app/good/topmost/good";
+
+import "google/api/annotations.proto";
+import "basetypes/good/v1/enums.proto";
+import "good/middleware/v1/app/good/topmost/good/poster/poster.proto";
+
+// Service Name
+service Gateway {
+    rpc CreateTopMostGood (CreateTopMostGoodRequest) returns (CreateTopMostGoodResponse) {
+        option (google.api.http) = {
+            post: "/v1/create/topmostgood"
+            body: "*"
+        };
+    }
+
+    rpc GetTopMostGoods (GetTopMostGoodsRequest) returns (GetTopMostGoodsResponse) {
+        option (google.api.http) = {
+            post: "/v1/get/topmostgoods"
+            body: "*"
+        };
+    }
+
+    rpc DeleteTopMostGood (DeleteTopMostGoodRequest) returns (DeleteTopMostGoodResponse) {
+        option (google.api.http) = {
+            post: "/v1/delete/topmostgood"
+            body: "*"
+        };
+    }
+
+    rpc UpdateTopMostGood (UpdateTopMostGoodRequest) returns (UpdateTopMostGoodResponse) {
+        option (google.api.http) = {
+            post: "/v1/update/topmostgood"
+            body: "*"
+        };
+    }
+
+    rpc AdminCreateTopMostGood (AdminCreateTopMostGoodRequest) returns (AdminCreateTopMostGoodResponse) {
+        option (google.api.http) = {
+            post: "/v1/admin/create/topmostgood"
+            body: "*"
+        };
+    }
+
+    rpc AdminGetTopMostGoods (AdminGetTopMostGoodsRequest) returns (AdminGetTopMostGoodsResponse) {
+        option (google.api.http) = {
+            post: "/v1/admin/get/topmostgoods"
+            body: "*"
+        };
+    }
+
+    rpc AdminUpdateTopMostGood (AdminUpdateTopMostGoodRequest) returns (AdminUpdateTopMostGoodResponse) {
+        option (google.api.http) = {
+            post: "/v1/admin/update/topmostgood"
+            body: "*"
+        };
+    }
+
+    rpc AdminDeleteTopMostGood (AdminDeleteTopMostGoodRequest) returns (AdminDeleteTopMostGoodResponse) {
+        option (google.api.http) = {
+            post: "/v1/admin/delete/topmostgood"
+            body: "*"
+        };
+    }
+
+}
+
+message TopMostGood {
+    uint32 ID = 10;
+    string EntID = 20;
+    string AppID = 30;
+    string AppName = 40;
+    string GoodID = 50;
+    basetypes.good.v1.GoodType GoodType = 60;
+    string GoodName = 70;
+    string AppGoodID = 80;
+    string AppGoodName = 90;
+    string TopMostID  = 100;
+    basetypes.good.v1.GoodTopMostType TopMostType = 110;
+    string TopMostTitle = 120;
+    string TopMostMessage = 130;
+    string TopMostTargetUrl = 140;
+    repeated good.middleware.app.good1.topmost.good2.poster.v1.PosterInfo Posters = 150;
+    string UnitPrice = 160;
+    uint32 DisplayIndex = 170;
+
+    uint32 CreatedAt = 1000;
+    uint32 UpdatedAt = 1010;
+}
+
+message CreateTopMostGoodRequest {
+    string AppID = 10;
+    string TopMostID = 20;
+    string AppGoodID = 30;
+    string UnitPrice = 40;
+    optional uint32 DisplayIndex = 50;
+}
+
+message CreateTopMostGoodResponse {
+    TopMostGood Info = 10;
+}
+
+message GetTopMostGoodsRequest {
+    string AppID = 10;
+    int32 Offset = 20;
+    int32 Limit = 30;
+}
+
+message GetTopMostGoodsResponse {
+    repeated TopMostGood Infos = 10;
+    uint32 Total = 20;
+}
+
+message DeleteTopMostGoodRequest {
+    uint32 ID = 10;
+    string EntID = 20;
+    string AppID = 30;
+}
+
+message DeleteTopMostGoodResponse {
+    TopMostGood Info = 10;
+}
+
+message UpdateTopMostGoodRequest {
+    uint32 ID = 10;
+    string EntID = 20;
+    string AppID = 30;
+    optional string UnitPrice = 40;
+    optional uint32 DisplayIndex = 50;
+}
+
+message UpdateTopMostGoodResponse {
+    TopMostGood Info = 10;
+}
+
+message AdminCreateTopMostGoodRequest {
+    string TargetAppID = 10;
+    string TopMostID = 20;
+    string AppGoodID = 30;
+    optional string UnitPrice = 40;
+    optional uint32 DisplayIndex = 50;
+}
+
+message AdminCreateTopMostGoodResponse {
+    TopMostGood Info = 10;
+}
+
+message AdminGetTopMostGoodsRequest {
+    string TargetAppID  = 10;
+    int32 Offset = 20;
+    int32 Limit = 30;
+}
+
+message AdminGetTopMostGoodsResponse {
+    repeated TopMostGood Infos = 10;
+    uint32 Total = 20;
+}
+
+message AdminUpdateTopMostGoodRequest {
+    uint32 ID = 10;
+    string EntID = 20;
+    string TargetAppID = 30;
+    optional string UnitPrice = 40;
+    optional uint32 DisplayIndex = 50;
+}
+
+message AdminUpdateTopMostGoodResponse {
+    TopMostGood Info = 10;
+}
+
+message AdminDeleteTopMostGoodRequest {
+    uint32 ID = 10;
+    string EntID = 20;
+    string TargetAppID = 30;
+}
+
+message AdminDeleteTopMostGoodResponse {
+    TopMostGood Info = 10;
+}

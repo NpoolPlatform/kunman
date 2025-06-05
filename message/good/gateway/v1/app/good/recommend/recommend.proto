@@ -1,0 +1,188 @@
+syntax = "proto3";
+
+package good.gateway.app.good1.recommend.v1;
+
+option go_package = "github.com/NpoolPlatform/message/good/gateway/v1/app/good/recommend";
+
+import "google/api/annotations.proto";
+import "basetypes/good/v1/enums.proto";
+
+service Gateway {
+    rpc CreateRecommend (CreateRecommendRequest) returns (CreateRecommendResponse) {
+        option (google.api.http) = {
+            post: "/v1/create/goodrecommend"
+            body: "*"
+        };
+    }
+
+    rpc UpdateRecommend (UpdateRecommendRequest) returns (UpdateRecommendResponse) {
+        option (google.api.http) = {
+            post: "/v1/update/goodrecommend"
+            body: "*"
+        };
+    }
+
+    rpc GetMyRecommends (GetMyRecommendsRequest) returns (GetMyRecommendsResponse) {
+        option (google.api.http) = {
+            post: "/v1/get/my/goodrecommends"
+            body: "*"
+        };
+    }
+
+    rpc GetRecommends (GetRecommendsRequest) returns (GetRecommendsResponse) {
+        option (google.api.http) = {
+            post: "/v1/get/goodrecommends"
+            body: "*"
+        };
+    }
+
+    rpc DeleteRecommend (DeleteRecommendRequest) returns (DeleteRecommendResponse) {
+        option (google.api.http) = {
+            post: "/v1/delete/goodrecommend"
+            body: "*"
+        };
+    }
+
+    rpc UpdateUserRecommend (UpdateUserRecommendRequest) returns (UpdateUserRecommendResponse) {
+        option (google.api.http) = {
+            post: "/v1/update/user/goodrecommend"
+            body: "*"
+        };
+    }
+
+    rpc AdminUpdateRecommend (AdminUpdateRecommendRequest) returns (AdminUpdateRecommendResponse) {
+        option (google.api.http) = {
+            post: "/v1/admin/update/goodrecommend"
+            body: "*"
+        };
+    }
+
+    rpc AdminGetRecommends (AdminGetRecommendsRequest) returns (AdminGetRecommendsResponse) {
+        option (google.api.http) = {
+            post: "/v1/admin/get/goodrecommends"
+            body: "*"
+        };
+    }
+
+}
+
+message Recommend {
+    uint32 ID = 10;
+    string EntID = 20;
+    string AppID = 30;
+    string AppName = 40;
+    string RecommenderID = 50;
+    optional string Username = 60;
+    optional string EmailAddress = 70;
+    optional string PhoneNO = 80;
+    string AppGoodID = 90;
+    string GoodName = 100;
+    string RecommendIndex = 110;
+    string Message = 120;
+    bool Hide = 130;
+    basetypes.good.v1.GoodCommentHideReason HideReason = 140;
+    uint32 CreatedAt = 1000;
+    uint32 UpdatedAt = 1010;
+}
+
+message CreateRecommendRequest {
+    string AppID = 10;
+    string UserID = 20;
+    string AppGoodID = 30;
+    string RecommendIndex = 40;
+    string Message  = 50;
+}
+
+message CreateRecommendResponse {
+    Recommend Info = 10;
+}
+
+message UpdateRecommendRequest {
+    uint32 ID = 10;
+    string EntID = 20;
+    string AppID = 30;
+    string UserID = 40;
+    optional string RecommendIndex = 50;
+    optional string Message = 60;
+}
+
+message UpdateRecommendResponse {
+    Recommend Info = 10;
+}
+
+message GetMyRecommendsRequest {
+    string AppID = 10;
+    string UserID = 20;
+    optional string AppGoodID = 30;
+    int32 Offset = 40;
+    int32 Limit = 50;
+}
+
+message GetMyRecommendsResponse {
+    repeated Recommend Infos = 10;
+    uint32 Total = 20;
+}
+
+message GetRecommendsRequest {
+    string AppID = 10;
+    optional string TargetUserID = 20;
+    optional string AppGoodID = 30;
+    int32 Offset = 40;
+    int32 Limit = 50;
+}
+
+message GetRecommendsResponse {
+    repeated Recommend Infos = 10;
+    uint32 Total = 20;
+}
+
+message DeleteRecommendRequest {
+    uint32 ID = 10;
+    string EntID = 20;
+    string AppID = 30;
+    string UserID = 40;
+}
+
+message DeleteRecommendResponse {
+    Recommend Info = 10;
+}
+
+message UpdateUserRecommendRequest {
+    uint32 ID = 10;
+    string EntID = 20;
+    string AppID = 30;
+    string TargetUserID = 40;
+    optional bool Hide = 50;
+    optional basetypes.good.v1.GoodCommentHideReason HideReason = 60;
+}
+
+message UpdateUserRecommendResponse {
+    Recommend Info = 10;
+}
+
+message AdminUpdateRecommendRequest {
+    uint32 ID = 10;
+    string EntID = 20;
+    string TargetAppID = 30;
+    string TargetUserID = 40;
+    optional bool Hide = 50;
+    optional basetypes.good.v1.GoodCommentHideReason HideReason = 60;
+}
+
+message AdminUpdateRecommendResponse {
+    Recommend Info = 10;
+}
+
+message AdminGetRecommendsRequest {
+    string TargetAppID = 10;
+    optional string TargetUserID = 20;
+    optional string AppGoodID = 30;
+    int32 Offset = 40;
+    int32 Limit = 50;
+}
+
+message AdminGetRecommendsResponse {
+    repeated Recommend Infos = 10;
+    uint32 Total = 20;
+}
+

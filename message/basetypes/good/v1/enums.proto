@@ -28,6 +28,8 @@ enum GoodType {
   LegacyPowerRental = 40;
   DelegatedStaking = 50;
 
+  Subscription = 60;
+
   TechniqueServiceFee = 1000;
   ElectricityFee = 2000;
 }

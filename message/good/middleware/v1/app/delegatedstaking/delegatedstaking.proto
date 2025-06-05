@@ -1,0 +1,154 @@
+syntax = "proto3";
+
+package good.middleware.app.delegatedstaking.v1;
+
+option go_package = "github.com/NpoolPlatform/message/good/middleware/v1/app/delegatedstaking";
+
+import "basetypes/v1/conds.proto";
+import "basetypes/good/v1/enums.proto";
+import "good/middleware/v1/good/coin/coin.proto";
+import "good/middleware/v1/app/good/description/description.proto";
+import "good/middleware/v1/app/good/poster/poster.proto";
+import "good/middleware/v1/app/good/label/label.proto";
+import "good/middleware/v1/app/good/display/name/name.proto";
+import "good/middleware/v1/app/good/display/color/color.proto";
+import "good/middleware/v1/good/coin/reward/reward.proto";
+
+message DelegatedStakingReq {
+  // Base of app good
+  optional uint32 ID = 10;
+  optional string EntID = 20;
+  optional string AppID = 30;
+  optional string GoodID = 40;
+  optional string AppGoodID = 50;
+  optional bool Purchasable = 60;
+  optional bool EnableProductPage = 70;
+  optional string ProductPage = 80;
+  optional bool Online = 90;
+  optional bool Visible = 100;
+  optional string Name = 110;
+  optional int32 DisplayIndex = 120;
+  optional string Banner = 130;
+
+  // Good information
+  optional uint32 ServiceStartAt = 140;
+  optional basetypes.good.v1.GoodStartMode StartMode = 150;
+  optional bool EnableSetCommission = 160;
+}
+
+message DelegatedStaking {
+  // @inject_tag: sql:"id"
+  uint32 ID = 10;
+  // @inject_tag: sql:"ent_id"
+  string EntID = 20;
+  // @inject_tag: sql:"app_id"
+  string AppID = 30;
+  // @inject_tag: sql:"good_id"
+  string GoodID = 40;
+  // @inject_tag: sql:"app_good_id"
+  string AppGoodID = 41;
+
+  // good_base
+  // @inject_tag: sql:"good_type"
+  string GoodTypeStr = 230;
+  basetypes.good.v1.GoodType GoodType = 240;
+  // @inject_tag: sql:"benefit_type"
+  string BenefitTypeStr = 250;
+  basetypes.good.v1.BenefitType BenefitType = 260;
+  // @inject_tag: sql:"good_name"
+  string GoodName = 270;
+  // @inject_tag: sql:"good_service_start_at"
+  uint32 GoodServiceStartAt = 280;
+  // @inject_tag: sql:"good_start_mode"
+  string GoodStartModeStr = 290;
+  basetypes.good.v1.GoodStartMode GoodStartMode = 300;
+  // @inject_tag: sql:"test_only"
+  bool TestOnly = 310;
+  // @inject_tag: sql:"benefit_interval_hours"
+  uint32 BenefitIntervalHours = 320;
+  // @inject_tag: sql:"good_purchasable"
+  bool GoodPurchasable = 330;
+  // @inject_tag: sql:"good_online"
+  bool GoodOnline = 340;
+  // @inject_tag: sql:"state"
+  string StateStr = 365;
+  basetypes.good.v1.GoodState State = 366;
+
+  // app_good
+  // @inject_tag: sql:"app_good_purchasable"
+  bool AppGoodPurchasable = 370;
+  // @inject_tag: sql:"app_good_online"
+  bool AppGoodOnline = 380;
+  // @inject_tag: sql:"enable_product_page"
+  bool EnableProductPage = 390;
+  // @inject_tag: sql:"product_page"
+  string ProductPage = 400;
+  // @inject_tag: sql:"visible"
+  bool Visible = 410;
+  // @inject_tag: sql:"app_good_name"
+  string AppGoodName = 420;
+  // @inject_tag: sql:"display_index"
+  int32 DisplayIndex = 430;
+  // @inject_tag: sql:"banner"
+  string Banner = 440;
+  // @inject_tag: sql:"enable_set_commission"
+  bool EnableSetCommission = 480;
+
+  // @inject_tag: sql:"app_good_service_start_at"
+  uint32 AppGoodServiceStartAt = 600;
+  // @inject_tag: sql:"app_good_start_mode"
+  string AppGoodStartModeStr = 610;
+  basetypes.good.v1.GoodStartMode AppGoodStartMode = 620;
+
+  // extra_info
+  // @inject_tag: sql:"likes"
+  uint32 Likes = 630;
+  // @inject_tag: sql:"dislikes"
+  uint32 Dislikes = 640;
+  // @inject_tag: sql:"score"
+  string Score = 650;
+  // @inject_tag: sql:"score_count"
+  uint32 ScoreCount = 660;
+  // @inject_tag: sql:"recommend_count"
+  uint32 RecommendCount = 670;
+  // @inject_tag: sql:"comment_count"
+  uint32 CommentCount = 680;
+
+  // good_reward
+  // @inject_tag: sql:"last_reward_at"
+  uint32 LastRewardAt = 690;
+
+  repeated good.middleware.good1.coin.v1.GoodCoinInfo GoodCoins = 700;
+  repeated good.middleware.app.good1.description.v1.DescriptionInfo Descriptions = 710;
+  repeated good.middleware.app.good1.poster.v1.PosterInfo Posters = 720;
+  repeated good.middleware.app.good1.display.name.v1.DisplayNameInfo DisplayNames = 730;
+  repeated good.middleware.app.good1.display.color.v1.DisplayColorInfo DisplayColors = 740;
+  repeated good.middleware.app.good1.label.v1.LabelInfo Labels = 750;
+  repeated good.middleware.good1.coin.reward.v1.RewardInfo Rewards = 760;
+
+  // @inject_tag: sql:"contract_code_url"
+  string ContractCodeURL = 780;
+  // @inject_tag: sql:"contract_code_branch"
+  string ContractCodeBranch = 790;
+  // @inject_tag: sql:"contract_state"
+  string ContractStateStr = 800;
+  basetypes.good.v1.ContractState ContractState = 810;
+
+  // @inject_tag: sql:"created_at"
+  uint32 CreatedAt = 2000;
+  // @inject_tag: sql:"updated_at"
+  uint32 UpdatedAt = 2010;
+}
+
+message Conds {
+  optional basetypes.v1.Uint32Val ID = 10;
+  optional basetypes.v1.StringVal EntID = 20;
+  optional basetypes.v1.StringVal AppID = 30;
+  optional basetypes.v1.StringVal GoodID = 40;
+  optional basetypes.v1.StringSliceVal GoodIDs = 50;
+  optional basetypes.v1.StringVal AppGoodID = 60;
+  optional basetypes.v1.StringSliceVal AppGoodIDs = 70;
+  optional basetypes.v1.StringVal CoinTypeID = 100;
+  optional basetypes.v1.StringSliceVal CoinTypeIDs = 110;
+}
+

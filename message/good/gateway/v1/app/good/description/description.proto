@@ -1,0 +1,173 @@
+syntax = "proto3";
+
+package good.gateway.app.good1.description.v1;
+
+option go_package = "github.com/NpoolPlatform/message/good/gateway/v1/app/good/description";
+
+import "google/api/annotations.proto";
+import "basetypes/good/v1/enums.proto";
+
+service Gateway {
+    rpc CreateDescription (CreateDescriptionRequest) returns (CreateDescriptionResponse) {
+        option (google.api.http) = {
+            post: "/v1/create/gooddescription"
+            body: "*"
+        };
+    }
+
+    rpc UpdateDescription (UpdateDescriptionRequest) returns (UpdateDescriptionResponse) {
+        option (google.api.http) = {
+            post: "/v1/update/gooddescription"
+            body: "*"
+        };
+    }
+
+    rpc GetDescriptions (GetDescriptionsRequest) returns (GetDescriptionsResponse) {
+        option (google.api.http) = {
+            post: "/v1/get/gooddescriptions"
+            body: "*"
+        };
+    }
+
+    rpc DeleteDescription (DeleteDescriptionRequest) returns (DeleteDescriptionResponse) {
+        option (google.api.http) = {
+            post: "/v1/delete/gooddescription"
+            body: "*"
+        };
+    }
+
+    // Run by admin
+    rpc AdminCreateDescription (AdminCreateDescriptionRequest) returns (AdminCreateDescriptionResponse) {
+        option (google.api.http) = {
+            post: "/v1/admin/create/gooddescription"
+            body: "*"
+        };
+    }
+
+    rpc AdminUpdateDescription (AdminUpdateDescriptionRequest) returns (AdminUpdateDescriptionResponse) {
+        option (google.api.http) = {
+            post: "/v1/admin/update/gooddescription"
+            body: "*"
+        };
+    }
+
+    rpc AdminGetDescriptions (AdminGetDescriptionsRequest) returns (AdminGetDescriptionsResponse) {
+        option (google.api.http) = {
+            post: "/v1/admin/get/gooddescriptions"
+            body: "*"
+        };
+    }
+
+    rpc AdminDeleteDescription (AdminDeleteDescriptionRequest) returns (AdminDeleteDescriptionResponse) {
+        option (google.api.http) = {
+            post: "/v1/admin/delete/gooddescription"
+            body: "*"
+        };
+    }
+}
+
+message Description {
+    uint32 ID = 10;
+    string EntID = 20;
+    string AppID = 30;
+    string AppName = 40;
+    string GoodID = 50;
+    string GoodName = 60;
+    basetypes.good.v1.GoodType GoodType = 70;
+    string AppGoodID = 80;
+    string AppGoodName = 90;
+    string Description = 100;
+    uint32 Index = 110;
+
+    uint32 CreatedAt  = 1000;
+    uint32 UpdatedAt  = 1010;
+}
+
+message CreateDescriptionRequest {
+    string AppID = 10;
+    string AppGoodID = 30;
+    string Description = 40;
+    optional uint32 Index = 50;
+}
+
+message CreateDescriptionResponse {
+    Description Info = 10;
+}
+
+message UpdateDescriptionRequest {
+    uint32 ID = 10;
+    string EntID = 20;
+    string AppID = 30;
+    optional string Description = 40;
+    optional uint32 Index = 50;
+}
+
+message UpdateDescriptionResponse {
+    Description Info = 10;
+}
+
+message GetDescriptionsRequest {
+    string AppID = 10;
+    optional string AppGoodID = 20;
+    int32 Offset = 30;
+    int32 Limit = 40;
+}
+
+message GetDescriptionsResponse {
+    repeated Description Infos = 10;
+    uint32 Total = 20;
+}
+
+message DeleteDescriptionRequest {
+    uint32 ID = 10;
+    string EntID = 20;
+    string AppID = 30;
+}
+
+message DeleteDescriptionResponse {
+    Description Info = 10;
+}
+
+message AdminCreateDescriptionRequest {
+    string TargetAppID = 10;
+    string AppGoodID = 30;
+    string Description = 40;
+    optional uint32 Index = 50;
+}
+
+message AdminCreateDescriptionResponse {
+    Description Info = 10;
+}
+
+message AdminGetDescriptionsRequest {
+    string TargetAppID = 10;
+    int32 Offset = 20;
+    int32 Limit = 30;
+}
+
+message AdminGetDescriptionsResponse {
+    repeated Description Infos = 10;
+    uint32 Total = 20;
+}
+
+message AdminUpdateDescriptionRequest {
+    uint32 ID = 10;
+    string EntID = 20;
+    string TargetAppID = 30;
+    optional string Description = 40;
+    optional uint32 Index = 50;
+}
+
+message AdminUpdateDescriptionResponse {
+    Description Info = 10;
+}
+
+message AdminDeleteDescriptionRequest {
+    uint32 ID = 10;
+    string EntID = 20;
+    string TargetAppID = 30;
+}
+
+message AdminDeleteDescriptionResponse {
+    Description Info = 10;
+}

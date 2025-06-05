@@ -1,0 +1,105 @@
+syntax = "proto3";
+
+package good.gateway.good1.coin.v1;
+
+option go_package = "github.com/NpoolPlatform/message/good/gateway/v1/good/coin";
+
+import "google/api/annotations.proto";
+import "basetypes/good/v1/enums.proto";
+
+// Service Name
+service Gateway {
+    rpc AdminCreateGoodCoin(AdminCreateGoodCoinRequest) returns (AdminCreateGoodCoinResponse) {
+        option (google.api.http) = {
+            post: "/v1/admin/create/goodcoin"
+            body: "*"
+        };
+    }
+    rpc AdminUpdateGoodCoin(AdminUpdateGoodCoinRequest) returns (AdminUpdateGoodCoinResponse) {
+        option (google.api.http) = {
+            post: "/v1/admin/update/goodcoin"
+            body: "*"
+        };
+    }
+    rpc GetGoodCoins(GetGoodCoinsRequest) returns (GetGoodCoinsResponse) {
+        option (google.api.http) = {
+            post: "/v1/get/goodcoins"
+            body: "*"
+        };
+    }
+    rpc AdminDeleteGoodCoin(AdminDeleteGoodCoinRequest) returns (AdminDeleteGoodCoinResponse) {
+        option (google.api.http) = {
+            post: "/v1/admin/delete/goodcoin"
+            body: "*"
+        };
+    }
+}
+
+message GoodCoin {
+    uint32 ID = 10;
+    string EntID = 20;
+    string GoodID = 30;
+    string GoodName = 40;
+    basetypes.good.v1.GoodType GoodType = 60;
+    string CoinTypeID = 70;
+    string CoinName = 80;
+    string CoinUnit = 90;
+    string CoinENV = 100;
+    string CoinLogo = 110;
+    bool Main = 120;
+    int32 Index = 130;
+
+    uint32 CreatedAt = 1000;
+    uint32 UpdatedAt = 1010;
+}
+
+message GoodCoinInfo {
+    string CoinTypeID = 10;
+    string CoinName = 20;
+    string CoinUnit = 30;
+    string CoinENV = 40;
+    string CoinLogo = 50;
+    bool Main = 60;
+    int32 Index = 70;
+}
+
+message AdminCreateGoodCoinRequest {
+    string GoodID = 10;
+    string CoinTypeID = 20;
+    optional bool Main = 30;
+    optional int32 Index = 40;
+}
+
+message AdminCreateGoodCoinResponse {
+    GoodCoin Info = 10;
+}
+
+message AdminUpdateGoodCoinRequest {
+    uint32 ID = 10;
+    string EntID = 20;
+    optional bool Main = 30;
+    optional int32 Index = 40;
+}
+
+message AdminUpdateGoodCoinResponse {
+    GoodCoin Info = 10;
+}
+
+message GetGoodCoinsRequest {
+    int32 Offset = 10;
+    int32 Limit = 20;
+}
+
+message GetGoodCoinsResponse {
+    repeated GoodCoin Infos = 10;
+    uint32 Total = 20;
+}
+
+message AdminDeleteGoodCoinRequest {
+    uint32 ID = 10;
+    string EntID = 20;
+}
+
+message AdminDeleteGoodCoinResponse {
+    GoodCoin Info = 10;
+}
