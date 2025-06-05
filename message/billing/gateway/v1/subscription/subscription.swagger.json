@@ -1,0 +1,493 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "billing/gateway/v1/subscription/subscription.proto",
+    "version": "version not set"
+  },
+  "tags": [
+    {
+      "name": "Gateway"
+    }
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/v1/admin/create/subscription": {
+      "post": {
+        "operationId": "Gateway_AdminCreateSubscription",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1AdminCreateSubscriptionResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1AdminCreateSubscriptionRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Gateway"
+        ]
+      }
+    },
+    "/v1/admin/delete/subscription": {
+      "post": {
+        "operationId": "Gateway_AdminDeleteSubscription",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1AdminDeleteSubscriptionResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1AdminDeleteSubscriptionRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Gateway"
+        ]
+      }
+    },
+    "/v1/admin/update/subscription": {
+      "post": {
+        "operationId": "Gateway_AdminUpdateSubscription",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1AdminUpdateSubscriptionResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1AdminUpdateSubscriptionRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Gateway"
+        ]
+      }
+    },
+    "/v1/count/subscriptions": {
+      "post": {
+        "operationId": "Gateway_CountSubscriptions",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1CountSubscriptionsResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1CountSubscriptionsRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Gateway"
+        ]
+      }
+    },
+    "/v1/get/subscription": {
+      "post": {
+        "operationId": "Gateway_GetSubscription",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetSubscriptionResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1GetSubscriptionRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Gateway"
+        ]
+      }
+    },
+    "/v1/get/subscriptions": {
+      "post": {
+        "operationId": "Gateway_GetSubscriptions",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetSubscriptionsResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1GetSubscriptionsRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Gateway"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "protobufAny": {
+      "type": "object",
+      "properties": {
+        "@type": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": {}
+    },
+    "rpcStatus": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "details": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/protobufAny"
+          }
+        }
+      }
+    },
+    "v1AdminCreateSubscriptionRequest": {
+      "type": "object",
+      "properties": {
+        "TargetAppID": {
+          "type": "string"
+        },
+        "PackageName": {
+          "type": "string"
+        },
+        "UsdPrice": {
+          "type": "string"
+        },
+        "Description": {
+          "type": "string"
+        },
+        "SortOrder": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "PackageType": {
+          "$ref": "#/definitions/v1PackageType"
+        },
+        "Credit": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "ResetType": {
+          "$ref": "#/definitions/v1ResetType"
+        },
+        "QPSLimit": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "v1AdminCreateSubscriptionResponse": {
+      "type": "object",
+      "properties": {
+        "Info": {
+          "$ref": "#/definitions/v1Subscription"
+        }
+      }
+    },
+    "v1AdminDeleteSubscriptionRequest": {
+      "type": "object",
+      "properties": {
+        "ID": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "EntID": {
+          "type": "string"
+        }
+      }
+    },
+    "v1AdminDeleteSubscriptionResponse": {
+      "type": "object",
+      "properties": {
+        "Info": {
+          "$ref": "#/definitions/v1Subscription"
+        }
+      }
+    },
+    "v1AdminUpdateSubscriptionRequest": {
+      "type": "object",
+      "properties": {
+        "ID": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "EntID": {
+          "type": "string"
+        },
+        "TargetAppID": {
+          "type": "string"
+        },
+        "PackageName": {
+          "type": "string"
+        },
+        "UsdPrice": {
+          "type": "string"
+        },
+        "Description": {
+          "type": "string"
+        },
+        "SortOrder": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "Credit": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "ResetType": {
+          "$ref": "#/definitions/v1ResetType"
+        },
+        "QPSLimit": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "v1AdminUpdateSubscriptionResponse": {
+      "type": "object",
+      "properties": {
+        "Info": {
+          "$ref": "#/definitions/v1Subscription"
+        }
+      }
+    },
+    "v1CountSubscriptionsRequest": {
+      "type": "object"
+    },
+    "v1CountSubscriptionsResponse": {
+      "type": "object",
+      "properties": {
+        "Total": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "v1GetSubscriptionRequest": {
+      "type": "object",
+      "properties": {
+        "EntID": {
+          "type": "string"
+        }
+      }
+    },
+    "v1GetSubscriptionResponse": {
+      "type": "object",
+      "properties": {
+        "Info": {
+          "$ref": "#/definitions/v1Subscription"
+        }
+      }
+    },
+    "v1GetSubscriptionsRequest": {
+      "type": "object",
+      "properties": {
+        "Offset": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "Limit": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "v1GetSubscriptionsResponse": {
+      "type": "object",
+      "properties": {
+        "Infos": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1Subscription"
+          }
+        }
+      }
+    },
+    "v1PackageType": {
+      "type": "string",
+      "enum": [
+        "DefaultPackageType",
+        "Normal",
+        "Senior"
+      ],
+      "default": "DefaultPackageType"
+    },
+    "v1ResetType": {
+      "type": "string",
+      "enum": [
+        "DefaultResetType",
+        "Weekly",
+        "Monthly",
+        "Quarterly",
+        "Semiyearly",
+        "Yearly"
+      ],
+      "default": "DefaultResetType"
+    },
+    "v1Subscription": {
+      "type": "object",
+      "properties": {
+        "ID": {
+          "type": "integer",
+          "format": "int64",
+          "title": "@inject_tag: sql:\"id\""
+        },
+        "EntID": {
+          "type": "string",
+          "title": "@inject_tag: sql:\"ent_id\""
+        },
+        "AppID": {
+          "type": "string",
+          "title": "@inject_tag: sql:\"app_id\""
+        },
+        "PackageName": {
+          "type": "string",
+          "title": "@inject_tag: sql:\"package_name\""
+        },
+        "UsdPrice": {
+          "type": "string",
+          "title": "@inject_tag: sql:\"usd_price\""
+        },
+        "Description": {
+          "type": "string",
+          "title": "@inject_tag: sql:\"description\""
+        },
+        "SortOrder": {
+          "type": "integer",
+          "format": "int64",
+          "title": "@inject_tag: sql:\"sort_order\""
+        },
+        "PackageTypeStr": {
+          "type": "string",
+          "title": "@inject_tag: sql:\"package_type\""
+        },
+        "PackageType": {
+          "$ref": "#/definitions/v1PackageType"
+        },
+        "Credit": {
+          "type": "integer",
+          "format": "int64",
+          "title": "@inject_tag: sql:\"credit\""
+        },
+        "ResetTypeStr": {
+          "type": "string",
+          "title": "@inject_tag: sql:\"reset_type\""
+        },
+        "ResetType": {
+          "$ref": "#/definitions/v1ResetType"
+        },
+        "QPSLimit": {
+          "type": "integer",
+          "format": "int64",
+          "title": "@inject_tag: sql:\"qps_limit\""
+        },
+        "CreatedAt": {
+          "type": "integer",
+          "format": "int64",
+          "title": "@inject_tag: sql:\"created_at\""
+        },
+        "UpdatedAt": {
+          "type": "integer",
+          "format": "int64",
+          "title": "@inject_tag: sql:\"updated_at\""
+        }
+      }
+    }
+  }
+}

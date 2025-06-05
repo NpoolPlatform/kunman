@@ -1,0 +1,51 @@
+syntax = "proto3";
+
+package billing.middleware.credit.exchange.v1;
+
+option go_package = "github.com/NpoolPlatform/kunman/message/billing/middleware/v1/credit/exchange";
+
+import "basetypes/v1/conds.proto";
+import "basetypes/billing/v1/enums.proto";
+
+message ExchangeReq {
+    optional uint32 ID = 10;
+    optional string EntID = 20;
+    optional string AppID = 30;
+    optional basetypes.billing.v1.UsageType UsageType = 40;
+    optional uint32 Credit = 50;
+    optional uint32 ExchangeThreshold = 60;
+    optional string Path = 70;
+}
+
+message Exchange {
+    // @inject_tag: sql:"id"
+    uint32 ID = 10;
+    // @inject_tag: sql:"ent_id"
+    string EntID = 20;
+    // @inject_tag: sql:"app_id"
+    string AppID = 30;
+    // @inject_tag: sql:"usage_type"
+    string UsageTypeStr = 40;
+    basetypes.billing.v1.UsageType UsageType = 41;
+    // @inject_tag: sql:"credit"
+    uint32 Credit = 50;
+    // @inject_tag: sql:"exchange_threshold"
+    uint32 ExchangeThreshold = 60;
+    // @inject_tag: sql:"path"
+    string Path = 70;
+    // @inject_tag: sql:"created_at"
+    uint32 CreatedAt = 1000;
+    // @inject_tag: sql:"updated_at"
+    uint32 UpdatedAt = 1010;
+}
+
+message Conds {
+    optional basetypes.v1.Uint32Val ID = 9;
+    optional basetypes.v1.StringVal EntID = 10;
+    optional basetypes.v1.StringVal AppID = 20;
+    optional basetypes.v1.Uint32Val UsageType = 30;
+    optional basetypes.v1.StringVal Path = 40;
+    optional basetypes.v1.Uint32SliceVal IDs = 1000;
+    optional basetypes.v1.StringSliceVal EntIDs = 1010;
+}
+

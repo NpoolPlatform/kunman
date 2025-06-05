@@ -1,0 +1,66 @@
+syntax = "proto3";
+
+package billing.middleware.subscription.v1;
+
+option go_package = "github.com/NpoolPlatform/kunman/message/billing/middleware/v1/subscription";
+
+import "basetypes/v1/conds.proto";
+import "basetypes/billing/v1/enums.proto";
+
+message SubscriptionReq {
+    optional uint32 ID = 10;
+    optional string EntID = 20;
+    optional string AppID = 30;
+    optional string PackageName = 40;
+    optional string UsdPrice = 50;
+    optional string Description = 60;
+    optional uint32 SortOrder = 70;
+    optional basetypes.billing.v1.PackageType PackageType = 80;
+    optional uint32 Credit = 90;
+    optional basetypes.billing.v1.ResetType ResetType = 100;
+    optional uint32 QPSLimit = 110;
+}
+
+message Subscription {
+    // @inject_tag: sql:"id"
+    uint32 ID = 10;
+    // @inject_tag: sql:"ent_id"
+    string EntID = 20;
+    // @inject_tag: sql:"app_id"
+    string AppID = 30;
+    // @inject_tag: sql:"package_name"
+    string PackageName = 40;
+    // @inject_tag: sql:"usd_price"
+    string UsdPrice = 50;
+    // @inject_tag: sql:"description"
+    string Description = 60;
+    // @inject_tag: sql:"sort_order"
+    uint32 SortOrder = 70;
+    // @inject_tag: sql:"package_type"
+    string PackageTypeStr = 80;
+    basetypes.billing.v1.PackageType PackageType = 81;
+    // @inject_tag: sql:"credit"
+    uint32 Credit = 90;
+    // @inject_tag: sql:"reset_type"
+    string ResetTypeStr = 100;
+    basetypes.billing.v1.ResetType ResetType = 101;
+    // @inject_tag: sql:"qps_limit"
+    uint32 QPSLimit = 110;
+    // @inject_tag: sql:"created_at"
+    uint32 CreatedAt = 1000;
+    // @inject_tag: sql:"updated_at"
+    uint32 UpdatedAt = 1010;
+}
+
+message Conds {
+    optional basetypes.v1.Uint32Val ID = 9;
+    optional basetypes.v1.StringVal EntID = 10;
+    optional basetypes.v1.StringVal AppID = 20;
+    optional basetypes.v1.StringVal PackageName = 30;
+    optional basetypes.v1.Uint32Val SortOrder = 40;
+    optional basetypes.v1.Uint32Val PackageType = 50;
+    optional basetypes.v1.Uint32Val ResetType = 60;
+    optional basetypes.v1.Uint32SliceVal IDs = 1000;
+    optional basetypes.v1.StringSliceVal EntIDs = 1010;
+}
+

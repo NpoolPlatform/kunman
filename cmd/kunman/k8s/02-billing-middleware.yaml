@@ -1,0 +1,73 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: billing-middleware
+  namespace: kube-system
+  annotations:
+    "sidecar.jaegertracing.io/inject": "true"
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: billing-middleware
+  template:
+    metadata:
+      labels:
+        app: billing-middleware
+    spec:
+      containers:
+        - name: billing-middleware
+          image: uhub.service.ucloud.cn/entropypool/billing-middleware:latest
+          imagePullPolicy: Always
+          volumeMounts:
+            - name: service-config
+              mountPath: /etc/BillingMiddleware
+          env:
+            - name: ENV_ENVIRONMENT_TARGET
+              valueFrom:
+                configMapKeyRef:
+                  name: system-environment
+                  key: environment.target
+            - name: ENV_CONSUL_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: system-environment
+                  key: environment.consul_host
+            - name: ENV_CONSUL_PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: system-environment
+                  key: environment.consul_port
+            - name: ENV_CLUSTER_NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
+      volumes:
+        - name: service-config
+          configMap:
+            name: billing-middleware-config
+            items:
+              - key: service-conf
+                path: BillingMiddleware.viper.yaml
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: billing-middleware
+  namespace: kube-system
+spec:
+  ports:
+    - name: http
+      port: 50890
+      targetPort: 50890
+    - name: grpc
+      port: 50891
+      targetPort: 50891
+    - name: healthz
+      port: 50892
+      targetPort: 50892
+    - name: prometheus
+      port: 50893
+      targetPort: 50893
+  selector:
+    app: billing-middleware

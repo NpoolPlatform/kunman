@@ -1,0 +1,68 @@
+syntax = "proto3";
+
+package billing.gateway.user.credit.record.v1;
+
+option go_package = "github.com/NpoolPlatform/kunman/message/billing/gateway/v1/user/credit/record";
+
+import "google/api/annotations.proto";
+import "basetypes/billing/v1/enums.proto";
+
+// Service Name
+service Gateway {
+    rpc GetUserCreditRecord(GetUserCreditRecordRequest) returns (GetUserCreditRecordResponse) {
+        option (google.api.http) = {
+            post: "/v1/get/usercreditrecord"
+            body: "*"
+        };
+    }
+    rpc GetUserCreditRecords(GetUserCreditRecordsRequest) returns (GetUserCreditRecordsResponse) {
+        option (google.api.http) = {
+            post: "/v1/get/usercreditrecords"
+            body: "*"
+        };
+    }
+    rpc CountUserCreditRecords(CountUserCreditRecordsRequest) returns (CountUserCreditRecordsResponse) {
+        option (google.api.http) = {
+            post: "/v1/count/usercreditrecords"
+            body: "*"
+        };
+    }
+}
+
+message UserCreditRecord {
+    uint32 ID = 10;
+    string EntID = 20;
+    string AppID = 30;
+    string AppName = 40;
+    optional string Username = 50;
+    optional string EmailAddress = 60;
+    optional string PhoneNO = 70;
+    basetypes.billing.v1.OperationType OperationType = 80;
+    int32 CreditsChange = 90;
+    string Extra = 100;
+    uint32 CreatedAt = 1000;
+    uint32 UpdatedAt = 1010;
+}
+
+message GetUserCreditRecordRequest {
+    string EntID = 10;
+}
+
+message GetUserCreditRecordResponse {
+    UserCreditRecord Info = 10;
+}
+
+message GetUserCreditRecordsRequest {
+    int32 Offset = 10;
+    int32 Limit = 20;
+}
+
+message GetUserCreditRecordsResponse {
+    repeated UserCreditRecord Infos = 10;
+}
+
+message CountUserCreditRecordsRequest {}
+
+message CountUserCreditRecordsResponse {
+    uint32 Total = 10;
+}

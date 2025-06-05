@@ -1,0 +1,68 @@
+syntax = "proto3";
+
+package billing.gateway.user.subscription.change.v1;
+
+option go_package = "github.com/NpoolPlatform/kunman/message/billing/gateway/v1/user/subscription/change";
+
+import "google/api/annotations.proto";
+
+// Service Name
+service Gateway {
+    rpc GetSubscriptionChange(GetSubscriptionChangeRequest) returns (GetSubscriptionChangeResponse) {
+        option (google.api.http) = {
+            post: "/v1/get/usersubscriptionchange"
+            body: "*"
+        };
+    }
+    rpc GetSubscriptionChanges(GetSubscriptionChangesRequest) returns (GetSubscriptionChangesResponse) {
+        option (google.api.http) = {
+            post: "/v1/get/usersubscriptionchanges"
+            body: "*"
+        };
+    }
+    rpc CountSubscriptionChanges(CountSubscriptionChangesRequest) returns (CountSubscriptionChangesResponse) {
+        option (google.api.http) = {
+            post: "/v1/count/usersubscriptionchanges"
+            body: "*"
+        };
+    }
+}
+
+message UserSubscriptionChange {
+    uint32 ID = 10;
+    string EntID = 20;
+    string AppID = 30;
+    string AppName = 40;
+    string PackageID = 50;
+    optional string Username = 60;
+    optional string EmailAddress = 70;
+    optional string PhoneNO = 80;
+    string UserSubscriptionID = 90;
+    string OldPackageID = 100;
+    string NewPackageID = 110;
+    uint32 CreatedAt = 1000;
+    uint32 UpdatedAt = 1010;
+}
+
+message GetSubscriptionChangeRequest {
+    string EntID = 10;
+}
+
+message GetSubscriptionChangeResponse {
+    UserSubscriptionChange Info = 10;
+}
+
+message GetSubscriptionChangesRequest {
+    int32 Offset = 10;
+    int32 Limit = 20;
+}
+
+message GetSubscriptionChangesResponse {
+    repeated UserSubscriptionChange Infos = 10;
+}
+
+message CountSubscriptionChangesRequest {}
+
+message CountSubscriptionChangesResponse {
+    uint32 Total = 10;
+}

@@ -1,0 +1,106 @@
+syntax = "proto3";
+
+package billing.gateway.credit.exchange.v1;
+
+option go_package = "github.com/NpoolPlatform/kunman/message/billing/gateway/v1/credit/exchange";
+
+import "billing/middleware/v1/credit/exchange/exchange.proto";
+import "google/api/annotations.proto";
+import "basetypes/billing/v1/enums.proto";
+
+// Service Name
+service Gateway {
+    rpc AdminCreateExchange(AdminCreateExchangeRequest) returns (AdminCreateExchangeResponse) {
+        option (google.api.http) = {
+            post: "/v1/admin/create/creditexchange"
+            body: "*"
+        };
+    }
+    rpc AdminUpdateExchange(AdminUpdateExchangeRequest) returns (AdminUpdateExchangeResponse) {
+        option (google.api.http) = {
+            post: "/v1/admin/update/creditexchange"
+            body: "*"
+        };
+    }
+    rpc GetExchange(GetExchangeRequest) returns (GetExchangeResponse) {
+        option (google.api.http) = {
+            post: "/v1/get/creditexchange"
+            body: "*"
+        };
+    }
+    rpc GetExchanges(GetExchangesRequest) returns (GetExchangesResponse) {
+        option (google.api.http) = {
+            post: "/v1/get/creditexchanges"
+            body: "*"
+        };
+    }
+    rpc CountExchanges(CountExchangesRequest) returns (CountExchangesResponse) {
+        option (google.api.http) = {
+            post: "/v1/count/creditexchanges"
+            body: "*"
+        };
+    }
+    rpc AdminDeleteExchange(AdminDeleteExchangeRequest) returns (AdminDeleteExchangeResponse) {
+        option (google.api.http) = {
+            post: "/v1/admin/delete/creditexchange"
+            body: "*"
+        };
+    }
+}
+
+message AdminCreateExchangeRequest {
+    string TargetAppID = 10;
+    basetypes.billing.v1.UsageType UsageType = 20;
+    uint32 Credit = 30;
+    uint32 ExchangeThreshold = 40;
+    string Path = 50;
+}
+
+message AdminCreateExchangeResponse {
+    middleware.credit.exchange.v1.Exchange Info = 10;
+}
+
+message AdminUpdateExchangeRequest {
+    uint32 ID = 10;
+    string EntID = 20;
+    string TargetAppID = 30;
+    optional uint32 Credit = 40;
+    optional uint32 ExchangeThreshold = 50;
+    optional string Path = 60;
+}
+
+message AdminUpdateExchangeResponse {
+    middleware.credit.exchange.v1.Exchange Info = 10;
+}
+
+message GetExchangeRequest {
+    string EntID = 10;
+}
+
+message GetExchangeResponse {
+    middleware.credit.exchange.v1.Exchange Info = 10;
+}
+
+message GetExchangesRequest {
+    int32 Offset = 10;
+    int32 Limit = 20;
+}
+
+message GetExchangesResponse {
+    repeated middleware.credit.exchange.v1.Exchange Infos = 10;
+}
+
+message CountExchangesRequest {}
+
+message CountExchangesResponse {
+    uint32 Total = 10;
+}
+
+message AdminDeleteExchangeRequest {
+    uint32 ID = 10;
+    string EntID = 20;
+}
+
+message AdminDeleteExchangeResponse {
+    middleware.credit.exchange.v1.Exchange Info = 10;
+}
