@@ -1,8 +1,8 @@
 package addon
 
 import (
-	"github.com/NpoolPlatform/kunman/middleware/billing/db/ent/generated/generated"
-	entaddon "github.com/NpoolPlatform/kunman/middleware/billing/db/ent/generated/generated/addon"
+	"github.com/NpoolPlatform/kunman/middleware/billing/db/ent/generated"
+	entaddon "github.com/NpoolPlatform/kunman/middleware/billing/db/ent/generated/addon"
 	"github.com/NpoolPlatform/kunman/framework/wlog"
 	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 	"github.com/shopspring/decimal"

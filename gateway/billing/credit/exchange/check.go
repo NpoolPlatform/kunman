@@ -4,10 +4,9 @@ import (
 	"context"
 	"fmt"
 
-	exchangemwcli "github.com/NpoolPlatform/kunman/middleware/billing/client/credit/exchange"
-	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
-	exchangemwpb "github.com/NpoolPlatform/kunman/message/billing/mw/v1/credit/exchange"
+	exchangemwpb "github.com/NpoolPlatform/kunman/message/billing/middleware/v1/credit/exchange"
+	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 )
 
 type checkHandler struct {

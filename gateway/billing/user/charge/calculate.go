@@ -4,16 +4,13 @@ import (
 	"context"
 	"fmt"
 
-	exchangemwcli "github.com/NpoolPlatform/kunman/middleware/billing/client/credit/exchange"
-	recordmwcli "github.com/NpoolPlatform/kunman/middleware/billing/client/user/credit/record"
-	submwcli "github.com/NpoolPlatform/kunman/middleware/billing/client/user/subscription"
 	"github.com/NpoolPlatform/kunman/framework/wlog"
-	cruder "github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 	types "github.com/NpoolPlatform/kunman/message/basetypes/billing/v1"
 	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
-	exchangemwpb "github.com/NpoolPlatform/kunman/message/billing/mw/v1/credit/exchange"
-	recordmwpb "github.com/NpoolPlatform/kunman/message/billing/mw/v1/user/credit/record"
-	submwpb "github.com/NpoolPlatform/kunman/message/billing/mw/v1/user/subscription"
+	exchangemwpb "github.com/NpoolPlatform/kunman/message/billing/middleware/v1/credit/exchange"
+	recordmwpb "github.com/NpoolPlatform/kunman/message/billing/middleware/v1/user/credit/record"
+	submwpb "github.com/NpoolPlatform/kunman/message/billing/middleware/v1/user/subscription"
+	cruder "github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 	"github.com/go-ego/gse"
 )
 

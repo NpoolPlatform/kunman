@@ -3,9 +3,8 @@ package schema
 import (
 	"entgo.io/ent"
 	"entgo.io/ent/schema/field"
-	crudermixin "github.com/NpoolPlatform/kunman/pkg/cruder/mixin"
-	"github.com/NpoolPlatform/kunman/middleware/billing/db/mixin"
 	types "github.com/NpoolPlatform/kunman/message/basetypes/billing/v1"
+	crudermixin "github.com/NpoolPlatform/kunman/pkg/cruder/mixin"
 	"github.com/google/uuid"
 )
 
@@ -16,7 +15,6 @@ type Exchange struct {
 
 func (Exchange) Mixin() []ent.Mixin {
 	return []ent.Mixin{
-		mixin.TimeMixin{},
 		crudermixin.AutoIDMixin{},
 	}
 }

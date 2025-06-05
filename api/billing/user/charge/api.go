@@ -3,7 +3,7 @@ package charge
 import (
 	"context"
 
-	charge "github.com/NpoolPlatform/kunman/message/billing/gw/v1/user/charge"
+	charge "github.com/NpoolPlatform/kunman/message/billing/gateway/v1/user/charge"
 
 	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
 	"google.golang.org/grpc"

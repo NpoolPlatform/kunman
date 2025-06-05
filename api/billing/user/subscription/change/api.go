@@ -3,7 +3,7 @@ package change
 import (
 	"context"
 
-	change "github.com/NpoolPlatform/kunman/message/billing/gw/v1/user/subscription/change"
+	change "github.com/NpoolPlatform/kunman/message/billing/gateway/v1/user/subscription/change"
 
 	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
 	"google.golang.org/grpc"

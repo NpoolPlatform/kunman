@@ -4,8 +4,8 @@ import (
 	"entgo.io/ent/dialect/sql"
 
 	exchangecrud "github.com/NpoolPlatform/kunman/middleware/billing/crud/credit/exchange"
-	"github.com/NpoolPlatform/kunman/middleware/billing/db/ent/generated/generated"
-	entexchange "github.com/NpoolPlatform/kunman/middleware/billing/db/ent/generated/generated/exchange"
+	"github.com/NpoolPlatform/kunman/middleware/billing/db/ent/generated"
+	entexchange "github.com/NpoolPlatform/kunman/middleware/billing/db/ent/generated/exchange"
 	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
 )
 

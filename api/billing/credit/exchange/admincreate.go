@@ -9,7 +9,7 @@ import (
 	"google.golang.org/grpc/status"
 
 	"github.com/NpoolPlatform/kunman/framework/logger"
-	npool "github.com/NpoolPlatform/kunman/message/billing/gw/v1/credit/exchange"
+	npool "github.com/NpoolPlatform/kunman/message/billing/gateway/v1/credit/exchange"
 )
 
 func (s *Server) AdminCreateExchange(ctx context.Context, in *npool.AdminCreateExchangeRequest) (*npool.AdminCreateExchangeResponse, error) {

@@ -4,8 +4,8 @@ import (
 	"entgo.io/ent/dialect/sql"
 
 	recordcrud "github.com/NpoolPlatform/kunman/middleware/billing/crud/user/credit/record"
-	"github.com/NpoolPlatform/kunman/middleware/billing/db/ent/generated/generated"
-	entrecord "github.com/NpoolPlatform/kunman/middleware/billing/db/ent/generated/generated/usercreditrecord"
+	"github.com/NpoolPlatform/kunman/middleware/billing/db/ent/generated"
+	entrecord "github.com/NpoolPlatform/kunman/middleware/billing/db/ent/generated/usercreditrecord"
 	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
 )
 

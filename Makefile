@@ -20,11 +20,11 @@ init:
 
 go.mod:
 	go mod init ${GITREPO}
-	go mod tidy
+	go mod tidy -e
 
 deps:
 	go get github.com/ugorji/go/codec@latest
-	go mod tidy
+	go mod tidy -e
 
 ##@ Verify
 

@@ -4,14 +4,13 @@ import (
 	"context"
 	"fmt"
 
-	gwcommon "github.com/NpoolPlatform/kunman/gateway/billing/common"
-	subchangemwcli "github.com/NpoolPlatform/kunman/middleware/billing/client/user/subscription/change"
-	cruder "github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
-	appmwpb "github.com/NpoolPlatform/kunman/message/appuser/mw/v1/app"
-	usermwpb "github.com/NpoolPlatform/kunman/message/appuser/mw/v1/user"
+	gwcommon "github.com/NpoolPlatform/kunman/pkg/common"
+	appmwpb "github.com/NpoolPlatform/message/npool/appuser/mw/v1/app"
+	usermwpb "github.com/NpoolPlatform/message/npool/appuser/mw/v1/user"
 	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
-	npool "github.com/NpoolPlatform/kunman/message/billing/gw/v1/user/subscription/change"
-	subchangemwpb "github.com/NpoolPlatform/kunman/message/billing/mw/v1/user/subscription/change"
+	npool "github.com/NpoolPlatform/kunman/message/billing/gateway/v1/user/subscription/change"
+	subchangemwpb "github.com/NpoolPlatform/kunman/message/billing/middleware/v1/user/subscription/change"
+	cruder "github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 )
 
 type queryHandler struct {

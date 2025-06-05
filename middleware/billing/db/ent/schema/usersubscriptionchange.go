@@ -4,7 +4,6 @@ import (
 	"entgo.io/ent"
 	"entgo.io/ent/schema/field"
 	crudermixin "github.com/NpoolPlatform/kunman/pkg/cruder/mixin"
-	"github.com/NpoolPlatform/kunman/middleware/billing/db/mixin"
 	"github.com/google/uuid"
 )
 
@@ -15,7 +14,6 @@ type UserSubscriptionChange struct {
 
 func (UserSubscriptionChange) Mixin() []ent.Mixin {
 	return []ent.Mixin{
-		mixin.TimeMixin{},
 		crudermixin.AutoIDMixin{},
 	}
 }

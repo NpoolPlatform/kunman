@@ -3,12 +3,12 @@ package record
 import (
 	"context"
 
-	constant "github.com/NpoolPlatform/kunman/middleware/billing/const"
+	constant "github.com/NpoolPlatform/kunman/pkg/const"
 	recordcrud "github.com/NpoolPlatform/kunman/middleware/billing/crud/user/credit/record"
 	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
 	cruder "github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 	types "github.com/NpoolPlatform/kunman/message/basetypes/billing/v1"
-	npool "github.com/NpoolPlatform/kunman/message/billing/mw/v1/user/credit/record"
+	npool "github.com/NpoolPlatform/kunman/message/billing/middleware/v1/user/credit/record"
 
 	"github.com/google/uuid"
 )

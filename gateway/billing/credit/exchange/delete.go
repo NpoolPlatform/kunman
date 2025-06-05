@@ -3,8 +3,7 @@ package exchange
 import (
 	"context"
 
-	exchangemwcli "github.com/NpoolPlatform/kunman/middleware/billing/client/credit/exchange"
-	exchangemwpb "github.com/NpoolPlatform/kunman/message/billing/mw/v1/credit/exchange"
+	exchangemwpb "github.com/NpoolPlatform/kunman/message/billing/middleware/v1/credit/exchange"
 )
 
 type deleteHandler struct {

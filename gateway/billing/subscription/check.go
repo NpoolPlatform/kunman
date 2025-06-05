@@ -4,10 +4,9 @@ import (
 	"context"
 	"fmt"
 
-	subscriptionmwcli "github.com/NpoolPlatform/kunman/middleware/billing/client/subscription"
-	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
-	subscriptionmwpb "github.com/NpoolPlatform/kunman/message/billing/mw/v1/subscription"
+	subscriptionmwpb "github.com/NpoolPlatform/kunman/message/billing/middleware/v1/subscription"
+	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 )
 
 type checkHandler struct {

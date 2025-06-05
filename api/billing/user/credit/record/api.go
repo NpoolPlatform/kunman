@@ -3,7 +3,7 @@ package record
 import (
 	"context"
 
-	record "github.com/NpoolPlatform/kunman/message/billing/gw/v1/user/credit/record"
+	record "github.com/NpoolPlatform/kunman/message/billing/gateway/v1/user/credit/record"
 
 	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
 	"google.golang.org/grpc"

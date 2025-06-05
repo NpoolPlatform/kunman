@@ -10,7 +10,7 @@ import (
 	record "github.com/NpoolPlatform/kunman/api/billing/user/credit/record"
 	usersubscription "github.com/NpoolPlatform/kunman/api/billing/user/subscription"
 	usersubscriptionchange "github.com/NpoolPlatform/kunman/api/billing/user/subscription/change"
-	npool "github.com/NpoolPlatform/kunman/message/billing/gw/v1"
+	npool "github.com/NpoolPlatform/kunman/message/billing/gateway/v1"
 
 	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
 	"google.golang.org/grpc"

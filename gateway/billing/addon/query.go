@@ -3,8 +3,7 @@ package addon
 import (
 	"context"
 
-	submwcli "github.com/NpoolPlatform/kunman/middleware/billing/client/addon"
-	submwpb "github.com/NpoolPlatform/kunman/message/billing/mw/v1/addon"
+	submwpb "github.com/NpoolPlatform/kunman/message/billing/middleware/v1/addon"
 )
 
 func (h *Handler) GetAddon(ctx context.Context) (*submwpb.Addon, error) {

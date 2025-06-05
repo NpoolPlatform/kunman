@@ -9,7 +9,7 @@ import (
 	"google.golang.org/grpc/status"
 
 	"github.com/NpoolPlatform/kunman/framework/logger"
-	npool "github.com/NpoolPlatform/kunman/message/billing/gw/v1/user/credit/record"
+	npool "github.com/NpoolPlatform/kunman/message/billing/gateway/v1/user/credit/record"
 )
 
 func (s *Server) GetUserCreditRecord(ctx context.Context, in *npool.GetUserCreditRecordRequest) (*npool.GetUserCreditRecordResponse, error) {

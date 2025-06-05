@@ -1,8 +1,8 @@
 package record
 
 import (
-	"github.com/NpoolPlatform/kunman/middleware/billing/db/ent/generated/generated"
-	entusercreditrecord "github.com/NpoolPlatform/kunman/middleware/billing/db/ent/generated/generated/usercreditrecord"
+	"github.com/NpoolPlatform/kunman/middleware/billing/db/ent/generated"
+	entusercreditrecord "github.com/NpoolPlatform/kunman/middleware/billing/db/ent/generated/usercreditrecord"
 	"github.com/NpoolPlatform/kunman/framework/wlog"
 	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 	types "github.com/NpoolPlatform/message/npool/basetypes/billing/v1"

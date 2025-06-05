@@ -4,10 +4,9 @@ import (
 	"context"
 	"fmt"
 
-	addonmwcli "github.com/NpoolPlatform/kunman/middleware/billing/client/addon"
-	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
-	addonmwpb "github.com/NpoolPlatform/kunman/message/billing/mw/v1/addon"
+	addonmwpb "github.com/NpoolPlatform/kunman/message/billing/middleware/v1/addon"
+	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 )
 
 type checkHandler struct {

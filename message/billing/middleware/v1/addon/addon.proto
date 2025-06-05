@@ -4,7 +4,6 @@ package billing.middleware.addon.v1;
 
 option go_package = "github.com/NpoolPlatform/kunman/message/billing/middleware/v1/addon";
 
-import "google/api/annotations.proto";
 import "basetypes/v1/conds.proto";
 
 message AddonReq {

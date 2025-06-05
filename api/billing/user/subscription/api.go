@@ -3,7 +3,7 @@ package subscription
 import (
 	"context"
 
-	subscription "github.com/NpoolPlatform/kunman/message/billing/gw/v1/user/subscription"
+	subscription "github.com/NpoolPlatform/kunman/message/billing/gateway/v1/user/subscription"
 
 	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
 	"google.golang.org/grpc"

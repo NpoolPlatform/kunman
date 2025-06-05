@@ -3,11 +3,9 @@ package subscription
 import (
 	"context"
 
-	submwcli "github.com/NpoolPlatform/kunman/middleware/billing/client/user/subscription"
-	subchangemwcli "github.com/NpoolPlatform/kunman/middleware/billing/client/user/subscription/change"
-	npool "github.com/NpoolPlatform/kunman/message/billing/gw/v1/user/subscription"
-	submwpb "github.com/NpoolPlatform/kunman/message/billing/mw/v1/user/subscription"
-	subchangemwpb "github.com/NpoolPlatform/kunman/message/billing/mw/v1/user/subscription/change"
+	npool "github.com/NpoolPlatform/kunman/message/billing/gateway/v1/user/subscription"
+	submwpb "github.com/NpoolPlatform/kunman/message/billing/middleware/v1/user/subscription"
+	subchangemwpb "github.com/NpoolPlatform/kunman/message/billing/middleware/v1/user/subscription/change"
 )
 
 type updateHandler struct {

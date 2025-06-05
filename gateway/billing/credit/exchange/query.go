@@ -3,8 +3,7 @@ package exchange
 import (
 	"context"
 
-	submwcli "github.com/NpoolPlatform/kunman/middleware/billing/client/credit/exchange"
-	submwpb "github.com/NpoolPlatform/kunman/message/billing/mw/v1/credit/exchange"
+	submwpb "github.com/NpoolPlatform/kunman/message/billing/middleware/v1/credit/exchange"
 )
 
 func (h *Handler) GetExchange(ctx context.Context) (*submwpb.Exchange, error) {

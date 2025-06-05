@@ -4,8 +4,8 @@ import (
 	"entgo.io/ent/dialect/sql"
 
 	subscriptioncrud "github.com/NpoolPlatform/kunman/middleware/billing/crud/user/subscription"
-	"github.com/NpoolPlatform/kunman/middleware/billing/db/ent/generated/generated"
-	entsubscription "github.com/NpoolPlatform/kunman/middleware/billing/db/ent/generated/generated/usersubscription"
+	"github.com/NpoolPlatform/kunman/middleware/billing/db/ent/generated"
+	entsubscription "github.com/NpoolPlatform/kunman/middleware/billing/db/ent/generated/usersubscription"
 	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
 )
 

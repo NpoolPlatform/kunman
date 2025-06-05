@@ -9,7 +9,7 @@ import (
 	"google.golang.org/grpc/status"
 
 	"github.com/NpoolPlatform/kunman/framework/logger"
-	npool "github.com/NpoolPlatform/kunman/message/billing/gw/v1/addon"
+	npool "github.com/NpoolPlatform/kunman/message/billing/gateway/v1/addon"
 )
 
 func (s *Server) AdminCreateAddon(ctx context.Context, in *npool.AdminCreateAddonRequest) (*npool.AdminCreateAddonResponse, error) {

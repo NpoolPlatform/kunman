@@ -3,8 +3,7 @@ package subscription
 import (
 	"context"
 
-	submwcli "github.com/NpoolPlatform/kunman/middleware/billing/client/subscription"
-	submwpb "github.com/NpoolPlatform/kunman/message/billing/mw/v1/subscription"
+	submwpb "github.com/NpoolPlatform/kunman/message/billing/middleware/v1/subscription"
 )
 
 func (h *Handler) GetSubscription(ctx context.Context) (*submwpb.Subscription, error) {

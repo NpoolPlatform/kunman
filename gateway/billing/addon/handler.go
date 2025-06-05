@@ -4,7 +4,7 @@ import (
 	"context"
 	"fmt"
 
-	constant "github.com/NpoolPlatform/kunman/middleware/billing/const"
+	constant "github.com/NpoolPlatform/kunman/pkg/const"
 	types "github.com/NpoolPlatform/kunman/message/basetypes/billing/v1"
 
 	"github.com/google/uuid"

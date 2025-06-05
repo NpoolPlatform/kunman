@@ -9,7 +9,7 @@ import (
 	"google.golang.org/grpc/status"
 
 	"github.com/NpoolPlatform/kunman/framework/logger"
-	npool "github.com/NpoolPlatform/kunman/message/billing/gw/v1/subscription"
+	npool "github.com/NpoolPlatform/kunman/message/billing/gateway/v1/subscription"
 )
 
 func (s *Server) AdminDeleteSubscription(ctx context.Context, in *npool.AdminDeleteSubscriptionRequest) (*npool.AdminDeleteSubscriptionResponse, error) {

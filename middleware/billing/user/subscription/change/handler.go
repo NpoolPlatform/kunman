@@ -3,11 +3,11 @@ package change
 import (
 	"context"
 
-	constant "github.com/NpoolPlatform/kunman/middleware/billing/const"
+	constant "github.com/NpoolPlatform/kunman/pkg/const"
 	subscriptioncrud "github.com/NpoolPlatform/kunman/middleware/billing/crud/user/subscription/change"
 	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
 	cruder "github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
-	npool "github.com/NpoolPlatform/kunman/message/billing/mw/v1/user/subscription/change"
+	npool "github.com/NpoolPlatform/kunman/message/billing/middleware/v1/user/subscription/change"
 
 	"github.com/google/uuid"
 )

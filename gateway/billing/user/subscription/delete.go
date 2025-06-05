@@ -3,8 +3,7 @@ package subscription
 import (
 	"context"
 
-	subscriptionmwcli "github.com/NpoolPlatform/kunman/middleware/billing/client/user/subscription"
-	npool "github.com/NpoolPlatform/kunman/message/billing/gw/v1/user/subscription"
+	npool "github.com/NpoolPlatform/kunman/message/billing/gateway/v1/user/subscription"
 )
 
 type deleteHandler struct {

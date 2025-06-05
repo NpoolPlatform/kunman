@@ -3,7 +3,7 @@ package addon
 import (
 	"context"
 
-	addon "github.com/NpoolPlatform/kunman/message/billing/gw/v1/addon"
+	addon "github.com/NpoolPlatform/kunman/message/billing/gateway/v1/addon"
 
 	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
 	"google.golang.org/grpc"

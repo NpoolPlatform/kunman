@@ -3,9 +3,8 @@ package subscription
 import (
 	"context"
 
-	submwcli "github.com/NpoolPlatform/kunman/middleware/billing/client/user/subscription"
-	npool "github.com/NpoolPlatform/kunman/message/billing/gw/v1/user/subscription"
-	submwpb "github.com/NpoolPlatform/kunman/message/billing/mw/v1/user/subscription"
+	npool "github.com/NpoolPlatform/kunman/message/billing/gateway/v1/user/subscription"
+	submwpb "github.com/NpoolPlatform/kunman/message/billing/middleware/v1/user/subscription"
 
 	"github.com/google/uuid"
 )

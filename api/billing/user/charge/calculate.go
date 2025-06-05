@@ -9,7 +9,7 @@ import (
 	"google.golang.org/grpc/status"
 
 	"github.com/NpoolPlatform/kunman/framework/logger"
-	npool "github.com/NpoolPlatform/kunman/message/billing/gw/v1/user/charge"
+	npool "github.com/NpoolPlatform/kunman/message/billing/gateway/v1/user/charge"
 )
 
 func (s *Server) CalculateCharge(ctx context.Context, in *npool.CalculateChargeRequest) (*npool.CalculateChargeResponse, error) {

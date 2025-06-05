@@ -5,14 +5,14 @@ import (
 
 	"github.com/NpoolPlatform/kunman/framework/logger"
 	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
-	"github.com/NpoolPlatform/kunman/middleware/billing/db/ent/generated/generated/generated"
+	"github.com/NpoolPlatform/kunman/middleware/billing/db/ent/generated"
 
 	"entgo.io/ent/dialect"
 	entsql "entgo.io/ent/dialect/sql"
 	"github.com/NpoolPlatform/kunman/framework/mysql"
 
 	// ent policy runtime
-	_ "github.com/NpoolPlatform/kunman/middleware/billing/db/ent/generated/generated/generated/runtime"
+	_ "github.com/NpoolPlatform/kunman/middleware/billing/db/ent/generated/runtime"
 )
 
 func client() (*ent.Client, error) {

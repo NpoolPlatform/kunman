@@ -1,0 +1,54 @@
+syntax = "proto3";
+
+package basetypes.v1;
+
+option go_package = "github.com/NpoolPlatform/kunman/message/basetypes/v1";
+
+enum MsgID {
+  DefaultMsgID = 0;
+  RewardEventReq = 10;
+  IncreaseUserActionCreditsReq = 20;
+  CreateLoginHistoryReq = 30;
+  CreateAuthHistoryReq = 40;
+  CreateReviewReq = 50;
+  RegisterAPIsReq = 60;
+  UpdateOpLogHumanReadableReq = 70;
+  CreateNewLoginReq = 80;
+  CreateCommissionReq = 90;
+  UpdateCouponsUsedReq = 100;
+
+  DepositReceivedReq = 1000;
+  DepositCheckFailReq = 1010;
+
+  WithdrawRequestReq = 2000;
+  WithdrawSuccessReq = 2010;
+  WithdrwaFailReq = 2020;
+
+  CreateGoodBenefitReq = 3000;
+
+  OrderPaidReq = 4000;
+  OrderChildsRenewReq = 4010;
+
+  WithdrawReviewNotifyReq = 5000;
+
+  CalculateEventRewardReq = 6000;
+  ReliableEventRewardReq = 6010;
+  UnReliableEventRewardReq = 6020;
+  EventRewardCreditReq = 6030;
+  EventRewardCoinReq = 6040;
+  EventRewardCouponReq = 6050;
+
+  CreateSampleMsgReq = 100000000;
+}
+
+enum MsgState {
+  DefaultMsgState = 0;
+  StateSuccess = 10;
+  StateFail = 20;
+}
+
+message MsgError {
+  // Json value
+  string Value = 10;
+  string Error = 20;
+}

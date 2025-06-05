@@ -7,8 +7,8 @@ import (
 	"context"
 
 	"github.com/NpoolPlatform/kunman/framework/logger"
-	"github.com/NpoolPlatform/kunman/gateway/version"
 	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
+	"github.com/NpoolPlatform/kunman/pkg/version"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 	"google.golang.org/protobuf/types/known/emptypb"

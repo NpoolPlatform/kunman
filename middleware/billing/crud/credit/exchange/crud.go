@@ -1,8 +1,8 @@
 package exchange
 
 import (
-	"github.com/NpoolPlatform/kunman/middleware/billing/db/ent/generated/generated"
-	entcreditexchange "github.com/NpoolPlatform/kunman/middleware/billing/db/ent/generated/generated/exchange"
+	"github.com/NpoolPlatform/kunman/middleware/billing/db/ent/generated"
+	entcreditexchange "github.com/NpoolPlatform/kunman/middleware/billing/db/ent/generated/exchange"
 	"github.com/NpoolPlatform/kunman/framework/wlog"
 	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 	types "github.com/NpoolPlatform/message/npool/basetypes/billing/v1"

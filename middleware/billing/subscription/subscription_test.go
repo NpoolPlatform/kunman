@@ -10,7 +10,7 @@ import (
 	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 	"github.com/shopspring/decimal"
 
-	npool "github.com/NpoolPlatform/kunman/message/billing/mw/v1/subscription"
+	npool "github.com/NpoolPlatform/kunman/message/billing/middleware/v1/subscription"
 	"github.com/google/uuid"
 	"github.com/stretchr/testify/assert"
 

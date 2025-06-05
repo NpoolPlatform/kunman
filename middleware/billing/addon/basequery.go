@@ -4,8 +4,8 @@ import (
 	"entgo.io/ent/dialect/sql"
 
 	addoncrud "github.com/NpoolPlatform/kunman/middleware/billing/crud/addon"
-	"github.com/NpoolPlatform/kunman/middleware/billing/db/ent/generated/generated"
-	entaddon "github.com/NpoolPlatform/kunman/middleware/billing/db/ent/generated/generated/addon"
+	"github.com/NpoolPlatform/kunman/middleware/billing/db/ent/generated"
+	entaddon "github.com/NpoolPlatform/kunman/middleware/billing/db/ent/generated/addon"
 	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
 )
 

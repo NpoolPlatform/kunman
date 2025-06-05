@@ -3,12 +3,12 @@ package subscription
 import (
 	"context"
 
-	constant "github.com/NpoolPlatform/kunman/middleware/billing/const"
+	constant "github.com/NpoolPlatform/kunman/pkg/const"
 	subscriptioncrud "github.com/NpoolPlatform/kunman/middleware/billing/crud/user/subscription"
 	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
 	cruder "github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 	types "github.com/NpoolPlatform/kunman/message/basetypes/billing/v1"
-	npool "github.com/NpoolPlatform/kunman/message/billing/mw/v1/user/subscription"
+	npool "github.com/NpoolPlatform/kunman/message/billing/middleware/v1/user/subscription"
 
 	"github.com/google/uuid"
 )

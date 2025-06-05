@@ -3,11 +3,11 @@ package addon
 import (
 	"context"
 
-	constant "github.com/NpoolPlatform/kunman/middleware/billing/const"
+	constant "github.com/NpoolPlatform/kunman/pkg/const"
 	addoncrud "github.com/NpoolPlatform/kunman/middleware/billing/crud/addon"
 	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
 	cruder "github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
-	npool "github.com/NpoolPlatform/kunman/message/billing/mw/v1/addon"
+	npool "github.com/NpoolPlatform/kunman/message/billing/middleware/v1/addon"
 	"github.com/shopspring/decimal"
 
 	"github.com/google/uuid"

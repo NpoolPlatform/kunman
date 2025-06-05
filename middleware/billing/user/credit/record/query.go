@@ -7,7 +7,7 @@ import (
 	"github.com/NpoolPlatform/kunman/middleware/billing/db/ent/generated"
 	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
 	types "github.com/NpoolPlatform/kunman/message/basetypes/billing/v1"
-	npool "github.com/NpoolPlatform/kunman/message/billing/mw/v1/user/credit/record"
+	npool "github.com/NpoolPlatform/kunman/message/billing/middleware/v1/user/credit/record"
 )
 
 type queryHandler struct {

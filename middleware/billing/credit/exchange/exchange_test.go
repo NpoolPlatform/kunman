@@ -9,7 +9,7 @@ import (
 
 	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 
-	npool "github.com/NpoolPlatform/kunman/message/billing/mw/v1/credit/exchange"
+	npool "github.com/NpoolPlatform/kunman/message/billing/middleware/v1/credit/exchange"
 	"github.com/google/uuid"
 	"github.com/stretchr/testify/assert"
 

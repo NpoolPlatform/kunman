@@ -3,8 +3,7 @@ package addon
 import (
 	"context"
 
-	addonmwcli "github.com/NpoolPlatform/kunman/middleware/billing/client/addon"
-	addonmwpb "github.com/NpoolPlatform/kunman/message/billing/mw/v1/addon"
+	addonmwpb "github.com/NpoolPlatform/kunman/message/billing/middleware/v1/addon"
 )
 
 type deleteHandler struct {

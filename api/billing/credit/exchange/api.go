@@ -3,7 +3,7 @@ package exchange
 import (
 	"context"
 
-	exchange "github.com/NpoolPlatform/kunman/message/billing/gw/v1/credit/exchange"
+	exchange "github.com/NpoolPlatform/kunman/message/billing/gateway/v1/credit/exchange"
 
 	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
 	"google.golang.org/grpc"
