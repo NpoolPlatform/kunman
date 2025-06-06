@@ -1,7 +1,7 @@
 {
   "swagger": "2.0",
   "info": {
-    "title": "billing/middleware/v1/addon/addon.proto",
+    "title": "good/middleware/v1/app/subscription/subscription.proto",
     "version": "version not set"
   },
   "consumes": [

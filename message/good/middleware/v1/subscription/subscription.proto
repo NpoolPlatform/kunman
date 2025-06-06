@@ -1,0 +1,60 @@
+syntax = "proto3";
+
+package good.middleware.subscription.v1;
+
+option go_package = "github.com/NpoolPlatform/message/good/middleware/v1/subscription";
+
+import "basetypes/good/v1/enums.proto";
+import "basetypes/v1/conds.proto";
+
+message SubscriptionReq {
+    optional uint32 ID = 10;
+    optional string EntID = 20;
+    optional string GoodID = 30;
+    optional basetypes.good.v1.GoodType GoodType = 40;
+    optional string Name = 50;
+    optional basetypes.good.v1.GoodDurationType DurationDisplayType = 70;
+    optional uint32 DurationUnits = 80;
+    optional uint32 DurationQuota = 90;
+    optional uint32 DailyBonusQuota = 100;
+    optional string USDPrice = 110;
+}
+
+message Subscription {
+    // @inject_tag: sql:"id"
+    uint32 ID = 10;
+    // @inject_tag: sql:"ent_id"
+    string EntID = 20;
+    // @inject_tag: sql:"good_id"
+    string GoodID = 30;
+    // @inject_tag: sql:"good_type"
+    string GoodTypeStr = 40;
+    basetypes.good.v1.GoodType GoodType = 50;
+    // @inject_tag: sql:"name"
+    string Name = 60;
+    // @inject_tag: sql:"duration_display_type"
+    string DurationDisplayTypeStr = 70;
+    basetypes.good.v1.GoodDurationType DurationDisplayType = 80;
+    // @inject_tag: sql:"duration_units"
+    uint32 DurationUnits = 90;
+    // @inject_tag: sql:"duration_quota"
+    uint32 DurationQuota = 100;
+    // @inject_tag: sql:"daily_bonus_quota"
+    uint32 DailyBonusQuota = 110;
+    // @inject_tag: sql:"usd_price"
+    string USDPrice = 120;
+    // @inject_tag: sql:"created_at"
+    uint32 CreatedAt = 1000;
+    // @inject_tag: sql:"updated_at"
+    uint32 UpdatedAt = 2000;
+}
+
+message Conds {
+    optional basetypes.v1.Uint32Val ID = 10;
+    optional basetypes.v1.Uint32SliceVal IDs = 20;
+    optional basetypes.v1.StringVal EntID = 30;
+    optional basetypes.v1.StringSliceVal EntIDs = 40;
+    optional basetypes.v1.StringVal GoodID = 50;
+    optional basetypes.v1.StringSliceVal GoodIDs = 60;
+}
+

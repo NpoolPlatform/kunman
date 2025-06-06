@@ -1,0 +1,53 @@
+syntax = "proto3";
+
+package good.middleware.subscription.oneshot.v1;
+
+option go_package = "github.com/NpoolPlatform/message/good/middleware/v1/subscription/oneshot";
+
+import "basetypes/good/v1/enums.proto";
+import "basetypes/v1/conds.proto";
+
+message OneShotReq {
+    optional uint32 ID = 10;
+    optional string EntID = 20;
+    optional string GoodID = 30;
+    optional basetypes.good.v1.GoodType GoodType = 40;
+    optional string Name = 50;
+    optional uint32 Quota = 60;
+    optional string USDPrice = 70;
+    optional uint32 LifeSeconds = 80;
+}
+
+message OneShot {
+    // @inject_tag: sql:"id"
+    uint32 ID = 10;
+    // @inject_tag: sql:"ent_id"
+    string EntID = 20;
+    // @inject_tag: sql:"good_id"
+    string GoodID = 30;
+    // @inject_tag: sql:"good_type"
+    string GoodTypeStr = 40;
+    basetypes.good.v1.GoodType GoodType = 50;
+    // @inject_tag: sql:"name"
+    string Name = 60;
+    // @inject_tag: sql:"quota"
+    uint32 Quota = 70;
+    // @inject_tag: sql:"usd_price"
+    string USDPrice = 80;
+    // @inject_tag: sql:"life_seconds"
+    uint32 LifeSeconds = 90;
+    // @inject_tag: sql:"created_at"
+    uint32 CreatedAt = 1000;
+    // @inject_tag: sql:"updated_at"
+    uint32 UpdatedAt = 2000;
+}
+
+message Conds {
+    optional basetypes.v1.Uint32Val ID = 10;
+    optional basetypes.v1.Uint32SliceVal IDs = 20;
+    optional basetypes.v1.StringVal EntID = 30;
+    optional basetypes.v1.StringSliceVal EntIDs = 40;
+    optional basetypes.v1.StringVal GoodID = 50;
+    optional basetypes.v1.StringSliceVal GoodIDs = 60;
+}
+

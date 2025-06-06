@@ -21,7 +21,6 @@ message SubscriptionOrderReq {
     optional basetypes.good.v1.GoodType GoodType = 60;
     optional string AppGoodID = 70;
     optional string OrderID = 80;
-    optional string ParentOrderID = 90; // It's must for subscription order
     optional basetypes.order.v1.OrderType OrderType = 100;
     optional basetypes.order.v1.PaymentType PaymentType = 110;
     optional basetypes.order.v1.OrderCreateMethod CreateMethod = 120;
@@ -42,9 +41,6 @@ message SubscriptionOrderReq {
     optional bool AdminSetCanceled = 430;
     optional basetypes.order.v1.PaymentState PaymentState = 440;
 
-    // Work flow and lock
-    optional bool Rollback = 500;
-    optional string LedgerLockID = 510;
     optional string PaymentID = 520;
 
     // Coupons
@@ -53,6 +49,8 @@ message SubscriptionOrderReq {
     repeated order.middleware.payment.v1.PaymentBalanceReq PaymentBalances = 610;
     // Payment transfers
     repeated order.middleware.payment.v1.PaymentTransferReq PaymentTransfers = 620;
+    // Payment fiats
+    repeated order.middleware.payment.v1.PaymentFiatReq PaymentFiats = 630;
 }
 
 message SubscriptionOrder {
@@ -74,15 +72,6 @@ message SubscriptionOrder {
     string AppGoodID = 80;
     // @inject_tag: sql:"order_id"
     string OrderID = 90;
-    // @inject_tag: sql:"parent_order_id"
-    string ParentOrderID = 100;
-    // @inject_tag: sql:"parent_good_id"
-    string ParentGoodID = 110;
-    // @inject_tag: sql:"parent_app_good_id"
-    string ParentAppGoodID = 120;
-    // @inject_tag: sql:"parent_good_type"
-    string ParentGoodTypeStr = 130;
-    basetypes.good.v1.GoodType ParentGoodType = 140;
     // @inject_tag: sql:"order_type"
     string OrderTypeStr = 150;
     basetypes.order.v1.OrderType OrderType = 160;
@@ -129,8 +118,7 @@ message SubscriptionOrder {
     // @inject_tag: sql:"payment_state"
     string PaymentStateStr = 470;
     basetypes.order.v1.PaymentState PaymentState = 480;
-    // @inject_tag: sql:"ledger_lock_id"
-    string LedgerLockID = 490;
+
     // @inject_tag: sql:"payment_id"
     string PaymentID = 500;
 
@@ -140,20 +128,13 @@ message SubscriptionOrder {
     repeated order.middleware.payment.v1.PaymentBalanceInfo PaymentBalances = 610;
     // Payment transfers
     repeated order.middleware.payment.v1.PaymentTransferInfo PaymentTransfers = 620;
+    // Payment fiats
+    repeated order.middleware.payment.v1.PaymentFiatInfo PaymentFiats = 620;
 
     // @inject_tag: sql:"created_at"
     uint32 CreatedAt = 1000;
     // @inject_tag: sql:"updated_at"
     uint32 UpdatedAt = 1010;
-}
-
-message SubscriptionDuration {
-    // @inject_tag: sql:"parent_order_id"
-    string ParentOrderID = 10;
-    // @inject_tag: sql:"app_good_id"
-    string AppGoodID = 20;
-    // @inject_tag: sql:"total_duration_seconds"
-    uint32 TotalDurationSeconds = 30;
 }
 
 message Conds {
@@ -170,8 +151,6 @@ message Conds {
     optional basetypes.v1.StringSliceVal GoodIDs = 100;
     optional basetypes.v1.StringVal AppGoodID = 110;
     optional basetypes.v1.StringSliceVal AppGoodIDs = 120;
-    optional basetypes.v1.StringVal ParentOrderID = 130;
-    optional basetypes.v1.StringSliceVal ParentOrderIDs = 140;
     optional basetypes.v1.Uint32Val OrderType = 150;
     optional basetypes.v1.Uint32Val PaymentType = 160;
     optional basetypes.v1.Uint32SliceVal PaymentTypes = 170;

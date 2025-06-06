@@ -11,8 +11,9 @@ message SubscriptionReq {
     optional uint32 ID = 10;
     optional string EntID = 20;
     optional string AppID = 30;
-    optional string PackageName = 40;
-    optional string UsdPrice = 50;
+    optional string UserID = 40;
+    optional string GoodID = 50;
+    optional string AppGoodID = 60;
     optional string Description = 60;
     optional uint32 SortOrder = 70;
     optional basetypes.billing.v1.PackageType PackageType = 80;

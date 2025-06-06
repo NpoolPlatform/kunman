@@ -402,7 +402,8 @@
         "GoodDurationByHour",
         "GoodDurationByDay",
         "GoodDurationByMonth",
-        "GoodDurationByYear"
+        "GoodDurationByYear",
+        "GoodDurationByWeek"
       ],
       "default": "DefaultGoodDurationType"
     },

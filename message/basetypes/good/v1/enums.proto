@@ -29,6 +29,7 @@ enum GoodType {
   DelegatedStaking = 50;
 
   Subscription = 60;
+  OneShot = 70;
 
   TechniqueServiceFee = 1000;
   ElectricityFee = 2000;
@@ -138,6 +139,8 @@ enum GoodDurationType {
   GoodDurationByDay = 20;
   GoodDurationByMonth = 30;
   GoodDurationByYear = 40;
+
+  GoodDurationByWeek = 50;
 }
 
 enum GoodSettlementType {
