@@ -3,10 +3,10 @@ package api
 import (
 	"context"
 
-	crud "github.com/NpoolPlatform/basal-middleware/pkg/crud/api"
-	"github.com/NpoolPlatform/basal-middleware/pkg/db"
-	"github.com/NpoolPlatform/basal-middleware/pkg/db/ent"
-	npool "github.com/NpoolPlatform/message/npool/basal/mw/v1/api"
+	crud "github.com/NpoolPlatform/kunman/basal/crud/api"
+	"github.com/NpoolPlatform/kunman/basal/db"
+	"github.com/NpoolPlatform/kunman/basal/db/ent"
+	npool "github.com/NpoolPlatform/kunman/message/basal/middleware/v1/api"
 )
 
 func (h *Handler) UpdateAPI(ctx context.Context) (info *npool.API, err error) {

@@ -5,9 +5,8 @@ import (
 	"entgo.io/ent/dialect/entsql"
 	"entgo.io/ent/schema"
 	"entgo.io/ent/schema/field"
-	"github.com/NpoolPlatform/basal-middleware/pkg/db/mixin"
-	crudermixin "github.com/NpoolPlatform/libent-cruder/pkg/mixin"
-	npool "github.com/NpoolPlatform/message/npool/basal/mw/v1/api"
+	npool "github.com/NpoolPlatform/kunman/message/basal/middleware/v1/api"
+	crudermixin "github.com/NpoolPlatform/kunman/pkg/cruder/mixin"
 )
 
 // API holds the schema definition for the API entity.
@@ -17,7 +16,6 @@ type API struct {
 
 func (API) Mixin() []ent.Mixin {
 	return []ent.Mixin{
-		mixin.TimeMixin{},
 		crudermixin.AutoIDMixin{},
 	}
 }

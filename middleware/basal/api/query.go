@@ -5,11 +5,11 @@ import (
 	"encoding/json"
 	"fmt"
 
-	crud "github.com/NpoolPlatform/basal-middleware/pkg/crud/api"
-	"github.com/NpoolPlatform/basal-middleware/pkg/db"
-	"github.com/NpoolPlatform/basal-middleware/pkg/db/ent"
-	entapi "github.com/NpoolPlatform/basal-middleware/pkg/db/ent/api"
-	npool "github.com/NpoolPlatform/message/npool/basal/mw/v1/api"
+	crud "github.com/NpoolPlatform/kunman/basal/crud/api"
+	"github.com/NpoolPlatform/kunman/basal/db"
+	"github.com/NpoolPlatform/kunman/basal/db/ent"
+	entapi "github.com/NpoolPlatform/kunman/basal/db/ent/api"
+	npool "github.com/NpoolPlatform/kunman/message/basal/middleware/v1/api"
 )
 
 type queryHandler struct {

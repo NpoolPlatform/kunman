@@ -4,9 +4,9 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/NpoolPlatform/basal-middleware/pkg/db"
-	"github.com/NpoolPlatform/basal-middleware/pkg/db/ent"
-	entapi "github.com/NpoolPlatform/basal-middleware/pkg/db/ent/api"
+	"github.com/NpoolPlatform/kunman/basal/db"
+	"github.com/NpoolPlatform/kunman/basal/db/ent"
+	entapi "github.com/NpoolPlatform/kunman/basal/db/ent/api"
 )
 
 func (h *Handler) ExistAPI(ctx context.Context) (exist bool, err error) {

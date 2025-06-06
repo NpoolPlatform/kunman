@@ -1,9 +1,0 @@
-{
-	"appId": "89089012783789789719823798127398",
-	"cluster": "development",
-	"namespaceName": "billing-middleware-npool-top",
-	"releaseKey": "20250410020347-601a691d69a225fe",
-	"configurations": {
-		"database_name": "billing_manager"
-	}
-}

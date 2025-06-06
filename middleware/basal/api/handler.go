@@ -4,10 +4,10 @@ import (
 	"context"
 	"fmt"
 
-	constant "github.com/NpoolPlatform/basal-middleware/pkg/const"
-	crud "github.com/NpoolPlatform/basal-middleware/pkg/crud/api"
-	"github.com/NpoolPlatform/libent-cruder/pkg/cruder"
-	npool "github.com/NpoolPlatform/message/npool/basal/mw/v1/api"
+	constant "github.com/NpoolPlatform/kunman/basal/const"
+	crud "github.com/NpoolPlatform/kunman/basal/crud/api"
+	npool "github.com/NpoolPlatform/kunman/message/basal/middleware/v1/api"
+	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 	"github.com/google/uuid"
 )
 

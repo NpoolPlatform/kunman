@@ -4,10 +4,10 @@ import (
 	"context"
 	"time"
 
-	crud "github.com/NpoolPlatform/basal-middleware/pkg/crud/api"
-	"github.com/NpoolPlatform/basal-middleware/pkg/db"
-	"github.com/NpoolPlatform/basal-middleware/pkg/db/ent"
-	mgrpb "github.com/NpoolPlatform/message/npool/basal/mw/v1/api"
+	crud "github.com/NpoolPlatform/kunman/basal/crud/api"
+	"github.com/NpoolPlatform/kunman/basal/db"
+	"github.com/NpoolPlatform/kunman/basal/db/ent"
+	mgrpb "github.com/NpoolPlatform/kunman/message/basal/middleware/v1/api"
 )
 
 func (h *Handler) DeleteAPI(ctx context.Context) (*mgrpb.API, error) {

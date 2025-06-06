@@ -4,16 +4,16 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/NpoolPlatform/go-service-framework/pkg/logger"
+	"github.com/NpoolPlatform/kunman/framework/logger"
 
-	"github.com/NpoolPlatform/basal-middleware/pkg/db/ent"
+	"github.com/NpoolPlatform/kunman/basal/db/ent"
 
 	"entgo.io/ent/dialect"
 	entsql "entgo.io/ent/dialect/sql"
-	"github.com/NpoolPlatform/go-service-framework/pkg/mysql"
+	"github.com/NpoolPlatform/kunman/framework/mysql"
 
 	// ent policy runtime
-	_ "github.com/NpoolPlatform/basal-middleware/pkg/db/ent/runtime"
+	_ "github.com/NpoolPlatform/kunman/basal/db/ent/runtime"
 )
 
 func client() (*ent.Client, error) {
