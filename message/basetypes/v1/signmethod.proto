@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package basetypes.v1;
+
+option go_package = "github.com/NpoolPlatform/message/npool/basetypes/v1";
+
+enum SignMethod {
+  DefaultSignMethod = 0;
+  Mobile = 10;   // For signup, signin, verify
+  Email = 20;    // For signup, signin, verify
+  Twitter = 30;  // For signin
+  Github = 40;   // For signin
+  Facebook = 50; // For signin
+  Linkedin = 60; // For signin
+  Wechat = 70;   // For signin
+  Google = 80;   // For signin, verify
+  Username = 90; // For signup, signin
+  Reset = 100;   // For Reset Password in all auth factors are lost
+}

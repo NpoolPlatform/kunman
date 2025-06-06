@@ -1,0 +1,56 @@
+syntax = "proto3";
+
+package basal.gateway.api.v1;
+
+option go_package = "github.com/NpoolPlatform/message/npool/basal/gateway/v1/api";
+
+import "google/api/annotations.proto";
+import "basal/middleware/v1/api/api.proto";
+
+// Service Name
+service Gateway {
+  rpc UpdateAPI(UpdateAPIRequest) returns (UpdateAPIResponse) {
+    option (google.api.http) = {
+      post : "/v1/update/api"
+      body : "*"
+    };
+  }
+
+  rpc GetAPIs(GetAPIsRequest) returns (GetAPIsResponse) {
+    option (google.api.http) = {
+      post : "/v1/get/apis"
+      body : "*"
+    };
+  }
+
+  rpc GetDomains(GetDomainsRequest) returns (GetDomainsResponse) {
+    option (google.api.http) = {
+      post : "/v1/get/domains"
+      body : "*"
+    };
+  }
+}
+
+message UpdateAPIRequest {
+  uint32 ID = 10;
+  optional bool Deprecated = 20;
+}
+
+message UpdateAPIResponse { basal.middleware.api.v1.API Info = 10; }
+
+message GetAPIsRequest {
+  optional string ServiceName = 9;
+  optional bool Exported = 10;
+  optional bool Deprecated = 20;
+  int32 Offset = 30;
+  int32 Limit = 40;
+}
+
+message GetAPIsResponse {
+  repeated basal.middleware.api.v1.API Infos = 10;
+  uint32 Total = 20;
+}
+
+message GetDomainsRequest {}
+
+message GetDomainsResponse { repeated string Infos = 10; }

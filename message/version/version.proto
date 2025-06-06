@@ -1,15 +1,15 @@
 syntax = "proto3";
 
-package agi.gateway.v1;
+package version.v1;
 
-option go_package = "github.com/NpoolPlatform/kunman/message/agi/gateway/v1";
+option go_package = "github.com/NpoolPlatform/message/version/v1";
 
 import "google/api/annotations.proto";
 import "google/protobuf/empty.proto";
 import "basetypes/v1/version.proto";
 
 // Service Name
-service Gateway {
+service Kunman {
   // Method Version
   rpc Version(google.protobuf.Empty) returns (basetypes.v1.VersionResponse) {
     option (google.api.http) = {

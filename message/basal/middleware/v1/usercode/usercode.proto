@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+package basal.middleware.usercode.v1;
+
+option go_package = "github.com/NpoolPlatform/message/npool/basal/middleware/v1/usercode";
+
+import "basetypes/v1/signmethod.proto";
+import "basetypes/v1/usedfor.proto";
+
+message UserCode {
+  string Prefix = 10;
+  string AppID = 20;
+  string Account = 30;
+  basetypes.v1.SignMethod AccountType = 40;
+  basetypes.v1.UsedFor UsedFor = 50;
+  uint32 NextAt = 60;
+  uint32 ExpireAt = 70;
+  string Code = 80;
+}
+

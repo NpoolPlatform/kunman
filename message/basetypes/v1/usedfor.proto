@@ -1,0 +1,64 @@
+syntax = "proto3";
+
+package basetypes.v1;
+
+option go_package = "github.com/NpoolPlatform/message/npool/basetypes/v1";
+
+enum UsedFor {
+  DefaultUsedFor = 0;
+
+  Signup = 10;
+  Signin = 20;
+  Update = 30;
+  Contact = 40;
+  SetWithdrawAddress = 50;
+  Withdraw = 60;
+  CreateInvitationCode = 70;
+  SetCommission = 80;
+  SetTransferTargetUser = 90;
+  Transfer = 100;
+  WithdrawalRequest = 110;
+  WithdrawalCompleted = 120;
+  DepositReceived = 130;
+  KYCApproved = 140;
+  KYCRejected = 150;
+  Purchase = 160;
+
+  AffiliatePurchase = 170;
+  AffiliateSignup = 180;
+  GoodBenefit1 = 190;
+
+  NewLogin = 200;
+  UpdatePassword = 210;
+  UpdateEmail = 220;
+  UpdateMobile = 230;
+  UpdateGoogleAuth = 240;
+
+  OrderCompleted = 250;
+  ResetPassword = 260;
+  OrderChildsRenewNotify = 270;
+  OrderChildsRenew = 280;
+
+  SimulateOrderProfit = 290;
+
+  WithdrawReviewNotify = 300;
+
+  // reward event
+  ConsecutiveLogin = 310;
+  GoodSocialSharing = 320;
+  FirstOrderCompleted = 330;
+  SetAddress = 340;
+  Set2FA = 350;
+  FirstBenefit = 360;
+  WriteComment = 370;
+  WriteRecommend = 380;
+  GoodScoring = 390;
+  SubmitTicket = 400;
+  IntallApp = 410;
+  SetNFTAvatar = 420;
+  SetPersonalImage = 430;
+  InternalTransfer = 440;
+
+  Announcement = 100000;
+  ProductPage = 200000;
+}
