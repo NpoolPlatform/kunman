@@ -52,7 +52,7 @@ func (l *Listener) Event(ev *event.Event) {
 }
 
 // Init deps dependent other services
-func Init(configPath, appName string, deps ...string) error {
+func Initialize(configPath, appName string, deps ...string) error {
 	viper.SetConfigName(fmt.Sprintf("%s.viper", appName))
 	viper.SetConfigType("yaml")
 	viper.AddConfigPath(configPath)
@@ -157,6 +157,18 @@ func getLocalValue(key string) (interface{}, error) {
 		return nil, fmt.Errorf("invalid key %v", key)
 	}
 	return val, nil
+}
+
+func SetKeyValue(key string, value interface{}) {
+	viper.Set(key, value)
+}
+
+func GetBoolValueWithNameSpace(namespace, key string) bool {
+	val, err := getLocalValue(key)
+	if err == nil {
+		return val.(bool)
+	}
+	return archaius.GetBool(serviceNameKeyToApolloKey(serviceNameToNamespace(namespace), key), false)
 }
 
 func PeekService(serviceName string, tags ...string) (*consulapi.AgentService, error) {

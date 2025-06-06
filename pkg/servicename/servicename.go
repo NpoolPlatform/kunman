@@ -1,6 +1,6 @@
 package servicename
 
 const (
-	ServiceName   = "Kunman Service"
+	ServiceName   = "Kunman"
 	ServiceDomain = "kunman.fun"
 )

@@ -60,7 +60,7 @@ func Initialize(
 
 	serviceName = strings.ReplaceAll(serviceName, " ", "")
 
-	err = config.Init(configPath, serviceName, deps...)
+	err = config.Initialize(configPath, serviceName, deps...)
 	if err != nil {
 		panic(xerrors.Errorf("Fail to create configuration: %v", err))
 	}
