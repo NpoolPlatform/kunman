@@ -67,10 +67,26 @@ func init() {
 	subscriptionMixin := schema.Subscription{}.Mixin()
 	subscriptionMixinFields0 := subscriptionMixin[0].Fields()
 	_ = subscriptionMixinFields0
+	subscriptionMixinFields1 := subscriptionMixin[1].Fields()
+	_ = subscriptionMixinFields1
 	subscriptionFields := schema.Subscription{}.Fields()
 	_ = subscriptionFields
+	// subscriptionDescCreatedAt is the schema descriptor for created_at field.
+	subscriptionDescCreatedAt := subscriptionMixinFields0[0].Descriptor()
+	// subscription.DefaultCreatedAt holds the default value on creation for the created_at field.
+	subscription.DefaultCreatedAt = subscriptionDescCreatedAt.Default.(func() uint32)
+	// subscriptionDescUpdatedAt is the schema descriptor for updated_at field.
+	subscriptionDescUpdatedAt := subscriptionMixinFields0[1].Descriptor()
+	// subscription.DefaultUpdatedAt holds the default value on creation for the updated_at field.
+	subscription.DefaultUpdatedAt = subscriptionDescUpdatedAt.Default.(func() uint32)
+	// subscription.UpdateDefaultUpdatedAt holds the default value on update for the updated_at field.
+	subscription.UpdateDefaultUpdatedAt = subscriptionDescUpdatedAt.UpdateDefault.(func() uint32)
+	// subscriptionDescDeletedAt is the schema descriptor for deleted_at field.
+	subscriptionDescDeletedAt := subscriptionMixinFields0[2].Descriptor()
+	// subscription.DefaultDeletedAt holds the default value on creation for the deleted_at field.
+	subscription.DefaultDeletedAt = subscriptionDescDeletedAt.Default.(func() uint32)
 	// subscriptionDescEntID is the schema descriptor for ent_id field.
-	subscriptionDescEntID := subscriptionMixinFields0[1].Descriptor()
+	subscriptionDescEntID := subscriptionMixinFields1[1].Descriptor()
 	// subscription.DefaultEntID holds the default value on creation for the ent_id field.
 	subscription.DefaultEntID = subscriptionDescEntID.Default.(func() uuid.UUID)
 	// subscriptionDescAppID is the schema descriptor for app_id field.

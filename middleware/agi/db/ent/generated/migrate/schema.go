@@ -55,6 +55,9 @@ var (
 	// SubscriptionsColumns holds the columns for the "subscriptions" table.
 	SubscriptionsColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeUint32, Increment: true},
+		{Name: "created_at", Type: field.TypeUint32},
+		{Name: "updated_at", Type: field.TypeUint32},
+		{Name: "deleted_at", Type: field.TypeUint32},
 		{Name: "ent_id", Type: field.TypeUUID, Unique: true},
 		{Name: "app_id", Type: field.TypeUUID, Nullable: true},
 		{Name: "user_id", Type: field.TypeUUID, Nullable: true},
@@ -73,7 +76,7 @@ var (
 			{
 				Name:    "subscription_ent_id",
 				Unique:  true,
-				Columns: []*schema.Column{SubscriptionsColumns[1]},
+				Columns: []*schema.Column{SubscriptionsColumns[4]},
 			},
 		},
 	}

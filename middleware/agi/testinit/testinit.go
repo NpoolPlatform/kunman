@@ -7,9 +7,7 @@ import (
 
 	"github.com/NpoolPlatform/kunman/framework/app"
 
-	"github.com/NpoolPlatform/kunman/middleware/agi/db"
-
-	servicename "github.com/NpoolPlatform/kunman/middleware/agi/servicename"
+	servicename "github.com/NpoolPlatform/kunman/pkg/servicename"
 
 	mysqlconst "github.com/NpoolPlatform/kunman/framework/mysql/const"
 	rabbitmqconst "github.com/NpoolPlatform/kunman/framework/rabbitmq/const"
@@ -22,10 +20,9 @@ func Init() error {
 		return fmt.Errorf("cannot get source file path")
 	}
 
-	appName := path.Base(path.Dir(path.Dir(path.Dir(myPath))))
-	configPath := fmt.Sprintf("%s/../../cmd/%v", path.Dir(myPath), appName)
+	configPath := fmt.Sprintf("%s/../../../cmd/kunman", path.Dir(myPath))
 
-	err := app.Init(
+	err := app.Initialize(
 		servicename.ServiceName,
 		"",
 		"",
@@ -39,10 +36,6 @@ func Init() error {
 	)
 	if err != nil {
 		return fmt.Errorf("cannot init app stub: %v", err)
-	}
-	err = db.Init()
-	if err != nil {
-		return fmt.Errorf("cannot init database: %v", err)
 	}
 
 	return nil

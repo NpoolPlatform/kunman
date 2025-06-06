@@ -1,29 +1,25 @@
 package subscription
 
 import (
-	"github.com/NpoolPlatform/kunman/middleware/agi/db/ent/generated"
-	entsubscription "github.com/NpoolPlatform/kunman/middleware/agi/db/ent/generated/subscription"
 	"github.com/NpoolPlatform/kunman/framework/wlog"
+	ent "github.com/NpoolPlatform/kunman/middleware/agi/db/ent/generated"
+	entsubscription "github.com/NpoolPlatform/kunman/middleware/agi/db/ent/generated/subscription"
 	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
-	types "github.com/NpoolPlatform/message/npool/basetypes/agi/v1"
-	"github.com/shopspring/decimal"
 
 	"github.com/google/uuid"
 )
 
 type Req struct {
-	ID          *uint32
-	EntID       *uuid.UUID
-	AppID       *uuid.UUID
-	PackageName *string
-	UsdPrice    *decimal.Decimal
-	Description *string
-	SortOrder   *uint32
-	PackageType *types.PackageType
-	Credit      *uint32
-	ResetType   *types.ResetType
-	QPSLimit    *uint32
-	DeletedAt   *uint32
+	ID             *uint32
+	EntID          *uuid.UUID
+	AppID          *uuid.UUID
+	UserID         *uuid.UUID
+	AppGoodID      *uuid.UUID
+	NextExtendAt   *uint32
+	PermanentQuota *uint32
+	ConsumedQuota  *uint32
+	AutoExtend     *bool
+	DeletedAt      *uint32
 }
 
 func CreateSet(c *ent.SubscriptionCreate, req *Req) *ent.SubscriptionCreate {
@@ -33,74 +29,54 @@ func CreateSet(c *ent.SubscriptionCreate, req *Req) *ent.SubscriptionCreate {
 	if req.AppID != nil {
 		c.SetAppID(*req.AppID)
 	}
-	if req.PackageName != nil {
-		c.SetPackageName(*req.PackageName)
+	if req.UserID != nil {
+		c.SetUserID(*req.UserID)
 	}
-	if req.UsdPrice != nil {
-		c.SetUsdPrice(*req.UsdPrice)
+	if req.AppGoodID != nil {
+		c.SetAppGoodID(*req.AppGoodID)
 	}
-	if req.Description != nil {
-		c.SetDescription(*req.Description)
+	if req.NextExtendAt != nil {
+		c.SetNextExtendAt(*req.NextExtendAt)
 	}
-	if req.SortOrder != nil {
-		c.SetSortOrder(*req.SortOrder)
+	if req.PermanentQuota != nil {
+		c.SetPermanentQuota(*req.PermanentQuota)
 	}
-	if req.PackageType != nil {
-		c.SetPackageType(req.PackageType.String())
+	if req.ConsumedQuota != nil {
+		c.SetConsumedQuota(*req.ConsumedQuota)
 	}
-	if req.Credit != nil {
-		c.SetCredit(*req.Credit)
-	}
-	if req.ResetType != nil {
-		c.SetResetType(req.ResetType.String())
-	}
-	if req.QPSLimit != nil {
-		c.SetQPSLimit(*req.QPSLimit)
+	if req.AutoExtend != nil {
+		c.SetAutoExtend(*req.AutoExtend)
 	}
 	return c
 }
 
 func UpdateSet(u *ent.SubscriptionUpdateOne, req *Req) *ent.SubscriptionUpdateOne {
-	if req.PackageName != nil {
-		u.SetPackageName(*req.PackageName)
+	if req.NextExtendAt != nil {
+		u.SetNextExtendAt(*req.NextExtendAt)
 	}
-	if req.UsdPrice != nil {
-		u.SetUsdPrice(*req.UsdPrice)
+	if req.PermanentQuota != nil {
+		u.SetPermanentQuota(*req.PermanentQuota)
 	}
-	if req.Description != nil {
-		u.SetDescription(*req.Description)
+	if req.ConsumedQuota != nil {
+		u.SetConsumedQuota(*req.ConsumedQuota)
 	}
-	if req.SortOrder != nil {
-		u.SetSortOrder(*req.SortOrder)
-	}
-	if req.PackageType != nil {
-		u.SetPackageType(req.PackageType.String())
-	}
-	if req.Credit != nil {
-		u.SetCredit(*req.Credit)
-	}
-	if req.ResetType != nil {
-		u.SetResetType(req.ResetType.String())
-	}
-	if req.QPSLimit != nil {
-		u.SetQPSLimit(*req.QPSLimit)
-	}
-	if req.DeletedAt != nil {
-		u.SetDeletedAt(*req.DeletedAt)
+	if req.AutoExtend != nil {
+		u.SetAutoExtend(*req.AutoExtend)
 	}
 	return u
 }
 
 type Conds struct {
-	ID          *cruder.Cond
-	IDs         *cruder.Cond
-	EntID       *cruder.Cond
-	EntIDs      *cruder.Cond
-	AppID       *cruder.Cond
-	PackageName *cruder.Cond
-	SortOrder   *cruder.Cond
-	PackageType *cruder.Cond
-	ResetType   *cruder.Cond
+	ID         *cruder.Cond
+	IDs        *cruder.Cond
+	EntID      *cruder.Cond
+	EntIDs     *cruder.Cond
+	AppID      *cruder.Cond
+	AppIDs     *cruder.Cond
+	UserID     *cruder.Cond
+	UserIDs    *cruder.Cond
+	AppGoodID  *cruder.Cond
+	AppGoodIDs *cruder.Cond
 }
 
 //nolint:gocyclo,funlen
@@ -169,56 +145,64 @@ func SetQueryConds(q *ent.SubscriptionQuery, conds *Conds) (*ent.SubscriptionQue
 			return nil, wlog.Errorf("invalid subscription field")
 		}
 	}
-	if conds.PackageName != nil {
-		name, ok := conds.PackageName.Val.(string)
+	if conds.AppIDs != nil {
+		ids, ok := conds.AppIDs.Val.([]uuid.UUID)
 		if !ok {
-			return nil, wlog.Errorf("invalid packagename")
+			return nil, wlog.Errorf("invalid appids")
 		}
-		switch conds.PackageName.Op {
-		case cruder.EQ:
-			q.Where(entsubscription.PackageName(name))
+		switch conds.AppIDs.Op {
+		case cruder.IN:
+			q.Where(entsubscription.AppIDIn(ids...))
 		default:
-			return nil, wlog.Errorf("invalid good field")
+			return nil, wlog.Errorf("invalid subscription field")
 		}
 	}
-	if conds.SortOrder != nil {
-		sortorder, ok := conds.SortOrder.Val.(uint32)
+	if conds.UserID != nil {
+		id, ok := conds.UserID.Val.(uuid.UUID)
 		if !ok {
-			return nil, wlog.Errorf("invalid sortorder")
+			return nil, wlog.Errorf("invalid userid")
 		}
-		switch conds.SortOrder.Op {
+		switch conds.UserID.Op {
 		case cruder.EQ:
-			q.Where(entsubscription.SortOrder(sortorder))
+			q.Where(entsubscription.UserID(id))
 		default:
-			return nil, wlog.Errorf("invalid good field")
+			return nil, wlog.Errorf("invalid subscription field")
 		}
 	}
-	if conds.PackageType != nil {
-		e, ok := conds.PackageType.Val.(types.PackageType)
+	if conds.UserIDs != nil {
+		ids, ok := conds.UserIDs.Val.([]uuid.UUID)
 		if !ok {
-			return nil, wlog.Errorf("invalid packagetype")
+			return nil, wlog.Errorf("invalid userids")
 		}
-		switch conds.PackageType.Op {
-		case cruder.EQ:
-			q.Where(entsubscription.PackageType(e.String()))
-		case cruder.NEQ:
-			q.Where(entsubscription.PackageTypeNEQ(e.String()))
+		switch conds.UserIDs.Op {
+		case cruder.IN:
+			q.Where(entsubscription.UserIDIn(ids...))
 		default:
-			return nil, wlog.Errorf("invalid packagetype")
+			return nil, wlog.Errorf("invalid subscription field")
 		}
 	}
-	if conds.ResetType != nil {
-		e, ok := conds.ResetType.Val.(types.ResetType)
+	if conds.AppGoodID != nil {
+		id, ok := conds.AppGoodID.Val.(uuid.UUID)
 		if !ok {
-			return nil, wlog.Errorf("invalid resettype")
+			return nil, wlog.Errorf("invalid appgoodid")
 		}
-		switch conds.ResetType.Op {
+		switch conds.AppGoodID.Op {
 		case cruder.EQ:
-			q.Where(entsubscription.ResetType(e.String()))
-		case cruder.NEQ:
-			q.Where(entsubscription.ResetTypeNEQ(e.String()))
+			q.Where(entsubscription.AppGoodID(id))
 		default:
-			return nil, wlog.Errorf("invalid resettype")
+			return nil, wlog.Errorf("invalid subscription field")
+		}
+	}
+	if conds.AppGoodIDs != nil {
+		ids, ok := conds.AppGoodIDs.Val.([]uuid.UUID)
+		if !ok {
+			return nil, wlog.Errorf("invalid appgoodids")
+		}
+		switch conds.AppGoodIDs.Op {
+		case cruder.IN:
+			q.Where(entsubscription.AppGoodIDIn(ids...))
+		default:
+			return nil, wlog.Errorf("invalid subscription field")
 		}
 	}
 

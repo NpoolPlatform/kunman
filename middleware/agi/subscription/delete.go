@@ -6,7 +6,7 @@ import (
 
 	subscriptioncrud "github.com/NpoolPlatform/kunman/middleware/agi/crud/subscription"
 	"github.com/NpoolPlatform/kunman/middleware/agi/db"
-	"github.com/NpoolPlatform/kunman/middleware/agi/db/ent/generated"
+	ent "github.com/NpoolPlatform/kunman/middleware/agi/db/ent/generated"
 )
 
 type deleteHandler struct {

@@ -265,12 +265,12 @@ func (sq *SubscriptionQuery) Clone() *SubscriptionQuery {
 // Example:
 //
 //	var v []struct {
-//		EntID uuid.UUID `json:"ent_id,omitempty"`
+//		CreatedAt uint32 `json:"created_at,omitempty"`
 //		Count int `json:"count,omitempty"`
 //	}
 //
 //	client.Subscription.Query().
-//		GroupBy(subscription.FieldEntID).
+//		GroupBy(subscription.FieldCreatedAt).
 //		Aggregate(generated.Count()).
 //		Scan(ctx, &v)
 func (sq *SubscriptionQuery) GroupBy(field string, fields ...string) *SubscriptionGroupBy {
@@ -288,11 +288,11 @@ func (sq *SubscriptionQuery) GroupBy(field string, fields ...string) *Subscripti
 // Example:
 //
 //	var v []struct {
-//		EntID uuid.UUID `json:"ent_id,omitempty"`
+//		CreatedAt uint32 `json:"created_at,omitempty"`
 //	}
 //
 //	client.Subscription.Query().
-//		Select(subscription.FieldEntID).
+//		Select(subscription.FieldCreatedAt).
 //		Scan(ctx, &v)
 func (sq *SubscriptionQuery) Select(fields ...string) *SubscriptionSelect {
 	sq.ctx.Fields = append(sq.ctx.Fields, fields...)

@@ -3,13 +3,11 @@ package subscription
 import (
 	"context"
 
-	constant "github.com/NpoolPlatform/kunman/pkg/const"
-	subscriptioncrud "github.com/NpoolPlatform/kunman/middleware/agi/crud/subscription"
 	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
-	cruder "github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
-	types "github.com/NpoolPlatform/kunman/message/basetypes/agi/v1"
 	npool "github.com/NpoolPlatform/kunman/message/agi/middleware/v1/subscription"
-	"github.com/shopspring/decimal"
+	subscriptioncrud "github.com/NpoolPlatform/kunman/middleware/agi/crud/subscription"
+	constant "github.com/NpoolPlatform/kunman/pkg/const"
+	cruder "github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 
 	"github.com/google/uuid"
 )
@@ -80,130 +78,88 @@ func WithAppID(id *string, must bool) func(context.Context, *Handler) error {
 	}
 }
 
-func WithPackageName(s *string, must bool) func(context.Context, *Handler) error {
+func WithUserID(id *string, must bool) func(context.Context, *Handler) error {
 	return func(ctx context.Context, h *Handler) error {
-		if s == nil || *s == "" {
+		if id == nil {
 			if must {
-				return wlog.Errorf("invalid packagename")
+				return wlog.Errorf("invalid userid")
 			}
 			return nil
 		}
-		h.PackageName = s
-		return nil
-	}
-}
-
-func WithUsdPrice(s *string, must bool) func(context.Context, *Handler) error {
-	return func(ctx context.Context, h *Handler) error {
-		if s == nil {
-			if must {
-				return wlog.Errorf("invalid price")
-			}
-			return nil
-		}
-		amount, err := decimal.NewFromString(*s)
+		_id, err := uuid.Parse(*id)
 		if err != nil {
 			return wlog.WrapError(err)
 		}
-		h.UsdPrice = &amount
-
+		h.UserID = &_id
 		return nil
 	}
 }
 
-func WithDescription(s *string, must bool) func(context.Context, *Handler) error {
+func WithAppGoodID(id *string, must bool) func(context.Context, *Handler) error {
 	return func(ctx context.Context, h *Handler) error {
-		if s == nil || *s == "" {
+		if id == nil {
 			if must {
-				return wlog.Errorf("invalid description")
+				return wlog.Errorf("invalid appgoodid")
 			}
 			return nil
 		}
-		h.Description = s
+		_id, err := uuid.Parse(*id)
+		if err != nil {
+			return wlog.WrapError(err)
+		}
+		h.AppGoodID = &_id
 		return nil
 	}
 }
 
-func WithSortOrder(u *uint32, must bool) func(context.Context, *Handler) error {
-	return func(ctx context.Context, h *Handler) error {
-		if u == nil {
-			if must {
-				return wlog.Errorf("invalid sortorder")
-			}
-			return nil
-		}
-		h.SortOrder = u
-		return nil
-	}
-}
-
-func WithPackageType(t *types.PackageType, must bool) func(context.Context, *Handler) error {
-	return func(ctx context.Context, h *Handler) error {
-		if t == nil {
-			if must {
-				return wlog.Errorf("invalid packagetype")
-			}
-			return nil
-		}
-
-		switch *t {
-		case types.PackageType_Normal:
-		case types.PackageType_Senior:
-		default:
-			return wlog.Errorf("invalid packagetype")
-		}
-
-		h.PackageType = t
-		return nil
-	}
-}
-
-func WithCredit(u *uint32, must bool) func(context.Context, *Handler) error {
+func WithNextExtendAt(u *uint32, must bool) func(context.Context, *Handler) error {
 	return func(ctx context.Context, h *Handler) error {
 		if u == nil {
 			if must {
-				return wlog.Errorf("invalid credit")
+				return wlog.Errorf("invalid nextextendat")
 			}
 			return nil
 		}
-		h.Credit = u
+		h.NextExtendAt = u
 		return nil
 	}
 }
 
-func WithResetType(t *types.ResetType, must bool) func(context.Context, *Handler) error {
-	return func(ctx context.Context, h *Handler) error {
-		if t == nil {
-			if must {
-				return wlog.Errorf("invalid packagetype")
-			}
-			return nil
-		}
-
-		switch *t {
-		case types.ResetType_Weekly:
-		case types.ResetType_Monthly:
-		case types.ResetType_Quarterly:
-		case types.ResetType_Semiyearly:
-		case types.ResetType_Yearly:
-		default:
-			return wlog.Errorf("invalid packagetype")
-		}
-
-		h.ResetType = t
-		return nil
-	}
-}
-
-func WithQPSLimit(u *uint32, must bool) func(context.Context, *Handler) error {
+func WithPermanentQuota(u *uint32, must bool) func(context.Context, *Handler) error {
 	return func(ctx context.Context, h *Handler) error {
 		if u == nil {
 			if must {
-				return wlog.Errorf("invalid qpslimit")
+				return wlog.Errorf("invalid permanentquota")
 			}
 			return nil
 		}
-		h.QPSLimit = u
+		h.PermanentQuota = u
+		return nil
+	}
+}
+
+func WithConsumedQuota(u *uint32, must bool) func(context.Context, *Handler) error {
+	return func(ctx context.Context, h *Handler) error {
+		if u == nil {
+			if must {
+				return wlog.Errorf("invalid consumedquota")
+			}
+			return nil
+		}
+		h.ConsumedQuota = u
+		return nil
+	}
+}
+
+func WithAutoExtend(b *bool, must bool) func(context.Context, *Handler) error {
+	return func(ctx context.Context, h *Handler) error {
+		if b == nil {
+			if must {
+				return wlog.Errorf("invalid autoextend")
+			}
+			return nil
+		}
+		h.AutoExtend = b
 		return nil
 	}
 }
@@ -215,6 +171,12 @@ func (h *Handler) withSubscriptionConds(conds *npool.Conds) error {
 			Val: conds.GetID().GetValue(),
 		}
 	}
+	if conds.IDs != nil {
+		h.SubscriptionConds.IDs = &cruder.Cond{
+			Op:  conds.GetIDs().GetOp(),
+			Val: conds.GetIDs().GetValue(),
+		}
+	}
 	if conds.EntID != nil {
 		id, err := uuid.Parse(conds.GetEntID().GetValue())
 		if err != nil {
@@ -223,46 +185,6 @@ func (h *Handler) withSubscriptionConds(conds *npool.Conds) error {
 		h.SubscriptionConds.EntID = &cruder.Cond{
 			Op:  conds.GetEntID().GetOp(),
 			Val: id,
-		}
-	}
-	if conds.AppID != nil {
-		id, err := uuid.Parse(conds.GetAppID().GetValue())
-		if err != nil {
-			return wlog.WrapError(err)
-		}
-		h.SubscriptionConds.AppID = &cruder.Cond{
-			Op:  conds.GetAppID().GetOp(),
-			Val: id,
-		}
-	}
-	if conds.PackageName != nil {
-		h.SubscriptionConds.PackageName = &cruder.Cond{
-			Op:  conds.GetPackageName().GetOp(),
-			Val: conds.GetPackageName().GetValue(),
-		}
-	}
-	if conds.SortOrder != nil {
-		h.SubscriptionConds.SortOrder = &cruder.Cond{
-			Op:  conds.GetSortOrder().GetOp(),
-			Val: conds.GetSortOrder().GetValue(),
-		}
-	}
-	if conds.PackageType != nil {
-		h.SubscriptionConds.PackageType = &cruder.Cond{
-			Op:  conds.GetPackageType().GetOp(),
-			Val: types.PackageType(conds.GetPackageType().GetValue()),
-		}
-	}
-	if conds.ResetType != nil {
-		h.SubscriptionConds.ResetType = &cruder.Cond{
-			Op:  conds.GetResetType().GetOp(),
-			Val: types.ResetType(conds.GetResetType().GetValue()),
-		}
-	}
-	if conds.IDs != nil {
-		h.SubscriptionConds.IDs = &cruder.Cond{
-			Op:  conds.GetIDs().GetOp(),
-			Val: conds.GetIDs().GetValue(),
 		}
 	}
 	if conds.EntIDs != nil {
@@ -276,6 +198,78 @@ func (h *Handler) withSubscriptionConds(conds *npool.Conds) error {
 		}
 		h.SubscriptionConds.EntIDs = &cruder.Cond{
 			Op:  conds.GetEntIDs().GetOp(),
+			Val: ids,
+		}
+	}
+	if conds.AppID != nil {
+		id, err := uuid.Parse(conds.GetAppID().GetValue())
+		if err != nil {
+			return wlog.WrapError(err)
+		}
+		h.SubscriptionConds.AppID = &cruder.Cond{
+			Op:  conds.GetAppID().GetOp(),
+			Val: id,
+		}
+	}
+	if conds.AppIDs != nil {
+		ids := []uuid.UUID{}
+		for _, id := range conds.GetAppIDs().GetValue() {
+			_id, err := uuid.Parse(id)
+			if err != nil {
+				return wlog.WrapError(err)
+			}
+			ids = append(ids, _id)
+		}
+		h.SubscriptionConds.AppIDs = &cruder.Cond{
+			Op:  conds.GetAppIDs().GetOp(),
+			Val: ids,
+		}
+	}
+	if conds.UserID != nil {
+		id, err := uuid.Parse(conds.GetUserID().GetValue())
+		if err != nil {
+			return wlog.WrapError(err)
+		}
+		h.SubscriptionConds.UserID = &cruder.Cond{
+			Op:  conds.GetUserID().GetOp(),
+			Val: id,
+		}
+	}
+	if conds.UserIDs != nil {
+		ids := []uuid.UUID{}
+		for _, id := range conds.GetUserIDs().GetValue() {
+			_id, err := uuid.Parse(id)
+			if err != nil {
+				return wlog.WrapError(err)
+			}
+			ids = append(ids, _id)
+		}
+		h.SubscriptionConds.UserIDs = &cruder.Cond{
+			Op:  conds.GetUserIDs().GetOp(),
+			Val: ids,
+		}
+	}
+	if conds.AppGoodID != nil {
+		id, err := uuid.Parse(conds.GetAppGoodID().GetValue())
+		if err != nil {
+			return wlog.WrapError(err)
+		}
+		h.SubscriptionConds.AppGoodID = &cruder.Cond{
+			Op:  conds.GetAppGoodID().GetOp(),
+			Val: id,
+		}
+	}
+	if conds.AppGoodIDs != nil {
+		ids := []uuid.UUID{}
+		for _, id := range conds.GetAppGoodIDs().GetValue() {
+			_id, err := uuid.Parse(id)
+			if err != nil {
+				return wlog.WrapError(err)
+			}
+			ids = append(ids, _id)
+		}
+		h.SubscriptionConds.AppGoodIDs = &cruder.Cond{
+			Op:  conds.GetAppGoodIDs().GetOp(),
 			Val: ids,
 		}
 	}

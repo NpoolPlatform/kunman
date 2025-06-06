@@ -3,6 +3,7 @@ package db
 import (
 	"context"
 	"database/sql"
+	"sync"
 
 	"github.com/NpoolPlatform/kunman/framework/logger"
 	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
@@ -18,27 +19,34 @@ import (
 )
 
 var db *mysql.DB
-
-func init() {
-	var err error
-	db, err = mysql.Initialize(servicename.ServiceName)
-	if err != nil {
-		panic(err)
-	}
-}
+var mutex sync.Mutex
 
 func client(f func(cli *ent.Client) error) error {
+	mutex.Lock()
+	defer mutex.Unlock()
+
+	if db == nil {
+		var err error
+		db, err = mysql.Initialize(servicename.ServiceName)
+		if err != nil {
+			return err
+		}
+
+		if err := db.SafeRun(func(db *sql.DB) error {
+			drv := entsql.OpenDB(dialect.MySQL, db)
+			cli := ent.NewClient(ent.Driver(drv))
+
+			cli.Use()
+			return cli.Schema.Create(context.Background())
+		}); err != nil {
+			return err
+		}
+	}
+
 	return db.SafeRun(func(db *sql.DB) error {
 		drv := entsql.OpenDB(dialect.MySQL, db)
 		cli := ent.NewClient(ent.Driver(drv))
 		return f(cli)
-	})
-}
-
-func Initialize(hooks ...ent.Hook) error {
-	return client(func(cli *ent.Client) error {
-		cli.Use(hooks...)
-		return cli.Schema.Create(context.Background())
 	})
 }
 

@@ -63,6 +63,9 @@ var schemaGraph = func() *sqlgraph.Schema {
 		},
 		Type: "Subscription",
 		Fields: map[string]*sqlgraph.FieldSpec{
+			subscription.FieldCreatedAt:      {Type: field.TypeUint32, Column: subscription.FieldCreatedAt},
+			subscription.FieldUpdatedAt:      {Type: field.TypeUint32, Column: subscription.FieldUpdatedAt},
+			subscription.FieldDeletedAt:      {Type: field.TypeUint32, Column: subscription.FieldDeletedAt},
 			subscription.FieldEntID:          {Type: field.TypeUUID, Column: subscription.FieldEntID},
 			subscription.FieldAppID:          {Type: field.TypeUUID, Column: subscription.FieldAppID},
 			subscription.FieldUserID:         {Type: field.TypeUUID, Column: subscription.FieldUserID},
@@ -250,6 +253,21 @@ func (f *SubscriptionFilter) Where(p entql.P) {
 // WhereID applies the entql uint32 predicate on the id field.
 func (f *SubscriptionFilter) WhereID(p entql.Uint32P) {
 	f.Where(p.Field(subscription.FieldID))
+}
+
+// WhereCreatedAt applies the entql uint32 predicate on the created_at field.
+func (f *SubscriptionFilter) WhereCreatedAt(p entql.Uint32P) {
+	f.Where(p.Field(subscription.FieldCreatedAt))
+}
+
+// WhereUpdatedAt applies the entql uint32 predicate on the updated_at field.
+func (f *SubscriptionFilter) WhereUpdatedAt(p entql.Uint32P) {
+	f.Where(p.Field(subscription.FieldUpdatedAt))
+}
+
+// WhereDeletedAt applies the entql uint32 predicate on the deleted_at field.
+func (f *SubscriptionFilter) WhereDeletedAt(p entql.Uint32P) {
+	f.Where(p.Field(subscription.FieldDeletedAt))
 }
 
 // WhereEntID applies the entql [16]byte predicate on the ent_id field.

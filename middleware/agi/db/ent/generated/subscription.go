@@ -17,6 +17,12 @@ type Subscription struct {
 	config `json:"-"`
 	// ID of the ent.
 	ID uint32 `json:"id,omitempty"`
+	// CreatedAt holds the value of the "created_at" field.
+	CreatedAt uint32 `json:"created_at,omitempty"`
+	// UpdatedAt holds the value of the "updated_at" field.
+	UpdatedAt uint32 `json:"updated_at,omitempty"`
+	// DeletedAt holds the value of the "deleted_at" field.
+	DeletedAt uint32 `json:"deleted_at,omitempty"`
 	// EntID holds the value of the "ent_id" field.
 	EntID uuid.UUID `json:"ent_id,omitempty"`
 	// AppID holds the value of the "app_id" field.
@@ -43,7 +49,7 @@ func (*Subscription) scanValues(columns []string) ([]any, error) {
 		switch columns[i] {
 		case subscription.FieldAutoExtend:
 			values[i] = new(sql.NullBool)
-		case subscription.FieldID, subscription.FieldNextExtendAt, subscription.FieldPermanentQuota, subscription.FieldConsumedQuota:
+		case subscription.FieldID, subscription.FieldCreatedAt, subscription.FieldUpdatedAt, subscription.FieldDeletedAt, subscription.FieldNextExtendAt, subscription.FieldPermanentQuota, subscription.FieldConsumedQuota:
 			values[i] = new(sql.NullInt64)
 		case subscription.FieldEntID, subscription.FieldAppID, subscription.FieldUserID, subscription.FieldAppGoodID:
 			values[i] = new(uuid.UUID)
@@ -68,6 +74,24 @@ func (s *Subscription) assignValues(columns []string, values []any) error {
 				return fmt.Errorf("unexpected type %T for field id", value)
 			}
 			s.ID = uint32(value.Int64)
+		case subscription.FieldCreatedAt:
+			if value, ok := values[i].(*sql.NullInt64); !ok {
+				return fmt.Errorf("unexpected type %T for field created_at", values[i])
+			} else if value.Valid {
+				s.CreatedAt = uint32(value.Int64)
+			}
+		case subscription.FieldUpdatedAt:
+			if value, ok := values[i].(*sql.NullInt64); !ok {
+				return fmt.Errorf("unexpected type %T for field updated_at", values[i])
+			} else if value.Valid {
+				s.UpdatedAt = uint32(value.Int64)
+			}
+		case subscription.FieldDeletedAt:
+			if value, ok := values[i].(*sql.NullInt64); !ok {
+				return fmt.Errorf("unexpected type %T for field deleted_at", values[i])
+			} else if value.Valid {
+				s.DeletedAt = uint32(value.Int64)
+			}
 		case subscription.FieldEntID:
 			if value, ok := values[i].(*uuid.UUID); !ok {
 				return fmt.Errorf("unexpected type %T for field ent_id", values[i])
@@ -152,6 +176,15 @@ func (s *Subscription) String() string {
 	var builder strings.Builder
 	builder.WriteString("Subscription(")
 	builder.WriteString(fmt.Sprintf("id=%v, ", s.ID))
+	builder.WriteString("created_at=")
+	builder.WriteString(fmt.Sprintf("%v", s.CreatedAt))
+	builder.WriteString(", ")
+	builder.WriteString("updated_at=")
+	builder.WriteString(fmt.Sprintf("%v", s.UpdatedAt))
+	builder.WriteString(", ")
+	builder.WriteString("deleted_at=")
+	builder.WriteString(fmt.Sprintf("%v", s.DeletedAt))
+	builder.WriteString(", ")
 	builder.WriteString("ent_id=")
 	builder.WriteString(fmt.Sprintf("%v", s.EntID))
 	builder.WriteString(", ")

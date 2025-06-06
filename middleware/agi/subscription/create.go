@@ -5,9 +5,9 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/NpoolPlatform/kunman/middleware/agi/db"
-	"github.com/NpoolPlatform/kunman/middleware/agi/db/ent/generated"
 	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
+	"github.com/NpoolPlatform/kunman/middleware/agi/db"
+	ent "github.com/NpoolPlatform/kunman/middleware/agi/db/ent/generated"
 
 	"github.com/google/uuid"
 )
@@ -29,18 +29,12 @@ func (h *createHandler) constructSQL() {
 	}
 	_sql += comma + "app_id"
 	comma = ", "
-	_sql += comma + "package_name"
-	_sql += comma + "usd_price"
-	_sql += comma + "credit"
-	_sql += comma + "sort_order"
-	_sql += comma + "package_type"
-	_sql += comma + "reset_type"
-	if h.QPSLimit != nil {
-		_sql += comma + "qps_limit"
-	}
-	if h.Description != nil {
-		_sql += comma + "description"
-	}
+	_sql += comma + "user_id"
+	_sql += comma + "app_good_id"
+	_sql += comma + "next_extend_at"
+	_sql += comma + "permanent_quota"
+	_sql += comma + "consumed_quota"
+	_sql += comma + "auto_extend"
 	_sql += comma + "created_at"
 	_sql += comma + "updated_at"
 	_sql += comma + "deleted_at"
@@ -54,26 +48,18 @@ func (h *createHandler) constructSQL() {
 	}
 	_sql += fmt.Sprintf("%v'%v' as app_id", comma, *h.AppID)
 	comma = ", "
-	_sql += fmt.Sprintf("%v'%v' as package_name", comma, *h.PackageName)
-	_sql += fmt.Sprintf("%v'%v' as usd_price", comma, *h.UsdPrice)
-	_sql += fmt.Sprintf("%v'%v' as credit", comma, *h.Credit)
-	_sql += fmt.Sprintf("%v'%v' as sort_order", comma, *h.SortOrder)
-	_sql += fmt.Sprintf("%v'%v' as package_type", comma, *h.PackageType)
-	_sql += fmt.Sprintf("%v'%v' as reset_type", comma, *h.ResetType)
-	if h.QPSLimit != nil {
-		_sql += fmt.Sprintf("%v'%v' as qps_limit", comma, *h.QPSLimit)
-	}
-	if h.Description != nil {
-		_sql += fmt.Sprintf("%v'%v' as description", comma, *h.Description)
-	}
+	_sql += fmt.Sprintf("%v'%v' as user_id", comma, *h.UserID)
+	_sql += fmt.Sprintf("%v'%v' as app_good_id", comma, *h.AppGoodID)
+	_sql += fmt.Sprintf("%v%v as next_extend_at", comma, *h.NextExtendAt)
+	_sql += fmt.Sprintf("%v%v as permanent_quota", comma, *h.PermanentQuota)
+	_sql += fmt.Sprintf("%v%v as consumed_quota", comma, *h.ConsumedQuota)
+	_sql += fmt.Sprintf("%v%v as auto_extend", comma, *h.AutoExtend)
 	_sql += fmt.Sprintf("%v%v as created_at", comma, now)
 	_sql += fmt.Sprintf("%v%v as updated_at", comma, now)
 	_sql += fmt.Sprintf("%v0 as deleted_at", comma)
 	_sql += ") as tmp "
-	_sql += "where not exists ("
-	_sql += "select 1 from subscriptions as ss "
-	_sql += fmt.Sprintf("where ss.package_name = '%v' and ss.app_id = '%v' and deleted_at = 0", *h.PackageName, *h.AppID)
-	_sql += " limit 1)"
+
+	// TODO: do we need to deduplicate user ?
 
 	h.sql = _sql
 }

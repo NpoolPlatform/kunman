@@ -1,6 +1,6 @@
 package servicename
 
 const (
-	ServiceName   = "Billing Middleware"
+	ServiceName   = "AGI Middleware"
 	ServiceDomain = "agi-middleware.kunman.fun"
 )

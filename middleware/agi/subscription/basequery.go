@@ -3,21 +3,15 @@ package subscription
 import (
 	"entgo.io/ent/dialect/sql"
 
-	subscriptioncrud "github.com/NpoolPlatform/kunman/middleware/agi/crud/subscription"
-	"github.com/NpoolPlatform/kunman/middleware/agi/db/ent/generated"
-	entsubscription "github.com/NpoolPlatform/kunman/middleware/agi/db/ent/generated/subscription"
 	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
+	subscriptioncrud "github.com/NpoolPlatform/kunman/middleware/agi/crud/subscription"
+	ent "github.com/NpoolPlatform/kunman/middleware/agi/db/ent/generated"
+	entsubscription "github.com/NpoolPlatform/kunman/middleware/agi/db/ent/generated/subscription"
 )
 
 type baseQueryHandler struct {
 	*Handler
 	stmSelect *ent.SubscriptionSelect
-}
-
-func (h *queryHandler) queryJoin() {
-	if h.stmSelect != nil {
-		h.baseQueryHandler.queryJoin()
-	}
 }
 
 func (h *baseQueryHandler) selectSubscription(stm *ent.SubscriptionQuery) *ent.SubscriptionSelect {
@@ -58,14 +52,12 @@ func (h *baseQueryHandler) queryJoinMyself(s *sql.Selector) {
 		AppendSelect(
 			t1.C(entsubscription.FieldEntID),
 			t1.C(entsubscription.FieldAppID),
-			t1.C(entsubscription.FieldPackageName),
-			t1.C(entsubscription.FieldUsdPrice),
-			t1.C(entsubscription.FieldDescription),
-			t1.C(entsubscription.FieldSortOrder),
-			t1.C(entsubscription.FieldPackageType),
-			t1.C(entsubscription.FieldCredit),
-			t1.C(entsubscription.FieldResetType),
-			t1.C(entsubscription.FieldQPSLimit),
+			t1.C(entsubscription.FieldUserID),
+			t1.C(entsubscription.FieldAppGoodID),
+			t1.C(entsubscription.FieldNextExtendAt),
+			t1.C(entsubscription.FieldPermanentQuota),
+			t1.C(entsubscription.FieldConsumedQuota),
+			t1.C(entsubscription.FieldAutoExtend),
 			t1.C(entsubscription.FieldCreatedAt),
 			t1.C(entsubscription.FieldUpdatedAt),
 		)

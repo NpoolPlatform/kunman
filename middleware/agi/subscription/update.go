@@ -5,9 +5,9 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/NpoolPlatform/kunman/middleware/agi/db"
-	"github.com/NpoolPlatform/kunman/middleware/agi/db/ent/generated"
 	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
+	"github.com/NpoolPlatform/kunman/middleware/agi/db"
+	ent "github.com/NpoolPlatform/kunman/middleware/agi/db/ent/generated"
 	cruder "github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 )
 
@@ -21,38 +21,25 @@ func (h *updateHandler) constructSQL() error {
 	now := uint32(time.Now().Unix())
 
 	_sql := "update subscriptions "
-	if h.PackageName != nil {
-		_sql += fmt.Sprintf("%vpackage_name = '%v', ", set, *h.PackageName)
+	if h.NextExtendAt != nil {
+		_sql += fmt.Sprintf("%vnext_extend_at = '%v', ", set, *h.NextExtendAt)
 		set = ""
 	}
-	if h.UsdPrice != nil {
-		_sql += fmt.Sprintf("%vusd_price = '%v', ", set, *h.UsdPrice)
+	if h.PermanentQuota != nil {
+		_sql += fmt.Sprintf("%vpermanent_quota = %v, ", set, *h.PermanentQuota)
 		set = ""
 	}
-	if h.Credit != nil {
-		_sql += fmt.Sprintf("%vcredit = %v, ", set, *h.Credit)
+	if h.ConsumedQuota != nil {
+		_sql += fmt.Sprintf("%vconsumed_quota = %v, ", set, *h.ConsumedQuota)
 		set = ""
 	}
-	if h.SortOrder != nil {
-		_sql += fmt.Sprintf("%vsort_order = %v, ", set, *h.SortOrder)
+	if h.AutoExtend != nil {
+		_sql += fmt.Sprintf("%vauto_extend = %v, ", set, *h.AutoExtend)
 		set = ""
 	}
-	if h.Description != nil {
-		_sql += fmt.Sprintf("%vdescription = '%v', ", set, *h.Description)
-		set = ""
-	}
-	if h.PackageType != nil {
-		_sql += fmt.Sprintf("%vpackage_type = '%v', ", set, *h.PackageType)
-		set = ""
-	}
-	if h.ResetType != nil {
-		_sql += fmt.Sprintf("%vreset_type = '%v', ", set, *h.ResetType)
-		set = ""
-	}
-	if h.QPSLimit != nil {
-		_sql += fmt.Sprintf("%vqps_limit = '%v', ", set, *h.QPSLimit)
-		set = ""
-	}
+
+	// TODO: implement increment operation
+
 	if set != "" {
 		return wlog.WrapError(cruder.ErrUpdateNothing)
 	}

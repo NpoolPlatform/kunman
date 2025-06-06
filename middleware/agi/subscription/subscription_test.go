@@ -8,15 +8,13 @@ import (
 	"testing"
 
 	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
-	"github.com/shopspring/decimal"
 
 	npool "github.com/NpoolPlatform/kunman/message/agi/middleware/v1/subscription"
 	"github.com/google/uuid"
 	"github.com/stretchr/testify/assert"
 
-	"github.com/NpoolPlatform/kunman/middleware/agi/testinit"
-	types "github.com/NpoolPlatform/kunman/message/basetypes/agi/v1"
 	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
+	"github.com/NpoolPlatform/kunman/middleware/agi/testinit"
 )
 
 func init() {
@@ -31,16 +29,12 @@ func init() {
 var ret = npool.Subscription{
 	EntID:          uuid.NewString(),
 	AppID:          uuid.NewString(),
-	PackageName:    uuid.NewString(),
-	UsdPrice:       decimal.NewFromInt(10).String(),
-	Description:    uuid.NewString(),
-	SortOrder:      uint32(1),
-	PackageType:    types.PackageType_Normal,
-	PackageTypeStr: types.PackageType_Normal.String(),
-	Credit:         uint32(10),
-	ResetType:      types.ResetType_Monthly,
-	ResetTypeStr:   types.ResetType_Monthly.String(),
-	QPSLimit:       uint32(1),
+	UserID:         uuid.NewString(),
+	AppGoodID:      uuid.NewString(),
+	NextExtendAt:   1,
+	PermanentQuota: 1,
+	ConsumedQuota:  0,
+	AutoExtend:     false,
 }
 
 func setup(t *testing.T) func(*testing.T) {
@@ -52,14 +46,12 @@ func createSubscription(t *testing.T) {
 		context.Background(),
 		WithEntID(&ret.EntID, true),
 		WithAppID(&ret.AppID, true),
-		WithPackageName(&ret.PackageName, true),
-		WithUsdPrice(&ret.UsdPrice, true),
-		WithDescription(&ret.Description, true),
-		WithSortOrder(&ret.SortOrder, true),
-		WithPackageType(&ret.PackageType, true),
-		WithCredit(&ret.Credit, true),
-		WithResetType(&ret.ResetType, true),
-		WithQPSLimit(&ret.QPSLimit, true),
+		WithUserID(&ret.UserID, true),
+		WithAppGoodID(&ret.AppGoodID, true),
+		WithNextExtendAt(&ret.NextExtendAt, true),
+		WithPermanentQuota(&ret.PermanentQuota, true),
+		WithConsumedQuota(&ret.ConsumedQuota, true),
+		WithAutoExtend(&ret.AutoExtend, true),
 	)
 	assert.Nil(t, err)
 
@@ -76,24 +68,18 @@ func createSubscription(t *testing.T) {
 }
 
 func updateSubscription(t *testing.T) {
-	ret.PackageName = uuid.NewString()
-	ret.UsdPrice = decimal.NewFromInt(10).String()
-	ret.Description = uuid.NewString()
-	ret.SortOrder = uint32(2)
-	ret.Credit = uint32(10)
-	ret.ResetType = types.ResetType_Quarterly
-	ret.ResetTypeStr = types.ResetType_Quarterly.String()
-	ret.QPSLimit = uint32(5)
+	ret.NextExtendAt = 10
+	ret.PermanentQuota = 10
+	ret.ConsumedQuota = 5
+	ret.AutoExtend = true
+
 	handler, err := NewHandler(
 		context.Background(),
 		WithID(&ret.ID, true),
-		WithPackageName(&ret.PackageName, true),
-		WithUsdPrice(&ret.UsdPrice, true),
-		WithDescription(&ret.Description, true),
-		WithSortOrder(&ret.SortOrder, true),
-		WithCredit(&ret.Credit, true),
-		WithResetType(&ret.ResetType, true),
-		WithQPSLimit(&ret.QPSLimit, true),
+		WithNextExtendAt(&ret.NextExtendAt, true),
+		WithPermanentQuota(&ret.PermanentQuota, true),
+		WithConsumedQuota(&ret.ConsumedQuota, true),
+		WithAutoExtend(&ret.AutoExtend, true),
 	)
 	assert.Nil(t, err)
 
@@ -122,15 +108,16 @@ func getSubscription(t *testing.T) {
 
 func getSubscriptions(t *testing.T) {
 	conds := &npool.Conds{
-		ID:          &basetypes.Uint32Val{Op: cruder.EQ, Value: ret.ID},
-		EntID:       &basetypes.StringVal{Op: cruder.EQ, Value: ret.EntID},
-		AppID:       &basetypes.StringVal{Op: cruder.EQ, Value: ret.AppID},
-		PackageName: &basetypes.StringVal{Op: cruder.EQ, Value: ret.PackageName},
-		SortOrder:   &basetypes.Uint32Val{Op: cruder.EQ, Value: ret.SortOrder},
-		PackageType: &basetypes.Uint32Val{Op: cruder.EQ, Value: uint32(ret.PackageType)},
-		ResetType:   &basetypes.Uint32Val{Op: cruder.EQ, Value: uint32(ret.ResetType)},
-		IDs:         &basetypes.Uint32SliceVal{Op: cruder.IN, Value: []uint32{ret.ID}},
-		EntIDs:      &basetypes.StringSliceVal{Op: cruder.IN, Value: []string{ret.EntID}},
+		ID:         &basetypes.Uint32Val{Op: cruder.EQ, Value: ret.ID},
+		IDs:        &basetypes.Uint32SliceVal{Op: cruder.IN, Value: []uint32{ret.ID}},
+		EntID:      &basetypes.StringVal{Op: cruder.EQ, Value: ret.EntID},
+		EntIDs:     &basetypes.StringSliceVal{Op: cruder.IN, Value: []string{ret.EntID}},
+		AppID:      &basetypes.StringVal{Op: cruder.EQ, Value: ret.AppID},
+		AppIDs:     &basetypes.StringSliceVal{Op: cruder.IN, Value: []string{ret.AppID}},
+		UserID:     &basetypes.StringVal{Op: cruder.EQ, Value: ret.UserID},
+		UserIDs:    &basetypes.StringSliceVal{Op: cruder.IN, Value: []string{ret.UserID}},
+		AppGoodID:  &basetypes.StringVal{Op: cruder.EQ, Value: ret.AppGoodID},
+		AppGoodIDs: &basetypes.StringSliceVal{Op: cruder.IN, Value: []string{ret.AppGoodID}},
 	}
 
 	handler, err := NewHandler(

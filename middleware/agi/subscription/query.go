@@ -3,12 +3,10 @@ package subscription
 import (
 	"context"
 
-	"github.com/NpoolPlatform/kunman/middleware/agi/db"
-	"github.com/NpoolPlatform/kunman/middleware/agi/db/ent/generated"
 	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
-	types "github.com/NpoolPlatform/kunman/message/basetypes/agi/v1"
 	npool "github.com/NpoolPlatform/kunman/message/agi/middleware/v1/subscription"
-	"github.com/shopspring/decimal"
+	"github.com/NpoolPlatform/kunman/middleware/agi/db"
+	ent "github.com/NpoolPlatform/kunman/middleware/agi/db/ent/generated"
 )
 
 type queryHandler struct {
@@ -21,12 +19,7 @@ func (h *queryHandler) scan(ctx context.Context) error {
 }
 
 func (h *queryHandler) formalize() {
-	for _, info := range h.infos {
-		amount, _ := decimal.NewFromString(info.UsdPrice)
-		info.UsdPrice = amount.String()
-		info.PackageType = types.PackageType(types.PackageType_value[info.PackageTypeStr])
-		info.ResetType = types.ResetType(types.ResetType_value[info.ResetTypeStr])
-	}
+	// DO NOTHING
 }
 
 func (h *Handler) GetSubscription(ctx context.Context) (*npool.Subscription, error) {
