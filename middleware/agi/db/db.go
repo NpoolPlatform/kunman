@@ -27,7 +27,7 @@ func client(f func(cli *ent.Client) error) error {
 
 	if db == nil {
 		var err error
-		db, err = mysql.Initialize(servicename.ServiceName)
+		db, err = mysql.Initialize(servicename.ServiceDomain)
 		if err != nil {
 			return err
 		}

@@ -7,6 +7,7 @@ import (
 
 	"github.com/NpoolPlatform/kunman/framework/app"
 
+	myservicename "github.com/NpoolPlatform/kunman/middleware/agi/servicename"
 	servicename "github.com/NpoolPlatform/kunman/pkg/servicename"
 
 	mysqlconst "github.com/NpoolPlatform/kunman/framework/mysql/const"
@@ -30,6 +31,7 @@ func Init() error {
 		configPath,
 		nil,
 		nil,
+		myservicename.ServiceDomain,
 		mysqlconst.MysqlServiceName,
 		rabbitmqconst.RabbitMQServiceName,
 		redisconst.RedisServiceName,

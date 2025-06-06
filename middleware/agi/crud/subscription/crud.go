@@ -63,6 +63,9 @@ func UpdateSet(u *ent.SubscriptionUpdateOne, req *Req) *ent.SubscriptionUpdateOn
 	if req.AutoExtend != nil {
 		u.SetAutoExtend(*req.AutoExtend)
 	}
+	if req.DeletedAt != nil {
+		u.SetDeletedAt(*req.DeletedAt)
+	}
 	return u
 }
 
