@@ -61,10 +61,10 @@ message AdminUpdateSubscriptionRequest {
     string GoodID = 30;
     optional string Name = 40;
     optional basetypes.good.v1.GoodDurationType DurationDisplayType = 50;
-    optional uint32 DurationUints = 30;
-    optional uint32 DurationQuota = 40;
-    optional uint32 DailyBonusQuota = 50;
-    optional string USDPrice = 60;
+    optional uint32 DurationUints = 60;
+    optional uint32 DurationQuota = 70;
+    optional uint32 DailyBonusQuota = 80;
+    optional string USDPrice = 90;
 }
 
 message AdminUpdateSubscriptionResponse {

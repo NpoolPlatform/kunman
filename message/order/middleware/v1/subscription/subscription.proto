@@ -129,7 +129,7 @@ message SubscriptionOrder {
     // Payment transfers
     repeated order.middleware.payment.v1.PaymentTransferInfo PaymentTransfers = 620;
     // Payment fiats
-    repeated order.middleware.payment.v1.PaymentFiatInfo PaymentFiats = 620;
+    repeated order.middleware.payment.v1.PaymentFiatInfo PaymentFiats = 630;
 
     // @inject_tag: sql:"created_at"
     uint32 CreatedAt = 1000;

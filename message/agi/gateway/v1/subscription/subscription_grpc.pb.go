@@ -2,7 +2,7 @@
 // versions:
 // - protoc-gen-go-grpc v1.3.0
 // - protoc             v3.18.1
-// source: billing/gateway/v1/subscription/subscription.proto
+// source: agi/gateway/v1/subscription/subscription.proto
 
 package subscription
 
@@ -19,24 +19,18 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	Gateway_AdminCreateSubscription_FullMethodName = "/billing.gateway.subscription.v1.Gateway/AdminCreateSubscription"
-	Gateway_AdminUpdateSubscription_FullMethodName = "/billing.gateway.subscription.v1.Gateway/AdminUpdateSubscription"
-	Gateway_GetSubscription_FullMethodName         = "/billing.gateway.subscription.v1.Gateway/GetSubscription"
-	Gateway_GetSubscriptions_FullMethodName        = "/billing.gateway.subscription.v1.Gateway/GetSubscriptions"
-	Gateway_CountSubscriptions_FullMethodName      = "/billing.gateway.subscription.v1.Gateway/CountSubscriptions"
-	Gateway_AdminDeleteSubscription_FullMethodName = "/billing.gateway.subscription.v1.Gateway/AdminDeleteSubscription"
+	Gateway_GetSubscription_FullMethodName    = "/agi.gateway.subscription.v1.Gateway/GetSubscription"
+	Gateway_GetSubscriptions_FullMethodName   = "/agi.gateway.subscription.v1.Gateway/GetSubscriptions"
+	Gateway_CountSubscriptions_FullMethodName = "/agi.gateway.subscription.v1.Gateway/CountSubscriptions"
 )
 
 // GatewayClient is the client API for Gateway service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type GatewayClient interface {
-	AdminCreateSubscription(ctx context.Context, in *AdminCreateSubscriptionRequest, opts ...grpc.CallOption) (*AdminCreateSubscriptionResponse, error)
-	AdminUpdateSubscription(ctx context.Context, in *AdminUpdateSubscriptionRequest, opts ...grpc.CallOption) (*AdminUpdateSubscriptionResponse, error)
 	GetSubscription(ctx context.Context, in *GetSubscriptionRequest, opts ...grpc.CallOption) (*GetSubscriptionResponse, error)
 	GetSubscriptions(ctx context.Context, in *GetSubscriptionsRequest, opts ...grpc.CallOption) (*GetSubscriptionsResponse, error)
 	CountSubscriptions(ctx context.Context, in *CountSubscriptionsRequest, opts ...grpc.CallOption) (*CountSubscriptionsResponse, error)
-	AdminDeleteSubscription(ctx context.Context, in *AdminDeleteSubscriptionRequest, opts ...grpc.CallOption) (*AdminDeleteSubscriptionResponse, error)
 }
 
 type gatewayClient struct {
@@ -45,24 +39,6 @@ type gatewayClient struct {
 
 func NewGatewayClient(cc grpc.ClientConnInterface) GatewayClient {
 	return &gatewayClient{cc}
-}
-
-func (c *gatewayClient) AdminCreateSubscription(ctx context.Context, in *AdminCreateSubscriptionRequest, opts ...grpc.CallOption) (*AdminCreateSubscriptionResponse, error) {
-	out := new(AdminCreateSubscriptionResponse)
-	err := c.cc.Invoke(ctx, Gateway_AdminCreateSubscription_FullMethodName, in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *gatewayClient) AdminUpdateSubscription(ctx context.Context, in *AdminUpdateSubscriptionRequest, opts ...grpc.CallOption) (*AdminUpdateSubscriptionResponse, error) {
-	out := new(AdminUpdateSubscriptionResponse)
-	err := c.cc.Invoke(ctx, Gateway_AdminUpdateSubscription_FullMethodName, in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
 }
 
 func (c *gatewayClient) GetSubscription(ctx context.Context, in *GetSubscriptionRequest, opts ...grpc.CallOption) (*GetSubscriptionResponse, error) {
@@ -92,25 +68,13 @@ func (c *gatewayClient) CountSubscriptions(ctx context.Context, in *CountSubscri
 	return out, nil
 }
 
-func (c *gatewayClient) AdminDeleteSubscription(ctx context.Context, in *AdminDeleteSubscriptionRequest, opts ...grpc.CallOption) (*AdminDeleteSubscriptionResponse, error) {
-	out := new(AdminDeleteSubscriptionResponse)
-	err := c.cc.Invoke(ctx, Gateway_AdminDeleteSubscription_FullMethodName, in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
 // GatewayServer is the server API for Gateway service.
 // All implementations must embed UnimplementedGatewayServer
 // for forward compatibility
 type GatewayServer interface {
-	AdminCreateSubscription(context.Context, *AdminCreateSubscriptionRequest) (*AdminCreateSubscriptionResponse, error)
-	AdminUpdateSubscription(context.Context, *AdminUpdateSubscriptionRequest) (*AdminUpdateSubscriptionResponse, error)
 	GetSubscription(context.Context, *GetSubscriptionRequest) (*GetSubscriptionResponse, error)
 	GetSubscriptions(context.Context, *GetSubscriptionsRequest) (*GetSubscriptionsResponse, error)
 	CountSubscriptions(context.Context, *CountSubscriptionsRequest) (*CountSubscriptionsResponse, error)
-	AdminDeleteSubscription(context.Context, *AdminDeleteSubscriptionRequest) (*AdminDeleteSubscriptionResponse, error)
 	mustEmbedUnimplementedGatewayServer()
 }
 
@@ -118,12 +82,6 @@ type GatewayServer interface {
 type UnimplementedGatewayServer struct {
 }
 
-func (UnimplementedGatewayServer) AdminCreateSubscription(context.Context, *AdminCreateSubscriptionRequest) (*AdminCreateSubscriptionResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method AdminCreateSubscription not implemented")
-}
-func (UnimplementedGatewayServer) AdminUpdateSubscription(context.Context, *AdminUpdateSubscriptionRequest) (*AdminUpdateSubscriptionResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method AdminUpdateSubscription not implemented")
-}
 func (UnimplementedGatewayServer) GetSubscription(context.Context, *GetSubscriptionRequest) (*GetSubscriptionResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetSubscription not implemented")
 }
@@ -132,9 +90,6 @@ func (UnimplementedGatewayServer) GetSubscriptions(context.Context, *GetSubscrip
 }
 func (UnimplementedGatewayServer) CountSubscriptions(context.Context, *CountSubscriptionsRequest) (*CountSubscriptionsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CountSubscriptions not implemented")
-}
-func (UnimplementedGatewayServer) AdminDeleteSubscription(context.Context, *AdminDeleteSubscriptionRequest) (*AdminDeleteSubscriptionResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method AdminDeleteSubscription not implemented")
 }
 func (UnimplementedGatewayServer) mustEmbedUnimplementedGatewayServer() {}
 
@@ -147,42 +102,6 @@ type UnsafeGatewayServer interface {
 
 func RegisterGatewayServer(s grpc.ServiceRegistrar, srv GatewayServer) {
 	s.RegisterService(&Gateway_ServiceDesc, srv)
-}
-
-func _Gateway_AdminCreateSubscription_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(AdminCreateSubscriptionRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(GatewayServer).AdminCreateSubscription(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: Gateway_AdminCreateSubscription_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(GatewayServer).AdminCreateSubscription(ctx, req.(*AdminCreateSubscriptionRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _Gateway_AdminUpdateSubscription_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(AdminUpdateSubscriptionRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(GatewayServer).AdminUpdateSubscription(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: Gateway_AdminUpdateSubscription_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(GatewayServer).AdminUpdateSubscription(ctx, req.(*AdminUpdateSubscriptionRequest))
-	}
-	return interceptor(ctx, in, info, handler)
 }
 
 func _Gateway_GetSubscription_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
@@ -239,39 +158,13 @@ func _Gateway_CountSubscriptions_Handler(srv interface{}, ctx context.Context, d
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Gateway_AdminDeleteSubscription_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(AdminDeleteSubscriptionRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(GatewayServer).AdminDeleteSubscription(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: Gateway_AdminDeleteSubscription_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(GatewayServer).AdminDeleteSubscription(ctx, req.(*AdminDeleteSubscriptionRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
 // Gateway_ServiceDesc is the grpc.ServiceDesc for Gateway service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var Gateway_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "billing.gateway.subscription.v1.Gateway",
+	ServiceName: "agi.gateway.subscription.v1.Gateway",
 	HandlerType: (*GatewayServer)(nil),
 	Methods: []grpc.MethodDesc{
-		{
-			MethodName: "AdminCreateSubscription",
-			Handler:    _Gateway_AdminCreateSubscription_Handler,
-		},
-		{
-			MethodName: "AdminUpdateSubscription",
-			Handler:    _Gateway_AdminUpdateSubscription_Handler,
-		},
 		{
 			MethodName: "GetSubscription",
 			Handler:    _Gateway_GetSubscription_Handler,
@@ -284,11 +177,7 @@ var Gateway_ServiceDesc = grpc.ServiceDesc{
 			MethodName: "CountSubscriptions",
 			Handler:    _Gateway_CountSubscriptions_Handler,
 		},
-		{
-			MethodName: "AdminDeleteSubscription",
-			Handler:    _Gateway_AdminDeleteSubscription_Handler,
-		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "billing/gateway/v1/subscription/subscription.proto",
+	Metadata: "agi/gateway/v1/subscription/subscription.proto",
 }

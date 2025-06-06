@@ -1,27 +1,15 @@
 syntax = "proto3";
 
-package billing.gateway.subscription.v1;
+package agi.gateway.subscription.v1;
 
-option go_package = "github.com/NpoolPlatform/kunman/message/billing/gateway/v1/subscription";
+option go_package = "github.com/NpoolPlatform/kunman/message/agi/gateway/v1/subscription";
 
-import "billing/middleware/v1/subscription/subscription.proto";
+import "agi/middleware/v1/subscription/subscription.proto";
 import "google/api/annotations.proto";
-import "basetypes/billing/v1/enums.proto";
+import "basetypes/agi/v1/enums.proto";
 
 // Service Name
 service Gateway {
-    rpc AdminCreateSubscription(AdminCreateSubscriptionRequest) returns (AdminCreateSubscriptionResponse) {
-        option (google.api.http) = {
-            post: "/v1/admin/create/subscription"
-            body: "*"
-        };
-    }
-    rpc AdminUpdateSubscription(AdminUpdateSubscriptionRequest) returns (AdminUpdateSubscriptionResponse) {
-        option (google.api.http) = {
-            post: "/v1/admin/update/subscription"
-            body: "*"
-        };
-    }
     rpc GetSubscription(GetSubscriptionRequest) returns (GetSubscriptionResponse) {
         option (google.api.http) = {
             post: "/v1/get/subscription"
@@ -40,45 +28,6 @@ service Gateway {
             body: "*"
         };
     }
-    rpc AdminDeleteSubscription(AdminDeleteSubscriptionRequest) returns (AdminDeleteSubscriptionResponse) {
-        option (google.api.http) = {
-            post: "/v1/admin/delete/subscription"
-            body: "*"
-        };
-    }
-}
-
-message AdminCreateSubscriptionRequest {
-    string TargetAppID = 10;
-    optional string PackageName = 20;
-    optional string UsdPrice = 30;
-    optional string Description = 40;
-    optional uint32 SortOrder = 50;
-    optional basetypes.billing.v1.PackageType PackageType = 60;
-    optional uint32 Credit = 70;
-    optional basetypes.billing.v1.ResetType ResetType = 80;
-    optional uint32 QPSLimit = 90;
-}
-
-message AdminCreateSubscriptionResponse {
-    middleware.subscription.v1.Subscription Info = 10;
-}
-
-message AdminUpdateSubscriptionRequest {
-    uint32 ID = 10;
-    string EntID = 20;
-    string TargetAppID = 30;
-    optional string PackageName = 40;
-    optional string UsdPrice = 50;
-    optional string Description = 60;
-    optional uint32 SortOrder = 70;
-    optional uint32 Credit = 80;
-    optional basetypes.billing.v1.ResetType ResetType = 90;
-    optional uint32 QPSLimit = 100;
-}
-
-message AdminUpdateSubscriptionResponse {
-    middleware.subscription.v1.Subscription Info = 10;
 }
 
 message GetSubscriptionRequest {
@@ -102,13 +51,4 @@ message CountSubscriptionsRequest {}
 
 message CountSubscriptionsResponse {
     uint32 Total = 10;
-}
-
-message AdminDeleteSubscriptionRequest {
-    uint32 ID = 10;
-    string EntID = 20;
-}
-
-message AdminDeleteSubscriptionResponse {
-    middleware.subscription.v1.Subscription Info = 10;
 }

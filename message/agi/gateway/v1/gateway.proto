@@ -1,8 +1,8 @@
 syntax = "proto3";
 
-package billing.gateway.v1;
+package agi.gateway.v1;
 
-option go_package = "github.com/NpoolPlatform/kunman/message/billing/gateway/v1";
+option go_package = "github.com/NpoolPlatform/kunman/message/agi/gateway/v1";
 
 import "google/api/annotations.proto";
 import "google/protobuf/empty.proto";

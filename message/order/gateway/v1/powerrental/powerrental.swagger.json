@@ -836,6 +836,7 @@
         "LegacyPowerRental",
         "DelegatedStaking",
         "Subscription",
+        "OneShot",
         "TechniqueServiceFee",
         "ElectricityFee"
       ],

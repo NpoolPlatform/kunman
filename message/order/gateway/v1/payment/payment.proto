@@ -42,3 +42,13 @@ message PaymentTransferInfo {
     string CoinUSDCurrency = 90;
     uint32 CreatedAt = 100;
 }
+
+message PaymentFiatInfo {
+    string FiatID = 10;
+    string FiatName = 20;
+    string FiatUnit = 30;
+    string FiatLogo = 40;
+    string Amount = 50;
+    string USDCurrency = 60;
+    uint32 CreatedAt = 70;
+}

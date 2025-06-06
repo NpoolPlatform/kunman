@@ -1,0 +1,99 @@
+syntax = "proto3";
+
+package agi.gateway.capacity.v1;
+
+option go_package = "github.com/NpoolPlatform/kunman/message/agi/gateway/v1/capacity";
+
+import "agi/middleware/v1/capacity/capacity.proto";
+import "google/api/annotations.proto";
+import "basetypes/agi/v1/enums.proto";
+
+// Service Name
+service Gateway {
+    rpc CreateCapacity(CreateCapacityRequest) returns (CreateCapacityResponse) {
+        option (google.api.http) = {
+            post: "/v1/create/capacity"
+            body: "*"
+        };
+    }
+    rpc UpdateCapacity(UpdateCapacityRequest) returns (UpdateCapacityResponse) {
+        option (google.api.http) = {
+            post: "/v1/update/capacity"
+            body: "*"
+        };
+    }
+    rpc GetCapacities(GetCapacitiesRequest) returns (GetCapacitiesResponse) {
+        option (google.api.http) = {
+            post: "/v1/get/capacities"
+            body: "*"
+        };
+    }
+    rpc CountCapacities(CountCapacitiesRequest) returns (CountCapacitiesResponse) {
+        option (google.api.http) = {
+            post: "/v1/count/capacities"
+            body: "*"
+        };
+    }
+    rpc DeleteCapacity(DeleteCapacityRequest) returns (DeleteCapacityResponse) {
+        option (google.api.http) = {
+            post: "/v1/delete/capacity"
+            body: "*"
+        };
+    }
+}
+
+message CreateCapacityRequest {
+    string AppGoodID = 10;
+    basetypes.agi.v1.CapacityKey CapacityKey = 20;
+    string Value = 30;
+}
+
+message CreateCapacityResponse {
+    middleware.capacity.v1.Capacity Info = 10;
+}
+
+message UpdateCapacityRequest {
+    uint32 ID = 10;
+    string EntID = 20;
+    optional string Value = 30;
+}
+
+message UpdateCapacityResponse {
+    middleware.capacity.v1.Capacity Info = 10;
+}
+
+message GetCapacityRequest {
+    string EntID = 10;
+}
+
+message GetCapacityResponse {
+    middleware.capacity.v1.Capacity Info = 10;
+}
+
+message GetCapacitiesRequest {
+    optional string AppGoodID = 10;
+    int32 Offset = 20;
+    int32 Limit = 30;
+}
+
+message GetCapacitiesResponse {
+    repeated middleware.capacity.v1.Capacity Infos = 10;
+}
+
+message CountCapacitiesRequest {
+    optional string AppGoodID = 10;
+}
+
+message CountCapacitiesResponse {
+    uint32 Total = 10;
+}
+
+message DeleteCapacityRequest {
+    uint32 ID = 10;
+    string EntID = 20;
+}
+
+message DeleteCapacityResponse {
+    middleware.capacity.v1.Capacity Info = 10;
+}
+

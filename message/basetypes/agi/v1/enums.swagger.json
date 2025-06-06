@@ -1,7 +1,7 @@
 {
   "swagger": "2.0",
   "info": {
-    "title": "basetypes/billing/v1/enums.proto",
+    "title": "basetypes/agi/v1/enums.proto",
     "version": "version not set"
   },
   "consumes": [

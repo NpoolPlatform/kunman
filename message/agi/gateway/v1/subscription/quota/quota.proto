@@ -1,0 +1,109 @@
+syntax = "proto3";
+
+package agi.gateway.subscription.quota.v1;
+
+option go_package = "github.com/NpoolPlatform/kunman/message/agi/gateway/v1/subscription/quota";
+
+import "agi/middleware/v1/subscription/quota/quota.proto";
+import "google/api/annotations.proto";
+import "basetypes/agi/v1/enums.proto";
+
+// Service Name
+service Gateway {
+    rpc AdminGetQuotas(AdminGetQuotasRequest) returns (AdminGetQuotasResponse) {
+        option (google.api.http) = {
+            post: "/v1/admin/get/subscriptionquotas"
+            body: "*"
+        };
+    }
+    rpc AdminCountQuotas(AdminCountQuotasRequest) returns (AdminCountQuotasResponse) {
+        option (google.api.http) = {
+            post: "/v1/admin/count/subscriptionquotas"
+            body: "*"
+        };
+    }
+    rpc GetQuotas(GetQuotasRequest) returns (GetQuotasResponse) {
+        option (google.api.http) = {
+            post: "/v1/get/subscriptionquotas"
+            body: "*"
+        };
+    }
+    rpc CountQuotas(CountQuotasRequest) returns (CountQuotasResponse) {
+        option (google.api.http) = {
+            post: "/v1/count/subscriptionquotas"
+            body: "*"
+        };
+    }
+    rpc GetMyQuotas(GetQuotasRequest) returns (GetQuotasResponse) {
+        option (google.api.http) = {
+            post: "/v1/get/mysubscriptionquotas"
+            body: "*"
+        };
+    }
+    rpc CountMyQuotas(CountQuotasRequest) returns (CountQuotasResponse) {
+        option (google.api.http) = {
+            post: "/v1/count/mysubscriptionquotas"
+            body: "*"
+        };
+    }
+}
+
+message AdminGetQuotasRequest {
+    optional string TargetAppID = 10;
+    optional string TargetUserID = 20;
+    int32 Offset = 30;
+    int32 Limit = 40;
+}
+
+message AdminGetQuotasResponse {
+    repeated middleware.subscription.quota.v1.Quota Infos = 10;
+}
+
+message AdminCountQuotasRequest {
+    optional string TargetAppID = 10;
+    optional string TargetUserID = 20;
+}
+
+message AdminCountQuotasResponse {
+    uint32 Total = 10;
+}
+
+message GetQuotasRequest {
+    string AppID = 10;
+    optional string TargetUserID = 20;
+    int32 Offset = 30;
+    int32 Limit = 40;
+}
+
+message GetQuotasResponse {
+    repeated middleware.subscription.quota.v1.Quota Infos = 10;
+}
+
+message CountQuotasRequest {
+    string AppID = 10;
+    optional string TargetUserID = 20;
+}
+
+message CountQuotasResponse {
+    uint32 Total = 10;
+}
+
+message GetMyQuotasRequest {
+    string AppID = 10;
+    string UserID = 20;
+    int32 Offset = 30;
+    int32 Limit = 40;
+}
+
+message GetMyQuotasResponse {
+    repeated middleware.subscription.quota.v1.Quota Infos = 10;
+}
+
+message CountMyQuotasRequest {
+    string AppID = 10;
+    string UserID = 20;
+}
+
+message CountMyQuotasResponse {
+    uint32 Total = 10;
+}

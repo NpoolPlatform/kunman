@@ -2,7 +2,7 @@
 // versions:
 // 	protoc-gen-go v1.33.0
 // 	protoc        v3.18.1
-// source: billing/gateway/v1/gateway.proto
+// source: agi/gateway/v1/gateway.proto
 
 package v1
 
@@ -22,9 +22,9 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
-var File_billing_gateway_v1_gateway_proto protoreflect.FileDescriptor
+var File_agi_gateway_v1_gateway_proto protoreflect.FileDescriptor
 
-var file_billing_gateway_v1_gateway_proto_rawDesc = []byte{
+var file_agi_gateway_v1_gateway_proto_rawDesc = []byte{
 	0x0a, 0x20, 0x62, 0x69, 0x6c, 0x6c, 0x69, 0x6e, 0x67, 0x2f, 0x67, 0x61, 0x74, 0x65, 0x77, 0x61,
 	0x79, 0x2f, 0x76, 0x31, 0x2f, 0x67, 0x61, 0x74, 0x65, 0x77, 0x61, 0x79, 0x2e, 0x70, 0x72, 0x6f,
 	0x74, 0x6f, 0x12, 0x12, 0x62, 0x69, 0x6c, 0x6c, 0x69, 0x6e, 0x67, 0x2e, 0x67, 0x61, 0x74, 0x65,
@@ -47,13 +47,13 @@ var file_billing_gateway_v1_gateway_proto_rawDesc = []byte{
 	0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
-var file_billing_gateway_v1_gateway_proto_goTypes = []interface{}{
+var file_agi_gateway_v1_gateway_proto_goTypes = []interface{}{
 	(*emptypb.Empty)(nil),      // 0: google.protobuf.Empty
 	(*v1.VersionResponse)(nil), // 1: basetypes.v1.VersionResponse
 }
-var file_billing_gateway_v1_gateway_proto_depIdxs = []int32{
-	0, // 0: billing.gateway.v1.Gateway.Version:input_type -> google.protobuf.Empty
-	1, // 1: billing.gateway.v1.Gateway.Version:output_type -> basetypes.v1.VersionResponse
+var file_agi_gateway_v1_gateway_proto_depIdxs = []int32{
+	0, // 0: agi.gateway.v1.Gateway.Version:input_type -> google.protobuf.Empty
+	1, // 1: agi.gateway.v1.Gateway.Version:output_type -> basetypes.v1.VersionResponse
 	1, // [1:2] is the sub-list for method output_type
 	0, // [0:1] is the sub-list for method input_type
 	0, // [0:0] is the sub-list for extension type_name
@@ -61,26 +61,26 @@ var file_billing_gateway_v1_gateway_proto_depIdxs = []int32{
 	0, // [0:0] is the sub-list for field type_name
 }
 
-func init() { file_billing_gateway_v1_gateway_proto_init() }
-func file_billing_gateway_v1_gateway_proto_init() {
-	if File_billing_gateway_v1_gateway_proto != nil {
+func init() { file_agi_gateway_v1_gateway_proto_init() }
+func file_agi_gateway_v1_gateway_proto_init() {
+	if File_agi_gateway_v1_gateway_proto != nil {
 		return
 	}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
-			RawDescriptor: file_billing_gateway_v1_gateway_proto_rawDesc,
+			RawDescriptor: file_agi_gateway_v1_gateway_proto_rawDesc,
 			NumEnums:      0,
 			NumMessages:   0,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
-		GoTypes:           file_billing_gateway_v1_gateway_proto_goTypes,
-		DependencyIndexes: file_billing_gateway_v1_gateway_proto_depIdxs,
+		GoTypes:           file_agi_gateway_v1_gateway_proto_goTypes,
+		DependencyIndexes: file_agi_gateway_v1_gateway_proto_depIdxs,
 	}.Build()
-	File_billing_gateway_v1_gateway_proto = out.File
-	file_billing_gateway_v1_gateway_proto_rawDesc = nil
-	file_billing_gateway_v1_gateway_proto_goTypes = nil
-	file_billing_gateway_v1_gateway_proto_depIdxs = nil
+	File_agi_gateway_v1_gateway_proto = out.File
+	file_agi_gateway_v1_gateway_proto_rawDesc = nil
+	file_agi_gateway_v1_gateway_proto_goTypes = nil
+	file_agi_gateway_v1_gateway_proto_depIdxs = nil
 }

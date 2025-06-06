@@ -2,7 +2,7 @@
 // versions:
 // - protoc-gen-go-grpc v1.3.0
 // - protoc             v3.18.1
-// source: billing/gateway/v1/gateway.proto
+// source: agi/gateway/v1/gateway.proto
 
 package v1
 
@@ -21,7 +21,7 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	Gateway_Version_FullMethodName = "/billing.gateway.v1.Gateway/Version"
+	Gateway_Version_FullMethodName = "/agi.gateway.v1.Gateway/Version"
 )
 
 // GatewayClient is the client API for Gateway service.
@@ -100,7 +100,7 @@ func _Gateway_Version_Handler(srv interface{}, ctx context.Context, dec func(int
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var Gateway_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "billing.gateway.v1.Gateway",
+	ServiceName: "agi.gateway.v1.Gateway",
 	HandlerType: (*GatewayServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
@@ -109,5 +109,5 @@ var Gateway_ServiceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "billing/gateway/v1/gateway.proto",
+	Metadata: "agi/gateway/v1/gateway.proto",
 }
