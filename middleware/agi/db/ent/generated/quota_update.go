@@ -43,6 +43,61 @@ func (qu *QuotaUpdate) SetNillableEntID(u *uuid.UUID) *QuotaUpdate {
 	return qu
 }
 
+// SetCreatedAt sets the "created_at" field.
+func (qu *QuotaUpdate) SetCreatedAt(u uint32) *QuotaUpdate {
+	qu.mutation.ResetCreatedAt()
+	qu.mutation.SetCreatedAt(u)
+	return qu
+}
+
+// SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
+func (qu *QuotaUpdate) SetNillableCreatedAt(u *uint32) *QuotaUpdate {
+	if u != nil {
+		qu.SetCreatedAt(*u)
+	}
+	return qu
+}
+
+// AddCreatedAt adds u to the "created_at" field.
+func (qu *QuotaUpdate) AddCreatedAt(u int32) *QuotaUpdate {
+	qu.mutation.AddCreatedAt(u)
+	return qu
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (qu *QuotaUpdate) SetUpdatedAt(u uint32) *QuotaUpdate {
+	qu.mutation.ResetUpdatedAt()
+	qu.mutation.SetUpdatedAt(u)
+	return qu
+}
+
+// AddUpdatedAt adds u to the "updated_at" field.
+func (qu *QuotaUpdate) AddUpdatedAt(u int32) *QuotaUpdate {
+	qu.mutation.AddUpdatedAt(u)
+	return qu
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (qu *QuotaUpdate) SetDeletedAt(u uint32) *QuotaUpdate {
+	qu.mutation.ResetDeletedAt()
+	qu.mutation.SetDeletedAt(u)
+	return qu
+}
+
+// SetNillableDeletedAt sets the "deleted_at" field if the given value is not nil.
+func (qu *QuotaUpdate) SetNillableDeletedAt(u *uint32) *QuotaUpdate {
+	if u != nil {
+		qu.SetDeletedAt(*u)
+	}
+	return qu
+}
+
+// AddDeletedAt adds u to the "deleted_at" field.
+func (qu *QuotaUpdate) AddDeletedAt(u int32) *QuotaUpdate {
+	qu.mutation.AddDeletedAt(u)
+	return qu
+}
+
 // SetAppID sets the "app_id" field.
 func (qu *QuotaUpdate) SetAppID(u uuid.UUID) *QuotaUpdate {
 	qu.mutation.SetAppID(u)
@@ -171,6 +226,7 @@ func (qu *QuotaUpdate) Mutation() *QuotaMutation {
 
 // Save executes the query and returns the number of nodes affected by the update operation.
 func (qu *QuotaUpdate) Save(ctx context.Context) (int, error) {
+	qu.defaults()
 	return withHooks(ctx, qu.sqlSave, qu.mutation, qu.hooks)
 }
 
@@ -196,6 +252,14 @@ func (qu *QuotaUpdate) ExecX(ctx context.Context) {
 	}
 }
 
+// defaults sets the default values of the builder before save.
+func (qu *QuotaUpdate) defaults() {
+	if _, ok := qu.mutation.UpdatedAt(); !ok {
+		v := quota.UpdateDefaultUpdatedAt()
+		qu.mutation.SetUpdatedAt(v)
+	}
+}
+
 // Modify adds a statement modifier for attaching custom logic to the UPDATE statement.
 func (qu *QuotaUpdate) Modify(modifiers ...func(u *sql.UpdateBuilder)) *QuotaUpdate {
 	qu.modifiers = append(qu.modifiers, modifiers...)
@@ -213,6 +277,24 @@ func (qu *QuotaUpdate) sqlSave(ctx context.Context) (n int, err error) {
 	}
 	if value, ok := qu.mutation.EntID(); ok {
 		_spec.SetField(quota.FieldEntID, field.TypeUUID, value)
+	}
+	if value, ok := qu.mutation.CreatedAt(); ok {
+		_spec.SetField(quota.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := qu.mutation.AddedCreatedAt(); ok {
+		_spec.AddField(quota.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := qu.mutation.UpdatedAt(); ok {
+		_spec.SetField(quota.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := qu.mutation.AddedUpdatedAt(); ok {
+		_spec.AddField(quota.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := qu.mutation.DeletedAt(); ok {
+		_spec.SetField(quota.FieldDeletedAt, field.TypeUint32, value)
+	}
+	if value, ok := qu.mutation.AddedDeletedAt(); ok {
+		_spec.AddField(quota.FieldDeletedAt, field.TypeUint32, value)
 	}
 	if value, ok := qu.mutation.AppID(); ok {
 		_spec.SetField(quota.FieldAppID, field.TypeUUID, value)
@@ -286,6 +368,61 @@ func (quo *QuotaUpdateOne) SetNillableEntID(u *uuid.UUID) *QuotaUpdateOne {
 	if u != nil {
 		quo.SetEntID(*u)
 	}
+	return quo
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (quo *QuotaUpdateOne) SetCreatedAt(u uint32) *QuotaUpdateOne {
+	quo.mutation.ResetCreatedAt()
+	quo.mutation.SetCreatedAt(u)
+	return quo
+}
+
+// SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
+func (quo *QuotaUpdateOne) SetNillableCreatedAt(u *uint32) *QuotaUpdateOne {
+	if u != nil {
+		quo.SetCreatedAt(*u)
+	}
+	return quo
+}
+
+// AddCreatedAt adds u to the "created_at" field.
+func (quo *QuotaUpdateOne) AddCreatedAt(u int32) *QuotaUpdateOne {
+	quo.mutation.AddCreatedAt(u)
+	return quo
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (quo *QuotaUpdateOne) SetUpdatedAt(u uint32) *QuotaUpdateOne {
+	quo.mutation.ResetUpdatedAt()
+	quo.mutation.SetUpdatedAt(u)
+	return quo
+}
+
+// AddUpdatedAt adds u to the "updated_at" field.
+func (quo *QuotaUpdateOne) AddUpdatedAt(u int32) *QuotaUpdateOne {
+	quo.mutation.AddUpdatedAt(u)
+	return quo
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (quo *QuotaUpdateOne) SetDeletedAt(u uint32) *QuotaUpdateOne {
+	quo.mutation.ResetDeletedAt()
+	quo.mutation.SetDeletedAt(u)
+	return quo
+}
+
+// SetNillableDeletedAt sets the "deleted_at" field if the given value is not nil.
+func (quo *QuotaUpdateOne) SetNillableDeletedAt(u *uint32) *QuotaUpdateOne {
+	if u != nil {
+		quo.SetDeletedAt(*u)
+	}
+	return quo
+}
+
+// AddDeletedAt adds u to the "deleted_at" field.
+func (quo *QuotaUpdateOne) AddDeletedAt(u int32) *QuotaUpdateOne {
+	quo.mutation.AddDeletedAt(u)
 	return quo
 }
 
@@ -430,6 +567,7 @@ func (quo *QuotaUpdateOne) Select(field string, fields ...string) *QuotaUpdateOn
 
 // Save executes the query and returns the updated Quota entity.
 func (quo *QuotaUpdateOne) Save(ctx context.Context) (*Quota, error) {
+	quo.defaults()
 	return withHooks(ctx, quo.sqlSave, quo.mutation, quo.hooks)
 }
 
@@ -452,6 +590,14 @@ func (quo *QuotaUpdateOne) Exec(ctx context.Context) error {
 func (quo *QuotaUpdateOne) ExecX(ctx context.Context) {
 	if err := quo.Exec(ctx); err != nil {
 		panic(err)
+	}
+}
+
+// defaults sets the default values of the builder before save.
+func (quo *QuotaUpdateOne) defaults() {
+	if _, ok := quo.mutation.UpdatedAt(); !ok {
+		v := quota.UpdateDefaultUpdatedAt()
+		quo.mutation.SetUpdatedAt(v)
 	}
 }
 
@@ -489,6 +635,24 @@ func (quo *QuotaUpdateOne) sqlSave(ctx context.Context) (_node *Quota, err error
 	}
 	if value, ok := quo.mutation.EntID(); ok {
 		_spec.SetField(quota.FieldEntID, field.TypeUUID, value)
+	}
+	if value, ok := quo.mutation.CreatedAt(); ok {
+		_spec.SetField(quota.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := quo.mutation.AddedCreatedAt(); ok {
+		_spec.AddField(quota.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := quo.mutation.UpdatedAt(); ok {
+		_spec.SetField(quota.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := quo.mutation.AddedUpdatedAt(); ok {
+		_spec.AddField(quota.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := quo.mutation.DeletedAt(); ok {
+		_spec.SetField(quota.FieldDeletedAt, field.TypeUint32, value)
+	}
+	if value, ok := quo.mutation.AddedDeletedAt(); ok {
+		_spec.AddField(quota.FieldDeletedAt, field.TypeUint32, value)
 	}
 	if value, ok := quo.mutation.AppID(); ok {
 		_spec.SetField(quota.FieldAppID, field.TypeUUID, value)

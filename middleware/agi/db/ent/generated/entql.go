@@ -45,6 +45,9 @@ var schemaGraph = func() *sqlgraph.Schema {
 		Type: "Quota",
 		Fields: map[string]*sqlgraph.FieldSpec{
 			quota.FieldEntID:         {Type: field.TypeUUID, Column: quota.FieldEntID},
+			quota.FieldCreatedAt:     {Type: field.TypeUint32, Column: quota.FieldCreatedAt},
+			quota.FieldUpdatedAt:     {Type: field.TypeUint32, Column: quota.FieldUpdatedAt},
+			quota.FieldDeletedAt:     {Type: field.TypeUint32, Column: quota.FieldDeletedAt},
 			quota.FieldAppID:         {Type: field.TypeUUID, Column: quota.FieldAppID},
 			quota.FieldUserID:        {Type: field.TypeUUID, Column: quota.FieldUserID},
 			quota.FieldQuota:         {Type: field.TypeUint32, Column: quota.FieldQuota},
@@ -188,6 +191,21 @@ func (f *QuotaFilter) WhereID(p entql.Uint32P) {
 // WhereEntID applies the entql [16]byte predicate on the ent_id field.
 func (f *QuotaFilter) WhereEntID(p entql.ValueP) {
 	f.Where(p.Field(quota.FieldEntID))
+}
+
+// WhereCreatedAt applies the entql uint32 predicate on the created_at field.
+func (f *QuotaFilter) WhereCreatedAt(p entql.Uint32P) {
+	f.Where(p.Field(quota.FieldCreatedAt))
+}
+
+// WhereUpdatedAt applies the entql uint32 predicate on the updated_at field.
+func (f *QuotaFilter) WhereUpdatedAt(p entql.Uint32P) {
+	f.Where(p.Field(quota.FieldUpdatedAt))
+}
+
+// WhereDeletedAt applies the entql uint32 predicate on the deleted_at field.
+func (f *QuotaFilter) WhereDeletedAt(p entql.Uint32P) {
+	f.Where(p.Field(quota.FieldDeletedAt))
 }
 
 // WhereAppID applies the entql [16]byte predicate on the app_id field.

@@ -38,12 +38,28 @@ func init() {
 	quotaMixin := schema.Quota{}.Mixin()
 	quotaMixinFields0 := quotaMixin[0].Fields()
 	_ = quotaMixinFields0
+	quotaMixinFields1 := quotaMixin[1].Fields()
+	_ = quotaMixinFields1
 	quotaFields := schema.Quota{}.Fields()
 	_ = quotaFields
 	// quotaDescEntID is the schema descriptor for ent_id field.
 	quotaDescEntID := quotaMixinFields0[1].Descriptor()
 	// quota.DefaultEntID holds the default value on creation for the ent_id field.
 	quota.DefaultEntID = quotaDescEntID.Default.(func() uuid.UUID)
+	// quotaDescCreatedAt is the schema descriptor for created_at field.
+	quotaDescCreatedAt := quotaMixinFields1[0].Descriptor()
+	// quota.DefaultCreatedAt holds the default value on creation for the created_at field.
+	quota.DefaultCreatedAt = quotaDescCreatedAt.Default.(func() uint32)
+	// quotaDescUpdatedAt is the schema descriptor for updated_at field.
+	quotaDescUpdatedAt := quotaMixinFields1[1].Descriptor()
+	// quota.DefaultUpdatedAt holds the default value on creation for the updated_at field.
+	quota.DefaultUpdatedAt = quotaDescUpdatedAt.Default.(func() uint32)
+	// quota.UpdateDefaultUpdatedAt holds the default value on update for the updated_at field.
+	quota.UpdateDefaultUpdatedAt = quotaDescUpdatedAt.UpdateDefault.(func() uint32)
+	// quotaDescDeletedAt is the schema descriptor for deleted_at field.
+	quotaDescDeletedAt := quotaMixinFields1[2].Descriptor()
+	// quota.DefaultDeletedAt holds the default value on creation for the deleted_at field.
+	quota.DefaultDeletedAt = quotaDescDeletedAt.Default.(func() uint32)
 	// quotaDescAppID is the schema descriptor for app_id field.
 	quotaDescAppID := quotaFields[0].Descriptor()
 	// quota.DefaultAppID holds the default value on creation for the app_id field.

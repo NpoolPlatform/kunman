@@ -36,6 +36,48 @@ func (qc *QuotaCreate) SetNillableEntID(u *uuid.UUID) *QuotaCreate {
 	return qc
 }
 
+// SetCreatedAt sets the "created_at" field.
+func (qc *QuotaCreate) SetCreatedAt(u uint32) *QuotaCreate {
+	qc.mutation.SetCreatedAt(u)
+	return qc
+}
+
+// SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
+func (qc *QuotaCreate) SetNillableCreatedAt(u *uint32) *QuotaCreate {
+	if u != nil {
+		qc.SetCreatedAt(*u)
+	}
+	return qc
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (qc *QuotaCreate) SetUpdatedAt(u uint32) *QuotaCreate {
+	qc.mutation.SetUpdatedAt(u)
+	return qc
+}
+
+// SetNillableUpdatedAt sets the "updated_at" field if the given value is not nil.
+func (qc *QuotaCreate) SetNillableUpdatedAt(u *uint32) *QuotaCreate {
+	if u != nil {
+		qc.SetUpdatedAt(*u)
+	}
+	return qc
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (qc *QuotaCreate) SetDeletedAt(u uint32) *QuotaCreate {
+	qc.mutation.SetDeletedAt(u)
+	return qc
+}
+
+// SetNillableDeletedAt sets the "deleted_at" field if the given value is not nil.
+func (qc *QuotaCreate) SetNillableDeletedAt(u *uint32) *QuotaCreate {
+	if u != nil {
+		qc.SetDeletedAt(*u)
+	}
+	return qc
+}
+
 // SetAppID sets the "app_id" field.
 func (qc *QuotaCreate) SetAppID(u uuid.UUID) *QuotaCreate {
 	qc.mutation.SetAppID(u)
@@ -151,6 +193,18 @@ func (qc *QuotaCreate) defaults() {
 		v := quota.DefaultEntID()
 		qc.mutation.SetEntID(v)
 	}
+	if _, ok := qc.mutation.CreatedAt(); !ok {
+		v := quota.DefaultCreatedAt()
+		qc.mutation.SetCreatedAt(v)
+	}
+	if _, ok := qc.mutation.UpdatedAt(); !ok {
+		v := quota.DefaultUpdatedAt()
+		qc.mutation.SetUpdatedAt(v)
+	}
+	if _, ok := qc.mutation.DeletedAt(); !ok {
+		v := quota.DefaultDeletedAt()
+		qc.mutation.SetDeletedAt(v)
+	}
 	if _, ok := qc.mutation.AppID(); !ok {
 		v := quota.DefaultAppID()
 		qc.mutation.SetAppID(v)
@@ -177,6 +231,15 @@ func (qc *QuotaCreate) defaults() {
 func (qc *QuotaCreate) check() error {
 	if _, ok := qc.mutation.EntID(); !ok {
 		return &ValidationError{Name: "ent_id", err: errors.New(`generated: missing required field "Quota.ent_id"`)}
+	}
+	if _, ok := qc.mutation.CreatedAt(); !ok {
+		return &ValidationError{Name: "created_at", err: errors.New(`generated: missing required field "Quota.created_at"`)}
+	}
+	if _, ok := qc.mutation.UpdatedAt(); !ok {
+		return &ValidationError{Name: "updated_at", err: errors.New(`generated: missing required field "Quota.updated_at"`)}
+	}
+	if _, ok := qc.mutation.DeletedAt(); !ok {
+		return &ValidationError{Name: "deleted_at", err: errors.New(`generated: missing required field "Quota.deleted_at"`)}
 	}
 	return nil
 }
@@ -214,6 +277,18 @@ func (qc *QuotaCreate) createSpec() (*Quota, *sqlgraph.CreateSpec) {
 	if value, ok := qc.mutation.EntID(); ok {
 		_spec.SetField(quota.FieldEntID, field.TypeUUID, value)
 		_node.EntID = value
+	}
+	if value, ok := qc.mutation.CreatedAt(); ok {
+		_spec.SetField(quota.FieldCreatedAt, field.TypeUint32, value)
+		_node.CreatedAt = value
+	}
+	if value, ok := qc.mutation.UpdatedAt(); ok {
+		_spec.SetField(quota.FieldUpdatedAt, field.TypeUint32, value)
+		_node.UpdatedAt = value
+	}
+	if value, ok := qc.mutation.DeletedAt(); ok {
+		_spec.SetField(quota.FieldDeletedAt, field.TypeUint32, value)
+		_node.DeletedAt = value
 	}
 	if value, ok := qc.mutation.AppID(); ok {
 		_spec.SetField(quota.FieldAppID, field.TypeUUID, value)
@@ -296,6 +371,60 @@ func (u *QuotaUpsert) SetEntID(v uuid.UUID) *QuotaUpsert {
 // UpdateEntID sets the "ent_id" field to the value that was provided on create.
 func (u *QuotaUpsert) UpdateEntID() *QuotaUpsert {
 	u.SetExcluded(quota.FieldEntID)
+	return u
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (u *QuotaUpsert) SetCreatedAt(v uint32) *QuotaUpsert {
+	u.Set(quota.FieldCreatedAt, v)
+	return u
+}
+
+// UpdateCreatedAt sets the "created_at" field to the value that was provided on create.
+func (u *QuotaUpsert) UpdateCreatedAt() *QuotaUpsert {
+	u.SetExcluded(quota.FieldCreatedAt)
+	return u
+}
+
+// AddCreatedAt adds v to the "created_at" field.
+func (u *QuotaUpsert) AddCreatedAt(v uint32) *QuotaUpsert {
+	u.Add(quota.FieldCreatedAt, v)
+	return u
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (u *QuotaUpsert) SetUpdatedAt(v uint32) *QuotaUpsert {
+	u.Set(quota.FieldUpdatedAt, v)
+	return u
+}
+
+// UpdateUpdatedAt sets the "updated_at" field to the value that was provided on create.
+func (u *QuotaUpsert) UpdateUpdatedAt() *QuotaUpsert {
+	u.SetExcluded(quota.FieldUpdatedAt)
+	return u
+}
+
+// AddUpdatedAt adds v to the "updated_at" field.
+func (u *QuotaUpsert) AddUpdatedAt(v uint32) *QuotaUpsert {
+	u.Add(quota.FieldUpdatedAt, v)
+	return u
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (u *QuotaUpsert) SetDeletedAt(v uint32) *QuotaUpsert {
+	u.Set(quota.FieldDeletedAt, v)
+	return u
+}
+
+// UpdateDeletedAt sets the "deleted_at" field to the value that was provided on create.
+func (u *QuotaUpsert) UpdateDeletedAt() *QuotaUpsert {
+	u.SetExcluded(quota.FieldDeletedAt)
+	return u
+}
+
+// AddDeletedAt adds v to the "deleted_at" field.
+func (u *QuotaUpsert) AddDeletedAt(v uint32) *QuotaUpsert {
+	u.Add(quota.FieldDeletedAt, v)
 	return u
 }
 
@@ -466,6 +595,69 @@ func (u *QuotaUpsertOne) SetEntID(v uuid.UUID) *QuotaUpsertOne {
 func (u *QuotaUpsertOne) UpdateEntID() *QuotaUpsertOne {
 	return u.Update(func(s *QuotaUpsert) {
 		s.UpdateEntID()
+	})
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (u *QuotaUpsertOne) SetCreatedAt(v uint32) *QuotaUpsertOne {
+	return u.Update(func(s *QuotaUpsert) {
+		s.SetCreatedAt(v)
+	})
+}
+
+// AddCreatedAt adds v to the "created_at" field.
+func (u *QuotaUpsertOne) AddCreatedAt(v uint32) *QuotaUpsertOne {
+	return u.Update(func(s *QuotaUpsert) {
+		s.AddCreatedAt(v)
+	})
+}
+
+// UpdateCreatedAt sets the "created_at" field to the value that was provided on create.
+func (u *QuotaUpsertOne) UpdateCreatedAt() *QuotaUpsertOne {
+	return u.Update(func(s *QuotaUpsert) {
+		s.UpdateCreatedAt()
+	})
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (u *QuotaUpsertOne) SetUpdatedAt(v uint32) *QuotaUpsertOne {
+	return u.Update(func(s *QuotaUpsert) {
+		s.SetUpdatedAt(v)
+	})
+}
+
+// AddUpdatedAt adds v to the "updated_at" field.
+func (u *QuotaUpsertOne) AddUpdatedAt(v uint32) *QuotaUpsertOne {
+	return u.Update(func(s *QuotaUpsert) {
+		s.AddUpdatedAt(v)
+	})
+}
+
+// UpdateUpdatedAt sets the "updated_at" field to the value that was provided on create.
+func (u *QuotaUpsertOne) UpdateUpdatedAt() *QuotaUpsertOne {
+	return u.Update(func(s *QuotaUpsert) {
+		s.UpdateUpdatedAt()
+	})
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (u *QuotaUpsertOne) SetDeletedAt(v uint32) *QuotaUpsertOne {
+	return u.Update(func(s *QuotaUpsert) {
+		s.SetDeletedAt(v)
+	})
+}
+
+// AddDeletedAt adds v to the "deleted_at" field.
+func (u *QuotaUpsertOne) AddDeletedAt(v uint32) *QuotaUpsertOne {
+	return u.Update(func(s *QuotaUpsert) {
+		s.AddDeletedAt(v)
+	})
+}
+
+// UpdateDeletedAt sets the "deleted_at" field to the value that was provided on create.
+func (u *QuotaUpsertOne) UpdateDeletedAt() *QuotaUpsertOne {
+	return u.Update(func(s *QuotaUpsert) {
+		s.UpdateDeletedAt()
 	})
 }
 
@@ -820,6 +1012,69 @@ func (u *QuotaUpsertBulk) SetEntID(v uuid.UUID) *QuotaUpsertBulk {
 func (u *QuotaUpsertBulk) UpdateEntID() *QuotaUpsertBulk {
 	return u.Update(func(s *QuotaUpsert) {
 		s.UpdateEntID()
+	})
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (u *QuotaUpsertBulk) SetCreatedAt(v uint32) *QuotaUpsertBulk {
+	return u.Update(func(s *QuotaUpsert) {
+		s.SetCreatedAt(v)
+	})
+}
+
+// AddCreatedAt adds v to the "created_at" field.
+func (u *QuotaUpsertBulk) AddCreatedAt(v uint32) *QuotaUpsertBulk {
+	return u.Update(func(s *QuotaUpsert) {
+		s.AddCreatedAt(v)
+	})
+}
+
+// UpdateCreatedAt sets the "created_at" field to the value that was provided on create.
+func (u *QuotaUpsertBulk) UpdateCreatedAt() *QuotaUpsertBulk {
+	return u.Update(func(s *QuotaUpsert) {
+		s.UpdateCreatedAt()
+	})
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (u *QuotaUpsertBulk) SetUpdatedAt(v uint32) *QuotaUpsertBulk {
+	return u.Update(func(s *QuotaUpsert) {
+		s.SetUpdatedAt(v)
+	})
+}
+
+// AddUpdatedAt adds v to the "updated_at" field.
+func (u *QuotaUpsertBulk) AddUpdatedAt(v uint32) *QuotaUpsertBulk {
+	return u.Update(func(s *QuotaUpsert) {
+		s.AddUpdatedAt(v)
+	})
+}
+
+// UpdateUpdatedAt sets the "updated_at" field to the value that was provided on create.
+func (u *QuotaUpsertBulk) UpdateUpdatedAt() *QuotaUpsertBulk {
+	return u.Update(func(s *QuotaUpsert) {
+		s.UpdateUpdatedAt()
+	})
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (u *QuotaUpsertBulk) SetDeletedAt(v uint32) *QuotaUpsertBulk {
+	return u.Update(func(s *QuotaUpsert) {
+		s.SetDeletedAt(v)
+	})
+}
+
+// AddDeletedAt adds v to the "deleted_at" field.
+func (u *QuotaUpsertBulk) AddDeletedAt(v uint32) *QuotaUpsertBulk {
+	return u.Update(func(s *QuotaUpsert) {
+		s.AddDeletedAt(v)
+	})
+}
+
+// UpdateDeletedAt sets the "deleted_at" field to the value that was provided on create.
+func (u *QuotaUpsertBulk) UpdateDeletedAt() *QuotaUpsertBulk {
+	return u.Update(func(s *QuotaUpsert) {
+		s.UpdateDeletedAt()
 	})
 }
 

@@ -19,6 +19,12 @@ type Quota struct {
 	ID uint32 `json:"id,omitempty"`
 	// EntID holds the value of the "ent_id" field.
 	EntID uuid.UUID `json:"ent_id,omitempty"`
+	// CreatedAt holds the value of the "created_at" field.
+	CreatedAt uint32 `json:"created_at,omitempty"`
+	// UpdatedAt holds the value of the "updated_at" field.
+	UpdatedAt uint32 `json:"updated_at,omitempty"`
+	// DeletedAt holds the value of the "deleted_at" field.
+	DeletedAt uint32 `json:"deleted_at,omitempty"`
 	// AppID holds the value of the "app_id" field.
 	AppID uuid.UUID `json:"app_id,omitempty"`
 	// UserID holds the value of the "user_id" field.
@@ -37,7 +43,7 @@ func (*Quota) scanValues(columns []string) ([]any, error) {
 	values := make([]any, len(columns))
 	for i := range columns {
 		switch columns[i] {
-		case quota.FieldID, quota.FieldQuota, quota.FieldConsumedQuota, quota.FieldExpiredAt:
+		case quota.FieldID, quota.FieldCreatedAt, quota.FieldUpdatedAt, quota.FieldDeletedAt, quota.FieldQuota, quota.FieldConsumedQuota, quota.FieldExpiredAt:
 			values[i] = new(sql.NullInt64)
 		case quota.FieldEntID, quota.FieldAppID, quota.FieldUserID:
 			values[i] = new(uuid.UUID)
@@ -67,6 +73,24 @@ func (q *Quota) assignValues(columns []string, values []any) error {
 				return fmt.Errorf("unexpected type %T for field ent_id", values[i])
 			} else if value != nil {
 				q.EntID = *value
+			}
+		case quota.FieldCreatedAt:
+			if value, ok := values[i].(*sql.NullInt64); !ok {
+				return fmt.Errorf("unexpected type %T for field created_at", values[i])
+			} else if value.Valid {
+				q.CreatedAt = uint32(value.Int64)
+			}
+		case quota.FieldUpdatedAt:
+			if value, ok := values[i].(*sql.NullInt64); !ok {
+				return fmt.Errorf("unexpected type %T for field updated_at", values[i])
+			} else if value.Valid {
+				q.UpdatedAt = uint32(value.Int64)
+			}
+		case quota.FieldDeletedAt:
+			if value, ok := values[i].(*sql.NullInt64); !ok {
+				return fmt.Errorf("unexpected type %T for field deleted_at", values[i])
+			} else if value.Valid {
+				q.DeletedAt = uint32(value.Int64)
 			}
 		case quota.FieldAppID:
 			if value, ok := values[i].(*uuid.UUID); !ok {
@@ -136,6 +160,15 @@ func (q *Quota) String() string {
 	builder.WriteString(fmt.Sprintf("id=%v, ", q.ID))
 	builder.WriteString("ent_id=")
 	builder.WriteString(fmt.Sprintf("%v", q.EntID))
+	builder.WriteString(", ")
+	builder.WriteString("created_at=")
+	builder.WriteString(fmt.Sprintf("%v", q.CreatedAt))
+	builder.WriteString(", ")
+	builder.WriteString("updated_at=")
+	builder.WriteString(fmt.Sprintf("%v", q.UpdatedAt))
+	builder.WriteString(", ")
+	builder.WriteString("deleted_at=")
+	builder.WriteString(fmt.Sprintf("%v", q.DeletedAt))
 	builder.WriteString(", ")
 	builder.WriteString("app_id=")
 	builder.WriteString(fmt.Sprintf("%v", q.AppID))

@@ -592,6 +592,12 @@ type QuotaMutation struct {
 	typ               string
 	id                *uint32
 	ent_id            *uuid.UUID
+	created_at        *uint32
+	addcreated_at     *int32
+	updated_at        *uint32
+	addupdated_at     *int32
+	deleted_at        *uint32
+	adddeleted_at     *int32
 	app_id            *uuid.UUID
 	user_id           *uuid.UUID
 	quota             *uint32
@@ -744,6 +750,174 @@ func (m *QuotaMutation) OldEntID(ctx context.Context) (v uuid.UUID, err error) {
 // ResetEntID resets all changes to the "ent_id" field.
 func (m *QuotaMutation) ResetEntID() {
 	m.ent_id = nil
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (m *QuotaMutation) SetCreatedAt(u uint32) {
+	m.created_at = &u
+	m.addcreated_at = nil
+}
+
+// CreatedAt returns the value of the "created_at" field in the mutation.
+func (m *QuotaMutation) CreatedAt() (r uint32, exists bool) {
+	v := m.created_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldCreatedAt returns the old "created_at" field's value of the Quota entity.
+// If the Quota object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *QuotaMutation) OldCreatedAt(ctx context.Context) (v uint32, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldCreatedAt is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldCreatedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldCreatedAt: %w", err)
+	}
+	return oldValue.CreatedAt, nil
+}
+
+// AddCreatedAt adds u to the "created_at" field.
+func (m *QuotaMutation) AddCreatedAt(u int32) {
+	if m.addcreated_at != nil {
+		*m.addcreated_at += u
+	} else {
+		m.addcreated_at = &u
+	}
+}
+
+// AddedCreatedAt returns the value that was added to the "created_at" field in this mutation.
+func (m *QuotaMutation) AddedCreatedAt() (r int32, exists bool) {
+	v := m.addcreated_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetCreatedAt resets all changes to the "created_at" field.
+func (m *QuotaMutation) ResetCreatedAt() {
+	m.created_at = nil
+	m.addcreated_at = nil
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (m *QuotaMutation) SetUpdatedAt(u uint32) {
+	m.updated_at = &u
+	m.addupdated_at = nil
+}
+
+// UpdatedAt returns the value of the "updated_at" field in the mutation.
+func (m *QuotaMutation) UpdatedAt() (r uint32, exists bool) {
+	v := m.updated_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldUpdatedAt returns the old "updated_at" field's value of the Quota entity.
+// If the Quota object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *QuotaMutation) OldUpdatedAt(ctx context.Context) (v uint32, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldUpdatedAt is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldUpdatedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldUpdatedAt: %w", err)
+	}
+	return oldValue.UpdatedAt, nil
+}
+
+// AddUpdatedAt adds u to the "updated_at" field.
+func (m *QuotaMutation) AddUpdatedAt(u int32) {
+	if m.addupdated_at != nil {
+		*m.addupdated_at += u
+	} else {
+		m.addupdated_at = &u
+	}
+}
+
+// AddedUpdatedAt returns the value that was added to the "updated_at" field in this mutation.
+func (m *QuotaMutation) AddedUpdatedAt() (r int32, exists bool) {
+	v := m.addupdated_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetUpdatedAt resets all changes to the "updated_at" field.
+func (m *QuotaMutation) ResetUpdatedAt() {
+	m.updated_at = nil
+	m.addupdated_at = nil
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (m *QuotaMutation) SetDeletedAt(u uint32) {
+	m.deleted_at = &u
+	m.adddeleted_at = nil
+}
+
+// DeletedAt returns the value of the "deleted_at" field in the mutation.
+func (m *QuotaMutation) DeletedAt() (r uint32, exists bool) {
+	v := m.deleted_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldDeletedAt returns the old "deleted_at" field's value of the Quota entity.
+// If the Quota object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *QuotaMutation) OldDeletedAt(ctx context.Context) (v uint32, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldDeletedAt is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldDeletedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldDeletedAt: %w", err)
+	}
+	return oldValue.DeletedAt, nil
+}
+
+// AddDeletedAt adds u to the "deleted_at" field.
+func (m *QuotaMutation) AddDeletedAt(u int32) {
+	if m.adddeleted_at != nil {
+		*m.adddeleted_at += u
+	} else {
+		m.adddeleted_at = &u
+	}
+}
+
+// AddedDeletedAt returns the value that was added to the "deleted_at" field in this mutation.
+func (m *QuotaMutation) AddedDeletedAt() (r int32, exists bool) {
+	v := m.adddeleted_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetDeletedAt resets all changes to the "deleted_at" field.
+func (m *QuotaMutation) ResetDeletedAt() {
+	m.deleted_at = nil
+	m.adddeleted_at = nil
 }
 
 // SetAppID sets the "app_id" field.
@@ -1088,9 +1262,18 @@ func (m *QuotaMutation) Type() string {
 // order to get all numeric fields that were incremented/decremented, call
 // AddedFields().
 func (m *QuotaMutation) Fields() []string {
-	fields := make([]string, 0, 6)
+	fields := make([]string, 0, 9)
 	if m.ent_id != nil {
 		fields = append(fields, quota.FieldEntID)
+	}
+	if m.created_at != nil {
+		fields = append(fields, quota.FieldCreatedAt)
+	}
+	if m.updated_at != nil {
+		fields = append(fields, quota.FieldUpdatedAt)
+	}
+	if m.deleted_at != nil {
+		fields = append(fields, quota.FieldDeletedAt)
 	}
 	if m.app_id != nil {
 		fields = append(fields, quota.FieldAppID)
@@ -1117,6 +1300,12 @@ func (m *QuotaMutation) Field(name string) (ent.Value, bool) {
 	switch name {
 	case quota.FieldEntID:
 		return m.EntID()
+	case quota.FieldCreatedAt:
+		return m.CreatedAt()
+	case quota.FieldUpdatedAt:
+		return m.UpdatedAt()
+	case quota.FieldDeletedAt:
+		return m.DeletedAt()
 	case quota.FieldAppID:
 		return m.AppID()
 	case quota.FieldUserID:
@@ -1138,6 +1327,12 @@ func (m *QuotaMutation) OldField(ctx context.Context, name string) (ent.Value, e
 	switch name {
 	case quota.FieldEntID:
 		return m.OldEntID(ctx)
+	case quota.FieldCreatedAt:
+		return m.OldCreatedAt(ctx)
+	case quota.FieldUpdatedAt:
+		return m.OldUpdatedAt(ctx)
+	case quota.FieldDeletedAt:
+		return m.OldDeletedAt(ctx)
 	case quota.FieldAppID:
 		return m.OldAppID(ctx)
 	case quota.FieldUserID:
@@ -1163,6 +1358,27 @@ func (m *QuotaMutation) SetField(name string, value ent.Value) error {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetEntID(v)
+		return nil
+	case quota.FieldCreatedAt:
+		v, ok := value.(uint32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetCreatedAt(v)
+		return nil
+	case quota.FieldUpdatedAt:
+		v, ok := value.(uint32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetUpdatedAt(v)
+		return nil
+	case quota.FieldDeletedAt:
+		v, ok := value.(uint32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetDeletedAt(v)
 		return nil
 	case quota.FieldAppID:
 		v, ok := value.(uuid.UUID)
@@ -1207,6 +1423,15 @@ func (m *QuotaMutation) SetField(name string, value ent.Value) error {
 // this mutation.
 func (m *QuotaMutation) AddedFields() []string {
 	var fields []string
+	if m.addcreated_at != nil {
+		fields = append(fields, quota.FieldCreatedAt)
+	}
+	if m.addupdated_at != nil {
+		fields = append(fields, quota.FieldUpdatedAt)
+	}
+	if m.adddeleted_at != nil {
+		fields = append(fields, quota.FieldDeletedAt)
+	}
 	if m.addquota != nil {
 		fields = append(fields, quota.FieldQuota)
 	}
@@ -1224,6 +1449,12 @@ func (m *QuotaMutation) AddedFields() []string {
 // was not set, or was not defined in the schema.
 func (m *QuotaMutation) AddedField(name string) (ent.Value, bool) {
 	switch name {
+	case quota.FieldCreatedAt:
+		return m.AddedCreatedAt()
+	case quota.FieldUpdatedAt:
+		return m.AddedUpdatedAt()
+	case quota.FieldDeletedAt:
+		return m.AddedDeletedAt()
 	case quota.FieldQuota:
 		return m.AddedQuota()
 	case quota.FieldConsumedQuota:
@@ -1239,6 +1470,27 @@ func (m *QuotaMutation) AddedField(name string) (ent.Value, bool) {
 // type.
 func (m *QuotaMutation) AddField(name string, value ent.Value) error {
 	switch name {
+	case quota.FieldCreatedAt:
+		v, ok := value.(int32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddCreatedAt(v)
+		return nil
+	case quota.FieldUpdatedAt:
+		v, ok := value.(int32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddUpdatedAt(v)
+		return nil
+	case quota.FieldDeletedAt:
+		v, ok := value.(int32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddDeletedAt(v)
+		return nil
 	case quota.FieldQuota:
 		v, ok := value.(int32)
 		if !ok {
@@ -1322,6 +1574,15 @@ func (m *QuotaMutation) ResetField(name string) error {
 	switch name {
 	case quota.FieldEntID:
 		m.ResetEntID()
+		return nil
+	case quota.FieldCreatedAt:
+		m.ResetCreatedAt()
+		return nil
+	case quota.FieldUpdatedAt:
+		m.ResetUpdatedAt()
+		return nil
+	case quota.FieldDeletedAt:
+		m.ResetDeletedAt()
 		return nil
 	case quota.FieldAppID:
 		m.ResetAppID()

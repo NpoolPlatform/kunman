@@ -88,3 +88,15 @@ func (h *Handler) CreateSubscription(ctx context.Context) error {
 		return handler.createSubscription(_ctx, tx)
 	})
 }
+
+func (h *Handler) CreateSubscriptionWithTx(ctx context.Context, tx *ent.Tx) error {
+	handler := &createHandler{
+		Handler: h,
+	}
+	if h.EntID == nil {
+		h.EntID = func() *uuid.UUID { s := uuid.New(); return &s }()
+	}
+	handler.constructSQL()
+
+	return handler.createSubscription(ctx, tx)
+}
