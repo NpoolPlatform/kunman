@@ -1,0 +1,99 @@
+syntax = "proto3";
+
+package good.gateway.subscription.v1;
+
+option go_package = "github.com/NpoolPlatform/message/good/gateway/v1/subscription";
+
+import "good/middleware/v1/subscription/subscription.proto";
+import "google/api/annotations.proto";
+import "basetypes/good/v1/enums.proto";
+
+// Service Name
+service Gateway {
+    rpc AdminCreateSubscription(AdminCreateSubscriptionRequest) returns (AdminCreateSubscriptionResponse) {
+        option (google.api.http) = {
+            post: "/v1/admin/create/subscription"
+            body: "*"
+        };
+    }
+    rpc AdminUpdateSubscription(AdminUpdateSubscriptionRequest) returns (AdminUpdateSubscriptionResponse) {
+        option (google.api.http) = {
+            post: "/v1/admin/update/subscription"
+            body: "*"
+        };
+    }
+    rpc GetSubscription(GetSubscriptionRequest) returns (GetSubscriptionResponse) {
+        option (google.api.http) = {
+            post: "/v1/get/subscription"
+            body: "*"
+        };
+    }
+    rpc GetSubscriptions(GetSubscriptionsRequest) returns (GetSubscriptionsResponse) {
+        option (google.api.http) = {
+            post: "/v1/get/subscriptions"
+            body: "*"
+        };
+    }
+    rpc AdminDeleteSubscription(AdminDeleteSubscriptionRequest) returns (AdminDeleteSubscriptionResponse) {
+        option (google.api.http) = {
+            post: "/v1/admin/delete/subscription"
+            body: "*"
+        };
+    }
+}
+
+message AdminCreateSubscriptionRequest {
+    string Name = 10;
+    basetypes.good.v1.GoodDurationType DurationDisplayType = 20;
+    optional uint32 DurationUints = 30;
+    uint32 DurationQuota = 40;
+    optional uint32 DailyBonusQuota = 50;
+    string USDPrice = 60;
+}
+
+message AdminCreateSubscriptionResponse {
+    middleware.subscription.v1.Subscription Info = 10;
+}
+
+message AdminUpdateSubscriptionRequest {
+    uint32 ID = 10;
+    string EntID = 20;
+    string GoodID = 30;
+    optional string Name = 40;
+    optional basetypes.good.v1.GoodDurationType DurationDisplayType = 50;
+    optional uint32 DurationUints = 30;
+    optional uint32 DurationQuota = 40;
+    optional uint32 DailyBonusQuota = 50;
+    optional string USDPrice = 60;
+}
+
+message AdminUpdateSubscriptionResponse {
+    middleware.subscription.v1.Subscription Info = 10;
+}
+
+message GetSubscriptionRequest {
+    string GoodID = 10;
+}
+
+message GetSubscriptionResponse {
+    middleware.subscription.v1.Subscription Info = 10;
+}
+
+message GetSubscriptionsRequest {
+    int32 Offset = 10;
+    int32 Limit = 20;
+}
+
+message GetSubscriptionsResponse {
+    repeated middleware.subscription.v1.Subscription Infos = 10;
+}
+
+message AdminDeleteSubscriptionRequest {
+    uint32 ID = 10;
+    string EntID = 20;
+    string GoodID = 30;
+}
+
+message AdminDeleteSubscriptionResponse {
+    middleware.subscription.v1.Subscription Info = 10;
+}

@@ -14,3 +14,8 @@ enum UsageType {
   FilePageCount = 50;
 }
 
+enum CapacityKey {
+  DefaultCapacityKey = 0;
+
+  CapacityQPS = 10;
+}

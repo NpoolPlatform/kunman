@@ -1,0 +1,99 @@
+syntax = "proto3";
+
+package good.gateway.subscription.oneshot.v1;
+
+option go_package = "github.com/NpoolPlatform/message/good/gateway/v1/subscription/oneshot";
+
+import "good/middleware/v1/subscription/oneshot/oneshot.proto";
+import "google/api/annotations.proto";
+import "basetypes/good/v1/enums.proto";
+
+// Service Name
+service Gateway {
+    rpc AdminCreateOneShot(AdminCreateOneShotRequest) returns (AdminCreateOneShotResponse) {
+        option (google.api.http) = {
+            post: "/v1/admin/create/oneshotsubscription"
+            body: "*"
+        };
+    }
+    rpc AdminUpdateOneShot(AdminUpdateOneShotRequest) returns (AdminUpdateOneShotResponse) {
+        option (google.api.http) = {
+            post: "/v1/admin/update/oneshotsubscription"
+            body: "*"
+        };
+    }
+    rpc GetOneShot(GetOneShotRequest) returns (GetOneShotResponse) {
+        option (google.api.http) = {
+            post: "/v1/get/oneshotsubscription"
+            body: "*"
+        };
+    }
+    rpc GetOneShots(GetOneShotsRequest) returns (GetOneShotsResponse) {
+        option (google.api.http) = {
+            post: "/v1/get/oneshotsubscriptions"
+            body: "*"
+        };
+    }
+    rpc AdminDeleteOneShot(AdminDeleteOneShotRequest) returns (AdminDeleteOneShotResponse) {
+        option (google.api.http) = {
+            post: "/v1/admin/delete/oneshotsubscription"
+            body: "*"
+        };
+    }
+}
+
+message AdminCreateOneShotRequest {
+    string Name = 10;
+    basetypes.good.v1.GoodDurationType DurationDisplayType = 20;
+    optional uint32 DurationUints = 30;
+    uint32 DurationQuota = 40;
+    optional uint32 DailyBonusQuota = 50;
+    string USDPrice = 60;
+}
+
+message AdminCreateOneShotResponse {
+    middleware.subscription.v1.OneShot Info = 10;
+}
+
+message AdminUpdateOneShotRequest {
+    uint32 ID = 10;
+    string EntID = 20;
+    string GoodID = 30;
+    optional string Name = 40;
+    optional basetypes.good.v1.GoodDurationType DurationDisplayType = 50;
+    optional uint32 DurationUints = 30;
+    optional uint32 DurationQuota = 40;
+    optional uint32 DailyBonusQuota = 50;
+    optional string USDPrice = 60;
+}
+
+message AdminUpdateOneShotResponse {
+    middleware.subscription.v1.OneShot Info = 10;
+}
+
+message GetOneShotRequest {
+    string GoodID = 10;
+}
+
+message GetOneShotResponse {
+    middleware.subscription.v1.OneShot Info = 10;
+}
+
+message GetOneShotsRequest {
+    int32 Offset = 10;
+    int32 Limit = 20;
+}
+
+message GetOneShotsResponse {
+    repeated middleware.subscription.v1.OneShot Infos = 10;
+}
+
+message AdminDeleteOneShotRequest {
+    uint32 ID = 10;
+    string EntID = 20;
+    string GoodID = 30;
+}
+
+message AdminDeleteOneShotResponse {
+    middleware.subscription.v1.OneShot Info = 10;
+}
