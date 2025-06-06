@@ -495,6 +495,30 @@ func (f PaymentContractMutationRuleFunc) EvalMutation(ctx context.Context, m gen
 	return Denyf("generated/privacy: unexpected mutation type %T, expect *generated.PaymentContractMutation", m)
 }
 
+// The PaymentFiatQueryRuleFunc type is an adapter to allow the use of ordinary
+// functions as a query rule.
+type PaymentFiatQueryRuleFunc func(context.Context, *generated.PaymentFiatQuery) error
+
+// EvalQuery return f(ctx, q).
+func (f PaymentFiatQueryRuleFunc) EvalQuery(ctx context.Context, q generated.Query) error {
+	if q, ok := q.(*generated.PaymentFiatQuery); ok {
+		return f(ctx, q)
+	}
+	return Denyf("generated/privacy: unexpected query type %T, expect *generated.PaymentFiatQuery", q)
+}
+
+// The PaymentFiatMutationRuleFunc type is an adapter to allow the use of ordinary
+// functions as a mutation rule.
+type PaymentFiatMutationRuleFunc func(context.Context, *generated.PaymentFiatMutation) error
+
+// EvalMutation calls f(ctx, m).
+func (f PaymentFiatMutationRuleFunc) EvalMutation(ctx context.Context, m generated.Mutation) error {
+	if m, ok := m.(*generated.PaymentFiatMutation); ok {
+		return f(ctx, m)
+	}
+	return Denyf("generated/privacy: unexpected mutation type %T, expect *generated.PaymentFiatMutation", m)
+}
+
 // The PaymentTransferQueryRuleFunc type is an adapter to allow the use of ordinary
 // functions as a query rule.
 type PaymentTransferQueryRuleFunc func(context.Context, *generated.PaymentTransferQuery) error
@@ -591,6 +615,54 @@ func (f PowerRentalStateMutationRuleFunc) EvalMutation(ctx context.Context, m ge
 	return Denyf("generated/privacy: unexpected mutation type %T, expect *generated.PowerRentalStateMutation", m)
 }
 
+// The SubscriptionOrderQueryRuleFunc type is an adapter to allow the use of ordinary
+// functions as a query rule.
+type SubscriptionOrderQueryRuleFunc func(context.Context, *generated.SubscriptionOrderQuery) error
+
+// EvalQuery return f(ctx, q).
+func (f SubscriptionOrderQueryRuleFunc) EvalQuery(ctx context.Context, q generated.Query) error {
+	if q, ok := q.(*generated.SubscriptionOrderQuery); ok {
+		return f(ctx, q)
+	}
+	return Denyf("generated/privacy: unexpected query type %T, expect *generated.SubscriptionOrderQuery", q)
+}
+
+// The SubscriptionOrderMutationRuleFunc type is an adapter to allow the use of ordinary
+// functions as a mutation rule.
+type SubscriptionOrderMutationRuleFunc func(context.Context, *generated.SubscriptionOrderMutation) error
+
+// EvalMutation calls f(ctx, m).
+func (f SubscriptionOrderMutationRuleFunc) EvalMutation(ctx context.Context, m generated.Mutation) error {
+	if m, ok := m.(*generated.SubscriptionOrderMutation); ok {
+		return f(ctx, m)
+	}
+	return Denyf("generated/privacy: unexpected mutation type %T, expect *generated.SubscriptionOrderMutation", m)
+}
+
+// The SubscriptionOrderStateQueryRuleFunc type is an adapter to allow the use of ordinary
+// functions as a query rule.
+type SubscriptionOrderStateQueryRuleFunc func(context.Context, *generated.SubscriptionOrderStateQuery) error
+
+// EvalQuery return f(ctx, q).
+func (f SubscriptionOrderStateQueryRuleFunc) EvalQuery(ctx context.Context, q generated.Query) error {
+	if q, ok := q.(*generated.SubscriptionOrderStateQuery); ok {
+		return f(ctx, q)
+	}
+	return Denyf("generated/privacy: unexpected query type %T, expect *generated.SubscriptionOrderStateQuery", q)
+}
+
+// The SubscriptionOrderStateMutationRuleFunc type is an adapter to allow the use of ordinary
+// functions as a mutation rule.
+type SubscriptionOrderStateMutationRuleFunc func(context.Context, *generated.SubscriptionOrderStateMutation) error
+
+// EvalMutation calls f(ctx, m).
+func (f SubscriptionOrderStateMutationRuleFunc) EvalMutation(ctx context.Context, m generated.Mutation) error {
+	if m, ok := m.(*generated.SubscriptionOrderStateMutation); ok {
+		return f(ctx, m)
+	}
+	return Denyf("generated/privacy: unexpected mutation type %T, expect *generated.SubscriptionOrderStateMutation", m)
+}
+
 type (
 	// Filter is the interface that wraps the Where function
 	// for filtering nodes in queries and mutations.
@@ -658,6 +730,8 @@ func queryFilter(q generated.Query) (Filter, error) {
 		return q.Filter(), nil
 	case *generated.PaymentContractQuery:
 		return q.Filter(), nil
+	case *generated.PaymentFiatQuery:
+		return q.Filter(), nil
 	case *generated.PaymentTransferQuery:
 		return q.Filter(), nil
 	case *generated.PoolOrderUserQuery:
@@ -665,6 +739,10 @@ func queryFilter(q generated.Query) (Filter, error) {
 	case *generated.PowerRentalQuery:
 		return q.Filter(), nil
 	case *generated.PowerRentalStateQuery:
+		return q.Filter(), nil
+	case *generated.SubscriptionOrderQuery:
+		return q.Filter(), nil
+	case *generated.SubscriptionOrderStateQuery:
 		return q.Filter(), nil
 	default:
 		return nil, Denyf("generated/privacy: unexpected query type %T for query filter", q)
@@ -705,6 +783,8 @@ func mutationFilter(m generated.Mutation) (Filter, error) {
 		return m.Filter(), nil
 	case *generated.PaymentContractMutation:
 		return m.Filter(), nil
+	case *generated.PaymentFiatMutation:
+		return m.Filter(), nil
 	case *generated.PaymentTransferMutation:
 		return m.Filter(), nil
 	case *generated.PoolOrderUserMutation:
@@ -712,6 +792,10 @@ func mutationFilter(m generated.Mutation) (Filter, error) {
 	case *generated.PowerRentalMutation:
 		return m.Filter(), nil
 	case *generated.PowerRentalStateMutation:
+		return m.Filter(), nil
+	case *generated.SubscriptionOrderMutation:
+		return m.Filter(), nil
+	case *generated.SubscriptionOrderStateMutation:
 		return m.Filter(), nil
 	default:
 		return nil, Denyf("generated/privacy: unexpected mutation type %T for mutation filter", m)

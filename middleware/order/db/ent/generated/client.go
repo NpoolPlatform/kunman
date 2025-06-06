@@ -30,10 +30,13 @@ import (
 	"github.com/NpoolPlatform/kunman/middleware/order/db/ent/generated/paymentbalancelock"
 	"github.com/NpoolPlatform/kunman/middleware/order/db/ent/generated/paymentbase"
 	"github.com/NpoolPlatform/kunman/middleware/order/db/ent/generated/paymentcontract"
+	"github.com/NpoolPlatform/kunman/middleware/order/db/ent/generated/paymentfiat"
 	"github.com/NpoolPlatform/kunman/middleware/order/db/ent/generated/paymenttransfer"
 	"github.com/NpoolPlatform/kunman/middleware/order/db/ent/generated/poolorderuser"
 	"github.com/NpoolPlatform/kunman/middleware/order/db/ent/generated/powerrental"
 	"github.com/NpoolPlatform/kunman/middleware/order/db/ent/generated/powerrentalstate"
+	"github.com/NpoolPlatform/kunman/middleware/order/db/ent/generated/subscriptionorder"
+	"github.com/NpoolPlatform/kunman/middleware/order/db/ent/generated/subscriptionorderstate"
 
 	stdsql "database/sql"
 )
@@ -75,6 +78,8 @@ type Client struct {
 	PaymentBase *PaymentBaseClient
 	// PaymentContract is the client for interacting with the PaymentContract builders.
 	PaymentContract *PaymentContractClient
+	// PaymentFiat is the client for interacting with the PaymentFiat builders.
+	PaymentFiat *PaymentFiatClient
 	// PaymentTransfer is the client for interacting with the PaymentTransfer builders.
 	PaymentTransfer *PaymentTransferClient
 	// PoolOrderUser is the client for interacting with the PoolOrderUser builders.
@@ -83,6 +88,10 @@ type Client struct {
 	PowerRental *PowerRentalClient
 	// PowerRentalState is the client for interacting with the PowerRentalState builders.
 	PowerRentalState *PowerRentalStateClient
+	// SubscriptionOrder is the client for interacting with the SubscriptionOrder builders.
+	SubscriptionOrder *SubscriptionOrderClient
+	// SubscriptionOrderState is the client for interacting with the SubscriptionOrderState builders.
+	SubscriptionOrderState *SubscriptionOrderStateClient
 }
 
 // NewClient creates a new client configured with the given options.
@@ -110,10 +119,13 @@ func (c *Client) init() {
 	c.PaymentBalanceLock = NewPaymentBalanceLockClient(c.config)
 	c.PaymentBase = NewPaymentBaseClient(c.config)
 	c.PaymentContract = NewPaymentContractClient(c.config)
+	c.PaymentFiat = NewPaymentFiatClient(c.config)
 	c.PaymentTransfer = NewPaymentTransferClient(c.config)
 	c.PoolOrderUser = NewPoolOrderUserClient(c.config)
 	c.PowerRental = NewPowerRentalClient(c.config)
 	c.PowerRentalState = NewPowerRentalStateClient(c.config)
+	c.SubscriptionOrder = NewSubscriptionOrderClient(c.config)
+	c.SubscriptionOrderState = NewSubscriptionOrderStateClient(c.config)
 }
 
 type (
@@ -204,28 +216,31 @@ func (c *Client) Tx(ctx context.Context) (*Tx, error) {
 	cfg := c.config
 	cfg.driver = tx
 	return &Tx{
-		ctx:                ctx,
-		config:             cfg,
-		AppConfig:          NewAppConfigClient(cfg),
-		Compensate:         NewCompensateClient(cfg),
-		FeeOrder:           NewFeeOrderClient(cfg),
-		FeeOrderState:      NewFeeOrderStateClient(cfg),
-		Order:              NewOrderClient(cfg),
-		OrderBase:          NewOrderBaseClient(cfg),
-		OrderCoupon:        NewOrderCouponClient(cfg),
-		OrderLock:          NewOrderLockClient(cfg),
-		OrderState:         NewOrderStateClient(cfg),
-		OrderStateBase:     NewOrderStateBaseClient(cfg),
-		OutOfGas:           NewOutOfGasClient(cfg),
-		Payment:            NewPaymentClient(cfg),
-		PaymentBalance:     NewPaymentBalanceClient(cfg),
-		PaymentBalanceLock: NewPaymentBalanceLockClient(cfg),
-		PaymentBase:        NewPaymentBaseClient(cfg),
-		PaymentContract:    NewPaymentContractClient(cfg),
-		PaymentTransfer:    NewPaymentTransferClient(cfg),
-		PoolOrderUser:      NewPoolOrderUserClient(cfg),
-		PowerRental:        NewPowerRentalClient(cfg),
-		PowerRentalState:   NewPowerRentalStateClient(cfg),
+		ctx:                    ctx,
+		config:                 cfg,
+		AppConfig:              NewAppConfigClient(cfg),
+		Compensate:             NewCompensateClient(cfg),
+		FeeOrder:               NewFeeOrderClient(cfg),
+		FeeOrderState:          NewFeeOrderStateClient(cfg),
+		Order:                  NewOrderClient(cfg),
+		OrderBase:              NewOrderBaseClient(cfg),
+		OrderCoupon:            NewOrderCouponClient(cfg),
+		OrderLock:              NewOrderLockClient(cfg),
+		OrderState:             NewOrderStateClient(cfg),
+		OrderStateBase:         NewOrderStateBaseClient(cfg),
+		OutOfGas:               NewOutOfGasClient(cfg),
+		Payment:                NewPaymentClient(cfg),
+		PaymentBalance:         NewPaymentBalanceClient(cfg),
+		PaymentBalanceLock:     NewPaymentBalanceLockClient(cfg),
+		PaymentBase:            NewPaymentBaseClient(cfg),
+		PaymentContract:        NewPaymentContractClient(cfg),
+		PaymentFiat:            NewPaymentFiatClient(cfg),
+		PaymentTransfer:        NewPaymentTransferClient(cfg),
+		PoolOrderUser:          NewPoolOrderUserClient(cfg),
+		PowerRental:            NewPowerRentalClient(cfg),
+		PowerRentalState:       NewPowerRentalStateClient(cfg),
+		SubscriptionOrder:      NewSubscriptionOrderClient(cfg),
+		SubscriptionOrderState: NewSubscriptionOrderStateClient(cfg),
 	}, nil
 }
 
@@ -243,28 +258,31 @@ func (c *Client) BeginTx(ctx context.Context, opts *sql.TxOptions) (*Tx, error) 
 	cfg := c.config
 	cfg.driver = &txDriver{tx: tx, drv: c.driver}
 	return &Tx{
-		ctx:                ctx,
-		config:             cfg,
-		AppConfig:          NewAppConfigClient(cfg),
-		Compensate:         NewCompensateClient(cfg),
-		FeeOrder:           NewFeeOrderClient(cfg),
-		FeeOrderState:      NewFeeOrderStateClient(cfg),
-		Order:              NewOrderClient(cfg),
-		OrderBase:          NewOrderBaseClient(cfg),
-		OrderCoupon:        NewOrderCouponClient(cfg),
-		OrderLock:          NewOrderLockClient(cfg),
-		OrderState:         NewOrderStateClient(cfg),
-		OrderStateBase:     NewOrderStateBaseClient(cfg),
-		OutOfGas:           NewOutOfGasClient(cfg),
-		Payment:            NewPaymentClient(cfg),
-		PaymentBalance:     NewPaymentBalanceClient(cfg),
-		PaymentBalanceLock: NewPaymentBalanceLockClient(cfg),
-		PaymentBase:        NewPaymentBaseClient(cfg),
-		PaymentContract:    NewPaymentContractClient(cfg),
-		PaymentTransfer:    NewPaymentTransferClient(cfg),
-		PoolOrderUser:      NewPoolOrderUserClient(cfg),
-		PowerRental:        NewPowerRentalClient(cfg),
-		PowerRentalState:   NewPowerRentalStateClient(cfg),
+		ctx:                    ctx,
+		config:                 cfg,
+		AppConfig:              NewAppConfigClient(cfg),
+		Compensate:             NewCompensateClient(cfg),
+		FeeOrder:               NewFeeOrderClient(cfg),
+		FeeOrderState:          NewFeeOrderStateClient(cfg),
+		Order:                  NewOrderClient(cfg),
+		OrderBase:              NewOrderBaseClient(cfg),
+		OrderCoupon:            NewOrderCouponClient(cfg),
+		OrderLock:              NewOrderLockClient(cfg),
+		OrderState:             NewOrderStateClient(cfg),
+		OrderStateBase:         NewOrderStateBaseClient(cfg),
+		OutOfGas:               NewOutOfGasClient(cfg),
+		Payment:                NewPaymentClient(cfg),
+		PaymentBalance:         NewPaymentBalanceClient(cfg),
+		PaymentBalanceLock:     NewPaymentBalanceLockClient(cfg),
+		PaymentBase:            NewPaymentBaseClient(cfg),
+		PaymentContract:        NewPaymentContractClient(cfg),
+		PaymentFiat:            NewPaymentFiatClient(cfg),
+		PaymentTransfer:        NewPaymentTransferClient(cfg),
+		PoolOrderUser:          NewPoolOrderUserClient(cfg),
+		PowerRental:            NewPowerRentalClient(cfg),
+		PowerRentalState:       NewPowerRentalStateClient(cfg),
+		SubscriptionOrder:      NewSubscriptionOrderClient(cfg),
+		SubscriptionOrderState: NewSubscriptionOrderStateClient(cfg),
 	}, nil
 }
 
@@ -297,8 +315,9 @@ func (c *Client) Use(hooks ...Hook) {
 		c.AppConfig, c.Compensate, c.FeeOrder, c.FeeOrderState, c.Order, c.OrderBase,
 		c.OrderCoupon, c.OrderLock, c.OrderState, c.OrderStateBase, c.OutOfGas,
 		c.Payment, c.PaymentBalance, c.PaymentBalanceLock, c.PaymentBase,
-		c.PaymentContract, c.PaymentTransfer, c.PoolOrderUser, c.PowerRental,
-		c.PowerRentalState,
+		c.PaymentContract, c.PaymentFiat, c.PaymentTransfer, c.PoolOrderUser,
+		c.PowerRental, c.PowerRentalState, c.SubscriptionOrder,
+		c.SubscriptionOrderState,
 	} {
 		n.Use(hooks...)
 	}
@@ -311,8 +330,9 @@ func (c *Client) Intercept(interceptors ...Interceptor) {
 		c.AppConfig, c.Compensate, c.FeeOrder, c.FeeOrderState, c.Order, c.OrderBase,
 		c.OrderCoupon, c.OrderLock, c.OrderState, c.OrderStateBase, c.OutOfGas,
 		c.Payment, c.PaymentBalance, c.PaymentBalanceLock, c.PaymentBase,
-		c.PaymentContract, c.PaymentTransfer, c.PoolOrderUser, c.PowerRental,
-		c.PowerRentalState,
+		c.PaymentContract, c.PaymentFiat, c.PaymentTransfer, c.PoolOrderUser,
+		c.PowerRental, c.PowerRentalState, c.SubscriptionOrder,
+		c.SubscriptionOrderState,
 	} {
 		n.Intercept(interceptors...)
 	}
@@ -353,6 +373,8 @@ func (c *Client) Mutate(ctx context.Context, m Mutation) (Value, error) {
 		return c.PaymentBase.mutate(ctx, m)
 	case *PaymentContractMutation:
 		return c.PaymentContract.mutate(ctx, m)
+	case *PaymentFiatMutation:
+		return c.PaymentFiat.mutate(ctx, m)
 	case *PaymentTransferMutation:
 		return c.PaymentTransfer.mutate(ctx, m)
 	case *PoolOrderUserMutation:
@@ -361,6 +383,10 @@ func (c *Client) Mutate(ctx context.Context, m Mutation) (Value, error) {
 		return c.PowerRental.mutate(ctx, m)
 	case *PowerRentalStateMutation:
 		return c.PowerRentalState.mutate(ctx, m)
+	case *SubscriptionOrderMutation:
+		return c.SubscriptionOrder.mutate(ctx, m)
+	case *SubscriptionOrderStateMutation:
+		return c.SubscriptionOrderState.mutate(ctx, m)
 	default:
 		return nil, fmt.Errorf("generated: unknown mutation type %T", m)
 	}
@@ -2494,6 +2520,139 @@ func (c *PaymentContractClient) mutate(ctx context.Context, m *PaymentContractMu
 	}
 }
 
+// PaymentFiatClient is a client for the PaymentFiat schema.
+type PaymentFiatClient struct {
+	config
+}
+
+// NewPaymentFiatClient returns a client for the PaymentFiat from the given config.
+func NewPaymentFiatClient(c config) *PaymentFiatClient {
+	return &PaymentFiatClient{config: c}
+}
+
+// Use adds a list of mutation hooks to the hooks stack.
+// A call to `Use(f, g, h)` equals to `paymentfiat.Hooks(f(g(h())))`.
+func (c *PaymentFiatClient) Use(hooks ...Hook) {
+	c.hooks.PaymentFiat = append(c.hooks.PaymentFiat, hooks...)
+}
+
+// Intercept adds a list of query interceptors to the interceptors stack.
+// A call to `Intercept(f, g, h)` equals to `paymentfiat.Intercept(f(g(h())))`.
+func (c *PaymentFiatClient) Intercept(interceptors ...Interceptor) {
+	c.inters.PaymentFiat = append(c.inters.PaymentFiat, interceptors...)
+}
+
+// Create returns a builder for creating a PaymentFiat entity.
+func (c *PaymentFiatClient) Create() *PaymentFiatCreate {
+	mutation := newPaymentFiatMutation(c.config, OpCreate)
+	return &PaymentFiatCreate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// CreateBulk returns a builder for creating a bulk of PaymentFiat entities.
+func (c *PaymentFiatClient) CreateBulk(builders ...*PaymentFiatCreate) *PaymentFiatCreateBulk {
+	return &PaymentFiatCreateBulk{config: c.config, builders: builders}
+}
+
+// MapCreateBulk creates a bulk creation builder from the given slice. For each item in the slice, the function creates
+// a builder and applies setFunc on it.
+func (c *PaymentFiatClient) MapCreateBulk(slice any, setFunc func(*PaymentFiatCreate, int)) *PaymentFiatCreateBulk {
+	rv := reflect.ValueOf(slice)
+	if rv.Kind() != reflect.Slice {
+		return &PaymentFiatCreateBulk{err: fmt.Errorf("calling to PaymentFiatClient.MapCreateBulk with wrong type %T, need slice", slice)}
+	}
+	builders := make([]*PaymentFiatCreate, rv.Len())
+	for i := 0; i < rv.Len(); i++ {
+		builders[i] = c.Create()
+		setFunc(builders[i], i)
+	}
+	return &PaymentFiatCreateBulk{config: c.config, builders: builders}
+}
+
+// Update returns an update builder for PaymentFiat.
+func (c *PaymentFiatClient) Update() *PaymentFiatUpdate {
+	mutation := newPaymentFiatMutation(c.config, OpUpdate)
+	return &PaymentFiatUpdate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOne returns an update builder for the given entity.
+func (c *PaymentFiatClient) UpdateOne(pf *PaymentFiat) *PaymentFiatUpdateOne {
+	mutation := newPaymentFiatMutation(c.config, OpUpdateOne, withPaymentFiat(pf))
+	return &PaymentFiatUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOneID returns an update builder for the given id.
+func (c *PaymentFiatClient) UpdateOneID(id uint32) *PaymentFiatUpdateOne {
+	mutation := newPaymentFiatMutation(c.config, OpUpdateOne, withPaymentFiatID(id))
+	return &PaymentFiatUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// Delete returns a delete builder for PaymentFiat.
+func (c *PaymentFiatClient) Delete() *PaymentFiatDelete {
+	mutation := newPaymentFiatMutation(c.config, OpDelete)
+	return &PaymentFiatDelete{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// DeleteOne returns a builder for deleting the given entity.
+func (c *PaymentFiatClient) DeleteOne(pf *PaymentFiat) *PaymentFiatDeleteOne {
+	return c.DeleteOneID(pf.ID)
+}
+
+// DeleteOneID returns a builder for deleting the given entity by its id.
+func (c *PaymentFiatClient) DeleteOneID(id uint32) *PaymentFiatDeleteOne {
+	builder := c.Delete().Where(paymentfiat.ID(id))
+	builder.mutation.id = &id
+	builder.mutation.op = OpDeleteOne
+	return &PaymentFiatDeleteOne{builder}
+}
+
+// Query returns a query builder for PaymentFiat.
+func (c *PaymentFiatClient) Query() *PaymentFiatQuery {
+	return &PaymentFiatQuery{
+		config: c.config,
+		ctx:    &QueryContext{Type: TypePaymentFiat},
+		inters: c.Interceptors(),
+	}
+}
+
+// Get returns a PaymentFiat entity by its id.
+func (c *PaymentFiatClient) Get(ctx context.Context, id uint32) (*PaymentFiat, error) {
+	return c.Query().Where(paymentfiat.ID(id)).Only(ctx)
+}
+
+// GetX is like Get, but panics if an error occurs.
+func (c *PaymentFiatClient) GetX(ctx context.Context, id uint32) *PaymentFiat {
+	obj, err := c.Get(ctx, id)
+	if err != nil {
+		panic(err)
+	}
+	return obj
+}
+
+// Hooks returns the client hooks.
+func (c *PaymentFiatClient) Hooks() []Hook {
+	return c.hooks.PaymentFiat
+}
+
+// Interceptors returns the client interceptors.
+func (c *PaymentFiatClient) Interceptors() []Interceptor {
+	return c.inters.PaymentFiat
+}
+
+func (c *PaymentFiatClient) mutate(ctx context.Context, m *PaymentFiatMutation) (Value, error) {
+	switch m.Op() {
+	case OpCreate:
+		return (&PaymentFiatCreate{config: c.config, hooks: c.Hooks(), mutation: m}).Save(ctx)
+	case OpUpdate:
+		return (&PaymentFiatUpdate{config: c.config, hooks: c.Hooks(), mutation: m}).Save(ctx)
+	case OpUpdateOne:
+		return (&PaymentFiatUpdateOne{config: c.config, hooks: c.Hooks(), mutation: m}).Save(ctx)
+	case OpDelete, OpDeleteOne:
+		return (&PaymentFiatDelete{config: c.config, hooks: c.Hooks(), mutation: m}).Exec(ctx)
+	default:
+		return nil, fmt.Errorf("generated: unknown PaymentFiat mutation op: %q", m.Op())
+	}
+}
+
 // PaymentTransferClient is a client for the PaymentTransfer schema.
 type PaymentTransferClient struct {
 	config
@@ -3026,19 +3185,287 @@ func (c *PowerRentalStateClient) mutate(ctx context.Context, m *PowerRentalState
 	}
 }
 
+// SubscriptionOrderClient is a client for the SubscriptionOrder schema.
+type SubscriptionOrderClient struct {
+	config
+}
+
+// NewSubscriptionOrderClient returns a client for the SubscriptionOrder from the given config.
+func NewSubscriptionOrderClient(c config) *SubscriptionOrderClient {
+	return &SubscriptionOrderClient{config: c}
+}
+
+// Use adds a list of mutation hooks to the hooks stack.
+// A call to `Use(f, g, h)` equals to `subscriptionorder.Hooks(f(g(h())))`.
+func (c *SubscriptionOrderClient) Use(hooks ...Hook) {
+	c.hooks.SubscriptionOrder = append(c.hooks.SubscriptionOrder, hooks...)
+}
+
+// Intercept adds a list of query interceptors to the interceptors stack.
+// A call to `Intercept(f, g, h)` equals to `subscriptionorder.Intercept(f(g(h())))`.
+func (c *SubscriptionOrderClient) Intercept(interceptors ...Interceptor) {
+	c.inters.SubscriptionOrder = append(c.inters.SubscriptionOrder, interceptors...)
+}
+
+// Create returns a builder for creating a SubscriptionOrder entity.
+func (c *SubscriptionOrderClient) Create() *SubscriptionOrderCreate {
+	mutation := newSubscriptionOrderMutation(c.config, OpCreate)
+	return &SubscriptionOrderCreate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// CreateBulk returns a builder for creating a bulk of SubscriptionOrder entities.
+func (c *SubscriptionOrderClient) CreateBulk(builders ...*SubscriptionOrderCreate) *SubscriptionOrderCreateBulk {
+	return &SubscriptionOrderCreateBulk{config: c.config, builders: builders}
+}
+
+// MapCreateBulk creates a bulk creation builder from the given slice. For each item in the slice, the function creates
+// a builder and applies setFunc on it.
+func (c *SubscriptionOrderClient) MapCreateBulk(slice any, setFunc func(*SubscriptionOrderCreate, int)) *SubscriptionOrderCreateBulk {
+	rv := reflect.ValueOf(slice)
+	if rv.Kind() != reflect.Slice {
+		return &SubscriptionOrderCreateBulk{err: fmt.Errorf("calling to SubscriptionOrderClient.MapCreateBulk with wrong type %T, need slice", slice)}
+	}
+	builders := make([]*SubscriptionOrderCreate, rv.Len())
+	for i := 0; i < rv.Len(); i++ {
+		builders[i] = c.Create()
+		setFunc(builders[i], i)
+	}
+	return &SubscriptionOrderCreateBulk{config: c.config, builders: builders}
+}
+
+// Update returns an update builder for SubscriptionOrder.
+func (c *SubscriptionOrderClient) Update() *SubscriptionOrderUpdate {
+	mutation := newSubscriptionOrderMutation(c.config, OpUpdate)
+	return &SubscriptionOrderUpdate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOne returns an update builder for the given entity.
+func (c *SubscriptionOrderClient) UpdateOne(so *SubscriptionOrder) *SubscriptionOrderUpdateOne {
+	mutation := newSubscriptionOrderMutation(c.config, OpUpdateOne, withSubscriptionOrder(so))
+	return &SubscriptionOrderUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOneID returns an update builder for the given id.
+func (c *SubscriptionOrderClient) UpdateOneID(id uint32) *SubscriptionOrderUpdateOne {
+	mutation := newSubscriptionOrderMutation(c.config, OpUpdateOne, withSubscriptionOrderID(id))
+	return &SubscriptionOrderUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// Delete returns a delete builder for SubscriptionOrder.
+func (c *SubscriptionOrderClient) Delete() *SubscriptionOrderDelete {
+	mutation := newSubscriptionOrderMutation(c.config, OpDelete)
+	return &SubscriptionOrderDelete{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// DeleteOne returns a builder for deleting the given entity.
+func (c *SubscriptionOrderClient) DeleteOne(so *SubscriptionOrder) *SubscriptionOrderDeleteOne {
+	return c.DeleteOneID(so.ID)
+}
+
+// DeleteOneID returns a builder for deleting the given entity by its id.
+func (c *SubscriptionOrderClient) DeleteOneID(id uint32) *SubscriptionOrderDeleteOne {
+	builder := c.Delete().Where(subscriptionorder.ID(id))
+	builder.mutation.id = &id
+	builder.mutation.op = OpDeleteOne
+	return &SubscriptionOrderDeleteOne{builder}
+}
+
+// Query returns a query builder for SubscriptionOrder.
+func (c *SubscriptionOrderClient) Query() *SubscriptionOrderQuery {
+	return &SubscriptionOrderQuery{
+		config: c.config,
+		ctx:    &QueryContext{Type: TypeSubscriptionOrder},
+		inters: c.Interceptors(),
+	}
+}
+
+// Get returns a SubscriptionOrder entity by its id.
+func (c *SubscriptionOrderClient) Get(ctx context.Context, id uint32) (*SubscriptionOrder, error) {
+	return c.Query().Where(subscriptionorder.ID(id)).Only(ctx)
+}
+
+// GetX is like Get, but panics if an error occurs.
+func (c *SubscriptionOrderClient) GetX(ctx context.Context, id uint32) *SubscriptionOrder {
+	obj, err := c.Get(ctx, id)
+	if err != nil {
+		panic(err)
+	}
+	return obj
+}
+
+// Hooks returns the client hooks.
+func (c *SubscriptionOrderClient) Hooks() []Hook {
+	return c.hooks.SubscriptionOrder
+}
+
+// Interceptors returns the client interceptors.
+func (c *SubscriptionOrderClient) Interceptors() []Interceptor {
+	return c.inters.SubscriptionOrder
+}
+
+func (c *SubscriptionOrderClient) mutate(ctx context.Context, m *SubscriptionOrderMutation) (Value, error) {
+	switch m.Op() {
+	case OpCreate:
+		return (&SubscriptionOrderCreate{config: c.config, hooks: c.Hooks(), mutation: m}).Save(ctx)
+	case OpUpdate:
+		return (&SubscriptionOrderUpdate{config: c.config, hooks: c.Hooks(), mutation: m}).Save(ctx)
+	case OpUpdateOne:
+		return (&SubscriptionOrderUpdateOne{config: c.config, hooks: c.Hooks(), mutation: m}).Save(ctx)
+	case OpDelete, OpDeleteOne:
+		return (&SubscriptionOrderDelete{config: c.config, hooks: c.Hooks(), mutation: m}).Exec(ctx)
+	default:
+		return nil, fmt.Errorf("generated: unknown SubscriptionOrder mutation op: %q", m.Op())
+	}
+}
+
+// SubscriptionOrderStateClient is a client for the SubscriptionOrderState schema.
+type SubscriptionOrderStateClient struct {
+	config
+}
+
+// NewSubscriptionOrderStateClient returns a client for the SubscriptionOrderState from the given config.
+func NewSubscriptionOrderStateClient(c config) *SubscriptionOrderStateClient {
+	return &SubscriptionOrderStateClient{config: c}
+}
+
+// Use adds a list of mutation hooks to the hooks stack.
+// A call to `Use(f, g, h)` equals to `subscriptionorderstate.Hooks(f(g(h())))`.
+func (c *SubscriptionOrderStateClient) Use(hooks ...Hook) {
+	c.hooks.SubscriptionOrderState = append(c.hooks.SubscriptionOrderState, hooks...)
+}
+
+// Intercept adds a list of query interceptors to the interceptors stack.
+// A call to `Intercept(f, g, h)` equals to `subscriptionorderstate.Intercept(f(g(h())))`.
+func (c *SubscriptionOrderStateClient) Intercept(interceptors ...Interceptor) {
+	c.inters.SubscriptionOrderState = append(c.inters.SubscriptionOrderState, interceptors...)
+}
+
+// Create returns a builder for creating a SubscriptionOrderState entity.
+func (c *SubscriptionOrderStateClient) Create() *SubscriptionOrderStateCreate {
+	mutation := newSubscriptionOrderStateMutation(c.config, OpCreate)
+	return &SubscriptionOrderStateCreate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// CreateBulk returns a builder for creating a bulk of SubscriptionOrderState entities.
+func (c *SubscriptionOrderStateClient) CreateBulk(builders ...*SubscriptionOrderStateCreate) *SubscriptionOrderStateCreateBulk {
+	return &SubscriptionOrderStateCreateBulk{config: c.config, builders: builders}
+}
+
+// MapCreateBulk creates a bulk creation builder from the given slice. For each item in the slice, the function creates
+// a builder and applies setFunc on it.
+func (c *SubscriptionOrderStateClient) MapCreateBulk(slice any, setFunc func(*SubscriptionOrderStateCreate, int)) *SubscriptionOrderStateCreateBulk {
+	rv := reflect.ValueOf(slice)
+	if rv.Kind() != reflect.Slice {
+		return &SubscriptionOrderStateCreateBulk{err: fmt.Errorf("calling to SubscriptionOrderStateClient.MapCreateBulk with wrong type %T, need slice", slice)}
+	}
+	builders := make([]*SubscriptionOrderStateCreate, rv.Len())
+	for i := 0; i < rv.Len(); i++ {
+		builders[i] = c.Create()
+		setFunc(builders[i], i)
+	}
+	return &SubscriptionOrderStateCreateBulk{config: c.config, builders: builders}
+}
+
+// Update returns an update builder for SubscriptionOrderState.
+func (c *SubscriptionOrderStateClient) Update() *SubscriptionOrderStateUpdate {
+	mutation := newSubscriptionOrderStateMutation(c.config, OpUpdate)
+	return &SubscriptionOrderStateUpdate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOne returns an update builder for the given entity.
+func (c *SubscriptionOrderStateClient) UpdateOne(sos *SubscriptionOrderState) *SubscriptionOrderStateUpdateOne {
+	mutation := newSubscriptionOrderStateMutation(c.config, OpUpdateOne, withSubscriptionOrderState(sos))
+	return &SubscriptionOrderStateUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOneID returns an update builder for the given id.
+func (c *SubscriptionOrderStateClient) UpdateOneID(id uint32) *SubscriptionOrderStateUpdateOne {
+	mutation := newSubscriptionOrderStateMutation(c.config, OpUpdateOne, withSubscriptionOrderStateID(id))
+	return &SubscriptionOrderStateUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// Delete returns a delete builder for SubscriptionOrderState.
+func (c *SubscriptionOrderStateClient) Delete() *SubscriptionOrderStateDelete {
+	mutation := newSubscriptionOrderStateMutation(c.config, OpDelete)
+	return &SubscriptionOrderStateDelete{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// DeleteOne returns a builder for deleting the given entity.
+func (c *SubscriptionOrderStateClient) DeleteOne(sos *SubscriptionOrderState) *SubscriptionOrderStateDeleteOne {
+	return c.DeleteOneID(sos.ID)
+}
+
+// DeleteOneID returns a builder for deleting the given entity by its id.
+func (c *SubscriptionOrderStateClient) DeleteOneID(id uint32) *SubscriptionOrderStateDeleteOne {
+	builder := c.Delete().Where(subscriptionorderstate.ID(id))
+	builder.mutation.id = &id
+	builder.mutation.op = OpDeleteOne
+	return &SubscriptionOrderStateDeleteOne{builder}
+}
+
+// Query returns a query builder for SubscriptionOrderState.
+func (c *SubscriptionOrderStateClient) Query() *SubscriptionOrderStateQuery {
+	return &SubscriptionOrderStateQuery{
+		config: c.config,
+		ctx:    &QueryContext{Type: TypeSubscriptionOrderState},
+		inters: c.Interceptors(),
+	}
+}
+
+// Get returns a SubscriptionOrderState entity by its id.
+func (c *SubscriptionOrderStateClient) Get(ctx context.Context, id uint32) (*SubscriptionOrderState, error) {
+	return c.Query().Where(subscriptionorderstate.ID(id)).Only(ctx)
+}
+
+// GetX is like Get, but panics if an error occurs.
+func (c *SubscriptionOrderStateClient) GetX(ctx context.Context, id uint32) *SubscriptionOrderState {
+	obj, err := c.Get(ctx, id)
+	if err != nil {
+		panic(err)
+	}
+	return obj
+}
+
+// Hooks returns the client hooks.
+func (c *SubscriptionOrderStateClient) Hooks() []Hook {
+	return c.hooks.SubscriptionOrderState
+}
+
+// Interceptors returns the client interceptors.
+func (c *SubscriptionOrderStateClient) Interceptors() []Interceptor {
+	return c.inters.SubscriptionOrderState
+}
+
+func (c *SubscriptionOrderStateClient) mutate(ctx context.Context, m *SubscriptionOrderStateMutation) (Value, error) {
+	switch m.Op() {
+	case OpCreate:
+		return (&SubscriptionOrderStateCreate{config: c.config, hooks: c.Hooks(), mutation: m}).Save(ctx)
+	case OpUpdate:
+		return (&SubscriptionOrderStateUpdate{config: c.config, hooks: c.Hooks(), mutation: m}).Save(ctx)
+	case OpUpdateOne:
+		return (&SubscriptionOrderStateUpdateOne{config: c.config, hooks: c.Hooks(), mutation: m}).Save(ctx)
+	case OpDelete, OpDeleteOne:
+		return (&SubscriptionOrderStateDelete{config: c.config, hooks: c.Hooks(), mutation: m}).Exec(ctx)
+	default:
+		return nil, fmt.Errorf("generated: unknown SubscriptionOrderState mutation op: %q", m.Op())
+	}
+}
+
 // hooks and interceptors per client, for fast access.
 type (
 	hooks struct {
 		AppConfig, Compensate, FeeOrder, FeeOrderState, Order, OrderBase, OrderCoupon,
 		OrderLock, OrderState, OrderStateBase, OutOfGas, Payment, PaymentBalance,
-		PaymentBalanceLock, PaymentBase, PaymentContract, PaymentTransfer,
-		PoolOrderUser, PowerRental, PowerRentalState []ent.Hook
+		PaymentBalanceLock, PaymentBase, PaymentContract, PaymentFiat, PaymentTransfer,
+		PoolOrderUser, PowerRental, PowerRentalState, SubscriptionOrder,
+		SubscriptionOrderState []ent.Hook
 	}
 	inters struct {
 		AppConfig, Compensate, FeeOrder, FeeOrderState, Order, OrderBase, OrderCoupon,
 		OrderLock, OrderState, OrderStateBase, OutOfGas, Payment, PaymentBalance,
-		PaymentBalanceLock, PaymentBase, PaymentContract, PaymentTransfer,
-		PoolOrderUser, PowerRental, PowerRentalState []ent.Interceptor
+		PaymentBalanceLock, PaymentBase, PaymentContract, PaymentFiat, PaymentTransfer,
+		PoolOrderUser, PowerRental, PowerRentalState, SubscriptionOrder,
+		SubscriptionOrderState []ent.Interceptor
 	}
 )
 

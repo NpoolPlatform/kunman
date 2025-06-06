@@ -19,10 +19,13 @@ import (
 	"github.com/NpoolPlatform/kunman/middleware/order/db/ent/generated/paymentbalancelock"
 	"github.com/NpoolPlatform/kunman/middleware/order/db/ent/generated/paymentbase"
 	"github.com/NpoolPlatform/kunman/middleware/order/db/ent/generated/paymentcontract"
+	"github.com/NpoolPlatform/kunman/middleware/order/db/ent/generated/paymentfiat"
 	"github.com/NpoolPlatform/kunman/middleware/order/db/ent/generated/paymenttransfer"
 	"github.com/NpoolPlatform/kunman/middleware/order/db/ent/generated/poolorderuser"
 	"github.com/NpoolPlatform/kunman/middleware/order/db/ent/generated/powerrental"
 	"github.com/NpoolPlatform/kunman/middleware/order/db/ent/generated/powerrentalstate"
+	"github.com/NpoolPlatform/kunman/middleware/order/db/ent/generated/subscriptionorder"
+	"github.com/NpoolPlatform/kunman/middleware/order/db/ent/generated/subscriptionorderstate"
 
 	"entgo.io/ent/dialect/sql"
 	"entgo.io/ent/dialect/sql/sqlgraph"
@@ -32,7 +35,7 @@ import (
 
 // schemaGraph holds a representation of ent/schema at runtime.
 var schemaGraph = func() *sqlgraph.Schema {
-	graph := &sqlgraph.Schema{Nodes: make([]*sqlgraph.Node, 20)}
+	graph := &sqlgraph.Schema{Nodes: make([]*sqlgraph.Node, 23)}
 	graph.Nodes[0] = &sqlgraph.Node{
 		NodeSpec: sqlgraph.NodeSpec{
 			Table:   appconfig.Table,
@@ -376,6 +379,25 @@ var schemaGraph = func() *sqlgraph.Schema {
 	}
 	graph.Nodes[16] = &sqlgraph.Node{
 		NodeSpec: sqlgraph.NodeSpec{
+			Table:   paymentfiat.Table,
+			Columns: paymentfiat.Columns,
+			ID: &sqlgraph.FieldSpec{
+				Type:   field.TypeUint32,
+				Column: paymentfiat.FieldID,
+			},
+		},
+		Type: "PaymentFiat",
+		Fields: map[string]*sqlgraph.FieldSpec{
+			paymentfiat.FieldEntID:          {Type: field.TypeUUID, Column: paymentfiat.FieldEntID},
+			paymentfiat.FieldPaymentID:      {Type: field.TypeUUID, Column: paymentfiat.FieldPaymentID},
+			paymentfiat.FieldFiatID:         {Type: field.TypeUUID, Column: paymentfiat.FieldFiatID},
+			paymentfiat.FieldPaymentChannel: {Type: field.TypeString, Column: paymentfiat.FieldPaymentChannel},
+			paymentfiat.FieldAmount:         {Type: field.TypeOther, Column: paymentfiat.FieldAmount},
+			paymentfiat.FieldUsdCurrency:    {Type: field.TypeOther, Column: paymentfiat.FieldUsdCurrency},
+		},
+	}
+	graph.Nodes[17] = &sqlgraph.Node{
+		NodeSpec: sqlgraph.NodeSpec{
 			Table:   paymenttransfer.Table,
 			Columns: paymenttransfer.Columns,
 			ID: &sqlgraph.FieldSpec{
@@ -397,7 +419,7 @@ var schemaGraph = func() *sqlgraph.Schema {
 			paymenttransfer.FieldLiveCoinUsdCurrency:  {Type: field.TypeOther, Column: paymenttransfer.FieldLiveCoinUsdCurrency},
 		},
 	}
-	graph.Nodes[17] = &sqlgraph.Node{
+	graph.Nodes[18] = &sqlgraph.Node{
 		NodeSpec: sqlgraph.NodeSpec{
 			Table:   poolorderuser.Table,
 			Columns: poolorderuser.Columns,
@@ -413,7 +435,7 @@ var schemaGraph = func() *sqlgraph.Schema {
 			poolorderuser.FieldPoolOrderUserID: {Type: field.TypeUUID, Column: poolorderuser.FieldPoolOrderUserID},
 		},
 	}
-	graph.Nodes[18] = &sqlgraph.Node{
+	graph.Nodes[19] = &sqlgraph.Node{
 		NodeSpec: sqlgraph.NodeSpec{
 			Table:   powerrental.Table,
 			Columns: powerrental.Columns,
@@ -437,7 +459,7 @@ var schemaGraph = func() *sqlgraph.Schema {
 			powerrental.FieldDurationSeconds:   {Type: field.TypeUint32, Column: powerrental.FieldDurationSeconds},
 		},
 	}
-	graph.Nodes[19] = &sqlgraph.Node{
+	graph.Nodes[20] = &sqlgraph.Node{
 		NodeSpec: sqlgraph.NodeSpec{
 			Table:   powerrentalstate.Table,
 			Columns: powerrentalstate.Columns,
@@ -462,6 +484,49 @@ var schemaGraph = func() *sqlgraph.Schema {
 			powerrentalstate.FieldCompensateSeconds: {Type: field.TypeUint32, Column: powerrentalstate.FieldCompensateSeconds},
 			powerrentalstate.FieldRenewState:        {Type: field.TypeString, Column: powerrentalstate.FieldRenewState},
 			powerrentalstate.FieldRenewNotifyAt:     {Type: field.TypeUint32, Column: powerrentalstate.FieldRenewNotifyAt},
+		},
+	}
+	graph.Nodes[21] = &sqlgraph.Node{
+		NodeSpec: sqlgraph.NodeSpec{
+			Table:   subscriptionorder.Table,
+			Columns: subscriptionorder.Columns,
+			ID: &sqlgraph.FieldSpec{
+				Type:   field.TypeUint32,
+				Column: subscriptionorder.FieldID,
+			},
+		},
+		Type: "SubscriptionOrder",
+		Fields: map[string]*sqlgraph.FieldSpec{
+			subscriptionorder.FieldEntID:             {Type: field.TypeUUID, Column: subscriptionorder.FieldEntID},
+			subscriptionorder.FieldOrderID:           {Type: field.TypeUUID, Column: subscriptionorder.FieldOrderID},
+			subscriptionorder.FieldGoodValueUsd:      {Type: field.TypeOther, Column: subscriptionorder.FieldGoodValueUsd},
+			subscriptionorder.FieldPaymentAmountUsd:  {Type: field.TypeOther, Column: subscriptionorder.FieldPaymentAmountUsd},
+			subscriptionorder.FieldDiscountAmountUsd: {Type: field.TypeOther, Column: subscriptionorder.FieldDiscountAmountUsd},
+			subscriptionorder.FieldPromotionID:       {Type: field.TypeUUID, Column: subscriptionorder.FieldPromotionID},
+			subscriptionorder.FieldDurationSeconds:   {Type: field.TypeUint32, Column: subscriptionorder.FieldDurationSeconds},
+		},
+	}
+	graph.Nodes[22] = &sqlgraph.Node{
+		NodeSpec: sqlgraph.NodeSpec{
+			Table:   subscriptionorderstate.Table,
+			Columns: subscriptionorderstate.Columns,
+			ID: &sqlgraph.FieldSpec{
+				Type:   field.TypeUint32,
+				Column: subscriptionorderstate.FieldID,
+			},
+		},
+		Type: "SubscriptionOrderState",
+		Fields: map[string]*sqlgraph.FieldSpec{
+			subscriptionorderstate.FieldEntID:            {Type: field.TypeUUID, Column: subscriptionorderstate.FieldEntID},
+			subscriptionorderstate.FieldOrderID:          {Type: field.TypeUUID, Column: subscriptionorderstate.FieldOrderID},
+			subscriptionorderstate.FieldPaymentID:        {Type: field.TypeUUID, Column: subscriptionorderstate.FieldPaymentID},
+			subscriptionorderstate.FieldPaidAt:           {Type: field.TypeUint32, Column: subscriptionorderstate.FieldPaidAt},
+			subscriptionorderstate.FieldUserSetPaid:      {Type: field.TypeBool, Column: subscriptionorderstate.FieldUserSetPaid},
+			subscriptionorderstate.FieldUserSetCanceled:  {Type: field.TypeBool, Column: subscriptionorderstate.FieldUserSetCanceled},
+			subscriptionorderstate.FieldAdminSetCanceled: {Type: field.TypeBool, Column: subscriptionorderstate.FieldAdminSetCanceled},
+			subscriptionorderstate.FieldPaymentState:     {Type: field.TypeString, Column: subscriptionorderstate.FieldPaymentState},
+			subscriptionorderstate.FieldCancelState:      {Type: field.TypeString, Column: subscriptionorderstate.FieldCancelState},
+			subscriptionorderstate.FieldCanceledAt:       {Type: field.TypeUint32, Column: subscriptionorderstate.FieldCanceledAt},
 		},
 	}
 	return graph
@@ -1779,6 +1844,76 @@ func (f *PaymentContractFilter) WhereAmount(p entql.OtherP) {
 }
 
 // addPredicate implements the predicateAdder interface.
+func (pfq *PaymentFiatQuery) addPredicate(pred func(s *sql.Selector)) {
+	pfq.predicates = append(pfq.predicates, pred)
+}
+
+// Filter returns a Filter implementation to apply filters on the PaymentFiatQuery builder.
+func (pfq *PaymentFiatQuery) Filter() *PaymentFiatFilter {
+	return &PaymentFiatFilter{config: pfq.config, predicateAdder: pfq}
+}
+
+// addPredicate implements the predicateAdder interface.
+func (m *PaymentFiatMutation) addPredicate(pred func(s *sql.Selector)) {
+	m.predicates = append(m.predicates, pred)
+}
+
+// Filter returns an entql.Where implementation to apply filters on the PaymentFiatMutation builder.
+func (m *PaymentFiatMutation) Filter() *PaymentFiatFilter {
+	return &PaymentFiatFilter{config: m.config, predicateAdder: m}
+}
+
+// PaymentFiatFilter provides a generic filtering capability at runtime for PaymentFiatQuery.
+type PaymentFiatFilter struct {
+	predicateAdder
+	config
+}
+
+// Where applies the entql predicate on the query filter.
+func (f *PaymentFiatFilter) Where(p entql.P) {
+	f.addPredicate(func(s *sql.Selector) {
+		if err := schemaGraph.EvalP(schemaGraph.Nodes[16].Type, p, s); err != nil {
+			s.AddError(err)
+		}
+	})
+}
+
+// WhereID applies the entql uint32 predicate on the id field.
+func (f *PaymentFiatFilter) WhereID(p entql.Uint32P) {
+	f.Where(p.Field(paymentfiat.FieldID))
+}
+
+// WhereEntID applies the entql [16]byte predicate on the ent_id field.
+func (f *PaymentFiatFilter) WhereEntID(p entql.ValueP) {
+	f.Where(p.Field(paymentfiat.FieldEntID))
+}
+
+// WherePaymentID applies the entql [16]byte predicate on the payment_id field.
+func (f *PaymentFiatFilter) WherePaymentID(p entql.ValueP) {
+	f.Where(p.Field(paymentfiat.FieldPaymentID))
+}
+
+// WhereFiatID applies the entql [16]byte predicate on the fiat_id field.
+func (f *PaymentFiatFilter) WhereFiatID(p entql.ValueP) {
+	f.Where(p.Field(paymentfiat.FieldFiatID))
+}
+
+// WherePaymentChannel applies the entql string predicate on the payment_channel field.
+func (f *PaymentFiatFilter) WherePaymentChannel(p entql.StringP) {
+	f.Where(p.Field(paymentfiat.FieldPaymentChannel))
+}
+
+// WhereAmount applies the entql other predicate on the amount field.
+func (f *PaymentFiatFilter) WhereAmount(p entql.OtherP) {
+	f.Where(p.Field(paymentfiat.FieldAmount))
+}
+
+// WhereUsdCurrency applies the entql other predicate on the usd_currency field.
+func (f *PaymentFiatFilter) WhereUsdCurrency(p entql.OtherP) {
+	f.Where(p.Field(paymentfiat.FieldUsdCurrency))
+}
+
+// addPredicate implements the predicateAdder interface.
 func (ptq *PaymentTransferQuery) addPredicate(pred func(s *sql.Selector)) {
 	ptq.predicates = append(ptq.predicates, pred)
 }
@@ -1807,7 +1942,7 @@ type PaymentTransferFilter struct {
 // Where applies the entql predicate on the query filter.
 func (f *PaymentTransferFilter) Where(p entql.P) {
 	f.addPredicate(func(s *sql.Selector) {
-		if err := schemaGraph.EvalP(schemaGraph.Nodes[16].Type, p, s); err != nil {
+		if err := schemaGraph.EvalP(schemaGraph.Nodes[17].Type, p, s); err != nil {
 			s.AddError(err)
 		}
 	})
@@ -1897,7 +2032,7 @@ type PoolOrderUserFilter struct {
 // Where applies the entql predicate on the query filter.
 func (f *PoolOrderUserFilter) Where(p entql.P) {
 	f.addPredicate(func(s *sql.Selector) {
-		if err := schemaGraph.EvalP(schemaGraph.Nodes[17].Type, p, s); err != nil {
+		if err := schemaGraph.EvalP(schemaGraph.Nodes[18].Type, p, s); err != nil {
 			s.AddError(err)
 		}
 	})
@@ -1952,7 +2087,7 @@ type PowerRentalFilter struct {
 // Where applies the entql predicate on the query filter.
 func (f *PowerRentalFilter) Where(p entql.P) {
 	f.addPredicate(func(s *sql.Selector) {
-		if err := schemaGraph.EvalP(schemaGraph.Nodes[18].Type, p, s); err != nil {
+		if err := schemaGraph.EvalP(schemaGraph.Nodes[19].Type, p, s); err != nil {
 			s.AddError(err)
 		}
 	})
@@ -2047,7 +2182,7 @@ type PowerRentalStateFilter struct {
 // Where applies the entql predicate on the query filter.
 func (f *PowerRentalStateFilter) Where(p entql.P) {
 	f.addPredicate(func(s *sql.Selector) {
-		if err := schemaGraph.EvalP(schemaGraph.Nodes[19].Type, p, s); err != nil {
+		if err := schemaGraph.EvalP(schemaGraph.Nodes[20].Type, p, s); err != nil {
 			s.AddError(err)
 		}
 	})
@@ -2126,4 +2261,169 @@ func (f *PowerRentalStateFilter) WhereRenewState(p entql.StringP) {
 // WhereRenewNotifyAt applies the entql uint32 predicate on the renew_notify_at field.
 func (f *PowerRentalStateFilter) WhereRenewNotifyAt(p entql.Uint32P) {
 	f.Where(p.Field(powerrentalstate.FieldRenewNotifyAt))
+}
+
+// addPredicate implements the predicateAdder interface.
+func (soq *SubscriptionOrderQuery) addPredicate(pred func(s *sql.Selector)) {
+	soq.predicates = append(soq.predicates, pred)
+}
+
+// Filter returns a Filter implementation to apply filters on the SubscriptionOrderQuery builder.
+func (soq *SubscriptionOrderQuery) Filter() *SubscriptionOrderFilter {
+	return &SubscriptionOrderFilter{config: soq.config, predicateAdder: soq}
+}
+
+// addPredicate implements the predicateAdder interface.
+func (m *SubscriptionOrderMutation) addPredicate(pred func(s *sql.Selector)) {
+	m.predicates = append(m.predicates, pred)
+}
+
+// Filter returns an entql.Where implementation to apply filters on the SubscriptionOrderMutation builder.
+func (m *SubscriptionOrderMutation) Filter() *SubscriptionOrderFilter {
+	return &SubscriptionOrderFilter{config: m.config, predicateAdder: m}
+}
+
+// SubscriptionOrderFilter provides a generic filtering capability at runtime for SubscriptionOrderQuery.
+type SubscriptionOrderFilter struct {
+	predicateAdder
+	config
+}
+
+// Where applies the entql predicate on the query filter.
+func (f *SubscriptionOrderFilter) Where(p entql.P) {
+	f.addPredicate(func(s *sql.Selector) {
+		if err := schemaGraph.EvalP(schemaGraph.Nodes[21].Type, p, s); err != nil {
+			s.AddError(err)
+		}
+	})
+}
+
+// WhereID applies the entql uint32 predicate on the id field.
+func (f *SubscriptionOrderFilter) WhereID(p entql.Uint32P) {
+	f.Where(p.Field(subscriptionorder.FieldID))
+}
+
+// WhereEntID applies the entql [16]byte predicate on the ent_id field.
+func (f *SubscriptionOrderFilter) WhereEntID(p entql.ValueP) {
+	f.Where(p.Field(subscriptionorder.FieldEntID))
+}
+
+// WhereOrderID applies the entql [16]byte predicate on the order_id field.
+func (f *SubscriptionOrderFilter) WhereOrderID(p entql.ValueP) {
+	f.Where(p.Field(subscriptionorder.FieldOrderID))
+}
+
+// WhereGoodValueUsd applies the entql other predicate on the good_value_usd field.
+func (f *SubscriptionOrderFilter) WhereGoodValueUsd(p entql.OtherP) {
+	f.Where(p.Field(subscriptionorder.FieldGoodValueUsd))
+}
+
+// WherePaymentAmountUsd applies the entql other predicate on the payment_amount_usd field.
+func (f *SubscriptionOrderFilter) WherePaymentAmountUsd(p entql.OtherP) {
+	f.Where(p.Field(subscriptionorder.FieldPaymentAmountUsd))
+}
+
+// WhereDiscountAmountUsd applies the entql other predicate on the discount_amount_usd field.
+func (f *SubscriptionOrderFilter) WhereDiscountAmountUsd(p entql.OtherP) {
+	f.Where(p.Field(subscriptionorder.FieldDiscountAmountUsd))
+}
+
+// WherePromotionID applies the entql [16]byte predicate on the promotion_id field.
+func (f *SubscriptionOrderFilter) WherePromotionID(p entql.ValueP) {
+	f.Where(p.Field(subscriptionorder.FieldPromotionID))
+}
+
+// WhereDurationSeconds applies the entql uint32 predicate on the duration_seconds field.
+func (f *SubscriptionOrderFilter) WhereDurationSeconds(p entql.Uint32P) {
+	f.Where(p.Field(subscriptionorder.FieldDurationSeconds))
+}
+
+// addPredicate implements the predicateAdder interface.
+func (sosq *SubscriptionOrderStateQuery) addPredicate(pred func(s *sql.Selector)) {
+	sosq.predicates = append(sosq.predicates, pred)
+}
+
+// Filter returns a Filter implementation to apply filters on the SubscriptionOrderStateQuery builder.
+func (sosq *SubscriptionOrderStateQuery) Filter() *SubscriptionOrderStateFilter {
+	return &SubscriptionOrderStateFilter{config: sosq.config, predicateAdder: sosq}
+}
+
+// addPredicate implements the predicateAdder interface.
+func (m *SubscriptionOrderStateMutation) addPredicate(pred func(s *sql.Selector)) {
+	m.predicates = append(m.predicates, pred)
+}
+
+// Filter returns an entql.Where implementation to apply filters on the SubscriptionOrderStateMutation builder.
+func (m *SubscriptionOrderStateMutation) Filter() *SubscriptionOrderStateFilter {
+	return &SubscriptionOrderStateFilter{config: m.config, predicateAdder: m}
+}
+
+// SubscriptionOrderStateFilter provides a generic filtering capability at runtime for SubscriptionOrderStateQuery.
+type SubscriptionOrderStateFilter struct {
+	predicateAdder
+	config
+}
+
+// Where applies the entql predicate on the query filter.
+func (f *SubscriptionOrderStateFilter) Where(p entql.P) {
+	f.addPredicate(func(s *sql.Selector) {
+		if err := schemaGraph.EvalP(schemaGraph.Nodes[22].Type, p, s); err != nil {
+			s.AddError(err)
+		}
+	})
+}
+
+// WhereID applies the entql uint32 predicate on the id field.
+func (f *SubscriptionOrderStateFilter) WhereID(p entql.Uint32P) {
+	f.Where(p.Field(subscriptionorderstate.FieldID))
+}
+
+// WhereEntID applies the entql [16]byte predicate on the ent_id field.
+func (f *SubscriptionOrderStateFilter) WhereEntID(p entql.ValueP) {
+	f.Where(p.Field(subscriptionorderstate.FieldEntID))
+}
+
+// WhereOrderID applies the entql [16]byte predicate on the order_id field.
+func (f *SubscriptionOrderStateFilter) WhereOrderID(p entql.ValueP) {
+	f.Where(p.Field(subscriptionorderstate.FieldOrderID))
+}
+
+// WherePaymentID applies the entql [16]byte predicate on the payment_id field.
+func (f *SubscriptionOrderStateFilter) WherePaymentID(p entql.ValueP) {
+	f.Where(p.Field(subscriptionorderstate.FieldPaymentID))
+}
+
+// WherePaidAt applies the entql uint32 predicate on the paid_at field.
+func (f *SubscriptionOrderStateFilter) WherePaidAt(p entql.Uint32P) {
+	f.Where(p.Field(subscriptionorderstate.FieldPaidAt))
+}
+
+// WhereUserSetPaid applies the entql bool predicate on the user_set_paid field.
+func (f *SubscriptionOrderStateFilter) WhereUserSetPaid(p entql.BoolP) {
+	f.Where(p.Field(subscriptionorderstate.FieldUserSetPaid))
+}
+
+// WhereUserSetCanceled applies the entql bool predicate on the user_set_canceled field.
+func (f *SubscriptionOrderStateFilter) WhereUserSetCanceled(p entql.BoolP) {
+	f.Where(p.Field(subscriptionorderstate.FieldUserSetCanceled))
+}
+
+// WhereAdminSetCanceled applies the entql bool predicate on the admin_set_canceled field.
+func (f *SubscriptionOrderStateFilter) WhereAdminSetCanceled(p entql.BoolP) {
+	f.Where(p.Field(subscriptionorderstate.FieldAdminSetCanceled))
+}
+
+// WherePaymentState applies the entql string predicate on the payment_state field.
+func (f *SubscriptionOrderStateFilter) WherePaymentState(p entql.StringP) {
+	f.Where(p.Field(subscriptionorderstate.FieldPaymentState))
+}
+
+// WhereCancelState applies the entql string predicate on the cancel_state field.
+func (f *SubscriptionOrderStateFilter) WhereCancelState(p entql.StringP) {
+	f.Where(p.Field(subscriptionorderstate.FieldCancelState))
+}
+
+// WhereCanceledAt applies the entql uint32 predicate on the canceled_at field.
+func (f *SubscriptionOrderStateFilter) WhereCanceledAt(p entql.Uint32P) {
+	f.Where(p.Field(subscriptionorderstate.FieldCanceledAt))
 }

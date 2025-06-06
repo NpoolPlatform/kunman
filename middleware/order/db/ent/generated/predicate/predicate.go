@@ -54,6 +54,9 @@ type PaymentBase func(*sql.Selector)
 // PaymentContract is the predicate function for paymentcontract builders.
 type PaymentContract func(*sql.Selector)
 
+// PaymentFiat is the predicate function for paymentfiat builders.
+type PaymentFiat func(*sql.Selector)
+
 // PaymentTransfer is the predicate function for paymenttransfer builders.
 type PaymentTransfer func(*sql.Selector)
 
@@ -65,3 +68,9 @@ type PowerRental func(*sql.Selector)
 
 // PowerRentalState is the predicate function for powerrentalstate builders.
 type PowerRentalState func(*sql.Selector)
+
+// SubscriptionOrder is the predicate function for subscriptionorder builders.
+type SubscriptionOrder func(*sql.Selector)
+
+// SubscriptionOrderState is the predicate function for subscriptionorderstate builders.
+type SubscriptionOrderState func(*sql.Selector)

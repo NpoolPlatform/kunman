@@ -488,6 +488,34 @@ var (
 			},
 		},
 	}
+	// PaymentFiatsColumns holds the columns for the "payment_fiats" table.
+	PaymentFiatsColumns = []*schema.Column{
+		{Name: "id", Type: field.TypeUint32, Increment: true},
+		{Name: "ent_id", Type: field.TypeUUID, Unique: true},
+		{Name: "payment_id", Type: field.TypeUUID, Nullable: true},
+		{Name: "fiat_id", Type: field.TypeUUID, Nullable: true},
+		{Name: "payment_channel", Type: field.TypeString, Nullable: true, Default: "PaymentChannelStripe"},
+		{Name: "amount", Type: field.TypeOther, Nullable: true, SchemaType: map[string]string{"mysql": "decimal(37,18)"}},
+		{Name: "usd_currency", Type: field.TypeOther, Nullable: true, SchemaType: map[string]string{"mysql": "decimal(37, 18)"}},
+	}
+	// PaymentFiatsTable holds the schema information for the "payment_fiats" table.
+	PaymentFiatsTable = &schema.Table{
+		Name:       "payment_fiats",
+		Columns:    PaymentFiatsColumns,
+		PrimaryKey: []*schema.Column{PaymentFiatsColumns[0]},
+		Indexes: []*schema.Index{
+			{
+				Name:    "paymentfiat_ent_id",
+				Unique:  true,
+				Columns: []*schema.Column{PaymentFiatsColumns[1]},
+			},
+			{
+				Name:    "paymentfiat_payment_id",
+				Unique:  false,
+				Columns: []*schema.Column{PaymentFiatsColumns[2]},
+			},
+		},
+	}
 	// PaymentTransfersColumns holds the columns for the "payment_transfers" table.
 	PaymentTransfersColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeUint32, Increment: true},
@@ -614,6 +642,67 @@ var (
 			},
 		},
 	}
+	// SubscriptionOrdersColumns holds the columns for the "subscription_orders" table.
+	SubscriptionOrdersColumns = []*schema.Column{
+		{Name: "id", Type: field.TypeUint32, Increment: true},
+		{Name: "ent_id", Type: field.TypeUUID, Unique: true},
+		{Name: "order_id", Type: field.TypeUUID, Nullable: true},
+		{Name: "good_value_usd", Type: field.TypeOther, Nullable: true, SchemaType: map[string]string{"mysql": "decimal(37,18)"}},
+		{Name: "payment_amount_usd", Type: field.TypeOther, Nullable: true, SchemaType: map[string]string{"mysql": "decimal(37,18)"}},
+		{Name: "discount_amount_usd", Type: field.TypeOther, Nullable: true, SchemaType: map[string]string{"mysql": "decimal(37,18)"}},
+		{Name: "promotion_id", Type: field.TypeUUID, Nullable: true},
+		{Name: "duration_seconds", Type: field.TypeUint32, Nullable: true, Default: 0},
+	}
+	// SubscriptionOrdersTable holds the schema information for the "subscription_orders" table.
+	SubscriptionOrdersTable = &schema.Table{
+		Name:       "subscription_orders",
+		Columns:    SubscriptionOrdersColumns,
+		PrimaryKey: []*schema.Column{SubscriptionOrdersColumns[0]},
+		Indexes: []*schema.Index{
+			{
+				Name:    "subscriptionorder_ent_id",
+				Unique:  true,
+				Columns: []*schema.Column{SubscriptionOrdersColumns[1]},
+			},
+			{
+				Name:    "subscriptionorder_order_id",
+				Unique:  false,
+				Columns: []*schema.Column{SubscriptionOrdersColumns[2]},
+			},
+		},
+	}
+	// SubscriptionOrderStatesColumns holds the columns for the "subscription_order_states" table.
+	SubscriptionOrderStatesColumns = []*schema.Column{
+		{Name: "id", Type: field.TypeUint32, Increment: true},
+		{Name: "ent_id", Type: field.TypeUUID, Unique: true},
+		{Name: "order_id", Type: field.TypeUUID, Nullable: true},
+		{Name: "payment_id", Type: field.TypeUUID, Nullable: true},
+		{Name: "paid_at", Type: field.TypeUint32, Nullable: true, Default: 0},
+		{Name: "user_set_paid", Type: field.TypeBool, Nullable: true, Default: false},
+		{Name: "user_set_canceled", Type: field.TypeBool, Nullable: true, Default: false},
+		{Name: "admin_set_canceled", Type: field.TypeBool, Nullable: true, Default: false},
+		{Name: "payment_state", Type: field.TypeString, Nullable: true, Default: "PaymentStateWait"},
+		{Name: "cancel_state", Type: field.TypeString, Nullable: true, Default: "DefaultOrderState"},
+		{Name: "canceled_at", Type: field.TypeUint32, Nullable: true, Default: 0},
+	}
+	// SubscriptionOrderStatesTable holds the schema information for the "subscription_order_states" table.
+	SubscriptionOrderStatesTable = &schema.Table{
+		Name:       "subscription_order_states",
+		Columns:    SubscriptionOrderStatesColumns,
+		PrimaryKey: []*schema.Column{SubscriptionOrderStatesColumns[0]},
+		Indexes: []*schema.Index{
+			{
+				Name:    "subscriptionorderstate_ent_id",
+				Unique:  true,
+				Columns: []*schema.Column{SubscriptionOrderStatesColumns[1]},
+			},
+			{
+				Name:    "subscriptionorderstate_order_id",
+				Unique:  false,
+				Columns: []*schema.Column{SubscriptionOrderStatesColumns[2]},
+			},
+		},
+	}
 	// Tables holds all the tables in the schema.
 	Tables = []*schema.Table{
 		AppConfigsTable,
@@ -632,10 +721,13 @@ var (
 		PaymentBalanceLocksTable,
 		PaymentBasesTable,
 		PaymentContractsTable,
+		PaymentFiatsTable,
 		PaymentTransfersTable,
 		PoolOrderUsersTable,
 		PowerRentalsTable,
 		PowerRentalStatesTable,
+		SubscriptionOrdersTable,
+		SubscriptionOrderStatesTable,
 	}
 )
 

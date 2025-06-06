@@ -46,6 +46,8 @@ type Tx struct {
 	PaymentBase *PaymentBaseClient
 	// PaymentContract is the client for interacting with the PaymentContract builders.
 	PaymentContract *PaymentContractClient
+	// PaymentFiat is the client for interacting with the PaymentFiat builders.
+	PaymentFiat *PaymentFiatClient
 	// PaymentTransfer is the client for interacting with the PaymentTransfer builders.
 	PaymentTransfer *PaymentTransferClient
 	// PoolOrderUser is the client for interacting with the PoolOrderUser builders.
@@ -54,6 +56,10 @@ type Tx struct {
 	PowerRental *PowerRentalClient
 	// PowerRentalState is the client for interacting with the PowerRentalState builders.
 	PowerRentalState *PowerRentalStateClient
+	// SubscriptionOrder is the client for interacting with the SubscriptionOrder builders.
+	SubscriptionOrder *SubscriptionOrderClient
+	// SubscriptionOrderState is the client for interacting with the SubscriptionOrderState builders.
+	SubscriptionOrderState *SubscriptionOrderStateClient
 
 	// lazily loaded.
 	client     *Client
@@ -201,10 +207,13 @@ func (tx *Tx) init() {
 	tx.PaymentBalanceLock = NewPaymentBalanceLockClient(tx.config)
 	tx.PaymentBase = NewPaymentBaseClient(tx.config)
 	tx.PaymentContract = NewPaymentContractClient(tx.config)
+	tx.PaymentFiat = NewPaymentFiatClient(tx.config)
 	tx.PaymentTransfer = NewPaymentTransferClient(tx.config)
 	tx.PoolOrderUser = NewPoolOrderUserClient(tx.config)
 	tx.PowerRental = NewPowerRentalClient(tx.config)
 	tx.PowerRentalState = NewPowerRentalStateClient(tx.config)
+	tx.SubscriptionOrder = NewSubscriptionOrderClient(tx.config)
+	tx.SubscriptionOrderState = NewSubscriptionOrderStateClient(tx.config)
 }
 
 // txDriver wraps the given dialect.Tx with a nop dialect.Driver implementation.

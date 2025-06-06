@@ -19,10 +19,13 @@ import (
 	"github.com/NpoolPlatform/kunman/middleware/order/db/ent/generated/paymentbalancelock"
 	"github.com/NpoolPlatform/kunman/middleware/order/db/ent/generated/paymentbase"
 	"github.com/NpoolPlatform/kunman/middleware/order/db/ent/generated/paymentcontract"
+	"github.com/NpoolPlatform/kunman/middleware/order/db/ent/generated/paymentfiat"
 	"github.com/NpoolPlatform/kunman/middleware/order/db/ent/generated/paymenttransfer"
 	"github.com/NpoolPlatform/kunman/middleware/order/db/ent/generated/poolorderuser"
 	"github.com/NpoolPlatform/kunman/middleware/order/db/ent/generated/powerrental"
 	"github.com/NpoolPlatform/kunman/middleware/order/db/ent/generated/powerrentalstate"
+	"github.com/NpoolPlatform/kunman/middleware/order/db/ent/generated/subscriptionorder"
+	"github.com/NpoolPlatform/kunman/middleware/order/db/ent/generated/subscriptionorderstate"
 	"github.com/NpoolPlatform/kunman/middleware/order/db/ent/schema"
 	"github.com/google/uuid"
 	"github.com/shopspring/decimal"
@@ -592,6 +595,35 @@ func init() {
 	paymentcontractDescAmount := paymentcontractFields[2].Descriptor()
 	// paymentcontract.DefaultAmount holds the default value on creation for the amount field.
 	paymentcontract.DefaultAmount = paymentcontractDescAmount.Default.(decimal.Decimal)
+	paymentfiatMixin := schema.PaymentFiat{}.Mixin()
+	paymentfiatMixinFields0 := paymentfiatMixin[0].Fields()
+	_ = paymentfiatMixinFields0
+	paymentfiatFields := schema.PaymentFiat{}.Fields()
+	_ = paymentfiatFields
+	// paymentfiatDescEntID is the schema descriptor for ent_id field.
+	paymentfiatDescEntID := paymentfiatMixinFields0[1].Descriptor()
+	// paymentfiat.DefaultEntID holds the default value on creation for the ent_id field.
+	paymentfiat.DefaultEntID = paymentfiatDescEntID.Default.(func() uuid.UUID)
+	// paymentfiatDescPaymentID is the schema descriptor for payment_id field.
+	paymentfiatDescPaymentID := paymentfiatFields[0].Descriptor()
+	// paymentfiat.DefaultPaymentID holds the default value on creation for the payment_id field.
+	paymentfiat.DefaultPaymentID = paymentfiatDescPaymentID.Default.(func() uuid.UUID)
+	// paymentfiatDescFiatID is the schema descriptor for fiat_id field.
+	paymentfiatDescFiatID := paymentfiatFields[1].Descriptor()
+	// paymentfiat.DefaultFiatID holds the default value on creation for the fiat_id field.
+	paymentfiat.DefaultFiatID = paymentfiatDescFiatID.Default.(func() uuid.UUID)
+	// paymentfiatDescPaymentChannel is the schema descriptor for payment_channel field.
+	paymentfiatDescPaymentChannel := paymentfiatFields[2].Descriptor()
+	// paymentfiat.DefaultPaymentChannel holds the default value on creation for the payment_channel field.
+	paymentfiat.DefaultPaymentChannel = paymentfiatDescPaymentChannel.Default.(string)
+	// paymentfiatDescAmount is the schema descriptor for amount field.
+	paymentfiatDescAmount := paymentfiatFields[3].Descriptor()
+	// paymentfiat.DefaultAmount holds the default value on creation for the amount field.
+	paymentfiat.DefaultAmount = paymentfiatDescAmount.Default.(decimal.Decimal)
+	// paymentfiatDescUsdCurrency is the schema descriptor for usd_currency field.
+	paymentfiatDescUsdCurrency := paymentfiatFields[4].Descriptor()
+	// paymentfiat.DefaultUsdCurrency holds the default value on creation for the usd_currency field.
+	paymentfiat.DefaultUsdCurrency = paymentfiatDescUsdCurrency.Default.(decimal.Decimal)
 	paymenttransferMixin := schema.PaymentTransfer{}.Mixin()
 	paymenttransferMixinFields0 := paymenttransferMixin[0].Fields()
 	_ = paymenttransferMixinFields0
@@ -756,4 +788,82 @@ func init() {
 	powerrentalstateDescRenewNotifyAt := powerrentalstateFields[12].Descriptor()
 	// powerrentalstate.DefaultRenewNotifyAt holds the default value on creation for the renew_notify_at field.
 	powerrentalstate.DefaultRenewNotifyAt = powerrentalstateDescRenewNotifyAt.Default.(uint32)
+	subscriptionorderMixin := schema.SubscriptionOrder{}.Mixin()
+	subscriptionorderMixinFields0 := subscriptionorderMixin[0].Fields()
+	_ = subscriptionorderMixinFields0
+	subscriptionorderFields := schema.SubscriptionOrder{}.Fields()
+	_ = subscriptionorderFields
+	// subscriptionorderDescEntID is the schema descriptor for ent_id field.
+	subscriptionorderDescEntID := subscriptionorderMixinFields0[1].Descriptor()
+	// subscriptionorder.DefaultEntID holds the default value on creation for the ent_id field.
+	subscriptionorder.DefaultEntID = subscriptionorderDescEntID.Default.(func() uuid.UUID)
+	// subscriptionorderDescOrderID is the schema descriptor for order_id field.
+	subscriptionorderDescOrderID := subscriptionorderFields[0].Descriptor()
+	// subscriptionorder.DefaultOrderID holds the default value on creation for the order_id field.
+	subscriptionorder.DefaultOrderID = subscriptionorderDescOrderID.Default.(func() uuid.UUID)
+	// subscriptionorderDescGoodValueUsd is the schema descriptor for good_value_usd field.
+	subscriptionorderDescGoodValueUsd := subscriptionorderFields[1].Descriptor()
+	// subscriptionorder.DefaultGoodValueUsd holds the default value on creation for the good_value_usd field.
+	subscriptionorder.DefaultGoodValueUsd = subscriptionorderDescGoodValueUsd.Default.(decimal.Decimal)
+	// subscriptionorderDescPaymentAmountUsd is the schema descriptor for payment_amount_usd field.
+	subscriptionorderDescPaymentAmountUsd := subscriptionorderFields[2].Descriptor()
+	// subscriptionorder.DefaultPaymentAmountUsd holds the default value on creation for the payment_amount_usd field.
+	subscriptionorder.DefaultPaymentAmountUsd = subscriptionorderDescPaymentAmountUsd.Default.(decimal.Decimal)
+	// subscriptionorderDescDiscountAmountUsd is the schema descriptor for discount_amount_usd field.
+	subscriptionorderDescDiscountAmountUsd := subscriptionorderFields[3].Descriptor()
+	// subscriptionorder.DefaultDiscountAmountUsd holds the default value on creation for the discount_amount_usd field.
+	subscriptionorder.DefaultDiscountAmountUsd = subscriptionorderDescDiscountAmountUsd.Default.(decimal.Decimal)
+	// subscriptionorderDescPromotionID is the schema descriptor for promotion_id field.
+	subscriptionorderDescPromotionID := subscriptionorderFields[4].Descriptor()
+	// subscriptionorder.DefaultPromotionID holds the default value on creation for the promotion_id field.
+	subscriptionorder.DefaultPromotionID = subscriptionorderDescPromotionID.Default.(func() uuid.UUID)
+	// subscriptionorderDescDurationSeconds is the schema descriptor for duration_seconds field.
+	subscriptionorderDescDurationSeconds := subscriptionorderFields[5].Descriptor()
+	// subscriptionorder.DefaultDurationSeconds holds the default value on creation for the duration_seconds field.
+	subscriptionorder.DefaultDurationSeconds = subscriptionorderDescDurationSeconds.Default.(uint32)
+	subscriptionorderstateMixin := schema.SubscriptionOrderState{}.Mixin()
+	subscriptionorderstateMixinFields0 := subscriptionorderstateMixin[0].Fields()
+	_ = subscriptionorderstateMixinFields0
+	subscriptionorderstateFields := schema.SubscriptionOrderState{}.Fields()
+	_ = subscriptionorderstateFields
+	// subscriptionorderstateDescEntID is the schema descriptor for ent_id field.
+	subscriptionorderstateDescEntID := subscriptionorderstateMixinFields0[1].Descriptor()
+	// subscriptionorderstate.DefaultEntID holds the default value on creation for the ent_id field.
+	subscriptionorderstate.DefaultEntID = subscriptionorderstateDescEntID.Default.(func() uuid.UUID)
+	// subscriptionorderstateDescOrderID is the schema descriptor for order_id field.
+	subscriptionorderstateDescOrderID := subscriptionorderstateFields[0].Descriptor()
+	// subscriptionorderstate.DefaultOrderID holds the default value on creation for the order_id field.
+	subscriptionorderstate.DefaultOrderID = subscriptionorderstateDescOrderID.Default.(func() uuid.UUID)
+	// subscriptionorderstateDescPaymentID is the schema descriptor for payment_id field.
+	subscriptionorderstateDescPaymentID := subscriptionorderstateFields[1].Descriptor()
+	// subscriptionorderstate.DefaultPaymentID holds the default value on creation for the payment_id field.
+	subscriptionorderstate.DefaultPaymentID = subscriptionorderstateDescPaymentID.Default.(func() uuid.UUID)
+	// subscriptionorderstateDescPaidAt is the schema descriptor for paid_at field.
+	subscriptionorderstateDescPaidAt := subscriptionorderstateFields[2].Descriptor()
+	// subscriptionorderstate.DefaultPaidAt holds the default value on creation for the paid_at field.
+	subscriptionorderstate.DefaultPaidAt = subscriptionorderstateDescPaidAt.Default.(uint32)
+	// subscriptionorderstateDescUserSetPaid is the schema descriptor for user_set_paid field.
+	subscriptionorderstateDescUserSetPaid := subscriptionorderstateFields[3].Descriptor()
+	// subscriptionorderstate.DefaultUserSetPaid holds the default value on creation for the user_set_paid field.
+	subscriptionorderstate.DefaultUserSetPaid = subscriptionorderstateDescUserSetPaid.Default.(bool)
+	// subscriptionorderstateDescUserSetCanceled is the schema descriptor for user_set_canceled field.
+	subscriptionorderstateDescUserSetCanceled := subscriptionorderstateFields[4].Descriptor()
+	// subscriptionorderstate.DefaultUserSetCanceled holds the default value on creation for the user_set_canceled field.
+	subscriptionorderstate.DefaultUserSetCanceled = subscriptionorderstateDescUserSetCanceled.Default.(bool)
+	// subscriptionorderstateDescAdminSetCanceled is the schema descriptor for admin_set_canceled field.
+	subscriptionorderstateDescAdminSetCanceled := subscriptionorderstateFields[5].Descriptor()
+	// subscriptionorderstate.DefaultAdminSetCanceled holds the default value on creation for the admin_set_canceled field.
+	subscriptionorderstate.DefaultAdminSetCanceled = subscriptionorderstateDescAdminSetCanceled.Default.(bool)
+	// subscriptionorderstateDescPaymentState is the schema descriptor for payment_state field.
+	subscriptionorderstateDescPaymentState := subscriptionorderstateFields[6].Descriptor()
+	// subscriptionorderstate.DefaultPaymentState holds the default value on creation for the payment_state field.
+	subscriptionorderstate.DefaultPaymentState = subscriptionorderstateDescPaymentState.Default.(string)
+	// subscriptionorderstateDescCancelState is the schema descriptor for cancel_state field.
+	subscriptionorderstateDescCancelState := subscriptionorderstateFields[7].Descriptor()
+	// subscriptionorderstate.DefaultCancelState holds the default value on creation for the cancel_state field.
+	subscriptionorderstate.DefaultCancelState = subscriptionorderstateDescCancelState.Default.(string)
+	// subscriptionorderstateDescCanceledAt is the schema descriptor for canceled_at field.
+	subscriptionorderstateDescCanceledAt := subscriptionorderstateFields[8].Descriptor()
+	// subscriptionorderstate.DefaultCanceledAt holds the default value on creation for the canceled_at field.
+	subscriptionorderstate.DefaultCanceledAt = subscriptionorderstateDescCanceledAt.Default.(uint32)
 }

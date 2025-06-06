@@ -201,6 +201,18 @@ func (f PaymentContractFunc) Mutate(ctx context.Context, m generated.Mutation) (
 	return nil, fmt.Errorf("unexpected mutation type %T. expect *generated.PaymentContractMutation", m)
 }
 
+// The PaymentFiatFunc type is an adapter to allow the use of ordinary
+// function as PaymentFiat mutator.
+type PaymentFiatFunc func(context.Context, *generated.PaymentFiatMutation) (generated.Value, error)
+
+// Mutate calls f(ctx, m).
+func (f PaymentFiatFunc) Mutate(ctx context.Context, m generated.Mutation) (generated.Value, error) {
+	if mv, ok := m.(*generated.PaymentFiatMutation); ok {
+		return f(ctx, mv)
+	}
+	return nil, fmt.Errorf("unexpected mutation type %T. expect *generated.PaymentFiatMutation", m)
+}
+
 // The PaymentTransferFunc type is an adapter to allow the use of ordinary
 // function as PaymentTransfer mutator.
 type PaymentTransferFunc func(context.Context, *generated.PaymentTransferMutation) (generated.Value, error)
@@ -247,6 +259,30 @@ func (f PowerRentalStateFunc) Mutate(ctx context.Context, m generated.Mutation) 
 		return f(ctx, mv)
 	}
 	return nil, fmt.Errorf("unexpected mutation type %T. expect *generated.PowerRentalStateMutation", m)
+}
+
+// The SubscriptionOrderFunc type is an adapter to allow the use of ordinary
+// function as SubscriptionOrder mutator.
+type SubscriptionOrderFunc func(context.Context, *generated.SubscriptionOrderMutation) (generated.Value, error)
+
+// Mutate calls f(ctx, m).
+func (f SubscriptionOrderFunc) Mutate(ctx context.Context, m generated.Mutation) (generated.Value, error) {
+	if mv, ok := m.(*generated.SubscriptionOrderMutation); ok {
+		return f(ctx, mv)
+	}
+	return nil, fmt.Errorf("unexpected mutation type %T. expect *generated.SubscriptionOrderMutation", m)
+}
+
+// The SubscriptionOrderStateFunc type is an adapter to allow the use of ordinary
+// function as SubscriptionOrderState mutator.
+type SubscriptionOrderStateFunc func(context.Context, *generated.SubscriptionOrderStateMutation) (generated.Value, error)
+
+// Mutate calls f(ctx, m).
+func (f SubscriptionOrderStateFunc) Mutate(ctx context.Context, m generated.Mutation) (generated.Value, error) {
+	if mv, ok := m.(*generated.SubscriptionOrderStateMutation); ok {
+		return f(ctx, mv)
+	}
+	return nil, fmt.Errorf("unexpected mutation type %T. expect *generated.SubscriptionOrderStateMutation", m)
 }
 
 // Condition is a hook condition function.

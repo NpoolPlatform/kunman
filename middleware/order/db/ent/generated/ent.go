@@ -28,10 +28,13 @@ import (
 	"github.com/NpoolPlatform/kunman/middleware/order/db/ent/generated/paymentbalancelock"
 	"github.com/NpoolPlatform/kunman/middleware/order/db/ent/generated/paymentbase"
 	"github.com/NpoolPlatform/kunman/middleware/order/db/ent/generated/paymentcontract"
+	"github.com/NpoolPlatform/kunman/middleware/order/db/ent/generated/paymentfiat"
 	"github.com/NpoolPlatform/kunman/middleware/order/db/ent/generated/paymenttransfer"
 	"github.com/NpoolPlatform/kunman/middleware/order/db/ent/generated/poolorderuser"
 	"github.com/NpoolPlatform/kunman/middleware/order/db/ent/generated/powerrental"
 	"github.com/NpoolPlatform/kunman/middleware/order/db/ent/generated/powerrentalstate"
+	"github.com/NpoolPlatform/kunman/middleware/order/db/ent/generated/subscriptionorder"
+	"github.com/NpoolPlatform/kunman/middleware/order/db/ent/generated/subscriptionorderstate"
 )
 
 // ent aliases to avoid import conflicts in user's code.
@@ -92,26 +95,29 @@ var (
 func checkColumn(table, column string) error {
 	initCheck.Do(func() {
 		columnCheck = sql.NewColumnCheck(map[string]func(string) bool{
-			appconfig.Table:          appconfig.ValidColumn,
-			compensate.Table:         compensate.ValidColumn,
-			feeorder.Table:           feeorder.ValidColumn,
-			feeorderstate.Table:      feeorderstate.ValidColumn,
-			order.Table:              order.ValidColumn,
-			orderbase.Table:          orderbase.ValidColumn,
-			ordercoupon.Table:        ordercoupon.ValidColumn,
-			orderlock.Table:          orderlock.ValidColumn,
-			orderstate.Table:         orderstate.ValidColumn,
-			orderstatebase.Table:     orderstatebase.ValidColumn,
-			outofgas.Table:           outofgas.ValidColumn,
-			payment.Table:            payment.ValidColumn,
-			paymentbalance.Table:     paymentbalance.ValidColumn,
-			paymentbalancelock.Table: paymentbalancelock.ValidColumn,
-			paymentbase.Table:        paymentbase.ValidColumn,
-			paymentcontract.Table:    paymentcontract.ValidColumn,
-			paymenttransfer.Table:    paymenttransfer.ValidColumn,
-			poolorderuser.Table:      poolorderuser.ValidColumn,
-			powerrental.Table:        powerrental.ValidColumn,
-			powerrentalstate.Table:   powerrentalstate.ValidColumn,
+			appconfig.Table:              appconfig.ValidColumn,
+			compensate.Table:             compensate.ValidColumn,
+			feeorder.Table:               feeorder.ValidColumn,
+			feeorderstate.Table:          feeorderstate.ValidColumn,
+			order.Table:                  order.ValidColumn,
+			orderbase.Table:              orderbase.ValidColumn,
+			ordercoupon.Table:            ordercoupon.ValidColumn,
+			orderlock.Table:              orderlock.ValidColumn,
+			orderstate.Table:             orderstate.ValidColumn,
+			orderstatebase.Table:         orderstatebase.ValidColumn,
+			outofgas.Table:               outofgas.ValidColumn,
+			payment.Table:                payment.ValidColumn,
+			paymentbalance.Table:         paymentbalance.ValidColumn,
+			paymentbalancelock.Table:     paymentbalancelock.ValidColumn,
+			paymentbase.Table:            paymentbase.ValidColumn,
+			paymentcontract.Table:        paymentcontract.ValidColumn,
+			paymentfiat.Table:            paymentfiat.ValidColumn,
+			paymenttransfer.Table:        paymenttransfer.ValidColumn,
+			poolorderuser.Table:          poolorderuser.ValidColumn,
+			powerrental.Table:            powerrental.ValidColumn,
+			powerrentalstate.Table:       powerrentalstate.ValidColumn,
+			subscriptionorder.Table:      subscriptionorder.ValidColumn,
+			subscriptionorderstate.Table: subscriptionorderstate.ValidColumn,
 		})
 	})
 	return columnCheck(table, column)
