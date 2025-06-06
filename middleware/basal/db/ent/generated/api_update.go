@@ -44,6 +44,61 @@ func (au *APIUpdate) SetNillableEntID(u *uuid.UUID) *APIUpdate {
 	return au
 }
 
+// SetCreatedAt sets the "created_at" field.
+func (au *APIUpdate) SetCreatedAt(u uint32) *APIUpdate {
+	au.mutation.ResetCreatedAt()
+	au.mutation.SetCreatedAt(u)
+	return au
+}
+
+// SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
+func (au *APIUpdate) SetNillableCreatedAt(u *uint32) *APIUpdate {
+	if u != nil {
+		au.SetCreatedAt(*u)
+	}
+	return au
+}
+
+// AddCreatedAt adds u to the "created_at" field.
+func (au *APIUpdate) AddCreatedAt(u int32) *APIUpdate {
+	au.mutation.AddCreatedAt(u)
+	return au
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (au *APIUpdate) SetUpdatedAt(u uint32) *APIUpdate {
+	au.mutation.ResetUpdatedAt()
+	au.mutation.SetUpdatedAt(u)
+	return au
+}
+
+// AddUpdatedAt adds u to the "updated_at" field.
+func (au *APIUpdate) AddUpdatedAt(u int32) *APIUpdate {
+	au.mutation.AddUpdatedAt(u)
+	return au
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (au *APIUpdate) SetDeletedAt(u uint32) *APIUpdate {
+	au.mutation.ResetDeletedAt()
+	au.mutation.SetDeletedAt(u)
+	return au
+}
+
+// SetNillableDeletedAt sets the "deleted_at" field if the given value is not nil.
+func (au *APIUpdate) SetNillableDeletedAt(u *uint32) *APIUpdate {
+	if u != nil {
+		au.SetDeletedAt(*u)
+	}
+	return au
+}
+
+// AddDeletedAt adds u to the "deleted_at" field.
+func (au *APIUpdate) AddDeletedAt(u int32) *APIUpdate {
+	au.mutation.AddDeletedAt(u)
+	return au
+}
+
 // SetProtocol sets the "protocol" field.
 func (au *APIUpdate) SetProtocol(s string) *APIUpdate {
 	au.mutation.SetProtocol(s)
@@ -229,6 +284,7 @@ func (au *APIUpdate) Mutation() *APIMutation {
 
 // Save executes the query and returns the number of nodes affected by the update operation.
 func (au *APIUpdate) Save(ctx context.Context) (int, error) {
+	au.defaults()
 	return withHooks(ctx, au.sqlSave, au.mutation, au.hooks)
 }
 
@@ -254,6 +310,14 @@ func (au *APIUpdate) ExecX(ctx context.Context) {
 	}
 }
 
+// defaults sets the default values of the builder before save.
+func (au *APIUpdate) defaults() {
+	if _, ok := au.mutation.UpdatedAt(); !ok {
+		v := api.UpdateDefaultUpdatedAt()
+		au.mutation.SetUpdatedAt(v)
+	}
+}
+
 // Modify adds a statement modifier for attaching custom logic to the UPDATE statement.
 func (au *APIUpdate) Modify(modifiers ...func(u *sql.UpdateBuilder)) *APIUpdate {
 	au.modifiers = append(au.modifiers, modifiers...)
@@ -271,6 +335,24 @@ func (au *APIUpdate) sqlSave(ctx context.Context) (n int, err error) {
 	}
 	if value, ok := au.mutation.EntID(); ok {
 		_spec.SetField(api.FieldEntID, field.TypeUUID, value)
+	}
+	if value, ok := au.mutation.CreatedAt(); ok {
+		_spec.SetField(api.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := au.mutation.AddedCreatedAt(); ok {
+		_spec.AddField(api.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := au.mutation.UpdatedAt(); ok {
+		_spec.SetField(api.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := au.mutation.AddedUpdatedAt(); ok {
+		_spec.AddField(api.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := au.mutation.DeletedAt(); ok {
+		_spec.SetField(api.FieldDeletedAt, field.TypeUint32, value)
+	}
+	if value, ok := au.mutation.AddedDeletedAt(); ok {
+		_spec.AddField(api.FieldDeletedAt, field.TypeUint32, value)
 	}
 	if value, ok := au.mutation.Protocol(); ok {
 		_spec.SetField(api.FieldProtocol, field.TypeString, value)
@@ -364,6 +446,61 @@ func (auo *APIUpdateOne) SetNillableEntID(u *uuid.UUID) *APIUpdateOne {
 	if u != nil {
 		auo.SetEntID(*u)
 	}
+	return auo
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (auo *APIUpdateOne) SetCreatedAt(u uint32) *APIUpdateOne {
+	auo.mutation.ResetCreatedAt()
+	auo.mutation.SetCreatedAt(u)
+	return auo
+}
+
+// SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
+func (auo *APIUpdateOne) SetNillableCreatedAt(u *uint32) *APIUpdateOne {
+	if u != nil {
+		auo.SetCreatedAt(*u)
+	}
+	return auo
+}
+
+// AddCreatedAt adds u to the "created_at" field.
+func (auo *APIUpdateOne) AddCreatedAt(u int32) *APIUpdateOne {
+	auo.mutation.AddCreatedAt(u)
+	return auo
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (auo *APIUpdateOne) SetUpdatedAt(u uint32) *APIUpdateOne {
+	auo.mutation.ResetUpdatedAt()
+	auo.mutation.SetUpdatedAt(u)
+	return auo
+}
+
+// AddUpdatedAt adds u to the "updated_at" field.
+func (auo *APIUpdateOne) AddUpdatedAt(u int32) *APIUpdateOne {
+	auo.mutation.AddUpdatedAt(u)
+	return auo
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (auo *APIUpdateOne) SetDeletedAt(u uint32) *APIUpdateOne {
+	auo.mutation.ResetDeletedAt()
+	auo.mutation.SetDeletedAt(u)
+	return auo
+}
+
+// SetNillableDeletedAt sets the "deleted_at" field if the given value is not nil.
+func (auo *APIUpdateOne) SetNillableDeletedAt(u *uint32) *APIUpdateOne {
+	if u != nil {
+		auo.SetDeletedAt(*u)
+	}
+	return auo
+}
+
+// AddDeletedAt adds u to the "deleted_at" field.
+func (auo *APIUpdateOne) AddDeletedAt(u int32) *APIUpdateOne {
+	auo.mutation.AddDeletedAt(u)
 	return auo
 }
 
@@ -565,6 +702,7 @@ func (auo *APIUpdateOne) Select(field string, fields ...string) *APIUpdateOne {
 
 // Save executes the query and returns the updated API entity.
 func (auo *APIUpdateOne) Save(ctx context.Context) (*API, error) {
+	auo.defaults()
 	return withHooks(ctx, auo.sqlSave, auo.mutation, auo.hooks)
 }
 
@@ -587,6 +725,14 @@ func (auo *APIUpdateOne) Exec(ctx context.Context) error {
 func (auo *APIUpdateOne) ExecX(ctx context.Context) {
 	if err := auo.Exec(ctx); err != nil {
 		panic(err)
+	}
+}
+
+// defaults sets the default values of the builder before save.
+func (auo *APIUpdateOne) defaults() {
+	if _, ok := auo.mutation.UpdatedAt(); !ok {
+		v := api.UpdateDefaultUpdatedAt()
+		auo.mutation.SetUpdatedAt(v)
 	}
 }
 
@@ -624,6 +770,24 @@ func (auo *APIUpdateOne) sqlSave(ctx context.Context) (_node *API, err error) {
 	}
 	if value, ok := auo.mutation.EntID(); ok {
 		_spec.SetField(api.FieldEntID, field.TypeUUID, value)
+	}
+	if value, ok := auo.mutation.CreatedAt(); ok {
+		_spec.SetField(api.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := auo.mutation.AddedCreatedAt(); ok {
+		_spec.AddField(api.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := auo.mutation.UpdatedAt(); ok {
+		_spec.SetField(api.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := auo.mutation.AddedUpdatedAt(); ok {
+		_spec.AddField(api.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := auo.mutation.DeletedAt(); ok {
+		_spec.SetField(api.FieldDeletedAt, field.TypeUint32, value)
+	}
+	if value, ok := auo.mutation.AddedDeletedAt(); ok {
+		_spec.AddField(api.FieldDeletedAt, field.TypeUint32, value)
 	}
 	if value, ok := auo.mutation.Protocol(); ok {
 		_spec.SetField(api.FieldProtocol, field.TypeString, value)

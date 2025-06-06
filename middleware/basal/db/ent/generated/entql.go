@@ -26,6 +26,9 @@ var schemaGraph = func() *sqlgraph.Schema {
 		Type: "API",
 		Fields: map[string]*sqlgraph.FieldSpec{
 			api.FieldEntID:       {Type: field.TypeUUID, Column: api.FieldEntID},
+			api.FieldCreatedAt:   {Type: field.TypeUint32, Column: api.FieldCreatedAt},
+			api.FieldUpdatedAt:   {Type: field.TypeUint32, Column: api.FieldUpdatedAt},
+			api.FieldDeletedAt:   {Type: field.TypeUint32, Column: api.FieldDeletedAt},
 			api.FieldProtocol:    {Type: field.TypeString, Column: api.FieldProtocol},
 			api.FieldServiceName: {Type: field.TypeString, Column: api.FieldServiceName},
 			api.FieldMethod:      {Type: field.TypeString, Column: api.FieldMethod},
@@ -89,6 +92,21 @@ func (f *APIFilter) WhereID(p entql.Uint32P) {
 // WhereEntID applies the entql [16]byte predicate on the ent_id field.
 func (f *APIFilter) WhereEntID(p entql.ValueP) {
 	f.Where(p.Field(api.FieldEntID))
+}
+
+// WhereCreatedAt applies the entql uint32 predicate on the created_at field.
+func (f *APIFilter) WhereCreatedAt(p entql.Uint32P) {
+	f.Where(p.Field(api.FieldCreatedAt))
+}
+
+// WhereUpdatedAt applies the entql uint32 predicate on the updated_at field.
+func (f *APIFilter) WhereUpdatedAt(p entql.Uint32P) {
+	f.Where(p.Field(api.FieldUpdatedAt))
+}
+
+// WhereDeletedAt applies the entql uint32 predicate on the deleted_at field.
+func (f *APIFilter) WhereDeletedAt(p entql.Uint32P) {
+	f.Where(p.Field(api.FieldDeletedAt))
 }
 
 // WhereProtocol applies the entql string predicate on the protocol field.

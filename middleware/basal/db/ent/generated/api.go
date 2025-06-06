@@ -20,6 +20,12 @@ type API struct {
 	ID uint32 `json:"id,omitempty"`
 	// EntID holds the value of the "ent_id" field.
 	EntID uuid.UUID `json:"ent_id,omitempty"`
+	// CreatedAt holds the value of the "created_at" field.
+	CreatedAt uint32 `json:"created_at,omitempty"`
+	// UpdatedAt holds the value of the "updated_at" field.
+	UpdatedAt uint32 `json:"updated_at,omitempty"`
+	// DeletedAt holds the value of the "deleted_at" field.
+	DeletedAt uint32 `json:"deleted_at,omitempty"`
 	// Protocol holds the value of the "protocol" field.
 	Protocol string `json:"protocol,omitempty"`
 	// ServiceName holds the value of the "service_name" field.
@@ -50,7 +56,7 @@ func (*API) scanValues(columns []string) ([]any, error) {
 			values[i] = new([]byte)
 		case api.FieldExported, api.FieldDeprecated:
 			values[i] = new(sql.NullBool)
-		case api.FieldID:
+		case api.FieldID, api.FieldCreatedAt, api.FieldUpdatedAt, api.FieldDeletedAt:
 			values[i] = new(sql.NullInt64)
 		case api.FieldProtocol, api.FieldServiceName, api.FieldMethod, api.FieldMethodName, api.FieldPath, api.FieldPathPrefix:
 			values[i] = new(sql.NullString)
@@ -82,6 +88,24 @@ func (a *API) assignValues(columns []string, values []any) error {
 				return fmt.Errorf("unexpected type %T for field ent_id", values[i])
 			} else if value != nil {
 				a.EntID = *value
+			}
+		case api.FieldCreatedAt:
+			if value, ok := values[i].(*sql.NullInt64); !ok {
+				return fmt.Errorf("unexpected type %T for field created_at", values[i])
+			} else if value.Valid {
+				a.CreatedAt = uint32(value.Int64)
+			}
+		case api.FieldUpdatedAt:
+			if value, ok := values[i].(*sql.NullInt64); !ok {
+				return fmt.Errorf("unexpected type %T for field updated_at", values[i])
+			} else if value.Valid {
+				a.UpdatedAt = uint32(value.Int64)
+			}
+		case api.FieldDeletedAt:
+			if value, ok := values[i].(*sql.NullInt64); !ok {
+				return fmt.Errorf("unexpected type %T for field deleted_at", values[i])
+			} else if value.Valid {
+				a.DeletedAt = uint32(value.Int64)
 			}
 		case api.FieldProtocol:
 			if value, ok := values[i].(*sql.NullString); !ok {
@@ -177,6 +201,15 @@ func (a *API) String() string {
 	builder.WriteString(fmt.Sprintf("id=%v, ", a.ID))
 	builder.WriteString("ent_id=")
 	builder.WriteString(fmt.Sprintf("%v", a.EntID))
+	builder.WriteString(", ")
+	builder.WriteString("created_at=")
+	builder.WriteString(fmt.Sprintf("%v", a.CreatedAt))
+	builder.WriteString(", ")
+	builder.WriteString("updated_at=")
+	builder.WriteString(fmt.Sprintf("%v", a.UpdatedAt))
+	builder.WriteString(", ")
+	builder.WriteString("deleted_at=")
+	builder.WriteString(fmt.Sprintf("%v", a.DeletedAt))
 	builder.WriteString(", ")
 	builder.WriteString("protocol=")
 	builder.WriteString(a.Protocol)

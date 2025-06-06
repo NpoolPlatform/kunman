@@ -3,10 +3,11 @@ package main
 import (
 	"context"
 
-	// "github.com/NpoolPlatform/kunman/api"
+	"github.com/NpoolPlatform/kunman/api"
 	"github.com/NpoolPlatform/kunman/framework/action"
 	"github.com/NpoolPlatform/kunman/framework/logger"
-	// "github.com/NpoolPlatform/kunman/framework/wlog"
+	"github.com/NpoolPlatform/kunman/framework/wlog"
+	basalapi "github.com/NpoolPlatform/kunman/mal/basal/api"
 	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
 	cli "github.com/urfave/cli/v2"
 	"google.golang.org/grpc"
@@ -49,19 +50,16 @@ func watch(ctx context.Context, cancel context.CancelFunc) error {
 }
 
 func rpcRegister(server grpc.ServiceRegistrar) error {
-	// api.Register(server)
+	api.Register(server)
 
-	// apicli.RegisterGRPC(server)
-
-	return nil
+	return basalapi.RegisterGRPC(server)
 }
 
 func rpcGatewayRegister(mux *runtime.ServeMux, endpoint string, opts []grpc.DialOption) error {
-	// err := api.RegisterGateway(mux, endpoint, opts)
-	// if err != nil {
-	// 	return wlog.WrapError(err)
-	// }
+	err := api.RegisterGateway(mux, endpoint, opts)
+	if err != nil {
+		return wlog.WrapError(err)
+	}
 
-	// _ = apicli.Register(mux)
-	return nil
+	return basalapi.Register(mux)
 }

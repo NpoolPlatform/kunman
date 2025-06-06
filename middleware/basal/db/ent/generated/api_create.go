@@ -36,6 +36,48 @@ func (ac *APICreate) SetNillableEntID(u *uuid.UUID) *APICreate {
 	return ac
 }
 
+// SetCreatedAt sets the "created_at" field.
+func (ac *APICreate) SetCreatedAt(u uint32) *APICreate {
+	ac.mutation.SetCreatedAt(u)
+	return ac
+}
+
+// SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
+func (ac *APICreate) SetNillableCreatedAt(u *uint32) *APICreate {
+	if u != nil {
+		ac.SetCreatedAt(*u)
+	}
+	return ac
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (ac *APICreate) SetUpdatedAt(u uint32) *APICreate {
+	ac.mutation.SetUpdatedAt(u)
+	return ac
+}
+
+// SetNillableUpdatedAt sets the "updated_at" field if the given value is not nil.
+func (ac *APICreate) SetNillableUpdatedAt(u *uint32) *APICreate {
+	if u != nil {
+		ac.SetUpdatedAt(*u)
+	}
+	return ac
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (ac *APICreate) SetDeletedAt(u uint32) *APICreate {
+	ac.mutation.SetDeletedAt(u)
+	return ac
+}
+
+// SetNillableDeletedAt sets the "deleted_at" field if the given value is not nil.
+func (ac *APICreate) SetNillableDeletedAt(u *uint32) *APICreate {
+	if u != nil {
+		ac.SetDeletedAt(*u)
+	}
+	return ac
+}
+
 // SetProtocol sets the "protocol" field.
 func (ac *APICreate) SetProtocol(s string) *APICreate {
 	ac.mutation.SetProtocol(s)
@@ -199,6 +241,18 @@ func (ac *APICreate) defaults() {
 		v := api.DefaultEntID()
 		ac.mutation.SetEntID(v)
 	}
+	if _, ok := ac.mutation.CreatedAt(); !ok {
+		v := api.DefaultCreatedAt()
+		ac.mutation.SetCreatedAt(v)
+	}
+	if _, ok := ac.mutation.UpdatedAt(); !ok {
+		v := api.DefaultUpdatedAt()
+		ac.mutation.SetUpdatedAt(v)
+	}
+	if _, ok := ac.mutation.DeletedAt(); !ok {
+		v := api.DefaultDeletedAt()
+		ac.mutation.SetDeletedAt(v)
+	}
 	if _, ok := ac.mutation.Protocol(); !ok {
 		v := api.DefaultProtocol
 		ac.mutation.SetProtocol(v)
@@ -242,6 +296,15 @@ func (ac *APICreate) check() error {
 	if _, ok := ac.mutation.EntID(); !ok {
 		return &ValidationError{Name: "ent_id", err: errors.New(`generated: missing required field "API.ent_id"`)}
 	}
+	if _, ok := ac.mutation.CreatedAt(); !ok {
+		return &ValidationError{Name: "created_at", err: errors.New(`generated: missing required field "API.created_at"`)}
+	}
+	if _, ok := ac.mutation.UpdatedAt(); !ok {
+		return &ValidationError{Name: "updated_at", err: errors.New(`generated: missing required field "API.updated_at"`)}
+	}
+	if _, ok := ac.mutation.DeletedAt(); !ok {
+		return &ValidationError{Name: "deleted_at", err: errors.New(`generated: missing required field "API.deleted_at"`)}
+	}
 	return nil
 }
 
@@ -278,6 +341,18 @@ func (ac *APICreate) createSpec() (*API, *sqlgraph.CreateSpec) {
 	if value, ok := ac.mutation.EntID(); ok {
 		_spec.SetField(api.FieldEntID, field.TypeUUID, value)
 		_node.EntID = value
+	}
+	if value, ok := ac.mutation.CreatedAt(); ok {
+		_spec.SetField(api.FieldCreatedAt, field.TypeUint32, value)
+		_node.CreatedAt = value
+	}
+	if value, ok := ac.mutation.UpdatedAt(); ok {
+		_spec.SetField(api.FieldUpdatedAt, field.TypeUint32, value)
+		_node.UpdatedAt = value
+	}
+	if value, ok := ac.mutation.DeletedAt(); ok {
+		_spec.SetField(api.FieldDeletedAt, field.TypeUint32, value)
+		_node.DeletedAt = value
 	}
 	if value, ok := ac.mutation.Protocol(); ok {
 		_spec.SetField(api.FieldProtocol, field.TypeString, value)
@@ -376,6 +451,60 @@ func (u *APIUpsert) SetEntID(v uuid.UUID) *APIUpsert {
 // UpdateEntID sets the "ent_id" field to the value that was provided on create.
 func (u *APIUpsert) UpdateEntID() *APIUpsert {
 	u.SetExcluded(api.FieldEntID)
+	return u
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (u *APIUpsert) SetCreatedAt(v uint32) *APIUpsert {
+	u.Set(api.FieldCreatedAt, v)
+	return u
+}
+
+// UpdateCreatedAt sets the "created_at" field to the value that was provided on create.
+func (u *APIUpsert) UpdateCreatedAt() *APIUpsert {
+	u.SetExcluded(api.FieldCreatedAt)
+	return u
+}
+
+// AddCreatedAt adds v to the "created_at" field.
+func (u *APIUpsert) AddCreatedAt(v uint32) *APIUpsert {
+	u.Add(api.FieldCreatedAt, v)
+	return u
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (u *APIUpsert) SetUpdatedAt(v uint32) *APIUpsert {
+	u.Set(api.FieldUpdatedAt, v)
+	return u
+}
+
+// UpdateUpdatedAt sets the "updated_at" field to the value that was provided on create.
+func (u *APIUpsert) UpdateUpdatedAt() *APIUpsert {
+	u.SetExcluded(api.FieldUpdatedAt)
+	return u
+}
+
+// AddUpdatedAt adds v to the "updated_at" field.
+func (u *APIUpsert) AddUpdatedAt(v uint32) *APIUpsert {
+	u.Add(api.FieldUpdatedAt, v)
+	return u
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (u *APIUpsert) SetDeletedAt(v uint32) *APIUpsert {
+	u.Set(api.FieldDeletedAt, v)
+	return u
+}
+
+// UpdateDeletedAt sets the "deleted_at" field to the value that was provided on create.
+func (u *APIUpsert) UpdateDeletedAt() *APIUpsert {
+	u.SetExcluded(api.FieldDeletedAt)
+	return u
+}
+
+// AddDeletedAt adds v to the "deleted_at" field.
+func (u *APIUpsert) AddDeletedAt(v uint32) *APIUpsert {
+	u.Add(api.FieldDeletedAt, v)
 	return u
 }
 
@@ -600,6 +729,69 @@ func (u *APIUpsertOne) SetEntID(v uuid.UUID) *APIUpsertOne {
 func (u *APIUpsertOne) UpdateEntID() *APIUpsertOne {
 	return u.Update(func(s *APIUpsert) {
 		s.UpdateEntID()
+	})
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (u *APIUpsertOne) SetCreatedAt(v uint32) *APIUpsertOne {
+	return u.Update(func(s *APIUpsert) {
+		s.SetCreatedAt(v)
+	})
+}
+
+// AddCreatedAt adds v to the "created_at" field.
+func (u *APIUpsertOne) AddCreatedAt(v uint32) *APIUpsertOne {
+	return u.Update(func(s *APIUpsert) {
+		s.AddCreatedAt(v)
+	})
+}
+
+// UpdateCreatedAt sets the "created_at" field to the value that was provided on create.
+func (u *APIUpsertOne) UpdateCreatedAt() *APIUpsertOne {
+	return u.Update(func(s *APIUpsert) {
+		s.UpdateCreatedAt()
+	})
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (u *APIUpsertOne) SetUpdatedAt(v uint32) *APIUpsertOne {
+	return u.Update(func(s *APIUpsert) {
+		s.SetUpdatedAt(v)
+	})
+}
+
+// AddUpdatedAt adds v to the "updated_at" field.
+func (u *APIUpsertOne) AddUpdatedAt(v uint32) *APIUpsertOne {
+	return u.Update(func(s *APIUpsert) {
+		s.AddUpdatedAt(v)
+	})
+}
+
+// UpdateUpdatedAt sets the "updated_at" field to the value that was provided on create.
+func (u *APIUpsertOne) UpdateUpdatedAt() *APIUpsertOne {
+	return u.Update(func(s *APIUpsert) {
+		s.UpdateUpdatedAt()
+	})
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (u *APIUpsertOne) SetDeletedAt(v uint32) *APIUpsertOne {
+	return u.Update(func(s *APIUpsert) {
+		s.SetDeletedAt(v)
+	})
+}
+
+// AddDeletedAt adds v to the "deleted_at" field.
+func (u *APIUpsertOne) AddDeletedAt(v uint32) *APIUpsertOne {
+	return u.Update(func(s *APIUpsert) {
+		s.AddDeletedAt(v)
+	})
+}
+
+// UpdateDeletedAt sets the "deleted_at" field to the value that was provided on create.
+func (u *APIUpsertOne) UpdateDeletedAt() *APIUpsertOne {
+	return u.Update(func(s *APIUpsert) {
+		s.UpdateDeletedAt()
 	})
 }
 
@@ -1017,6 +1209,69 @@ func (u *APIUpsertBulk) SetEntID(v uuid.UUID) *APIUpsertBulk {
 func (u *APIUpsertBulk) UpdateEntID() *APIUpsertBulk {
 	return u.Update(func(s *APIUpsert) {
 		s.UpdateEntID()
+	})
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (u *APIUpsertBulk) SetCreatedAt(v uint32) *APIUpsertBulk {
+	return u.Update(func(s *APIUpsert) {
+		s.SetCreatedAt(v)
+	})
+}
+
+// AddCreatedAt adds v to the "created_at" field.
+func (u *APIUpsertBulk) AddCreatedAt(v uint32) *APIUpsertBulk {
+	return u.Update(func(s *APIUpsert) {
+		s.AddCreatedAt(v)
+	})
+}
+
+// UpdateCreatedAt sets the "created_at" field to the value that was provided on create.
+func (u *APIUpsertBulk) UpdateCreatedAt() *APIUpsertBulk {
+	return u.Update(func(s *APIUpsert) {
+		s.UpdateCreatedAt()
+	})
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (u *APIUpsertBulk) SetUpdatedAt(v uint32) *APIUpsertBulk {
+	return u.Update(func(s *APIUpsert) {
+		s.SetUpdatedAt(v)
+	})
+}
+
+// AddUpdatedAt adds v to the "updated_at" field.
+func (u *APIUpsertBulk) AddUpdatedAt(v uint32) *APIUpsertBulk {
+	return u.Update(func(s *APIUpsert) {
+		s.AddUpdatedAt(v)
+	})
+}
+
+// UpdateUpdatedAt sets the "updated_at" field to the value that was provided on create.
+func (u *APIUpsertBulk) UpdateUpdatedAt() *APIUpsertBulk {
+	return u.Update(func(s *APIUpsert) {
+		s.UpdateUpdatedAt()
+	})
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (u *APIUpsertBulk) SetDeletedAt(v uint32) *APIUpsertBulk {
+	return u.Update(func(s *APIUpsert) {
+		s.SetDeletedAt(v)
+	})
+}
+
+// AddDeletedAt adds v to the "deleted_at" field.
+func (u *APIUpsertBulk) AddDeletedAt(v uint32) *APIUpsertBulk {
+	return u.Update(func(s *APIUpsert) {
+		s.AddDeletedAt(v)
+	})
+}
+
+// UpdateDeletedAt sets the "deleted_at" field to the value that was provided on create.
+func (u *APIUpsertBulk) UpdateDeletedAt() *APIUpsertBulk {
+	return u.Update(func(s *APIUpsert) {
+		s.UpdateDeletedAt()
 	})
 }
 

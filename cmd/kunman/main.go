@@ -12,6 +12,7 @@ import (
 	mysqlconst "github.com/NpoolPlatform/kunman/framework/mysql/const"
 	rabbitmqconst "github.com/NpoolPlatform/kunman/framework/rabbitmq/const"
 	redisconst "github.com/NpoolPlatform/kunman/framework/redis/const"
+	basalservicename "github.com/NpoolPlatform/kunman/middleware/basal/servicename"
 
 	cli "github.com/urfave/cli/v2"
 )
@@ -34,6 +35,7 @@ func main() {
 		mysqlconst.MysqlServiceName,
 		rabbitmqconst.RabbitMQServiceName,
 		redisconst.RedisServiceName,
+		basalservicename.ServiceDomain,
 	)
 	if err != nil {
 		logger.Sugar().Errorw(

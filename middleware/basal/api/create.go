@@ -3,11 +3,11 @@ package api
 import (
 	"context"
 
-	crud "github.com/NpoolPlatform/kunman/basal/crud/api"
-	"github.com/NpoolPlatform/kunman/basal/db"
-	"github.com/NpoolPlatform/kunman/basal/db/ent"
-	entapi "github.com/NpoolPlatform/kunman/basal/db/ent/api"
 	npool "github.com/NpoolPlatform/kunman/message/basal/middleware/v1/api"
+	crud "github.com/NpoolPlatform/kunman/middleware/basal/crud/api"
+	"github.com/NpoolPlatform/kunman/middleware/basal/db"
+	ent "github.com/NpoolPlatform/kunman/middleware/basal/db/ent/generated"
+	entapi "github.com/NpoolPlatform/kunman/middleware/basal/db/ent/generated/api"
 	cruder "github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 
 	"github.com/google/uuid"

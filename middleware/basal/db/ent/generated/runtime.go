@@ -15,12 +15,28 @@ func init() {
 	apiMixin := schema.API{}.Mixin()
 	apiMixinFields0 := apiMixin[0].Fields()
 	_ = apiMixinFields0
+	apiMixinFields1 := apiMixin[1].Fields()
+	_ = apiMixinFields1
 	apiFields := schema.API{}.Fields()
 	_ = apiFields
 	// apiDescEntID is the schema descriptor for ent_id field.
 	apiDescEntID := apiMixinFields0[1].Descriptor()
 	// api.DefaultEntID holds the default value on creation for the ent_id field.
 	api.DefaultEntID = apiDescEntID.Default.(func() uuid.UUID)
+	// apiDescCreatedAt is the schema descriptor for created_at field.
+	apiDescCreatedAt := apiMixinFields1[0].Descriptor()
+	// api.DefaultCreatedAt holds the default value on creation for the created_at field.
+	api.DefaultCreatedAt = apiDescCreatedAt.Default.(func() uint32)
+	// apiDescUpdatedAt is the schema descriptor for updated_at field.
+	apiDescUpdatedAt := apiMixinFields1[1].Descriptor()
+	// api.DefaultUpdatedAt holds the default value on creation for the updated_at field.
+	api.DefaultUpdatedAt = apiDescUpdatedAt.Default.(func() uint32)
+	// api.UpdateDefaultUpdatedAt holds the default value on update for the updated_at field.
+	api.UpdateDefaultUpdatedAt = apiDescUpdatedAt.UpdateDefault.(func() uint32)
+	// apiDescDeletedAt is the schema descriptor for deleted_at field.
+	apiDescDeletedAt := apiMixinFields1[2].Descriptor()
+	// api.DefaultDeletedAt holds the default value on creation for the deleted_at field.
+	api.DefaultDeletedAt = apiDescDeletedAt.Default.(func() uint32)
 	// apiDescProtocol is the schema descriptor for protocol field.
 	apiDescProtocol := apiFields[0].Descriptor()
 	// api.DefaultProtocol holds the default value on creation for the protocol field.
