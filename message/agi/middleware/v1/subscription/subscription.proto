@@ -16,6 +16,7 @@ message SubscriptionReq {
     optional uint32 NextExtendAt = 60;
     optional uint32 PermanentQuota = 70;
     optional bool AutoExtend = 80;
+    optional uint32 ConsumedQuota = 90;
 }
 
 message Subscription {

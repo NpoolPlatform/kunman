@@ -14,6 +14,7 @@ message QuotaReq {
     optional string UserID = 40;
     optional uint32 Quota = 60;
     optional uint32 ExpiredAt = 70;
+    optional uint32 ConsumedQuota = 80;
 }
 
 message Quota {
