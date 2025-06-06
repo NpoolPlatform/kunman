@@ -201,6 +201,30 @@ func (f AppStockLockFunc) Mutate(ctx context.Context, m generated.Mutation) (gen
 	return nil, fmt.Errorf("unexpected mutation type %T. expect *generated.AppStockLockMutation", m)
 }
 
+// The AppSubscriptionFunc type is an adapter to allow the use of ordinary
+// function as AppSubscription mutator.
+type AppSubscriptionFunc func(context.Context, *generated.AppSubscriptionMutation) (generated.Value, error)
+
+// Mutate calls f(ctx, m).
+func (f AppSubscriptionFunc) Mutate(ctx context.Context, m generated.Mutation) (generated.Value, error) {
+	if mv, ok := m.(*generated.AppSubscriptionMutation); ok {
+		return f(ctx, mv)
+	}
+	return nil, fmt.Errorf("unexpected mutation type %T. expect *generated.AppSubscriptionMutation", m)
+}
+
+// The AppSubscriptionOneShotFunc type is an adapter to allow the use of ordinary
+// function as AppSubscriptionOneShot mutator.
+type AppSubscriptionOneShotFunc func(context.Context, *generated.AppSubscriptionOneShotMutation) (generated.Value, error)
+
+// Mutate calls f(ctx, m).
+func (f AppSubscriptionOneShotFunc) Mutate(ctx context.Context, m generated.Mutation) (generated.Value, error) {
+	if mv, ok := m.(*generated.AppSubscriptionOneShotMutation); ok {
+		return f(ctx, mv)
+	}
+	return nil, fmt.Errorf("unexpected mutation type %T. expect *generated.AppSubscriptionOneShotMutation", m)
+}
+
 // The CommentFunc type is an adapter to allow the use of ordinary
 // function as Comment mutator.
 type CommentFunc func(context.Context, *generated.CommentMutation) (generated.Value, error)
@@ -475,6 +499,30 @@ func (f StockFunc) Mutate(ctx context.Context, m generated.Mutation) (generated.
 		return f(ctx, mv)
 	}
 	return nil, fmt.Errorf("unexpected mutation type %T. expect *generated.StockMutation", m)
+}
+
+// The SubscriptionFunc type is an adapter to allow the use of ordinary
+// function as Subscription mutator.
+type SubscriptionFunc func(context.Context, *generated.SubscriptionMutation) (generated.Value, error)
+
+// Mutate calls f(ctx, m).
+func (f SubscriptionFunc) Mutate(ctx context.Context, m generated.Mutation) (generated.Value, error) {
+	if mv, ok := m.(*generated.SubscriptionMutation); ok {
+		return f(ctx, mv)
+	}
+	return nil, fmt.Errorf("unexpected mutation type %T. expect *generated.SubscriptionMutation", m)
+}
+
+// The SubscriptionOneShotFunc type is an adapter to allow the use of ordinary
+// function as SubscriptionOneShot mutator.
+type SubscriptionOneShotFunc func(context.Context, *generated.SubscriptionOneShotMutation) (generated.Value, error)
+
+// Mutate calls f(ctx, m).
+func (f SubscriptionOneShotFunc) Mutate(ctx context.Context, m generated.Mutation) (generated.Value, error) {
+	if mv, ok := m.(*generated.SubscriptionOneShotMutation); ok {
+		return f(ctx, mv)
+	}
+	return nil, fmt.Errorf("unexpected mutation type %T. expect *generated.SubscriptionOneShotMutation", m)
 }
 
 // The TopMostFunc type is an adapter to allow the use of ordinary

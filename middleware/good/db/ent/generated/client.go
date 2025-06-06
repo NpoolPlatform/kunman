@@ -30,6 +30,8 @@ import (
 	"github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated/appsimulatepowerrental"
 	"github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated/appstock"
 	"github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated/appstocklock"
+	"github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated/appsubscription"
+	"github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated/appsubscriptiononeshot"
 	"github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated/comment"
 	"github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated/delegatedstaking"
 	"github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated/deviceinfo"
@@ -53,6 +55,8 @@ import (
 	"github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated/requiredgood"
 	"github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated/score"
 	"github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated/stock"
+	"github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated/subscription"
+	"github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated/subscriptiononeshot"
 	"github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated/topmost"
 	"github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated/topmostconstraint"
 	"github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated/topmostgood"
@@ -102,6 +106,10 @@ type Client struct {
 	AppStock *AppStockClient
 	// AppStockLock is the client for interacting with the AppStockLock builders.
 	AppStockLock *AppStockLockClient
+	// AppSubscription is the client for interacting with the AppSubscription builders.
+	AppSubscription *AppSubscriptionClient
+	// AppSubscriptionOneShot is the client for interacting with the AppSubscriptionOneShot builders.
+	AppSubscriptionOneShot *AppSubscriptionOneShotClient
 	// Comment is the client for interacting with the Comment builders.
 	Comment *CommentClient
 	// DelegatedStaking is the client for interacting with the DelegatedStaking builders.
@@ -148,6 +156,10 @@ type Client struct {
 	Score *ScoreClient
 	// Stock is the client for interacting with the Stock builders.
 	Stock *StockClient
+	// Subscription is the client for interacting with the Subscription builders.
+	Subscription *SubscriptionClient
+	// SubscriptionOneShot is the client for interacting with the SubscriptionOneShot builders.
+	SubscriptionOneShot *SubscriptionOneShotClient
 	// TopMost is the client for interacting with the TopMost builders.
 	TopMost *TopMostClient
 	// TopMostConstraint is the client for interacting with the TopMostConstraint builders.
@@ -191,6 +203,8 @@ func (c *Client) init() {
 	c.AppSimulatePowerRental = NewAppSimulatePowerRentalClient(c.config)
 	c.AppStock = NewAppStockClient(c.config)
 	c.AppStockLock = NewAppStockLockClient(c.config)
+	c.AppSubscription = NewAppSubscriptionClient(c.config)
+	c.AppSubscriptionOneShot = NewAppSubscriptionOneShotClient(c.config)
 	c.Comment = NewCommentClient(c.config)
 	c.DelegatedStaking = NewDelegatedStakingClient(c.config)
 	c.DeviceInfo = NewDeviceInfoClient(c.config)
@@ -214,6 +228,8 @@ func (c *Client) init() {
 	c.RequiredGood = NewRequiredGoodClient(c.config)
 	c.Score = NewScoreClient(c.config)
 	c.Stock = NewStockClient(c.config)
+	c.Subscription = NewSubscriptionClient(c.config)
+	c.SubscriptionOneShot = NewSubscriptionOneShotClient(c.config)
 	c.TopMost = NewTopMostClient(c.config)
 	c.TopMostConstraint = NewTopMostConstraintClient(c.config)
 	c.TopMostGood = NewTopMostGoodClient(c.config)
@@ -330,6 +346,8 @@ func (c *Client) Tx(ctx context.Context) (*Tx, error) {
 		AppSimulatePowerRental: NewAppSimulatePowerRentalClient(cfg),
 		AppStock:               NewAppStockClient(cfg),
 		AppStockLock:           NewAppStockLockClient(cfg),
+		AppSubscription:        NewAppSubscriptionClient(cfg),
+		AppSubscriptionOneShot: NewAppSubscriptionOneShotClient(cfg),
 		Comment:                NewCommentClient(cfg),
 		DelegatedStaking:       NewDelegatedStakingClient(cfg),
 		DeviceInfo:             NewDeviceInfoClient(cfg),
@@ -353,6 +371,8 @@ func (c *Client) Tx(ctx context.Context) (*Tx, error) {
 		RequiredGood:           NewRequiredGoodClient(cfg),
 		Score:                  NewScoreClient(cfg),
 		Stock:                  NewStockClient(cfg),
+		Subscription:           NewSubscriptionClient(cfg),
+		SubscriptionOneShot:    NewSubscriptionOneShotClient(cfg),
 		TopMost:                NewTopMostClient(cfg),
 		TopMostConstraint:      NewTopMostConstraintClient(cfg),
 		TopMostGood:            NewTopMostGoodClient(cfg),
@@ -396,6 +416,8 @@ func (c *Client) BeginTx(ctx context.Context, opts *sql.TxOptions) (*Tx, error) 
 		AppSimulatePowerRental: NewAppSimulatePowerRentalClient(cfg),
 		AppStock:               NewAppStockClient(cfg),
 		AppStockLock:           NewAppStockLockClient(cfg),
+		AppSubscription:        NewAppSubscriptionClient(cfg),
+		AppSubscriptionOneShot: NewAppSubscriptionOneShotClient(cfg),
 		Comment:                NewCommentClient(cfg),
 		DelegatedStaking:       NewDelegatedStakingClient(cfg),
 		DeviceInfo:             NewDeviceInfoClient(cfg),
@@ -419,6 +441,8 @@ func (c *Client) BeginTx(ctx context.Context, opts *sql.TxOptions) (*Tx, error) 
 		RequiredGood:           NewRequiredGoodClient(cfg),
 		Score:                  NewScoreClient(cfg),
 		Stock:                  NewStockClient(cfg),
+		Subscription:           NewSubscriptionClient(cfg),
+		SubscriptionOneShot:    NewSubscriptionOneShotClient(cfg),
 		TopMost:                NewTopMostClient(cfg),
 		TopMostConstraint:      NewTopMostConstraintClient(cfg),
 		TopMostGood:            NewTopMostGoodClient(cfg),
@@ -460,12 +484,13 @@ func (c *Client) Use(hooks ...Hook) {
 		c.AppGoodDescription, c.AppGoodDisplayColor, c.AppGoodDisplayName,
 		c.AppGoodLabel, c.AppGoodPoster, c.AppLegacyPowerRental, c.AppMiningGoodStock,
 		c.AppPowerRental, c.AppSimulatePowerRental, c.AppStock, c.AppStockLock,
-		c.Comment, c.DelegatedStaking, c.DeviceInfo, c.DeviceManufacturer,
-		c.DevicePoster, c.ExtraInfo, c.FbmCrowdFunding, c.Fee, c.Good, c.GoodBase,
-		c.GoodCoin, c.GoodCoinReward, c.GoodMalfunction, c.GoodReward,
-		c.GoodRewardHistory, c.Like, c.MiningGoodStock, c.PowerRental, c.Recommend,
-		c.RequiredAppGood, c.RequiredGood, c.Score, c.Stock, c.TopMost,
-		c.TopMostConstraint, c.TopMostGood, c.TopMostGoodConstraint,
+		c.AppSubscription, c.AppSubscriptionOneShot, c.Comment, c.DelegatedStaking,
+		c.DeviceInfo, c.DeviceManufacturer, c.DevicePoster, c.ExtraInfo,
+		c.FbmCrowdFunding, c.Fee, c.Good, c.GoodBase, c.GoodCoin, c.GoodCoinReward,
+		c.GoodMalfunction, c.GoodReward, c.GoodRewardHistory, c.Like,
+		c.MiningGoodStock, c.PowerRental, c.Recommend, c.RequiredAppGood,
+		c.RequiredGood, c.Score, c.Stock, c.Subscription, c.SubscriptionOneShot,
+		c.TopMost, c.TopMostConstraint, c.TopMostGood, c.TopMostGoodConstraint,
 		c.TopMostGoodPoster, c.TopMostPoster, c.VendorBrand, c.VendorLocation,
 	} {
 		n.Use(hooks...)
@@ -480,12 +505,13 @@ func (c *Client) Intercept(interceptors ...Interceptor) {
 		c.AppGoodDescription, c.AppGoodDisplayColor, c.AppGoodDisplayName,
 		c.AppGoodLabel, c.AppGoodPoster, c.AppLegacyPowerRental, c.AppMiningGoodStock,
 		c.AppPowerRental, c.AppSimulatePowerRental, c.AppStock, c.AppStockLock,
-		c.Comment, c.DelegatedStaking, c.DeviceInfo, c.DeviceManufacturer,
-		c.DevicePoster, c.ExtraInfo, c.FbmCrowdFunding, c.Fee, c.Good, c.GoodBase,
-		c.GoodCoin, c.GoodCoinReward, c.GoodMalfunction, c.GoodReward,
-		c.GoodRewardHistory, c.Like, c.MiningGoodStock, c.PowerRental, c.Recommend,
-		c.RequiredAppGood, c.RequiredGood, c.Score, c.Stock, c.TopMost,
-		c.TopMostConstraint, c.TopMostGood, c.TopMostGoodConstraint,
+		c.AppSubscription, c.AppSubscriptionOneShot, c.Comment, c.DelegatedStaking,
+		c.DeviceInfo, c.DeviceManufacturer, c.DevicePoster, c.ExtraInfo,
+		c.FbmCrowdFunding, c.Fee, c.Good, c.GoodBase, c.GoodCoin, c.GoodCoinReward,
+		c.GoodMalfunction, c.GoodReward, c.GoodRewardHistory, c.Like,
+		c.MiningGoodStock, c.PowerRental, c.Recommend, c.RequiredAppGood,
+		c.RequiredGood, c.Score, c.Stock, c.Subscription, c.SubscriptionOneShot,
+		c.TopMost, c.TopMostConstraint, c.TopMostGood, c.TopMostGoodConstraint,
 		c.TopMostGoodPoster, c.TopMostPoster, c.VendorBrand, c.VendorLocation,
 	} {
 		n.Intercept(interceptors...)
@@ -527,6 +553,10 @@ func (c *Client) Mutate(ctx context.Context, m Mutation) (Value, error) {
 		return c.AppStock.mutate(ctx, m)
 	case *AppStockLockMutation:
 		return c.AppStockLock.mutate(ctx, m)
+	case *AppSubscriptionMutation:
+		return c.AppSubscription.mutate(ctx, m)
+	case *AppSubscriptionOneShotMutation:
+		return c.AppSubscriptionOneShot.mutate(ctx, m)
 	case *CommentMutation:
 		return c.Comment.mutate(ctx, m)
 	case *DelegatedStakingMutation:
@@ -573,6 +603,10 @@ func (c *Client) Mutate(ctx context.Context, m Mutation) (Value, error) {
 		return c.Score.mutate(ctx, m)
 	case *StockMutation:
 		return c.Stock.mutate(ctx, m)
+	case *SubscriptionMutation:
+		return c.Subscription.mutate(ctx, m)
+	case *SubscriptionOneShotMutation:
+		return c.SubscriptionOneShot.mutate(ctx, m)
 	case *TopMostMutation:
 		return c.TopMost.mutate(ctx, m)
 	case *TopMostConstraintMutation:
@@ -2719,6 +2753,272 @@ func (c *AppStockLockClient) mutate(ctx context.Context, m *AppStockLockMutation
 		return (&AppStockLockDelete{config: c.config, hooks: c.Hooks(), mutation: m}).Exec(ctx)
 	default:
 		return nil, fmt.Errorf("generated: unknown AppStockLock mutation op: %q", m.Op())
+	}
+}
+
+// AppSubscriptionClient is a client for the AppSubscription schema.
+type AppSubscriptionClient struct {
+	config
+}
+
+// NewAppSubscriptionClient returns a client for the AppSubscription from the given config.
+func NewAppSubscriptionClient(c config) *AppSubscriptionClient {
+	return &AppSubscriptionClient{config: c}
+}
+
+// Use adds a list of mutation hooks to the hooks stack.
+// A call to `Use(f, g, h)` equals to `appsubscription.Hooks(f(g(h())))`.
+func (c *AppSubscriptionClient) Use(hooks ...Hook) {
+	c.hooks.AppSubscription = append(c.hooks.AppSubscription, hooks...)
+}
+
+// Intercept adds a list of query interceptors to the interceptors stack.
+// A call to `Intercept(f, g, h)` equals to `appsubscription.Intercept(f(g(h())))`.
+func (c *AppSubscriptionClient) Intercept(interceptors ...Interceptor) {
+	c.inters.AppSubscription = append(c.inters.AppSubscription, interceptors...)
+}
+
+// Create returns a builder for creating a AppSubscription entity.
+func (c *AppSubscriptionClient) Create() *AppSubscriptionCreate {
+	mutation := newAppSubscriptionMutation(c.config, OpCreate)
+	return &AppSubscriptionCreate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// CreateBulk returns a builder for creating a bulk of AppSubscription entities.
+func (c *AppSubscriptionClient) CreateBulk(builders ...*AppSubscriptionCreate) *AppSubscriptionCreateBulk {
+	return &AppSubscriptionCreateBulk{config: c.config, builders: builders}
+}
+
+// MapCreateBulk creates a bulk creation builder from the given slice. For each item in the slice, the function creates
+// a builder and applies setFunc on it.
+func (c *AppSubscriptionClient) MapCreateBulk(slice any, setFunc func(*AppSubscriptionCreate, int)) *AppSubscriptionCreateBulk {
+	rv := reflect.ValueOf(slice)
+	if rv.Kind() != reflect.Slice {
+		return &AppSubscriptionCreateBulk{err: fmt.Errorf("calling to AppSubscriptionClient.MapCreateBulk with wrong type %T, need slice", slice)}
+	}
+	builders := make([]*AppSubscriptionCreate, rv.Len())
+	for i := 0; i < rv.Len(); i++ {
+		builders[i] = c.Create()
+		setFunc(builders[i], i)
+	}
+	return &AppSubscriptionCreateBulk{config: c.config, builders: builders}
+}
+
+// Update returns an update builder for AppSubscription.
+func (c *AppSubscriptionClient) Update() *AppSubscriptionUpdate {
+	mutation := newAppSubscriptionMutation(c.config, OpUpdate)
+	return &AppSubscriptionUpdate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOne returns an update builder for the given entity.
+func (c *AppSubscriptionClient) UpdateOne(as *AppSubscription) *AppSubscriptionUpdateOne {
+	mutation := newAppSubscriptionMutation(c.config, OpUpdateOne, withAppSubscription(as))
+	return &AppSubscriptionUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOneID returns an update builder for the given id.
+func (c *AppSubscriptionClient) UpdateOneID(id uint32) *AppSubscriptionUpdateOne {
+	mutation := newAppSubscriptionMutation(c.config, OpUpdateOne, withAppSubscriptionID(id))
+	return &AppSubscriptionUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// Delete returns a delete builder for AppSubscription.
+func (c *AppSubscriptionClient) Delete() *AppSubscriptionDelete {
+	mutation := newAppSubscriptionMutation(c.config, OpDelete)
+	return &AppSubscriptionDelete{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// DeleteOne returns a builder for deleting the given entity.
+func (c *AppSubscriptionClient) DeleteOne(as *AppSubscription) *AppSubscriptionDeleteOne {
+	return c.DeleteOneID(as.ID)
+}
+
+// DeleteOneID returns a builder for deleting the given entity by its id.
+func (c *AppSubscriptionClient) DeleteOneID(id uint32) *AppSubscriptionDeleteOne {
+	builder := c.Delete().Where(appsubscription.ID(id))
+	builder.mutation.id = &id
+	builder.mutation.op = OpDeleteOne
+	return &AppSubscriptionDeleteOne{builder}
+}
+
+// Query returns a query builder for AppSubscription.
+func (c *AppSubscriptionClient) Query() *AppSubscriptionQuery {
+	return &AppSubscriptionQuery{
+		config: c.config,
+		ctx:    &QueryContext{Type: TypeAppSubscription},
+		inters: c.Interceptors(),
+	}
+}
+
+// Get returns a AppSubscription entity by its id.
+func (c *AppSubscriptionClient) Get(ctx context.Context, id uint32) (*AppSubscription, error) {
+	return c.Query().Where(appsubscription.ID(id)).Only(ctx)
+}
+
+// GetX is like Get, but panics if an error occurs.
+func (c *AppSubscriptionClient) GetX(ctx context.Context, id uint32) *AppSubscription {
+	obj, err := c.Get(ctx, id)
+	if err != nil {
+		panic(err)
+	}
+	return obj
+}
+
+// Hooks returns the client hooks.
+func (c *AppSubscriptionClient) Hooks() []Hook {
+	return c.hooks.AppSubscription
+}
+
+// Interceptors returns the client interceptors.
+func (c *AppSubscriptionClient) Interceptors() []Interceptor {
+	return c.inters.AppSubscription
+}
+
+func (c *AppSubscriptionClient) mutate(ctx context.Context, m *AppSubscriptionMutation) (Value, error) {
+	switch m.Op() {
+	case OpCreate:
+		return (&AppSubscriptionCreate{config: c.config, hooks: c.Hooks(), mutation: m}).Save(ctx)
+	case OpUpdate:
+		return (&AppSubscriptionUpdate{config: c.config, hooks: c.Hooks(), mutation: m}).Save(ctx)
+	case OpUpdateOne:
+		return (&AppSubscriptionUpdateOne{config: c.config, hooks: c.Hooks(), mutation: m}).Save(ctx)
+	case OpDelete, OpDeleteOne:
+		return (&AppSubscriptionDelete{config: c.config, hooks: c.Hooks(), mutation: m}).Exec(ctx)
+	default:
+		return nil, fmt.Errorf("generated: unknown AppSubscription mutation op: %q", m.Op())
+	}
+}
+
+// AppSubscriptionOneShotClient is a client for the AppSubscriptionOneShot schema.
+type AppSubscriptionOneShotClient struct {
+	config
+}
+
+// NewAppSubscriptionOneShotClient returns a client for the AppSubscriptionOneShot from the given config.
+func NewAppSubscriptionOneShotClient(c config) *AppSubscriptionOneShotClient {
+	return &AppSubscriptionOneShotClient{config: c}
+}
+
+// Use adds a list of mutation hooks to the hooks stack.
+// A call to `Use(f, g, h)` equals to `appsubscriptiononeshot.Hooks(f(g(h())))`.
+func (c *AppSubscriptionOneShotClient) Use(hooks ...Hook) {
+	c.hooks.AppSubscriptionOneShot = append(c.hooks.AppSubscriptionOneShot, hooks...)
+}
+
+// Intercept adds a list of query interceptors to the interceptors stack.
+// A call to `Intercept(f, g, h)` equals to `appsubscriptiononeshot.Intercept(f(g(h())))`.
+func (c *AppSubscriptionOneShotClient) Intercept(interceptors ...Interceptor) {
+	c.inters.AppSubscriptionOneShot = append(c.inters.AppSubscriptionOneShot, interceptors...)
+}
+
+// Create returns a builder for creating a AppSubscriptionOneShot entity.
+func (c *AppSubscriptionOneShotClient) Create() *AppSubscriptionOneShotCreate {
+	mutation := newAppSubscriptionOneShotMutation(c.config, OpCreate)
+	return &AppSubscriptionOneShotCreate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// CreateBulk returns a builder for creating a bulk of AppSubscriptionOneShot entities.
+func (c *AppSubscriptionOneShotClient) CreateBulk(builders ...*AppSubscriptionOneShotCreate) *AppSubscriptionOneShotCreateBulk {
+	return &AppSubscriptionOneShotCreateBulk{config: c.config, builders: builders}
+}
+
+// MapCreateBulk creates a bulk creation builder from the given slice. For each item in the slice, the function creates
+// a builder and applies setFunc on it.
+func (c *AppSubscriptionOneShotClient) MapCreateBulk(slice any, setFunc func(*AppSubscriptionOneShotCreate, int)) *AppSubscriptionOneShotCreateBulk {
+	rv := reflect.ValueOf(slice)
+	if rv.Kind() != reflect.Slice {
+		return &AppSubscriptionOneShotCreateBulk{err: fmt.Errorf("calling to AppSubscriptionOneShotClient.MapCreateBulk with wrong type %T, need slice", slice)}
+	}
+	builders := make([]*AppSubscriptionOneShotCreate, rv.Len())
+	for i := 0; i < rv.Len(); i++ {
+		builders[i] = c.Create()
+		setFunc(builders[i], i)
+	}
+	return &AppSubscriptionOneShotCreateBulk{config: c.config, builders: builders}
+}
+
+// Update returns an update builder for AppSubscriptionOneShot.
+func (c *AppSubscriptionOneShotClient) Update() *AppSubscriptionOneShotUpdate {
+	mutation := newAppSubscriptionOneShotMutation(c.config, OpUpdate)
+	return &AppSubscriptionOneShotUpdate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOne returns an update builder for the given entity.
+func (c *AppSubscriptionOneShotClient) UpdateOne(asos *AppSubscriptionOneShot) *AppSubscriptionOneShotUpdateOne {
+	mutation := newAppSubscriptionOneShotMutation(c.config, OpUpdateOne, withAppSubscriptionOneShot(asos))
+	return &AppSubscriptionOneShotUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOneID returns an update builder for the given id.
+func (c *AppSubscriptionOneShotClient) UpdateOneID(id uint32) *AppSubscriptionOneShotUpdateOne {
+	mutation := newAppSubscriptionOneShotMutation(c.config, OpUpdateOne, withAppSubscriptionOneShotID(id))
+	return &AppSubscriptionOneShotUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// Delete returns a delete builder for AppSubscriptionOneShot.
+func (c *AppSubscriptionOneShotClient) Delete() *AppSubscriptionOneShotDelete {
+	mutation := newAppSubscriptionOneShotMutation(c.config, OpDelete)
+	return &AppSubscriptionOneShotDelete{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// DeleteOne returns a builder for deleting the given entity.
+func (c *AppSubscriptionOneShotClient) DeleteOne(asos *AppSubscriptionOneShot) *AppSubscriptionOneShotDeleteOne {
+	return c.DeleteOneID(asos.ID)
+}
+
+// DeleteOneID returns a builder for deleting the given entity by its id.
+func (c *AppSubscriptionOneShotClient) DeleteOneID(id uint32) *AppSubscriptionOneShotDeleteOne {
+	builder := c.Delete().Where(appsubscriptiononeshot.ID(id))
+	builder.mutation.id = &id
+	builder.mutation.op = OpDeleteOne
+	return &AppSubscriptionOneShotDeleteOne{builder}
+}
+
+// Query returns a query builder for AppSubscriptionOneShot.
+func (c *AppSubscriptionOneShotClient) Query() *AppSubscriptionOneShotQuery {
+	return &AppSubscriptionOneShotQuery{
+		config: c.config,
+		ctx:    &QueryContext{Type: TypeAppSubscriptionOneShot},
+		inters: c.Interceptors(),
+	}
+}
+
+// Get returns a AppSubscriptionOneShot entity by its id.
+func (c *AppSubscriptionOneShotClient) Get(ctx context.Context, id uint32) (*AppSubscriptionOneShot, error) {
+	return c.Query().Where(appsubscriptiononeshot.ID(id)).Only(ctx)
+}
+
+// GetX is like Get, but panics if an error occurs.
+func (c *AppSubscriptionOneShotClient) GetX(ctx context.Context, id uint32) *AppSubscriptionOneShot {
+	obj, err := c.Get(ctx, id)
+	if err != nil {
+		panic(err)
+	}
+	return obj
+}
+
+// Hooks returns the client hooks.
+func (c *AppSubscriptionOneShotClient) Hooks() []Hook {
+	return c.hooks.AppSubscriptionOneShot
+}
+
+// Interceptors returns the client interceptors.
+func (c *AppSubscriptionOneShotClient) Interceptors() []Interceptor {
+	return c.inters.AppSubscriptionOneShot
+}
+
+func (c *AppSubscriptionOneShotClient) mutate(ctx context.Context, m *AppSubscriptionOneShotMutation) (Value, error) {
+	switch m.Op() {
+	case OpCreate:
+		return (&AppSubscriptionOneShotCreate{config: c.config, hooks: c.Hooks(), mutation: m}).Save(ctx)
+	case OpUpdate:
+		return (&AppSubscriptionOneShotUpdate{config: c.config, hooks: c.Hooks(), mutation: m}).Save(ctx)
+	case OpUpdateOne:
+		return (&AppSubscriptionOneShotUpdateOne{config: c.config, hooks: c.Hooks(), mutation: m}).Save(ctx)
+	case OpDelete, OpDeleteOne:
+		return (&AppSubscriptionOneShotDelete{config: c.config, hooks: c.Hooks(), mutation: m}).Exec(ctx)
+	default:
+		return nil, fmt.Errorf("generated: unknown AppSubscriptionOneShot mutation op: %q", m.Op())
 	}
 }
 
@@ -5781,6 +6081,272 @@ func (c *StockClient) mutate(ctx context.Context, m *StockMutation) (Value, erro
 	}
 }
 
+// SubscriptionClient is a client for the Subscription schema.
+type SubscriptionClient struct {
+	config
+}
+
+// NewSubscriptionClient returns a client for the Subscription from the given config.
+func NewSubscriptionClient(c config) *SubscriptionClient {
+	return &SubscriptionClient{config: c}
+}
+
+// Use adds a list of mutation hooks to the hooks stack.
+// A call to `Use(f, g, h)` equals to `subscription.Hooks(f(g(h())))`.
+func (c *SubscriptionClient) Use(hooks ...Hook) {
+	c.hooks.Subscription = append(c.hooks.Subscription, hooks...)
+}
+
+// Intercept adds a list of query interceptors to the interceptors stack.
+// A call to `Intercept(f, g, h)` equals to `subscription.Intercept(f(g(h())))`.
+func (c *SubscriptionClient) Intercept(interceptors ...Interceptor) {
+	c.inters.Subscription = append(c.inters.Subscription, interceptors...)
+}
+
+// Create returns a builder for creating a Subscription entity.
+func (c *SubscriptionClient) Create() *SubscriptionCreate {
+	mutation := newSubscriptionMutation(c.config, OpCreate)
+	return &SubscriptionCreate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// CreateBulk returns a builder for creating a bulk of Subscription entities.
+func (c *SubscriptionClient) CreateBulk(builders ...*SubscriptionCreate) *SubscriptionCreateBulk {
+	return &SubscriptionCreateBulk{config: c.config, builders: builders}
+}
+
+// MapCreateBulk creates a bulk creation builder from the given slice. For each item in the slice, the function creates
+// a builder and applies setFunc on it.
+func (c *SubscriptionClient) MapCreateBulk(slice any, setFunc func(*SubscriptionCreate, int)) *SubscriptionCreateBulk {
+	rv := reflect.ValueOf(slice)
+	if rv.Kind() != reflect.Slice {
+		return &SubscriptionCreateBulk{err: fmt.Errorf("calling to SubscriptionClient.MapCreateBulk with wrong type %T, need slice", slice)}
+	}
+	builders := make([]*SubscriptionCreate, rv.Len())
+	for i := 0; i < rv.Len(); i++ {
+		builders[i] = c.Create()
+		setFunc(builders[i], i)
+	}
+	return &SubscriptionCreateBulk{config: c.config, builders: builders}
+}
+
+// Update returns an update builder for Subscription.
+func (c *SubscriptionClient) Update() *SubscriptionUpdate {
+	mutation := newSubscriptionMutation(c.config, OpUpdate)
+	return &SubscriptionUpdate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOne returns an update builder for the given entity.
+func (c *SubscriptionClient) UpdateOne(s *Subscription) *SubscriptionUpdateOne {
+	mutation := newSubscriptionMutation(c.config, OpUpdateOne, withSubscription(s))
+	return &SubscriptionUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOneID returns an update builder for the given id.
+func (c *SubscriptionClient) UpdateOneID(id uint32) *SubscriptionUpdateOne {
+	mutation := newSubscriptionMutation(c.config, OpUpdateOne, withSubscriptionID(id))
+	return &SubscriptionUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// Delete returns a delete builder for Subscription.
+func (c *SubscriptionClient) Delete() *SubscriptionDelete {
+	mutation := newSubscriptionMutation(c.config, OpDelete)
+	return &SubscriptionDelete{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// DeleteOne returns a builder for deleting the given entity.
+func (c *SubscriptionClient) DeleteOne(s *Subscription) *SubscriptionDeleteOne {
+	return c.DeleteOneID(s.ID)
+}
+
+// DeleteOneID returns a builder for deleting the given entity by its id.
+func (c *SubscriptionClient) DeleteOneID(id uint32) *SubscriptionDeleteOne {
+	builder := c.Delete().Where(subscription.ID(id))
+	builder.mutation.id = &id
+	builder.mutation.op = OpDeleteOne
+	return &SubscriptionDeleteOne{builder}
+}
+
+// Query returns a query builder for Subscription.
+func (c *SubscriptionClient) Query() *SubscriptionQuery {
+	return &SubscriptionQuery{
+		config: c.config,
+		ctx:    &QueryContext{Type: TypeSubscription},
+		inters: c.Interceptors(),
+	}
+}
+
+// Get returns a Subscription entity by its id.
+func (c *SubscriptionClient) Get(ctx context.Context, id uint32) (*Subscription, error) {
+	return c.Query().Where(subscription.ID(id)).Only(ctx)
+}
+
+// GetX is like Get, but panics if an error occurs.
+func (c *SubscriptionClient) GetX(ctx context.Context, id uint32) *Subscription {
+	obj, err := c.Get(ctx, id)
+	if err != nil {
+		panic(err)
+	}
+	return obj
+}
+
+// Hooks returns the client hooks.
+func (c *SubscriptionClient) Hooks() []Hook {
+	return c.hooks.Subscription
+}
+
+// Interceptors returns the client interceptors.
+func (c *SubscriptionClient) Interceptors() []Interceptor {
+	return c.inters.Subscription
+}
+
+func (c *SubscriptionClient) mutate(ctx context.Context, m *SubscriptionMutation) (Value, error) {
+	switch m.Op() {
+	case OpCreate:
+		return (&SubscriptionCreate{config: c.config, hooks: c.Hooks(), mutation: m}).Save(ctx)
+	case OpUpdate:
+		return (&SubscriptionUpdate{config: c.config, hooks: c.Hooks(), mutation: m}).Save(ctx)
+	case OpUpdateOne:
+		return (&SubscriptionUpdateOne{config: c.config, hooks: c.Hooks(), mutation: m}).Save(ctx)
+	case OpDelete, OpDeleteOne:
+		return (&SubscriptionDelete{config: c.config, hooks: c.Hooks(), mutation: m}).Exec(ctx)
+	default:
+		return nil, fmt.Errorf("generated: unknown Subscription mutation op: %q", m.Op())
+	}
+}
+
+// SubscriptionOneShotClient is a client for the SubscriptionOneShot schema.
+type SubscriptionOneShotClient struct {
+	config
+}
+
+// NewSubscriptionOneShotClient returns a client for the SubscriptionOneShot from the given config.
+func NewSubscriptionOneShotClient(c config) *SubscriptionOneShotClient {
+	return &SubscriptionOneShotClient{config: c}
+}
+
+// Use adds a list of mutation hooks to the hooks stack.
+// A call to `Use(f, g, h)` equals to `subscriptiononeshot.Hooks(f(g(h())))`.
+func (c *SubscriptionOneShotClient) Use(hooks ...Hook) {
+	c.hooks.SubscriptionOneShot = append(c.hooks.SubscriptionOneShot, hooks...)
+}
+
+// Intercept adds a list of query interceptors to the interceptors stack.
+// A call to `Intercept(f, g, h)` equals to `subscriptiononeshot.Intercept(f(g(h())))`.
+func (c *SubscriptionOneShotClient) Intercept(interceptors ...Interceptor) {
+	c.inters.SubscriptionOneShot = append(c.inters.SubscriptionOneShot, interceptors...)
+}
+
+// Create returns a builder for creating a SubscriptionOneShot entity.
+func (c *SubscriptionOneShotClient) Create() *SubscriptionOneShotCreate {
+	mutation := newSubscriptionOneShotMutation(c.config, OpCreate)
+	return &SubscriptionOneShotCreate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// CreateBulk returns a builder for creating a bulk of SubscriptionOneShot entities.
+func (c *SubscriptionOneShotClient) CreateBulk(builders ...*SubscriptionOneShotCreate) *SubscriptionOneShotCreateBulk {
+	return &SubscriptionOneShotCreateBulk{config: c.config, builders: builders}
+}
+
+// MapCreateBulk creates a bulk creation builder from the given slice. For each item in the slice, the function creates
+// a builder and applies setFunc on it.
+func (c *SubscriptionOneShotClient) MapCreateBulk(slice any, setFunc func(*SubscriptionOneShotCreate, int)) *SubscriptionOneShotCreateBulk {
+	rv := reflect.ValueOf(slice)
+	if rv.Kind() != reflect.Slice {
+		return &SubscriptionOneShotCreateBulk{err: fmt.Errorf("calling to SubscriptionOneShotClient.MapCreateBulk with wrong type %T, need slice", slice)}
+	}
+	builders := make([]*SubscriptionOneShotCreate, rv.Len())
+	for i := 0; i < rv.Len(); i++ {
+		builders[i] = c.Create()
+		setFunc(builders[i], i)
+	}
+	return &SubscriptionOneShotCreateBulk{config: c.config, builders: builders}
+}
+
+// Update returns an update builder for SubscriptionOneShot.
+func (c *SubscriptionOneShotClient) Update() *SubscriptionOneShotUpdate {
+	mutation := newSubscriptionOneShotMutation(c.config, OpUpdate)
+	return &SubscriptionOneShotUpdate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOne returns an update builder for the given entity.
+func (c *SubscriptionOneShotClient) UpdateOne(sos *SubscriptionOneShot) *SubscriptionOneShotUpdateOne {
+	mutation := newSubscriptionOneShotMutation(c.config, OpUpdateOne, withSubscriptionOneShot(sos))
+	return &SubscriptionOneShotUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOneID returns an update builder for the given id.
+func (c *SubscriptionOneShotClient) UpdateOneID(id uint32) *SubscriptionOneShotUpdateOne {
+	mutation := newSubscriptionOneShotMutation(c.config, OpUpdateOne, withSubscriptionOneShotID(id))
+	return &SubscriptionOneShotUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// Delete returns a delete builder for SubscriptionOneShot.
+func (c *SubscriptionOneShotClient) Delete() *SubscriptionOneShotDelete {
+	mutation := newSubscriptionOneShotMutation(c.config, OpDelete)
+	return &SubscriptionOneShotDelete{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// DeleteOne returns a builder for deleting the given entity.
+func (c *SubscriptionOneShotClient) DeleteOne(sos *SubscriptionOneShot) *SubscriptionOneShotDeleteOne {
+	return c.DeleteOneID(sos.ID)
+}
+
+// DeleteOneID returns a builder for deleting the given entity by its id.
+func (c *SubscriptionOneShotClient) DeleteOneID(id uint32) *SubscriptionOneShotDeleteOne {
+	builder := c.Delete().Where(subscriptiononeshot.ID(id))
+	builder.mutation.id = &id
+	builder.mutation.op = OpDeleteOne
+	return &SubscriptionOneShotDeleteOne{builder}
+}
+
+// Query returns a query builder for SubscriptionOneShot.
+func (c *SubscriptionOneShotClient) Query() *SubscriptionOneShotQuery {
+	return &SubscriptionOneShotQuery{
+		config: c.config,
+		ctx:    &QueryContext{Type: TypeSubscriptionOneShot},
+		inters: c.Interceptors(),
+	}
+}
+
+// Get returns a SubscriptionOneShot entity by its id.
+func (c *SubscriptionOneShotClient) Get(ctx context.Context, id uint32) (*SubscriptionOneShot, error) {
+	return c.Query().Where(subscriptiononeshot.ID(id)).Only(ctx)
+}
+
+// GetX is like Get, but panics if an error occurs.
+func (c *SubscriptionOneShotClient) GetX(ctx context.Context, id uint32) *SubscriptionOneShot {
+	obj, err := c.Get(ctx, id)
+	if err != nil {
+		panic(err)
+	}
+	return obj
+}
+
+// Hooks returns the client hooks.
+func (c *SubscriptionOneShotClient) Hooks() []Hook {
+	return c.hooks.SubscriptionOneShot
+}
+
+// Interceptors returns the client interceptors.
+func (c *SubscriptionOneShotClient) Interceptors() []Interceptor {
+	return c.inters.SubscriptionOneShot
+}
+
+func (c *SubscriptionOneShotClient) mutate(ctx context.Context, m *SubscriptionOneShotMutation) (Value, error) {
+	switch m.Op() {
+	case OpCreate:
+		return (&SubscriptionOneShotCreate{config: c.config, hooks: c.Hooks(), mutation: m}).Save(ctx)
+	case OpUpdate:
+		return (&SubscriptionOneShotUpdate{config: c.config, hooks: c.Hooks(), mutation: m}).Save(ctx)
+	case OpUpdateOne:
+		return (&SubscriptionOneShotUpdateOne{config: c.config, hooks: c.Hooks(), mutation: m}).Save(ctx)
+	case OpDelete, OpDeleteOne:
+		return (&SubscriptionOneShotDelete{config: c.config, hooks: c.Hooks(), mutation: m}).Exec(ctx)
+	default:
+		return nil, fmt.Errorf("generated: unknown SubscriptionOneShot mutation op: %q", m.Op())
+	}
+}
+
 // TopMostClient is a client for the TopMost schema.
 type TopMostClient struct {
 	config
@@ -6851,25 +7417,27 @@ type (
 		AppDefaultGood, AppDelegatedStaking, AppFee, AppGood, AppGoodBase,
 		AppGoodDescription, AppGoodDisplayColor, AppGoodDisplayName, AppGoodLabel,
 		AppGoodPoster, AppLegacyPowerRental, AppMiningGoodStock, AppPowerRental,
-		AppSimulatePowerRental, AppStock, AppStockLock, Comment, DelegatedStaking,
-		DeviceInfo, DeviceManufacturer, DevicePoster, ExtraInfo, FbmCrowdFunding, Fee,
-		Good, GoodBase, GoodCoin, GoodCoinReward, GoodMalfunction, GoodReward,
+		AppSimulatePowerRental, AppStock, AppStockLock, AppSubscription,
+		AppSubscriptionOneShot, Comment, DelegatedStaking, DeviceInfo,
+		DeviceManufacturer, DevicePoster, ExtraInfo, FbmCrowdFunding, Fee, Good,
+		GoodBase, GoodCoin, GoodCoinReward, GoodMalfunction, GoodReward,
 		GoodRewardHistory, Like, MiningGoodStock, PowerRental, Recommend,
-		RequiredAppGood, RequiredGood, Score, Stock, TopMost, TopMostConstraint,
-		TopMostGood, TopMostGoodConstraint, TopMostGoodPoster, TopMostPoster,
-		VendorBrand, VendorLocation []ent.Hook
+		RequiredAppGood, RequiredGood, Score, Stock, Subscription, SubscriptionOneShot,
+		TopMost, TopMostConstraint, TopMostGood, TopMostGoodConstraint,
+		TopMostGoodPoster, TopMostPoster, VendorBrand, VendorLocation []ent.Hook
 	}
 	inters struct {
 		AppDefaultGood, AppDelegatedStaking, AppFee, AppGood, AppGoodBase,
 		AppGoodDescription, AppGoodDisplayColor, AppGoodDisplayName, AppGoodLabel,
 		AppGoodPoster, AppLegacyPowerRental, AppMiningGoodStock, AppPowerRental,
-		AppSimulatePowerRental, AppStock, AppStockLock, Comment, DelegatedStaking,
-		DeviceInfo, DeviceManufacturer, DevicePoster, ExtraInfo, FbmCrowdFunding, Fee,
-		Good, GoodBase, GoodCoin, GoodCoinReward, GoodMalfunction, GoodReward,
+		AppSimulatePowerRental, AppStock, AppStockLock, AppSubscription,
+		AppSubscriptionOneShot, Comment, DelegatedStaking, DeviceInfo,
+		DeviceManufacturer, DevicePoster, ExtraInfo, FbmCrowdFunding, Fee, Good,
+		GoodBase, GoodCoin, GoodCoinReward, GoodMalfunction, GoodReward,
 		GoodRewardHistory, Like, MiningGoodStock, PowerRental, Recommend,
-		RequiredAppGood, RequiredGood, Score, Stock, TopMost, TopMostConstraint,
-		TopMostGood, TopMostGoodConstraint, TopMostGoodPoster, TopMostPoster,
-		VendorBrand, VendorLocation []ent.Interceptor
+		RequiredAppGood, RequiredGood, Score, Stock, Subscription, SubscriptionOneShot,
+		TopMost, TopMostConstraint, TopMostGood, TopMostGoodConstraint,
+		TopMostGoodPoster, TopMostPoster, VendorBrand, VendorLocation []ent.Interceptor
 	}
 )
 

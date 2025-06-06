@@ -460,6 +460,54 @@ var (
 			},
 		},
 	}
+	// AppSubscriptionsColumns holds the columns for the "app_subscriptions" table.
+	AppSubscriptionsColumns = []*schema.Column{
+		{Name: "id", Type: field.TypeUint32, Increment: true},
+		{Name: "ent_id", Type: field.TypeUUID, Unique: true},
+		{Name: "app_id", Type: field.TypeUUID, Nullable: true},
+		{Name: "good_id", Type: field.TypeUUID, Nullable: true},
+		{Name: "app_good_id", Type: field.TypeUUID, Nullable: true},
+		{Name: "name", Type: field.TypeString, Nullable: true, Default: ""},
+		{Name: "banner", Type: field.TypeString, Nullable: true, Default: ""},
+		{Name: "usd_price", Type: field.TypeOther, Nullable: true, SchemaType: map[string]string{"mysql": "decimal(37,18)"}},
+	}
+	// AppSubscriptionsTable holds the schema information for the "app_subscriptions" table.
+	AppSubscriptionsTable = &schema.Table{
+		Name:       "app_subscriptions",
+		Columns:    AppSubscriptionsColumns,
+		PrimaryKey: []*schema.Column{AppSubscriptionsColumns[0]},
+		Indexes: []*schema.Index{
+			{
+				Name:    "appsubscription_ent_id",
+				Unique:  true,
+				Columns: []*schema.Column{AppSubscriptionsColumns[1]},
+			},
+		},
+	}
+	// AppSubscriptionOneShotsColumns holds the columns for the "app_subscription_one_shots" table.
+	AppSubscriptionOneShotsColumns = []*schema.Column{
+		{Name: "id", Type: field.TypeUint32, Increment: true},
+		{Name: "ent_id", Type: field.TypeUUID, Unique: true},
+		{Name: "app_id", Type: field.TypeUUID, Nullable: true},
+		{Name: "good_id", Type: field.TypeUUID, Nullable: true},
+		{Name: "app_good_id", Type: field.TypeUUID, Nullable: true},
+		{Name: "name", Type: field.TypeString, Nullable: true, Default: ""},
+		{Name: "banner", Type: field.TypeString, Nullable: true, Default: ""},
+		{Name: "usd_price", Type: field.TypeOther, Nullable: true, SchemaType: map[string]string{"mysql": "decimal(37,18)"}},
+	}
+	// AppSubscriptionOneShotsTable holds the schema information for the "app_subscription_one_shots" table.
+	AppSubscriptionOneShotsTable = &schema.Table{
+		Name:       "app_subscription_one_shots",
+		Columns:    AppSubscriptionOneShotsColumns,
+		PrimaryKey: []*schema.Column{AppSubscriptionOneShotsColumns[0]},
+		Indexes: []*schema.Index{
+			{
+				Name:    "appsubscriptiononeshot_ent_id",
+				Unique:  true,
+				Columns: []*schema.Column{AppSubscriptionOneShotsColumns[1]},
+			},
+		},
+	}
 	// AppGoodCommentsColumns holds the columns for the "app_good_comments" table.
 	AppGoodCommentsColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeUint32, Increment: true},
@@ -1113,6 +1161,56 @@ var (
 			},
 		},
 	}
+	// SubscriptionsColumns holds the columns for the "subscriptions" table.
+	SubscriptionsColumns = []*schema.Column{
+		{Name: "id", Type: field.TypeUint32, Increment: true},
+		{Name: "ent_id", Type: field.TypeUUID, Unique: true},
+		{Name: "good_id", Type: field.TypeUUID, Nullable: true},
+		{Name: "good_type", Type: field.TypeString, Nullable: true, Default: "Subscription"},
+		{Name: "name", Type: field.TypeString, Nullable: true, Default: ""},
+		{Name: "duration_display_type", Type: field.TypeString, Nullable: true, Default: "GoodDurationByMonth"},
+		{Name: "duration_units", Type: field.TypeUint32, Nullable: true, Default: 1},
+		{Name: "duration_quota", Type: field.TypeUint32, Nullable: true, Default: 1080},
+		{Name: "daily_bonus_quota", Type: field.TypeUint32, Nullable: true, Default: 0},
+		{Name: "usd_price", Type: field.TypeOther, Nullable: true, SchemaType: map[string]string{"mysql": "decimal(37,18)"}},
+	}
+	// SubscriptionsTable holds the schema information for the "subscriptions" table.
+	SubscriptionsTable = &schema.Table{
+		Name:       "subscriptions",
+		Columns:    SubscriptionsColumns,
+		PrimaryKey: []*schema.Column{SubscriptionsColumns[0]},
+		Indexes: []*schema.Index{
+			{
+				Name:    "subscription_ent_id",
+				Unique:  true,
+				Columns: []*schema.Column{SubscriptionsColumns[1]},
+			},
+		},
+	}
+	// SubscriptionOneShotsColumns holds the columns for the "subscription_one_shots" table.
+	SubscriptionOneShotsColumns = []*schema.Column{
+		{Name: "id", Type: field.TypeUint32, Increment: true},
+		{Name: "ent_id", Type: field.TypeUUID, Unique: true},
+		{Name: "good_id", Type: field.TypeUUID, Nullable: true},
+		{Name: "good_type", Type: field.TypeString, Nullable: true, Default: "Subscription"},
+		{Name: "name", Type: field.TypeString, Nullable: true, Default: ""},
+		{Name: "quota", Type: field.TypeUint32, Nullable: true, Default: 1080},
+		{Name: "usd_price", Type: field.TypeOther, Nullable: true, SchemaType: map[string]string{"mysql": "decimal(37,18)"}},
+		{Name: "life_seconds", Type: field.TypeUint32, Nullable: true, Default: 0},
+	}
+	// SubscriptionOneShotsTable holds the schema information for the "subscription_one_shots" table.
+	SubscriptionOneShotsTable = &schema.Table{
+		Name:       "subscription_one_shots",
+		Columns:    SubscriptionOneShotsColumns,
+		PrimaryKey: []*schema.Column{SubscriptionOneShotsColumns[0]},
+		Indexes: []*schema.Index{
+			{
+				Name:    "subscriptiononeshot_ent_id",
+				Unique:  true,
+				Columns: []*schema.Column{SubscriptionOneShotsColumns[1]},
+			},
+		},
+	}
 	// TopMostsColumns holds the columns for the "top_mosts" table.
 	TopMostsColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeUint32, Increment: true},
@@ -1327,6 +1425,8 @@ var (
 		AppSimulatePowerRentalsTable,
 		AppStocksTable,
 		AppStockLocksTable,
+		AppSubscriptionsTable,
+		AppSubscriptionOneShotsTable,
 		AppGoodCommentsTable,
 		DelegatedStakingsTable,
 		DeviceInfosTable,
@@ -1350,6 +1450,8 @@ var (
 		RequiredGoodsTable,
 		AppGoodScoresTable,
 		StocksV1Table,
+		SubscriptionsTable,
+		SubscriptionOneShotsTable,
 		TopMostsTable,
 		TopMostConstraintsTable,
 		TopMostGoodsTable,

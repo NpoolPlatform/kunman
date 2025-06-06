@@ -26,6 +26,8 @@ import (
 	"github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated/appsimulatepowerrental"
 	"github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated/appstock"
 	"github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated/appstocklock"
+	"github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated/appsubscription"
+	"github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated/appsubscriptiononeshot"
 	"github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated/comment"
 	"github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated/delegatedstaking"
 	"github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated/deviceinfo"
@@ -50,6 +52,8 @@ import (
 	"github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated/requiredgood"
 	"github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated/score"
 	"github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated/stock"
+	"github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated/subscription"
+	"github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated/subscriptiononeshot"
 	"github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated/topmost"
 	"github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated/topmostconstraint"
 	"github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated/topmostgood"
@@ -87,6 +91,8 @@ const (
 	TypeAppSimulatePowerRental = "AppSimulatePowerRental"
 	TypeAppStock               = "AppStock"
 	TypeAppStockLock           = "AppStockLock"
+	TypeAppSubscription        = "AppSubscription"
+	TypeAppSubscriptionOneShot = "AppSubscriptionOneShot"
 	TypeComment                = "Comment"
 	TypeDelegatedStaking       = "DelegatedStaking"
 	TypeDeviceInfo             = "DeviceInfo"
@@ -110,6 +116,8 @@ const (
 	TypeRequiredGood           = "RequiredGood"
 	TypeScore                  = "Score"
 	TypeStock                  = "Stock"
+	TypeSubscription           = "Subscription"
+	TypeSubscriptionOneShot    = "SubscriptionOneShot"
 	TypeTopMost                = "TopMost"
 	TypeTopMostConstraint      = "TopMostConstraint"
 	TypeTopMostGood            = "TopMostGood"
@@ -14538,6 +14546,1552 @@ func (m *AppStockLockMutation) ClearEdge(name string) error {
 // It returns an error if the edge is not defined in the schema.
 func (m *AppStockLockMutation) ResetEdge(name string) error {
 	return fmt.Errorf("unknown AppStockLock edge %s", name)
+}
+
+// AppSubscriptionMutation represents an operation that mutates the AppSubscription nodes in the graph.
+type AppSubscriptionMutation struct {
+	config
+	op            Op
+	typ           string
+	id            *uint32
+	ent_id        *uuid.UUID
+	app_id        *uuid.UUID
+	good_id       *uuid.UUID
+	app_good_id   *uuid.UUID
+	name          *string
+	banner        *string
+	usd_price     *decimal.Decimal
+	clearedFields map[string]struct{}
+	done          bool
+	oldValue      func(context.Context) (*AppSubscription, error)
+	predicates    []predicate.AppSubscription
+}
+
+var _ ent.Mutation = (*AppSubscriptionMutation)(nil)
+
+// appsubscriptionOption allows management of the mutation configuration using functional options.
+type appsubscriptionOption func(*AppSubscriptionMutation)
+
+// newAppSubscriptionMutation creates new mutation for the AppSubscription entity.
+func newAppSubscriptionMutation(c config, op Op, opts ...appsubscriptionOption) *AppSubscriptionMutation {
+	m := &AppSubscriptionMutation{
+		config:        c,
+		op:            op,
+		typ:           TypeAppSubscription,
+		clearedFields: make(map[string]struct{}),
+	}
+	for _, opt := range opts {
+		opt(m)
+	}
+	return m
+}
+
+// withAppSubscriptionID sets the ID field of the mutation.
+func withAppSubscriptionID(id uint32) appsubscriptionOption {
+	return func(m *AppSubscriptionMutation) {
+		var (
+			err   error
+			once  sync.Once
+			value *AppSubscription
+		)
+		m.oldValue = func(ctx context.Context) (*AppSubscription, error) {
+			once.Do(func() {
+				if m.done {
+					err = errors.New("querying old values post mutation is not allowed")
+				} else {
+					value, err = m.Client().AppSubscription.Get(ctx, id)
+				}
+			})
+			return value, err
+		}
+		m.id = &id
+	}
+}
+
+// withAppSubscription sets the old AppSubscription of the mutation.
+func withAppSubscription(node *AppSubscription) appsubscriptionOption {
+	return func(m *AppSubscriptionMutation) {
+		m.oldValue = func(context.Context) (*AppSubscription, error) {
+			return node, nil
+		}
+		m.id = &node.ID
+	}
+}
+
+// Client returns a new `ent.Client` from the mutation. If the mutation was
+// executed in a transaction (ent.Tx), a transactional client is returned.
+func (m AppSubscriptionMutation) Client() *Client {
+	client := &Client{config: m.config}
+	client.init()
+	return client
+}
+
+// Tx returns an `ent.Tx` for mutations that were executed in transactions;
+// it returns an error otherwise.
+func (m AppSubscriptionMutation) Tx() (*Tx, error) {
+	if _, ok := m.driver.(*txDriver); !ok {
+		return nil, errors.New("generated: mutation is not running in a transaction")
+	}
+	tx := &Tx{config: m.config}
+	tx.init()
+	return tx, nil
+}
+
+// SetID sets the value of the id field. Note that this
+// operation is only accepted on creation of AppSubscription entities.
+func (m *AppSubscriptionMutation) SetID(id uint32) {
+	m.id = &id
+}
+
+// ID returns the ID value in the mutation. Note that the ID is only available
+// if it was provided to the builder or after it was returned from the database.
+func (m *AppSubscriptionMutation) ID() (id uint32, exists bool) {
+	if m.id == nil {
+		return
+	}
+	return *m.id, true
+}
+
+// IDs queries the database and returns the entity ids that match the mutation's predicate.
+// That means, if the mutation is applied within a transaction with an isolation level such
+// as sql.LevelSerializable, the returned ids match the ids of the rows that will be updated
+// or updated by the mutation.
+func (m *AppSubscriptionMutation) IDs(ctx context.Context) ([]uint32, error) {
+	switch {
+	case m.op.Is(OpUpdateOne | OpDeleteOne):
+		id, exists := m.ID()
+		if exists {
+			return []uint32{id}, nil
+		}
+		fallthrough
+	case m.op.Is(OpUpdate | OpDelete):
+		return m.Client().AppSubscription.Query().Where(m.predicates...).IDs(ctx)
+	default:
+		return nil, fmt.Errorf("IDs is not allowed on %s operations", m.op)
+	}
+}
+
+// SetEntID sets the "ent_id" field.
+func (m *AppSubscriptionMutation) SetEntID(u uuid.UUID) {
+	m.ent_id = &u
+}
+
+// EntID returns the value of the "ent_id" field in the mutation.
+func (m *AppSubscriptionMutation) EntID() (r uuid.UUID, exists bool) {
+	v := m.ent_id
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldEntID returns the old "ent_id" field's value of the AppSubscription entity.
+// If the AppSubscription object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *AppSubscriptionMutation) OldEntID(ctx context.Context) (v uuid.UUID, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldEntID is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldEntID requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldEntID: %w", err)
+	}
+	return oldValue.EntID, nil
+}
+
+// ResetEntID resets all changes to the "ent_id" field.
+func (m *AppSubscriptionMutation) ResetEntID() {
+	m.ent_id = nil
+}
+
+// SetAppID sets the "app_id" field.
+func (m *AppSubscriptionMutation) SetAppID(u uuid.UUID) {
+	m.app_id = &u
+}
+
+// AppID returns the value of the "app_id" field in the mutation.
+func (m *AppSubscriptionMutation) AppID() (r uuid.UUID, exists bool) {
+	v := m.app_id
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldAppID returns the old "app_id" field's value of the AppSubscription entity.
+// If the AppSubscription object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *AppSubscriptionMutation) OldAppID(ctx context.Context) (v uuid.UUID, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldAppID is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldAppID requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldAppID: %w", err)
+	}
+	return oldValue.AppID, nil
+}
+
+// ClearAppID clears the value of the "app_id" field.
+func (m *AppSubscriptionMutation) ClearAppID() {
+	m.app_id = nil
+	m.clearedFields[appsubscription.FieldAppID] = struct{}{}
+}
+
+// AppIDCleared returns if the "app_id" field was cleared in this mutation.
+func (m *AppSubscriptionMutation) AppIDCleared() bool {
+	_, ok := m.clearedFields[appsubscription.FieldAppID]
+	return ok
+}
+
+// ResetAppID resets all changes to the "app_id" field.
+func (m *AppSubscriptionMutation) ResetAppID() {
+	m.app_id = nil
+	delete(m.clearedFields, appsubscription.FieldAppID)
+}
+
+// SetGoodID sets the "good_id" field.
+func (m *AppSubscriptionMutation) SetGoodID(u uuid.UUID) {
+	m.good_id = &u
+}
+
+// GoodID returns the value of the "good_id" field in the mutation.
+func (m *AppSubscriptionMutation) GoodID() (r uuid.UUID, exists bool) {
+	v := m.good_id
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldGoodID returns the old "good_id" field's value of the AppSubscription entity.
+// If the AppSubscription object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *AppSubscriptionMutation) OldGoodID(ctx context.Context) (v uuid.UUID, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldGoodID is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldGoodID requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldGoodID: %w", err)
+	}
+	return oldValue.GoodID, nil
+}
+
+// ClearGoodID clears the value of the "good_id" field.
+func (m *AppSubscriptionMutation) ClearGoodID() {
+	m.good_id = nil
+	m.clearedFields[appsubscription.FieldGoodID] = struct{}{}
+}
+
+// GoodIDCleared returns if the "good_id" field was cleared in this mutation.
+func (m *AppSubscriptionMutation) GoodIDCleared() bool {
+	_, ok := m.clearedFields[appsubscription.FieldGoodID]
+	return ok
+}
+
+// ResetGoodID resets all changes to the "good_id" field.
+func (m *AppSubscriptionMutation) ResetGoodID() {
+	m.good_id = nil
+	delete(m.clearedFields, appsubscription.FieldGoodID)
+}
+
+// SetAppGoodID sets the "app_good_id" field.
+func (m *AppSubscriptionMutation) SetAppGoodID(u uuid.UUID) {
+	m.app_good_id = &u
+}
+
+// AppGoodID returns the value of the "app_good_id" field in the mutation.
+func (m *AppSubscriptionMutation) AppGoodID() (r uuid.UUID, exists bool) {
+	v := m.app_good_id
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldAppGoodID returns the old "app_good_id" field's value of the AppSubscription entity.
+// If the AppSubscription object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *AppSubscriptionMutation) OldAppGoodID(ctx context.Context) (v uuid.UUID, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldAppGoodID is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldAppGoodID requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldAppGoodID: %w", err)
+	}
+	return oldValue.AppGoodID, nil
+}
+
+// ClearAppGoodID clears the value of the "app_good_id" field.
+func (m *AppSubscriptionMutation) ClearAppGoodID() {
+	m.app_good_id = nil
+	m.clearedFields[appsubscription.FieldAppGoodID] = struct{}{}
+}
+
+// AppGoodIDCleared returns if the "app_good_id" field was cleared in this mutation.
+func (m *AppSubscriptionMutation) AppGoodIDCleared() bool {
+	_, ok := m.clearedFields[appsubscription.FieldAppGoodID]
+	return ok
+}
+
+// ResetAppGoodID resets all changes to the "app_good_id" field.
+func (m *AppSubscriptionMutation) ResetAppGoodID() {
+	m.app_good_id = nil
+	delete(m.clearedFields, appsubscription.FieldAppGoodID)
+}
+
+// SetName sets the "name" field.
+func (m *AppSubscriptionMutation) SetName(s string) {
+	m.name = &s
+}
+
+// Name returns the value of the "name" field in the mutation.
+func (m *AppSubscriptionMutation) Name() (r string, exists bool) {
+	v := m.name
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldName returns the old "name" field's value of the AppSubscription entity.
+// If the AppSubscription object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *AppSubscriptionMutation) OldName(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldName is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldName requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldName: %w", err)
+	}
+	return oldValue.Name, nil
+}
+
+// ClearName clears the value of the "name" field.
+func (m *AppSubscriptionMutation) ClearName() {
+	m.name = nil
+	m.clearedFields[appsubscription.FieldName] = struct{}{}
+}
+
+// NameCleared returns if the "name" field was cleared in this mutation.
+func (m *AppSubscriptionMutation) NameCleared() bool {
+	_, ok := m.clearedFields[appsubscription.FieldName]
+	return ok
+}
+
+// ResetName resets all changes to the "name" field.
+func (m *AppSubscriptionMutation) ResetName() {
+	m.name = nil
+	delete(m.clearedFields, appsubscription.FieldName)
+}
+
+// SetBanner sets the "banner" field.
+func (m *AppSubscriptionMutation) SetBanner(s string) {
+	m.banner = &s
+}
+
+// Banner returns the value of the "banner" field in the mutation.
+func (m *AppSubscriptionMutation) Banner() (r string, exists bool) {
+	v := m.banner
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldBanner returns the old "banner" field's value of the AppSubscription entity.
+// If the AppSubscription object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *AppSubscriptionMutation) OldBanner(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldBanner is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldBanner requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldBanner: %w", err)
+	}
+	return oldValue.Banner, nil
+}
+
+// ClearBanner clears the value of the "banner" field.
+func (m *AppSubscriptionMutation) ClearBanner() {
+	m.banner = nil
+	m.clearedFields[appsubscription.FieldBanner] = struct{}{}
+}
+
+// BannerCleared returns if the "banner" field was cleared in this mutation.
+func (m *AppSubscriptionMutation) BannerCleared() bool {
+	_, ok := m.clearedFields[appsubscription.FieldBanner]
+	return ok
+}
+
+// ResetBanner resets all changes to the "banner" field.
+func (m *AppSubscriptionMutation) ResetBanner() {
+	m.banner = nil
+	delete(m.clearedFields, appsubscription.FieldBanner)
+}
+
+// SetUsdPrice sets the "usd_price" field.
+func (m *AppSubscriptionMutation) SetUsdPrice(d decimal.Decimal) {
+	m.usd_price = &d
+}
+
+// UsdPrice returns the value of the "usd_price" field in the mutation.
+func (m *AppSubscriptionMutation) UsdPrice() (r decimal.Decimal, exists bool) {
+	v := m.usd_price
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldUsdPrice returns the old "usd_price" field's value of the AppSubscription entity.
+// If the AppSubscription object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *AppSubscriptionMutation) OldUsdPrice(ctx context.Context) (v decimal.Decimal, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldUsdPrice is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldUsdPrice requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldUsdPrice: %w", err)
+	}
+	return oldValue.UsdPrice, nil
+}
+
+// ClearUsdPrice clears the value of the "usd_price" field.
+func (m *AppSubscriptionMutation) ClearUsdPrice() {
+	m.usd_price = nil
+	m.clearedFields[appsubscription.FieldUsdPrice] = struct{}{}
+}
+
+// UsdPriceCleared returns if the "usd_price" field was cleared in this mutation.
+func (m *AppSubscriptionMutation) UsdPriceCleared() bool {
+	_, ok := m.clearedFields[appsubscription.FieldUsdPrice]
+	return ok
+}
+
+// ResetUsdPrice resets all changes to the "usd_price" field.
+func (m *AppSubscriptionMutation) ResetUsdPrice() {
+	m.usd_price = nil
+	delete(m.clearedFields, appsubscription.FieldUsdPrice)
+}
+
+// Where appends a list predicates to the AppSubscriptionMutation builder.
+func (m *AppSubscriptionMutation) Where(ps ...predicate.AppSubscription) {
+	m.predicates = append(m.predicates, ps...)
+}
+
+// WhereP appends storage-level predicates to the AppSubscriptionMutation builder. Using this method,
+// users can use type-assertion to append predicates that do not depend on any generated package.
+func (m *AppSubscriptionMutation) WhereP(ps ...func(*sql.Selector)) {
+	p := make([]predicate.AppSubscription, len(ps))
+	for i := range ps {
+		p[i] = ps[i]
+	}
+	m.Where(p...)
+}
+
+// Op returns the operation name.
+func (m *AppSubscriptionMutation) Op() Op {
+	return m.op
+}
+
+// SetOp allows setting the mutation operation.
+func (m *AppSubscriptionMutation) SetOp(op Op) {
+	m.op = op
+}
+
+// Type returns the node type of this mutation (AppSubscription).
+func (m *AppSubscriptionMutation) Type() string {
+	return m.typ
+}
+
+// Fields returns all fields that were changed during this mutation. Note that in
+// order to get all numeric fields that were incremented/decremented, call
+// AddedFields().
+func (m *AppSubscriptionMutation) Fields() []string {
+	fields := make([]string, 0, 7)
+	if m.ent_id != nil {
+		fields = append(fields, appsubscription.FieldEntID)
+	}
+	if m.app_id != nil {
+		fields = append(fields, appsubscription.FieldAppID)
+	}
+	if m.good_id != nil {
+		fields = append(fields, appsubscription.FieldGoodID)
+	}
+	if m.app_good_id != nil {
+		fields = append(fields, appsubscription.FieldAppGoodID)
+	}
+	if m.name != nil {
+		fields = append(fields, appsubscription.FieldName)
+	}
+	if m.banner != nil {
+		fields = append(fields, appsubscription.FieldBanner)
+	}
+	if m.usd_price != nil {
+		fields = append(fields, appsubscription.FieldUsdPrice)
+	}
+	return fields
+}
+
+// Field returns the value of a field with the given name. The second boolean
+// return value indicates that this field was not set, or was not defined in the
+// schema.
+func (m *AppSubscriptionMutation) Field(name string) (ent.Value, bool) {
+	switch name {
+	case appsubscription.FieldEntID:
+		return m.EntID()
+	case appsubscription.FieldAppID:
+		return m.AppID()
+	case appsubscription.FieldGoodID:
+		return m.GoodID()
+	case appsubscription.FieldAppGoodID:
+		return m.AppGoodID()
+	case appsubscription.FieldName:
+		return m.Name()
+	case appsubscription.FieldBanner:
+		return m.Banner()
+	case appsubscription.FieldUsdPrice:
+		return m.UsdPrice()
+	}
+	return nil, false
+}
+
+// OldField returns the old value of the field from the database. An error is
+// returned if the mutation operation is not UpdateOne, or the query to the
+// database failed.
+func (m *AppSubscriptionMutation) OldField(ctx context.Context, name string) (ent.Value, error) {
+	switch name {
+	case appsubscription.FieldEntID:
+		return m.OldEntID(ctx)
+	case appsubscription.FieldAppID:
+		return m.OldAppID(ctx)
+	case appsubscription.FieldGoodID:
+		return m.OldGoodID(ctx)
+	case appsubscription.FieldAppGoodID:
+		return m.OldAppGoodID(ctx)
+	case appsubscription.FieldName:
+		return m.OldName(ctx)
+	case appsubscription.FieldBanner:
+		return m.OldBanner(ctx)
+	case appsubscription.FieldUsdPrice:
+		return m.OldUsdPrice(ctx)
+	}
+	return nil, fmt.Errorf("unknown AppSubscription field %s", name)
+}
+
+// SetField sets the value of a field with the given name. It returns an error if
+// the field is not defined in the schema, or if the type mismatched the field
+// type.
+func (m *AppSubscriptionMutation) SetField(name string, value ent.Value) error {
+	switch name {
+	case appsubscription.FieldEntID:
+		v, ok := value.(uuid.UUID)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetEntID(v)
+		return nil
+	case appsubscription.FieldAppID:
+		v, ok := value.(uuid.UUID)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetAppID(v)
+		return nil
+	case appsubscription.FieldGoodID:
+		v, ok := value.(uuid.UUID)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetGoodID(v)
+		return nil
+	case appsubscription.FieldAppGoodID:
+		v, ok := value.(uuid.UUID)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetAppGoodID(v)
+		return nil
+	case appsubscription.FieldName:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetName(v)
+		return nil
+	case appsubscription.FieldBanner:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetBanner(v)
+		return nil
+	case appsubscription.FieldUsdPrice:
+		v, ok := value.(decimal.Decimal)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetUsdPrice(v)
+		return nil
+	}
+	return fmt.Errorf("unknown AppSubscription field %s", name)
+}
+
+// AddedFields returns all numeric fields that were incremented/decremented during
+// this mutation.
+func (m *AppSubscriptionMutation) AddedFields() []string {
+	return nil
+}
+
+// AddedField returns the numeric value that was incremented/decremented on a field
+// with the given name. The second boolean return value indicates that this field
+// was not set, or was not defined in the schema.
+func (m *AppSubscriptionMutation) AddedField(name string) (ent.Value, bool) {
+	return nil, false
+}
+
+// AddField adds the value to the field with the given name. It returns an error if
+// the field is not defined in the schema, or if the type mismatched the field
+// type.
+func (m *AppSubscriptionMutation) AddField(name string, value ent.Value) error {
+	switch name {
+	}
+	return fmt.Errorf("unknown AppSubscription numeric field %s", name)
+}
+
+// ClearedFields returns all nullable fields that were cleared during this
+// mutation.
+func (m *AppSubscriptionMutation) ClearedFields() []string {
+	var fields []string
+	if m.FieldCleared(appsubscription.FieldAppID) {
+		fields = append(fields, appsubscription.FieldAppID)
+	}
+	if m.FieldCleared(appsubscription.FieldGoodID) {
+		fields = append(fields, appsubscription.FieldGoodID)
+	}
+	if m.FieldCleared(appsubscription.FieldAppGoodID) {
+		fields = append(fields, appsubscription.FieldAppGoodID)
+	}
+	if m.FieldCleared(appsubscription.FieldName) {
+		fields = append(fields, appsubscription.FieldName)
+	}
+	if m.FieldCleared(appsubscription.FieldBanner) {
+		fields = append(fields, appsubscription.FieldBanner)
+	}
+	if m.FieldCleared(appsubscription.FieldUsdPrice) {
+		fields = append(fields, appsubscription.FieldUsdPrice)
+	}
+	return fields
+}
+
+// FieldCleared returns a boolean indicating if a field with the given name was
+// cleared in this mutation.
+func (m *AppSubscriptionMutation) FieldCleared(name string) bool {
+	_, ok := m.clearedFields[name]
+	return ok
+}
+
+// ClearField clears the value of the field with the given name. It returns an
+// error if the field is not defined in the schema.
+func (m *AppSubscriptionMutation) ClearField(name string) error {
+	switch name {
+	case appsubscription.FieldAppID:
+		m.ClearAppID()
+		return nil
+	case appsubscription.FieldGoodID:
+		m.ClearGoodID()
+		return nil
+	case appsubscription.FieldAppGoodID:
+		m.ClearAppGoodID()
+		return nil
+	case appsubscription.FieldName:
+		m.ClearName()
+		return nil
+	case appsubscription.FieldBanner:
+		m.ClearBanner()
+		return nil
+	case appsubscription.FieldUsdPrice:
+		m.ClearUsdPrice()
+		return nil
+	}
+	return fmt.Errorf("unknown AppSubscription nullable field %s", name)
+}
+
+// ResetField resets all changes in the mutation for the field with the given name.
+// It returns an error if the field is not defined in the schema.
+func (m *AppSubscriptionMutation) ResetField(name string) error {
+	switch name {
+	case appsubscription.FieldEntID:
+		m.ResetEntID()
+		return nil
+	case appsubscription.FieldAppID:
+		m.ResetAppID()
+		return nil
+	case appsubscription.FieldGoodID:
+		m.ResetGoodID()
+		return nil
+	case appsubscription.FieldAppGoodID:
+		m.ResetAppGoodID()
+		return nil
+	case appsubscription.FieldName:
+		m.ResetName()
+		return nil
+	case appsubscription.FieldBanner:
+		m.ResetBanner()
+		return nil
+	case appsubscription.FieldUsdPrice:
+		m.ResetUsdPrice()
+		return nil
+	}
+	return fmt.Errorf("unknown AppSubscription field %s", name)
+}
+
+// AddedEdges returns all edge names that were set/added in this mutation.
+func (m *AppSubscriptionMutation) AddedEdges() []string {
+	edges := make([]string, 0, 0)
+	return edges
+}
+
+// AddedIDs returns all IDs (to other nodes) that were added for the given edge
+// name in this mutation.
+func (m *AppSubscriptionMutation) AddedIDs(name string) []ent.Value {
+	return nil
+}
+
+// RemovedEdges returns all edge names that were removed in this mutation.
+func (m *AppSubscriptionMutation) RemovedEdges() []string {
+	edges := make([]string, 0, 0)
+	return edges
+}
+
+// RemovedIDs returns all IDs (to other nodes) that were removed for the edge with
+// the given name in this mutation.
+func (m *AppSubscriptionMutation) RemovedIDs(name string) []ent.Value {
+	return nil
+}
+
+// ClearedEdges returns all edge names that were cleared in this mutation.
+func (m *AppSubscriptionMutation) ClearedEdges() []string {
+	edges := make([]string, 0, 0)
+	return edges
+}
+
+// EdgeCleared returns a boolean which indicates if the edge with the given name
+// was cleared in this mutation.
+func (m *AppSubscriptionMutation) EdgeCleared(name string) bool {
+	return false
+}
+
+// ClearEdge clears the value of the edge with the given name. It returns an error
+// if that edge is not defined in the schema.
+func (m *AppSubscriptionMutation) ClearEdge(name string) error {
+	return fmt.Errorf("unknown AppSubscription unique edge %s", name)
+}
+
+// ResetEdge resets all changes to the edge with the given name in this mutation.
+// It returns an error if the edge is not defined in the schema.
+func (m *AppSubscriptionMutation) ResetEdge(name string) error {
+	return fmt.Errorf("unknown AppSubscription edge %s", name)
+}
+
+// AppSubscriptionOneShotMutation represents an operation that mutates the AppSubscriptionOneShot nodes in the graph.
+type AppSubscriptionOneShotMutation struct {
+	config
+	op            Op
+	typ           string
+	id            *uint32
+	ent_id        *uuid.UUID
+	app_id        *uuid.UUID
+	good_id       *uuid.UUID
+	app_good_id   *uuid.UUID
+	name          *string
+	banner        *string
+	usd_price     *decimal.Decimal
+	clearedFields map[string]struct{}
+	done          bool
+	oldValue      func(context.Context) (*AppSubscriptionOneShot, error)
+	predicates    []predicate.AppSubscriptionOneShot
+}
+
+var _ ent.Mutation = (*AppSubscriptionOneShotMutation)(nil)
+
+// appsubscriptiononeshotOption allows management of the mutation configuration using functional options.
+type appsubscriptiononeshotOption func(*AppSubscriptionOneShotMutation)
+
+// newAppSubscriptionOneShotMutation creates new mutation for the AppSubscriptionOneShot entity.
+func newAppSubscriptionOneShotMutation(c config, op Op, opts ...appsubscriptiononeshotOption) *AppSubscriptionOneShotMutation {
+	m := &AppSubscriptionOneShotMutation{
+		config:        c,
+		op:            op,
+		typ:           TypeAppSubscriptionOneShot,
+		clearedFields: make(map[string]struct{}),
+	}
+	for _, opt := range opts {
+		opt(m)
+	}
+	return m
+}
+
+// withAppSubscriptionOneShotID sets the ID field of the mutation.
+func withAppSubscriptionOneShotID(id uint32) appsubscriptiononeshotOption {
+	return func(m *AppSubscriptionOneShotMutation) {
+		var (
+			err   error
+			once  sync.Once
+			value *AppSubscriptionOneShot
+		)
+		m.oldValue = func(ctx context.Context) (*AppSubscriptionOneShot, error) {
+			once.Do(func() {
+				if m.done {
+					err = errors.New("querying old values post mutation is not allowed")
+				} else {
+					value, err = m.Client().AppSubscriptionOneShot.Get(ctx, id)
+				}
+			})
+			return value, err
+		}
+		m.id = &id
+	}
+}
+
+// withAppSubscriptionOneShot sets the old AppSubscriptionOneShot of the mutation.
+func withAppSubscriptionOneShot(node *AppSubscriptionOneShot) appsubscriptiononeshotOption {
+	return func(m *AppSubscriptionOneShotMutation) {
+		m.oldValue = func(context.Context) (*AppSubscriptionOneShot, error) {
+			return node, nil
+		}
+		m.id = &node.ID
+	}
+}
+
+// Client returns a new `ent.Client` from the mutation. If the mutation was
+// executed in a transaction (ent.Tx), a transactional client is returned.
+func (m AppSubscriptionOneShotMutation) Client() *Client {
+	client := &Client{config: m.config}
+	client.init()
+	return client
+}
+
+// Tx returns an `ent.Tx` for mutations that were executed in transactions;
+// it returns an error otherwise.
+func (m AppSubscriptionOneShotMutation) Tx() (*Tx, error) {
+	if _, ok := m.driver.(*txDriver); !ok {
+		return nil, errors.New("generated: mutation is not running in a transaction")
+	}
+	tx := &Tx{config: m.config}
+	tx.init()
+	return tx, nil
+}
+
+// SetID sets the value of the id field. Note that this
+// operation is only accepted on creation of AppSubscriptionOneShot entities.
+func (m *AppSubscriptionOneShotMutation) SetID(id uint32) {
+	m.id = &id
+}
+
+// ID returns the ID value in the mutation. Note that the ID is only available
+// if it was provided to the builder or after it was returned from the database.
+func (m *AppSubscriptionOneShotMutation) ID() (id uint32, exists bool) {
+	if m.id == nil {
+		return
+	}
+	return *m.id, true
+}
+
+// IDs queries the database and returns the entity ids that match the mutation's predicate.
+// That means, if the mutation is applied within a transaction with an isolation level such
+// as sql.LevelSerializable, the returned ids match the ids of the rows that will be updated
+// or updated by the mutation.
+func (m *AppSubscriptionOneShotMutation) IDs(ctx context.Context) ([]uint32, error) {
+	switch {
+	case m.op.Is(OpUpdateOne | OpDeleteOne):
+		id, exists := m.ID()
+		if exists {
+			return []uint32{id}, nil
+		}
+		fallthrough
+	case m.op.Is(OpUpdate | OpDelete):
+		return m.Client().AppSubscriptionOneShot.Query().Where(m.predicates...).IDs(ctx)
+	default:
+		return nil, fmt.Errorf("IDs is not allowed on %s operations", m.op)
+	}
+}
+
+// SetEntID sets the "ent_id" field.
+func (m *AppSubscriptionOneShotMutation) SetEntID(u uuid.UUID) {
+	m.ent_id = &u
+}
+
+// EntID returns the value of the "ent_id" field in the mutation.
+func (m *AppSubscriptionOneShotMutation) EntID() (r uuid.UUID, exists bool) {
+	v := m.ent_id
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldEntID returns the old "ent_id" field's value of the AppSubscriptionOneShot entity.
+// If the AppSubscriptionOneShot object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *AppSubscriptionOneShotMutation) OldEntID(ctx context.Context) (v uuid.UUID, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldEntID is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldEntID requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldEntID: %w", err)
+	}
+	return oldValue.EntID, nil
+}
+
+// ResetEntID resets all changes to the "ent_id" field.
+func (m *AppSubscriptionOneShotMutation) ResetEntID() {
+	m.ent_id = nil
+}
+
+// SetAppID sets the "app_id" field.
+func (m *AppSubscriptionOneShotMutation) SetAppID(u uuid.UUID) {
+	m.app_id = &u
+}
+
+// AppID returns the value of the "app_id" field in the mutation.
+func (m *AppSubscriptionOneShotMutation) AppID() (r uuid.UUID, exists bool) {
+	v := m.app_id
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldAppID returns the old "app_id" field's value of the AppSubscriptionOneShot entity.
+// If the AppSubscriptionOneShot object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *AppSubscriptionOneShotMutation) OldAppID(ctx context.Context) (v uuid.UUID, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldAppID is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldAppID requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldAppID: %w", err)
+	}
+	return oldValue.AppID, nil
+}
+
+// ClearAppID clears the value of the "app_id" field.
+func (m *AppSubscriptionOneShotMutation) ClearAppID() {
+	m.app_id = nil
+	m.clearedFields[appsubscriptiononeshot.FieldAppID] = struct{}{}
+}
+
+// AppIDCleared returns if the "app_id" field was cleared in this mutation.
+func (m *AppSubscriptionOneShotMutation) AppIDCleared() bool {
+	_, ok := m.clearedFields[appsubscriptiononeshot.FieldAppID]
+	return ok
+}
+
+// ResetAppID resets all changes to the "app_id" field.
+func (m *AppSubscriptionOneShotMutation) ResetAppID() {
+	m.app_id = nil
+	delete(m.clearedFields, appsubscriptiononeshot.FieldAppID)
+}
+
+// SetGoodID sets the "good_id" field.
+func (m *AppSubscriptionOneShotMutation) SetGoodID(u uuid.UUID) {
+	m.good_id = &u
+}
+
+// GoodID returns the value of the "good_id" field in the mutation.
+func (m *AppSubscriptionOneShotMutation) GoodID() (r uuid.UUID, exists bool) {
+	v := m.good_id
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldGoodID returns the old "good_id" field's value of the AppSubscriptionOneShot entity.
+// If the AppSubscriptionOneShot object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *AppSubscriptionOneShotMutation) OldGoodID(ctx context.Context) (v uuid.UUID, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldGoodID is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldGoodID requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldGoodID: %w", err)
+	}
+	return oldValue.GoodID, nil
+}
+
+// ClearGoodID clears the value of the "good_id" field.
+func (m *AppSubscriptionOneShotMutation) ClearGoodID() {
+	m.good_id = nil
+	m.clearedFields[appsubscriptiononeshot.FieldGoodID] = struct{}{}
+}
+
+// GoodIDCleared returns if the "good_id" field was cleared in this mutation.
+func (m *AppSubscriptionOneShotMutation) GoodIDCleared() bool {
+	_, ok := m.clearedFields[appsubscriptiononeshot.FieldGoodID]
+	return ok
+}
+
+// ResetGoodID resets all changes to the "good_id" field.
+func (m *AppSubscriptionOneShotMutation) ResetGoodID() {
+	m.good_id = nil
+	delete(m.clearedFields, appsubscriptiononeshot.FieldGoodID)
+}
+
+// SetAppGoodID sets the "app_good_id" field.
+func (m *AppSubscriptionOneShotMutation) SetAppGoodID(u uuid.UUID) {
+	m.app_good_id = &u
+}
+
+// AppGoodID returns the value of the "app_good_id" field in the mutation.
+func (m *AppSubscriptionOneShotMutation) AppGoodID() (r uuid.UUID, exists bool) {
+	v := m.app_good_id
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldAppGoodID returns the old "app_good_id" field's value of the AppSubscriptionOneShot entity.
+// If the AppSubscriptionOneShot object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *AppSubscriptionOneShotMutation) OldAppGoodID(ctx context.Context) (v uuid.UUID, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldAppGoodID is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldAppGoodID requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldAppGoodID: %w", err)
+	}
+	return oldValue.AppGoodID, nil
+}
+
+// ClearAppGoodID clears the value of the "app_good_id" field.
+func (m *AppSubscriptionOneShotMutation) ClearAppGoodID() {
+	m.app_good_id = nil
+	m.clearedFields[appsubscriptiononeshot.FieldAppGoodID] = struct{}{}
+}
+
+// AppGoodIDCleared returns if the "app_good_id" field was cleared in this mutation.
+func (m *AppSubscriptionOneShotMutation) AppGoodIDCleared() bool {
+	_, ok := m.clearedFields[appsubscriptiononeshot.FieldAppGoodID]
+	return ok
+}
+
+// ResetAppGoodID resets all changes to the "app_good_id" field.
+func (m *AppSubscriptionOneShotMutation) ResetAppGoodID() {
+	m.app_good_id = nil
+	delete(m.clearedFields, appsubscriptiononeshot.FieldAppGoodID)
+}
+
+// SetName sets the "name" field.
+func (m *AppSubscriptionOneShotMutation) SetName(s string) {
+	m.name = &s
+}
+
+// Name returns the value of the "name" field in the mutation.
+func (m *AppSubscriptionOneShotMutation) Name() (r string, exists bool) {
+	v := m.name
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldName returns the old "name" field's value of the AppSubscriptionOneShot entity.
+// If the AppSubscriptionOneShot object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *AppSubscriptionOneShotMutation) OldName(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldName is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldName requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldName: %w", err)
+	}
+	return oldValue.Name, nil
+}
+
+// ClearName clears the value of the "name" field.
+func (m *AppSubscriptionOneShotMutation) ClearName() {
+	m.name = nil
+	m.clearedFields[appsubscriptiononeshot.FieldName] = struct{}{}
+}
+
+// NameCleared returns if the "name" field was cleared in this mutation.
+func (m *AppSubscriptionOneShotMutation) NameCleared() bool {
+	_, ok := m.clearedFields[appsubscriptiononeshot.FieldName]
+	return ok
+}
+
+// ResetName resets all changes to the "name" field.
+func (m *AppSubscriptionOneShotMutation) ResetName() {
+	m.name = nil
+	delete(m.clearedFields, appsubscriptiononeshot.FieldName)
+}
+
+// SetBanner sets the "banner" field.
+func (m *AppSubscriptionOneShotMutation) SetBanner(s string) {
+	m.banner = &s
+}
+
+// Banner returns the value of the "banner" field in the mutation.
+func (m *AppSubscriptionOneShotMutation) Banner() (r string, exists bool) {
+	v := m.banner
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldBanner returns the old "banner" field's value of the AppSubscriptionOneShot entity.
+// If the AppSubscriptionOneShot object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *AppSubscriptionOneShotMutation) OldBanner(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldBanner is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldBanner requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldBanner: %w", err)
+	}
+	return oldValue.Banner, nil
+}
+
+// ClearBanner clears the value of the "banner" field.
+func (m *AppSubscriptionOneShotMutation) ClearBanner() {
+	m.banner = nil
+	m.clearedFields[appsubscriptiononeshot.FieldBanner] = struct{}{}
+}
+
+// BannerCleared returns if the "banner" field was cleared in this mutation.
+func (m *AppSubscriptionOneShotMutation) BannerCleared() bool {
+	_, ok := m.clearedFields[appsubscriptiononeshot.FieldBanner]
+	return ok
+}
+
+// ResetBanner resets all changes to the "banner" field.
+func (m *AppSubscriptionOneShotMutation) ResetBanner() {
+	m.banner = nil
+	delete(m.clearedFields, appsubscriptiononeshot.FieldBanner)
+}
+
+// SetUsdPrice sets the "usd_price" field.
+func (m *AppSubscriptionOneShotMutation) SetUsdPrice(d decimal.Decimal) {
+	m.usd_price = &d
+}
+
+// UsdPrice returns the value of the "usd_price" field in the mutation.
+func (m *AppSubscriptionOneShotMutation) UsdPrice() (r decimal.Decimal, exists bool) {
+	v := m.usd_price
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldUsdPrice returns the old "usd_price" field's value of the AppSubscriptionOneShot entity.
+// If the AppSubscriptionOneShot object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *AppSubscriptionOneShotMutation) OldUsdPrice(ctx context.Context) (v decimal.Decimal, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldUsdPrice is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldUsdPrice requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldUsdPrice: %w", err)
+	}
+	return oldValue.UsdPrice, nil
+}
+
+// ClearUsdPrice clears the value of the "usd_price" field.
+func (m *AppSubscriptionOneShotMutation) ClearUsdPrice() {
+	m.usd_price = nil
+	m.clearedFields[appsubscriptiononeshot.FieldUsdPrice] = struct{}{}
+}
+
+// UsdPriceCleared returns if the "usd_price" field was cleared in this mutation.
+func (m *AppSubscriptionOneShotMutation) UsdPriceCleared() bool {
+	_, ok := m.clearedFields[appsubscriptiononeshot.FieldUsdPrice]
+	return ok
+}
+
+// ResetUsdPrice resets all changes to the "usd_price" field.
+func (m *AppSubscriptionOneShotMutation) ResetUsdPrice() {
+	m.usd_price = nil
+	delete(m.clearedFields, appsubscriptiononeshot.FieldUsdPrice)
+}
+
+// Where appends a list predicates to the AppSubscriptionOneShotMutation builder.
+func (m *AppSubscriptionOneShotMutation) Where(ps ...predicate.AppSubscriptionOneShot) {
+	m.predicates = append(m.predicates, ps...)
+}
+
+// WhereP appends storage-level predicates to the AppSubscriptionOneShotMutation builder. Using this method,
+// users can use type-assertion to append predicates that do not depend on any generated package.
+func (m *AppSubscriptionOneShotMutation) WhereP(ps ...func(*sql.Selector)) {
+	p := make([]predicate.AppSubscriptionOneShot, len(ps))
+	for i := range ps {
+		p[i] = ps[i]
+	}
+	m.Where(p...)
+}
+
+// Op returns the operation name.
+func (m *AppSubscriptionOneShotMutation) Op() Op {
+	return m.op
+}
+
+// SetOp allows setting the mutation operation.
+func (m *AppSubscriptionOneShotMutation) SetOp(op Op) {
+	m.op = op
+}
+
+// Type returns the node type of this mutation (AppSubscriptionOneShot).
+func (m *AppSubscriptionOneShotMutation) Type() string {
+	return m.typ
+}
+
+// Fields returns all fields that were changed during this mutation. Note that in
+// order to get all numeric fields that were incremented/decremented, call
+// AddedFields().
+func (m *AppSubscriptionOneShotMutation) Fields() []string {
+	fields := make([]string, 0, 7)
+	if m.ent_id != nil {
+		fields = append(fields, appsubscriptiononeshot.FieldEntID)
+	}
+	if m.app_id != nil {
+		fields = append(fields, appsubscriptiononeshot.FieldAppID)
+	}
+	if m.good_id != nil {
+		fields = append(fields, appsubscriptiononeshot.FieldGoodID)
+	}
+	if m.app_good_id != nil {
+		fields = append(fields, appsubscriptiononeshot.FieldAppGoodID)
+	}
+	if m.name != nil {
+		fields = append(fields, appsubscriptiononeshot.FieldName)
+	}
+	if m.banner != nil {
+		fields = append(fields, appsubscriptiononeshot.FieldBanner)
+	}
+	if m.usd_price != nil {
+		fields = append(fields, appsubscriptiononeshot.FieldUsdPrice)
+	}
+	return fields
+}
+
+// Field returns the value of a field with the given name. The second boolean
+// return value indicates that this field was not set, or was not defined in the
+// schema.
+func (m *AppSubscriptionOneShotMutation) Field(name string) (ent.Value, bool) {
+	switch name {
+	case appsubscriptiononeshot.FieldEntID:
+		return m.EntID()
+	case appsubscriptiononeshot.FieldAppID:
+		return m.AppID()
+	case appsubscriptiononeshot.FieldGoodID:
+		return m.GoodID()
+	case appsubscriptiononeshot.FieldAppGoodID:
+		return m.AppGoodID()
+	case appsubscriptiononeshot.FieldName:
+		return m.Name()
+	case appsubscriptiononeshot.FieldBanner:
+		return m.Banner()
+	case appsubscriptiononeshot.FieldUsdPrice:
+		return m.UsdPrice()
+	}
+	return nil, false
+}
+
+// OldField returns the old value of the field from the database. An error is
+// returned if the mutation operation is not UpdateOne, or the query to the
+// database failed.
+func (m *AppSubscriptionOneShotMutation) OldField(ctx context.Context, name string) (ent.Value, error) {
+	switch name {
+	case appsubscriptiononeshot.FieldEntID:
+		return m.OldEntID(ctx)
+	case appsubscriptiononeshot.FieldAppID:
+		return m.OldAppID(ctx)
+	case appsubscriptiononeshot.FieldGoodID:
+		return m.OldGoodID(ctx)
+	case appsubscriptiononeshot.FieldAppGoodID:
+		return m.OldAppGoodID(ctx)
+	case appsubscriptiononeshot.FieldName:
+		return m.OldName(ctx)
+	case appsubscriptiononeshot.FieldBanner:
+		return m.OldBanner(ctx)
+	case appsubscriptiononeshot.FieldUsdPrice:
+		return m.OldUsdPrice(ctx)
+	}
+	return nil, fmt.Errorf("unknown AppSubscriptionOneShot field %s", name)
+}
+
+// SetField sets the value of a field with the given name. It returns an error if
+// the field is not defined in the schema, or if the type mismatched the field
+// type.
+func (m *AppSubscriptionOneShotMutation) SetField(name string, value ent.Value) error {
+	switch name {
+	case appsubscriptiononeshot.FieldEntID:
+		v, ok := value.(uuid.UUID)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetEntID(v)
+		return nil
+	case appsubscriptiononeshot.FieldAppID:
+		v, ok := value.(uuid.UUID)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetAppID(v)
+		return nil
+	case appsubscriptiononeshot.FieldGoodID:
+		v, ok := value.(uuid.UUID)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetGoodID(v)
+		return nil
+	case appsubscriptiononeshot.FieldAppGoodID:
+		v, ok := value.(uuid.UUID)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetAppGoodID(v)
+		return nil
+	case appsubscriptiononeshot.FieldName:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetName(v)
+		return nil
+	case appsubscriptiononeshot.FieldBanner:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetBanner(v)
+		return nil
+	case appsubscriptiononeshot.FieldUsdPrice:
+		v, ok := value.(decimal.Decimal)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetUsdPrice(v)
+		return nil
+	}
+	return fmt.Errorf("unknown AppSubscriptionOneShot field %s", name)
+}
+
+// AddedFields returns all numeric fields that were incremented/decremented during
+// this mutation.
+func (m *AppSubscriptionOneShotMutation) AddedFields() []string {
+	return nil
+}
+
+// AddedField returns the numeric value that was incremented/decremented on a field
+// with the given name. The second boolean return value indicates that this field
+// was not set, or was not defined in the schema.
+func (m *AppSubscriptionOneShotMutation) AddedField(name string) (ent.Value, bool) {
+	return nil, false
+}
+
+// AddField adds the value to the field with the given name. It returns an error if
+// the field is not defined in the schema, or if the type mismatched the field
+// type.
+func (m *AppSubscriptionOneShotMutation) AddField(name string, value ent.Value) error {
+	switch name {
+	}
+	return fmt.Errorf("unknown AppSubscriptionOneShot numeric field %s", name)
+}
+
+// ClearedFields returns all nullable fields that were cleared during this
+// mutation.
+func (m *AppSubscriptionOneShotMutation) ClearedFields() []string {
+	var fields []string
+	if m.FieldCleared(appsubscriptiononeshot.FieldAppID) {
+		fields = append(fields, appsubscriptiononeshot.FieldAppID)
+	}
+	if m.FieldCleared(appsubscriptiononeshot.FieldGoodID) {
+		fields = append(fields, appsubscriptiononeshot.FieldGoodID)
+	}
+	if m.FieldCleared(appsubscriptiononeshot.FieldAppGoodID) {
+		fields = append(fields, appsubscriptiononeshot.FieldAppGoodID)
+	}
+	if m.FieldCleared(appsubscriptiononeshot.FieldName) {
+		fields = append(fields, appsubscriptiononeshot.FieldName)
+	}
+	if m.FieldCleared(appsubscriptiononeshot.FieldBanner) {
+		fields = append(fields, appsubscriptiononeshot.FieldBanner)
+	}
+	if m.FieldCleared(appsubscriptiononeshot.FieldUsdPrice) {
+		fields = append(fields, appsubscriptiononeshot.FieldUsdPrice)
+	}
+	return fields
+}
+
+// FieldCleared returns a boolean indicating if a field with the given name was
+// cleared in this mutation.
+func (m *AppSubscriptionOneShotMutation) FieldCleared(name string) bool {
+	_, ok := m.clearedFields[name]
+	return ok
+}
+
+// ClearField clears the value of the field with the given name. It returns an
+// error if the field is not defined in the schema.
+func (m *AppSubscriptionOneShotMutation) ClearField(name string) error {
+	switch name {
+	case appsubscriptiononeshot.FieldAppID:
+		m.ClearAppID()
+		return nil
+	case appsubscriptiononeshot.FieldGoodID:
+		m.ClearGoodID()
+		return nil
+	case appsubscriptiononeshot.FieldAppGoodID:
+		m.ClearAppGoodID()
+		return nil
+	case appsubscriptiononeshot.FieldName:
+		m.ClearName()
+		return nil
+	case appsubscriptiononeshot.FieldBanner:
+		m.ClearBanner()
+		return nil
+	case appsubscriptiononeshot.FieldUsdPrice:
+		m.ClearUsdPrice()
+		return nil
+	}
+	return fmt.Errorf("unknown AppSubscriptionOneShot nullable field %s", name)
+}
+
+// ResetField resets all changes in the mutation for the field with the given name.
+// It returns an error if the field is not defined in the schema.
+func (m *AppSubscriptionOneShotMutation) ResetField(name string) error {
+	switch name {
+	case appsubscriptiononeshot.FieldEntID:
+		m.ResetEntID()
+		return nil
+	case appsubscriptiononeshot.FieldAppID:
+		m.ResetAppID()
+		return nil
+	case appsubscriptiononeshot.FieldGoodID:
+		m.ResetGoodID()
+		return nil
+	case appsubscriptiononeshot.FieldAppGoodID:
+		m.ResetAppGoodID()
+		return nil
+	case appsubscriptiononeshot.FieldName:
+		m.ResetName()
+		return nil
+	case appsubscriptiononeshot.FieldBanner:
+		m.ResetBanner()
+		return nil
+	case appsubscriptiononeshot.FieldUsdPrice:
+		m.ResetUsdPrice()
+		return nil
+	}
+	return fmt.Errorf("unknown AppSubscriptionOneShot field %s", name)
+}
+
+// AddedEdges returns all edge names that were set/added in this mutation.
+func (m *AppSubscriptionOneShotMutation) AddedEdges() []string {
+	edges := make([]string, 0, 0)
+	return edges
+}
+
+// AddedIDs returns all IDs (to other nodes) that were added for the given edge
+// name in this mutation.
+func (m *AppSubscriptionOneShotMutation) AddedIDs(name string) []ent.Value {
+	return nil
+}
+
+// RemovedEdges returns all edge names that were removed in this mutation.
+func (m *AppSubscriptionOneShotMutation) RemovedEdges() []string {
+	edges := make([]string, 0, 0)
+	return edges
+}
+
+// RemovedIDs returns all IDs (to other nodes) that were removed for the edge with
+// the given name in this mutation.
+func (m *AppSubscriptionOneShotMutation) RemovedIDs(name string) []ent.Value {
+	return nil
+}
+
+// ClearedEdges returns all edge names that were cleared in this mutation.
+func (m *AppSubscriptionOneShotMutation) ClearedEdges() []string {
+	edges := make([]string, 0, 0)
+	return edges
+}
+
+// EdgeCleared returns a boolean which indicates if the edge with the given name
+// was cleared in this mutation.
+func (m *AppSubscriptionOneShotMutation) EdgeCleared(name string) bool {
+	return false
+}
+
+// ClearEdge clears the value of the edge with the given name. It returns an error
+// if that edge is not defined in the schema.
+func (m *AppSubscriptionOneShotMutation) ClearEdge(name string) error {
+	return fmt.Errorf("unknown AppSubscriptionOneShot unique edge %s", name)
+}
+
+// ResetEdge resets all changes to the edge with the given name in this mutation.
+// It returns an error if the edge is not defined in the schema.
+func (m *AppSubscriptionOneShotMutation) ResetEdge(name string) error {
+	return fmt.Errorf("unknown AppSubscriptionOneShot edge %s", name)
 }
 
 // CommentMutation represents an operation that mutates the Comment nodes in the graph.
@@ -34250,6 +35804,1874 @@ func (m *StockMutation) ClearEdge(name string) error {
 // It returns an error if the edge is not defined in the schema.
 func (m *StockMutation) ResetEdge(name string) error {
 	return fmt.Errorf("unknown Stock edge %s", name)
+}
+
+// SubscriptionMutation represents an operation that mutates the Subscription nodes in the graph.
+type SubscriptionMutation struct {
+	config
+	op                    Op
+	typ                   string
+	id                    *uint32
+	ent_id                *uuid.UUID
+	good_id               *uuid.UUID
+	good_type             *string
+	name                  *string
+	duration_display_type *string
+	duration_units        *uint32
+	addduration_units     *int32
+	duration_quota        *uint32
+	addduration_quota     *int32
+	daily_bonus_quota     *uint32
+	adddaily_bonus_quota  *int32
+	usd_price             *decimal.Decimal
+	clearedFields         map[string]struct{}
+	done                  bool
+	oldValue              func(context.Context) (*Subscription, error)
+	predicates            []predicate.Subscription
+}
+
+var _ ent.Mutation = (*SubscriptionMutation)(nil)
+
+// subscriptionOption allows management of the mutation configuration using functional options.
+type subscriptionOption func(*SubscriptionMutation)
+
+// newSubscriptionMutation creates new mutation for the Subscription entity.
+func newSubscriptionMutation(c config, op Op, opts ...subscriptionOption) *SubscriptionMutation {
+	m := &SubscriptionMutation{
+		config:        c,
+		op:            op,
+		typ:           TypeSubscription,
+		clearedFields: make(map[string]struct{}),
+	}
+	for _, opt := range opts {
+		opt(m)
+	}
+	return m
+}
+
+// withSubscriptionID sets the ID field of the mutation.
+func withSubscriptionID(id uint32) subscriptionOption {
+	return func(m *SubscriptionMutation) {
+		var (
+			err   error
+			once  sync.Once
+			value *Subscription
+		)
+		m.oldValue = func(ctx context.Context) (*Subscription, error) {
+			once.Do(func() {
+				if m.done {
+					err = errors.New("querying old values post mutation is not allowed")
+				} else {
+					value, err = m.Client().Subscription.Get(ctx, id)
+				}
+			})
+			return value, err
+		}
+		m.id = &id
+	}
+}
+
+// withSubscription sets the old Subscription of the mutation.
+func withSubscription(node *Subscription) subscriptionOption {
+	return func(m *SubscriptionMutation) {
+		m.oldValue = func(context.Context) (*Subscription, error) {
+			return node, nil
+		}
+		m.id = &node.ID
+	}
+}
+
+// Client returns a new `ent.Client` from the mutation. If the mutation was
+// executed in a transaction (ent.Tx), a transactional client is returned.
+func (m SubscriptionMutation) Client() *Client {
+	client := &Client{config: m.config}
+	client.init()
+	return client
+}
+
+// Tx returns an `ent.Tx` for mutations that were executed in transactions;
+// it returns an error otherwise.
+func (m SubscriptionMutation) Tx() (*Tx, error) {
+	if _, ok := m.driver.(*txDriver); !ok {
+		return nil, errors.New("generated: mutation is not running in a transaction")
+	}
+	tx := &Tx{config: m.config}
+	tx.init()
+	return tx, nil
+}
+
+// SetID sets the value of the id field. Note that this
+// operation is only accepted on creation of Subscription entities.
+func (m *SubscriptionMutation) SetID(id uint32) {
+	m.id = &id
+}
+
+// ID returns the ID value in the mutation. Note that the ID is only available
+// if it was provided to the builder or after it was returned from the database.
+func (m *SubscriptionMutation) ID() (id uint32, exists bool) {
+	if m.id == nil {
+		return
+	}
+	return *m.id, true
+}
+
+// IDs queries the database and returns the entity ids that match the mutation's predicate.
+// That means, if the mutation is applied within a transaction with an isolation level such
+// as sql.LevelSerializable, the returned ids match the ids of the rows that will be updated
+// or updated by the mutation.
+func (m *SubscriptionMutation) IDs(ctx context.Context) ([]uint32, error) {
+	switch {
+	case m.op.Is(OpUpdateOne | OpDeleteOne):
+		id, exists := m.ID()
+		if exists {
+			return []uint32{id}, nil
+		}
+		fallthrough
+	case m.op.Is(OpUpdate | OpDelete):
+		return m.Client().Subscription.Query().Where(m.predicates...).IDs(ctx)
+	default:
+		return nil, fmt.Errorf("IDs is not allowed on %s operations", m.op)
+	}
+}
+
+// SetEntID sets the "ent_id" field.
+func (m *SubscriptionMutation) SetEntID(u uuid.UUID) {
+	m.ent_id = &u
+}
+
+// EntID returns the value of the "ent_id" field in the mutation.
+func (m *SubscriptionMutation) EntID() (r uuid.UUID, exists bool) {
+	v := m.ent_id
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldEntID returns the old "ent_id" field's value of the Subscription entity.
+// If the Subscription object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *SubscriptionMutation) OldEntID(ctx context.Context) (v uuid.UUID, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldEntID is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldEntID requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldEntID: %w", err)
+	}
+	return oldValue.EntID, nil
+}
+
+// ResetEntID resets all changes to the "ent_id" field.
+func (m *SubscriptionMutation) ResetEntID() {
+	m.ent_id = nil
+}
+
+// SetGoodID sets the "good_id" field.
+func (m *SubscriptionMutation) SetGoodID(u uuid.UUID) {
+	m.good_id = &u
+}
+
+// GoodID returns the value of the "good_id" field in the mutation.
+func (m *SubscriptionMutation) GoodID() (r uuid.UUID, exists bool) {
+	v := m.good_id
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldGoodID returns the old "good_id" field's value of the Subscription entity.
+// If the Subscription object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *SubscriptionMutation) OldGoodID(ctx context.Context) (v uuid.UUID, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldGoodID is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldGoodID requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldGoodID: %w", err)
+	}
+	return oldValue.GoodID, nil
+}
+
+// ClearGoodID clears the value of the "good_id" field.
+func (m *SubscriptionMutation) ClearGoodID() {
+	m.good_id = nil
+	m.clearedFields[subscription.FieldGoodID] = struct{}{}
+}
+
+// GoodIDCleared returns if the "good_id" field was cleared in this mutation.
+func (m *SubscriptionMutation) GoodIDCleared() bool {
+	_, ok := m.clearedFields[subscription.FieldGoodID]
+	return ok
+}
+
+// ResetGoodID resets all changes to the "good_id" field.
+func (m *SubscriptionMutation) ResetGoodID() {
+	m.good_id = nil
+	delete(m.clearedFields, subscription.FieldGoodID)
+}
+
+// SetGoodType sets the "good_type" field.
+func (m *SubscriptionMutation) SetGoodType(s string) {
+	m.good_type = &s
+}
+
+// GoodType returns the value of the "good_type" field in the mutation.
+func (m *SubscriptionMutation) GoodType() (r string, exists bool) {
+	v := m.good_type
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldGoodType returns the old "good_type" field's value of the Subscription entity.
+// If the Subscription object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *SubscriptionMutation) OldGoodType(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldGoodType is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldGoodType requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldGoodType: %w", err)
+	}
+	return oldValue.GoodType, nil
+}
+
+// ClearGoodType clears the value of the "good_type" field.
+func (m *SubscriptionMutation) ClearGoodType() {
+	m.good_type = nil
+	m.clearedFields[subscription.FieldGoodType] = struct{}{}
+}
+
+// GoodTypeCleared returns if the "good_type" field was cleared in this mutation.
+func (m *SubscriptionMutation) GoodTypeCleared() bool {
+	_, ok := m.clearedFields[subscription.FieldGoodType]
+	return ok
+}
+
+// ResetGoodType resets all changes to the "good_type" field.
+func (m *SubscriptionMutation) ResetGoodType() {
+	m.good_type = nil
+	delete(m.clearedFields, subscription.FieldGoodType)
+}
+
+// SetName sets the "name" field.
+func (m *SubscriptionMutation) SetName(s string) {
+	m.name = &s
+}
+
+// Name returns the value of the "name" field in the mutation.
+func (m *SubscriptionMutation) Name() (r string, exists bool) {
+	v := m.name
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldName returns the old "name" field's value of the Subscription entity.
+// If the Subscription object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *SubscriptionMutation) OldName(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldName is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldName requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldName: %w", err)
+	}
+	return oldValue.Name, nil
+}
+
+// ClearName clears the value of the "name" field.
+func (m *SubscriptionMutation) ClearName() {
+	m.name = nil
+	m.clearedFields[subscription.FieldName] = struct{}{}
+}
+
+// NameCleared returns if the "name" field was cleared in this mutation.
+func (m *SubscriptionMutation) NameCleared() bool {
+	_, ok := m.clearedFields[subscription.FieldName]
+	return ok
+}
+
+// ResetName resets all changes to the "name" field.
+func (m *SubscriptionMutation) ResetName() {
+	m.name = nil
+	delete(m.clearedFields, subscription.FieldName)
+}
+
+// SetDurationDisplayType sets the "duration_display_type" field.
+func (m *SubscriptionMutation) SetDurationDisplayType(s string) {
+	m.duration_display_type = &s
+}
+
+// DurationDisplayType returns the value of the "duration_display_type" field in the mutation.
+func (m *SubscriptionMutation) DurationDisplayType() (r string, exists bool) {
+	v := m.duration_display_type
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldDurationDisplayType returns the old "duration_display_type" field's value of the Subscription entity.
+// If the Subscription object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *SubscriptionMutation) OldDurationDisplayType(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldDurationDisplayType is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldDurationDisplayType requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldDurationDisplayType: %w", err)
+	}
+	return oldValue.DurationDisplayType, nil
+}
+
+// ClearDurationDisplayType clears the value of the "duration_display_type" field.
+func (m *SubscriptionMutation) ClearDurationDisplayType() {
+	m.duration_display_type = nil
+	m.clearedFields[subscription.FieldDurationDisplayType] = struct{}{}
+}
+
+// DurationDisplayTypeCleared returns if the "duration_display_type" field was cleared in this mutation.
+func (m *SubscriptionMutation) DurationDisplayTypeCleared() bool {
+	_, ok := m.clearedFields[subscription.FieldDurationDisplayType]
+	return ok
+}
+
+// ResetDurationDisplayType resets all changes to the "duration_display_type" field.
+func (m *SubscriptionMutation) ResetDurationDisplayType() {
+	m.duration_display_type = nil
+	delete(m.clearedFields, subscription.FieldDurationDisplayType)
+}
+
+// SetDurationUnits sets the "duration_units" field.
+func (m *SubscriptionMutation) SetDurationUnits(u uint32) {
+	m.duration_units = &u
+	m.addduration_units = nil
+}
+
+// DurationUnits returns the value of the "duration_units" field in the mutation.
+func (m *SubscriptionMutation) DurationUnits() (r uint32, exists bool) {
+	v := m.duration_units
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldDurationUnits returns the old "duration_units" field's value of the Subscription entity.
+// If the Subscription object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *SubscriptionMutation) OldDurationUnits(ctx context.Context) (v uint32, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldDurationUnits is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldDurationUnits requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldDurationUnits: %w", err)
+	}
+	return oldValue.DurationUnits, nil
+}
+
+// AddDurationUnits adds u to the "duration_units" field.
+func (m *SubscriptionMutation) AddDurationUnits(u int32) {
+	if m.addduration_units != nil {
+		*m.addduration_units += u
+	} else {
+		m.addduration_units = &u
+	}
+}
+
+// AddedDurationUnits returns the value that was added to the "duration_units" field in this mutation.
+func (m *SubscriptionMutation) AddedDurationUnits() (r int32, exists bool) {
+	v := m.addduration_units
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ClearDurationUnits clears the value of the "duration_units" field.
+func (m *SubscriptionMutation) ClearDurationUnits() {
+	m.duration_units = nil
+	m.addduration_units = nil
+	m.clearedFields[subscription.FieldDurationUnits] = struct{}{}
+}
+
+// DurationUnitsCleared returns if the "duration_units" field was cleared in this mutation.
+func (m *SubscriptionMutation) DurationUnitsCleared() bool {
+	_, ok := m.clearedFields[subscription.FieldDurationUnits]
+	return ok
+}
+
+// ResetDurationUnits resets all changes to the "duration_units" field.
+func (m *SubscriptionMutation) ResetDurationUnits() {
+	m.duration_units = nil
+	m.addduration_units = nil
+	delete(m.clearedFields, subscription.FieldDurationUnits)
+}
+
+// SetDurationQuota sets the "duration_quota" field.
+func (m *SubscriptionMutation) SetDurationQuota(u uint32) {
+	m.duration_quota = &u
+	m.addduration_quota = nil
+}
+
+// DurationQuota returns the value of the "duration_quota" field in the mutation.
+func (m *SubscriptionMutation) DurationQuota() (r uint32, exists bool) {
+	v := m.duration_quota
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldDurationQuota returns the old "duration_quota" field's value of the Subscription entity.
+// If the Subscription object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *SubscriptionMutation) OldDurationQuota(ctx context.Context) (v uint32, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldDurationQuota is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldDurationQuota requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldDurationQuota: %w", err)
+	}
+	return oldValue.DurationQuota, nil
+}
+
+// AddDurationQuota adds u to the "duration_quota" field.
+func (m *SubscriptionMutation) AddDurationQuota(u int32) {
+	if m.addduration_quota != nil {
+		*m.addduration_quota += u
+	} else {
+		m.addduration_quota = &u
+	}
+}
+
+// AddedDurationQuota returns the value that was added to the "duration_quota" field in this mutation.
+func (m *SubscriptionMutation) AddedDurationQuota() (r int32, exists bool) {
+	v := m.addduration_quota
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ClearDurationQuota clears the value of the "duration_quota" field.
+func (m *SubscriptionMutation) ClearDurationQuota() {
+	m.duration_quota = nil
+	m.addduration_quota = nil
+	m.clearedFields[subscription.FieldDurationQuota] = struct{}{}
+}
+
+// DurationQuotaCleared returns if the "duration_quota" field was cleared in this mutation.
+func (m *SubscriptionMutation) DurationQuotaCleared() bool {
+	_, ok := m.clearedFields[subscription.FieldDurationQuota]
+	return ok
+}
+
+// ResetDurationQuota resets all changes to the "duration_quota" field.
+func (m *SubscriptionMutation) ResetDurationQuota() {
+	m.duration_quota = nil
+	m.addduration_quota = nil
+	delete(m.clearedFields, subscription.FieldDurationQuota)
+}
+
+// SetDailyBonusQuota sets the "daily_bonus_quota" field.
+func (m *SubscriptionMutation) SetDailyBonusQuota(u uint32) {
+	m.daily_bonus_quota = &u
+	m.adddaily_bonus_quota = nil
+}
+
+// DailyBonusQuota returns the value of the "daily_bonus_quota" field in the mutation.
+func (m *SubscriptionMutation) DailyBonusQuota() (r uint32, exists bool) {
+	v := m.daily_bonus_quota
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldDailyBonusQuota returns the old "daily_bonus_quota" field's value of the Subscription entity.
+// If the Subscription object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *SubscriptionMutation) OldDailyBonusQuota(ctx context.Context) (v uint32, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldDailyBonusQuota is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldDailyBonusQuota requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldDailyBonusQuota: %w", err)
+	}
+	return oldValue.DailyBonusQuota, nil
+}
+
+// AddDailyBonusQuota adds u to the "daily_bonus_quota" field.
+func (m *SubscriptionMutation) AddDailyBonusQuota(u int32) {
+	if m.adddaily_bonus_quota != nil {
+		*m.adddaily_bonus_quota += u
+	} else {
+		m.adddaily_bonus_quota = &u
+	}
+}
+
+// AddedDailyBonusQuota returns the value that was added to the "daily_bonus_quota" field in this mutation.
+func (m *SubscriptionMutation) AddedDailyBonusQuota() (r int32, exists bool) {
+	v := m.adddaily_bonus_quota
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ClearDailyBonusQuota clears the value of the "daily_bonus_quota" field.
+func (m *SubscriptionMutation) ClearDailyBonusQuota() {
+	m.daily_bonus_quota = nil
+	m.adddaily_bonus_quota = nil
+	m.clearedFields[subscription.FieldDailyBonusQuota] = struct{}{}
+}
+
+// DailyBonusQuotaCleared returns if the "daily_bonus_quota" field was cleared in this mutation.
+func (m *SubscriptionMutation) DailyBonusQuotaCleared() bool {
+	_, ok := m.clearedFields[subscription.FieldDailyBonusQuota]
+	return ok
+}
+
+// ResetDailyBonusQuota resets all changes to the "daily_bonus_quota" field.
+func (m *SubscriptionMutation) ResetDailyBonusQuota() {
+	m.daily_bonus_quota = nil
+	m.adddaily_bonus_quota = nil
+	delete(m.clearedFields, subscription.FieldDailyBonusQuota)
+}
+
+// SetUsdPrice sets the "usd_price" field.
+func (m *SubscriptionMutation) SetUsdPrice(d decimal.Decimal) {
+	m.usd_price = &d
+}
+
+// UsdPrice returns the value of the "usd_price" field in the mutation.
+func (m *SubscriptionMutation) UsdPrice() (r decimal.Decimal, exists bool) {
+	v := m.usd_price
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldUsdPrice returns the old "usd_price" field's value of the Subscription entity.
+// If the Subscription object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *SubscriptionMutation) OldUsdPrice(ctx context.Context) (v decimal.Decimal, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldUsdPrice is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldUsdPrice requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldUsdPrice: %w", err)
+	}
+	return oldValue.UsdPrice, nil
+}
+
+// ClearUsdPrice clears the value of the "usd_price" field.
+func (m *SubscriptionMutation) ClearUsdPrice() {
+	m.usd_price = nil
+	m.clearedFields[subscription.FieldUsdPrice] = struct{}{}
+}
+
+// UsdPriceCleared returns if the "usd_price" field was cleared in this mutation.
+func (m *SubscriptionMutation) UsdPriceCleared() bool {
+	_, ok := m.clearedFields[subscription.FieldUsdPrice]
+	return ok
+}
+
+// ResetUsdPrice resets all changes to the "usd_price" field.
+func (m *SubscriptionMutation) ResetUsdPrice() {
+	m.usd_price = nil
+	delete(m.clearedFields, subscription.FieldUsdPrice)
+}
+
+// Where appends a list predicates to the SubscriptionMutation builder.
+func (m *SubscriptionMutation) Where(ps ...predicate.Subscription) {
+	m.predicates = append(m.predicates, ps...)
+}
+
+// WhereP appends storage-level predicates to the SubscriptionMutation builder. Using this method,
+// users can use type-assertion to append predicates that do not depend on any generated package.
+func (m *SubscriptionMutation) WhereP(ps ...func(*sql.Selector)) {
+	p := make([]predicate.Subscription, len(ps))
+	for i := range ps {
+		p[i] = ps[i]
+	}
+	m.Where(p...)
+}
+
+// Op returns the operation name.
+func (m *SubscriptionMutation) Op() Op {
+	return m.op
+}
+
+// SetOp allows setting the mutation operation.
+func (m *SubscriptionMutation) SetOp(op Op) {
+	m.op = op
+}
+
+// Type returns the node type of this mutation (Subscription).
+func (m *SubscriptionMutation) Type() string {
+	return m.typ
+}
+
+// Fields returns all fields that were changed during this mutation. Note that in
+// order to get all numeric fields that were incremented/decremented, call
+// AddedFields().
+func (m *SubscriptionMutation) Fields() []string {
+	fields := make([]string, 0, 9)
+	if m.ent_id != nil {
+		fields = append(fields, subscription.FieldEntID)
+	}
+	if m.good_id != nil {
+		fields = append(fields, subscription.FieldGoodID)
+	}
+	if m.good_type != nil {
+		fields = append(fields, subscription.FieldGoodType)
+	}
+	if m.name != nil {
+		fields = append(fields, subscription.FieldName)
+	}
+	if m.duration_display_type != nil {
+		fields = append(fields, subscription.FieldDurationDisplayType)
+	}
+	if m.duration_units != nil {
+		fields = append(fields, subscription.FieldDurationUnits)
+	}
+	if m.duration_quota != nil {
+		fields = append(fields, subscription.FieldDurationQuota)
+	}
+	if m.daily_bonus_quota != nil {
+		fields = append(fields, subscription.FieldDailyBonusQuota)
+	}
+	if m.usd_price != nil {
+		fields = append(fields, subscription.FieldUsdPrice)
+	}
+	return fields
+}
+
+// Field returns the value of a field with the given name. The second boolean
+// return value indicates that this field was not set, or was not defined in the
+// schema.
+func (m *SubscriptionMutation) Field(name string) (ent.Value, bool) {
+	switch name {
+	case subscription.FieldEntID:
+		return m.EntID()
+	case subscription.FieldGoodID:
+		return m.GoodID()
+	case subscription.FieldGoodType:
+		return m.GoodType()
+	case subscription.FieldName:
+		return m.Name()
+	case subscription.FieldDurationDisplayType:
+		return m.DurationDisplayType()
+	case subscription.FieldDurationUnits:
+		return m.DurationUnits()
+	case subscription.FieldDurationQuota:
+		return m.DurationQuota()
+	case subscription.FieldDailyBonusQuota:
+		return m.DailyBonusQuota()
+	case subscription.FieldUsdPrice:
+		return m.UsdPrice()
+	}
+	return nil, false
+}
+
+// OldField returns the old value of the field from the database. An error is
+// returned if the mutation operation is not UpdateOne, or the query to the
+// database failed.
+func (m *SubscriptionMutation) OldField(ctx context.Context, name string) (ent.Value, error) {
+	switch name {
+	case subscription.FieldEntID:
+		return m.OldEntID(ctx)
+	case subscription.FieldGoodID:
+		return m.OldGoodID(ctx)
+	case subscription.FieldGoodType:
+		return m.OldGoodType(ctx)
+	case subscription.FieldName:
+		return m.OldName(ctx)
+	case subscription.FieldDurationDisplayType:
+		return m.OldDurationDisplayType(ctx)
+	case subscription.FieldDurationUnits:
+		return m.OldDurationUnits(ctx)
+	case subscription.FieldDurationQuota:
+		return m.OldDurationQuota(ctx)
+	case subscription.FieldDailyBonusQuota:
+		return m.OldDailyBonusQuota(ctx)
+	case subscription.FieldUsdPrice:
+		return m.OldUsdPrice(ctx)
+	}
+	return nil, fmt.Errorf("unknown Subscription field %s", name)
+}
+
+// SetField sets the value of a field with the given name. It returns an error if
+// the field is not defined in the schema, or if the type mismatched the field
+// type.
+func (m *SubscriptionMutation) SetField(name string, value ent.Value) error {
+	switch name {
+	case subscription.FieldEntID:
+		v, ok := value.(uuid.UUID)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetEntID(v)
+		return nil
+	case subscription.FieldGoodID:
+		v, ok := value.(uuid.UUID)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetGoodID(v)
+		return nil
+	case subscription.FieldGoodType:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetGoodType(v)
+		return nil
+	case subscription.FieldName:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetName(v)
+		return nil
+	case subscription.FieldDurationDisplayType:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetDurationDisplayType(v)
+		return nil
+	case subscription.FieldDurationUnits:
+		v, ok := value.(uint32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetDurationUnits(v)
+		return nil
+	case subscription.FieldDurationQuota:
+		v, ok := value.(uint32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetDurationQuota(v)
+		return nil
+	case subscription.FieldDailyBonusQuota:
+		v, ok := value.(uint32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetDailyBonusQuota(v)
+		return nil
+	case subscription.FieldUsdPrice:
+		v, ok := value.(decimal.Decimal)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetUsdPrice(v)
+		return nil
+	}
+	return fmt.Errorf("unknown Subscription field %s", name)
+}
+
+// AddedFields returns all numeric fields that were incremented/decremented during
+// this mutation.
+func (m *SubscriptionMutation) AddedFields() []string {
+	var fields []string
+	if m.addduration_units != nil {
+		fields = append(fields, subscription.FieldDurationUnits)
+	}
+	if m.addduration_quota != nil {
+		fields = append(fields, subscription.FieldDurationQuota)
+	}
+	if m.adddaily_bonus_quota != nil {
+		fields = append(fields, subscription.FieldDailyBonusQuota)
+	}
+	return fields
+}
+
+// AddedField returns the numeric value that was incremented/decremented on a field
+// with the given name. The second boolean return value indicates that this field
+// was not set, or was not defined in the schema.
+func (m *SubscriptionMutation) AddedField(name string) (ent.Value, bool) {
+	switch name {
+	case subscription.FieldDurationUnits:
+		return m.AddedDurationUnits()
+	case subscription.FieldDurationQuota:
+		return m.AddedDurationQuota()
+	case subscription.FieldDailyBonusQuota:
+		return m.AddedDailyBonusQuota()
+	}
+	return nil, false
+}
+
+// AddField adds the value to the field with the given name. It returns an error if
+// the field is not defined in the schema, or if the type mismatched the field
+// type.
+func (m *SubscriptionMutation) AddField(name string, value ent.Value) error {
+	switch name {
+	case subscription.FieldDurationUnits:
+		v, ok := value.(int32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddDurationUnits(v)
+		return nil
+	case subscription.FieldDurationQuota:
+		v, ok := value.(int32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddDurationQuota(v)
+		return nil
+	case subscription.FieldDailyBonusQuota:
+		v, ok := value.(int32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddDailyBonusQuota(v)
+		return nil
+	}
+	return fmt.Errorf("unknown Subscription numeric field %s", name)
+}
+
+// ClearedFields returns all nullable fields that were cleared during this
+// mutation.
+func (m *SubscriptionMutation) ClearedFields() []string {
+	var fields []string
+	if m.FieldCleared(subscription.FieldGoodID) {
+		fields = append(fields, subscription.FieldGoodID)
+	}
+	if m.FieldCleared(subscription.FieldGoodType) {
+		fields = append(fields, subscription.FieldGoodType)
+	}
+	if m.FieldCleared(subscription.FieldName) {
+		fields = append(fields, subscription.FieldName)
+	}
+	if m.FieldCleared(subscription.FieldDurationDisplayType) {
+		fields = append(fields, subscription.FieldDurationDisplayType)
+	}
+	if m.FieldCleared(subscription.FieldDurationUnits) {
+		fields = append(fields, subscription.FieldDurationUnits)
+	}
+	if m.FieldCleared(subscription.FieldDurationQuota) {
+		fields = append(fields, subscription.FieldDurationQuota)
+	}
+	if m.FieldCleared(subscription.FieldDailyBonusQuota) {
+		fields = append(fields, subscription.FieldDailyBonusQuota)
+	}
+	if m.FieldCleared(subscription.FieldUsdPrice) {
+		fields = append(fields, subscription.FieldUsdPrice)
+	}
+	return fields
+}
+
+// FieldCleared returns a boolean indicating if a field with the given name was
+// cleared in this mutation.
+func (m *SubscriptionMutation) FieldCleared(name string) bool {
+	_, ok := m.clearedFields[name]
+	return ok
+}
+
+// ClearField clears the value of the field with the given name. It returns an
+// error if the field is not defined in the schema.
+func (m *SubscriptionMutation) ClearField(name string) error {
+	switch name {
+	case subscription.FieldGoodID:
+		m.ClearGoodID()
+		return nil
+	case subscription.FieldGoodType:
+		m.ClearGoodType()
+		return nil
+	case subscription.FieldName:
+		m.ClearName()
+		return nil
+	case subscription.FieldDurationDisplayType:
+		m.ClearDurationDisplayType()
+		return nil
+	case subscription.FieldDurationUnits:
+		m.ClearDurationUnits()
+		return nil
+	case subscription.FieldDurationQuota:
+		m.ClearDurationQuota()
+		return nil
+	case subscription.FieldDailyBonusQuota:
+		m.ClearDailyBonusQuota()
+		return nil
+	case subscription.FieldUsdPrice:
+		m.ClearUsdPrice()
+		return nil
+	}
+	return fmt.Errorf("unknown Subscription nullable field %s", name)
+}
+
+// ResetField resets all changes in the mutation for the field with the given name.
+// It returns an error if the field is not defined in the schema.
+func (m *SubscriptionMutation) ResetField(name string) error {
+	switch name {
+	case subscription.FieldEntID:
+		m.ResetEntID()
+		return nil
+	case subscription.FieldGoodID:
+		m.ResetGoodID()
+		return nil
+	case subscription.FieldGoodType:
+		m.ResetGoodType()
+		return nil
+	case subscription.FieldName:
+		m.ResetName()
+		return nil
+	case subscription.FieldDurationDisplayType:
+		m.ResetDurationDisplayType()
+		return nil
+	case subscription.FieldDurationUnits:
+		m.ResetDurationUnits()
+		return nil
+	case subscription.FieldDurationQuota:
+		m.ResetDurationQuota()
+		return nil
+	case subscription.FieldDailyBonusQuota:
+		m.ResetDailyBonusQuota()
+		return nil
+	case subscription.FieldUsdPrice:
+		m.ResetUsdPrice()
+		return nil
+	}
+	return fmt.Errorf("unknown Subscription field %s", name)
+}
+
+// AddedEdges returns all edge names that were set/added in this mutation.
+func (m *SubscriptionMutation) AddedEdges() []string {
+	edges := make([]string, 0, 0)
+	return edges
+}
+
+// AddedIDs returns all IDs (to other nodes) that were added for the given edge
+// name in this mutation.
+func (m *SubscriptionMutation) AddedIDs(name string) []ent.Value {
+	return nil
+}
+
+// RemovedEdges returns all edge names that were removed in this mutation.
+func (m *SubscriptionMutation) RemovedEdges() []string {
+	edges := make([]string, 0, 0)
+	return edges
+}
+
+// RemovedIDs returns all IDs (to other nodes) that were removed for the edge with
+// the given name in this mutation.
+func (m *SubscriptionMutation) RemovedIDs(name string) []ent.Value {
+	return nil
+}
+
+// ClearedEdges returns all edge names that were cleared in this mutation.
+func (m *SubscriptionMutation) ClearedEdges() []string {
+	edges := make([]string, 0, 0)
+	return edges
+}
+
+// EdgeCleared returns a boolean which indicates if the edge with the given name
+// was cleared in this mutation.
+func (m *SubscriptionMutation) EdgeCleared(name string) bool {
+	return false
+}
+
+// ClearEdge clears the value of the edge with the given name. It returns an error
+// if that edge is not defined in the schema.
+func (m *SubscriptionMutation) ClearEdge(name string) error {
+	return fmt.Errorf("unknown Subscription unique edge %s", name)
+}
+
+// ResetEdge resets all changes to the edge with the given name in this mutation.
+// It returns an error if the edge is not defined in the schema.
+func (m *SubscriptionMutation) ResetEdge(name string) error {
+	return fmt.Errorf("unknown Subscription edge %s", name)
+}
+
+// SubscriptionOneShotMutation represents an operation that mutates the SubscriptionOneShot nodes in the graph.
+type SubscriptionOneShotMutation struct {
+	config
+	op              Op
+	typ             string
+	id              *uint32
+	ent_id          *uuid.UUID
+	good_id         *uuid.UUID
+	good_type       *string
+	name            *string
+	quota           *uint32
+	addquota        *int32
+	usd_price       *decimal.Decimal
+	life_seconds    *uint32
+	addlife_seconds *int32
+	clearedFields   map[string]struct{}
+	done            bool
+	oldValue        func(context.Context) (*SubscriptionOneShot, error)
+	predicates      []predicate.SubscriptionOneShot
+}
+
+var _ ent.Mutation = (*SubscriptionOneShotMutation)(nil)
+
+// subscriptiononeshotOption allows management of the mutation configuration using functional options.
+type subscriptiononeshotOption func(*SubscriptionOneShotMutation)
+
+// newSubscriptionOneShotMutation creates new mutation for the SubscriptionOneShot entity.
+func newSubscriptionOneShotMutation(c config, op Op, opts ...subscriptiononeshotOption) *SubscriptionOneShotMutation {
+	m := &SubscriptionOneShotMutation{
+		config:        c,
+		op:            op,
+		typ:           TypeSubscriptionOneShot,
+		clearedFields: make(map[string]struct{}),
+	}
+	for _, opt := range opts {
+		opt(m)
+	}
+	return m
+}
+
+// withSubscriptionOneShotID sets the ID field of the mutation.
+func withSubscriptionOneShotID(id uint32) subscriptiononeshotOption {
+	return func(m *SubscriptionOneShotMutation) {
+		var (
+			err   error
+			once  sync.Once
+			value *SubscriptionOneShot
+		)
+		m.oldValue = func(ctx context.Context) (*SubscriptionOneShot, error) {
+			once.Do(func() {
+				if m.done {
+					err = errors.New("querying old values post mutation is not allowed")
+				} else {
+					value, err = m.Client().SubscriptionOneShot.Get(ctx, id)
+				}
+			})
+			return value, err
+		}
+		m.id = &id
+	}
+}
+
+// withSubscriptionOneShot sets the old SubscriptionOneShot of the mutation.
+func withSubscriptionOneShot(node *SubscriptionOneShot) subscriptiononeshotOption {
+	return func(m *SubscriptionOneShotMutation) {
+		m.oldValue = func(context.Context) (*SubscriptionOneShot, error) {
+			return node, nil
+		}
+		m.id = &node.ID
+	}
+}
+
+// Client returns a new `ent.Client` from the mutation. If the mutation was
+// executed in a transaction (ent.Tx), a transactional client is returned.
+func (m SubscriptionOneShotMutation) Client() *Client {
+	client := &Client{config: m.config}
+	client.init()
+	return client
+}
+
+// Tx returns an `ent.Tx` for mutations that were executed in transactions;
+// it returns an error otherwise.
+func (m SubscriptionOneShotMutation) Tx() (*Tx, error) {
+	if _, ok := m.driver.(*txDriver); !ok {
+		return nil, errors.New("generated: mutation is not running in a transaction")
+	}
+	tx := &Tx{config: m.config}
+	tx.init()
+	return tx, nil
+}
+
+// SetID sets the value of the id field. Note that this
+// operation is only accepted on creation of SubscriptionOneShot entities.
+func (m *SubscriptionOneShotMutation) SetID(id uint32) {
+	m.id = &id
+}
+
+// ID returns the ID value in the mutation. Note that the ID is only available
+// if it was provided to the builder or after it was returned from the database.
+func (m *SubscriptionOneShotMutation) ID() (id uint32, exists bool) {
+	if m.id == nil {
+		return
+	}
+	return *m.id, true
+}
+
+// IDs queries the database and returns the entity ids that match the mutation's predicate.
+// That means, if the mutation is applied within a transaction with an isolation level such
+// as sql.LevelSerializable, the returned ids match the ids of the rows that will be updated
+// or updated by the mutation.
+func (m *SubscriptionOneShotMutation) IDs(ctx context.Context) ([]uint32, error) {
+	switch {
+	case m.op.Is(OpUpdateOne | OpDeleteOne):
+		id, exists := m.ID()
+		if exists {
+			return []uint32{id}, nil
+		}
+		fallthrough
+	case m.op.Is(OpUpdate | OpDelete):
+		return m.Client().SubscriptionOneShot.Query().Where(m.predicates...).IDs(ctx)
+	default:
+		return nil, fmt.Errorf("IDs is not allowed on %s operations", m.op)
+	}
+}
+
+// SetEntID sets the "ent_id" field.
+func (m *SubscriptionOneShotMutation) SetEntID(u uuid.UUID) {
+	m.ent_id = &u
+}
+
+// EntID returns the value of the "ent_id" field in the mutation.
+func (m *SubscriptionOneShotMutation) EntID() (r uuid.UUID, exists bool) {
+	v := m.ent_id
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldEntID returns the old "ent_id" field's value of the SubscriptionOneShot entity.
+// If the SubscriptionOneShot object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *SubscriptionOneShotMutation) OldEntID(ctx context.Context) (v uuid.UUID, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldEntID is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldEntID requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldEntID: %w", err)
+	}
+	return oldValue.EntID, nil
+}
+
+// ResetEntID resets all changes to the "ent_id" field.
+func (m *SubscriptionOneShotMutation) ResetEntID() {
+	m.ent_id = nil
+}
+
+// SetGoodID sets the "good_id" field.
+func (m *SubscriptionOneShotMutation) SetGoodID(u uuid.UUID) {
+	m.good_id = &u
+}
+
+// GoodID returns the value of the "good_id" field in the mutation.
+func (m *SubscriptionOneShotMutation) GoodID() (r uuid.UUID, exists bool) {
+	v := m.good_id
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldGoodID returns the old "good_id" field's value of the SubscriptionOneShot entity.
+// If the SubscriptionOneShot object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *SubscriptionOneShotMutation) OldGoodID(ctx context.Context) (v uuid.UUID, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldGoodID is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldGoodID requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldGoodID: %w", err)
+	}
+	return oldValue.GoodID, nil
+}
+
+// ClearGoodID clears the value of the "good_id" field.
+func (m *SubscriptionOneShotMutation) ClearGoodID() {
+	m.good_id = nil
+	m.clearedFields[subscriptiononeshot.FieldGoodID] = struct{}{}
+}
+
+// GoodIDCleared returns if the "good_id" field was cleared in this mutation.
+func (m *SubscriptionOneShotMutation) GoodIDCleared() bool {
+	_, ok := m.clearedFields[subscriptiononeshot.FieldGoodID]
+	return ok
+}
+
+// ResetGoodID resets all changes to the "good_id" field.
+func (m *SubscriptionOneShotMutation) ResetGoodID() {
+	m.good_id = nil
+	delete(m.clearedFields, subscriptiononeshot.FieldGoodID)
+}
+
+// SetGoodType sets the "good_type" field.
+func (m *SubscriptionOneShotMutation) SetGoodType(s string) {
+	m.good_type = &s
+}
+
+// GoodType returns the value of the "good_type" field in the mutation.
+func (m *SubscriptionOneShotMutation) GoodType() (r string, exists bool) {
+	v := m.good_type
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldGoodType returns the old "good_type" field's value of the SubscriptionOneShot entity.
+// If the SubscriptionOneShot object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *SubscriptionOneShotMutation) OldGoodType(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldGoodType is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldGoodType requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldGoodType: %w", err)
+	}
+	return oldValue.GoodType, nil
+}
+
+// ClearGoodType clears the value of the "good_type" field.
+func (m *SubscriptionOneShotMutation) ClearGoodType() {
+	m.good_type = nil
+	m.clearedFields[subscriptiononeshot.FieldGoodType] = struct{}{}
+}
+
+// GoodTypeCleared returns if the "good_type" field was cleared in this mutation.
+func (m *SubscriptionOneShotMutation) GoodTypeCleared() bool {
+	_, ok := m.clearedFields[subscriptiononeshot.FieldGoodType]
+	return ok
+}
+
+// ResetGoodType resets all changes to the "good_type" field.
+func (m *SubscriptionOneShotMutation) ResetGoodType() {
+	m.good_type = nil
+	delete(m.clearedFields, subscriptiononeshot.FieldGoodType)
+}
+
+// SetName sets the "name" field.
+func (m *SubscriptionOneShotMutation) SetName(s string) {
+	m.name = &s
+}
+
+// Name returns the value of the "name" field in the mutation.
+func (m *SubscriptionOneShotMutation) Name() (r string, exists bool) {
+	v := m.name
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldName returns the old "name" field's value of the SubscriptionOneShot entity.
+// If the SubscriptionOneShot object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *SubscriptionOneShotMutation) OldName(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldName is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldName requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldName: %w", err)
+	}
+	return oldValue.Name, nil
+}
+
+// ClearName clears the value of the "name" field.
+func (m *SubscriptionOneShotMutation) ClearName() {
+	m.name = nil
+	m.clearedFields[subscriptiononeshot.FieldName] = struct{}{}
+}
+
+// NameCleared returns if the "name" field was cleared in this mutation.
+func (m *SubscriptionOneShotMutation) NameCleared() bool {
+	_, ok := m.clearedFields[subscriptiononeshot.FieldName]
+	return ok
+}
+
+// ResetName resets all changes to the "name" field.
+func (m *SubscriptionOneShotMutation) ResetName() {
+	m.name = nil
+	delete(m.clearedFields, subscriptiononeshot.FieldName)
+}
+
+// SetQuota sets the "quota" field.
+func (m *SubscriptionOneShotMutation) SetQuota(u uint32) {
+	m.quota = &u
+	m.addquota = nil
+}
+
+// Quota returns the value of the "quota" field in the mutation.
+func (m *SubscriptionOneShotMutation) Quota() (r uint32, exists bool) {
+	v := m.quota
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldQuota returns the old "quota" field's value of the SubscriptionOneShot entity.
+// If the SubscriptionOneShot object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *SubscriptionOneShotMutation) OldQuota(ctx context.Context) (v uint32, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldQuota is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldQuota requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldQuota: %w", err)
+	}
+	return oldValue.Quota, nil
+}
+
+// AddQuota adds u to the "quota" field.
+func (m *SubscriptionOneShotMutation) AddQuota(u int32) {
+	if m.addquota != nil {
+		*m.addquota += u
+	} else {
+		m.addquota = &u
+	}
+}
+
+// AddedQuota returns the value that was added to the "quota" field in this mutation.
+func (m *SubscriptionOneShotMutation) AddedQuota() (r int32, exists bool) {
+	v := m.addquota
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ClearQuota clears the value of the "quota" field.
+func (m *SubscriptionOneShotMutation) ClearQuota() {
+	m.quota = nil
+	m.addquota = nil
+	m.clearedFields[subscriptiononeshot.FieldQuota] = struct{}{}
+}
+
+// QuotaCleared returns if the "quota" field was cleared in this mutation.
+func (m *SubscriptionOneShotMutation) QuotaCleared() bool {
+	_, ok := m.clearedFields[subscriptiononeshot.FieldQuota]
+	return ok
+}
+
+// ResetQuota resets all changes to the "quota" field.
+func (m *SubscriptionOneShotMutation) ResetQuota() {
+	m.quota = nil
+	m.addquota = nil
+	delete(m.clearedFields, subscriptiononeshot.FieldQuota)
+}
+
+// SetUsdPrice sets the "usd_price" field.
+func (m *SubscriptionOneShotMutation) SetUsdPrice(d decimal.Decimal) {
+	m.usd_price = &d
+}
+
+// UsdPrice returns the value of the "usd_price" field in the mutation.
+func (m *SubscriptionOneShotMutation) UsdPrice() (r decimal.Decimal, exists bool) {
+	v := m.usd_price
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldUsdPrice returns the old "usd_price" field's value of the SubscriptionOneShot entity.
+// If the SubscriptionOneShot object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *SubscriptionOneShotMutation) OldUsdPrice(ctx context.Context) (v decimal.Decimal, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldUsdPrice is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldUsdPrice requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldUsdPrice: %w", err)
+	}
+	return oldValue.UsdPrice, nil
+}
+
+// ClearUsdPrice clears the value of the "usd_price" field.
+func (m *SubscriptionOneShotMutation) ClearUsdPrice() {
+	m.usd_price = nil
+	m.clearedFields[subscriptiononeshot.FieldUsdPrice] = struct{}{}
+}
+
+// UsdPriceCleared returns if the "usd_price" field was cleared in this mutation.
+func (m *SubscriptionOneShotMutation) UsdPriceCleared() bool {
+	_, ok := m.clearedFields[subscriptiononeshot.FieldUsdPrice]
+	return ok
+}
+
+// ResetUsdPrice resets all changes to the "usd_price" field.
+func (m *SubscriptionOneShotMutation) ResetUsdPrice() {
+	m.usd_price = nil
+	delete(m.clearedFields, subscriptiononeshot.FieldUsdPrice)
+}
+
+// SetLifeSeconds sets the "life_seconds" field.
+func (m *SubscriptionOneShotMutation) SetLifeSeconds(u uint32) {
+	m.life_seconds = &u
+	m.addlife_seconds = nil
+}
+
+// LifeSeconds returns the value of the "life_seconds" field in the mutation.
+func (m *SubscriptionOneShotMutation) LifeSeconds() (r uint32, exists bool) {
+	v := m.life_seconds
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldLifeSeconds returns the old "life_seconds" field's value of the SubscriptionOneShot entity.
+// If the SubscriptionOneShot object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *SubscriptionOneShotMutation) OldLifeSeconds(ctx context.Context) (v uint32, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldLifeSeconds is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldLifeSeconds requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldLifeSeconds: %w", err)
+	}
+	return oldValue.LifeSeconds, nil
+}
+
+// AddLifeSeconds adds u to the "life_seconds" field.
+func (m *SubscriptionOneShotMutation) AddLifeSeconds(u int32) {
+	if m.addlife_seconds != nil {
+		*m.addlife_seconds += u
+	} else {
+		m.addlife_seconds = &u
+	}
+}
+
+// AddedLifeSeconds returns the value that was added to the "life_seconds" field in this mutation.
+func (m *SubscriptionOneShotMutation) AddedLifeSeconds() (r int32, exists bool) {
+	v := m.addlife_seconds
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ClearLifeSeconds clears the value of the "life_seconds" field.
+func (m *SubscriptionOneShotMutation) ClearLifeSeconds() {
+	m.life_seconds = nil
+	m.addlife_seconds = nil
+	m.clearedFields[subscriptiononeshot.FieldLifeSeconds] = struct{}{}
+}
+
+// LifeSecondsCleared returns if the "life_seconds" field was cleared in this mutation.
+func (m *SubscriptionOneShotMutation) LifeSecondsCleared() bool {
+	_, ok := m.clearedFields[subscriptiononeshot.FieldLifeSeconds]
+	return ok
+}
+
+// ResetLifeSeconds resets all changes to the "life_seconds" field.
+func (m *SubscriptionOneShotMutation) ResetLifeSeconds() {
+	m.life_seconds = nil
+	m.addlife_seconds = nil
+	delete(m.clearedFields, subscriptiononeshot.FieldLifeSeconds)
+}
+
+// Where appends a list predicates to the SubscriptionOneShotMutation builder.
+func (m *SubscriptionOneShotMutation) Where(ps ...predicate.SubscriptionOneShot) {
+	m.predicates = append(m.predicates, ps...)
+}
+
+// WhereP appends storage-level predicates to the SubscriptionOneShotMutation builder. Using this method,
+// users can use type-assertion to append predicates that do not depend on any generated package.
+func (m *SubscriptionOneShotMutation) WhereP(ps ...func(*sql.Selector)) {
+	p := make([]predicate.SubscriptionOneShot, len(ps))
+	for i := range ps {
+		p[i] = ps[i]
+	}
+	m.Where(p...)
+}
+
+// Op returns the operation name.
+func (m *SubscriptionOneShotMutation) Op() Op {
+	return m.op
+}
+
+// SetOp allows setting the mutation operation.
+func (m *SubscriptionOneShotMutation) SetOp(op Op) {
+	m.op = op
+}
+
+// Type returns the node type of this mutation (SubscriptionOneShot).
+func (m *SubscriptionOneShotMutation) Type() string {
+	return m.typ
+}
+
+// Fields returns all fields that were changed during this mutation. Note that in
+// order to get all numeric fields that were incremented/decremented, call
+// AddedFields().
+func (m *SubscriptionOneShotMutation) Fields() []string {
+	fields := make([]string, 0, 7)
+	if m.ent_id != nil {
+		fields = append(fields, subscriptiononeshot.FieldEntID)
+	}
+	if m.good_id != nil {
+		fields = append(fields, subscriptiononeshot.FieldGoodID)
+	}
+	if m.good_type != nil {
+		fields = append(fields, subscriptiononeshot.FieldGoodType)
+	}
+	if m.name != nil {
+		fields = append(fields, subscriptiononeshot.FieldName)
+	}
+	if m.quota != nil {
+		fields = append(fields, subscriptiononeshot.FieldQuota)
+	}
+	if m.usd_price != nil {
+		fields = append(fields, subscriptiononeshot.FieldUsdPrice)
+	}
+	if m.life_seconds != nil {
+		fields = append(fields, subscriptiononeshot.FieldLifeSeconds)
+	}
+	return fields
+}
+
+// Field returns the value of a field with the given name. The second boolean
+// return value indicates that this field was not set, or was not defined in the
+// schema.
+func (m *SubscriptionOneShotMutation) Field(name string) (ent.Value, bool) {
+	switch name {
+	case subscriptiononeshot.FieldEntID:
+		return m.EntID()
+	case subscriptiononeshot.FieldGoodID:
+		return m.GoodID()
+	case subscriptiononeshot.FieldGoodType:
+		return m.GoodType()
+	case subscriptiononeshot.FieldName:
+		return m.Name()
+	case subscriptiononeshot.FieldQuota:
+		return m.Quota()
+	case subscriptiononeshot.FieldUsdPrice:
+		return m.UsdPrice()
+	case subscriptiononeshot.FieldLifeSeconds:
+		return m.LifeSeconds()
+	}
+	return nil, false
+}
+
+// OldField returns the old value of the field from the database. An error is
+// returned if the mutation operation is not UpdateOne, or the query to the
+// database failed.
+func (m *SubscriptionOneShotMutation) OldField(ctx context.Context, name string) (ent.Value, error) {
+	switch name {
+	case subscriptiononeshot.FieldEntID:
+		return m.OldEntID(ctx)
+	case subscriptiononeshot.FieldGoodID:
+		return m.OldGoodID(ctx)
+	case subscriptiononeshot.FieldGoodType:
+		return m.OldGoodType(ctx)
+	case subscriptiononeshot.FieldName:
+		return m.OldName(ctx)
+	case subscriptiononeshot.FieldQuota:
+		return m.OldQuota(ctx)
+	case subscriptiononeshot.FieldUsdPrice:
+		return m.OldUsdPrice(ctx)
+	case subscriptiononeshot.FieldLifeSeconds:
+		return m.OldLifeSeconds(ctx)
+	}
+	return nil, fmt.Errorf("unknown SubscriptionOneShot field %s", name)
+}
+
+// SetField sets the value of a field with the given name. It returns an error if
+// the field is not defined in the schema, or if the type mismatched the field
+// type.
+func (m *SubscriptionOneShotMutation) SetField(name string, value ent.Value) error {
+	switch name {
+	case subscriptiononeshot.FieldEntID:
+		v, ok := value.(uuid.UUID)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetEntID(v)
+		return nil
+	case subscriptiononeshot.FieldGoodID:
+		v, ok := value.(uuid.UUID)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetGoodID(v)
+		return nil
+	case subscriptiononeshot.FieldGoodType:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetGoodType(v)
+		return nil
+	case subscriptiononeshot.FieldName:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetName(v)
+		return nil
+	case subscriptiononeshot.FieldQuota:
+		v, ok := value.(uint32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetQuota(v)
+		return nil
+	case subscriptiononeshot.FieldUsdPrice:
+		v, ok := value.(decimal.Decimal)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetUsdPrice(v)
+		return nil
+	case subscriptiononeshot.FieldLifeSeconds:
+		v, ok := value.(uint32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetLifeSeconds(v)
+		return nil
+	}
+	return fmt.Errorf("unknown SubscriptionOneShot field %s", name)
+}
+
+// AddedFields returns all numeric fields that were incremented/decremented during
+// this mutation.
+func (m *SubscriptionOneShotMutation) AddedFields() []string {
+	var fields []string
+	if m.addquota != nil {
+		fields = append(fields, subscriptiononeshot.FieldQuota)
+	}
+	if m.addlife_seconds != nil {
+		fields = append(fields, subscriptiononeshot.FieldLifeSeconds)
+	}
+	return fields
+}
+
+// AddedField returns the numeric value that was incremented/decremented on a field
+// with the given name. The second boolean return value indicates that this field
+// was not set, or was not defined in the schema.
+func (m *SubscriptionOneShotMutation) AddedField(name string) (ent.Value, bool) {
+	switch name {
+	case subscriptiononeshot.FieldQuota:
+		return m.AddedQuota()
+	case subscriptiononeshot.FieldLifeSeconds:
+		return m.AddedLifeSeconds()
+	}
+	return nil, false
+}
+
+// AddField adds the value to the field with the given name. It returns an error if
+// the field is not defined in the schema, or if the type mismatched the field
+// type.
+func (m *SubscriptionOneShotMutation) AddField(name string, value ent.Value) error {
+	switch name {
+	case subscriptiononeshot.FieldQuota:
+		v, ok := value.(int32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddQuota(v)
+		return nil
+	case subscriptiononeshot.FieldLifeSeconds:
+		v, ok := value.(int32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddLifeSeconds(v)
+		return nil
+	}
+	return fmt.Errorf("unknown SubscriptionOneShot numeric field %s", name)
+}
+
+// ClearedFields returns all nullable fields that were cleared during this
+// mutation.
+func (m *SubscriptionOneShotMutation) ClearedFields() []string {
+	var fields []string
+	if m.FieldCleared(subscriptiononeshot.FieldGoodID) {
+		fields = append(fields, subscriptiononeshot.FieldGoodID)
+	}
+	if m.FieldCleared(subscriptiononeshot.FieldGoodType) {
+		fields = append(fields, subscriptiononeshot.FieldGoodType)
+	}
+	if m.FieldCleared(subscriptiononeshot.FieldName) {
+		fields = append(fields, subscriptiononeshot.FieldName)
+	}
+	if m.FieldCleared(subscriptiononeshot.FieldQuota) {
+		fields = append(fields, subscriptiononeshot.FieldQuota)
+	}
+	if m.FieldCleared(subscriptiononeshot.FieldUsdPrice) {
+		fields = append(fields, subscriptiononeshot.FieldUsdPrice)
+	}
+	if m.FieldCleared(subscriptiononeshot.FieldLifeSeconds) {
+		fields = append(fields, subscriptiononeshot.FieldLifeSeconds)
+	}
+	return fields
+}
+
+// FieldCleared returns a boolean indicating if a field with the given name was
+// cleared in this mutation.
+func (m *SubscriptionOneShotMutation) FieldCleared(name string) bool {
+	_, ok := m.clearedFields[name]
+	return ok
+}
+
+// ClearField clears the value of the field with the given name. It returns an
+// error if the field is not defined in the schema.
+func (m *SubscriptionOneShotMutation) ClearField(name string) error {
+	switch name {
+	case subscriptiononeshot.FieldGoodID:
+		m.ClearGoodID()
+		return nil
+	case subscriptiononeshot.FieldGoodType:
+		m.ClearGoodType()
+		return nil
+	case subscriptiononeshot.FieldName:
+		m.ClearName()
+		return nil
+	case subscriptiononeshot.FieldQuota:
+		m.ClearQuota()
+		return nil
+	case subscriptiononeshot.FieldUsdPrice:
+		m.ClearUsdPrice()
+		return nil
+	case subscriptiononeshot.FieldLifeSeconds:
+		m.ClearLifeSeconds()
+		return nil
+	}
+	return fmt.Errorf("unknown SubscriptionOneShot nullable field %s", name)
+}
+
+// ResetField resets all changes in the mutation for the field with the given name.
+// It returns an error if the field is not defined in the schema.
+func (m *SubscriptionOneShotMutation) ResetField(name string) error {
+	switch name {
+	case subscriptiononeshot.FieldEntID:
+		m.ResetEntID()
+		return nil
+	case subscriptiononeshot.FieldGoodID:
+		m.ResetGoodID()
+		return nil
+	case subscriptiononeshot.FieldGoodType:
+		m.ResetGoodType()
+		return nil
+	case subscriptiononeshot.FieldName:
+		m.ResetName()
+		return nil
+	case subscriptiononeshot.FieldQuota:
+		m.ResetQuota()
+		return nil
+	case subscriptiononeshot.FieldUsdPrice:
+		m.ResetUsdPrice()
+		return nil
+	case subscriptiononeshot.FieldLifeSeconds:
+		m.ResetLifeSeconds()
+		return nil
+	}
+	return fmt.Errorf("unknown SubscriptionOneShot field %s", name)
+}
+
+// AddedEdges returns all edge names that were set/added in this mutation.
+func (m *SubscriptionOneShotMutation) AddedEdges() []string {
+	edges := make([]string, 0, 0)
+	return edges
+}
+
+// AddedIDs returns all IDs (to other nodes) that were added for the given edge
+// name in this mutation.
+func (m *SubscriptionOneShotMutation) AddedIDs(name string) []ent.Value {
+	return nil
+}
+
+// RemovedEdges returns all edge names that were removed in this mutation.
+func (m *SubscriptionOneShotMutation) RemovedEdges() []string {
+	edges := make([]string, 0, 0)
+	return edges
+}
+
+// RemovedIDs returns all IDs (to other nodes) that were removed for the edge with
+// the given name in this mutation.
+func (m *SubscriptionOneShotMutation) RemovedIDs(name string) []ent.Value {
+	return nil
+}
+
+// ClearedEdges returns all edge names that were cleared in this mutation.
+func (m *SubscriptionOneShotMutation) ClearedEdges() []string {
+	edges := make([]string, 0, 0)
+	return edges
+}
+
+// EdgeCleared returns a boolean which indicates if the edge with the given name
+// was cleared in this mutation.
+func (m *SubscriptionOneShotMutation) EdgeCleared(name string) bool {
+	return false
+}
+
+// ClearEdge clears the value of the edge with the given name. It returns an error
+// if that edge is not defined in the schema.
+func (m *SubscriptionOneShotMutation) ClearEdge(name string) error {
+	return fmt.Errorf("unknown SubscriptionOneShot unique edge %s", name)
+}
+
+// ResetEdge resets all changes to the edge with the given name in this mutation.
+// It returns an error if the edge is not defined in the schema.
+func (m *SubscriptionOneShotMutation) ResetEdge(name string) error {
+	return fmt.Errorf("unknown SubscriptionOneShot edge %s", name)
 }
 
 // TopMostMutation represents an operation that mutates the TopMost nodes in the graph.

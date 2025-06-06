@@ -46,6 +46,10 @@ type Tx struct {
 	AppStock *AppStockClient
 	// AppStockLock is the client for interacting with the AppStockLock builders.
 	AppStockLock *AppStockLockClient
+	// AppSubscription is the client for interacting with the AppSubscription builders.
+	AppSubscription *AppSubscriptionClient
+	// AppSubscriptionOneShot is the client for interacting with the AppSubscriptionOneShot builders.
+	AppSubscriptionOneShot *AppSubscriptionOneShotClient
 	// Comment is the client for interacting with the Comment builders.
 	Comment *CommentClient
 	// DelegatedStaking is the client for interacting with the DelegatedStaking builders.
@@ -92,6 +96,10 @@ type Tx struct {
 	Score *ScoreClient
 	// Stock is the client for interacting with the Stock builders.
 	Stock *StockClient
+	// Subscription is the client for interacting with the Subscription builders.
+	Subscription *SubscriptionClient
+	// SubscriptionOneShot is the client for interacting with the SubscriptionOneShot builders.
+	SubscriptionOneShot *SubscriptionOneShotClient
 	// TopMost is the client for interacting with the TopMost builders.
 	TopMost *TopMostClient
 	// TopMostConstraint is the client for interacting with the TopMostConstraint builders.
@@ -255,6 +263,8 @@ func (tx *Tx) init() {
 	tx.AppSimulatePowerRental = NewAppSimulatePowerRentalClient(tx.config)
 	tx.AppStock = NewAppStockClient(tx.config)
 	tx.AppStockLock = NewAppStockLockClient(tx.config)
+	tx.AppSubscription = NewAppSubscriptionClient(tx.config)
+	tx.AppSubscriptionOneShot = NewAppSubscriptionOneShotClient(tx.config)
 	tx.Comment = NewCommentClient(tx.config)
 	tx.DelegatedStaking = NewDelegatedStakingClient(tx.config)
 	tx.DeviceInfo = NewDeviceInfoClient(tx.config)
@@ -278,6 +288,8 @@ func (tx *Tx) init() {
 	tx.RequiredGood = NewRequiredGoodClient(tx.config)
 	tx.Score = NewScoreClient(tx.config)
 	tx.Stock = NewStockClient(tx.config)
+	tx.Subscription = NewSubscriptionClient(tx.config)
+	tx.SubscriptionOneShot = NewSubscriptionOneShotClient(tx.config)
 	tx.TopMost = NewTopMostClient(tx.config)
 	tx.TopMostConstraint = NewTopMostConstraintClient(tx.config)
 	tx.TopMostGood = NewTopMostGoodClient(tx.config)

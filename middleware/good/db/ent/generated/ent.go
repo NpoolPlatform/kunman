@@ -28,6 +28,8 @@ import (
 	"github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated/appsimulatepowerrental"
 	"github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated/appstock"
 	"github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated/appstocklock"
+	"github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated/appsubscription"
+	"github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated/appsubscriptiononeshot"
 	"github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated/comment"
 	"github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated/delegatedstaking"
 	"github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated/deviceinfo"
@@ -51,6 +53,8 @@ import (
 	"github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated/requiredgood"
 	"github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated/score"
 	"github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated/stock"
+	"github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated/subscription"
+	"github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated/subscriptiononeshot"
 	"github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated/topmost"
 	"github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated/topmostconstraint"
 	"github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated/topmostgood"
@@ -135,6 +139,8 @@ func checkColumn(table, column string) error {
 			appsimulatepowerrental.Table: appsimulatepowerrental.ValidColumn,
 			appstock.Table:               appstock.ValidColumn,
 			appstocklock.Table:           appstocklock.ValidColumn,
+			appsubscription.Table:        appsubscription.ValidColumn,
+			appsubscriptiononeshot.Table: appsubscriptiononeshot.ValidColumn,
 			comment.Table:                comment.ValidColumn,
 			delegatedstaking.Table:       delegatedstaking.ValidColumn,
 			deviceinfo.Table:             deviceinfo.ValidColumn,
@@ -158,6 +164,8 @@ func checkColumn(table, column string) error {
 			requiredgood.Table:           requiredgood.ValidColumn,
 			score.Table:                  score.ValidColumn,
 			stock.Table:                  stock.ValidColumn,
+			subscription.Table:           subscription.ValidColumn,
+			subscriptiononeshot.Table:    subscriptiononeshot.ValidColumn,
 			topmost.Table:                topmost.ValidColumn,
 			topmostconstraint.Table:      topmostconstraint.ValidColumn,
 			topmostgood.Table:            topmostgood.ValidColumn,

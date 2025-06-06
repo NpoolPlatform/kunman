@@ -54,6 +54,12 @@ type AppStock func(*sql.Selector)
 // AppStockLock is the predicate function for appstocklock builders.
 type AppStockLock func(*sql.Selector)
 
+// AppSubscription is the predicate function for appsubscription builders.
+type AppSubscription func(*sql.Selector)
+
+// AppSubscriptionOneShot is the predicate function for appsubscriptiononeshot builders.
+type AppSubscriptionOneShot func(*sql.Selector)
+
 // Comment is the predicate function for comment builders.
 type Comment func(*sql.Selector)
 
@@ -122,6 +128,12 @@ type Score func(*sql.Selector)
 
 // Stock is the predicate function for stock builders.
 type Stock func(*sql.Selector)
+
+// Subscription is the predicate function for subscription builders.
+type Subscription func(*sql.Selector)
+
+// SubscriptionOneShot is the predicate function for subscriptiononeshot builders.
+type SubscriptionOneShot func(*sql.Selector)
 
 // TopMost is the predicate function for topmost builders.
 type TopMost func(*sql.Selector)

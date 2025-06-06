@@ -495,6 +495,54 @@ func (f AppStockLockMutationRuleFunc) EvalMutation(ctx context.Context, m genera
 	return Denyf("generated/privacy: unexpected mutation type %T, expect *generated.AppStockLockMutation", m)
 }
 
+// The AppSubscriptionQueryRuleFunc type is an adapter to allow the use of ordinary
+// functions as a query rule.
+type AppSubscriptionQueryRuleFunc func(context.Context, *generated.AppSubscriptionQuery) error
+
+// EvalQuery return f(ctx, q).
+func (f AppSubscriptionQueryRuleFunc) EvalQuery(ctx context.Context, q generated.Query) error {
+	if q, ok := q.(*generated.AppSubscriptionQuery); ok {
+		return f(ctx, q)
+	}
+	return Denyf("generated/privacy: unexpected query type %T, expect *generated.AppSubscriptionQuery", q)
+}
+
+// The AppSubscriptionMutationRuleFunc type is an adapter to allow the use of ordinary
+// functions as a mutation rule.
+type AppSubscriptionMutationRuleFunc func(context.Context, *generated.AppSubscriptionMutation) error
+
+// EvalMutation calls f(ctx, m).
+func (f AppSubscriptionMutationRuleFunc) EvalMutation(ctx context.Context, m generated.Mutation) error {
+	if m, ok := m.(*generated.AppSubscriptionMutation); ok {
+		return f(ctx, m)
+	}
+	return Denyf("generated/privacy: unexpected mutation type %T, expect *generated.AppSubscriptionMutation", m)
+}
+
+// The AppSubscriptionOneShotQueryRuleFunc type is an adapter to allow the use of ordinary
+// functions as a query rule.
+type AppSubscriptionOneShotQueryRuleFunc func(context.Context, *generated.AppSubscriptionOneShotQuery) error
+
+// EvalQuery return f(ctx, q).
+func (f AppSubscriptionOneShotQueryRuleFunc) EvalQuery(ctx context.Context, q generated.Query) error {
+	if q, ok := q.(*generated.AppSubscriptionOneShotQuery); ok {
+		return f(ctx, q)
+	}
+	return Denyf("generated/privacy: unexpected query type %T, expect *generated.AppSubscriptionOneShotQuery", q)
+}
+
+// The AppSubscriptionOneShotMutationRuleFunc type is an adapter to allow the use of ordinary
+// functions as a mutation rule.
+type AppSubscriptionOneShotMutationRuleFunc func(context.Context, *generated.AppSubscriptionOneShotMutation) error
+
+// EvalMutation calls f(ctx, m).
+func (f AppSubscriptionOneShotMutationRuleFunc) EvalMutation(ctx context.Context, m generated.Mutation) error {
+	if m, ok := m.(*generated.AppSubscriptionOneShotMutation); ok {
+		return f(ctx, m)
+	}
+	return Denyf("generated/privacy: unexpected mutation type %T, expect *generated.AppSubscriptionOneShotMutation", m)
+}
+
 // The CommentQueryRuleFunc type is an adapter to allow the use of ordinary
 // functions as a query rule.
 type CommentQueryRuleFunc func(context.Context, *generated.CommentQuery) error
@@ -1047,6 +1095,54 @@ func (f StockMutationRuleFunc) EvalMutation(ctx context.Context, m generated.Mut
 	return Denyf("generated/privacy: unexpected mutation type %T, expect *generated.StockMutation", m)
 }
 
+// The SubscriptionQueryRuleFunc type is an adapter to allow the use of ordinary
+// functions as a query rule.
+type SubscriptionQueryRuleFunc func(context.Context, *generated.SubscriptionQuery) error
+
+// EvalQuery return f(ctx, q).
+func (f SubscriptionQueryRuleFunc) EvalQuery(ctx context.Context, q generated.Query) error {
+	if q, ok := q.(*generated.SubscriptionQuery); ok {
+		return f(ctx, q)
+	}
+	return Denyf("generated/privacy: unexpected query type %T, expect *generated.SubscriptionQuery", q)
+}
+
+// The SubscriptionMutationRuleFunc type is an adapter to allow the use of ordinary
+// functions as a mutation rule.
+type SubscriptionMutationRuleFunc func(context.Context, *generated.SubscriptionMutation) error
+
+// EvalMutation calls f(ctx, m).
+func (f SubscriptionMutationRuleFunc) EvalMutation(ctx context.Context, m generated.Mutation) error {
+	if m, ok := m.(*generated.SubscriptionMutation); ok {
+		return f(ctx, m)
+	}
+	return Denyf("generated/privacy: unexpected mutation type %T, expect *generated.SubscriptionMutation", m)
+}
+
+// The SubscriptionOneShotQueryRuleFunc type is an adapter to allow the use of ordinary
+// functions as a query rule.
+type SubscriptionOneShotQueryRuleFunc func(context.Context, *generated.SubscriptionOneShotQuery) error
+
+// EvalQuery return f(ctx, q).
+func (f SubscriptionOneShotQueryRuleFunc) EvalQuery(ctx context.Context, q generated.Query) error {
+	if q, ok := q.(*generated.SubscriptionOneShotQuery); ok {
+		return f(ctx, q)
+	}
+	return Denyf("generated/privacy: unexpected query type %T, expect *generated.SubscriptionOneShotQuery", q)
+}
+
+// The SubscriptionOneShotMutationRuleFunc type is an adapter to allow the use of ordinary
+// functions as a mutation rule.
+type SubscriptionOneShotMutationRuleFunc func(context.Context, *generated.SubscriptionOneShotMutation) error
+
+// EvalMutation calls f(ctx, m).
+func (f SubscriptionOneShotMutationRuleFunc) EvalMutation(ctx context.Context, m generated.Mutation) error {
+	if m, ok := m.(*generated.SubscriptionOneShotMutation); ok {
+		return f(ctx, m)
+	}
+	return Denyf("generated/privacy: unexpected mutation type %T, expect *generated.SubscriptionOneShotMutation", m)
+}
+
 // The TopMostQueryRuleFunc type is an adapter to allow the use of ordinary
 // functions as a query rule.
 type TopMostQueryRuleFunc func(context.Context, *generated.TopMostQuery) error
@@ -1306,6 +1402,10 @@ func queryFilter(q generated.Query) (Filter, error) {
 		return q.Filter(), nil
 	case *generated.AppStockLockQuery:
 		return q.Filter(), nil
+	case *generated.AppSubscriptionQuery:
+		return q.Filter(), nil
+	case *generated.AppSubscriptionOneShotQuery:
+		return q.Filter(), nil
 	case *generated.CommentQuery:
 		return q.Filter(), nil
 	case *generated.DelegatedStakingQuery:
@@ -1351,6 +1451,10 @@ func queryFilter(q generated.Query) (Filter, error) {
 	case *generated.ScoreQuery:
 		return q.Filter(), nil
 	case *generated.StockQuery:
+		return q.Filter(), nil
+	case *generated.SubscriptionQuery:
+		return q.Filter(), nil
+	case *generated.SubscriptionOneShotQuery:
 		return q.Filter(), nil
 	case *generated.TopMostQuery:
 		return q.Filter(), nil
@@ -1407,6 +1511,10 @@ func mutationFilter(m generated.Mutation) (Filter, error) {
 		return m.Filter(), nil
 	case *generated.AppStockLockMutation:
 		return m.Filter(), nil
+	case *generated.AppSubscriptionMutation:
+		return m.Filter(), nil
+	case *generated.AppSubscriptionOneShotMutation:
+		return m.Filter(), nil
 	case *generated.CommentMutation:
 		return m.Filter(), nil
 	case *generated.DelegatedStakingMutation:
@@ -1452,6 +1560,10 @@ func mutationFilter(m generated.Mutation) (Filter, error) {
 	case *generated.ScoreMutation:
 		return m.Filter(), nil
 	case *generated.StockMutation:
+		return m.Filter(), nil
+	case *generated.SubscriptionMutation:
+		return m.Filter(), nil
+	case *generated.SubscriptionOneShotMutation:
 		return m.Filter(), nil
 	case *generated.TopMostMutation:
 		return m.Filter(), nil
