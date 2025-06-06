@@ -27,8 +27,10 @@ message Quota {
     string UserID = 40;
     // @inject_tag: sql:"quota"
     uint32 Quota = 50;
+    // @inject_tag: sql:"consumed_quota"
+    uint32 ConsumedQuota = 60;
     // @inject_tag: sql:"expired_at"
-    uint32 ExpiredAt = 60;
+    uint32 ExpiredAt = 70;
     // @inject_tag: sql:"created_at"
     uint32 CreatedAt = 1000;
     // @inject_tag: sql:"updated_at"

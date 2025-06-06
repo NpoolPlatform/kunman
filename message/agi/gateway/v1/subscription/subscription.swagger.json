@@ -227,6 +227,15 @@
           "format": "int64",
           "title": "@inject_tag: sql:\"permanent_quota\""
         },
+        "ConsumedQuota": {
+          "type": "integer",
+          "format": "int64",
+          "title": "@inject_tag: sql:\"consumed_quota\""
+        },
+        "AutoExtend": {
+          "type": "boolean",
+          "title": "@inject_tag: sql:\"auto_extend\""
+        },
         "CreatedAt": {
           "type": "integer",
           "format": "int64",

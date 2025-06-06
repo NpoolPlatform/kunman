@@ -15,6 +15,7 @@ message SubscriptionReq {
     optional string AppGoodID = 50;
     optional uint32 NextExtendAt = 60;
     optional uint32 PermanentQuota = 70;
+    optional bool AutoExtend = 80;
 }
 
 message Subscription {
@@ -32,6 +33,10 @@ message Subscription {
     uint32 NextExtendAt = 60;
     // @inject_tag: sql:"permanent_quota"
     uint32 PermanentQuota = 70;
+    // @inject_tag: sql:"consumed_quota"
+    uint32 ConsumedQuota = 80;
+    // @inject_tag: sql:"auto_extend"
+    bool AutoExtend = 90;
     // @inject_tag: sql:"created_at"
     uint32 CreatedAt = 1000;
     // @inject_tag: sql:"updated_at"
