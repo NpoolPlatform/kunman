@@ -44,6 +44,61 @@ func (osu *OrderStateUpdate) SetNillableEntID(u *uuid.UUID) *OrderStateUpdate {
 	return osu
 }
 
+// SetCreatedAt sets the "created_at" field.
+func (osu *OrderStateUpdate) SetCreatedAt(u uint32) *OrderStateUpdate {
+	osu.mutation.ResetCreatedAt()
+	osu.mutation.SetCreatedAt(u)
+	return osu
+}
+
+// SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
+func (osu *OrderStateUpdate) SetNillableCreatedAt(u *uint32) *OrderStateUpdate {
+	if u != nil {
+		osu.SetCreatedAt(*u)
+	}
+	return osu
+}
+
+// AddCreatedAt adds u to the "created_at" field.
+func (osu *OrderStateUpdate) AddCreatedAt(u int32) *OrderStateUpdate {
+	osu.mutation.AddCreatedAt(u)
+	return osu
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (osu *OrderStateUpdate) SetUpdatedAt(u uint32) *OrderStateUpdate {
+	osu.mutation.ResetUpdatedAt()
+	osu.mutation.SetUpdatedAt(u)
+	return osu
+}
+
+// AddUpdatedAt adds u to the "updated_at" field.
+func (osu *OrderStateUpdate) AddUpdatedAt(u int32) *OrderStateUpdate {
+	osu.mutation.AddUpdatedAt(u)
+	return osu
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (osu *OrderStateUpdate) SetDeletedAt(u uint32) *OrderStateUpdate {
+	osu.mutation.ResetDeletedAt()
+	osu.mutation.SetDeletedAt(u)
+	return osu
+}
+
+// SetNillableDeletedAt sets the "deleted_at" field if the given value is not nil.
+func (osu *OrderStateUpdate) SetNillableDeletedAt(u *uint32) *OrderStateUpdate {
+	if u != nil {
+		osu.SetDeletedAt(*u)
+	}
+	return osu
+}
+
+// AddDeletedAt adds u to the "deleted_at" field.
+func (osu *OrderStateUpdate) AddDeletedAt(u int32) *OrderStateUpdate {
+	osu.mutation.AddDeletedAt(u)
+	return osu
+}
+
 // SetOrderID sets the "order_id" field.
 func (osu *OrderStateUpdate) SetOrderID(u uuid.UUID) *OrderStateUpdate {
 	osu.mutation.SetOrderID(u)
@@ -474,6 +529,7 @@ func (osu *OrderStateUpdate) Mutation() *OrderStateMutation {
 
 // Save executes the query and returns the number of nodes affected by the update operation.
 func (osu *OrderStateUpdate) Save(ctx context.Context) (int, error) {
+	osu.defaults()
 	return withHooks(ctx, osu.sqlSave, osu.mutation, osu.hooks)
 }
 
@@ -499,6 +555,14 @@ func (osu *OrderStateUpdate) ExecX(ctx context.Context) {
 	}
 }
 
+// defaults sets the default values of the builder before save.
+func (osu *OrderStateUpdate) defaults() {
+	if _, ok := osu.mutation.UpdatedAt(); !ok {
+		v := orderstate.UpdateDefaultUpdatedAt()
+		osu.mutation.SetUpdatedAt(v)
+	}
+}
+
 // Modify adds a statement modifier for attaching custom logic to the UPDATE statement.
 func (osu *OrderStateUpdate) Modify(modifiers ...func(u *sql.UpdateBuilder)) *OrderStateUpdate {
 	osu.modifiers = append(osu.modifiers, modifiers...)
@@ -516,6 +580,24 @@ func (osu *OrderStateUpdate) sqlSave(ctx context.Context) (n int, err error) {
 	}
 	if value, ok := osu.mutation.EntID(); ok {
 		_spec.SetField(orderstate.FieldEntID, field.TypeUUID, value)
+	}
+	if value, ok := osu.mutation.CreatedAt(); ok {
+		_spec.SetField(orderstate.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := osu.mutation.AddedCreatedAt(); ok {
+		_spec.AddField(orderstate.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := osu.mutation.UpdatedAt(); ok {
+		_spec.SetField(orderstate.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := osu.mutation.AddedUpdatedAt(); ok {
+		_spec.AddField(orderstate.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := osu.mutation.DeletedAt(); ok {
+		_spec.SetField(orderstate.FieldDeletedAt, field.TypeUint32, value)
+	}
+	if value, ok := osu.mutation.AddedDeletedAt(); ok {
+		_spec.AddField(orderstate.FieldDeletedAt, field.TypeUint32, value)
 	}
 	if value, ok := osu.mutation.OrderID(); ok {
 		_spec.SetField(orderstate.FieldOrderID, field.TypeUUID, value)
@@ -682,6 +764,61 @@ func (osuo *OrderStateUpdateOne) SetNillableEntID(u *uuid.UUID) *OrderStateUpdat
 	if u != nil {
 		osuo.SetEntID(*u)
 	}
+	return osuo
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (osuo *OrderStateUpdateOne) SetCreatedAt(u uint32) *OrderStateUpdateOne {
+	osuo.mutation.ResetCreatedAt()
+	osuo.mutation.SetCreatedAt(u)
+	return osuo
+}
+
+// SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
+func (osuo *OrderStateUpdateOne) SetNillableCreatedAt(u *uint32) *OrderStateUpdateOne {
+	if u != nil {
+		osuo.SetCreatedAt(*u)
+	}
+	return osuo
+}
+
+// AddCreatedAt adds u to the "created_at" field.
+func (osuo *OrderStateUpdateOne) AddCreatedAt(u int32) *OrderStateUpdateOne {
+	osuo.mutation.AddCreatedAt(u)
+	return osuo
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (osuo *OrderStateUpdateOne) SetUpdatedAt(u uint32) *OrderStateUpdateOne {
+	osuo.mutation.ResetUpdatedAt()
+	osuo.mutation.SetUpdatedAt(u)
+	return osuo
+}
+
+// AddUpdatedAt adds u to the "updated_at" field.
+func (osuo *OrderStateUpdateOne) AddUpdatedAt(u int32) *OrderStateUpdateOne {
+	osuo.mutation.AddUpdatedAt(u)
+	return osuo
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (osuo *OrderStateUpdateOne) SetDeletedAt(u uint32) *OrderStateUpdateOne {
+	osuo.mutation.ResetDeletedAt()
+	osuo.mutation.SetDeletedAt(u)
+	return osuo
+}
+
+// SetNillableDeletedAt sets the "deleted_at" field if the given value is not nil.
+func (osuo *OrderStateUpdateOne) SetNillableDeletedAt(u *uint32) *OrderStateUpdateOne {
+	if u != nil {
+		osuo.SetDeletedAt(*u)
+	}
+	return osuo
+}
+
+// AddDeletedAt adds u to the "deleted_at" field.
+func (osuo *OrderStateUpdateOne) AddDeletedAt(u int32) *OrderStateUpdateOne {
+	osuo.mutation.AddDeletedAt(u)
 	return osuo
 }
 
@@ -1128,6 +1265,7 @@ func (osuo *OrderStateUpdateOne) Select(field string, fields ...string) *OrderSt
 
 // Save executes the query and returns the updated OrderState entity.
 func (osuo *OrderStateUpdateOne) Save(ctx context.Context) (*OrderState, error) {
+	osuo.defaults()
 	return withHooks(ctx, osuo.sqlSave, osuo.mutation, osuo.hooks)
 }
 
@@ -1150,6 +1288,14 @@ func (osuo *OrderStateUpdateOne) Exec(ctx context.Context) error {
 func (osuo *OrderStateUpdateOne) ExecX(ctx context.Context) {
 	if err := osuo.Exec(ctx); err != nil {
 		panic(err)
+	}
+}
+
+// defaults sets the default values of the builder before save.
+func (osuo *OrderStateUpdateOne) defaults() {
+	if _, ok := osuo.mutation.UpdatedAt(); !ok {
+		v := orderstate.UpdateDefaultUpdatedAt()
+		osuo.mutation.SetUpdatedAt(v)
 	}
 }
 
@@ -1187,6 +1333,24 @@ func (osuo *OrderStateUpdateOne) sqlSave(ctx context.Context) (_node *OrderState
 	}
 	if value, ok := osuo.mutation.EntID(); ok {
 		_spec.SetField(orderstate.FieldEntID, field.TypeUUID, value)
+	}
+	if value, ok := osuo.mutation.CreatedAt(); ok {
+		_spec.SetField(orderstate.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := osuo.mutation.AddedCreatedAt(); ok {
+		_spec.AddField(orderstate.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := osuo.mutation.UpdatedAt(); ok {
+		_spec.SetField(orderstate.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := osuo.mutation.AddedUpdatedAt(); ok {
+		_spec.AddField(orderstate.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := osuo.mutation.DeletedAt(); ok {
+		_spec.SetField(orderstate.FieldDeletedAt, field.TypeUint32, value)
+	}
+	if value, ok := osuo.mutation.AddedDeletedAt(); ok {
+		_spec.AddField(orderstate.FieldDeletedAt, field.TypeUint32, value)
 	}
 	if value, ok := osuo.mutation.OrderID(); ok {
 		_spec.SetField(orderstate.FieldOrderID, field.TypeUUID, value)

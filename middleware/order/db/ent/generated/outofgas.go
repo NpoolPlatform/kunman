@@ -19,6 +19,12 @@ type OutOfGas struct {
 	ID uint32 `json:"id,omitempty"`
 	// EntID holds the value of the "ent_id" field.
 	EntID uuid.UUID `json:"ent_id,omitempty"`
+	// CreatedAt holds the value of the "created_at" field.
+	CreatedAt uint32 `json:"created_at,omitempty"`
+	// UpdatedAt holds the value of the "updated_at" field.
+	UpdatedAt uint32 `json:"updated_at,omitempty"`
+	// DeletedAt holds the value of the "deleted_at" field.
+	DeletedAt uint32 `json:"deleted_at,omitempty"`
 	// OrderID holds the value of the "order_id" field.
 	OrderID uuid.UUID `json:"order_id,omitempty"`
 	// StartAt holds the value of the "start_at" field.
@@ -33,7 +39,7 @@ func (*OutOfGas) scanValues(columns []string) ([]any, error) {
 	values := make([]any, len(columns))
 	for i := range columns {
 		switch columns[i] {
-		case outofgas.FieldID, outofgas.FieldStartAt, outofgas.FieldEndAt:
+		case outofgas.FieldID, outofgas.FieldCreatedAt, outofgas.FieldUpdatedAt, outofgas.FieldDeletedAt, outofgas.FieldStartAt, outofgas.FieldEndAt:
 			values[i] = new(sql.NullInt64)
 		case outofgas.FieldEntID, outofgas.FieldOrderID:
 			values[i] = new(uuid.UUID)
@@ -63,6 +69,24 @@ func (oog *OutOfGas) assignValues(columns []string, values []any) error {
 				return fmt.Errorf("unexpected type %T for field ent_id", values[i])
 			} else if value != nil {
 				oog.EntID = *value
+			}
+		case outofgas.FieldCreatedAt:
+			if value, ok := values[i].(*sql.NullInt64); !ok {
+				return fmt.Errorf("unexpected type %T for field created_at", values[i])
+			} else if value.Valid {
+				oog.CreatedAt = uint32(value.Int64)
+			}
+		case outofgas.FieldUpdatedAt:
+			if value, ok := values[i].(*sql.NullInt64); !ok {
+				return fmt.Errorf("unexpected type %T for field updated_at", values[i])
+			} else if value.Valid {
+				oog.UpdatedAt = uint32(value.Int64)
+			}
+		case outofgas.FieldDeletedAt:
+			if value, ok := values[i].(*sql.NullInt64); !ok {
+				return fmt.Errorf("unexpected type %T for field deleted_at", values[i])
+			} else if value.Valid {
+				oog.DeletedAt = uint32(value.Int64)
 			}
 		case outofgas.FieldOrderID:
 			if value, ok := values[i].(*uuid.UUID); !ok {
@@ -120,6 +144,15 @@ func (oog *OutOfGas) String() string {
 	builder.WriteString(fmt.Sprintf("id=%v, ", oog.ID))
 	builder.WriteString("ent_id=")
 	builder.WriteString(fmt.Sprintf("%v", oog.EntID))
+	builder.WriteString(", ")
+	builder.WriteString("created_at=")
+	builder.WriteString(fmt.Sprintf("%v", oog.CreatedAt))
+	builder.WriteString(", ")
+	builder.WriteString("updated_at=")
+	builder.WriteString(fmt.Sprintf("%v", oog.UpdatedAt))
+	builder.WriteString(", ")
+	builder.WriteString("deleted_at=")
+	builder.WriteString(fmt.Sprintf("%v", oog.DeletedAt))
 	builder.WriteString(", ")
 	builder.WriteString("order_id=")
 	builder.WriteString(fmt.Sprintf("%v", oog.OrderID))

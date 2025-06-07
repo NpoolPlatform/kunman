@@ -36,6 +36,48 @@ func (sosc *SubscriptionOrderStateCreate) SetNillableEntID(u *uuid.UUID) *Subscr
 	return sosc
 }
 
+// SetCreatedAt sets the "created_at" field.
+func (sosc *SubscriptionOrderStateCreate) SetCreatedAt(u uint32) *SubscriptionOrderStateCreate {
+	sosc.mutation.SetCreatedAt(u)
+	return sosc
+}
+
+// SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
+func (sosc *SubscriptionOrderStateCreate) SetNillableCreatedAt(u *uint32) *SubscriptionOrderStateCreate {
+	if u != nil {
+		sosc.SetCreatedAt(*u)
+	}
+	return sosc
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (sosc *SubscriptionOrderStateCreate) SetUpdatedAt(u uint32) *SubscriptionOrderStateCreate {
+	sosc.mutation.SetUpdatedAt(u)
+	return sosc
+}
+
+// SetNillableUpdatedAt sets the "updated_at" field if the given value is not nil.
+func (sosc *SubscriptionOrderStateCreate) SetNillableUpdatedAt(u *uint32) *SubscriptionOrderStateCreate {
+	if u != nil {
+		sosc.SetUpdatedAt(*u)
+	}
+	return sosc
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (sosc *SubscriptionOrderStateCreate) SetDeletedAt(u uint32) *SubscriptionOrderStateCreate {
+	sosc.mutation.SetDeletedAt(u)
+	return sosc
+}
+
+// SetNillableDeletedAt sets the "deleted_at" field if the given value is not nil.
+func (sosc *SubscriptionOrderStateCreate) SetNillableDeletedAt(u *uint32) *SubscriptionOrderStateCreate {
+	if u != nil {
+		sosc.SetDeletedAt(*u)
+	}
+	return sosc
+}
+
 // SetOrderID sets the "order_id" field.
 func (sosc *SubscriptionOrderStateCreate) SetOrderID(u uuid.UUID) *SubscriptionOrderStateCreate {
 	sosc.mutation.SetOrderID(u)
@@ -207,6 +249,18 @@ func (sosc *SubscriptionOrderStateCreate) defaults() {
 		v := subscriptionorderstate.DefaultEntID()
 		sosc.mutation.SetEntID(v)
 	}
+	if _, ok := sosc.mutation.CreatedAt(); !ok {
+		v := subscriptionorderstate.DefaultCreatedAt()
+		sosc.mutation.SetCreatedAt(v)
+	}
+	if _, ok := sosc.mutation.UpdatedAt(); !ok {
+		v := subscriptionorderstate.DefaultUpdatedAt()
+		sosc.mutation.SetUpdatedAt(v)
+	}
+	if _, ok := sosc.mutation.DeletedAt(); !ok {
+		v := subscriptionorderstate.DefaultDeletedAt()
+		sosc.mutation.SetDeletedAt(v)
+	}
 	if _, ok := sosc.mutation.OrderID(); !ok {
 		v := subscriptionorderstate.DefaultOrderID()
 		sosc.mutation.SetOrderID(v)
@@ -250,6 +304,15 @@ func (sosc *SubscriptionOrderStateCreate) check() error {
 	if _, ok := sosc.mutation.EntID(); !ok {
 		return &ValidationError{Name: "ent_id", err: errors.New(`generated: missing required field "SubscriptionOrderState.ent_id"`)}
 	}
+	if _, ok := sosc.mutation.CreatedAt(); !ok {
+		return &ValidationError{Name: "created_at", err: errors.New(`generated: missing required field "SubscriptionOrderState.created_at"`)}
+	}
+	if _, ok := sosc.mutation.UpdatedAt(); !ok {
+		return &ValidationError{Name: "updated_at", err: errors.New(`generated: missing required field "SubscriptionOrderState.updated_at"`)}
+	}
+	if _, ok := sosc.mutation.DeletedAt(); !ok {
+		return &ValidationError{Name: "deleted_at", err: errors.New(`generated: missing required field "SubscriptionOrderState.deleted_at"`)}
+	}
 	return nil
 }
 
@@ -286,6 +349,18 @@ func (sosc *SubscriptionOrderStateCreate) createSpec() (*SubscriptionOrderState,
 	if value, ok := sosc.mutation.EntID(); ok {
 		_spec.SetField(subscriptionorderstate.FieldEntID, field.TypeUUID, value)
 		_node.EntID = value
+	}
+	if value, ok := sosc.mutation.CreatedAt(); ok {
+		_spec.SetField(subscriptionorderstate.FieldCreatedAt, field.TypeUint32, value)
+		_node.CreatedAt = value
+	}
+	if value, ok := sosc.mutation.UpdatedAt(); ok {
+		_spec.SetField(subscriptionorderstate.FieldUpdatedAt, field.TypeUint32, value)
+		_node.UpdatedAt = value
+	}
+	if value, ok := sosc.mutation.DeletedAt(); ok {
+		_spec.SetField(subscriptionorderstate.FieldDeletedAt, field.TypeUint32, value)
+		_node.DeletedAt = value
 	}
 	if value, ok := sosc.mutation.OrderID(); ok {
 		_spec.SetField(subscriptionorderstate.FieldOrderID, field.TypeUUID, value)
@@ -384,6 +459,60 @@ func (u *SubscriptionOrderStateUpsert) SetEntID(v uuid.UUID) *SubscriptionOrderS
 // UpdateEntID sets the "ent_id" field to the value that was provided on create.
 func (u *SubscriptionOrderStateUpsert) UpdateEntID() *SubscriptionOrderStateUpsert {
 	u.SetExcluded(subscriptionorderstate.FieldEntID)
+	return u
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (u *SubscriptionOrderStateUpsert) SetCreatedAt(v uint32) *SubscriptionOrderStateUpsert {
+	u.Set(subscriptionorderstate.FieldCreatedAt, v)
+	return u
+}
+
+// UpdateCreatedAt sets the "created_at" field to the value that was provided on create.
+func (u *SubscriptionOrderStateUpsert) UpdateCreatedAt() *SubscriptionOrderStateUpsert {
+	u.SetExcluded(subscriptionorderstate.FieldCreatedAt)
+	return u
+}
+
+// AddCreatedAt adds v to the "created_at" field.
+func (u *SubscriptionOrderStateUpsert) AddCreatedAt(v uint32) *SubscriptionOrderStateUpsert {
+	u.Add(subscriptionorderstate.FieldCreatedAt, v)
+	return u
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (u *SubscriptionOrderStateUpsert) SetUpdatedAt(v uint32) *SubscriptionOrderStateUpsert {
+	u.Set(subscriptionorderstate.FieldUpdatedAt, v)
+	return u
+}
+
+// UpdateUpdatedAt sets the "updated_at" field to the value that was provided on create.
+func (u *SubscriptionOrderStateUpsert) UpdateUpdatedAt() *SubscriptionOrderStateUpsert {
+	u.SetExcluded(subscriptionorderstate.FieldUpdatedAt)
+	return u
+}
+
+// AddUpdatedAt adds v to the "updated_at" field.
+func (u *SubscriptionOrderStateUpsert) AddUpdatedAt(v uint32) *SubscriptionOrderStateUpsert {
+	u.Add(subscriptionorderstate.FieldUpdatedAt, v)
+	return u
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (u *SubscriptionOrderStateUpsert) SetDeletedAt(v uint32) *SubscriptionOrderStateUpsert {
+	u.Set(subscriptionorderstate.FieldDeletedAt, v)
+	return u
+}
+
+// UpdateDeletedAt sets the "deleted_at" field to the value that was provided on create.
+func (u *SubscriptionOrderStateUpsert) UpdateDeletedAt() *SubscriptionOrderStateUpsert {
+	u.SetExcluded(subscriptionorderstate.FieldDeletedAt)
+	return u
+}
+
+// AddDeletedAt adds v to the "deleted_at" field.
+func (u *SubscriptionOrderStateUpsert) AddDeletedAt(v uint32) *SubscriptionOrderStateUpsert {
+	u.Add(subscriptionorderstate.FieldDeletedAt, v)
 	return u
 }
 
@@ -620,6 +749,69 @@ func (u *SubscriptionOrderStateUpsertOne) SetEntID(v uuid.UUID) *SubscriptionOrd
 func (u *SubscriptionOrderStateUpsertOne) UpdateEntID() *SubscriptionOrderStateUpsertOne {
 	return u.Update(func(s *SubscriptionOrderStateUpsert) {
 		s.UpdateEntID()
+	})
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (u *SubscriptionOrderStateUpsertOne) SetCreatedAt(v uint32) *SubscriptionOrderStateUpsertOne {
+	return u.Update(func(s *SubscriptionOrderStateUpsert) {
+		s.SetCreatedAt(v)
+	})
+}
+
+// AddCreatedAt adds v to the "created_at" field.
+func (u *SubscriptionOrderStateUpsertOne) AddCreatedAt(v uint32) *SubscriptionOrderStateUpsertOne {
+	return u.Update(func(s *SubscriptionOrderStateUpsert) {
+		s.AddCreatedAt(v)
+	})
+}
+
+// UpdateCreatedAt sets the "created_at" field to the value that was provided on create.
+func (u *SubscriptionOrderStateUpsertOne) UpdateCreatedAt() *SubscriptionOrderStateUpsertOne {
+	return u.Update(func(s *SubscriptionOrderStateUpsert) {
+		s.UpdateCreatedAt()
+	})
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (u *SubscriptionOrderStateUpsertOne) SetUpdatedAt(v uint32) *SubscriptionOrderStateUpsertOne {
+	return u.Update(func(s *SubscriptionOrderStateUpsert) {
+		s.SetUpdatedAt(v)
+	})
+}
+
+// AddUpdatedAt adds v to the "updated_at" field.
+func (u *SubscriptionOrderStateUpsertOne) AddUpdatedAt(v uint32) *SubscriptionOrderStateUpsertOne {
+	return u.Update(func(s *SubscriptionOrderStateUpsert) {
+		s.AddUpdatedAt(v)
+	})
+}
+
+// UpdateUpdatedAt sets the "updated_at" field to the value that was provided on create.
+func (u *SubscriptionOrderStateUpsertOne) UpdateUpdatedAt() *SubscriptionOrderStateUpsertOne {
+	return u.Update(func(s *SubscriptionOrderStateUpsert) {
+		s.UpdateUpdatedAt()
+	})
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (u *SubscriptionOrderStateUpsertOne) SetDeletedAt(v uint32) *SubscriptionOrderStateUpsertOne {
+	return u.Update(func(s *SubscriptionOrderStateUpsert) {
+		s.SetDeletedAt(v)
+	})
+}
+
+// AddDeletedAt adds v to the "deleted_at" field.
+func (u *SubscriptionOrderStateUpsertOne) AddDeletedAt(v uint32) *SubscriptionOrderStateUpsertOne {
+	return u.Update(func(s *SubscriptionOrderStateUpsert) {
+		s.AddDeletedAt(v)
+	})
+}
+
+// UpdateDeletedAt sets the "deleted_at" field to the value that was provided on create.
+func (u *SubscriptionOrderStateUpsertOne) UpdateDeletedAt() *SubscriptionOrderStateUpsertOne {
+	return u.Update(func(s *SubscriptionOrderStateUpsert) {
+		s.UpdateDeletedAt()
 	})
 }
 
@@ -1051,6 +1243,69 @@ func (u *SubscriptionOrderStateUpsertBulk) SetEntID(v uuid.UUID) *SubscriptionOr
 func (u *SubscriptionOrderStateUpsertBulk) UpdateEntID() *SubscriptionOrderStateUpsertBulk {
 	return u.Update(func(s *SubscriptionOrderStateUpsert) {
 		s.UpdateEntID()
+	})
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (u *SubscriptionOrderStateUpsertBulk) SetCreatedAt(v uint32) *SubscriptionOrderStateUpsertBulk {
+	return u.Update(func(s *SubscriptionOrderStateUpsert) {
+		s.SetCreatedAt(v)
+	})
+}
+
+// AddCreatedAt adds v to the "created_at" field.
+func (u *SubscriptionOrderStateUpsertBulk) AddCreatedAt(v uint32) *SubscriptionOrderStateUpsertBulk {
+	return u.Update(func(s *SubscriptionOrderStateUpsert) {
+		s.AddCreatedAt(v)
+	})
+}
+
+// UpdateCreatedAt sets the "created_at" field to the value that was provided on create.
+func (u *SubscriptionOrderStateUpsertBulk) UpdateCreatedAt() *SubscriptionOrderStateUpsertBulk {
+	return u.Update(func(s *SubscriptionOrderStateUpsert) {
+		s.UpdateCreatedAt()
+	})
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (u *SubscriptionOrderStateUpsertBulk) SetUpdatedAt(v uint32) *SubscriptionOrderStateUpsertBulk {
+	return u.Update(func(s *SubscriptionOrderStateUpsert) {
+		s.SetUpdatedAt(v)
+	})
+}
+
+// AddUpdatedAt adds v to the "updated_at" field.
+func (u *SubscriptionOrderStateUpsertBulk) AddUpdatedAt(v uint32) *SubscriptionOrderStateUpsertBulk {
+	return u.Update(func(s *SubscriptionOrderStateUpsert) {
+		s.AddUpdatedAt(v)
+	})
+}
+
+// UpdateUpdatedAt sets the "updated_at" field to the value that was provided on create.
+func (u *SubscriptionOrderStateUpsertBulk) UpdateUpdatedAt() *SubscriptionOrderStateUpsertBulk {
+	return u.Update(func(s *SubscriptionOrderStateUpsert) {
+		s.UpdateUpdatedAt()
+	})
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (u *SubscriptionOrderStateUpsertBulk) SetDeletedAt(v uint32) *SubscriptionOrderStateUpsertBulk {
+	return u.Update(func(s *SubscriptionOrderStateUpsert) {
+		s.SetDeletedAt(v)
+	})
+}
+
+// AddDeletedAt adds v to the "deleted_at" field.
+func (u *SubscriptionOrderStateUpsertBulk) AddDeletedAt(v uint32) *SubscriptionOrderStateUpsertBulk {
+	return u.Update(func(s *SubscriptionOrderStateUpsert) {
+		s.AddDeletedAt(v)
+	})
+}
+
+// UpdateDeletedAt sets the "deleted_at" field to the value that was provided on create.
+func (u *SubscriptionOrderStateUpsertBulk) UpdateDeletedAt() *SubscriptionOrderStateUpsertBulk {
+	return u.Update(func(s *SubscriptionOrderStateUpsert) {
+		s.UpdateDeletedAt()
 	})
 }
 

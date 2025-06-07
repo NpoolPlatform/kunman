@@ -55,3 +55,9 @@ message Conds {
     optional basetypes.v1.StringVal AppID = 100;
 }
 
+message CompensateOrderNumber {
+    // @inject_tag: sql:"compensate_from_id"
+    string CompensateFromID = 10;
+    // @inject_tag: sql:"orders"
+    uint32 Orders = 20;
+}

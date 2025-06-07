@@ -18,6 +18,7 @@ type PaymentBalance struct {
 func (PaymentBalance) Mixin() []ent.Mixin {
 	return []ent.Mixin{
 		crudermixin.AutoIDMixin{},
+		crudermixin.TimeMixin{},
 	}
 }
 

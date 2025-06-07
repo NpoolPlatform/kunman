@@ -19,6 +19,12 @@ type PaymentBase struct {
 	ID uint32 `json:"id,omitempty"`
 	// EntID holds the value of the "ent_id" field.
 	EntID uuid.UUID `json:"ent_id,omitempty"`
+	// CreatedAt holds the value of the "created_at" field.
+	CreatedAt uint32 `json:"created_at,omitempty"`
+	// UpdatedAt holds the value of the "updated_at" field.
+	UpdatedAt uint32 `json:"updated_at,omitempty"`
+	// DeletedAt holds the value of the "deleted_at" field.
+	DeletedAt uint32 `json:"deleted_at,omitempty"`
 	// OrderID holds the value of the "order_id" field.
 	OrderID uuid.UUID `json:"order_id,omitempty"`
 	// ObseleteState holds the value of the "obselete_state" field.
@@ -31,7 +37,7 @@ func (*PaymentBase) scanValues(columns []string) ([]any, error) {
 	values := make([]any, len(columns))
 	for i := range columns {
 		switch columns[i] {
-		case paymentbase.FieldID:
+		case paymentbase.FieldID, paymentbase.FieldCreatedAt, paymentbase.FieldUpdatedAt, paymentbase.FieldDeletedAt:
 			values[i] = new(sql.NullInt64)
 		case paymentbase.FieldObseleteState:
 			values[i] = new(sql.NullString)
@@ -63,6 +69,24 @@ func (pb *PaymentBase) assignValues(columns []string, values []any) error {
 				return fmt.Errorf("unexpected type %T for field ent_id", values[i])
 			} else if value != nil {
 				pb.EntID = *value
+			}
+		case paymentbase.FieldCreatedAt:
+			if value, ok := values[i].(*sql.NullInt64); !ok {
+				return fmt.Errorf("unexpected type %T for field created_at", values[i])
+			} else if value.Valid {
+				pb.CreatedAt = uint32(value.Int64)
+			}
+		case paymentbase.FieldUpdatedAt:
+			if value, ok := values[i].(*sql.NullInt64); !ok {
+				return fmt.Errorf("unexpected type %T for field updated_at", values[i])
+			} else if value.Valid {
+				pb.UpdatedAt = uint32(value.Int64)
+			}
+		case paymentbase.FieldDeletedAt:
+			if value, ok := values[i].(*sql.NullInt64); !ok {
+				return fmt.Errorf("unexpected type %T for field deleted_at", values[i])
+			} else if value.Valid {
+				pb.DeletedAt = uint32(value.Int64)
 			}
 		case paymentbase.FieldOrderID:
 			if value, ok := values[i].(*uuid.UUID); !ok {
@@ -114,6 +138,15 @@ func (pb *PaymentBase) String() string {
 	builder.WriteString(fmt.Sprintf("id=%v, ", pb.ID))
 	builder.WriteString("ent_id=")
 	builder.WriteString(fmt.Sprintf("%v", pb.EntID))
+	builder.WriteString(", ")
+	builder.WriteString("created_at=")
+	builder.WriteString(fmt.Sprintf("%v", pb.CreatedAt))
+	builder.WriteString(", ")
+	builder.WriteString("updated_at=")
+	builder.WriteString(fmt.Sprintf("%v", pb.UpdatedAt))
+	builder.WriteString(", ")
+	builder.WriteString("deleted_at=")
+	builder.WriteString(fmt.Sprintf("%v", pb.DeletedAt))
 	builder.WriteString(", ")
 	builder.WriteString("order_id=")
 	builder.WriteString(fmt.Sprintf("%v", pb.OrderID))

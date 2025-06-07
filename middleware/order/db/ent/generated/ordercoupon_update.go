@@ -43,6 +43,61 @@ func (ocu *OrderCouponUpdate) SetNillableEntID(u *uuid.UUID) *OrderCouponUpdate 
 	return ocu
 }
 
+// SetCreatedAt sets the "created_at" field.
+func (ocu *OrderCouponUpdate) SetCreatedAt(u uint32) *OrderCouponUpdate {
+	ocu.mutation.ResetCreatedAt()
+	ocu.mutation.SetCreatedAt(u)
+	return ocu
+}
+
+// SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
+func (ocu *OrderCouponUpdate) SetNillableCreatedAt(u *uint32) *OrderCouponUpdate {
+	if u != nil {
+		ocu.SetCreatedAt(*u)
+	}
+	return ocu
+}
+
+// AddCreatedAt adds u to the "created_at" field.
+func (ocu *OrderCouponUpdate) AddCreatedAt(u int32) *OrderCouponUpdate {
+	ocu.mutation.AddCreatedAt(u)
+	return ocu
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (ocu *OrderCouponUpdate) SetUpdatedAt(u uint32) *OrderCouponUpdate {
+	ocu.mutation.ResetUpdatedAt()
+	ocu.mutation.SetUpdatedAt(u)
+	return ocu
+}
+
+// AddUpdatedAt adds u to the "updated_at" field.
+func (ocu *OrderCouponUpdate) AddUpdatedAt(u int32) *OrderCouponUpdate {
+	ocu.mutation.AddUpdatedAt(u)
+	return ocu
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (ocu *OrderCouponUpdate) SetDeletedAt(u uint32) *OrderCouponUpdate {
+	ocu.mutation.ResetDeletedAt()
+	ocu.mutation.SetDeletedAt(u)
+	return ocu
+}
+
+// SetNillableDeletedAt sets the "deleted_at" field if the given value is not nil.
+func (ocu *OrderCouponUpdate) SetNillableDeletedAt(u *uint32) *OrderCouponUpdate {
+	if u != nil {
+		ocu.SetDeletedAt(*u)
+	}
+	return ocu
+}
+
+// AddDeletedAt adds u to the "deleted_at" field.
+func (ocu *OrderCouponUpdate) AddDeletedAt(u int32) *OrderCouponUpdate {
+	ocu.mutation.AddDeletedAt(u)
+	return ocu
+}
+
 // SetOrderID sets the "order_id" field.
 func (ocu *OrderCouponUpdate) SetOrderID(u uuid.UUID) *OrderCouponUpdate {
 	ocu.mutation.SetOrderID(u)
@@ -90,6 +145,7 @@ func (ocu *OrderCouponUpdate) Mutation() *OrderCouponMutation {
 
 // Save executes the query and returns the number of nodes affected by the update operation.
 func (ocu *OrderCouponUpdate) Save(ctx context.Context) (int, error) {
+	ocu.defaults()
 	return withHooks(ctx, ocu.sqlSave, ocu.mutation, ocu.hooks)
 }
 
@@ -115,6 +171,14 @@ func (ocu *OrderCouponUpdate) ExecX(ctx context.Context) {
 	}
 }
 
+// defaults sets the default values of the builder before save.
+func (ocu *OrderCouponUpdate) defaults() {
+	if _, ok := ocu.mutation.UpdatedAt(); !ok {
+		v := ordercoupon.UpdateDefaultUpdatedAt()
+		ocu.mutation.SetUpdatedAt(v)
+	}
+}
+
 // Modify adds a statement modifier for attaching custom logic to the UPDATE statement.
 func (ocu *OrderCouponUpdate) Modify(modifiers ...func(u *sql.UpdateBuilder)) *OrderCouponUpdate {
 	ocu.modifiers = append(ocu.modifiers, modifiers...)
@@ -132,6 +196,24 @@ func (ocu *OrderCouponUpdate) sqlSave(ctx context.Context) (n int, err error) {
 	}
 	if value, ok := ocu.mutation.EntID(); ok {
 		_spec.SetField(ordercoupon.FieldEntID, field.TypeUUID, value)
+	}
+	if value, ok := ocu.mutation.CreatedAt(); ok {
+		_spec.SetField(ordercoupon.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := ocu.mutation.AddedCreatedAt(); ok {
+		_spec.AddField(ordercoupon.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := ocu.mutation.UpdatedAt(); ok {
+		_spec.SetField(ordercoupon.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := ocu.mutation.AddedUpdatedAt(); ok {
+		_spec.AddField(ordercoupon.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := ocu.mutation.DeletedAt(); ok {
+		_spec.SetField(ordercoupon.FieldDeletedAt, field.TypeUint32, value)
+	}
+	if value, ok := ocu.mutation.AddedDeletedAt(); ok {
+		_spec.AddField(ordercoupon.FieldDeletedAt, field.TypeUint32, value)
 	}
 	if value, ok := ocu.mutation.OrderID(); ok {
 		_spec.SetField(ordercoupon.FieldOrderID, field.TypeUUID, value)
@@ -178,6 +260,61 @@ func (ocuo *OrderCouponUpdateOne) SetNillableEntID(u *uuid.UUID) *OrderCouponUpd
 	if u != nil {
 		ocuo.SetEntID(*u)
 	}
+	return ocuo
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (ocuo *OrderCouponUpdateOne) SetCreatedAt(u uint32) *OrderCouponUpdateOne {
+	ocuo.mutation.ResetCreatedAt()
+	ocuo.mutation.SetCreatedAt(u)
+	return ocuo
+}
+
+// SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
+func (ocuo *OrderCouponUpdateOne) SetNillableCreatedAt(u *uint32) *OrderCouponUpdateOne {
+	if u != nil {
+		ocuo.SetCreatedAt(*u)
+	}
+	return ocuo
+}
+
+// AddCreatedAt adds u to the "created_at" field.
+func (ocuo *OrderCouponUpdateOne) AddCreatedAt(u int32) *OrderCouponUpdateOne {
+	ocuo.mutation.AddCreatedAt(u)
+	return ocuo
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (ocuo *OrderCouponUpdateOne) SetUpdatedAt(u uint32) *OrderCouponUpdateOne {
+	ocuo.mutation.ResetUpdatedAt()
+	ocuo.mutation.SetUpdatedAt(u)
+	return ocuo
+}
+
+// AddUpdatedAt adds u to the "updated_at" field.
+func (ocuo *OrderCouponUpdateOne) AddUpdatedAt(u int32) *OrderCouponUpdateOne {
+	ocuo.mutation.AddUpdatedAt(u)
+	return ocuo
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (ocuo *OrderCouponUpdateOne) SetDeletedAt(u uint32) *OrderCouponUpdateOne {
+	ocuo.mutation.ResetDeletedAt()
+	ocuo.mutation.SetDeletedAt(u)
+	return ocuo
+}
+
+// SetNillableDeletedAt sets the "deleted_at" field if the given value is not nil.
+func (ocuo *OrderCouponUpdateOne) SetNillableDeletedAt(u *uint32) *OrderCouponUpdateOne {
+	if u != nil {
+		ocuo.SetDeletedAt(*u)
+	}
+	return ocuo
+}
+
+// AddDeletedAt adds u to the "deleted_at" field.
+func (ocuo *OrderCouponUpdateOne) AddDeletedAt(u int32) *OrderCouponUpdateOne {
+	ocuo.mutation.AddDeletedAt(u)
 	return ocuo
 }
 
@@ -241,6 +378,7 @@ func (ocuo *OrderCouponUpdateOne) Select(field string, fields ...string) *OrderC
 
 // Save executes the query and returns the updated OrderCoupon entity.
 func (ocuo *OrderCouponUpdateOne) Save(ctx context.Context) (*OrderCoupon, error) {
+	ocuo.defaults()
 	return withHooks(ctx, ocuo.sqlSave, ocuo.mutation, ocuo.hooks)
 }
 
@@ -263,6 +401,14 @@ func (ocuo *OrderCouponUpdateOne) Exec(ctx context.Context) error {
 func (ocuo *OrderCouponUpdateOne) ExecX(ctx context.Context) {
 	if err := ocuo.Exec(ctx); err != nil {
 		panic(err)
+	}
+}
+
+// defaults sets the default values of the builder before save.
+func (ocuo *OrderCouponUpdateOne) defaults() {
+	if _, ok := ocuo.mutation.UpdatedAt(); !ok {
+		v := ordercoupon.UpdateDefaultUpdatedAt()
+		ocuo.mutation.SetUpdatedAt(v)
 	}
 }
 
@@ -300,6 +446,24 @@ func (ocuo *OrderCouponUpdateOne) sqlSave(ctx context.Context) (_node *OrderCoup
 	}
 	if value, ok := ocuo.mutation.EntID(); ok {
 		_spec.SetField(ordercoupon.FieldEntID, field.TypeUUID, value)
+	}
+	if value, ok := ocuo.mutation.CreatedAt(); ok {
+		_spec.SetField(ordercoupon.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := ocuo.mutation.AddedCreatedAt(); ok {
+		_spec.AddField(ordercoupon.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := ocuo.mutation.UpdatedAt(); ok {
+		_spec.SetField(ordercoupon.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := ocuo.mutation.AddedUpdatedAt(); ok {
+		_spec.AddField(ordercoupon.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := ocuo.mutation.DeletedAt(); ok {
+		_spec.SetField(ordercoupon.FieldDeletedAt, field.TypeUint32, value)
+	}
+	if value, ok := ocuo.mutation.AddedDeletedAt(); ok {
+		_spec.AddField(ordercoupon.FieldDeletedAt, field.TypeUint32, value)
 	}
 	if value, ok := ocuo.mutation.OrderID(); ok {
 		_spec.SetField(ordercoupon.FieldOrderID, field.TypeUUID, value)

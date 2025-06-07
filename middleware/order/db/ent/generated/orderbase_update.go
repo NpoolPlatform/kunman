@@ -43,6 +43,61 @@ func (obu *OrderBaseUpdate) SetNillableEntID(u *uuid.UUID) *OrderBaseUpdate {
 	return obu
 }
 
+// SetCreatedAt sets the "created_at" field.
+func (obu *OrderBaseUpdate) SetCreatedAt(u uint32) *OrderBaseUpdate {
+	obu.mutation.ResetCreatedAt()
+	obu.mutation.SetCreatedAt(u)
+	return obu
+}
+
+// SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
+func (obu *OrderBaseUpdate) SetNillableCreatedAt(u *uint32) *OrderBaseUpdate {
+	if u != nil {
+		obu.SetCreatedAt(*u)
+	}
+	return obu
+}
+
+// AddCreatedAt adds u to the "created_at" field.
+func (obu *OrderBaseUpdate) AddCreatedAt(u int32) *OrderBaseUpdate {
+	obu.mutation.AddCreatedAt(u)
+	return obu
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (obu *OrderBaseUpdate) SetUpdatedAt(u uint32) *OrderBaseUpdate {
+	obu.mutation.ResetUpdatedAt()
+	obu.mutation.SetUpdatedAt(u)
+	return obu
+}
+
+// AddUpdatedAt adds u to the "updated_at" field.
+func (obu *OrderBaseUpdate) AddUpdatedAt(u int32) *OrderBaseUpdate {
+	obu.mutation.AddUpdatedAt(u)
+	return obu
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (obu *OrderBaseUpdate) SetDeletedAt(u uint32) *OrderBaseUpdate {
+	obu.mutation.ResetDeletedAt()
+	obu.mutation.SetDeletedAt(u)
+	return obu
+}
+
+// SetNillableDeletedAt sets the "deleted_at" field if the given value is not nil.
+func (obu *OrderBaseUpdate) SetNillableDeletedAt(u *uint32) *OrderBaseUpdate {
+	if u != nil {
+		obu.SetDeletedAt(*u)
+	}
+	return obu
+}
+
+// AddDeletedAt adds u to the "deleted_at" field.
+func (obu *OrderBaseUpdate) AddDeletedAt(u int32) *OrderBaseUpdate {
+	obu.mutation.AddDeletedAt(u)
+	return obu
+}
+
 // SetAppID sets the "app_id" field.
 func (obu *OrderBaseUpdate) SetAppID(u uuid.UUID) *OrderBaseUpdate {
 	obu.mutation.SetAppID(u)
@@ -230,6 +285,7 @@ func (obu *OrderBaseUpdate) Mutation() *OrderBaseMutation {
 
 // Save executes the query and returns the number of nodes affected by the update operation.
 func (obu *OrderBaseUpdate) Save(ctx context.Context) (int, error) {
+	obu.defaults()
 	return withHooks(ctx, obu.sqlSave, obu.mutation, obu.hooks)
 }
 
@@ -255,6 +311,14 @@ func (obu *OrderBaseUpdate) ExecX(ctx context.Context) {
 	}
 }
 
+// defaults sets the default values of the builder before save.
+func (obu *OrderBaseUpdate) defaults() {
+	if _, ok := obu.mutation.UpdatedAt(); !ok {
+		v := orderbase.UpdateDefaultUpdatedAt()
+		obu.mutation.SetUpdatedAt(v)
+	}
+}
+
 // Modify adds a statement modifier for attaching custom logic to the UPDATE statement.
 func (obu *OrderBaseUpdate) Modify(modifiers ...func(u *sql.UpdateBuilder)) *OrderBaseUpdate {
 	obu.modifiers = append(obu.modifiers, modifiers...)
@@ -272,6 +336,24 @@ func (obu *OrderBaseUpdate) sqlSave(ctx context.Context) (n int, err error) {
 	}
 	if value, ok := obu.mutation.EntID(); ok {
 		_spec.SetField(orderbase.FieldEntID, field.TypeUUID, value)
+	}
+	if value, ok := obu.mutation.CreatedAt(); ok {
+		_spec.SetField(orderbase.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := obu.mutation.AddedCreatedAt(); ok {
+		_spec.AddField(orderbase.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := obu.mutation.UpdatedAt(); ok {
+		_spec.SetField(orderbase.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := obu.mutation.AddedUpdatedAt(); ok {
+		_spec.AddField(orderbase.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := obu.mutation.DeletedAt(); ok {
+		_spec.SetField(orderbase.FieldDeletedAt, field.TypeUint32, value)
+	}
+	if value, ok := obu.mutation.AddedDeletedAt(); ok {
+		_spec.AddField(orderbase.FieldDeletedAt, field.TypeUint32, value)
 	}
 	if value, ok := obu.mutation.AppID(); ok {
 		_spec.SetField(orderbase.FieldAppID, field.TypeUUID, value)
@@ -360,6 +442,61 @@ func (obuo *OrderBaseUpdateOne) SetNillableEntID(u *uuid.UUID) *OrderBaseUpdateO
 	if u != nil {
 		obuo.SetEntID(*u)
 	}
+	return obuo
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (obuo *OrderBaseUpdateOne) SetCreatedAt(u uint32) *OrderBaseUpdateOne {
+	obuo.mutation.ResetCreatedAt()
+	obuo.mutation.SetCreatedAt(u)
+	return obuo
+}
+
+// SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
+func (obuo *OrderBaseUpdateOne) SetNillableCreatedAt(u *uint32) *OrderBaseUpdateOne {
+	if u != nil {
+		obuo.SetCreatedAt(*u)
+	}
+	return obuo
+}
+
+// AddCreatedAt adds u to the "created_at" field.
+func (obuo *OrderBaseUpdateOne) AddCreatedAt(u int32) *OrderBaseUpdateOne {
+	obuo.mutation.AddCreatedAt(u)
+	return obuo
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (obuo *OrderBaseUpdateOne) SetUpdatedAt(u uint32) *OrderBaseUpdateOne {
+	obuo.mutation.ResetUpdatedAt()
+	obuo.mutation.SetUpdatedAt(u)
+	return obuo
+}
+
+// AddUpdatedAt adds u to the "updated_at" field.
+func (obuo *OrderBaseUpdateOne) AddUpdatedAt(u int32) *OrderBaseUpdateOne {
+	obuo.mutation.AddUpdatedAt(u)
+	return obuo
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (obuo *OrderBaseUpdateOne) SetDeletedAt(u uint32) *OrderBaseUpdateOne {
+	obuo.mutation.ResetDeletedAt()
+	obuo.mutation.SetDeletedAt(u)
+	return obuo
+}
+
+// SetNillableDeletedAt sets the "deleted_at" field if the given value is not nil.
+func (obuo *OrderBaseUpdateOne) SetNillableDeletedAt(u *uint32) *OrderBaseUpdateOne {
+	if u != nil {
+		obuo.SetDeletedAt(*u)
+	}
+	return obuo
+}
+
+// AddDeletedAt adds u to the "deleted_at" field.
+func (obuo *OrderBaseUpdateOne) AddDeletedAt(u int32) *OrderBaseUpdateOne {
+	obuo.mutation.AddDeletedAt(u)
 	return obuo
 }
 
@@ -563,6 +700,7 @@ func (obuo *OrderBaseUpdateOne) Select(field string, fields ...string) *OrderBas
 
 // Save executes the query and returns the updated OrderBase entity.
 func (obuo *OrderBaseUpdateOne) Save(ctx context.Context) (*OrderBase, error) {
+	obuo.defaults()
 	return withHooks(ctx, obuo.sqlSave, obuo.mutation, obuo.hooks)
 }
 
@@ -585,6 +723,14 @@ func (obuo *OrderBaseUpdateOne) Exec(ctx context.Context) error {
 func (obuo *OrderBaseUpdateOne) ExecX(ctx context.Context) {
 	if err := obuo.Exec(ctx); err != nil {
 		panic(err)
+	}
+}
+
+// defaults sets the default values of the builder before save.
+func (obuo *OrderBaseUpdateOne) defaults() {
+	if _, ok := obuo.mutation.UpdatedAt(); !ok {
+		v := orderbase.UpdateDefaultUpdatedAt()
+		obuo.mutation.SetUpdatedAt(v)
 	}
 }
 
@@ -622,6 +768,24 @@ func (obuo *OrderBaseUpdateOne) sqlSave(ctx context.Context) (_node *OrderBase, 
 	}
 	if value, ok := obuo.mutation.EntID(); ok {
 		_spec.SetField(orderbase.FieldEntID, field.TypeUUID, value)
+	}
+	if value, ok := obuo.mutation.CreatedAt(); ok {
+		_spec.SetField(orderbase.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := obuo.mutation.AddedCreatedAt(); ok {
+		_spec.AddField(orderbase.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := obuo.mutation.UpdatedAt(); ok {
+		_spec.SetField(orderbase.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := obuo.mutation.AddedUpdatedAt(); ok {
+		_spec.AddField(orderbase.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := obuo.mutation.DeletedAt(); ok {
+		_spec.SetField(orderbase.FieldDeletedAt, field.TypeUint32, value)
+	}
+	if value, ok := obuo.mutation.AddedDeletedAt(); ok {
+		_spec.AddField(orderbase.FieldDeletedAt, field.TypeUint32, value)
 	}
 	if value, ok := obuo.mutation.AppID(); ok {
 		_spec.SetField(orderbase.FieldAppID, field.TypeUUID, value)

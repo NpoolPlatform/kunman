@@ -19,6 +19,12 @@ type OrderCoupon struct {
 	ID uint32 `json:"id,omitempty"`
 	// EntID holds the value of the "ent_id" field.
 	EntID uuid.UUID `json:"ent_id,omitempty"`
+	// CreatedAt holds the value of the "created_at" field.
+	CreatedAt uint32 `json:"created_at,omitempty"`
+	// UpdatedAt holds the value of the "updated_at" field.
+	UpdatedAt uint32 `json:"updated_at,omitempty"`
+	// DeletedAt holds the value of the "deleted_at" field.
+	DeletedAt uint32 `json:"deleted_at,omitempty"`
 	// OrderID holds the value of the "order_id" field.
 	OrderID uuid.UUID `json:"order_id,omitempty"`
 	// CouponID holds the value of the "coupon_id" field.
@@ -31,7 +37,7 @@ func (*OrderCoupon) scanValues(columns []string) ([]any, error) {
 	values := make([]any, len(columns))
 	for i := range columns {
 		switch columns[i] {
-		case ordercoupon.FieldID:
+		case ordercoupon.FieldID, ordercoupon.FieldCreatedAt, ordercoupon.FieldUpdatedAt, ordercoupon.FieldDeletedAt:
 			values[i] = new(sql.NullInt64)
 		case ordercoupon.FieldEntID, ordercoupon.FieldOrderID, ordercoupon.FieldCouponID:
 			values[i] = new(uuid.UUID)
@@ -61,6 +67,24 @@ func (oc *OrderCoupon) assignValues(columns []string, values []any) error {
 				return fmt.Errorf("unexpected type %T for field ent_id", values[i])
 			} else if value != nil {
 				oc.EntID = *value
+			}
+		case ordercoupon.FieldCreatedAt:
+			if value, ok := values[i].(*sql.NullInt64); !ok {
+				return fmt.Errorf("unexpected type %T for field created_at", values[i])
+			} else if value.Valid {
+				oc.CreatedAt = uint32(value.Int64)
+			}
+		case ordercoupon.FieldUpdatedAt:
+			if value, ok := values[i].(*sql.NullInt64); !ok {
+				return fmt.Errorf("unexpected type %T for field updated_at", values[i])
+			} else if value.Valid {
+				oc.UpdatedAt = uint32(value.Int64)
+			}
+		case ordercoupon.FieldDeletedAt:
+			if value, ok := values[i].(*sql.NullInt64); !ok {
+				return fmt.Errorf("unexpected type %T for field deleted_at", values[i])
+			} else if value.Valid {
+				oc.DeletedAt = uint32(value.Int64)
 			}
 		case ordercoupon.FieldOrderID:
 			if value, ok := values[i].(*uuid.UUID); !ok {
@@ -112,6 +136,15 @@ func (oc *OrderCoupon) String() string {
 	builder.WriteString(fmt.Sprintf("id=%v, ", oc.ID))
 	builder.WriteString("ent_id=")
 	builder.WriteString(fmt.Sprintf("%v", oc.EntID))
+	builder.WriteString(", ")
+	builder.WriteString("created_at=")
+	builder.WriteString(fmt.Sprintf("%v", oc.CreatedAt))
+	builder.WriteString(", ")
+	builder.WriteString("updated_at=")
+	builder.WriteString(fmt.Sprintf("%v", oc.UpdatedAt))
+	builder.WriteString(", ")
+	builder.WriteString("deleted_at=")
+	builder.WriteString(fmt.Sprintf("%v", oc.DeletedAt))
 	builder.WriteString(", ")
 	builder.WriteString("order_id=")
 	builder.WriteString(fmt.Sprintf("%v", oc.OrderID))

@@ -48,6 +48,9 @@ var schemaGraph = func() *sqlgraph.Schema {
 		Type: "AppConfig",
 		Fields: map[string]*sqlgraph.FieldSpec{
 			appconfig.FieldEntID:                                  {Type: field.TypeUUID, Column: appconfig.FieldEntID},
+			appconfig.FieldCreatedAt:                              {Type: field.TypeUint32, Column: appconfig.FieldCreatedAt},
+			appconfig.FieldUpdatedAt:                              {Type: field.TypeUint32, Column: appconfig.FieldUpdatedAt},
+			appconfig.FieldDeletedAt:                              {Type: field.TypeUint32, Column: appconfig.FieldDeletedAt},
 			appconfig.FieldAppID:                                  {Type: field.TypeUUID, Column: appconfig.FieldAppID},
 			appconfig.FieldEnableSimulateOrder:                    {Type: field.TypeBool, Column: appconfig.FieldEnableSimulateOrder},
 			appconfig.FieldSimulateOrderCouponMode:                {Type: field.TypeString, Column: appconfig.FieldSimulateOrderCouponMode},
@@ -69,6 +72,9 @@ var schemaGraph = func() *sqlgraph.Schema {
 		Type: "Compensate",
 		Fields: map[string]*sqlgraph.FieldSpec{
 			compensate.FieldEntID:             {Type: field.TypeUUID, Column: compensate.FieldEntID},
+			compensate.FieldCreatedAt:         {Type: field.TypeUint32, Column: compensate.FieldCreatedAt},
+			compensate.FieldUpdatedAt:         {Type: field.TypeUint32, Column: compensate.FieldUpdatedAt},
+			compensate.FieldDeletedAt:         {Type: field.TypeUint32, Column: compensate.FieldDeletedAt},
 			compensate.FieldOrderID:           {Type: field.TypeUUID, Column: compensate.FieldOrderID},
 			compensate.FieldCompensateFromID:  {Type: field.TypeUUID, Column: compensate.FieldCompensateFromID},
 			compensate.FieldCompensateType:    {Type: field.TypeString, Column: compensate.FieldCompensateType},
@@ -87,6 +93,9 @@ var schemaGraph = func() *sqlgraph.Schema {
 		Type: "FeeOrder",
 		Fields: map[string]*sqlgraph.FieldSpec{
 			feeorder.FieldEntID:             {Type: field.TypeUUID, Column: feeorder.FieldEntID},
+			feeorder.FieldCreatedAt:         {Type: field.TypeUint32, Column: feeorder.FieldCreatedAt},
+			feeorder.FieldUpdatedAt:         {Type: field.TypeUint32, Column: feeorder.FieldUpdatedAt},
+			feeorder.FieldDeletedAt:         {Type: field.TypeUint32, Column: feeorder.FieldDeletedAt},
 			feeorder.FieldOrderID:           {Type: field.TypeUUID, Column: feeorder.FieldOrderID},
 			feeorder.FieldGoodValueUsd:      {Type: field.TypeOther, Column: feeorder.FieldGoodValueUsd},
 			feeorder.FieldPaymentAmountUsd:  {Type: field.TypeOther, Column: feeorder.FieldPaymentAmountUsd},
@@ -107,6 +116,9 @@ var schemaGraph = func() *sqlgraph.Schema {
 		Type: "FeeOrderState",
 		Fields: map[string]*sqlgraph.FieldSpec{
 			feeorderstate.FieldEntID:            {Type: field.TypeUUID, Column: feeorderstate.FieldEntID},
+			feeorderstate.FieldCreatedAt:        {Type: field.TypeUint32, Column: feeorderstate.FieldCreatedAt},
+			feeorderstate.FieldUpdatedAt:        {Type: field.TypeUint32, Column: feeorderstate.FieldUpdatedAt},
+			feeorderstate.FieldDeletedAt:        {Type: field.TypeUint32, Column: feeorderstate.FieldDeletedAt},
 			feeorderstate.FieldOrderID:          {Type: field.TypeUUID, Column: feeorderstate.FieldOrderID},
 			feeorderstate.FieldPaymentID:        {Type: field.TypeUUID, Column: feeorderstate.FieldPaymentID},
 			feeorderstate.FieldPaidAt:           {Type: field.TypeUint32, Column: feeorderstate.FieldPaidAt},
@@ -130,6 +142,9 @@ var schemaGraph = func() *sqlgraph.Schema {
 		Type: "Order",
 		Fields: map[string]*sqlgraph.FieldSpec{
 			order.FieldEntID:                {Type: field.TypeUUID, Column: order.FieldEntID},
+			order.FieldCreatedAt:            {Type: field.TypeUint32, Column: order.FieldCreatedAt},
+			order.FieldUpdatedAt:            {Type: field.TypeUint32, Column: order.FieldUpdatedAt},
+			order.FieldDeletedAt:            {Type: field.TypeUint32, Column: order.FieldDeletedAt},
 			order.FieldAppID:                {Type: field.TypeUUID, Column: order.FieldAppID},
 			order.FieldUserID:               {Type: field.TypeUUID, Column: order.FieldUserID},
 			order.FieldGoodID:               {Type: field.TypeUUID, Column: order.FieldGoodID},
@@ -171,6 +186,9 @@ var schemaGraph = func() *sqlgraph.Schema {
 		Type: "OrderBase",
 		Fields: map[string]*sqlgraph.FieldSpec{
 			orderbase.FieldEntID:         {Type: field.TypeUUID, Column: orderbase.FieldEntID},
+			orderbase.FieldCreatedAt:     {Type: field.TypeUint32, Column: orderbase.FieldCreatedAt},
+			orderbase.FieldUpdatedAt:     {Type: field.TypeUint32, Column: orderbase.FieldUpdatedAt},
+			orderbase.FieldDeletedAt:     {Type: field.TypeUint32, Column: orderbase.FieldDeletedAt},
 			orderbase.FieldAppID:         {Type: field.TypeUUID, Column: orderbase.FieldAppID},
 			orderbase.FieldUserID:        {Type: field.TypeUUID, Column: orderbase.FieldUserID},
 			orderbase.FieldGoodID:        {Type: field.TypeUUID, Column: orderbase.FieldGoodID},
@@ -193,9 +211,12 @@ var schemaGraph = func() *sqlgraph.Schema {
 		},
 		Type: "OrderCoupon",
 		Fields: map[string]*sqlgraph.FieldSpec{
-			ordercoupon.FieldEntID:    {Type: field.TypeUUID, Column: ordercoupon.FieldEntID},
-			ordercoupon.FieldOrderID:  {Type: field.TypeUUID, Column: ordercoupon.FieldOrderID},
-			ordercoupon.FieldCouponID: {Type: field.TypeUUID, Column: ordercoupon.FieldCouponID},
+			ordercoupon.FieldEntID:     {Type: field.TypeUUID, Column: ordercoupon.FieldEntID},
+			ordercoupon.FieldCreatedAt: {Type: field.TypeUint32, Column: ordercoupon.FieldCreatedAt},
+			ordercoupon.FieldUpdatedAt: {Type: field.TypeUint32, Column: ordercoupon.FieldUpdatedAt},
+			ordercoupon.FieldDeletedAt: {Type: field.TypeUint32, Column: ordercoupon.FieldDeletedAt},
+			ordercoupon.FieldOrderID:   {Type: field.TypeUUID, Column: ordercoupon.FieldOrderID},
+			ordercoupon.FieldCouponID:  {Type: field.TypeUUID, Column: ordercoupon.FieldCouponID},
 		},
 	}
 	graph.Nodes[7] = &sqlgraph.Node{
@@ -209,10 +230,13 @@ var schemaGraph = func() *sqlgraph.Schema {
 		},
 		Type: "OrderLock",
 		Fields: map[string]*sqlgraph.FieldSpec{
-			orderlock.FieldEntID:    {Type: field.TypeUUID, Column: orderlock.FieldEntID},
-			orderlock.FieldOrderID:  {Type: field.TypeUUID, Column: orderlock.FieldOrderID},
-			orderlock.FieldUserID:   {Type: field.TypeUUID, Column: orderlock.FieldUserID},
-			orderlock.FieldLockType: {Type: field.TypeString, Column: orderlock.FieldLockType},
+			orderlock.FieldEntID:     {Type: field.TypeUUID, Column: orderlock.FieldEntID},
+			orderlock.FieldCreatedAt: {Type: field.TypeUint32, Column: orderlock.FieldCreatedAt},
+			orderlock.FieldUpdatedAt: {Type: field.TypeUint32, Column: orderlock.FieldUpdatedAt},
+			orderlock.FieldDeletedAt: {Type: field.TypeUint32, Column: orderlock.FieldDeletedAt},
+			orderlock.FieldOrderID:   {Type: field.TypeUUID, Column: orderlock.FieldOrderID},
+			orderlock.FieldUserID:    {Type: field.TypeUUID, Column: orderlock.FieldUserID},
+			orderlock.FieldLockType:  {Type: field.TypeString, Column: orderlock.FieldLockType},
 		},
 	}
 	graph.Nodes[8] = &sqlgraph.Node{
@@ -227,6 +251,9 @@ var schemaGraph = func() *sqlgraph.Schema {
 		Type: "OrderState",
 		Fields: map[string]*sqlgraph.FieldSpec{
 			orderstate.FieldEntID:                {Type: field.TypeUUID, Column: orderstate.FieldEntID},
+			orderstate.FieldCreatedAt:            {Type: field.TypeUint32, Column: orderstate.FieldCreatedAt},
+			orderstate.FieldUpdatedAt:            {Type: field.TypeUint32, Column: orderstate.FieldUpdatedAt},
+			orderstate.FieldDeletedAt:            {Type: field.TypeUint32, Column: orderstate.FieldDeletedAt},
 			orderstate.FieldOrderID:              {Type: field.TypeUUID, Column: orderstate.FieldOrderID},
 			orderstate.FieldOrderState:           {Type: field.TypeString, Column: orderstate.FieldOrderState},
 			orderstate.FieldCancelState:          {Type: field.TypeString, Column: orderstate.FieldCancelState},
@@ -260,6 +287,9 @@ var schemaGraph = func() *sqlgraph.Schema {
 		Type: "OrderStateBase",
 		Fields: map[string]*sqlgraph.FieldSpec{
 			orderstatebase.FieldEntID:         {Type: field.TypeUUID, Column: orderstatebase.FieldEntID},
+			orderstatebase.FieldCreatedAt:     {Type: field.TypeUint32, Column: orderstatebase.FieldCreatedAt},
+			orderstatebase.FieldUpdatedAt:     {Type: field.TypeUint32, Column: orderstatebase.FieldUpdatedAt},
+			orderstatebase.FieldDeletedAt:     {Type: field.TypeUint32, Column: orderstatebase.FieldDeletedAt},
 			orderstatebase.FieldOrderID:       {Type: field.TypeUUID, Column: orderstatebase.FieldOrderID},
 			orderstatebase.FieldOrderState:    {Type: field.TypeString, Column: orderstatebase.FieldOrderState},
 			orderstatebase.FieldStartMode:     {Type: field.TypeString, Column: orderstatebase.FieldStartMode},
@@ -280,10 +310,13 @@ var schemaGraph = func() *sqlgraph.Schema {
 		},
 		Type: "OutOfGas",
 		Fields: map[string]*sqlgraph.FieldSpec{
-			outofgas.FieldEntID:   {Type: field.TypeUUID, Column: outofgas.FieldEntID},
-			outofgas.FieldOrderID: {Type: field.TypeUUID, Column: outofgas.FieldOrderID},
-			outofgas.FieldStartAt: {Type: field.TypeUint32, Column: outofgas.FieldStartAt},
-			outofgas.FieldEndAt:   {Type: field.TypeUint32, Column: outofgas.FieldEndAt},
+			outofgas.FieldEntID:     {Type: field.TypeUUID, Column: outofgas.FieldEntID},
+			outofgas.FieldCreatedAt: {Type: field.TypeUint32, Column: outofgas.FieldCreatedAt},
+			outofgas.FieldUpdatedAt: {Type: field.TypeUint32, Column: outofgas.FieldUpdatedAt},
+			outofgas.FieldDeletedAt: {Type: field.TypeUint32, Column: outofgas.FieldDeletedAt},
+			outofgas.FieldOrderID:   {Type: field.TypeUUID, Column: outofgas.FieldOrderID},
+			outofgas.FieldStartAt:   {Type: field.TypeUint32, Column: outofgas.FieldStartAt},
+			outofgas.FieldEndAt:     {Type: field.TypeUint32, Column: outofgas.FieldEndAt},
 		},
 	}
 	graph.Nodes[11] = &sqlgraph.Node{
@@ -298,6 +331,9 @@ var schemaGraph = func() *sqlgraph.Schema {
 		Type: "Payment",
 		Fields: map[string]*sqlgraph.FieldSpec{
 			payment.FieldEntID:       {Type: field.TypeUUID, Column: payment.FieldEntID},
+			payment.FieldCreatedAt:   {Type: field.TypeUint32, Column: payment.FieldCreatedAt},
+			payment.FieldUpdatedAt:   {Type: field.TypeUint32, Column: payment.FieldUpdatedAt},
+			payment.FieldDeletedAt:   {Type: field.TypeUint32, Column: payment.FieldDeletedAt},
 			payment.FieldAppID:       {Type: field.TypeUUID, Column: payment.FieldAppID},
 			payment.FieldUserID:      {Type: field.TypeUUID, Column: payment.FieldUserID},
 			payment.FieldGoodID:      {Type: field.TypeUUID, Column: payment.FieldGoodID},
@@ -320,6 +356,9 @@ var schemaGraph = func() *sqlgraph.Schema {
 		Type: "PaymentBalance",
 		Fields: map[string]*sqlgraph.FieldSpec{
 			paymentbalance.FieldEntID:                {Type: field.TypeUUID, Column: paymentbalance.FieldEntID},
+			paymentbalance.FieldCreatedAt:            {Type: field.TypeUint32, Column: paymentbalance.FieldCreatedAt},
+			paymentbalance.FieldUpdatedAt:            {Type: field.TypeUint32, Column: paymentbalance.FieldUpdatedAt},
+			paymentbalance.FieldDeletedAt:            {Type: field.TypeUint32, Column: paymentbalance.FieldDeletedAt},
 			paymentbalance.FieldPaymentID:            {Type: field.TypeUUID, Column: paymentbalance.FieldPaymentID},
 			paymentbalance.FieldCoinTypeID:           {Type: field.TypeUUID, Column: paymentbalance.FieldCoinTypeID},
 			paymentbalance.FieldAmount:               {Type: field.TypeOther, Column: paymentbalance.FieldAmount},
@@ -340,6 +379,9 @@ var schemaGraph = func() *sqlgraph.Schema {
 		Type: "PaymentBalanceLock",
 		Fields: map[string]*sqlgraph.FieldSpec{
 			paymentbalancelock.FieldEntID:        {Type: field.TypeUUID, Column: paymentbalancelock.FieldEntID},
+			paymentbalancelock.FieldCreatedAt:    {Type: field.TypeUint32, Column: paymentbalancelock.FieldCreatedAt},
+			paymentbalancelock.FieldUpdatedAt:    {Type: field.TypeUint32, Column: paymentbalancelock.FieldUpdatedAt},
+			paymentbalancelock.FieldDeletedAt:    {Type: field.TypeUint32, Column: paymentbalancelock.FieldDeletedAt},
 			paymentbalancelock.FieldPaymentID:    {Type: field.TypeUUID, Column: paymentbalancelock.FieldPaymentID},
 			paymentbalancelock.FieldLedgerLockID: {Type: field.TypeUUID, Column: paymentbalancelock.FieldLedgerLockID},
 		},
@@ -356,6 +398,9 @@ var schemaGraph = func() *sqlgraph.Schema {
 		Type: "PaymentBase",
 		Fields: map[string]*sqlgraph.FieldSpec{
 			paymentbase.FieldEntID:         {Type: field.TypeUUID, Column: paymentbase.FieldEntID},
+			paymentbase.FieldCreatedAt:     {Type: field.TypeUint32, Column: paymentbase.FieldCreatedAt},
+			paymentbase.FieldUpdatedAt:     {Type: field.TypeUint32, Column: paymentbase.FieldUpdatedAt},
+			paymentbase.FieldDeletedAt:     {Type: field.TypeUint32, Column: paymentbase.FieldDeletedAt},
 			paymentbase.FieldOrderID:       {Type: field.TypeUUID, Column: paymentbase.FieldOrderID},
 			paymentbase.FieldObseleteState: {Type: field.TypeString, Column: paymentbase.FieldObseleteState},
 		},
@@ -372,6 +417,9 @@ var schemaGraph = func() *sqlgraph.Schema {
 		Type: "PaymentContract",
 		Fields: map[string]*sqlgraph.FieldSpec{
 			paymentcontract.FieldEntID:      {Type: field.TypeUUID, Column: paymentcontract.FieldEntID},
+			paymentcontract.FieldCreatedAt:  {Type: field.TypeUint32, Column: paymentcontract.FieldCreatedAt},
+			paymentcontract.FieldUpdatedAt:  {Type: field.TypeUint32, Column: paymentcontract.FieldUpdatedAt},
+			paymentcontract.FieldDeletedAt:  {Type: field.TypeUint32, Column: paymentcontract.FieldDeletedAt},
 			paymentcontract.FieldOrderID:    {Type: field.TypeUUID, Column: paymentcontract.FieldOrderID},
 			paymentcontract.FieldCoinTypeID: {Type: field.TypeUUID, Column: paymentcontract.FieldCoinTypeID},
 			paymentcontract.FieldAmount:     {Type: field.TypeOther, Column: paymentcontract.FieldAmount},
@@ -389,6 +437,9 @@ var schemaGraph = func() *sqlgraph.Schema {
 		Type: "PaymentFiat",
 		Fields: map[string]*sqlgraph.FieldSpec{
 			paymentfiat.FieldEntID:          {Type: field.TypeUUID, Column: paymentfiat.FieldEntID},
+			paymentfiat.FieldCreatedAt:      {Type: field.TypeUint32, Column: paymentfiat.FieldCreatedAt},
+			paymentfiat.FieldUpdatedAt:      {Type: field.TypeUint32, Column: paymentfiat.FieldUpdatedAt},
+			paymentfiat.FieldDeletedAt:      {Type: field.TypeUint32, Column: paymentfiat.FieldDeletedAt},
 			paymentfiat.FieldPaymentID:      {Type: field.TypeUUID, Column: paymentfiat.FieldPaymentID},
 			paymentfiat.FieldFiatID:         {Type: field.TypeUUID, Column: paymentfiat.FieldFiatID},
 			paymentfiat.FieldPaymentChannel: {Type: field.TypeString, Column: paymentfiat.FieldPaymentChannel},
@@ -408,6 +459,9 @@ var schemaGraph = func() *sqlgraph.Schema {
 		Type: "PaymentTransfer",
 		Fields: map[string]*sqlgraph.FieldSpec{
 			paymenttransfer.FieldEntID:                {Type: field.TypeUUID, Column: paymenttransfer.FieldEntID},
+			paymenttransfer.FieldCreatedAt:            {Type: field.TypeUint32, Column: paymenttransfer.FieldCreatedAt},
+			paymenttransfer.FieldUpdatedAt:            {Type: field.TypeUint32, Column: paymenttransfer.FieldUpdatedAt},
+			paymenttransfer.FieldDeletedAt:            {Type: field.TypeUint32, Column: paymenttransfer.FieldDeletedAt},
 			paymenttransfer.FieldPaymentID:            {Type: field.TypeUUID, Column: paymenttransfer.FieldPaymentID},
 			paymenttransfer.FieldCoinTypeID:           {Type: field.TypeUUID, Column: paymenttransfer.FieldCoinTypeID},
 			paymenttransfer.FieldAccountID:            {Type: field.TypeUUID, Column: paymenttransfer.FieldAccountID},
@@ -431,6 +485,9 @@ var schemaGraph = func() *sqlgraph.Schema {
 		Type: "PoolOrderUser",
 		Fields: map[string]*sqlgraph.FieldSpec{
 			poolorderuser.FieldEntID:           {Type: field.TypeUUID, Column: poolorderuser.FieldEntID},
+			poolorderuser.FieldCreatedAt:       {Type: field.TypeUint32, Column: poolorderuser.FieldCreatedAt},
+			poolorderuser.FieldUpdatedAt:       {Type: field.TypeUint32, Column: poolorderuser.FieldUpdatedAt},
+			poolorderuser.FieldDeletedAt:       {Type: field.TypeUint32, Column: poolorderuser.FieldDeletedAt},
 			poolorderuser.FieldOrderID:         {Type: field.TypeUUID, Column: poolorderuser.FieldOrderID},
 			poolorderuser.FieldPoolOrderUserID: {Type: field.TypeUUID, Column: poolorderuser.FieldPoolOrderUserID},
 		},
@@ -447,6 +504,9 @@ var schemaGraph = func() *sqlgraph.Schema {
 		Type: "PowerRental",
 		Fields: map[string]*sqlgraph.FieldSpec{
 			powerrental.FieldEntID:             {Type: field.TypeUUID, Column: powerrental.FieldEntID},
+			powerrental.FieldCreatedAt:         {Type: field.TypeUint32, Column: powerrental.FieldCreatedAt},
+			powerrental.FieldUpdatedAt:         {Type: field.TypeUint32, Column: powerrental.FieldUpdatedAt},
+			powerrental.FieldDeletedAt:         {Type: field.TypeUint32, Column: powerrental.FieldDeletedAt},
 			powerrental.FieldOrderID:           {Type: field.TypeUUID, Column: powerrental.FieldOrderID},
 			powerrental.FieldAppGoodStockID:    {Type: field.TypeUUID, Column: powerrental.FieldAppGoodStockID},
 			powerrental.FieldUnits:             {Type: field.TypeOther, Column: powerrental.FieldUnits},
@@ -471,6 +531,9 @@ var schemaGraph = func() *sqlgraph.Schema {
 		Type: "PowerRentalState",
 		Fields: map[string]*sqlgraph.FieldSpec{
 			powerrentalstate.FieldEntID:             {Type: field.TypeUUID, Column: powerrentalstate.FieldEntID},
+			powerrentalstate.FieldCreatedAt:         {Type: field.TypeUint32, Column: powerrentalstate.FieldCreatedAt},
+			powerrentalstate.FieldUpdatedAt:         {Type: field.TypeUint32, Column: powerrentalstate.FieldUpdatedAt},
+			powerrentalstate.FieldDeletedAt:         {Type: field.TypeUint32, Column: powerrentalstate.FieldDeletedAt},
 			powerrentalstate.FieldOrderID:           {Type: field.TypeUUID, Column: powerrentalstate.FieldOrderID},
 			powerrentalstate.FieldCancelState:       {Type: field.TypeString, Column: powerrentalstate.FieldCancelState},
 			powerrentalstate.FieldCanceledAt:        {Type: field.TypeUint32, Column: powerrentalstate.FieldCanceledAt},
@@ -498,6 +561,9 @@ var schemaGraph = func() *sqlgraph.Schema {
 		Type: "SubscriptionOrder",
 		Fields: map[string]*sqlgraph.FieldSpec{
 			subscriptionorder.FieldEntID:             {Type: field.TypeUUID, Column: subscriptionorder.FieldEntID},
+			subscriptionorder.FieldCreatedAt:         {Type: field.TypeUint32, Column: subscriptionorder.FieldCreatedAt},
+			subscriptionorder.FieldUpdatedAt:         {Type: field.TypeUint32, Column: subscriptionorder.FieldUpdatedAt},
+			subscriptionorder.FieldDeletedAt:         {Type: field.TypeUint32, Column: subscriptionorder.FieldDeletedAt},
 			subscriptionorder.FieldOrderID:           {Type: field.TypeUUID, Column: subscriptionorder.FieldOrderID},
 			subscriptionorder.FieldGoodValueUsd:      {Type: field.TypeOther, Column: subscriptionorder.FieldGoodValueUsd},
 			subscriptionorder.FieldPaymentAmountUsd:  {Type: field.TypeOther, Column: subscriptionorder.FieldPaymentAmountUsd},
@@ -518,6 +584,9 @@ var schemaGraph = func() *sqlgraph.Schema {
 		Type: "SubscriptionOrderState",
 		Fields: map[string]*sqlgraph.FieldSpec{
 			subscriptionorderstate.FieldEntID:            {Type: field.TypeUUID, Column: subscriptionorderstate.FieldEntID},
+			subscriptionorderstate.FieldCreatedAt:        {Type: field.TypeUint32, Column: subscriptionorderstate.FieldCreatedAt},
+			subscriptionorderstate.FieldUpdatedAt:        {Type: field.TypeUint32, Column: subscriptionorderstate.FieldUpdatedAt},
+			subscriptionorderstate.FieldDeletedAt:        {Type: field.TypeUint32, Column: subscriptionorderstate.FieldDeletedAt},
 			subscriptionorderstate.FieldOrderID:          {Type: field.TypeUUID, Column: subscriptionorderstate.FieldOrderID},
 			subscriptionorderstate.FieldPaymentID:        {Type: field.TypeUUID, Column: subscriptionorderstate.FieldPaymentID},
 			subscriptionorderstate.FieldPaidAt:           {Type: field.TypeUint32, Column: subscriptionorderstate.FieldPaidAt},
@@ -581,6 +650,21 @@ func (f *AppConfigFilter) WhereID(p entql.Uint32P) {
 // WhereEntID applies the entql [16]byte predicate on the ent_id field.
 func (f *AppConfigFilter) WhereEntID(p entql.ValueP) {
 	f.Where(p.Field(appconfig.FieldEntID))
+}
+
+// WhereCreatedAt applies the entql uint32 predicate on the created_at field.
+func (f *AppConfigFilter) WhereCreatedAt(p entql.Uint32P) {
+	f.Where(p.Field(appconfig.FieldCreatedAt))
+}
+
+// WhereUpdatedAt applies the entql uint32 predicate on the updated_at field.
+func (f *AppConfigFilter) WhereUpdatedAt(p entql.Uint32P) {
+	f.Where(p.Field(appconfig.FieldUpdatedAt))
+}
+
+// WhereDeletedAt applies the entql uint32 predicate on the deleted_at field.
+func (f *AppConfigFilter) WhereDeletedAt(p entql.Uint32P) {
+	f.Where(p.Field(appconfig.FieldDeletedAt))
 }
 
 // WhereAppID applies the entql [16]byte predicate on the app_id field.
@@ -663,6 +747,21 @@ func (f *CompensateFilter) WhereEntID(p entql.ValueP) {
 	f.Where(p.Field(compensate.FieldEntID))
 }
 
+// WhereCreatedAt applies the entql uint32 predicate on the created_at field.
+func (f *CompensateFilter) WhereCreatedAt(p entql.Uint32P) {
+	f.Where(p.Field(compensate.FieldCreatedAt))
+}
+
+// WhereUpdatedAt applies the entql uint32 predicate on the updated_at field.
+func (f *CompensateFilter) WhereUpdatedAt(p entql.Uint32P) {
+	f.Where(p.Field(compensate.FieldUpdatedAt))
+}
+
+// WhereDeletedAt applies the entql uint32 predicate on the deleted_at field.
+func (f *CompensateFilter) WhereDeletedAt(p entql.Uint32P) {
+	f.Where(p.Field(compensate.FieldDeletedAt))
+}
+
 // WhereOrderID applies the entql [16]byte predicate on the order_id field.
 func (f *CompensateFilter) WhereOrderID(p entql.ValueP) {
 	f.Where(p.Field(compensate.FieldOrderID))
@@ -726,6 +825,21 @@ func (f *FeeOrderFilter) WhereID(p entql.Uint32P) {
 // WhereEntID applies the entql [16]byte predicate on the ent_id field.
 func (f *FeeOrderFilter) WhereEntID(p entql.ValueP) {
 	f.Where(p.Field(feeorder.FieldEntID))
+}
+
+// WhereCreatedAt applies the entql uint32 predicate on the created_at field.
+func (f *FeeOrderFilter) WhereCreatedAt(p entql.Uint32P) {
+	f.Where(p.Field(feeorder.FieldCreatedAt))
+}
+
+// WhereUpdatedAt applies the entql uint32 predicate on the updated_at field.
+func (f *FeeOrderFilter) WhereUpdatedAt(p entql.Uint32P) {
+	f.Where(p.Field(feeorder.FieldUpdatedAt))
+}
+
+// WhereDeletedAt applies the entql uint32 predicate on the deleted_at field.
+func (f *FeeOrderFilter) WhereDeletedAt(p entql.Uint32P) {
+	f.Where(p.Field(feeorder.FieldDeletedAt))
 }
 
 // WhereOrderID applies the entql [16]byte predicate on the order_id field.
@@ -801,6 +915,21 @@ func (f *FeeOrderStateFilter) WhereID(p entql.Uint32P) {
 // WhereEntID applies the entql [16]byte predicate on the ent_id field.
 func (f *FeeOrderStateFilter) WhereEntID(p entql.ValueP) {
 	f.Where(p.Field(feeorderstate.FieldEntID))
+}
+
+// WhereCreatedAt applies the entql uint32 predicate on the created_at field.
+func (f *FeeOrderStateFilter) WhereCreatedAt(p entql.Uint32P) {
+	f.Where(p.Field(feeorderstate.FieldCreatedAt))
+}
+
+// WhereUpdatedAt applies the entql uint32 predicate on the updated_at field.
+func (f *FeeOrderStateFilter) WhereUpdatedAt(p entql.Uint32P) {
+	f.Where(p.Field(feeorderstate.FieldUpdatedAt))
+}
+
+// WhereDeletedAt applies the entql uint32 predicate on the deleted_at field.
+func (f *FeeOrderStateFilter) WhereDeletedAt(p entql.Uint32P) {
+	f.Where(p.Field(feeorderstate.FieldDeletedAt))
 }
 
 // WhereOrderID applies the entql [16]byte predicate on the order_id field.
@@ -891,6 +1020,21 @@ func (f *OrderFilter) WhereID(p entql.Uint32P) {
 // WhereEntID applies the entql [16]byte predicate on the ent_id field.
 func (f *OrderFilter) WhereEntID(p entql.ValueP) {
 	f.Where(p.Field(order.FieldEntID))
+}
+
+// WhereCreatedAt applies the entql uint32 predicate on the created_at field.
+func (f *OrderFilter) WhereCreatedAt(p entql.Uint32P) {
+	f.Where(p.Field(order.FieldCreatedAt))
+}
+
+// WhereUpdatedAt applies the entql uint32 predicate on the updated_at field.
+func (f *OrderFilter) WhereUpdatedAt(p entql.Uint32P) {
+	f.Where(p.Field(order.FieldUpdatedAt))
+}
+
+// WhereDeletedAt applies the entql uint32 predicate on the deleted_at field.
+func (f *OrderFilter) WhereDeletedAt(p entql.Uint32P) {
+	f.Where(p.Field(order.FieldDeletedAt))
 }
 
 // WhereAppID applies the entql [16]byte predicate on the app_id field.
@@ -1073,6 +1217,21 @@ func (f *OrderBaseFilter) WhereEntID(p entql.ValueP) {
 	f.Where(p.Field(orderbase.FieldEntID))
 }
 
+// WhereCreatedAt applies the entql uint32 predicate on the created_at field.
+func (f *OrderBaseFilter) WhereCreatedAt(p entql.Uint32P) {
+	f.Where(p.Field(orderbase.FieldCreatedAt))
+}
+
+// WhereUpdatedAt applies the entql uint32 predicate on the updated_at field.
+func (f *OrderBaseFilter) WhereUpdatedAt(p entql.Uint32P) {
+	f.Where(p.Field(orderbase.FieldUpdatedAt))
+}
+
+// WhereDeletedAt applies the entql uint32 predicate on the deleted_at field.
+func (f *OrderBaseFilter) WhereDeletedAt(p entql.Uint32P) {
+	f.Where(p.Field(orderbase.FieldDeletedAt))
+}
+
 // WhereAppID applies the entql [16]byte predicate on the app_id field.
 func (f *OrderBaseFilter) WhereAppID(p entql.ValueP) {
 	f.Where(p.Field(orderbase.FieldAppID))
@@ -1163,6 +1322,21 @@ func (f *OrderCouponFilter) WhereEntID(p entql.ValueP) {
 	f.Where(p.Field(ordercoupon.FieldEntID))
 }
 
+// WhereCreatedAt applies the entql uint32 predicate on the created_at field.
+func (f *OrderCouponFilter) WhereCreatedAt(p entql.Uint32P) {
+	f.Where(p.Field(ordercoupon.FieldCreatedAt))
+}
+
+// WhereUpdatedAt applies the entql uint32 predicate on the updated_at field.
+func (f *OrderCouponFilter) WhereUpdatedAt(p entql.Uint32P) {
+	f.Where(p.Field(ordercoupon.FieldUpdatedAt))
+}
+
+// WhereDeletedAt applies the entql uint32 predicate on the deleted_at field.
+func (f *OrderCouponFilter) WhereDeletedAt(p entql.Uint32P) {
+	f.Where(p.Field(ordercoupon.FieldDeletedAt))
+}
+
 // WhereOrderID applies the entql [16]byte predicate on the order_id field.
 func (f *OrderCouponFilter) WhereOrderID(p entql.ValueP) {
 	f.Where(p.Field(ordercoupon.FieldOrderID))
@@ -1216,6 +1390,21 @@ func (f *OrderLockFilter) WhereID(p entql.Uint32P) {
 // WhereEntID applies the entql [16]byte predicate on the ent_id field.
 func (f *OrderLockFilter) WhereEntID(p entql.ValueP) {
 	f.Where(p.Field(orderlock.FieldEntID))
+}
+
+// WhereCreatedAt applies the entql uint32 predicate on the created_at field.
+func (f *OrderLockFilter) WhereCreatedAt(p entql.Uint32P) {
+	f.Where(p.Field(orderlock.FieldCreatedAt))
+}
+
+// WhereUpdatedAt applies the entql uint32 predicate on the updated_at field.
+func (f *OrderLockFilter) WhereUpdatedAt(p entql.Uint32P) {
+	f.Where(p.Field(orderlock.FieldUpdatedAt))
+}
+
+// WhereDeletedAt applies the entql uint32 predicate on the deleted_at field.
+func (f *OrderLockFilter) WhereDeletedAt(p entql.Uint32P) {
+	f.Where(p.Field(orderlock.FieldDeletedAt))
 }
 
 // WhereOrderID applies the entql [16]byte predicate on the order_id field.
@@ -1276,6 +1465,21 @@ func (f *OrderStateFilter) WhereID(p entql.Uint32P) {
 // WhereEntID applies the entql [16]byte predicate on the ent_id field.
 func (f *OrderStateFilter) WhereEntID(p entql.ValueP) {
 	f.Where(p.Field(orderstate.FieldEntID))
+}
+
+// WhereCreatedAt applies the entql uint32 predicate on the created_at field.
+func (f *OrderStateFilter) WhereCreatedAt(p entql.Uint32P) {
+	f.Where(p.Field(orderstate.FieldCreatedAt))
+}
+
+// WhereUpdatedAt applies the entql uint32 predicate on the updated_at field.
+func (f *OrderStateFilter) WhereUpdatedAt(p entql.Uint32P) {
+	f.Where(p.Field(orderstate.FieldUpdatedAt))
+}
+
+// WhereDeletedAt applies the entql uint32 predicate on the deleted_at field.
+func (f *OrderStateFilter) WhereDeletedAt(p entql.Uint32P) {
+	f.Where(p.Field(orderstate.FieldDeletedAt))
 }
 
 // WhereOrderID applies the entql [16]byte predicate on the order_id field.
@@ -1418,6 +1622,21 @@ func (f *OrderStateBaseFilter) WhereEntID(p entql.ValueP) {
 	f.Where(p.Field(orderstatebase.FieldEntID))
 }
 
+// WhereCreatedAt applies the entql uint32 predicate on the created_at field.
+func (f *OrderStateBaseFilter) WhereCreatedAt(p entql.Uint32P) {
+	f.Where(p.Field(orderstatebase.FieldCreatedAt))
+}
+
+// WhereUpdatedAt applies the entql uint32 predicate on the updated_at field.
+func (f *OrderStateBaseFilter) WhereUpdatedAt(p entql.Uint32P) {
+	f.Where(p.Field(orderstatebase.FieldUpdatedAt))
+}
+
+// WhereDeletedAt applies the entql uint32 predicate on the deleted_at field.
+func (f *OrderStateBaseFilter) WhereDeletedAt(p entql.Uint32P) {
+	f.Where(p.Field(orderstatebase.FieldDeletedAt))
+}
+
 // WhereOrderID applies the entql [16]byte predicate on the order_id field.
 func (f *OrderStateBaseFilter) WhereOrderID(p entql.ValueP) {
 	f.Where(p.Field(orderstatebase.FieldOrderID))
@@ -1498,6 +1717,21 @@ func (f *OutOfGasFilter) WhereEntID(p entql.ValueP) {
 	f.Where(p.Field(outofgas.FieldEntID))
 }
 
+// WhereCreatedAt applies the entql uint32 predicate on the created_at field.
+func (f *OutOfGasFilter) WhereCreatedAt(p entql.Uint32P) {
+	f.Where(p.Field(outofgas.FieldCreatedAt))
+}
+
+// WhereUpdatedAt applies the entql uint32 predicate on the updated_at field.
+func (f *OutOfGasFilter) WhereUpdatedAt(p entql.Uint32P) {
+	f.Where(p.Field(outofgas.FieldUpdatedAt))
+}
+
+// WhereDeletedAt applies the entql uint32 predicate on the deleted_at field.
+func (f *OutOfGasFilter) WhereDeletedAt(p entql.Uint32P) {
+	f.Where(p.Field(outofgas.FieldDeletedAt))
+}
+
 // WhereOrderID applies the entql [16]byte predicate on the order_id field.
 func (f *OutOfGasFilter) WhereOrderID(p entql.ValueP) {
 	f.Where(p.Field(outofgas.FieldOrderID))
@@ -1556,6 +1790,21 @@ func (f *PaymentFilter) WhereID(p entql.Uint32P) {
 // WhereEntID applies the entql [16]byte predicate on the ent_id field.
 func (f *PaymentFilter) WhereEntID(p entql.ValueP) {
 	f.Where(p.Field(payment.FieldEntID))
+}
+
+// WhereCreatedAt applies the entql uint32 predicate on the created_at field.
+func (f *PaymentFilter) WhereCreatedAt(p entql.Uint32P) {
+	f.Where(p.Field(payment.FieldCreatedAt))
+}
+
+// WhereUpdatedAt applies the entql uint32 predicate on the updated_at field.
+func (f *PaymentFilter) WhereUpdatedAt(p entql.Uint32P) {
+	f.Where(p.Field(payment.FieldUpdatedAt))
+}
+
+// WhereDeletedAt applies the entql uint32 predicate on the deleted_at field.
+func (f *PaymentFilter) WhereDeletedAt(p entql.Uint32P) {
+	f.Where(p.Field(payment.FieldDeletedAt))
 }
 
 // WhereAppID applies the entql [16]byte predicate on the app_id field.
@@ -1643,6 +1892,21 @@ func (f *PaymentBalanceFilter) WhereEntID(p entql.ValueP) {
 	f.Where(p.Field(paymentbalance.FieldEntID))
 }
 
+// WhereCreatedAt applies the entql uint32 predicate on the created_at field.
+func (f *PaymentBalanceFilter) WhereCreatedAt(p entql.Uint32P) {
+	f.Where(p.Field(paymentbalance.FieldCreatedAt))
+}
+
+// WhereUpdatedAt applies the entql uint32 predicate on the updated_at field.
+func (f *PaymentBalanceFilter) WhereUpdatedAt(p entql.Uint32P) {
+	f.Where(p.Field(paymentbalance.FieldUpdatedAt))
+}
+
+// WhereDeletedAt applies the entql uint32 predicate on the deleted_at field.
+func (f *PaymentBalanceFilter) WhereDeletedAt(p entql.Uint32P) {
+	f.Where(p.Field(paymentbalance.FieldDeletedAt))
+}
+
 // WherePaymentID applies the entql [16]byte predicate on the payment_id field.
 func (f *PaymentBalanceFilter) WherePaymentID(p entql.ValueP) {
 	f.Where(p.Field(paymentbalance.FieldPaymentID))
@@ -1718,6 +1982,21 @@ func (f *PaymentBalanceLockFilter) WhereEntID(p entql.ValueP) {
 	f.Where(p.Field(paymentbalancelock.FieldEntID))
 }
 
+// WhereCreatedAt applies the entql uint32 predicate on the created_at field.
+func (f *PaymentBalanceLockFilter) WhereCreatedAt(p entql.Uint32P) {
+	f.Where(p.Field(paymentbalancelock.FieldCreatedAt))
+}
+
+// WhereUpdatedAt applies the entql uint32 predicate on the updated_at field.
+func (f *PaymentBalanceLockFilter) WhereUpdatedAt(p entql.Uint32P) {
+	f.Where(p.Field(paymentbalancelock.FieldUpdatedAt))
+}
+
+// WhereDeletedAt applies the entql uint32 predicate on the deleted_at field.
+func (f *PaymentBalanceLockFilter) WhereDeletedAt(p entql.Uint32P) {
+	f.Where(p.Field(paymentbalancelock.FieldDeletedAt))
+}
+
 // WherePaymentID applies the entql [16]byte predicate on the payment_id field.
 func (f *PaymentBalanceLockFilter) WherePaymentID(p entql.ValueP) {
 	f.Where(p.Field(paymentbalancelock.FieldPaymentID))
@@ -1773,6 +2052,21 @@ func (f *PaymentBaseFilter) WhereEntID(p entql.ValueP) {
 	f.Where(p.Field(paymentbase.FieldEntID))
 }
 
+// WhereCreatedAt applies the entql uint32 predicate on the created_at field.
+func (f *PaymentBaseFilter) WhereCreatedAt(p entql.Uint32P) {
+	f.Where(p.Field(paymentbase.FieldCreatedAt))
+}
+
+// WhereUpdatedAt applies the entql uint32 predicate on the updated_at field.
+func (f *PaymentBaseFilter) WhereUpdatedAt(p entql.Uint32P) {
+	f.Where(p.Field(paymentbase.FieldUpdatedAt))
+}
+
+// WhereDeletedAt applies the entql uint32 predicate on the deleted_at field.
+func (f *PaymentBaseFilter) WhereDeletedAt(p entql.Uint32P) {
+	f.Where(p.Field(paymentbase.FieldDeletedAt))
+}
+
 // WhereOrderID applies the entql [16]byte predicate on the order_id field.
 func (f *PaymentBaseFilter) WhereOrderID(p entql.ValueP) {
 	f.Where(p.Field(paymentbase.FieldOrderID))
@@ -1826,6 +2120,21 @@ func (f *PaymentContractFilter) WhereID(p entql.Uint32P) {
 // WhereEntID applies the entql [16]byte predicate on the ent_id field.
 func (f *PaymentContractFilter) WhereEntID(p entql.ValueP) {
 	f.Where(p.Field(paymentcontract.FieldEntID))
+}
+
+// WhereCreatedAt applies the entql uint32 predicate on the created_at field.
+func (f *PaymentContractFilter) WhereCreatedAt(p entql.Uint32P) {
+	f.Where(p.Field(paymentcontract.FieldCreatedAt))
+}
+
+// WhereUpdatedAt applies the entql uint32 predicate on the updated_at field.
+func (f *PaymentContractFilter) WhereUpdatedAt(p entql.Uint32P) {
+	f.Where(p.Field(paymentcontract.FieldUpdatedAt))
+}
+
+// WhereDeletedAt applies the entql uint32 predicate on the deleted_at field.
+func (f *PaymentContractFilter) WhereDeletedAt(p entql.Uint32P) {
+	f.Where(p.Field(paymentcontract.FieldDeletedAt))
 }
 
 // WhereOrderID applies the entql [16]byte predicate on the order_id field.
@@ -1886,6 +2195,21 @@ func (f *PaymentFiatFilter) WhereID(p entql.Uint32P) {
 // WhereEntID applies the entql [16]byte predicate on the ent_id field.
 func (f *PaymentFiatFilter) WhereEntID(p entql.ValueP) {
 	f.Where(p.Field(paymentfiat.FieldEntID))
+}
+
+// WhereCreatedAt applies the entql uint32 predicate on the created_at field.
+func (f *PaymentFiatFilter) WhereCreatedAt(p entql.Uint32P) {
+	f.Where(p.Field(paymentfiat.FieldCreatedAt))
+}
+
+// WhereUpdatedAt applies the entql uint32 predicate on the updated_at field.
+func (f *PaymentFiatFilter) WhereUpdatedAt(p entql.Uint32P) {
+	f.Where(p.Field(paymentfiat.FieldUpdatedAt))
+}
+
+// WhereDeletedAt applies the entql uint32 predicate on the deleted_at field.
+func (f *PaymentFiatFilter) WhereDeletedAt(p entql.Uint32P) {
+	f.Where(p.Field(paymentfiat.FieldDeletedAt))
 }
 
 // WherePaymentID applies the entql [16]byte predicate on the payment_id field.
@@ -1956,6 +2280,21 @@ func (f *PaymentTransferFilter) WhereID(p entql.Uint32P) {
 // WhereEntID applies the entql [16]byte predicate on the ent_id field.
 func (f *PaymentTransferFilter) WhereEntID(p entql.ValueP) {
 	f.Where(p.Field(paymenttransfer.FieldEntID))
+}
+
+// WhereCreatedAt applies the entql uint32 predicate on the created_at field.
+func (f *PaymentTransferFilter) WhereCreatedAt(p entql.Uint32P) {
+	f.Where(p.Field(paymenttransfer.FieldCreatedAt))
+}
+
+// WhereUpdatedAt applies the entql uint32 predicate on the updated_at field.
+func (f *PaymentTransferFilter) WhereUpdatedAt(p entql.Uint32P) {
+	f.Where(p.Field(paymenttransfer.FieldUpdatedAt))
+}
+
+// WhereDeletedAt applies the entql uint32 predicate on the deleted_at field.
+func (f *PaymentTransferFilter) WhereDeletedAt(p entql.Uint32P) {
+	f.Where(p.Field(paymenttransfer.FieldDeletedAt))
 }
 
 // WherePaymentID applies the entql [16]byte predicate on the payment_id field.
@@ -2048,6 +2387,21 @@ func (f *PoolOrderUserFilter) WhereEntID(p entql.ValueP) {
 	f.Where(p.Field(poolorderuser.FieldEntID))
 }
 
+// WhereCreatedAt applies the entql uint32 predicate on the created_at field.
+func (f *PoolOrderUserFilter) WhereCreatedAt(p entql.Uint32P) {
+	f.Where(p.Field(poolorderuser.FieldCreatedAt))
+}
+
+// WhereUpdatedAt applies the entql uint32 predicate on the updated_at field.
+func (f *PoolOrderUserFilter) WhereUpdatedAt(p entql.Uint32P) {
+	f.Where(p.Field(poolorderuser.FieldUpdatedAt))
+}
+
+// WhereDeletedAt applies the entql uint32 predicate on the deleted_at field.
+func (f *PoolOrderUserFilter) WhereDeletedAt(p entql.Uint32P) {
+	f.Where(p.Field(poolorderuser.FieldDeletedAt))
+}
+
 // WhereOrderID applies the entql [16]byte predicate on the order_id field.
 func (f *PoolOrderUserFilter) WhereOrderID(p entql.ValueP) {
 	f.Where(p.Field(poolorderuser.FieldOrderID))
@@ -2101,6 +2455,21 @@ func (f *PowerRentalFilter) WhereID(p entql.Uint32P) {
 // WhereEntID applies the entql [16]byte predicate on the ent_id field.
 func (f *PowerRentalFilter) WhereEntID(p entql.ValueP) {
 	f.Where(p.Field(powerrental.FieldEntID))
+}
+
+// WhereCreatedAt applies the entql uint32 predicate on the created_at field.
+func (f *PowerRentalFilter) WhereCreatedAt(p entql.Uint32P) {
+	f.Where(p.Field(powerrental.FieldCreatedAt))
+}
+
+// WhereUpdatedAt applies the entql uint32 predicate on the updated_at field.
+func (f *PowerRentalFilter) WhereUpdatedAt(p entql.Uint32P) {
+	f.Where(p.Field(powerrental.FieldUpdatedAt))
+}
+
+// WhereDeletedAt applies the entql uint32 predicate on the deleted_at field.
+func (f *PowerRentalFilter) WhereDeletedAt(p entql.Uint32P) {
+	f.Where(p.Field(powerrental.FieldDeletedAt))
 }
 
 // WhereOrderID applies the entql [16]byte predicate on the order_id field.
@@ -2196,6 +2565,21 @@ func (f *PowerRentalStateFilter) WhereID(p entql.Uint32P) {
 // WhereEntID applies the entql [16]byte predicate on the ent_id field.
 func (f *PowerRentalStateFilter) WhereEntID(p entql.ValueP) {
 	f.Where(p.Field(powerrentalstate.FieldEntID))
+}
+
+// WhereCreatedAt applies the entql uint32 predicate on the created_at field.
+func (f *PowerRentalStateFilter) WhereCreatedAt(p entql.Uint32P) {
+	f.Where(p.Field(powerrentalstate.FieldCreatedAt))
+}
+
+// WhereUpdatedAt applies the entql uint32 predicate on the updated_at field.
+func (f *PowerRentalStateFilter) WhereUpdatedAt(p entql.Uint32P) {
+	f.Where(p.Field(powerrentalstate.FieldUpdatedAt))
+}
+
+// WhereDeletedAt applies the entql uint32 predicate on the deleted_at field.
+func (f *PowerRentalStateFilter) WhereDeletedAt(p entql.Uint32P) {
+	f.Where(p.Field(powerrentalstate.FieldDeletedAt))
 }
 
 // WhereOrderID applies the entql [16]byte predicate on the order_id field.
@@ -2308,6 +2692,21 @@ func (f *SubscriptionOrderFilter) WhereEntID(p entql.ValueP) {
 	f.Where(p.Field(subscriptionorder.FieldEntID))
 }
 
+// WhereCreatedAt applies the entql uint32 predicate on the created_at field.
+func (f *SubscriptionOrderFilter) WhereCreatedAt(p entql.Uint32P) {
+	f.Where(p.Field(subscriptionorder.FieldCreatedAt))
+}
+
+// WhereUpdatedAt applies the entql uint32 predicate on the updated_at field.
+func (f *SubscriptionOrderFilter) WhereUpdatedAt(p entql.Uint32P) {
+	f.Where(p.Field(subscriptionorder.FieldUpdatedAt))
+}
+
+// WhereDeletedAt applies the entql uint32 predicate on the deleted_at field.
+func (f *SubscriptionOrderFilter) WhereDeletedAt(p entql.Uint32P) {
+	f.Where(p.Field(subscriptionorder.FieldDeletedAt))
+}
+
 // WhereOrderID applies the entql [16]byte predicate on the order_id field.
 func (f *SubscriptionOrderFilter) WhereOrderID(p entql.ValueP) {
 	f.Where(p.Field(subscriptionorder.FieldOrderID))
@@ -2381,6 +2780,21 @@ func (f *SubscriptionOrderStateFilter) WhereID(p entql.Uint32P) {
 // WhereEntID applies the entql [16]byte predicate on the ent_id field.
 func (f *SubscriptionOrderStateFilter) WhereEntID(p entql.ValueP) {
 	f.Where(p.Field(subscriptionorderstate.FieldEntID))
+}
+
+// WhereCreatedAt applies the entql uint32 predicate on the created_at field.
+func (f *SubscriptionOrderStateFilter) WhereCreatedAt(p entql.Uint32P) {
+	f.Where(p.Field(subscriptionorderstate.FieldCreatedAt))
+}
+
+// WhereUpdatedAt applies the entql uint32 predicate on the updated_at field.
+func (f *SubscriptionOrderStateFilter) WhereUpdatedAt(p entql.Uint32P) {
+	f.Where(p.Field(subscriptionorderstate.FieldUpdatedAt))
+}
+
+// WhereDeletedAt applies the entql uint32 predicate on the deleted_at field.
+func (f *SubscriptionOrderStateFilter) WhereDeletedAt(p entql.Uint32P) {
+	f.Where(p.Field(subscriptionorderstate.FieldDeletedAt))
 }
 
 // WhereOrderID applies the entql [16]byte predicate on the order_id field.

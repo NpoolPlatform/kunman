@@ -18,6 +18,7 @@ type AppConfig struct {
 func (AppConfig) Mixin() []ent.Mixin {
 	return []ent.Mixin{
 		crudermixin.AutoIDMixin{},
+		crudermixin.TimeMixin{},
 	}
 }
 

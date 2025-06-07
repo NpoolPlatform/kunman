@@ -44,6 +44,61 @@ func (pu *PaymentUpdate) SetNillableEntID(u *uuid.UUID) *PaymentUpdate {
 	return pu
 }
 
+// SetCreatedAt sets the "created_at" field.
+func (pu *PaymentUpdate) SetCreatedAt(u uint32) *PaymentUpdate {
+	pu.mutation.ResetCreatedAt()
+	pu.mutation.SetCreatedAt(u)
+	return pu
+}
+
+// SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
+func (pu *PaymentUpdate) SetNillableCreatedAt(u *uint32) *PaymentUpdate {
+	if u != nil {
+		pu.SetCreatedAt(*u)
+	}
+	return pu
+}
+
+// AddCreatedAt adds u to the "created_at" field.
+func (pu *PaymentUpdate) AddCreatedAt(u int32) *PaymentUpdate {
+	pu.mutation.AddCreatedAt(u)
+	return pu
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (pu *PaymentUpdate) SetUpdatedAt(u uint32) *PaymentUpdate {
+	pu.mutation.ResetUpdatedAt()
+	pu.mutation.SetUpdatedAt(u)
+	return pu
+}
+
+// AddUpdatedAt adds u to the "updated_at" field.
+func (pu *PaymentUpdate) AddUpdatedAt(u int32) *PaymentUpdate {
+	pu.mutation.AddUpdatedAt(u)
+	return pu
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (pu *PaymentUpdate) SetDeletedAt(u uint32) *PaymentUpdate {
+	pu.mutation.ResetDeletedAt()
+	pu.mutation.SetDeletedAt(u)
+	return pu
+}
+
+// SetNillableDeletedAt sets the "deleted_at" field if the given value is not nil.
+func (pu *PaymentUpdate) SetNillableDeletedAt(u *uint32) *PaymentUpdate {
+	if u != nil {
+		pu.SetDeletedAt(*u)
+	}
+	return pu
+}
+
+// AddDeletedAt adds u to the "deleted_at" field.
+func (pu *PaymentUpdate) AddDeletedAt(u int32) *PaymentUpdate {
+	pu.mutation.AddDeletedAt(u)
+	return pu
+}
+
 // SetAppID sets the "app_id" field.
 func (pu *PaymentUpdate) SetAppID(u uuid.UUID) *PaymentUpdate {
 	pu.mutation.SetAppID(u)
@@ -181,6 +236,7 @@ func (pu *PaymentUpdate) Mutation() *PaymentMutation {
 
 // Save executes the query and returns the number of nodes affected by the update operation.
 func (pu *PaymentUpdate) Save(ctx context.Context) (int, error) {
+	pu.defaults()
 	return withHooks(ctx, pu.sqlSave, pu.mutation, pu.hooks)
 }
 
@@ -206,6 +262,14 @@ func (pu *PaymentUpdate) ExecX(ctx context.Context) {
 	}
 }
 
+// defaults sets the default values of the builder before save.
+func (pu *PaymentUpdate) defaults() {
+	if _, ok := pu.mutation.UpdatedAt(); !ok {
+		v := payment.UpdateDefaultUpdatedAt()
+		pu.mutation.SetUpdatedAt(v)
+	}
+}
+
 // Modify adds a statement modifier for attaching custom logic to the UPDATE statement.
 func (pu *PaymentUpdate) Modify(modifiers ...func(u *sql.UpdateBuilder)) *PaymentUpdate {
 	pu.modifiers = append(pu.modifiers, modifiers...)
@@ -223,6 +287,24 @@ func (pu *PaymentUpdate) sqlSave(ctx context.Context) (n int, err error) {
 	}
 	if value, ok := pu.mutation.EntID(); ok {
 		_spec.SetField(payment.FieldEntID, field.TypeUUID, value)
+	}
+	if value, ok := pu.mutation.CreatedAt(); ok {
+		_spec.SetField(payment.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := pu.mutation.AddedCreatedAt(); ok {
+		_spec.AddField(payment.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := pu.mutation.UpdatedAt(); ok {
+		_spec.SetField(payment.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := pu.mutation.AddedUpdatedAt(); ok {
+		_spec.AddField(payment.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := pu.mutation.DeletedAt(); ok {
+		_spec.SetField(payment.FieldDeletedAt, field.TypeUint32, value)
+	}
+	if value, ok := pu.mutation.AddedDeletedAt(); ok {
+		_spec.AddField(payment.FieldDeletedAt, field.TypeUint32, value)
 	}
 	if value, ok := pu.mutation.AppID(); ok {
 		_spec.SetField(payment.FieldAppID, field.TypeUUID, value)
@@ -290,6 +372,61 @@ func (puo *PaymentUpdateOne) SetNillableEntID(u *uuid.UUID) *PaymentUpdateOne {
 	if u != nil {
 		puo.SetEntID(*u)
 	}
+	return puo
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (puo *PaymentUpdateOne) SetCreatedAt(u uint32) *PaymentUpdateOne {
+	puo.mutation.ResetCreatedAt()
+	puo.mutation.SetCreatedAt(u)
+	return puo
+}
+
+// SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
+func (puo *PaymentUpdateOne) SetNillableCreatedAt(u *uint32) *PaymentUpdateOne {
+	if u != nil {
+		puo.SetCreatedAt(*u)
+	}
+	return puo
+}
+
+// AddCreatedAt adds u to the "created_at" field.
+func (puo *PaymentUpdateOne) AddCreatedAt(u int32) *PaymentUpdateOne {
+	puo.mutation.AddCreatedAt(u)
+	return puo
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (puo *PaymentUpdateOne) SetUpdatedAt(u uint32) *PaymentUpdateOne {
+	puo.mutation.ResetUpdatedAt()
+	puo.mutation.SetUpdatedAt(u)
+	return puo
+}
+
+// AddUpdatedAt adds u to the "updated_at" field.
+func (puo *PaymentUpdateOne) AddUpdatedAt(u int32) *PaymentUpdateOne {
+	puo.mutation.AddUpdatedAt(u)
+	return puo
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (puo *PaymentUpdateOne) SetDeletedAt(u uint32) *PaymentUpdateOne {
+	puo.mutation.ResetDeletedAt()
+	puo.mutation.SetDeletedAt(u)
+	return puo
+}
+
+// SetNillableDeletedAt sets the "deleted_at" field if the given value is not nil.
+func (puo *PaymentUpdateOne) SetNillableDeletedAt(u *uint32) *PaymentUpdateOne {
+	if u != nil {
+		puo.SetDeletedAt(*u)
+	}
+	return puo
+}
+
+// AddDeletedAt adds u to the "deleted_at" field.
+func (puo *PaymentUpdateOne) AddDeletedAt(u int32) *PaymentUpdateOne {
+	puo.mutation.AddDeletedAt(u)
 	return puo
 }
 
@@ -443,6 +580,7 @@ func (puo *PaymentUpdateOne) Select(field string, fields ...string) *PaymentUpda
 
 // Save executes the query and returns the updated Payment entity.
 func (puo *PaymentUpdateOne) Save(ctx context.Context) (*Payment, error) {
+	puo.defaults()
 	return withHooks(ctx, puo.sqlSave, puo.mutation, puo.hooks)
 }
 
@@ -465,6 +603,14 @@ func (puo *PaymentUpdateOne) Exec(ctx context.Context) error {
 func (puo *PaymentUpdateOne) ExecX(ctx context.Context) {
 	if err := puo.Exec(ctx); err != nil {
 		panic(err)
+	}
+}
+
+// defaults sets the default values of the builder before save.
+func (puo *PaymentUpdateOne) defaults() {
+	if _, ok := puo.mutation.UpdatedAt(); !ok {
+		v := payment.UpdateDefaultUpdatedAt()
+		puo.mutation.SetUpdatedAt(v)
 	}
 }
 
@@ -502,6 +648,24 @@ func (puo *PaymentUpdateOne) sqlSave(ctx context.Context) (_node *Payment, err e
 	}
 	if value, ok := puo.mutation.EntID(); ok {
 		_spec.SetField(payment.FieldEntID, field.TypeUUID, value)
+	}
+	if value, ok := puo.mutation.CreatedAt(); ok {
+		_spec.SetField(payment.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := puo.mutation.AddedCreatedAt(); ok {
+		_spec.AddField(payment.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := puo.mutation.UpdatedAt(); ok {
+		_spec.SetField(payment.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := puo.mutation.AddedUpdatedAt(); ok {
+		_spec.AddField(payment.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := puo.mutation.DeletedAt(); ok {
+		_spec.SetField(payment.FieldDeletedAt, field.TypeUint32, value)
+	}
+	if value, ok := puo.mutation.AddedDeletedAt(); ok {
+		_spec.AddField(payment.FieldDeletedAt, field.TypeUint32, value)
 	}
 	if value, ok := puo.mutation.AppID(); ok {
 		_spec.SetField(payment.FieldAppID, field.TypeUUID, value)

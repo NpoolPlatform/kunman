@@ -36,6 +36,48 @@ func (pouc *PoolOrderUserCreate) SetNillableEntID(u *uuid.UUID) *PoolOrderUserCr
 	return pouc
 }
 
+// SetCreatedAt sets the "created_at" field.
+func (pouc *PoolOrderUserCreate) SetCreatedAt(u uint32) *PoolOrderUserCreate {
+	pouc.mutation.SetCreatedAt(u)
+	return pouc
+}
+
+// SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
+func (pouc *PoolOrderUserCreate) SetNillableCreatedAt(u *uint32) *PoolOrderUserCreate {
+	if u != nil {
+		pouc.SetCreatedAt(*u)
+	}
+	return pouc
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (pouc *PoolOrderUserCreate) SetUpdatedAt(u uint32) *PoolOrderUserCreate {
+	pouc.mutation.SetUpdatedAt(u)
+	return pouc
+}
+
+// SetNillableUpdatedAt sets the "updated_at" field if the given value is not nil.
+func (pouc *PoolOrderUserCreate) SetNillableUpdatedAt(u *uint32) *PoolOrderUserCreate {
+	if u != nil {
+		pouc.SetUpdatedAt(*u)
+	}
+	return pouc
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (pouc *PoolOrderUserCreate) SetDeletedAt(u uint32) *PoolOrderUserCreate {
+	pouc.mutation.SetDeletedAt(u)
+	return pouc
+}
+
+// SetNillableDeletedAt sets the "deleted_at" field if the given value is not nil.
+func (pouc *PoolOrderUserCreate) SetNillableDeletedAt(u *uint32) *PoolOrderUserCreate {
+	if u != nil {
+		pouc.SetDeletedAt(*u)
+	}
+	return pouc
+}
+
 // SetOrderID sets the "order_id" field.
 func (pouc *PoolOrderUserCreate) SetOrderID(u uuid.UUID) *PoolOrderUserCreate {
 	pouc.mutation.SetOrderID(u)
@@ -93,12 +135,33 @@ func (pouc *PoolOrderUserCreate) defaults() {
 		v := poolorderuser.DefaultEntID()
 		pouc.mutation.SetEntID(v)
 	}
+	if _, ok := pouc.mutation.CreatedAt(); !ok {
+		v := poolorderuser.DefaultCreatedAt()
+		pouc.mutation.SetCreatedAt(v)
+	}
+	if _, ok := pouc.mutation.UpdatedAt(); !ok {
+		v := poolorderuser.DefaultUpdatedAt()
+		pouc.mutation.SetUpdatedAt(v)
+	}
+	if _, ok := pouc.mutation.DeletedAt(); !ok {
+		v := poolorderuser.DefaultDeletedAt()
+		pouc.mutation.SetDeletedAt(v)
+	}
 }
 
 // check runs all checks and user-defined validators on the builder.
 func (pouc *PoolOrderUserCreate) check() error {
 	if _, ok := pouc.mutation.EntID(); !ok {
 		return &ValidationError{Name: "ent_id", err: errors.New(`generated: missing required field "PoolOrderUser.ent_id"`)}
+	}
+	if _, ok := pouc.mutation.CreatedAt(); !ok {
+		return &ValidationError{Name: "created_at", err: errors.New(`generated: missing required field "PoolOrderUser.created_at"`)}
+	}
+	if _, ok := pouc.mutation.UpdatedAt(); !ok {
+		return &ValidationError{Name: "updated_at", err: errors.New(`generated: missing required field "PoolOrderUser.updated_at"`)}
+	}
+	if _, ok := pouc.mutation.DeletedAt(); !ok {
+		return &ValidationError{Name: "deleted_at", err: errors.New(`generated: missing required field "PoolOrderUser.deleted_at"`)}
 	}
 	if _, ok := pouc.mutation.OrderID(); !ok {
 		return &ValidationError{Name: "order_id", err: errors.New(`generated: missing required field "PoolOrderUser.order_id"`)}
@@ -142,6 +205,18 @@ func (pouc *PoolOrderUserCreate) createSpec() (*PoolOrderUser, *sqlgraph.CreateS
 	if value, ok := pouc.mutation.EntID(); ok {
 		_spec.SetField(poolorderuser.FieldEntID, field.TypeUUID, value)
 		_node.EntID = value
+	}
+	if value, ok := pouc.mutation.CreatedAt(); ok {
+		_spec.SetField(poolorderuser.FieldCreatedAt, field.TypeUint32, value)
+		_node.CreatedAt = value
+	}
+	if value, ok := pouc.mutation.UpdatedAt(); ok {
+		_spec.SetField(poolorderuser.FieldUpdatedAt, field.TypeUint32, value)
+		_node.UpdatedAt = value
+	}
+	if value, ok := pouc.mutation.DeletedAt(); ok {
+		_spec.SetField(poolorderuser.FieldDeletedAt, field.TypeUint32, value)
+		_node.DeletedAt = value
 	}
 	if value, ok := pouc.mutation.OrderID(); ok {
 		_spec.SetField(poolorderuser.FieldOrderID, field.TypeUUID, value)
@@ -212,6 +287,60 @@ func (u *PoolOrderUserUpsert) SetEntID(v uuid.UUID) *PoolOrderUserUpsert {
 // UpdateEntID sets the "ent_id" field to the value that was provided on create.
 func (u *PoolOrderUserUpsert) UpdateEntID() *PoolOrderUserUpsert {
 	u.SetExcluded(poolorderuser.FieldEntID)
+	return u
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (u *PoolOrderUserUpsert) SetCreatedAt(v uint32) *PoolOrderUserUpsert {
+	u.Set(poolorderuser.FieldCreatedAt, v)
+	return u
+}
+
+// UpdateCreatedAt sets the "created_at" field to the value that was provided on create.
+func (u *PoolOrderUserUpsert) UpdateCreatedAt() *PoolOrderUserUpsert {
+	u.SetExcluded(poolorderuser.FieldCreatedAt)
+	return u
+}
+
+// AddCreatedAt adds v to the "created_at" field.
+func (u *PoolOrderUserUpsert) AddCreatedAt(v uint32) *PoolOrderUserUpsert {
+	u.Add(poolorderuser.FieldCreatedAt, v)
+	return u
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (u *PoolOrderUserUpsert) SetUpdatedAt(v uint32) *PoolOrderUserUpsert {
+	u.Set(poolorderuser.FieldUpdatedAt, v)
+	return u
+}
+
+// UpdateUpdatedAt sets the "updated_at" field to the value that was provided on create.
+func (u *PoolOrderUserUpsert) UpdateUpdatedAt() *PoolOrderUserUpsert {
+	u.SetExcluded(poolorderuser.FieldUpdatedAt)
+	return u
+}
+
+// AddUpdatedAt adds v to the "updated_at" field.
+func (u *PoolOrderUserUpsert) AddUpdatedAt(v uint32) *PoolOrderUserUpsert {
+	u.Add(poolorderuser.FieldUpdatedAt, v)
+	return u
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (u *PoolOrderUserUpsert) SetDeletedAt(v uint32) *PoolOrderUserUpsert {
+	u.Set(poolorderuser.FieldDeletedAt, v)
+	return u
+}
+
+// UpdateDeletedAt sets the "deleted_at" field to the value that was provided on create.
+func (u *PoolOrderUserUpsert) UpdateDeletedAt() *PoolOrderUserUpsert {
+	u.SetExcluded(poolorderuser.FieldDeletedAt)
+	return u
+}
+
+// AddDeletedAt adds v to the "deleted_at" field.
+func (u *PoolOrderUserUpsert) AddDeletedAt(v uint32) *PoolOrderUserUpsert {
+	u.Add(poolorderuser.FieldDeletedAt, v)
 	return u
 }
 
@@ -298,6 +427,69 @@ func (u *PoolOrderUserUpsertOne) SetEntID(v uuid.UUID) *PoolOrderUserUpsertOne {
 func (u *PoolOrderUserUpsertOne) UpdateEntID() *PoolOrderUserUpsertOne {
 	return u.Update(func(s *PoolOrderUserUpsert) {
 		s.UpdateEntID()
+	})
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (u *PoolOrderUserUpsertOne) SetCreatedAt(v uint32) *PoolOrderUserUpsertOne {
+	return u.Update(func(s *PoolOrderUserUpsert) {
+		s.SetCreatedAt(v)
+	})
+}
+
+// AddCreatedAt adds v to the "created_at" field.
+func (u *PoolOrderUserUpsertOne) AddCreatedAt(v uint32) *PoolOrderUserUpsertOne {
+	return u.Update(func(s *PoolOrderUserUpsert) {
+		s.AddCreatedAt(v)
+	})
+}
+
+// UpdateCreatedAt sets the "created_at" field to the value that was provided on create.
+func (u *PoolOrderUserUpsertOne) UpdateCreatedAt() *PoolOrderUserUpsertOne {
+	return u.Update(func(s *PoolOrderUserUpsert) {
+		s.UpdateCreatedAt()
+	})
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (u *PoolOrderUserUpsertOne) SetUpdatedAt(v uint32) *PoolOrderUserUpsertOne {
+	return u.Update(func(s *PoolOrderUserUpsert) {
+		s.SetUpdatedAt(v)
+	})
+}
+
+// AddUpdatedAt adds v to the "updated_at" field.
+func (u *PoolOrderUserUpsertOne) AddUpdatedAt(v uint32) *PoolOrderUserUpsertOne {
+	return u.Update(func(s *PoolOrderUserUpsert) {
+		s.AddUpdatedAt(v)
+	})
+}
+
+// UpdateUpdatedAt sets the "updated_at" field to the value that was provided on create.
+func (u *PoolOrderUserUpsertOne) UpdateUpdatedAt() *PoolOrderUserUpsertOne {
+	return u.Update(func(s *PoolOrderUserUpsert) {
+		s.UpdateUpdatedAt()
+	})
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (u *PoolOrderUserUpsertOne) SetDeletedAt(v uint32) *PoolOrderUserUpsertOne {
+	return u.Update(func(s *PoolOrderUserUpsert) {
+		s.SetDeletedAt(v)
+	})
+}
+
+// AddDeletedAt adds v to the "deleted_at" field.
+func (u *PoolOrderUserUpsertOne) AddDeletedAt(v uint32) *PoolOrderUserUpsertOne {
+	return u.Update(func(s *PoolOrderUserUpsert) {
+		s.AddDeletedAt(v)
+	})
+}
+
+// UpdateDeletedAt sets the "deleted_at" field to the value that was provided on create.
+func (u *PoolOrderUserUpsertOne) UpdateDeletedAt() *PoolOrderUserUpsertOne {
+	return u.Update(func(s *PoolOrderUserUpsert) {
+		s.UpdateDeletedAt()
 	})
 }
 
@@ -554,6 +746,69 @@ func (u *PoolOrderUserUpsertBulk) SetEntID(v uuid.UUID) *PoolOrderUserUpsertBulk
 func (u *PoolOrderUserUpsertBulk) UpdateEntID() *PoolOrderUserUpsertBulk {
 	return u.Update(func(s *PoolOrderUserUpsert) {
 		s.UpdateEntID()
+	})
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (u *PoolOrderUserUpsertBulk) SetCreatedAt(v uint32) *PoolOrderUserUpsertBulk {
+	return u.Update(func(s *PoolOrderUserUpsert) {
+		s.SetCreatedAt(v)
+	})
+}
+
+// AddCreatedAt adds v to the "created_at" field.
+func (u *PoolOrderUserUpsertBulk) AddCreatedAt(v uint32) *PoolOrderUserUpsertBulk {
+	return u.Update(func(s *PoolOrderUserUpsert) {
+		s.AddCreatedAt(v)
+	})
+}
+
+// UpdateCreatedAt sets the "created_at" field to the value that was provided on create.
+func (u *PoolOrderUserUpsertBulk) UpdateCreatedAt() *PoolOrderUserUpsertBulk {
+	return u.Update(func(s *PoolOrderUserUpsert) {
+		s.UpdateCreatedAt()
+	})
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (u *PoolOrderUserUpsertBulk) SetUpdatedAt(v uint32) *PoolOrderUserUpsertBulk {
+	return u.Update(func(s *PoolOrderUserUpsert) {
+		s.SetUpdatedAt(v)
+	})
+}
+
+// AddUpdatedAt adds v to the "updated_at" field.
+func (u *PoolOrderUserUpsertBulk) AddUpdatedAt(v uint32) *PoolOrderUserUpsertBulk {
+	return u.Update(func(s *PoolOrderUserUpsert) {
+		s.AddUpdatedAt(v)
+	})
+}
+
+// UpdateUpdatedAt sets the "updated_at" field to the value that was provided on create.
+func (u *PoolOrderUserUpsertBulk) UpdateUpdatedAt() *PoolOrderUserUpsertBulk {
+	return u.Update(func(s *PoolOrderUserUpsert) {
+		s.UpdateUpdatedAt()
+	})
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (u *PoolOrderUserUpsertBulk) SetDeletedAt(v uint32) *PoolOrderUserUpsertBulk {
+	return u.Update(func(s *PoolOrderUserUpsert) {
+		s.SetDeletedAt(v)
+	})
+}
+
+// AddDeletedAt adds v to the "deleted_at" field.
+func (u *PoolOrderUserUpsertBulk) AddDeletedAt(v uint32) *PoolOrderUserUpsertBulk {
+	return u.Update(func(s *PoolOrderUserUpsert) {
+		s.AddDeletedAt(v)
+	})
+}
+
+// UpdateDeletedAt sets the "deleted_at" field to the value that was provided on create.
+func (u *PoolOrderUserUpsertBulk) UpdateDeletedAt() *PoolOrderUserUpsertBulk {
+	return u.Update(func(s *PoolOrderUserUpsert) {
+		s.UpdateDeletedAt()
 	})
 }
 

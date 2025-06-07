@@ -43,6 +43,61 @@ func (sosu *SubscriptionOrderStateUpdate) SetNillableEntID(u *uuid.UUID) *Subscr
 	return sosu
 }
 
+// SetCreatedAt sets the "created_at" field.
+func (sosu *SubscriptionOrderStateUpdate) SetCreatedAt(u uint32) *SubscriptionOrderStateUpdate {
+	sosu.mutation.ResetCreatedAt()
+	sosu.mutation.SetCreatedAt(u)
+	return sosu
+}
+
+// SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
+func (sosu *SubscriptionOrderStateUpdate) SetNillableCreatedAt(u *uint32) *SubscriptionOrderStateUpdate {
+	if u != nil {
+		sosu.SetCreatedAt(*u)
+	}
+	return sosu
+}
+
+// AddCreatedAt adds u to the "created_at" field.
+func (sosu *SubscriptionOrderStateUpdate) AddCreatedAt(u int32) *SubscriptionOrderStateUpdate {
+	sosu.mutation.AddCreatedAt(u)
+	return sosu
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (sosu *SubscriptionOrderStateUpdate) SetUpdatedAt(u uint32) *SubscriptionOrderStateUpdate {
+	sosu.mutation.ResetUpdatedAt()
+	sosu.mutation.SetUpdatedAt(u)
+	return sosu
+}
+
+// AddUpdatedAt adds u to the "updated_at" field.
+func (sosu *SubscriptionOrderStateUpdate) AddUpdatedAt(u int32) *SubscriptionOrderStateUpdate {
+	sosu.mutation.AddUpdatedAt(u)
+	return sosu
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (sosu *SubscriptionOrderStateUpdate) SetDeletedAt(u uint32) *SubscriptionOrderStateUpdate {
+	sosu.mutation.ResetDeletedAt()
+	sosu.mutation.SetDeletedAt(u)
+	return sosu
+}
+
+// SetNillableDeletedAt sets the "deleted_at" field if the given value is not nil.
+func (sosu *SubscriptionOrderStateUpdate) SetNillableDeletedAt(u *uint32) *SubscriptionOrderStateUpdate {
+	if u != nil {
+		sosu.SetDeletedAt(*u)
+	}
+	return sosu
+}
+
+// AddDeletedAt adds u to the "deleted_at" field.
+func (sosu *SubscriptionOrderStateUpdate) AddDeletedAt(u int32) *SubscriptionOrderStateUpdate {
+	sosu.mutation.AddDeletedAt(u)
+	return sosu
+}
+
 // SetOrderID sets the "order_id" field.
 func (sosu *SubscriptionOrderStateUpdate) SetOrderID(u uuid.UUID) *SubscriptionOrderStateUpdate {
 	sosu.mutation.SetOrderID(u)
@@ -244,6 +299,7 @@ func (sosu *SubscriptionOrderStateUpdate) Mutation() *SubscriptionOrderStateMuta
 
 // Save executes the query and returns the number of nodes affected by the update operation.
 func (sosu *SubscriptionOrderStateUpdate) Save(ctx context.Context) (int, error) {
+	sosu.defaults()
 	return withHooks(ctx, sosu.sqlSave, sosu.mutation, sosu.hooks)
 }
 
@@ -269,6 +325,14 @@ func (sosu *SubscriptionOrderStateUpdate) ExecX(ctx context.Context) {
 	}
 }
 
+// defaults sets the default values of the builder before save.
+func (sosu *SubscriptionOrderStateUpdate) defaults() {
+	if _, ok := sosu.mutation.UpdatedAt(); !ok {
+		v := subscriptionorderstate.UpdateDefaultUpdatedAt()
+		sosu.mutation.SetUpdatedAt(v)
+	}
+}
+
 // Modify adds a statement modifier for attaching custom logic to the UPDATE statement.
 func (sosu *SubscriptionOrderStateUpdate) Modify(modifiers ...func(u *sql.UpdateBuilder)) *SubscriptionOrderStateUpdate {
 	sosu.modifiers = append(sosu.modifiers, modifiers...)
@@ -286,6 +350,24 @@ func (sosu *SubscriptionOrderStateUpdate) sqlSave(ctx context.Context) (n int, e
 	}
 	if value, ok := sosu.mutation.EntID(); ok {
 		_spec.SetField(subscriptionorderstate.FieldEntID, field.TypeUUID, value)
+	}
+	if value, ok := sosu.mutation.CreatedAt(); ok {
+		_spec.SetField(subscriptionorderstate.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := sosu.mutation.AddedCreatedAt(); ok {
+		_spec.AddField(subscriptionorderstate.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := sosu.mutation.UpdatedAt(); ok {
+		_spec.SetField(subscriptionorderstate.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := sosu.mutation.AddedUpdatedAt(); ok {
+		_spec.AddField(subscriptionorderstate.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := sosu.mutation.DeletedAt(); ok {
+		_spec.SetField(subscriptionorderstate.FieldDeletedAt, field.TypeUint32, value)
+	}
+	if value, ok := sosu.mutation.AddedDeletedAt(); ok {
+		_spec.AddField(subscriptionorderstate.FieldDeletedAt, field.TypeUint32, value)
 	}
 	if value, ok := sosu.mutation.OrderID(); ok {
 		_spec.SetField(subscriptionorderstate.FieldOrderID, field.TypeUUID, value)
@@ -380,6 +462,61 @@ func (sosuo *SubscriptionOrderStateUpdateOne) SetNillableEntID(u *uuid.UUID) *Su
 	if u != nil {
 		sosuo.SetEntID(*u)
 	}
+	return sosuo
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (sosuo *SubscriptionOrderStateUpdateOne) SetCreatedAt(u uint32) *SubscriptionOrderStateUpdateOne {
+	sosuo.mutation.ResetCreatedAt()
+	sosuo.mutation.SetCreatedAt(u)
+	return sosuo
+}
+
+// SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
+func (sosuo *SubscriptionOrderStateUpdateOne) SetNillableCreatedAt(u *uint32) *SubscriptionOrderStateUpdateOne {
+	if u != nil {
+		sosuo.SetCreatedAt(*u)
+	}
+	return sosuo
+}
+
+// AddCreatedAt adds u to the "created_at" field.
+func (sosuo *SubscriptionOrderStateUpdateOne) AddCreatedAt(u int32) *SubscriptionOrderStateUpdateOne {
+	sosuo.mutation.AddCreatedAt(u)
+	return sosuo
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (sosuo *SubscriptionOrderStateUpdateOne) SetUpdatedAt(u uint32) *SubscriptionOrderStateUpdateOne {
+	sosuo.mutation.ResetUpdatedAt()
+	sosuo.mutation.SetUpdatedAt(u)
+	return sosuo
+}
+
+// AddUpdatedAt adds u to the "updated_at" field.
+func (sosuo *SubscriptionOrderStateUpdateOne) AddUpdatedAt(u int32) *SubscriptionOrderStateUpdateOne {
+	sosuo.mutation.AddUpdatedAt(u)
+	return sosuo
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (sosuo *SubscriptionOrderStateUpdateOne) SetDeletedAt(u uint32) *SubscriptionOrderStateUpdateOne {
+	sosuo.mutation.ResetDeletedAt()
+	sosuo.mutation.SetDeletedAt(u)
+	return sosuo
+}
+
+// SetNillableDeletedAt sets the "deleted_at" field if the given value is not nil.
+func (sosuo *SubscriptionOrderStateUpdateOne) SetNillableDeletedAt(u *uint32) *SubscriptionOrderStateUpdateOne {
+	if u != nil {
+		sosuo.SetDeletedAt(*u)
+	}
+	return sosuo
+}
+
+// AddDeletedAt adds u to the "deleted_at" field.
+func (sosuo *SubscriptionOrderStateUpdateOne) AddDeletedAt(u int32) *SubscriptionOrderStateUpdateOne {
+	sosuo.mutation.AddDeletedAt(u)
 	return sosuo
 }
 
@@ -597,6 +734,7 @@ func (sosuo *SubscriptionOrderStateUpdateOne) Select(field string, fields ...str
 
 // Save executes the query and returns the updated SubscriptionOrderState entity.
 func (sosuo *SubscriptionOrderStateUpdateOne) Save(ctx context.Context) (*SubscriptionOrderState, error) {
+	sosuo.defaults()
 	return withHooks(ctx, sosuo.sqlSave, sosuo.mutation, sosuo.hooks)
 }
 
@@ -619,6 +757,14 @@ func (sosuo *SubscriptionOrderStateUpdateOne) Exec(ctx context.Context) error {
 func (sosuo *SubscriptionOrderStateUpdateOne) ExecX(ctx context.Context) {
 	if err := sosuo.Exec(ctx); err != nil {
 		panic(err)
+	}
+}
+
+// defaults sets the default values of the builder before save.
+func (sosuo *SubscriptionOrderStateUpdateOne) defaults() {
+	if _, ok := sosuo.mutation.UpdatedAt(); !ok {
+		v := subscriptionorderstate.UpdateDefaultUpdatedAt()
+		sosuo.mutation.SetUpdatedAt(v)
 	}
 }
 
@@ -656,6 +802,24 @@ func (sosuo *SubscriptionOrderStateUpdateOne) sqlSave(ctx context.Context) (_nod
 	}
 	if value, ok := sosuo.mutation.EntID(); ok {
 		_spec.SetField(subscriptionorderstate.FieldEntID, field.TypeUUID, value)
+	}
+	if value, ok := sosuo.mutation.CreatedAt(); ok {
+		_spec.SetField(subscriptionorderstate.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := sosuo.mutation.AddedCreatedAt(); ok {
+		_spec.AddField(subscriptionorderstate.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := sosuo.mutation.UpdatedAt(); ok {
+		_spec.SetField(subscriptionorderstate.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := sosuo.mutation.AddedUpdatedAt(); ok {
+		_spec.AddField(subscriptionorderstate.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := sosuo.mutation.DeletedAt(); ok {
+		_spec.SetField(subscriptionorderstate.FieldDeletedAt, field.TypeUint32, value)
+	}
+	if value, ok := sosuo.mutation.AddedDeletedAt(); ok {
+		_spec.AddField(subscriptionorderstate.FieldDeletedAt, field.TypeUint32, value)
 	}
 	if value, ok := sosuo.mutation.OrderID(); ok {
 		_spec.SetField(subscriptionorderstate.FieldOrderID, field.TypeUUID, value)

@@ -44,6 +44,61 @@ func (pcu *PaymentContractUpdate) SetNillableEntID(u *uuid.UUID) *PaymentContrac
 	return pcu
 }
 
+// SetCreatedAt sets the "created_at" field.
+func (pcu *PaymentContractUpdate) SetCreatedAt(u uint32) *PaymentContractUpdate {
+	pcu.mutation.ResetCreatedAt()
+	pcu.mutation.SetCreatedAt(u)
+	return pcu
+}
+
+// SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
+func (pcu *PaymentContractUpdate) SetNillableCreatedAt(u *uint32) *PaymentContractUpdate {
+	if u != nil {
+		pcu.SetCreatedAt(*u)
+	}
+	return pcu
+}
+
+// AddCreatedAt adds u to the "created_at" field.
+func (pcu *PaymentContractUpdate) AddCreatedAt(u int32) *PaymentContractUpdate {
+	pcu.mutation.AddCreatedAt(u)
+	return pcu
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (pcu *PaymentContractUpdate) SetUpdatedAt(u uint32) *PaymentContractUpdate {
+	pcu.mutation.ResetUpdatedAt()
+	pcu.mutation.SetUpdatedAt(u)
+	return pcu
+}
+
+// AddUpdatedAt adds u to the "updated_at" field.
+func (pcu *PaymentContractUpdate) AddUpdatedAt(u int32) *PaymentContractUpdate {
+	pcu.mutation.AddUpdatedAt(u)
+	return pcu
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (pcu *PaymentContractUpdate) SetDeletedAt(u uint32) *PaymentContractUpdate {
+	pcu.mutation.ResetDeletedAt()
+	pcu.mutation.SetDeletedAt(u)
+	return pcu
+}
+
+// SetNillableDeletedAt sets the "deleted_at" field if the given value is not nil.
+func (pcu *PaymentContractUpdate) SetNillableDeletedAt(u *uint32) *PaymentContractUpdate {
+	if u != nil {
+		pcu.SetDeletedAt(*u)
+	}
+	return pcu
+}
+
+// AddDeletedAt adds u to the "deleted_at" field.
+func (pcu *PaymentContractUpdate) AddDeletedAt(u int32) *PaymentContractUpdate {
+	pcu.mutation.AddDeletedAt(u)
+	return pcu
+}
+
 // SetOrderID sets the "order_id" field.
 func (pcu *PaymentContractUpdate) SetOrderID(u uuid.UUID) *PaymentContractUpdate {
 	pcu.mutation.SetOrderID(u)
@@ -111,6 +166,7 @@ func (pcu *PaymentContractUpdate) Mutation() *PaymentContractMutation {
 
 // Save executes the query and returns the number of nodes affected by the update operation.
 func (pcu *PaymentContractUpdate) Save(ctx context.Context) (int, error) {
+	pcu.defaults()
 	return withHooks(ctx, pcu.sqlSave, pcu.mutation, pcu.hooks)
 }
 
@@ -136,6 +192,14 @@ func (pcu *PaymentContractUpdate) ExecX(ctx context.Context) {
 	}
 }
 
+// defaults sets the default values of the builder before save.
+func (pcu *PaymentContractUpdate) defaults() {
+	if _, ok := pcu.mutation.UpdatedAt(); !ok {
+		v := paymentcontract.UpdateDefaultUpdatedAt()
+		pcu.mutation.SetUpdatedAt(v)
+	}
+}
+
 // Modify adds a statement modifier for attaching custom logic to the UPDATE statement.
 func (pcu *PaymentContractUpdate) Modify(modifiers ...func(u *sql.UpdateBuilder)) *PaymentContractUpdate {
 	pcu.modifiers = append(pcu.modifiers, modifiers...)
@@ -153,6 +217,24 @@ func (pcu *PaymentContractUpdate) sqlSave(ctx context.Context) (n int, err error
 	}
 	if value, ok := pcu.mutation.EntID(); ok {
 		_spec.SetField(paymentcontract.FieldEntID, field.TypeUUID, value)
+	}
+	if value, ok := pcu.mutation.CreatedAt(); ok {
+		_spec.SetField(paymentcontract.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := pcu.mutation.AddedCreatedAt(); ok {
+		_spec.AddField(paymentcontract.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := pcu.mutation.UpdatedAt(); ok {
+		_spec.SetField(paymentcontract.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := pcu.mutation.AddedUpdatedAt(); ok {
+		_spec.AddField(paymentcontract.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := pcu.mutation.DeletedAt(); ok {
+		_spec.SetField(paymentcontract.FieldDeletedAt, field.TypeUint32, value)
+	}
+	if value, ok := pcu.mutation.AddedDeletedAt(); ok {
+		_spec.AddField(paymentcontract.FieldDeletedAt, field.TypeUint32, value)
 	}
 	if value, ok := pcu.mutation.OrderID(); ok {
 		_spec.SetField(paymentcontract.FieldOrderID, field.TypeUUID, value)
@@ -205,6 +287,61 @@ func (pcuo *PaymentContractUpdateOne) SetNillableEntID(u *uuid.UUID) *PaymentCon
 	if u != nil {
 		pcuo.SetEntID(*u)
 	}
+	return pcuo
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (pcuo *PaymentContractUpdateOne) SetCreatedAt(u uint32) *PaymentContractUpdateOne {
+	pcuo.mutation.ResetCreatedAt()
+	pcuo.mutation.SetCreatedAt(u)
+	return pcuo
+}
+
+// SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
+func (pcuo *PaymentContractUpdateOne) SetNillableCreatedAt(u *uint32) *PaymentContractUpdateOne {
+	if u != nil {
+		pcuo.SetCreatedAt(*u)
+	}
+	return pcuo
+}
+
+// AddCreatedAt adds u to the "created_at" field.
+func (pcuo *PaymentContractUpdateOne) AddCreatedAt(u int32) *PaymentContractUpdateOne {
+	pcuo.mutation.AddCreatedAt(u)
+	return pcuo
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (pcuo *PaymentContractUpdateOne) SetUpdatedAt(u uint32) *PaymentContractUpdateOne {
+	pcuo.mutation.ResetUpdatedAt()
+	pcuo.mutation.SetUpdatedAt(u)
+	return pcuo
+}
+
+// AddUpdatedAt adds u to the "updated_at" field.
+func (pcuo *PaymentContractUpdateOne) AddUpdatedAt(u int32) *PaymentContractUpdateOne {
+	pcuo.mutation.AddUpdatedAt(u)
+	return pcuo
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (pcuo *PaymentContractUpdateOne) SetDeletedAt(u uint32) *PaymentContractUpdateOne {
+	pcuo.mutation.ResetDeletedAt()
+	pcuo.mutation.SetDeletedAt(u)
+	return pcuo
+}
+
+// SetNillableDeletedAt sets the "deleted_at" field if the given value is not nil.
+func (pcuo *PaymentContractUpdateOne) SetNillableDeletedAt(u *uint32) *PaymentContractUpdateOne {
+	if u != nil {
+		pcuo.SetDeletedAt(*u)
+	}
+	return pcuo
+}
+
+// AddDeletedAt adds u to the "deleted_at" field.
+func (pcuo *PaymentContractUpdateOne) AddDeletedAt(u int32) *PaymentContractUpdateOne {
+	pcuo.mutation.AddDeletedAt(u)
 	return pcuo
 }
 
@@ -288,6 +425,7 @@ func (pcuo *PaymentContractUpdateOne) Select(field string, fields ...string) *Pa
 
 // Save executes the query and returns the updated PaymentContract entity.
 func (pcuo *PaymentContractUpdateOne) Save(ctx context.Context) (*PaymentContract, error) {
+	pcuo.defaults()
 	return withHooks(ctx, pcuo.sqlSave, pcuo.mutation, pcuo.hooks)
 }
 
@@ -310,6 +448,14 @@ func (pcuo *PaymentContractUpdateOne) Exec(ctx context.Context) error {
 func (pcuo *PaymentContractUpdateOne) ExecX(ctx context.Context) {
 	if err := pcuo.Exec(ctx); err != nil {
 		panic(err)
+	}
+}
+
+// defaults sets the default values of the builder before save.
+func (pcuo *PaymentContractUpdateOne) defaults() {
+	if _, ok := pcuo.mutation.UpdatedAt(); !ok {
+		v := paymentcontract.UpdateDefaultUpdatedAt()
+		pcuo.mutation.SetUpdatedAt(v)
 	}
 }
 
@@ -347,6 +493,24 @@ func (pcuo *PaymentContractUpdateOne) sqlSave(ctx context.Context) (_node *Payme
 	}
 	if value, ok := pcuo.mutation.EntID(); ok {
 		_spec.SetField(paymentcontract.FieldEntID, field.TypeUUID, value)
+	}
+	if value, ok := pcuo.mutation.CreatedAt(); ok {
+		_spec.SetField(paymentcontract.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := pcuo.mutation.AddedCreatedAt(); ok {
+		_spec.AddField(paymentcontract.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := pcuo.mutation.UpdatedAt(); ok {
+		_spec.SetField(paymentcontract.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := pcuo.mutation.AddedUpdatedAt(); ok {
+		_spec.AddField(paymentcontract.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := pcuo.mutation.DeletedAt(); ok {
+		_spec.SetField(paymentcontract.FieldDeletedAt, field.TypeUint32, value)
+	}
+	if value, ok := pcuo.mutation.AddedDeletedAt(); ok {
+		_spec.AddField(paymentcontract.FieldDeletedAt, field.TypeUint32, value)
 	}
 	if value, ok := pcuo.mutation.OrderID(); ok {
 		_spec.SetField(paymentcontract.FieldOrderID, field.TypeUUID, value)

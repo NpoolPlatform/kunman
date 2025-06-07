@@ -18,6 +18,7 @@ type PaymentTransfer struct {
 func (PaymentTransfer) Mixin() []ent.Mixin {
 	return []ent.Mixin{
 		crudermixin.AutoIDMixin{},
+		crudermixin.TimeMixin{},
 	}
 }
 

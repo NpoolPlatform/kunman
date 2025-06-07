@@ -36,6 +36,48 @@ func (olc *OrderLockCreate) SetNillableEntID(u *uuid.UUID) *OrderLockCreate {
 	return olc
 }
 
+// SetCreatedAt sets the "created_at" field.
+func (olc *OrderLockCreate) SetCreatedAt(u uint32) *OrderLockCreate {
+	olc.mutation.SetCreatedAt(u)
+	return olc
+}
+
+// SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
+func (olc *OrderLockCreate) SetNillableCreatedAt(u *uint32) *OrderLockCreate {
+	if u != nil {
+		olc.SetCreatedAt(*u)
+	}
+	return olc
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (olc *OrderLockCreate) SetUpdatedAt(u uint32) *OrderLockCreate {
+	olc.mutation.SetUpdatedAt(u)
+	return olc
+}
+
+// SetNillableUpdatedAt sets the "updated_at" field if the given value is not nil.
+func (olc *OrderLockCreate) SetNillableUpdatedAt(u *uint32) *OrderLockCreate {
+	if u != nil {
+		olc.SetUpdatedAt(*u)
+	}
+	return olc
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (olc *OrderLockCreate) SetDeletedAt(u uint32) *OrderLockCreate {
+	olc.mutation.SetDeletedAt(u)
+	return olc
+}
+
+// SetNillableDeletedAt sets the "deleted_at" field if the given value is not nil.
+func (olc *OrderLockCreate) SetNillableDeletedAt(u *uint32) *OrderLockCreate {
+	if u != nil {
+		olc.SetDeletedAt(*u)
+	}
+	return olc
+}
+
 // SetOrderID sets the "order_id" field.
 func (olc *OrderLockCreate) SetOrderID(u uuid.UUID) *OrderLockCreate {
 	olc.mutation.SetOrderID(u)
@@ -123,6 +165,18 @@ func (olc *OrderLockCreate) defaults() {
 		v := orderlock.DefaultEntID()
 		olc.mutation.SetEntID(v)
 	}
+	if _, ok := olc.mutation.CreatedAt(); !ok {
+		v := orderlock.DefaultCreatedAt()
+		olc.mutation.SetCreatedAt(v)
+	}
+	if _, ok := olc.mutation.UpdatedAt(); !ok {
+		v := orderlock.DefaultUpdatedAt()
+		olc.mutation.SetUpdatedAt(v)
+	}
+	if _, ok := olc.mutation.DeletedAt(); !ok {
+		v := orderlock.DefaultDeletedAt()
+		olc.mutation.SetDeletedAt(v)
+	}
 	if _, ok := olc.mutation.OrderID(); !ok {
 		v := orderlock.DefaultOrderID()
 		olc.mutation.SetOrderID(v)
@@ -141,6 +195,15 @@ func (olc *OrderLockCreate) defaults() {
 func (olc *OrderLockCreate) check() error {
 	if _, ok := olc.mutation.EntID(); !ok {
 		return &ValidationError{Name: "ent_id", err: errors.New(`generated: missing required field "OrderLock.ent_id"`)}
+	}
+	if _, ok := olc.mutation.CreatedAt(); !ok {
+		return &ValidationError{Name: "created_at", err: errors.New(`generated: missing required field "OrderLock.created_at"`)}
+	}
+	if _, ok := olc.mutation.UpdatedAt(); !ok {
+		return &ValidationError{Name: "updated_at", err: errors.New(`generated: missing required field "OrderLock.updated_at"`)}
+	}
+	if _, ok := olc.mutation.DeletedAt(); !ok {
+		return &ValidationError{Name: "deleted_at", err: errors.New(`generated: missing required field "OrderLock.deleted_at"`)}
 	}
 	return nil
 }
@@ -178,6 +241,18 @@ func (olc *OrderLockCreate) createSpec() (*OrderLock, *sqlgraph.CreateSpec) {
 	if value, ok := olc.mutation.EntID(); ok {
 		_spec.SetField(orderlock.FieldEntID, field.TypeUUID, value)
 		_node.EntID = value
+	}
+	if value, ok := olc.mutation.CreatedAt(); ok {
+		_spec.SetField(orderlock.FieldCreatedAt, field.TypeUint32, value)
+		_node.CreatedAt = value
+	}
+	if value, ok := olc.mutation.UpdatedAt(); ok {
+		_spec.SetField(orderlock.FieldUpdatedAt, field.TypeUint32, value)
+		_node.UpdatedAt = value
+	}
+	if value, ok := olc.mutation.DeletedAt(); ok {
+		_spec.SetField(orderlock.FieldDeletedAt, field.TypeUint32, value)
+		_node.DeletedAt = value
 	}
 	if value, ok := olc.mutation.OrderID(); ok {
 		_spec.SetField(orderlock.FieldOrderID, field.TypeUUID, value)
@@ -252,6 +327,60 @@ func (u *OrderLockUpsert) SetEntID(v uuid.UUID) *OrderLockUpsert {
 // UpdateEntID sets the "ent_id" field to the value that was provided on create.
 func (u *OrderLockUpsert) UpdateEntID() *OrderLockUpsert {
 	u.SetExcluded(orderlock.FieldEntID)
+	return u
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (u *OrderLockUpsert) SetCreatedAt(v uint32) *OrderLockUpsert {
+	u.Set(orderlock.FieldCreatedAt, v)
+	return u
+}
+
+// UpdateCreatedAt sets the "created_at" field to the value that was provided on create.
+func (u *OrderLockUpsert) UpdateCreatedAt() *OrderLockUpsert {
+	u.SetExcluded(orderlock.FieldCreatedAt)
+	return u
+}
+
+// AddCreatedAt adds v to the "created_at" field.
+func (u *OrderLockUpsert) AddCreatedAt(v uint32) *OrderLockUpsert {
+	u.Add(orderlock.FieldCreatedAt, v)
+	return u
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (u *OrderLockUpsert) SetUpdatedAt(v uint32) *OrderLockUpsert {
+	u.Set(orderlock.FieldUpdatedAt, v)
+	return u
+}
+
+// UpdateUpdatedAt sets the "updated_at" field to the value that was provided on create.
+func (u *OrderLockUpsert) UpdateUpdatedAt() *OrderLockUpsert {
+	u.SetExcluded(orderlock.FieldUpdatedAt)
+	return u
+}
+
+// AddUpdatedAt adds v to the "updated_at" field.
+func (u *OrderLockUpsert) AddUpdatedAt(v uint32) *OrderLockUpsert {
+	u.Add(orderlock.FieldUpdatedAt, v)
+	return u
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (u *OrderLockUpsert) SetDeletedAt(v uint32) *OrderLockUpsert {
+	u.Set(orderlock.FieldDeletedAt, v)
+	return u
+}
+
+// UpdateDeletedAt sets the "deleted_at" field to the value that was provided on create.
+func (u *OrderLockUpsert) UpdateDeletedAt() *OrderLockUpsert {
+	u.SetExcluded(orderlock.FieldDeletedAt)
+	return u
+}
+
+// AddDeletedAt adds v to the "deleted_at" field.
+func (u *OrderLockUpsert) AddDeletedAt(v uint32) *OrderLockUpsert {
+	u.Add(orderlock.FieldDeletedAt, v)
 	return u
 }
 
@@ -368,6 +497,69 @@ func (u *OrderLockUpsertOne) SetEntID(v uuid.UUID) *OrderLockUpsertOne {
 func (u *OrderLockUpsertOne) UpdateEntID() *OrderLockUpsertOne {
 	return u.Update(func(s *OrderLockUpsert) {
 		s.UpdateEntID()
+	})
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (u *OrderLockUpsertOne) SetCreatedAt(v uint32) *OrderLockUpsertOne {
+	return u.Update(func(s *OrderLockUpsert) {
+		s.SetCreatedAt(v)
+	})
+}
+
+// AddCreatedAt adds v to the "created_at" field.
+func (u *OrderLockUpsertOne) AddCreatedAt(v uint32) *OrderLockUpsertOne {
+	return u.Update(func(s *OrderLockUpsert) {
+		s.AddCreatedAt(v)
+	})
+}
+
+// UpdateCreatedAt sets the "created_at" field to the value that was provided on create.
+func (u *OrderLockUpsertOne) UpdateCreatedAt() *OrderLockUpsertOne {
+	return u.Update(func(s *OrderLockUpsert) {
+		s.UpdateCreatedAt()
+	})
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (u *OrderLockUpsertOne) SetUpdatedAt(v uint32) *OrderLockUpsertOne {
+	return u.Update(func(s *OrderLockUpsert) {
+		s.SetUpdatedAt(v)
+	})
+}
+
+// AddUpdatedAt adds v to the "updated_at" field.
+func (u *OrderLockUpsertOne) AddUpdatedAt(v uint32) *OrderLockUpsertOne {
+	return u.Update(func(s *OrderLockUpsert) {
+		s.AddUpdatedAt(v)
+	})
+}
+
+// UpdateUpdatedAt sets the "updated_at" field to the value that was provided on create.
+func (u *OrderLockUpsertOne) UpdateUpdatedAt() *OrderLockUpsertOne {
+	return u.Update(func(s *OrderLockUpsert) {
+		s.UpdateUpdatedAt()
+	})
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (u *OrderLockUpsertOne) SetDeletedAt(v uint32) *OrderLockUpsertOne {
+	return u.Update(func(s *OrderLockUpsert) {
+		s.SetDeletedAt(v)
+	})
+}
+
+// AddDeletedAt adds v to the "deleted_at" field.
+func (u *OrderLockUpsertOne) AddDeletedAt(v uint32) *OrderLockUpsertOne {
+	return u.Update(func(s *OrderLockUpsert) {
+		s.AddDeletedAt(v)
+	})
+}
+
+// UpdateDeletedAt sets the "deleted_at" field to the value that was provided on create.
+func (u *OrderLockUpsertOne) UpdateDeletedAt() *OrderLockUpsertOne {
+	return u.Update(func(s *OrderLockUpsert) {
+		s.UpdateDeletedAt()
 	})
 }
 
@@ -659,6 +851,69 @@ func (u *OrderLockUpsertBulk) SetEntID(v uuid.UUID) *OrderLockUpsertBulk {
 func (u *OrderLockUpsertBulk) UpdateEntID() *OrderLockUpsertBulk {
 	return u.Update(func(s *OrderLockUpsert) {
 		s.UpdateEntID()
+	})
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (u *OrderLockUpsertBulk) SetCreatedAt(v uint32) *OrderLockUpsertBulk {
+	return u.Update(func(s *OrderLockUpsert) {
+		s.SetCreatedAt(v)
+	})
+}
+
+// AddCreatedAt adds v to the "created_at" field.
+func (u *OrderLockUpsertBulk) AddCreatedAt(v uint32) *OrderLockUpsertBulk {
+	return u.Update(func(s *OrderLockUpsert) {
+		s.AddCreatedAt(v)
+	})
+}
+
+// UpdateCreatedAt sets the "created_at" field to the value that was provided on create.
+func (u *OrderLockUpsertBulk) UpdateCreatedAt() *OrderLockUpsertBulk {
+	return u.Update(func(s *OrderLockUpsert) {
+		s.UpdateCreatedAt()
+	})
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (u *OrderLockUpsertBulk) SetUpdatedAt(v uint32) *OrderLockUpsertBulk {
+	return u.Update(func(s *OrderLockUpsert) {
+		s.SetUpdatedAt(v)
+	})
+}
+
+// AddUpdatedAt adds v to the "updated_at" field.
+func (u *OrderLockUpsertBulk) AddUpdatedAt(v uint32) *OrderLockUpsertBulk {
+	return u.Update(func(s *OrderLockUpsert) {
+		s.AddUpdatedAt(v)
+	})
+}
+
+// UpdateUpdatedAt sets the "updated_at" field to the value that was provided on create.
+func (u *OrderLockUpsertBulk) UpdateUpdatedAt() *OrderLockUpsertBulk {
+	return u.Update(func(s *OrderLockUpsert) {
+		s.UpdateUpdatedAt()
+	})
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (u *OrderLockUpsertBulk) SetDeletedAt(v uint32) *OrderLockUpsertBulk {
+	return u.Update(func(s *OrderLockUpsert) {
+		s.SetDeletedAt(v)
+	})
+}
+
+// AddDeletedAt adds v to the "deleted_at" field.
+func (u *OrderLockUpsertBulk) AddDeletedAt(v uint32) *OrderLockUpsertBulk {
+	return u.Update(func(s *OrderLockUpsert) {
+		s.AddDeletedAt(v)
+	})
+}
+
+// UpdateDeletedAt sets the "deleted_at" field to the value that was provided on create.
+func (u *OrderLockUpsertBulk) UpdateDeletedAt() *OrderLockUpsertBulk {
+	return u.Update(func(s *OrderLockUpsert) {
+		s.UpdateDeletedAt()
 	})
 }
 

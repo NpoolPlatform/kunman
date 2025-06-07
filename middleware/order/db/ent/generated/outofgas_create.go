@@ -36,6 +36,48 @@ func (oogc *OutOfGasCreate) SetNillableEntID(u *uuid.UUID) *OutOfGasCreate {
 	return oogc
 }
 
+// SetCreatedAt sets the "created_at" field.
+func (oogc *OutOfGasCreate) SetCreatedAt(u uint32) *OutOfGasCreate {
+	oogc.mutation.SetCreatedAt(u)
+	return oogc
+}
+
+// SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
+func (oogc *OutOfGasCreate) SetNillableCreatedAt(u *uint32) *OutOfGasCreate {
+	if u != nil {
+		oogc.SetCreatedAt(*u)
+	}
+	return oogc
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (oogc *OutOfGasCreate) SetUpdatedAt(u uint32) *OutOfGasCreate {
+	oogc.mutation.SetUpdatedAt(u)
+	return oogc
+}
+
+// SetNillableUpdatedAt sets the "updated_at" field if the given value is not nil.
+func (oogc *OutOfGasCreate) SetNillableUpdatedAt(u *uint32) *OutOfGasCreate {
+	if u != nil {
+		oogc.SetUpdatedAt(*u)
+	}
+	return oogc
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (oogc *OutOfGasCreate) SetDeletedAt(u uint32) *OutOfGasCreate {
+	oogc.mutation.SetDeletedAt(u)
+	return oogc
+}
+
+// SetNillableDeletedAt sets the "deleted_at" field if the given value is not nil.
+func (oogc *OutOfGasCreate) SetNillableDeletedAt(u *uint32) *OutOfGasCreate {
+	if u != nil {
+		oogc.SetDeletedAt(*u)
+	}
+	return oogc
+}
+
 // SetOrderID sets the "order_id" field.
 func (oogc *OutOfGasCreate) SetOrderID(u uuid.UUID) *OutOfGasCreate {
 	oogc.mutation.SetOrderID(u)
@@ -123,6 +165,18 @@ func (oogc *OutOfGasCreate) defaults() {
 		v := outofgas.DefaultEntID()
 		oogc.mutation.SetEntID(v)
 	}
+	if _, ok := oogc.mutation.CreatedAt(); !ok {
+		v := outofgas.DefaultCreatedAt()
+		oogc.mutation.SetCreatedAt(v)
+	}
+	if _, ok := oogc.mutation.UpdatedAt(); !ok {
+		v := outofgas.DefaultUpdatedAt()
+		oogc.mutation.SetUpdatedAt(v)
+	}
+	if _, ok := oogc.mutation.DeletedAt(); !ok {
+		v := outofgas.DefaultDeletedAt()
+		oogc.mutation.SetDeletedAt(v)
+	}
 	if _, ok := oogc.mutation.OrderID(); !ok {
 		v := outofgas.DefaultOrderID()
 		oogc.mutation.SetOrderID(v)
@@ -141,6 +195,15 @@ func (oogc *OutOfGasCreate) defaults() {
 func (oogc *OutOfGasCreate) check() error {
 	if _, ok := oogc.mutation.EntID(); !ok {
 		return &ValidationError{Name: "ent_id", err: errors.New(`generated: missing required field "OutOfGas.ent_id"`)}
+	}
+	if _, ok := oogc.mutation.CreatedAt(); !ok {
+		return &ValidationError{Name: "created_at", err: errors.New(`generated: missing required field "OutOfGas.created_at"`)}
+	}
+	if _, ok := oogc.mutation.UpdatedAt(); !ok {
+		return &ValidationError{Name: "updated_at", err: errors.New(`generated: missing required field "OutOfGas.updated_at"`)}
+	}
+	if _, ok := oogc.mutation.DeletedAt(); !ok {
+		return &ValidationError{Name: "deleted_at", err: errors.New(`generated: missing required field "OutOfGas.deleted_at"`)}
 	}
 	return nil
 }
@@ -178,6 +241,18 @@ func (oogc *OutOfGasCreate) createSpec() (*OutOfGas, *sqlgraph.CreateSpec) {
 	if value, ok := oogc.mutation.EntID(); ok {
 		_spec.SetField(outofgas.FieldEntID, field.TypeUUID, value)
 		_node.EntID = value
+	}
+	if value, ok := oogc.mutation.CreatedAt(); ok {
+		_spec.SetField(outofgas.FieldCreatedAt, field.TypeUint32, value)
+		_node.CreatedAt = value
+	}
+	if value, ok := oogc.mutation.UpdatedAt(); ok {
+		_spec.SetField(outofgas.FieldUpdatedAt, field.TypeUint32, value)
+		_node.UpdatedAt = value
+	}
+	if value, ok := oogc.mutation.DeletedAt(); ok {
+		_spec.SetField(outofgas.FieldDeletedAt, field.TypeUint32, value)
+		_node.DeletedAt = value
 	}
 	if value, ok := oogc.mutation.OrderID(); ok {
 		_spec.SetField(outofgas.FieldOrderID, field.TypeUUID, value)
@@ -252,6 +327,60 @@ func (u *OutOfGasUpsert) SetEntID(v uuid.UUID) *OutOfGasUpsert {
 // UpdateEntID sets the "ent_id" field to the value that was provided on create.
 func (u *OutOfGasUpsert) UpdateEntID() *OutOfGasUpsert {
 	u.SetExcluded(outofgas.FieldEntID)
+	return u
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (u *OutOfGasUpsert) SetCreatedAt(v uint32) *OutOfGasUpsert {
+	u.Set(outofgas.FieldCreatedAt, v)
+	return u
+}
+
+// UpdateCreatedAt sets the "created_at" field to the value that was provided on create.
+func (u *OutOfGasUpsert) UpdateCreatedAt() *OutOfGasUpsert {
+	u.SetExcluded(outofgas.FieldCreatedAt)
+	return u
+}
+
+// AddCreatedAt adds v to the "created_at" field.
+func (u *OutOfGasUpsert) AddCreatedAt(v uint32) *OutOfGasUpsert {
+	u.Add(outofgas.FieldCreatedAt, v)
+	return u
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (u *OutOfGasUpsert) SetUpdatedAt(v uint32) *OutOfGasUpsert {
+	u.Set(outofgas.FieldUpdatedAt, v)
+	return u
+}
+
+// UpdateUpdatedAt sets the "updated_at" field to the value that was provided on create.
+func (u *OutOfGasUpsert) UpdateUpdatedAt() *OutOfGasUpsert {
+	u.SetExcluded(outofgas.FieldUpdatedAt)
+	return u
+}
+
+// AddUpdatedAt adds v to the "updated_at" field.
+func (u *OutOfGasUpsert) AddUpdatedAt(v uint32) *OutOfGasUpsert {
+	u.Add(outofgas.FieldUpdatedAt, v)
+	return u
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (u *OutOfGasUpsert) SetDeletedAt(v uint32) *OutOfGasUpsert {
+	u.Set(outofgas.FieldDeletedAt, v)
+	return u
+}
+
+// UpdateDeletedAt sets the "deleted_at" field to the value that was provided on create.
+func (u *OutOfGasUpsert) UpdateDeletedAt() *OutOfGasUpsert {
+	u.SetExcluded(outofgas.FieldDeletedAt)
+	return u
+}
+
+// AddDeletedAt adds v to the "deleted_at" field.
+func (u *OutOfGasUpsert) AddDeletedAt(v uint32) *OutOfGasUpsert {
+	u.Add(outofgas.FieldDeletedAt, v)
 	return u
 }
 
@@ -380,6 +509,69 @@ func (u *OutOfGasUpsertOne) SetEntID(v uuid.UUID) *OutOfGasUpsertOne {
 func (u *OutOfGasUpsertOne) UpdateEntID() *OutOfGasUpsertOne {
 	return u.Update(func(s *OutOfGasUpsert) {
 		s.UpdateEntID()
+	})
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (u *OutOfGasUpsertOne) SetCreatedAt(v uint32) *OutOfGasUpsertOne {
+	return u.Update(func(s *OutOfGasUpsert) {
+		s.SetCreatedAt(v)
+	})
+}
+
+// AddCreatedAt adds v to the "created_at" field.
+func (u *OutOfGasUpsertOne) AddCreatedAt(v uint32) *OutOfGasUpsertOne {
+	return u.Update(func(s *OutOfGasUpsert) {
+		s.AddCreatedAt(v)
+	})
+}
+
+// UpdateCreatedAt sets the "created_at" field to the value that was provided on create.
+func (u *OutOfGasUpsertOne) UpdateCreatedAt() *OutOfGasUpsertOne {
+	return u.Update(func(s *OutOfGasUpsert) {
+		s.UpdateCreatedAt()
+	})
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (u *OutOfGasUpsertOne) SetUpdatedAt(v uint32) *OutOfGasUpsertOne {
+	return u.Update(func(s *OutOfGasUpsert) {
+		s.SetUpdatedAt(v)
+	})
+}
+
+// AddUpdatedAt adds v to the "updated_at" field.
+func (u *OutOfGasUpsertOne) AddUpdatedAt(v uint32) *OutOfGasUpsertOne {
+	return u.Update(func(s *OutOfGasUpsert) {
+		s.AddUpdatedAt(v)
+	})
+}
+
+// UpdateUpdatedAt sets the "updated_at" field to the value that was provided on create.
+func (u *OutOfGasUpsertOne) UpdateUpdatedAt() *OutOfGasUpsertOne {
+	return u.Update(func(s *OutOfGasUpsert) {
+		s.UpdateUpdatedAt()
+	})
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (u *OutOfGasUpsertOne) SetDeletedAt(v uint32) *OutOfGasUpsertOne {
+	return u.Update(func(s *OutOfGasUpsert) {
+		s.SetDeletedAt(v)
+	})
+}
+
+// AddDeletedAt adds v to the "deleted_at" field.
+func (u *OutOfGasUpsertOne) AddDeletedAt(v uint32) *OutOfGasUpsertOne {
+	return u.Update(func(s *OutOfGasUpsert) {
+		s.AddDeletedAt(v)
+	})
+}
+
+// UpdateDeletedAt sets the "deleted_at" field to the value that was provided on create.
+func (u *OutOfGasUpsertOne) UpdateDeletedAt() *OutOfGasUpsertOne {
+	return u.Update(func(s *OutOfGasUpsert) {
+		s.UpdateDeletedAt()
 	})
 }
 
@@ -685,6 +877,69 @@ func (u *OutOfGasUpsertBulk) SetEntID(v uuid.UUID) *OutOfGasUpsertBulk {
 func (u *OutOfGasUpsertBulk) UpdateEntID() *OutOfGasUpsertBulk {
 	return u.Update(func(s *OutOfGasUpsert) {
 		s.UpdateEntID()
+	})
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (u *OutOfGasUpsertBulk) SetCreatedAt(v uint32) *OutOfGasUpsertBulk {
+	return u.Update(func(s *OutOfGasUpsert) {
+		s.SetCreatedAt(v)
+	})
+}
+
+// AddCreatedAt adds v to the "created_at" field.
+func (u *OutOfGasUpsertBulk) AddCreatedAt(v uint32) *OutOfGasUpsertBulk {
+	return u.Update(func(s *OutOfGasUpsert) {
+		s.AddCreatedAt(v)
+	})
+}
+
+// UpdateCreatedAt sets the "created_at" field to the value that was provided on create.
+func (u *OutOfGasUpsertBulk) UpdateCreatedAt() *OutOfGasUpsertBulk {
+	return u.Update(func(s *OutOfGasUpsert) {
+		s.UpdateCreatedAt()
+	})
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (u *OutOfGasUpsertBulk) SetUpdatedAt(v uint32) *OutOfGasUpsertBulk {
+	return u.Update(func(s *OutOfGasUpsert) {
+		s.SetUpdatedAt(v)
+	})
+}
+
+// AddUpdatedAt adds v to the "updated_at" field.
+func (u *OutOfGasUpsertBulk) AddUpdatedAt(v uint32) *OutOfGasUpsertBulk {
+	return u.Update(func(s *OutOfGasUpsert) {
+		s.AddUpdatedAt(v)
+	})
+}
+
+// UpdateUpdatedAt sets the "updated_at" field to the value that was provided on create.
+func (u *OutOfGasUpsertBulk) UpdateUpdatedAt() *OutOfGasUpsertBulk {
+	return u.Update(func(s *OutOfGasUpsert) {
+		s.UpdateUpdatedAt()
+	})
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (u *OutOfGasUpsertBulk) SetDeletedAt(v uint32) *OutOfGasUpsertBulk {
+	return u.Update(func(s *OutOfGasUpsert) {
+		s.SetDeletedAt(v)
+	})
+}
+
+// AddDeletedAt adds v to the "deleted_at" field.
+func (u *OutOfGasUpsertBulk) AddDeletedAt(v uint32) *OutOfGasUpsertBulk {
+	return u.Update(func(s *OutOfGasUpsert) {
+		s.AddDeletedAt(v)
+	})
+}
+
+// UpdateDeletedAt sets the "deleted_at" field to the value that was provided on create.
+func (u *OutOfGasUpsertBulk) UpdateDeletedAt() *OutOfGasUpsertBulk {
+	return u.Update(func(s *OutOfGasUpsert) {
+		s.UpdateDeletedAt()
 	})
 }
 

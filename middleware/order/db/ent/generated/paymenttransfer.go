@@ -20,6 +20,12 @@ type PaymentTransfer struct {
 	ID uint32 `json:"id,omitempty"`
 	// EntID holds the value of the "ent_id" field.
 	EntID uuid.UUID `json:"ent_id,omitempty"`
+	// CreatedAt holds the value of the "created_at" field.
+	CreatedAt uint32 `json:"created_at,omitempty"`
+	// UpdatedAt holds the value of the "updated_at" field.
+	UpdatedAt uint32 `json:"updated_at,omitempty"`
+	// DeletedAt holds the value of the "deleted_at" field.
+	DeletedAt uint32 `json:"deleted_at,omitempty"`
 	// PaymentID holds the value of the "payment_id" field.
 	PaymentID uuid.UUID `json:"payment_id,omitempty"`
 	// CoinTypeID holds the value of the "coin_type_id" field.
@@ -48,7 +54,7 @@ func (*PaymentTransfer) scanValues(columns []string) ([]any, error) {
 		switch columns[i] {
 		case paymenttransfer.FieldAmount, paymenttransfer.FieldStartAmount, paymenttransfer.FieldFinishAmount, paymenttransfer.FieldCoinUsdCurrency, paymenttransfer.FieldLocalCoinUsdCurrency, paymenttransfer.FieldLiveCoinUsdCurrency:
 			values[i] = new(decimal.Decimal)
-		case paymenttransfer.FieldID:
+		case paymenttransfer.FieldID, paymenttransfer.FieldCreatedAt, paymenttransfer.FieldUpdatedAt, paymenttransfer.FieldDeletedAt:
 			values[i] = new(sql.NullInt64)
 		case paymenttransfer.FieldEntID, paymenttransfer.FieldPaymentID, paymenttransfer.FieldCoinTypeID, paymenttransfer.FieldAccountID:
 			values[i] = new(uuid.UUID)
@@ -78,6 +84,24 @@ func (pt *PaymentTransfer) assignValues(columns []string, values []any) error {
 				return fmt.Errorf("unexpected type %T for field ent_id", values[i])
 			} else if value != nil {
 				pt.EntID = *value
+			}
+		case paymenttransfer.FieldCreatedAt:
+			if value, ok := values[i].(*sql.NullInt64); !ok {
+				return fmt.Errorf("unexpected type %T for field created_at", values[i])
+			} else if value.Valid {
+				pt.CreatedAt = uint32(value.Int64)
+			}
+		case paymenttransfer.FieldUpdatedAt:
+			if value, ok := values[i].(*sql.NullInt64); !ok {
+				return fmt.Errorf("unexpected type %T for field updated_at", values[i])
+			} else if value.Valid {
+				pt.UpdatedAt = uint32(value.Int64)
+			}
+		case paymenttransfer.FieldDeletedAt:
+			if value, ok := values[i].(*sql.NullInt64); !ok {
+				return fmt.Errorf("unexpected type %T for field deleted_at", values[i])
+			} else if value.Valid {
+				pt.DeletedAt = uint32(value.Int64)
 			}
 		case paymenttransfer.FieldPaymentID:
 			if value, ok := values[i].(*uuid.UUID); !ok {
@@ -171,6 +195,15 @@ func (pt *PaymentTransfer) String() string {
 	builder.WriteString(fmt.Sprintf("id=%v, ", pt.ID))
 	builder.WriteString("ent_id=")
 	builder.WriteString(fmt.Sprintf("%v", pt.EntID))
+	builder.WriteString(", ")
+	builder.WriteString("created_at=")
+	builder.WriteString(fmt.Sprintf("%v", pt.CreatedAt))
+	builder.WriteString(", ")
+	builder.WriteString("updated_at=")
+	builder.WriteString(fmt.Sprintf("%v", pt.UpdatedAt))
+	builder.WriteString(", ")
+	builder.WriteString("deleted_at=")
+	builder.WriteString(fmt.Sprintf("%v", pt.DeletedAt))
 	builder.WriteString(", ")
 	builder.WriteString("payment_id=")
 	builder.WriteString(fmt.Sprintf("%v", pt.PaymentID))

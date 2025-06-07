@@ -38,12 +38,28 @@ func init() {
 	appconfigMixin := schema.AppConfig{}.Mixin()
 	appconfigMixinFields0 := appconfigMixin[0].Fields()
 	_ = appconfigMixinFields0
+	appconfigMixinFields1 := appconfigMixin[1].Fields()
+	_ = appconfigMixinFields1
 	appconfigFields := schema.AppConfig{}.Fields()
 	_ = appconfigFields
 	// appconfigDescEntID is the schema descriptor for ent_id field.
 	appconfigDescEntID := appconfigMixinFields0[1].Descriptor()
 	// appconfig.DefaultEntID holds the default value on creation for the ent_id field.
 	appconfig.DefaultEntID = appconfigDescEntID.Default.(func() uuid.UUID)
+	// appconfigDescCreatedAt is the schema descriptor for created_at field.
+	appconfigDescCreatedAt := appconfigMixinFields1[0].Descriptor()
+	// appconfig.DefaultCreatedAt holds the default value on creation for the created_at field.
+	appconfig.DefaultCreatedAt = appconfigDescCreatedAt.Default.(func() uint32)
+	// appconfigDescUpdatedAt is the schema descriptor for updated_at field.
+	appconfigDescUpdatedAt := appconfigMixinFields1[1].Descriptor()
+	// appconfig.DefaultUpdatedAt holds the default value on creation for the updated_at field.
+	appconfig.DefaultUpdatedAt = appconfigDescUpdatedAt.Default.(func() uint32)
+	// appconfig.UpdateDefaultUpdatedAt holds the default value on update for the updated_at field.
+	appconfig.UpdateDefaultUpdatedAt = appconfigDescUpdatedAt.UpdateDefault.(func() uint32)
+	// appconfigDescDeletedAt is the schema descriptor for deleted_at field.
+	appconfigDescDeletedAt := appconfigMixinFields1[2].Descriptor()
+	// appconfig.DefaultDeletedAt holds the default value on creation for the deleted_at field.
+	appconfig.DefaultDeletedAt = appconfigDescDeletedAt.Default.(func() uint32)
 	// appconfigDescAppID is the schema descriptor for app_id field.
 	appconfigDescAppID := appconfigFields[0].Descriptor()
 	// appconfig.DefaultAppID holds the default value on creation for the app_id field.
@@ -75,12 +91,28 @@ func init() {
 	compensateMixin := schema.Compensate{}.Mixin()
 	compensateMixinFields0 := compensateMixin[0].Fields()
 	_ = compensateMixinFields0
+	compensateMixinFields1 := compensateMixin[1].Fields()
+	_ = compensateMixinFields1
 	compensateFields := schema.Compensate{}.Fields()
 	_ = compensateFields
 	// compensateDescEntID is the schema descriptor for ent_id field.
 	compensateDescEntID := compensateMixinFields0[1].Descriptor()
 	// compensate.DefaultEntID holds the default value on creation for the ent_id field.
 	compensate.DefaultEntID = compensateDescEntID.Default.(func() uuid.UUID)
+	// compensateDescCreatedAt is the schema descriptor for created_at field.
+	compensateDescCreatedAt := compensateMixinFields1[0].Descriptor()
+	// compensate.DefaultCreatedAt holds the default value on creation for the created_at field.
+	compensate.DefaultCreatedAt = compensateDescCreatedAt.Default.(func() uint32)
+	// compensateDescUpdatedAt is the schema descriptor for updated_at field.
+	compensateDescUpdatedAt := compensateMixinFields1[1].Descriptor()
+	// compensate.DefaultUpdatedAt holds the default value on creation for the updated_at field.
+	compensate.DefaultUpdatedAt = compensateDescUpdatedAt.Default.(func() uint32)
+	// compensate.UpdateDefaultUpdatedAt holds the default value on update for the updated_at field.
+	compensate.UpdateDefaultUpdatedAt = compensateDescUpdatedAt.UpdateDefault.(func() uint32)
+	// compensateDescDeletedAt is the schema descriptor for deleted_at field.
+	compensateDescDeletedAt := compensateMixinFields1[2].Descriptor()
+	// compensate.DefaultDeletedAt holds the default value on creation for the deleted_at field.
+	compensate.DefaultDeletedAt = compensateDescDeletedAt.Default.(func() uint32)
 	// compensateDescOrderID is the schema descriptor for order_id field.
 	compensateDescOrderID := compensateFields[0].Descriptor()
 	// compensate.DefaultOrderID holds the default value on creation for the order_id field.
@@ -100,12 +132,28 @@ func init() {
 	feeorderMixin := schema.FeeOrder{}.Mixin()
 	feeorderMixinFields0 := feeorderMixin[0].Fields()
 	_ = feeorderMixinFields0
+	feeorderMixinFields1 := feeorderMixin[1].Fields()
+	_ = feeorderMixinFields1
 	feeorderFields := schema.FeeOrder{}.Fields()
 	_ = feeorderFields
 	// feeorderDescEntID is the schema descriptor for ent_id field.
 	feeorderDescEntID := feeorderMixinFields0[1].Descriptor()
 	// feeorder.DefaultEntID holds the default value on creation for the ent_id field.
 	feeorder.DefaultEntID = feeorderDescEntID.Default.(func() uuid.UUID)
+	// feeorderDescCreatedAt is the schema descriptor for created_at field.
+	feeorderDescCreatedAt := feeorderMixinFields1[0].Descriptor()
+	// feeorder.DefaultCreatedAt holds the default value on creation for the created_at field.
+	feeorder.DefaultCreatedAt = feeorderDescCreatedAt.Default.(func() uint32)
+	// feeorderDescUpdatedAt is the schema descriptor for updated_at field.
+	feeorderDescUpdatedAt := feeorderMixinFields1[1].Descriptor()
+	// feeorder.DefaultUpdatedAt holds the default value on creation for the updated_at field.
+	feeorder.DefaultUpdatedAt = feeorderDescUpdatedAt.Default.(func() uint32)
+	// feeorder.UpdateDefaultUpdatedAt holds the default value on update for the updated_at field.
+	feeorder.UpdateDefaultUpdatedAt = feeorderDescUpdatedAt.UpdateDefault.(func() uint32)
+	// feeorderDescDeletedAt is the schema descriptor for deleted_at field.
+	feeorderDescDeletedAt := feeorderMixinFields1[2].Descriptor()
+	// feeorder.DefaultDeletedAt holds the default value on creation for the deleted_at field.
+	feeorder.DefaultDeletedAt = feeorderDescDeletedAt.Default.(func() uint32)
 	// feeorderDescOrderID is the schema descriptor for order_id field.
 	feeorderDescOrderID := feeorderFields[0].Descriptor()
 	// feeorder.DefaultOrderID holds the default value on creation for the order_id field.
@@ -133,12 +181,28 @@ func init() {
 	feeorderstateMixin := schema.FeeOrderState{}.Mixin()
 	feeorderstateMixinFields0 := feeorderstateMixin[0].Fields()
 	_ = feeorderstateMixinFields0
+	feeorderstateMixinFields1 := feeorderstateMixin[1].Fields()
+	_ = feeorderstateMixinFields1
 	feeorderstateFields := schema.FeeOrderState{}.Fields()
 	_ = feeorderstateFields
 	// feeorderstateDescEntID is the schema descriptor for ent_id field.
 	feeorderstateDescEntID := feeorderstateMixinFields0[1].Descriptor()
 	// feeorderstate.DefaultEntID holds the default value on creation for the ent_id field.
 	feeorderstate.DefaultEntID = feeorderstateDescEntID.Default.(func() uuid.UUID)
+	// feeorderstateDescCreatedAt is the schema descriptor for created_at field.
+	feeorderstateDescCreatedAt := feeorderstateMixinFields1[0].Descriptor()
+	// feeorderstate.DefaultCreatedAt holds the default value on creation for the created_at field.
+	feeorderstate.DefaultCreatedAt = feeorderstateDescCreatedAt.Default.(func() uint32)
+	// feeorderstateDescUpdatedAt is the schema descriptor for updated_at field.
+	feeorderstateDescUpdatedAt := feeorderstateMixinFields1[1].Descriptor()
+	// feeorderstate.DefaultUpdatedAt holds the default value on creation for the updated_at field.
+	feeorderstate.DefaultUpdatedAt = feeorderstateDescUpdatedAt.Default.(func() uint32)
+	// feeorderstate.UpdateDefaultUpdatedAt holds the default value on update for the updated_at field.
+	feeorderstate.UpdateDefaultUpdatedAt = feeorderstateDescUpdatedAt.UpdateDefault.(func() uint32)
+	// feeorderstateDescDeletedAt is the schema descriptor for deleted_at field.
+	feeorderstateDescDeletedAt := feeorderstateMixinFields1[2].Descriptor()
+	// feeorderstate.DefaultDeletedAt holds the default value on creation for the deleted_at field.
+	feeorderstate.DefaultDeletedAt = feeorderstateDescDeletedAt.Default.(func() uint32)
 	// feeorderstateDescOrderID is the schema descriptor for order_id field.
 	feeorderstateDescOrderID := feeorderstateFields[0].Descriptor()
 	// feeorderstate.DefaultOrderID holds the default value on creation for the order_id field.
@@ -178,12 +242,28 @@ func init() {
 	orderMixin := schema.Order{}.Mixin()
 	orderMixinFields0 := orderMixin[0].Fields()
 	_ = orderMixinFields0
+	orderMixinFields1 := orderMixin[1].Fields()
+	_ = orderMixinFields1
 	orderFields := schema.Order{}.Fields()
 	_ = orderFields
 	// orderDescEntID is the schema descriptor for ent_id field.
 	orderDescEntID := orderMixinFields0[1].Descriptor()
 	// order.DefaultEntID holds the default value on creation for the ent_id field.
 	order.DefaultEntID = orderDescEntID.Default.(func() uuid.UUID)
+	// orderDescCreatedAt is the schema descriptor for created_at field.
+	orderDescCreatedAt := orderMixinFields1[0].Descriptor()
+	// order.DefaultCreatedAt holds the default value on creation for the created_at field.
+	order.DefaultCreatedAt = orderDescCreatedAt.Default.(func() uint32)
+	// orderDescUpdatedAt is the schema descriptor for updated_at field.
+	orderDescUpdatedAt := orderMixinFields1[1].Descriptor()
+	// order.DefaultUpdatedAt holds the default value on creation for the updated_at field.
+	order.DefaultUpdatedAt = orderDescUpdatedAt.Default.(func() uint32)
+	// order.UpdateDefaultUpdatedAt holds the default value on update for the updated_at field.
+	order.UpdateDefaultUpdatedAt = orderDescUpdatedAt.UpdateDefault.(func() uint32)
+	// orderDescDeletedAt is the schema descriptor for deleted_at field.
+	orderDescDeletedAt := orderMixinFields1[2].Descriptor()
+	// order.DefaultDeletedAt holds the default value on creation for the deleted_at field.
+	order.DefaultDeletedAt = orderDescDeletedAt.Default.(func() uint32)
 	// orderDescPaymentID is the schema descriptor for payment_id field.
 	orderDescPaymentID := orderFields[4].Descriptor()
 	// order.DefaultPaymentID holds the default value on creation for the payment_id field.
@@ -275,12 +355,28 @@ func init() {
 	orderbaseMixin := schema.OrderBase{}.Mixin()
 	orderbaseMixinFields0 := orderbaseMixin[0].Fields()
 	_ = orderbaseMixinFields0
+	orderbaseMixinFields1 := orderbaseMixin[1].Fields()
+	_ = orderbaseMixinFields1
 	orderbaseFields := schema.OrderBase{}.Fields()
 	_ = orderbaseFields
 	// orderbaseDescEntID is the schema descriptor for ent_id field.
 	orderbaseDescEntID := orderbaseMixinFields0[1].Descriptor()
 	// orderbase.DefaultEntID holds the default value on creation for the ent_id field.
 	orderbase.DefaultEntID = orderbaseDescEntID.Default.(func() uuid.UUID)
+	// orderbaseDescCreatedAt is the schema descriptor for created_at field.
+	orderbaseDescCreatedAt := orderbaseMixinFields1[0].Descriptor()
+	// orderbase.DefaultCreatedAt holds the default value on creation for the created_at field.
+	orderbase.DefaultCreatedAt = orderbaseDescCreatedAt.Default.(func() uint32)
+	// orderbaseDescUpdatedAt is the schema descriptor for updated_at field.
+	orderbaseDescUpdatedAt := orderbaseMixinFields1[1].Descriptor()
+	// orderbase.DefaultUpdatedAt holds the default value on creation for the updated_at field.
+	orderbase.DefaultUpdatedAt = orderbaseDescUpdatedAt.Default.(func() uint32)
+	// orderbase.UpdateDefaultUpdatedAt holds the default value on update for the updated_at field.
+	orderbase.UpdateDefaultUpdatedAt = orderbaseDescUpdatedAt.UpdateDefault.(func() uint32)
+	// orderbaseDescDeletedAt is the schema descriptor for deleted_at field.
+	orderbaseDescDeletedAt := orderbaseMixinFields1[2].Descriptor()
+	// orderbase.DefaultDeletedAt holds the default value on creation for the deleted_at field.
+	orderbase.DefaultDeletedAt = orderbaseDescDeletedAt.Default.(func() uint32)
 	// orderbaseDescAppID is the schema descriptor for app_id field.
 	orderbaseDescAppID := orderbaseFields[0].Descriptor()
 	// orderbase.DefaultAppID holds the default value on creation for the app_id field.
@@ -320,12 +416,28 @@ func init() {
 	ordercouponMixin := schema.OrderCoupon{}.Mixin()
 	ordercouponMixinFields0 := ordercouponMixin[0].Fields()
 	_ = ordercouponMixinFields0
+	ordercouponMixinFields1 := ordercouponMixin[1].Fields()
+	_ = ordercouponMixinFields1
 	ordercouponFields := schema.OrderCoupon{}.Fields()
 	_ = ordercouponFields
 	// ordercouponDescEntID is the schema descriptor for ent_id field.
 	ordercouponDescEntID := ordercouponMixinFields0[1].Descriptor()
 	// ordercoupon.DefaultEntID holds the default value on creation for the ent_id field.
 	ordercoupon.DefaultEntID = ordercouponDescEntID.Default.(func() uuid.UUID)
+	// ordercouponDescCreatedAt is the schema descriptor for created_at field.
+	ordercouponDescCreatedAt := ordercouponMixinFields1[0].Descriptor()
+	// ordercoupon.DefaultCreatedAt holds the default value on creation for the created_at field.
+	ordercoupon.DefaultCreatedAt = ordercouponDescCreatedAt.Default.(func() uint32)
+	// ordercouponDescUpdatedAt is the schema descriptor for updated_at field.
+	ordercouponDescUpdatedAt := ordercouponMixinFields1[1].Descriptor()
+	// ordercoupon.DefaultUpdatedAt holds the default value on creation for the updated_at field.
+	ordercoupon.DefaultUpdatedAt = ordercouponDescUpdatedAt.Default.(func() uint32)
+	// ordercoupon.UpdateDefaultUpdatedAt holds the default value on update for the updated_at field.
+	ordercoupon.UpdateDefaultUpdatedAt = ordercouponDescUpdatedAt.UpdateDefault.(func() uint32)
+	// ordercouponDescDeletedAt is the schema descriptor for deleted_at field.
+	ordercouponDescDeletedAt := ordercouponMixinFields1[2].Descriptor()
+	// ordercoupon.DefaultDeletedAt holds the default value on creation for the deleted_at field.
+	ordercoupon.DefaultDeletedAt = ordercouponDescDeletedAt.Default.(func() uint32)
 	// ordercouponDescOrderID is the schema descriptor for order_id field.
 	ordercouponDescOrderID := ordercouponFields[0].Descriptor()
 	// ordercoupon.DefaultOrderID holds the default value on creation for the order_id field.
@@ -337,12 +449,28 @@ func init() {
 	orderlockMixin := schema.OrderLock{}.Mixin()
 	orderlockMixinFields0 := orderlockMixin[0].Fields()
 	_ = orderlockMixinFields0
+	orderlockMixinFields1 := orderlockMixin[1].Fields()
+	_ = orderlockMixinFields1
 	orderlockFields := schema.OrderLock{}.Fields()
 	_ = orderlockFields
 	// orderlockDescEntID is the schema descriptor for ent_id field.
 	orderlockDescEntID := orderlockMixinFields0[1].Descriptor()
 	// orderlock.DefaultEntID holds the default value on creation for the ent_id field.
 	orderlock.DefaultEntID = orderlockDescEntID.Default.(func() uuid.UUID)
+	// orderlockDescCreatedAt is the schema descriptor for created_at field.
+	orderlockDescCreatedAt := orderlockMixinFields1[0].Descriptor()
+	// orderlock.DefaultCreatedAt holds the default value on creation for the created_at field.
+	orderlock.DefaultCreatedAt = orderlockDescCreatedAt.Default.(func() uint32)
+	// orderlockDescUpdatedAt is the schema descriptor for updated_at field.
+	orderlockDescUpdatedAt := orderlockMixinFields1[1].Descriptor()
+	// orderlock.DefaultUpdatedAt holds the default value on creation for the updated_at field.
+	orderlock.DefaultUpdatedAt = orderlockDescUpdatedAt.Default.(func() uint32)
+	// orderlock.UpdateDefaultUpdatedAt holds the default value on update for the updated_at field.
+	orderlock.UpdateDefaultUpdatedAt = orderlockDescUpdatedAt.UpdateDefault.(func() uint32)
+	// orderlockDescDeletedAt is the schema descriptor for deleted_at field.
+	orderlockDescDeletedAt := orderlockMixinFields1[2].Descriptor()
+	// orderlock.DefaultDeletedAt holds the default value on creation for the deleted_at field.
+	orderlock.DefaultDeletedAt = orderlockDescDeletedAt.Default.(func() uint32)
 	// orderlockDescOrderID is the schema descriptor for order_id field.
 	orderlockDescOrderID := orderlockFields[0].Descriptor()
 	// orderlock.DefaultOrderID holds the default value on creation for the order_id field.
@@ -358,12 +486,28 @@ func init() {
 	orderstateMixin := schema.OrderState{}.Mixin()
 	orderstateMixinFields0 := orderstateMixin[0].Fields()
 	_ = orderstateMixinFields0
+	orderstateMixinFields1 := orderstateMixin[1].Fields()
+	_ = orderstateMixinFields1
 	orderstateFields := schema.OrderState{}.Fields()
 	_ = orderstateFields
 	// orderstateDescEntID is the schema descriptor for ent_id field.
 	orderstateDescEntID := orderstateMixinFields0[1].Descriptor()
 	// orderstate.DefaultEntID holds the default value on creation for the ent_id field.
 	orderstate.DefaultEntID = orderstateDescEntID.Default.(func() uuid.UUID)
+	// orderstateDescCreatedAt is the schema descriptor for created_at field.
+	orderstateDescCreatedAt := orderstateMixinFields1[0].Descriptor()
+	// orderstate.DefaultCreatedAt holds the default value on creation for the created_at field.
+	orderstate.DefaultCreatedAt = orderstateDescCreatedAt.Default.(func() uint32)
+	// orderstateDescUpdatedAt is the schema descriptor for updated_at field.
+	orderstateDescUpdatedAt := orderstateMixinFields1[1].Descriptor()
+	// orderstate.DefaultUpdatedAt holds the default value on creation for the updated_at field.
+	orderstate.DefaultUpdatedAt = orderstateDescUpdatedAt.Default.(func() uint32)
+	// orderstate.UpdateDefaultUpdatedAt holds the default value on update for the updated_at field.
+	orderstate.UpdateDefaultUpdatedAt = orderstateDescUpdatedAt.UpdateDefault.(func() uint32)
+	// orderstateDescDeletedAt is the schema descriptor for deleted_at field.
+	orderstateDescDeletedAt := orderstateMixinFields1[2].Descriptor()
+	// orderstate.DefaultDeletedAt holds the default value on creation for the deleted_at field.
+	orderstate.DefaultDeletedAt = orderstateDescDeletedAt.Default.(func() uint32)
 	// orderstateDescOrderState is the schema descriptor for order_state field.
 	orderstateDescOrderState := orderstateFields[1].Descriptor()
 	// orderstate.DefaultOrderState holds the default value on creation for the order_state field.
@@ -439,12 +583,28 @@ func init() {
 	orderstatebaseMixin := schema.OrderStateBase{}.Mixin()
 	orderstatebaseMixinFields0 := orderstatebaseMixin[0].Fields()
 	_ = orderstatebaseMixinFields0
+	orderstatebaseMixinFields1 := orderstatebaseMixin[1].Fields()
+	_ = orderstatebaseMixinFields1
 	orderstatebaseFields := schema.OrderStateBase{}.Fields()
 	_ = orderstatebaseFields
 	// orderstatebaseDescEntID is the schema descriptor for ent_id field.
 	orderstatebaseDescEntID := orderstatebaseMixinFields0[1].Descriptor()
 	// orderstatebase.DefaultEntID holds the default value on creation for the ent_id field.
 	orderstatebase.DefaultEntID = orderstatebaseDescEntID.Default.(func() uuid.UUID)
+	// orderstatebaseDescCreatedAt is the schema descriptor for created_at field.
+	orderstatebaseDescCreatedAt := orderstatebaseMixinFields1[0].Descriptor()
+	// orderstatebase.DefaultCreatedAt holds the default value on creation for the created_at field.
+	orderstatebase.DefaultCreatedAt = orderstatebaseDescCreatedAt.Default.(func() uint32)
+	// orderstatebaseDescUpdatedAt is the schema descriptor for updated_at field.
+	orderstatebaseDescUpdatedAt := orderstatebaseMixinFields1[1].Descriptor()
+	// orderstatebase.DefaultUpdatedAt holds the default value on creation for the updated_at field.
+	orderstatebase.DefaultUpdatedAt = orderstatebaseDescUpdatedAt.Default.(func() uint32)
+	// orderstatebase.UpdateDefaultUpdatedAt holds the default value on update for the updated_at field.
+	orderstatebase.UpdateDefaultUpdatedAt = orderstatebaseDescUpdatedAt.UpdateDefault.(func() uint32)
+	// orderstatebaseDescDeletedAt is the schema descriptor for deleted_at field.
+	orderstatebaseDescDeletedAt := orderstatebaseMixinFields1[2].Descriptor()
+	// orderstatebase.DefaultDeletedAt holds the default value on creation for the deleted_at field.
+	orderstatebase.DefaultDeletedAt = orderstatebaseDescDeletedAt.Default.(func() uint32)
 	// orderstatebaseDescOrderID is the schema descriptor for order_id field.
 	orderstatebaseDescOrderID := orderstatebaseFields[0].Descriptor()
 	// orderstatebase.DefaultOrderID holds the default value on creation for the order_id field.
@@ -476,12 +636,28 @@ func init() {
 	outofgasMixin := schema.OutOfGas{}.Mixin()
 	outofgasMixinFields0 := outofgasMixin[0].Fields()
 	_ = outofgasMixinFields0
+	outofgasMixinFields1 := outofgasMixin[1].Fields()
+	_ = outofgasMixinFields1
 	outofgasFields := schema.OutOfGas{}.Fields()
 	_ = outofgasFields
 	// outofgasDescEntID is the schema descriptor for ent_id field.
 	outofgasDescEntID := outofgasMixinFields0[1].Descriptor()
 	// outofgas.DefaultEntID holds the default value on creation for the ent_id field.
 	outofgas.DefaultEntID = outofgasDescEntID.Default.(func() uuid.UUID)
+	// outofgasDescCreatedAt is the schema descriptor for created_at field.
+	outofgasDescCreatedAt := outofgasMixinFields1[0].Descriptor()
+	// outofgas.DefaultCreatedAt holds the default value on creation for the created_at field.
+	outofgas.DefaultCreatedAt = outofgasDescCreatedAt.Default.(func() uint32)
+	// outofgasDescUpdatedAt is the schema descriptor for updated_at field.
+	outofgasDescUpdatedAt := outofgasMixinFields1[1].Descriptor()
+	// outofgas.DefaultUpdatedAt holds the default value on creation for the updated_at field.
+	outofgas.DefaultUpdatedAt = outofgasDescUpdatedAt.Default.(func() uint32)
+	// outofgas.UpdateDefaultUpdatedAt holds the default value on update for the updated_at field.
+	outofgas.UpdateDefaultUpdatedAt = outofgasDescUpdatedAt.UpdateDefault.(func() uint32)
+	// outofgasDescDeletedAt is the schema descriptor for deleted_at field.
+	outofgasDescDeletedAt := outofgasMixinFields1[2].Descriptor()
+	// outofgas.DefaultDeletedAt holds the default value on creation for the deleted_at field.
+	outofgas.DefaultDeletedAt = outofgasDescDeletedAt.Default.(func() uint32)
 	// outofgasDescOrderID is the schema descriptor for order_id field.
 	outofgasDescOrderID := outofgasFields[0].Descriptor()
 	// outofgas.DefaultOrderID holds the default value on creation for the order_id field.
@@ -497,12 +673,28 @@ func init() {
 	paymentMixin := schema.Payment{}.Mixin()
 	paymentMixinFields0 := paymentMixin[0].Fields()
 	_ = paymentMixinFields0
+	paymentMixinFields1 := paymentMixin[1].Fields()
+	_ = paymentMixinFields1
 	paymentFields := schema.Payment{}.Fields()
 	_ = paymentFields
 	// paymentDescEntID is the schema descriptor for ent_id field.
 	paymentDescEntID := paymentMixinFields0[1].Descriptor()
 	// payment.DefaultEntID holds the default value on creation for the ent_id field.
 	payment.DefaultEntID = paymentDescEntID.Default.(func() uuid.UUID)
+	// paymentDescCreatedAt is the schema descriptor for created_at field.
+	paymentDescCreatedAt := paymentMixinFields1[0].Descriptor()
+	// payment.DefaultCreatedAt holds the default value on creation for the created_at field.
+	payment.DefaultCreatedAt = paymentDescCreatedAt.Default.(func() uint32)
+	// paymentDescUpdatedAt is the schema descriptor for updated_at field.
+	paymentDescUpdatedAt := paymentMixinFields1[1].Descriptor()
+	// payment.DefaultUpdatedAt holds the default value on creation for the updated_at field.
+	payment.DefaultUpdatedAt = paymentDescUpdatedAt.Default.(func() uint32)
+	// payment.UpdateDefaultUpdatedAt holds the default value on update for the updated_at field.
+	payment.UpdateDefaultUpdatedAt = paymentDescUpdatedAt.UpdateDefault.(func() uint32)
+	// paymentDescDeletedAt is the schema descriptor for deleted_at field.
+	paymentDescDeletedAt := paymentMixinFields1[2].Descriptor()
+	// payment.DefaultDeletedAt holds the default value on creation for the deleted_at field.
+	payment.DefaultDeletedAt = paymentDescDeletedAt.Default.(func() uint32)
 	// paymentDescStartAmount is the schema descriptor for start_amount field.
 	paymentDescStartAmount := paymentFields[7].Descriptor()
 	// payment.DefaultStartAmount holds the default value on creation for the start_amount field.
@@ -510,12 +702,28 @@ func init() {
 	paymentbalanceMixin := schema.PaymentBalance{}.Mixin()
 	paymentbalanceMixinFields0 := paymentbalanceMixin[0].Fields()
 	_ = paymentbalanceMixinFields0
+	paymentbalanceMixinFields1 := paymentbalanceMixin[1].Fields()
+	_ = paymentbalanceMixinFields1
 	paymentbalanceFields := schema.PaymentBalance{}.Fields()
 	_ = paymentbalanceFields
 	// paymentbalanceDescEntID is the schema descriptor for ent_id field.
 	paymentbalanceDescEntID := paymentbalanceMixinFields0[1].Descriptor()
 	// paymentbalance.DefaultEntID holds the default value on creation for the ent_id field.
 	paymentbalance.DefaultEntID = paymentbalanceDescEntID.Default.(func() uuid.UUID)
+	// paymentbalanceDescCreatedAt is the schema descriptor for created_at field.
+	paymentbalanceDescCreatedAt := paymentbalanceMixinFields1[0].Descriptor()
+	// paymentbalance.DefaultCreatedAt holds the default value on creation for the created_at field.
+	paymentbalance.DefaultCreatedAt = paymentbalanceDescCreatedAt.Default.(func() uint32)
+	// paymentbalanceDescUpdatedAt is the schema descriptor for updated_at field.
+	paymentbalanceDescUpdatedAt := paymentbalanceMixinFields1[1].Descriptor()
+	// paymentbalance.DefaultUpdatedAt holds the default value on creation for the updated_at field.
+	paymentbalance.DefaultUpdatedAt = paymentbalanceDescUpdatedAt.Default.(func() uint32)
+	// paymentbalance.UpdateDefaultUpdatedAt holds the default value on update for the updated_at field.
+	paymentbalance.UpdateDefaultUpdatedAt = paymentbalanceDescUpdatedAt.UpdateDefault.(func() uint32)
+	// paymentbalanceDescDeletedAt is the schema descriptor for deleted_at field.
+	paymentbalanceDescDeletedAt := paymentbalanceMixinFields1[2].Descriptor()
+	// paymentbalance.DefaultDeletedAt holds the default value on creation for the deleted_at field.
+	paymentbalance.DefaultDeletedAt = paymentbalanceDescDeletedAt.Default.(func() uint32)
 	// paymentbalanceDescPaymentID is the schema descriptor for payment_id field.
 	paymentbalanceDescPaymentID := paymentbalanceFields[0].Descriptor()
 	// paymentbalance.DefaultPaymentID holds the default value on creation for the payment_id field.
@@ -543,12 +751,28 @@ func init() {
 	paymentbalancelockMixin := schema.PaymentBalanceLock{}.Mixin()
 	paymentbalancelockMixinFields0 := paymentbalancelockMixin[0].Fields()
 	_ = paymentbalancelockMixinFields0
+	paymentbalancelockMixinFields1 := paymentbalancelockMixin[1].Fields()
+	_ = paymentbalancelockMixinFields1
 	paymentbalancelockFields := schema.PaymentBalanceLock{}.Fields()
 	_ = paymentbalancelockFields
 	// paymentbalancelockDescEntID is the schema descriptor for ent_id field.
 	paymentbalancelockDescEntID := paymentbalancelockMixinFields0[1].Descriptor()
 	// paymentbalancelock.DefaultEntID holds the default value on creation for the ent_id field.
 	paymentbalancelock.DefaultEntID = paymentbalancelockDescEntID.Default.(func() uuid.UUID)
+	// paymentbalancelockDescCreatedAt is the schema descriptor for created_at field.
+	paymentbalancelockDescCreatedAt := paymentbalancelockMixinFields1[0].Descriptor()
+	// paymentbalancelock.DefaultCreatedAt holds the default value on creation for the created_at field.
+	paymentbalancelock.DefaultCreatedAt = paymentbalancelockDescCreatedAt.Default.(func() uint32)
+	// paymentbalancelockDescUpdatedAt is the schema descriptor for updated_at field.
+	paymentbalancelockDescUpdatedAt := paymentbalancelockMixinFields1[1].Descriptor()
+	// paymentbalancelock.DefaultUpdatedAt holds the default value on creation for the updated_at field.
+	paymentbalancelock.DefaultUpdatedAt = paymentbalancelockDescUpdatedAt.Default.(func() uint32)
+	// paymentbalancelock.UpdateDefaultUpdatedAt holds the default value on update for the updated_at field.
+	paymentbalancelock.UpdateDefaultUpdatedAt = paymentbalancelockDescUpdatedAt.UpdateDefault.(func() uint32)
+	// paymentbalancelockDescDeletedAt is the schema descriptor for deleted_at field.
+	paymentbalancelockDescDeletedAt := paymentbalancelockMixinFields1[2].Descriptor()
+	// paymentbalancelock.DefaultDeletedAt holds the default value on creation for the deleted_at field.
+	paymentbalancelock.DefaultDeletedAt = paymentbalancelockDescDeletedAt.Default.(func() uint32)
 	// paymentbalancelockDescPaymentID is the schema descriptor for payment_id field.
 	paymentbalancelockDescPaymentID := paymentbalancelockFields[0].Descriptor()
 	// paymentbalancelock.DefaultPaymentID holds the default value on creation for the payment_id field.
@@ -560,12 +784,28 @@ func init() {
 	paymentbaseMixin := schema.PaymentBase{}.Mixin()
 	paymentbaseMixinFields0 := paymentbaseMixin[0].Fields()
 	_ = paymentbaseMixinFields0
+	paymentbaseMixinFields1 := paymentbaseMixin[1].Fields()
+	_ = paymentbaseMixinFields1
 	paymentbaseFields := schema.PaymentBase{}.Fields()
 	_ = paymentbaseFields
 	// paymentbaseDescEntID is the schema descriptor for ent_id field.
 	paymentbaseDescEntID := paymentbaseMixinFields0[1].Descriptor()
 	// paymentbase.DefaultEntID holds the default value on creation for the ent_id field.
 	paymentbase.DefaultEntID = paymentbaseDescEntID.Default.(func() uuid.UUID)
+	// paymentbaseDescCreatedAt is the schema descriptor for created_at field.
+	paymentbaseDescCreatedAt := paymentbaseMixinFields1[0].Descriptor()
+	// paymentbase.DefaultCreatedAt holds the default value on creation for the created_at field.
+	paymentbase.DefaultCreatedAt = paymentbaseDescCreatedAt.Default.(func() uint32)
+	// paymentbaseDescUpdatedAt is the schema descriptor for updated_at field.
+	paymentbaseDescUpdatedAt := paymentbaseMixinFields1[1].Descriptor()
+	// paymentbase.DefaultUpdatedAt holds the default value on creation for the updated_at field.
+	paymentbase.DefaultUpdatedAt = paymentbaseDescUpdatedAt.Default.(func() uint32)
+	// paymentbase.UpdateDefaultUpdatedAt holds the default value on update for the updated_at field.
+	paymentbase.UpdateDefaultUpdatedAt = paymentbaseDescUpdatedAt.UpdateDefault.(func() uint32)
+	// paymentbaseDescDeletedAt is the schema descriptor for deleted_at field.
+	paymentbaseDescDeletedAt := paymentbaseMixinFields1[2].Descriptor()
+	// paymentbase.DefaultDeletedAt holds the default value on creation for the deleted_at field.
+	paymentbase.DefaultDeletedAt = paymentbaseDescDeletedAt.Default.(func() uint32)
 	// paymentbaseDescOrderID is the schema descriptor for order_id field.
 	paymentbaseDescOrderID := paymentbaseFields[0].Descriptor()
 	// paymentbase.DefaultOrderID holds the default value on creation for the order_id field.
@@ -577,12 +817,28 @@ func init() {
 	paymentcontractMixin := schema.PaymentContract{}.Mixin()
 	paymentcontractMixinFields0 := paymentcontractMixin[0].Fields()
 	_ = paymentcontractMixinFields0
+	paymentcontractMixinFields1 := paymentcontractMixin[1].Fields()
+	_ = paymentcontractMixinFields1
 	paymentcontractFields := schema.PaymentContract{}.Fields()
 	_ = paymentcontractFields
 	// paymentcontractDescEntID is the schema descriptor for ent_id field.
 	paymentcontractDescEntID := paymentcontractMixinFields0[1].Descriptor()
 	// paymentcontract.DefaultEntID holds the default value on creation for the ent_id field.
 	paymentcontract.DefaultEntID = paymentcontractDescEntID.Default.(func() uuid.UUID)
+	// paymentcontractDescCreatedAt is the schema descriptor for created_at field.
+	paymentcontractDescCreatedAt := paymentcontractMixinFields1[0].Descriptor()
+	// paymentcontract.DefaultCreatedAt holds the default value on creation for the created_at field.
+	paymentcontract.DefaultCreatedAt = paymentcontractDescCreatedAt.Default.(func() uint32)
+	// paymentcontractDescUpdatedAt is the schema descriptor for updated_at field.
+	paymentcontractDescUpdatedAt := paymentcontractMixinFields1[1].Descriptor()
+	// paymentcontract.DefaultUpdatedAt holds the default value on creation for the updated_at field.
+	paymentcontract.DefaultUpdatedAt = paymentcontractDescUpdatedAt.Default.(func() uint32)
+	// paymentcontract.UpdateDefaultUpdatedAt holds the default value on update for the updated_at field.
+	paymentcontract.UpdateDefaultUpdatedAt = paymentcontractDescUpdatedAt.UpdateDefault.(func() uint32)
+	// paymentcontractDescDeletedAt is the schema descriptor for deleted_at field.
+	paymentcontractDescDeletedAt := paymentcontractMixinFields1[2].Descriptor()
+	// paymentcontract.DefaultDeletedAt holds the default value on creation for the deleted_at field.
+	paymentcontract.DefaultDeletedAt = paymentcontractDescDeletedAt.Default.(func() uint32)
 	// paymentcontractDescOrderID is the schema descriptor for order_id field.
 	paymentcontractDescOrderID := paymentcontractFields[0].Descriptor()
 	// paymentcontract.DefaultOrderID holds the default value on creation for the order_id field.
@@ -598,12 +854,28 @@ func init() {
 	paymentfiatMixin := schema.PaymentFiat{}.Mixin()
 	paymentfiatMixinFields0 := paymentfiatMixin[0].Fields()
 	_ = paymentfiatMixinFields0
+	paymentfiatMixinFields1 := paymentfiatMixin[1].Fields()
+	_ = paymentfiatMixinFields1
 	paymentfiatFields := schema.PaymentFiat{}.Fields()
 	_ = paymentfiatFields
 	// paymentfiatDescEntID is the schema descriptor for ent_id field.
 	paymentfiatDescEntID := paymentfiatMixinFields0[1].Descriptor()
 	// paymentfiat.DefaultEntID holds the default value on creation for the ent_id field.
 	paymentfiat.DefaultEntID = paymentfiatDescEntID.Default.(func() uuid.UUID)
+	// paymentfiatDescCreatedAt is the schema descriptor for created_at field.
+	paymentfiatDescCreatedAt := paymentfiatMixinFields1[0].Descriptor()
+	// paymentfiat.DefaultCreatedAt holds the default value on creation for the created_at field.
+	paymentfiat.DefaultCreatedAt = paymentfiatDescCreatedAt.Default.(func() uint32)
+	// paymentfiatDescUpdatedAt is the schema descriptor for updated_at field.
+	paymentfiatDescUpdatedAt := paymentfiatMixinFields1[1].Descriptor()
+	// paymentfiat.DefaultUpdatedAt holds the default value on creation for the updated_at field.
+	paymentfiat.DefaultUpdatedAt = paymentfiatDescUpdatedAt.Default.(func() uint32)
+	// paymentfiat.UpdateDefaultUpdatedAt holds the default value on update for the updated_at field.
+	paymentfiat.UpdateDefaultUpdatedAt = paymentfiatDescUpdatedAt.UpdateDefault.(func() uint32)
+	// paymentfiatDescDeletedAt is the schema descriptor for deleted_at field.
+	paymentfiatDescDeletedAt := paymentfiatMixinFields1[2].Descriptor()
+	// paymentfiat.DefaultDeletedAt holds the default value on creation for the deleted_at field.
+	paymentfiat.DefaultDeletedAt = paymentfiatDescDeletedAt.Default.(func() uint32)
 	// paymentfiatDescPaymentID is the schema descriptor for payment_id field.
 	paymentfiatDescPaymentID := paymentfiatFields[0].Descriptor()
 	// paymentfiat.DefaultPaymentID holds the default value on creation for the payment_id field.
@@ -627,12 +899,28 @@ func init() {
 	paymenttransferMixin := schema.PaymentTransfer{}.Mixin()
 	paymenttransferMixinFields0 := paymenttransferMixin[0].Fields()
 	_ = paymenttransferMixinFields0
+	paymenttransferMixinFields1 := paymenttransferMixin[1].Fields()
+	_ = paymenttransferMixinFields1
 	paymenttransferFields := schema.PaymentTransfer{}.Fields()
 	_ = paymenttransferFields
 	// paymenttransferDescEntID is the schema descriptor for ent_id field.
 	paymenttransferDescEntID := paymenttransferMixinFields0[1].Descriptor()
 	// paymenttransfer.DefaultEntID holds the default value on creation for the ent_id field.
 	paymenttransfer.DefaultEntID = paymenttransferDescEntID.Default.(func() uuid.UUID)
+	// paymenttransferDescCreatedAt is the schema descriptor for created_at field.
+	paymenttransferDescCreatedAt := paymenttransferMixinFields1[0].Descriptor()
+	// paymenttransfer.DefaultCreatedAt holds the default value on creation for the created_at field.
+	paymenttransfer.DefaultCreatedAt = paymenttransferDescCreatedAt.Default.(func() uint32)
+	// paymenttransferDescUpdatedAt is the schema descriptor for updated_at field.
+	paymenttransferDescUpdatedAt := paymenttransferMixinFields1[1].Descriptor()
+	// paymenttransfer.DefaultUpdatedAt holds the default value on creation for the updated_at field.
+	paymenttransfer.DefaultUpdatedAt = paymenttransferDescUpdatedAt.Default.(func() uint32)
+	// paymenttransfer.UpdateDefaultUpdatedAt holds the default value on update for the updated_at field.
+	paymenttransfer.UpdateDefaultUpdatedAt = paymenttransferDescUpdatedAt.UpdateDefault.(func() uint32)
+	// paymenttransferDescDeletedAt is the schema descriptor for deleted_at field.
+	paymenttransferDescDeletedAt := paymenttransferMixinFields1[2].Descriptor()
+	// paymenttransfer.DefaultDeletedAt holds the default value on creation for the deleted_at field.
+	paymenttransfer.DefaultDeletedAt = paymenttransferDescDeletedAt.Default.(func() uint32)
 	// paymenttransferDescPaymentID is the schema descriptor for payment_id field.
 	paymenttransferDescPaymentID := paymenttransferFields[0].Descriptor()
 	// paymenttransfer.DefaultPaymentID holds the default value on creation for the payment_id field.
@@ -672,21 +960,53 @@ func init() {
 	poolorderuserMixin := schema.PoolOrderUser{}.Mixin()
 	poolorderuserMixinFields0 := poolorderuserMixin[0].Fields()
 	_ = poolorderuserMixinFields0
+	poolorderuserMixinFields1 := poolorderuserMixin[1].Fields()
+	_ = poolorderuserMixinFields1
 	poolorderuserFields := schema.PoolOrderUser{}.Fields()
 	_ = poolorderuserFields
 	// poolorderuserDescEntID is the schema descriptor for ent_id field.
 	poolorderuserDescEntID := poolorderuserMixinFields0[1].Descriptor()
 	// poolorderuser.DefaultEntID holds the default value on creation for the ent_id field.
 	poolorderuser.DefaultEntID = poolorderuserDescEntID.Default.(func() uuid.UUID)
+	// poolorderuserDescCreatedAt is the schema descriptor for created_at field.
+	poolorderuserDescCreatedAt := poolorderuserMixinFields1[0].Descriptor()
+	// poolorderuser.DefaultCreatedAt holds the default value on creation for the created_at field.
+	poolorderuser.DefaultCreatedAt = poolorderuserDescCreatedAt.Default.(func() uint32)
+	// poolorderuserDescUpdatedAt is the schema descriptor for updated_at field.
+	poolorderuserDescUpdatedAt := poolorderuserMixinFields1[1].Descriptor()
+	// poolorderuser.DefaultUpdatedAt holds the default value on creation for the updated_at field.
+	poolorderuser.DefaultUpdatedAt = poolorderuserDescUpdatedAt.Default.(func() uint32)
+	// poolorderuser.UpdateDefaultUpdatedAt holds the default value on update for the updated_at field.
+	poolorderuser.UpdateDefaultUpdatedAt = poolorderuserDescUpdatedAt.UpdateDefault.(func() uint32)
+	// poolorderuserDescDeletedAt is the schema descriptor for deleted_at field.
+	poolorderuserDescDeletedAt := poolorderuserMixinFields1[2].Descriptor()
+	// poolorderuser.DefaultDeletedAt holds the default value on creation for the deleted_at field.
+	poolorderuser.DefaultDeletedAt = poolorderuserDescDeletedAt.Default.(func() uint32)
 	powerrentalMixin := schema.PowerRental{}.Mixin()
 	powerrentalMixinFields0 := powerrentalMixin[0].Fields()
 	_ = powerrentalMixinFields0
+	powerrentalMixinFields1 := powerrentalMixin[1].Fields()
+	_ = powerrentalMixinFields1
 	powerrentalFields := schema.PowerRental{}.Fields()
 	_ = powerrentalFields
 	// powerrentalDescEntID is the schema descriptor for ent_id field.
 	powerrentalDescEntID := powerrentalMixinFields0[1].Descriptor()
 	// powerrental.DefaultEntID holds the default value on creation for the ent_id field.
 	powerrental.DefaultEntID = powerrentalDescEntID.Default.(func() uuid.UUID)
+	// powerrentalDescCreatedAt is the schema descriptor for created_at field.
+	powerrentalDescCreatedAt := powerrentalMixinFields1[0].Descriptor()
+	// powerrental.DefaultCreatedAt holds the default value on creation for the created_at field.
+	powerrental.DefaultCreatedAt = powerrentalDescCreatedAt.Default.(func() uint32)
+	// powerrentalDescUpdatedAt is the schema descriptor for updated_at field.
+	powerrentalDescUpdatedAt := powerrentalMixinFields1[1].Descriptor()
+	// powerrental.DefaultUpdatedAt holds the default value on creation for the updated_at field.
+	powerrental.DefaultUpdatedAt = powerrentalDescUpdatedAt.Default.(func() uint32)
+	// powerrental.UpdateDefaultUpdatedAt holds the default value on update for the updated_at field.
+	powerrental.UpdateDefaultUpdatedAt = powerrentalDescUpdatedAt.UpdateDefault.(func() uint32)
+	// powerrentalDescDeletedAt is the schema descriptor for deleted_at field.
+	powerrentalDescDeletedAt := powerrentalMixinFields1[2].Descriptor()
+	// powerrental.DefaultDeletedAt holds the default value on creation for the deleted_at field.
+	powerrental.DefaultDeletedAt = powerrentalDescDeletedAt.Default.(func() uint32)
 	// powerrentalDescOrderID is the schema descriptor for order_id field.
 	powerrentalDescOrderID := powerrentalFields[0].Descriptor()
 	// powerrental.DefaultOrderID holds the default value on creation for the order_id field.
@@ -730,12 +1050,28 @@ func init() {
 	powerrentalstateMixin := schema.PowerRentalState{}.Mixin()
 	powerrentalstateMixinFields0 := powerrentalstateMixin[0].Fields()
 	_ = powerrentalstateMixinFields0
+	powerrentalstateMixinFields1 := powerrentalstateMixin[1].Fields()
+	_ = powerrentalstateMixinFields1
 	powerrentalstateFields := schema.PowerRentalState{}.Fields()
 	_ = powerrentalstateFields
 	// powerrentalstateDescEntID is the schema descriptor for ent_id field.
 	powerrentalstateDescEntID := powerrentalstateMixinFields0[1].Descriptor()
 	// powerrentalstate.DefaultEntID holds the default value on creation for the ent_id field.
 	powerrentalstate.DefaultEntID = powerrentalstateDescEntID.Default.(func() uuid.UUID)
+	// powerrentalstateDescCreatedAt is the schema descriptor for created_at field.
+	powerrentalstateDescCreatedAt := powerrentalstateMixinFields1[0].Descriptor()
+	// powerrentalstate.DefaultCreatedAt holds the default value on creation for the created_at field.
+	powerrentalstate.DefaultCreatedAt = powerrentalstateDescCreatedAt.Default.(func() uint32)
+	// powerrentalstateDescUpdatedAt is the schema descriptor for updated_at field.
+	powerrentalstateDescUpdatedAt := powerrentalstateMixinFields1[1].Descriptor()
+	// powerrentalstate.DefaultUpdatedAt holds the default value on creation for the updated_at field.
+	powerrentalstate.DefaultUpdatedAt = powerrentalstateDescUpdatedAt.Default.(func() uint32)
+	// powerrentalstate.UpdateDefaultUpdatedAt holds the default value on update for the updated_at field.
+	powerrentalstate.UpdateDefaultUpdatedAt = powerrentalstateDescUpdatedAt.UpdateDefault.(func() uint32)
+	// powerrentalstateDescDeletedAt is the schema descriptor for deleted_at field.
+	powerrentalstateDescDeletedAt := powerrentalstateMixinFields1[2].Descriptor()
+	// powerrentalstate.DefaultDeletedAt holds the default value on creation for the deleted_at field.
+	powerrentalstate.DefaultDeletedAt = powerrentalstateDescDeletedAt.Default.(func() uint32)
 	// powerrentalstateDescOrderID is the schema descriptor for order_id field.
 	powerrentalstateDescOrderID := powerrentalstateFields[0].Descriptor()
 	// powerrentalstate.DefaultOrderID holds the default value on creation for the order_id field.
@@ -791,12 +1127,28 @@ func init() {
 	subscriptionorderMixin := schema.SubscriptionOrder{}.Mixin()
 	subscriptionorderMixinFields0 := subscriptionorderMixin[0].Fields()
 	_ = subscriptionorderMixinFields0
+	subscriptionorderMixinFields1 := subscriptionorderMixin[1].Fields()
+	_ = subscriptionorderMixinFields1
 	subscriptionorderFields := schema.SubscriptionOrder{}.Fields()
 	_ = subscriptionorderFields
 	// subscriptionorderDescEntID is the schema descriptor for ent_id field.
 	subscriptionorderDescEntID := subscriptionorderMixinFields0[1].Descriptor()
 	// subscriptionorder.DefaultEntID holds the default value on creation for the ent_id field.
 	subscriptionorder.DefaultEntID = subscriptionorderDescEntID.Default.(func() uuid.UUID)
+	// subscriptionorderDescCreatedAt is the schema descriptor for created_at field.
+	subscriptionorderDescCreatedAt := subscriptionorderMixinFields1[0].Descriptor()
+	// subscriptionorder.DefaultCreatedAt holds the default value on creation for the created_at field.
+	subscriptionorder.DefaultCreatedAt = subscriptionorderDescCreatedAt.Default.(func() uint32)
+	// subscriptionorderDescUpdatedAt is the schema descriptor for updated_at field.
+	subscriptionorderDescUpdatedAt := subscriptionorderMixinFields1[1].Descriptor()
+	// subscriptionorder.DefaultUpdatedAt holds the default value on creation for the updated_at field.
+	subscriptionorder.DefaultUpdatedAt = subscriptionorderDescUpdatedAt.Default.(func() uint32)
+	// subscriptionorder.UpdateDefaultUpdatedAt holds the default value on update for the updated_at field.
+	subscriptionorder.UpdateDefaultUpdatedAt = subscriptionorderDescUpdatedAt.UpdateDefault.(func() uint32)
+	// subscriptionorderDescDeletedAt is the schema descriptor for deleted_at field.
+	subscriptionorderDescDeletedAt := subscriptionorderMixinFields1[2].Descriptor()
+	// subscriptionorder.DefaultDeletedAt holds the default value on creation for the deleted_at field.
+	subscriptionorder.DefaultDeletedAt = subscriptionorderDescDeletedAt.Default.(func() uint32)
 	// subscriptionorderDescOrderID is the schema descriptor for order_id field.
 	subscriptionorderDescOrderID := subscriptionorderFields[0].Descriptor()
 	// subscriptionorder.DefaultOrderID holds the default value on creation for the order_id field.
@@ -824,12 +1176,28 @@ func init() {
 	subscriptionorderstateMixin := schema.SubscriptionOrderState{}.Mixin()
 	subscriptionorderstateMixinFields0 := subscriptionorderstateMixin[0].Fields()
 	_ = subscriptionorderstateMixinFields0
+	subscriptionorderstateMixinFields1 := subscriptionorderstateMixin[1].Fields()
+	_ = subscriptionorderstateMixinFields1
 	subscriptionorderstateFields := schema.SubscriptionOrderState{}.Fields()
 	_ = subscriptionorderstateFields
 	// subscriptionorderstateDescEntID is the schema descriptor for ent_id field.
 	subscriptionorderstateDescEntID := subscriptionorderstateMixinFields0[1].Descriptor()
 	// subscriptionorderstate.DefaultEntID holds the default value on creation for the ent_id field.
 	subscriptionorderstate.DefaultEntID = subscriptionorderstateDescEntID.Default.(func() uuid.UUID)
+	// subscriptionorderstateDescCreatedAt is the schema descriptor for created_at field.
+	subscriptionorderstateDescCreatedAt := subscriptionorderstateMixinFields1[0].Descriptor()
+	// subscriptionorderstate.DefaultCreatedAt holds the default value on creation for the created_at field.
+	subscriptionorderstate.DefaultCreatedAt = subscriptionorderstateDescCreatedAt.Default.(func() uint32)
+	// subscriptionorderstateDescUpdatedAt is the schema descriptor for updated_at field.
+	subscriptionorderstateDescUpdatedAt := subscriptionorderstateMixinFields1[1].Descriptor()
+	// subscriptionorderstate.DefaultUpdatedAt holds the default value on creation for the updated_at field.
+	subscriptionorderstate.DefaultUpdatedAt = subscriptionorderstateDescUpdatedAt.Default.(func() uint32)
+	// subscriptionorderstate.UpdateDefaultUpdatedAt holds the default value on update for the updated_at field.
+	subscriptionorderstate.UpdateDefaultUpdatedAt = subscriptionorderstateDescUpdatedAt.UpdateDefault.(func() uint32)
+	// subscriptionorderstateDescDeletedAt is the schema descriptor for deleted_at field.
+	subscriptionorderstateDescDeletedAt := subscriptionorderstateMixinFields1[2].Descriptor()
+	// subscriptionorderstate.DefaultDeletedAt holds the default value on creation for the deleted_at field.
+	subscriptionorderstate.DefaultDeletedAt = subscriptionorderstateDescDeletedAt.Default.(func() uint32)
 	// subscriptionorderstateDescOrderID is the schema descriptor for order_id field.
 	subscriptionorderstateDescOrderID := subscriptionorderstateFields[0].Descriptor()
 	// subscriptionorderstate.DefaultOrderID holds the default value on creation for the order_id field.

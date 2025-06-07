@@ -19,6 +19,12 @@ type PowerRentalState struct {
 	ID uint32 `json:"id,omitempty"`
 	// EntID holds the value of the "ent_id" field.
 	EntID uuid.UUID `json:"ent_id,omitempty"`
+	// CreatedAt holds the value of the "created_at" field.
+	CreatedAt uint32 `json:"created_at,omitempty"`
+	// UpdatedAt holds the value of the "updated_at" field.
+	UpdatedAt uint32 `json:"updated_at,omitempty"`
+	// DeletedAt holds the value of the "deleted_at" field.
+	DeletedAt uint32 `json:"deleted_at,omitempty"`
 	// OrderID holds the value of the "order_id" field.
 	OrderID uuid.UUID `json:"order_id,omitempty"`
 	// CancelState holds the value of the "cancel_state" field.
@@ -55,7 +61,7 @@ func (*PowerRentalState) scanValues(columns []string) ([]any, error) {
 		switch columns[i] {
 		case powerrentalstate.FieldUserSetPaid, powerrentalstate.FieldUserSetCanceled, powerrentalstate.FieldAdminSetCanceled:
 			values[i] = new(sql.NullBool)
-		case powerrentalstate.FieldID, powerrentalstate.FieldCanceledAt, powerrentalstate.FieldPaidAt, powerrentalstate.FieldOutofgasSeconds, powerrentalstate.FieldCompensateSeconds, powerrentalstate.FieldRenewNotifyAt:
+		case powerrentalstate.FieldID, powerrentalstate.FieldCreatedAt, powerrentalstate.FieldUpdatedAt, powerrentalstate.FieldDeletedAt, powerrentalstate.FieldCanceledAt, powerrentalstate.FieldPaidAt, powerrentalstate.FieldOutofgasSeconds, powerrentalstate.FieldCompensateSeconds, powerrentalstate.FieldRenewNotifyAt:
 			values[i] = new(sql.NullInt64)
 		case powerrentalstate.FieldCancelState, powerrentalstate.FieldPaymentState, powerrentalstate.FieldRenewState:
 			values[i] = new(sql.NullString)
@@ -87,6 +93,24 @@ func (prs *PowerRentalState) assignValues(columns []string, values []any) error 
 				return fmt.Errorf("unexpected type %T for field ent_id", values[i])
 			} else if value != nil {
 				prs.EntID = *value
+			}
+		case powerrentalstate.FieldCreatedAt:
+			if value, ok := values[i].(*sql.NullInt64); !ok {
+				return fmt.Errorf("unexpected type %T for field created_at", values[i])
+			} else if value.Valid {
+				prs.CreatedAt = uint32(value.Int64)
+			}
+		case powerrentalstate.FieldUpdatedAt:
+			if value, ok := values[i].(*sql.NullInt64); !ok {
+				return fmt.Errorf("unexpected type %T for field updated_at", values[i])
+			} else if value.Valid {
+				prs.UpdatedAt = uint32(value.Int64)
+			}
+		case powerrentalstate.FieldDeletedAt:
+			if value, ok := values[i].(*sql.NullInt64); !ok {
+				return fmt.Errorf("unexpected type %T for field deleted_at", values[i])
+			} else if value.Valid {
+				prs.DeletedAt = uint32(value.Int64)
 			}
 		case powerrentalstate.FieldOrderID:
 			if value, ok := values[i].(*uuid.UUID); !ok {
@@ -204,6 +228,15 @@ func (prs *PowerRentalState) String() string {
 	builder.WriteString(fmt.Sprintf("id=%v, ", prs.ID))
 	builder.WriteString("ent_id=")
 	builder.WriteString(fmt.Sprintf("%v", prs.EntID))
+	builder.WriteString(", ")
+	builder.WriteString("created_at=")
+	builder.WriteString(fmt.Sprintf("%v", prs.CreatedAt))
+	builder.WriteString(", ")
+	builder.WriteString("updated_at=")
+	builder.WriteString(fmt.Sprintf("%v", prs.UpdatedAt))
+	builder.WriteString(", ")
+	builder.WriteString("deleted_at=")
+	builder.WriteString(fmt.Sprintf("%v", prs.DeletedAt))
 	builder.WriteString(", ")
 	builder.WriteString("order_id=")
 	builder.WriteString(fmt.Sprintf("%v", prs.OrderID))

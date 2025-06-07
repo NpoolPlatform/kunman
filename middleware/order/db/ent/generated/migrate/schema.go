@@ -12,6 +12,9 @@ var (
 	AppConfigsColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeUint32, Increment: true},
 		{Name: "ent_id", Type: field.TypeUUID, Unique: true},
+		{Name: "created_at", Type: field.TypeUint32},
+		{Name: "updated_at", Type: field.TypeUint32},
+		{Name: "deleted_at", Type: field.TypeUint32},
 		{Name: "app_id", Type: field.TypeUUID, Nullable: true},
 		{Name: "enable_simulate_order", Type: field.TypeBool, Nullable: true, Default: false},
 		{Name: "simulate_order_coupon_mode", Type: field.TypeString, Nullable: true, Default: "WithoutCoupon"},
@@ -37,6 +40,9 @@ var (
 	CompensatesColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeUint32, Increment: true},
 		{Name: "ent_id", Type: field.TypeUUID, Unique: true},
+		{Name: "created_at", Type: field.TypeUint32},
+		{Name: "updated_at", Type: field.TypeUint32},
+		{Name: "deleted_at", Type: field.TypeUint32},
 		{Name: "order_id", Type: field.TypeUUID, Nullable: true},
 		{Name: "compensate_from_id", Type: field.TypeUUID, Nullable: true},
 		{Name: "compensate_type", Type: field.TypeString, Nullable: true, Default: "DefaultCompensateType"},
@@ -56,7 +62,7 @@ var (
 			{
 				Name:    "compensate_order_id",
 				Unique:  false,
-				Columns: []*schema.Column{CompensatesColumns[2]},
+				Columns: []*schema.Column{CompensatesColumns[5]},
 			},
 		},
 	}
@@ -64,6 +70,9 @@ var (
 	FeeOrdersColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeUint32, Increment: true},
 		{Name: "ent_id", Type: field.TypeUUID, Unique: true},
+		{Name: "created_at", Type: field.TypeUint32},
+		{Name: "updated_at", Type: field.TypeUint32},
+		{Name: "deleted_at", Type: field.TypeUint32},
 		{Name: "order_id", Type: field.TypeUUID, Nullable: true},
 		{Name: "good_value_usd", Type: field.TypeOther, Nullable: true, SchemaType: map[string]string{"mysql": "decimal(37,18)"}},
 		{Name: "payment_amount_usd", Type: field.TypeOther, Nullable: true, SchemaType: map[string]string{"mysql": "decimal(37,18)"}},
@@ -85,7 +94,7 @@ var (
 			{
 				Name:    "feeorder_order_id",
 				Unique:  false,
-				Columns: []*schema.Column{FeeOrdersColumns[2]},
+				Columns: []*schema.Column{FeeOrdersColumns[5]},
 			},
 		},
 	}
@@ -93,6 +102,9 @@ var (
 	FeeOrderStatesColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeUint32, Increment: true},
 		{Name: "ent_id", Type: field.TypeUUID, Unique: true},
+		{Name: "created_at", Type: field.TypeUint32},
+		{Name: "updated_at", Type: field.TypeUint32},
+		{Name: "deleted_at", Type: field.TypeUint32},
 		{Name: "order_id", Type: field.TypeUUID, Nullable: true},
 		{Name: "payment_id", Type: field.TypeUUID, Nullable: true},
 		{Name: "paid_at", Type: field.TypeUint32, Nullable: true, Default: 0},
@@ -117,7 +129,7 @@ var (
 			{
 				Name:    "feeorderstate_order_id",
 				Unique:  false,
-				Columns: []*schema.Column{FeeOrderStatesColumns[2]},
+				Columns: []*schema.Column{FeeOrderStatesColumns[5]},
 			},
 		},
 	}
@@ -125,6 +137,9 @@ var (
 	OrdersColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeUint32, Increment: true},
 		{Name: "ent_id", Type: field.TypeUUID, Unique: true},
+		{Name: "created_at", Type: field.TypeUint32},
+		{Name: "updated_at", Type: field.TypeUint32},
+		{Name: "deleted_at", Type: field.TypeUint32},
 		{Name: "app_id", Type: field.TypeUUID},
 		{Name: "user_id", Type: field.TypeUUID},
 		{Name: "good_id", Type: field.TypeUUID},
@@ -167,7 +182,7 @@ var (
 			{
 				Name:    "order_app_id_user_id_good_id_app_good_id",
 				Unique:  false,
-				Columns: []*schema.Column{OrdersColumns[2], OrdersColumns[3], OrdersColumns[4], OrdersColumns[5]},
+				Columns: []*schema.Column{OrdersColumns[5], OrdersColumns[6], OrdersColumns[7], OrdersColumns[8]},
 			},
 		},
 	}
@@ -175,6 +190,9 @@ var (
 	OrderBasesColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeUint32, Increment: true},
 		{Name: "ent_id", Type: field.TypeUUID, Unique: true},
+		{Name: "created_at", Type: field.TypeUint32},
+		{Name: "updated_at", Type: field.TypeUint32},
+		{Name: "deleted_at", Type: field.TypeUint32},
 		{Name: "app_id", Type: field.TypeUUID, Nullable: true},
 		{Name: "user_id", Type: field.TypeUUID, Nullable: true},
 		{Name: "good_id", Type: field.TypeUUID, Nullable: true},
@@ -199,7 +217,7 @@ var (
 			{
 				Name:    "orderbase_user_id_app_good_id",
 				Unique:  false,
-				Columns: []*schema.Column{OrderBasesColumns[3], OrderBasesColumns[5]},
+				Columns: []*schema.Column{OrderBasesColumns[6], OrderBasesColumns[8]},
 			},
 		},
 	}
@@ -207,6 +225,9 @@ var (
 	OrderCouponsColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeUint32, Increment: true},
 		{Name: "ent_id", Type: field.TypeUUID, Unique: true},
+		{Name: "created_at", Type: field.TypeUint32},
+		{Name: "updated_at", Type: field.TypeUint32},
+		{Name: "deleted_at", Type: field.TypeUint32},
 		{Name: "order_id", Type: field.TypeUUID, Nullable: true},
 		{Name: "coupon_id", Type: field.TypeUUID, Nullable: true},
 	}
@@ -224,7 +245,7 @@ var (
 			{
 				Name:    "ordercoupon_order_id",
 				Unique:  false,
-				Columns: []*schema.Column{OrderCouponsColumns[2]},
+				Columns: []*schema.Column{OrderCouponsColumns[5]},
 			},
 		},
 	}
@@ -232,6 +253,9 @@ var (
 	OrderLocksColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeUint32, Increment: true},
 		{Name: "ent_id", Type: field.TypeUUID, Unique: true},
+		{Name: "created_at", Type: field.TypeUint32},
+		{Name: "updated_at", Type: field.TypeUint32},
+		{Name: "deleted_at", Type: field.TypeUint32},
 		{Name: "order_id", Type: field.TypeUUID, Nullable: true},
 		{Name: "user_id", Type: field.TypeUUID, Nullable: true},
 		{Name: "lock_type", Type: field.TypeString, Nullable: true, Default: "DefaultOrderLockType"},
@@ -250,7 +274,7 @@ var (
 			{
 				Name:    "orderlock_order_id",
 				Unique:  false,
-				Columns: []*schema.Column{OrderLocksColumns[2]},
+				Columns: []*schema.Column{OrderLocksColumns[5]},
 			},
 		},
 	}
@@ -258,6 +282,9 @@ var (
 	OrderStatesColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeUint32, Increment: true},
 		{Name: "ent_id", Type: field.TypeUUID, Unique: true},
+		{Name: "created_at", Type: field.TypeUint32},
+		{Name: "updated_at", Type: field.TypeUint32},
+		{Name: "deleted_at", Type: field.TypeUint32},
 		{Name: "order_id", Type: field.TypeUUID},
 		{Name: "order_state", Type: field.TypeString, Nullable: true, Default: "OrderStateCreated"},
 		{Name: "cancel_state", Type: field.TypeString, Nullable: true, Default: "DefaultOrderState"},
@@ -292,7 +319,7 @@ var (
 			{
 				Name:    "orderstate_order_id",
 				Unique:  false,
-				Columns: []*schema.Column{OrderStatesColumns[2]},
+				Columns: []*schema.Column{OrderStatesColumns[5]},
 			},
 		},
 	}
@@ -300,6 +327,9 @@ var (
 	OrderStateBasesColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeUint32, Increment: true},
 		{Name: "ent_id", Type: field.TypeUUID, Unique: true},
+		{Name: "created_at", Type: field.TypeUint32},
+		{Name: "updated_at", Type: field.TypeUint32},
+		{Name: "deleted_at", Type: field.TypeUint32},
 		{Name: "order_id", Type: field.TypeUUID, Nullable: true},
 		{Name: "order_state", Type: field.TypeString, Nullable: true, Default: "OrderStateCreated"},
 		{Name: "start_mode", Type: field.TypeString, Nullable: true, Default: "OrderStartConfirmed"},
@@ -322,7 +352,7 @@ var (
 			{
 				Name:    "orderstatebase_order_id",
 				Unique:  false,
-				Columns: []*schema.Column{OrderStateBasesColumns[2]},
+				Columns: []*schema.Column{OrderStateBasesColumns[5]},
 			},
 		},
 	}
@@ -330,6 +360,9 @@ var (
 	OutOfGasColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeUint32, Increment: true},
 		{Name: "ent_id", Type: field.TypeUUID, Unique: true},
+		{Name: "created_at", Type: field.TypeUint32},
+		{Name: "updated_at", Type: field.TypeUint32},
+		{Name: "deleted_at", Type: field.TypeUint32},
 		{Name: "order_id", Type: field.TypeUUID, Nullable: true},
 		{Name: "start_at", Type: field.TypeUint32, Nullable: true, Default: 0},
 		{Name: "end_at", Type: field.TypeUint32, Nullable: true, Default: 0},
@@ -348,7 +381,7 @@ var (
 			{
 				Name:    "outofgas_order_id",
 				Unique:  false,
-				Columns: []*schema.Column{OutOfGasColumns[2]},
+				Columns: []*schema.Column{OutOfGasColumns[5]},
 			},
 		},
 	}
@@ -356,6 +389,9 @@ var (
 	PaymentsColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeUint32, Increment: true},
 		{Name: "ent_id", Type: field.TypeUUID, Unique: true},
+		{Name: "created_at", Type: field.TypeUint32},
+		{Name: "updated_at", Type: field.TypeUint32},
+		{Name: "deleted_at", Type: field.TypeUint32},
 		{Name: "app_id", Type: field.TypeUUID},
 		{Name: "user_id", Type: field.TypeUUID},
 		{Name: "good_id", Type: field.TypeUUID},
@@ -379,7 +415,7 @@ var (
 			{
 				Name:    "payment_order_id",
 				Unique:  false,
-				Columns: []*schema.Column{PaymentsColumns[5]},
+				Columns: []*schema.Column{PaymentsColumns[8]},
 			},
 		},
 	}
@@ -387,6 +423,9 @@ var (
 	PaymentBalancesColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeUint32, Increment: true},
 		{Name: "ent_id", Type: field.TypeUUID, Unique: true},
+		{Name: "created_at", Type: field.TypeUint32},
+		{Name: "updated_at", Type: field.TypeUint32},
+		{Name: "deleted_at", Type: field.TypeUint32},
 		{Name: "payment_id", Type: field.TypeUUID, Nullable: true},
 		{Name: "coin_type_id", Type: field.TypeUUID, Nullable: true},
 		{Name: "amount", Type: field.TypeOther, Nullable: true, SchemaType: map[string]string{"mysql": "decimal(37,18)"}},
@@ -408,7 +447,7 @@ var (
 			{
 				Name:    "paymentbalance_payment_id",
 				Unique:  false,
-				Columns: []*schema.Column{PaymentBalancesColumns[2]},
+				Columns: []*schema.Column{PaymentBalancesColumns[5]},
 			},
 		},
 	}
@@ -416,6 +455,9 @@ var (
 	PaymentBalanceLocksColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeUint32, Increment: true},
 		{Name: "ent_id", Type: field.TypeUUID, Unique: true},
+		{Name: "created_at", Type: field.TypeUint32},
+		{Name: "updated_at", Type: field.TypeUint32},
+		{Name: "deleted_at", Type: field.TypeUint32},
 		{Name: "payment_id", Type: field.TypeUUID, Nullable: true},
 		{Name: "ledger_lock_id", Type: field.TypeUUID, Nullable: true},
 	}
@@ -433,7 +475,7 @@ var (
 			{
 				Name:    "paymentbalancelock_payment_id",
 				Unique:  false,
-				Columns: []*schema.Column{PaymentBalanceLocksColumns[2]},
+				Columns: []*schema.Column{PaymentBalanceLocksColumns[5]},
 			},
 		},
 	}
@@ -441,6 +483,9 @@ var (
 	PaymentBasesColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeUint32, Increment: true},
 		{Name: "ent_id", Type: field.TypeUUID, Unique: true},
+		{Name: "created_at", Type: field.TypeUint32},
+		{Name: "updated_at", Type: field.TypeUint32},
+		{Name: "deleted_at", Type: field.TypeUint32},
 		{Name: "order_id", Type: field.TypeUUID, Nullable: true},
 		{Name: "obselete_state", Type: field.TypeString, Nullable: true, Default: "PaymentObseleteNone"},
 	}
@@ -458,7 +503,7 @@ var (
 			{
 				Name:    "paymentbase_order_id",
 				Unique:  false,
-				Columns: []*schema.Column{PaymentBasesColumns[2]},
+				Columns: []*schema.Column{PaymentBasesColumns[5]},
 			},
 		},
 	}
@@ -466,6 +511,9 @@ var (
 	PaymentContractsColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeUint32, Increment: true},
 		{Name: "ent_id", Type: field.TypeUUID, Unique: true},
+		{Name: "created_at", Type: field.TypeUint32},
+		{Name: "updated_at", Type: field.TypeUint32},
+		{Name: "deleted_at", Type: field.TypeUint32},
 		{Name: "order_id", Type: field.TypeUUID, Nullable: true},
 		{Name: "coin_type_id", Type: field.TypeUUID, Nullable: true},
 		{Name: "amount", Type: field.TypeOther, Nullable: true, SchemaType: map[string]string{"mysql": "decimal(37,18)"}},
@@ -484,7 +532,7 @@ var (
 			{
 				Name:    "paymentcontract_order_id",
 				Unique:  false,
-				Columns: []*schema.Column{PaymentContractsColumns[2]},
+				Columns: []*schema.Column{PaymentContractsColumns[5]},
 			},
 		},
 	}
@@ -492,6 +540,9 @@ var (
 	PaymentFiatsColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeUint32, Increment: true},
 		{Name: "ent_id", Type: field.TypeUUID, Unique: true},
+		{Name: "created_at", Type: field.TypeUint32},
+		{Name: "updated_at", Type: field.TypeUint32},
+		{Name: "deleted_at", Type: field.TypeUint32},
 		{Name: "payment_id", Type: field.TypeUUID, Nullable: true},
 		{Name: "fiat_id", Type: field.TypeUUID, Nullable: true},
 		{Name: "payment_channel", Type: field.TypeString, Nullable: true, Default: "PaymentChannelStripe"},
@@ -512,7 +563,7 @@ var (
 			{
 				Name:    "paymentfiat_payment_id",
 				Unique:  false,
-				Columns: []*schema.Column{PaymentFiatsColumns[2]},
+				Columns: []*schema.Column{PaymentFiatsColumns[5]},
 			},
 		},
 	}
@@ -520,6 +571,9 @@ var (
 	PaymentTransfersColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeUint32, Increment: true},
 		{Name: "ent_id", Type: field.TypeUUID, Unique: true},
+		{Name: "created_at", Type: field.TypeUint32},
+		{Name: "updated_at", Type: field.TypeUint32},
+		{Name: "deleted_at", Type: field.TypeUint32},
 		{Name: "payment_id", Type: field.TypeUUID, Nullable: true},
 		{Name: "coin_type_id", Type: field.TypeUUID, Nullable: true},
 		{Name: "account_id", Type: field.TypeUUID, Nullable: true},
@@ -544,7 +598,7 @@ var (
 			{
 				Name:    "paymenttransfer_payment_id",
 				Unique:  false,
-				Columns: []*schema.Column{PaymentTransfersColumns[2]},
+				Columns: []*schema.Column{PaymentTransfersColumns[5]},
 			},
 		},
 	}
@@ -552,6 +606,9 @@ var (
 	PoolOrderUsersColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeUint32, Increment: true},
 		{Name: "ent_id", Type: field.TypeUUID, Unique: true},
+		{Name: "created_at", Type: field.TypeUint32},
+		{Name: "updated_at", Type: field.TypeUint32},
+		{Name: "deleted_at", Type: field.TypeUint32},
 		{Name: "order_id", Type: field.TypeUUID},
 		{Name: "pool_order_user_id", Type: field.TypeUUID},
 	}
@@ -569,7 +626,7 @@ var (
 			{
 				Name:    "poolorderuser_order_id",
 				Unique:  false,
-				Columns: []*schema.Column{PoolOrderUsersColumns[2]},
+				Columns: []*schema.Column{PoolOrderUsersColumns[5]},
 			},
 		},
 	}
@@ -577,6 +634,9 @@ var (
 	PowerRentalsColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeUint32, Increment: true},
 		{Name: "ent_id", Type: field.TypeUUID, Unique: true},
+		{Name: "created_at", Type: field.TypeUint32},
+		{Name: "updated_at", Type: field.TypeUint32},
+		{Name: "deleted_at", Type: field.TypeUint32},
 		{Name: "order_id", Type: field.TypeUUID, Nullable: true},
 		{Name: "app_good_stock_id", Type: field.TypeUUID, Nullable: true},
 		{Name: "units", Type: field.TypeOther, Nullable: true, SchemaType: map[string]string{"mysql": "decimal(37,18)"}},
@@ -602,7 +662,7 @@ var (
 			{
 				Name:    "powerrental_order_id",
 				Unique:  false,
-				Columns: []*schema.Column{PowerRentalsColumns[2]},
+				Columns: []*schema.Column{PowerRentalsColumns[5]},
 			},
 		},
 	}
@@ -610,6 +670,9 @@ var (
 	PowerRentalStatesColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeUint32, Increment: true},
 		{Name: "ent_id", Type: field.TypeUUID, Unique: true},
+		{Name: "created_at", Type: field.TypeUint32},
+		{Name: "updated_at", Type: field.TypeUint32},
+		{Name: "deleted_at", Type: field.TypeUint32},
 		{Name: "order_id", Type: field.TypeUUID, Nullable: true},
 		{Name: "cancel_state", Type: field.TypeString, Nullable: true, Default: "DefaultOrderState"},
 		{Name: "canceled_at", Type: field.TypeUint32, Nullable: true, Default: 0},
@@ -638,7 +701,7 @@ var (
 			{
 				Name:    "powerrentalstate_order_id",
 				Unique:  false,
-				Columns: []*schema.Column{PowerRentalStatesColumns[2]},
+				Columns: []*schema.Column{PowerRentalStatesColumns[5]},
 			},
 		},
 	}
@@ -646,6 +709,9 @@ var (
 	SubscriptionOrdersColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeUint32, Increment: true},
 		{Name: "ent_id", Type: field.TypeUUID, Unique: true},
+		{Name: "created_at", Type: field.TypeUint32},
+		{Name: "updated_at", Type: field.TypeUint32},
+		{Name: "deleted_at", Type: field.TypeUint32},
 		{Name: "order_id", Type: field.TypeUUID, Nullable: true},
 		{Name: "good_value_usd", Type: field.TypeOther, Nullable: true, SchemaType: map[string]string{"mysql": "decimal(37,18)"}},
 		{Name: "payment_amount_usd", Type: field.TypeOther, Nullable: true, SchemaType: map[string]string{"mysql": "decimal(37,18)"}},
@@ -667,7 +733,7 @@ var (
 			{
 				Name:    "subscriptionorder_order_id",
 				Unique:  false,
-				Columns: []*schema.Column{SubscriptionOrdersColumns[2]},
+				Columns: []*schema.Column{SubscriptionOrdersColumns[5]},
 			},
 		},
 	}
@@ -675,6 +741,9 @@ var (
 	SubscriptionOrderStatesColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeUint32, Increment: true},
 		{Name: "ent_id", Type: field.TypeUUID, Unique: true},
+		{Name: "created_at", Type: field.TypeUint32},
+		{Name: "updated_at", Type: field.TypeUint32},
+		{Name: "deleted_at", Type: field.TypeUint32},
 		{Name: "order_id", Type: field.TypeUUID, Nullable: true},
 		{Name: "payment_id", Type: field.TypeUUID, Nullable: true},
 		{Name: "paid_at", Type: field.TypeUint32, Nullable: true, Default: 0},
@@ -699,7 +768,7 @@ var (
 			{
 				Name:    "subscriptionorderstate_order_id",
 				Unique:  false,
-				Columns: []*schema.Column{SubscriptionOrderStatesColumns[2]},
+				Columns: []*schema.Column{SubscriptionOrderStatesColumns[5]},
 			},
 		},
 	}

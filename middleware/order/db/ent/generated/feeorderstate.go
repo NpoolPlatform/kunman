@@ -19,6 +19,12 @@ type FeeOrderState struct {
 	ID uint32 `json:"id,omitempty"`
 	// EntID holds the value of the "ent_id" field.
 	EntID uuid.UUID `json:"ent_id,omitempty"`
+	// CreatedAt holds the value of the "created_at" field.
+	CreatedAt uint32 `json:"created_at,omitempty"`
+	// UpdatedAt holds the value of the "updated_at" field.
+	UpdatedAt uint32 `json:"updated_at,omitempty"`
+	// DeletedAt holds the value of the "deleted_at" field.
+	DeletedAt uint32 `json:"deleted_at,omitempty"`
 	// OrderID holds the value of the "order_id" field.
 	OrderID uuid.UUID `json:"order_id,omitempty"`
 	// PaymentID holds the value of the "payment_id" field.
@@ -47,7 +53,7 @@ func (*FeeOrderState) scanValues(columns []string) ([]any, error) {
 		switch columns[i] {
 		case feeorderstate.FieldUserSetPaid, feeorderstate.FieldUserSetCanceled, feeorderstate.FieldAdminSetCanceled:
 			values[i] = new(sql.NullBool)
-		case feeorderstate.FieldID, feeorderstate.FieldPaidAt, feeorderstate.FieldCanceledAt:
+		case feeorderstate.FieldID, feeorderstate.FieldCreatedAt, feeorderstate.FieldUpdatedAt, feeorderstate.FieldDeletedAt, feeorderstate.FieldPaidAt, feeorderstate.FieldCanceledAt:
 			values[i] = new(sql.NullInt64)
 		case feeorderstate.FieldPaymentState, feeorderstate.FieldCancelState:
 			values[i] = new(sql.NullString)
@@ -79,6 +85,24 @@ func (fos *FeeOrderState) assignValues(columns []string, values []any) error {
 				return fmt.Errorf("unexpected type %T for field ent_id", values[i])
 			} else if value != nil {
 				fos.EntID = *value
+			}
+		case feeorderstate.FieldCreatedAt:
+			if value, ok := values[i].(*sql.NullInt64); !ok {
+				return fmt.Errorf("unexpected type %T for field created_at", values[i])
+			} else if value.Valid {
+				fos.CreatedAt = uint32(value.Int64)
+			}
+		case feeorderstate.FieldUpdatedAt:
+			if value, ok := values[i].(*sql.NullInt64); !ok {
+				return fmt.Errorf("unexpected type %T for field updated_at", values[i])
+			} else if value.Valid {
+				fos.UpdatedAt = uint32(value.Int64)
+			}
+		case feeorderstate.FieldDeletedAt:
+			if value, ok := values[i].(*sql.NullInt64); !ok {
+				return fmt.Errorf("unexpected type %T for field deleted_at", values[i])
+			} else if value.Valid {
+				fos.DeletedAt = uint32(value.Int64)
 			}
 		case feeorderstate.FieldOrderID:
 			if value, ok := values[i].(*uuid.UUID); !ok {
@@ -172,6 +196,15 @@ func (fos *FeeOrderState) String() string {
 	builder.WriteString(fmt.Sprintf("id=%v, ", fos.ID))
 	builder.WriteString("ent_id=")
 	builder.WriteString(fmt.Sprintf("%v", fos.EntID))
+	builder.WriteString(", ")
+	builder.WriteString("created_at=")
+	builder.WriteString(fmt.Sprintf("%v", fos.CreatedAt))
+	builder.WriteString(", ")
+	builder.WriteString("updated_at=")
+	builder.WriteString(fmt.Sprintf("%v", fos.UpdatedAt))
+	builder.WriteString(", ")
+	builder.WriteString("deleted_at=")
+	builder.WriteString(fmt.Sprintf("%v", fos.DeletedAt))
 	builder.WriteString(", ")
 	builder.WriteString("order_id=")
 	builder.WriteString(fmt.Sprintf("%v", fos.OrderID))

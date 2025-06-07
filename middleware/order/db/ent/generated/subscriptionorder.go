@@ -20,6 +20,12 @@ type SubscriptionOrder struct {
 	ID uint32 `json:"id,omitempty"`
 	// EntID holds the value of the "ent_id" field.
 	EntID uuid.UUID `json:"ent_id,omitempty"`
+	// CreatedAt holds the value of the "created_at" field.
+	CreatedAt uint32 `json:"created_at,omitempty"`
+	// UpdatedAt holds the value of the "updated_at" field.
+	UpdatedAt uint32 `json:"updated_at,omitempty"`
+	// DeletedAt holds the value of the "deleted_at" field.
+	DeletedAt uint32 `json:"deleted_at,omitempty"`
 	// OrderID holds the value of the "order_id" field.
 	OrderID uuid.UUID `json:"order_id,omitempty"`
 	// GoodValueUsd holds the value of the "good_value_usd" field.
@@ -42,7 +48,7 @@ func (*SubscriptionOrder) scanValues(columns []string) ([]any, error) {
 		switch columns[i] {
 		case subscriptionorder.FieldGoodValueUsd, subscriptionorder.FieldPaymentAmountUsd, subscriptionorder.FieldDiscountAmountUsd:
 			values[i] = new(decimal.Decimal)
-		case subscriptionorder.FieldID, subscriptionorder.FieldDurationSeconds:
+		case subscriptionorder.FieldID, subscriptionorder.FieldCreatedAt, subscriptionorder.FieldUpdatedAt, subscriptionorder.FieldDeletedAt, subscriptionorder.FieldDurationSeconds:
 			values[i] = new(sql.NullInt64)
 		case subscriptionorder.FieldEntID, subscriptionorder.FieldOrderID, subscriptionorder.FieldPromotionID:
 			values[i] = new(uuid.UUID)
@@ -72,6 +78,24 @@ func (so *SubscriptionOrder) assignValues(columns []string, values []any) error 
 				return fmt.Errorf("unexpected type %T for field ent_id", values[i])
 			} else if value != nil {
 				so.EntID = *value
+			}
+		case subscriptionorder.FieldCreatedAt:
+			if value, ok := values[i].(*sql.NullInt64); !ok {
+				return fmt.Errorf("unexpected type %T for field created_at", values[i])
+			} else if value.Valid {
+				so.CreatedAt = uint32(value.Int64)
+			}
+		case subscriptionorder.FieldUpdatedAt:
+			if value, ok := values[i].(*sql.NullInt64); !ok {
+				return fmt.Errorf("unexpected type %T for field updated_at", values[i])
+			} else if value.Valid {
+				so.UpdatedAt = uint32(value.Int64)
+			}
+		case subscriptionorder.FieldDeletedAt:
+			if value, ok := values[i].(*sql.NullInt64); !ok {
+				return fmt.Errorf("unexpected type %T for field deleted_at", values[i])
+			} else if value.Valid {
+				so.DeletedAt = uint32(value.Int64)
 			}
 		case subscriptionorder.FieldOrderID:
 			if value, ok := values[i].(*uuid.UUID); !ok {
@@ -147,6 +171,15 @@ func (so *SubscriptionOrder) String() string {
 	builder.WriteString(fmt.Sprintf("id=%v, ", so.ID))
 	builder.WriteString("ent_id=")
 	builder.WriteString(fmt.Sprintf("%v", so.EntID))
+	builder.WriteString(", ")
+	builder.WriteString("created_at=")
+	builder.WriteString(fmt.Sprintf("%v", so.CreatedAt))
+	builder.WriteString(", ")
+	builder.WriteString("updated_at=")
+	builder.WriteString(fmt.Sprintf("%v", so.UpdatedAt))
+	builder.WriteString(", ")
+	builder.WriteString("deleted_at=")
+	builder.WriteString(fmt.Sprintf("%v", so.DeletedAt))
 	builder.WriteString(", ")
 	builder.WriteString("order_id=")
 	builder.WriteString(fmt.Sprintf("%v", so.OrderID))

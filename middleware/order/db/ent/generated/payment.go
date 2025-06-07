@@ -20,6 +20,12 @@ type Payment struct {
 	ID uint32 `json:"id,omitempty"`
 	// EntID holds the value of the "ent_id" field.
 	EntID uuid.UUID `json:"ent_id,omitempty"`
+	// CreatedAt holds the value of the "created_at" field.
+	CreatedAt uint32 `json:"created_at,omitempty"`
+	// UpdatedAt holds the value of the "updated_at" field.
+	UpdatedAt uint32 `json:"updated_at,omitempty"`
+	// DeletedAt holds the value of the "deleted_at" field.
+	DeletedAt uint32 `json:"deleted_at,omitempty"`
 	// AppID holds the value of the "app_id" field.
 	AppID uuid.UUID `json:"app_id,omitempty"`
 	// UserID holds the value of the "user_id" field.
@@ -46,7 +52,7 @@ func (*Payment) scanValues(columns []string) ([]any, error) {
 		switch columns[i] {
 		case payment.FieldStartAmount:
 			values[i] = new(decimal.Decimal)
-		case payment.FieldID:
+		case payment.FieldID, payment.FieldCreatedAt, payment.FieldUpdatedAt, payment.FieldDeletedAt:
 			values[i] = new(sql.NullInt64)
 		case payment.FieldEntID, payment.FieldAppID, payment.FieldUserID, payment.FieldGoodID, payment.FieldOrderID, payment.FieldAccountID, payment.FieldCoinTypeID, payment.FieldCoinInfoID:
 			values[i] = new(uuid.UUID)
@@ -76,6 +82,24 @@ func (pa *Payment) assignValues(columns []string, values []any) error {
 				return fmt.Errorf("unexpected type %T for field ent_id", values[i])
 			} else if value != nil {
 				pa.EntID = *value
+			}
+		case payment.FieldCreatedAt:
+			if value, ok := values[i].(*sql.NullInt64); !ok {
+				return fmt.Errorf("unexpected type %T for field created_at", values[i])
+			} else if value.Valid {
+				pa.CreatedAt = uint32(value.Int64)
+			}
+		case payment.FieldUpdatedAt:
+			if value, ok := values[i].(*sql.NullInt64); !ok {
+				return fmt.Errorf("unexpected type %T for field updated_at", values[i])
+			} else if value.Valid {
+				pa.UpdatedAt = uint32(value.Int64)
+			}
+		case payment.FieldDeletedAt:
+			if value, ok := values[i].(*sql.NullInt64); !ok {
+				return fmt.Errorf("unexpected type %T for field deleted_at", values[i])
+			} else if value.Valid {
+				pa.DeletedAt = uint32(value.Int64)
 			}
 		case payment.FieldAppID:
 			if value, ok := values[i].(*uuid.UUID); !ok {
@@ -163,6 +187,15 @@ func (pa *Payment) String() string {
 	builder.WriteString(fmt.Sprintf("id=%v, ", pa.ID))
 	builder.WriteString("ent_id=")
 	builder.WriteString(fmt.Sprintf("%v", pa.EntID))
+	builder.WriteString(", ")
+	builder.WriteString("created_at=")
+	builder.WriteString(fmt.Sprintf("%v", pa.CreatedAt))
+	builder.WriteString(", ")
+	builder.WriteString("updated_at=")
+	builder.WriteString(fmt.Sprintf("%v", pa.UpdatedAt))
+	builder.WriteString(", ")
+	builder.WriteString("deleted_at=")
+	builder.WriteString(fmt.Sprintf("%v", pa.DeletedAt))
 	builder.WriteString(", ")
 	builder.WriteString("app_id=")
 	builder.WriteString(fmt.Sprintf("%v", pa.AppID))

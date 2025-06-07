@@ -36,6 +36,48 @@ func (fosc *FeeOrderStateCreate) SetNillableEntID(u *uuid.UUID) *FeeOrderStateCr
 	return fosc
 }
 
+// SetCreatedAt sets the "created_at" field.
+func (fosc *FeeOrderStateCreate) SetCreatedAt(u uint32) *FeeOrderStateCreate {
+	fosc.mutation.SetCreatedAt(u)
+	return fosc
+}
+
+// SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
+func (fosc *FeeOrderStateCreate) SetNillableCreatedAt(u *uint32) *FeeOrderStateCreate {
+	if u != nil {
+		fosc.SetCreatedAt(*u)
+	}
+	return fosc
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (fosc *FeeOrderStateCreate) SetUpdatedAt(u uint32) *FeeOrderStateCreate {
+	fosc.mutation.SetUpdatedAt(u)
+	return fosc
+}
+
+// SetNillableUpdatedAt sets the "updated_at" field if the given value is not nil.
+func (fosc *FeeOrderStateCreate) SetNillableUpdatedAt(u *uint32) *FeeOrderStateCreate {
+	if u != nil {
+		fosc.SetUpdatedAt(*u)
+	}
+	return fosc
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (fosc *FeeOrderStateCreate) SetDeletedAt(u uint32) *FeeOrderStateCreate {
+	fosc.mutation.SetDeletedAt(u)
+	return fosc
+}
+
+// SetNillableDeletedAt sets the "deleted_at" field if the given value is not nil.
+func (fosc *FeeOrderStateCreate) SetNillableDeletedAt(u *uint32) *FeeOrderStateCreate {
+	if u != nil {
+		fosc.SetDeletedAt(*u)
+	}
+	return fosc
+}
+
 // SetOrderID sets the "order_id" field.
 func (fosc *FeeOrderStateCreate) SetOrderID(u uuid.UUID) *FeeOrderStateCreate {
 	fosc.mutation.SetOrderID(u)
@@ -207,6 +249,18 @@ func (fosc *FeeOrderStateCreate) defaults() {
 		v := feeorderstate.DefaultEntID()
 		fosc.mutation.SetEntID(v)
 	}
+	if _, ok := fosc.mutation.CreatedAt(); !ok {
+		v := feeorderstate.DefaultCreatedAt()
+		fosc.mutation.SetCreatedAt(v)
+	}
+	if _, ok := fosc.mutation.UpdatedAt(); !ok {
+		v := feeorderstate.DefaultUpdatedAt()
+		fosc.mutation.SetUpdatedAt(v)
+	}
+	if _, ok := fosc.mutation.DeletedAt(); !ok {
+		v := feeorderstate.DefaultDeletedAt()
+		fosc.mutation.SetDeletedAt(v)
+	}
 	if _, ok := fosc.mutation.OrderID(); !ok {
 		v := feeorderstate.DefaultOrderID()
 		fosc.mutation.SetOrderID(v)
@@ -250,6 +304,15 @@ func (fosc *FeeOrderStateCreate) check() error {
 	if _, ok := fosc.mutation.EntID(); !ok {
 		return &ValidationError{Name: "ent_id", err: errors.New(`generated: missing required field "FeeOrderState.ent_id"`)}
 	}
+	if _, ok := fosc.mutation.CreatedAt(); !ok {
+		return &ValidationError{Name: "created_at", err: errors.New(`generated: missing required field "FeeOrderState.created_at"`)}
+	}
+	if _, ok := fosc.mutation.UpdatedAt(); !ok {
+		return &ValidationError{Name: "updated_at", err: errors.New(`generated: missing required field "FeeOrderState.updated_at"`)}
+	}
+	if _, ok := fosc.mutation.DeletedAt(); !ok {
+		return &ValidationError{Name: "deleted_at", err: errors.New(`generated: missing required field "FeeOrderState.deleted_at"`)}
+	}
 	return nil
 }
 
@@ -286,6 +349,18 @@ func (fosc *FeeOrderStateCreate) createSpec() (*FeeOrderState, *sqlgraph.CreateS
 	if value, ok := fosc.mutation.EntID(); ok {
 		_spec.SetField(feeorderstate.FieldEntID, field.TypeUUID, value)
 		_node.EntID = value
+	}
+	if value, ok := fosc.mutation.CreatedAt(); ok {
+		_spec.SetField(feeorderstate.FieldCreatedAt, field.TypeUint32, value)
+		_node.CreatedAt = value
+	}
+	if value, ok := fosc.mutation.UpdatedAt(); ok {
+		_spec.SetField(feeorderstate.FieldUpdatedAt, field.TypeUint32, value)
+		_node.UpdatedAt = value
+	}
+	if value, ok := fosc.mutation.DeletedAt(); ok {
+		_spec.SetField(feeorderstate.FieldDeletedAt, field.TypeUint32, value)
+		_node.DeletedAt = value
 	}
 	if value, ok := fosc.mutation.OrderID(); ok {
 		_spec.SetField(feeorderstate.FieldOrderID, field.TypeUUID, value)
@@ -384,6 +459,60 @@ func (u *FeeOrderStateUpsert) SetEntID(v uuid.UUID) *FeeOrderStateUpsert {
 // UpdateEntID sets the "ent_id" field to the value that was provided on create.
 func (u *FeeOrderStateUpsert) UpdateEntID() *FeeOrderStateUpsert {
 	u.SetExcluded(feeorderstate.FieldEntID)
+	return u
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (u *FeeOrderStateUpsert) SetCreatedAt(v uint32) *FeeOrderStateUpsert {
+	u.Set(feeorderstate.FieldCreatedAt, v)
+	return u
+}
+
+// UpdateCreatedAt sets the "created_at" field to the value that was provided on create.
+func (u *FeeOrderStateUpsert) UpdateCreatedAt() *FeeOrderStateUpsert {
+	u.SetExcluded(feeorderstate.FieldCreatedAt)
+	return u
+}
+
+// AddCreatedAt adds v to the "created_at" field.
+func (u *FeeOrderStateUpsert) AddCreatedAt(v uint32) *FeeOrderStateUpsert {
+	u.Add(feeorderstate.FieldCreatedAt, v)
+	return u
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (u *FeeOrderStateUpsert) SetUpdatedAt(v uint32) *FeeOrderStateUpsert {
+	u.Set(feeorderstate.FieldUpdatedAt, v)
+	return u
+}
+
+// UpdateUpdatedAt sets the "updated_at" field to the value that was provided on create.
+func (u *FeeOrderStateUpsert) UpdateUpdatedAt() *FeeOrderStateUpsert {
+	u.SetExcluded(feeorderstate.FieldUpdatedAt)
+	return u
+}
+
+// AddUpdatedAt adds v to the "updated_at" field.
+func (u *FeeOrderStateUpsert) AddUpdatedAt(v uint32) *FeeOrderStateUpsert {
+	u.Add(feeorderstate.FieldUpdatedAt, v)
+	return u
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (u *FeeOrderStateUpsert) SetDeletedAt(v uint32) *FeeOrderStateUpsert {
+	u.Set(feeorderstate.FieldDeletedAt, v)
+	return u
+}
+
+// UpdateDeletedAt sets the "deleted_at" field to the value that was provided on create.
+func (u *FeeOrderStateUpsert) UpdateDeletedAt() *FeeOrderStateUpsert {
+	u.SetExcluded(feeorderstate.FieldDeletedAt)
+	return u
+}
+
+// AddDeletedAt adds v to the "deleted_at" field.
+func (u *FeeOrderStateUpsert) AddDeletedAt(v uint32) *FeeOrderStateUpsert {
+	u.Add(feeorderstate.FieldDeletedAt, v)
 	return u
 }
 
@@ -620,6 +749,69 @@ func (u *FeeOrderStateUpsertOne) SetEntID(v uuid.UUID) *FeeOrderStateUpsertOne {
 func (u *FeeOrderStateUpsertOne) UpdateEntID() *FeeOrderStateUpsertOne {
 	return u.Update(func(s *FeeOrderStateUpsert) {
 		s.UpdateEntID()
+	})
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (u *FeeOrderStateUpsertOne) SetCreatedAt(v uint32) *FeeOrderStateUpsertOne {
+	return u.Update(func(s *FeeOrderStateUpsert) {
+		s.SetCreatedAt(v)
+	})
+}
+
+// AddCreatedAt adds v to the "created_at" field.
+func (u *FeeOrderStateUpsertOne) AddCreatedAt(v uint32) *FeeOrderStateUpsertOne {
+	return u.Update(func(s *FeeOrderStateUpsert) {
+		s.AddCreatedAt(v)
+	})
+}
+
+// UpdateCreatedAt sets the "created_at" field to the value that was provided on create.
+func (u *FeeOrderStateUpsertOne) UpdateCreatedAt() *FeeOrderStateUpsertOne {
+	return u.Update(func(s *FeeOrderStateUpsert) {
+		s.UpdateCreatedAt()
+	})
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (u *FeeOrderStateUpsertOne) SetUpdatedAt(v uint32) *FeeOrderStateUpsertOne {
+	return u.Update(func(s *FeeOrderStateUpsert) {
+		s.SetUpdatedAt(v)
+	})
+}
+
+// AddUpdatedAt adds v to the "updated_at" field.
+func (u *FeeOrderStateUpsertOne) AddUpdatedAt(v uint32) *FeeOrderStateUpsertOne {
+	return u.Update(func(s *FeeOrderStateUpsert) {
+		s.AddUpdatedAt(v)
+	})
+}
+
+// UpdateUpdatedAt sets the "updated_at" field to the value that was provided on create.
+func (u *FeeOrderStateUpsertOne) UpdateUpdatedAt() *FeeOrderStateUpsertOne {
+	return u.Update(func(s *FeeOrderStateUpsert) {
+		s.UpdateUpdatedAt()
+	})
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (u *FeeOrderStateUpsertOne) SetDeletedAt(v uint32) *FeeOrderStateUpsertOne {
+	return u.Update(func(s *FeeOrderStateUpsert) {
+		s.SetDeletedAt(v)
+	})
+}
+
+// AddDeletedAt adds v to the "deleted_at" field.
+func (u *FeeOrderStateUpsertOne) AddDeletedAt(v uint32) *FeeOrderStateUpsertOne {
+	return u.Update(func(s *FeeOrderStateUpsert) {
+		s.AddDeletedAt(v)
+	})
+}
+
+// UpdateDeletedAt sets the "deleted_at" field to the value that was provided on create.
+func (u *FeeOrderStateUpsertOne) UpdateDeletedAt() *FeeOrderStateUpsertOne {
+	return u.Update(func(s *FeeOrderStateUpsert) {
+		s.UpdateDeletedAt()
 	})
 }
 
@@ -1051,6 +1243,69 @@ func (u *FeeOrderStateUpsertBulk) SetEntID(v uuid.UUID) *FeeOrderStateUpsertBulk
 func (u *FeeOrderStateUpsertBulk) UpdateEntID() *FeeOrderStateUpsertBulk {
 	return u.Update(func(s *FeeOrderStateUpsert) {
 		s.UpdateEntID()
+	})
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (u *FeeOrderStateUpsertBulk) SetCreatedAt(v uint32) *FeeOrderStateUpsertBulk {
+	return u.Update(func(s *FeeOrderStateUpsert) {
+		s.SetCreatedAt(v)
+	})
+}
+
+// AddCreatedAt adds v to the "created_at" field.
+func (u *FeeOrderStateUpsertBulk) AddCreatedAt(v uint32) *FeeOrderStateUpsertBulk {
+	return u.Update(func(s *FeeOrderStateUpsert) {
+		s.AddCreatedAt(v)
+	})
+}
+
+// UpdateCreatedAt sets the "created_at" field to the value that was provided on create.
+func (u *FeeOrderStateUpsertBulk) UpdateCreatedAt() *FeeOrderStateUpsertBulk {
+	return u.Update(func(s *FeeOrderStateUpsert) {
+		s.UpdateCreatedAt()
+	})
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (u *FeeOrderStateUpsertBulk) SetUpdatedAt(v uint32) *FeeOrderStateUpsertBulk {
+	return u.Update(func(s *FeeOrderStateUpsert) {
+		s.SetUpdatedAt(v)
+	})
+}
+
+// AddUpdatedAt adds v to the "updated_at" field.
+func (u *FeeOrderStateUpsertBulk) AddUpdatedAt(v uint32) *FeeOrderStateUpsertBulk {
+	return u.Update(func(s *FeeOrderStateUpsert) {
+		s.AddUpdatedAt(v)
+	})
+}
+
+// UpdateUpdatedAt sets the "updated_at" field to the value that was provided on create.
+func (u *FeeOrderStateUpsertBulk) UpdateUpdatedAt() *FeeOrderStateUpsertBulk {
+	return u.Update(func(s *FeeOrderStateUpsert) {
+		s.UpdateUpdatedAt()
+	})
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (u *FeeOrderStateUpsertBulk) SetDeletedAt(v uint32) *FeeOrderStateUpsertBulk {
+	return u.Update(func(s *FeeOrderStateUpsert) {
+		s.SetDeletedAt(v)
+	})
+}
+
+// AddDeletedAt adds v to the "deleted_at" field.
+func (u *FeeOrderStateUpsertBulk) AddDeletedAt(v uint32) *FeeOrderStateUpsertBulk {
+	return u.Update(func(s *FeeOrderStateUpsert) {
+		s.AddDeletedAt(v)
+	})
+}
+
+// UpdateDeletedAt sets the "deleted_at" field to the value that was provided on create.
+func (u *FeeOrderStateUpsertBulk) UpdateDeletedAt() *FeeOrderStateUpsertBulk {
+	return u.Update(func(s *FeeOrderStateUpsert) {
+		s.UpdateDeletedAt()
 	})
 }
 

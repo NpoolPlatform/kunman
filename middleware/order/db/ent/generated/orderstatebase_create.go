@@ -36,6 +36,48 @@ func (osbc *OrderStateBaseCreate) SetNillableEntID(u *uuid.UUID) *OrderStateBase
 	return osbc
 }
 
+// SetCreatedAt sets the "created_at" field.
+func (osbc *OrderStateBaseCreate) SetCreatedAt(u uint32) *OrderStateBaseCreate {
+	osbc.mutation.SetCreatedAt(u)
+	return osbc
+}
+
+// SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
+func (osbc *OrderStateBaseCreate) SetNillableCreatedAt(u *uint32) *OrderStateBaseCreate {
+	if u != nil {
+		osbc.SetCreatedAt(*u)
+	}
+	return osbc
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (osbc *OrderStateBaseCreate) SetUpdatedAt(u uint32) *OrderStateBaseCreate {
+	osbc.mutation.SetUpdatedAt(u)
+	return osbc
+}
+
+// SetNillableUpdatedAt sets the "updated_at" field if the given value is not nil.
+func (osbc *OrderStateBaseCreate) SetNillableUpdatedAt(u *uint32) *OrderStateBaseCreate {
+	if u != nil {
+		osbc.SetUpdatedAt(*u)
+	}
+	return osbc
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (osbc *OrderStateBaseCreate) SetDeletedAt(u uint32) *OrderStateBaseCreate {
+	osbc.mutation.SetDeletedAt(u)
+	return osbc
+}
+
+// SetNillableDeletedAt sets the "deleted_at" field if the given value is not nil.
+func (osbc *OrderStateBaseCreate) SetNillableDeletedAt(u *uint32) *OrderStateBaseCreate {
+	if u != nil {
+		osbc.SetDeletedAt(*u)
+	}
+	return osbc
+}
+
 // SetOrderID sets the "order_id" field.
 func (osbc *OrderStateBaseCreate) SetOrderID(u uuid.UUID) *OrderStateBaseCreate {
 	osbc.mutation.SetOrderID(u)
@@ -179,6 +221,18 @@ func (osbc *OrderStateBaseCreate) defaults() {
 		v := orderstatebase.DefaultEntID()
 		osbc.mutation.SetEntID(v)
 	}
+	if _, ok := osbc.mutation.CreatedAt(); !ok {
+		v := orderstatebase.DefaultCreatedAt()
+		osbc.mutation.SetCreatedAt(v)
+	}
+	if _, ok := osbc.mutation.UpdatedAt(); !ok {
+		v := orderstatebase.DefaultUpdatedAt()
+		osbc.mutation.SetUpdatedAt(v)
+	}
+	if _, ok := osbc.mutation.DeletedAt(); !ok {
+		v := orderstatebase.DefaultDeletedAt()
+		osbc.mutation.SetDeletedAt(v)
+	}
 	if _, ok := osbc.mutation.OrderID(); !ok {
 		v := orderstatebase.DefaultOrderID()
 		osbc.mutation.SetOrderID(v)
@@ -213,6 +267,15 @@ func (osbc *OrderStateBaseCreate) defaults() {
 func (osbc *OrderStateBaseCreate) check() error {
 	if _, ok := osbc.mutation.EntID(); !ok {
 		return &ValidationError{Name: "ent_id", err: errors.New(`generated: missing required field "OrderStateBase.ent_id"`)}
+	}
+	if _, ok := osbc.mutation.CreatedAt(); !ok {
+		return &ValidationError{Name: "created_at", err: errors.New(`generated: missing required field "OrderStateBase.created_at"`)}
+	}
+	if _, ok := osbc.mutation.UpdatedAt(); !ok {
+		return &ValidationError{Name: "updated_at", err: errors.New(`generated: missing required field "OrderStateBase.updated_at"`)}
+	}
+	if _, ok := osbc.mutation.DeletedAt(); !ok {
+		return &ValidationError{Name: "deleted_at", err: errors.New(`generated: missing required field "OrderStateBase.deleted_at"`)}
 	}
 	return nil
 }
@@ -250,6 +313,18 @@ func (osbc *OrderStateBaseCreate) createSpec() (*OrderStateBase, *sqlgraph.Creat
 	if value, ok := osbc.mutation.EntID(); ok {
 		_spec.SetField(orderstatebase.FieldEntID, field.TypeUUID, value)
 		_node.EntID = value
+	}
+	if value, ok := osbc.mutation.CreatedAt(); ok {
+		_spec.SetField(orderstatebase.FieldCreatedAt, field.TypeUint32, value)
+		_node.CreatedAt = value
+	}
+	if value, ok := osbc.mutation.UpdatedAt(); ok {
+		_spec.SetField(orderstatebase.FieldUpdatedAt, field.TypeUint32, value)
+		_node.UpdatedAt = value
+	}
+	if value, ok := osbc.mutation.DeletedAt(); ok {
+		_spec.SetField(orderstatebase.FieldDeletedAt, field.TypeUint32, value)
+		_node.DeletedAt = value
 	}
 	if value, ok := osbc.mutation.OrderID(); ok {
 		_spec.SetField(orderstatebase.FieldOrderID, field.TypeUUID, value)
@@ -340,6 +415,60 @@ func (u *OrderStateBaseUpsert) SetEntID(v uuid.UUID) *OrderStateBaseUpsert {
 // UpdateEntID sets the "ent_id" field to the value that was provided on create.
 func (u *OrderStateBaseUpsert) UpdateEntID() *OrderStateBaseUpsert {
 	u.SetExcluded(orderstatebase.FieldEntID)
+	return u
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (u *OrderStateBaseUpsert) SetCreatedAt(v uint32) *OrderStateBaseUpsert {
+	u.Set(orderstatebase.FieldCreatedAt, v)
+	return u
+}
+
+// UpdateCreatedAt sets the "created_at" field to the value that was provided on create.
+func (u *OrderStateBaseUpsert) UpdateCreatedAt() *OrderStateBaseUpsert {
+	u.SetExcluded(orderstatebase.FieldCreatedAt)
+	return u
+}
+
+// AddCreatedAt adds v to the "created_at" field.
+func (u *OrderStateBaseUpsert) AddCreatedAt(v uint32) *OrderStateBaseUpsert {
+	u.Add(orderstatebase.FieldCreatedAt, v)
+	return u
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (u *OrderStateBaseUpsert) SetUpdatedAt(v uint32) *OrderStateBaseUpsert {
+	u.Set(orderstatebase.FieldUpdatedAt, v)
+	return u
+}
+
+// UpdateUpdatedAt sets the "updated_at" field to the value that was provided on create.
+func (u *OrderStateBaseUpsert) UpdateUpdatedAt() *OrderStateBaseUpsert {
+	u.SetExcluded(orderstatebase.FieldUpdatedAt)
+	return u
+}
+
+// AddUpdatedAt adds v to the "updated_at" field.
+func (u *OrderStateBaseUpsert) AddUpdatedAt(v uint32) *OrderStateBaseUpsert {
+	u.Add(orderstatebase.FieldUpdatedAt, v)
+	return u
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (u *OrderStateBaseUpsert) SetDeletedAt(v uint32) *OrderStateBaseUpsert {
+	u.Set(orderstatebase.FieldDeletedAt, v)
+	return u
+}
+
+// UpdateDeletedAt sets the "deleted_at" field to the value that was provided on create.
+func (u *OrderStateBaseUpsert) UpdateDeletedAt() *OrderStateBaseUpsert {
+	u.SetExcluded(orderstatebase.FieldDeletedAt)
+	return u
+}
+
+// AddDeletedAt adds v to the "deleted_at" field.
+func (u *OrderStateBaseUpsert) AddDeletedAt(v uint32) *OrderStateBaseUpsert {
+	u.Add(orderstatebase.FieldDeletedAt, v)
 	return u
 }
 
@@ -540,6 +669,69 @@ func (u *OrderStateBaseUpsertOne) SetEntID(v uuid.UUID) *OrderStateBaseUpsertOne
 func (u *OrderStateBaseUpsertOne) UpdateEntID() *OrderStateBaseUpsertOne {
 	return u.Update(func(s *OrderStateBaseUpsert) {
 		s.UpdateEntID()
+	})
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (u *OrderStateBaseUpsertOne) SetCreatedAt(v uint32) *OrderStateBaseUpsertOne {
+	return u.Update(func(s *OrderStateBaseUpsert) {
+		s.SetCreatedAt(v)
+	})
+}
+
+// AddCreatedAt adds v to the "created_at" field.
+func (u *OrderStateBaseUpsertOne) AddCreatedAt(v uint32) *OrderStateBaseUpsertOne {
+	return u.Update(func(s *OrderStateBaseUpsert) {
+		s.AddCreatedAt(v)
+	})
+}
+
+// UpdateCreatedAt sets the "created_at" field to the value that was provided on create.
+func (u *OrderStateBaseUpsertOne) UpdateCreatedAt() *OrderStateBaseUpsertOne {
+	return u.Update(func(s *OrderStateBaseUpsert) {
+		s.UpdateCreatedAt()
+	})
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (u *OrderStateBaseUpsertOne) SetUpdatedAt(v uint32) *OrderStateBaseUpsertOne {
+	return u.Update(func(s *OrderStateBaseUpsert) {
+		s.SetUpdatedAt(v)
+	})
+}
+
+// AddUpdatedAt adds v to the "updated_at" field.
+func (u *OrderStateBaseUpsertOne) AddUpdatedAt(v uint32) *OrderStateBaseUpsertOne {
+	return u.Update(func(s *OrderStateBaseUpsert) {
+		s.AddUpdatedAt(v)
+	})
+}
+
+// UpdateUpdatedAt sets the "updated_at" field to the value that was provided on create.
+func (u *OrderStateBaseUpsertOne) UpdateUpdatedAt() *OrderStateBaseUpsertOne {
+	return u.Update(func(s *OrderStateBaseUpsert) {
+		s.UpdateUpdatedAt()
+	})
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (u *OrderStateBaseUpsertOne) SetDeletedAt(v uint32) *OrderStateBaseUpsertOne {
+	return u.Update(func(s *OrderStateBaseUpsert) {
+		s.SetDeletedAt(v)
+	})
+}
+
+// AddDeletedAt adds v to the "deleted_at" field.
+func (u *OrderStateBaseUpsertOne) AddDeletedAt(v uint32) *OrderStateBaseUpsertOne {
+	return u.Update(func(s *OrderStateBaseUpsert) {
+		s.AddDeletedAt(v)
+	})
+}
+
+// UpdateDeletedAt sets the "deleted_at" field to the value that was provided on create.
+func (u *OrderStateBaseUpsertOne) UpdateDeletedAt() *OrderStateBaseUpsertOne {
+	return u.Update(func(s *OrderStateBaseUpsert) {
+		s.UpdateDeletedAt()
 	})
 }
 
@@ -929,6 +1121,69 @@ func (u *OrderStateBaseUpsertBulk) SetEntID(v uuid.UUID) *OrderStateBaseUpsertBu
 func (u *OrderStateBaseUpsertBulk) UpdateEntID() *OrderStateBaseUpsertBulk {
 	return u.Update(func(s *OrderStateBaseUpsert) {
 		s.UpdateEntID()
+	})
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (u *OrderStateBaseUpsertBulk) SetCreatedAt(v uint32) *OrderStateBaseUpsertBulk {
+	return u.Update(func(s *OrderStateBaseUpsert) {
+		s.SetCreatedAt(v)
+	})
+}
+
+// AddCreatedAt adds v to the "created_at" field.
+func (u *OrderStateBaseUpsertBulk) AddCreatedAt(v uint32) *OrderStateBaseUpsertBulk {
+	return u.Update(func(s *OrderStateBaseUpsert) {
+		s.AddCreatedAt(v)
+	})
+}
+
+// UpdateCreatedAt sets the "created_at" field to the value that was provided on create.
+func (u *OrderStateBaseUpsertBulk) UpdateCreatedAt() *OrderStateBaseUpsertBulk {
+	return u.Update(func(s *OrderStateBaseUpsert) {
+		s.UpdateCreatedAt()
+	})
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (u *OrderStateBaseUpsertBulk) SetUpdatedAt(v uint32) *OrderStateBaseUpsertBulk {
+	return u.Update(func(s *OrderStateBaseUpsert) {
+		s.SetUpdatedAt(v)
+	})
+}
+
+// AddUpdatedAt adds v to the "updated_at" field.
+func (u *OrderStateBaseUpsertBulk) AddUpdatedAt(v uint32) *OrderStateBaseUpsertBulk {
+	return u.Update(func(s *OrderStateBaseUpsert) {
+		s.AddUpdatedAt(v)
+	})
+}
+
+// UpdateUpdatedAt sets the "updated_at" field to the value that was provided on create.
+func (u *OrderStateBaseUpsertBulk) UpdateUpdatedAt() *OrderStateBaseUpsertBulk {
+	return u.Update(func(s *OrderStateBaseUpsert) {
+		s.UpdateUpdatedAt()
+	})
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (u *OrderStateBaseUpsertBulk) SetDeletedAt(v uint32) *OrderStateBaseUpsertBulk {
+	return u.Update(func(s *OrderStateBaseUpsert) {
+		s.SetDeletedAt(v)
+	})
+}
+
+// AddDeletedAt adds v to the "deleted_at" field.
+func (u *OrderStateBaseUpsertBulk) AddDeletedAt(v uint32) *OrderStateBaseUpsertBulk {
+	return u.Update(func(s *OrderStateBaseUpsert) {
+		s.AddDeletedAt(v)
+	})
+}
+
+// UpdateDeletedAt sets the "deleted_at" field to the value that was provided on create.
+func (u *OrderStateBaseUpsertBulk) UpdateDeletedAt() *OrderStateBaseUpsertBulk {
+	return u.Update(func(s *OrderStateBaseUpsert) {
+		s.UpdateDeletedAt()
 	})
 }
 

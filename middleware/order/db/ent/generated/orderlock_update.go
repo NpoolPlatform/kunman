@@ -43,6 +43,61 @@ func (olu *OrderLockUpdate) SetNillableEntID(u *uuid.UUID) *OrderLockUpdate {
 	return olu
 }
 
+// SetCreatedAt sets the "created_at" field.
+func (olu *OrderLockUpdate) SetCreatedAt(u uint32) *OrderLockUpdate {
+	olu.mutation.ResetCreatedAt()
+	olu.mutation.SetCreatedAt(u)
+	return olu
+}
+
+// SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
+func (olu *OrderLockUpdate) SetNillableCreatedAt(u *uint32) *OrderLockUpdate {
+	if u != nil {
+		olu.SetCreatedAt(*u)
+	}
+	return olu
+}
+
+// AddCreatedAt adds u to the "created_at" field.
+func (olu *OrderLockUpdate) AddCreatedAt(u int32) *OrderLockUpdate {
+	olu.mutation.AddCreatedAt(u)
+	return olu
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (olu *OrderLockUpdate) SetUpdatedAt(u uint32) *OrderLockUpdate {
+	olu.mutation.ResetUpdatedAt()
+	olu.mutation.SetUpdatedAt(u)
+	return olu
+}
+
+// AddUpdatedAt adds u to the "updated_at" field.
+func (olu *OrderLockUpdate) AddUpdatedAt(u int32) *OrderLockUpdate {
+	olu.mutation.AddUpdatedAt(u)
+	return olu
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (olu *OrderLockUpdate) SetDeletedAt(u uint32) *OrderLockUpdate {
+	olu.mutation.ResetDeletedAt()
+	olu.mutation.SetDeletedAt(u)
+	return olu
+}
+
+// SetNillableDeletedAt sets the "deleted_at" field if the given value is not nil.
+func (olu *OrderLockUpdate) SetNillableDeletedAt(u *uint32) *OrderLockUpdate {
+	if u != nil {
+		olu.SetDeletedAt(*u)
+	}
+	return olu
+}
+
+// AddDeletedAt adds u to the "deleted_at" field.
+func (olu *OrderLockUpdate) AddDeletedAt(u int32) *OrderLockUpdate {
+	olu.mutation.AddDeletedAt(u)
+	return olu
+}
+
 // SetOrderID sets the "order_id" field.
 func (olu *OrderLockUpdate) SetOrderID(u uuid.UUID) *OrderLockUpdate {
 	olu.mutation.SetOrderID(u)
@@ -110,6 +165,7 @@ func (olu *OrderLockUpdate) Mutation() *OrderLockMutation {
 
 // Save executes the query and returns the number of nodes affected by the update operation.
 func (olu *OrderLockUpdate) Save(ctx context.Context) (int, error) {
+	olu.defaults()
 	return withHooks(ctx, olu.sqlSave, olu.mutation, olu.hooks)
 }
 
@@ -135,6 +191,14 @@ func (olu *OrderLockUpdate) ExecX(ctx context.Context) {
 	}
 }
 
+// defaults sets the default values of the builder before save.
+func (olu *OrderLockUpdate) defaults() {
+	if _, ok := olu.mutation.UpdatedAt(); !ok {
+		v := orderlock.UpdateDefaultUpdatedAt()
+		olu.mutation.SetUpdatedAt(v)
+	}
+}
+
 // Modify adds a statement modifier for attaching custom logic to the UPDATE statement.
 func (olu *OrderLockUpdate) Modify(modifiers ...func(u *sql.UpdateBuilder)) *OrderLockUpdate {
 	olu.modifiers = append(olu.modifiers, modifiers...)
@@ -152,6 +216,24 @@ func (olu *OrderLockUpdate) sqlSave(ctx context.Context) (n int, err error) {
 	}
 	if value, ok := olu.mutation.EntID(); ok {
 		_spec.SetField(orderlock.FieldEntID, field.TypeUUID, value)
+	}
+	if value, ok := olu.mutation.CreatedAt(); ok {
+		_spec.SetField(orderlock.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := olu.mutation.AddedCreatedAt(); ok {
+		_spec.AddField(orderlock.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := olu.mutation.UpdatedAt(); ok {
+		_spec.SetField(orderlock.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := olu.mutation.AddedUpdatedAt(); ok {
+		_spec.AddField(orderlock.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := olu.mutation.DeletedAt(); ok {
+		_spec.SetField(orderlock.FieldDeletedAt, field.TypeUint32, value)
+	}
+	if value, ok := olu.mutation.AddedDeletedAt(); ok {
+		_spec.AddField(orderlock.FieldDeletedAt, field.TypeUint32, value)
 	}
 	if value, ok := olu.mutation.OrderID(); ok {
 		_spec.SetField(orderlock.FieldOrderID, field.TypeUUID, value)
@@ -204,6 +286,61 @@ func (oluo *OrderLockUpdateOne) SetNillableEntID(u *uuid.UUID) *OrderLockUpdateO
 	if u != nil {
 		oluo.SetEntID(*u)
 	}
+	return oluo
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (oluo *OrderLockUpdateOne) SetCreatedAt(u uint32) *OrderLockUpdateOne {
+	oluo.mutation.ResetCreatedAt()
+	oluo.mutation.SetCreatedAt(u)
+	return oluo
+}
+
+// SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
+func (oluo *OrderLockUpdateOne) SetNillableCreatedAt(u *uint32) *OrderLockUpdateOne {
+	if u != nil {
+		oluo.SetCreatedAt(*u)
+	}
+	return oluo
+}
+
+// AddCreatedAt adds u to the "created_at" field.
+func (oluo *OrderLockUpdateOne) AddCreatedAt(u int32) *OrderLockUpdateOne {
+	oluo.mutation.AddCreatedAt(u)
+	return oluo
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (oluo *OrderLockUpdateOne) SetUpdatedAt(u uint32) *OrderLockUpdateOne {
+	oluo.mutation.ResetUpdatedAt()
+	oluo.mutation.SetUpdatedAt(u)
+	return oluo
+}
+
+// AddUpdatedAt adds u to the "updated_at" field.
+func (oluo *OrderLockUpdateOne) AddUpdatedAt(u int32) *OrderLockUpdateOne {
+	oluo.mutation.AddUpdatedAt(u)
+	return oluo
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (oluo *OrderLockUpdateOne) SetDeletedAt(u uint32) *OrderLockUpdateOne {
+	oluo.mutation.ResetDeletedAt()
+	oluo.mutation.SetDeletedAt(u)
+	return oluo
+}
+
+// SetNillableDeletedAt sets the "deleted_at" field if the given value is not nil.
+func (oluo *OrderLockUpdateOne) SetNillableDeletedAt(u *uint32) *OrderLockUpdateOne {
+	if u != nil {
+		oluo.SetDeletedAt(*u)
+	}
+	return oluo
+}
+
+// AddDeletedAt adds u to the "deleted_at" field.
+func (oluo *OrderLockUpdateOne) AddDeletedAt(u int32) *OrderLockUpdateOne {
+	oluo.mutation.AddDeletedAt(u)
 	return oluo
 }
 
@@ -287,6 +424,7 @@ func (oluo *OrderLockUpdateOne) Select(field string, fields ...string) *OrderLoc
 
 // Save executes the query and returns the updated OrderLock entity.
 func (oluo *OrderLockUpdateOne) Save(ctx context.Context) (*OrderLock, error) {
+	oluo.defaults()
 	return withHooks(ctx, oluo.sqlSave, oluo.mutation, oluo.hooks)
 }
 
@@ -309,6 +447,14 @@ func (oluo *OrderLockUpdateOne) Exec(ctx context.Context) error {
 func (oluo *OrderLockUpdateOne) ExecX(ctx context.Context) {
 	if err := oluo.Exec(ctx); err != nil {
 		panic(err)
+	}
+}
+
+// defaults sets the default values of the builder before save.
+func (oluo *OrderLockUpdateOne) defaults() {
+	if _, ok := oluo.mutation.UpdatedAt(); !ok {
+		v := orderlock.UpdateDefaultUpdatedAt()
+		oluo.mutation.SetUpdatedAt(v)
 	}
 }
 
@@ -346,6 +492,24 @@ func (oluo *OrderLockUpdateOne) sqlSave(ctx context.Context) (_node *OrderLock, 
 	}
 	if value, ok := oluo.mutation.EntID(); ok {
 		_spec.SetField(orderlock.FieldEntID, field.TypeUUID, value)
+	}
+	if value, ok := oluo.mutation.CreatedAt(); ok {
+		_spec.SetField(orderlock.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := oluo.mutation.AddedCreatedAt(); ok {
+		_spec.AddField(orderlock.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := oluo.mutation.UpdatedAt(); ok {
+		_spec.SetField(orderlock.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := oluo.mutation.AddedUpdatedAt(); ok {
+		_spec.AddField(orderlock.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := oluo.mutation.DeletedAt(); ok {
+		_spec.SetField(orderlock.FieldDeletedAt, field.TypeUint32, value)
+	}
+	if value, ok := oluo.mutation.AddedDeletedAt(); ok {
+		_spec.AddField(orderlock.FieldDeletedAt, field.TypeUint32, value)
 	}
 	if value, ok := oluo.mutation.OrderID(); ok {
 		_spec.SetField(orderlock.FieldOrderID, field.TypeUUID, value)

@@ -17,6 +17,7 @@ type PaymentBalanceLock struct {
 func (PaymentBalanceLock) Mixin() []ent.Mixin {
 	return []ent.Mixin{
 		crudermixin.AutoIDMixin{},
+		crudermixin.TimeMixin{},
 	}
 }
 

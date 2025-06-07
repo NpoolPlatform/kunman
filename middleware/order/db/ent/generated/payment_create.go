@@ -37,6 +37,48 @@ func (pc *PaymentCreate) SetNillableEntID(u *uuid.UUID) *PaymentCreate {
 	return pc
 }
 
+// SetCreatedAt sets the "created_at" field.
+func (pc *PaymentCreate) SetCreatedAt(u uint32) *PaymentCreate {
+	pc.mutation.SetCreatedAt(u)
+	return pc
+}
+
+// SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
+func (pc *PaymentCreate) SetNillableCreatedAt(u *uint32) *PaymentCreate {
+	if u != nil {
+		pc.SetCreatedAt(*u)
+	}
+	return pc
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (pc *PaymentCreate) SetUpdatedAt(u uint32) *PaymentCreate {
+	pc.mutation.SetUpdatedAt(u)
+	return pc
+}
+
+// SetNillableUpdatedAt sets the "updated_at" field if the given value is not nil.
+func (pc *PaymentCreate) SetNillableUpdatedAt(u *uint32) *PaymentCreate {
+	if u != nil {
+		pc.SetUpdatedAt(*u)
+	}
+	return pc
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (pc *PaymentCreate) SetDeletedAt(u uint32) *PaymentCreate {
+	pc.mutation.SetDeletedAt(u)
+	return pc
+}
+
+// SetNillableDeletedAt sets the "deleted_at" field if the given value is not nil.
+func (pc *PaymentCreate) SetNillableDeletedAt(u *uint32) *PaymentCreate {
+	if u != nil {
+		pc.SetDeletedAt(*u)
+	}
+	return pc
+}
+
 // SetAppID sets the "app_id" field.
 func (pc *PaymentCreate) SetAppID(u uuid.UUID) *PaymentCreate {
 	pc.mutation.SetAppID(u)
@@ -154,6 +196,18 @@ func (pc *PaymentCreate) defaults() {
 		v := payment.DefaultEntID()
 		pc.mutation.SetEntID(v)
 	}
+	if _, ok := pc.mutation.CreatedAt(); !ok {
+		v := payment.DefaultCreatedAt()
+		pc.mutation.SetCreatedAt(v)
+	}
+	if _, ok := pc.mutation.UpdatedAt(); !ok {
+		v := payment.DefaultUpdatedAt()
+		pc.mutation.SetUpdatedAt(v)
+	}
+	if _, ok := pc.mutation.DeletedAt(); !ok {
+		v := payment.DefaultDeletedAt()
+		pc.mutation.SetDeletedAt(v)
+	}
 	if _, ok := pc.mutation.StartAmount(); !ok {
 		v := payment.DefaultStartAmount
 		pc.mutation.SetStartAmount(v)
@@ -164,6 +218,15 @@ func (pc *PaymentCreate) defaults() {
 func (pc *PaymentCreate) check() error {
 	if _, ok := pc.mutation.EntID(); !ok {
 		return &ValidationError{Name: "ent_id", err: errors.New(`generated: missing required field "Payment.ent_id"`)}
+	}
+	if _, ok := pc.mutation.CreatedAt(); !ok {
+		return &ValidationError{Name: "created_at", err: errors.New(`generated: missing required field "Payment.created_at"`)}
+	}
+	if _, ok := pc.mutation.UpdatedAt(); !ok {
+		return &ValidationError{Name: "updated_at", err: errors.New(`generated: missing required field "Payment.updated_at"`)}
+	}
+	if _, ok := pc.mutation.DeletedAt(); !ok {
+		return &ValidationError{Name: "deleted_at", err: errors.New(`generated: missing required field "Payment.deleted_at"`)}
 	}
 	if _, ok := pc.mutation.AppID(); !ok {
 		return &ValidationError{Name: "app_id", err: errors.New(`generated: missing required field "Payment.app_id"`)}
@@ -216,6 +279,18 @@ func (pc *PaymentCreate) createSpec() (*Payment, *sqlgraph.CreateSpec) {
 	if value, ok := pc.mutation.EntID(); ok {
 		_spec.SetField(payment.FieldEntID, field.TypeUUID, value)
 		_node.EntID = value
+	}
+	if value, ok := pc.mutation.CreatedAt(); ok {
+		_spec.SetField(payment.FieldCreatedAt, field.TypeUint32, value)
+		_node.CreatedAt = value
+	}
+	if value, ok := pc.mutation.UpdatedAt(); ok {
+		_spec.SetField(payment.FieldUpdatedAt, field.TypeUint32, value)
+		_node.UpdatedAt = value
+	}
+	if value, ok := pc.mutation.DeletedAt(); ok {
+		_spec.SetField(payment.FieldDeletedAt, field.TypeUint32, value)
+		_node.DeletedAt = value
 	}
 	if value, ok := pc.mutation.AppID(); ok {
 		_spec.SetField(payment.FieldAppID, field.TypeUUID, value)
@@ -310,6 +385,60 @@ func (u *PaymentUpsert) SetEntID(v uuid.UUID) *PaymentUpsert {
 // UpdateEntID sets the "ent_id" field to the value that was provided on create.
 func (u *PaymentUpsert) UpdateEntID() *PaymentUpsert {
 	u.SetExcluded(payment.FieldEntID)
+	return u
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (u *PaymentUpsert) SetCreatedAt(v uint32) *PaymentUpsert {
+	u.Set(payment.FieldCreatedAt, v)
+	return u
+}
+
+// UpdateCreatedAt sets the "created_at" field to the value that was provided on create.
+func (u *PaymentUpsert) UpdateCreatedAt() *PaymentUpsert {
+	u.SetExcluded(payment.FieldCreatedAt)
+	return u
+}
+
+// AddCreatedAt adds v to the "created_at" field.
+func (u *PaymentUpsert) AddCreatedAt(v uint32) *PaymentUpsert {
+	u.Add(payment.FieldCreatedAt, v)
+	return u
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (u *PaymentUpsert) SetUpdatedAt(v uint32) *PaymentUpsert {
+	u.Set(payment.FieldUpdatedAt, v)
+	return u
+}
+
+// UpdateUpdatedAt sets the "updated_at" field to the value that was provided on create.
+func (u *PaymentUpsert) UpdateUpdatedAt() *PaymentUpsert {
+	u.SetExcluded(payment.FieldUpdatedAt)
+	return u
+}
+
+// AddUpdatedAt adds v to the "updated_at" field.
+func (u *PaymentUpsert) AddUpdatedAt(v uint32) *PaymentUpsert {
+	u.Add(payment.FieldUpdatedAt, v)
+	return u
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (u *PaymentUpsert) SetDeletedAt(v uint32) *PaymentUpsert {
+	u.Set(payment.FieldDeletedAt, v)
+	return u
+}
+
+// UpdateDeletedAt sets the "deleted_at" field to the value that was provided on create.
+func (u *PaymentUpsert) UpdateDeletedAt() *PaymentUpsert {
+	u.SetExcluded(payment.FieldDeletedAt)
+	return u
+}
+
+// AddDeletedAt adds v to the "deleted_at" field.
+func (u *PaymentUpsert) AddDeletedAt(v uint32) *PaymentUpsert {
+	u.Add(payment.FieldDeletedAt, v)
 	return u
 }
 
@@ -486,6 +615,69 @@ func (u *PaymentUpsertOne) SetEntID(v uuid.UUID) *PaymentUpsertOne {
 func (u *PaymentUpsertOne) UpdateEntID() *PaymentUpsertOne {
 	return u.Update(func(s *PaymentUpsert) {
 		s.UpdateEntID()
+	})
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (u *PaymentUpsertOne) SetCreatedAt(v uint32) *PaymentUpsertOne {
+	return u.Update(func(s *PaymentUpsert) {
+		s.SetCreatedAt(v)
+	})
+}
+
+// AddCreatedAt adds v to the "created_at" field.
+func (u *PaymentUpsertOne) AddCreatedAt(v uint32) *PaymentUpsertOne {
+	return u.Update(func(s *PaymentUpsert) {
+		s.AddCreatedAt(v)
+	})
+}
+
+// UpdateCreatedAt sets the "created_at" field to the value that was provided on create.
+func (u *PaymentUpsertOne) UpdateCreatedAt() *PaymentUpsertOne {
+	return u.Update(func(s *PaymentUpsert) {
+		s.UpdateCreatedAt()
+	})
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (u *PaymentUpsertOne) SetUpdatedAt(v uint32) *PaymentUpsertOne {
+	return u.Update(func(s *PaymentUpsert) {
+		s.SetUpdatedAt(v)
+	})
+}
+
+// AddUpdatedAt adds v to the "updated_at" field.
+func (u *PaymentUpsertOne) AddUpdatedAt(v uint32) *PaymentUpsertOne {
+	return u.Update(func(s *PaymentUpsert) {
+		s.AddUpdatedAt(v)
+	})
+}
+
+// UpdateUpdatedAt sets the "updated_at" field to the value that was provided on create.
+func (u *PaymentUpsertOne) UpdateUpdatedAt() *PaymentUpsertOne {
+	return u.Update(func(s *PaymentUpsert) {
+		s.UpdateUpdatedAt()
+	})
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (u *PaymentUpsertOne) SetDeletedAt(v uint32) *PaymentUpsertOne {
+	return u.Update(func(s *PaymentUpsert) {
+		s.SetDeletedAt(v)
+	})
+}
+
+// AddDeletedAt adds v to the "deleted_at" field.
+func (u *PaymentUpsertOne) AddDeletedAt(v uint32) *PaymentUpsertOne {
+	return u.Update(func(s *PaymentUpsert) {
+		s.AddDeletedAt(v)
+	})
+}
+
+// UpdateDeletedAt sets the "deleted_at" field to the value that was provided on create.
+func (u *PaymentUpsertOne) UpdateDeletedAt() *PaymentUpsertOne {
+	return u.Update(func(s *PaymentUpsert) {
+		s.UpdateDeletedAt()
 	})
 }
 
@@ -847,6 +1039,69 @@ func (u *PaymentUpsertBulk) SetEntID(v uuid.UUID) *PaymentUpsertBulk {
 func (u *PaymentUpsertBulk) UpdateEntID() *PaymentUpsertBulk {
 	return u.Update(func(s *PaymentUpsert) {
 		s.UpdateEntID()
+	})
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (u *PaymentUpsertBulk) SetCreatedAt(v uint32) *PaymentUpsertBulk {
+	return u.Update(func(s *PaymentUpsert) {
+		s.SetCreatedAt(v)
+	})
+}
+
+// AddCreatedAt adds v to the "created_at" field.
+func (u *PaymentUpsertBulk) AddCreatedAt(v uint32) *PaymentUpsertBulk {
+	return u.Update(func(s *PaymentUpsert) {
+		s.AddCreatedAt(v)
+	})
+}
+
+// UpdateCreatedAt sets the "created_at" field to the value that was provided on create.
+func (u *PaymentUpsertBulk) UpdateCreatedAt() *PaymentUpsertBulk {
+	return u.Update(func(s *PaymentUpsert) {
+		s.UpdateCreatedAt()
+	})
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (u *PaymentUpsertBulk) SetUpdatedAt(v uint32) *PaymentUpsertBulk {
+	return u.Update(func(s *PaymentUpsert) {
+		s.SetUpdatedAt(v)
+	})
+}
+
+// AddUpdatedAt adds v to the "updated_at" field.
+func (u *PaymentUpsertBulk) AddUpdatedAt(v uint32) *PaymentUpsertBulk {
+	return u.Update(func(s *PaymentUpsert) {
+		s.AddUpdatedAt(v)
+	})
+}
+
+// UpdateUpdatedAt sets the "updated_at" field to the value that was provided on create.
+func (u *PaymentUpsertBulk) UpdateUpdatedAt() *PaymentUpsertBulk {
+	return u.Update(func(s *PaymentUpsert) {
+		s.UpdateUpdatedAt()
+	})
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (u *PaymentUpsertBulk) SetDeletedAt(v uint32) *PaymentUpsertBulk {
+	return u.Update(func(s *PaymentUpsert) {
+		s.SetDeletedAt(v)
+	})
+}
+
+// AddDeletedAt adds v to the "deleted_at" field.
+func (u *PaymentUpsertBulk) AddDeletedAt(v uint32) *PaymentUpsertBulk {
+	return u.Update(func(s *PaymentUpsert) {
+		s.AddDeletedAt(v)
+	})
+}
+
+// UpdateDeletedAt sets the "deleted_at" field to the value that was provided on create.
+func (u *PaymentUpsertBulk) UpdateDeletedAt() *PaymentUpsertBulk {
+	return u.Update(func(s *PaymentUpsert) {
+		s.UpdateDeletedAt()
 	})
 }
 

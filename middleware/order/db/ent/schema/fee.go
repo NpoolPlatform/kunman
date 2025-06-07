@@ -18,6 +18,7 @@ type FeeOrder struct {
 func (FeeOrder) Mixin() []ent.Mixin {
 	return []ent.Mixin{
 		crudermixin.AutoIDMixin{},
+		crudermixin.TimeMixin{},
 	}
 }
 

@@ -17,6 +17,7 @@ type OrderBase struct {
 func (OrderBase) Mixin() []ent.Mixin {
 	return []ent.Mixin{
 		crudermixin.AutoIDMixin{},
+		crudermixin.TimeMixin{},
 	}
 }
 

@@ -18,6 +18,7 @@ type PaymentContract struct {
 func (PaymentContract) Mixin() []ent.Mixin {
 	return []ent.Mixin{
 		crudermixin.AutoIDMixin{},
+		crudermixin.TimeMixin{},
 	}
 }
 

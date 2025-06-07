@@ -43,6 +43,61 @@ func (oogu *OutOfGasUpdate) SetNillableEntID(u *uuid.UUID) *OutOfGasUpdate {
 	return oogu
 }
 
+// SetCreatedAt sets the "created_at" field.
+func (oogu *OutOfGasUpdate) SetCreatedAt(u uint32) *OutOfGasUpdate {
+	oogu.mutation.ResetCreatedAt()
+	oogu.mutation.SetCreatedAt(u)
+	return oogu
+}
+
+// SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
+func (oogu *OutOfGasUpdate) SetNillableCreatedAt(u *uint32) *OutOfGasUpdate {
+	if u != nil {
+		oogu.SetCreatedAt(*u)
+	}
+	return oogu
+}
+
+// AddCreatedAt adds u to the "created_at" field.
+func (oogu *OutOfGasUpdate) AddCreatedAt(u int32) *OutOfGasUpdate {
+	oogu.mutation.AddCreatedAt(u)
+	return oogu
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (oogu *OutOfGasUpdate) SetUpdatedAt(u uint32) *OutOfGasUpdate {
+	oogu.mutation.ResetUpdatedAt()
+	oogu.mutation.SetUpdatedAt(u)
+	return oogu
+}
+
+// AddUpdatedAt adds u to the "updated_at" field.
+func (oogu *OutOfGasUpdate) AddUpdatedAt(u int32) *OutOfGasUpdate {
+	oogu.mutation.AddUpdatedAt(u)
+	return oogu
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (oogu *OutOfGasUpdate) SetDeletedAt(u uint32) *OutOfGasUpdate {
+	oogu.mutation.ResetDeletedAt()
+	oogu.mutation.SetDeletedAt(u)
+	return oogu
+}
+
+// SetNillableDeletedAt sets the "deleted_at" field if the given value is not nil.
+func (oogu *OutOfGasUpdate) SetNillableDeletedAt(u *uint32) *OutOfGasUpdate {
+	if u != nil {
+		oogu.SetDeletedAt(*u)
+	}
+	return oogu
+}
+
+// AddDeletedAt adds u to the "deleted_at" field.
+func (oogu *OutOfGasUpdate) AddDeletedAt(u int32) *OutOfGasUpdate {
+	oogu.mutation.AddDeletedAt(u)
+	return oogu
+}
+
 // SetOrderID sets the "order_id" field.
 func (oogu *OutOfGasUpdate) SetOrderID(u uuid.UUID) *OutOfGasUpdate {
 	oogu.mutation.SetOrderID(u)
@@ -124,6 +179,7 @@ func (oogu *OutOfGasUpdate) Mutation() *OutOfGasMutation {
 
 // Save executes the query and returns the number of nodes affected by the update operation.
 func (oogu *OutOfGasUpdate) Save(ctx context.Context) (int, error) {
+	oogu.defaults()
 	return withHooks(ctx, oogu.sqlSave, oogu.mutation, oogu.hooks)
 }
 
@@ -149,6 +205,14 @@ func (oogu *OutOfGasUpdate) ExecX(ctx context.Context) {
 	}
 }
 
+// defaults sets the default values of the builder before save.
+func (oogu *OutOfGasUpdate) defaults() {
+	if _, ok := oogu.mutation.UpdatedAt(); !ok {
+		v := outofgas.UpdateDefaultUpdatedAt()
+		oogu.mutation.SetUpdatedAt(v)
+	}
+}
+
 // Modify adds a statement modifier for attaching custom logic to the UPDATE statement.
 func (oogu *OutOfGasUpdate) Modify(modifiers ...func(u *sql.UpdateBuilder)) *OutOfGasUpdate {
 	oogu.modifiers = append(oogu.modifiers, modifiers...)
@@ -166,6 +230,24 @@ func (oogu *OutOfGasUpdate) sqlSave(ctx context.Context) (n int, err error) {
 	}
 	if value, ok := oogu.mutation.EntID(); ok {
 		_spec.SetField(outofgas.FieldEntID, field.TypeUUID, value)
+	}
+	if value, ok := oogu.mutation.CreatedAt(); ok {
+		_spec.SetField(outofgas.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := oogu.mutation.AddedCreatedAt(); ok {
+		_spec.AddField(outofgas.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := oogu.mutation.UpdatedAt(); ok {
+		_spec.SetField(outofgas.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := oogu.mutation.AddedUpdatedAt(); ok {
+		_spec.AddField(outofgas.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := oogu.mutation.DeletedAt(); ok {
+		_spec.SetField(outofgas.FieldDeletedAt, field.TypeUint32, value)
+	}
+	if value, ok := oogu.mutation.AddedDeletedAt(); ok {
+		_spec.AddField(outofgas.FieldDeletedAt, field.TypeUint32, value)
 	}
 	if value, ok := oogu.mutation.OrderID(); ok {
 		_spec.SetField(outofgas.FieldOrderID, field.TypeUUID, value)
@@ -224,6 +306,61 @@ func (ooguo *OutOfGasUpdateOne) SetNillableEntID(u *uuid.UUID) *OutOfGasUpdateOn
 	if u != nil {
 		ooguo.SetEntID(*u)
 	}
+	return ooguo
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (ooguo *OutOfGasUpdateOne) SetCreatedAt(u uint32) *OutOfGasUpdateOne {
+	ooguo.mutation.ResetCreatedAt()
+	ooguo.mutation.SetCreatedAt(u)
+	return ooguo
+}
+
+// SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
+func (ooguo *OutOfGasUpdateOne) SetNillableCreatedAt(u *uint32) *OutOfGasUpdateOne {
+	if u != nil {
+		ooguo.SetCreatedAt(*u)
+	}
+	return ooguo
+}
+
+// AddCreatedAt adds u to the "created_at" field.
+func (ooguo *OutOfGasUpdateOne) AddCreatedAt(u int32) *OutOfGasUpdateOne {
+	ooguo.mutation.AddCreatedAt(u)
+	return ooguo
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (ooguo *OutOfGasUpdateOne) SetUpdatedAt(u uint32) *OutOfGasUpdateOne {
+	ooguo.mutation.ResetUpdatedAt()
+	ooguo.mutation.SetUpdatedAt(u)
+	return ooguo
+}
+
+// AddUpdatedAt adds u to the "updated_at" field.
+func (ooguo *OutOfGasUpdateOne) AddUpdatedAt(u int32) *OutOfGasUpdateOne {
+	ooguo.mutation.AddUpdatedAt(u)
+	return ooguo
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (ooguo *OutOfGasUpdateOne) SetDeletedAt(u uint32) *OutOfGasUpdateOne {
+	ooguo.mutation.ResetDeletedAt()
+	ooguo.mutation.SetDeletedAt(u)
+	return ooguo
+}
+
+// SetNillableDeletedAt sets the "deleted_at" field if the given value is not nil.
+func (ooguo *OutOfGasUpdateOne) SetNillableDeletedAt(u *uint32) *OutOfGasUpdateOne {
+	if u != nil {
+		ooguo.SetDeletedAt(*u)
+	}
+	return ooguo
+}
+
+// AddDeletedAt adds u to the "deleted_at" field.
+func (ooguo *OutOfGasUpdateOne) AddDeletedAt(u int32) *OutOfGasUpdateOne {
+	ooguo.mutation.AddDeletedAt(u)
 	return ooguo
 }
 
@@ -321,6 +458,7 @@ func (ooguo *OutOfGasUpdateOne) Select(field string, fields ...string) *OutOfGas
 
 // Save executes the query and returns the updated OutOfGas entity.
 func (ooguo *OutOfGasUpdateOne) Save(ctx context.Context) (*OutOfGas, error) {
+	ooguo.defaults()
 	return withHooks(ctx, ooguo.sqlSave, ooguo.mutation, ooguo.hooks)
 }
 
@@ -343,6 +481,14 @@ func (ooguo *OutOfGasUpdateOne) Exec(ctx context.Context) error {
 func (ooguo *OutOfGasUpdateOne) ExecX(ctx context.Context) {
 	if err := ooguo.Exec(ctx); err != nil {
 		panic(err)
+	}
+}
+
+// defaults sets the default values of the builder before save.
+func (ooguo *OutOfGasUpdateOne) defaults() {
+	if _, ok := ooguo.mutation.UpdatedAt(); !ok {
+		v := outofgas.UpdateDefaultUpdatedAt()
+		ooguo.mutation.SetUpdatedAt(v)
 	}
 }
 
@@ -380,6 +526,24 @@ func (ooguo *OutOfGasUpdateOne) sqlSave(ctx context.Context) (_node *OutOfGas, e
 	}
 	if value, ok := ooguo.mutation.EntID(); ok {
 		_spec.SetField(outofgas.FieldEntID, field.TypeUUID, value)
+	}
+	if value, ok := ooguo.mutation.CreatedAt(); ok {
+		_spec.SetField(outofgas.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := ooguo.mutation.AddedCreatedAt(); ok {
+		_spec.AddField(outofgas.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := ooguo.mutation.UpdatedAt(); ok {
+		_spec.SetField(outofgas.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := ooguo.mutation.AddedUpdatedAt(); ok {
+		_spec.AddField(outofgas.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := ooguo.mutation.DeletedAt(); ok {
+		_spec.SetField(outofgas.FieldDeletedAt, field.TypeUint32, value)
+	}
+	if value, ok := ooguo.mutation.AddedDeletedAt(); ok {
+		_spec.AddField(outofgas.FieldDeletedAt, field.TypeUint32, value)
 	}
 	if value, ok := ooguo.mutation.OrderID(); ok {
 		_spec.SetField(outofgas.FieldOrderID, field.TypeUUID, value)

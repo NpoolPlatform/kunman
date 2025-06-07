@@ -20,6 +20,12 @@ type AppConfig struct {
 	ID uint32 `json:"id,omitempty"`
 	// EntID holds the value of the "ent_id" field.
 	EntID uuid.UUID `json:"ent_id,omitempty"`
+	// CreatedAt holds the value of the "created_at" field.
+	CreatedAt uint32 `json:"created_at,omitempty"`
+	// UpdatedAt holds the value of the "updated_at" field.
+	UpdatedAt uint32 `json:"updated_at,omitempty"`
+	// DeletedAt holds the value of the "deleted_at" field.
+	DeletedAt uint32 `json:"deleted_at,omitempty"`
 	// AppID holds the value of the "app_id" field.
 	AppID uuid.UUID `json:"app_id,omitempty"`
 	// EnableSimulateOrder holds the value of the "enable_simulate_order" field.
@@ -46,7 +52,7 @@ func (*AppConfig) scanValues(columns []string) ([]any, error) {
 			values[i] = new(decimal.Decimal)
 		case appconfig.FieldEnableSimulateOrder:
 			values[i] = new(sql.NullBool)
-		case appconfig.FieldID, appconfig.FieldMaxUnpaidOrders, appconfig.FieldMaxTypedCouponsPerOrder:
+		case appconfig.FieldID, appconfig.FieldCreatedAt, appconfig.FieldUpdatedAt, appconfig.FieldDeletedAt, appconfig.FieldMaxUnpaidOrders, appconfig.FieldMaxTypedCouponsPerOrder:
 			values[i] = new(sql.NullInt64)
 		case appconfig.FieldSimulateOrderCouponMode:
 			values[i] = new(sql.NullString)
@@ -78,6 +84,24 @@ func (ac *AppConfig) assignValues(columns []string, values []any) error {
 				return fmt.Errorf("unexpected type %T for field ent_id", values[i])
 			} else if value != nil {
 				ac.EntID = *value
+			}
+		case appconfig.FieldCreatedAt:
+			if value, ok := values[i].(*sql.NullInt64); !ok {
+				return fmt.Errorf("unexpected type %T for field created_at", values[i])
+			} else if value.Valid {
+				ac.CreatedAt = uint32(value.Int64)
+			}
+		case appconfig.FieldUpdatedAt:
+			if value, ok := values[i].(*sql.NullInt64); !ok {
+				return fmt.Errorf("unexpected type %T for field updated_at", values[i])
+			} else if value.Valid {
+				ac.UpdatedAt = uint32(value.Int64)
+			}
+		case appconfig.FieldDeletedAt:
+			if value, ok := values[i].(*sql.NullInt64); !ok {
+				return fmt.Errorf("unexpected type %T for field deleted_at", values[i])
+			} else if value.Valid {
+				ac.DeletedAt = uint32(value.Int64)
 			}
 		case appconfig.FieldAppID:
 			if value, ok := values[i].(*uuid.UUID); !ok {
@@ -159,6 +183,15 @@ func (ac *AppConfig) String() string {
 	builder.WriteString(fmt.Sprintf("id=%v, ", ac.ID))
 	builder.WriteString("ent_id=")
 	builder.WriteString(fmt.Sprintf("%v", ac.EntID))
+	builder.WriteString(", ")
+	builder.WriteString("created_at=")
+	builder.WriteString(fmt.Sprintf("%v", ac.CreatedAt))
+	builder.WriteString(", ")
+	builder.WriteString("updated_at=")
+	builder.WriteString(fmt.Sprintf("%v", ac.UpdatedAt))
+	builder.WriteString(", ")
+	builder.WriteString("deleted_at=")
+	builder.WriteString(fmt.Sprintf("%v", ac.DeletedAt))
 	builder.WriteString(", ")
 	builder.WriteString("app_id=")
 	builder.WriteString(fmt.Sprintf("%v", ac.AppID))

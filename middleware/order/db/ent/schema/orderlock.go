@@ -17,6 +17,7 @@ type OrderLock struct {
 func (OrderLock) Mixin() []ent.Mixin {
 	return []ent.Mixin{
 		crudermixin.AutoIDMixin{},
+		crudermixin.TimeMixin{},
 	}
 }
 

@@ -15,6 +15,12 @@ const (
 	FieldID = "id"
 	// FieldEntID holds the string denoting the ent_id field in the database.
 	FieldEntID = "ent_id"
+	// FieldCreatedAt holds the string denoting the created_at field in the database.
+	FieldCreatedAt = "created_at"
+	// FieldUpdatedAt holds the string denoting the updated_at field in the database.
+	FieldUpdatedAt = "updated_at"
+	// FieldDeletedAt holds the string denoting the deleted_at field in the database.
+	FieldDeletedAt = "deleted_at"
 	// FieldAppID holds the string denoting the app_id field in the database.
 	FieldAppID = "app_id"
 	// FieldUserID holds the string denoting the user_id field in the database.
@@ -77,6 +83,9 @@ const (
 var Columns = []string{
 	FieldID,
 	FieldEntID,
+	FieldCreatedAt,
+	FieldUpdatedAt,
+	FieldDeletedAt,
 	FieldAppID,
 	FieldUserID,
 	FieldGoodID,
@@ -119,6 +128,14 @@ func ValidColumn(column string) bool {
 var (
 	// DefaultEntID holds the default value on creation for the "ent_id" field.
 	DefaultEntID func() uuid.UUID
+	// DefaultCreatedAt holds the default value on creation for the "created_at" field.
+	DefaultCreatedAt func() uint32
+	// DefaultUpdatedAt holds the default value on creation for the "updated_at" field.
+	DefaultUpdatedAt func() uint32
+	// UpdateDefaultUpdatedAt holds the default value on update for the "updated_at" field.
+	UpdateDefaultUpdatedAt func() uint32
+	// DefaultDeletedAt holds the default value on creation for the "deleted_at" field.
+	DefaultDeletedAt func() uint32
 	// DefaultPaymentID holds the default value on creation for the "payment_id" field.
 	DefaultPaymentID func() uuid.UUID
 	// DefaultParentOrderID holds the default value on creation for the "parent_order_id" field.
@@ -176,6 +193,21 @@ func ByID(opts ...sql.OrderTermOption) OrderOption {
 // ByEntID orders the results by the ent_id field.
 func ByEntID(opts ...sql.OrderTermOption) OrderOption {
 	return sql.OrderByField(FieldEntID, opts...).ToFunc()
+}
+
+// ByCreatedAt orders the results by the created_at field.
+func ByCreatedAt(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldCreatedAt, opts...).ToFunc()
+}
+
+// ByUpdatedAt orders the results by the updated_at field.
+func ByUpdatedAt(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldUpdatedAt, opts...).ToFunc()
+}
+
+// ByDeletedAt orders the results by the deleted_at field.
+func ByDeletedAt(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldDeletedAt, opts...).ToFunc()
 }
 
 // ByAppID orders the results by the app_id field.

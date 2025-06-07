@@ -43,6 +43,61 @@ func (pouu *PoolOrderUserUpdate) SetNillableEntID(u *uuid.UUID) *PoolOrderUserUp
 	return pouu
 }
 
+// SetCreatedAt sets the "created_at" field.
+func (pouu *PoolOrderUserUpdate) SetCreatedAt(u uint32) *PoolOrderUserUpdate {
+	pouu.mutation.ResetCreatedAt()
+	pouu.mutation.SetCreatedAt(u)
+	return pouu
+}
+
+// SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
+func (pouu *PoolOrderUserUpdate) SetNillableCreatedAt(u *uint32) *PoolOrderUserUpdate {
+	if u != nil {
+		pouu.SetCreatedAt(*u)
+	}
+	return pouu
+}
+
+// AddCreatedAt adds u to the "created_at" field.
+func (pouu *PoolOrderUserUpdate) AddCreatedAt(u int32) *PoolOrderUserUpdate {
+	pouu.mutation.AddCreatedAt(u)
+	return pouu
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (pouu *PoolOrderUserUpdate) SetUpdatedAt(u uint32) *PoolOrderUserUpdate {
+	pouu.mutation.ResetUpdatedAt()
+	pouu.mutation.SetUpdatedAt(u)
+	return pouu
+}
+
+// AddUpdatedAt adds u to the "updated_at" field.
+func (pouu *PoolOrderUserUpdate) AddUpdatedAt(u int32) *PoolOrderUserUpdate {
+	pouu.mutation.AddUpdatedAt(u)
+	return pouu
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (pouu *PoolOrderUserUpdate) SetDeletedAt(u uint32) *PoolOrderUserUpdate {
+	pouu.mutation.ResetDeletedAt()
+	pouu.mutation.SetDeletedAt(u)
+	return pouu
+}
+
+// SetNillableDeletedAt sets the "deleted_at" field if the given value is not nil.
+func (pouu *PoolOrderUserUpdate) SetNillableDeletedAt(u *uint32) *PoolOrderUserUpdate {
+	if u != nil {
+		pouu.SetDeletedAt(*u)
+	}
+	return pouu
+}
+
+// AddDeletedAt adds u to the "deleted_at" field.
+func (pouu *PoolOrderUserUpdate) AddDeletedAt(u int32) *PoolOrderUserUpdate {
+	pouu.mutation.AddDeletedAt(u)
+	return pouu
+}
+
 // SetOrderID sets the "order_id" field.
 func (pouu *PoolOrderUserUpdate) SetOrderID(u uuid.UUID) *PoolOrderUserUpdate {
 	pouu.mutation.SetOrderID(u)
@@ -78,6 +133,7 @@ func (pouu *PoolOrderUserUpdate) Mutation() *PoolOrderUserMutation {
 
 // Save executes the query and returns the number of nodes affected by the update operation.
 func (pouu *PoolOrderUserUpdate) Save(ctx context.Context) (int, error) {
+	pouu.defaults()
 	return withHooks(ctx, pouu.sqlSave, pouu.mutation, pouu.hooks)
 }
 
@@ -103,6 +159,14 @@ func (pouu *PoolOrderUserUpdate) ExecX(ctx context.Context) {
 	}
 }
 
+// defaults sets the default values of the builder before save.
+func (pouu *PoolOrderUserUpdate) defaults() {
+	if _, ok := pouu.mutation.UpdatedAt(); !ok {
+		v := poolorderuser.UpdateDefaultUpdatedAt()
+		pouu.mutation.SetUpdatedAt(v)
+	}
+}
+
 // Modify adds a statement modifier for attaching custom logic to the UPDATE statement.
 func (pouu *PoolOrderUserUpdate) Modify(modifiers ...func(u *sql.UpdateBuilder)) *PoolOrderUserUpdate {
 	pouu.modifiers = append(pouu.modifiers, modifiers...)
@@ -120,6 +184,24 @@ func (pouu *PoolOrderUserUpdate) sqlSave(ctx context.Context) (n int, err error)
 	}
 	if value, ok := pouu.mutation.EntID(); ok {
 		_spec.SetField(poolorderuser.FieldEntID, field.TypeUUID, value)
+	}
+	if value, ok := pouu.mutation.CreatedAt(); ok {
+		_spec.SetField(poolorderuser.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := pouu.mutation.AddedCreatedAt(); ok {
+		_spec.AddField(poolorderuser.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := pouu.mutation.UpdatedAt(); ok {
+		_spec.SetField(poolorderuser.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := pouu.mutation.AddedUpdatedAt(); ok {
+		_spec.AddField(poolorderuser.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := pouu.mutation.DeletedAt(); ok {
+		_spec.SetField(poolorderuser.FieldDeletedAt, field.TypeUint32, value)
+	}
+	if value, ok := pouu.mutation.AddedDeletedAt(); ok {
+		_spec.AddField(poolorderuser.FieldDeletedAt, field.TypeUint32, value)
 	}
 	if value, ok := pouu.mutation.OrderID(); ok {
 		_spec.SetField(poolorderuser.FieldOrderID, field.TypeUUID, value)
@@ -160,6 +242,61 @@ func (pouuo *PoolOrderUserUpdateOne) SetNillableEntID(u *uuid.UUID) *PoolOrderUs
 	if u != nil {
 		pouuo.SetEntID(*u)
 	}
+	return pouuo
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (pouuo *PoolOrderUserUpdateOne) SetCreatedAt(u uint32) *PoolOrderUserUpdateOne {
+	pouuo.mutation.ResetCreatedAt()
+	pouuo.mutation.SetCreatedAt(u)
+	return pouuo
+}
+
+// SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
+func (pouuo *PoolOrderUserUpdateOne) SetNillableCreatedAt(u *uint32) *PoolOrderUserUpdateOne {
+	if u != nil {
+		pouuo.SetCreatedAt(*u)
+	}
+	return pouuo
+}
+
+// AddCreatedAt adds u to the "created_at" field.
+func (pouuo *PoolOrderUserUpdateOne) AddCreatedAt(u int32) *PoolOrderUserUpdateOne {
+	pouuo.mutation.AddCreatedAt(u)
+	return pouuo
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (pouuo *PoolOrderUserUpdateOne) SetUpdatedAt(u uint32) *PoolOrderUserUpdateOne {
+	pouuo.mutation.ResetUpdatedAt()
+	pouuo.mutation.SetUpdatedAt(u)
+	return pouuo
+}
+
+// AddUpdatedAt adds u to the "updated_at" field.
+func (pouuo *PoolOrderUserUpdateOne) AddUpdatedAt(u int32) *PoolOrderUserUpdateOne {
+	pouuo.mutation.AddUpdatedAt(u)
+	return pouuo
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (pouuo *PoolOrderUserUpdateOne) SetDeletedAt(u uint32) *PoolOrderUserUpdateOne {
+	pouuo.mutation.ResetDeletedAt()
+	pouuo.mutation.SetDeletedAt(u)
+	return pouuo
+}
+
+// SetNillableDeletedAt sets the "deleted_at" field if the given value is not nil.
+func (pouuo *PoolOrderUserUpdateOne) SetNillableDeletedAt(u *uint32) *PoolOrderUserUpdateOne {
+	if u != nil {
+		pouuo.SetDeletedAt(*u)
+	}
+	return pouuo
+}
+
+// AddDeletedAt adds u to the "deleted_at" field.
+func (pouuo *PoolOrderUserUpdateOne) AddDeletedAt(u int32) *PoolOrderUserUpdateOne {
+	pouuo.mutation.AddDeletedAt(u)
 	return pouuo
 }
 
@@ -211,6 +348,7 @@ func (pouuo *PoolOrderUserUpdateOne) Select(field string, fields ...string) *Poo
 
 // Save executes the query and returns the updated PoolOrderUser entity.
 func (pouuo *PoolOrderUserUpdateOne) Save(ctx context.Context) (*PoolOrderUser, error) {
+	pouuo.defaults()
 	return withHooks(ctx, pouuo.sqlSave, pouuo.mutation, pouuo.hooks)
 }
 
@@ -233,6 +371,14 @@ func (pouuo *PoolOrderUserUpdateOne) Exec(ctx context.Context) error {
 func (pouuo *PoolOrderUserUpdateOne) ExecX(ctx context.Context) {
 	if err := pouuo.Exec(ctx); err != nil {
 		panic(err)
+	}
+}
+
+// defaults sets the default values of the builder before save.
+func (pouuo *PoolOrderUserUpdateOne) defaults() {
+	if _, ok := pouuo.mutation.UpdatedAt(); !ok {
+		v := poolorderuser.UpdateDefaultUpdatedAt()
+		pouuo.mutation.SetUpdatedAt(v)
 	}
 }
 
@@ -270,6 +416,24 @@ func (pouuo *PoolOrderUserUpdateOne) sqlSave(ctx context.Context) (_node *PoolOr
 	}
 	if value, ok := pouuo.mutation.EntID(); ok {
 		_spec.SetField(poolorderuser.FieldEntID, field.TypeUUID, value)
+	}
+	if value, ok := pouuo.mutation.CreatedAt(); ok {
+		_spec.SetField(poolorderuser.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := pouuo.mutation.AddedCreatedAt(); ok {
+		_spec.AddField(poolorderuser.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := pouuo.mutation.UpdatedAt(); ok {
+		_spec.SetField(poolorderuser.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := pouuo.mutation.AddedUpdatedAt(); ok {
+		_spec.AddField(poolorderuser.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := pouuo.mutation.DeletedAt(); ok {
+		_spec.SetField(poolorderuser.FieldDeletedAt, field.TypeUint32, value)
+	}
+	if value, ok := pouuo.mutation.AddedDeletedAt(); ok {
+		_spec.AddField(poolorderuser.FieldDeletedAt, field.TypeUint32, value)
 	}
 	if value, ok := pouuo.mutation.OrderID(); ok {
 		_spec.SetField(poolorderuser.FieldOrderID, field.TypeUUID, value)

@@ -19,6 +19,7 @@ type PaymentFiat struct {
 func (PaymentFiat) Mixin() []ent.Mixin {
 	return []ent.Mixin{
 		crudermixin.AutoIDMixin{},
+		crudermixin.TimeMixin{},
 	}
 }
 

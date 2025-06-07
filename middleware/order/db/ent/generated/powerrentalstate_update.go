@@ -43,6 +43,61 @@ func (prsu *PowerRentalStateUpdate) SetNillableEntID(u *uuid.UUID) *PowerRentalS
 	return prsu
 }
 
+// SetCreatedAt sets the "created_at" field.
+func (prsu *PowerRentalStateUpdate) SetCreatedAt(u uint32) *PowerRentalStateUpdate {
+	prsu.mutation.ResetCreatedAt()
+	prsu.mutation.SetCreatedAt(u)
+	return prsu
+}
+
+// SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
+func (prsu *PowerRentalStateUpdate) SetNillableCreatedAt(u *uint32) *PowerRentalStateUpdate {
+	if u != nil {
+		prsu.SetCreatedAt(*u)
+	}
+	return prsu
+}
+
+// AddCreatedAt adds u to the "created_at" field.
+func (prsu *PowerRentalStateUpdate) AddCreatedAt(u int32) *PowerRentalStateUpdate {
+	prsu.mutation.AddCreatedAt(u)
+	return prsu
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (prsu *PowerRentalStateUpdate) SetUpdatedAt(u uint32) *PowerRentalStateUpdate {
+	prsu.mutation.ResetUpdatedAt()
+	prsu.mutation.SetUpdatedAt(u)
+	return prsu
+}
+
+// AddUpdatedAt adds u to the "updated_at" field.
+func (prsu *PowerRentalStateUpdate) AddUpdatedAt(u int32) *PowerRentalStateUpdate {
+	prsu.mutation.AddUpdatedAt(u)
+	return prsu
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (prsu *PowerRentalStateUpdate) SetDeletedAt(u uint32) *PowerRentalStateUpdate {
+	prsu.mutation.ResetDeletedAt()
+	prsu.mutation.SetDeletedAt(u)
+	return prsu
+}
+
+// SetNillableDeletedAt sets the "deleted_at" field if the given value is not nil.
+func (prsu *PowerRentalStateUpdate) SetNillableDeletedAt(u *uint32) *PowerRentalStateUpdate {
+	if u != nil {
+		prsu.SetDeletedAt(*u)
+	}
+	return prsu
+}
+
+// AddDeletedAt adds u to the "deleted_at" field.
+func (prsu *PowerRentalStateUpdate) AddDeletedAt(u int32) *PowerRentalStateUpdate {
+	prsu.mutation.AddDeletedAt(u)
+	return prsu
+}
+
 // SetOrderID sets the "order_id" field.
 func (prsu *PowerRentalStateUpdate) SetOrderID(u uuid.UUID) *PowerRentalStateUpdate {
 	prsu.mutation.SetOrderID(u)
@@ -345,6 +400,7 @@ func (prsu *PowerRentalStateUpdate) Mutation() *PowerRentalStateMutation {
 
 // Save executes the query and returns the number of nodes affected by the update operation.
 func (prsu *PowerRentalStateUpdate) Save(ctx context.Context) (int, error) {
+	prsu.defaults()
 	return withHooks(ctx, prsu.sqlSave, prsu.mutation, prsu.hooks)
 }
 
@@ -370,6 +426,14 @@ func (prsu *PowerRentalStateUpdate) ExecX(ctx context.Context) {
 	}
 }
 
+// defaults sets the default values of the builder before save.
+func (prsu *PowerRentalStateUpdate) defaults() {
+	if _, ok := prsu.mutation.UpdatedAt(); !ok {
+		v := powerrentalstate.UpdateDefaultUpdatedAt()
+		prsu.mutation.SetUpdatedAt(v)
+	}
+}
+
 // Modify adds a statement modifier for attaching custom logic to the UPDATE statement.
 func (prsu *PowerRentalStateUpdate) Modify(modifiers ...func(u *sql.UpdateBuilder)) *PowerRentalStateUpdate {
 	prsu.modifiers = append(prsu.modifiers, modifiers...)
@@ -387,6 +451,24 @@ func (prsu *PowerRentalStateUpdate) sqlSave(ctx context.Context) (n int, err err
 	}
 	if value, ok := prsu.mutation.EntID(); ok {
 		_spec.SetField(powerrentalstate.FieldEntID, field.TypeUUID, value)
+	}
+	if value, ok := prsu.mutation.CreatedAt(); ok {
+		_spec.SetField(powerrentalstate.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := prsu.mutation.AddedCreatedAt(); ok {
+		_spec.AddField(powerrentalstate.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := prsu.mutation.UpdatedAt(); ok {
+		_spec.SetField(powerrentalstate.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := prsu.mutation.AddedUpdatedAt(); ok {
+		_spec.AddField(powerrentalstate.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := prsu.mutation.DeletedAt(); ok {
+		_spec.SetField(powerrentalstate.FieldDeletedAt, field.TypeUint32, value)
+	}
+	if value, ok := prsu.mutation.AddedDeletedAt(); ok {
+		_spec.AddField(powerrentalstate.FieldDeletedAt, field.TypeUint32, value)
 	}
 	if value, ok := prsu.mutation.OrderID(); ok {
 		_spec.SetField(powerrentalstate.FieldOrderID, field.TypeUUID, value)
@@ -514,6 +596,61 @@ func (prsuo *PowerRentalStateUpdateOne) SetNillableEntID(u *uuid.UUID) *PowerRen
 	if u != nil {
 		prsuo.SetEntID(*u)
 	}
+	return prsuo
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (prsuo *PowerRentalStateUpdateOne) SetCreatedAt(u uint32) *PowerRentalStateUpdateOne {
+	prsuo.mutation.ResetCreatedAt()
+	prsuo.mutation.SetCreatedAt(u)
+	return prsuo
+}
+
+// SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
+func (prsuo *PowerRentalStateUpdateOne) SetNillableCreatedAt(u *uint32) *PowerRentalStateUpdateOne {
+	if u != nil {
+		prsuo.SetCreatedAt(*u)
+	}
+	return prsuo
+}
+
+// AddCreatedAt adds u to the "created_at" field.
+func (prsuo *PowerRentalStateUpdateOne) AddCreatedAt(u int32) *PowerRentalStateUpdateOne {
+	prsuo.mutation.AddCreatedAt(u)
+	return prsuo
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (prsuo *PowerRentalStateUpdateOne) SetUpdatedAt(u uint32) *PowerRentalStateUpdateOne {
+	prsuo.mutation.ResetUpdatedAt()
+	prsuo.mutation.SetUpdatedAt(u)
+	return prsuo
+}
+
+// AddUpdatedAt adds u to the "updated_at" field.
+func (prsuo *PowerRentalStateUpdateOne) AddUpdatedAt(u int32) *PowerRentalStateUpdateOne {
+	prsuo.mutation.AddUpdatedAt(u)
+	return prsuo
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (prsuo *PowerRentalStateUpdateOne) SetDeletedAt(u uint32) *PowerRentalStateUpdateOne {
+	prsuo.mutation.ResetDeletedAt()
+	prsuo.mutation.SetDeletedAt(u)
+	return prsuo
+}
+
+// SetNillableDeletedAt sets the "deleted_at" field if the given value is not nil.
+func (prsuo *PowerRentalStateUpdateOne) SetNillableDeletedAt(u *uint32) *PowerRentalStateUpdateOne {
+	if u != nil {
+		prsuo.SetDeletedAt(*u)
+	}
+	return prsuo
+}
+
+// AddDeletedAt adds u to the "deleted_at" field.
+func (prsuo *PowerRentalStateUpdateOne) AddDeletedAt(u int32) *PowerRentalStateUpdateOne {
+	prsuo.mutation.AddDeletedAt(u)
 	return prsuo
 }
 
@@ -832,6 +969,7 @@ func (prsuo *PowerRentalStateUpdateOne) Select(field string, fields ...string) *
 
 // Save executes the query and returns the updated PowerRentalState entity.
 func (prsuo *PowerRentalStateUpdateOne) Save(ctx context.Context) (*PowerRentalState, error) {
+	prsuo.defaults()
 	return withHooks(ctx, prsuo.sqlSave, prsuo.mutation, prsuo.hooks)
 }
 
@@ -854,6 +992,14 @@ func (prsuo *PowerRentalStateUpdateOne) Exec(ctx context.Context) error {
 func (prsuo *PowerRentalStateUpdateOne) ExecX(ctx context.Context) {
 	if err := prsuo.Exec(ctx); err != nil {
 		panic(err)
+	}
+}
+
+// defaults sets the default values of the builder before save.
+func (prsuo *PowerRentalStateUpdateOne) defaults() {
+	if _, ok := prsuo.mutation.UpdatedAt(); !ok {
+		v := powerrentalstate.UpdateDefaultUpdatedAt()
+		prsuo.mutation.SetUpdatedAt(v)
 	}
 }
 
@@ -891,6 +1037,24 @@ func (prsuo *PowerRentalStateUpdateOne) sqlSave(ctx context.Context) (_node *Pow
 	}
 	if value, ok := prsuo.mutation.EntID(); ok {
 		_spec.SetField(powerrentalstate.FieldEntID, field.TypeUUID, value)
+	}
+	if value, ok := prsuo.mutation.CreatedAt(); ok {
+		_spec.SetField(powerrentalstate.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := prsuo.mutation.AddedCreatedAt(); ok {
+		_spec.AddField(powerrentalstate.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := prsuo.mutation.UpdatedAt(); ok {
+		_spec.SetField(powerrentalstate.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := prsuo.mutation.AddedUpdatedAt(); ok {
+		_spec.AddField(powerrentalstate.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := prsuo.mutation.DeletedAt(); ok {
+		_spec.SetField(powerrentalstate.FieldDeletedAt, field.TypeUint32, value)
+	}
+	if value, ok := prsuo.mutation.AddedDeletedAt(); ok {
+		_spec.AddField(powerrentalstate.FieldDeletedAt, field.TypeUint32, value)
 	}
 	if value, ok := prsuo.mutation.OrderID(); ok {
 		_spec.SetField(powerrentalstate.FieldOrderID, field.TypeUUID, value)

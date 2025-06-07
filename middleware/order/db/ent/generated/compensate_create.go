@@ -36,6 +36,48 @@ func (cc *CompensateCreate) SetNillableEntID(u *uuid.UUID) *CompensateCreate {
 	return cc
 }
 
+// SetCreatedAt sets the "created_at" field.
+func (cc *CompensateCreate) SetCreatedAt(u uint32) *CompensateCreate {
+	cc.mutation.SetCreatedAt(u)
+	return cc
+}
+
+// SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
+func (cc *CompensateCreate) SetNillableCreatedAt(u *uint32) *CompensateCreate {
+	if u != nil {
+		cc.SetCreatedAt(*u)
+	}
+	return cc
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (cc *CompensateCreate) SetUpdatedAt(u uint32) *CompensateCreate {
+	cc.mutation.SetUpdatedAt(u)
+	return cc
+}
+
+// SetNillableUpdatedAt sets the "updated_at" field if the given value is not nil.
+func (cc *CompensateCreate) SetNillableUpdatedAt(u *uint32) *CompensateCreate {
+	if u != nil {
+		cc.SetUpdatedAt(*u)
+	}
+	return cc
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (cc *CompensateCreate) SetDeletedAt(u uint32) *CompensateCreate {
+	cc.mutation.SetDeletedAt(u)
+	return cc
+}
+
+// SetNillableDeletedAt sets the "deleted_at" field if the given value is not nil.
+func (cc *CompensateCreate) SetNillableDeletedAt(u *uint32) *CompensateCreate {
+	if u != nil {
+		cc.SetDeletedAt(*u)
+	}
+	return cc
+}
+
 // SetOrderID sets the "order_id" field.
 func (cc *CompensateCreate) SetOrderID(u uuid.UUID) *CompensateCreate {
 	cc.mutation.SetOrderID(u)
@@ -137,6 +179,18 @@ func (cc *CompensateCreate) defaults() {
 		v := compensate.DefaultEntID()
 		cc.mutation.SetEntID(v)
 	}
+	if _, ok := cc.mutation.CreatedAt(); !ok {
+		v := compensate.DefaultCreatedAt()
+		cc.mutation.SetCreatedAt(v)
+	}
+	if _, ok := cc.mutation.UpdatedAt(); !ok {
+		v := compensate.DefaultUpdatedAt()
+		cc.mutation.SetUpdatedAt(v)
+	}
+	if _, ok := cc.mutation.DeletedAt(); !ok {
+		v := compensate.DefaultDeletedAt()
+		cc.mutation.SetDeletedAt(v)
+	}
 	if _, ok := cc.mutation.OrderID(); !ok {
 		v := compensate.DefaultOrderID()
 		cc.mutation.SetOrderID(v)
@@ -159,6 +213,15 @@ func (cc *CompensateCreate) defaults() {
 func (cc *CompensateCreate) check() error {
 	if _, ok := cc.mutation.EntID(); !ok {
 		return &ValidationError{Name: "ent_id", err: errors.New(`generated: missing required field "Compensate.ent_id"`)}
+	}
+	if _, ok := cc.mutation.CreatedAt(); !ok {
+		return &ValidationError{Name: "created_at", err: errors.New(`generated: missing required field "Compensate.created_at"`)}
+	}
+	if _, ok := cc.mutation.UpdatedAt(); !ok {
+		return &ValidationError{Name: "updated_at", err: errors.New(`generated: missing required field "Compensate.updated_at"`)}
+	}
+	if _, ok := cc.mutation.DeletedAt(); !ok {
+		return &ValidationError{Name: "deleted_at", err: errors.New(`generated: missing required field "Compensate.deleted_at"`)}
 	}
 	return nil
 }
@@ -196,6 +259,18 @@ func (cc *CompensateCreate) createSpec() (*Compensate, *sqlgraph.CreateSpec) {
 	if value, ok := cc.mutation.EntID(); ok {
 		_spec.SetField(compensate.FieldEntID, field.TypeUUID, value)
 		_node.EntID = value
+	}
+	if value, ok := cc.mutation.CreatedAt(); ok {
+		_spec.SetField(compensate.FieldCreatedAt, field.TypeUint32, value)
+		_node.CreatedAt = value
+	}
+	if value, ok := cc.mutation.UpdatedAt(); ok {
+		_spec.SetField(compensate.FieldUpdatedAt, field.TypeUint32, value)
+		_node.UpdatedAt = value
+	}
+	if value, ok := cc.mutation.DeletedAt(); ok {
+		_spec.SetField(compensate.FieldDeletedAt, field.TypeUint32, value)
+		_node.DeletedAt = value
 	}
 	if value, ok := cc.mutation.OrderID(); ok {
 		_spec.SetField(compensate.FieldOrderID, field.TypeUUID, value)
@@ -274,6 +349,60 @@ func (u *CompensateUpsert) SetEntID(v uuid.UUID) *CompensateUpsert {
 // UpdateEntID sets the "ent_id" field to the value that was provided on create.
 func (u *CompensateUpsert) UpdateEntID() *CompensateUpsert {
 	u.SetExcluded(compensate.FieldEntID)
+	return u
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (u *CompensateUpsert) SetCreatedAt(v uint32) *CompensateUpsert {
+	u.Set(compensate.FieldCreatedAt, v)
+	return u
+}
+
+// UpdateCreatedAt sets the "created_at" field to the value that was provided on create.
+func (u *CompensateUpsert) UpdateCreatedAt() *CompensateUpsert {
+	u.SetExcluded(compensate.FieldCreatedAt)
+	return u
+}
+
+// AddCreatedAt adds v to the "created_at" field.
+func (u *CompensateUpsert) AddCreatedAt(v uint32) *CompensateUpsert {
+	u.Add(compensate.FieldCreatedAt, v)
+	return u
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (u *CompensateUpsert) SetUpdatedAt(v uint32) *CompensateUpsert {
+	u.Set(compensate.FieldUpdatedAt, v)
+	return u
+}
+
+// UpdateUpdatedAt sets the "updated_at" field to the value that was provided on create.
+func (u *CompensateUpsert) UpdateUpdatedAt() *CompensateUpsert {
+	u.SetExcluded(compensate.FieldUpdatedAt)
+	return u
+}
+
+// AddUpdatedAt adds v to the "updated_at" field.
+func (u *CompensateUpsert) AddUpdatedAt(v uint32) *CompensateUpsert {
+	u.Add(compensate.FieldUpdatedAt, v)
+	return u
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (u *CompensateUpsert) SetDeletedAt(v uint32) *CompensateUpsert {
+	u.Set(compensate.FieldDeletedAt, v)
+	return u
+}
+
+// UpdateDeletedAt sets the "deleted_at" field to the value that was provided on create.
+func (u *CompensateUpsert) UpdateDeletedAt() *CompensateUpsert {
+	u.SetExcluded(compensate.FieldDeletedAt)
+	return u
+}
+
+// AddDeletedAt adds v to the "deleted_at" field.
+func (u *CompensateUpsert) AddDeletedAt(v uint32) *CompensateUpsert {
+	u.Add(compensate.FieldDeletedAt, v)
 	return u
 }
 
@@ -414,6 +543,69 @@ func (u *CompensateUpsertOne) SetEntID(v uuid.UUID) *CompensateUpsertOne {
 func (u *CompensateUpsertOne) UpdateEntID() *CompensateUpsertOne {
 	return u.Update(func(s *CompensateUpsert) {
 		s.UpdateEntID()
+	})
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (u *CompensateUpsertOne) SetCreatedAt(v uint32) *CompensateUpsertOne {
+	return u.Update(func(s *CompensateUpsert) {
+		s.SetCreatedAt(v)
+	})
+}
+
+// AddCreatedAt adds v to the "created_at" field.
+func (u *CompensateUpsertOne) AddCreatedAt(v uint32) *CompensateUpsertOne {
+	return u.Update(func(s *CompensateUpsert) {
+		s.AddCreatedAt(v)
+	})
+}
+
+// UpdateCreatedAt sets the "created_at" field to the value that was provided on create.
+func (u *CompensateUpsertOne) UpdateCreatedAt() *CompensateUpsertOne {
+	return u.Update(func(s *CompensateUpsert) {
+		s.UpdateCreatedAt()
+	})
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (u *CompensateUpsertOne) SetUpdatedAt(v uint32) *CompensateUpsertOne {
+	return u.Update(func(s *CompensateUpsert) {
+		s.SetUpdatedAt(v)
+	})
+}
+
+// AddUpdatedAt adds v to the "updated_at" field.
+func (u *CompensateUpsertOne) AddUpdatedAt(v uint32) *CompensateUpsertOne {
+	return u.Update(func(s *CompensateUpsert) {
+		s.AddUpdatedAt(v)
+	})
+}
+
+// UpdateUpdatedAt sets the "updated_at" field to the value that was provided on create.
+func (u *CompensateUpsertOne) UpdateUpdatedAt() *CompensateUpsertOne {
+	return u.Update(func(s *CompensateUpsert) {
+		s.UpdateUpdatedAt()
+	})
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (u *CompensateUpsertOne) SetDeletedAt(v uint32) *CompensateUpsertOne {
+	return u.Update(func(s *CompensateUpsert) {
+		s.SetDeletedAt(v)
+	})
+}
+
+// AddDeletedAt adds v to the "deleted_at" field.
+func (u *CompensateUpsertOne) AddDeletedAt(v uint32) *CompensateUpsertOne {
+	return u.Update(func(s *CompensateUpsert) {
+		s.AddDeletedAt(v)
+	})
+}
+
+// UpdateDeletedAt sets the "deleted_at" field to the value that was provided on create.
+func (u *CompensateUpsertOne) UpdateDeletedAt() *CompensateUpsertOne {
+	return u.Update(func(s *CompensateUpsert) {
+		s.UpdateDeletedAt()
 	})
 }
 
@@ -733,6 +925,69 @@ func (u *CompensateUpsertBulk) SetEntID(v uuid.UUID) *CompensateUpsertBulk {
 func (u *CompensateUpsertBulk) UpdateEntID() *CompensateUpsertBulk {
 	return u.Update(func(s *CompensateUpsert) {
 		s.UpdateEntID()
+	})
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (u *CompensateUpsertBulk) SetCreatedAt(v uint32) *CompensateUpsertBulk {
+	return u.Update(func(s *CompensateUpsert) {
+		s.SetCreatedAt(v)
+	})
+}
+
+// AddCreatedAt adds v to the "created_at" field.
+func (u *CompensateUpsertBulk) AddCreatedAt(v uint32) *CompensateUpsertBulk {
+	return u.Update(func(s *CompensateUpsert) {
+		s.AddCreatedAt(v)
+	})
+}
+
+// UpdateCreatedAt sets the "created_at" field to the value that was provided on create.
+func (u *CompensateUpsertBulk) UpdateCreatedAt() *CompensateUpsertBulk {
+	return u.Update(func(s *CompensateUpsert) {
+		s.UpdateCreatedAt()
+	})
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (u *CompensateUpsertBulk) SetUpdatedAt(v uint32) *CompensateUpsertBulk {
+	return u.Update(func(s *CompensateUpsert) {
+		s.SetUpdatedAt(v)
+	})
+}
+
+// AddUpdatedAt adds v to the "updated_at" field.
+func (u *CompensateUpsertBulk) AddUpdatedAt(v uint32) *CompensateUpsertBulk {
+	return u.Update(func(s *CompensateUpsert) {
+		s.AddUpdatedAt(v)
+	})
+}
+
+// UpdateUpdatedAt sets the "updated_at" field to the value that was provided on create.
+func (u *CompensateUpsertBulk) UpdateUpdatedAt() *CompensateUpsertBulk {
+	return u.Update(func(s *CompensateUpsert) {
+		s.UpdateUpdatedAt()
+	})
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (u *CompensateUpsertBulk) SetDeletedAt(v uint32) *CompensateUpsertBulk {
+	return u.Update(func(s *CompensateUpsert) {
+		s.SetDeletedAt(v)
+	})
+}
+
+// AddDeletedAt adds v to the "deleted_at" field.
+func (u *CompensateUpsertBulk) AddDeletedAt(v uint32) *CompensateUpsertBulk {
+	return u.Update(func(s *CompensateUpsert) {
+		s.AddDeletedAt(v)
+	})
+}
+
+// UpdateDeletedAt sets the "deleted_at" field to the value that was provided on create.
+func (u *CompensateUpsertBulk) UpdateDeletedAt() *CompensateUpsertBulk {
+	return u.Update(func(s *CompensateUpsert) {
+		s.UpdateDeletedAt()
 	})
 }
 

@@ -43,6 +43,61 @@ func (cu *CompensateUpdate) SetNillableEntID(u *uuid.UUID) *CompensateUpdate {
 	return cu
 }
 
+// SetCreatedAt sets the "created_at" field.
+func (cu *CompensateUpdate) SetCreatedAt(u uint32) *CompensateUpdate {
+	cu.mutation.ResetCreatedAt()
+	cu.mutation.SetCreatedAt(u)
+	return cu
+}
+
+// SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
+func (cu *CompensateUpdate) SetNillableCreatedAt(u *uint32) *CompensateUpdate {
+	if u != nil {
+		cu.SetCreatedAt(*u)
+	}
+	return cu
+}
+
+// AddCreatedAt adds u to the "created_at" field.
+func (cu *CompensateUpdate) AddCreatedAt(u int32) *CompensateUpdate {
+	cu.mutation.AddCreatedAt(u)
+	return cu
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (cu *CompensateUpdate) SetUpdatedAt(u uint32) *CompensateUpdate {
+	cu.mutation.ResetUpdatedAt()
+	cu.mutation.SetUpdatedAt(u)
+	return cu
+}
+
+// AddUpdatedAt adds u to the "updated_at" field.
+func (cu *CompensateUpdate) AddUpdatedAt(u int32) *CompensateUpdate {
+	cu.mutation.AddUpdatedAt(u)
+	return cu
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (cu *CompensateUpdate) SetDeletedAt(u uint32) *CompensateUpdate {
+	cu.mutation.ResetDeletedAt()
+	cu.mutation.SetDeletedAt(u)
+	return cu
+}
+
+// SetNillableDeletedAt sets the "deleted_at" field if the given value is not nil.
+func (cu *CompensateUpdate) SetNillableDeletedAt(u *uint32) *CompensateUpdate {
+	if u != nil {
+		cu.SetDeletedAt(*u)
+	}
+	return cu
+}
+
+// AddDeletedAt adds u to the "deleted_at" field.
+func (cu *CompensateUpdate) AddDeletedAt(u int32) *CompensateUpdate {
+	cu.mutation.AddDeletedAt(u)
+	return cu
+}
+
 // SetOrderID sets the "order_id" field.
 func (cu *CompensateUpdate) SetOrderID(u uuid.UUID) *CompensateUpdate {
 	cu.mutation.SetOrderID(u)
@@ -137,6 +192,7 @@ func (cu *CompensateUpdate) Mutation() *CompensateMutation {
 
 // Save executes the query and returns the number of nodes affected by the update operation.
 func (cu *CompensateUpdate) Save(ctx context.Context) (int, error) {
+	cu.defaults()
 	return withHooks(ctx, cu.sqlSave, cu.mutation, cu.hooks)
 }
 
@@ -162,6 +218,14 @@ func (cu *CompensateUpdate) ExecX(ctx context.Context) {
 	}
 }
 
+// defaults sets the default values of the builder before save.
+func (cu *CompensateUpdate) defaults() {
+	if _, ok := cu.mutation.UpdatedAt(); !ok {
+		v := compensate.UpdateDefaultUpdatedAt()
+		cu.mutation.SetUpdatedAt(v)
+	}
+}
+
 // Modify adds a statement modifier for attaching custom logic to the UPDATE statement.
 func (cu *CompensateUpdate) Modify(modifiers ...func(u *sql.UpdateBuilder)) *CompensateUpdate {
 	cu.modifiers = append(cu.modifiers, modifiers...)
@@ -179,6 +243,24 @@ func (cu *CompensateUpdate) sqlSave(ctx context.Context) (n int, err error) {
 	}
 	if value, ok := cu.mutation.EntID(); ok {
 		_spec.SetField(compensate.FieldEntID, field.TypeUUID, value)
+	}
+	if value, ok := cu.mutation.CreatedAt(); ok {
+		_spec.SetField(compensate.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := cu.mutation.AddedCreatedAt(); ok {
+		_spec.AddField(compensate.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := cu.mutation.UpdatedAt(); ok {
+		_spec.SetField(compensate.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := cu.mutation.AddedUpdatedAt(); ok {
+		_spec.AddField(compensate.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := cu.mutation.DeletedAt(); ok {
+		_spec.SetField(compensate.FieldDeletedAt, field.TypeUint32, value)
+	}
+	if value, ok := cu.mutation.AddedDeletedAt(); ok {
+		_spec.AddField(compensate.FieldDeletedAt, field.TypeUint32, value)
 	}
 	if value, ok := cu.mutation.OrderID(); ok {
 		_spec.SetField(compensate.FieldOrderID, field.TypeUUID, value)
@@ -240,6 +322,61 @@ func (cuo *CompensateUpdateOne) SetNillableEntID(u *uuid.UUID) *CompensateUpdate
 	if u != nil {
 		cuo.SetEntID(*u)
 	}
+	return cuo
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (cuo *CompensateUpdateOne) SetCreatedAt(u uint32) *CompensateUpdateOne {
+	cuo.mutation.ResetCreatedAt()
+	cuo.mutation.SetCreatedAt(u)
+	return cuo
+}
+
+// SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
+func (cuo *CompensateUpdateOne) SetNillableCreatedAt(u *uint32) *CompensateUpdateOne {
+	if u != nil {
+		cuo.SetCreatedAt(*u)
+	}
+	return cuo
+}
+
+// AddCreatedAt adds u to the "created_at" field.
+func (cuo *CompensateUpdateOne) AddCreatedAt(u int32) *CompensateUpdateOne {
+	cuo.mutation.AddCreatedAt(u)
+	return cuo
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (cuo *CompensateUpdateOne) SetUpdatedAt(u uint32) *CompensateUpdateOne {
+	cuo.mutation.ResetUpdatedAt()
+	cuo.mutation.SetUpdatedAt(u)
+	return cuo
+}
+
+// AddUpdatedAt adds u to the "updated_at" field.
+func (cuo *CompensateUpdateOne) AddUpdatedAt(u int32) *CompensateUpdateOne {
+	cuo.mutation.AddUpdatedAt(u)
+	return cuo
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (cuo *CompensateUpdateOne) SetDeletedAt(u uint32) *CompensateUpdateOne {
+	cuo.mutation.ResetDeletedAt()
+	cuo.mutation.SetDeletedAt(u)
+	return cuo
+}
+
+// SetNillableDeletedAt sets the "deleted_at" field if the given value is not nil.
+func (cuo *CompensateUpdateOne) SetNillableDeletedAt(u *uint32) *CompensateUpdateOne {
+	if u != nil {
+		cuo.SetDeletedAt(*u)
+	}
+	return cuo
+}
+
+// AddDeletedAt adds u to the "deleted_at" field.
+func (cuo *CompensateUpdateOne) AddDeletedAt(u int32) *CompensateUpdateOne {
+	cuo.mutation.AddDeletedAt(u)
 	return cuo
 }
 
@@ -350,6 +487,7 @@ func (cuo *CompensateUpdateOne) Select(field string, fields ...string) *Compensa
 
 // Save executes the query and returns the updated Compensate entity.
 func (cuo *CompensateUpdateOne) Save(ctx context.Context) (*Compensate, error) {
+	cuo.defaults()
 	return withHooks(ctx, cuo.sqlSave, cuo.mutation, cuo.hooks)
 }
 
@@ -372,6 +510,14 @@ func (cuo *CompensateUpdateOne) Exec(ctx context.Context) error {
 func (cuo *CompensateUpdateOne) ExecX(ctx context.Context) {
 	if err := cuo.Exec(ctx); err != nil {
 		panic(err)
+	}
+}
+
+// defaults sets the default values of the builder before save.
+func (cuo *CompensateUpdateOne) defaults() {
+	if _, ok := cuo.mutation.UpdatedAt(); !ok {
+		v := compensate.UpdateDefaultUpdatedAt()
+		cuo.mutation.SetUpdatedAt(v)
 	}
 }
 
@@ -409,6 +555,24 @@ func (cuo *CompensateUpdateOne) sqlSave(ctx context.Context) (_node *Compensate,
 	}
 	if value, ok := cuo.mutation.EntID(); ok {
 		_spec.SetField(compensate.FieldEntID, field.TypeUUID, value)
+	}
+	if value, ok := cuo.mutation.CreatedAt(); ok {
+		_spec.SetField(compensate.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := cuo.mutation.AddedCreatedAt(); ok {
+		_spec.AddField(compensate.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := cuo.mutation.UpdatedAt(); ok {
+		_spec.SetField(compensate.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := cuo.mutation.AddedUpdatedAt(); ok {
+		_spec.AddField(compensate.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := cuo.mutation.DeletedAt(); ok {
+		_spec.SetField(compensate.FieldDeletedAt, field.TypeUint32, value)
+	}
+	if value, ok := cuo.mutation.AddedDeletedAt(); ok {
+		_spec.AddField(compensate.FieldDeletedAt, field.TypeUint32, value)
 	}
 	if value, ok := cuo.mutation.OrderID(); ok {
 		_spec.SetField(compensate.FieldOrderID, field.TypeUUID, value)

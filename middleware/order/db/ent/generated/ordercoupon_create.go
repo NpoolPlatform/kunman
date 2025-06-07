@@ -36,6 +36,48 @@ func (occ *OrderCouponCreate) SetNillableEntID(u *uuid.UUID) *OrderCouponCreate 
 	return occ
 }
 
+// SetCreatedAt sets the "created_at" field.
+func (occ *OrderCouponCreate) SetCreatedAt(u uint32) *OrderCouponCreate {
+	occ.mutation.SetCreatedAt(u)
+	return occ
+}
+
+// SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
+func (occ *OrderCouponCreate) SetNillableCreatedAt(u *uint32) *OrderCouponCreate {
+	if u != nil {
+		occ.SetCreatedAt(*u)
+	}
+	return occ
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (occ *OrderCouponCreate) SetUpdatedAt(u uint32) *OrderCouponCreate {
+	occ.mutation.SetUpdatedAt(u)
+	return occ
+}
+
+// SetNillableUpdatedAt sets the "updated_at" field if the given value is not nil.
+func (occ *OrderCouponCreate) SetNillableUpdatedAt(u *uint32) *OrderCouponCreate {
+	if u != nil {
+		occ.SetUpdatedAt(*u)
+	}
+	return occ
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (occ *OrderCouponCreate) SetDeletedAt(u uint32) *OrderCouponCreate {
+	occ.mutation.SetDeletedAt(u)
+	return occ
+}
+
+// SetNillableDeletedAt sets the "deleted_at" field if the given value is not nil.
+func (occ *OrderCouponCreate) SetNillableDeletedAt(u *uint32) *OrderCouponCreate {
+	if u != nil {
+		occ.SetDeletedAt(*u)
+	}
+	return occ
+}
+
 // SetOrderID sets the "order_id" field.
 func (occ *OrderCouponCreate) SetOrderID(u uuid.UUID) *OrderCouponCreate {
 	occ.mutation.SetOrderID(u)
@@ -109,6 +151,18 @@ func (occ *OrderCouponCreate) defaults() {
 		v := ordercoupon.DefaultEntID()
 		occ.mutation.SetEntID(v)
 	}
+	if _, ok := occ.mutation.CreatedAt(); !ok {
+		v := ordercoupon.DefaultCreatedAt()
+		occ.mutation.SetCreatedAt(v)
+	}
+	if _, ok := occ.mutation.UpdatedAt(); !ok {
+		v := ordercoupon.DefaultUpdatedAt()
+		occ.mutation.SetUpdatedAt(v)
+	}
+	if _, ok := occ.mutation.DeletedAt(); !ok {
+		v := ordercoupon.DefaultDeletedAt()
+		occ.mutation.SetDeletedAt(v)
+	}
 	if _, ok := occ.mutation.OrderID(); !ok {
 		v := ordercoupon.DefaultOrderID()
 		occ.mutation.SetOrderID(v)
@@ -123,6 +177,15 @@ func (occ *OrderCouponCreate) defaults() {
 func (occ *OrderCouponCreate) check() error {
 	if _, ok := occ.mutation.EntID(); !ok {
 		return &ValidationError{Name: "ent_id", err: errors.New(`generated: missing required field "OrderCoupon.ent_id"`)}
+	}
+	if _, ok := occ.mutation.CreatedAt(); !ok {
+		return &ValidationError{Name: "created_at", err: errors.New(`generated: missing required field "OrderCoupon.created_at"`)}
+	}
+	if _, ok := occ.mutation.UpdatedAt(); !ok {
+		return &ValidationError{Name: "updated_at", err: errors.New(`generated: missing required field "OrderCoupon.updated_at"`)}
+	}
+	if _, ok := occ.mutation.DeletedAt(); !ok {
+		return &ValidationError{Name: "deleted_at", err: errors.New(`generated: missing required field "OrderCoupon.deleted_at"`)}
 	}
 	return nil
 }
@@ -160,6 +223,18 @@ func (occ *OrderCouponCreate) createSpec() (*OrderCoupon, *sqlgraph.CreateSpec) 
 	if value, ok := occ.mutation.EntID(); ok {
 		_spec.SetField(ordercoupon.FieldEntID, field.TypeUUID, value)
 		_node.EntID = value
+	}
+	if value, ok := occ.mutation.CreatedAt(); ok {
+		_spec.SetField(ordercoupon.FieldCreatedAt, field.TypeUint32, value)
+		_node.CreatedAt = value
+	}
+	if value, ok := occ.mutation.UpdatedAt(); ok {
+		_spec.SetField(ordercoupon.FieldUpdatedAt, field.TypeUint32, value)
+		_node.UpdatedAt = value
+	}
+	if value, ok := occ.mutation.DeletedAt(); ok {
+		_spec.SetField(ordercoupon.FieldDeletedAt, field.TypeUint32, value)
+		_node.DeletedAt = value
 	}
 	if value, ok := occ.mutation.OrderID(); ok {
 		_spec.SetField(ordercoupon.FieldOrderID, field.TypeUUID, value)
@@ -230,6 +305,60 @@ func (u *OrderCouponUpsert) SetEntID(v uuid.UUID) *OrderCouponUpsert {
 // UpdateEntID sets the "ent_id" field to the value that was provided on create.
 func (u *OrderCouponUpsert) UpdateEntID() *OrderCouponUpsert {
 	u.SetExcluded(ordercoupon.FieldEntID)
+	return u
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (u *OrderCouponUpsert) SetCreatedAt(v uint32) *OrderCouponUpsert {
+	u.Set(ordercoupon.FieldCreatedAt, v)
+	return u
+}
+
+// UpdateCreatedAt sets the "created_at" field to the value that was provided on create.
+func (u *OrderCouponUpsert) UpdateCreatedAt() *OrderCouponUpsert {
+	u.SetExcluded(ordercoupon.FieldCreatedAt)
+	return u
+}
+
+// AddCreatedAt adds v to the "created_at" field.
+func (u *OrderCouponUpsert) AddCreatedAt(v uint32) *OrderCouponUpsert {
+	u.Add(ordercoupon.FieldCreatedAt, v)
+	return u
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (u *OrderCouponUpsert) SetUpdatedAt(v uint32) *OrderCouponUpsert {
+	u.Set(ordercoupon.FieldUpdatedAt, v)
+	return u
+}
+
+// UpdateUpdatedAt sets the "updated_at" field to the value that was provided on create.
+func (u *OrderCouponUpsert) UpdateUpdatedAt() *OrderCouponUpsert {
+	u.SetExcluded(ordercoupon.FieldUpdatedAt)
+	return u
+}
+
+// AddUpdatedAt adds v to the "updated_at" field.
+func (u *OrderCouponUpsert) AddUpdatedAt(v uint32) *OrderCouponUpsert {
+	u.Add(ordercoupon.FieldUpdatedAt, v)
+	return u
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (u *OrderCouponUpsert) SetDeletedAt(v uint32) *OrderCouponUpsert {
+	u.Set(ordercoupon.FieldDeletedAt, v)
+	return u
+}
+
+// UpdateDeletedAt sets the "deleted_at" field to the value that was provided on create.
+func (u *OrderCouponUpsert) UpdateDeletedAt() *OrderCouponUpsert {
+	u.SetExcluded(ordercoupon.FieldDeletedAt)
+	return u
+}
+
+// AddDeletedAt adds v to the "deleted_at" field.
+func (u *OrderCouponUpsert) AddDeletedAt(v uint32) *OrderCouponUpsert {
+	u.Add(ordercoupon.FieldDeletedAt, v)
 	return u
 }
 
@@ -328,6 +457,69 @@ func (u *OrderCouponUpsertOne) SetEntID(v uuid.UUID) *OrderCouponUpsertOne {
 func (u *OrderCouponUpsertOne) UpdateEntID() *OrderCouponUpsertOne {
 	return u.Update(func(s *OrderCouponUpsert) {
 		s.UpdateEntID()
+	})
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (u *OrderCouponUpsertOne) SetCreatedAt(v uint32) *OrderCouponUpsertOne {
+	return u.Update(func(s *OrderCouponUpsert) {
+		s.SetCreatedAt(v)
+	})
+}
+
+// AddCreatedAt adds v to the "created_at" field.
+func (u *OrderCouponUpsertOne) AddCreatedAt(v uint32) *OrderCouponUpsertOne {
+	return u.Update(func(s *OrderCouponUpsert) {
+		s.AddCreatedAt(v)
+	})
+}
+
+// UpdateCreatedAt sets the "created_at" field to the value that was provided on create.
+func (u *OrderCouponUpsertOne) UpdateCreatedAt() *OrderCouponUpsertOne {
+	return u.Update(func(s *OrderCouponUpsert) {
+		s.UpdateCreatedAt()
+	})
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (u *OrderCouponUpsertOne) SetUpdatedAt(v uint32) *OrderCouponUpsertOne {
+	return u.Update(func(s *OrderCouponUpsert) {
+		s.SetUpdatedAt(v)
+	})
+}
+
+// AddUpdatedAt adds v to the "updated_at" field.
+func (u *OrderCouponUpsertOne) AddUpdatedAt(v uint32) *OrderCouponUpsertOne {
+	return u.Update(func(s *OrderCouponUpsert) {
+		s.AddUpdatedAt(v)
+	})
+}
+
+// UpdateUpdatedAt sets the "updated_at" field to the value that was provided on create.
+func (u *OrderCouponUpsertOne) UpdateUpdatedAt() *OrderCouponUpsertOne {
+	return u.Update(func(s *OrderCouponUpsert) {
+		s.UpdateUpdatedAt()
+	})
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (u *OrderCouponUpsertOne) SetDeletedAt(v uint32) *OrderCouponUpsertOne {
+	return u.Update(func(s *OrderCouponUpsert) {
+		s.SetDeletedAt(v)
+	})
+}
+
+// AddDeletedAt adds v to the "deleted_at" field.
+func (u *OrderCouponUpsertOne) AddDeletedAt(v uint32) *OrderCouponUpsertOne {
+	return u.Update(func(s *OrderCouponUpsert) {
+		s.AddDeletedAt(v)
+	})
+}
+
+// UpdateDeletedAt sets the "deleted_at" field to the value that was provided on create.
+func (u *OrderCouponUpsertOne) UpdateDeletedAt() *OrderCouponUpsertOne {
+	return u.Update(func(s *OrderCouponUpsert) {
+		s.UpdateDeletedAt()
 	})
 }
 
@@ -598,6 +790,69 @@ func (u *OrderCouponUpsertBulk) SetEntID(v uuid.UUID) *OrderCouponUpsertBulk {
 func (u *OrderCouponUpsertBulk) UpdateEntID() *OrderCouponUpsertBulk {
 	return u.Update(func(s *OrderCouponUpsert) {
 		s.UpdateEntID()
+	})
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (u *OrderCouponUpsertBulk) SetCreatedAt(v uint32) *OrderCouponUpsertBulk {
+	return u.Update(func(s *OrderCouponUpsert) {
+		s.SetCreatedAt(v)
+	})
+}
+
+// AddCreatedAt adds v to the "created_at" field.
+func (u *OrderCouponUpsertBulk) AddCreatedAt(v uint32) *OrderCouponUpsertBulk {
+	return u.Update(func(s *OrderCouponUpsert) {
+		s.AddCreatedAt(v)
+	})
+}
+
+// UpdateCreatedAt sets the "created_at" field to the value that was provided on create.
+func (u *OrderCouponUpsertBulk) UpdateCreatedAt() *OrderCouponUpsertBulk {
+	return u.Update(func(s *OrderCouponUpsert) {
+		s.UpdateCreatedAt()
+	})
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (u *OrderCouponUpsertBulk) SetUpdatedAt(v uint32) *OrderCouponUpsertBulk {
+	return u.Update(func(s *OrderCouponUpsert) {
+		s.SetUpdatedAt(v)
+	})
+}
+
+// AddUpdatedAt adds v to the "updated_at" field.
+func (u *OrderCouponUpsertBulk) AddUpdatedAt(v uint32) *OrderCouponUpsertBulk {
+	return u.Update(func(s *OrderCouponUpsert) {
+		s.AddUpdatedAt(v)
+	})
+}
+
+// UpdateUpdatedAt sets the "updated_at" field to the value that was provided on create.
+func (u *OrderCouponUpsertBulk) UpdateUpdatedAt() *OrderCouponUpsertBulk {
+	return u.Update(func(s *OrderCouponUpsert) {
+		s.UpdateUpdatedAt()
+	})
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (u *OrderCouponUpsertBulk) SetDeletedAt(v uint32) *OrderCouponUpsertBulk {
+	return u.Update(func(s *OrderCouponUpsert) {
+		s.SetDeletedAt(v)
+	})
+}
+
+// AddDeletedAt adds v to the "deleted_at" field.
+func (u *OrderCouponUpsertBulk) AddDeletedAt(v uint32) *OrderCouponUpsertBulk {
+	return u.Update(func(s *OrderCouponUpsert) {
+		s.AddDeletedAt(v)
+	})
+}
+
+// UpdateDeletedAt sets the "deleted_at" field to the value that was provided on create.
+func (u *OrderCouponUpsertBulk) UpdateDeletedAt() *OrderCouponUpsertBulk {
+	return u.Update(func(s *OrderCouponUpsert) {
+		s.UpdateDeletedAt()
 	})
 }
 

@@ -44,6 +44,61 @@ func (acu *AppConfigUpdate) SetNillableEntID(u *uuid.UUID) *AppConfigUpdate {
 	return acu
 }
 
+// SetCreatedAt sets the "created_at" field.
+func (acu *AppConfigUpdate) SetCreatedAt(u uint32) *AppConfigUpdate {
+	acu.mutation.ResetCreatedAt()
+	acu.mutation.SetCreatedAt(u)
+	return acu
+}
+
+// SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
+func (acu *AppConfigUpdate) SetNillableCreatedAt(u *uint32) *AppConfigUpdate {
+	if u != nil {
+		acu.SetCreatedAt(*u)
+	}
+	return acu
+}
+
+// AddCreatedAt adds u to the "created_at" field.
+func (acu *AppConfigUpdate) AddCreatedAt(u int32) *AppConfigUpdate {
+	acu.mutation.AddCreatedAt(u)
+	return acu
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (acu *AppConfigUpdate) SetUpdatedAt(u uint32) *AppConfigUpdate {
+	acu.mutation.ResetUpdatedAt()
+	acu.mutation.SetUpdatedAt(u)
+	return acu
+}
+
+// AddUpdatedAt adds u to the "updated_at" field.
+func (acu *AppConfigUpdate) AddUpdatedAt(u int32) *AppConfigUpdate {
+	acu.mutation.AddUpdatedAt(u)
+	return acu
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (acu *AppConfigUpdate) SetDeletedAt(u uint32) *AppConfigUpdate {
+	acu.mutation.ResetDeletedAt()
+	acu.mutation.SetDeletedAt(u)
+	return acu
+}
+
+// SetNillableDeletedAt sets the "deleted_at" field if the given value is not nil.
+func (acu *AppConfigUpdate) SetNillableDeletedAt(u *uint32) *AppConfigUpdate {
+	if u != nil {
+		acu.SetDeletedAt(*u)
+	}
+	return acu
+}
+
+// AddDeletedAt adds u to the "deleted_at" field.
+func (acu *AppConfigUpdate) AddDeletedAt(u int32) *AppConfigUpdate {
+	acu.mutation.AddDeletedAt(u)
+	return acu
+}
+
 // SetAppID sets the "app_id" field.
 func (acu *AppConfigUpdate) SetAppID(u uuid.UUID) *AppConfigUpdate {
 	acu.mutation.SetAppID(u)
@@ -205,6 +260,7 @@ func (acu *AppConfigUpdate) Mutation() *AppConfigMutation {
 
 // Save executes the query and returns the number of nodes affected by the update operation.
 func (acu *AppConfigUpdate) Save(ctx context.Context) (int, error) {
+	acu.defaults()
 	return withHooks(ctx, acu.sqlSave, acu.mutation, acu.hooks)
 }
 
@@ -230,6 +286,14 @@ func (acu *AppConfigUpdate) ExecX(ctx context.Context) {
 	}
 }
 
+// defaults sets the default values of the builder before save.
+func (acu *AppConfigUpdate) defaults() {
+	if _, ok := acu.mutation.UpdatedAt(); !ok {
+		v := appconfig.UpdateDefaultUpdatedAt()
+		acu.mutation.SetUpdatedAt(v)
+	}
+}
+
 // Modify adds a statement modifier for attaching custom logic to the UPDATE statement.
 func (acu *AppConfigUpdate) Modify(modifiers ...func(u *sql.UpdateBuilder)) *AppConfigUpdate {
 	acu.modifiers = append(acu.modifiers, modifiers...)
@@ -247,6 +311,24 @@ func (acu *AppConfigUpdate) sqlSave(ctx context.Context) (n int, err error) {
 	}
 	if value, ok := acu.mutation.EntID(); ok {
 		_spec.SetField(appconfig.FieldEntID, field.TypeUUID, value)
+	}
+	if value, ok := acu.mutation.CreatedAt(); ok {
+		_spec.SetField(appconfig.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := acu.mutation.AddedCreatedAt(); ok {
+		_spec.AddField(appconfig.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := acu.mutation.UpdatedAt(); ok {
+		_spec.SetField(appconfig.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := acu.mutation.AddedUpdatedAt(); ok {
+		_spec.AddField(appconfig.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := acu.mutation.DeletedAt(); ok {
+		_spec.SetField(appconfig.FieldDeletedAt, field.TypeUint32, value)
+	}
+	if value, ok := acu.mutation.AddedDeletedAt(); ok {
+		_spec.AddField(appconfig.FieldDeletedAt, field.TypeUint32, value)
 	}
 	if value, ok := acu.mutation.AppID(); ok {
 		_spec.SetField(appconfig.FieldAppID, field.TypeUUID, value)
@@ -329,6 +411,61 @@ func (acuo *AppConfigUpdateOne) SetNillableEntID(u *uuid.UUID) *AppConfigUpdateO
 	if u != nil {
 		acuo.SetEntID(*u)
 	}
+	return acuo
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (acuo *AppConfigUpdateOne) SetCreatedAt(u uint32) *AppConfigUpdateOne {
+	acuo.mutation.ResetCreatedAt()
+	acuo.mutation.SetCreatedAt(u)
+	return acuo
+}
+
+// SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
+func (acuo *AppConfigUpdateOne) SetNillableCreatedAt(u *uint32) *AppConfigUpdateOne {
+	if u != nil {
+		acuo.SetCreatedAt(*u)
+	}
+	return acuo
+}
+
+// AddCreatedAt adds u to the "created_at" field.
+func (acuo *AppConfigUpdateOne) AddCreatedAt(u int32) *AppConfigUpdateOne {
+	acuo.mutation.AddCreatedAt(u)
+	return acuo
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (acuo *AppConfigUpdateOne) SetUpdatedAt(u uint32) *AppConfigUpdateOne {
+	acuo.mutation.ResetUpdatedAt()
+	acuo.mutation.SetUpdatedAt(u)
+	return acuo
+}
+
+// AddUpdatedAt adds u to the "updated_at" field.
+func (acuo *AppConfigUpdateOne) AddUpdatedAt(u int32) *AppConfigUpdateOne {
+	acuo.mutation.AddUpdatedAt(u)
+	return acuo
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (acuo *AppConfigUpdateOne) SetDeletedAt(u uint32) *AppConfigUpdateOne {
+	acuo.mutation.ResetDeletedAt()
+	acuo.mutation.SetDeletedAt(u)
+	return acuo
+}
+
+// SetNillableDeletedAt sets the "deleted_at" field if the given value is not nil.
+func (acuo *AppConfigUpdateOne) SetNillableDeletedAt(u *uint32) *AppConfigUpdateOne {
+	if u != nil {
+		acuo.SetDeletedAt(*u)
+	}
+	return acuo
+}
+
+// AddDeletedAt adds u to the "deleted_at" field.
+func (acuo *AppConfigUpdateOne) AddDeletedAt(u int32) *AppConfigUpdateOne {
+	acuo.mutation.AddDeletedAt(u)
 	return acuo
 }
 
@@ -506,6 +643,7 @@ func (acuo *AppConfigUpdateOne) Select(field string, fields ...string) *AppConfi
 
 // Save executes the query and returns the updated AppConfig entity.
 func (acuo *AppConfigUpdateOne) Save(ctx context.Context) (*AppConfig, error) {
+	acuo.defaults()
 	return withHooks(ctx, acuo.sqlSave, acuo.mutation, acuo.hooks)
 }
 
@@ -528,6 +666,14 @@ func (acuo *AppConfigUpdateOne) Exec(ctx context.Context) error {
 func (acuo *AppConfigUpdateOne) ExecX(ctx context.Context) {
 	if err := acuo.Exec(ctx); err != nil {
 		panic(err)
+	}
+}
+
+// defaults sets the default values of the builder before save.
+func (acuo *AppConfigUpdateOne) defaults() {
+	if _, ok := acuo.mutation.UpdatedAt(); !ok {
+		v := appconfig.UpdateDefaultUpdatedAt()
+		acuo.mutation.SetUpdatedAt(v)
 	}
 }
 
@@ -565,6 +711,24 @@ func (acuo *AppConfigUpdateOne) sqlSave(ctx context.Context) (_node *AppConfig, 
 	}
 	if value, ok := acuo.mutation.EntID(); ok {
 		_spec.SetField(appconfig.FieldEntID, field.TypeUUID, value)
+	}
+	if value, ok := acuo.mutation.CreatedAt(); ok {
+		_spec.SetField(appconfig.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := acuo.mutation.AddedCreatedAt(); ok {
+		_spec.AddField(appconfig.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := acuo.mutation.UpdatedAt(); ok {
+		_spec.SetField(appconfig.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := acuo.mutation.AddedUpdatedAt(); ok {
+		_spec.AddField(appconfig.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := acuo.mutation.DeletedAt(); ok {
+		_spec.SetField(appconfig.FieldDeletedAt, field.TypeUint32, value)
+	}
+	if value, ok := acuo.mutation.AddedDeletedAt(); ok {
+		_spec.AddField(appconfig.FieldDeletedAt, field.TypeUint32, value)
 	}
 	if value, ok := acuo.mutation.AppID(); ok {
 		_spec.SetField(appconfig.FieldAppID, field.TypeUUID, value)
