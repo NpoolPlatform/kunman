@@ -1,10 +1,10 @@
-package subscription
+package quota
 
 import (
 	"context"
 	"time"
 
-	subscriptioncrud "github.com/NpoolPlatform/kunman/middleware/agi/crud/subscription"
+	quotacrud "github.com/NpoolPlatform/kunman/middleware/agi/crud/subscription/quota"
 	"github.com/NpoolPlatform/kunman/middleware/agi/db"
 	ent "github.com/NpoolPlatform/kunman/middleware/agi/db/ent/generated"
 )
@@ -14,10 +14,10 @@ type deleteHandler struct {
 	now uint32
 }
 
-func (h *deleteHandler) deleteSubscription(ctx context.Context, tx *ent.Tx) error {
-	if _, err := subscriptioncrud.UpdateSet(
-		tx.Subscription.UpdateOneID(*h.ID),
-		&subscriptioncrud.Req{
+func (h *deleteHandler) deleteQuota(ctx context.Context, tx *ent.Tx) error {
+	if _, err := quotacrud.UpdateSet(
+		tx.Quota.UpdateOneID(*h.ID),
+		&quotacrud.Req{
 			DeletedAt: &h.now,
 		},
 	).Save(ctx); err != nil {
@@ -26,13 +26,13 @@ func (h *deleteHandler) deleteSubscription(ctx context.Context, tx *ent.Tx) erro
 	return nil
 }
 
-func (h *Handler) DeleteSubscription(ctx context.Context) error {
+func (h *Handler) DeleteQuota(ctx context.Context) error {
 	handler := &deleteHandler{
 		Handler: h,
 		now:     uint32(time.Now().Unix()),
 	}
 
-	info, err := h.GetSubscription(ctx)
+	info, err := h.GetQuota(ctx)
 	if err != nil {
 		return err
 	}
@@ -42,17 +42,17 @@ func (h *Handler) DeleteSubscription(ctx context.Context) error {
 
 	h.ID = &info.ID
 	return db.WithTx(ctx, func(_ctx context.Context, tx *ent.Tx) error {
-		return handler.deleteSubscription(_ctx, tx)
+		return handler.deleteQuota(_ctx, tx)
 	})
 }
 
-func (h *Handler) DeleteSubscriptionWithTx(ctx context.Context, tx *ent.Tx) error {
+func (h *Handler) DeleteQuotaWithTx(ctx context.Context, tx *ent.Tx) error {
 	handler := &deleteHandler{
 		Handler: h,
 		now:     uint32(time.Now().Unix()),
 	}
 
-	info, err := h.GetSubscription(ctx)
+	info, err := h.GetQuota(ctx)
 	if err != nil {
 		return err
 	}
@@ -61,5 +61,5 @@ func (h *Handler) DeleteSubscriptionWithTx(ctx context.Context, tx *ent.Tx) erro
 	}
 
 	h.ID = &info.ID
-	return handler.deleteSubscription(ctx, tx)
+	return handler.deleteQuota(ctx, tx)
 }

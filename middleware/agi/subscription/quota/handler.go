@@ -4,8 +4,8 @@ import (
 	"context"
 
 	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
-	npool "github.com/NpoolPlatform/kunman/message/agi/middleware/v1/quota"
-	quotacrud "github.com/NpoolPlatform/kunman/middleware/agi/crud/quota"
+	npool "github.com/NpoolPlatform/kunman/message/agi/middleware/v1/subscription/quota"
+	quotacrud "github.com/NpoolPlatform/kunman/middleware/agi/crud/subscription/quota"
 	constant "github.com/NpoolPlatform/kunman/pkg/const"
 	cruder "github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 
@@ -95,45 +95,15 @@ func WithUserID(id *string, must bool) func(context.Context, *Handler) error {
 	}
 }
 
-func WithAppGoodID(id *string, must bool) func(context.Context, *Handler) error {
-	return func(ctx context.Context, h *Handler) error {
-		if id == nil {
-			if must {
-				return wlog.Errorf("invalid appgoodid")
-			}
-			return nil
-		}
-		_id, err := uuid.Parse(*id)
-		if err != nil {
-			return wlog.WrapError(err)
-		}
-		h.AppGoodID = &_id
-		return nil
-	}
-}
-
-func WithNextExtendAt(u *uint32, must bool) func(context.Context, *Handler) error {
+func WithQuota(u *uint32, must bool) func(context.Context, *Handler) error {
 	return func(ctx context.Context, h *Handler) error {
 		if u == nil {
 			if must {
-				return wlog.Errorf("invalid nextextendat")
+				return wlog.Errorf("invalid quota")
 			}
 			return nil
 		}
-		h.NextExtendAt = u
-		return nil
-	}
-}
-
-func WithPermanentQuota(u *uint32, must bool) func(context.Context, *Handler) error {
-	return func(ctx context.Context, h *Handler) error {
-		if u == nil {
-			if must {
-				return wlog.Errorf("invalid permanentquota")
-			}
-			return nil
-		}
-		h.PermanentQuota = u
+		h.Quota = u
 		return nil
 	}
 }
@@ -151,15 +121,15 @@ func WithConsumedQuota(u *uint32, must bool) func(context.Context, *Handler) err
 	}
 }
 
-func WithAutoExtend(b *bool, must bool) func(context.Context, *Handler) error {
+func WithExpiredAt(u *uint32, must bool) func(context.Context, *Handler) error {
 	return func(ctx context.Context, h *Handler) error {
-		if b == nil {
+		if u == nil {
 			if must {
-				return wlog.Errorf("invalid autoextend")
+				return wlog.Errorf("invalid expiredat")
 			}
 			return nil
 		}
-		h.AutoExtend = b
+		h.ExpiredAt = u
 		return nil
 	}
 }
@@ -246,30 +216,6 @@ func (h *Handler) withQuotaConds(conds *npool.Conds) error {
 		}
 		h.QuotaConds.UserIDs = &cruder.Cond{
 			Op:  conds.GetUserIDs().GetOp(),
-			Val: ids,
-		}
-	}
-	if conds.AppGoodID != nil {
-		id, err := uuid.Parse(conds.GetAppGoodID().GetValue())
-		if err != nil {
-			return wlog.WrapError(err)
-		}
-		h.QuotaConds.AppGoodID = &cruder.Cond{
-			Op:  conds.GetAppGoodID().GetOp(),
-			Val: id,
-		}
-	}
-	if conds.AppGoodIDs != nil {
-		ids := []uuid.UUID{}
-		for _, id := range conds.GetAppGoodIDs().GetValue() {
-			_id, err := uuid.Parse(id)
-			if err != nil {
-				return wlog.WrapError(err)
-			}
-			ids = append(ids, _id)
-		}
-		h.QuotaConds.AppGoodIDs = &cruder.Cond{
-			Op:  conds.GetAppGoodIDs().GetOp(),
 			Val: ids,
 		}
 	}

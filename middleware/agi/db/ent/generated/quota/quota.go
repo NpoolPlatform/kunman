@@ -31,7 +31,7 @@ const (
 	// FieldExpiredAt holds the string denoting the expired_at field in the database.
 	FieldExpiredAt = "expired_at"
 	// Table holds the table name of the quota in the database.
-	Table = "quota"
+	Table = "quotas"
 )
 
 // Columns holds all SQL columns for quota fields.

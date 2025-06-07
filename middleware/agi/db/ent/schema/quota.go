@@ -2,6 +2,8 @@ package schema
 
 import (
 	"entgo.io/ent"
+	"entgo.io/ent/dialect/entsql"
+	"entgo.io/ent/schema"
 	"entgo.io/ent/schema/field"
 	crudermixin "github.com/NpoolPlatform/kunman/pkg/cruder/mixin"
 	"github.com/google/uuid"
@@ -16,6 +18,12 @@ func (Quota) Mixin() []ent.Mixin {
 	return []ent.Mixin{
 		crudermixin.AutoIDMixin{},
 		crudermixin.TimeMixin{},
+	}
+}
+
+func (Quota) Annotations() []schema.Annotation {
+	return []schema.Annotation{
+		entsql.Annotation{Table: "quotas"},
 	}
 }
 

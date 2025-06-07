@@ -1,4 +1,4 @@
-package subscription
+package quota
 
 import (
 	"context"
@@ -20,21 +20,17 @@ func (h *updateHandler) constructSQL() error {
 	set := "set "
 	now := uint32(time.Now().Unix())
 
-	_sql := "update subscriptions "
-	if h.NextExtendAt != nil {
-		_sql += fmt.Sprintf("%vnext_extend_at = '%v', ", set, *h.NextExtendAt)
-		set = ""
-	}
-	if h.PermanentQuota != nil {
-		_sql += fmt.Sprintf("%vpermanent_quota = %v, ", set, *h.PermanentQuota)
+	_sql := "update quotas "
+	if h.Quota != nil {
+		_sql += fmt.Sprintf("%vquota = %v, ", set, *h.Quota)
 		set = ""
 	}
 	if h.ConsumedQuota != nil {
 		_sql += fmt.Sprintf("%vconsumed_quota = %v, ", set, *h.ConsumedQuota)
 		set = ""
 	}
-	if h.AutoExtend != nil {
-		_sql += fmt.Sprintf("%vauto_extend = %v, ", set, *h.AutoExtend)
+	if h.ExpiredAt != nil {
+		_sql += fmt.Sprintf("%vexpired_at = %v, ", set, *h.ExpiredAt)
 		set = ""
 	}
 
@@ -52,24 +48,24 @@ func (h *updateHandler) constructSQL() error {
 	return nil
 }
 
-func (h *updateHandler) updateSubscription(ctx context.Context, tx *ent.Tx) error {
+func (h *updateHandler) updateQuota(ctx context.Context, tx *ent.Tx) error {
 	rc, err := tx.ExecContext(ctx, h.sql)
 	if err != nil {
 		return wlog.WrapError(err)
 	}
 	if n, err := rc.RowsAffected(); err != nil || n != 1 {
-		return wlog.Errorf("fail update subscription: %v", err)
+		return wlog.Errorf("fail update quota: %v", err)
 	}
 	return nil
 }
 
-func (h *Handler) UpdateSubscription(ctx context.Context) error {
-	info, err := h.GetSubscription(ctx)
+func (h *Handler) UpdateQuota(ctx context.Context) error {
+	info, err := h.GetQuota(ctx)
 	if err != nil {
 		return wlog.WrapError(err)
 	}
 	if info == nil {
-		return wlog.Errorf("invalid subscription")
+		return wlog.Errorf("invalid quota")
 	}
 
 	handler := &updateHandler{
@@ -80,26 +76,6 @@ func (h *Handler) UpdateSubscription(ctx context.Context) error {
 		return wlog.WrapError(err)
 	}
 	return db.WithTx(ctx, func(_ctx context.Context, tx *ent.Tx) error {
-		return handler.updateSubscription(_ctx, tx)
+		return handler.updateQuota(_ctx, tx)
 	})
-}
-
-func (h *Handler) UpdateSubscriptionWithTx(ctx context.Context, tx *ent.Tx) error {
-	handler := &updateHandler{
-		Handler: h,
-	}
-
-	info, err := h.GetSubscription(ctx)
-	if err != nil {
-		return wlog.WrapError(err)
-	}
-	if info == nil {
-		return wlog.Errorf("invalid subscription")
-	}
-
-	h.ID = &info.ID
-	if err := handler.constructSQL(); err != nil {
-		return wlog.WrapError(err)
-	}
-	return handler.updateSubscription(ctx, tx)
 }

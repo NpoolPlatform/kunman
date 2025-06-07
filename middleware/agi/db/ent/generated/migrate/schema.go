@@ -3,6 +3,7 @@
 package migrate
 
 import (
+	"entgo.io/ent/dialect/entsql"
 	"entgo.io/ent/dialect/sql/schema"
 	"entgo.io/ent/schema/field"
 )
@@ -29,8 +30,8 @@ var (
 			},
 		},
 	}
-	// QuotaColumns holds the columns for the "quota" table.
-	QuotaColumns = []*schema.Column{
+	// QuotasColumns holds the columns for the "quotas" table.
+	QuotasColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeUint32, Increment: true},
 		{Name: "ent_id", Type: field.TypeUUID, Unique: true},
 		{Name: "created_at", Type: field.TypeUint32},
@@ -42,16 +43,16 @@ var (
 		{Name: "consumed_quota", Type: field.TypeUint32, Nullable: true, Default: 0},
 		{Name: "expired_at", Type: field.TypeUint32, Nullable: true, Default: 0},
 	}
-	// QuotaTable holds the schema information for the "quota" table.
-	QuotaTable = &schema.Table{
-		Name:       "quota",
-		Columns:    QuotaColumns,
-		PrimaryKey: []*schema.Column{QuotaColumns[0]},
+	// QuotasTable holds the schema information for the "quotas" table.
+	QuotasTable = &schema.Table{
+		Name:       "quotas",
+		Columns:    QuotasColumns,
+		PrimaryKey: []*schema.Column{QuotasColumns[0]},
 		Indexes: []*schema.Index{
 			{
 				Name:    "quota_ent_id",
 				Unique:  true,
-				Columns: []*schema.Column{QuotaColumns[1]},
+				Columns: []*schema.Column{QuotasColumns[1]},
 			},
 		},
 	}
@@ -86,10 +87,13 @@ var (
 	// Tables holds all the tables in the schema.
 	Tables = []*schema.Table{
 		CapacitiesTable,
-		QuotaTable,
+		QuotasTable,
 		SubscriptionsTable,
 	}
 )
 
 func init() {
+	QuotasTable.Annotation = &entsql.Annotation{
+		Table: "quotas",
+	}
 }
