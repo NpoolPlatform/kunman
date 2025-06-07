@@ -6,7 +6,7 @@ import (
 	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
 	goodbasecrud "github.com/NpoolPlatform/kunman/middleware/good/crud/good/goodbase"
 	"github.com/NpoolPlatform/kunman/middleware/good/db"
-	"github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated"
+	ent "github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated"
 )
 
 func (h *Handler) ExistGoodConds(ctx context.Context) (exist bool, err error) {
@@ -15,7 +15,8 @@ func (h *Handler) ExistGoodConds(ctx context.Context) (exist bool, err error) {
 		if err != nil {
 			return err
 		}
-		exist, err = stm.Exist(_ctx)
+		count, err := stm.Limit(1).Count(_ctx)
+		exist = count > 0
 		return err
 	}); err != nil {
 		return false, wlog.WrapError(err)

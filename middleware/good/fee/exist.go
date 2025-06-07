@@ -23,7 +23,9 @@ func (h *Handler) ExistFee(ctx context.Context) (exist bool, err error) {
 			return err
 		}
 		handler.queryJoin()
-		exist, err = handler.stmSelect.Exist(_ctx)
+		count, err := handler.stmSelect.Limit(1).Count(_ctx)
+
+		exist = count > 0
 		return err
 	})
 	if err != nil {
@@ -43,7 +45,9 @@ func (h *Handler) ExistFeeConds(ctx context.Context) (exist bool, err error) {
 			return err
 		}
 		handler.queryJoin()
-		exist, err = handler.stmSelect.Exist(_ctx)
+		count, err := handler.stmSelect.Limit(1).Count(_ctx)
+
+		exist = count > 0
 		return err
 	})
 	if err != nil {
