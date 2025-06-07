@@ -547,6 +547,7 @@ var (
 		{Name: "fiat_id", Type: field.TypeUUID, Nullable: true},
 		{Name: "payment_channel", Type: field.TypeString, Nullable: true, Default: "PaymentChannelStripe"},
 		{Name: "amount", Type: field.TypeOther, Nullable: true, SchemaType: map[string]string{"mysql": "decimal(37,18)"}},
+		{Name: "channel_payment_id", Type: field.TypeString, Nullable: true, Default: ""},
 		{Name: "usd_currency", Type: field.TypeOther, Nullable: true, SchemaType: map[string]string{"mysql": "decimal(37, 18)"}},
 	}
 	// PaymentFiatsTable holds the schema information for the "payment_fiats" table.

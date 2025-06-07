@@ -892,8 +892,12 @@ func init() {
 	paymentfiatDescAmount := paymentfiatFields[3].Descriptor()
 	// paymentfiat.DefaultAmount holds the default value on creation for the amount field.
 	paymentfiat.DefaultAmount = paymentfiatDescAmount.Default.(decimal.Decimal)
+	// paymentfiatDescChannelPaymentID is the schema descriptor for channel_payment_id field.
+	paymentfiatDescChannelPaymentID := paymentfiatFields[4].Descriptor()
+	// paymentfiat.DefaultChannelPaymentID holds the default value on creation for the channel_payment_id field.
+	paymentfiat.DefaultChannelPaymentID = paymentfiatDescChannelPaymentID.Default.(string)
 	// paymentfiatDescUsdCurrency is the schema descriptor for usd_currency field.
-	paymentfiatDescUsdCurrency := paymentfiatFields[4].Descriptor()
+	paymentfiatDescUsdCurrency := paymentfiatFields[5].Descriptor()
 	// paymentfiat.DefaultUsdCurrency holds the default value on creation for the usd_currency field.
 	paymentfiat.DefaultUsdCurrency = paymentfiatDescUsdCurrency.Default.(decimal.Decimal)
 	paymenttransferMixin := schema.PaymentTransfer{}.Mixin()

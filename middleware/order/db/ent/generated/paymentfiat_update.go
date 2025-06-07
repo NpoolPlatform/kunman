@@ -179,6 +179,26 @@ func (pfu *PaymentFiatUpdate) ClearAmount() *PaymentFiatUpdate {
 	return pfu
 }
 
+// SetChannelPaymentID sets the "channel_payment_id" field.
+func (pfu *PaymentFiatUpdate) SetChannelPaymentID(s string) *PaymentFiatUpdate {
+	pfu.mutation.SetChannelPaymentID(s)
+	return pfu
+}
+
+// SetNillableChannelPaymentID sets the "channel_payment_id" field if the given value is not nil.
+func (pfu *PaymentFiatUpdate) SetNillableChannelPaymentID(s *string) *PaymentFiatUpdate {
+	if s != nil {
+		pfu.SetChannelPaymentID(*s)
+	}
+	return pfu
+}
+
+// ClearChannelPaymentID clears the value of the "channel_payment_id" field.
+func (pfu *PaymentFiatUpdate) ClearChannelPaymentID() *PaymentFiatUpdate {
+	pfu.mutation.ClearChannelPaymentID()
+	return pfu
+}
+
 // SetUsdCurrency sets the "usd_currency" field.
 func (pfu *PaymentFiatUpdate) SetUsdCurrency(d decimal.Decimal) *PaymentFiatUpdate {
 	pfu.mutation.SetUsdCurrency(d)
@@ -299,6 +319,12 @@ func (pfu *PaymentFiatUpdate) sqlSave(ctx context.Context) (n int, err error) {
 	}
 	if pfu.mutation.AmountCleared() {
 		_spec.ClearField(paymentfiat.FieldAmount, field.TypeOther)
+	}
+	if value, ok := pfu.mutation.ChannelPaymentID(); ok {
+		_spec.SetField(paymentfiat.FieldChannelPaymentID, field.TypeString, value)
+	}
+	if pfu.mutation.ChannelPaymentIDCleared() {
+		_spec.ClearField(paymentfiat.FieldChannelPaymentID, field.TypeString)
 	}
 	if value, ok := pfu.mutation.UsdCurrency(); ok {
 		_spec.SetField(paymentfiat.FieldUsdCurrency, field.TypeOther, value)
@@ -477,6 +503,26 @@ func (pfuo *PaymentFiatUpdateOne) ClearAmount() *PaymentFiatUpdateOne {
 	return pfuo
 }
 
+// SetChannelPaymentID sets the "channel_payment_id" field.
+func (pfuo *PaymentFiatUpdateOne) SetChannelPaymentID(s string) *PaymentFiatUpdateOne {
+	pfuo.mutation.SetChannelPaymentID(s)
+	return pfuo
+}
+
+// SetNillableChannelPaymentID sets the "channel_payment_id" field if the given value is not nil.
+func (pfuo *PaymentFiatUpdateOne) SetNillableChannelPaymentID(s *string) *PaymentFiatUpdateOne {
+	if s != nil {
+		pfuo.SetChannelPaymentID(*s)
+	}
+	return pfuo
+}
+
+// ClearChannelPaymentID clears the value of the "channel_payment_id" field.
+func (pfuo *PaymentFiatUpdateOne) ClearChannelPaymentID() *PaymentFiatUpdateOne {
+	pfuo.mutation.ClearChannelPaymentID()
+	return pfuo
+}
+
 // SetUsdCurrency sets the "usd_currency" field.
 func (pfuo *PaymentFiatUpdateOne) SetUsdCurrency(d decimal.Decimal) *PaymentFiatUpdateOne {
 	pfuo.mutation.SetUsdCurrency(d)
@@ -627,6 +673,12 @@ func (pfuo *PaymentFiatUpdateOne) sqlSave(ctx context.Context) (_node *PaymentFi
 	}
 	if pfuo.mutation.AmountCleared() {
 		_spec.ClearField(paymentfiat.FieldAmount, field.TypeOther)
+	}
+	if value, ok := pfuo.mutation.ChannelPaymentID(); ok {
+		_spec.SetField(paymentfiat.FieldChannelPaymentID, field.TypeString, value)
+	}
+	if pfuo.mutation.ChannelPaymentIDCleared() {
+		_spec.ClearField(paymentfiat.FieldChannelPaymentID, field.TypeString)
 	}
 	if value, ok := pfuo.mutation.UsdCurrency(); ok {
 		_spec.SetField(paymentfiat.FieldUsdCurrency, field.TypeOther, value)

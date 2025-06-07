@@ -18620,25 +18620,26 @@ func (m *PaymentContractMutation) ResetEdge(name string) error {
 // PaymentFiatMutation represents an operation that mutates the PaymentFiat nodes in the graph.
 type PaymentFiatMutation struct {
 	config
-	op              Op
-	typ             string
-	id              *uint32
-	ent_id          *uuid.UUID
-	created_at      *uint32
-	addcreated_at   *int32
-	updated_at      *uint32
-	addupdated_at   *int32
-	deleted_at      *uint32
-	adddeleted_at   *int32
-	payment_id      *uuid.UUID
-	fiat_id         *uuid.UUID
-	payment_channel *string
-	amount          *decimal.Decimal
-	usd_currency    *decimal.Decimal
-	clearedFields   map[string]struct{}
-	done            bool
-	oldValue        func(context.Context) (*PaymentFiat, error)
-	predicates      []predicate.PaymentFiat
+	op                 Op
+	typ                string
+	id                 *uint32
+	ent_id             *uuid.UUID
+	created_at         *uint32
+	addcreated_at      *int32
+	updated_at         *uint32
+	addupdated_at      *int32
+	deleted_at         *uint32
+	adddeleted_at      *int32
+	payment_id         *uuid.UUID
+	fiat_id            *uuid.UUID
+	payment_channel    *string
+	amount             *decimal.Decimal
+	channel_payment_id *string
+	usd_currency       *decimal.Decimal
+	clearedFields      map[string]struct{}
+	done               bool
+	oldValue           func(context.Context) (*PaymentFiat, error)
+	predicates         []predicate.PaymentFiat
 }
 
 var _ ent.Mutation = (*PaymentFiatMutation)(nil)
@@ -19145,6 +19146,55 @@ func (m *PaymentFiatMutation) ResetAmount() {
 	delete(m.clearedFields, paymentfiat.FieldAmount)
 }
 
+// SetChannelPaymentID sets the "channel_payment_id" field.
+func (m *PaymentFiatMutation) SetChannelPaymentID(s string) {
+	m.channel_payment_id = &s
+}
+
+// ChannelPaymentID returns the value of the "channel_payment_id" field in the mutation.
+func (m *PaymentFiatMutation) ChannelPaymentID() (r string, exists bool) {
+	v := m.channel_payment_id
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldChannelPaymentID returns the old "channel_payment_id" field's value of the PaymentFiat entity.
+// If the PaymentFiat object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *PaymentFiatMutation) OldChannelPaymentID(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldChannelPaymentID is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldChannelPaymentID requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldChannelPaymentID: %w", err)
+	}
+	return oldValue.ChannelPaymentID, nil
+}
+
+// ClearChannelPaymentID clears the value of the "channel_payment_id" field.
+func (m *PaymentFiatMutation) ClearChannelPaymentID() {
+	m.channel_payment_id = nil
+	m.clearedFields[paymentfiat.FieldChannelPaymentID] = struct{}{}
+}
+
+// ChannelPaymentIDCleared returns if the "channel_payment_id" field was cleared in this mutation.
+func (m *PaymentFiatMutation) ChannelPaymentIDCleared() bool {
+	_, ok := m.clearedFields[paymentfiat.FieldChannelPaymentID]
+	return ok
+}
+
+// ResetChannelPaymentID resets all changes to the "channel_payment_id" field.
+func (m *PaymentFiatMutation) ResetChannelPaymentID() {
+	m.channel_payment_id = nil
+	delete(m.clearedFields, paymentfiat.FieldChannelPaymentID)
+}
+
 // SetUsdCurrency sets the "usd_currency" field.
 func (m *PaymentFiatMutation) SetUsdCurrency(d decimal.Decimal) {
 	m.usd_currency = &d
@@ -19228,7 +19278,7 @@ func (m *PaymentFiatMutation) Type() string {
 // order to get all numeric fields that were incremented/decremented, call
 // AddedFields().
 func (m *PaymentFiatMutation) Fields() []string {
-	fields := make([]string, 0, 9)
+	fields := make([]string, 0, 10)
 	if m.ent_id != nil {
 		fields = append(fields, paymentfiat.FieldEntID)
 	}
@@ -19252,6 +19302,9 @@ func (m *PaymentFiatMutation) Fields() []string {
 	}
 	if m.amount != nil {
 		fields = append(fields, paymentfiat.FieldAmount)
+	}
+	if m.channel_payment_id != nil {
+		fields = append(fields, paymentfiat.FieldChannelPaymentID)
 	}
 	if m.usd_currency != nil {
 		fields = append(fields, paymentfiat.FieldUsdCurrency)
@@ -19280,6 +19333,8 @@ func (m *PaymentFiatMutation) Field(name string) (ent.Value, bool) {
 		return m.PaymentChannel()
 	case paymentfiat.FieldAmount:
 		return m.Amount()
+	case paymentfiat.FieldChannelPaymentID:
+		return m.ChannelPaymentID()
 	case paymentfiat.FieldUsdCurrency:
 		return m.UsdCurrency()
 	}
@@ -19307,6 +19362,8 @@ func (m *PaymentFiatMutation) OldField(ctx context.Context, name string) (ent.Va
 		return m.OldPaymentChannel(ctx)
 	case paymentfiat.FieldAmount:
 		return m.OldAmount(ctx)
+	case paymentfiat.FieldChannelPaymentID:
+		return m.OldChannelPaymentID(ctx)
 	case paymentfiat.FieldUsdCurrency:
 		return m.OldUsdCurrency(ctx)
 	}
@@ -19373,6 +19430,13 @@ func (m *PaymentFiatMutation) SetField(name string, value ent.Value) error {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetAmount(v)
+		return nil
+	case paymentfiat.FieldChannelPaymentID:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetChannelPaymentID(v)
 		return nil
 	case paymentfiat.FieldUsdCurrency:
 		v, ok := value.(decimal.Decimal)
@@ -19462,6 +19526,9 @@ func (m *PaymentFiatMutation) ClearedFields() []string {
 	if m.FieldCleared(paymentfiat.FieldAmount) {
 		fields = append(fields, paymentfiat.FieldAmount)
 	}
+	if m.FieldCleared(paymentfiat.FieldChannelPaymentID) {
+		fields = append(fields, paymentfiat.FieldChannelPaymentID)
+	}
 	if m.FieldCleared(paymentfiat.FieldUsdCurrency) {
 		fields = append(fields, paymentfiat.FieldUsdCurrency)
 	}
@@ -19490,6 +19557,9 @@ func (m *PaymentFiatMutation) ClearField(name string) error {
 		return nil
 	case paymentfiat.FieldAmount:
 		m.ClearAmount()
+		return nil
+	case paymentfiat.FieldChannelPaymentID:
+		m.ClearChannelPaymentID()
 		return nil
 	case paymentfiat.FieldUsdCurrency:
 		m.ClearUsdCurrency()
@@ -19525,6 +19595,9 @@ func (m *PaymentFiatMutation) ResetField(name string) error {
 		return nil
 	case paymentfiat.FieldAmount:
 		m.ResetAmount()
+		return nil
+	case paymentfiat.FieldChannelPaymentID:
+		m.ResetChannelPaymentID()
 		return nil
 	case paymentfiat.FieldUsdCurrency:
 		m.ResetUsdCurrency()

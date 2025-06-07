@@ -436,15 +436,16 @@ var schemaGraph = func() *sqlgraph.Schema {
 		},
 		Type: "PaymentFiat",
 		Fields: map[string]*sqlgraph.FieldSpec{
-			paymentfiat.FieldEntID:          {Type: field.TypeUUID, Column: paymentfiat.FieldEntID},
-			paymentfiat.FieldCreatedAt:      {Type: field.TypeUint32, Column: paymentfiat.FieldCreatedAt},
-			paymentfiat.FieldUpdatedAt:      {Type: field.TypeUint32, Column: paymentfiat.FieldUpdatedAt},
-			paymentfiat.FieldDeletedAt:      {Type: field.TypeUint32, Column: paymentfiat.FieldDeletedAt},
-			paymentfiat.FieldPaymentID:      {Type: field.TypeUUID, Column: paymentfiat.FieldPaymentID},
-			paymentfiat.FieldFiatID:         {Type: field.TypeUUID, Column: paymentfiat.FieldFiatID},
-			paymentfiat.FieldPaymentChannel: {Type: field.TypeString, Column: paymentfiat.FieldPaymentChannel},
-			paymentfiat.FieldAmount:         {Type: field.TypeOther, Column: paymentfiat.FieldAmount},
-			paymentfiat.FieldUsdCurrency:    {Type: field.TypeOther, Column: paymentfiat.FieldUsdCurrency},
+			paymentfiat.FieldEntID:            {Type: field.TypeUUID, Column: paymentfiat.FieldEntID},
+			paymentfiat.FieldCreatedAt:        {Type: field.TypeUint32, Column: paymentfiat.FieldCreatedAt},
+			paymentfiat.FieldUpdatedAt:        {Type: field.TypeUint32, Column: paymentfiat.FieldUpdatedAt},
+			paymentfiat.FieldDeletedAt:        {Type: field.TypeUint32, Column: paymentfiat.FieldDeletedAt},
+			paymentfiat.FieldPaymentID:        {Type: field.TypeUUID, Column: paymentfiat.FieldPaymentID},
+			paymentfiat.FieldFiatID:           {Type: field.TypeUUID, Column: paymentfiat.FieldFiatID},
+			paymentfiat.FieldPaymentChannel:   {Type: field.TypeString, Column: paymentfiat.FieldPaymentChannel},
+			paymentfiat.FieldAmount:           {Type: field.TypeOther, Column: paymentfiat.FieldAmount},
+			paymentfiat.FieldChannelPaymentID: {Type: field.TypeString, Column: paymentfiat.FieldChannelPaymentID},
+			paymentfiat.FieldUsdCurrency:      {Type: field.TypeOther, Column: paymentfiat.FieldUsdCurrency},
 		},
 	}
 	graph.Nodes[17] = &sqlgraph.Node{
@@ -2230,6 +2231,11 @@ func (f *PaymentFiatFilter) WherePaymentChannel(p entql.StringP) {
 // WhereAmount applies the entql other predicate on the amount field.
 func (f *PaymentFiatFilter) WhereAmount(p entql.OtherP) {
 	f.Where(p.Field(paymentfiat.FieldAmount))
+}
+
+// WhereChannelPaymentID applies the entql string predicate on the channel_payment_id field.
+func (f *PaymentFiatFilter) WhereChannelPaymentID(p entql.StringP) {
+	f.Where(p.Field(paymentfiat.FieldChannelPaymentID))
 }
 
 // WhereUsdCurrency applies the entql other predicate on the usd_currency field.

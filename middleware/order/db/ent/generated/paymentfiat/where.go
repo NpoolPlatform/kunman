@@ -94,6 +94,11 @@ func Amount(v decimal.Decimal) predicate.PaymentFiat {
 	return predicate.PaymentFiat(sql.FieldEQ(FieldAmount, v))
 }
 
+// ChannelPaymentID applies equality check predicate on the "channel_payment_id" field. It's identical to ChannelPaymentIDEQ.
+func ChannelPaymentID(v string) predicate.PaymentFiat {
+	return predicate.PaymentFiat(sql.FieldEQ(FieldChannelPaymentID, v))
+}
+
 // UsdCurrency applies equality check predicate on the "usd_currency" field. It's identical to UsdCurrencyEQ.
 func UsdCurrency(v decimal.Decimal) predicate.PaymentFiat {
 	return predicate.PaymentFiat(sql.FieldEQ(FieldUsdCurrency, v))
@@ -482,6 +487,81 @@ func AmountIsNil() predicate.PaymentFiat {
 // AmountNotNil applies the NotNil predicate on the "amount" field.
 func AmountNotNil() predicate.PaymentFiat {
 	return predicate.PaymentFiat(sql.FieldNotNull(FieldAmount))
+}
+
+// ChannelPaymentIDEQ applies the EQ predicate on the "channel_payment_id" field.
+func ChannelPaymentIDEQ(v string) predicate.PaymentFiat {
+	return predicate.PaymentFiat(sql.FieldEQ(FieldChannelPaymentID, v))
+}
+
+// ChannelPaymentIDNEQ applies the NEQ predicate on the "channel_payment_id" field.
+func ChannelPaymentIDNEQ(v string) predicate.PaymentFiat {
+	return predicate.PaymentFiat(sql.FieldNEQ(FieldChannelPaymentID, v))
+}
+
+// ChannelPaymentIDIn applies the In predicate on the "channel_payment_id" field.
+func ChannelPaymentIDIn(vs ...string) predicate.PaymentFiat {
+	return predicate.PaymentFiat(sql.FieldIn(FieldChannelPaymentID, vs...))
+}
+
+// ChannelPaymentIDNotIn applies the NotIn predicate on the "channel_payment_id" field.
+func ChannelPaymentIDNotIn(vs ...string) predicate.PaymentFiat {
+	return predicate.PaymentFiat(sql.FieldNotIn(FieldChannelPaymentID, vs...))
+}
+
+// ChannelPaymentIDGT applies the GT predicate on the "channel_payment_id" field.
+func ChannelPaymentIDGT(v string) predicate.PaymentFiat {
+	return predicate.PaymentFiat(sql.FieldGT(FieldChannelPaymentID, v))
+}
+
+// ChannelPaymentIDGTE applies the GTE predicate on the "channel_payment_id" field.
+func ChannelPaymentIDGTE(v string) predicate.PaymentFiat {
+	return predicate.PaymentFiat(sql.FieldGTE(FieldChannelPaymentID, v))
+}
+
+// ChannelPaymentIDLT applies the LT predicate on the "channel_payment_id" field.
+func ChannelPaymentIDLT(v string) predicate.PaymentFiat {
+	return predicate.PaymentFiat(sql.FieldLT(FieldChannelPaymentID, v))
+}
+
+// ChannelPaymentIDLTE applies the LTE predicate on the "channel_payment_id" field.
+func ChannelPaymentIDLTE(v string) predicate.PaymentFiat {
+	return predicate.PaymentFiat(sql.FieldLTE(FieldChannelPaymentID, v))
+}
+
+// ChannelPaymentIDContains applies the Contains predicate on the "channel_payment_id" field.
+func ChannelPaymentIDContains(v string) predicate.PaymentFiat {
+	return predicate.PaymentFiat(sql.FieldContains(FieldChannelPaymentID, v))
+}
+
+// ChannelPaymentIDHasPrefix applies the HasPrefix predicate on the "channel_payment_id" field.
+func ChannelPaymentIDHasPrefix(v string) predicate.PaymentFiat {
+	return predicate.PaymentFiat(sql.FieldHasPrefix(FieldChannelPaymentID, v))
+}
+
+// ChannelPaymentIDHasSuffix applies the HasSuffix predicate on the "channel_payment_id" field.
+func ChannelPaymentIDHasSuffix(v string) predicate.PaymentFiat {
+	return predicate.PaymentFiat(sql.FieldHasSuffix(FieldChannelPaymentID, v))
+}
+
+// ChannelPaymentIDIsNil applies the IsNil predicate on the "channel_payment_id" field.
+func ChannelPaymentIDIsNil() predicate.PaymentFiat {
+	return predicate.PaymentFiat(sql.FieldIsNull(FieldChannelPaymentID))
+}
+
+// ChannelPaymentIDNotNil applies the NotNil predicate on the "channel_payment_id" field.
+func ChannelPaymentIDNotNil() predicate.PaymentFiat {
+	return predicate.PaymentFiat(sql.FieldNotNull(FieldChannelPaymentID))
+}
+
+// ChannelPaymentIDEqualFold applies the EqualFold predicate on the "channel_payment_id" field.
+func ChannelPaymentIDEqualFold(v string) predicate.PaymentFiat {
+	return predicate.PaymentFiat(sql.FieldEqualFold(FieldChannelPaymentID, v))
+}
+
+// ChannelPaymentIDContainsFold applies the ContainsFold predicate on the "channel_payment_id" field.
+func ChannelPaymentIDContainsFold(v string) predicate.PaymentFiat {
+	return predicate.PaymentFiat(sql.FieldContainsFold(FieldChannelPaymentID, v))
 }
 
 // UsdCurrencyEQ applies the EQ predicate on the "usd_currency" field.

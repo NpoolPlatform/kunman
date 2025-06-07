@@ -135,6 +135,20 @@ func (pfc *PaymentFiatCreate) SetNillableAmount(d *decimal.Decimal) *PaymentFiat
 	return pfc
 }
 
+// SetChannelPaymentID sets the "channel_payment_id" field.
+func (pfc *PaymentFiatCreate) SetChannelPaymentID(s string) *PaymentFiatCreate {
+	pfc.mutation.SetChannelPaymentID(s)
+	return pfc
+}
+
+// SetNillableChannelPaymentID sets the "channel_payment_id" field if the given value is not nil.
+func (pfc *PaymentFiatCreate) SetNillableChannelPaymentID(s *string) *PaymentFiatCreate {
+	if s != nil {
+		pfc.SetChannelPaymentID(*s)
+	}
+	return pfc
+}
+
 // SetUsdCurrency sets the "usd_currency" field.
 func (pfc *PaymentFiatCreate) SetUsdCurrency(d decimal.Decimal) *PaymentFiatCreate {
 	pfc.mutation.SetUsdCurrency(d)
@@ -222,6 +236,10 @@ func (pfc *PaymentFiatCreate) defaults() {
 		v := paymentfiat.DefaultAmount
 		pfc.mutation.SetAmount(v)
 	}
+	if _, ok := pfc.mutation.ChannelPaymentID(); !ok {
+		v := paymentfiat.DefaultChannelPaymentID
+		pfc.mutation.SetChannelPaymentID(v)
+	}
 	if _, ok := pfc.mutation.UsdCurrency(); !ok {
 		v := paymentfiat.DefaultUsdCurrency
 		pfc.mutation.SetUsdCurrency(v)
@@ -306,6 +324,10 @@ func (pfc *PaymentFiatCreate) createSpec() (*PaymentFiat, *sqlgraph.CreateSpec) 
 	if value, ok := pfc.mutation.Amount(); ok {
 		_spec.SetField(paymentfiat.FieldAmount, field.TypeOther, value)
 		_node.Amount = value
+	}
+	if value, ok := pfc.mutation.ChannelPaymentID(); ok {
+		_spec.SetField(paymentfiat.FieldChannelPaymentID, field.TypeString, value)
+		_node.ChannelPaymentID = value
 	}
 	if value, ok := pfc.mutation.UsdCurrency(); ok {
 		_spec.SetField(paymentfiat.FieldUsdCurrency, field.TypeOther, value)
@@ -498,6 +520,24 @@ func (u *PaymentFiatUpsert) UpdateAmount() *PaymentFiatUpsert {
 // ClearAmount clears the value of the "amount" field.
 func (u *PaymentFiatUpsert) ClearAmount() *PaymentFiatUpsert {
 	u.SetNull(paymentfiat.FieldAmount)
+	return u
+}
+
+// SetChannelPaymentID sets the "channel_payment_id" field.
+func (u *PaymentFiatUpsert) SetChannelPaymentID(v string) *PaymentFiatUpsert {
+	u.Set(paymentfiat.FieldChannelPaymentID, v)
+	return u
+}
+
+// UpdateChannelPaymentID sets the "channel_payment_id" field to the value that was provided on create.
+func (u *PaymentFiatUpsert) UpdateChannelPaymentID() *PaymentFiatUpsert {
+	u.SetExcluded(paymentfiat.FieldChannelPaymentID)
+	return u
+}
+
+// ClearChannelPaymentID clears the value of the "channel_payment_id" field.
+func (u *PaymentFiatUpsert) ClearChannelPaymentID() *PaymentFiatUpsert {
+	u.SetNull(paymentfiat.FieldChannelPaymentID)
 	return u
 }
 
@@ -725,6 +765,27 @@ func (u *PaymentFiatUpsertOne) UpdateAmount() *PaymentFiatUpsertOne {
 func (u *PaymentFiatUpsertOne) ClearAmount() *PaymentFiatUpsertOne {
 	return u.Update(func(s *PaymentFiatUpsert) {
 		s.ClearAmount()
+	})
+}
+
+// SetChannelPaymentID sets the "channel_payment_id" field.
+func (u *PaymentFiatUpsertOne) SetChannelPaymentID(v string) *PaymentFiatUpsertOne {
+	return u.Update(func(s *PaymentFiatUpsert) {
+		s.SetChannelPaymentID(v)
+	})
+}
+
+// UpdateChannelPaymentID sets the "channel_payment_id" field to the value that was provided on create.
+func (u *PaymentFiatUpsertOne) UpdateChannelPaymentID() *PaymentFiatUpsertOne {
+	return u.Update(func(s *PaymentFiatUpsert) {
+		s.UpdateChannelPaymentID()
+	})
+}
+
+// ClearChannelPaymentID clears the value of the "channel_payment_id" field.
+func (u *PaymentFiatUpsertOne) ClearChannelPaymentID() *PaymentFiatUpsertOne {
+	return u.Update(func(s *PaymentFiatUpsert) {
+		s.ClearChannelPaymentID()
 	})
 }
 
@@ -1121,6 +1182,27 @@ func (u *PaymentFiatUpsertBulk) UpdateAmount() *PaymentFiatUpsertBulk {
 func (u *PaymentFiatUpsertBulk) ClearAmount() *PaymentFiatUpsertBulk {
 	return u.Update(func(s *PaymentFiatUpsert) {
 		s.ClearAmount()
+	})
+}
+
+// SetChannelPaymentID sets the "channel_payment_id" field.
+func (u *PaymentFiatUpsertBulk) SetChannelPaymentID(v string) *PaymentFiatUpsertBulk {
+	return u.Update(func(s *PaymentFiatUpsert) {
+		s.SetChannelPaymentID(v)
+	})
+}
+
+// UpdateChannelPaymentID sets the "channel_payment_id" field to the value that was provided on create.
+func (u *PaymentFiatUpsertBulk) UpdateChannelPaymentID() *PaymentFiatUpsertBulk {
+	return u.Update(func(s *PaymentFiatUpsert) {
+		s.UpdateChannelPaymentID()
+	})
+}
+
+// ClearChannelPaymentID clears the value of the "channel_payment_id" field.
+func (u *PaymentFiatUpsertBulk) ClearChannelPaymentID() *PaymentFiatUpsertBulk {
+	return u.Update(func(s *PaymentFiatUpsert) {
+		s.ClearChannelPaymentID()
 	})
 }
 

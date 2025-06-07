@@ -50,6 +50,10 @@ func (PaymentFiat) Fields() []ent.Field {
 			Optional().
 			Default(decimal.Decimal{}),
 		field.
+			String("channel_payment_id").
+			Optional().
+			Default(""),
+		field.
 			Other("usd_currency", decimal.Decimal{}).
 			SchemaType(map[string]string{
 				dialect.MySQL: "decimal(37, 18)",

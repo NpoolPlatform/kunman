@@ -29,6 +29,8 @@ const (
 	FieldPaymentChannel = "payment_channel"
 	// FieldAmount holds the string denoting the amount field in the database.
 	FieldAmount = "amount"
+	// FieldChannelPaymentID holds the string denoting the channel_payment_id field in the database.
+	FieldChannelPaymentID = "channel_payment_id"
 	// FieldUsdCurrency holds the string denoting the usd_currency field in the database.
 	FieldUsdCurrency = "usd_currency"
 	// Table holds the table name of the paymentfiat in the database.
@@ -46,6 +48,7 @@ var Columns = []string{
 	FieldFiatID,
 	FieldPaymentChannel,
 	FieldAmount,
+	FieldChannelPaymentID,
 	FieldUsdCurrency,
 }
 
@@ -78,6 +81,8 @@ var (
 	DefaultPaymentChannel string
 	// DefaultAmount holds the default value on creation for the "amount" field.
 	DefaultAmount decimal.Decimal
+	// DefaultChannelPaymentID holds the default value on creation for the "channel_payment_id" field.
+	DefaultChannelPaymentID string
 	// DefaultUsdCurrency holds the default value on creation for the "usd_currency" field.
 	DefaultUsdCurrency decimal.Decimal
 )
@@ -128,6 +133,11 @@ func ByPaymentChannel(opts ...sql.OrderTermOption) OrderOption {
 // ByAmount orders the results by the amount field.
 func ByAmount(opts ...sql.OrderTermOption) OrderOption {
 	return sql.OrderByField(FieldAmount, opts...).ToFunc()
+}
+
+// ByChannelPaymentID orders the results by the channel_payment_id field.
+func ByChannelPaymentID(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldChannelPaymentID, opts...).ToFunc()
 }
 
 // ByUsdCurrency orders the results by the usd_currency field.

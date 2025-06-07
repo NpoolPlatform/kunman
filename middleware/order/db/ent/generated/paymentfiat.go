@@ -34,6 +34,8 @@ type PaymentFiat struct {
 	PaymentChannel string `json:"payment_channel,omitempty"`
 	// Amount holds the value of the "amount" field.
 	Amount decimal.Decimal `json:"amount,omitempty"`
+	// ChannelPaymentID holds the value of the "channel_payment_id" field.
+	ChannelPaymentID string `json:"channel_payment_id,omitempty"`
 	// UsdCurrency holds the value of the "usd_currency" field.
 	UsdCurrency  decimal.Decimal `json:"usd_currency,omitempty"`
 	selectValues sql.SelectValues
@@ -48,7 +50,7 @@ func (*PaymentFiat) scanValues(columns []string) ([]any, error) {
 			values[i] = new(decimal.Decimal)
 		case paymentfiat.FieldID, paymentfiat.FieldCreatedAt, paymentfiat.FieldUpdatedAt, paymentfiat.FieldDeletedAt:
 			values[i] = new(sql.NullInt64)
-		case paymentfiat.FieldPaymentChannel:
+		case paymentfiat.FieldPaymentChannel, paymentfiat.FieldChannelPaymentID:
 			values[i] = new(sql.NullString)
 		case paymentfiat.FieldEntID, paymentfiat.FieldPaymentID, paymentfiat.FieldFiatID:
 			values[i] = new(uuid.UUID)
@@ -121,6 +123,12 @@ func (pf *PaymentFiat) assignValues(columns []string, values []any) error {
 			} else if value != nil {
 				pf.Amount = *value
 			}
+		case paymentfiat.FieldChannelPaymentID:
+			if value, ok := values[i].(*sql.NullString); !ok {
+				return fmt.Errorf("unexpected type %T for field channel_payment_id", values[i])
+			} else if value.Valid {
+				pf.ChannelPaymentID = value.String
+			}
 		case paymentfiat.FieldUsdCurrency:
 			if value, ok := values[i].(*decimal.Decimal); !ok {
 				return fmt.Errorf("unexpected type %T for field usd_currency", values[i])
@@ -186,6 +194,9 @@ func (pf *PaymentFiat) String() string {
 	builder.WriteString(", ")
 	builder.WriteString("amount=")
 	builder.WriteString(fmt.Sprintf("%v", pf.Amount))
+	builder.WriteString(", ")
+	builder.WriteString("channel_payment_id=")
+	builder.WriteString(pf.ChannelPaymentID)
 	builder.WriteString(", ")
 	builder.WriteString("usd_currency=")
 	builder.WriteString(fmt.Sprintf("%v", pf.UsdCurrency))
