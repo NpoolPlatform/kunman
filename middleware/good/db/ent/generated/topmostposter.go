@@ -19,6 +19,12 @@ type TopMostPoster struct {
 	ID uint32 `json:"id,omitempty"`
 	// EntID holds the value of the "ent_id" field.
 	EntID uuid.UUID `json:"ent_id,omitempty"`
+	// CreatedAt holds the value of the "created_at" field.
+	CreatedAt uint32 `json:"created_at,omitempty"`
+	// UpdatedAt holds the value of the "updated_at" field.
+	UpdatedAt uint32 `json:"updated_at,omitempty"`
+	// DeletedAt holds the value of the "deleted_at" field.
+	DeletedAt uint32 `json:"deleted_at,omitempty"`
 	// TopMostID holds the value of the "top_most_id" field.
 	TopMostID uuid.UUID `json:"top_most_id,omitempty"`
 	// Poster holds the value of the "poster" field.
@@ -33,7 +39,7 @@ func (*TopMostPoster) scanValues(columns []string) ([]any, error) {
 	values := make([]any, len(columns))
 	for i := range columns {
 		switch columns[i] {
-		case topmostposter.FieldID, topmostposter.FieldIndex:
+		case topmostposter.FieldID, topmostposter.FieldCreatedAt, topmostposter.FieldUpdatedAt, topmostposter.FieldDeletedAt, topmostposter.FieldIndex:
 			values[i] = new(sql.NullInt64)
 		case topmostposter.FieldPoster:
 			values[i] = new(sql.NullString)
@@ -65,6 +71,24 @@ func (tmp *TopMostPoster) assignValues(columns []string, values []any) error {
 				return fmt.Errorf("unexpected type %T for field ent_id", values[i])
 			} else if value != nil {
 				tmp.EntID = *value
+			}
+		case topmostposter.FieldCreatedAt:
+			if value, ok := values[i].(*sql.NullInt64); !ok {
+				return fmt.Errorf("unexpected type %T for field created_at", values[i])
+			} else if value.Valid {
+				tmp.CreatedAt = uint32(value.Int64)
+			}
+		case topmostposter.FieldUpdatedAt:
+			if value, ok := values[i].(*sql.NullInt64); !ok {
+				return fmt.Errorf("unexpected type %T for field updated_at", values[i])
+			} else if value.Valid {
+				tmp.UpdatedAt = uint32(value.Int64)
+			}
+		case topmostposter.FieldDeletedAt:
+			if value, ok := values[i].(*sql.NullInt64); !ok {
+				return fmt.Errorf("unexpected type %T for field deleted_at", values[i])
+			} else if value.Valid {
+				tmp.DeletedAt = uint32(value.Int64)
 			}
 		case topmostposter.FieldTopMostID:
 			if value, ok := values[i].(*uuid.UUID); !ok {
@@ -122,6 +146,15 @@ func (tmp *TopMostPoster) String() string {
 	builder.WriteString(fmt.Sprintf("id=%v, ", tmp.ID))
 	builder.WriteString("ent_id=")
 	builder.WriteString(fmt.Sprintf("%v", tmp.EntID))
+	builder.WriteString(", ")
+	builder.WriteString("created_at=")
+	builder.WriteString(fmt.Sprintf("%v", tmp.CreatedAt))
+	builder.WriteString(", ")
+	builder.WriteString("updated_at=")
+	builder.WriteString(fmt.Sprintf("%v", tmp.UpdatedAt))
+	builder.WriteString(", ")
+	builder.WriteString("deleted_at=")
+	builder.WriteString(fmt.Sprintf("%v", tmp.DeletedAt))
 	builder.WriteString(", ")
 	builder.WriteString("top_most_id=")
 	builder.WriteString(fmt.Sprintf("%v", tmp.TopMostID))

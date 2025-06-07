@@ -10,7 +10,7 @@ import (
 
 	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 
-	goodbase1 "github.com/NpoolPlatform/kunman/middleware/good/middleware/good/goodbase"
+	goodbase1 "github.com/NpoolPlatform/kunman/middleware/good/good/goodbase"
 	npool "github.com/NpoolPlatform/kunman/message/good/middleware/v1/good/coin"
 	"github.com/google/uuid"
 	"github.com/stretchr/testify/assert"

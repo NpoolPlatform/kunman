@@ -44,6 +44,61 @@ func (asosu *AppSubscriptionOneShotUpdate) SetNillableEntID(u *uuid.UUID) *AppSu
 	return asosu
 }
 
+// SetCreatedAt sets the "created_at" field.
+func (asosu *AppSubscriptionOneShotUpdate) SetCreatedAt(u uint32) *AppSubscriptionOneShotUpdate {
+	asosu.mutation.ResetCreatedAt()
+	asosu.mutation.SetCreatedAt(u)
+	return asosu
+}
+
+// SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
+func (asosu *AppSubscriptionOneShotUpdate) SetNillableCreatedAt(u *uint32) *AppSubscriptionOneShotUpdate {
+	if u != nil {
+		asosu.SetCreatedAt(*u)
+	}
+	return asosu
+}
+
+// AddCreatedAt adds u to the "created_at" field.
+func (asosu *AppSubscriptionOneShotUpdate) AddCreatedAt(u int32) *AppSubscriptionOneShotUpdate {
+	asosu.mutation.AddCreatedAt(u)
+	return asosu
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (asosu *AppSubscriptionOneShotUpdate) SetUpdatedAt(u uint32) *AppSubscriptionOneShotUpdate {
+	asosu.mutation.ResetUpdatedAt()
+	asosu.mutation.SetUpdatedAt(u)
+	return asosu
+}
+
+// AddUpdatedAt adds u to the "updated_at" field.
+func (asosu *AppSubscriptionOneShotUpdate) AddUpdatedAt(u int32) *AppSubscriptionOneShotUpdate {
+	asosu.mutation.AddUpdatedAt(u)
+	return asosu
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (asosu *AppSubscriptionOneShotUpdate) SetDeletedAt(u uint32) *AppSubscriptionOneShotUpdate {
+	asosu.mutation.ResetDeletedAt()
+	asosu.mutation.SetDeletedAt(u)
+	return asosu
+}
+
+// SetNillableDeletedAt sets the "deleted_at" field if the given value is not nil.
+func (asosu *AppSubscriptionOneShotUpdate) SetNillableDeletedAt(u *uint32) *AppSubscriptionOneShotUpdate {
+	if u != nil {
+		asosu.SetDeletedAt(*u)
+	}
+	return asosu
+}
+
+// AddDeletedAt adds u to the "deleted_at" field.
+func (asosu *AppSubscriptionOneShotUpdate) AddDeletedAt(u int32) *AppSubscriptionOneShotUpdate {
+	asosu.mutation.AddDeletedAt(u)
+	return asosu
+}
+
 // SetAppID sets the "app_id" field.
 func (asosu *AppSubscriptionOneShotUpdate) SetAppID(u uuid.UUID) *AppSubscriptionOneShotUpdate {
 	asosu.mutation.SetAppID(u)
@@ -171,6 +226,7 @@ func (asosu *AppSubscriptionOneShotUpdate) Mutation() *AppSubscriptionOneShotMut
 
 // Save executes the query and returns the number of nodes affected by the update operation.
 func (asosu *AppSubscriptionOneShotUpdate) Save(ctx context.Context) (int, error) {
+	asosu.defaults()
 	return withHooks(ctx, asosu.sqlSave, asosu.mutation, asosu.hooks)
 }
 
@@ -196,6 +252,14 @@ func (asosu *AppSubscriptionOneShotUpdate) ExecX(ctx context.Context) {
 	}
 }
 
+// defaults sets the default values of the builder before save.
+func (asosu *AppSubscriptionOneShotUpdate) defaults() {
+	if _, ok := asosu.mutation.UpdatedAt(); !ok {
+		v := appsubscriptiononeshot.UpdateDefaultUpdatedAt()
+		asosu.mutation.SetUpdatedAt(v)
+	}
+}
+
 // Modify adds a statement modifier for attaching custom logic to the UPDATE statement.
 func (asosu *AppSubscriptionOneShotUpdate) Modify(modifiers ...func(u *sql.UpdateBuilder)) *AppSubscriptionOneShotUpdate {
 	asosu.modifiers = append(asosu.modifiers, modifiers...)
@@ -213,6 +277,24 @@ func (asosu *AppSubscriptionOneShotUpdate) sqlSave(ctx context.Context) (n int, 
 	}
 	if value, ok := asosu.mutation.EntID(); ok {
 		_spec.SetField(appsubscriptiononeshot.FieldEntID, field.TypeUUID, value)
+	}
+	if value, ok := asosu.mutation.CreatedAt(); ok {
+		_spec.SetField(appsubscriptiononeshot.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := asosu.mutation.AddedCreatedAt(); ok {
+		_spec.AddField(appsubscriptiononeshot.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := asosu.mutation.UpdatedAt(); ok {
+		_spec.SetField(appsubscriptiononeshot.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := asosu.mutation.AddedUpdatedAt(); ok {
+		_spec.AddField(appsubscriptiononeshot.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := asosu.mutation.DeletedAt(); ok {
+		_spec.SetField(appsubscriptiononeshot.FieldDeletedAt, field.TypeUint32, value)
+	}
+	if value, ok := asosu.mutation.AddedDeletedAt(); ok {
+		_spec.AddField(appsubscriptiononeshot.FieldDeletedAt, field.TypeUint32, value)
 	}
 	if value, ok := asosu.mutation.AppID(); ok {
 		_spec.SetField(appsubscriptiononeshot.FieldAppID, field.TypeUUID, value)
@@ -283,6 +365,61 @@ func (asosuo *AppSubscriptionOneShotUpdateOne) SetNillableEntID(u *uuid.UUID) *A
 	if u != nil {
 		asosuo.SetEntID(*u)
 	}
+	return asosuo
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (asosuo *AppSubscriptionOneShotUpdateOne) SetCreatedAt(u uint32) *AppSubscriptionOneShotUpdateOne {
+	asosuo.mutation.ResetCreatedAt()
+	asosuo.mutation.SetCreatedAt(u)
+	return asosuo
+}
+
+// SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
+func (asosuo *AppSubscriptionOneShotUpdateOne) SetNillableCreatedAt(u *uint32) *AppSubscriptionOneShotUpdateOne {
+	if u != nil {
+		asosuo.SetCreatedAt(*u)
+	}
+	return asosuo
+}
+
+// AddCreatedAt adds u to the "created_at" field.
+func (asosuo *AppSubscriptionOneShotUpdateOne) AddCreatedAt(u int32) *AppSubscriptionOneShotUpdateOne {
+	asosuo.mutation.AddCreatedAt(u)
+	return asosuo
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (asosuo *AppSubscriptionOneShotUpdateOne) SetUpdatedAt(u uint32) *AppSubscriptionOneShotUpdateOne {
+	asosuo.mutation.ResetUpdatedAt()
+	asosuo.mutation.SetUpdatedAt(u)
+	return asosuo
+}
+
+// AddUpdatedAt adds u to the "updated_at" field.
+func (asosuo *AppSubscriptionOneShotUpdateOne) AddUpdatedAt(u int32) *AppSubscriptionOneShotUpdateOne {
+	asosuo.mutation.AddUpdatedAt(u)
+	return asosuo
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (asosuo *AppSubscriptionOneShotUpdateOne) SetDeletedAt(u uint32) *AppSubscriptionOneShotUpdateOne {
+	asosuo.mutation.ResetDeletedAt()
+	asosuo.mutation.SetDeletedAt(u)
+	return asosuo
+}
+
+// SetNillableDeletedAt sets the "deleted_at" field if the given value is not nil.
+func (asosuo *AppSubscriptionOneShotUpdateOne) SetNillableDeletedAt(u *uint32) *AppSubscriptionOneShotUpdateOne {
+	if u != nil {
+		asosuo.SetDeletedAt(*u)
+	}
+	return asosuo
+}
+
+// AddDeletedAt adds u to the "deleted_at" field.
+func (asosuo *AppSubscriptionOneShotUpdateOne) AddDeletedAt(u int32) *AppSubscriptionOneShotUpdateOne {
+	asosuo.mutation.AddDeletedAt(u)
 	return asosuo
 }
 
@@ -426,6 +563,7 @@ func (asosuo *AppSubscriptionOneShotUpdateOne) Select(field string, fields ...st
 
 // Save executes the query and returns the updated AppSubscriptionOneShot entity.
 func (asosuo *AppSubscriptionOneShotUpdateOne) Save(ctx context.Context) (*AppSubscriptionOneShot, error) {
+	asosuo.defaults()
 	return withHooks(ctx, asosuo.sqlSave, asosuo.mutation, asosuo.hooks)
 }
 
@@ -448,6 +586,14 @@ func (asosuo *AppSubscriptionOneShotUpdateOne) Exec(ctx context.Context) error {
 func (asosuo *AppSubscriptionOneShotUpdateOne) ExecX(ctx context.Context) {
 	if err := asosuo.Exec(ctx); err != nil {
 		panic(err)
+	}
+}
+
+// defaults sets the default values of the builder before save.
+func (asosuo *AppSubscriptionOneShotUpdateOne) defaults() {
+	if _, ok := asosuo.mutation.UpdatedAt(); !ok {
+		v := appsubscriptiononeshot.UpdateDefaultUpdatedAt()
+		asosuo.mutation.SetUpdatedAt(v)
 	}
 }
 
@@ -485,6 +631,24 @@ func (asosuo *AppSubscriptionOneShotUpdateOne) sqlSave(ctx context.Context) (_no
 	}
 	if value, ok := asosuo.mutation.EntID(); ok {
 		_spec.SetField(appsubscriptiononeshot.FieldEntID, field.TypeUUID, value)
+	}
+	if value, ok := asosuo.mutation.CreatedAt(); ok {
+		_spec.SetField(appsubscriptiononeshot.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := asosuo.mutation.AddedCreatedAt(); ok {
+		_spec.AddField(appsubscriptiononeshot.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := asosuo.mutation.UpdatedAt(); ok {
+		_spec.SetField(appsubscriptiononeshot.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := asosuo.mutation.AddedUpdatedAt(); ok {
+		_spec.AddField(appsubscriptiononeshot.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := asosuo.mutation.DeletedAt(); ok {
+		_spec.SetField(appsubscriptiononeshot.FieldDeletedAt, field.TypeUint32, value)
+	}
+	if value, ok := asosuo.mutation.AddedDeletedAt(); ok {
+		_spec.AddField(appsubscriptiononeshot.FieldDeletedAt, field.TypeUint32, value)
 	}
 	if value, ok := asosuo.mutation.AppID(); ok {
 		_spec.SetField(appsubscriptiononeshot.FieldAppID, field.TypeUUID, value)

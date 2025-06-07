@@ -6,7 +6,7 @@ import (
 	logger "github.com/NpoolPlatform/kunman/framework/logger"
 	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
 	goodcoincrud "github.com/NpoolPlatform/kunman/middleware/good/crud/good/coin"
-	"github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated"
+	ent "github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated"
 	entgoodbase "github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated/goodbase"
 	entgoodcoin "github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated/goodcoin"
 

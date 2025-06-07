@@ -8,7 +8,7 @@ package oneshot
 
 import (
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/good/v1"
-	oneshot "github.com/NpoolPlatform/message/good/middleware/v1/subscription/oneshot"
+	oneshot "github.com/NpoolPlatform/kunman/message/good/middleware/v1/subscription/oneshot"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"

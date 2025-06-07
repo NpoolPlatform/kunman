@@ -18,6 +18,7 @@ type AppStock struct {
 func (AppStock) Mixin() []ent.Mixin {
 	return []ent.Mixin{
 		crudermixin.AutoIDMixin{},
+		crudermixin.TimeMixin{},
 	}
 }
 

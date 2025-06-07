@@ -10,7 +10,7 @@ import (
 
 	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 
-	goodcoin1 "github.com/NpoolPlatform/kunman/middleware/good/middleware/good/coin"
+	goodcoin1 "github.com/NpoolPlatform/kunman/middleware/good/good/coin"
 	npool "github.com/NpoolPlatform/kunman/message/good/middleware/v1/delegatedstaking"
 	goodcoinmwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/good/coin"
 	goodcoinrewardmwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/good/coin/reward"

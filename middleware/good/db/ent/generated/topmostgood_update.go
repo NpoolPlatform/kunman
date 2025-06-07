@@ -44,6 +44,61 @@ func (tmgu *TopMostGoodUpdate) SetNillableEntID(u *uuid.UUID) *TopMostGoodUpdate
 	return tmgu
 }
 
+// SetCreatedAt sets the "created_at" field.
+func (tmgu *TopMostGoodUpdate) SetCreatedAt(u uint32) *TopMostGoodUpdate {
+	tmgu.mutation.ResetCreatedAt()
+	tmgu.mutation.SetCreatedAt(u)
+	return tmgu
+}
+
+// SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
+func (tmgu *TopMostGoodUpdate) SetNillableCreatedAt(u *uint32) *TopMostGoodUpdate {
+	if u != nil {
+		tmgu.SetCreatedAt(*u)
+	}
+	return tmgu
+}
+
+// AddCreatedAt adds u to the "created_at" field.
+func (tmgu *TopMostGoodUpdate) AddCreatedAt(u int32) *TopMostGoodUpdate {
+	tmgu.mutation.AddCreatedAt(u)
+	return tmgu
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (tmgu *TopMostGoodUpdate) SetUpdatedAt(u uint32) *TopMostGoodUpdate {
+	tmgu.mutation.ResetUpdatedAt()
+	tmgu.mutation.SetUpdatedAt(u)
+	return tmgu
+}
+
+// AddUpdatedAt adds u to the "updated_at" field.
+func (tmgu *TopMostGoodUpdate) AddUpdatedAt(u int32) *TopMostGoodUpdate {
+	tmgu.mutation.AddUpdatedAt(u)
+	return tmgu
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (tmgu *TopMostGoodUpdate) SetDeletedAt(u uint32) *TopMostGoodUpdate {
+	tmgu.mutation.ResetDeletedAt()
+	tmgu.mutation.SetDeletedAt(u)
+	return tmgu
+}
+
+// SetNillableDeletedAt sets the "deleted_at" field if the given value is not nil.
+func (tmgu *TopMostGoodUpdate) SetNillableDeletedAt(u *uint32) *TopMostGoodUpdate {
+	if u != nil {
+		tmgu.SetDeletedAt(*u)
+	}
+	return tmgu
+}
+
+// AddDeletedAt adds u to the "deleted_at" field.
+func (tmgu *TopMostGoodUpdate) AddDeletedAt(u int32) *TopMostGoodUpdate {
+	tmgu.mutation.AddDeletedAt(u)
+	return tmgu
+}
+
 // SetAppGoodID sets the "app_good_id" field.
 func (tmgu *TopMostGoodUpdate) SetAppGoodID(u uuid.UUID) *TopMostGoodUpdate {
 	tmgu.mutation.SetAppGoodID(u)
@@ -138,6 +193,7 @@ func (tmgu *TopMostGoodUpdate) Mutation() *TopMostGoodMutation {
 
 // Save executes the query and returns the number of nodes affected by the update operation.
 func (tmgu *TopMostGoodUpdate) Save(ctx context.Context) (int, error) {
+	tmgu.defaults()
 	return withHooks(ctx, tmgu.sqlSave, tmgu.mutation, tmgu.hooks)
 }
 
@@ -163,6 +219,14 @@ func (tmgu *TopMostGoodUpdate) ExecX(ctx context.Context) {
 	}
 }
 
+// defaults sets the default values of the builder before save.
+func (tmgu *TopMostGoodUpdate) defaults() {
+	if _, ok := tmgu.mutation.UpdatedAt(); !ok {
+		v := topmostgood.UpdateDefaultUpdatedAt()
+		tmgu.mutation.SetUpdatedAt(v)
+	}
+}
+
 // Modify adds a statement modifier for attaching custom logic to the UPDATE statement.
 func (tmgu *TopMostGoodUpdate) Modify(modifiers ...func(u *sql.UpdateBuilder)) *TopMostGoodUpdate {
 	tmgu.modifiers = append(tmgu.modifiers, modifiers...)
@@ -180,6 +244,24 @@ func (tmgu *TopMostGoodUpdate) sqlSave(ctx context.Context) (n int, err error) {
 	}
 	if value, ok := tmgu.mutation.EntID(); ok {
 		_spec.SetField(topmostgood.FieldEntID, field.TypeUUID, value)
+	}
+	if value, ok := tmgu.mutation.CreatedAt(); ok {
+		_spec.SetField(topmostgood.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := tmgu.mutation.AddedCreatedAt(); ok {
+		_spec.AddField(topmostgood.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := tmgu.mutation.UpdatedAt(); ok {
+		_spec.SetField(topmostgood.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := tmgu.mutation.AddedUpdatedAt(); ok {
+		_spec.AddField(topmostgood.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := tmgu.mutation.DeletedAt(); ok {
+		_spec.SetField(topmostgood.FieldDeletedAt, field.TypeUint32, value)
+	}
+	if value, ok := tmgu.mutation.AddedDeletedAt(); ok {
+		_spec.AddField(topmostgood.FieldDeletedAt, field.TypeUint32, value)
 	}
 	if value, ok := tmgu.mutation.AppGoodID(); ok {
 		_spec.SetField(topmostgood.FieldAppGoodID, field.TypeUUID, value)
@@ -241,6 +323,61 @@ func (tmguo *TopMostGoodUpdateOne) SetNillableEntID(u *uuid.UUID) *TopMostGoodUp
 	if u != nil {
 		tmguo.SetEntID(*u)
 	}
+	return tmguo
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (tmguo *TopMostGoodUpdateOne) SetCreatedAt(u uint32) *TopMostGoodUpdateOne {
+	tmguo.mutation.ResetCreatedAt()
+	tmguo.mutation.SetCreatedAt(u)
+	return tmguo
+}
+
+// SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
+func (tmguo *TopMostGoodUpdateOne) SetNillableCreatedAt(u *uint32) *TopMostGoodUpdateOne {
+	if u != nil {
+		tmguo.SetCreatedAt(*u)
+	}
+	return tmguo
+}
+
+// AddCreatedAt adds u to the "created_at" field.
+func (tmguo *TopMostGoodUpdateOne) AddCreatedAt(u int32) *TopMostGoodUpdateOne {
+	tmguo.mutation.AddCreatedAt(u)
+	return tmguo
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (tmguo *TopMostGoodUpdateOne) SetUpdatedAt(u uint32) *TopMostGoodUpdateOne {
+	tmguo.mutation.ResetUpdatedAt()
+	tmguo.mutation.SetUpdatedAt(u)
+	return tmguo
+}
+
+// AddUpdatedAt adds u to the "updated_at" field.
+func (tmguo *TopMostGoodUpdateOne) AddUpdatedAt(u int32) *TopMostGoodUpdateOne {
+	tmguo.mutation.AddUpdatedAt(u)
+	return tmguo
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (tmguo *TopMostGoodUpdateOne) SetDeletedAt(u uint32) *TopMostGoodUpdateOne {
+	tmguo.mutation.ResetDeletedAt()
+	tmguo.mutation.SetDeletedAt(u)
+	return tmguo
+}
+
+// SetNillableDeletedAt sets the "deleted_at" field if the given value is not nil.
+func (tmguo *TopMostGoodUpdateOne) SetNillableDeletedAt(u *uint32) *TopMostGoodUpdateOne {
+	if u != nil {
+		tmguo.SetDeletedAt(*u)
+	}
+	return tmguo
+}
+
+// AddDeletedAt adds u to the "deleted_at" field.
+func (tmguo *TopMostGoodUpdateOne) AddDeletedAt(u int32) *TopMostGoodUpdateOne {
+	tmguo.mutation.AddDeletedAt(u)
 	return tmguo
 }
 
@@ -351,6 +488,7 @@ func (tmguo *TopMostGoodUpdateOne) Select(field string, fields ...string) *TopMo
 
 // Save executes the query and returns the updated TopMostGood entity.
 func (tmguo *TopMostGoodUpdateOne) Save(ctx context.Context) (*TopMostGood, error) {
+	tmguo.defaults()
 	return withHooks(ctx, tmguo.sqlSave, tmguo.mutation, tmguo.hooks)
 }
 
@@ -373,6 +511,14 @@ func (tmguo *TopMostGoodUpdateOne) Exec(ctx context.Context) error {
 func (tmguo *TopMostGoodUpdateOne) ExecX(ctx context.Context) {
 	if err := tmguo.Exec(ctx); err != nil {
 		panic(err)
+	}
+}
+
+// defaults sets the default values of the builder before save.
+func (tmguo *TopMostGoodUpdateOne) defaults() {
+	if _, ok := tmguo.mutation.UpdatedAt(); !ok {
+		v := topmostgood.UpdateDefaultUpdatedAt()
+		tmguo.mutation.SetUpdatedAt(v)
 	}
 }
 
@@ -410,6 +556,24 @@ func (tmguo *TopMostGoodUpdateOne) sqlSave(ctx context.Context) (_node *TopMostG
 	}
 	if value, ok := tmguo.mutation.EntID(); ok {
 		_spec.SetField(topmostgood.FieldEntID, field.TypeUUID, value)
+	}
+	if value, ok := tmguo.mutation.CreatedAt(); ok {
+		_spec.SetField(topmostgood.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := tmguo.mutation.AddedCreatedAt(); ok {
+		_spec.AddField(topmostgood.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := tmguo.mutation.UpdatedAt(); ok {
+		_spec.SetField(topmostgood.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := tmguo.mutation.AddedUpdatedAt(); ok {
+		_spec.AddField(topmostgood.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := tmguo.mutation.DeletedAt(); ok {
+		_spec.SetField(topmostgood.FieldDeletedAt, field.TypeUint32, value)
+	}
+	if value, ok := tmguo.mutation.AddedDeletedAt(); ok {
+		_spec.AddField(topmostgood.FieldDeletedAt, field.TypeUint32, value)
 	}
 	if value, ok := tmguo.mutation.AppGoodID(); ok {
 		_spec.SetField(topmostgood.FieldAppGoodID, field.TypeUUID, value)

@@ -16,6 +16,7 @@ type TopMost struct {
 func (TopMost) Mixin() []ent.Mixin {
 	return []ent.Mixin{
 		crudermixin.AutoIDMixin{},
+		crudermixin.TimeMixin{},
 	}
 }
 

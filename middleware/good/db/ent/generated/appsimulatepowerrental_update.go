@@ -44,6 +44,61 @@ func (aspru *AppSimulatePowerRentalUpdate) SetNillableEntID(u *uuid.UUID) *AppSi
 	return aspru
 }
 
+// SetCreatedAt sets the "created_at" field.
+func (aspru *AppSimulatePowerRentalUpdate) SetCreatedAt(u uint32) *AppSimulatePowerRentalUpdate {
+	aspru.mutation.ResetCreatedAt()
+	aspru.mutation.SetCreatedAt(u)
+	return aspru
+}
+
+// SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
+func (aspru *AppSimulatePowerRentalUpdate) SetNillableCreatedAt(u *uint32) *AppSimulatePowerRentalUpdate {
+	if u != nil {
+		aspru.SetCreatedAt(*u)
+	}
+	return aspru
+}
+
+// AddCreatedAt adds u to the "created_at" field.
+func (aspru *AppSimulatePowerRentalUpdate) AddCreatedAt(u int32) *AppSimulatePowerRentalUpdate {
+	aspru.mutation.AddCreatedAt(u)
+	return aspru
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (aspru *AppSimulatePowerRentalUpdate) SetUpdatedAt(u uint32) *AppSimulatePowerRentalUpdate {
+	aspru.mutation.ResetUpdatedAt()
+	aspru.mutation.SetUpdatedAt(u)
+	return aspru
+}
+
+// AddUpdatedAt adds u to the "updated_at" field.
+func (aspru *AppSimulatePowerRentalUpdate) AddUpdatedAt(u int32) *AppSimulatePowerRentalUpdate {
+	aspru.mutation.AddUpdatedAt(u)
+	return aspru
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (aspru *AppSimulatePowerRentalUpdate) SetDeletedAt(u uint32) *AppSimulatePowerRentalUpdate {
+	aspru.mutation.ResetDeletedAt()
+	aspru.mutation.SetDeletedAt(u)
+	return aspru
+}
+
+// SetNillableDeletedAt sets the "deleted_at" field if the given value is not nil.
+func (aspru *AppSimulatePowerRentalUpdate) SetNillableDeletedAt(u *uint32) *AppSimulatePowerRentalUpdate {
+	if u != nil {
+		aspru.SetDeletedAt(*u)
+	}
+	return aspru
+}
+
+// AddDeletedAt adds u to the "deleted_at" field.
+func (aspru *AppSimulatePowerRentalUpdate) AddDeletedAt(u int32) *AppSimulatePowerRentalUpdate {
+	aspru.mutation.AddDeletedAt(u)
+	return aspru
+}
+
 // SetAppGoodID sets the "app_good_id" field.
 func (aspru *AppSimulatePowerRentalUpdate) SetAppGoodID(u uuid.UUID) *AppSimulatePowerRentalUpdate {
 	aspru.mutation.SetAppGoodID(u)
@@ -138,6 +193,7 @@ func (aspru *AppSimulatePowerRentalUpdate) Mutation() *AppSimulatePowerRentalMut
 
 // Save executes the query and returns the number of nodes affected by the update operation.
 func (aspru *AppSimulatePowerRentalUpdate) Save(ctx context.Context) (int, error) {
+	aspru.defaults()
 	return withHooks(ctx, aspru.sqlSave, aspru.mutation, aspru.hooks)
 }
 
@@ -163,6 +219,14 @@ func (aspru *AppSimulatePowerRentalUpdate) ExecX(ctx context.Context) {
 	}
 }
 
+// defaults sets the default values of the builder before save.
+func (aspru *AppSimulatePowerRentalUpdate) defaults() {
+	if _, ok := aspru.mutation.UpdatedAt(); !ok {
+		v := appsimulatepowerrental.UpdateDefaultUpdatedAt()
+		aspru.mutation.SetUpdatedAt(v)
+	}
+}
+
 // Modify adds a statement modifier for attaching custom logic to the UPDATE statement.
 func (aspru *AppSimulatePowerRentalUpdate) Modify(modifiers ...func(u *sql.UpdateBuilder)) *AppSimulatePowerRentalUpdate {
 	aspru.modifiers = append(aspru.modifiers, modifiers...)
@@ -180,6 +244,24 @@ func (aspru *AppSimulatePowerRentalUpdate) sqlSave(ctx context.Context) (n int, 
 	}
 	if value, ok := aspru.mutation.EntID(); ok {
 		_spec.SetField(appsimulatepowerrental.FieldEntID, field.TypeUUID, value)
+	}
+	if value, ok := aspru.mutation.CreatedAt(); ok {
+		_spec.SetField(appsimulatepowerrental.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := aspru.mutation.AddedCreatedAt(); ok {
+		_spec.AddField(appsimulatepowerrental.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := aspru.mutation.UpdatedAt(); ok {
+		_spec.SetField(appsimulatepowerrental.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := aspru.mutation.AddedUpdatedAt(); ok {
+		_spec.AddField(appsimulatepowerrental.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := aspru.mutation.DeletedAt(); ok {
+		_spec.SetField(appsimulatepowerrental.FieldDeletedAt, field.TypeUint32, value)
+	}
+	if value, ok := aspru.mutation.AddedDeletedAt(); ok {
+		_spec.AddField(appsimulatepowerrental.FieldDeletedAt, field.TypeUint32, value)
 	}
 	if value, ok := aspru.mutation.AppGoodID(); ok {
 		_spec.SetField(appsimulatepowerrental.FieldAppGoodID, field.TypeUUID, value)
@@ -241,6 +323,61 @@ func (aspruo *AppSimulatePowerRentalUpdateOne) SetNillableEntID(u *uuid.UUID) *A
 	if u != nil {
 		aspruo.SetEntID(*u)
 	}
+	return aspruo
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (aspruo *AppSimulatePowerRentalUpdateOne) SetCreatedAt(u uint32) *AppSimulatePowerRentalUpdateOne {
+	aspruo.mutation.ResetCreatedAt()
+	aspruo.mutation.SetCreatedAt(u)
+	return aspruo
+}
+
+// SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
+func (aspruo *AppSimulatePowerRentalUpdateOne) SetNillableCreatedAt(u *uint32) *AppSimulatePowerRentalUpdateOne {
+	if u != nil {
+		aspruo.SetCreatedAt(*u)
+	}
+	return aspruo
+}
+
+// AddCreatedAt adds u to the "created_at" field.
+func (aspruo *AppSimulatePowerRentalUpdateOne) AddCreatedAt(u int32) *AppSimulatePowerRentalUpdateOne {
+	aspruo.mutation.AddCreatedAt(u)
+	return aspruo
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (aspruo *AppSimulatePowerRentalUpdateOne) SetUpdatedAt(u uint32) *AppSimulatePowerRentalUpdateOne {
+	aspruo.mutation.ResetUpdatedAt()
+	aspruo.mutation.SetUpdatedAt(u)
+	return aspruo
+}
+
+// AddUpdatedAt adds u to the "updated_at" field.
+func (aspruo *AppSimulatePowerRentalUpdateOne) AddUpdatedAt(u int32) *AppSimulatePowerRentalUpdateOne {
+	aspruo.mutation.AddUpdatedAt(u)
+	return aspruo
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (aspruo *AppSimulatePowerRentalUpdateOne) SetDeletedAt(u uint32) *AppSimulatePowerRentalUpdateOne {
+	aspruo.mutation.ResetDeletedAt()
+	aspruo.mutation.SetDeletedAt(u)
+	return aspruo
+}
+
+// SetNillableDeletedAt sets the "deleted_at" field if the given value is not nil.
+func (aspruo *AppSimulatePowerRentalUpdateOne) SetNillableDeletedAt(u *uint32) *AppSimulatePowerRentalUpdateOne {
+	if u != nil {
+		aspruo.SetDeletedAt(*u)
+	}
+	return aspruo
+}
+
+// AddDeletedAt adds u to the "deleted_at" field.
+func (aspruo *AppSimulatePowerRentalUpdateOne) AddDeletedAt(u int32) *AppSimulatePowerRentalUpdateOne {
+	aspruo.mutation.AddDeletedAt(u)
 	return aspruo
 }
 
@@ -351,6 +488,7 @@ func (aspruo *AppSimulatePowerRentalUpdateOne) Select(field string, fields ...st
 
 // Save executes the query and returns the updated AppSimulatePowerRental entity.
 func (aspruo *AppSimulatePowerRentalUpdateOne) Save(ctx context.Context) (*AppSimulatePowerRental, error) {
+	aspruo.defaults()
 	return withHooks(ctx, aspruo.sqlSave, aspruo.mutation, aspruo.hooks)
 }
 
@@ -373,6 +511,14 @@ func (aspruo *AppSimulatePowerRentalUpdateOne) Exec(ctx context.Context) error {
 func (aspruo *AppSimulatePowerRentalUpdateOne) ExecX(ctx context.Context) {
 	if err := aspruo.Exec(ctx); err != nil {
 		panic(err)
+	}
+}
+
+// defaults sets the default values of the builder before save.
+func (aspruo *AppSimulatePowerRentalUpdateOne) defaults() {
+	if _, ok := aspruo.mutation.UpdatedAt(); !ok {
+		v := appsimulatepowerrental.UpdateDefaultUpdatedAt()
+		aspruo.mutation.SetUpdatedAt(v)
 	}
 }
 
@@ -410,6 +556,24 @@ func (aspruo *AppSimulatePowerRentalUpdateOne) sqlSave(ctx context.Context) (_no
 	}
 	if value, ok := aspruo.mutation.EntID(); ok {
 		_spec.SetField(appsimulatepowerrental.FieldEntID, field.TypeUUID, value)
+	}
+	if value, ok := aspruo.mutation.CreatedAt(); ok {
+		_spec.SetField(appsimulatepowerrental.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := aspruo.mutation.AddedCreatedAt(); ok {
+		_spec.AddField(appsimulatepowerrental.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := aspruo.mutation.UpdatedAt(); ok {
+		_spec.SetField(appsimulatepowerrental.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := aspruo.mutation.AddedUpdatedAt(); ok {
+		_spec.AddField(appsimulatepowerrental.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := aspruo.mutation.DeletedAt(); ok {
+		_spec.SetField(appsimulatepowerrental.FieldDeletedAt, field.TypeUint32, value)
+	}
+	if value, ok := aspruo.mutation.AddedDeletedAt(); ok {
+		_spec.AddField(appsimulatepowerrental.FieldDeletedAt, field.TypeUint32, value)
 	}
 	if value, ok := aspruo.mutation.AppGoodID(); ok {
 		_spec.SetField(appsimulatepowerrental.FieldAppGoodID, field.TypeUUID, value)

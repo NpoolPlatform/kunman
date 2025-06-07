@@ -9,8 +9,8 @@ package stock
 import (
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/good/v1"
 	_ "github.com/NpoolPlatform/kunman/message/basetypes/v1"
-	mining "github.com/NpoolPlatform/message/good/middleware/v1/app/good/stock/mining"
-	stock "github.com/NpoolPlatform/message/good/middleware/v1/good/stock"
+	mining "github.com/NpoolPlatform/kunman/message/good/middleware/v1/app/good/stock/mining"
+	stock "github.com/NpoolPlatform/kunman/message/good/middleware/v1/good/stock"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	reflect "reflect"

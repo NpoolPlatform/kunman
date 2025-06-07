@@ -43,6 +43,61 @@ func (adsu *AppDelegatedStakingUpdate) SetNillableEntID(u *uuid.UUID) *AppDelega
 	return adsu
 }
 
+// SetCreatedAt sets the "created_at" field.
+func (adsu *AppDelegatedStakingUpdate) SetCreatedAt(u uint32) *AppDelegatedStakingUpdate {
+	adsu.mutation.ResetCreatedAt()
+	adsu.mutation.SetCreatedAt(u)
+	return adsu
+}
+
+// SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
+func (adsu *AppDelegatedStakingUpdate) SetNillableCreatedAt(u *uint32) *AppDelegatedStakingUpdate {
+	if u != nil {
+		adsu.SetCreatedAt(*u)
+	}
+	return adsu
+}
+
+// AddCreatedAt adds u to the "created_at" field.
+func (adsu *AppDelegatedStakingUpdate) AddCreatedAt(u int32) *AppDelegatedStakingUpdate {
+	adsu.mutation.AddCreatedAt(u)
+	return adsu
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (adsu *AppDelegatedStakingUpdate) SetUpdatedAt(u uint32) *AppDelegatedStakingUpdate {
+	adsu.mutation.ResetUpdatedAt()
+	adsu.mutation.SetUpdatedAt(u)
+	return adsu
+}
+
+// AddUpdatedAt adds u to the "updated_at" field.
+func (adsu *AppDelegatedStakingUpdate) AddUpdatedAt(u int32) *AppDelegatedStakingUpdate {
+	adsu.mutation.AddUpdatedAt(u)
+	return adsu
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (adsu *AppDelegatedStakingUpdate) SetDeletedAt(u uint32) *AppDelegatedStakingUpdate {
+	adsu.mutation.ResetDeletedAt()
+	adsu.mutation.SetDeletedAt(u)
+	return adsu
+}
+
+// SetNillableDeletedAt sets the "deleted_at" field if the given value is not nil.
+func (adsu *AppDelegatedStakingUpdate) SetNillableDeletedAt(u *uint32) *AppDelegatedStakingUpdate {
+	if u != nil {
+		adsu.SetDeletedAt(*u)
+	}
+	return adsu
+}
+
+// AddDeletedAt adds u to the "deleted_at" field.
+func (adsu *AppDelegatedStakingUpdate) AddDeletedAt(u int32) *AppDelegatedStakingUpdate {
+	adsu.mutation.AddDeletedAt(u)
+	return adsu
+}
+
 // SetAppGoodID sets the "app_good_id" field.
 func (adsu *AppDelegatedStakingUpdate) SetAppGoodID(u uuid.UUID) *AppDelegatedStakingUpdate {
 	adsu.mutation.SetAppGoodID(u)
@@ -137,6 +192,7 @@ func (adsu *AppDelegatedStakingUpdate) Mutation() *AppDelegatedStakingMutation {
 
 // Save executes the query and returns the number of nodes affected by the update operation.
 func (adsu *AppDelegatedStakingUpdate) Save(ctx context.Context) (int, error) {
+	adsu.defaults()
 	return withHooks(ctx, adsu.sqlSave, adsu.mutation, adsu.hooks)
 }
 
@@ -162,6 +218,14 @@ func (adsu *AppDelegatedStakingUpdate) ExecX(ctx context.Context) {
 	}
 }
 
+// defaults sets the default values of the builder before save.
+func (adsu *AppDelegatedStakingUpdate) defaults() {
+	if _, ok := adsu.mutation.UpdatedAt(); !ok {
+		v := appdelegatedstaking.UpdateDefaultUpdatedAt()
+		adsu.mutation.SetUpdatedAt(v)
+	}
+}
+
 // Modify adds a statement modifier for attaching custom logic to the UPDATE statement.
 func (adsu *AppDelegatedStakingUpdate) Modify(modifiers ...func(u *sql.UpdateBuilder)) *AppDelegatedStakingUpdate {
 	adsu.modifiers = append(adsu.modifiers, modifiers...)
@@ -179,6 +243,24 @@ func (adsu *AppDelegatedStakingUpdate) sqlSave(ctx context.Context) (n int, err 
 	}
 	if value, ok := adsu.mutation.EntID(); ok {
 		_spec.SetField(appdelegatedstaking.FieldEntID, field.TypeUUID, value)
+	}
+	if value, ok := adsu.mutation.CreatedAt(); ok {
+		_spec.SetField(appdelegatedstaking.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := adsu.mutation.AddedCreatedAt(); ok {
+		_spec.AddField(appdelegatedstaking.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := adsu.mutation.UpdatedAt(); ok {
+		_spec.SetField(appdelegatedstaking.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := adsu.mutation.AddedUpdatedAt(); ok {
+		_spec.AddField(appdelegatedstaking.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := adsu.mutation.DeletedAt(); ok {
+		_spec.SetField(appdelegatedstaking.FieldDeletedAt, field.TypeUint32, value)
+	}
+	if value, ok := adsu.mutation.AddedDeletedAt(); ok {
+		_spec.AddField(appdelegatedstaking.FieldDeletedAt, field.TypeUint32, value)
 	}
 	if value, ok := adsu.mutation.AppGoodID(); ok {
 		_spec.SetField(appdelegatedstaking.FieldAppGoodID, field.TypeUUID, value)
@@ -240,6 +322,61 @@ func (adsuo *AppDelegatedStakingUpdateOne) SetNillableEntID(u *uuid.UUID) *AppDe
 	if u != nil {
 		adsuo.SetEntID(*u)
 	}
+	return adsuo
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (adsuo *AppDelegatedStakingUpdateOne) SetCreatedAt(u uint32) *AppDelegatedStakingUpdateOne {
+	adsuo.mutation.ResetCreatedAt()
+	adsuo.mutation.SetCreatedAt(u)
+	return adsuo
+}
+
+// SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
+func (adsuo *AppDelegatedStakingUpdateOne) SetNillableCreatedAt(u *uint32) *AppDelegatedStakingUpdateOne {
+	if u != nil {
+		adsuo.SetCreatedAt(*u)
+	}
+	return adsuo
+}
+
+// AddCreatedAt adds u to the "created_at" field.
+func (adsuo *AppDelegatedStakingUpdateOne) AddCreatedAt(u int32) *AppDelegatedStakingUpdateOne {
+	adsuo.mutation.AddCreatedAt(u)
+	return adsuo
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (adsuo *AppDelegatedStakingUpdateOne) SetUpdatedAt(u uint32) *AppDelegatedStakingUpdateOne {
+	adsuo.mutation.ResetUpdatedAt()
+	adsuo.mutation.SetUpdatedAt(u)
+	return adsuo
+}
+
+// AddUpdatedAt adds u to the "updated_at" field.
+func (adsuo *AppDelegatedStakingUpdateOne) AddUpdatedAt(u int32) *AppDelegatedStakingUpdateOne {
+	adsuo.mutation.AddUpdatedAt(u)
+	return adsuo
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (adsuo *AppDelegatedStakingUpdateOne) SetDeletedAt(u uint32) *AppDelegatedStakingUpdateOne {
+	adsuo.mutation.ResetDeletedAt()
+	adsuo.mutation.SetDeletedAt(u)
+	return adsuo
+}
+
+// SetNillableDeletedAt sets the "deleted_at" field if the given value is not nil.
+func (adsuo *AppDelegatedStakingUpdateOne) SetNillableDeletedAt(u *uint32) *AppDelegatedStakingUpdateOne {
+	if u != nil {
+		adsuo.SetDeletedAt(*u)
+	}
+	return adsuo
+}
+
+// AddDeletedAt adds u to the "deleted_at" field.
+func (adsuo *AppDelegatedStakingUpdateOne) AddDeletedAt(u int32) *AppDelegatedStakingUpdateOne {
+	adsuo.mutation.AddDeletedAt(u)
 	return adsuo
 }
 
@@ -350,6 +487,7 @@ func (adsuo *AppDelegatedStakingUpdateOne) Select(field string, fields ...string
 
 // Save executes the query and returns the updated AppDelegatedStaking entity.
 func (adsuo *AppDelegatedStakingUpdateOne) Save(ctx context.Context) (*AppDelegatedStaking, error) {
+	adsuo.defaults()
 	return withHooks(ctx, adsuo.sqlSave, adsuo.mutation, adsuo.hooks)
 }
 
@@ -372,6 +510,14 @@ func (adsuo *AppDelegatedStakingUpdateOne) Exec(ctx context.Context) error {
 func (adsuo *AppDelegatedStakingUpdateOne) ExecX(ctx context.Context) {
 	if err := adsuo.Exec(ctx); err != nil {
 		panic(err)
+	}
+}
+
+// defaults sets the default values of the builder before save.
+func (adsuo *AppDelegatedStakingUpdateOne) defaults() {
+	if _, ok := adsuo.mutation.UpdatedAt(); !ok {
+		v := appdelegatedstaking.UpdateDefaultUpdatedAt()
+		adsuo.mutation.SetUpdatedAt(v)
 	}
 }
 
@@ -409,6 +555,24 @@ func (adsuo *AppDelegatedStakingUpdateOne) sqlSave(ctx context.Context) (_node *
 	}
 	if value, ok := adsuo.mutation.EntID(); ok {
 		_spec.SetField(appdelegatedstaking.FieldEntID, field.TypeUUID, value)
+	}
+	if value, ok := adsuo.mutation.CreatedAt(); ok {
+		_spec.SetField(appdelegatedstaking.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := adsuo.mutation.AddedCreatedAt(); ok {
+		_spec.AddField(appdelegatedstaking.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := adsuo.mutation.UpdatedAt(); ok {
+		_spec.SetField(appdelegatedstaking.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := adsuo.mutation.AddedUpdatedAt(); ok {
+		_spec.AddField(appdelegatedstaking.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := adsuo.mutation.DeletedAt(); ok {
+		_spec.SetField(appdelegatedstaking.FieldDeletedAt, field.TypeUint32, value)
+	}
+	if value, ok := adsuo.mutation.AddedDeletedAt(); ok {
+		_spec.AddField(appdelegatedstaking.FieldDeletedAt, field.TypeUint32, value)
 	}
 	if value, ok := adsuo.mutation.AppGoodID(); ok {
 		_spec.SetField(appdelegatedstaking.FieldAppGoodID, field.TypeUUID, value)

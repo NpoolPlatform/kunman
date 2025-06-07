@@ -16,6 +16,7 @@ type GoodCoin struct {
 func (GoodCoin) Mixin() []ent.Mixin {
 	return []ent.Mixin{
 		crudermixin.AutoIDMixin{},
+		crudermixin.TimeMixin{},
 	}
 }
 

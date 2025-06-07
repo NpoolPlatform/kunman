@@ -43,6 +43,61 @@ func (agpu *AppGoodPosterUpdate) SetNillableEntID(u *uuid.UUID) *AppGoodPosterUp
 	return agpu
 }
 
+// SetCreatedAt sets the "created_at" field.
+func (agpu *AppGoodPosterUpdate) SetCreatedAt(u uint32) *AppGoodPosterUpdate {
+	agpu.mutation.ResetCreatedAt()
+	agpu.mutation.SetCreatedAt(u)
+	return agpu
+}
+
+// SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
+func (agpu *AppGoodPosterUpdate) SetNillableCreatedAt(u *uint32) *AppGoodPosterUpdate {
+	if u != nil {
+		agpu.SetCreatedAt(*u)
+	}
+	return agpu
+}
+
+// AddCreatedAt adds u to the "created_at" field.
+func (agpu *AppGoodPosterUpdate) AddCreatedAt(u int32) *AppGoodPosterUpdate {
+	agpu.mutation.AddCreatedAt(u)
+	return agpu
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (agpu *AppGoodPosterUpdate) SetUpdatedAt(u uint32) *AppGoodPosterUpdate {
+	agpu.mutation.ResetUpdatedAt()
+	agpu.mutation.SetUpdatedAt(u)
+	return agpu
+}
+
+// AddUpdatedAt adds u to the "updated_at" field.
+func (agpu *AppGoodPosterUpdate) AddUpdatedAt(u int32) *AppGoodPosterUpdate {
+	agpu.mutation.AddUpdatedAt(u)
+	return agpu
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (agpu *AppGoodPosterUpdate) SetDeletedAt(u uint32) *AppGoodPosterUpdate {
+	agpu.mutation.ResetDeletedAt()
+	agpu.mutation.SetDeletedAt(u)
+	return agpu
+}
+
+// SetNillableDeletedAt sets the "deleted_at" field if the given value is not nil.
+func (agpu *AppGoodPosterUpdate) SetNillableDeletedAt(u *uint32) *AppGoodPosterUpdate {
+	if u != nil {
+		agpu.SetDeletedAt(*u)
+	}
+	return agpu
+}
+
+// AddDeletedAt adds u to the "deleted_at" field.
+func (agpu *AppGoodPosterUpdate) AddDeletedAt(u int32) *AppGoodPosterUpdate {
+	agpu.mutation.AddDeletedAt(u)
+	return agpu
+}
+
 // SetAppGoodID sets the "app_good_id" field.
 func (agpu *AppGoodPosterUpdate) SetAppGoodID(u uuid.UUID) *AppGoodPosterUpdate {
 	agpu.mutation.SetAppGoodID(u)
@@ -117,6 +172,7 @@ func (agpu *AppGoodPosterUpdate) Mutation() *AppGoodPosterMutation {
 
 // Save executes the query and returns the number of nodes affected by the update operation.
 func (agpu *AppGoodPosterUpdate) Save(ctx context.Context) (int, error) {
+	agpu.defaults()
 	return withHooks(ctx, agpu.sqlSave, agpu.mutation, agpu.hooks)
 }
 
@@ -142,6 +198,14 @@ func (agpu *AppGoodPosterUpdate) ExecX(ctx context.Context) {
 	}
 }
 
+// defaults sets the default values of the builder before save.
+func (agpu *AppGoodPosterUpdate) defaults() {
+	if _, ok := agpu.mutation.UpdatedAt(); !ok {
+		v := appgoodposter.UpdateDefaultUpdatedAt()
+		agpu.mutation.SetUpdatedAt(v)
+	}
+}
+
 // Modify adds a statement modifier for attaching custom logic to the UPDATE statement.
 func (agpu *AppGoodPosterUpdate) Modify(modifiers ...func(u *sql.UpdateBuilder)) *AppGoodPosterUpdate {
 	agpu.modifiers = append(agpu.modifiers, modifiers...)
@@ -159,6 +223,24 @@ func (agpu *AppGoodPosterUpdate) sqlSave(ctx context.Context) (n int, err error)
 	}
 	if value, ok := agpu.mutation.EntID(); ok {
 		_spec.SetField(appgoodposter.FieldEntID, field.TypeUUID, value)
+	}
+	if value, ok := agpu.mutation.CreatedAt(); ok {
+		_spec.SetField(appgoodposter.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := agpu.mutation.AddedCreatedAt(); ok {
+		_spec.AddField(appgoodposter.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := agpu.mutation.UpdatedAt(); ok {
+		_spec.SetField(appgoodposter.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := agpu.mutation.AddedUpdatedAt(); ok {
+		_spec.AddField(appgoodposter.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := agpu.mutation.DeletedAt(); ok {
+		_spec.SetField(appgoodposter.FieldDeletedAt, field.TypeUint32, value)
+	}
+	if value, ok := agpu.mutation.AddedDeletedAt(); ok {
+		_spec.AddField(appgoodposter.FieldDeletedAt, field.TypeUint32, value)
 	}
 	if value, ok := agpu.mutation.AppGoodID(); ok {
 		_spec.SetField(appgoodposter.FieldAppGoodID, field.TypeUUID, value)
@@ -214,6 +296,61 @@ func (agpuo *AppGoodPosterUpdateOne) SetNillableEntID(u *uuid.UUID) *AppGoodPost
 	if u != nil {
 		agpuo.SetEntID(*u)
 	}
+	return agpuo
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (agpuo *AppGoodPosterUpdateOne) SetCreatedAt(u uint32) *AppGoodPosterUpdateOne {
+	agpuo.mutation.ResetCreatedAt()
+	agpuo.mutation.SetCreatedAt(u)
+	return agpuo
+}
+
+// SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
+func (agpuo *AppGoodPosterUpdateOne) SetNillableCreatedAt(u *uint32) *AppGoodPosterUpdateOne {
+	if u != nil {
+		agpuo.SetCreatedAt(*u)
+	}
+	return agpuo
+}
+
+// AddCreatedAt adds u to the "created_at" field.
+func (agpuo *AppGoodPosterUpdateOne) AddCreatedAt(u int32) *AppGoodPosterUpdateOne {
+	agpuo.mutation.AddCreatedAt(u)
+	return agpuo
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (agpuo *AppGoodPosterUpdateOne) SetUpdatedAt(u uint32) *AppGoodPosterUpdateOne {
+	agpuo.mutation.ResetUpdatedAt()
+	agpuo.mutation.SetUpdatedAt(u)
+	return agpuo
+}
+
+// AddUpdatedAt adds u to the "updated_at" field.
+func (agpuo *AppGoodPosterUpdateOne) AddUpdatedAt(u int32) *AppGoodPosterUpdateOne {
+	agpuo.mutation.AddUpdatedAt(u)
+	return agpuo
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (agpuo *AppGoodPosterUpdateOne) SetDeletedAt(u uint32) *AppGoodPosterUpdateOne {
+	agpuo.mutation.ResetDeletedAt()
+	agpuo.mutation.SetDeletedAt(u)
+	return agpuo
+}
+
+// SetNillableDeletedAt sets the "deleted_at" field if the given value is not nil.
+func (agpuo *AppGoodPosterUpdateOne) SetNillableDeletedAt(u *uint32) *AppGoodPosterUpdateOne {
+	if u != nil {
+		agpuo.SetDeletedAt(*u)
+	}
+	return agpuo
+}
+
+// AddDeletedAt adds u to the "deleted_at" field.
+func (agpuo *AppGoodPosterUpdateOne) AddDeletedAt(u int32) *AppGoodPosterUpdateOne {
+	agpuo.mutation.AddDeletedAt(u)
 	return agpuo
 }
 
@@ -304,6 +441,7 @@ func (agpuo *AppGoodPosterUpdateOne) Select(field string, fields ...string) *App
 
 // Save executes the query and returns the updated AppGoodPoster entity.
 func (agpuo *AppGoodPosterUpdateOne) Save(ctx context.Context) (*AppGoodPoster, error) {
+	agpuo.defaults()
 	return withHooks(ctx, agpuo.sqlSave, agpuo.mutation, agpuo.hooks)
 }
 
@@ -326,6 +464,14 @@ func (agpuo *AppGoodPosterUpdateOne) Exec(ctx context.Context) error {
 func (agpuo *AppGoodPosterUpdateOne) ExecX(ctx context.Context) {
 	if err := agpuo.Exec(ctx); err != nil {
 		panic(err)
+	}
+}
+
+// defaults sets the default values of the builder before save.
+func (agpuo *AppGoodPosterUpdateOne) defaults() {
+	if _, ok := agpuo.mutation.UpdatedAt(); !ok {
+		v := appgoodposter.UpdateDefaultUpdatedAt()
+		agpuo.mutation.SetUpdatedAt(v)
 	}
 }
 
@@ -363,6 +509,24 @@ func (agpuo *AppGoodPosterUpdateOne) sqlSave(ctx context.Context) (_node *AppGoo
 	}
 	if value, ok := agpuo.mutation.EntID(); ok {
 		_spec.SetField(appgoodposter.FieldEntID, field.TypeUUID, value)
+	}
+	if value, ok := agpuo.mutation.CreatedAt(); ok {
+		_spec.SetField(appgoodposter.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := agpuo.mutation.AddedCreatedAt(); ok {
+		_spec.AddField(appgoodposter.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := agpuo.mutation.UpdatedAt(); ok {
+		_spec.SetField(appgoodposter.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := agpuo.mutation.AddedUpdatedAt(); ok {
+		_spec.AddField(appgoodposter.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := agpuo.mutation.DeletedAt(); ok {
+		_spec.SetField(appgoodposter.FieldDeletedAt, field.TypeUint32, value)
+	}
+	if value, ok := agpuo.mutation.AddedDeletedAt(); ok {
+		_spec.AddField(appgoodposter.FieldDeletedAt, field.TypeUint32, value)
 	}
 	if value, ok := agpuo.mutation.AppGoodID(); ok {
 		_spec.SetField(appgoodposter.FieldAppGoodID, field.TypeUUID, value)

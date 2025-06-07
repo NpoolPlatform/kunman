@@ -44,6 +44,61 @@ func (fu *FeeUpdate) SetNillableEntID(u *uuid.UUID) *FeeUpdate {
 	return fu
 }
 
+// SetCreatedAt sets the "created_at" field.
+func (fu *FeeUpdate) SetCreatedAt(u uint32) *FeeUpdate {
+	fu.mutation.ResetCreatedAt()
+	fu.mutation.SetCreatedAt(u)
+	return fu
+}
+
+// SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
+func (fu *FeeUpdate) SetNillableCreatedAt(u *uint32) *FeeUpdate {
+	if u != nil {
+		fu.SetCreatedAt(*u)
+	}
+	return fu
+}
+
+// AddCreatedAt adds u to the "created_at" field.
+func (fu *FeeUpdate) AddCreatedAt(u int32) *FeeUpdate {
+	fu.mutation.AddCreatedAt(u)
+	return fu
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (fu *FeeUpdate) SetUpdatedAt(u uint32) *FeeUpdate {
+	fu.mutation.ResetUpdatedAt()
+	fu.mutation.SetUpdatedAt(u)
+	return fu
+}
+
+// AddUpdatedAt adds u to the "updated_at" field.
+func (fu *FeeUpdate) AddUpdatedAt(u int32) *FeeUpdate {
+	fu.mutation.AddUpdatedAt(u)
+	return fu
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (fu *FeeUpdate) SetDeletedAt(u uint32) *FeeUpdate {
+	fu.mutation.ResetDeletedAt()
+	fu.mutation.SetDeletedAt(u)
+	return fu
+}
+
+// SetNillableDeletedAt sets the "deleted_at" field if the given value is not nil.
+func (fu *FeeUpdate) SetNillableDeletedAt(u *uint32) *FeeUpdate {
+	if u != nil {
+		fu.SetDeletedAt(*u)
+	}
+	return fu
+}
+
+// AddDeletedAt adds u to the "deleted_at" field.
+func (fu *FeeUpdate) AddDeletedAt(u int32) *FeeUpdate {
+	fu.mutation.AddDeletedAt(u)
+	return fu
+}
+
 // SetGoodID sets the "good_id" field.
 func (fu *FeeUpdate) SetGoodID(u uuid.UUID) *FeeUpdate {
 	fu.mutation.SetGoodID(u)
@@ -131,6 +186,7 @@ func (fu *FeeUpdate) Mutation() *FeeMutation {
 
 // Save executes the query and returns the number of nodes affected by the update operation.
 func (fu *FeeUpdate) Save(ctx context.Context) (int, error) {
+	fu.defaults()
 	return withHooks(ctx, fu.sqlSave, fu.mutation, fu.hooks)
 }
 
@@ -156,6 +212,14 @@ func (fu *FeeUpdate) ExecX(ctx context.Context) {
 	}
 }
 
+// defaults sets the default values of the builder before save.
+func (fu *FeeUpdate) defaults() {
+	if _, ok := fu.mutation.UpdatedAt(); !ok {
+		v := fee.UpdateDefaultUpdatedAt()
+		fu.mutation.SetUpdatedAt(v)
+	}
+}
+
 // Modify adds a statement modifier for attaching custom logic to the UPDATE statement.
 func (fu *FeeUpdate) Modify(modifiers ...func(u *sql.UpdateBuilder)) *FeeUpdate {
 	fu.modifiers = append(fu.modifiers, modifiers...)
@@ -173,6 +237,24 @@ func (fu *FeeUpdate) sqlSave(ctx context.Context) (n int, err error) {
 	}
 	if value, ok := fu.mutation.EntID(); ok {
 		_spec.SetField(fee.FieldEntID, field.TypeUUID, value)
+	}
+	if value, ok := fu.mutation.CreatedAt(); ok {
+		_spec.SetField(fee.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := fu.mutation.AddedCreatedAt(); ok {
+		_spec.AddField(fee.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := fu.mutation.UpdatedAt(); ok {
+		_spec.SetField(fee.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := fu.mutation.AddedUpdatedAt(); ok {
+		_spec.AddField(fee.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := fu.mutation.DeletedAt(); ok {
+		_spec.SetField(fee.FieldDeletedAt, field.TypeUint32, value)
+	}
+	if value, ok := fu.mutation.AddedDeletedAt(); ok {
+		_spec.AddField(fee.FieldDeletedAt, field.TypeUint32, value)
 	}
 	if value, ok := fu.mutation.GoodID(); ok {
 		_spec.SetField(fee.FieldGoodID, field.TypeUUID, value)
@@ -231,6 +313,61 @@ func (fuo *FeeUpdateOne) SetNillableEntID(u *uuid.UUID) *FeeUpdateOne {
 	if u != nil {
 		fuo.SetEntID(*u)
 	}
+	return fuo
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (fuo *FeeUpdateOne) SetCreatedAt(u uint32) *FeeUpdateOne {
+	fuo.mutation.ResetCreatedAt()
+	fuo.mutation.SetCreatedAt(u)
+	return fuo
+}
+
+// SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
+func (fuo *FeeUpdateOne) SetNillableCreatedAt(u *uint32) *FeeUpdateOne {
+	if u != nil {
+		fuo.SetCreatedAt(*u)
+	}
+	return fuo
+}
+
+// AddCreatedAt adds u to the "created_at" field.
+func (fuo *FeeUpdateOne) AddCreatedAt(u int32) *FeeUpdateOne {
+	fuo.mutation.AddCreatedAt(u)
+	return fuo
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (fuo *FeeUpdateOne) SetUpdatedAt(u uint32) *FeeUpdateOne {
+	fuo.mutation.ResetUpdatedAt()
+	fuo.mutation.SetUpdatedAt(u)
+	return fuo
+}
+
+// AddUpdatedAt adds u to the "updated_at" field.
+func (fuo *FeeUpdateOne) AddUpdatedAt(u int32) *FeeUpdateOne {
+	fuo.mutation.AddUpdatedAt(u)
+	return fuo
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (fuo *FeeUpdateOne) SetDeletedAt(u uint32) *FeeUpdateOne {
+	fuo.mutation.ResetDeletedAt()
+	fuo.mutation.SetDeletedAt(u)
+	return fuo
+}
+
+// SetNillableDeletedAt sets the "deleted_at" field if the given value is not nil.
+func (fuo *FeeUpdateOne) SetNillableDeletedAt(u *uint32) *FeeUpdateOne {
+	if u != nil {
+		fuo.SetDeletedAt(*u)
+	}
+	return fuo
+}
+
+// AddDeletedAt adds u to the "deleted_at" field.
+func (fuo *FeeUpdateOne) AddDeletedAt(u int32) *FeeUpdateOne {
+	fuo.mutation.AddDeletedAt(u)
 	return fuo
 }
 
@@ -334,6 +471,7 @@ func (fuo *FeeUpdateOne) Select(field string, fields ...string) *FeeUpdateOne {
 
 // Save executes the query and returns the updated Fee entity.
 func (fuo *FeeUpdateOne) Save(ctx context.Context) (*Fee, error) {
+	fuo.defaults()
 	return withHooks(ctx, fuo.sqlSave, fuo.mutation, fuo.hooks)
 }
 
@@ -356,6 +494,14 @@ func (fuo *FeeUpdateOne) Exec(ctx context.Context) error {
 func (fuo *FeeUpdateOne) ExecX(ctx context.Context) {
 	if err := fuo.Exec(ctx); err != nil {
 		panic(err)
+	}
+}
+
+// defaults sets the default values of the builder before save.
+func (fuo *FeeUpdateOne) defaults() {
+	if _, ok := fuo.mutation.UpdatedAt(); !ok {
+		v := fee.UpdateDefaultUpdatedAt()
+		fuo.mutation.SetUpdatedAt(v)
 	}
 }
 
@@ -393,6 +539,24 @@ func (fuo *FeeUpdateOne) sqlSave(ctx context.Context) (_node *Fee, err error) {
 	}
 	if value, ok := fuo.mutation.EntID(); ok {
 		_spec.SetField(fee.FieldEntID, field.TypeUUID, value)
+	}
+	if value, ok := fuo.mutation.CreatedAt(); ok {
+		_spec.SetField(fee.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := fuo.mutation.AddedCreatedAt(); ok {
+		_spec.AddField(fee.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := fuo.mutation.UpdatedAt(); ok {
+		_spec.SetField(fee.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := fuo.mutation.AddedUpdatedAt(); ok {
+		_spec.AddField(fee.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := fuo.mutation.DeletedAt(); ok {
+		_spec.SetField(fee.FieldDeletedAt, field.TypeUint32, value)
+	}
+	if value, ok := fuo.mutation.AddedDeletedAt(); ok {
+		_spec.AddField(fee.FieldDeletedAt, field.TypeUint32, value)
 	}
 	if value, ok := fuo.mutation.GoodID(); ok {
 		_spec.SetField(fee.FieldGoodID, field.TypeUUID, value)

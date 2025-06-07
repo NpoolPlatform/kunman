@@ -8,7 +8,7 @@ package good
 
 import (
 	_ "github.com/NpoolPlatform/kunman/message/basetypes/good/v1"
-	good "github.com/NpoolPlatform/message/good/middleware/v1/app/good"
+	good "github.com/NpoolPlatform/kunman/message/good/middleware/v1/app/good"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"

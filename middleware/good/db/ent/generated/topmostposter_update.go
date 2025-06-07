@@ -43,6 +43,61 @@ func (tmpu *TopMostPosterUpdate) SetNillableEntID(u *uuid.UUID) *TopMostPosterUp
 	return tmpu
 }
 
+// SetCreatedAt sets the "created_at" field.
+func (tmpu *TopMostPosterUpdate) SetCreatedAt(u uint32) *TopMostPosterUpdate {
+	tmpu.mutation.ResetCreatedAt()
+	tmpu.mutation.SetCreatedAt(u)
+	return tmpu
+}
+
+// SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
+func (tmpu *TopMostPosterUpdate) SetNillableCreatedAt(u *uint32) *TopMostPosterUpdate {
+	if u != nil {
+		tmpu.SetCreatedAt(*u)
+	}
+	return tmpu
+}
+
+// AddCreatedAt adds u to the "created_at" field.
+func (tmpu *TopMostPosterUpdate) AddCreatedAt(u int32) *TopMostPosterUpdate {
+	tmpu.mutation.AddCreatedAt(u)
+	return tmpu
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (tmpu *TopMostPosterUpdate) SetUpdatedAt(u uint32) *TopMostPosterUpdate {
+	tmpu.mutation.ResetUpdatedAt()
+	tmpu.mutation.SetUpdatedAt(u)
+	return tmpu
+}
+
+// AddUpdatedAt adds u to the "updated_at" field.
+func (tmpu *TopMostPosterUpdate) AddUpdatedAt(u int32) *TopMostPosterUpdate {
+	tmpu.mutation.AddUpdatedAt(u)
+	return tmpu
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (tmpu *TopMostPosterUpdate) SetDeletedAt(u uint32) *TopMostPosterUpdate {
+	tmpu.mutation.ResetDeletedAt()
+	tmpu.mutation.SetDeletedAt(u)
+	return tmpu
+}
+
+// SetNillableDeletedAt sets the "deleted_at" field if the given value is not nil.
+func (tmpu *TopMostPosterUpdate) SetNillableDeletedAt(u *uint32) *TopMostPosterUpdate {
+	if u != nil {
+		tmpu.SetDeletedAt(*u)
+	}
+	return tmpu
+}
+
+// AddDeletedAt adds u to the "deleted_at" field.
+func (tmpu *TopMostPosterUpdate) AddDeletedAt(u int32) *TopMostPosterUpdate {
+	tmpu.mutation.AddDeletedAt(u)
+	return tmpu
+}
+
 // SetTopMostID sets the "top_most_id" field.
 func (tmpu *TopMostPosterUpdate) SetTopMostID(u uuid.UUID) *TopMostPosterUpdate {
 	tmpu.mutation.SetTopMostID(u)
@@ -117,6 +172,7 @@ func (tmpu *TopMostPosterUpdate) Mutation() *TopMostPosterMutation {
 
 // Save executes the query and returns the number of nodes affected by the update operation.
 func (tmpu *TopMostPosterUpdate) Save(ctx context.Context) (int, error) {
+	tmpu.defaults()
 	return withHooks(ctx, tmpu.sqlSave, tmpu.mutation, tmpu.hooks)
 }
 
@@ -142,6 +198,14 @@ func (tmpu *TopMostPosterUpdate) ExecX(ctx context.Context) {
 	}
 }
 
+// defaults sets the default values of the builder before save.
+func (tmpu *TopMostPosterUpdate) defaults() {
+	if _, ok := tmpu.mutation.UpdatedAt(); !ok {
+		v := topmostposter.UpdateDefaultUpdatedAt()
+		tmpu.mutation.SetUpdatedAt(v)
+	}
+}
+
 // Modify adds a statement modifier for attaching custom logic to the UPDATE statement.
 func (tmpu *TopMostPosterUpdate) Modify(modifiers ...func(u *sql.UpdateBuilder)) *TopMostPosterUpdate {
 	tmpu.modifiers = append(tmpu.modifiers, modifiers...)
@@ -159,6 +223,24 @@ func (tmpu *TopMostPosterUpdate) sqlSave(ctx context.Context) (n int, err error)
 	}
 	if value, ok := tmpu.mutation.EntID(); ok {
 		_spec.SetField(topmostposter.FieldEntID, field.TypeUUID, value)
+	}
+	if value, ok := tmpu.mutation.CreatedAt(); ok {
+		_spec.SetField(topmostposter.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := tmpu.mutation.AddedCreatedAt(); ok {
+		_spec.AddField(topmostposter.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := tmpu.mutation.UpdatedAt(); ok {
+		_spec.SetField(topmostposter.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := tmpu.mutation.AddedUpdatedAt(); ok {
+		_spec.AddField(topmostposter.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := tmpu.mutation.DeletedAt(); ok {
+		_spec.SetField(topmostposter.FieldDeletedAt, field.TypeUint32, value)
+	}
+	if value, ok := tmpu.mutation.AddedDeletedAt(); ok {
+		_spec.AddField(topmostposter.FieldDeletedAt, field.TypeUint32, value)
 	}
 	if value, ok := tmpu.mutation.TopMostID(); ok {
 		_spec.SetField(topmostposter.FieldTopMostID, field.TypeUUID, value)
@@ -214,6 +296,61 @@ func (tmpuo *TopMostPosterUpdateOne) SetNillableEntID(u *uuid.UUID) *TopMostPost
 	if u != nil {
 		tmpuo.SetEntID(*u)
 	}
+	return tmpuo
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (tmpuo *TopMostPosterUpdateOne) SetCreatedAt(u uint32) *TopMostPosterUpdateOne {
+	tmpuo.mutation.ResetCreatedAt()
+	tmpuo.mutation.SetCreatedAt(u)
+	return tmpuo
+}
+
+// SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
+func (tmpuo *TopMostPosterUpdateOne) SetNillableCreatedAt(u *uint32) *TopMostPosterUpdateOne {
+	if u != nil {
+		tmpuo.SetCreatedAt(*u)
+	}
+	return tmpuo
+}
+
+// AddCreatedAt adds u to the "created_at" field.
+func (tmpuo *TopMostPosterUpdateOne) AddCreatedAt(u int32) *TopMostPosterUpdateOne {
+	tmpuo.mutation.AddCreatedAt(u)
+	return tmpuo
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (tmpuo *TopMostPosterUpdateOne) SetUpdatedAt(u uint32) *TopMostPosterUpdateOne {
+	tmpuo.mutation.ResetUpdatedAt()
+	tmpuo.mutation.SetUpdatedAt(u)
+	return tmpuo
+}
+
+// AddUpdatedAt adds u to the "updated_at" field.
+func (tmpuo *TopMostPosterUpdateOne) AddUpdatedAt(u int32) *TopMostPosterUpdateOne {
+	tmpuo.mutation.AddUpdatedAt(u)
+	return tmpuo
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (tmpuo *TopMostPosterUpdateOne) SetDeletedAt(u uint32) *TopMostPosterUpdateOne {
+	tmpuo.mutation.ResetDeletedAt()
+	tmpuo.mutation.SetDeletedAt(u)
+	return tmpuo
+}
+
+// SetNillableDeletedAt sets the "deleted_at" field if the given value is not nil.
+func (tmpuo *TopMostPosterUpdateOne) SetNillableDeletedAt(u *uint32) *TopMostPosterUpdateOne {
+	if u != nil {
+		tmpuo.SetDeletedAt(*u)
+	}
+	return tmpuo
+}
+
+// AddDeletedAt adds u to the "deleted_at" field.
+func (tmpuo *TopMostPosterUpdateOne) AddDeletedAt(u int32) *TopMostPosterUpdateOne {
+	tmpuo.mutation.AddDeletedAt(u)
 	return tmpuo
 }
 
@@ -304,6 +441,7 @@ func (tmpuo *TopMostPosterUpdateOne) Select(field string, fields ...string) *Top
 
 // Save executes the query and returns the updated TopMostPoster entity.
 func (tmpuo *TopMostPosterUpdateOne) Save(ctx context.Context) (*TopMostPoster, error) {
+	tmpuo.defaults()
 	return withHooks(ctx, tmpuo.sqlSave, tmpuo.mutation, tmpuo.hooks)
 }
 
@@ -326,6 +464,14 @@ func (tmpuo *TopMostPosterUpdateOne) Exec(ctx context.Context) error {
 func (tmpuo *TopMostPosterUpdateOne) ExecX(ctx context.Context) {
 	if err := tmpuo.Exec(ctx); err != nil {
 		panic(err)
+	}
+}
+
+// defaults sets the default values of the builder before save.
+func (tmpuo *TopMostPosterUpdateOne) defaults() {
+	if _, ok := tmpuo.mutation.UpdatedAt(); !ok {
+		v := topmostposter.UpdateDefaultUpdatedAt()
+		tmpuo.mutation.SetUpdatedAt(v)
 	}
 }
 
@@ -363,6 +509,24 @@ func (tmpuo *TopMostPosterUpdateOne) sqlSave(ctx context.Context) (_node *TopMos
 	}
 	if value, ok := tmpuo.mutation.EntID(); ok {
 		_spec.SetField(topmostposter.FieldEntID, field.TypeUUID, value)
+	}
+	if value, ok := tmpuo.mutation.CreatedAt(); ok {
+		_spec.SetField(topmostposter.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := tmpuo.mutation.AddedCreatedAt(); ok {
+		_spec.AddField(topmostposter.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := tmpuo.mutation.UpdatedAt(); ok {
+		_spec.SetField(topmostposter.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := tmpuo.mutation.AddedUpdatedAt(); ok {
+		_spec.AddField(topmostposter.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := tmpuo.mutation.DeletedAt(); ok {
+		_spec.SetField(topmostposter.FieldDeletedAt, field.TypeUint32, value)
+	}
+	if value, ok := tmpuo.mutation.AddedDeletedAt(); ok {
+		_spec.AddField(topmostposter.FieldDeletedAt, field.TypeUint32, value)
 	}
 	if value, ok := tmpuo.mutation.TopMostID(); ok {
 		_spec.SetField(topmostposter.FieldTopMostID, field.TypeUUID, value)

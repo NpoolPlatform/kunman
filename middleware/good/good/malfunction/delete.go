@@ -6,7 +6,7 @@ import (
 
 	malfunctioncrud "github.com/NpoolPlatform/kunman/middleware/good/crud/good/malfunction"
 	"github.com/NpoolPlatform/kunman/middleware/good/db"
-	"github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated"
+	ent "github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated"
 )
 
 func (h *Handler) DeleteMalfunction(ctx context.Context) error {

@@ -37,6 +37,48 @@ func (asprc *AppSimulatePowerRentalCreate) SetNillableEntID(u *uuid.UUID) *AppSi
 	return asprc
 }
 
+// SetCreatedAt sets the "created_at" field.
+func (asprc *AppSimulatePowerRentalCreate) SetCreatedAt(u uint32) *AppSimulatePowerRentalCreate {
+	asprc.mutation.SetCreatedAt(u)
+	return asprc
+}
+
+// SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
+func (asprc *AppSimulatePowerRentalCreate) SetNillableCreatedAt(u *uint32) *AppSimulatePowerRentalCreate {
+	if u != nil {
+		asprc.SetCreatedAt(*u)
+	}
+	return asprc
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (asprc *AppSimulatePowerRentalCreate) SetUpdatedAt(u uint32) *AppSimulatePowerRentalCreate {
+	asprc.mutation.SetUpdatedAt(u)
+	return asprc
+}
+
+// SetNillableUpdatedAt sets the "updated_at" field if the given value is not nil.
+func (asprc *AppSimulatePowerRentalCreate) SetNillableUpdatedAt(u *uint32) *AppSimulatePowerRentalCreate {
+	if u != nil {
+		asprc.SetUpdatedAt(*u)
+	}
+	return asprc
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (asprc *AppSimulatePowerRentalCreate) SetDeletedAt(u uint32) *AppSimulatePowerRentalCreate {
+	asprc.mutation.SetDeletedAt(u)
+	return asprc
+}
+
+// SetNillableDeletedAt sets the "deleted_at" field if the given value is not nil.
+func (asprc *AppSimulatePowerRentalCreate) SetNillableDeletedAt(u *uint32) *AppSimulatePowerRentalCreate {
+	if u != nil {
+		asprc.SetDeletedAt(*u)
+	}
+	return asprc
+}
+
 // SetAppGoodID sets the "app_good_id" field.
 func (asprc *AppSimulatePowerRentalCreate) SetAppGoodID(u uuid.UUID) *AppSimulatePowerRentalCreate {
 	asprc.mutation.SetAppGoodID(u)
@@ -138,6 +180,18 @@ func (asprc *AppSimulatePowerRentalCreate) defaults() {
 		v := appsimulatepowerrental.DefaultEntID()
 		asprc.mutation.SetEntID(v)
 	}
+	if _, ok := asprc.mutation.CreatedAt(); !ok {
+		v := appsimulatepowerrental.DefaultCreatedAt()
+		asprc.mutation.SetCreatedAt(v)
+	}
+	if _, ok := asprc.mutation.UpdatedAt(); !ok {
+		v := appsimulatepowerrental.DefaultUpdatedAt()
+		asprc.mutation.SetUpdatedAt(v)
+	}
+	if _, ok := asprc.mutation.DeletedAt(); !ok {
+		v := appsimulatepowerrental.DefaultDeletedAt()
+		asprc.mutation.SetDeletedAt(v)
+	}
 	if _, ok := asprc.mutation.OrderUnits(); !ok {
 		v := appsimulatepowerrental.DefaultOrderUnits
 		asprc.mutation.SetOrderUnits(v)
@@ -152,6 +206,15 @@ func (asprc *AppSimulatePowerRentalCreate) defaults() {
 func (asprc *AppSimulatePowerRentalCreate) check() error {
 	if _, ok := asprc.mutation.EntID(); !ok {
 		return &ValidationError{Name: "ent_id", err: errors.New(`generated: missing required field "AppSimulatePowerRental.ent_id"`)}
+	}
+	if _, ok := asprc.mutation.CreatedAt(); !ok {
+		return &ValidationError{Name: "created_at", err: errors.New(`generated: missing required field "AppSimulatePowerRental.created_at"`)}
+	}
+	if _, ok := asprc.mutation.UpdatedAt(); !ok {
+		return &ValidationError{Name: "updated_at", err: errors.New(`generated: missing required field "AppSimulatePowerRental.updated_at"`)}
+	}
+	if _, ok := asprc.mutation.DeletedAt(); !ok {
+		return &ValidationError{Name: "deleted_at", err: errors.New(`generated: missing required field "AppSimulatePowerRental.deleted_at"`)}
 	}
 	return nil
 }
@@ -189,6 +252,18 @@ func (asprc *AppSimulatePowerRentalCreate) createSpec() (*AppSimulatePowerRental
 	if value, ok := asprc.mutation.EntID(); ok {
 		_spec.SetField(appsimulatepowerrental.FieldEntID, field.TypeUUID, value)
 		_node.EntID = value
+	}
+	if value, ok := asprc.mutation.CreatedAt(); ok {
+		_spec.SetField(appsimulatepowerrental.FieldCreatedAt, field.TypeUint32, value)
+		_node.CreatedAt = value
+	}
+	if value, ok := asprc.mutation.UpdatedAt(); ok {
+		_spec.SetField(appsimulatepowerrental.FieldUpdatedAt, field.TypeUint32, value)
+		_node.UpdatedAt = value
+	}
+	if value, ok := asprc.mutation.DeletedAt(); ok {
+		_spec.SetField(appsimulatepowerrental.FieldDeletedAt, field.TypeUint32, value)
+		_node.DeletedAt = value
 	}
 	if value, ok := asprc.mutation.AppGoodID(); ok {
 		_spec.SetField(appsimulatepowerrental.FieldAppGoodID, field.TypeUUID, value)
@@ -267,6 +342,60 @@ func (u *AppSimulatePowerRentalUpsert) SetEntID(v uuid.UUID) *AppSimulatePowerRe
 // UpdateEntID sets the "ent_id" field to the value that was provided on create.
 func (u *AppSimulatePowerRentalUpsert) UpdateEntID() *AppSimulatePowerRentalUpsert {
 	u.SetExcluded(appsimulatepowerrental.FieldEntID)
+	return u
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (u *AppSimulatePowerRentalUpsert) SetCreatedAt(v uint32) *AppSimulatePowerRentalUpsert {
+	u.Set(appsimulatepowerrental.FieldCreatedAt, v)
+	return u
+}
+
+// UpdateCreatedAt sets the "created_at" field to the value that was provided on create.
+func (u *AppSimulatePowerRentalUpsert) UpdateCreatedAt() *AppSimulatePowerRentalUpsert {
+	u.SetExcluded(appsimulatepowerrental.FieldCreatedAt)
+	return u
+}
+
+// AddCreatedAt adds v to the "created_at" field.
+func (u *AppSimulatePowerRentalUpsert) AddCreatedAt(v uint32) *AppSimulatePowerRentalUpsert {
+	u.Add(appsimulatepowerrental.FieldCreatedAt, v)
+	return u
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (u *AppSimulatePowerRentalUpsert) SetUpdatedAt(v uint32) *AppSimulatePowerRentalUpsert {
+	u.Set(appsimulatepowerrental.FieldUpdatedAt, v)
+	return u
+}
+
+// UpdateUpdatedAt sets the "updated_at" field to the value that was provided on create.
+func (u *AppSimulatePowerRentalUpsert) UpdateUpdatedAt() *AppSimulatePowerRentalUpsert {
+	u.SetExcluded(appsimulatepowerrental.FieldUpdatedAt)
+	return u
+}
+
+// AddUpdatedAt adds v to the "updated_at" field.
+func (u *AppSimulatePowerRentalUpsert) AddUpdatedAt(v uint32) *AppSimulatePowerRentalUpsert {
+	u.Add(appsimulatepowerrental.FieldUpdatedAt, v)
+	return u
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (u *AppSimulatePowerRentalUpsert) SetDeletedAt(v uint32) *AppSimulatePowerRentalUpsert {
+	u.Set(appsimulatepowerrental.FieldDeletedAt, v)
+	return u
+}
+
+// UpdateDeletedAt sets the "deleted_at" field to the value that was provided on create.
+func (u *AppSimulatePowerRentalUpsert) UpdateDeletedAt() *AppSimulatePowerRentalUpsert {
+	u.SetExcluded(appsimulatepowerrental.FieldDeletedAt)
+	return u
+}
+
+// AddDeletedAt adds v to the "deleted_at" field.
+func (u *AppSimulatePowerRentalUpsert) AddDeletedAt(v uint32) *AppSimulatePowerRentalUpsert {
+	u.Add(appsimulatepowerrental.FieldDeletedAt, v)
 	return u
 }
 
@@ -407,6 +536,69 @@ func (u *AppSimulatePowerRentalUpsertOne) SetEntID(v uuid.UUID) *AppSimulatePowe
 func (u *AppSimulatePowerRentalUpsertOne) UpdateEntID() *AppSimulatePowerRentalUpsertOne {
 	return u.Update(func(s *AppSimulatePowerRentalUpsert) {
 		s.UpdateEntID()
+	})
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (u *AppSimulatePowerRentalUpsertOne) SetCreatedAt(v uint32) *AppSimulatePowerRentalUpsertOne {
+	return u.Update(func(s *AppSimulatePowerRentalUpsert) {
+		s.SetCreatedAt(v)
+	})
+}
+
+// AddCreatedAt adds v to the "created_at" field.
+func (u *AppSimulatePowerRentalUpsertOne) AddCreatedAt(v uint32) *AppSimulatePowerRentalUpsertOne {
+	return u.Update(func(s *AppSimulatePowerRentalUpsert) {
+		s.AddCreatedAt(v)
+	})
+}
+
+// UpdateCreatedAt sets the "created_at" field to the value that was provided on create.
+func (u *AppSimulatePowerRentalUpsertOne) UpdateCreatedAt() *AppSimulatePowerRentalUpsertOne {
+	return u.Update(func(s *AppSimulatePowerRentalUpsert) {
+		s.UpdateCreatedAt()
+	})
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (u *AppSimulatePowerRentalUpsertOne) SetUpdatedAt(v uint32) *AppSimulatePowerRentalUpsertOne {
+	return u.Update(func(s *AppSimulatePowerRentalUpsert) {
+		s.SetUpdatedAt(v)
+	})
+}
+
+// AddUpdatedAt adds v to the "updated_at" field.
+func (u *AppSimulatePowerRentalUpsertOne) AddUpdatedAt(v uint32) *AppSimulatePowerRentalUpsertOne {
+	return u.Update(func(s *AppSimulatePowerRentalUpsert) {
+		s.AddUpdatedAt(v)
+	})
+}
+
+// UpdateUpdatedAt sets the "updated_at" field to the value that was provided on create.
+func (u *AppSimulatePowerRentalUpsertOne) UpdateUpdatedAt() *AppSimulatePowerRentalUpsertOne {
+	return u.Update(func(s *AppSimulatePowerRentalUpsert) {
+		s.UpdateUpdatedAt()
+	})
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (u *AppSimulatePowerRentalUpsertOne) SetDeletedAt(v uint32) *AppSimulatePowerRentalUpsertOne {
+	return u.Update(func(s *AppSimulatePowerRentalUpsert) {
+		s.SetDeletedAt(v)
+	})
+}
+
+// AddDeletedAt adds v to the "deleted_at" field.
+func (u *AppSimulatePowerRentalUpsertOne) AddDeletedAt(v uint32) *AppSimulatePowerRentalUpsertOne {
+	return u.Update(func(s *AppSimulatePowerRentalUpsert) {
+		s.AddDeletedAt(v)
+	})
+}
+
+// UpdateDeletedAt sets the "deleted_at" field to the value that was provided on create.
+func (u *AppSimulatePowerRentalUpsertOne) UpdateDeletedAt() *AppSimulatePowerRentalUpsertOne {
+	return u.Update(func(s *AppSimulatePowerRentalUpsert) {
+		s.UpdateDeletedAt()
 	})
 }
 
@@ -726,6 +918,69 @@ func (u *AppSimulatePowerRentalUpsertBulk) SetEntID(v uuid.UUID) *AppSimulatePow
 func (u *AppSimulatePowerRentalUpsertBulk) UpdateEntID() *AppSimulatePowerRentalUpsertBulk {
 	return u.Update(func(s *AppSimulatePowerRentalUpsert) {
 		s.UpdateEntID()
+	})
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (u *AppSimulatePowerRentalUpsertBulk) SetCreatedAt(v uint32) *AppSimulatePowerRentalUpsertBulk {
+	return u.Update(func(s *AppSimulatePowerRentalUpsert) {
+		s.SetCreatedAt(v)
+	})
+}
+
+// AddCreatedAt adds v to the "created_at" field.
+func (u *AppSimulatePowerRentalUpsertBulk) AddCreatedAt(v uint32) *AppSimulatePowerRentalUpsertBulk {
+	return u.Update(func(s *AppSimulatePowerRentalUpsert) {
+		s.AddCreatedAt(v)
+	})
+}
+
+// UpdateCreatedAt sets the "created_at" field to the value that was provided on create.
+func (u *AppSimulatePowerRentalUpsertBulk) UpdateCreatedAt() *AppSimulatePowerRentalUpsertBulk {
+	return u.Update(func(s *AppSimulatePowerRentalUpsert) {
+		s.UpdateCreatedAt()
+	})
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (u *AppSimulatePowerRentalUpsertBulk) SetUpdatedAt(v uint32) *AppSimulatePowerRentalUpsertBulk {
+	return u.Update(func(s *AppSimulatePowerRentalUpsert) {
+		s.SetUpdatedAt(v)
+	})
+}
+
+// AddUpdatedAt adds v to the "updated_at" field.
+func (u *AppSimulatePowerRentalUpsertBulk) AddUpdatedAt(v uint32) *AppSimulatePowerRentalUpsertBulk {
+	return u.Update(func(s *AppSimulatePowerRentalUpsert) {
+		s.AddUpdatedAt(v)
+	})
+}
+
+// UpdateUpdatedAt sets the "updated_at" field to the value that was provided on create.
+func (u *AppSimulatePowerRentalUpsertBulk) UpdateUpdatedAt() *AppSimulatePowerRentalUpsertBulk {
+	return u.Update(func(s *AppSimulatePowerRentalUpsert) {
+		s.UpdateUpdatedAt()
+	})
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (u *AppSimulatePowerRentalUpsertBulk) SetDeletedAt(v uint32) *AppSimulatePowerRentalUpsertBulk {
+	return u.Update(func(s *AppSimulatePowerRentalUpsert) {
+		s.SetDeletedAt(v)
+	})
+}
+
+// AddDeletedAt adds v to the "deleted_at" field.
+func (u *AppSimulatePowerRentalUpsertBulk) AddDeletedAt(v uint32) *AppSimulatePowerRentalUpsertBulk {
+	return u.Update(func(s *AppSimulatePowerRentalUpsert) {
+		s.AddDeletedAt(v)
+	})
+}
+
+// UpdateDeletedAt sets the "deleted_at" field to the value that was provided on create.
+func (u *AppSimulatePowerRentalUpsertBulk) UpdateDeletedAt() *AppSimulatePowerRentalUpsertBulk {
+	return u.Update(func(s *AppSimulatePowerRentalUpsert) {
+		s.UpdateDeletedAt()
 	})
 }
 

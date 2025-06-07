@@ -4,9 +4,9 @@ import (
 	"context"
 
 	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
-	constant "github.com/NpoolPlatform/kunman/middleware/good/const"
+	constant "github.com/NpoolPlatform/kunman/pkg/const"
 	locationcrud "github.com/NpoolPlatform/kunman/middleware/good/crud/vender/location"
-	brand1 "github.com/NpoolPlatform/kunman/middleware/good/middleware/vender/brand"
+	brand1 "github.com/NpoolPlatform/kunman/middleware/good/vender/brand"
 	cruder "github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 	npool "github.com/NpoolPlatform/kunman/message/good/middleware/v1/vender/location"
 

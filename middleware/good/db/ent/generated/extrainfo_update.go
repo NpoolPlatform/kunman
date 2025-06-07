@@ -44,6 +44,61 @@ func (eiu *ExtraInfoUpdate) SetNillableEntID(u *uuid.UUID) *ExtraInfoUpdate {
 	return eiu
 }
 
+// SetCreatedAt sets the "created_at" field.
+func (eiu *ExtraInfoUpdate) SetCreatedAt(u uint32) *ExtraInfoUpdate {
+	eiu.mutation.ResetCreatedAt()
+	eiu.mutation.SetCreatedAt(u)
+	return eiu
+}
+
+// SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
+func (eiu *ExtraInfoUpdate) SetNillableCreatedAt(u *uint32) *ExtraInfoUpdate {
+	if u != nil {
+		eiu.SetCreatedAt(*u)
+	}
+	return eiu
+}
+
+// AddCreatedAt adds u to the "created_at" field.
+func (eiu *ExtraInfoUpdate) AddCreatedAt(u int32) *ExtraInfoUpdate {
+	eiu.mutation.AddCreatedAt(u)
+	return eiu
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (eiu *ExtraInfoUpdate) SetUpdatedAt(u uint32) *ExtraInfoUpdate {
+	eiu.mutation.ResetUpdatedAt()
+	eiu.mutation.SetUpdatedAt(u)
+	return eiu
+}
+
+// AddUpdatedAt adds u to the "updated_at" field.
+func (eiu *ExtraInfoUpdate) AddUpdatedAt(u int32) *ExtraInfoUpdate {
+	eiu.mutation.AddUpdatedAt(u)
+	return eiu
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (eiu *ExtraInfoUpdate) SetDeletedAt(u uint32) *ExtraInfoUpdate {
+	eiu.mutation.ResetDeletedAt()
+	eiu.mutation.SetDeletedAt(u)
+	return eiu
+}
+
+// SetNillableDeletedAt sets the "deleted_at" field if the given value is not nil.
+func (eiu *ExtraInfoUpdate) SetNillableDeletedAt(u *uint32) *ExtraInfoUpdate {
+	if u != nil {
+		eiu.SetDeletedAt(*u)
+	}
+	return eiu
+}
+
+// AddDeletedAt adds u to the "deleted_at" field.
+func (eiu *ExtraInfoUpdate) AddDeletedAt(u int32) *ExtraInfoUpdate {
+	eiu.mutation.AddDeletedAt(u)
+	return eiu
+}
+
 // SetAppGoodID sets the "app_good_id" field.
 func (eiu *ExtraInfoUpdate) SetAppGoodID(u uuid.UUID) *ExtraInfoUpdate {
 	eiu.mutation.SetAppGoodID(u)
@@ -226,6 +281,7 @@ func (eiu *ExtraInfoUpdate) Mutation() *ExtraInfoMutation {
 
 // Save executes the query and returns the number of nodes affected by the update operation.
 func (eiu *ExtraInfoUpdate) Save(ctx context.Context) (int, error) {
+	eiu.defaults()
 	return withHooks(ctx, eiu.sqlSave, eiu.mutation, eiu.hooks)
 }
 
@@ -251,6 +307,14 @@ func (eiu *ExtraInfoUpdate) ExecX(ctx context.Context) {
 	}
 }
 
+// defaults sets the default values of the builder before save.
+func (eiu *ExtraInfoUpdate) defaults() {
+	if _, ok := eiu.mutation.UpdatedAt(); !ok {
+		v := extrainfo.UpdateDefaultUpdatedAt()
+		eiu.mutation.SetUpdatedAt(v)
+	}
+}
+
 // Modify adds a statement modifier for attaching custom logic to the UPDATE statement.
 func (eiu *ExtraInfoUpdate) Modify(modifiers ...func(u *sql.UpdateBuilder)) *ExtraInfoUpdate {
 	eiu.modifiers = append(eiu.modifiers, modifiers...)
@@ -268,6 +332,24 @@ func (eiu *ExtraInfoUpdate) sqlSave(ctx context.Context) (n int, err error) {
 	}
 	if value, ok := eiu.mutation.EntID(); ok {
 		_spec.SetField(extrainfo.FieldEntID, field.TypeUUID, value)
+	}
+	if value, ok := eiu.mutation.CreatedAt(); ok {
+		_spec.SetField(extrainfo.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := eiu.mutation.AddedCreatedAt(); ok {
+		_spec.AddField(extrainfo.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := eiu.mutation.UpdatedAt(); ok {
+		_spec.SetField(extrainfo.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := eiu.mutation.AddedUpdatedAt(); ok {
+		_spec.AddField(extrainfo.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := eiu.mutation.DeletedAt(); ok {
+		_spec.SetField(extrainfo.FieldDeletedAt, field.TypeUint32, value)
+	}
+	if value, ok := eiu.mutation.AddedDeletedAt(); ok {
+		_spec.AddField(extrainfo.FieldDeletedAt, field.TypeUint32, value)
 	}
 	if value, ok := eiu.mutation.AppGoodID(); ok {
 		_spec.SetField(extrainfo.FieldAppGoodID, field.TypeUUID, value)
@@ -359,6 +441,61 @@ func (eiuo *ExtraInfoUpdateOne) SetNillableEntID(u *uuid.UUID) *ExtraInfoUpdateO
 	if u != nil {
 		eiuo.SetEntID(*u)
 	}
+	return eiuo
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (eiuo *ExtraInfoUpdateOne) SetCreatedAt(u uint32) *ExtraInfoUpdateOne {
+	eiuo.mutation.ResetCreatedAt()
+	eiuo.mutation.SetCreatedAt(u)
+	return eiuo
+}
+
+// SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
+func (eiuo *ExtraInfoUpdateOne) SetNillableCreatedAt(u *uint32) *ExtraInfoUpdateOne {
+	if u != nil {
+		eiuo.SetCreatedAt(*u)
+	}
+	return eiuo
+}
+
+// AddCreatedAt adds u to the "created_at" field.
+func (eiuo *ExtraInfoUpdateOne) AddCreatedAt(u int32) *ExtraInfoUpdateOne {
+	eiuo.mutation.AddCreatedAt(u)
+	return eiuo
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (eiuo *ExtraInfoUpdateOne) SetUpdatedAt(u uint32) *ExtraInfoUpdateOne {
+	eiuo.mutation.ResetUpdatedAt()
+	eiuo.mutation.SetUpdatedAt(u)
+	return eiuo
+}
+
+// AddUpdatedAt adds u to the "updated_at" field.
+func (eiuo *ExtraInfoUpdateOne) AddUpdatedAt(u int32) *ExtraInfoUpdateOne {
+	eiuo.mutation.AddUpdatedAt(u)
+	return eiuo
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (eiuo *ExtraInfoUpdateOne) SetDeletedAt(u uint32) *ExtraInfoUpdateOne {
+	eiuo.mutation.ResetDeletedAt()
+	eiuo.mutation.SetDeletedAt(u)
+	return eiuo
+}
+
+// SetNillableDeletedAt sets the "deleted_at" field if the given value is not nil.
+func (eiuo *ExtraInfoUpdateOne) SetNillableDeletedAt(u *uint32) *ExtraInfoUpdateOne {
+	if u != nil {
+		eiuo.SetDeletedAt(*u)
+	}
+	return eiuo
+}
+
+// AddDeletedAt adds u to the "deleted_at" field.
+func (eiuo *ExtraInfoUpdateOne) AddDeletedAt(u int32) *ExtraInfoUpdateOne {
+	eiuo.mutation.AddDeletedAt(u)
 	return eiuo
 }
 
@@ -557,6 +694,7 @@ func (eiuo *ExtraInfoUpdateOne) Select(field string, fields ...string) *ExtraInf
 
 // Save executes the query and returns the updated ExtraInfo entity.
 func (eiuo *ExtraInfoUpdateOne) Save(ctx context.Context) (*ExtraInfo, error) {
+	eiuo.defaults()
 	return withHooks(ctx, eiuo.sqlSave, eiuo.mutation, eiuo.hooks)
 }
 
@@ -579,6 +717,14 @@ func (eiuo *ExtraInfoUpdateOne) Exec(ctx context.Context) error {
 func (eiuo *ExtraInfoUpdateOne) ExecX(ctx context.Context) {
 	if err := eiuo.Exec(ctx); err != nil {
 		panic(err)
+	}
+}
+
+// defaults sets the default values of the builder before save.
+func (eiuo *ExtraInfoUpdateOne) defaults() {
+	if _, ok := eiuo.mutation.UpdatedAt(); !ok {
+		v := extrainfo.UpdateDefaultUpdatedAt()
+		eiuo.mutation.SetUpdatedAt(v)
 	}
 }
 
@@ -616,6 +762,24 @@ func (eiuo *ExtraInfoUpdateOne) sqlSave(ctx context.Context) (_node *ExtraInfo, 
 	}
 	if value, ok := eiuo.mutation.EntID(); ok {
 		_spec.SetField(extrainfo.FieldEntID, field.TypeUUID, value)
+	}
+	if value, ok := eiuo.mutation.CreatedAt(); ok {
+		_spec.SetField(extrainfo.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := eiuo.mutation.AddedCreatedAt(); ok {
+		_spec.AddField(extrainfo.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := eiuo.mutation.UpdatedAt(); ok {
+		_spec.SetField(extrainfo.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := eiuo.mutation.AddedUpdatedAt(); ok {
+		_spec.AddField(extrainfo.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := eiuo.mutation.DeletedAt(); ok {
+		_spec.SetField(extrainfo.FieldDeletedAt, field.TypeUint32, value)
+	}
+	if value, ok := eiuo.mutation.AddedDeletedAt(); ok {
+		_spec.AddField(extrainfo.FieldDeletedAt, field.TypeUint32, value)
 	}
 	if value, ok := eiuo.mutation.AppGoodID(); ok {
 		_spec.SetField(extrainfo.FieldAppGoodID, field.TypeUUID, value)

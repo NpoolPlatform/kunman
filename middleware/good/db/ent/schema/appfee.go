@@ -4,8 +4,8 @@ import (
 	"entgo.io/ent"
 	"entgo.io/ent/dialect"
 	"entgo.io/ent/schema/field"
-	crudermixin "github.com/NpoolPlatform/kunman/pkg/cruder/mixin"
 	types "github.com/NpoolPlatform/kunman/message/basetypes/good/v1"
+	crudermixin "github.com/NpoolPlatform/kunman/pkg/cruder/mixin"
 	"github.com/google/uuid"
 	"github.com/shopspring/decimal"
 )
@@ -18,6 +18,7 @@ type AppFee struct {
 func (AppFee) Mixin() []ent.Mixin {
 	return []ent.Mixin{
 		crudermixin.AutoIDMixin{},
+		crudermixin.TimeMixin{},
 	}
 }
 

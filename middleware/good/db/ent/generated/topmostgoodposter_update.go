@@ -43,6 +43,61 @@ func (tmgpu *TopMostGoodPosterUpdate) SetNillableEntID(u *uuid.UUID) *TopMostGoo
 	return tmgpu
 }
 
+// SetCreatedAt sets the "created_at" field.
+func (tmgpu *TopMostGoodPosterUpdate) SetCreatedAt(u uint32) *TopMostGoodPosterUpdate {
+	tmgpu.mutation.ResetCreatedAt()
+	tmgpu.mutation.SetCreatedAt(u)
+	return tmgpu
+}
+
+// SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
+func (tmgpu *TopMostGoodPosterUpdate) SetNillableCreatedAt(u *uint32) *TopMostGoodPosterUpdate {
+	if u != nil {
+		tmgpu.SetCreatedAt(*u)
+	}
+	return tmgpu
+}
+
+// AddCreatedAt adds u to the "created_at" field.
+func (tmgpu *TopMostGoodPosterUpdate) AddCreatedAt(u int32) *TopMostGoodPosterUpdate {
+	tmgpu.mutation.AddCreatedAt(u)
+	return tmgpu
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (tmgpu *TopMostGoodPosterUpdate) SetUpdatedAt(u uint32) *TopMostGoodPosterUpdate {
+	tmgpu.mutation.ResetUpdatedAt()
+	tmgpu.mutation.SetUpdatedAt(u)
+	return tmgpu
+}
+
+// AddUpdatedAt adds u to the "updated_at" field.
+func (tmgpu *TopMostGoodPosterUpdate) AddUpdatedAt(u int32) *TopMostGoodPosterUpdate {
+	tmgpu.mutation.AddUpdatedAt(u)
+	return tmgpu
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (tmgpu *TopMostGoodPosterUpdate) SetDeletedAt(u uint32) *TopMostGoodPosterUpdate {
+	tmgpu.mutation.ResetDeletedAt()
+	tmgpu.mutation.SetDeletedAt(u)
+	return tmgpu
+}
+
+// SetNillableDeletedAt sets the "deleted_at" field if the given value is not nil.
+func (tmgpu *TopMostGoodPosterUpdate) SetNillableDeletedAt(u *uint32) *TopMostGoodPosterUpdate {
+	if u != nil {
+		tmgpu.SetDeletedAt(*u)
+	}
+	return tmgpu
+}
+
+// AddDeletedAt adds u to the "deleted_at" field.
+func (tmgpu *TopMostGoodPosterUpdate) AddDeletedAt(u int32) *TopMostGoodPosterUpdate {
+	tmgpu.mutation.AddDeletedAt(u)
+	return tmgpu
+}
+
 // SetTopMostGoodID sets the "top_most_good_id" field.
 func (tmgpu *TopMostGoodPosterUpdate) SetTopMostGoodID(u uuid.UUID) *TopMostGoodPosterUpdate {
 	tmgpu.mutation.SetTopMostGoodID(u)
@@ -117,6 +172,7 @@ func (tmgpu *TopMostGoodPosterUpdate) Mutation() *TopMostGoodPosterMutation {
 
 // Save executes the query and returns the number of nodes affected by the update operation.
 func (tmgpu *TopMostGoodPosterUpdate) Save(ctx context.Context) (int, error) {
+	tmgpu.defaults()
 	return withHooks(ctx, tmgpu.sqlSave, tmgpu.mutation, tmgpu.hooks)
 }
 
@@ -142,6 +198,14 @@ func (tmgpu *TopMostGoodPosterUpdate) ExecX(ctx context.Context) {
 	}
 }
 
+// defaults sets the default values of the builder before save.
+func (tmgpu *TopMostGoodPosterUpdate) defaults() {
+	if _, ok := tmgpu.mutation.UpdatedAt(); !ok {
+		v := topmostgoodposter.UpdateDefaultUpdatedAt()
+		tmgpu.mutation.SetUpdatedAt(v)
+	}
+}
+
 // Modify adds a statement modifier for attaching custom logic to the UPDATE statement.
 func (tmgpu *TopMostGoodPosterUpdate) Modify(modifiers ...func(u *sql.UpdateBuilder)) *TopMostGoodPosterUpdate {
 	tmgpu.modifiers = append(tmgpu.modifiers, modifiers...)
@@ -159,6 +223,24 @@ func (tmgpu *TopMostGoodPosterUpdate) sqlSave(ctx context.Context) (n int, err e
 	}
 	if value, ok := tmgpu.mutation.EntID(); ok {
 		_spec.SetField(topmostgoodposter.FieldEntID, field.TypeUUID, value)
+	}
+	if value, ok := tmgpu.mutation.CreatedAt(); ok {
+		_spec.SetField(topmostgoodposter.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := tmgpu.mutation.AddedCreatedAt(); ok {
+		_spec.AddField(topmostgoodposter.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := tmgpu.mutation.UpdatedAt(); ok {
+		_spec.SetField(topmostgoodposter.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := tmgpu.mutation.AddedUpdatedAt(); ok {
+		_spec.AddField(topmostgoodposter.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := tmgpu.mutation.DeletedAt(); ok {
+		_spec.SetField(topmostgoodposter.FieldDeletedAt, field.TypeUint32, value)
+	}
+	if value, ok := tmgpu.mutation.AddedDeletedAt(); ok {
+		_spec.AddField(topmostgoodposter.FieldDeletedAt, field.TypeUint32, value)
 	}
 	if value, ok := tmgpu.mutation.TopMostGoodID(); ok {
 		_spec.SetField(topmostgoodposter.FieldTopMostGoodID, field.TypeUUID, value)
@@ -214,6 +296,61 @@ func (tmgpuo *TopMostGoodPosterUpdateOne) SetNillableEntID(u *uuid.UUID) *TopMos
 	if u != nil {
 		tmgpuo.SetEntID(*u)
 	}
+	return tmgpuo
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (tmgpuo *TopMostGoodPosterUpdateOne) SetCreatedAt(u uint32) *TopMostGoodPosterUpdateOne {
+	tmgpuo.mutation.ResetCreatedAt()
+	tmgpuo.mutation.SetCreatedAt(u)
+	return tmgpuo
+}
+
+// SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
+func (tmgpuo *TopMostGoodPosterUpdateOne) SetNillableCreatedAt(u *uint32) *TopMostGoodPosterUpdateOne {
+	if u != nil {
+		tmgpuo.SetCreatedAt(*u)
+	}
+	return tmgpuo
+}
+
+// AddCreatedAt adds u to the "created_at" field.
+func (tmgpuo *TopMostGoodPosterUpdateOne) AddCreatedAt(u int32) *TopMostGoodPosterUpdateOne {
+	tmgpuo.mutation.AddCreatedAt(u)
+	return tmgpuo
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (tmgpuo *TopMostGoodPosterUpdateOne) SetUpdatedAt(u uint32) *TopMostGoodPosterUpdateOne {
+	tmgpuo.mutation.ResetUpdatedAt()
+	tmgpuo.mutation.SetUpdatedAt(u)
+	return tmgpuo
+}
+
+// AddUpdatedAt adds u to the "updated_at" field.
+func (tmgpuo *TopMostGoodPosterUpdateOne) AddUpdatedAt(u int32) *TopMostGoodPosterUpdateOne {
+	tmgpuo.mutation.AddUpdatedAt(u)
+	return tmgpuo
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (tmgpuo *TopMostGoodPosterUpdateOne) SetDeletedAt(u uint32) *TopMostGoodPosterUpdateOne {
+	tmgpuo.mutation.ResetDeletedAt()
+	tmgpuo.mutation.SetDeletedAt(u)
+	return tmgpuo
+}
+
+// SetNillableDeletedAt sets the "deleted_at" field if the given value is not nil.
+func (tmgpuo *TopMostGoodPosterUpdateOne) SetNillableDeletedAt(u *uint32) *TopMostGoodPosterUpdateOne {
+	if u != nil {
+		tmgpuo.SetDeletedAt(*u)
+	}
+	return tmgpuo
+}
+
+// AddDeletedAt adds u to the "deleted_at" field.
+func (tmgpuo *TopMostGoodPosterUpdateOne) AddDeletedAt(u int32) *TopMostGoodPosterUpdateOne {
+	tmgpuo.mutation.AddDeletedAt(u)
 	return tmgpuo
 }
 
@@ -304,6 +441,7 @@ func (tmgpuo *TopMostGoodPosterUpdateOne) Select(field string, fields ...string)
 
 // Save executes the query and returns the updated TopMostGoodPoster entity.
 func (tmgpuo *TopMostGoodPosterUpdateOne) Save(ctx context.Context) (*TopMostGoodPoster, error) {
+	tmgpuo.defaults()
 	return withHooks(ctx, tmgpuo.sqlSave, tmgpuo.mutation, tmgpuo.hooks)
 }
 
@@ -326,6 +464,14 @@ func (tmgpuo *TopMostGoodPosterUpdateOne) Exec(ctx context.Context) error {
 func (tmgpuo *TopMostGoodPosterUpdateOne) ExecX(ctx context.Context) {
 	if err := tmgpuo.Exec(ctx); err != nil {
 		panic(err)
+	}
+}
+
+// defaults sets the default values of the builder before save.
+func (tmgpuo *TopMostGoodPosterUpdateOne) defaults() {
+	if _, ok := tmgpuo.mutation.UpdatedAt(); !ok {
+		v := topmostgoodposter.UpdateDefaultUpdatedAt()
+		tmgpuo.mutation.SetUpdatedAt(v)
 	}
 }
 
@@ -363,6 +509,24 @@ func (tmgpuo *TopMostGoodPosterUpdateOne) sqlSave(ctx context.Context) (_node *T
 	}
 	if value, ok := tmgpuo.mutation.EntID(); ok {
 		_spec.SetField(topmostgoodposter.FieldEntID, field.TypeUUID, value)
+	}
+	if value, ok := tmgpuo.mutation.CreatedAt(); ok {
+		_spec.SetField(topmostgoodposter.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := tmgpuo.mutation.AddedCreatedAt(); ok {
+		_spec.AddField(topmostgoodposter.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := tmgpuo.mutation.UpdatedAt(); ok {
+		_spec.SetField(topmostgoodposter.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := tmgpuo.mutation.AddedUpdatedAt(); ok {
+		_spec.AddField(topmostgoodposter.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := tmgpuo.mutation.DeletedAt(); ok {
+		_spec.SetField(topmostgoodposter.FieldDeletedAt, field.TypeUint32, value)
+	}
+	if value, ok := tmgpuo.mutation.AddedDeletedAt(); ok {
+		_spec.AddField(topmostgoodposter.FieldDeletedAt, field.TypeUint32, value)
 	}
 	if value, ok := tmgpuo.mutation.TopMostGoodID(); ok {
 		_spec.SetField(topmostgoodposter.FieldTopMostGoodID, field.TypeUUID, value)

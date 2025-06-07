@@ -10,9 +10,9 @@ import (
 	rewardcrud "github.com/NpoolPlatform/kunman/middleware/good/crud/good/reward"
 	"github.com/NpoolPlatform/kunman/middleware/good/db"
 	"github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated"
-	goodbase1 "github.com/NpoolPlatform/kunman/middleware/good/middleware/good/goodbase"
-	stock1 "github.com/NpoolPlatform/kunman/middleware/good/middleware/good/stock"
-	mininggoodstock1 "github.com/NpoolPlatform/kunman/middleware/good/middleware/good/stock/mining"
+	goodbase1 "github.com/NpoolPlatform/kunman/middleware/good/good/goodbase"
+	stock1 "github.com/NpoolPlatform/kunman/middleware/good/stock"
+	mininggoodstock1 "github.com/NpoolPlatform/kunman/middleware/good/stock/mining"
 	types "github.com/NpoolPlatform/kunman/message/basetypes/good/v1"
 
 	"github.com/google/uuid"

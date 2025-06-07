@@ -4,7 +4,7 @@ import (
 	"context"
 
 	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
-	constant "github.com/NpoolPlatform/kunman/middleware/good/const"
+	constant "github.com/NpoolPlatform/kunman/pkg/const"
 	delegatedstakingcrud "github.com/NpoolPlatform/kunman/middleware/good/crud/delegatedstaking"
 	goodcoincrud "github.com/NpoolPlatform/kunman/middleware/good/crud/good/coin"
 	goodcoinrewardcrud "github.com/NpoolPlatform/kunman/middleware/good/crud/good/coin/reward"

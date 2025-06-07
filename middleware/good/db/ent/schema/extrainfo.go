@@ -18,6 +18,7 @@ type ExtraInfo struct {
 func (ExtraInfo) Mixin() []ent.Mixin {
 	return []ent.Mixin{
 		crudermixin.AutoIDMixin{},
+		crudermixin.TimeMixin{},
 	}
 }
 

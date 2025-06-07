@@ -21,6 +21,12 @@ type AppGood struct {
 	ID uint32 `json:"id,omitempty"`
 	// EntID holds the value of the "ent_id" field.
 	EntID uuid.UUID `json:"ent_id,omitempty"`
+	// CreatedAt holds the value of the "created_at" field.
+	CreatedAt uint32 `json:"created_at,omitempty"`
+	// UpdatedAt holds the value of the "updated_at" field.
+	UpdatedAt uint32 `json:"updated_at,omitempty"`
+	// DeletedAt holds the value of the "deleted_at" field.
+	DeletedAt uint32 `json:"deleted_at,omitempty"`
 	// AppID holds the value of the "app_id" field.
 	AppID uuid.UUID `json:"app_id,omitempty"`
 	// GoodID holds the value of the "good_id" field.
@@ -95,7 +101,7 @@ func (*AppGood) scanValues(columns []string) ([]any, error) {
 			values[i] = new(decimal.Decimal)
 		case appgood.FieldOnline, appgood.FieldVisible, appgood.FieldEnablePurchase, appgood.FieldEnableProductPage, appgood.FieldEnableSetCommission, appgood.FieldPackageWithRequireds:
 			values[i] = new(sql.NullBool)
-		case appgood.FieldID, appgood.FieldDisplayIndex, appgood.FieldSaleStartAt, appgood.FieldSaleEndAt, appgood.FieldServiceStartAt, appgood.FieldCancellableBeforeStart, appgood.FieldMinOrderDuration, appgood.FieldMaxOrderDuration:
+		case appgood.FieldID, appgood.FieldCreatedAt, appgood.FieldUpdatedAt, appgood.FieldDeletedAt, appgood.FieldDisplayIndex, appgood.FieldSaleStartAt, appgood.FieldSaleEndAt, appgood.FieldServiceStartAt, appgood.FieldCancellableBeforeStart, appgood.FieldMinOrderDuration, appgood.FieldMaxOrderDuration:
 			values[i] = new(sql.NullInt64)
 		case appgood.FieldGoodName, appgood.FieldGoodBanner, appgood.FieldCancelMode, appgood.FieldProductPage:
 			values[i] = new(sql.NullString)
@@ -127,6 +133,24 @@ func (ag *AppGood) assignValues(columns []string, values []any) error {
 				return fmt.Errorf("unexpected type %T for field ent_id", values[i])
 			} else if value != nil {
 				ag.EntID = *value
+			}
+		case appgood.FieldCreatedAt:
+			if value, ok := values[i].(*sql.NullInt64); !ok {
+				return fmt.Errorf("unexpected type %T for field created_at", values[i])
+			} else if value.Valid {
+				ag.CreatedAt = uint32(value.Int64)
+			}
+		case appgood.FieldUpdatedAt:
+			if value, ok := values[i].(*sql.NullInt64); !ok {
+				return fmt.Errorf("unexpected type %T for field updated_at", values[i])
+			} else if value.Valid {
+				ag.UpdatedAt = uint32(value.Int64)
+			}
+		case appgood.FieldDeletedAt:
+			if value, ok := values[i].(*sql.NullInt64); !ok {
+				return fmt.Errorf("unexpected type %T for field deleted_at", values[i])
+			} else if value.Valid {
+				ag.DeletedAt = uint32(value.Int64)
 			}
 		case appgood.FieldAppID:
 			if value, ok := values[i].(*uuid.UUID); !ok {
@@ -354,6 +378,15 @@ func (ag *AppGood) String() string {
 	builder.WriteString(fmt.Sprintf("id=%v, ", ag.ID))
 	builder.WriteString("ent_id=")
 	builder.WriteString(fmt.Sprintf("%v", ag.EntID))
+	builder.WriteString(", ")
+	builder.WriteString("created_at=")
+	builder.WriteString(fmt.Sprintf("%v", ag.CreatedAt))
+	builder.WriteString(", ")
+	builder.WriteString("updated_at=")
+	builder.WriteString(fmt.Sprintf("%v", ag.UpdatedAt))
+	builder.WriteString(", ")
+	builder.WriteString("deleted_at=")
+	builder.WriteString(fmt.Sprintf("%v", ag.DeletedAt))
 	builder.WriteString(", ")
 	builder.WriteString("app_id=")
 	builder.WriteString(fmt.Sprintf("%v", ag.AppID))

@@ -44,6 +44,61 @@ func (su *StockUpdate) SetNillableEntID(u *uuid.UUID) *StockUpdate {
 	return su
 }
 
+// SetCreatedAt sets the "created_at" field.
+func (su *StockUpdate) SetCreatedAt(u uint32) *StockUpdate {
+	su.mutation.ResetCreatedAt()
+	su.mutation.SetCreatedAt(u)
+	return su
+}
+
+// SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
+func (su *StockUpdate) SetNillableCreatedAt(u *uint32) *StockUpdate {
+	if u != nil {
+		su.SetCreatedAt(*u)
+	}
+	return su
+}
+
+// AddCreatedAt adds u to the "created_at" field.
+func (su *StockUpdate) AddCreatedAt(u int32) *StockUpdate {
+	su.mutation.AddCreatedAt(u)
+	return su
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (su *StockUpdate) SetUpdatedAt(u uint32) *StockUpdate {
+	su.mutation.ResetUpdatedAt()
+	su.mutation.SetUpdatedAt(u)
+	return su
+}
+
+// AddUpdatedAt adds u to the "updated_at" field.
+func (su *StockUpdate) AddUpdatedAt(u int32) *StockUpdate {
+	su.mutation.AddUpdatedAt(u)
+	return su
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (su *StockUpdate) SetDeletedAt(u uint32) *StockUpdate {
+	su.mutation.ResetDeletedAt()
+	su.mutation.SetDeletedAt(u)
+	return su
+}
+
+// SetNillableDeletedAt sets the "deleted_at" field if the given value is not nil.
+func (su *StockUpdate) SetNillableDeletedAt(u *uint32) *StockUpdate {
+	if u != nil {
+		su.SetDeletedAt(*u)
+	}
+	return su
+}
+
+// AddDeletedAt adds u to the "deleted_at" field.
+func (su *StockUpdate) AddDeletedAt(u int32) *StockUpdate {
+	su.mutation.AddDeletedAt(u)
+	return su
+}
+
 // SetGoodID sets the "good_id" field.
 func (su *StockUpdate) SetGoodID(u uuid.UUID) *StockUpdate {
 	su.mutation.SetGoodID(u)
@@ -211,6 +266,7 @@ func (su *StockUpdate) Mutation() *StockMutation {
 
 // Save executes the query and returns the number of nodes affected by the update operation.
 func (su *StockUpdate) Save(ctx context.Context) (int, error) {
+	su.defaults()
 	return withHooks(ctx, su.sqlSave, su.mutation, su.hooks)
 }
 
@@ -236,6 +292,14 @@ func (su *StockUpdate) ExecX(ctx context.Context) {
 	}
 }
 
+// defaults sets the default values of the builder before save.
+func (su *StockUpdate) defaults() {
+	if _, ok := su.mutation.UpdatedAt(); !ok {
+		v := stock.UpdateDefaultUpdatedAt()
+		su.mutation.SetUpdatedAt(v)
+	}
+}
+
 // Modify adds a statement modifier for attaching custom logic to the UPDATE statement.
 func (su *StockUpdate) Modify(modifiers ...func(u *sql.UpdateBuilder)) *StockUpdate {
 	su.modifiers = append(su.modifiers, modifiers...)
@@ -253,6 +317,24 @@ func (su *StockUpdate) sqlSave(ctx context.Context) (n int, err error) {
 	}
 	if value, ok := su.mutation.EntID(); ok {
 		_spec.SetField(stock.FieldEntID, field.TypeUUID, value)
+	}
+	if value, ok := su.mutation.CreatedAt(); ok {
+		_spec.SetField(stock.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := su.mutation.AddedCreatedAt(); ok {
+		_spec.AddField(stock.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := su.mutation.UpdatedAt(); ok {
+		_spec.SetField(stock.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := su.mutation.AddedUpdatedAt(); ok {
+		_spec.AddField(stock.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := su.mutation.DeletedAt(); ok {
+		_spec.SetField(stock.FieldDeletedAt, field.TypeUint32, value)
+	}
+	if value, ok := su.mutation.AddedDeletedAt(); ok {
+		_spec.AddField(stock.FieldDeletedAt, field.TypeUint32, value)
 	}
 	if value, ok := su.mutation.GoodID(); ok {
 		_spec.SetField(stock.FieldGoodID, field.TypeUUID, value)
@@ -335,6 +417,61 @@ func (suo *StockUpdateOne) SetNillableEntID(u *uuid.UUID) *StockUpdateOne {
 	if u != nil {
 		suo.SetEntID(*u)
 	}
+	return suo
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (suo *StockUpdateOne) SetCreatedAt(u uint32) *StockUpdateOne {
+	suo.mutation.ResetCreatedAt()
+	suo.mutation.SetCreatedAt(u)
+	return suo
+}
+
+// SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
+func (suo *StockUpdateOne) SetNillableCreatedAt(u *uint32) *StockUpdateOne {
+	if u != nil {
+		suo.SetCreatedAt(*u)
+	}
+	return suo
+}
+
+// AddCreatedAt adds u to the "created_at" field.
+func (suo *StockUpdateOne) AddCreatedAt(u int32) *StockUpdateOne {
+	suo.mutation.AddCreatedAt(u)
+	return suo
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (suo *StockUpdateOne) SetUpdatedAt(u uint32) *StockUpdateOne {
+	suo.mutation.ResetUpdatedAt()
+	suo.mutation.SetUpdatedAt(u)
+	return suo
+}
+
+// AddUpdatedAt adds u to the "updated_at" field.
+func (suo *StockUpdateOne) AddUpdatedAt(u int32) *StockUpdateOne {
+	suo.mutation.AddUpdatedAt(u)
+	return suo
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (suo *StockUpdateOne) SetDeletedAt(u uint32) *StockUpdateOne {
+	suo.mutation.ResetDeletedAt()
+	suo.mutation.SetDeletedAt(u)
+	return suo
+}
+
+// SetNillableDeletedAt sets the "deleted_at" field if the given value is not nil.
+func (suo *StockUpdateOne) SetNillableDeletedAt(u *uint32) *StockUpdateOne {
+	if u != nil {
+		suo.SetDeletedAt(*u)
+	}
+	return suo
+}
+
+// AddDeletedAt adds u to the "deleted_at" field.
+func (suo *StockUpdateOne) AddDeletedAt(u int32) *StockUpdateOne {
+	suo.mutation.AddDeletedAt(u)
 	return suo
 }
 
@@ -518,6 +655,7 @@ func (suo *StockUpdateOne) Select(field string, fields ...string) *StockUpdateOn
 
 // Save executes the query and returns the updated Stock entity.
 func (suo *StockUpdateOne) Save(ctx context.Context) (*Stock, error) {
+	suo.defaults()
 	return withHooks(ctx, suo.sqlSave, suo.mutation, suo.hooks)
 }
 
@@ -540,6 +678,14 @@ func (suo *StockUpdateOne) Exec(ctx context.Context) error {
 func (suo *StockUpdateOne) ExecX(ctx context.Context) {
 	if err := suo.Exec(ctx); err != nil {
 		panic(err)
+	}
+}
+
+// defaults sets the default values of the builder before save.
+func (suo *StockUpdateOne) defaults() {
+	if _, ok := suo.mutation.UpdatedAt(); !ok {
+		v := stock.UpdateDefaultUpdatedAt()
+		suo.mutation.SetUpdatedAt(v)
 	}
 }
 
@@ -577,6 +723,24 @@ func (suo *StockUpdateOne) sqlSave(ctx context.Context) (_node *Stock, err error
 	}
 	if value, ok := suo.mutation.EntID(); ok {
 		_spec.SetField(stock.FieldEntID, field.TypeUUID, value)
+	}
+	if value, ok := suo.mutation.CreatedAt(); ok {
+		_spec.SetField(stock.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := suo.mutation.AddedCreatedAt(); ok {
+		_spec.AddField(stock.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := suo.mutation.UpdatedAt(); ok {
+		_spec.SetField(stock.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := suo.mutation.AddedUpdatedAt(); ok {
+		_spec.AddField(stock.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := suo.mutation.DeletedAt(); ok {
+		_spec.SetField(stock.FieldDeletedAt, field.TypeUint32, value)
+	}
+	if value, ok := suo.mutation.AddedDeletedAt(); ok {
+		_spec.AddField(stock.FieldDeletedAt, field.TypeUint32, value)
 	}
 	if value, ok := suo.mutation.GoodID(); ok {
 		_spec.SetField(stock.FieldGoodID, field.TypeUUID, value)

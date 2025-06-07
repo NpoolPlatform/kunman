@@ -43,6 +43,61 @@ func (cu *CommentUpdate) SetNillableEntID(u *uuid.UUID) *CommentUpdate {
 	return cu
 }
 
+// SetCreatedAt sets the "created_at" field.
+func (cu *CommentUpdate) SetCreatedAt(u uint32) *CommentUpdate {
+	cu.mutation.ResetCreatedAt()
+	cu.mutation.SetCreatedAt(u)
+	return cu
+}
+
+// SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
+func (cu *CommentUpdate) SetNillableCreatedAt(u *uint32) *CommentUpdate {
+	if u != nil {
+		cu.SetCreatedAt(*u)
+	}
+	return cu
+}
+
+// AddCreatedAt adds u to the "created_at" field.
+func (cu *CommentUpdate) AddCreatedAt(u int32) *CommentUpdate {
+	cu.mutation.AddCreatedAt(u)
+	return cu
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (cu *CommentUpdate) SetUpdatedAt(u uint32) *CommentUpdate {
+	cu.mutation.ResetUpdatedAt()
+	cu.mutation.SetUpdatedAt(u)
+	return cu
+}
+
+// AddUpdatedAt adds u to the "updated_at" field.
+func (cu *CommentUpdate) AddUpdatedAt(u int32) *CommentUpdate {
+	cu.mutation.AddUpdatedAt(u)
+	return cu
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (cu *CommentUpdate) SetDeletedAt(u uint32) *CommentUpdate {
+	cu.mutation.ResetDeletedAt()
+	cu.mutation.SetDeletedAt(u)
+	return cu
+}
+
+// SetNillableDeletedAt sets the "deleted_at" field if the given value is not nil.
+func (cu *CommentUpdate) SetNillableDeletedAt(u *uint32) *CommentUpdate {
+	if u != nil {
+		cu.SetDeletedAt(*u)
+	}
+	return cu
+}
+
+// AddDeletedAt adds u to the "deleted_at" field.
+func (cu *CommentUpdate) AddDeletedAt(u int32) *CommentUpdate {
+	cu.mutation.AddDeletedAt(u)
+	return cu
+}
+
 // SetUserID sets the "user_id" field.
 func (cu *CommentUpdate) SetUserID(u uuid.UUID) *CommentUpdate {
 	cu.mutation.SetUserID(u)
@@ -250,6 +305,7 @@ func (cu *CommentUpdate) Mutation() *CommentMutation {
 
 // Save executes the query and returns the number of nodes affected by the update operation.
 func (cu *CommentUpdate) Save(ctx context.Context) (int, error) {
+	cu.defaults()
 	return withHooks(ctx, cu.sqlSave, cu.mutation, cu.hooks)
 }
 
@@ -275,6 +331,14 @@ func (cu *CommentUpdate) ExecX(ctx context.Context) {
 	}
 }
 
+// defaults sets the default values of the builder before save.
+func (cu *CommentUpdate) defaults() {
+	if _, ok := cu.mutation.UpdatedAt(); !ok {
+		v := comment.UpdateDefaultUpdatedAt()
+		cu.mutation.SetUpdatedAt(v)
+	}
+}
+
 // Modify adds a statement modifier for attaching custom logic to the UPDATE statement.
 func (cu *CommentUpdate) Modify(modifiers ...func(u *sql.UpdateBuilder)) *CommentUpdate {
 	cu.modifiers = append(cu.modifiers, modifiers...)
@@ -292,6 +356,24 @@ func (cu *CommentUpdate) sqlSave(ctx context.Context) (n int, err error) {
 	}
 	if value, ok := cu.mutation.EntID(); ok {
 		_spec.SetField(comment.FieldEntID, field.TypeUUID, value)
+	}
+	if value, ok := cu.mutation.CreatedAt(); ok {
+		_spec.SetField(comment.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := cu.mutation.AddedCreatedAt(); ok {
+		_spec.AddField(comment.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := cu.mutation.UpdatedAt(); ok {
+		_spec.SetField(comment.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := cu.mutation.AddedUpdatedAt(); ok {
+		_spec.AddField(comment.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := cu.mutation.DeletedAt(); ok {
+		_spec.SetField(comment.FieldDeletedAt, field.TypeUint32, value)
+	}
+	if value, ok := cu.mutation.AddedDeletedAt(); ok {
+		_spec.AddField(comment.FieldDeletedAt, field.TypeUint32, value)
 	}
 	if value, ok := cu.mutation.UserID(); ok {
 		_spec.SetField(comment.FieldUserID, field.TypeUUID, value)
@@ -386,6 +468,61 @@ func (cuo *CommentUpdateOne) SetNillableEntID(u *uuid.UUID) *CommentUpdateOne {
 	if u != nil {
 		cuo.SetEntID(*u)
 	}
+	return cuo
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (cuo *CommentUpdateOne) SetCreatedAt(u uint32) *CommentUpdateOne {
+	cuo.mutation.ResetCreatedAt()
+	cuo.mutation.SetCreatedAt(u)
+	return cuo
+}
+
+// SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
+func (cuo *CommentUpdateOne) SetNillableCreatedAt(u *uint32) *CommentUpdateOne {
+	if u != nil {
+		cuo.SetCreatedAt(*u)
+	}
+	return cuo
+}
+
+// AddCreatedAt adds u to the "created_at" field.
+func (cuo *CommentUpdateOne) AddCreatedAt(u int32) *CommentUpdateOne {
+	cuo.mutation.AddCreatedAt(u)
+	return cuo
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (cuo *CommentUpdateOne) SetUpdatedAt(u uint32) *CommentUpdateOne {
+	cuo.mutation.ResetUpdatedAt()
+	cuo.mutation.SetUpdatedAt(u)
+	return cuo
+}
+
+// AddUpdatedAt adds u to the "updated_at" field.
+func (cuo *CommentUpdateOne) AddUpdatedAt(u int32) *CommentUpdateOne {
+	cuo.mutation.AddUpdatedAt(u)
+	return cuo
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (cuo *CommentUpdateOne) SetDeletedAt(u uint32) *CommentUpdateOne {
+	cuo.mutation.ResetDeletedAt()
+	cuo.mutation.SetDeletedAt(u)
+	return cuo
+}
+
+// SetNillableDeletedAt sets the "deleted_at" field if the given value is not nil.
+func (cuo *CommentUpdateOne) SetNillableDeletedAt(u *uint32) *CommentUpdateOne {
+	if u != nil {
+		cuo.SetDeletedAt(*u)
+	}
+	return cuo
+}
+
+// AddDeletedAt adds u to the "deleted_at" field.
+func (cuo *CommentUpdateOne) AddDeletedAt(u int32) *CommentUpdateOne {
+	cuo.mutation.AddDeletedAt(u)
 	return cuo
 }
 
@@ -609,6 +746,7 @@ func (cuo *CommentUpdateOne) Select(field string, fields ...string) *CommentUpda
 
 // Save executes the query and returns the updated Comment entity.
 func (cuo *CommentUpdateOne) Save(ctx context.Context) (*Comment, error) {
+	cuo.defaults()
 	return withHooks(ctx, cuo.sqlSave, cuo.mutation, cuo.hooks)
 }
 
@@ -631,6 +769,14 @@ func (cuo *CommentUpdateOne) Exec(ctx context.Context) error {
 func (cuo *CommentUpdateOne) ExecX(ctx context.Context) {
 	if err := cuo.Exec(ctx); err != nil {
 		panic(err)
+	}
+}
+
+// defaults sets the default values of the builder before save.
+func (cuo *CommentUpdateOne) defaults() {
+	if _, ok := cuo.mutation.UpdatedAt(); !ok {
+		v := comment.UpdateDefaultUpdatedAt()
+		cuo.mutation.SetUpdatedAt(v)
 	}
 }
 
@@ -668,6 +814,24 @@ func (cuo *CommentUpdateOne) sqlSave(ctx context.Context) (_node *Comment, err e
 	}
 	if value, ok := cuo.mutation.EntID(); ok {
 		_spec.SetField(comment.FieldEntID, field.TypeUUID, value)
+	}
+	if value, ok := cuo.mutation.CreatedAt(); ok {
+		_spec.SetField(comment.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := cuo.mutation.AddedCreatedAt(); ok {
+		_spec.AddField(comment.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := cuo.mutation.UpdatedAt(); ok {
+		_spec.SetField(comment.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := cuo.mutation.AddedUpdatedAt(); ok {
+		_spec.AddField(comment.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := cuo.mutation.DeletedAt(); ok {
+		_spec.SetField(comment.FieldDeletedAt, field.TypeUint32, value)
+	}
+	if value, ok := cuo.mutation.AddedDeletedAt(); ok {
+		_spec.AddField(comment.FieldDeletedAt, field.TypeUint32, value)
 	}
 	if value, ok := cuo.mutation.UserID(); ok {
 		_spec.SetField(comment.FieldUserID, field.TypeUUID, value)

@@ -20,6 +20,12 @@ type ExtraInfo struct {
 	ID uint32 `json:"id,omitempty"`
 	// EntID holds the value of the "ent_id" field.
 	EntID uuid.UUID `json:"ent_id,omitempty"`
+	// CreatedAt holds the value of the "created_at" field.
+	CreatedAt uint32 `json:"created_at,omitempty"`
+	// UpdatedAt holds the value of the "updated_at" field.
+	UpdatedAt uint32 `json:"updated_at,omitempty"`
+	// DeletedAt holds the value of the "deleted_at" field.
+	DeletedAt uint32 `json:"deleted_at,omitempty"`
 	// AppGoodID holds the value of the "app_good_id" field.
 	AppGoodID uuid.UUID `json:"app_good_id,omitempty"`
 	// Likes holds the value of the "likes" field.
@@ -44,7 +50,7 @@ func (*ExtraInfo) scanValues(columns []string) ([]any, error) {
 		switch columns[i] {
 		case extrainfo.FieldScore:
 			values[i] = new(decimal.Decimal)
-		case extrainfo.FieldID, extrainfo.FieldLikes, extrainfo.FieldDislikes, extrainfo.FieldRecommendCount, extrainfo.FieldCommentCount, extrainfo.FieldScoreCount:
+		case extrainfo.FieldID, extrainfo.FieldCreatedAt, extrainfo.FieldUpdatedAt, extrainfo.FieldDeletedAt, extrainfo.FieldLikes, extrainfo.FieldDislikes, extrainfo.FieldRecommendCount, extrainfo.FieldCommentCount, extrainfo.FieldScoreCount:
 			values[i] = new(sql.NullInt64)
 		case extrainfo.FieldEntID, extrainfo.FieldAppGoodID:
 			values[i] = new(uuid.UUID)
@@ -74,6 +80,24 @@ func (ei *ExtraInfo) assignValues(columns []string, values []any) error {
 				return fmt.Errorf("unexpected type %T for field ent_id", values[i])
 			} else if value != nil {
 				ei.EntID = *value
+			}
+		case extrainfo.FieldCreatedAt:
+			if value, ok := values[i].(*sql.NullInt64); !ok {
+				return fmt.Errorf("unexpected type %T for field created_at", values[i])
+			} else if value.Valid {
+				ei.CreatedAt = uint32(value.Int64)
+			}
+		case extrainfo.FieldUpdatedAt:
+			if value, ok := values[i].(*sql.NullInt64); !ok {
+				return fmt.Errorf("unexpected type %T for field updated_at", values[i])
+			} else if value.Valid {
+				ei.UpdatedAt = uint32(value.Int64)
+			}
+		case extrainfo.FieldDeletedAt:
+			if value, ok := values[i].(*sql.NullInt64); !ok {
+				return fmt.Errorf("unexpected type %T for field deleted_at", values[i])
+			} else if value.Valid {
+				ei.DeletedAt = uint32(value.Int64)
 			}
 		case extrainfo.FieldAppGoodID:
 			if value, ok := values[i].(*uuid.UUID); !ok {
@@ -155,6 +179,15 @@ func (ei *ExtraInfo) String() string {
 	builder.WriteString(fmt.Sprintf("id=%v, ", ei.ID))
 	builder.WriteString("ent_id=")
 	builder.WriteString(fmt.Sprintf("%v", ei.EntID))
+	builder.WriteString(", ")
+	builder.WriteString("created_at=")
+	builder.WriteString(fmt.Sprintf("%v", ei.CreatedAt))
+	builder.WriteString(", ")
+	builder.WriteString("updated_at=")
+	builder.WriteString(fmt.Sprintf("%v", ei.UpdatedAt))
+	builder.WriteString(", ")
+	builder.WriteString("deleted_at=")
+	builder.WriteString(fmt.Sprintf("%v", ei.DeletedAt))
 	builder.WriteString(", ")
 	builder.WriteString("app_good_id=")
 	builder.WriteString(fmt.Sprintf("%v", ei.AppGoodID))

@@ -17,6 +17,7 @@ type RequiredAppGood struct {
 func (RequiredAppGood) Mixin() []ent.Mixin {
 	return []ent.Mixin{
 		crudermixin.AutoIDMixin{},
+		crudermixin.TimeMixin{},
 	}
 }
 

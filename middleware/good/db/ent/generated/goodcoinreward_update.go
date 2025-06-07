@@ -44,6 +44,61 @@ func (gcru *GoodCoinRewardUpdate) SetNillableEntID(u *uuid.UUID) *GoodCoinReward
 	return gcru
 }
 
+// SetCreatedAt sets the "created_at" field.
+func (gcru *GoodCoinRewardUpdate) SetCreatedAt(u uint32) *GoodCoinRewardUpdate {
+	gcru.mutation.ResetCreatedAt()
+	gcru.mutation.SetCreatedAt(u)
+	return gcru
+}
+
+// SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
+func (gcru *GoodCoinRewardUpdate) SetNillableCreatedAt(u *uint32) *GoodCoinRewardUpdate {
+	if u != nil {
+		gcru.SetCreatedAt(*u)
+	}
+	return gcru
+}
+
+// AddCreatedAt adds u to the "created_at" field.
+func (gcru *GoodCoinRewardUpdate) AddCreatedAt(u int32) *GoodCoinRewardUpdate {
+	gcru.mutation.AddCreatedAt(u)
+	return gcru
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (gcru *GoodCoinRewardUpdate) SetUpdatedAt(u uint32) *GoodCoinRewardUpdate {
+	gcru.mutation.ResetUpdatedAt()
+	gcru.mutation.SetUpdatedAt(u)
+	return gcru
+}
+
+// AddUpdatedAt adds u to the "updated_at" field.
+func (gcru *GoodCoinRewardUpdate) AddUpdatedAt(u int32) *GoodCoinRewardUpdate {
+	gcru.mutation.AddUpdatedAt(u)
+	return gcru
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (gcru *GoodCoinRewardUpdate) SetDeletedAt(u uint32) *GoodCoinRewardUpdate {
+	gcru.mutation.ResetDeletedAt()
+	gcru.mutation.SetDeletedAt(u)
+	return gcru
+}
+
+// SetNillableDeletedAt sets the "deleted_at" field if the given value is not nil.
+func (gcru *GoodCoinRewardUpdate) SetNillableDeletedAt(u *uint32) *GoodCoinRewardUpdate {
+	if u != nil {
+		gcru.SetDeletedAt(*u)
+	}
+	return gcru
+}
+
+// AddDeletedAt adds u to the "deleted_at" field.
+func (gcru *GoodCoinRewardUpdate) AddDeletedAt(u int32) *GoodCoinRewardUpdate {
+	gcru.mutation.AddDeletedAt(u)
+	return gcru
+}
+
 // SetGoodID sets the "good_id" field.
 func (gcru *GoodCoinRewardUpdate) SetGoodID(u uuid.UUID) *GoodCoinRewardUpdate {
 	gcru.mutation.SetGoodID(u)
@@ -191,6 +246,7 @@ func (gcru *GoodCoinRewardUpdate) Mutation() *GoodCoinRewardMutation {
 
 // Save executes the query and returns the number of nodes affected by the update operation.
 func (gcru *GoodCoinRewardUpdate) Save(ctx context.Context) (int, error) {
+	gcru.defaults()
 	return withHooks(ctx, gcru.sqlSave, gcru.mutation, gcru.hooks)
 }
 
@@ -216,6 +272,14 @@ func (gcru *GoodCoinRewardUpdate) ExecX(ctx context.Context) {
 	}
 }
 
+// defaults sets the default values of the builder before save.
+func (gcru *GoodCoinRewardUpdate) defaults() {
+	if _, ok := gcru.mutation.UpdatedAt(); !ok {
+		v := goodcoinreward.UpdateDefaultUpdatedAt()
+		gcru.mutation.SetUpdatedAt(v)
+	}
+}
+
 // Modify adds a statement modifier for attaching custom logic to the UPDATE statement.
 func (gcru *GoodCoinRewardUpdate) Modify(modifiers ...func(u *sql.UpdateBuilder)) *GoodCoinRewardUpdate {
 	gcru.modifiers = append(gcru.modifiers, modifiers...)
@@ -233,6 +297,24 @@ func (gcru *GoodCoinRewardUpdate) sqlSave(ctx context.Context) (n int, err error
 	}
 	if value, ok := gcru.mutation.EntID(); ok {
 		_spec.SetField(goodcoinreward.FieldEntID, field.TypeUUID, value)
+	}
+	if value, ok := gcru.mutation.CreatedAt(); ok {
+		_spec.SetField(goodcoinreward.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := gcru.mutation.AddedCreatedAt(); ok {
+		_spec.AddField(goodcoinreward.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := gcru.mutation.UpdatedAt(); ok {
+		_spec.SetField(goodcoinreward.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := gcru.mutation.AddedUpdatedAt(); ok {
+		_spec.AddField(goodcoinreward.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := gcru.mutation.DeletedAt(); ok {
+		_spec.SetField(goodcoinreward.FieldDeletedAt, field.TypeUint32, value)
+	}
+	if value, ok := gcru.mutation.AddedDeletedAt(); ok {
+		_spec.AddField(goodcoinreward.FieldDeletedAt, field.TypeUint32, value)
 	}
 	if value, ok := gcru.mutation.GoodID(); ok {
 		_spec.SetField(goodcoinreward.FieldGoodID, field.TypeUUID, value)
@@ -309,6 +391,61 @@ func (gcruo *GoodCoinRewardUpdateOne) SetNillableEntID(u *uuid.UUID) *GoodCoinRe
 	if u != nil {
 		gcruo.SetEntID(*u)
 	}
+	return gcruo
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (gcruo *GoodCoinRewardUpdateOne) SetCreatedAt(u uint32) *GoodCoinRewardUpdateOne {
+	gcruo.mutation.ResetCreatedAt()
+	gcruo.mutation.SetCreatedAt(u)
+	return gcruo
+}
+
+// SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
+func (gcruo *GoodCoinRewardUpdateOne) SetNillableCreatedAt(u *uint32) *GoodCoinRewardUpdateOne {
+	if u != nil {
+		gcruo.SetCreatedAt(*u)
+	}
+	return gcruo
+}
+
+// AddCreatedAt adds u to the "created_at" field.
+func (gcruo *GoodCoinRewardUpdateOne) AddCreatedAt(u int32) *GoodCoinRewardUpdateOne {
+	gcruo.mutation.AddCreatedAt(u)
+	return gcruo
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (gcruo *GoodCoinRewardUpdateOne) SetUpdatedAt(u uint32) *GoodCoinRewardUpdateOne {
+	gcruo.mutation.ResetUpdatedAt()
+	gcruo.mutation.SetUpdatedAt(u)
+	return gcruo
+}
+
+// AddUpdatedAt adds u to the "updated_at" field.
+func (gcruo *GoodCoinRewardUpdateOne) AddUpdatedAt(u int32) *GoodCoinRewardUpdateOne {
+	gcruo.mutation.AddUpdatedAt(u)
+	return gcruo
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (gcruo *GoodCoinRewardUpdateOne) SetDeletedAt(u uint32) *GoodCoinRewardUpdateOne {
+	gcruo.mutation.ResetDeletedAt()
+	gcruo.mutation.SetDeletedAt(u)
+	return gcruo
+}
+
+// SetNillableDeletedAt sets the "deleted_at" field if the given value is not nil.
+func (gcruo *GoodCoinRewardUpdateOne) SetNillableDeletedAt(u *uint32) *GoodCoinRewardUpdateOne {
+	if u != nil {
+		gcruo.SetDeletedAt(*u)
+	}
+	return gcruo
+}
+
+// AddDeletedAt adds u to the "deleted_at" field.
+func (gcruo *GoodCoinRewardUpdateOne) AddDeletedAt(u int32) *GoodCoinRewardUpdateOne {
+	gcruo.mutation.AddDeletedAt(u)
 	return gcruo
 }
 
@@ -472,6 +609,7 @@ func (gcruo *GoodCoinRewardUpdateOne) Select(field string, fields ...string) *Go
 
 // Save executes the query and returns the updated GoodCoinReward entity.
 func (gcruo *GoodCoinRewardUpdateOne) Save(ctx context.Context) (*GoodCoinReward, error) {
+	gcruo.defaults()
 	return withHooks(ctx, gcruo.sqlSave, gcruo.mutation, gcruo.hooks)
 }
 
@@ -494,6 +632,14 @@ func (gcruo *GoodCoinRewardUpdateOne) Exec(ctx context.Context) error {
 func (gcruo *GoodCoinRewardUpdateOne) ExecX(ctx context.Context) {
 	if err := gcruo.Exec(ctx); err != nil {
 		panic(err)
+	}
+}
+
+// defaults sets the default values of the builder before save.
+func (gcruo *GoodCoinRewardUpdateOne) defaults() {
+	if _, ok := gcruo.mutation.UpdatedAt(); !ok {
+		v := goodcoinreward.UpdateDefaultUpdatedAt()
+		gcruo.mutation.SetUpdatedAt(v)
 	}
 }
 
@@ -531,6 +677,24 @@ func (gcruo *GoodCoinRewardUpdateOne) sqlSave(ctx context.Context) (_node *GoodC
 	}
 	if value, ok := gcruo.mutation.EntID(); ok {
 		_spec.SetField(goodcoinreward.FieldEntID, field.TypeUUID, value)
+	}
+	if value, ok := gcruo.mutation.CreatedAt(); ok {
+		_spec.SetField(goodcoinreward.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := gcruo.mutation.AddedCreatedAt(); ok {
+		_spec.AddField(goodcoinreward.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := gcruo.mutation.UpdatedAt(); ok {
+		_spec.SetField(goodcoinreward.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := gcruo.mutation.AddedUpdatedAt(); ok {
+		_spec.AddField(goodcoinreward.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := gcruo.mutation.DeletedAt(); ok {
+		_spec.SetField(goodcoinreward.FieldDeletedAt, field.TypeUint32, value)
+	}
+	if value, ok := gcruo.mutation.AddedDeletedAt(); ok {
+		_spec.AddField(goodcoinreward.FieldDeletedAt, field.TypeUint32, value)
 	}
 	if value, ok := gcruo.mutation.GoodID(); ok {
 		_spec.SetField(goodcoinreward.FieldGoodID, field.TypeUUID, value)

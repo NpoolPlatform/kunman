@@ -43,6 +43,61 @@ func (diu *DeviceInfoUpdate) SetNillableEntID(u *uuid.UUID) *DeviceInfoUpdate {
 	return diu
 }
 
+// SetCreatedAt sets the "created_at" field.
+func (diu *DeviceInfoUpdate) SetCreatedAt(u uint32) *DeviceInfoUpdate {
+	diu.mutation.ResetCreatedAt()
+	diu.mutation.SetCreatedAt(u)
+	return diu
+}
+
+// SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
+func (diu *DeviceInfoUpdate) SetNillableCreatedAt(u *uint32) *DeviceInfoUpdate {
+	if u != nil {
+		diu.SetCreatedAt(*u)
+	}
+	return diu
+}
+
+// AddCreatedAt adds u to the "created_at" field.
+func (diu *DeviceInfoUpdate) AddCreatedAt(u int32) *DeviceInfoUpdate {
+	diu.mutation.AddCreatedAt(u)
+	return diu
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (diu *DeviceInfoUpdate) SetUpdatedAt(u uint32) *DeviceInfoUpdate {
+	diu.mutation.ResetUpdatedAt()
+	diu.mutation.SetUpdatedAt(u)
+	return diu
+}
+
+// AddUpdatedAt adds u to the "updated_at" field.
+func (diu *DeviceInfoUpdate) AddUpdatedAt(u int32) *DeviceInfoUpdate {
+	diu.mutation.AddUpdatedAt(u)
+	return diu
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (diu *DeviceInfoUpdate) SetDeletedAt(u uint32) *DeviceInfoUpdate {
+	diu.mutation.ResetDeletedAt()
+	diu.mutation.SetDeletedAt(u)
+	return diu
+}
+
+// SetNillableDeletedAt sets the "deleted_at" field if the given value is not nil.
+func (diu *DeviceInfoUpdate) SetNillableDeletedAt(u *uint32) *DeviceInfoUpdate {
+	if u != nil {
+		diu.SetDeletedAt(*u)
+	}
+	return diu
+}
+
+// AddDeletedAt adds u to the "deleted_at" field.
+func (diu *DeviceInfoUpdate) AddDeletedAt(u int32) *DeviceInfoUpdate {
+	diu.mutation.AddDeletedAt(u)
+	return diu
+}
+
 // SetType sets the "type" field.
 func (diu *DeviceInfoUpdate) SetType(s string) *DeviceInfoUpdate {
 	diu.mutation.SetType(s)
@@ -144,6 +199,7 @@ func (diu *DeviceInfoUpdate) Mutation() *DeviceInfoMutation {
 
 // Save executes the query and returns the number of nodes affected by the update operation.
 func (diu *DeviceInfoUpdate) Save(ctx context.Context) (int, error) {
+	diu.defaults()
 	return withHooks(ctx, diu.sqlSave, diu.mutation, diu.hooks)
 }
 
@@ -166,6 +222,14 @@ func (diu *DeviceInfoUpdate) Exec(ctx context.Context) error {
 func (diu *DeviceInfoUpdate) ExecX(ctx context.Context) {
 	if err := diu.Exec(ctx); err != nil {
 		panic(err)
+	}
+}
+
+// defaults sets the default values of the builder before save.
+func (diu *DeviceInfoUpdate) defaults() {
+	if _, ok := diu.mutation.UpdatedAt(); !ok {
+		v := deviceinfo.UpdateDefaultUpdatedAt()
+		diu.mutation.SetUpdatedAt(v)
 	}
 }
 
@@ -199,6 +263,24 @@ func (diu *DeviceInfoUpdate) sqlSave(ctx context.Context) (n int, err error) {
 	}
 	if value, ok := diu.mutation.EntID(); ok {
 		_spec.SetField(deviceinfo.FieldEntID, field.TypeUUID, value)
+	}
+	if value, ok := diu.mutation.CreatedAt(); ok {
+		_spec.SetField(deviceinfo.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := diu.mutation.AddedCreatedAt(); ok {
+		_spec.AddField(deviceinfo.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := diu.mutation.UpdatedAt(); ok {
+		_spec.SetField(deviceinfo.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := diu.mutation.AddedUpdatedAt(); ok {
+		_spec.AddField(deviceinfo.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := diu.mutation.DeletedAt(); ok {
+		_spec.SetField(deviceinfo.FieldDeletedAt, field.TypeUint32, value)
+	}
+	if value, ok := diu.mutation.AddedDeletedAt(); ok {
+		_spec.AddField(deviceinfo.FieldDeletedAt, field.TypeUint32, value)
 	}
 	if value, ok := diu.mutation.GetType(); ok {
 		_spec.SetField(deviceinfo.FieldType, field.TypeString, value)
@@ -263,6 +345,61 @@ func (diuo *DeviceInfoUpdateOne) SetNillableEntID(u *uuid.UUID) *DeviceInfoUpdat
 	if u != nil {
 		diuo.SetEntID(*u)
 	}
+	return diuo
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (diuo *DeviceInfoUpdateOne) SetCreatedAt(u uint32) *DeviceInfoUpdateOne {
+	diuo.mutation.ResetCreatedAt()
+	diuo.mutation.SetCreatedAt(u)
+	return diuo
+}
+
+// SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
+func (diuo *DeviceInfoUpdateOne) SetNillableCreatedAt(u *uint32) *DeviceInfoUpdateOne {
+	if u != nil {
+		diuo.SetCreatedAt(*u)
+	}
+	return diuo
+}
+
+// AddCreatedAt adds u to the "created_at" field.
+func (diuo *DeviceInfoUpdateOne) AddCreatedAt(u int32) *DeviceInfoUpdateOne {
+	diuo.mutation.AddCreatedAt(u)
+	return diuo
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (diuo *DeviceInfoUpdateOne) SetUpdatedAt(u uint32) *DeviceInfoUpdateOne {
+	diuo.mutation.ResetUpdatedAt()
+	diuo.mutation.SetUpdatedAt(u)
+	return diuo
+}
+
+// AddUpdatedAt adds u to the "updated_at" field.
+func (diuo *DeviceInfoUpdateOne) AddUpdatedAt(u int32) *DeviceInfoUpdateOne {
+	diuo.mutation.AddUpdatedAt(u)
+	return diuo
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (diuo *DeviceInfoUpdateOne) SetDeletedAt(u uint32) *DeviceInfoUpdateOne {
+	diuo.mutation.ResetDeletedAt()
+	diuo.mutation.SetDeletedAt(u)
+	return diuo
+}
+
+// SetNillableDeletedAt sets the "deleted_at" field if the given value is not nil.
+func (diuo *DeviceInfoUpdateOne) SetNillableDeletedAt(u *uint32) *DeviceInfoUpdateOne {
+	if u != nil {
+		diuo.SetDeletedAt(*u)
+	}
+	return diuo
+}
+
+// AddDeletedAt adds u to the "deleted_at" field.
+func (diuo *DeviceInfoUpdateOne) AddDeletedAt(u int32) *DeviceInfoUpdateOne {
+	diuo.mutation.AddDeletedAt(u)
 	return diuo
 }
 
@@ -380,6 +517,7 @@ func (diuo *DeviceInfoUpdateOne) Select(field string, fields ...string) *DeviceI
 
 // Save executes the query and returns the updated DeviceInfo entity.
 func (diuo *DeviceInfoUpdateOne) Save(ctx context.Context) (*DeviceInfo, error) {
+	diuo.defaults()
 	return withHooks(ctx, diuo.sqlSave, diuo.mutation, diuo.hooks)
 }
 
@@ -402,6 +540,14 @@ func (diuo *DeviceInfoUpdateOne) Exec(ctx context.Context) error {
 func (diuo *DeviceInfoUpdateOne) ExecX(ctx context.Context) {
 	if err := diuo.Exec(ctx); err != nil {
 		panic(err)
+	}
+}
+
+// defaults sets the default values of the builder before save.
+func (diuo *DeviceInfoUpdateOne) defaults() {
+	if _, ok := diuo.mutation.UpdatedAt(); !ok {
+		v := deviceinfo.UpdateDefaultUpdatedAt()
+		diuo.mutation.SetUpdatedAt(v)
 	}
 }
 
@@ -452,6 +598,24 @@ func (diuo *DeviceInfoUpdateOne) sqlSave(ctx context.Context) (_node *DeviceInfo
 	}
 	if value, ok := diuo.mutation.EntID(); ok {
 		_spec.SetField(deviceinfo.FieldEntID, field.TypeUUID, value)
+	}
+	if value, ok := diuo.mutation.CreatedAt(); ok {
+		_spec.SetField(deviceinfo.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := diuo.mutation.AddedCreatedAt(); ok {
+		_spec.AddField(deviceinfo.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := diuo.mutation.UpdatedAt(); ok {
+		_spec.SetField(deviceinfo.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := diuo.mutation.AddedUpdatedAt(); ok {
+		_spec.AddField(deviceinfo.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := diuo.mutation.DeletedAt(); ok {
+		_spec.SetField(deviceinfo.FieldDeletedAt, field.TypeUint32, value)
+	}
+	if value, ok := diuo.mutation.AddedDeletedAt(); ok {
+		_spec.AddField(deviceinfo.FieldDeletedAt, field.TypeUint32, value)
 	}
 	if value, ok := diuo.mutation.GetType(); ok {
 		_spec.SetField(deviceinfo.FieldType, field.TypeString, value)

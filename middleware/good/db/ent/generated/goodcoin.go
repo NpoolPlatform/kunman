@@ -19,6 +19,12 @@ type GoodCoin struct {
 	ID uint32 `json:"id,omitempty"`
 	// EntID holds the value of the "ent_id" field.
 	EntID uuid.UUID `json:"ent_id,omitempty"`
+	// CreatedAt holds the value of the "created_at" field.
+	CreatedAt uint32 `json:"created_at,omitempty"`
+	// UpdatedAt holds the value of the "updated_at" field.
+	UpdatedAt uint32 `json:"updated_at,omitempty"`
+	// DeletedAt holds the value of the "deleted_at" field.
+	DeletedAt uint32 `json:"deleted_at,omitempty"`
 	// GoodID holds the value of the "good_id" field.
 	GoodID uuid.UUID `json:"good_id,omitempty"`
 	// CoinTypeID holds the value of the "coin_type_id" field.
@@ -37,7 +43,7 @@ func (*GoodCoin) scanValues(columns []string) ([]any, error) {
 		switch columns[i] {
 		case goodcoin.FieldMain:
 			values[i] = new(sql.NullBool)
-		case goodcoin.FieldID, goodcoin.FieldIndex:
+		case goodcoin.FieldID, goodcoin.FieldCreatedAt, goodcoin.FieldUpdatedAt, goodcoin.FieldDeletedAt, goodcoin.FieldIndex:
 			values[i] = new(sql.NullInt64)
 		case goodcoin.FieldEntID, goodcoin.FieldGoodID, goodcoin.FieldCoinTypeID:
 			values[i] = new(uuid.UUID)
@@ -67,6 +73,24 @@ func (gc *GoodCoin) assignValues(columns []string, values []any) error {
 				return fmt.Errorf("unexpected type %T for field ent_id", values[i])
 			} else if value != nil {
 				gc.EntID = *value
+			}
+		case goodcoin.FieldCreatedAt:
+			if value, ok := values[i].(*sql.NullInt64); !ok {
+				return fmt.Errorf("unexpected type %T for field created_at", values[i])
+			} else if value.Valid {
+				gc.CreatedAt = uint32(value.Int64)
+			}
+		case goodcoin.FieldUpdatedAt:
+			if value, ok := values[i].(*sql.NullInt64); !ok {
+				return fmt.Errorf("unexpected type %T for field updated_at", values[i])
+			} else if value.Valid {
+				gc.UpdatedAt = uint32(value.Int64)
+			}
+		case goodcoin.FieldDeletedAt:
+			if value, ok := values[i].(*sql.NullInt64); !ok {
+				return fmt.Errorf("unexpected type %T for field deleted_at", values[i])
+			} else if value.Valid {
+				gc.DeletedAt = uint32(value.Int64)
 			}
 		case goodcoin.FieldGoodID:
 			if value, ok := values[i].(*uuid.UUID); !ok {
@@ -130,6 +154,15 @@ func (gc *GoodCoin) String() string {
 	builder.WriteString(fmt.Sprintf("id=%v, ", gc.ID))
 	builder.WriteString("ent_id=")
 	builder.WriteString(fmt.Sprintf("%v", gc.EntID))
+	builder.WriteString(", ")
+	builder.WriteString("created_at=")
+	builder.WriteString(fmt.Sprintf("%v", gc.CreatedAt))
+	builder.WriteString(", ")
+	builder.WriteString("updated_at=")
+	builder.WriteString(fmt.Sprintf("%v", gc.UpdatedAt))
+	builder.WriteString(", ")
+	builder.WriteString("deleted_at=")
+	builder.WriteString(fmt.Sprintf("%v", gc.DeletedAt))
 	builder.WriteString(", ")
 	builder.WriteString("good_id=")
 	builder.WriteString(fmt.Sprintf("%v", gc.GoodID))

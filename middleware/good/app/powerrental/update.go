@@ -10,7 +10,7 @@ import (
 	goodcommon "github.com/NpoolPlatform/kunman/middleware/good/common"
 	"github.com/NpoolPlatform/kunman/middleware/good/db"
 	"github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated"
-	appgoodbase1 "github.com/NpoolPlatform/kunman/middleware/good/middleware/app/good/goodbase"
+	appgoodbase1 "github.com/NpoolPlatform/kunman/middleware/good/app/good/goodbase"
 	cruder "github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 	types "github.com/NpoolPlatform/kunman/message/basetypes/good/v1"
 

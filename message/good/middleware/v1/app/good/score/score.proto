@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package good.middleware.app.good1.score.v1;
 
-option go_package = "github.com/NpoolPlatform/message/good/middleware/v1/app/good/score";
+option go_package = "github.com/NpoolPlatform/kunman/message/good/middleware/v1/app/good/score";
 
 import "basetypes/v1/conds.proto";
 

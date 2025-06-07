@@ -7,7 +7,7 @@
 package good
 
 import (
-	good "github.com/NpoolPlatform/message/good/middleware/v1/good"
+	good "github.com/NpoolPlatform/kunman/message/good/middleware/v1/good"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"

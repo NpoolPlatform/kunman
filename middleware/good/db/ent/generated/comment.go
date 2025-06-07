@@ -19,6 +19,12 @@ type Comment struct {
 	ID uint32 `json:"id,omitempty"`
 	// EntID holds the value of the "ent_id" field.
 	EntID uuid.UUID `json:"ent_id,omitempty"`
+	// CreatedAt holds the value of the "created_at" field.
+	CreatedAt uint32 `json:"created_at,omitempty"`
+	// UpdatedAt holds the value of the "updated_at" field.
+	UpdatedAt uint32 `json:"updated_at,omitempty"`
+	// DeletedAt holds the value of the "deleted_at" field.
+	DeletedAt uint32 `json:"deleted_at,omitempty"`
 	// UserID holds the value of the "user_id" field.
 	UserID uuid.UUID `json:"user_id,omitempty"`
 	// AppGoodID holds the value of the "app_good_id" field.
@@ -49,7 +55,7 @@ func (*Comment) scanValues(columns []string) ([]any, error) {
 		switch columns[i] {
 		case comment.FieldAnonymous, comment.FieldTrialUser, comment.FieldPurchasedUser, comment.FieldHide:
 			values[i] = new(sql.NullBool)
-		case comment.FieldID:
+		case comment.FieldID, comment.FieldCreatedAt, comment.FieldUpdatedAt, comment.FieldDeletedAt:
 			values[i] = new(sql.NullInt64)
 		case comment.FieldContent, comment.FieldHideReason:
 			values[i] = new(sql.NullString)
@@ -81,6 +87,24 @@ func (c *Comment) assignValues(columns []string, values []any) error {
 				return fmt.Errorf("unexpected type %T for field ent_id", values[i])
 			} else if value != nil {
 				c.EntID = *value
+			}
+		case comment.FieldCreatedAt:
+			if value, ok := values[i].(*sql.NullInt64); !ok {
+				return fmt.Errorf("unexpected type %T for field created_at", values[i])
+			} else if value.Valid {
+				c.CreatedAt = uint32(value.Int64)
+			}
+		case comment.FieldUpdatedAt:
+			if value, ok := values[i].(*sql.NullInt64); !ok {
+				return fmt.Errorf("unexpected type %T for field updated_at", values[i])
+			} else if value.Valid {
+				c.UpdatedAt = uint32(value.Int64)
+			}
+		case comment.FieldDeletedAt:
+			if value, ok := values[i].(*sql.NullInt64); !ok {
+				return fmt.Errorf("unexpected type %T for field deleted_at", values[i])
+			} else if value.Valid {
+				c.DeletedAt = uint32(value.Int64)
 			}
 		case comment.FieldUserID:
 			if value, ok := values[i].(*uuid.UUID); !ok {
@@ -180,6 +204,15 @@ func (c *Comment) String() string {
 	builder.WriteString(fmt.Sprintf("id=%v, ", c.ID))
 	builder.WriteString("ent_id=")
 	builder.WriteString(fmt.Sprintf("%v", c.EntID))
+	builder.WriteString(", ")
+	builder.WriteString("created_at=")
+	builder.WriteString(fmt.Sprintf("%v", c.CreatedAt))
+	builder.WriteString(", ")
+	builder.WriteString("updated_at=")
+	builder.WriteString(fmt.Sprintf("%v", c.UpdatedAt))
+	builder.WriteString(", ")
+	builder.WriteString("deleted_at=")
+	builder.WriteString(fmt.Sprintf("%v", c.DeletedAt))
 	builder.WriteString(", ")
 	builder.WriteString("user_id=")
 	builder.WriteString(fmt.Sprintf("%v", c.UserID))

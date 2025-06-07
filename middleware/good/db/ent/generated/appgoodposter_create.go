@@ -36,6 +36,48 @@ func (agpc *AppGoodPosterCreate) SetNillableEntID(u *uuid.UUID) *AppGoodPosterCr
 	return agpc
 }
 
+// SetCreatedAt sets the "created_at" field.
+func (agpc *AppGoodPosterCreate) SetCreatedAt(u uint32) *AppGoodPosterCreate {
+	agpc.mutation.SetCreatedAt(u)
+	return agpc
+}
+
+// SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
+func (agpc *AppGoodPosterCreate) SetNillableCreatedAt(u *uint32) *AppGoodPosterCreate {
+	if u != nil {
+		agpc.SetCreatedAt(*u)
+	}
+	return agpc
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (agpc *AppGoodPosterCreate) SetUpdatedAt(u uint32) *AppGoodPosterCreate {
+	agpc.mutation.SetUpdatedAt(u)
+	return agpc
+}
+
+// SetNillableUpdatedAt sets the "updated_at" field if the given value is not nil.
+func (agpc *AppGoodPosterCreate) SetNillableUpdatedAt(u *uint32) *AppGoodPosterCreate {
+	if u != nil {
+		agpc.SetUpdatedAt(*u)
+	}
+	return agpc
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (agpc *AppGoodPosterCreate) SetDeletedAt(u uint32) *AppGoodPosterCreate {
+	agpc.mutation.SetDeletedAt(u)
+	return agpc
+}
+
+// SetNillableDeletedAt sets the "deleted_at" field if the given value is not nil.
+func (agpc *AppGoodPosterCreate) SetNillableDeletedAt(u *uint32) *AppGoodPosterCreate {
+	if u != nil {
+		agpc.SetDeletedAt(*u)
+	}
+	return agpc
+}
+
 // SetAppGoodID sets the "app_good_id" field.
 func (agpc *AppGoodPosterCreate) SetAppGoodID(u uuid.UUID) *AppGoodPosterCreate {
 	agpc.mutation.SetAppGoodID(u)
@@ -123,6 +165,18 @@ func (agpc *AppGoodPosterCreate) defaults() {
 		v := appgoodposter.DefaultEntID()
 		agpc.mutation.SetEntID(v)
 	}
+	if _, ok := agpc.mutation.CreatedAt(); !ok {
+		v := appgoodposter.DefaultCreatedAt()
+		agpc.mutation.SetCreatedAt(v)
+	}
+	if _, ok := agpc.mutation.UpdatedAt(); !ok {
+		v := appgoodposter.DefaultUpdatedAt()
+		agpc.mutation.SetUpdatedAt(v)
+	}
+	if _, ok := agpc.mutation.DeletedAt(); !ok {
+		v := appgoodposter.DefaultDeletedAt()
+		agpc.mutation.SetDeletedAt(v)
+	}
 	if _, ok := agpc.mutation.AppGoodID(); !ok {
 		v := appgoodposter.DefaultAppGoodID()
 		agpc.mutation.SetAppGoodID(v)
@@ -141,6 +195,15 @@ func (agpc *AppGoodPosterCreate) defaults() {
 func (agpc *AppGoodPosterCreate) check() error {
 	if _, ok := agpc.mutation.EntID(); !ok {
 		return &ValidationError{Name: "ent_id", err: errors.New(`generated: missing required field "AppGoodPoster.ent_id"`)}
+	}
+	if _, ok := agpc.mutation.CreatedAt(); !ok {
+		return &ValidationError{Name: "created_at", err: errors.New(`generated: missing required field "AppGoodPoster.created_at"`)}
+	}
+	if _, ok := agpc.mutation.UpdatedAt(); !ok {
+		return &ValidationError{Name: "updated_at", err: errors.New(`generated: missing required field "AppGoodPoster.updated_at"`)}
+	}
+	if _, ok := agpc.mutation.DeletedAt(); !ok {
+		return &ValidationError{Name: "deleted_at", err: errors.New(`generated: missing required field "AppGoodPoster.deleted_at"`)}
 	}
 	return nil
 }
@@ -178,6 +241,18 @@ func (agpc *AppGoodPosterCreate) createSpec() (*AppGoodPoster, *sqlgraph.CreateS
 	if value, ok := agpc.mutation.EntID(); ok {
 		_spec.SetField(appgoodposter.FieldEntID, field.TypeUUID, value)
 		_node.EntID = value
+	}
+	if value, ok := agpc.mutation.CreatedAt(); ok {
+		_spec.SetField(appgoodposter.FieldCreatedAt, field.TypeUint32, value)
+		_node.CreatedAt = value
+	}
+	if value, ok := agpc.mutation.UpdatedAt(); ok {
+		_spec.SetField(appgoodposter.FieldUpdatedAt, field.TypeUint32, value)
+		_node.UpdatedAt = value
+	}
+	if value, ok := agpc.mutation.DeletedAt(); ok {
+		_spec.SetField(appgoodposter.FieldDeletedAt, field.TypeUint32, value)
+		_node.DeletedAt = value
 	}
 	if value, ok := agpc.mutation.AppGoodID(); ok {
 		_spec.SetField(appgoodposter.FieldAppGoodID, field.TypeUUID, value)
@@ -252,6 +327,60 @@ func (u *AppGoodPosterUpsert) SetEntID(v uuid.UUID) *AppGoodPosterUpsert {
 // UpdateEntID sets the "ent_id" field to the value that was provided on create.
 func (u *AppGoodPosterUpsert) UpdateEntID() *AppGoodPosterUpsert {
 	u.SetExcluded(appgoodposter.FieldEntID)
+	return u
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (u *AppGoodPosterUpsert) SetCreatedAt(v uint32) *AppGoodPosterUpsert {
+	u.Set(appgoodposter.FieldCreatedAt, v)
+	return u
+}
+
+// UpdateCreatedAt sets the "created_at" field to the value that was provided on create.
+func (u *AppGoodPosterUpsert) UpdateCreatedAt() *AppGoodPosterUpsert {
+	u.SetExcluded(appgoodposter.FieldCreatedAt)
+	return u
+}
+
+// AddCreatedAt adds v to the "created_at" field.
+func (u *AppGoodPosterUpsert) AddCreatedAt(v uint32) *AppGoodPosterUpsert {
+	u.Add(appgoodposter.FieldCreatedAt, v)
+	return u
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (u *AppGoodPosterUpsert) SetUpdatedAt(v uint32) *AppGoodPosterUpsert {
+	u.Set(appgoodposter.FieldUpdatedAt, v)
+	return u
+}
+
+// UpdateUpdatedAt sets the "updated_at" field to the value that was provided on create.
+func (u *AppGoodPosterUpsert) UpdateUpdatedAt() *AppGoodPosterUpsert {
+	u.SetExcluded(appgoodposter.FieldUpdatedAt)
+	return u
+}
+
+// AddUpdatedAt adds v to the "updated_at" field.
+func (u *AppGoodPosterUpsert) AddUpdatedAt(v uint32) *AppGoodPosterUpsert {
+	u.Add(appgoodposter.FieldUpdatedAt, v)
+	return u
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (u *AppGoodPosterUpsert) SetDeletedAt(v uint32) *AppGoodPosterUpsert {
+	u.Set(appgoodposter.FieldDeletedAt, v)
+	return u
+}
+
+// UpdateDeletedAt sets the "deleted_at" field to the value that was provided on create.
+func (u *AppGoodPosterUpsert) UpdateDeletedAt() *AppGoodPosterUpsert {
+	u.SetExcluded(appgoodposter.FieldDeletedAt)
+	return u
+}
+
+// AddDeletedAt adds v to the "deleted_at" field.
+func (u *AppGoodPosterUpsert) AddDeletedAt(v uint32) *AppGoodPosterUpsert {
+	u.Add(appgoodposter.FieldDeletedAt, v)
 	return u
 }
 
@@ -374,6 +503,69 @@ func (u *AppGoodPosterUpsertOne) SetEntID(v uuid.UUID) *AppGoodPosterUpsertOne {
 func (u *AppGoodPosterUpsertOne) UpdateEntID() *AppGoodPosterUpsertOne {
 	return u.Update(func(s *AppGoodPosterUpsert) {
 		s.UpdateEntID()
+	})
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (u *AppGoodPosterUpsertOne) SetCreatedAt(v uint32) *AppGoodPosterUpsertOne {
+	return u.Update(func(s *AppGoodPosterUpsert) {
+		s.SetCreatedAt(v)
+	})
+}
+
+// AddCreatedAt adds v to the "created_at" field.
+func (u *AppGoodPosterUpsertOne) AddCreatedAt(v uint32) *AppGoodPosterUpsertOne {
+	return u.Update(func(s *AppGoodPosterUpsert) {
+		s.AddCreatedAt(v)
+	})
+}
+
+// UpdateCreatedAt sets the "created_at" field to the value that was provided on create.
+func (u *AppGoodPosterUpsertOne) UpdateCreatedAt() *AppGoodPosterUpsertOne {
+	return u.Update(func(s *AppGoodPosterUpsert) {
+		s.UpdateCreatedAt()
+	})
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (u *AppGoodPosterUpsertOne) SetUpdatedAt(v uint32) *AppGoodPosterUpsertOne {
+	return u.Update(func(s *AppGoodPosterUpsert) {
+		s.SetUpdatedAt(v)
+	})
+}
+
+// AddUpdatedAt adds v to the "updated_at" field.
+func (u *AppGoodPosterUpsertOne) AddUpdatedAt(v uint32) *AppGoodPosterUpsertOne {
+	return u.Update(func(s *AppGoodPosterUpsert) {
+		s.AddUpdatedAt(v)
+	})
+}
+
+// UpdateUpdatedAt sets the "updated_at" field to the value that was provided on create.
+func (u *AppGoodPosterUpsertOne) UpdateUpdatedAt() *AppGoodPosterUpsertOne {
+	return u.Update(func(s *AppGoodPosterUpsert) {
+		s.UpdateUpdatedAt()
+	})
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (u *AppGoodPosterUpsertOne) SetDeletedAt(v uint32) *AppGoodPosterUpsertOne {
+	return u.Update(func(s *AppGoodPosterUpsert) {
+		s.SetDeletedAt(v)
+	})
+}
+
+// AddDeletedAt adds v to the "deleted_at" field.
+func (u *AppGoodPosterUpsertOne) AddDeletedAt(v uint32) *AppGoodPosterUpsertOne {
+	return u.Update(func(s *AppGoodPosterUpsert) {
+		s.AddDeletedAt(v)
+	})
+}
+
+// UpdateDeletedAt sets the "deleted_at" field to the value that was provided on create.
+func (u *AppGoodPosterUpsertOne) UpdateDeletedAt() *AppGoodPosterUpsertOne {
+	return u.Update(func(s *AppGoodPosterUpsert) {
+		s.UpdateDeletedAt()
 	})
 }
 
@@ -672,6 +864,69 @@ func (u *AppGoodPosterUpsertBulk) SetEntID(v uuid.UUID) *AppGoodPosterUpsertBulk
 func (u *AppGoodPosterUpsertBulk) UpdateEntID() *AppGoodPosterUpsertBulk {
 	return u.Update(func(s *AppGoodPosterUpsert) {
 		s.UpdateEntID()
+	})
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (u *AppGoodPosterUpsertBulk) SetCreatedAt(v uint32) *AppGoodPosterUpsertBulk {
+	return u.Update(func(s *AppGoodPosterUpsert) {
+		s.SetCreatedAt(v)
+	})
+}
+
+// AddCreatedAt adds v to the "created_at" field.
+func (u *AppGoodPosterUpsertBulk) AddCreatedAt(v uint32) *AppGoodPosterUpsertBulk {
+	return u.Update(func(s *AppGoodPosterUpsert) {
+		s.AddCreatedAt(v)
+	})
+}
+
+// UpdateCreatedAt sets the "created_at" field to the value that was provided on create.
+func (u *AppGoodPosterUpsertBulk) UpdateCreatedAt() *AppGoodPosterUpsertBulk {
+	return u.Update(func(s *AppGoodPosterUpsert) {
+		s.UpdateCreatedAt()
+	})
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (u *AppGoodPosterUpsertBulk) SetUpdatedAt(v uint32) *AppGoodPosterUpsertBulk {
+	return u.Update(func(s *AppGoodPosterUpsert) {
+		s.SetUpdatedAt(v)
+	})
+}
+
+// AddUpdatedAt adds v to the "updated_at" field.
+func (u *AppGoodPosterUpsertBulk) AddUpdatedAt(v uint32) *AppGoodPosterUpsertBulk {
+	return u.Update(func(s *AppGoodPosterUpsert) {
+		s.AddUpdatedAt(v)
+	})
+}
+
+// UpdateUpdatedAt sets the "updated_at" field to the value that was provided on create.
+func (u *AppGoodPosterUpsertBulk) UpdateUpdatedAt() *AppGoodPosterUpsertBulk {
+	return u.Update(func(s *AppGoodPosterUpsert) {
+		s.UpdateUpdatedAt()
+	})
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (u *AppGoodPosterUpsertBulk) SetDeletedAt(v uint32) *AppGoodPosterUpsertBulk {
+	return u.Update(func(s *AppGoodPosterUpsert) {
+		s.SetDeletedAt(v)
+	})
+}
+
+// AddDeletedAt adds v to the "deleted_at" field.
+func (u *AppGoodPosterUpsertBulk) AddDeletedAt(v uint32) *AppGoodPosterUpsertBulk {
+	return u.Update(func(s *AppGoodPosterUpsert) {
+		s.AddDeletedAt(v)
+	})
+}
+
+// UpdateDeletedAt sets the "deleted_at" field to the value that was provided on create.
+func (u *AppGoodPosterUpsertBulk) UpdateDeletedAt() *AppGoodPosterUpsertBulk {
+	return u.Update(func(s *AppGoodPosterUpsert) {
+		s.UpdateDeletedAt()
 	})
 }
 

@@ -44,6 +44,61 @@ func (tmgcu *TopMostGoodConstraintUpdate) SetNillableEntID(u *uuid.UUID) *TopMos
 	return tmgcu
 }
 
+// SetCreatedAt sets the "created_at" field.
+func (tmgcu *TopMostGoodConstraintUpdate) SetCreatedAt(u uint32) *TopMostGoodConstraintUpdate {
+	tmgcu.mutation.ResetCreatedAt()
+	tmgcu.mutation.SetCreatedAt(u)
+	return tmgcu
+}
+
+// SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
+func (tmgcu *TopMostGoodConstraintUpdate) SetNillableCreatedAt(u *uint32) *TopMostGoodConstraintUpdate {
+	if u != nil {
+		tmgcu.SetCreatedAt(*u)
+	}
+	return tmgcu
+}
+
+// AddCreatedAt adds u to the "created_at" field.
+func (tmgcu *TopMostGoodConstraintUpdate) AddCreatedAt(u int32) *TopMostGoodConstraintUpdate {
+	tmgcu.mutation.AddCreatedAt(u)
+	return tmgcu
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (tmgcu *TopMostGoodConstraintUpdate) SetUpdatedAt(u uint32) *TopMostGoodConstraintUpdate {
+	tmgcu.mutation.ResetUpdatedAt()
+	tmgcu.mutation.SetUpdatedAt(u)
+	return tmgcu
+}
+
+// AddUpdatedAt adds u to the "updated_at" field.
+func (tmgcu *TopMostGoodConstraintUpdate) AddUpdatedAt(u int32) *TopMostGoodConstraintUpdate {
+	tmgcu.mutation.AddUpdatedAt(u)
+	return tmgcu
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (tmgcu *TopMostGoodConstraintUpdate) SetDeletedAt(u uint32) *TopMostGoodConstraintUpdate {
+	tmgcu.mutation.ResetDeletedAt()
+	tmgcu.mutation.SetDeletedAt(u)
+	return tmgcu
+}
+
+// SetNillableDeletedAt sets the "deleted_at" field if the given value is not nil.
+func (tmgcu *TopMostGoodConstraintUpdate) SetNillableDeletedAt(u *uint32) *TopMostGoodConstraintUpdate {
+	if u != nil {
+		tmgcu.SetDeletedAt(*u)
+	}
+	return tmgcu
+}
+
+// AddDeletedAt adds u to the "deleted_at" field.
+func (tmgcu *TopMostGoodConstraintUpdate) AddDeletedAt(u int32) *TopMostGoodConstraintUpdate {
+	tmgcu.mutation.AddDeletedAt(u)
+	return tmgcu
+}
+
 // SetTopMostGoodID sets the "top_most_good_id" field.
 func (tmgcu *TopMostGoodConstraintUpdate) SetTopMostGoodID(u uuid.UUID) *TopMostGoodConstraintUpdate {
 	tmgcu.mutation.SetTopMostGoodID(u)
@@ -138,6 +193,7 @@ func (tmgcu *TopMostGoodConstraintUpdate) Mutation() *TopMostGoodConstraintMutat
 
 // Save executes the query and returns the number of nodes affected by the update operation.
 func (tmgcu *TopMostGoodConstraintUpdate) Save(ctx context.Context) (int, error) {
+	tmgcu.defaults()
 	return withHooks(ctx, tmgcu.sqlSave, tmgcu.mutation, tmgcu.hooks)
 }
 
@@ -163,6 +219,14 @@ func (tmgcu *TopMostGoodConstraintUpdate) ExecX(ctx context.Context) {
 	}
 }
 
+// defaults sets the default values of the builder before save.
+func (tmgcu *TopMostGoodConstraintUpdate) defaults() {
+	if _, ok := tmgcu.mutation.UpdatedAt(); !ok {
+		v := topmostgoodconstraint.UpdateDefaultUpdatedAt()
+		tmgcu.mutation.SetUpdatedAt(v)
+	}
+}
+
 // Modify adds a statement modifier for attaching custom logic to the UPDATE statement.
 func (tmgcu *TopMostGoodConstraintUpdate) Modify(modifiers ...func(u *sql.UpdateBuilder)) *TopMostGoodConstraintUpdate {
 	tmgcu.modifiers = append(tmgcu.modifiers, modifiers...)
@@ -180,6 +244,24 @@ func (tmgcu *TopMostGoodConstraintUpdate) sqlSave(ctx context.Context) (n int, e
 	}
 	if value, ok := tmgcu.mutation.EntID(); ok {
 		_spec.SetField(topmostgoodconstraint.FieldEntID, field.TypeUUID, value)
+	}
+	if value, ok := tmgcu.mutation.CreatedAt(); ok {
+		_spec.SetField(topmostgoodconstraint.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := tmgcu.mutation.AddedCreatedAt(); ok {
+		_spec.AddField(topmostgoodconstraint.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := tmgcu.mutation.UpdatedAt(); ok {
+		_spec.SetField(topmostgoodconstraint.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := tmgcu.mutation.AddedUpdatedAt(); ok {
+		_spec.AddField(topmostgoodconstraint.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := tmgcu.mutation.DeletedAt(); ok {
+		_spec.SetField(topmostgoodconstraint.FieldDeletedAt, field.TypeUint32, value)
+	}
+	if value, ok := tmgcu.mutation.AddedDeletedAt(); ok {
+		_spec.AddField(topmostgoodconstraint.FieldDeletedAt, field.TypeUint32, value)
 	}
 	if value, ok := tmgcu.mutation.TopMostGoodID(); ok {
 		_spec.SetField(topmostgoodconstraint.FieldTopMostGoodID, field.TypeUUID, value)
@@ -241,6 +323,61 @@ func (tmgcuo *TopMostGoodConstraintUpdateOne) SetNillableEntID(u *uuid.UUID) *To
 	if u != nil {
 		tmgcuo.SetEntID(*u)
 	}
+	return tmgcuo
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (tmgcuo *TopMostGoodConstraintUpdateOne) SetCreatedAt(u uint32) *TopMostGoodConstraintUpdateOne {
+	tmgcuo.mutation.ResetCreatedAt()
+	tmgcuo.mutation.SetCreatedAt(u)
+	return tmgcuo
+}
+
+// SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
+func (tmgcuo *TopMostGoodConstraintUpdateOne) SetNillableCreatedAt(u *uint32) *TopMostGoodConstraintUpdateOne {
+	if u != nil {
+		tmgcuo.SetCreatedAt(*u)
+	}
+	return tmgcuo
+}
+
+// AddCreatedAt adds u to the "created_at" field.
+func (tmgcuo *TopMostGoodConstraintUpdateOne) AddCreatedAt(u int32) *TopMostGoodConstraintUpdateOne {
+	tmgcuo.mutation.AddCreatedAt(u)
+	return tmgcuo
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (tmgcuo *TopMostGoodConstraintUpdateOne) SetUpdatedAt(u uint32) *TopMostGoodConstraintUpdateOne {
+	tmgcuo.mutation.ResetUpdatedAt()
+	tmgcuo.mutation.SetUpdatedAt(u)
+	return tmgcuo
+}
+
+// AddUpdatedAt adds u to the "updated_at" field.
+func (tmgcuo *TopMostGoodConstraintUpdateOne) AddUpdatedAt(u int32) *TopMostGoodConstraintUpdateOne {
+	tmgcuo.mutation.AddUpdatedAt(u)
+	return tmgcuo
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (tmgcuo *TopMostGoodConstraintUpdateOne) SetDeletedAt(u uint32) *TopMostGoodConstraintUpdateOne {
+	tmgcuo.mutation.ResetDeletedAt()
+	tmgcuo.mutation.SetDeletedAt(u)
+	return tmgcuo
+}
+
+// SetNillableDeletedAt sets the "deleted_at" field if the given value is not nil.
+func (tmgcuo *TopMostGoodConstraintUpdateOne) SetNillableDeletedAt(u *uint32) *TopMostGoodConstraintUpdateOne {
+	if u != nil {
+		tmgcuo.SetDeletedAt(*u)
+	}
+	return tmgcuo
+}
+
+// AddDeletedAt adds u to the "deleted_at" field.
+func (tmgcuo *TopMostGoodConstraintUpdateOne) AddDeletedAt(u int32) *TopMostGoodConstraintUpdateOne {
+	tmgcuo.mutation.AddDeletedAt(u)
 	return tmgcuo
 }
 
@@ -351,6 +488,7 @@ func (tmgcuo *TopMostGoodConstraintUpdateOne) Select(field string, fields ...str
 
 // Save executes the query and returns the updated TopMostGoodConstraint entity.
 func (tmgcuo *TopMostGoodConstraintUpdateOne) Save(ctx context.Context) (*TopMostGoodConstraint, error) {
+	tmgcuo.defaults()
 	return withHooks(ctx, tmgcuo.sqlSave, tmgcuo.mutation, tmgcuo.hooks)
 }
 
@@ -373,6 +511,14 @@ func (tmgcuo *TopMostGoodConstraintUpdateOne) Exec(ctx context.Context) error {
 func (tmgcuo *TopMostGoodConstraintUpdateOne) ExecX(ctx context.Context) {
 	if err := tmgcuo.Exec(ctx); err != nil {
 		panic(err)
+	}
+}
+
+// defaults sets the default values of the builder before save.
+func (tmgcuo *TopMostGoodConstraintUpdateOne) defaults() {
+	if _, ok := tmgcuo.mutation.UpdatedAt(); !ok {
+		v := topmostgoodconstraint.UpdateDefaultUpdatedAt()
+		tmgcuo.mutation.SetUpdatedAt(v)
 	}
 }
 
@@ -410,6 +556,24 @@ func (tmgcuo *TopMostGoodConstraintUpdateOne) sqlSave(ctx context.Context) (_nod
 	}
 	if value, ok := tmgcuo.mutation.EntID(); ok {
 		_spec.SetField(topmostgoodconstraint.FieldEntID, field.TypeUUID, value)
+	}
+	if value, ok := tmgcuo.mutation.CreatedAt(); ok {
+		_spec.SetField(topmostgoodconstraint.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := tmgcuo.mutation.AddedCreatedAt(); ok {
+		_spec.AddField(topmostgoodconstraint.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := tmgcuo.mutation.UpdatedAt(); ok {
+		_spec.SetField(topmostgoodconstraint.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := tmgcuo.mutation.AddedUpdatedAt(); ok {
+		_spec.AddField(topmostgoodconstraint.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := tmgcuo.mutation.DeletedAt(); ok {
+		_spec.SetField(topmostgoodconstraint.FieldDeletedAt, field.TypeUint32, value)
+	}
+	if value, ok := tmgcuo.mutation.AddedDeletedAt(); ok {
+		_spec.AddField(topmostgoodconstraint.FieldDeletedAt, field.TypeUint32, value)
 	}
 	if value, ok := tmgcuo.mutation.TopMostGoodID(); ok {
 		_spec.SetField(topmostgoodconstraint.FieldTopMostGoodID, field.TypeUUID, value)

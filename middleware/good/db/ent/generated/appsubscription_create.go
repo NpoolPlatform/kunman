@@ -37,6 +37,48 @@ func (asc *AppSubscriptionCreate) SetNillableEntID(u *uuid.UUID) *AppSubscriptio
 	return asc
 }
 
+// SetCreatedAt sets the "created_at" field.
+func (asc *AppSubscriptionCreate) SetCreatedAt(u uint32) *AppSubscriptionCreate {
+	asc.mutation.SetCreatedAt(u)
+	return asc
+}
+
+// SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
+func (asc *AppSubscriptionCreate) SetNillableCreatedAt(u *uint32) *AppSubscriptionCreate {
+	if u != nil {
+		asc.SetCreatedAt(*u)
+	}
+	return asc
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (asc *AppSubscriptionCreate) SetUpdatedAt(u uint32) *AppSubscriptionCreate {
+	asc.mutation.SetUpdatedAt(u)
+	return asc
+}
+
+// SetNillableUpdatedAt sets the "updated_at" field if the given value is not nil.
+func (asc *AppSubscriptionCreate) SetNillableUpdatedAt(u *uint32) *AppSubscriptionCreate {
+	if u != nil {
+		asc.SetUpdatedAt(*u)
+	}
+	return asc
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (asc *AppSubscriptionCreate) SetDeletedAt(u uint32) *AppSubscriptionCreate {
+	asc.mutation.SetDeletedAt(u)
+	return asc
+}
+
+// SetNillableDeletedAt sets the "deleted_at" field if the given value is not nil.
+func (asc *AppSubscriptionCreate) SetNillableDeletedAt(u *uint32) *AppSubscriptionCreate {
+	if u != nil {
+		asc.SetDeletedAt(*u)
+	}
+	return asc
+}
+
 // SetAppID sets the "app_id" field.
 func (asc *AppSubscriptionCreate) SetAppID(u uuid.UUID) *AppSubscriptionCreate {
 	asc.mutation.SetAppID(u)
@@ -166,6 +208,18 @@ func (asc *AppSubscriptionCreate) defaults() {
 		v := appsubscription.DefaultEntID()
 		asc.mutation.SetEntID(v)
 	}
+	if _, ok := asc.mutation.CreatedAt(); !ok {
+		v := appsubscription.DefaultCreatedAt()
+		asc.mutation.SetCreatedAt(v)
+	}
+	if _, ok := asc.mutation.UpdatedAt(); !ok {
+		v := appsubscription.DefaultUpdatedAt()
+		asc.mutation.SetUpdatedAt(v)
+	}
+	if _, ok := asc.mutation.DeletedAt(); !ok {
+		v := appsubscription.DefaultDeletedAt()
+		asc.mutation.SetDeletedAt(v)
+	}
 	if _, ok := asc.mutation.AppID(); !ok {
 		v := appsubscription.DefaultAppID()
 		asc.mutation.SetAppID(v)
@@ -196,6 +250,15 @@ func (asc *AppSubscriptionCreate) defaults() {
 func (asc *AppSubscriptionCreate) check() error {
 	if _, ok := asc.mutation.EntID(); !ok {
 		return &ValidationError{Name: "ent_id", err: errors.New(`generated: missing required field "AppSubscription.ent_id"`)}
+	}
+	if _, ok := asc.mutation.CreatedAt(); !ok {
+		return &ValidationError{Name: "created_at", err: errors.New(`generated: missing required field "AppSubscription.created_at"`)}
+	}
+	if _, ok := asc.mutation.UpdatedAt(); !ok {
+		return &ValidationError{Name: "updated_at", err: errors.New(`generated: missing required field "AppSubscription.updated_at"`)}
+	}
+	if _, ok := asc.mutation.DeletedAt(); !ok {
+		return &ValidationError{Name: "deleted_at", err: errors.New(`generated: missing required field "AppSubscription.deleted_at"`)}
 	}
 	return nil
 }
@@ -233,6 +296,18 @@ func (asc *AppSubscriptionCreate) createSpec() (*AppSubscription, *sqlgraph.Crea
 	if value, ok := asc.mutation.EntID(); ok {
 		_spec.SetField(appsubscription.FieldEntID, field.TypeUUID, value)
 		_node.EntID = value
+	}
+	if value, ok := asc.mutation.CreatedAt(); ok {
+		_spec.SetField(appsubscription.FieldCreatedAt, field.TypeUint32, value)
+		_node.CreatedAt = value
+	}
+	if value, ok := asc.mutation.UpdatedAt(); ok {
+		_spec.SetField(appsubscription.FieldUpdatedAt, field.TypeUint32, value)
+		_node.UpdatedAt = value
+	}
+	if value, ok := asc.mutation.DeletedAt(); ok {
+		_spec.SetField(appsubscription.FieldDeletedAt, field.TypeUint32, value)
+		_node.DeletedAt = value
 	}
 	if value, ok := asc.mutation.AppID(); ok {
 		_spec.SetField(appsubscription.FieldAppID, field.TypeUUID, value)
@@ -319,6 +394,60 @@ func (u *AppSubscriptionUpsert) SetEntID(v uuid.UUID) *AppSubscriptionUpsert {
 // UpdateEntID sets the "ent_id" field to the value that was provided on create.
 func (u *AppSubscriptionUpsert) UpdateEntID() *AppSubscriptionUpsert {
 	u.SetExcluded(appsubscription.FieldEntID)
+	return u
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (u *AppSubscriptionUpsert) SetCreatedAt(v uint32) *AppSubscriptionUpsert {
+	u.Set(appsubscription.FieldCreatedAt, v)
+	return u
+}
+
+// UpdateCreatedAt sets the "created_at" field to the value that was provided on create.
+func (u *AppSubscriptionUpsert) UpdateCreatedAt() *AppSubscriptionUpsert {
+	u.SetExcluded(appsubscription.FieldCreatedAt)
+	return u
+}
+
+// AddCreatedAt adds v to the "created_at" field.
+func (u *AppSubscriptionUpsert) AddCreatedAt(v uint32) *AppSubscriptionUpsert {
+	u.Add(appsubscription.FieldCreatedAt, v)
+	return u
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (u *AppSubscriptionUpsert) SetUpdatedAt(v uint32) *AppSubscriptionUpsert {
+	u.Set(appsubscription.FieldUpdatedAt, v)
+	return u
+}
+
+// UpdateUpdatedAt sets the "updated_at" field to the value that was provided on create.
+func (u *AppSubscriptionUpsert) UpdateUpdatedAt() *AppSubscriptionUpsert {
+	u.SetExcluded(appsubscription.FieldUpdatedAt)
+	return u
+}
+
+// AddUpdatedAt adds v to the "updated_at" field.
+func (u *AppSubscriptionUpsert) AddUpdatedAt(v uint32) *AppSubscriptionUpsert {
+	u.Add(appsubscription.FieldUpdatedAt, v)
+	return u
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (u *AppSubscriptionUpsert) SetDeletedAt(v uint32) *AppSubscriptionUpsert {
+	u.Set(appsubscription.FieldDeletedAt, v)
+	return u
+}
+
+// UpdateDeletedAt sets the "deleted_at" field to the value that was provided on create.
+func (u *AppSubscriptionUpsert) UpdateDeletedAt() *AppSubscriptionUpsert {
+	u.SetExcluded(appsubscription.FieldDeletedAt)
+	return u
+}
+
+// AddDeletedAt adds v to the "deleted_at" field.
+func (u *AppSubscriptionUpsert) AddDeletedAt(v uint32) *AppSubscriptionUpsert {
+	u.Add(appsubscription.FieldDeletedAt, v)
 	return u
 }
 
@@ -489,6 +618,69 @@ func (u *AppSubscriptionUpsertOne) SetEntID(v uuid.UUID) *AppSubscriptionUpsertO
 func (u *AppSubscriptionUpsertOne) UpdateEntID() *AppSubscriptionUpsertOne {
 	return u.Update(func(s *AppSubscriptionUpsert) {
 		s.UpdateEntID()
+	})
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (u *AppSubscriptionUpsertOne) SetCreatedAt(v uint32) *AppSubscriptionUpsertOne {
+	return u.Update(func(s *AppSubscriptionUpsert) {
+		s.SetCreatedAt(v)
+	})
+}
+
+// AddCreatedAt adds v to the "created_at" field.
+func (u *AppSubscriptionUpsertOne) AddCreatedAt(v uint32) *AppSubscriptionUpsertOne {
+	return u.Update(func(s *AppSubscriptionUpsert) {
+		s.AddCreatedAt(v)
+	})
+}
+
+// UpdateCreatedAt sets the "created_at" field to the value that was provided on create.
+func (u *AppSubscriptionUpsertOne) UpdateCreatedAt() *AppSubscriptionUpsertOne {
+	return u.Update(func(s *AppSubscriptionUpsert) {
+		s.UpdateCreatedAt()
+	})
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (u *AppSubscriptionUpsertOne) SetUpdatedAt(v uint32) *AppSubscriptionUpsertOne {
+	return u.Update(func(s *AppSubscriptionUpsert) {
+		s.SetUpdatedAt(v)
+	})
+}
+
+// AddUpdatedAt adds v to the "updated_at" field.
+func (u *AppSubscriptionUpsertOne) AddUpdatedAt(v uint32) *AppSubscriptionUpsertOne {
+	return u.Update(func(s *AppSubscriptionUpsert) {
+		s.AddUpdatedAt(v)
+	})
+}
+
+// UpdateUpdatedAt sets the "updated_at" field to the value that was provided on create.
+func (u *AppSubscriptionUpsertOne) UpdateUpdatedAt() *AppSubscriptionUpsertOne {
+	return u.Update(func(s *AppSubscriptionUpsert) {
+		s.UpdateUpdatedAt()
+	})
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (u *AppSubscriptionUpsertOne) SetDeletedAt(v uint32) *AppSubscriptionUpsertOne {
+	return u.Update(func(s *AppSubscriptionUpsert) {
+		s.SetDeletedAt(v)
+	})
+}
+
+// AddDeletedAt adds v to the "deleted_at" field.
+func (u *AppSubscriptionUpsertOne) AddDeletedAt(v uint32) *AppSubscriptionUpsertOne {
+	return u.Update(func(s *AppSubscriptionUpsert) {
+		s.AddDeletedAt(v)
+	})
+}
+
+// UpdateDeletedAt sets the "deleted_at" field to the value that was provided on create.
+func (u *AppSubscriptionUpsertOne) UpdateDeletedAt() *AppSubscriptionUpsertOne {
+	return u.Update(func(s *AppSubscriptionUpsert) {
+		s.UpdateDeletedAt()
 	})
 }
 
@@ -843,6 +1035,69 @@ func (u *AppSubscriptionUpsertBulk) SetEntID(v uuid.UUID) *AppSubscriptionUpsert
 func (u *AppSubscriptionUpsertBulk) UpdateEntID() *AppSubscriptionUpsertBulk {
 	return u.Update(func(s *AppSubscriptionUpsert) {
 		s.UpdateEntID()
+	})
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (u *AppSubscriptionUpsertBulk) SetCreatedAt(v uint32) *AppSubscriptionUpsertBulk {
+	return u.Update(func(s *AppSubscriptionUpsert) {
+		s.SetCreatedAt(v)
+	})
+}
+
+// AddCreatedAt adds v to the "created_at" field.
+func (u *AppSubscriptionUpsertBulk) AddCreatedAt(v uint32) *AppSubscriptionUpsertBulk {
+	return u.Update(func(s *AppSubscriptionUpsert) {
+		s.AddCreatedAt(v)
+	})
+}
+
+// UpdateCreatedAt sets the "created_at" field to the value that was provided on create.
+func (u *AppSubscriptionUpsertBulk) UpdateCreatedAt() *AppSubscriptionUpsertBulk {
+	return u.Update(func(s *AppSubscriptionUpsert) {
+		s.UpdateCreatedAt()
+	})
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (u *AppSubscriptionUpsertBulk) SetUpdatedAt(v uint32) *AppSubscriptionUpsertBulk {
+	return u.Update(func(s *AppSubscriptionUpsert) {
+		s.SetUpdatedAt(v)
+	})
+}
+
+// AddUpdatedAt adds v to the "updated_at" field.
+func (u *AppSubscriptionUpsertBulk) AddUpdatedAt(v uint32) *AppSubscriptionUpsertBulk {
+	return u.Update(func(s *AppSubscriptionUpsert) {
+		s.AddUpdatedAt(v)
+	})
+}
+
+// UpdateUpdatedAt sets the "updated_at" field to the value that was provided on create.
+func (u *AppSubscriptionUpsertBulk) UpdateUpdatedAt() *AppSubscriptionUpsertBulk {
+	return u.Update(func(s *AppSubscriptionUpsert) {
+		s.UpdateUpdatedAt()
+	})
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (u *AppSubscriptionUpsertBulk) SetDeletedAt(v uint32) *AppSubscriptionUpsertBulk {
+	return u.Update(func(s *AppSubscriptionUpsert) {
+		s.SetDeletedAt(v)
+	})
+}
+
+// AddDeletedAt adds v to the "deleted_at" field.
+func (u *AppSubscriptionUpsertBulk) AddDeletedAt(v uint32) *AppSubscriptionUpsertBulk {
+	return u.Update(func(s *AppSubscriptionUpsert) {
+		s.AddDeletedAt(v)
+	})
+}
+
+// UpdateDeletedAt sets the "deleted_at" field to the value that was provided on create.
+func (u *AppSubscriptionUpsertBulk) UpdateDeletedAt() *AppSubscriptionUpsertBulk {
+	return u.Update(func(s *AppSubscriptionUpsert) {
+		s.UpdateDeletedAt()
 	})
 }
 

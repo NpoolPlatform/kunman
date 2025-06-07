@@ -59,6 +59,21 @@ func EntID(v uuid.UUID) predicate.AppSubscription {
 	return predicate.AppSubscription(sql.FieldEQ(FieldEntID, v))
 }
 
+// CreatedAt applies equality check predicate on the "created_at" field. It's identical to CreatedAtEQ.
+func CreatedAt(v uint32) predicate.AppSubscription {
+	return predicate.AppSubscription(sql.FieldEQ(FieldCreatedAt, v))
+}
+
+// UpdatedAt applies equality check predicate on the "updated_at" field. It's identical to UpdatedAtEQ.
+func UpdatedAt(v uint32) predicate.AppSubscription {
+	return predicate.AppSubscription(sql.FieldEQ(FieldUpdatedAt, v))
+}
+
+// DeletedAt applies equality check predicate on the "deleted_at" field. It's identical to DeletedAtEQ.
+func DeletedAt(v uint32) predicate.AppSubscription {
+	return predicate.AppSubscription(sql.FieldEQ(FieldDeletedAt, v))
+}
+
 // AppID applies equality check predicate on the "app_id" field. It's identical to AppIDEQ.
 func AppID(v uuid.UUID) predicate.AppSubscription {
 	return predicate.AppSubscription(sql.FieldEQ(FieldAppID, v))
@@ -127,6 +142,126 @@ func EntIDLT(v uuid.UUID) predicate.AppSubscription {
 // EntIDLTE applies the LTE predicate on the "ent_id" field.
 func EntIDLTE(v uuid.UUID) predicate.AppSubscription {
 	return predicate.AppSubscription(sql.FieldLTE(FieldEntID, v))
+}
+
+// CreatedAtEQ applies the EQ predicate on the "created_at" field.
+func CreatedAtEQ(v uint32) predicate.AppSubscription {
+	return predicate.AppSubscription(sql.FieldEQ(FieldCreatedAt, v))
+}
+
+// CreatedAtNEQ applies the NEQ predicate on the "created_at" field.
+func CreatedAtNEQ(v uint32) predicate.AppSubscription {
+	return predicate.AppSubscription(sql.FieldNEQ(FieldCreatedAt, v))
+}
+
+// CreatedAtIn applies the In predicate on the "created_at" field.
+func CreatedAtIn(vs ...uint32) predicate.AppSubscription {
+	return predicate.AppSubscription(sql.FieldIn(FieldCreatedAt, vs...))
+}
+
+// CreatedAtNotIn applies the NotIn predicate on the "created_at" field.
+func CreatedAtNotIn(vs ...uint32) predicate.AppSubscription {
+	return predicate.AppSubscription(sql.FieldNotIn(FieldCreatedAt, vs...))
+}
+
+// CreatedAtGT applies the GT predicate on the "created_at" field.
+func CreatedAtGT(v uint32) predicate.AppSubscription {
+	return predicate.AppSubscription(sql.FieldGT(FieldCreatedAt, v))
+}
+
+// CreatedAtGTE applies the GTE predicate on the "created_at" field.
+func CreatedAtGTE(v uint32) predicate.AppSubscription {
+	return predicate.AppSubscription(sql.FieldGTE(FieldCreatedAt, v))
+}
+
+// CreatedAtLT applies the LT predicate on the "created_at" field.
+func CreatedAtLT(v uint32) predicate.AppSubscription {
+	return predicate.AppSubscription(sql.FieldLT(FieldCreatedAt, v))
+}
+
+// CreatedAtLTE applies the LTE predicate on the "created_at" field.
+func CreatedAtLTE(v uint32) predicate.AppSubscription {
+	return predicate.AppSubscription(sql.FieldLTE(FieldCreatedAt, v))
+}
+
+// UpdatedAtEQ applies the EQ predicate on the "updated_at" field.
+func UpdatedAtEQ(v uint32) predicate.AppSubscription {
+	return predicate.AppSubscription(sql.FieldEQ(FieldUpdatedAt, v))
+}
+
+// UpdatedAtNEQ applies the NEQ predicate on the "updated_at" field.
+func UpdatedAtNEQ(v uint32) predicate.AppSubscription {
+	return predicate.AppSubscription(sql.FieldNEQ(FieldUpdatedAt, v))
+}
+
+// UpdatedAtIn applies the In predicate on the "updated_at" field.
+func UpdatedAtIn(vs ...uint32) predicate.AppSubscription {
+	return predicate.AppSubscription(sql.FieldIn(FieldUpdatedAt, vs...))
+}
+
+// UpdatedAtNotIn applies the NotIn predicate on the "updated_at" field.
+func UpdatedAtNotIn(vs ...uint32) predicate.AppSubscription {
+	return predicate.AppSubscription(sql.FieldNotIn(FieldUpdatedAt, vs...))
+}
+
+// UpdatedAtGT applies the GT predicate on the "updated_at" field.
+func UpdatedAtGT(v uint32) predicate.AppSubscription {
+	return predicate.AppSubscription(sql.FieldGT(FieldUpdatedAt, v))
+}
+
+// UpdatedAtGTE applies the GTE predicate on the "updated_at" field.
+func UpdatedAtGTE(v uint32) predicate.AppSubscription {
+	return predicate.AppSubscription(sql.FieldGTE(FieldUpdatedAt, v))
+}
+
+// UpdatedAtLT applies the LT predicate on the "updated_at" field.
+func UpdatedAtLT(v uint32) predicate.AppSubscription {
+	return predicate.AppSubscription(sql.FieldLT(FieldUpdatedAt, v))
+}
+
+// UpdatedAtLTE applies the LTE predicate on the "updated_at" field.
+func UpdatedAtLTE(v uint32) predicate.AppSubscription {
+	return predicate.AppSubscription(sql.FieldLTE(FieldUpdatedAt, v))
+}
+
+// DeletedAtEQ applies the EQ predicate on the "deleted_at" field.
+func DeletedAtEQ(v uint32) predicate.AppSubscription {
+	return predicate.AppSubscription(sql.FieldEQ(FieldDeletedAt, v))
+}
+
+// DeletedAtNEQ applies the NEQ predicate on the "deleted_at" field.
+func DeletedAtNEQ(v uint32) predicate.AppSubscription {
+	return predicate.AppSubscription(sql.FieldNEQ(FieldDeletedAt, v))
+}
+
+// DeletedAtIn applies the In predicate on the "deleted_at" field.
+func DeletedAtIn(vs ...uint32) predicate.AppSubscription {
+	return predicate.AppSubscription(sql.FieldIn(FieldDeletedAt, vs...))
+}
+
+// DeletedAtNotIn applies the NotIn predicate on the "deleted_at" field.
+func DeletedAtNotIn(vs ...uint32) predicate.AppSubscription {
+	return predicate.AppSubscription(sql.FieldNotIn(FieldDeletedAt, vs...))
+}
+
+// DeletedAtGT applies the GT predicate on the "deleted_at" field.
+func DeletedAtGT(v uint32) predicate.AppSubscription {
+	return predicate.AppSubscription(sql.FieldGT(FieldDeletedAt, v))
+}
+
+// DeletedAtGTE applies the GTE predicate on the "deleted_at" field.
+func DeletedAtGTE(v uint32) predicate.AppSubscription {
+	return predicate.AppSubscription(sql.FieldGTE(FieldDeletedAt, v))
+}
+
+// DeletedAtLT applies the LT predicate on the "deleted_at" field.
+func DeletedAtLT(v uint32) predicate.AppSubscription {
+	return predicate.AppSubscription(sql.FieldLT(FieldDeletedAt, v))
+}
+
+// DeletedAtLTE applies the LTE predicate on the "deleted_at" field.
+func DeletedAtLTE(v uint32) predicate.AppSubscription {
+	return predicate.AppSubscription(sql.FieldLTE(FieldDeletedAt, v))
 }
 
 // AppIDEQ applies the EQ predicate on the "app_id" field.

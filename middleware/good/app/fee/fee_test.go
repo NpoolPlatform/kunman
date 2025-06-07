@@ -9,7 +9,7 @@ import (
 
 	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 
-	fee1 "github.com/NpoolPlatform/kunman/middleware/good/middleware/fee"
+	fee1 "github.com/NpoolPlatform/kunman/middleware/good/fee"
 	npool "github.com/NpoolPlatform/kunman/message/good/middleware/v1/app/fee"
 	"github.com/google/uuid"
 	"github.com/shopspring/decimal"

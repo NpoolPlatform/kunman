@@ -44,6 +44,61 @@ func (apru *AppPowerRentalUpdate) SetNillableEntID(u *uuid.UUID) *AppPowerRental
 	return apru
 }
 
+// SetCreatedAt sets the "created_at" field.
+func (apru *AppPowerRentalUpdate) SetCreatedAt(u uint32) *AppPowerRentalUpdate {
+	apru.mutation.ResetCreatedAt()
+	apru.mutation.SetCreatedAt(u)
+	return apru
+}
+
+// SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
+func (apru *AppPowerRentalUpdate) SetNillableCreatedAt(u *uint32) *AppPowerRentalUpdate {
+	if u != nil {
+		apru.SetCreatedAt(*u)
+	}
+	return apru
+}
+
+// AddCreatedAt adds u to the "created_at" field.
+func (apru *AppPowerRentalUpdate) AddCreatedAt(u int32) *AppPowerRentalUpdate {
+	apru.mutation.AddCreatedAt(u)
+	return apru
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (apru *AppPowerRentalUpdate) SetUpdatedAt(u uint32) *AppPowerRentalUpdate {
+	apru.mutation.ResetUpdatedAt()
+	apru.mutation.SetUpdatedAt(u)
+	return apru
+}
+
+// AddUpdatedAt adds u to the "updated_at" field.
+func (apru *AppPowerRentalUpdate) AddUpdatedAt(u int32) *AppPowerRentalUpdate {
+	apru.mutation.AddUpdatedAt(u)
+	return apru
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (apru *AppPowerRentalUpdate) SetDeletedAt(u uint32) *AppPowerRentalUpdate {
+	apru.mutation.ResetDeletedAt()
+	apru.mutation.SetDeletedAt(u)
+	return apru
+}
+
+// SetNillableDeletedAt sets the "deleted_at" field if the given value is not nil.
+func (apru *AppPowerRentalUpdate) SetNillableDeletedAt(u *uint32) *AppPowerRentalUpdate {
+	if u != nil {
+		apru.SetDeletedAt(*u)
+	}
+	return apru
+}
+
+// AddDeletedAt adds u to the "deleted_at" field.
+func (apru *AppPowerRentalUpdate) AddDeletedAt(u int32) *AppPowerRentalUpdate {
+	apru.mutation.AddDeletedAt(u)
+	return apru
+}
+
 // SetAppGoodID sets the "app_good_id" field.
 func (apru *AppPowerRentalUpdate) SetAppGoodID(u uuid.UUID) *AppPowerRentalUpdate {
 	apru.mutation.SetAppGoodID(u)
@@ -433,6 +488,7 @@ func (apru *AppPowerRentalUpdate) Mutation() *AppPowerRentalMutation {
 
 // Save executes the query and returns the number of nodes affected by the update operation.
 func (apru *AppPowerRentalUpdate) Save(ctx context.Context) (int, error) {
+	apru.defaults()
 	return withHooks(ctx, apru.sqlSave, apru.mutation, apru.hooks)
 }
 
@@ -458,6 +514,14 @@ func (apru *AppPowerRentalUpdate) ExecX(ctx context.Context) {
 	}
 }
 
+// defaults sets the default values of the builder before save.
+func (apru *AppPowerRentalUpdate) defaults() {
+	if _, ok := apru.mutation.UpdatedAt(); !ok {
+		v := apppowerrental.UpdateDefaultUpdatedAt()
+		apru.mutation.SetUpdatedAt(v)
+	}
+}
+
 // Modify adds a statement modifier for attaching custom logic to the UPDATE statement.
 func (apru *AppPowerRentalUpdate) Modify(modifiers ...func(u *sql.UpdateBuilder)) *AppPowerRentalUpdate {
 	apru.modifiers = append(apru.modifiers, modifiers...)
@@ -475,6 +539,24 @@ func (apru *AppPowerRentalUpdate) sqlSave(ctx context.Context) (n int, err error
 	}
 	if value, ok := apru.mutation.EntID(); ok {
 		_spec.SetField(apppowerrental.FieldEntID, field.TypeUUID, value)
+	}
+	if value, ok := apru.mutation.CreatedAt(); ok {
+		_spec.SetField(apppowerrental.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := apru.mutation.AddedCreatedAt(); ok {
+		_spec.AddField(apppowerrental.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := apru.mutation.UpdatedAt(); ok {
+		_spec.SetField(apppowerrental.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := apru.mutation.AddedUpdatedAt(); ok {
+		_spec.AddField(apppowerrental.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := apru.mutation.DeletedAt(); ok {
+		_spec.SetField(apppowerrental.FieldDeletedAt, field.TypeUint32, value)
+	}
+	if value, ok := apru.mutation.AddedDeletedAt(); ok {
+		_spec.AddField(apppowerrental.FieldDeletedAt, field.TypeUint32, value)
 	}
 	if value, ok := apru.mutation.AppGoodID(); ok {
 		_spec.SetField(apppowerrental.FieldAppGoodID, field.TypeUUID, value)
@@ -629,6 +711,61 @@ func (apruo *AppPowerRentalUpdateOne) SetNillableEntID(u *uuid.UUID) *AppPowerRe
 	if u != nil {
 		apruo.SetEntID(*u)
 	}
+	return apruo
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (apruo *AppPowerRentalUpdateOne) SetCreatedAt(u uint32) *AppPowerRentalUpdateOne {
+	apruo.mutation.ResetCreatedAt()
+	apruo.mutation.SetCreatedAt(u)
+	return apruo
+}
+
+// SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
+func (apruo *AppPowerRentalUpdateOne) SetNillableCreatedAt(u *uint32) *AppPowerRentalUpdateOne {
+	if u != nil {
+		apruo.SetCreatedAt(*u)
+	}
+	return apruo
+}
+
+// AddCreatedAt adds u to the "created_at" field.
+func (apruo *AppPowerRentalUpdateOne) AddCreatedAt(u int32) *AppPowerRentalUpdateOne {
+	apruo.mutation.AddCreatedAt(u)
+	return apruo
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (apruo *AppPowerRentalUpdateOne) SetUpdatedAt(u uint32) *AppPowerRentalUpdateOne {
+	apruo.mutation.ResetUpdatedAt()
+	apruo.mutation.SetUpdatedAt(u)
+	return apruo
+}
+
+// AddUpdatedAt adds u to the "updated_at" field.
+func (apruo *AppPowerRentalUpdateOne) AddUpdatedAt(u int32) *AppPowerRentalUpdateOne {
+	apruo.mutation.AddUpdatedAt(u)
+	return apruo
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (apruo *AppPowerRentalUpdateOne) SetDeletedAt(u uint32) *AppPowerRentalUpdateOne {
+	apruo.mutation.ResetDeletedAt()
+	apruo.mutation.SetDeletedAt(u)
+	return apruo
+}
+
+// SetNillableDeletedAt sets the "deleted_at" field if the given value is not nil.
+func (apruo *AppPowerRentalUpdateOne) SetNillableDeletedAt(u *uint32) *AppPowerRentalUpdateOne {
+	if u != nil {
+		apruo.SetDeletedAt(*u)
+	}
+	return apruo
+}
+
+// AddDeletedAt adds u to the "deleted_at" field.
+func (apruo *AppPowerRentalUpdateOne) AddDeletedAt(u int32) *AppPowerRentalUpdateOne {
+	apruo.mutation.AddDeletedAt(u)
 	return apruo
 }
 
@@ -1034,6 +1171,7 @@ func (apruo *AppPowerRentalUpdateOne) Select(field string, fields ...string) *Ap
 
 // Save executes the query and returns the updated AppPowerRental entity.
 func (apruo *AppPowerRentalUpdateOne) Save(ctx context.Context) (*AppPowerRental, error) {
+	apruo.defaults()
 	return withHooks(ctx, apruo.sqlSave, apruo.mutation, apruo.hooks)
 }
 
@@ -1056,6 +1194,14 @@ func (apruo *AppPowerRentalUpdateOne) Exec(ctx context.Context) error {
 func (apruo *AppPowerRentalUpdateOne) ExecX(ctx context.Context) {
 	if err := apruo.Exec(ctx); err != nil {
 		panic(err)
+	}
+}
+
+// defaults sets the default values of the builder before save.
+func (apruo *AppPowerRentalUpdateOne) defaults() {
+	if _, ok := apruo.mutation.UpdatedAt(); !ok {
+		v := apppowerrental.UpdateDefaultUpdatedAt()
+		apruo.mutation.SetUpdatedAt(v)
 	}
 }
 
@@ -1093,6 +1239,24 @@ func (apruo *AppPowerRentalUpdateOne) sqlSave(ctx context.Context) (_node *AppPo
 	}
 	if value, ok := apruo.mutation.EntID(); ok {
 		_spec.SetField(apppowerrental.FieldEntID, field.TypeUUID, value)
+	}
+	if value, ok := apruo.mutation.CreatedAt(); ok {
+		_spec.SetField(apppowerrental.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := apruo.mutation.AddedCreatedAt(); ok {
+		_spec.AddField(apppowerrental.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := apruo.mutation.UpdatedAt(); ok {
+		_spec.SetField(apppowerrental.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := apruo.mutation.AddedUpdatedAt(); ok {
+		_spec.AddField(apppowerrental.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := apruo.mutation.DeletedAt(); ok {
+		_spec.SetField(apppowerrental.FieldDeletedAt, field.TypeUint32, value)
+	}
+	if value, ok := apruo.mutation.AddedDeletedAt(); ok {
+		_spec.AddField(apppowerrental.FieldDeletedAt, field.TypeUint32, value)
 	}
 	if value, ok := apruo.mutation.AppGoodID(); ok {
 		_spec.SetField(apppowerrental.FieldAppGoodID, field.TypeUUID, value)

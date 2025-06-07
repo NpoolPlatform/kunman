@@ -36,6 +36,48 @@ func (vbc *VendorBrandCreate) SetNillableEntID(u *uuid.UUID) *VendorBrandCreate 
 	return vbc
 }
 
+// SetCreatedAt sets the "created_at" field.
+func (vbc *VendorBrandCreate) SetCreatedAt(u uint32) *VendorBrandCreate {
+	vbc.mutation.SetCreatedAt(u)
+	return vbc
+}
+
+// SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
+func (vbc *VendorBrandCreate) SetNillableCreatedAt(u *uint32) *VendorBrandCreate {
+	if u != nil {
+		vbc.SetCreatedAt(*u)
+	}
+	return vbc
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (vbc *VendorBrandCreate) SetUpdatedAt(u uint32) *VendorBrandCreate {
+	vbc.mutation.SetUpdatedAt(u)
+	return vbc
+}
+
+// SetNillableUpdatedAt sets the "updated_at" field if the given value is not nil.
+func (vbc *VendorBrandCreate) SetNillableUpdatedAt(u *uint32) *VendorBrandCreate {
+	if u != nil {
+		vbc.SetUpdatedAt(*u)
+	}
+	return vbc
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (vbc *VendorBrandCreate) SetDeletedAt(u uint32) *VendorBrandCreate {
+	vbc.mutation.SetDeletedAt(u)
+	return vbc
+}
+
+// SetNillableDeletedAt sets the "deleted_at" field if the given value is not nil.
+func (vbc *VendorBrandCreate) SetNillableDeletedAt(u *uint32) *VendorBrandCreate {
+	if u != nil {
+		vbc.SetDeletedAt(*u)
+	}
+	return vbc
+}
+
 // SetName sets the "name" field.
 func (vbc *VendorBrandCreate) SetName(s string) *VendorBrandCreate {
 	vbc.mutation.SetName(s)
@@ -109,6 +151,18 @@ func (vbc *VendorBrandCreate) defaults() {
 		v := vendorbrand.DefaultEntID()
 		vbc.mutation.SetEntID(v)
 	}
+	if _, ok := vbc.mutation.CreatedAt(); !ok {
+		v := vendorbrand.DefaultCreatedAt()
+		vbc.mutation.SetCreatedAt(v)
+	}
+	if _, ok := vbc.mutation.UpdatedAt(); !ok {
+		v := vendorbrand.DefaultUpdatedAt()
+		vbc.mutation.SetUpdatedAt(v)
+	}
+	if _, ok := vbc.mutation.DeletedAt(); !ok {
+		v := vendorbrand.DefaultDeletedAt()
+		vbc.mutation.SetDeletedAt(v)
+	}
 	if _, ok := vbc.mutation.Name(); !ok {
 		v := vendorbrand.DefaultName
 		vbc.mutation.SetName(v)
@@ -123,6 +177,15 @@ func (vbc *VendorBrandCreate) defaults() {
 func (vbc *VendorBrandCreate) check() error {
 	if _, ok := vbc.mutation.EntID(); !ok {
 		return &ValidationError{Name: "ent_id", err: errors.New(`generated: missing required field "VendorBrand.ent_id"`)}
+	}
+	if _, ok := vbc.mutation.CreatedAt(); !ok {
+		return &ValidationError{Name: "created_at", err: errors.New(`generated: missing required field "VendorBrand.created_at"`)}
+	}
+	if _, ok := vbc.mutation.UpdatedAt(); !ok {
+		return &ValidationError{Name: "updated_at", err: errors.New(`generated: missing required field "VendorBrand.updated_at"`)}
+	}
+	if _, ok := vbc.mutation.DeletedAt(); !ok {
+		return &ValidationError{Name: "deleted_at", err: errors.New(`generated: missing required field "VendorBrand.deleted_at"`)}
 	}
 	if v, ok := vbc.mutation.Name(); ok {
 		if err := vendorbrand.NameValidator(v); err != nil {
@@ -170,6 +233,18 @@ func (vbc *VendorBrandCreate) createSpec() (*VendorBrand, *sqlgraph.CreateSpec) 
 	if value, ok := vbc.mutation.EntID(); ok {
 		_spec.SetField(vendorbrand.FieldEntID, field.TypeUUID, value)
 		_node.EntID = value
+	}
+	if value, ok := vbc.mutation.CreatedAt(); ok {
+		_spec.SetField(vendorbrand.FieldCreatedAt, field.TypeUint32, value)
+		_node.CreatedAt = value
+	}
+	if value, ok := vbc.mutation.UpdatedAt(); ok {
+		_spec.SetField(vendorbrand.FieldUpdatedAt, field.TypeUint32, value)
+		_node.UpdatedAt = value
+	}
+	if value, ok := vbc.mutation.DeletedAt(); ok {
+		_spec.SetField(vendorbrand.FieldDeletedAt, field.TypeUint32, value)
+		_node.DeletedAt = value
 	}
 	if value, ok := vbc.mutation.Name(); ok {
 		_spec.SetField(vendorbrand.FieldName, field.TypeString, value)
@@ -240,6 +315,60 @@ func (u *VendorBrandUpsert) SetEntID(v uuid.UUID) *VendorBrandUpsert {
 // UpdateEntID sets the "ent_id" field to the value that was provided on create.
 func (u *VendorBrandUpsert) UpdateEntID() *VendorBrandUpsert {
 	u.SetExcluded(vendorbrand.FieldEntID)
+	return u
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (u *VendorBrandUpsert) SetCreatedAt(v uint32) *VendorBrandUpsert {
+	u.Set(vendorbrand.FieldCreatedAt, v)
+	return u
+}
+
+// UpdateCreatedAt sets the "created_at" field to the value that was provided on create.
+func (u *VendorBrandUpsert) UpdateCreatedAt() *VendorBrandUpsert {
+	u.SetExcluded(vendorbrand.FieldCreatedAt)
+	return u
+}
+
+// AddCreatedAt adds v to the "created_at" field.
+func (u *VendorBrandUpsert) AddCreatedAt(v uint32) *VendorBrandUpsert {
+	u.Add(vendorbrand.FieldCreatedAt, v)
+	return u
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (u *VendorBrandUpsert) SetUpdatedAt(v uint32) *VendorBrandUpsert {
+	u.Set(vendorbrand.FieldUpdatedAt, v)
+	return u
+}
+
+// UpdateUpdatedAt sets the "updated_at" field to the value that was provided on create.
+func (u *VendorBrandUpsert) UpdateUpdatedAt() *VendorBrandUpsert {
+	u.SetExcluded(vendorbrand.FieldUpdatedAt)
+	return u
+}
+
+// AddUpdatedAt adds v to the "updated_at" field.
+func (u *VendorBrandUpsert) AddUpdatedAt(v uint32) *VendorBrandUpsert {
+	u.Add(vendorbrand.FieldUpdatedAt, v)
+	return u
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (u *VendorBrandUpsert) SetDeletedAt(v uint32) *VendorBrandUpsert {
+	u.Set(vendorbrand.FieldDeletedAt, v)
+	return u
+}
+
+// UpdateDeletedAt sets the "deleted_at" field to the value that was provided on create.
+func (u *VendorBrandUpsert) UpdateDeletedAt() *VendorBrandUpsert {
+	u.SetExcluded(vendorbrand.FieldDeletedAt)
+	return u
+}
+
+// AddDeletedAt adds v to the "deleted_at" field.
+func (u *VendorBrandUpsert) AddDeletedAt(v uint32) *VendorBrandUpsert {
+	u.Add(vendorbrand.FieldDeletedAt, v)
 	return u
 }
 
@@ -338,6 +467,69 @@ func (u *VendorBrandUpsertOne) SetEntID(v uuid.UUID) *VendorBrandUpsertOne {
 func (u *VendorBrandUpsertOne) UpdateEntID() *VendorBrandUpsertOne {
 	return u.Update(func(s *VendorBrandUpsert) {
 		s.UpdateEntID()
+	})
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (u *VendorBrandUpsertOne) SetCreatedAt(v uint32) *VendorBrandUpsertOne {
+	return u.Update(func(s *VendorBrandUpsert) {
+		s.SetCreatedAt(v)
+	})
+}
+
+// AddCreatedAt adds v to the "created_at" field.
+func (u *VendorBrandUpsertOne) AddCreatedAt(v uint32) *VendorBrandUpsertOne {
+	return u.Update(func(s *VendorBrandUpsert) {
+		s.AddCreatedAt(v)
+	})
+}
+
+// UpdateCreatedAt sets the "created_at" field to the value that was provided on create.
+func (u *VendorBrandUpsertOne) UpdateCreatedAt() *VendorBrandUpsertOne {
+	return u.Update(func(s *VendorBrandUpsert) {
+		s.UpdateCreatedAt()
+	})
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (u *VendorBrandUpsertOne) SetUpdatedAt(v uint32) *VendorBrandUpsertOne {
+	return u.Update(func(s *VendorBrandUpsert) {
+		s.SetUpdatedAt(v)
+	})
+}
+
+// AddUpdatedAt adds v to the "updated_at" field.
+func (u *VendorBrandUpsertOne) AddUpdatedAt(v uint32) *VendorBrandUpsertOne {
+	return u.Update(func(s *VendorBrandUpsert) {
+		s.AddUpdatedAt(v)
+	})
+}
+
+// UpdateUpdatedAt sets the "updated_at" field to the value that was provided on create.
+func (u *VendorBrandUpsertOne) UpdateUpdatedAt() *VendorBrandUpsertOne {
+	return u.Update(func(s *VendorBrandUpsert) {
+		s.UpdateUpdatedAt()
+	})
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (u *VendorBrandUpsertOne) SetDeletedAt(v uint32) *VendorBrandUpsertOne {
+	return u.Update(func(s *VendorBrandUpsert) {
+		s.SetDeletedAt(v)
+	})
+}
+
+// AddDeletedAt adds v to the "deleted_at" field.
+func (u *VendorBrandUpsertOne) AddDeletedAt(v uint32) *VendorBrandUpsertOne {
+	return u.Update(func(s *VendorBrandUpsert) {
+		s.AddDeletedAt(v)
+	})
+}
+
+// UpdateDeletedAt sets the "deleted_at" field to the value that was provided on create.
+func (u *VendorBrandUpsertOne) UpdateDeletedAt() *VendorBrandUpsertOne {
+	return u.Update(func(s *VendorBrandUpsert) {
+		s.UpdateDeletedAt()
 	})
 }
 
@@ -608,6 +800,69 @@ func (u *VendorBrandUpsertBulk) SetEntID(v uuid.UUID) *VendorBrandUpsertBulk {
 func (u *VendorBrandUpsertBulk) UpdateEntID() *VendorBrandUpsertBulk {
 	return u.Update(func(s *VendorBrandUpsert) {
 		s.UpdateEntID()
+	})
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (u *VendorBrandUpsertBulk) SetCreatedAt(v uint32) *VendorBrandUpsertBulk {
+	return u.Update(func(s *VendorBrandUpsert) {
+		s.SetCreatedAt(v)
+	})
+}
+
+// AddCreatedAt adds v to the "created_at" field.
+func (u *VendorBrandUpsertBulk) AddCreatedAt(v uint32) *VendorBrandUpsertBulk {
+	return u.Update(func(s *VendorBrandUpsert) {
+		s.AddCreatedAt(v)
+	})
+}
+
+// UpdateCreatedAt sets the "created_at" field to the value that was provided on create.
+func (u *VendorBrandUpsertBulk) UpdateCreatedAt() *VendorBrandUpsertBulk {
+	return u.Update(func(s *VendorBrandUpsert) {
+		s.UpdateCreatedAt()
+	})
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (u *VendorBrandUpsertBulk) SetUpdatedAt(v uint32) *VendorBrandUpsertBulk {
+	return u.Update(func(s *VendorBrandUpsert) {
+		s.SetUpdatedAt(v)
+	})
+}
+
+// AddUpdatedAt adds v to the "updated_at" field.
+func (u *VendorBrandUpsertBulk) AddUpdatedAt(v uint32) *VendorBrandUpsertBulk {
+	return u.Update(func(s *VendorBrandUpsert) {
+		s.AddUpdatedAt(v)
+	})
+}
+
+// UpdateUpdatedAt sets the "updated_at" field to the value that was provided on create.
+func (u *VendorBrandUpsertBulk) UpdateUpdatedAt() *VendorBrandUpsertBulk {
+	return u.Update(func(s *VendorBrandUpsert) {
+		s.UpdateUpdatedAt()
+	})
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (u *VendorBrandUpsertBulk) SetDeletedAt(v uint32) *VendorBrandUpsertBulk {
+	return u.Update(func(s *VendorBrandUpsert) {
+		s.SetDeletedAt(v)
+	})
+}
+
+// AddDeletedAt adds v to the "deleted_at" field.
+func (u *VendorBrandUpsertBulk) AddDeletedAt(v uint32) *VendorBrandUpsertBulk {
+	return u.Update(func(s *VendorBrandUpsert) {
+		s.AddDeletedAt(v)
+	})
+}
+
+// UpdateDeletedAt sets the "deleted_at" field to the value that was provided on create.
+func (u *VendorBrandUpsertBulk) UpdateDeletedAt() *VendorBrandUpsertBulk {
+	return u.Update(func(s *VendorBrandUpsert) {
+		s.UpdateDeletedAt()
 	})
 }
 

@@ -36,6 +36,48 @@ func (dic *DeviceInfoCreate) SetNillableEntID(u *uuid.UUID) *DeviceInfoCreate {
 	return dic
 }
 
+// SetCreatedAt sets the "created_at" field.
+func (dic *DeviceInfoCreate) SetCreatedAt(u uint32) *DeviceInfoCreate {
+	dic.mutation.SetCreatedAt(u)
+	return dic
+}
+
+// SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
+func (dic *DeviceInfoCreate) SetNillableCreatedAt(u *uint32) *DeviceInfoCreate {
+	if u != nil {
+		dic.SetCreatedAt(*u)
+	}
+	return dic
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (dic *DeviceInfoCreate) SetUpdatedAt(u uint32) *DeviceInfoCreate {
+	dic.mutation.SetUpdatedAt(u)
+	return dic
+}
+
+// SetNillableUpdatedAt sets the "updated_at" field if the given value is not nil.
+func (dic *DeviceInfoCreate) SetNillableUpdatedAt(u *uint32) *DeviceInfoCreate {
+	if u != nil {
+		dic.SetUpdatedAt(*u)
+	}
+	return dic
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (dic *DeviceInfoCreate) SetDeletedAt(u uint32) *DeviceInfoCreate {
+	dic.mutation.SetDeletedAt(u)
+	return dic
+}
+
+// SetNillableDeletedAt sets the "deleted_at" field if the given value is not nil.
+func (dic *DeviceInfoCreate) SetNillableDeletedAt(u *uint32) *DeviceInfoCreate {
+	if u != nil {
+		dic.SetDeletedAt(*u)
+	}
+	return dic
+}
+
 // SetType sets the "type" field.
 func (dic *DeviceInfoCreate) SetType(s string) *DeviceInfoCreate {
 	dic.mutation.SetType(s)
@@ -137,6 +179,18 @@ func (dic *DeviceInfoCreate) defaults() {
 		v := deviceinfo.DefaultEntID()
 		dic.mutation.SetEntID(v)
 	}
+	if _, ok := dic.mutation.CreatedAt(); !ok {
+		v := deviceinfo.DefaultCreatedAt()
+		dic.mutation.SetCreatedAt(v)
+	}
+	if _, ok := dic.mutation.UpdatedAt(); !ok {
+		v := deviceinfo.DefaultUpdatedAt()
+		dic.mutation.SetUpdatedAt(v)
+	}
+	if _, ok := dic.mutation.DeletedAt(); !ok {
+		v := deviceinfo.DefaultDeletedAt()
+		dic.mutation.SetDeletedAt(v)
+	}
 	if _, ok := dic.mutation.GetType(); !ok {
 		v := deviceinfo.DefaultType
 		dic.mutation.SetType(v)
@@ -159,6 +213,15 @@ func (dic *DeviceInfoCreate) defaults() {
 func (dic *DeviceInfoCreate) check() error {
 	if _, ok := dic.mutation.EntID(); !ok {
 		return &ValidationError{Name: "ent_id", err: errors.New(`generated: missing required field "DeviceInfo.ent_id"`)}
+	}
+	if _, ok := dic.mutation.CreatedAt(); !ok {
+		return &ValidationError{Name: "created_at", err: errors.New(`generated: missing required field "DeviceInfo.created_at"`)}
+	}
+	if _, ok := dic.mutation.UpdatedAt(); !ok {
+		return &ValidationError{Name: "updated_at", err: errors.New(`generated: missing required field "DeviceInfo.updated_at"`)}
+	}
+	if _, ok := dic.mutation.DeletedAt(); !ok {
+		return &ValidationError{Name: "deleted_at", err: errors.New(`generated: missing required field "DeviceInfo.deleted_at"`)}
 	}
 	if v, ok := dic.mutation.GetType(); ok {
 		if err := deviceinfo.TypeValidator(v); err != nil {
@@ -201,6 +264,18 @@ func (dic *DeviceInfoCreate) createSpec() (*DeviceInfo, *sqlgraph.CreateSpec) {
 	if value, ok := dic.mutation.EntID(); ok {
 		_spec.SetField(deviceinfo.FieldEntID, field.TypeUUID, value)
 		_node.EntID = value
+	}
+	if value, ok := dic.mutation.CreatedAt(); ok {
+		_spec.SetField(deviceinfo.FieldCreatedAt, field.TypeUint32, value)
+		_node.CreatedAt = value
+	}
+	if value, ok := dic.mutation.UpdatedAt(); ok {
+		_spec.SetField(deviceinfo.FieldUpdatedAt, field.TypeUint32, value)
+		_node.UpdatedAt = value
+	}
+	if value, ok := dic.mutation.DeletedAt(); ok {
+		_spec.SetField(deviceinfo.FieldDeletedAt, field.TypeUint32, value)
+		_node.DeletedAt = value
 	}
 	if value, ok := dic.mutation.GetType(); ok {
 		_spec.SetField(deviceinfo.FieldType, field.TypeString, value)
@@ -279,6 +354,60 @@ func (u *DeviceInfoUpsert) SetEntID(v uuid.UUID) *DeviceInfoUpsert {
 // UpdateEntID sets the "ent_id" field to the value that was provided on create.
 func (u *DeviceInfoUpsert) UpdateEntID() *DeviceInfoUpsert {
 	u.SetExcluded(deviceinfo.FieldEntID)
+	return u
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (u *DeviceInfoUpsert) SetCreatedAt(v uint32) *DeviceInfoUpsert {
+	u.Set(deviceinfo.FieldCreatedAt, v)
+	return u
+}
+
+// UpdateCreatedAt sets the "created_at" field to the value that was provided on create.
+func (u *DeviceInfoUpsert) UpdateCreatedAt() *DeviceInfoUpsert {
+	u.SetExcluded(deviceinfo.FieldCreatedAt)
+	return u
+}
+
+// AddCreatedAt adds v to the "created_at" field.
+func (u *DeviceInfoUpsert) AddCreatedAt(v uint32) *DeviceInfoUpsert {
+	u.Add(deviceinfo.FieldCreatedAt, v)
+	return u
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (u *DeviceInfoUpsert) SetUpdatedAt(v uint32) *DeviceInfoUpsert {
+	u.Set(deviceinfo.FieldUpdatedAt, v)
+	return u
+}
+
+// UpdateUpdatedAt sets the "updated_at" field to the value that was provided on create.
+func (u *DeviceInfoUpsert) UpdateUpdatedAt() *DeviceInfoUpsert {
+	u.SetExcluded(deviceinfo.FieldUpdatedAt)
+	return u
+}
+
+// AddUpdatedAt adds v to the "updated_at" field.
+func (u *DeviceInfoUpsert) AddUpdatedAt(v uint32) *DeviceInfoUpsert {
+	u.Add(deviceinfo.FieldUpdatedAt, v)
+	return u
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (u *DeviceInfoUpsert) SetDeletedAt(v uint32) *DeviceInfoUpsert {
+	u.Set(deviceinfo.FieldDeletedAt, v)
+	return u
+}
+
+// UpdateDeletedAt sets the "deleted_at" field to the value that was provided on create.
+func (u *DeviceInfoUpsert) UpdateDeletedAt() *DeviceInfoUpsert {
+	u.SetExcluded(deviceinfo.FieldDeletedAt)
+	return u
+}
+
+// AddDeletedAt adds v to the "deleted_at" field.
+func (u *DeviceInfoUpsert) AddDeletedAt(v uint32) *DeviceInfoUpsert {
+	u.Add(deviceinfo.FieldDeletedAt, v)
 	return u
 }
 
@@ -425,6 +554,69 @@ func (u *DeviceInfoUpsertOne) SetEntID(v uuid.UUID) *DeviceInfoUpsertOne {
 func (u *DeviceInfoUpsertOne) UpdateEntID() *DeviceInfoUpsertOne {
 	return u.Update(func(s *DeviceInfoUpsert) {
 		s.UpdateEntID()
+	})
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (u *DeviceInfoUpsertOne) SetCreatedAt(v uint32) *DeviceInfoUpsertOne {
+	return u.Update(func(s *DeviceInfoUpsert) {
+		s.SetCreatedAt(v)
+	})
+}
+
+// AddCreatedAt adds v to the "created_at" field.
+func (u *DeviceInfoUpsertOne) AddCreatedAt(v uint32) *DeviceInfoUpsertOne {
+	return u.Update(func(s *DeviceInfoUpsert) {
+		s.AddCreatedAt(v)
+	})
+}
+
+// UpdateCreatedAt sets the "created_at" field to the value that was provided on create.
+func (u *DeviceInfoUpsertOne) UpdateCreatedAt() *DeviceInfoUpsertOne {
+	return u.Update(func(s *DeviceInfoUpsert) {
+		s.UpdateCreatedAt()
+	})
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (u *DeviceInfoUpsertOne) SetUpdatedAt(v uint32) *DeviceInfoUpsertOne {
+	return u.Update(func(s *DeviceInfoUpsert) {
+		s.SetUpdatedAt(v)
+	})
+}
+
+// AddUpdatedAt adds v to the "updated_at" field.
+func (u *DeviceInfoUpsertOne) AddUpdatedAt(v uint32) *DeviceInfoUpsertOne {
+	return u.Update(func(s *DeviceInfoUpsert) {
+		s.AddUpdatedAt(v)
+	})
+}
+
+// UpdateUpdatedAt sets the "updated_at" field to the value that was provided on create.
+func (u *DeviceInfoUpsertOne) UpdateUpdatedAt() *DeviceInfoUpsertOne {
+	return u.Update(func(s *DeviceInfoUpsert) {
+		s.UpdateUpdatedAt()
+	})
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (u *DeviceInfoUpsertOne) SetDeletedAt(v uint32) *DeviceInfoUpsertOne {
+	return u.Update(func(s *DeviceInfoUpsert) {
+		s.SetDeletedAt(v)
+	})
+}
+
+// AddDeletedAt adds v to the "deleted_at" field.
+func (u *DeviceInfoUpsertOne) AddDeletedAt(v uint32) *DeviceInfoUpsertOne {
+	return u.Update(func(s *DeviceInfoUpsert) {
+		s.AddDeletedAt(v)
+	})
+}
+
+// UpdateDeletedAt sets the "deleted_at" field to the value that was provided on create.
+func (u *DeviceInfoUpsertOne) UpdateDeletedAt() *DeviceInfoUpsertOne {
+	return u.Update(func(s *DeviceInfoUpsert) {
+		s.UpdateDeletedAt()
 	})
 }
 
@@ -751,6 +943,69 @@ func (u *DeviceInfoUpsertBulk) SetEntID(v uuid.UUID) *DeviceInfoUpsertBulk {
 func (u *DeviceInfoUpsertBulk) UpdateEntID() *DeviceInfoUpsertBulk {
 	return u.Update(func(s *DeviceInfoUpsert) {
 		s.UpdateEntID()
+	})
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (u *DeviceInfoUpsertBulk) SetCreatedAt(v uint32) *DeviceInfoUpsertBulk {
+	return u.Update(func(s *DeviceInfoUpsert) {
+		s.SetCreatedAt(v)
+	})
+}
+
+// AddCreatedAt adds v to the "created_at" field.
+func (u *DeviceInfoUpsertBulk) AddCreatedAt(v uint32) *DeviceInfoUpsertBulk {
+	return u.Update(func(s *DeviceInfoUpsert) {
+		s.AddCreatedAt(v)
+	})
+}
+
+// UpdateCreatedAt sets the "created_at" field to the value that was provided on create.
+func (u *DeviceInfoUpsertBulk) UpdateCreatedAt() *DeviceInfoUpsertBulk {
+	return u.Update(func(s *DeviceInfoUpsert) {
+		s.UpdateCreatedAt()
+	})
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (u *DeviceInfoUpsertBulk) SetUpdatedAt(v uint32) *DeviceInfoUpsertBulk {
+	return u.Update(func(s *DeviceInfoUpsert) {
+		s.SetUpdatedAt(v)
+	})
+}
+
+// AddUpdatedAt adds v to the "updated_at" field.
+func (u *DeviceInfoUpsertBulk) AddUpdatedAt(v uint32) *DeviceInfoUpsertBulk {
+	return u.Update(func(s *DeviceInfoUpsert) {
+		s.AddUpdatedAt(v)
+	})
+}
+
+// UpdateUpdatedAt sets the "updated_at" field to the value that was provided on create.
+func (u *DeviceInfoUpsertBulk) UpdateUpdatedAt() *DeviceInfoUpsertBulk {
+	return u.Update(func(s *DeviceInfoUpsert) {
+		s.UpdateUpdatedAt()
+	})
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (u *DeviceInfoUpsertBulk) SetDeletedAt(v uint32) *DeviceInfoUpsertBulk {
+	return u.Update(func(s *DeviceInfoUpsert) {
+		s.SetDeletedAt(v)
+	})
+}
+
+// AddDeletedAt adds v to the "deleted_at" field.
+func (u *DeviceInfoUpsertBulk) AddDeletedAt(v uint32) *DeviceInfoUpsertBulk {
+	return u.Update(func(s *DeviceInfoUpsert) {
+		s.AddDeletedAt(v)
+	})
+}
+
+// UpdateDeletedAt sets the "deleted_at" field to the value that was provided on create.
+func (u *DeviceInfoUpsertBulk) UpdateDeletedAt() *DeviceInfoUpsertBulk {
+	return u.Update(func(s *DeviceInfoUpsert) {
+		s.UpdateDeletedAt()
 	})
 }
 

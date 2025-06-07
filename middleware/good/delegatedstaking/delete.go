@@ -2,7 +2,6 @@ package delegatedstaking
 
 import (
 	"context"
-	"fmt"
 	"time"
 
 	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
@@ -10,7 +9,7 @@ import (
 	goodbasecrud "github.com/NpoolPlatform/kunman/middleware/good/crud/good/goodbase"
 	rewardcrud "github.com/NpoolPlatform/kunman/middleware/good/crud/good/reward"
 	"github.com/NpoolPlatform/kunman/middleware/good/db"
-	"github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated"
+	ent "github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated"
 	entgoodcoin "github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated/goodcoin"
 )
 
@@ -65,7 +64,6 @@ func (h *deleteHandler) deleteReward(ctx context.Context, tx *ent.Tx) error {
 }
 
 func (h *deleteHandler) deleteGoodCoin(ctx context.Context, tx *ent.Tx) error {
-	fmt.Println("--h.goodCoins: ", h.goodCoins)
 	if h.goodCoins == nil {
 		return nil
 	}

@@ -6,10 +6,10 @@ import (
 	"time"
 
 	"github.com/NpoolPlatform/kunman/framework/wlog"
+	npool "github.com/NpoolPlatform/kunman/message/good/middleware/v1/good/required"
 	requiredcrud "github.com/NpoolPlatform/kunman/middleware/good/crud/good/required"
 	"github.com/NpoolPlatform/kunman/middleware/good/db"
-	"github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated"
-	npool "github.com/NpoolPlatform/kunman/message/good/middleware/v1/good/required"
+	ent "github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated"
 )
 
 type deleteHandler struct {

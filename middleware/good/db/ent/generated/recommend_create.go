@@ -37,6 +37,48 @@ func (rc *RecommendCreate) SetNillableEntID(u *uuid.UUID) *RecommendCreate {
 	return rc
 }
 
+// SetCreatedAt sets the "created_at" field.
+func (rc *RecommendCreate) SetCreatedAt(u uint32) *RecommendCreate {
+	rc.mutation.SetCreatedAt(u)
+	return rc
+}
+
+// SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
+func (rc *RecommendCreate) SetNillableCreatedAt(u *uint32) *RecommendCreate {
+	if u != nil {
+		rc.SetCreatedAt(*u)
+	}
+	return rc
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (rc *RecommendCreate) SetUpdatedAt(u uint32) *RecommendCreate {
+	rc.mutation.SetUpdatedAt(u)
+	return rc
+}
+
+// SetNillableUpdatedAt sets the "updated_at" field if the given value is not nil.
+func (rc *RecommendCreate) SetNillableUpdatedAt(u *uint32) *RecommendCreate {
+	if u != nil {
+		rc.SetUpdatedAt(*u)
+	}
+	return rc
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (rc *RecommendCreate) SetDeletedAt(u uint32) *RecommendCreate {
+	rc.mutation.SetDeletedAt(u)
+	return rc
+}
+
+// SetNillableDeletedAt sets the "deleted_at" field if the given value is not nil.
+func (rc *RecommendCreate) SetNillableDeletedAt(u *uint32) *RecommendCreate {
+	if u != nil {
+		rc.SetDeletedAt(*u)
+	}
+	return rc
+}
+
 // SetAppGoodID sets the "app_good_id" field.
 func (rc *RecommendCreate) SetAppGoodID(u uuid.UUID) *RecommendCreate {
 	rc.mutation.SetAppGoodID(u)
@@ -166,6 +208,18 @@ func (rc *RecommendCreate) defaults() {
 		v := recommend.DefaultEntID()
 		rc.mutation.SetEntID(v)
 	}
+	if _, ok := rc.mutation.CreatedAt(); !ok {
+		v := recommend.DefaultCreatedAt()
+		rc.mutation.SetCreatedAt(v)
+	}
+	if _, ok := rc.mutation.UpdatedAt(); !ok {
+		v := recommend.DefaultUpdatedAt()
+		rc.mutation.SetUpdatedAt(v)
+	}
+	if _, ok := rc.mutation.DeletedAt(); !ok {
+		v := recommend.DefaultDeletedAt()
+		rc.mutation.SetDeletedAt(v)
+	}
 	if _, ok := rc.mutation.AppGoodID(); !ok {
 		v := recommend.DefaultAppGoodID()
 		rc.mutation.SetAppGoodID(v)
@@ -196,6 +250,15 @@ func (rc *RecommendCreate) defaults() {
 func (rc *RecommendCreate) check() error {
 	if _, ok := rc.mutation.EntID(); !ok {
 		return &ValidationError{Name: "ent_id", err: errors.New(`generated: missing required field "Recommend.ent_id"`)}
+	}
+	if _, ok := rc.mutation.CreatedAt(); !ok {
+		return &ValidationError{Name: "created_at", err: errors.New(`generated: missing required field "Recommend.created_at"`)}
+	}
+	if _, ok := rc.mutation.UpdatedAt(); !ok {
+		return &ValidationError{Name: "updated_at", err: errors.New(`generated: missing required field "Recommend.updated_at"`)}
+	}
+	if _, ok := rc.mutation.DeletedAt(); !ok {
+		return &ValidationError{Name: "deleted_at", err: errors.New(`generated: missing required field "Recommend.deleted_at"`)}
 	}
 	return nil
 }
@@ -233,6 +296,18 @@ func (rc *RecommendCreate) createSpec() (*Recommend, *sqlgraph.CreateSpec) {
 	if value, ok := rc.mutation.EntID(); ok {
 		_spec.SetField(recommend.FieldEntID, field.TypeUUID, value)
 		_node.EntID = value
+	}
+	if value, ok := rc.mutation.CreatedAt(); ok {
+		_spec.SetField(recommend.FieldCreatedAt, field.TypeUint32, value)
+		_node.CreatedAt = value
+	}
+	if value, ok := rc.mutation.UpdatedAt(); ok {
+		_spec.SetField(recommend.FieldUpdatedAt, field.TypeUint32, value)
+		_node.UpdatedAt = value
+	}
+	if value, ok := rc.mutation.DeletedAt(); ok {
+		_spec.SetField(recommend.FieldDeletedAt, field.TypeUint32, value)
+		_node.DeletedAt = value
 	}
 	if value, ok := rc.mutation.AppGoodID(); ok {
 		_spec.SetField(recommend.FieldAppGoodID, field.TypeUUID, value)
@@ -319,6 +394,60 @@ func (u *RecommendUpsert) SetEntID(v uuid.UUID) *RecommendUpsert {
 // UpdateEntID sets the "ent_id" field to the value that was provided on create.
 func (u *RecommendUpsert) UpdateEntID() *RecommendUpsert {
 	u.SetExcluded(recommend.FieldEntID)
+	return u
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (u *RecommendUpsert) SetCreatedAt(v uint32) *RecommendUpsert {
+	u.Set(recommend.FieldCreatedAt, v)
+	return u
+}
+
+// UpdateCreatedAt sets the "created_at" field to the value that was provided on create.
+func (u *RecommendUpsert) UpdateCreatedAt() *RecommendUpsert {
+	u.SetExcluded(recommend.FieldCreatedAt)
+	return u
+}
+
+// AddCreatedAt adds v to the "created_at" field.
+func (u *RecommendUpsert) AddCreatedAt(v uint32) *RecommendUpsert {
+	u.Add(recommend.FieldCreatedAt, v)
+	return u
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (u *RecommendUpsert) SetUpdatedAt(v uint32) *RecommendUpsert {
+	u.Set(recommend.FieldUpdatedAt, v)
+	return u
+}
+
+// UpdateUpdatedAt sets the "updated_at" field to the value that was provided on create.
+func (u *RecommendUpsert) UpdateUpdatedAt() *RecommendUpsert {
+	u.SetExcluded(recommend.FieldUpdatedAt)
+	return u
+}
+
+// AddUpdatedAt adds v to the "updated_at" field.
+func (u *RecommendUpsert) AddUpdatedAt(v uint32) *RecommendUpsert {
+	u.Add(recommend.FieldUpdatedAt, v)
+	return u
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (u *RecommendUpsert) SetDeletedAt(v uint32) *RecommendUpsert {
+	u.Set(recommend.FieldDeletedAt, v)
+	return u
+}
+
+// UpdateDeletedAt sets the "deleted_at" field to the value that was provided on create.
+func (u *RecommendUpsert) UpdateDeletedAt() *RecommendUpsert {
+	u.SetExcluded(recommend.FieldDeletedAt)
+	return u
+}
+
+// AddDeletedAt adds v to the "deleted_at" field.
+func (u *RecommendUpsert) AddDeletedAt(v uint32) *RecommendUpsert {
+	u.Add(recommend.FieldDeletedAt, v)
 	return u
 }
 
@@ -489,6 +618,69 @@ func (u *RecommendUpsertOne) SetEntID(v uuid.UUID) *RecommendUpsertOne {
 func (u *RecommendUpsertOne) UpdateEntID() *RecommendUpsertOne {
 	return u.Update(func(s *RecommendUpsert) {
 		s.UpdateEntID()
+	})
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (u *RecommendUpsertOne) SetCreatedAt(v uint32) *RecommendUpsertOne {
+	return u.Update(func(s *RecommendUpsert) {
+		s.SetCreatedAt(v)
+	})
+}
+
+// AddCreatedAt adds v to the "created_at" field.
+func (u *RecommendUpsertOne) AddCreatedAt(v uint32) *RecommendUpsertOne {
+	return u.Update(func(s *RecommendUpsert) {
+		s.AddCreatedAt(v)
+	})
+}
+
+// UpdateCreatedAt sets the "created_at" field to the value that was provided on create.
+func (u *RecommendUpsertOne) UpdateCreatedAt() *RecommendUpsertOne {
+	return u.Update(func(s *RecommendUpsert) {
+		s.UpdateCreatedAt()
+	})
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (u *RecommendUpsertOne) SetUpdatedAt(v uint32) *RecommendUpsertOne {
+	return u.Update(func(s *RecommendUpsert) {
+		s.SetUpdatedAt(v)
+	})
+}
+
+// AddUpdatedAt adds v to the "updated_at" field.
+func (u *RecommendUpsertOne) AddUpdatedAt(v uint32) *RecommendUpsertOne {
+	return u.Update(func(s *RecommendUpsert) {
+		s.AddUpdatedAt(v)
+	})
+}
+
+// UpdateUpdatedAt sets the "updated_at" field to the value that was provided on create.
+func (u *RecommendUpsertOne) UpdateUpdatedAt() *RecommendUpsertOne {
+	return u.Update(func(s *RecommendUpsert) {
+		s.UpdateUpdatedAt()
+	})
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (u *RecommendUpsertOne) SetDeletedAt(v uint32) *RecommendUpsertOne {
+	return u.Update(func(s *RecommendUpsert) {
+		s.SetDeletedAt(v)
+	})
+}
+
+// AddDeletedAt adds v to the "deleted_at" field.
+func (u *RecommendUpsertOne) AddDeletedAt(v uint32) *RecommendUpsertOne {
+	return u.Update(func(s *RecommendUpsert) {
+		s.AddDeletedAt(v)
+	})
+}
+
+// UpdateDeletedAt sets the "deleted_at" field to the value that was provided on create.
+func (u *RecommendUpsertOne) UpdateDeletedAt() *RecommendUpsertOne {
+	return u.Update(func(s *RecommendUpsert) {
+		s.UpdateDeletedAt()
 	})
 }
 
@@ -843,6 +1035,69 @@ func (u *RecommendUpsertBulk) SetEntID(v uuid.UUID) *RecommendUpsertBulk {
 func (u *RecommendUpsertBulk) UpdateEntID() *RecommendUpsertBulk {
 	return u.Update(func(s *RecommendUpsert) {
 		s.UpdateEntID()
+	})
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (u *RecommendUpsertBulk) SetCreatedAt(v uint32) *RecommendUpsertBulk {
+	return u.Update(func(s *RecommendUpsert) {
+		s.SetCreatedAt(v)
+	})
+}
+
+// AddCreatedAt adds v to the "created_at" field.
+func (u *RecommendUpsertBulk) AddCreatedAt(v uint32) *RecommendUpsertBulk {
+	return u.Update(func(s *RecommendUpsert) {
+		s.AddCreatedAt(v)
+	})
+}
+
+// UpdateCreatedAt sets the "created_at" field to the value that was provided on create.
+func (u *RecommendUpsertBulk) UpdateCreatedAt() *RecommendUpsertBulk {
+	return u.Update(func(s *RecommendUpsert) {
+		s.UpdateCreatedAt()
+	})
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (u *RecommendUpsertBulk) SetUpdatedAt(v uint32) *RecommendUpsertBulk {
+	return u.Update(func(s *RecommendUpsert) {
+		s.SetUpdatedAt(v)
+	})
+}
+
+// AddUpdatedAt adds v to the "updated_at" field.
+func (u *RecommendUpsertBulk) AddUpdatedAt(v uint32) *RecommendUpsertBulk {
+	return u.Update(func(s *RecommendUpsert) {
+		s.AddUpdatedAt(v)
+	})
+}
+
+// UpdateUpdatedAt sets the "updated_at" field to the value that was provided on create.
+func (u *RecommendUpsertBulk) UpdateUpdatedAt() *RecommendUpsertBulk {
+	return u.Update(func(s *RecommendUpsert) {
+		s.UpdateUpdatedAt()
+	})
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (u *RecommendUpsertBulk) SetDeletedAt(v uint32) *RecommendUpsertBulk {
+	return u.Update(func(s *RecommendUpsert) {
+		s.SetDeletedAt(v)
+	})
+}
+
+// AddDeletedAt adds v to the "deleted_at" field.
+func (u *RecommendUpsertBulk) AddDeletedAt(v uint32) *RecommendUpsertBulk {
+	return u.Update(func(s *RecommendUpsert) {
+		s.AddDeletedAt(v)
+	})
+}
+
+// UpdateDeletedAt sets the "deleted_at" field to the value that was provided on create.
+func (u *RecommendUpsertBulk) UpdateDeletedAt() *RecommendUpsertBulk {
+	return u.Update(func(s *RecommendUpsert) {
+		s.UpdateDeletedAt()
 	})
 }
 

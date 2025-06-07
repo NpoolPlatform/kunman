@@ -59,6 +59,21 @@ func EntID(v uuid.UUID) predicate.MiningGoodStock {
 	return predicate.MiningGoodStock(sql.FieldEQ(FieldEntID, v))
 }
 
+// CreatedAt applies equality check predicate on the "created_at" field. It's identical to CreatedAtEQ.
+func CreatedAt(v uint32) predicate.MiningGoodStock {
+	return predicate.MiningGoodStock(sql.FieldEQ(FieldCreatedAt, v))
+}
+
+// UpdatedAt applies equality check predicate on the "updated_at" field. It's identical to UpdatedAtEQ.
+func UpdatedAt(v uint32) predicate.MiningGoodStock {
+	return predicate.MiningGoodStock(sql.FieldEQ(FieldUpdatedAt, v))
+}
+
+// DeletedAt applies equality check predicate on the "deleted_at" field. It's identical to DeletedAtEQ.
+func DeletedAt(v uint32) predicate.MiningGoodStock {
+	return predicate.MiningGoodStock(sql.FieldEQ(FieldDeletedAt, v))
+}
+
 // GoodStockID applies equality check predicate on the "good_stock_id" field. It's identical to GoodStockIDEQ.
 func GoodStockID(v uuid.UUID) predicate.MiningGoodStock {
 	return predicate.MiningGoodStock(sql.FieldEQ(FieldGoodStockID, v))
@@ -152,6 +167,126 @@ func EntIDLT(v uuid.UUID) predicate.MiningGoodStock {
 // EntIDLTE applies the LTE predicate on the "ent_id" field.
 func EntIDLTE(v uuid.UUID) predicate.MiningGoodStock {
 	return predicate.MiningGoodStock(sql.FieldLTE(FieldEntID, v))
+}
+
+// CreatedAtEQ applies the EQ predicate on the "created_at" field.
+func CreatedAtEQ(v uint32) predicate.MiningGoodStock {
+	return predicate.MiningGoodStock(sql.FieldEQ(FieldCreatedAt, v))
+}
+
+// CreatedAtNEQ applies the NEQ predicate on the "created_at" field.
+func CreatedAtNEQ(v uint32) predicate.MiningGoodStock {
+	return predicate.MiningGoodStock(sql.FieldNEQ(FieldCreatedAt, v))
+}
+
+// CreatedAtIn applies the In predicate on the "created_at" field.
+func CreatedAtIn(vs ...uint32) predicate.MiningGoodStock {
+	return predicate.MiningGoodStock(sql.FieldIn(FieldCreatedAt, vs...))
+}
+
+// CreatedAtNotIn applies the NotIn predicate on the "created_at" field.
+func CreatedAtNotIn(vs ...uint32) predicate.MiningGoodStock {
+	return predicate.MiningGoodStock(sql.FieldNotIn(FieldCreatedAt, vs...))
+}
+
+// CreatedAtGT applies the GT predicate on the "created_at" field.
+func CreatedAtGT(v uint32) predicate.MiningGoodStock {
+	return predicate.MiningGoodStock(sql.FieldGT(FieldCreatedAt, v))
+}
+
+// CreatedAtGTE applies the GTE predicate on the "created_at" field.
+func CreatedAtGTE(v uint32) predicate.MiningGoodStock {
+	return predicate.MiningGoodStock(sql.FieldGTE(FieldCreatedAt, v))
+}
+
+// CreatedAtLT applies the LT predicate on the "created_at" field.
+func CreatedAtLT(v uint32) predicate.MiningGoodStock {
+	return predicate.MiningGoodStock(sql.FieldLT(FieldCreatedAt, v))
+}
+
+// CreatedAtLTE applies the LTE predicate on the "created_at" field.
+func CreatedAtLTE(v uint32) predicate.MiningGoodStock {
+	return predicate.MiningGoodStock(sql.FieldLTE(FieldCreatedAt, v))
+}
+
+// UpdatedAtEQ applies the EQ predicate on the "updated_at" field.
+func UpdatedAtEQ(v uint32) predicate.MiningGoodStock {
+	return predicate.MiningGoodStock(sql.FieldEQ(FieldUpdatedAt, v))
+}
+
+// UpdatedAtNEQ applies the NEQ predicate on the "updated_at" field.
+func UpdatedAtNEQ(v uint32) predicate.MiningGoodStock {
+	return predicate.MiningGoodStock(sql.FieldNEQ(FieldUpdatedAt, v))
+}
+
+// UpdatedAtIn applies the In predicate on the "updated_at" field.
+func UpdatedAtIn(vs ...uint32) predicate.MiningGoodStock {
+	return predicate.MiningGoodStock(sql.FieldIn(FieldUpdatedAt, vs...))
+}
+
+// UpdatedAtNotIn applies the NotIn predicate on the "updated_at" field.
+func UpdatedAtNotIn(vs ...uint32) predicate.MiningGoodStock {
+	return predicate.MiningGoodStock(sql.FieldNotIn(FieldUpdatedAt, vs...))
+}
+
+// UpdatedAtGT applies the GT predicate on the "updated_at" field.
+func UpdatedAtGT(v uint32) predicate.MiningGoodStock {
+	return predicate.MiningGoodStock(sql.FieldGT(FieldUpdatedAt, v))
+}
+
+// UpdatedAtGTE applies the GTE predicate on the "updated_at" field.
+func UpdatedAtGTE(v uint32) predicate.MiningGoodStock {
+	return predicate.MiningGoodStock(sql.FieldGTE(FieldUpdatedAt, v))
+}
+
+// UpdatedAtLT applies the LT predicate on the "updated_at" field.
+func UpdatedAtLT(v uint32) predicate.MiningGoodStock {
+	return predicate.MiningGoodStock(sql.FieldLT(FieldUpdatedAt, v))
+}
+
+// UpdatedAtLTE applies the LTE predicate on the "updated_at" field.
+func UpdatedAtLTE(v uint32) predicate.MiningGoodStock {
+	return predicate.MiningGoodStock(sql.FieldLTE(FieldUpdatedAt, v))
+}
+
+// DeletedAtEQ applies the EQ predicate on the "deleted_at" field.
+func DeletedAtEQ(v uint32) predicate.MiningGoodStock {
+	return predicate.MiningGoodStock(sql.FieldEQ(FieldDeletedAt, v))
+}
+
+// DeletedAtNEQ applies the NEQ predicate on the "deleted_at" field.
+func DeletedAtNEQ(v uint32) predicate.MiningGoodStock {
+	return predicate.MiningGoodStock(sql.FieldNEQ(FieldDeletedAt, v))
+}
+
+// DeletedAtIn applies the In predicate on the "deleted_at" field.
+func DeletedAtIn(vs ...uint32) predicate.MiningGoodStock {
+	return predicate.MiningGoodStock(sql.FieldIn(FieldDeletedAt, vs...))
+}
+
+// DeletedAtNotIn applies the NotIn predicate on the "deleted_at" field.
+func DeletedAtNotIn(vs ...uint32) predicate.MiningGoodStock {
+	return predicate.MiningGoodStock(sql.FieldNotIn(FieldDeletedAt, vs...))
+}
+
+// DeletedAtGT applies the GT predicate on the "deleted_at" field.
+func DeletedAtGT(v uint32) predicate.MiningGoodStock {
+	return predicate.MiningGoodStock(sql.FieldGT(FieldDeletedAt, v))
+}
+
+// DeletedAtGTE applies the GTE predicate on the "deleted_at" field.
+func DeletedAtGTE(v uint32) predicate.MiningGoodStock {
+	return predicate.MiningGoodStock(sql.FieldGTE(FieldDeletedAt, v))
+}
+
+// DeletedAtLT applies the LT predicate on the "deleted_at" field.
+func DeletedAtLT(v uint32) predicate.MiningGoodStock {
+	return predicate.MiningGoodStock(sql.FieldLT(FieldDeletedAt, v))
+}
+
+// DeletedAtLTE applies the LTE predicate on the "deleted_at" field.
+func DeletedAtLTE(v uint32) predicate.MiningGoodStock {
+	return predicate.MiningGoodStock(sql.FieldLTE(FieldDeletedAt, v))
 }
 
 // GoodStockIDEQ applies the EQ predicate on the "good_stock_id" field.

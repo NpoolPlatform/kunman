@@ -7,7 +7,7 @@
 package simulate
 
 import (
-	coin "github.com/NpoolPlatform/message/good/middleware/v1/good/coin"
+	coin "github.com/NpoolPlatform/kunman/message/good/middleware/v1/good/coin"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"

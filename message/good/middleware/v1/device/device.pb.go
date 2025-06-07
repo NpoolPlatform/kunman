@@ -8,7 +8,7 @@ package device
 
 import (
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/v1"
-	poster "github.com/NpoolPlatform/message/good/middleware/v1/device/poster"
+	poster "github.com/NpoolPlatform/kunman/message/good/middleware/v1/device/poster"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	reflect "reflect"

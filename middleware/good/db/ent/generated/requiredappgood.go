@@ -19,6 +19,12 @@ type RequiredAppGood struct {
 	ID uint32 `json:"id,omitempty"`
 	// EntID holds the value of the "ent_id" field.
 	EntID uuid.UUID `json:"ent_id,omitempty"`
+	// CreatedAt holds the value of the "created_at" field.
+	CreatedAt uint32 `json:"created_at,omitempty"`
+	// UpdatedAt holds the value of the "updated_at" field.
+	UpdatedAt uint32 `json:"updated_at,omitempty"`
+	// DeletedAt holds the value of the "deleted_at" field.
+	DeletedAt uint32 `json:"deleted_at,omitempty"`
 	// MainAppGoodID holds the value of the "main_app_good_id" field.
 	MainAppGoodID uuid.UUID `json:"main_app_good_id,omitempty"`
 	// RequiredAppGoodID holds the value of the "required_app_good_id" field.
@@ -35,7 +41,7 @@ func (*RequiredAppGood) scanValues(columns []string) ([]any, error) {
 		switch columns[i] {
 		case requiredappgood.FieldMust:
 			values[i] = new(sql.NullBool)
-		case requiredappgood.FieldID:
+		case requiredappgood.FieldID, requiredappgood.FieldCreatedAt, requiredappgood.FieldUpdatedAt, requiredappgood.FieldDeletedAt:
 			values[i] = new(sql.NullInt64)
 		case requiredappgood.FieldEntID, requiredappgood.FieldMainAppGoodID, requiredappgood.FieldRequiredAppGoodID:
 			values[i] = new(uuid.UUID)
@@ -65,6 +71,24 @@ func (rag *RequiredAppGood) assignValues(columns []string, values []any) error {
 				return fmt.Errorf("unexpected type %T for field ent_id", values[i])
 			} else if value != nil {
 				rag.EntID = *value
+			}
+		case requiredappgood.FieldCreatedAt:
+			if value, ok := values[i].(*sql.NullInt64); !ok {
+				return fmt.Errorf("unexpected type %T for field created_at", values[i])
+			} else if value.Valid {
+				rag.CreatedAt = uint32(value.Int64)
+			}
+		case requiredappgood.FieldUpdatedAt:
+			if value, ok := values[i].(*sql.NullInt64); !ok {
+				return fmt.Errorf("unexpected type %T for field updated_at", values[i])
+			} else if value.Valid {
+				rag.UpdatedAt = uint32(value.Int64)
+			}
+		case requiredappgood.FieldDeletedAt:
+			if value, ok := values[i].(*sql.NullInt64); !ok {
+				return fmt.Errorf("unexpected type %T for field deleted_at", values[i])
+			} else if value.Valid {
+				rag.DeletedAt = uint32(value.Int64)
 			}
 		case requiredappgood.FieldMainAppGoodID:
 			if value, ok := values[i].(*uuid.UUID); !ok {
@@ -122,6 +146,15 @@ func (rag *RequiredAppGood) String() string {
 	builder.WriteString(fmt.Sprintf("id=%v, ", rag.ID))
 	builder.WriteString("ent_id=")
 	builder.WriteString(fmt.Sprintf("%v", rag.EntID))
+	builder.WriteString(", ")
+	builder.WriteString("created_at=")
+	builder.WriteString(fmt.Sprintf("%v", rag.CreatedAt))
+	builder.WriteString(", ")
+	builder.WriteString("updated_at=")
+	builder.WriteString(fmt.Sprintf("%v", rag.UpdatedAt))
+	builder.WriteString(", ")
+	builder.WriteString("deleted_at=")
+	builder.WriteString(fmt.Sprintf("%v", rag.DeletedAt))
 	builder.WriteString(", ")
 	builder.WriteString("main_app_good_id=")
 	builder.WriteString(fmt.Sprintf("%v", rag.MainAppGoodID))

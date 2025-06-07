@@ -19,6 +19,12 @@ type AppDelegatedStaking struct {
 	ID uint32 `json:"id,omitempty"`
 	// EntID holds the value of the "ent_id" field.
 	EntID uuid.UUID `json:"ent_id,omitempty"`
+	// CreatedAt holds the value of the "created_at" field.
+	CreatedAt uint32 `json:"created_at,omitempty"`
+	// UpdatedAt holds the value of the "updated_at" field.
+	UpdatedAt uint32 `json:"updated_at,omitempty"`
+	// DeletedAt holds the value of the "deleted_at" field.
+	DeletedAt uint32 `json:"deleted_at,omitempty"`
 	// AppGoodID holds the value of the "app_good_id" field.
 	AppGoodID uuid.UUID `json:"app_good_id,omitempty"`
 	// ServiceStartAt holds the value of the "service_start_at" field.
@@ -37,7 +43,7 @@ func (*AppDelegatedStaking) scanValues(columns []string) ([]any, error) {
 		switch columns[i] {
 		case appdelegatedstaking.FieldEnableSetCommission:
 			values[i] = new(sql.NullBool)
-		case appdelegatedstaking.FieldID, appdelegatedstaking.FieldServiceStartAt:
+		case appdelegatedstaking.FieldID, appdelegatedstaking.FieldCreatedAt, appdelegatedstaking.FieldUpdatedAt, appdelegatedstaking.FieldDeletedAt, appdelegatedstaking.FieldServiceStartAt:
 			values[i] = new(sql.NullInt64)
 		case appdelegatedstaking.FieldStartMode:
 			values[i] = new(sql.NullString)
@@ -69,6 +75,24 @@ func (ads *AppDelegatedStaking) assignValues(columns []string, values []any) err
 				return fmt.Errorf("unexpected type %T for field ent_id", values[i])
 			} else if value != nil {
 				ads.EntID = *value
+			}
+		case appdelegatedstaking.FieldCreatedAt:
+			if value, ok := values[i].(*sql.NullInt64); !ok {
+				return fmt.Errorf("unexpected type %T for field created_at", values[i])
+			} else if value.Valid {
+				ads.CreatedAt = uint32(value.Int64)
+			}
+		case appdelegatedstaking.FieldUpdatedAt:
+			if value, ok := values[i].(*sql.NullInt64); !ok {
+				return fmt.Errorf("unexpected type %T for field updated_at", values[i])
+			} else if value.Valid {
+				ads.UpdatedAt = uint32(value.Int64)
+			}
+		case appdelegatedstaking.FieldDeletedAt:
+			if value, ok := values[i].(*sql.NullInt64); !ok {
+				return fmt.Errorf("unexpected type %T for field deleted_at", values[i])
+			} else if value.Valid {
+				ads.DeletedAt = uint32(value.Int64)
 			}
 		case appdelegatedstaking.FieldAppGoodID:
 			if value, ok := values[i].(*uuid.UUID); !ok {
@@ -132,6 +156,15 @@ func (ads *AppDelegatedStaking) String() string {
 	builder.WriteString(fmt.Sprintf("id=%v, ", ads.ID))
 	builder.WriteString("ent_id=")
 	builder.WriteString(fmt.Sprintf("%v", ads.EntID))
+	builder.WriteString(", ")
+	builder.WriteString("created_at=")
+	builder.WriteString(fmt.Sprintf("%v", ads.CreatedAt))
+	builder.WriteString(", ")
+	builder.WriteString("updated_at=")
+	builder.WriteString(fmt.Sprintf("%v", ads.UpdatedAt))
+	builder.WriteString(", ")
+	builder.WriteString("deleted_at=")
+	builder.WriteString(fmt.Sprintf("%v", ads.DeletedAt))
 	builder.WriteString(", ")
 	builder.WriteString("app_good_id=")
 	builder.WriteString(fmt.Sprintf("%v", ads.AppGoodID))

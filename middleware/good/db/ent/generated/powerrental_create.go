@@ -37,6 +37,48 @@ func (prc *PowerRentalCreate) SetNillableEntID(u *uuid.UUID) *PowerRentalCreate 
 	return prc
 }
 
+// SetCreatedAt sets the "created_at" field.
+func (prc *PowerRentalCreate) SetCreatedAt(u uint32) *PowerRentalCreate {
+	prc.mutation.SetCreatedAt(u)
+	return prc
+}
+
+// SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
+func (prc *PowerRentalCreate) SetNillableCreatedAt(u *uint32) *PowerRentalCreate {
+	if u != nil {
+		prc.SetCreatedAt(*u)
+	}
+	return prc
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (prc *PowerRentalCreate) SetUpdatedAt(u uint32) *PowerRentalCreate {
+	prc.mutation.SetUpdatedAt(u)
+	return prc
+}
+
+// SetNillableUpdatedAt sets the "updated_at" field if the given value is not nil.
+func (prc *PowerRentalCreate) SetNillableUpdatedAt(u *uint32) *PowerRentalCreate {
+	if u != nil {
+		prc.SetUpdatedAt(*u)
+	}
+	return prc
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (prc *PowerRentalCreate) SetDeletedAt(u uint32) *PowerRentalCreate {
+	prc.mutation.SetDeletedAt(u)
+	return prc
+}
+
+// SetNillableDeletedAt sets the "deleted_at" field if the given value is not nil.
+func (prc *PowerRentalCreate) SetNillableDeletedAt(u *uint32) *PowerRentalCreate {
+	if u != nil {
+		prc.SetDeletedAt(*u)
+	}
+	return prc
+}
+
 // SetGoodID sets the "good_id" field.
 func (prc *PowerRentalCreate) SetGoodID(u uuid.UUID) *PowerRentalCreate {
 	prc.mutation.SetGoodID(u)
@@ -222,6 +264,18 @@ func (prc *PowerRentalCreate) defaults() {
 		v := powerrental.DefaultEntID()
 		prc.mutation.SetEntID(v)
 	}
+	if _, ok := prc.mutation.CreatedAt(); !ok {
+		v := powerrental.DefaultCreatedAt()
+		prc.mutation.SetCreatedAt(v)
+	}
+	if _, ok := prc.mutation.UpdatedAt(); !ok {
+		v := powerrental.DefaultUpdatedAt()
+		prc.mutation.SetUpdatedAt(v)
+	}
+	if _, ok := prc.mutation.DeletedAt(); !ok {
+		v := powerrental.DefaultDeletedAt()
+		prc.mutation.SetDeletedAt(v)
+	}
 	if _, ok := prc.mutation.GoodID(); !ok {
 		v := powerrental.DefaultGoodID()
 		prc.mutation.SetGoodID(v)
@@ -269,6 +323,15 @@ func (prc *PowerRentalCreate) check() error {
 	if _, ok := prc.mutation.EntID(); !ok {
 		return &ValidationError{Name: "ent_id", err: errors.New(`generated: missing required field "PowerRental.ent_id"`)}
 	}
+	if _, ok := prc.mutation.CreatedAt(); !ok {
+		return &ValidationError{Name: "created_at", err: errors.New(`generated: missing required field "PowerRental.created_at"`)}
+	}
+	if _, ok := prc.mutation.UpdatedAt(); !ok {
+		return &ValidationError{Name: "updated_at", err: errors.New(`generated: missing required field "PowerRental.updated_at"`)}
+	}
+	if _, ok := prc.mutation.DeletedAt(); !ok {
+		return &ValidationError{Name: "deleted_at", err: errors.New(`generated: missing required field "PowerRental.deleted_at"`)}
+	}
 	return nil
 }
 
@@ -305,6 +368,18 @@ func (prc *PowerRentalCreate) createSpec() (*PowerRental, *sqlgraph.CreateSpec) 
 	if value, ok := prc.mutation.EntID(); ok {
 		_spec.SetField(powerrental.FieldEntID, field.TypeUUID, value)
 		_node.EntID = value
+	}
+	if value, ok := prc.mutation.CreatedAt(); ok {
+		_spec.SetField(powerrental.FieldCreatedAt, field.TypeUint32, value)
+		_node.CreatedAt = value
+	}
+	if value, ok := prc.mutation.UpdatedAt(); ok {
+		_spec.SetField(powerrental.FieldUpdatedAt, field.TypeUint32, value)
+		_node.UpdatedAt = value
+	}
+	if value, ok := prc.mutation.DeletedAt(); ok {
+		_spec.SetField(powerrental.FieldDeletedAt, field.TypeUint32, value)
+		_node.DeletedAt = value
 	}
 	if value, ok := prc.mutation.GoodID(); ok {
 		_spec.SetField(powerrental.FieldGoodID, field.TypeUUID, value)
@@ -407,6 +482,60 @@ func (u *PowerRentalUpsert) SetEntID(v uuid.UUID) *PowerRentalUpsert {
 // UpdateEntID sets the "ent_id" field to the value that was provided on create.
 func (u *PowerRentalUpsert) UpdateEntID() *PowerRentalUpsert {
 	u.SetExcluded(powerrental.FieldEntID)
+	return u
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (u *PowerRentalUpsert) SetCreatedAt(v uint32) *PowerRentalUpsert {
+	u.Set(powerrental.FieldCreatedAt, v)
+	return u
+}
+
+// UpdateCreatedAt sets the "created_at" field to the value that was provided on create.
+func (u *PowerRentalUpsert) UpdateCreatedAt() *PowerRentalUpsert {
+	u.SetExcluded(powerrental.FieldCreatedAt)
+	return u
+}
+
+// AddCreatedAt adds v to the "created_at" field.
+func (u *PowerRentalUpsert) AddCreatedAt(v uint32) *PowerRentalUpsert {
+	u.Add(powerrental.FieldCreatedAt, v)
+	return u
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (u *PowerRentalUpsert) SetUpdatedAt(v uint32) *PowerRentalUpsert {
+	u.Set(powerrental.FieldUpdatedAt, v)
+	return u
+}
+
+// UpdateUpdatedAt sets the "updated_at" field to the value that was provided on create.
+func (u *PowerRentalUpsert) UpdateUpdatedAt() *PowerRentalUpsert {
+	u.SetExcluded(powerrental.FieldUpdatedAt)
+	return u
+}
+
+// AddUpdatedAt adds v to the "updated_at" field.
+func (u *PowerRentalUpsert) AddUpdatedAt(v uint32) *PowerRentalUpsert {
+	u.Add(powerrental.FieldUpdatedAt, v)
+	return u
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (u *PowerRentalUpsert) SetDeletedAt(v uint32) *PowerRentalUpsert {
+	u.Set(powerrental.FieldDeletedAt, v)
+	return u
+}
+
+// UpdateDeletedAt sets the "deleted_at" field to the value that was provided on create.
+func (u *PowerRentalUpsert) UpdateDeletedAt() *PowerRentalUpsert {
+	u.SetExcluded(powerrental.FieldDeletedAt)
+	return u
+}
+
+// AddDeletedAt adds v to the "deleted_at" field.
+func (u *PowerRentalUpsert) AddDeletedAt(v uint32) *PowerRentalUpsert {
+	u.Add(powerrental.FieldDeletedAt, v)
 	return u
 }
 
@@ -655,6 +784,69 @@ func (u *PowerRentalUpsertOne) SetEntID(v uuid.UUID) *PowerRentalUpsertOne {
 func (u *PowerRentalUpsertOne) UpdateEntID() *PowerRentalUpsertOne {
 	return u.Update(func(s *PowerRentalUpsert) {
 		s.UpdateEntID()
+	})
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (u *PowerRentalUpsertOne) SetCreatedAt(v uint32) *PowerRentalUpsertOne {
+	return u.Update(func(s *PowerRentalUpsert) {
+		s.SetCreatedAt(v)
+	})
+}
+
+// AddCreatedAt adds v to the "created_at" field.
+func (u *PowerRentalUpsertOne) AddCreatedAt(v uint32) *PowerRentalUpsertOne {
+	return u.Update(func(s *PowerRentalUpsert) {
+		s.AddCreatedAt(v)
+	})
+}
+
+// UpdateCreatedAt sets the "created_at" field to the value that was provided on create.
+func (u *PowerRentalUpsertOne) UpdateCreatedAt() *PowerRentalUpsertOne {
+	return u.Update(func(s *PowerRentalUpsert) {
+		s.UpdateCreatedAt()
+	})
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (u *PowerRentalUpsertOne) SetUpdatedAt(v uint32) *PowerRentalUpsertOne {
+	return u.Update(func(s *PowerRentalUpsert) {
+		s.SetUpdatedAt(v)
+	})
+}
+
+// AddUpdatedAt adds v to the "updated_at" field.
+func (u *PowerRentalUpsertOne) AddUpdatedAt(v uint32) *PowerRentalUpsertOne {
+	return u.Update(func(s *PowerRentalUpsert) {
+		s.AddUpdatedAt(v)
+	})
+}
+
+// UpdateUpdatedAt sets the "updated_at" field to the value that was provided on create.
+func (u *PowerRentalUpsertOne) UpdateUpdatedAt() *PowerRentalUpsertOne {
+	return u.Update(func(s *PowerRentalUpsert) {
+		s.UpdateUpdatedAt()
+	})
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (u *PowerRentalUpsertOne) SetDeletedAt(v uint32) *PowerRentalUpsertOne {
+	return u.Update(func(s *PowerRentalUpsert) {
+		s.SetDeletedAt(v)
+	})
+}
+
+// AddDeletedAt adds v to the "deleted_at" field.
+func (u *PowerRentalUpsertOne) AddDeletedAt(v uint32) *PowerRentalUpsertOne {
+	return u.Update(func(s *PowerRentalUpsert) {
+		s.AddDeletedAt(v)
+	})
+}
+
+// UpdateDeletedAt sets the "deleted_at" field to the value that was provided on create.
+func (u *PowerRentalUpsertOne) UpdateDeletedAt() *PowerRentalUpsertOne {
+	return u.Update(func(s *PowerRentalUpsert) {
+		s.UpdateDeletedAt()
 	})
 }
 
@@ -1100,6 +1292,69 @@ func (u *PowerRentalUpsertBulk) SetEntID(v uuid.UUID) *PowerRentalUpsertBulk {
 func (u *PowerRentalUpsertBulk) UpdateEntID() *PowerRentalUpsertBulk {
 	return u.Update(func(s *PowerRentalUpsert) {
 		s.UpdateEntID()
+	})
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (u *PowerRentalUpsertBulk) SetCreatedAt(v uint32) *PowerRentalUpsertBulk {
+	return u.Update(func(s *PowerRentalUpsert) {
+		s.SetCreatedAt(v)
+	})
+}
+
+// AddCreatedAt adds v to the "created_at" field.
+func (u *PowerRentalUpsertBulk) AddCreatedAt(v uint32) *PowerRentalUpsertBulk {
+	return u.Update(func(s *PowerRentalUpsert) {
+		s.AddCreatedAt(v)
+	})
+}
+
+// UpdateCreatedAt sets the "created_at" field to the value that was provided on create.
+func (u *PowerRentalUpsertBulk) UpdateCreatedAt() *PowerRentalUpsertBulk {
+	return u.Update(func(s *PowerRentalUpsert) {
+		s.UpdateCreatedAt()
+	})
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (u *PowerRentalUpsertBulk) SetUpdatedAt(v uint32) *PowerRentalUpsertBulk {
+	return u.Update(func(s *PowerRentalUpsert) {
+		s.SetUpdatedAt(v)
+	})
+}
+
+// AddUpdatedAt adds v to the "updated_at" field.
+func (u *PowerRentalUpsertBulk) AddUpdatedAt(v uint32) *PowerRentalUpsertBulk {
+	return u.Update(func(s *PowerRentalUpsert) {
+		s.AddUpdatedAt(v)
+	})
+}
+
+// UpdateUpdatedAt sets the "updated_at" field to the value that was provided on create.
+func (u *PowerRentalUpsertBulk) UpdateUpdatedAt() *PowerRentalUpsertBulk {
+	return u.Update(func(s *PowerRentalUpsert) {
+		s.UpdateUpdatedAt()
+	})
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (u *PowerRentalUpsertBulk) SetDeletedAt(v uint32) *PowerRentalUpsertBulk {
+	return u.Update(func(s *PowerRentalUpsert) {
+		s.SetDeletedAt(v)
+	})
+}
+
+// AddDeletedAt adds v to the "deleted_at" field.
+func (u *PowerRentalUpsertBulk) AddDeletedAt(v uint32) *PowerRentalUpsertBulk {
+	return u.Update(func(s *PowerRentalUpsert) {
+		s.AddDeletedAt(v)
+	})
+}
+
+// UpdateDeletedAt sets the "deleted_at" field to the value that was provided on create.
+func (u *PowerRentalUpsertBulk) UpdateDeletedAt() *PowerRentalUpsertBulk {
+	return u.Update(func(s *PowerRentalUpsert) {
+		s.UpdateDeletedAt()
 	})
 }
 

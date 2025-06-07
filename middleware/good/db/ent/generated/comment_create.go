@@ -36,6 +36,48 @@ func (cc *CommentCreate) SetNillableEntID(u *uuid.UUID) *CommentCreate {
 	return cc
 }
 
+// SetCreatedAt sets the "created_at" field.
+func (cc *CommentCreate) SetCreatedAt(u uint32) *CommentCreate {
+	cc.mutation.SetCreatedAt(u)
+	return cc
+}
+
+// SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
+func (cc *CommentCreate) SetNillableCreatedAt(u *uint32) *CommentCreate {
+	if u != nil {
+		cc.SetCreatedAt(*u)
+	}
+	return cc
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (cc *CommentCreate) SetUpdatedAt(u uint32) *CommentCreate {
+	cc.mutation.SetUpdatedAt(u)
+	return cc
+}
+
+// SetNillableUpdatedAt sets the "updated_at" field if the given value is not nil.
+func (cc *CommentCreate) SetNillableUpdatedAt(u *uint32) *CommentCreate {
+	if u != nil {
+		cc.SetUpdatedAt(*u)
+	}
+	return cc
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (cc *CommentCreate) SetDeletedAt(u uint32) *CommentCreate {
+	cc.mutation.SetDeletedAt(u)
+	return cc
+}
+
+// SetNillableDeletedAt sets the "deleted_at" field if the given value is not nil.
+func (cc *CommentCreate) SetNillableDeletedAt(u *uint32) *CommentCreate {
+	if u != nil {
+		cc.SetDeletedAt(*u)
+	}
+	return cc
+}
+
 // SetUserID sets the "user_id" field.
 func (cc *CommentCreate) SetUserID(u uuid.UUID) *CommentCreate {
 	cc.mutation.SetUserID(u)
@@ -221,6 +263,18 @@ func (cc *CommentCreate) defaults() {
 		v := comment.DefaultEntID()
 		cc.mutation.SetEntID(v)
 	}
+	if _, ok := cc.mutation.CreatedAt(); !ok {
+		v := comment.DefaultCreatedAt()
+		cc.mutation.SetCreatedAt(v)
+	}
+	if _, ok := cc.mutation.UpdatedAt(); !ok {
+		v := comment.DefaultUpdatedAt()
+		cc.mutation.SetUpdatedAt(v)
+	}
+	if _, ok := cc.mutation.DeletedAt(); !ok {
+		v := comment.DefaultDeletedAt()
+		cc.mutation.SetDeletedAt(v)
+	}
 	if _, ok := cc.mutation.UserID(); !ok {
 		v := comment.DefaultUserID()
 		cc.mutation.SetUserID(v)
@@ -268,6 +322,15 @@ func (cc *CommentCreate) check() error {
 	if _, ok := cc.mutation.EntID(); !ok {
 		return &ValidationError{Name: "ent_id", err: errors.New(`generated: missing required field "Comment.ent_id"`)}
 	}
+	if _, ok := cc.mutation.CreatedAt(); !ok {
+		return &ValidationError{Name: "created_at", err: errors.New(`generated: missing required field "Comment.created_at"`)}
+	}
+	if _, ok := cc.mutation.UpdatedAt(); !ok {
+		return &ValidationError{Name: "updated_at", err: errors.New(`generated: missing required field "Comment.updated_at"`)}
+	}
+	if _, ok := cc.mutation.DeletedAt(); !ok {
+		return &ValidationError{Name: "deleted_at", err: errors.New(`generated: missing required field "Comment.deleted_at"`)}
+	}
 	return nil
 }
 
@@ -304,6 +367,18 @@ func (cc *CommentCreate) createSpec() (*Comment, *sqlgraph.CreateSpec) {
 	if value, ok := cc.mutation.EntID(); ok {
 		_spec.SetField(comment.FieldEntID, field.TypeUUID, value)
 		_node.EntID = value
+	}
+	if value, ok := cc.mutation.CreatedAt(); ok {
+		_spec.SetField(comment.FieldCreatedAt, field.TypeUint32, value)
+		_node.CreatedAt = value
+	}
+	if value, ok := cc.mutation.UpdatedAt(); ok {
+		_spec.SetField(comment.FieldUpdatedAt, field.TypeUint32, value)
+		_node.UpdatedAt = value
+	}
+	if value, ok := cc.mutation.DeletedAt(); ok {
+		_spec.SetField(comment.FieldDeletedAt, field.TypeUint32, value)
+		_node.DeletedAt = value
 	}
 	if value, ok := cc.mutation.UserID(); ok {
 		_spec.SetField(comment.FieldUserID, field.TypeUUID, value)
@@ -406,6 +481,60 @@ func (u *CommentUpsert) SetEntID(v uuid.UUID) *CommentUpsert {
 // UpdateEntID sets the "ent_id" field to the value that was provided on create.
 func (u *CommentUpsert) UpdateEntID() *CommentUpsert {
 	u.SetExcluded(comment.FieldEntID)
+	return u
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (u *CommentUpsert) SetCreatedAt(v uint32) *CommentUpsert {
+	u.Set(comment.FieldCreatedAt, v)
+	return u
+}
+
+// UpdateCreatedAt sets the "created_at" field to the value that was provided on create.
+func (u *CommentUpsert) UpdateCreatedAt() *CommentUpsert {
+	u.SetExcluded(comment.FieldCreatedAt)
+	return u
+}
+
+// AddCreatedAt adds v to the "created_at" field.
+func (u *CommentUpsert) AddCreatedAt(v uint32) *CommentUpsert {
+	u.Add(comment.FieldCreatedAt, v)
+	return u
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (u *CommentUpsert) SetUpdatedAt(v uint32) *CommentUpsert {
+	u.Set(comment.FieldUpdatedAt, v)
+	return u
+}
+
+// UpdateUpdatedAt sets the "updated_at" field to the value that was provided on create.
+func (u *CommentUpsert) UpdateUpdatedAt() *CommentUpsert {
+	u.SetExcluded(comment.FieldUpdatedAt)
+	return u
+}
+
+// AddUpdatedAt adds v to the "updated_at" field.
+func (u *CommentUpsert) AddUpdatedAt(v uint32) *CommentUpsert {
+	u.Add(comment.FieldUpdatedAt, v)
+	return u
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (u *CommentUpsert) SetDeletedAt(v uint32) *CommentUpsert {
+	u.Set(comment.FieldDeletedAt, v)
+	return u
+}
+
+// UpdateDeletedAt sets the "deleted_at" field to the value that was provided on create.
+func (u *CommentUpsert) UpdateDeletedAt() *CommentUpsert {
+	u.SetExcluded(comment.FieldDeletedAt)
+	return u
+}
+
+// AddDeletedAt adds v to the "deleted_at" field.
+func (u *CommentUpsert) AddDeletedAt(v uint32) *CommentUpsert {
+	u.Add(comment.FieldDeletedAt, v)
 	return u
 }
 
@@ -648,6 +777,69 @@ func (u *CommentUpsertOne) SetEntID(v uuid.UUID) *CommentUpsertOne {
 func (u *CommentUpsertOne) UpdateEntID() *CommentUpsertOne {
 	return u.Update(func(s *CommentUpsert) {
 		s.UpdateEntID()
+	})
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (u *CommentUpsertOne) SetCreatedAt(v uint32) *CommentUpsertOne {
+	return u.Update(func(s *CommentUpsert) {
+		s.SetCreatedAt(v)
+	})
+}
+
+// AddCreatedAt adds v to the "created_at" field.
+func (u *CommentUpsertOne) AddCreatedAt(v uint32) *CommentUpsertOne {
+	return u.Update(func(s *CommentUpsert) {
+		s.AddCreatedAt(v)
+	})
+}
+
+// UpdateCreatedAt sets the "created_at" field to the value that was provided on create.
+func (u *CommentUpsertOne) UpdateCreatedAt() *CommentUpsertOne {
+	return u.Update(func(s *CommentUpsert) {
+		s.UpdateCreatedAt()
+	})
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (u *CommentUpsertOne) SetUpdatedAt(v uint32) *CommentUpsertOne {
+	return u.Update(func(s *CommentUpsert) {
+		s.SetUpdatedAt(v)
+	})
+}
+
+// AddUpdatedAt adds v to the "updated_at" field.
+func (u *CommentUpsertOne) AddUpdatedAt(v uint32) *CommentUpsertOne {
+	return u.Update(func(s *CommentUpsert) {
+		s.AddUpdatedAt(v)
+	})
+}
+
+// UpdateUpdatedAt sets the "updated_at" field to the value that was provided on create.
+func (u *CommentUpsertOne) UpdateUpdatedAt() *CommentUpsertOne {
+	return u.Update(func(s *CommentUpsert) {
+		s.UpdateUpdatedAt()
+	})
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (u *CommentUpsertOne) SetDeletedAt(v uint32) *CommentUpsertOne {
+	return u.Update(func(s *CommentUpsert) {
+		s.SetDeletedAt(v)
+	})
+}
+
+// AddDeletedAt adds v to the "deleted_at" field.
+func (u *CommentUpsertOne) AddDeletedAt(v uint32) *CommentUpsertOne {
+	return u.Update(func(s *CommentUpsert) {
+		s.AddDeletedAt(v)
+	})
+}
+
+// UpdateDeletedAt sets the "deleted_at" field to the value that was provided on create.
+func (u *CommentUpsertOne) UpdateDeletedAt() *CommentUpsertOne {
+	return u.Update(func(s *CommentUpsert) {
+		s.UpdateDeletedAt()
 	})
 }
 
@@ -1086,6 +1278,69 @@ func (u *CommentUpsertBulk) SetEntID(v uuid.UUID) *CommentUpsertBulk {
 func (u *CommentUpsertBulk) UpdateEntID() *CommentUpsertBulk {
 	return u.Update(func(s *CommentUpsert) {
 		s.UpdateEntID()
+	})
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (u *CommentUpsertBulk) SetCreatedAt(v uint32) *CommentUpsertBulk {
+	return u.Update(func(s *CommentUpsert) {
+		s.SetCreatedAt(v)
+	})
+}
+
+// AddCreatedAt adds v to the "created_at" field.
+func (u *CommentUpsertBulk) AddCreatedAt(v uint32) *CommentUpsertBulk {
+	return u.Update(func(s *CommentUpsert) {
+		s.AddCreatedAt(v)
+	})
+}
+
+// UpdateCreatedAt sets the "created_at" field to the value that was provided on create.
+func (u *CommentUpsertBulk) UpdateCreatedAt() *CommentUpsertBulk {
+	return u.Update(func(s *CommentUpsert) {
+		s.UpdateCreatedAt()
+	})
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (u *CommentUpsertBulk) SetUpdatedAt(v uint32) *CommentUpsertBulk {
+	return u.Update(func(s *CommentUpsert) {
+		s.SetUpdatedAt(v)
+	})
+}
+
+// AddUpdatedAt adds v to the "updated_at" field.
+func (u *CommentUpsertBulk) AddUpdatedAt(v uint32) *CommentUpsertBulk {
+	return u.Update(func(s *CommentUpsert) {
+		s.AddUpdatedAt(v)
+	})
+}
+
+// UpdateUpdatedAt sets the "updated_at" field to the value that was provided on create.
+func (u *CommentUpsertBulk) UpdateUpdatedAt() *CommentUpsertBulk {
+	return u.Update(func(s *CommentUpsert) {
+		s.UpdateUpdatedAt()
+	})
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (u *CommentUpsertBulk) SetDeletedAt(v uint32) *CommentUpsertBulk {
+	return u.Update(func(s *CommentUpsert) {
+		s.SetDeletedAt(v)
+	})
+}
+
+// AddDeletedAt adds v to the "deleted_at" field.
+func (u *CommentUpsertBulk) AddDeletedAt(v uint32) *CommentUpsertBulk {
+	return u.Update(func(s *CommentUpsert) {
+		s.AddDeletedAt(v)
+	})
+}
+
+// UpdateDeletedAt sets the "deleted_at" field to the value that was provided on create.
+func (u *CommentUpsertBulk) UpdateDeletedAt() *CommentUpsertBulk {
+	return u.Update(func(s *CommentUpsert) {
+		s.UpdateDeletedAt()
 	})
 }
 

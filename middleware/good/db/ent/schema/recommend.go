@@ -21,6 +21,7 @@ type Recommend struct {
 func (Recommend) Mixin() []ent.Mixin {
 	return []ent.Mixin{
 		crudermixin.AutoIDMixin{},
+		crudermixin.TimeMixin{},
 	}
 }
 

@@ -11,9 +11,9 @@ import (
 	extrainfocrud "github.com/NpoolPlatform/kunman/middleware/good/crud/app/good/extrainfo"
 	"github.com/NpoolPlatform/kunman/middleware/good/db"
 	"github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated"
-	appgoodbase1 "github.com/NpoolPlatform/kunman/middleware/good/middleware/app/good/goodbase"
-	appgoodstock1 "github.com/NpoolPlatform/kunman/middleware/good/middleware/app/good/stock"
-	appmininggoodstock1 "github.com/NpoolPlatform/kunman/middleware/good/middleware/app/good/stock/mining"
+	appgoodbase1 "github.com/NpoolPlatform/kunman/middleware/good/app/good/goodbase"
+	appgoodstock1 "github.com/NpoolPlatform/kunman/middleware/good/app/good/stock"
+	appmininggoodstock1 "github.com/NpoolPlatform/kunman/middleware/good/app/good/stock/mining"
 	types "github.com/NpoolPlatform/kunman/message/basetypes/good/v1"
 
 	"github.com/google/uuid"

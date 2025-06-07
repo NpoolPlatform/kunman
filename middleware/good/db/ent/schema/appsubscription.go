@@ -17,6 +17,7 @@ type AppSubscription struct {
 func (AppSubscription) Mixin() []ent.Mixin {
 	return []ent.Mixin{
 		crudermixin.AutoIDMixin{},
+		crudermixin.TimeMixin{},
 	}
 }
 

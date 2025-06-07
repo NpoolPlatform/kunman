@@ -44,6 +44,61 @@ func (ru *RecommendUpdate) SetNillableEntID(u *uuid.UUID) *RecommendUpdate {
 	return ru
 }
 
+// SetCreatedAt sets the "created_at" field.
+func (ru *RecommendUpdate) SetCreatedAt(u uint32) *RecommendUpdate {
+	ru.mutation.ResetCreatedAt()
+	ru.mutation.SetCreatedAt(u)
+	return ru
+}
+
+// SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
+func (ru *RecommendUpdate) SetNillableCreatedAt(u *uint32) *RecommendUpdate {
+	if u != nil {
+		ru.SetCreatedAt(*u)
+	}
+	return ru
+}
+
+// AddCreatedAt adds u to the "created_at" field.
+func (ru *RecommendUpdate) AddCreatedAt(u int32) *RecommendUpdate {
+	ru.mutation.AddCreatedAt(u)
+	return ru
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (ru *RecommendUpdate) SetUpdatedAt(u uint32) *RecommendUpdate {
+	ru.mutation.ResetUpdatedAt()
+	ru.mutation.SetUpdatedAt(u)
+	return ru
+}
+
+// AddUpdatedAt adds u to the "updated_at" field.
+func (ru *RecommendUpdate) AddUpdatedAt(u int32) *RecommendUpdate {
+	ru.mutation.AddUpdatedAt(u)
+	return ru
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (ru *RecommendUpdate) SetDeletedAt(u uint32) *RecommendUpdate {
+	ru.mutation.ResetDeletedAt()
+	ru.mutation.SetDeletedAt(u)
+	return ru
+}
+
+// SetNillableDeletedAt sets the "deleted_at" field if the given value is not nil.
+func (ru *RecommendUpdate) SetNillableDeletedAt(u *uint32) *RecommendUpdate {
+	if u != nil {
+		ru.SetDeletedAt(*u)
+	}
+	return ru
+}
+
+// AddDeletedAt adds u to the "deleted_at" field.
+func (ru *RecommendUpdate) AddDeletedAt(u int32) *RecommendUpdate {
+	ru.mutation.AddDeletedAt(u)
+	return ru
+}
+
 // SetAppGoodID sets the "app_good_id" field.
 func (ru *RecommendUpdate) SetAppGoodID(u uuid.UUID) *RecommendUpdate {
 	ru.mutation.SetAppGoodID(u)
@@ -171,6 +226,7 @@ func (ru *RecommendUpdate) Mutation() *RecommendMutation {
 
 // Save executes the query and returns the number of nodes affected by the update operation.
 func (ru *RecommendUpdate) Save(ctx context.Context) (int, error) {
+	ru.defaults()
 	return withHooks(ctx, ru.sqlSave, ru.mutation, ru.hooks)
 }
 
@@ -196,6 +252,14 @@ func (ru *RecommendUpdate) ExecX(ctx context.Context) {
 	}
 }
 
+// defaults sets the default values of the builder before save.
+func (ru *RecommendUpdate) defaults() {
+	if _, ok := ru.mutation.UpdatedAt(); !ok {
+		v := recommend.UpdateDefaultUpdatedAt()
+		ru.mutation.SetUpdatedAt(v)
+	}
+}
+
 // Modify adds a statement modifier for attaching custom logic to the UPDATE statement.
 func (ru *RecommendUpdate) Modify(modifiers ...func(u *sql.UpdateBuilder)) *RecommendUpdate {
 	ru.modifiers = append(ru.modifiers, modifiers...)
@@ -213,6 +277,24 @@ func (ru *RecommendUpdate) sqlSave(ctx context.Context) (n int, err error) {
 	}
 	if value, ok := ru.mutation.EntID(); ok {
 		_spec.SetField(recommend.FieldEntID, field.TypeUUID, value)
+	}
+	if value, ok := ru.mutation.CreatedAt(); ok {
+		_spec.SetField(recommend.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := ru.mutation.AddedCreatedAt(); ok {
+		_spec.AddField(recommend.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := ru.mutation.UpdatedAt(); ok {
+		_spec.SetField(recommend.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := ru.mutation.AddedUpdatedAt(); ok {
+		_spec.AddField(recommend.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := ru.mutation.DeletedAt(); ok {
+		_spec.SetField(recommend.FieldDeletedAt, field.TypeUint32, value)
+	}
+	if value, ok := ru.mutation.AddedDeletedAt(); ok {
+		_spec.AddField(recommend.FieldDeletedAt, field.TypeUint32, value)
 	}
 	if value, ok := ru.mutation.AppGoodID(); ok {
 		_spec.SetField(recommend.FieldAppGoodID, field.TypeUUID, value)
@@ -283,6 +365,61 @@ func (ruo *RecommendUpdateOne) SetNillableEntID(u *uuid.UUID) *RecommendUpdateOn
 	if u != nil {
 		ruo.SetEntID(*u)
 	}
+	return ruo
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (ruo *RecommendUpdateOne) SetCreatedAt(u uint32) *RecommendUpdateOne {
+	ruo.mutation.ResetCreatedAt()
+	ruo.mutation.SetCreatedAt(u)
+	return ruo
+}
+
+// SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
+func (ruo *RecommendUpdateOne) SetNillableCreatedAt(u *uint32) *RecommendUpdateOne {
+	if u != nil {
+		ruo.SetCreatedAt(*u)
+	}
+	return ruo
+}
+
+// AddCreatedAt adds u to the "created_at" field.
+func (ruo *RecommendUpdateOne) AddCreatedAt(u int32) *RecommendUpdateOne {
+	ruo.mutation.AddCreatedAt(u)
+	return ruo
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (ruo *RecommendUpdateOne) SetUpdatedAt(u uint32) *RecommendUpdateOne {
+	ruo.mutation.ResetUpdatedAt()
+	ruo.mutation.SetUpdatedAt(u)
+	return ruo
+}
+
+// AddUpdatedAt adds u to the "updated_at" field.
+func (ruo *RecommendUpdateOne) AddUpdatedAt(u int32) *RecommendUpdateOne {
+	ruo.mutation.AddUpdatedAt(u)
+	return ruo
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (ruo *RecommendUpdateOne) SetDeletedAt(u uint32) *RecommendUpdateOne {
+	ruo.mutation.ResetDeletedAt()
+	ruo.mutation.SetDeletedAt(u)
+	return ruo
+}
+
+// SetNillableDeletedAt sets the "deleted_at" field if the given value is not nil.
+func (ruo *RecommendUpdateOne) SetNillableDeletedAt(u *uint32) *RecommendUpdateOne {
+	if u != nil {
+		ruo.SetDeletedAt(*u)
+	}
+	return ruo
+}
+
+// AddDeletedAt adds u to the "deleted_at" field.
+func (ruo *RecommendUpdateOne) AddDeletedAt(u int32) *RecommendUpdateOne {
+	ruo.mutation.AddDeletedAt(u)
 	return ruo
 }
 
@@ -426,6 +563,7 @@ func (ruo *RecommendUpdateOne) Select(field string, fields ...string) *Recommend
 
 // Save executes the query and returns the updated Recommend entity.
 func (ruo *RecommendUpdateOne) Save(ctx context.Context) (*Recommend, error) {
+	ruo.defaults()
 	return withHooks(ctx, ruo.sqlSave, ruo.mutation, ruo.hooks)
 }
 
@@ -448,6 +586,14 @@ func (ruo *RecommendUpdateOne) Exec(ctx context.Context) error {
 func (ruo *RecommendUpdateOne) ExecX(ctx context.Context) {
 	if err := ruo.Exec(ctx); err != nil {
 		panic(err)
+	}
+}
+
+// defaults sets the default values of the builder before save.
+func (ruo *RecommendUpdateOne) defaults() {
+	if _, ok := ruo.mutation.UpdatedAt(); !ok {
+		v := recommend.UpdateDefaultUpdatedAt()
+		ruo.mutation.SetUpdatedAt(v)
 	}
 }
 
@@ -485,6 +631,24 @@ func (ruo *RecommendUpdateOne) sqlSave(ctx context.Context) (_node *Recommend, e
 	}
 	if value, ok := ruo.mutation.EntID(); ok {
 		_spec.SetField(recommend.FieldEntID, field.TypeUUID, value)
+	}
+	if value, ok := ruo.mutation.CreatedAt(); ok {
+		_spec.SetField(recommend.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := ruo.mutation.AddedCreatedAt(); ok {
+		_spec.AddField(recommend.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := ruo.mutation.UpdatedAt(); ok {
+		_spec.SetField(recommend.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := ruo.mutation.AddedUpdatedAt(); ok {
+		_spec.AddField(recommend.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := ruo.mutation.DeletedAt(); ok {
+		_spec.SetField(recommend.FieldDeletedAt, field.TypeUint32, value)
+	}
+	if value, ok := ruo.mutation.AddedDeletedAt(); ok {
+		_spec.AddField(recommend.FieldDeletedAt, field.TypeUint32, value)
 	}
 	if value, ok := ruo.mutation.AppGoodID(); ok {
 		_spec.SetField(recommend.FieldAppGoodID, field.TypeUUID, value)

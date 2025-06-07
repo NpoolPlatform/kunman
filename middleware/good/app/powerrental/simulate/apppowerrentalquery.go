@@ -7,7 +7,7 @@ import (
 	"github.com/NpoolPlatform/kunman/middleware/good/db"
 	"github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated"
 	entappsimulatepowerrental "github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated/appsimulatepowerrental"
-	apppowerrental1 "github.com/NpoolPlatform/kunman/middleware/good/middleware/app/powerrental"
+	apppowerrental1 "github.com/NpoolPlatform/kunman/middleware/good/app/powerrental"
 )
 
 type appPowerRentalHandler struct {

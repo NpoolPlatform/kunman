@@ -17,6 +17,7 @@ type AppGoodDescription struct {
 func (AppGoodDescription) Mixin() []ent.Mixin {
 	return []ent.Mixin{
 		crudermixin.AutoIDMixin{},
+		crudermixin.TimeMixin{},
 	}
 }
 

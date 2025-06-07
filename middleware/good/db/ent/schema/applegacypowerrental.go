@@ -18,6 +18,7 @@ type AppLegacyPowerRental struct {
 func (AppLegacyPowerRental) Mixin() []ent.Mixin {
 	return []ent.Mixin{
 		crudermixin.AutoIDMixin{},
+		crudermixin.TimeMixin{},
 	}
 }
 

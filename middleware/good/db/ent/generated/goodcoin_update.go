@@ -43,6 +43,61 @@ func (gcu *GoodCoinUpdate) SetNillableEntID(u *uuid.UUID) *GoodCoinUpdate {
 	return gcu
 }
 
+// SetCreatedAt sets the "created_at" field.
+func (gcu *GoodCoinUpdate) SetCreatedAt(u uint32) *GoodCoinUpdate {
+	gcu.mutation.ResetCreatedAt()
+	gcu.mutation.SetCreatedAt(u)
+	return gcu
+}
+
+// SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
+func (gcu *GoodCoinUpdate) SetNillableCreatedAt(u *uint32) *GoodCoinUpdate {
+	if u != nil {
+		gcu.SetCreatedAt(*u)
+	}
+	return gcu
+}
+
+// AddCreatedAt adds u to the "created_at" field.
+func (gcu *GoodCoinUpdate) AddCreatedAt(u int32) *GoodCoinUpdate {
+	gcu.mutation.AddCreatedAt(u)
+	return gcu
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (gcu *GoodCoinUpdate) SetUpdatedAt(u uint32) *GoodCoinUpdate {
+	gcu.mutation.ResetUpdatedAt()
+	gcu.mutation.SetUpdatedAt(u)
+	return gcu
+}
+
+// AddUpdatedAt adds u to the "updated_at" field.
+func (gcu *GoodCoinUpdate) AddUpdatedAt(u int32) *GoodCoinUpdate {
+	gcu.mutation.AddUpdatedAt(u)
+	return gcu
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (gcu *GoodCoinUpdate) SetDeletedAt(u uint32) *GoodCoinUpdate {
+	gcu.mutation.ResetDeletedAt()
+	gcu.mutation.SetDeletedAt(u)
+	return gcu
+}
+
+// SetNillableDeletedAt sets the "deleted_at" field if the given value is not nil.
+func (gcu *GoodCoinUpdate) SetNillableDeletedAt(u *uint32) *GoodCoinUpdate {
+	if u != nil {
+		gcu.SetDeletedAt(*u)
+	}
+	return gcu
+}
+
+// AddDeletedAt adds u to the "deleted_at" field.
+func (gcu *GoodCoinUpdate) AddDeletedAt(u int32) *GoodCoinUpdate {
+	gcu.mutation.AddDeletedAt(u)
+	return gcu
+}
+
 // SetGoodID sets the "good_id" field.
 func (gcu *GoodCoinUpdate) SetGoodID(u uuid.UUID) *GoodCoinUpdate {
 	gcu.mutation.SetGoodID(u)
@@ -137,6 +192,7 @@ func (gcu *GoodCoinUpdate) Mutation() *GoodCoinMutation {
 
 // Save executes the query and returns the number of nodes affected by the update operation.
 func (gcu *GoodCoinUpdate) Save(ctx context.Context) (int, error) {
+	gcu.defaults()
 	return withHooks(ctx, gcu.sqlSave, gcu.mutation, gcu.hooks)
 }
 
@@ -162,6 +218,14 @@ func (gcu *GoodCoinUpdate) ExecX(ctx context.Context) {
 	}
 }
 
+// defaults sets the default values of the builder before save.
+func (gcu *GoodCoinUpdate) defaults() {
+	if _, ok := gcu.mutation.UpdatedAt(); !ok {
+		v := goodcoin.UpdateDefaultUpdatedAt()
+		gcu.mutation.SetUpdatedAt(v)
+	}
+}
+
 // Modify adds a statement modifier for attaching custom logic to the UPDATE statement.
 func (gcu *GoodCoinUpdate) Modify(modifiers ...func(u *sql.UpdateBuilder)) *GoodCoinUpdate {
 	gcu.modifiers = append(gcu.modifiers, modifiers...)
@@ -179,6 +243,24 @@ func (gcu *GoodCoinUpdate) sqlSave(ctx context.Context) (n int, err error) {
 	}
 	if value, ok := gcu.mutation.EntID(); ok {
 		_spec.SetField(goodcoin.FieldEntID, field.TypeUUID, value)
+	}
+	if value, ok := gcu.mutation.CreatedAt(); ok {
+		_spec.SetField(goodcoin.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := gcu.mutation.AddedCreatedAt(); ok {
+		_spec.AddField(goodcoin.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := gcu.mutation.UpdatedAt(); ok {
+		_spec.SetField(goodcoin.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := gcu.mutation.AddedUpdatedAt(); ok {
+		_spec.AddField(goodcoin.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := gcu.mutation.DeletedAt(); ok {
+		_spec.SetField(goodcoin.FieldDeletedAt, field.TypeUint32, value)
+	}
+	if value, ok := gcu.mutation.AddedDeletedAt(); ok {
+		_spec.AddField(goodcoin.FieldDeletedAt, field.TypeUint32, value)
 	}
 	if value, ok := gcu.mutation.GoodID(); ok {
 		_spec.SetField(goodcoin.FieldGoodID, field.TypeUUID, value)
@@ -240,6 +322,61 @@ func (gcuo *GoodCoinUpdateOne) SetNillableEntID(u *uuid.UUID) *GoodCoinUpdateOne
 	if u != nil {
 		gcuo.SetEntID(*u)
 	}
+	return gcuo
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (gcuo *GoodCoinUpdateOne) SetCreatedAt(u uint32) *GoodCoinUpdateOne {
+	gcuo.mutation.ResetCreatedAt()
+	gcuo.mutation.SetCreatedAt(u)
+	return gcuo
+}
+
+// SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
+func (gcuo *GoodCoinUpdateOne) SetNillableCreatedAt(u *uint32) *GoodCoinUpdateOne {
+	if u != nil {
+		gcuo.SetCreatedAt(*u)
+	}
+	return gcuo
+}
+
+// AddCreatedAt adds u to the "created_at" field.
+func (gcuo *GoodCoinUpdateOne) AddCreatedAt(u int32) *GoodCoinUpdateOne {
+	gcuo.mutation.AddCreatedAt(u)
+	return gcuo
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (gcuo *GoodCoinUpdateOne) SetUpdatedAt(u uint32) *GoodCoinUpdateOne {
+	gcuo.mutation.ResetUpdatedAt()
+	gcuo.mutation.SetUpdatedAt(u)
+	return gcuo
+}
+
+// AddUpdatedAt adds u to the "updated_at" field.
+func (gcuo *GoodCoinUpdateOne) AddUpdatedAt(u int32) *GoodCoinUpdateOne {
+	gcuo.mutation.AddUpdatedAt(u)
+	return gcuo
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (gcuo *GoodCoinUpdateOne) SetDeletedAt(u uint32) *GoodCoinUpdateOne {
+	gcuo.mutation.ResetDeletedAt()
+	gcuo.mutation.SetDeletedAt(u)
+	return gcuo
+}
+
+// SetNillableDeletedAt sets the "deleted_at" field if the given value is not nil.
+func (gcuo *GoodCoinUpdateOne) SetNillableDeletedAt(u *uint32) *GoodCoinUpdateOne {
+	if u != nil {
+		gcuo.SetDeletedAt(*u)
+	}
+	return gcuo
+}
+
+// AddDeletedAt adds u to the "deleted_at" field.
+func (gcuo *GoodCoinUpdateOne) AddDeletedAt(u int32) *GoodCoinUpdateOne {
+	gcuo.mutation.AddDeletedAt(u)
 	return gcuo
 }
 
@@ -350,6 +487,7 @@ func (gcuo *GoodCoinUpdateOne) Select(field string, fields ...string) *GoodCoinU
 
 // Save executes the query and returns the updated GoodCoin entity.
 func (gcuo *GoodCoinUpdateOne) Save(ctx context.Context) (*GoodCoin, error) {
+	gcuo.defaults()
 	return withHooks(ctx, gcuo.sqlSave, gcuo.mutation, gcuo.hooks)
 }
 
@@ -372,6 +510,14 @@ func (gcuo *GoodCoinUpdateOne) Exec(ctx context.Context) error {
 func (gcuo *GoodCoinUpdateOne) ExecX(ctx context.Context) {
 	if err := gcuo.Exec(ctx); err != nil {
 		panic(err)
+	}
+}
+
+// defaults sets the default values of the builder before save.
+func (gcuo *GoodCoinUpdateOne) defaults() {
+	if _, ok := gcuo.mutation.UpdatedAt(); !ok {
+		v := goodcoin.UpdateDefaultUpdatedAt()
+		gcuo.mutation.SetUpdatedAt(v)
 	}
 }
 
@@ -409,6 +555,24 @@ func (gcuo *GoodCoinUpdateOne) sqlSave(ctx context.Context) (_node *GoodCoin, er
 	}
 	if value, ok := gcuo.mutation.EntID(); ok {
 		_spec.SetField(goodcoin.FieldEntID, field.TypeUUID, value)
+	}
+	if value, ok := gcuo.mutation.CreatedAt(); ok {
+		_spec.SetField(goodcoin.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := gcuo.mutation.AddedCreatedAt(); ok {
+		_spec.AddField(goodcoin.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := gcuo.mutation.UpdatedAt(); ok {
+		_spec.SetField(goodcoin.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := gcuo.mutation.AddedUpdatedAt(); ok {
+		_spec.AddField(goodcoin.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := gcuo.mutation.DeletedAt(); ok {
+		_spec.SetField(goodcoin.FieldDeletedAt, field.TypeUint32, value)
+	}
+	if value, ok := gcuo.mutation.AddedDeletedAt(); ok {
+		_spec.AddField(goodcoin.FieldDeletedAt, field.TypeUint32, value)
 	}
 	if value, ok := gcuo.mutation.GoodID(); ok {
 		_spec.SetField(goodcoin.FieldGoodID, field.TypeUUID, value)

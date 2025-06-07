@@ -43,6 +43,61 @@ func (aglu *AppGoodLabelUpdate) SetNillableEntID(u *uuid.UUID) *AppGoodLabelUpda
 	return aglu
 }
 
+// SetCreatedAt sets the "created_at" field.
+func (aglu *AppGoodLabelUpdate) SetCreatedAt(u uint32) *AppGoodLabelUpdate {
+	aglu.mutation.ResetCreatedAt()
+	aglu.mutation.SetCreatedAt(u)
+	return aglu
+}
+
+// SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
+func (aglu *AppGoodLabelUpdate) SetNillableCreatedAt(u *uint32) *AppGoodLabelUpdate {
+	if u != nil {
+		aglu.SetCreatedAt(*u)
+	}
+	return aglu
+}
+
+// AddCreatedAt adds u to the "created_at" field.
+func (aglu *AppGoodLabelUpdate) AddCreatedAt(u int32) *AppGoodLabelUpdate {
+	aglu.mutation.AddCreatedAt(u)
+	return aglu
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (aglu *AppGoodLabelUpdate) SetUpdatedAt(u uint32) *AppGoodLabelUpdate {
+	aglu.mutation.ResetUpdatedAt()
+	aglu.mutation.SetUpdatedAt(u)
+	return aglu
+}
+
+// AddUpdatedAt adds u to the "updated_at" field.
+func (aglu *AppGoodLabelUpdate) AddUpdatedAt(u int32) *AppGoodLabelUpdate {
+	aglu.mutation.AddUpdatedAt(u)
+	return aglu
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (aglu *AppGoodLabelUpdate) SetDeletedAt(u uint32) *AppGoodLabelUpdate {
+	aglu.mutation.ResetDeletedAt()
+	aglu.mutation.SetDeletedAt(u)
+	return aglu
+}
+
+// SetNillableDeletedAt sets the "deleted_at" field if the given value is not nil.
+func (aglu *AppGoodLabelUpdate) SetNillableDeletedAt(u *uint32) *AppGoodLabelUpdate {
+	if u != nil {
+		aglu.SetDeletedAt(*u)
+	}
+	return aglu
+}
+
+// AddDeletedAt adds u to the "deleted_at" field.
+func (aglu *AppGoodLabelUpdate) AddDeletedAt(u int32) *AppGoodLabelUpdate {
+	aglu.mutation.AddDeletedAt(u)
+	return aglu
+}
+
 // SetAppGoodID sets the "app_good_id" field.
 func (aglu *AppGoodLabelUpdate) SetAppGoodID(u uuid.UUID) *AppGoodLabelUpdate {
 	aglu.mutation.SetAppGoodID(u)
@@ -177,6 +232,7 @@ func (aglu *AppGoodLabelUpdate) Mutation() *AppGoodLabelMutation {
 
 // Save executes the query and returns the number of nodes affected by the update operation.
 func (aglu *AppGoodLabelUpdate) Save(ctx context.Context) (int, error) {
+	aglu.defaults()
 	return withHooks(ctx, aglu.sqlSave, aglu.mutation, aglu.hooks)
 }
 
@@ -202,6 +258,14 @@ func (aglu *AppGoodLabelUpdate) ExecX(ctx context.Context) {
 	}
 }
 
+// defaults sets the default values of the builder before save.
+func (aglu *AppGoodLabelUpdate) defaults() {
+	if _, ok := aglu.mutation.UpdatedAt(); !ok {
+		v := appgoodlabel.UpdateDefaultUpdatedAt()
+		aglu.mutation.SetUpdatedAt(v)
+	}
+}
+
 // Modify adds a statement modifier for attaching custom logic to the UPDATE statement.
 func (aglu *AppGoodLabelUpdate) Modify(modifiers ...func(u *sql.UpdateBuilder)) *AppGoodLabelUpdate {
 	aglu.modifiers = append(aglu.modifiers, modifiers...)
@@ -219,6 +283,24 @@ func (aglu *AppGoodLabelUpdate) sqlSave(ctx context.Context) (n int, err error) 
 	}
 	if value, ok := aglu.mutation.EntID(); ok {
 		_spec.SetField(appgoodlabel.FieldEntID, field.TypeUUID, value)
+	}
+	if value, ok := aglu.mutation.CreatedAt(); ok {
+		_spec.SetField(appgoodlabel.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := aglu.mutation.AddedCreatedAt(); ok {
+		_spec.AddField(appgoodlabel.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := aglu.mutation.UpdatedAt(); ok {
+		_spec.SetField(appgoodlabel.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := aglu.mutation.AddedUpdatedAt(); ok {
+		_spec.AddField(appgoodlabel.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := aglu.mutation.DeletedAt(); ok {
+		_spec.SetField(appgoodlabel.FieldDeletedAt, field.TypeUint32, value)
+	}
+	if value, ok := aglu.mutation.AddedDeletedAt(); ok {
+		_spec.AddField(appgoodlabel.FieldDeletedAt, field.TypeUint32, value)
 	}
 	if value, ok := aglu.mutation.AppGoodID(); ok {
 		_spec.SetField(appgoodlabel.FieldAppGoodID, field.TypeUUID, value)
@@ -292,6 +374,61 @@ func (agluo *AppGoodLabelUpdateOne) SetNillableEntID(u *uuid.UUID) *AppGoodLabel
 	if u != nil {
 		agluo.SetEntID(*u)
 	}
+	return agluo
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (agluo *AppGoodLabelUpdateOne) SetCreatedAt(u uint32) *AppGoodLabelUpdateOne {
+	agluo.mutation.ResetCreatedAt()
+	agluo.mutation.SetCreatedAt(u)
+	return agluo
+}
+
+// SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
+func (agluo *AppGoodLabelUpdateOne) SetNillableCreatedAt(u *uint32) *AppGoodLabelUpdateOne {
+	if u != nil {
+		agluo.SetCreatedAt(*u)
+	}
+	return agluo
+}
+
+// AddCreatedAt adds u to the "created_at" field.
+func (agluo *AppGoodLabelUpdateOne) AddCreatedAt(u int32) *AppGoodLabelUpdateOne {
+	agluo.mutation.AddCreatedAt(u)
+	return agluo
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (agluo *AppGoodLabelUpdateOne) SetUpdatedAt(u uint32) *AppGoodLabelUpdateOne {
+	agluo.mutation.ResetUpdatedAt()
+	agluo.mutation.SetUpdatedAt(u)
+	return agluo
+}
+
+// AddUpdatedAt adds u to the "updated_at" field.
+func (agluo *AppGoodLabelUpdateOne) AddUpdatedAt(u int32) *AppGoodLabelUpdateOne {
+	agluo.mutation.AddUpdatedAt(u)
+	return agluo
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (agluo *AppGoodLabelUpdateOne) SetDeletedAt(u uint32) *AppGoodLabelUpdateOne {
+	agluo.mutation.ResetDeletedAt()
+	agluo.mutation.SetDeletedAt(u)
+	return agluo
+}
+
+// SetNillableDeletedAt sets the "deleted_at" field if the given value is not nil.
+func (agluo *AppGoodLabelUpdateOne) SetNillableDeletedAt(u *uint32) *AppGoodLabelUpdateOne {
+	if u != nil {
+		agluo.SetDeletedAt(*u)
+	}
+	return agluo
+}
+
+// AddDeletedAt adds u to the "deleted_at" field.
+func (agluo *AppGoodLabelUpdateOne) AddDeletedAt(u int32) *AppGoodLabelUpdateOne {
+	agluo.mutation.AddDeletedAt(u)
 	return agluo
 }
 
@@ -442,6 +579,7 @@ func (agluo *AppGoodLabelUpdateOne) Select(field string, fields ...string) *AppG
 
 // Save executes the query and returns the updated AppGoodLabel entity.
 func (agluo *AppGoodLabelUpdateOne) Save(ctx context.Context) (*AppGoodLabel, error) {
+	agluo.defaults()
 	return withHooks(ctx, agluo.sqlSave, agluo.mutation, agluo.hooks)
 }
 
@@ -464,6 +602,14 @@ func (agluo *AppGoodLabelUpdateOne) Exec(ctx context.Context) error {
 func (agluo *AppGoodLabelUpdateOne) ExecX(ctx context.Context) {
 	if err := agluo.Exec(ctx); err != nil {
 		panic(err)
+	}
+}
+
+// defaults sets the default values of the builder before save.
+func (agluo *AppGoodLabelUpdateOne) defaults() {
+	if _, ok := agluo.mutation.UpdatedAt(); !ok {
+		v := appgoodlabel.UpdateDefaultUpdatedAt()
+		agluo.mutation.SetUpdatedAt(v)
 	}
 }
 
@@ -501,6 +647,24 @@ func (agluo *AppGoodLabelUpdateOne) sqlSave(ctx context.Context) (_node *AppGood
 	}
 	if value, ok := agluo.mutation.EntID(); ok {
 		_spec.SetField(appgoodlabel.FieldEntID, field.TypeUUID, value)
+	}
+	if value, ok := agluo.mutation.CreatedAt(); ok {
+		_spec.SetField(appgoodlabel.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := agluo.mutation.AddedCreatedAt(); ok {
+		_spec.AddField(appgoodlabel.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := agluo.mutation.UpdatedAt(); ok {
+		_spec.SetField(appgoodlabel.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := agluo.mutation.AddedUpdatedAt(); ok {
+		_spec.AddField(appgoodlabel.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := agluo.mutation.DeletedAt(); ok {
+		_spec.SetField(appgoodlabel.FieldDeletedAt, field.TypeUint32, value)
+	}
+	if value, ok := agluo.mutation.AddedDeletedAt(); ok {
+		_spec.AddField(appgoodlabel.FieldDeletedAt, field.TypeUint32, value)
 	}
 	if value, ok := agluo.mutation.AppGoodID(); ok {
 		_spec.SetField(appgoodlabel.FieldAppGoodID, field.TypeUUID, value)

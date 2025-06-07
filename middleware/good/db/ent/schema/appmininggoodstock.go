@@ -18,6 +18,7 @@ type AppMiningGoodStock struct {
 func (AppMiningGoodStock) Mixin() []ent.Mixin {
 	return []ent.Mixin{
 		crudermixin.AutoIDMixin{},
+		crudermixin.TimeMixin{},
 	}
 }
 

@@ -6,12 +6,12 @@ import (
 	"entgo.io/ent/dialect/sql"
 
 	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
+	npool "github.com/NpoolPlatform/kunman/message/good/middleware/v1/good/coin/reward/history"
 	historycrud "github.com/NpoolPlatform/kunman/middleware/good/crud/good/coin/reward/history"
 	"github.com/NpoolPlatform/kunman/middleware/good/db"
-	"github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated"
+	ent "github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated"
 	entgoodbase "github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated/goodbase"
 	enthistory "github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated/goodrewardhistory"
-	npool "github.com/NpoolPlatform/kunman/message/good/middleware/v1/good/coin/reward/history"
 
 	"github.com/shopspring/decimal"
 )

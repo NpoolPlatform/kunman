@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package good.gateway.good1.malfunction.v1;
 
-option go_package = "github.com/NpoolPlatform/message/good/gateway/v1/good/malfunction";
+option go_package = "github.com/NpoolPlatform/kunman/message/good/gateway/v1/good/malfunction";
 
 import "google/api/annotations.proto";
 import "basetypes/good/v1/enums.proto";

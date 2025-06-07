@@ -4,12 +4,12 @@ import (
 	"context"
 
 	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
-	constant "github.com/NpoolPlatform/kunman/middleware/good/const"
+	npool "github.com/NpoolPlatform/kunman/message/good/middleware/v1/good/malfunction"
 	appgoodbasecrud "github.com/NpoolPlatform/kunman/middleware/good/crud/app/good/goodbase"
 	goodbasecrud "github.com/NpoolPlatform/kunman/middleware/good/crud/good/goodbase"
 	malfunctioncrud "github.com/NpoolPlatform/kunman/middleware/good/crud/good/malfunction"
+	constant "github.com/NpoolPlatform/kunman/pkg/const"
 	cruder "github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
-	npool "github.com/NpoolPlatform/kunman/message/good/middleware/v1/good/malfunction"
 
 	"github.com/google/uuid"
 )

@@ -36,6 +36,48 @@ func (dpc *DevicePosterCreate) SetNillableEntID(u *uuid.UUID) *DevicePosterCreat
 	return dpc
 }
 
+// SetCreatedAt sets the "created_at" field.
+func (dpc *DevicePosterCreate) SetCreatedAt(u uint32) *DevicePosterCreate {
+	dpc.mutation.SetCreatedAt(u)
+	return dpc
+}
+
+// SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
+func (dpc *DevicePosterCreate) SetNillableCreatedAt(u *uint32) *DevicePosterCreate {
+	if u != nil {
+		dpc.SetCreatedAt(*u)
+	}
+	return dpc
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (dpc *DevicePosterCreate) SetUpdatedAt(u uint32) *DevicePosterCreate {
+	dpc.mutation.SetUpdatedAt(u)
+	return dpc
+}
+
+// SetNillableUpdatedAt sets the "updated_at" field if the given value is not nil.
+func (dpc *DevicePosterCreate) SetNillableUpdatedAt(u *uint32) *DevicePosterCreate {
+	if u != nil {
+		dpc.SetUpdatedAt(*u)
+	}
+	return dpc
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (dpc *DevicePosterCreate) SetDeletedAt(u uint32) *DevicePosterCreate {
+	dpc.mutation.SetDeletedAt(u)
+	return dpc
+}
+
+// SetNillableDeletedAt sets the "deleted_at" field if the given value is not nil.
+func (dpc *DevicePosterCreate) SetNillableDeletedAt(u *uint32) *DevicePosterCreate {
+	if u != nil {
+		dpc.SetDeletedAt(*u)
+	}
+	return dpc
+}
+
 // SetDeviceTypeID sets the "device_type_id" field.
 func (dpc *DevicePosterCreate) SetDeviceTypeID(u uuid.UUID) *DevicePosterCreate {
 	dpc.mutation.SetDeviceTypeID(u)
@@ -123,6 +165,18 @@ func (dpc *DevicePosterCreate) defaults() {
 		v := deviceposter.DefaultEntID()
 		dpc.mutation.SetEntID(v)
 	}
+	if _, ok := dpc.mutation.CreatedAt(); !ok {
+		v := deviceposter.DefaultCreatedAt()
+		dpc.mutation.SetCreatedAt(v)
+	}
+	if _, ok := dpc.mutation.UpdatedAt(); !ok {
+		v := deviceposter.DefaultUpdatedAt()
+		dpc.mutation.SetUpdatedAt(v)
+	}
+	if _, ok := dpc.mutation.DeletedAt(); !ok {
+		v := deviceposter.DefaultDeletedAt()
+		dpc.mutation.SetDeletedAt(v)
+	}
 	if _, ok := dpc.mutation.DeviceTypeID(); !ok {
 		v := deviceposter.DefaultDeviceTypeID()
 		dpc.mutation.SetDeviceTypeID(v)
@@ -141,6 +195,15 @@ func (dpc *DevicePosterCreate) defaults() {
 func (dpc *DevicePosterCreate) check() error {
 	if _, ok := dpc.mutation.EntID(); !ok {
 		return &ValidationError{Name: "ent_id", err: errors.New(`generated: missing required field "DevicePoster.ent_id"`)}
+	}
+	if _, ok := dpc.mutation.CreatedAt(); !ok {
+		return &ValidationError{Name: "created_at", err: errors.New(`generated: missing required field "DevicePoster.created_at"`)}
+	}
+	if _, ok := dpc.mutation.UpdatedAt(); !ok {
+		return &ValidationError{Name: "updated_at", err: errors.New(`generated: missing required field "DevicePoster.updated_at"`)}
+	}
+	if _, ok := dpc.mutation.DeletedAt(); !ok {
+		return &ValidationError{Name: "deleted_at", err: errors.New(`generated: missing required field "DevicePoster.deleted_at"`)}
 	}
 	return nil
 }
@@ -178,6 +241,18 @@ func (dpc *DevicePosterCreate) createSpec() (*DevicePoster, *sqlgraph.CreateSpec
 	if value, ok := dpc.mutation.EntID(); ok {
 		_spec.SetField(deviceposter.FieldEntID, field.TypeUUID, value)
 		_node.EntID = value
+	}
+	if value, ok := dpc.mutation.CreatedAt(); ok {
+		_spec.SetField(deviceposter.FieldCreatedAt, field.TypeUint32, value)
+		_node.CreatedAt = value
+	}
+	if value, ok := dpc.mutation.UpdatedAt(); ok {
+		_spec.SetField(deviceposter.FieldUpdatedAt, field.TypeUint32, value)
+		_node.UpdatedAt = value
+	}
+	if value, ok := dpc.mutation.DeletedAt(); ok {
+		_spec.SetField(deviceposter.FieldDeletedAt, field.TypeUint32, value)
+		_node.DeletedAt = value
 	}
 	if value, ok := dpc.mutation.DeviceTypeID(); ok {
 		_spec.SetField(deviceposter.FieldDeviceTypeID, field.TypeUUID, value)
@@ -252,6 +327,60 @@ func (u *DevicePosterUpsert) SetEntID(v uuid.UUID) *DevicePosterUpsert {
 // UpdateEntID sets the "ent_id" field to the value that was provided on create.
 func (u *DevicePosterUpsert) UpdateEntID() *DevicePosterUpsert {
 	u.SetExcluded(deviceposter.FieldEntID)
+	return u
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (u *DevicePosterUpsert) SetCreatedAt(v uint32) *DevicePosterUpsert {
+	u.Set(deviceposter.FieldCreatedAt, v)
+	return u
+}
+
+// UpdateCreatedAt sets the "created_at" field to the value that was provided on create.
+func (u *DevicePosterUpsert) UpdateCreatedAt() *DevicePosterUpsert {
+	u.SetExcluded(deviceposter.FieldCreatedAt)
+	return u
+}
+
+// AddCreatedAt adds v to the "created_at" field.
+func (u *DevicePosterUpsert) AddCreatedAt(v uint32) *DevicePosterUpsert {
+	u.Add(deviceposter.FieldCreatedAt, v)
+	return u
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (u *DevicePosterUpsert) SetUpdatedAt(v uint32) *DevicePosterUpsert {
+	u.Set(deviceposter.FieldUpdatedAt, v)
+	return u
+}
+
+// UpdateUpdatedAt sets the "updated_at" field to the value that was provided on create.
+func (u *DevicePosterUpsert) UpdateUpdatedAt() *DevicePosterUpsert {
+	u.SetExcluded(deviceposter.FieldUpdatedAt)
+	return u
+}
+
+// AddUpdatedAt adds v to the "updated_at" field.
+func (u *DevicePosterUpsert) AddUpdatedAt(v uint32) *DevicePosterUpsert {
+	u.Add(deviceposter.FieldUpdatedAt, v)
+	return u
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (u *DevicePosterUpsert) SetDeletedAt(v uint32) *DevicePosterUpsert {
+	u.Set(deviceposter.FieldDeletedAt, v)
+	return u
+}
+
+// UpdateDeletedAt sets the "deleted_at" field to the value that was provided on create.
+func (u *DevicePosterUpsert) UpdateDeletedAt() *DevicePosterUpsert {
+	u.SetExcluded(deviceposter.FieldDeletedAt)
+	return u
+}
+
+// AddDeletedAt adds v to the "deleted_at" field.
+func (u *DevicePosterUpsert) AddDeletedAt(v uint32) *DevicePosterUpsert {
+	u.Add(deviceposter.FieldDeletedAt, v)
 	return u
 }
 
@@ -374,6 +503,69 @@ func (u *DevicePosterUpsertOne) SetEntID(v uuid.UUID) *DevicePosterUpsertOne {
 func (u *DevicePosterUpsertOne) UpdateEntID() *DevicePosterUpsertOne {
 	return u.Update(func(s *DevicePosterUpsert) {
 		s.UpdateEntID()
+	})
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (u *DevicePosterUpsertOne) SetCreatedAt(v uint32) *DevicePosterUpsertOne {
+	return u.Update(func(s *DevicePosterUpsert) {
+		s.SetCreatedAt(v)
+	})
+}
+
+// AddCreatedAt adds v to the "created_at" field.
+func (u *DevicePosterUpsertOne) AddCreatedAt(v uint32) *DevicePosterUpsertOne {
+	return u.Update(func(s *DevicePosterUpsert) {
+		s.AddCreatedAt(v)
+	})
+}
+
+// UpdateCreatedAt sets the "created_at" field to the value that was provided on create.
+func (u *DevicePosterUpsertOne) UpdateCreatedAt() *DevicePosterUpsertOne {
+	return u.Update(func(s *DevicePosterUpsert) {
+		s.UpdateCreatedAt()
+	})
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (u *DevicePosterUpsertOne) SetUpdatedAt(v uint32) *DevicePosterUpsertOne {
+	return u.Update(func(s *DevicePosterUpsert) {
+		s.SetUpdatedAt(v)
+	})
+}
+
+// AddUpdatedAt adds v to the "updated_at" field.
+func (u *DevicePosterUpsertOne) AddUpdatedAt(v uint32) *DevicePosterUpsertOne {
+	return u.Update(func(s *DevicePosterUpsert) {
+		s.AddUpdatedAt(v)
+	})
+}
+
+// UpdateUpdatedAt sets the "updated_at" field to the value that was provided on create.
+func (u *DevicePosterUpsertOne) UpdateUpdatedAt() *DevicePosterUpsertOne {
+	return u.Update(func(s *DevicePosterUpsert) {
+		s.UpdateUpdatedAt()
+	})
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (u *DevicePosterUpsertOne) SetDeletedAt(v uint32) *DevicePosterUpsertOne {
+	return u.Update(func(s *DevicePosterUpsert) {
+		s.SetDeletedAt(v)
+	})
+}
+
+// AddDeletedAt adds v to the "deleted_at" field.
+func (u *DevicePosterUpsertOne) AddDeletedAt(v uint32) *DevicePosterUpsertOne {
+	return u.Update(func(s *DevicePosterUpsert) {
+		s.AddDeletedAt(v)
+	})
+}
+
+// UpdateDeletedAt sets the "deleted_at" field to the value that was provided on create.
+func (u *DevicePosterUpsertOne) UpdateDeletedAt() *DevicePosterUpsertOne {
+	return u.Update(func(s *DevicePosterUpsert) {
+		s.UpdateDeletedAt()
 	})
 }
 
@@ -672,6 +864,69 @@ func (u *DevicePosterUpsertBulk) SetEntID(v uuid.UUID) *DevicePosterUpsertBulk {
 func (u *DevicePosterUpsertBulk) UpdateEntID() *DevicePosterUpsertBulk {
 	return u.Update(func(s *DevicePosterUpsert) {
 		s.UpdateEntID()
+	})
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (u *DevicePosterUpsertBulk) SetCreatedAt(v uint32) *DevicePosterUpsertBulk {
+	return u.Update(func(s *DevicePosterUpsert) {
+		s.SetCreatedAt(v)
+	})
+}
+
+// AddCreatedAt adds v to the "created_at" field.
+func (u *DevicePosterUpsertBulk) AddCreatedAt(v uint32) *DevicePosterUpsertBulk {
+	return u.Update(func(s *DevicePosterUpsert) {
+		s.AddCreatedAt(v)
+	})
+}
+
+// UpdateCreatedAt sets the "created_at" field to the value that was provided on create.
+func (u *DevicePosterUpsertBulk) UpdateCreatedAt() *DevicePosterUpsertBulk {
+	return u.Update(func(s *DevicePosterUpsert) {
+		s.UpdateCreatedAt()
+	})
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (u *DevicePosterUpsertBulk) SetUpdatedAt(v uint32) *DevicePosterUpsertBulk {
+	return u.Update(func(s *DevicePosterUpsert) {
+		s.SetUpdatedAt(v)
+	})
+}
+
+// AddUpdatedAt adds v to the "updated_at" field.
+func (u *DevicePosterUpsertBulk) AddUpdatedAt(v uint32) *DevicePosterUpsertBulk {
+	return u.Update(func(s *DevicePosterUpsert) {
+		s.AddUpdatedAt(v)
+	})
+}
+
+// UpdateUpdatedAt sets the "updated_at" field to the value that was provided on create.
+func (u *DevicePosterUpsertBulk) UpdateUpdatedAt() *DevicePosterUpsertBulk {
+	return u.Update(func(s *DevicePosterUpsert) {
+		s.UpdateUpdatedAt()
+	})
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (u *DevicePosterUpsertBulk) SetDeletedAt(v uint32) *DevicePosterUpsertBulk {
+	return u.Update(func(s *DevicePosterUpsert) {
+		s.SetDeletedAt(v)
+	})
+}
+
+// AddDeletedAt adds v to the "deleted_at" field.
+func (u *DevicePosterUpsertBulk) AddDeletedAt(v uint32) *DevicePosterUpsertBulk {
+	return u.Update(func(s *DevicePosterUpsert) {
+		s.AddDeletedAt(v)
+	})
+}
+
+// UpdateDeletedAt sets the "deleted_at" field to the value that was provided on create.
+func (u *DevicePosterUpsertBulk) UpdateDeletedAt() *DevicePosterUpsertBulk {
+	return u.Update(func(s *DevicePosterUpsert) {
+		s.UpdateDeletedAt()
 	})
 }
 

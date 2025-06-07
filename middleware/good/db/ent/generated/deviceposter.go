@@ -19,6 +19,12 @@ type DevicePoster struct {
 	ID uint32 `json:"id,omitempty"`
 	// EntID holds the value of the "ent_id" field.
 	EntID uuid.UUID `json:"ent_id,omitempty"`
+	// CreatedAt holds the value of the "created_at" field.
+	CreatedAt uint32 `json:"created_at,omitempty"`
+	// UpdatedAt holds the value of the "updated_at" field.
+	UpdatedAt uint32 `json:"updated_at,omitempty"`
+	// DeletedAt holds the value of the "deleted_at" field.
+	DeletedAt uint32 `json:"deleted_at,omitempty"`
 	// DeviceTypeID holds the value of the "device_type_id" field.
 	DeviceTypeID uuid.UUID `json:"device_type_id,omitempty"`
 	// Poster holds the value of the "poster" field.
@@ -33,7 +39,7 @@ func (*DevicePoster) scanValues(columns []string) ([]any, error) {
 	values := make([]any, len(columns))
 	for i := range columns {
 		switch columns[i] {
-		case deviceposter.FieldID, deviceposter.FieldIndex:
+		case deviceposter.FieldID, deviceposter.FieldCreatedAt, deviceposter.FieldUpdatedAt, deviceposter.FieldDeletedAt, deviceposter.FieldIndex:
 			values[i] = new(sql.NullInt64)
 		case deviceposter.FieldPoster:
 			values[i] = new(sql.NullString)
@@ -65,6 +71,24 @@ func (dp *DevicePoster) assignValues(columns []string, values []any) error {
 				return fmt.Errorf("unexpected type %T for field ent_id", values[i])
 			} else if value != nil {
 				dp.EntID = *value
+			}
+		case deviceposter.FieldCreatedAt:
+			if value, ok := values[i].(*sql.NullInt64); !ok {
+				return fmt.Errorf("unexpected type %T for field created_at", values[i])
+			} else if value.Valid {
+				dp.CreatedAt = uint32(value.Int64)
+			}
+		case deviceposter.FieldUpdatedAt:
+			if value, ok := values[i].(*sql.NullInt64); !ok {
+				return fmt.Errorf("unexpected type %T for field updated_at", values[i])
+			} else if value.Valid {
+				dp.UpdatedAt = uint32(value.Int64)
+			}
+		case deviceposter.FieldDeletedAt:
+			if value, ok := values[i].(*sql.NullInt64); !ok {
+				return fmt.Errorf("unexpected type %T for field deleted_at", values[i])
+			} else if value.Valid {
+				dp.DeletedAt = uint32(value.Int64)
 			}
 		case deviceposter.FieldDeviceTypeID:
 			if value, ok := values[i].(*uuid.UUID); !ok {
@@ -122,6 +146,15 @@ func (dp *DevicePoster) String() string {
 	builder.WriteString(fmt.Sprintf("id=%v, ", dp.ID))
 	builder.WriteString("ent_id=")
 	builder.WriteString(fmt.Sprintf("%v", dp.EntID))
+	builder.WriteString(", ")
+	builder.WriteString("created_at=")
+	builder.WriteString(fmt.Sprintf("%v", dp.CreatedAt))
+	builder.WriteString(", ")
+	builder.WriteString("updated_at=")
+	builder.WriteString(fmt.Sprintf("%v", dp.UpdatedAt))
+	builder.WriteString(", ")
+	builder.WriteString("deleted_at=")
+	builder.WriteString(fmt.Sprintf("%v", dp.DeletedAt))
 	builder.WriteString(", ")
 	builder.WriteString("device_type_id=")
 	builder.WriteString(fmt.Sprintf("%v", dp.DeviceTypeID))

@@ -19,6 +19,12 @@ type AppGoodDisplayColor struct {
 	ID uint32 `json:"id,omitempty"`
 	// EntID holds the value of the "ent_id" field.
 	EntID uuid.UUID `json:"ent_id,omitempty"`
+	// CreatedAt holds the value of the "created_at" field.
+	CreatedAt uint32 `json:"created_at,omitempty"`
+	// UpdatedAt holds the value of the "updated_at" field.
+	UpdatedAt uint32 `json:"updated_at,omitempty"`
+	// DeletedAt holds the value of the "deleted_at" field.
+	DeletedAt uint32 `json:"deleted_at,omitempty"`
 	// AppGoodID holds the value of the "app_good_id" field.
 	AppGoodID uuid.UUID `json:"app_good_id,omitempty"`
 	// Color holds the value of the "color" field.
@@ -33,7 +39,7 @@ func (*AppGoodDisplayColor) scanValues(columns []string) ([]any, error) {
 	values := make([]any, len(columns))
 	for i := range columns {
 		switch columns[i] {
-		case appgooddisplaycolor.FieldID, appgooddisplaycolor.FieldIndex:
+		case appgooddisplaycolor.FieldID, appgooddisplaycolor.FieldCreatedAt, appgooddisplaycolor.FieldUpdatedAt, appgooddisplaycolor.FieldDeletedAt, appgooddisplaycolor.FieldIndex:
 			values[i] = new(sql.NullInt64)
 		case appgooddisplaycolor.FieldColor:
 			values[i] = new(sql.NullString)
@@ -65,6 +71,24 @@ func (agdc *AppGoodDisplayColor) assignValues(columns []string, values []any) er
 				return fmt.Errorf("unexpected type %T for field ent_id", values[i])
 			} else if value != nil {
 				agdc.EntID = *value
+			}
+		case appgooddisplaycolor.FieldCreatedAt:
+			if value, ok := values[i].(*sql.NullInt64); !ok {
+				return fmt.Errorf("unexpected type %T for field created_at", values[i])
+			} else if value.Valid {
+				agdc.CreatedAt = uint32(value.Int64)
+			}
+		case appgooddisplaycolor.FieldUpdatedAt:
+			if value, ok := values[i].(*sql.NullInt64); !ok {
+				return fmt.Errorf("unexpected type %T for field updated_at", values[i])
+			} else if value.Valid {
+				agdc.UpdatedAt = uint32(value.Int64)
+			}
+		case appgooddisplaycolor.FieldDeletedAt:
+			if value, ok := values[i].(*sql.NullInt64); !ok {
+				return fmt.Errorf("unexpected type %T for field deleted_at", values[i])
+			} else if value.Valid {
+				agdc.DeletedAt = uint32(value.Int64)
 			}
 		case appgooddisplaycolor.FieldAppGoodID:
 			if value, ok := values[i].(*uuid.UUID); !ok {
@@ -122,6 +146,15 @@ func (agdc *AppGoodDisplayColor) String() string {
 	builder.WriteString(fmt.Sprintf("id=%v, ", agdc.ID))
 	builder.WriteString("ent_id=")
 	builder.WriteString(fmt.Sprintf("%v", agdc.EntID))
+	builder.WriteString(", ")
+	builder.WriteString("created_at=")
+	builder.WriteString(fmt.Sprintf("%v", agdc.CreatedAt))
+	builder.WriteString(", ")
+	builder.WriteString("updated_at=")
+	builder.WriteString(fmt.Sprintf("%v", agdc.UpdatedAt))
+	builder.WriteString(", ")
+	builder.WriteString("deleted_at=")
+	builder.WriteString(fmt.Sprintf("%v", agdc.DeletedAt))
 	builder.WriteString(", ")
 	builder.WriteString("app_good_id=")
 	builder.WriteString(fmt.Sprintf("%v", agdc.AppGoodID))

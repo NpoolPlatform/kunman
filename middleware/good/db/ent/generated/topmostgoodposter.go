@@ -19,6 +19,12 @@ type TopMostGoodPoster struct {
 	ID uint32 `json:"id,omitempty"`
 	// EntID holds the value of the "ent_id" field.
 	EntID uuid.UUID `json:"ent_id,omitempty"`
+	// CreatedAt holds the value of the "created_at" field.
+	CreatedAt uint32 `json:"created_at,omitempty"`
+	// UpdatedAt holds the value of the "updated_at" field.
+	UpdatedAt uint32 `json:"updated_at,omitempty"`
+	// DeletedAt holds the value of the "deleted_at" field.
+	DeletedAt uint32 `json:"deleted_at,omitempty"`
 	// TopMostGoodID holds the value of the "top_most_good_id" field.
 	TopMostGoodID uuid.UUID `json:"top_most_good_id,omitempty"`
 	// Poster holds the value of the "poster" field.
@@ -33,7 +39,7 @@ func (*TopMostGoodPoster) scanValues(columns []string) ([]any, error) {
 	values := make([]any, len(columns))
 	for i := range columns {
 		switch columns[i] {
-		case topmostgoodposter.FieldID, topmostgoodposter.FieldIndex:
+		case topmostgoodposter.FieldID, topmostgoodposter.FieldCreatedAt, topmostgoodposter.FieldUpdatedAt, topmostgoodposter.FieldDeletedAt, topmostgoodposter.FieldIndex:
 			values[i] = new(sql.NullInt64)
 		case topmostgoodposter.FieldPoster:
 			values[i] = new(sql.NullString)
@@ -65,6 +71,24 @@ func (tmgp *TopMostGoodPoster) assignValues(columns []string, values []any) erro
 				return fmt.Errorf("unexpected type %T for field ent_id", values[i])
 			} else if value != nil {
 				tmgp.EntID = *value
+			}
+		case topmostgoodposter.FieldCreatedAt:
+			if value, ok := values[i].(*sql.NullInt64); !ok {
+				return fmt.Errorf("unexpected type %T for field created_at", values[i])
+			} else if value.Valid {
+				tmgp.CreatedAt = uint32(value.Int64)
+			}
+		case topmostgoodposter.FieldUpdatedAt:
+			if value, ok := values[i].(*sql.NullInt64); !ok {
+				return fmt.Errorf("unexpected type %T for field updated_at", values[i])
+			} else if value.Valid {
+				tmgp.UpdatedAt = uint32(value.Int64)
+			}
+		case topmostgoodposter.FieldDeletedAt:
+			if value, ok := values[i].(*sql.NullInt64); !ok {
+				return fmt.Errorf("unexpected type %T for field deleted_at", values[i])
+			} else if value.Valid {
+				tmgp.DeletedAt = uint32(value.Int64)
 			}
 		case topmostgoodposter.FieldTopMostGoodID:
 			if value, ok := values[i].(*uuid.UUID); !ok {
@@ -122,6 +146,15 @@ func (tmgp *TopMostGoodPoster) String() string {
 	builder.WriteString(fmt.Sprintf("id=%v, ", tmgp.ID))
 	builder.WriteString("ent_id=")
 	builder.WriteString(fmt.Sprintf("%v", tmgp.EntID))
+	builder.WriteString(", ")
+	builder.WriteString("created_at=")
+	builder.WriteString(fmt.Sprintf("%v", tmgp.CreatedAt))
+	builder.WriteString(", ")
+	builder.WriteString("updated_at=")
+	builder.WriteString(fmt.Sprintf("%v", tmgp.UpdatedAt))
+	builder.WriteString(", ")
+	builder.WriteString("deleted_at=")
+	builder.WriteString(fmt.Sprintf("%v", tmgp.DeletedAt))
 	builder.WriteString(", ")
 	builder.WriteString("top_most_good_id=")
 	builder.WriteString(fmt.Sprintf("%v", tmgp.TopMostGoodID))

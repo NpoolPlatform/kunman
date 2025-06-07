@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package good.gateway.device.manufacturer.v1;
 
-option go_package = "github.com/NpoolPlatform/message/good/gateway/v1/device/manufacturer";
+option go_package = "github.com/NpoolPlatform/kunman/message/good/gateway/v1/device/manufacturer";
 
 import "good/middleware/v1/device/manufacturer/manufacturer.proto";
 import "google/api/annotations.proto";;

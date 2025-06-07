@@ -19,6 +19,12 @@ type AppGoodPoster struct {
 	ID uint32 `json:"id,omitempty"`
 	// EntID holds the value of the "ent_id" field.
 	EntID uuid.UUID `json:"ent_id,omitempty"`
+	// CreatedAt holds the value of the "created_at" field.
+	CreatedAt uint32 `json:"created_at,omitempty"`
+	// UpdatedAt holds the value of the "updated_at" field.
+	UpdatedAt uint32 `json:"updated_at,omitempty"`
+	// DeletedAt holds the value of the "deleted_at" field.
+	DeletedAt uint32 `json:"deleted_at,omitempty"`
 	// AppGoodID holds the value of the "app_good_id" field.
 	AppGoodID uuid.UUID `json:"app_good_id,omitempty"`
 	// Poster holds the value of the "poster" field.
@@ -33,7 +39,7 @@ func (*AppGoodPoster) scanValues(columns []string) ([]any, error) {
 	values := make([]any, len(columns))
 	for i := range columns {
 		switch columns[i] {
-		case appgoodposter.FieldID, appgoodposter.FieldIndex:
+		case appgoodposter.FieldID, appgoodposter.FieldCreatedAt, appgoodposter.FieldUpdatedAt, appgoodposter.FieldDeletedAt, appgoodposter.FieldIndex:
 			values[i] = new(sql.NullInt64)
 		case appgoodposter.FieldPoster:
 			values[i] = new(sql.NullString)
@@ -65,6 +71,24 @@ func (agp *AppGoodPoster) assignValues(columns []string, values []any) error {
 				return fmt.Errorf("unexpected type %T for field ent_id", values[i])
 			} else if value != nil {
 				agp.EntID = *value
+			}
+		case appgoodposter.FieldCreatedAt:
+			if value, ok := values[i].(*sql.NullInt64); !ok {
+				return fmt.Errorf("unexpected type %T for field created_at", values[i])
+			} else if value.Valid {
+				agp.CreatedAt = uint32(value.Int64)
+			}
+		case appgoodposter.FieldUpdatedAt:
+			if value, ok := values[i].(*sql.NullInt64); !ok {
+				return fmt.Errorf("unexpected type %T for field updated_at", values[i])
+			} else if value.Valid {
+				agp.UpdatedAt = uint32(value.Int64)
+			}
+		case appgoodposter.FieldDeletedAt:
+			if value, ok := values[i].(*sql.NullInt64); !ok {
+				return fmt.Errorf("unexpected type %T for field deleted_at", values[i])
+			} else if value.Valid {
+				agp.DeletedAt = uint32(value.Int64)
 			}
 		case appgoodposter.FieldAppGoodID:
 			if value, ok := values[i].(*uuid.UUID); !ok {
@@ -122,6 +146,15 @@ func (agp *AppGoodPoster) String() string {
 	builder.WriteString(fmt.Sprintf("id=%v, ", agp.ID))
 	builder.WriteString("ent_id=")
 	builder.WriteString(fmt.Sprintf("%v", agp.EntID))
+	builder.WriteString(", ")
+	builder.WriteString("created_at=")
+	builder.WriteString(fmt.Sprintf("%v", agp.CreatedAt))
+	builder.WriteString(", ")
+	builder.WriteString("updated_at=")
+	builder.WriteString(fmt.Sprintf("%v", agp.UpdatedAt))
+	builder.WriteString(", ")
+	builder.WriteString("deleted_at=")
+	builder.WriteString(fmt.Sprintf("%v", agp.DeletedAt))
 	builder.WriteString(", ")
 	builder.WriteString("app_good_id=")
 	builder.WriteString(fmt.Sprintf("%v", agp.AppGoodID))

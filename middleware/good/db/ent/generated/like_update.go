@@ -43,6 +43,61 @@ func (lu *LikeUpdate) SetNillableEntID(u *uuid.UUID) *LikeUpdate {
 	return lu
 }
 
+// SetCreatedAt sets the "created_at" field.
+func (lu *LikeUpdate) SetCreatedAt(u uint32) *LikeUpdate {
+	lu.mutation.ResetCreatedAt()
+	lu.mutation.SetCreatedAt(u)
+	return lu
+}
+
+// SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
+func (lu *LikeUpdate) SetNillableCreatedAt(u *uint32) *LikeUpdate {
+	if u != nil {
+		lu.SetCreatedAt(*u)
+	}
+	return lu
+}
+
+// AddCreatedAt adds u to the "created_at" field.
+func (lu *LikeUpdate) AddCreatedAt(u int32) *LikeUpdate {
+	lu.mutation.AddCreatedAt(u)
+	return lu
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (lu *LikeUpdate) SetUpdatedAt(u uint32) *LikeUpdate {
+	lu.mutation.ResetUpdatedAt()
+	lu.mutation.SetUpdatedAt(u)
+	return lu
+}
+
+// AddUpdatedAt adds u to the "updated_at" field.
+func (lu *LikeUpdate) AddUpdatedAt(u int32) *LikeUpdate {
+	lu.mutation.AddUpdatedAt(u)
+	return lu
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (lu *LikeUpdate) SetDeletedAt(u uint32) *LikeUpdate {
+	lu.mutation.ResetDeletedAt()
+	lu.mutation.SetDeletedAt(u)
+	return lu
+}
+
+// SetNillableDeletedAt sets the "deleted_at" field if the given value is not nil.
+func (lu *LikeUpdate) SetNillableDeletedAt(u *uint32) *LikeUpdate {
+	if u != nil {
+		lu.SetDeletedAt(*u)
+	}
+	return lu
+}
+
+// AddDeletedAt adds u to the "deleted_at" field.
+func (lu *LikeUpdate) AddDeletedAt(u int32) *LikeUpdate {
+	lu.mutation.AddDeletedAt(u)
+	return lu
+}
+
 // SetUserID sets the "user_id" field.
 func (lu *LikeUpdate) SetUserID(u uuid.UUID) *LikeUpdate {
 	lu.mutation.SetUserID(u)
@@ -104,6 +159,7 @@ func (lu *LikeUpdate) Mutation() *LikeMutation {
 
 // Save executes the query and returns the number of nodes affected by the update operation.
 func (lu *LikeUpdate) Save(ctx context.Context) (int, error) {
+	lu.defaults()
 	return withHooks(ctx, lu.sqlSave, lu.mutation, lu.hooks)
 }
 
@@ -129,6 +185,14 @@ func (lu *LikeUpdate) ExecX(ctx context.Context) {
 	}
 }
 
+// defaults sets the default values of the builder before save.
+func (lu *LikeUpdate) defaults() {
+	if _, ok := lu.mutation.UpdatedAt(); !ok {
+		v := like.UpdateDefaultUpdatedAt()
+		lu.mutation.SetUpdatedAt(v)
+	}
+}
+
 // Modify adds a statement modifier for attaching custom logic to the UPDATE statement.
 func (lu *LikeUpdate) Modify(modifiers ...func(u *sql.UpdateBuilder)) *LikeUpdate {
 	lu.modifiers = append(lu.modifiers, modifiers...)
@@ -146,6 +210,24 @@ func (lu *LikeUpdate) sqlSave(ctx context.Context) (n int, err error) {
 	}
 	if value, ok := lu.mutation.EntID(); ok {
 		_spec.SetField(like.FieldEntID, field.TypeUUID, value)
+	}
+	if value, ok := lu.mutation.CreatedAt(); ok {
+		_spec.SetField(like.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := lu.mutation.AddedCreatedAt(); ok {
+		_spec.AddField(like.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := lu.mutation.UpdatedAt(); ok {
+		_spec.SetField(like.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := lu.mutation.AddedUpdatedAt(); ok {
+		_spec.AddField(like.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := lu.mutation.DeletedAt(); ok {
+		_spec.SetField(like.FieldDeletedAt, field.TypeUint32, value)
+	}
+	if value, ok := lu.mutation.AddedDeletedAt(); ok {
+		_spec.AddField(like.FieldDeletedAt, field.TypeUint32, value)
 	}
 	if value, ok := lu.mutation.UserID(); ok {
 		_spec.SetField(like.FieldUserID, field.TypeUUID, value)
@@ -195,6 +277,61 @@ func (luo *LikeUpdateOne) SetNillableEntID(u *uuid.UUID) *LikeUpdateOne {
 	if u != nil {
 		luo.SetEntID(*u)
 	}
+	return luo
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (luo *LikeUpdateOne) SetCreatedAt(u uint32) *LikeUpdateOne {
+	luo.mutation.ResetCreatedAt()
+	luo.mutation.SetCreatedAt(u)
+	return luo
+}
+
+// SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
+func (luo *LikeUpdateOne) SetNillableCreatedAt(u *uint32) *LikeUpdateOne {
+	if u != nil {
+		luo.SetCreatedAt(*u)
+	}
+	return luo
+}
+
+// AddCreatedAt adds u to the "created_at" field.
+func (luo *LikeUpdateOne) AddCreatedAt(u int32) *LikeUpdateOne {
+	luo.mutation.AddCreatedAt(u)
+	return luo
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (luo *LikeUpdateOne) SetUpdatedAt(u uint32) *LikeUpdateOne {
+	luo.mutation.ResetUpdatedAt()
+	luo.mutation.SetUpdatedAt(u)
+	return luo
+}
+
+// AddUpdatedAt adds u to the "updated_at" field.
+func (luo *LikeUpdateOne) AddUpdatedAt(u int32) *LikeUpdateOne {
+	luo.mutation.AddUpdatedAt(u)
+	return luo
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (luo *LikeUpdateOne) SetDeletedAt(u uint32) *LikeUpdateOne {
+	luo.mutation.ResetDeletedAt()
+	luo.mutation.SetDeletedAt(u)
+	return luo
+}
+
+// SetNillableDeletedAt sets the "deleted_at" field if the given value is not nil.
+func (luo *LikeUpdateOne) SetNillableDeletedAt(u *uint32) *LikeUpdateOne {
+	if u != nil {
+		luo.SetDeletedAt(*u)
+	}
+	return luo
+}
+
+// AddDeletedAt adds u to the "deleted_at" field.
+func (luo *LikeUpdateOne) AddDeletedAt(u int32) *LikeUpdateOne {
+	luo.mutation.AddDeletedAt(u)
 	return luo
 }
 
@@ -272,6 +409,7 @@ func (luo *LikeUpdateOne) Select(field string, fields ...string) *LikeUpdateOne 
 
 // Save executes the query and returns the updated Like entity.
 func (luo *LikeUpdateOne) Save(ctx context.Context) (*Like, error) {
+	luo.defaults()
 	return withHooks(ctx, luo.sqlSave, luo.mutation, luo.hooks)
 }
 
@@ -294,6 +432,14 @@ func (luo *LikeUpdateOne) Exec(ctx context.Context) error {
 func (luo *LikeUpdateOne) ExecX(ctx context.Context) {
 	if err := luo.Exec(ctx); err != nil {
 		panic(err)
+	}
+}
+
+// defaults sets the default values of the builder before save.
+func (luo *LikeUpdateOne) defaults() {
+	if _, ok := luo.mutation.UpdatedAt(); !ok {
+		v := like.UpdateDefaultUpdatedAt()
+		luo.mutation.SetUpdatedAt(v)
 	}
 }
 
@@ -331,6 +477,24 @@ func (luo *LikeUpdateOne) sqlSave(ctx context.Context) (_node *Like, err error) 
 	}
 	if value, ok := luo.mutation.EntID(); ok {
 		_spec.SetField(like.FieldEntID, field.TypeUUID, value)
+	}
+	if value, ok := luo.mutation.CreatedAt(); ok {
+		_spec.SetField(like.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := luo.mutation.AddedCreatedAt(); ok {
+		_spec.AddField(like.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := luo.mutation.UpdatedAt(); ok {
+		_spec.SetField(like.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := luo.mutation.AddedUpdatedAt(); ok {
+		_spec.AddField(like.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := luo.mutation.DeletedAt(); ok {
+		_spec.SetField(like.FieldDeletedAt, field.TypeUint32, value)
+	}
+	if value, ok := luo.mutation.AddedDeletedAt(); ok {
+		_spec.AddField(like.FieldDeletedAt, field.TypeUint32, value)
 	}
 	if value, ok := luo.mutation.UserID(); ok {
 		_spec.SetField(like.FieldUserID, field.TypeUUID, value)

@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package good.gateway.app.fee.v1;
 
-option go_package = "github.com/NpoolPlatform/message/good/gateway/v1/app/fee";
+option go_package = "github.com/NpoolPlatform/kunman/message/good/gateway/v1/app/fee";
 
 import "basetypes/good/v1/enums.proto";
 import "google/api/annotations.proto";

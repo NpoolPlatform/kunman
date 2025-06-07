@@ -36,6 +36,48 @@ func (vlc *VendorLocationCreate) SetNillableEntID(u *uuid.UUID) *VendorLocationC
 	return vlc
 }
 
+// SetCreatedAt sets the "created_at" field.
+func (vlc *VendorLocationCreate) SetCreatedAt(u uint32) *VendorLocationCreate {
+	vlc.mutation.SetCreatedAt(u)
+	return vlc
+}
+
+// SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
+func (vlc *VendorLocationCreate) SetNillableCreatedAt(u *uint32) *VendorLocationCreate {
+	if u != nil {
+		vlc.SetCreatedAt(*u)
+	}
+	return vlc
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (vlc *VendorLocationCreate) SetUpdatedAt(u uint32) *VendorLocationCreate {
+	vlc.mutation.SetUpdatedAt(u)
+	return vlc
+}
+
+// SetNillableUpdatedAt sets the "updated_at" field if the given value is not nil.
+func (vlc *VendorLocationCreate) SetNillableUpdatedAt(u *uint32) *VendorLocationCreate {
+	if u != nil {
+		vlc.SetUpdatedAt(*u)
+	}
+	return vlc
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (vlc *VendorLocationCreate) SetDeletedAt(u uint32) *VendorLocationCreate {
+	vlc.mutation.SetDeletedAt(u)
+	return vlc
+}
+
+// SetNillableDeletedAt sets the "deleted_at" field if the given value is not nil.
+func (vlc *VendorLocationCreate) SetNillableDeletedAt(u *uint32) *VendorLocationCreate {
+	if u != nil {
+		vlc.SetDeletedAt(*u)
+	}
+	return vlc
+}
+
 // SetCountry sets the "country" field.
 func (vlc *VendorLocationCreate) SetCountry(s string) *VendorLocationCreate {
 	vlc.mutation.SetCountry(s)
@@ -151,6 +193,18 @@ func (vlc *VendorLocationCreate) defaults() {
 		v := vendorlocation.DefaultEntID()
 		vlc.mutation.SetEntID(v)
 	}
+	if _, ok := vlc.mutation.CreatedAt(); !ok {
+		v := vendorlocation.DefaultCreatedAt()
+		vlc.mutation.SetCreatedAt(v)
+	}
+	if _, ok := vlc.mutation.UpdatedAt(); !ok {
+		v := vendorlocation.DefaultUpdatedAt()
+		vlc.mutation.SetUpdatedAt(v)
+	}
+	if _, ok := vlc.mutation.DeletedAt(); !ok {
+		v := vendorlocation.DefaultDeletedAt()
+		vlc.mutation.SetDeletedAt(v)
+	}
 	if _, ok := vlc.mutation.Country(); !ok {
 		v := vendorlocation.DefaultCountry
 		vlc.mutation.SetCountry(v)
@@ -177,6 +231,15 @@ func (vlc *VendorLocationCreate) defaults() {
 func (vlc *VendorLocationCreate) check() error {
 	if _, ok := vlc.mutation.EntID(); !ok {
 		return &ValidationError{Name: "ent_id", err: errors.New(`generated: missing required field "VendorLocation.ent_id"`)}
+	}
+	if _, ok := vlc.mutation.CreatedAt(); !ok {
+		return &ValidationError{Name: "created_at", err: errors.New(`generated: missing required field "VendorLocation.created_at"`)}
+	}
+	if _, ok := vlc.mutation.UpdatedAt(); !ok {
+		return &ValidationError{Name: "updated_at", err: errors.New(`generated: missing required field "VendorLocation.updated_at"`)}
+	}
+	if _, ok := vlc.mutation.DeletedAt(); !ok {
+		return &ValidationError{Name: "deleted_at", err: errors.New(`generated: missing required field "VendorLocation.deleted_at"`)}
 	}
 	if v, ok := vlc.mutation.Country(); ok {
 		if err := vendorlocation.CountryValidator(v); err != nil {
@@ -234,6 +297,18 @@ func (vlc *VendorLocationCreate) createSpec() (*VendorLocation, *sqlgraph.Create
 	if value, ok := vlc.mutation.EntID(); ok {
 		_spec.SetField(vendorlocation.FieldEntID, field.TypeUUID, value)
 		_node.EntID = value
+	}
+	if value, ok := vlc.mutation.CreatedAt(); ok {
+		_spec.SetField(vendorlocation.FieldCreatedAt, field.TypeUint32, value)
+		_node.CreatedAt = value
+	}
+	if value, ok := vlc.mutation.UpdatedAt(); ok {
+		_spec.SetField(vendorlocation.FieldUpdatedAt, field.TypeUint32, value)
+		_node.UpdatedAt = value
+	}
+	if value, ok := vlc.mutation.DeletedAt(); ok {
+		_spec.SetField(vendorlocation.FieldDeletedAt, field.TypeUint32, value)
+		_node.DeletedAt = value
 	}
 	if value, ok := vlc.mutation.Country(); ok {
 		_spec.SetField(vendorlocation.FieldCountry, field.TypeString, value)
@@ -316,6 +391,60 @@ func (u *VendorLocationUpsert) SetEntID(v uuid.UUID) *VendorLocationUpsert {
 // UpdateEntID sets the "ent_id" field to the value that was provided on create.
 func (u *VendorLocationUpsert) UpdateEntID() *VendorLocationUpsert {
 	u.SetExcluded(vendorlocation.FieldEntID)
+	return u
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (u *VendorLocationUpsert) SetCreatedAt(v uint32) *VendorLocationUpsert {
+	u.Set(vendorlocation.FieldCreatedAt, v)
+	return u
+}
+
+// UpdateCreatedAt sets the "created_at" field to the value that was provided on create.
+func (u *VendorLocationUpsert) UpdateCreatedAt() *VendorLocationUpsert {
+	u.SetExcluded(vendorlocation.FieldCreatedAt)
+	return u
+}
+
+// AddCreatedAt adds v to the "created_at" field.
+func (u *VendorLocationUpsert) AddCreatedAt(v uint32) *VendorLocationUpsert {
+	u.Add(vendorlocation.FieldCreatedAt, v)
+	return u
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (u *VendorLocationUpsert) SetUpdatedAt(v uint32) *VendorLocationUpsert {
+	u.Set(vendorlocation.FieldUpdatedAt, v)
+	return u
+}
+
+// UpdateUpdatedAt sets the "updated_at" field to the value that was provided on create.
+func (u *VendorLocationUpsert) UpdateUpdatedAt() *VendorLocationUpsert {
+	u.SetExcluded(vendorlocation.FieldUpdatedAt)
+	return u
+}
+
+// AddUpdatedAt adds v to the "updated_at" field.
+func (u *VendorLocationUpsert) AddUpdatedAt(v uint32) *VendorLocationUpsert {
+	u.Add(vendorlocation.FieldUpdatedAt, v)
+	return u
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (u *VendorLocationUpsert) SetDeletedAt(v uint32) *VendorLocationUpsert {
+	u.Set(vendorlocation.FieldDeletedAt, v)
+	return u
+}
+
+// UpdateDeletedAt sets the "deleted_at" field to the value that was provided on create.
+func (u *VendorLocationUpsert) UpdateDeletedAt() *VendorLocationUpsert {
+	u.SetExcluded(vendorlocation.FieldDeletedAt)
+	return u
+}
+
+// AddDeletedAt adds v to the "deleted_at" field.
+func (u *VendorLocationUpsert) AddDeletedAt(v uint32) *VendorLocationUpsert {
+	u.Add(vendorlocation.FieldDeletedAt, v)
 	return u
 }
 
@@ -468,6 +597,69 @@ func (u *VendorLocationUpsertOne) SetEntID(v uuid.UUID) *VendorLocationUpsertOne
 func (u *VendorLocationUpsertOne) UpdateEntID() *VendorLocationUpsertOne {
 	return u.Update(func(s *VendorLocationUpsert) {
 		s.UpdateEntID()
+	})
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (u *VendorLocationUpsertOne) SetCreatedAt(v uint32) *VendorLocationUpsertOne {
+	return u.Update(func(s *VendorLocationUpsert) {
+		s.SetCreatedAt(v)
+	})
+}
+
+// AddCreatedAt adds v to the "created_at" field.
+func (u *VendorLocationUpsertOne) AddCreatedAt(v uint32) *VendorLocationUpsertOne {
+	return u.Update(func(s *VendorLocationUpsert) {
+		s.AddCreatedAt(v)
+	})
+}
+
+// UpdateCreatedAt sets the "created_at" field to the value that was provided on create.
+func (u *VendorLocationUpsertOne) UpdateCreatedAt() *VendorLocationUpsertOne {
+	return u.Update(func(s *VendorLocationUpsert) {
+		s.UpdateCreatedAt()
+	})
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (u *VendorLocationUpsertOne) SetUpdatedAt(v uint32) *VendorLocationUpsertOne {
+	return u.Update(func(s *VendorLocationUpsert) {
+		s.SetUpdatedAt(v)
+	})
+}
+
+// AddUpdatedAt adds v to the "updated_at" field.
+func (u *VendorLocationUpsertOne) AddUpdatedAt(v uint32) *VendorLocationUpsertOne {
+	return u.Update(func(s *VendorLocationUpsert) {
+		s.AddUpdatedAt(v)
+	})
+}
+
+// UpdateUpdatedAt sets the "updated_at" field to the value that was provided on create.
+func (u *VendorLocationUpsertOne) UpdateUpdatedAt() *VendorLocationUpsertOne {
+	return u.Update(func(s *VendorLocationUpsert) {
+		s.UpdateUpdatedAt()
+	})
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (u *VendorLocationUpsertOne) SetDeletedAt(v uint32) *VendorLocationUpsertOne {
+	return u.Update(func(s *VendorLocationUpsert) {
+		s.SetDeletedAt(v)
+	})
+}
+
+// AddDeletedAt adds v to the "deleted_at" field.
+func (u *VendorLocationUpsertOne) AddDeletedAt(v uint32) *VendorLocationUpsertOne {
+	return u.Update(func(s *VendorLocationUpsert) {
+		s.AddDeletedAt(v)
+	})
+}
+
+// UpdateDeletedAt sets the "deleted_at" field to the value that was provided on create.
+func (u *VendorLocationUpsertOne) UpdateDeletedAt() *VendorLocationUpsertOne {
+	return u.Update(func(s *VendorLocationUpsert) {
+		s.UpdateDeletedAt()
 	})
 }
 
@@ -801,6 +993,69 @@ func (u *VendorLocationUpsertBulk) SetEntID(v uuid.UUID) *VendorLocationUpsertBu
 func (u *VendorLocationUpsertBulk) UpdateEntID() *VendorLocationUpsertBulk {
 	return u.Update(func(s *VendorLocationUpsert) {
 		s.UpdateEntID()
+	})
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (u *VendorLocationUpsertBulk) SetCreatedAt(v uint32) *VendorLocationUpsertBulk {
+	return u.Update(func(s *VendorLocationUpsert) {
+		s.SetCreatedAt(v)
+	})
+}
+
+// AddCreatedAt adds v to the "created_at" field.
+func (u *VendorLocationUpsertBulk) AddCreatedAt(v uint32) *VendorLocationUpsertBulk {
+	return u.Update(func(s *VendorLocationUpsert) {
+		s.AddCreatedAt(v)
+	})
+}
+
+// UpdateCreatedAt sets the "created_at" field to the value that was provided on create.
+func (u *VendorLocationUpsertBulk) UpdateCreatedAt() *VendorLocationUpsertBulk {
+	return u.Update(func(s *VendorLocationUpsert) {
+		s.UpdateCreatedAt()
+	})
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (u *VendorLocationUpsertBulk) SetUpdatedAt(v uint32) *VendorLocationUpsertBulk {
+	return u.Update(func(s *VendorLocationUpsert) {
+		s.SetUpdatedAt(v)
+	})
+}
+
+// AddUpdatedAt adds v to the "updated_at" field.
+func (u *VendorLocationUpsertBulk) AddUpdatedAt(v uint32) *VendorLocationUpsertBulk {
+	return u.Update(func(s *VendorLocationUpsert) {
+		s.AddUpdatedAt(v)
+	})
+}
+
+// UpdateUpdatedAt sets the "updated_at" field to the value that was provided on create.
+func (u *VendorLocationUpsertBulk) UpdateUpdatedAt() *VendorLocationUpsertBulk {
+	return u.Update(func(s *VendorLocationUpsert) {
+		s.UpdateUpdatedAt()
+	})
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (u *VendorLocationUpsertBulk) SetDeletedAt(v uint32) *VendorLocationUpsertBulk {
+	return u.Update(func(s *VendorLocationUpsert) {
+		s.SetDeletedAt(v)
+	})
+}
+
+// AddDeletedAt adds v to the "deleted_at" field.
+func (u *VendorLocationUpsertBulk) AddDeletedAt(v uint32) *VendorLocationUpsertBulk {
+	return u.Update(func(s *VendorLocationUpsert) {
+		s.AddDeletedAt(v)
+	})
+}
+
+// UpdateDeletedAt sets the "deleted_at" field to the value that was provided on create.
+func (u *VendorLocationUpsertBulk) UpdateDeletedAt() *VendorLocationUpsertBulk {
+	return u.Update(func(s *VendorLocationUpsert) {
+		s.UpdateDeletedAt()
 	})
 }
 

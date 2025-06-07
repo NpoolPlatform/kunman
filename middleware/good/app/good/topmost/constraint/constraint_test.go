@@ -8,7 +8,7 @@ import (
 	"testing"
 	"time"
 
-	topmost1 "github.com/NpoolPlatform/kunman/middleware/good/middleware/app/good/topmost"
+	topmost1 "github.com/NpoolPlatform/kunman/middleware/good/app/good/topmost"
 	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 	types "github.com/NpoolPlatform/kunman/message/basetypes/good/v1"
 	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"

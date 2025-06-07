@@ -43,6 +43,61 @@ func (dsu *DelegatedStakingUpdate) SetNillableEntID(u *uuid.UUID) *DelegatedStak
 	return dsu
 }
 
+// SetCreatedAt sets the "created_at" field.
+func (dsu *DelegatedStakingUpdate) SetCreatedAt(u uint32) *DelegatedStakingUpdate {
+	dsu.mutation.ResetCreatedAt()
+	dsu.mutation.SetCreatedAt(u)
+	return dsu
+}
+
+// SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
+func (dsu *DelegatedStakingUpdate) SetNillableCreatedAt(u *uint32) *DelegatedStakingUpdate {
+	if u != nil {
+		dsu.SetCreatedAt(*u)
+	}
+	return dsu
+}
+
+// AddCreatedAt adds u to the "created_at" field.
+func (dsu *DelegatedStakingUpdate) AddCreatedAt(u int32) *DelegatedStakingUpdate {
+	dsu.mutation.AddCreatedAt(u)
+	return dsu
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (dsu *DelegatedStakingUpdate) SetUpdatedAt(u uint32) *DelegatedStakingUpdate {
+	dsu.mutation.ResetUpdatedAt()
+	dsu.mutation.SetUpdatedAt(u)
+	return dsu
+}
+
+// AddUpdatedAt adds u to the "updated_at" field.
+func (dsu *DelegatedStakingUpdate) AddUpdatedAt(u int32) *DelegatedStakingUpdate {
+	dsu.mutation.AddUpdatedAt(u)
+	return dsu
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (dsu *DelegatedStakingUpdate) SetDeletedAt(u uint32) *DelegatedStakingUpdate {
+	dsu.mutation.ResetDeletedAt()
+	dsu.mutation.SetDeletedAt(u)
+	return dsu
+}
+
+// SetNillableDeletedAt sets the "deleted_at" field if the given value is not nil.
+func (dsu *DelegatedStakingUpdate) SetNillableDeletedAt(u *uint32) *DelegatedStakingUpdate {
+	if u != nil {
+		dsu.SetDeletedAt(*u)
+	}
+	return dsu
+}
+
+// AddDeletedAt adds u to the "deleted_at" field.
+func (dsu *DelegatedStakingUpdate) AddDeletedAt(u int32) *DelegatedStakingUpdate {
+	dsu.mutation.AddDeletedAt(u)
+	return dsu
+}
+
 // SetGoodID sets the "good_id" field.
 func (dsu *DelegatedStakingUpdate) SetGoodID(u uuid.UUID) *DelegatedStakingUpdate {
 	dsu.mutation.SetGoodID(u)
@@ -130,6 +185,7 @@ func (dsu *DelegatedStakingUpdate) Mutation() *DelegatedStakingMutation {
 
 // Save executes the query and returns the number of nodes affected by the update operation.
 func (dsu *DelegatedStakingUpdate) Save(ctx context.Context) (int, error) {
+	dsu.defaults()
 	return withHooks(ctx, dsu.sqlSave, dsu.mutation, dsu.hooks)
 }
 
@@ -155,6 +211,14 @@ func (dsu *DelegatedStakingUpdate) ExecX(ctx context.Context) {
 	}
 }
 
+// defaults sets the default values of the builder before save.
+func (dsu *DelegatedStakingUpdate) defaults() {
+	if _, ok := dsu.mutation.UpdatedAt(); !ok {
+		v := delegatedstaking.UpdateDefaultUpdatedAt()
+		dsu.mutation.SetUpdatedAt(v)
+	}
+}
+
 // Modify adds a statement modifier for attaching custom logic to the UPDATE statement.
 func (dsu *DelegatedStakingUpdate) Modify(modifiers ...func(u *sql.UpdateBuilder)) *DelegatedStakingUpdate {
 	dsu.modifiers = append(dsu.modifiers, modifiers...)
@@ -172,6 +236,24 @@ func (dsu *DelegatedStakingUpdate) sqlSave(ctx context.Context) (n int, err erro
 	}
 	if value, ok := dsu.mutation.EntID(); ok {
 		_spec.SetField(delegatedstaking.FieldEntID, field.TypeUUID, value)
+	}
+	if value, ok := dsu.mutation.CreatedAt(); ok {
+		_spec.SetField(delegatedstaking.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := dsu.mutation.AddedCreatedAt(); ok {
+		_spec.AddField(delegatedstaking.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := dsu.mutation.UpdatedAt(); ok {
+		_spec.SetField(delegatedstaking.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := dsu.mutation.AddedUpdatedAt(); ok {
+		_spec.AddField(delegatedstaking.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := dsu.mutation.DeletedAt(); ok {
+		_spec.SetField(delegatedstaking.FieldDeletedAt, field.TypeUint32, value)
+	}
+	if value, ok := dsu.mutation.AddedDeletedAt(); ok {
+		_spec.AddField(delegatedstaking.FieldDeletedAt, field.TypeUint32, value)
 	}
 	if value, ok := dsu.mutation.GoodID(); ok {
 		_spec.SetField(delegatedstaking.FieldGoodID, field.TypeUUID, value)
@@ -230,6 +312,61 @@ func (dsuo *DelegatedStakingUpdateOne) SetNillableEntID(u *uuid.UUID) *Delegated
 	if u != nil {
 		dsuo.SetEntID(*u)
 	}
+	return dsuo
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (dsuo *DelegatedStakingUpdateOne) SetCreatedAt(u uint32) *DelegatedStakingUpdateOne {
+	dsuo.mutation.ResetCreatedAt()
+	dsuo.mutation.SetCreatedAt(u)
+	return dsuo
+}
+
+// SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
+func (dsuo *DelegatedStakingUpdateOne) SetNillableCreatedAt(u *uint32) *DelegatedStakingUpdateOne {
+	if u != nil {
+		dsuo.SetCreatedAt(*u)
+	}
+	return dsuo
+}
+
+// AddCreatedAt adds u to the "created_at" field.
+func (dsuo *DelegatedStakingUpdateOne) AddCreatedAt(u int32) *DelegatedStakingUpdateOne {
+	dsuo.mutation.AddCreatedAt(u)
+	return dsuo
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (dsuo *DelegatedStakingUpdateOne) SetUpdatedAt(u uint32) *DelegatedStakingUpdateOne {
+	dsuo.mutation.ResetUpdatedAt()
+	dsuo.mutation.SetUpdatedAt(u)
+	return dsuo
+}
+
+// AddUpdatedAt adds u to the "updated_at" field.
+func (dsuo *DelegatedStakingUpdateOne) AddUpdatedAt(u int32) *DelegatedStakingUpdateOne {
+	dsuo.mutation.AddUpdatedAt(u)
+	return dsuo
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (dsuo *DelegatedStakingUpdateOne) SetDeletedAt(u uint32) *DelegatedStakingUpdateOne {
+	dsuo.mutation.ResetDeletedAt()
+	dsuo.mutation.SetDeletedAt(u)
+	return dsuo
+}
+
+// SetNillableDeletedAt sets the "deleted_at" field if the given value is not nil.
+func (dsuo *DelegatedStakingUpdateOne) SetNillableDeletedAt(u *uint32) *DelegatedStakingUpdateOne {
+	if u != nil {
+		dsuo.SetDeletedAt(*u)
+	}
+	return dsuo
+}
+
+// AddDeletedAt adds u to the "deleted_at" field.
+func (dsuo *DelegatedStakingUpdateOne) AddDeletedAt(u int32) *DelegatedStakingUpdateOne {
+	dsuo.mutation.AddDeletedAt(u)
 	return dsuo
 }
 
@@ -333,6 +470,7 @@ func (dsuo *DelegatedStakingUpdateOne) Select(field string, fields ...string) *D
 
 // Save executes the query and returns the updated DelegatedStaking entity.
 func (dsuo *DelegatedStakingUpdateOne) Save(ctx context.Context) (*DelegatedStaking, error) {
+	dsuo.defaults()
 	return withHooks(ctx, dsuo.sqlSave, dsuo.mutation, dsuo.hooks)
 }
 
@@ -355,6 +493,14 @@ func (dsuo *DelegatedStakingUpdateOne) Exec(ctx context.Context) error {
 func (dsuo *DelegatedStakingUpdateOne) ExecX(ctx context.Context) {
 	if err := dsuo.Exec(ctx); err != nil {
 		panic(err)
+	}
+}
+
+// defaults sets the default values of the builder before save.
+func (dsuo *DelegatedStakingUpdateOne) defaults() {
+	if _, ok := dsuo.mutation.UpdatedAt(); !ok {
+		v := delegatedstaking.UpdateDefaultUpdatedAt()
+		dsuo.mutation.SetUpdatedAt(v)
 	}
 }
 
@@ -392,6 +538,24 @@ func (dsuo *DelegatedStakingUpdateOne) sqlSave(ctx context.Context) (_node *Dele
 	}
 	if value, ok := dsuo.mutation.EntID(); ok {
 		_spec.SetField(delegatedstaking.FieldEntID, field.TypeUUID, value)
+	}
+	if value, ok := dsuo.mutation.CreatedAt(); ok {
+		_spec.SetField(delegatedstaking.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := dsuo.mutation.AddedCreatedAt(); ok {
+		_spec.AddField(delegatedstaking.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := dsuo.mutation.UpdatedAt(); ok {
+		_spec.SetField(delegatedstaking.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := dsuo.mutation.AddedUpdatedAt(); ok {
+		_spec.AddField(delegatedstaking.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := dsuo.mutation.DeletedAt(); ok {
+		_spec.SetField(delegatedstaking.FieldDeletedAt, field.TypeUint32, value)
+	}
+	if value, ok := dsuo.mutation.AddedDeletedAt(); ok {
+		_spec.AddField(delegatedstaking.FieldDeletedAt, field.TypeUint32, value)
 	}
 	if value, ok := dsuo.mutation.GoodID(); ok {
 		_spec.SetField(delegatedstaking.FieldGoodID, field.TypeUUID, value)

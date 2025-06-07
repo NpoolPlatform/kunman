@@ -20,6 +20,12 @@ type AppFee struct {
 	ID uint32 `json:"id,omitempty"`
 	// EntID holds the value of the "ent_id" field.
 	EntID uuid.UUID `json:"ent_id,omitempty"`
+	// CreatedAt holds the value of the "created_at" field.
+	CreatedAt uint32 `json:"created_at,omitempty"`
+	// UpdatedAt holds the value of the "updated_at" field.
+	UpdatedAt uint32 `json:"updated_at,omitempty"`
+	// DeletedAt holds the value of the "deleted_at" field.
+	DeletedAt uint32 `json:"deleted_at,omitempty"`
 	// AppGoodID holds the value of the "app_good_id" field.
 	AppGoodID uuid.UUID `json:"app_good_id,omitempty"`
 	// UnitValue holds the value of the "unit_value" field.
@@ -38,7 +44,7 @@ func (*AppFee) scanValues(columns []string) ([]any, error) {
 		switch columns[i] {
 		case appfee.FieldUnitValue:
 			values[i] = new(decimal.Decimal)
-		case appfee.FieldID, appfee.FieldMinOrderDurationSeconds:
+		case appfee.FieldID, appfee.FieldCreatedAt, appfee.FieldUpdatedAt, appfee.FieldDeletedAt, appfee.FieldMinOrderDurationSeconds:
 			values[i] = new(sql.NullInt64)
 		case appfee.FieldCancelMode:
 			values[i] = new(sql.NullString)
@@ -70,6 +76,24 @@ func (af *AppFee) assignValues(columns []string, values []any) error {
 				return fmt.Errorf("unexpected type %T for field ent_id", values[i])
 			} else if value != nil {
 				af.EntID = *value
+			}
+		case appfee.FieldCreatedAt:
+			if value, ok := values[i].(*sql.NullInt64); !ok {
+				return fmt.Errorf("unexpected type %T for field created_at", values[i])
+			} else if value.Valid {
+				af.CreatedAt = uint32(value.Int64)
+			}
+		case appfee.FieldUpdatedAt:
+			if value, ok := values[i].(*sql.NullInt64); !ok {
+				return fmt.Errorf("unexpected type %T for field updated_at", values[i])
+			} else if value.Valid {
+				af.UpdatedAt = uint32(value.Int64)
+			}
+		case appfee.FieldDeletedAt:
+			if value, ok := values[i].(*sql.NullInt64); !ok {
+				return fmt.Errorf("unexpected type %T for field deleted_at", values[i])
+			} else if value.Valid {
+				af.DeletedAt = uint32(value.Int64)
 			}
 		case appfee.FieldAppGoodID:
 			if value, ok := values[i].(*uuid.UUID); !ok {
@@ -133,6 +157,15 @@ func (af *AppFee) String() string {
 	builder.WriteString(fmt.Sprintf("id=%v, ", af.ID))
 	builder.WriteString("ent_id=")
 	builder.WriteString(fmt.Sprintf("%v", af.EntID))
+	builder.WriteString(", ")
+	builder.WriteString("created_at=")
+	builder.WriteString(fmt.Sprintf("%v", af.CreatedAt))
+	builder.WriteString(", ")
+	builder.WriteString("updated_at=")
+	builder.WriteString(fmt.Sprintf("%v", af.UpdatedAt))
+	builder.WriteString(", ")
+	builder.WriteString("deleted_at=")
+	builder.WriteString(fmt.Sprintf("%v", af.DeletedAt))
 	builder.WriteString(", ")
 	builder.WriteString("app_good_id=")
 	builder.WriteString(fmt.Sprintf("%v", af.AppGoodID))

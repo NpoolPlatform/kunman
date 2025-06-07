@@ -7,8 +7,8 @@ import (
 	"strconv"
 	"testing"
 
-	devicetype1 "github.com/NpoolPlatform/kunman/middleware/good/middleware/device"
-	manufacturer1 "github.com/NpoolPlatform/kunman/middleware/good/middleware/device/manufacturer"
+	devicetype1 "github.com/NpoolPlatform/kunman/middleware/good/device"
+	manufacturer1 "github.com/NpoolPlatform/kunman/middleware/good/device/manufacturer"
 	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	npool "github.com/NpoolPlatform/kunman/message/good/middleware/v1/device/poster"

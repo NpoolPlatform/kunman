@@ -44,6 +44,61 @@ func (aslu *AppStockLockUpdate) SetNillableEntID(u *uuid.UUID) *AppStockLockUpda
 	return aslu
 }
 
+// SetCreatedAt sets the "created_at" field.
+func (aslu *AppStockLockUpdate) SetCreatedAt(u uint32) *AppStockLockUpdate {
+	aslu.mutation.ResetCreatedAt()
+	aslu.mutation.SetCreatedAt(u)
+	return aslu
+}
+
+// SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
+func (aslu *AppStockLockUpdate) SetNillableCreatedAt(u *uint32) *AppStockLockUpdate {
+	if u != nil {
+		aslu.SetCreatedAt(*u)
+	}
+	return aslu
+}
+
+// AddCreatedAt adds u to the "created_at" field.
+func (aslu *AppStockLockUpdate) AddCreatedAt(u int32) *AppStockLockUpdate {
+	aslu.mutation.AddCreatedAt(u)
+	return aslu
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (aslu *AppStockLockUpdate) SetUpdatedAt(u uint32) *AppStockLockUpdate {
+	aslu.mutation.ResetUpdatedAt()
+	aslu.mutation.SetUpdatedAt(u)
+	return aslu
+}
+
+// AddUpdatedAt adds u to the "updated_at" field.
+func (aslu *AppStockLockUpdate) AddUpdatedAt(u int32) *AppStockLockUpdate {
+	aslu.mutation.AddUpdatedAt(u)
+	return aslu
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (aslu *AppStockLockUpdate) SetDeletedAt(u uint32) *AppStockLockUpdate {
+	aslu.mutation.ResetDeletedAt()
+	aslu.mutation.SetDeletedAt(u)
+	return aslu
+}
+
+// SetNillableDeletedAt sets the "deleted_at" field if the given value is not nil.
+func (aslu *AppStockLockUpdate) SetNillableDeletedAt(u *uint32) *AppStockLockUpdate {
+	if u != nil {
+		aslu.SetDeletedAt(*u)
+	}
+	return aslu
+}
+
+// AddDeletedAt adds u to the "deleted_at" field.
+func (aslu *AppStockLockUpdate) AddDeletedAt(u int32) *AppStockLockUpdate {
+	aslu.mutation.AddDeletedAt(u)
+	return aslu
+}
+
 // SetAppStockID sets the "app_stock_id" field.
 func (aslu *AppStockLockUpdate) SetAppStockID(u uuid.UUID) *AppStockLockUpdate {
 	aslu.mutation.SetAppStockID(u)
@@ -191,6 +246,7 @@ func (aslu *AppStockLockUpdate) Mutation() *AppStockLockMutation {
 
 // Save executes the query and returns the number of nodes affected by the update operation.
 func (aslu *AppStockLockUpdate) Save(ctx context.Context) (int, error) {
+	aslu.defaults()
 	return withHooks(ctx, aslu.sqlSave, aslu.mutation, aslu.hooks)
 }
 
@@ -216,6 +272,14 @@ func (aslu *AppStockLockUpdate) ExecX(ctx context.Context) {
 	}
 }
 
+// defaults sets the default values of the builder before save.
+func (aslu *AppStockLockUpdate) defaults() {
+	if _, ok := aslu.mutation.UpdatedAt(); !ok {
+		v := appstocklock.UpdateDefaultUpdatedAt()
+		aslu.mutation.SetUpdatedAt(v)
+	}
+}
+
 // Modify adds a statement modifier for attaching custom logic to the UPDATE statement.
 func (aslu *AppStockLockUpdate) Modify(modifiers ...func(u *sql.UpdateBuilder)) *AppStockLockUpdate {
 	aslu.modifiers = append(aslu.modifiers, modifiers...)
@@ -233,6 +297,24 @@ func (aslu *AppStockLockUpdate) sqlSave(ctx context.Context) (n int, err error) 
 	}
 	if value, ok := aslu.mutation.EntID(); ok {
 		_spec.SetField(appstocklock.FieldEntID, field.TypeUUID, value)
+	}
+	if value, ok := aslu.mutation.CreatedAt(); ok {
+		_spec.SetField(appstocklock.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := aslu.mutation.AddedCreatedAt(); ok {
+		_spec.AddField(appstocklock.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := aslu.mutation.UpdatedAt(); ok {
+		_spec.SetField(appstocklock.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := aslu.mutation.AddedUpdatedAt(); ok {
+		_spec.AddField(appstocklock.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := aslu.mutation.DeletedAt(); ok {
+		_spec.SetField(appstocklock.FieldDeletedAt, field.TypeUint32, value)
+	}
+	if value, ok := aslu.mutation.AddedDeletedAt(); ok {
+		_spec.AddField(appstocklock.FieldDeletedAt, field.TypeUint32, value)
 	}
 	if value, ok := aslu.mutation.AppStockID(); ok {
 		_spec.SetField(appstocklock.FieldAppStockID, field.TypeUUID, value)
@@ -309,6 +391,61 @@ func (asluo *AppStockLockUpdateOne) SetNillableEntID(u *uuid.UUID) *AppStockLock
 	if u != nil {
 		asluo.SetEntID(*u)
 	}
+	return asluo
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (asluo *AppStockLockUpdateOne) SetCreatedAt(u uint32) *AppStockLockUpdateOne {
+	asluo.mutation.ResetCreatedAt()
+	asluo.mutation.SetCreatedAt(u)
+	return asluo
+}
+
+// SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
+func (asluo *AppStockLockUpdateOne) SetNillableCreatedAt(u *uint32) *AppStockLockUpdateOne {
+	if u != nil {
+		asluo.SetCreatedAt(*u)
+	}
+	return asluo
+}
+
+// AddCreatedAt adds u to the "created_at" field.
+func (asluo *AppStockLockUpdateOne) AddCreatedAt(u int32) *AppStockLockUpdateOne {
+	asluo.mutation.AddCreatedAt(u)
+	return asluo
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (asluo *AppStockLockUpdateOne) SetUpdatedAt(u uint32) *AppStockLockUpdateOne {
+	asluo.mutation.ResetUpdatedAt()
+	asluo.mutation.SetUpdatedAt(u)
+	return asluo
+}
+
+// AddUpdatedAt adds u to the "updated_at" field.
+func (asluo *AppStockLockUpdateOne) AddUpdatedAt(u int32) *AppStockLockUpdateOne {
+	asluo.mutation.AddUpdatedAt(u)
+	return asluo
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (asluo *AppStockLockUpdateOne) SetDeletedAt(u uint32) *AppStockLockUpdateOne {
+	asluo.mutation.ResetDeletedAt()
+	asluo.mutation.SetDeletedAt(u)
+	return asluo
+}
+
+// SetNillableDeletedAt sets the "deleted_at" field if the given value is not nil.
+func (asluo *AppStockLockUpdateOne) SetNillableDeletedAt(u *uint32) *AppStockLockUpdateOne {
+	if u != nil {
+		asluo.SetDeletedAt(*u)
+	}
+	return asluo
+}
+
+// AddDeletedAt adds u to the "deleted_at" field.
+func (asluo *AppStockLockUpdateOne) AddDeletedAt(u int32) *AppStockLockUpdateOne {
+	asluo.mutation.AddDeletedAt(u)
 	return asluo
 }
 
@@ -472,6 +609,7 @@ func (asluo *AppStockLockUpdateOne) Select(field string, fields ...string) *AppS
 
 // Save executes the query and returns the updated AppStockLock entity.
 func (asluo *AppStockLockUpdateOne) Save(ctx context.Context) (*AppStockLock, error) {
+	asluo.defaults()
 	return withHooks(ctx, asluo.sqlSave, asluo.mutation, asluo.hooks)
 }
 
@@ -494,6 +632,14 @@ func (asluo *AppStockLockUpdateOne) Exec(ctx context.Context) error {
 func (asluo *AppStockLockUpdateOne) ExecX(ctx context.Context) {
 	if err := asluo.Exec(ctx); err != nil {
 		panic(err)
+	}
+}
+
+// defaults sets the default values of the builder before save.
+func (asluo *AppStockLockUpdateOne) defaults() {
+	if _, ok := asluo.mutation.UpdatedAt(); !ok {
+		v := appstocklock.UpdateDefaultUpdatedAt()
+		asluo.mutation.SetUpdatedAt(v)
 	}
 }
 
@@ -531,6 +677,24 @@ func (asluo *AppStockLockUpdateOne) sqlSave(ctx context.Context) (_node *AppStoc
 	}
 	if value, ok := asluo.mutation.EntID(); ok {
 		_spec.SetField(appstocklock.FieldEntID, field.TypeUUID, value)
+	}
+	if value, ok := asluo.mutation.CreatedAt(); ok {
+		_spec.SetField(appstocklock.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := asluo.mutation.AddedCreatedAt(); ok {
+		_spec.AddField(appstocklock.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := asluo.mutation.UpdatedAt(); ok {
+		_spec.SetField(appstocklock.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := asluo.mutation.AddedUpdatedAt(); ok {
+		_spec.AddField(appstocklock.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := asluo.mutation.DeletedAt(); ok {
+		_spec.SetField(appstocklock.FieldDeletedAt, field.TypeUint32, value)
+	}
+	if value, ok := asluo.mutation.AddedDeletedAt(); ok {
+		_spec.AddField(appstocklock.FieldDeletedAt, field.TypeUint32, value)
 	}
 	if value, ok := asluo.mutation.AppStockID(); ok {
 		_spec.SetField(appstocklock.FieldAppStockID, field.TypeUUID, value)

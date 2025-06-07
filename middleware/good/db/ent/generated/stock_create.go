@@ -37,6 +37,48 @@ func (sc *StockCreate) SetNillableEntID(u *uuid.UUID) *StockCreate {
 	return sc
 }
 
+// SetCreatedAt sets the "created_at" field.
+func (sc *StockCreate) SetCreatedAt(u uint32) *StockCreate {
+	sc.mutation.SetCreatedAt(u)
+	return sc
+}
+
+// SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
+func (sc *StockCreate) SetNillableCreatedAt(u *uint32) *StockCreate {
+	if u != nil {
+		sc.SetCreatedAt(*u)
+	}
+	return sc
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (sc *StockCreate) SetUpdatedAt(u uint32) *StockCreate {
+	sc.mutation.SetUpdatedAt(u)
+	return sc
+}
+
+// SetNillableUpdatedAt sets the "updated_at" field if the given value is not nil.
+func (sc *StockCreate) SetNillableUpdatedAt(u *uint32) *StockCreate {
+	if u != nil {
+		sc.SetUpdatedAt(*u)
+	}
+	return sc
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (sc *StockCreate) SetDeletedAt(u uint32) *StockCreate {
+	sc.mutation.SetDeletedAt(u)
+	return sc
+}
+
+// SetNillableDeletedAt sets the "deleted_at" field if the given value is not nil.
+func (sc *StockCreate) SetNillableDeletedAt(u *uint32) *StockCreate {
+	if u != nil {
+		sc.SetDeletedAt(*u)
+	}
+	return sc
+}
+
 // SetGoodID sets the "good_id" field.
 func (sc *StockCreate) SetGoodID(u uuid.UUID) *StockCreate {
 	sc.mutation.SetGoodID(u)
@@ -194,6 +236,18 @@ func (sc *StockCreate) defaults() {
 		v := stock.DefaultEntID()
 		sc.mutation.SetEntID(v)
 	}
+	if _, ok := sc.mutation.CreatedAt(); !ok {
+		v := stock.DefaultCreatedAt()
+		sc.mutation.SetCreatedAt(v)
+	}
+	if _, ok := sc.mutation.UpdatedAt(); !ok {
+		v := stock.DefaultUpdatedAt()
+		sc.mutation.SetUpdatedAt(v)
+	}
+	if _, ok := sc.mutation.DeletedAt(); !ok {
+		v := stock.DefaultDeletedAt()
+		sc.mutation.SetDeletedAt(v)
+	}
 	if _, ok := sc.mutation.GoodID(); !ok {
 		v := stock.DefaultGoodID()
 		sc.mutation.SetGoodID(v)
@@ -233,6 +287,15 @@ func (sc *StockCreate) check() error {
 	if _, ok := sc.mutation.EntID(); !ok {
 		return &ValidationError{Name: "ent_id", err: errors.New(`generated: missing required field "Stock.ent_id"`)}
 	}
+	if _, ok := sc.mutation.CreatedAt(); !ok {
+		return &ValidationError{Name: "created_at", err: errors.New(`generated: missing required field "Stock.created_at"`)}
+	}
+	if _, ok := sc.mutation.UpdatedAt(); !ok {
+		return &ValidationError{Name: "updated_at", err: errors.New(`generated: missing required field "Stock.updated_at"`)}
+	}
+	if _, ok := sc.mutation.DeletedAt(); !ok {
+		return &ValidationError{Name: "deleted_at", err: errors.New(`generated: missing required field "Stock.deleted_at"`)}
+	}
 	return nil
 }
 
@@ -269,6 +332,18 @@ func (sc *StockCreate) createSpec() (*Stock, *sqlgraph.CreateSpec) {
 	if value, ok := sc.mutation.EntID(); ok {
 		_spec.SetField(stock.FieldEntID, field.TypeUUID, value)
 		_node.EntID = value
+	}
+	if value, ok := sc.mutation.CreatedAt(); ok {
+		_spec.SetField(stock.FieldCreatedAt, field.TypeUint32, value)
+		_node.CreatedAt = value
+	}
+	if value, ok := sc.mutation.UpdatedAt(); ok {
+		_spec.SetField(stock.FieldUpdatedAt, field.TypeUint32, value)
+		_node.UpdatedAt = value
+	}
+	if value, ok := sc.mutation.DeletedAt(); ok {
+		_spec.SetField(stock.FieldDeletedAt, field.TypeUint32, value)
+		_node.DeletedAt = value
 	}
 	if value, ok := sc.mutation.GoodID(); ok {
 		_spec.SetField(stock.FieldGoodID, field.TypeUUID, value)
@@ -363,6 +438,60 @@ func (u *StockUpsert) SetEntID(v uuid.UUID) *StockUpsert {
 // UpdateEntID sets the "ent_id" field to the value that was provided on create.
 func (u *StockUpsert) UpdateEntID() *StockUpsert {
 	u.SetExcluded(stock.FieldEntID)
+	return u
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (u *StockUpsert) SetCreatedAt(v uint32) *StockUpsert {
+	u.Set(stock.FieldCreatedAt, v)
+	return u
+}
+
+// UpdateCreatedAt sets the "created_at" field to the value that was provided on create.
+func (u *StockUpsert) UpdateCreatedAt() *StockUpsert {
+	u.SetExcluded(stock.FieldCreatedAt)
+	return u
+}
+
+// AddCreatedAt adds v to the "created_at" field.
+func (u *StockUpsert) AddCreatedAt(v uint32) *StockUpsert {
+	u.Add(stock.FieldCreatedAt, v)
+	return u
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (u *StockUpsert) SetUpdatedAt(v uint32) *StockUpsert {
+	u.Set(stock.FieldUpdatedAt, v)
+	return u
+}
+
+// UpdateUpdatedAt sets the "updated_at" field to the value that was provided on create.
+func (u *StockUpsert) UpdateUpdatedAt() *StockUpsert {
+	u.SetExcluded(stock.FieldUpdatedAt)
+	return u
+}
+
+// AddUpdatedAt adds v to the "updated_at" field.
+func (u *StockUpsert) AddUpdatedAt(v uint32) *StockUpsert {
+	u.Add(stock.FieldUpdatedAt, v)
+	return u
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (u *StockUpsert) SetDeletedAt(v uint32) *StockUpsert {
+	u.Set(stock.FieldDeletedAt, v)
+	return u
+}
+
+// UpdateDeletedAt sets the "deleted_at" field to the value that was provided on create.
+func (u *StockUpsert) UpdateDeletedAt() *StockUpsert {
+	u.SetExcluded(stock.FieldDeletedAt)
+	return u
+}
+
+// AddDeletedAt adds v to the "deleted_at" field.
+func (u *StockUpsert) AddDeletedAt(v uint32) *StockUpsert {
+	u.Add(stock.FieldDeletedAt, v)
 	return u
 }
 
@@ -569,6 +698,69 @@ func (u *StockUpsertOne) SetEntID(v uuid.UUID) *StockUpsertOne {
 func (u *StockUpsertOne) UpdateEntID() *StockUpsertOne {
 	return u.Update(func(s *StockUpsert) {
 		s.UpdateEntID()
+	})
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (u *StockUpsertOne) SetCreatedAt(v uint32) *StockUpsertOne {
+	return u.Update(func(s *StockUpsert) {
+		s.SetCreatedAt(v)
+	})
+}
+
+// AddCreatedAt adds v to the "created_at" field.
+func (u *StockUpsertOne) AddCreatedAt(v uint32) *StockUpsertOne {
+	return u.Update(func(s *StockUpsert) {
+		s.AddCreatedAt(v)
+	})
+}
+
+// UpdateCreatedAt sets the "created_at" field to the value that was provided on create.
+func (u *StockUpsertOne) UpdateCreatedAt() *StockUpsertOne {
+	return u.Update(func(s *StockUpsert) {
+		s.UpdateCreatedAt()
+	})
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (u *StockUpsertOne) SetUpdatedAt(v uint32) *StockUpsertOne {
+	return u.Update(func(s *StockUpsert) {
+		s.SetUpdatedAt(v)
+	})
+}
+
+// AddUpdatedAt adds v to the "updated_at" field.
+func (u *StockUpsertOne) AddUpdatedAt(v uint32) *StockUpsertOne {
+	return u.Update(func(s *StockUpsert) {
+		s.AddUpdatedAt(v)
+	})
+}
+
+// UpdateUpdatedAt sets the "updated_at" field to the value that was provided on create.
+func (u *StockUpsertOne) UpdateUpdatedAt() *StockUpsertOne {
+	return u.Update(func(s *StockUpsert) {
+		s.UpdateUpdatedAt()
+	})
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (u *StockUpsertOne) SetDeletedAt(v uint32) *StockUpsertOne {
+	return u.Update(func(s *StockUpsert) {
+		s.SetDeletedAt(v)
+	})
+}
+
+// AddDeletedAt adds v to the "deleted_at" field.
+func (u *StockUpsertOne) AddDeletedAt(v uint32) *StockUpsertOne {
+	return u.Update(func(s *StockUpsert) {
+		s.AddDeletedAt(v)
+	})
+}
+
+// UpdateDeletedAt sets the "deleted_at" field to the value that was provided on create.
+func (u *StockUpsertOne) UpdateDeletedAt() *StockUpsertOne {
+	return u.Update(func(s *StockUpsert) {
+		s.UpdateDeletedAt()
 	})
 }
 
@@ -965,6 +1157,69 @@ func (u *StockUpsertBulk) SetEntID(v uuid.UUID) *StockUpsertBulk {
 func (u *StockUpsertBulk) UpdateEntID() *StockUpsertBulk {
 	return u.Update(func(s *StockUpsert) {
 		s.UpdateEntID()
+	})
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (u *StockUpsertBulk) SetCreatedAt(v uint32) *StockUpsertBulk {
+	return u.Update(func(s *StockUpsert) {
+		s.SetCreatedAt(v)
+	})
+}
+
+// AddCreatedAt adds v to the "created_at" field.
+func (u *StockUpsertBulk) AddCreatedAt(v uint32) *StockUpsertBulk {
+	return u.Update(func(s *StockUpsert) {
+		s.AddCreatedAt(v)
+	})
+}
+
+// UpdateCreatedAt sets the "created_at" field to the value that was provided on create.
+func (u *StockUpsertBulk) UpdateCreatedAt() *StockUpsertBulk {
+	return u.Update(func(s *StockUpsert) {
+		s.UpdateCreatedAt()
+	})
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (u *StockUpsertBulk) SetUpdatedAt(v uint32) *StockUpsertBulk {
+	return u.Update(func(s *StockUpsert) {
+		s.SetUpdatedAt(v)
+	})
+}
+
+// AddUpdatedAt adds v to the "updated_at" field.
+func (u *StockUpsertBulk) AddUpdatedAt(v uint32) *StockUpsertBulk {
+	return u.Update(func(s *StockUpsert) {
+		s.AddUpdatedAt(v)
+	})
+}
+
+// UpdateUpdatedAt sets the "updated_at" field to the value that was provided on create.
+func (u *StockUpsertBulk) UpdateUpdatedAt() *StockUpsertBulk {
+	return u.Update(func(s *StockUpsert) {
+		s.UpdateUpdatedAt()
+	})
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (u *StockUpsertBulk) SetDeletedAt(v uint32) *StockUpsertBulk {
+	return u.Update(func(s *StockUpsert) {
+		s.SetDeletedAt(v)
+	})
+}
+
+// AddDeletedAt adds v to the "deleted_at" field.
+func (u *StockUpsertBulk) AddDeletedAt(v uint32) *StockUpsertBulk {
+	return u.Update(func(s *StockUpsert) {
+		s.AddDeletedAt(v)
+	})
+}
+
+// UpdateDeletedAt sets the "deleted_at" field to the value that was provided on create.
+func (u *StockUpsertBulk) UpdateDeletedAt() *StockUpsertBulk {
+	return u.Update(func(s *StockUpsert) {
+		s.UpdateDeletedAt()
 	})
 }
 

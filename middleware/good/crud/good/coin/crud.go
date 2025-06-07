@@ -2,7 +2,7 @@ package coin
 
 import (
 	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
-	"github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated"
+	ent "github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated"
 	entgoodcoin "github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated/goodcoin"
 	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 

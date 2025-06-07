@@ -37,6 +37,48 @@ func (mgsc *MiningGoodStockCreate) SetNillableEntID(u *uuid.UUID) *MiningGoodSto
 	return mgsc
 }
 
+// SetCreatedAt sets the "created_at" field.
+func (mgsc *MiningGoodStockCreate) SetCreatedAt(u uint32) *MiningGoodStockCreate {
+	mgsc.mutation.SetCreatedAt(u)
+	return mgsc
+}
+
+// SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
+func (mgsc *MiningGoodStockCreate) SetNillableCreatedAt(u *uint32) *MiningGoodStockCreate {
+	if u != nil {
+		mgsc.SetCreatedAt(*u)
+	}
+	return mgsc
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (mgsc *MiningGoodStockCreate) SetUpdatedAt(u uint32) *MiningGoodStockCreate {
+	mgsc.mutation.SetUpdatedAt(u)
+	return mgsc
+}
+
+// SetNillableUpdatedAt sets the "updated_at" field if the given value is not nil.
+func (mgsc *MiningGoodStockCreate) SetNillableUpdatedAt(u *uint32) *MiningGoodStockCreate {
+	if u != nil {
+		mgsc.SetUpdatedAt(*u)
+	}
+	return mgsc
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (mgsc *MiningGoodStockCreate) SetDeletedAt(u uint32) *MiningGoodStockCreate {
+	mgsc.mutation.SetDeletedAt(u)
+	return mgsc
+}
+
+// SetNillableDeletedAt sets the "deleted_at" field if the given value is not nil.
+func (mgsc *MiningGoodStockCreate) SetNillableDeletedAt(u *uint32) *MiningGoodStockCreate {
+	if u != nil {
+		mgsc.SetDeletedAt(*u)
+	}
+	return mgsc
+}
+
 // SetGoodStockID sets the "good_stock_id" field.
 func (mgsc *MiningGoodStockCreate) SetGoodStockID(u uuid.UUID) *MiningGoodStockCreate {
 	mgsc.mutation.SetGoodStockID(u)
@@ -236,6 +278,18 @@ func (mgsc *MiningGoodStockCreate) defaults() {
 		v := mininggoodstock.DefaultEntID()
 		mgsc.mutation.SetEntID(v)
 	}
+	if _, ok := mgsc.mutation.CreatedAt(); !ok {
+		v := mininggoodstock.DefaultCreatedAt()
+		mgsc.mutation.SetCreatedAt(v)
+	}
+	if _, ok := mgsc.mutation.UpdatedAt(); !ok {
+		v := mininggoodstock.DefaultUpdatedAt()
+		mgsc.mutation.SetUpdatedAt(v)
+	}
+	if _, ok := mgsc.mutation.DeletedAt(); !ok {
+		v := mininggoodstock.DefaultDeletedAt()
+		mgsc.mutation.SetDeletedAt(v)
+	}
 	if _, ok := mgsc.mutation.GoodStockID(); !ok {
 		v := mininggoodstock.DefaultGoodStockID()
 		mgsc.mutation.SetGoodStockID(v)
@@ -287,6 +341,15 @@ func (mgsc *MiningGoodStockCreate) check() error {
 	if _, ok := mgsc.mutation.EntID(); !ok {
 		return &ValidationError{Name: "ent_id", err: errors.New(`generated: missing required field "MiningGoodStock.ent_id"`)}
 	}
+	if _, ok := mgsc.mutation.CreatedAt(); !ok {
+		return &ValidationError{Name: "created_at", err: errors.New(`generated: missing required field "MiningGoodStock.created_at"`)}
+	}
+	if _, ok := mgsc.mutation.UpdatedAt(); !ok {
+		return &ValidationError{Name: "updated_at", err: errors.New(`generated: missing required field "MiningGoodStock.updated_at"`)}
+	}
+	if _, ok := mgsc.mutation.DeletedAt(); !ok {
+		return &ValidationError{Name: "deleted_at", err: errors.New(`generated: missing required field "MiningGoodStock.deleted_at"`)}
+	}
 	return nil
 }
 
@@ -323,6 +386,18 @@ func (mgsc *MiningGoodStockCreate) createSpec() (*MiningGoodStock, *sqlgraph.Cre
 	if value, ok := mgsc.mutation.EntID(); ok {
 		_spec.SetField(mininggoodstock.FieldEntID, field.TypeUUID, value)
 		_node.EntID = value
+	}
+	if value, ok := mgsc.mutation.CreatedAt(); ok {
+		_spec.SetField(mininggoodstock.FieldCreatedAt, field.TypeUint32, value)
+		_node.CreatedAt = value
+	}
+	if value, ok := mgsc.mutation.UpdatedAt(); ok {
+		_spec.SetField(mininggoodstock.FieldUpdatedAt, field.TypeUint32, value)
+		_node.UpdatedAt = value
+	}
+	if value, ok := mgsc.mutation.DeletedAt(); ok {
+		_spec.SetField(mininggoodstock.FieldDeletedAt, field.TypeUint32, value)
+		_node.DeletedAt = value
 	}
 	if value, ok := mgsc.mutation.GoodStockID(); ok {
 		_spec.SetField(mininggoodstock.FieldGoodStockID, field.TypeUUID, value)
@@ -429,6 +504,60 @@ func (u *MiningGoodStockUpsert) SetEntID(v uuid.UUID) *MiningGoodStockUpsert {
 // UpdateEntID sets the "ent_id" field to the value that was provided on create.
 func (u *MiningGoodStockUpsert) UpdateEntID() *MiningGoodStockUpsert {
 	u.SetExcluded(mininggoodstock.FieldEntID)
+	return u
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (u *MiningGoodStockUpsert) SetCreatedAt(v uint32) *MiningGoodStockUpsert {
+	u.Set(mininggoodstock.FieldCreatedAt, v)
+	return u
+}
+
+// UpdateCreatedAt sets the "created_at" field to the value that was provided on create.
+func (u *MiningGoodStockUpsert) UpdateCreatedAt() *MiningGoodStockUpsert {
+	u.SetExcluded(mininggoodstock.FieldCreatedAt)
+	return u
+}
+
+// AddCreatedAt adds v to the "created_at" field.
+func (u *MiningGoodStockUpsert) AddCreatedAt(v uint32) *MiningGoodStockUpsert {
+	u.Add(mininggoodstock.FieldCreatedAt, v)
+	return u
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (u *MiningGoodStockUpsert) SetUpdatedAt(v uint32) *MiningGoodStockUpsert {
+	u.Set(mininggoodstock.FieldUpdatedAt, v)
+	return u
+}
+
+// UpdateUpdatedAt sets the "updated_at" field to the value that was provided on create.
+func (u *MiningGoodStockUpsert) UpdateUpdatedAt() *MiningGoodStockUpsert {
+	u.SetExcluded(mininggoodstock.FieldUpdatedAt)
+	return u
+}
+
+// AddUpdatedAt adds v to the "updated_at" field.
+func (u *MiningGoodStockUpsert) AddUpdatedAt(v uint32) *MiningGoodStockUpsert {
+	u.Add(mininggoodstock.FieldUpdatedAt, v)
+	return u
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (u *MiningGoodStockUpsert) SetDeletedAt(v uint32) *MiningGoodStockUpsert {
+	u.Set(mininggoodstock.FieldDeletedAt, v)
+	return u
+}
+
+// UpdateDeletedAt sets the "deleted_at" field to the value that was provided on create.
+func (u *MiningGoodStockUpsert) UpdateDeletedAt() *MiningGoodStockUpsert {
+	u.SetExcluded(mininggoodstock.FieldDeletedAt)
+	return u
+}
+
+// AddDeletedAt adds v to the "deleted_at" field.
+func (u *MiningGoodStockUpsert) AddDeletedAt(v uint32) *MiningGoodStockUpsert {
+	u.Add(mininggoodstock.FieldDeletedAt, v)
 	return u
 }
 
@@ -689,6 +818,69 @@ func (u *MiningGoodStockUpsertOne) SetEntID(v uuid.UUID) *MiningGoodStockUpsertO
 func (u *MiningGoodStockUpsertOne) UpdateEntID() *MiningGoodStockUpsertOne {
 	return u.Update(func(s *MiningGoodStockUpsert) {
 		s.UpdateEntID()
+	})
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (u *MiningGoodStockUpsertOne) SetCreatedAt(v uint32) *MiningGoodStockUpsertOne {
+	return u.Update(func(s *MiningGoodStockUpsert) {
+		s.SetCreatedAt(v)
+	})
+}
+
+// AddCreatedAt adds v to the "created_at" field.
+func (u *MiningGoodStockUpsertOne) AddCreatedAt(v uint32) *MiningGoodStockUpsertOne {
+	return u.Update(func(s *MiningGoodStockUpsert) {
+		s.AddCreatedAt(v)
+	})
+}
+
+// UpdateCreatedAt sets the "created_at" field to the value that was provided on create.
+func (u *MiningGoodStockUpsertOne) UpdateCreatedAt() *MiningGoodStockUpsertOne {
+	return u.Update(func(s *MiningGoodStockUpsert) {
+		s.UpdateCreatedAt()
+	})
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (u *MiningGoodStockUpsertOne) SetUpdatedAt(v uint32) *MiningGoodStockUpsertOne {
+	return u.Update(func(s *MiningGoodStockUpsert) {
+		s.SetUpdatedAt(v)
+	})
+}
+
+// AddUpdatedAt adds v to the "updated_at" field.
+func (u *MiningGoodStockUpsertOne) AddUpdatedAt(v uint32) *MiningGoodStockUpsertOne {
+	return u.Update(func(s *MiningGoodStockUpsert) {
+		s.AddUpdatedAt(v)
+	})
+}
+
+// UpdateUpdatedAt sets the "updated_at" field to the value that was provided on create.
+func (u *MiningGoodStockUpsertOne) UpdateUpdatedAt() *MiningGoodStockUpsertOne {
+	return u.Update(func(s *MiningGoodStockUpsert) {
+		s.UpdateUpdatedAt()
+	})
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (u *MiningGoodStockUpsertOne) SetDeletedAt(v uint32) *MiningGoodStockUpsertOne {
+	return u.Update(func(s *MiningGoodStockUpsert) {
+		s.SetDeletedAt(v)
+	})
+}
+
+// AddDeletedAt adds v to the "deleted_at" field.
+func (u *MiningGoodStockUpsertOne) AddDeletedAt(v uint32) *MiningGoodStockUpsertOne {
+	return u.Update(func(s *MiningGoodStockUpsert) {
+		s.AddDeletedAt(v)
+	})
+}
+
+// UpdateDeletedAt sets the "deleted_at" field to the value that was provided on create.
+func (u *MiningGoodStockUpsertOne) UpdateDeletedAt() *MiningGoodStockUpsertOne {
+	return u.Update(func(s *MiningGoodStockUpsert) {
+		s.UpdateDeletedAt()
 	})
 }
 
@@ -1148,6 +1340,69 @@ func (u *MiningGoodStockUpsertBulk) SetEntID(v uuid.UUID) *MiningGoodStockUpsert
 func (u *MiningGoodStockUpsertBulk) UpdateEntID() *MiningGoodStockUpsertBulk {
 	return u.Update(func(s *MiningGoodStockUpsert) {
 		s.UpdateEntID()
+	})
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (u *MiningGoodStockUpsertBulk) SetCreatedAt(v uint32) *MiningGoodStockUpsertBulk {
+	return u.Update(func(s *MiningGoodStockUpsert) {
+		s.SetCreatedAt(v)
+	})
+}
+
+// AddCreatedAt adds v to the "created_at" field.
+func (u *MiningGoodStockUpsertBulk) AddCreatedAt(v uint32) *MiningGoodStockUpsertBulk {
+	return u.Update(func(s *MiningGoodStockUpsert) {
+		s.AddCreatedAt(v)
+	})
+}
+
+// UpdateCreatedAt sets the "created_at" field to the value that was provided on create.
+func (u *MiningGoodStockUpsertBulk) UpdateCreatedAt() *MiningGoodStockUpsertBulk {
+	return u.Update(func(s *MiningGoodStockUpsert) {
+		s.UpdateCreatedAt()
+	})
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (u *MiningGoodStockUpsertBulk) SetUpdatedAt(v uint32) *MiningGoodStockUpsertBulk {
+	return u.Update(func(s *MiningGoodStockUpsert) {
+		s.SetUpdatedAt(v)
+	})
+}
+
+// AddUpdatedAt adds v to the "updated_at" field.
+func (u *MiningGoodStockUpsertBulk) AddUpdatedAt(v uint32) *MiningGoodStockUpsertBulk {
+	return u.Update(func(s *MiningGoodStockUpsert) {
+		s.AddUpdatedAt(v)
+	})
+}
+
+// UpdateUpdatedAt sets the "updated_at" field to the value that was provided on create.
+func (u *MiningGoodStockUpsertBulk) UpdateUpdatedAt() *MiningGoodStockUpsertBulk {
+	return u.Update(func(s *MiningGoodStockUpsert) {
+		s.UpdateUpdatedAt()
+	})
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (u *MiningGoodStockUpsertBulk) SetDeletedAt(v uint32) *MiningGoodStockUpsertBulk {
+	return u.Update(func(s *MiningGoodStockUpsert) {
+		s.SetDeletedAt(v)
+	})
+}
+
+// AddDeletedAt adds v to the "deleted_at" field.
+func (u *MiningGoodStockUpsertBulk) AddDeletedAt(v uint32) *MiningGoodStockUpsertBulk {
+	return u.Update(func(s *MiningGoodStockUpsert) {
+		s.AddDeletedAt(v)
+	})
+}
+
+// UpdateDeletedAt sets the "deleted_at" field to the value that was provided on create.
+func (u *MiningGoodStockUpsertBulk) UpdateDeletedAt() *MiningGoodStockUpsertBulk {
+	return u.Update(func(s *MiningGoodStockUpsert) {
+		s.UpdateDeletedAt()
 	})
 }
 

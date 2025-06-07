@@ -36,6 +36,48 @@ func (agdnc *AppGoodDisplayNameCreate) SetNillableEntID(u *uuid.UUID) *AppGoodDi
 	return agdnc
 }
 
+// SetCreatedAt sets the "created_at" field.
+func (agdnc *AppGoodDisplayNameCreate) SetCreatedAt(u uint32) *AppGoodDisplayNameCreate {
+	agdnc.mutation.SetCreatedAt(u)
+	return agdnc
+}
+
+// SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
+func (agdnc *AppGoodDisplayNameCreate) SetNillableCreatedAt(u *uint32) *AppGoodDisplayNameCreate {
+	if u != nil {
+		agdnc.SetCreatedAt(*u)
+	}
+	return agdnc
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (agdnc *AppGoodDisplayNameCreate) SetUpdatedAt(u uint32) *AppGoodDisplayNameCreate {
+	agdnc.mutation.SetUpdatedAt(u)
+	return agdnc
+}
+
+// SetNillableUpdatedAt sets the "updated_at" field if the given value is not nil.
+func (agdnc *AppGoodDisplayNameCreate) SetNillableUpdatedAt(u *uint32) *AppGoodDisplayNameCreate {
+	if u != nil {
+		agdnc.SetUpdatedAt(*u)
+	}
+	return agdnc
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (agdnc *AppGoodDisplayNameCreate) SetDeletedAt(u uint32) *AppGoodDisplayNameCreate {
+	agdnc.mutation.SetDeletedAt(u)
+	return agdnc
+}
+
+// SetNillableDeletedAt sets the "deleted_at" field if the given value is not nil.
+func (agdnc *AppGoodDisplayNameCreate) SetNillableDeletedAt(u *uint32) *AppGoodDisplayNameCreate {
+	if u != nil {
+		agdnc.SetDeletedAt(*u)
+	}
+	return agdnc
+}
+
 // SetAppGoodID sets the "app_good_id" field.
 func (agdnc *AppGoodDisplayNameCreate) SetAppGoodID(u uuid.UUID) *AppGoodDisplayNameCreate {
 	agdnc.mutation.SetAppGoodID(u)
@@ -123,6 +165,18 @@ func (agdnc *AppGoodDisplayNameCreate) defaults() {
 		v := appgooddisplayname.DefaultEntID()
 		agdnc.mutation.SetEntID(v)
 	}
+	if _, ok := agdnc.mutation.CreatedAt(); !ok {
+		v := appgooddisplayname.DefaultCreatedAt()
+		agdnc.mutation.SetCreatedAt(v)
+	}
+	if _, ok := agdnc.mutation.UpdatedAt(); !ok {
+		v := appgooddisplayname.DefaultUpdatedAt()
+		agdnc.mutation.SetUpdatedAt(v)
+	}
+	if _, ok := agdnc.mutation.DeletedAt(); !ok {
+		v := appgooddisplayname.DefaultDeletedAt()
+		agdnc.mutation.SetDeletedAt(v)
+	}
 	if _, ok := agdnc.mutation.AppGoodID(); !ok {
 		v := appgooddisplayname.DefaultAppGoodID()
 		agdnc.mutation.SetAppGoodID(v)
@@ -141,6 +195,15 @@ func (agdnc *AppGoodDisplayNameCreate) defaults() {
 func (agdnc *AppGoodDisplayNameCreate) check() error {
 	if _, ok := agdnc.mutation.EntID(); !ok {
 		return &ValidationError{Name: "ent_id", err: errors.New(`generated: missing required field "AppGoodDisplayName.ent_id"`)}
+	}
+	if _, ok := agdnc.mutation.CreatedAt(); !ok {
+		return &ValidationError{Name: "created_at", err: errors.New(`generated: missing required field "AppGoodDisplayName.created_at"`)}
+	}
+	if _, ok := agdnc.mutation.UpdatedAt(); !ok {
+		return &ValidationError{Name: "updated_at", err: errors.New(`generated: missing required field "AppGoodDisplayName.updated_at"`)}
+	}
+	if _, ok := agdnc.mutation.DeletedAt(); !ok {
+		return &ValidationError{Name: "deleted_at", err: errors.New(`generated: missing required field "AppGoodDisplayName.deleted_at"`)}
 	}
 	return nil
 }
@@ -178,6 +241,18 @@ func (agdnc *AppGoodDisplayNameCreate) createSpec() (*AppGoodDisplayName, *sqlgr
 	if value, ok := agdnc.mutation.EntID(); ok {
 		_spec.SetField(appgooddisplayname.FieldEntID, field.TypeUUID, value)
 		_node.EntID = value
+	}
+	if value, ok := agdnc.mutation.CreatedAt(); ok {
+		_spec.SetField(appgooddisplayname.FieldCreatedAt, field.TypeUint32, value)
+		_node.CreatedAt = value
+	}
+	if value, ok := agdnc.mutation.UpdatedAt(); ok {
+		_spec.SetField(appgooddisplayname.FieldUpdatedAt, field.TypeUint32, value)
+		_node.UpdatedAt = value
+	}
+	if value, ok := agdnc.mutation.DeletedAt(); ok {
+		_spec.SetField(appgooddisplayname.FieldDeletedAt, field.TypeUint32, value)
+		_node.DeletedAt = value
 	}
 	if value, ok := agdnc.mutation.AppGoodID(); ok {
 		_spec.SetField(appgooddisplayname.FieldAppGoodID, field.TypeUUID, value)
@@ -252,6 +327,60 @@ func (u *AppGoodDisplayNameUpsert) SetEntID(v uuid.UUID) *AppGoodDisplayNameUpse
 // UpdateEntID sets the "ent_id" field to the value that was provided on create.
 func (u *AppGoodDisplayNameUpsert) UpdateEntID() *AppGoodDisplayNameUpsert {
 	u.SetExcluded(appgooddisplayname.FieldEntID)
+	return u
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (u *AppGoodDisplayNameUpsert) SetCreatedAt(v uint32) *AppGoodDisplayNameUpsert {
+	u.Set(appgooddisplayname.FieldCreatedAt, v)
+	return u
+}
+
+// UpdateCreatedAt sets the "created_at" field to the value that was provided on create.
+func (u *AppGoodDisplayNameUpsert) UpdateCreatedAt() *AppGoodDisplayNameUpsert {
+	u.SetExcluded(appgooddisplayname.FieldCreatedAt)
+	return u
+}
+
+// AddCreatedAt adds v to the "created_at" field.
+func (u *AppGoodDisplayNameUpsert) AddCreatedAt(v uint32) *AppGoodDisplayNameUpsert {
+	u.Add(appgooddisplayname.FieldCreatedAt, v)
+	return u
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (u *AppGoodDisplayNameUpsert) SetUpdatedAt(v uint32) *AppGoodDisplayNameUpsert {
+	u.Set(appgooddisplayname.FieldUpdatedAt, v)
+	return u
+}
+
+// UpdateUpdatedAt sets the "updated_at" field to the value that was provided on create.
+func (u *AppGoodDisplayNameUpsert) UpdateUpdatedAt() *AppGoodDisplayNameUpsert {
+	u.SetExcluded(appgooddisplayname.FieldUpdatedAt)
+	return u
+}
+
+// AddUpdatedAt adds v to the "updated_at" field.
+func (u *AppGoodDisplayNameUpsert) AddUpdatedAt(v uint32) *AppGoodDisplayNameUpsert {
+	u.Add(appgooddisplayname.FieldUpdatedAt, v)
+	return u
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (u *AppGoodDisplayNameUpsert) SetDeletedAt(v uint32) *AppGoodDisplayNameUpsert {
+	u.Set(appgooddisplayname.FieldDeletedAt, v)
+	return u
+}
+
+// UpdateDeletedAt sets the "deleted_at" field to the value that was provided on create.
+func (u *AppGoodDisplayNameUpsert) UpdateDeletedAt() *AppGoodDisplayNameUpsert {
+	u.SetExcluded(appgooddisplayname.FieldDeletedAt)
+	return u
+}
+
+// AddDeletedAt adds v to the "deleted_at" field.
+func (u *AppGoodDisplayNameUpsert) AddDeletedAt(v uint32) *AppGoodDisplayNameUpsert {
+	u.Add(appgooddisplayname.FieldDeletedAt, v)
 	return u
 }
 
@@ -374,6 +503,69 @@ func (u *AppGoodDisplayNameUpsertOne) SetEntID(v uuid.UUID) *AppGoodDisplayNameU
 func (u *AppGoodDisplayNameUpsertOne) UpdateEntID() *AppGoodDisplayNameUpsertOne {
 	return u.Update(func(s *AppGoodDisplayNameUpsert) {
 		s.UpdateEntID()
+	})
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (u *AppGoodDisplayNameUpsertOne) SetCreatedAt(v uint32) *AppGoodDisplayNameUpsertOne {
+	return u.Update(func(s *AppGoodDisplayNameUpsert) {
+		s.SetCreatedAt(v)
+	})
+}
+
+// AddCreatedAt adds v to the "created_at" field.
+func (u *AppGoodDisplayNameUpsertOne) AddCreatedAt(v uint32) *AppGoodDisplayNameUpsertOne {
+	return u.Update(func(s *AppGoodDisplayNameUpsert) {
+		s.AddCreatedAt(v)
+	})
+}
+
+// UpdateCreatedAt sets the "created_at" field to the value that was provided on create.
+func (u *AppGoodDisplayNameUpsertOne) UpdateCreatedAt() *AppGoodDisplayNameUpsertOne {
+	return u.Update(func(s *AppGoodDisplayNameUpsert) {
+		s.UpdateCreatedAt()
+	})
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (u *AppGoodDisplayNameUpsertOne) SetUpdatedAt(v uint32) *AppGoodDisplayNameUpsertOne {
+	return u.Update(func(s *AppGoodDisplayNameUpsert) {
+		s.SetUpdatedAt(v)
+	})
+}
+
+// AddUpdatedAt adds v to the "updated_at" field.
+func (u *AppGoodDisplayNameUpsertOne) AddUpdatedAt(v uint32) *AppGoodDisplayNameUpsertOne {
+	return u.Update(func(s *AppGoodDisplayNameUpsert) {
+		s.AddUpdatedAt(v)
+	})
+}
+
+// UpdateUpdatedAt sets the "updated_at" field to the value that was provided on create.
+func (u *AppGoodDisplayNameUpsertOne) UpdateUpdatedAt() *AppGoodDisplayNameUpsertOne {
+	return u.Update(func(s *AppGoodDisplayNameUpsert) {
+		s.UpdateUpdatedAt()
+	})
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (u *AppGoodDisplayNameUpsertOne) SetDeletedAt(v uint32) *AppGoodDisplayNameUpsertOne {
+	return u.Update(func(s *AppGoodDisplayNameUpsert) {
+		s.SetDeletedAt(v)
+	})
+}
+
+// AddDeletedAt adds v to the "deleted_at" field.
+func (u *AppGoodDisplayNameUpsertOne) AddDeletedAt(v uint32) *AppGoodDisplayNameUpsertOne {
+	return u.Update(func(s *AppGoodDisplayNameUpsert) {
+		s.AddDeletedAt(v)
+	})
+}
+
+// UpdateDeletedAt sets the "deleted_at" field to the value that was provided on create.
+func (u *AppGoodDisplayNameUpsertOne) UpdateDeletedAt() *AppGoodDisplayNameUpsertOne {
+	return u.Update(func(s *AppGoodDisplayNameUpsert) {
+		s.UpdateDeletedAt()
 	})
 }
 
@@ -672,6 +864,69 @@ func (u *AppGoodDisplayNameUpsertBulk) SetEntID(v uuid.UUID) *AppGoodDisplayName
 func (u *AppGoodDisplayNameUpsertBulk) UpdateEntID() *AppGoodDisplayNameUpsertBulk {
 	return u.Update(func(s *AppGoodDisplayNameUpsert) {
 		s.UpdateEntID()
+	})
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (u *AppGoodDisplayNameUpsertBulk) SetCreatedAt(v uint32) *AppGoodDisplayNameUpsertBulk {
+	return u.Update(func(s *AppGoodDisplayNameUpsert) {
+		s.SetCreatedAt(v)
+	})
+}
+
+// AddCreatedAt adds v to the "created_at" field.
+func (u *AppGoodDisplayNameUpsertBulk) AddCreatedAt(v uint32) *AppGoodDisplayNameUpsertBulk {
+	return u.Update(func(s *AppGoodDisplayNameUpsert) {
+		s.AddCreatedAt(v)
+	})
+}
+
+// UpdateCreatedAt sets the "created_at" field to the value that was provided on create.
+func (u *AppGoodDisplayNameUpsertBulk) UpdateCreatedAt() *AppGoodDisplayNameUpsertBulk {
+	return u.Update(func(s *AppGoodDisplayNameUpsert) {
+		s.UpdateCreatedAt()
+	})
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (u *AppGoodDisplayNameUpsertBulk) SetUpdatedAt(v uint32) *AppGoodDisplayNameUpsertBulk {
+	return u.Update(func(s *AppGoodDisplayNameUpsert) {
+		s.SetUpdatedAt(v)
+	})
+}
+
+// AddUpdatedAt adds v to the "updated_at" field.
+func (u *AppGoodDisplayNameUpsertBulk) AddUpdatedAt(v uint32) *AppGoodDisplayNameUpsertBulk {
+	return u.Update(func(s *AppGoodDisplayNameUpsert) {
+		s.AddUpdatedAt(v)
+	})
+}
+
+// UpdateUpdatedAt sets the "updated_at" field to the value that was provided on create.
+func (u *AppGoodDisplayNameUpsertBulk) UpdateUpdatedAt() *AppGoodDisplayNameUpsertBulk {
+	return u.Update(func(s *AppGoodDisplayNameUpsert) {
+		s.UpdateUpdatedAt()
+	})
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (u *AppGoodDisplayNameUpsertBulk) SetDeletedAt(v uint32) *AppGoodDisplayNameUpsertBulk {
+	return u.Update(func(s *AppGoodDisplayNameUpsert) {
+		s.SetDeletedAt(v)
+	})
+}
+
+// AddDeletedAt adds v to the "deleted_at" field.
+func (u *AppGoodDisplayNameUpsertBulk) AddDeletedAt(v uint32) *AppGoodDisplayNameUpsertBulk {
+	return u.Update(func(s *AppGoodDisplayNameUpsert) {
+		s.AddDeletedAt(v)
+	})
+}
+
+// UpdateDeletedAt sets the "deleted_at" field to the value that was provided on create.
+func (u *AppGoodDisplayNameUpsertBulk) UpdateDeletedAt() *AppGoodDisplayNameUpsertBulk {
+	return u.Update(func(s *AppGoodDisplayNameUpsert) {
+		s.UpdateDeletedAt()
 	})
 }
 

@@ -43,6 +43,61 @@ func (tmu *TopMostUpdate) SetNillableEntID(u *uuid.UUID) *TopMostUpdate {
 	return tmu
 }
 
+// SetCreatedAt sets the "created_at" field.
+func (tmu *TopMostUpdate) SetCreatedAt(u uint32) *TopMostUpdate {
+	tmu.mutation.ResetCreatedAt()
+	tmu.mutation.SetCreatedAt(u)
+	return tmu
+}
+
+// SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
+func (tmu *TopMostUpdate) SetNillableCreatedAt(u *uint32) *TopMostUpdate {
+	if u != nil {
+		tmu.SetCreatedAt(*u)
+	}
+	return tmu
+}
+
+// AddCreatedAt adds u to the "created_at" field.
+func (tmu *TopMostUpdate) AddCreatedAt(u int32) *TopMostUpdate {
+	tmu.mutation.AddCreatedAt(u)
+	return tmu
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (tmu *TopMostUpdate) SetUpdatedAt(u uint32) *TopMostUpdate {
+	tmu.mutation.ResetUpdatedAt()
+	tmu.mutation.SetUpdatedAt(u)
+	return tmu
+}
+
+// AddUpdatedAt adds u to the "updated_at" field.
+func (tmu *TopMostUpdate) AddUpdatedAt(u int32) *TopMostUpdate {
+	tmu.mutation.AddUpdatedAt(u)
+	return tmu
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (tmu *TopMostUpdate) SetDeletedAt(u uint32) *TopMostUpdate {
+	tmu.mutation.ResetDeletedAt()
+	tmu.mutation.SetDeletedAt(u)
+	return tmu
+}
+
+// SetNillableDeletedAt sets the "deleted_at" field if the given value is not nil.
+func (tmu *TopMostUpdate) SetNillableDeletedAt(u *uint32) *TopMostUpdate {
+	if u != nil {
+		tmu.SetDeletedAt(*u)
+	}
+	return tmu
+}
+
+// AddDeletedAt adds u to the "deleted_at" field.
+func (tmu *TopMostUpdate) AddDeletedAt(u int32) *TopMostUpdate {
+	tmu.mutation.AddDeletedAt(u)
+	return tmu
+}
+
 // SetAppID sets the "app_id" field.
 func (tmu *TopMostUpdate) SetAppID(u uuid.UUID) *TopMostUpdate {
 	tmu.mutation.SetAppID(u)
@@ -204,6 +259,7 @@ func (tmu *TopMostUpdate) Mutation() *TopMostMutation {
 
 // Save executes the query and returns the number of nodes affected by the update operation.
 func (tmu *TopMostUpdate) Save(ctx context.Context) (int, error) {
+	tmu.defaults()
 	return withHooks(ctx, tmu.sqlSave, tmu.mutation, tmu.hooks)
 }
 
@@ -229,6 +285,14 @@ func (tmu *TopMostUpdate) ExecX(ctx context.Context) {
 	}
 }
 
+// defaults sets the default values of the builder before save.
+func (tmu *TopMostUpdate) defaults() {
+	if _, ok := tmu.mutation.UpdatedAt(); !ok {
+		v := topmost.UpdateDefaultUpdatedAt()
+		tmu.mutation.SetUpdatedAt(v)
+	}
+}
+
 // Modify adds a statement modifier for attaching custom logic to the UPDATE statement.
 func (tmu *TopMostUpdate) Modify(modifiers ...func(u *sql.UpdateBuilder)) *TopMostUpdate {
 	tmu.modifiers = append(tmu.modifiers, modifiers...)
@@ -246,6 +310,24 @@ func (tmu *TopMostUpdate) sqlSave(ctx context.Context) (n int, err error) {
 	}
 	if value, ok := tmu.mutation.EntID(); ok {
 		_spec.SetField(topmost.FieldEntID, field.TypeUUID, value)
+	}
+	if value, ok := tmu.mutation.CreatedAt(); ok {
+		_spec.SetField(topmost.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := tmu.mutation.AddedCreatedAt(); ok {
+		_spec.AddField(topmost.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := tmu.mutation.UpdatedAt(); ok {
+		_spec.SetField(topmost.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := tmu.mutation.AddedUpdatedAt(); ok {
+		_spec.AddField(topmost.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := tmu.mutation.DeletedAt(); ok {
+		_spec.SetField(topmost.FieldDeletedAt, field.TypeUint32, value)
+	}
+	if value, ok := tmu.mutation.AddedDeletedAt(); ok {
+		_spec.AddField(topmost.FieldDeletedAt, field.TypeUint32, value)
 	}
 	if value, ok := tmu.mutation.AppID(); ok {
 		_spec.SetField(topmost.FieldAppID, field.TypeUUID, value)
@@ -328,6 +410,61 @@ func (tmuo *TopMostUpdateOne) SetNillableEntID(u *uuid.UUID) *TopMostUpdateOne {
 	if u != nil {
 		tmuo.SetEntID(*u)
 	}
+	return tmuo
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (tmuo *TopMostUpdateOne) SetCreatedAt(u uint32) *TopMostUpdateOne {
+	tmuo.mutation.ResetCreatedAt()
+	tmuo.mutation.SetCreatedAt(u)
+	return tmuo
+}
+
+// SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
+func (tmuo *TopMostUpdateOne) SetNillableCreatedAt(u *uint32) *TopMostUpdateOne {
+	if u != nil {
+		tmuo.SetCreatedAt(*u)
+	}
+	return tmuo
+}
+
+// AddCreatedAt adds u to the "created_at" field.
+func (tmuo *TopMostUpdateOne) AddCreatedAt(u int32) *TopMostUpdateOne {
+	tmuo.mutation.AddCreatedAt(u)
+	return tmuo
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (tmuo *TopMostUpdateOne) SetUpdatedAt(u uint32) *TopMostUpdateOne {
+	tmuo.mutation.ResetUpdatedAt()
+	tmuo.mutation.SetUpdatedAt(u)
+	return tmuo
+}
+
+// AddUpdatedAt adds u to the "updated_at" field.
+func (tmuo *TopMostUpdateOne) AddUpdatedAt(u int32) *TopMostUpdateOne {
+	tmuo.mutation.AddUpdatedAt(u)
+	return tmuo
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (tmuo *TopMostUpdateOne) SetDeletedAt(u uint32) *TopMostUpdateOne {
+	tmuo.mutation.ResetDeletedAt()
+	tmuo.mutation.SetDeletedAt(u)
+	return tmuo
+}
+
+// SetNillableDeletedAt sets the "deleted_at" field if the given value is not nil.
+func (tmuo *TopMostUpdateOne) SetNillableDeletedAt(u *uint32) *TopMostUpdateOne {
+	if u != nil {
+		tmuo.SetDeletedAt(*u)
+	}
+	return tmuo
+}
+
+// AddDeletedAt adds u to the "deleted_at" field.
+func (tmuo *TopMostUpdateOne) AddDeletedAt(u int32) *TopMostUpdateOne {
+	tmuo.mutation.AddDeletedAt(u)
 	return tmuo
 }
 
@@ -505,6 +642,7 @@ func (tmuo *TopMostUpdateOne) Select(field string, fields ...string) *TopMostUpd
 
 // Save executes the query and returns the updated TopMost entity.
 func (tmuo *TopMostUpdateOne) Save(ctx context.Context) (*TopMost, error) {
+	tmuo.defaults()
 	return withHooks(ctx, tmuo.sqlSave, tmuo.mutation, tmuo.hooks)
 }
 
@@ -527,6 +665,14 @@ func (tmuo *TopMostUpdateOne) Exec(ctx context.Context) error {
 func (tmuo *TopMostUpdateOne) ExecX(ctx context.Context) {
 	if err := tmuo.Exec(ctx); err != nil {
 		panic(err)
+	}
+}
+
+// defaults sets the default values of the builder before save.
+func (tmuo *TopMostUpdateOne) defaults() {
+	if _, ok := tmuo.mutation.UpdatedAt(); !ok {
+		v := topmost.UpdateDefaultUpdatedAt()
+		tmuo.mutation.SetUpdatedAt(v)
 	}
 }
 
@@ -564,6 +710,24 @@ func (tmuo *TopMostUpdateOne) sqlSave(ctx context.Context) (_node *TopMost, err 
 	}
 	if value, ok := tmuo.mutation.EntID(); ok {
 		_spec.SetField(topmost.FieldEntID, field.TypeUUID, value)
+	}
+	if value, ok := tmuo.mutation.CreatedAt(); ok {
+		_spec.SetField(topmost.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := tmuo.mutation.AddedCreatedAt(); ok {
+		_spec.AddField(topmost.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := tmuo.mutation.UpdatedAt(); ok {
+		_spec.SetField(topmost.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := tmuo.mutation.AddedUpdatedAt(); ok {
+		_spec.AddField(topmost.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := tmuo.mutation.DeletedAt(); ok {
+		_spec.SetField(topmost.FieldDeletedAt, field.TypeUint32, value)
+	}
+	if value, ok := tmuo.mutation.AddedDeletedAt(); ok {
+		_spec.AddField(topmost.FieldDeletedAt, field.TypeUint32, value)
 	}
 	if value, ok := tmuo.mutation.AppID(); ok {
 		_spec.SetField(topmost.FieldAppID, field.TypeUUID, value)

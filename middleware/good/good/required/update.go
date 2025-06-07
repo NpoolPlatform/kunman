@@ -6,7 +6,7 @@ import (
 	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
 	requiredcrud "github.com/NpoolPlatform/kunman/middleware/good/crud/good/required"
 	"github.com/NpoolPlatform/kunman/middleware/good/db"
-	"github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated"
+	ent "github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated"
 )
 
 func (h *Handler) UpdateRequired(ctx context.Context) error {

@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package good.middleware.subscription.v1;
 
-option go_package = "github.com/NpoolPlatform/message/good/middleware/v1/subscription";
+option go_package = "github.com/NpoolPlatform/kunman/message/good/middleware/v1/subscription";
 
 import "basetypes/good/v1/enums.proto";
 import "basetypes/v1/conds.proto";

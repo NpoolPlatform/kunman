@@ -43,6 +43,61 @@ func (agdcu *AppGoodDisplayColorUpdate) SetNillableEntID(u *uuid.UUID) *AppGoodD
 	return agdcu
 }
 
+// SetCreatedAt sets the "created_at" field.
+func (agdcu *AppGoodDisplayColorUpdate) SetCreatedAt(u uint32) *AppGoodDisplayColorUpdate {
+	agdcu.mutation.ResetCreatedAt()
+	agdcu.mutation.SetCreatedAt(u)
+	return agdcu
+}
+
+// SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
+func (agdcu *AppGoodDisplayColorUpdate) SetNillableCreatedAt(u *uint32) *AppGoodDisplayColorUpdate {
+	if u != nil {
+		agdcu.SetCreatedAt(*u)
+	}
+	return agdcu
+}
+
+// AddCreatedAt adds u to the "created_at" field.
+func (agdcu *AppGoodDisplayColorUpdate) AddCreatedAt(u int32) *AppGoodDisplayColorUpdate {
+	agdcu.mutation.AddCreatedAt(u)
+	return agdcu
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (agdcu *AppGoodDisplayColorUpdate) SetUpdatedAt(u uint32) *AppGoodDisplayColorUpdate {
+	agdcu.mutation.ResetUpdatedAt()
+	agdcu.mutation.SetUpdatedAt(u)
+	return agdcu
+}
+
+// AddUpdatedAt adds u to the "updated_at" field.
+func (agdcu *AppGoodDisplayColorUpdate) AddUpdatedAt(u int32) *AppGoodDisplayColorUpdate {
+	agdcu.mutation.AddUpdatedAt(u)
+	return agdcu
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (agdcu *AppGoodDisplayColorUpdate) SetDeletedAt(u uint32) *AppGoodDisplayColorUpdate {
+	agdcu.mutation.ResetDeletedAt()
+	agdcu.mutation.SetDeletedAt(u)
+	return agdcu
+}
+
+// SetNillableDeletedAt sets the "deleted_at" field if the given value is not nil.
+func (agdcu *AppGoodDisplayColorUpdate) SetNillableDeletedAt(u *uint32) *AppGoodDisplayColorUpdate {
+	if u != nil {
+		agdcu.SetDeletedAt(*u)
+	}
+	return agdcu
+}
+
+// AddDeletedAt adds u to the "deleted_at" field.
+func (agdcu *AppGoodDisplayColorUpdate) AddDeletedAt(u int32) *AppGoodDisplayColorUpdate {
+	agdcu.mutation.AddDeletedAt(u)
+	return agdcu
+}
+
 // SetAppGoodID sets the "app_good_id" field.
 func (agdcu *AppGoodDisplayColorUpdate) SetAppGoodID(u uuid.UUID) *AppGoodDisplayColorUpdate {
 	agdcu.mutation.SetAppGoodID(u)
@@ -117,6 +172,7 @@ func (agdcu *AppGoodDisplayColorUpdate) Mutation() *AppGoodDisplayColorMutation 
 
 // Save executes the query and returns the number of nodes affected by the update operation.
 func (agdcu *AppGoodDisplayColorUpdate) Save(ctx context.Context) (int, error) {
+	agdcu.defaults()
 	return withHooks(ctx, agdcu.sqlSave, agdcu.mutation, agdcu.hooks)
 }
 
@@ -142,6 +198,14 @@ func (agdcu *AppGoodDisplayColorUpdate) ExecX(ctx context.Context) {
 	}
 }
 
+// defaults sets the default values of the builder before save.
+func (agdcu *AppGoodDisplayColorUpdate) defaults() {
+	if _, ok := agdcu.mutation.UpdatedAt(); !ok {
+		v := appgooddisplaycolor.UpdateDefaultUpdatedAt()
+		agdcu.mutation.SetUpdatedAt(v)
+	}
+}
+
 // Modify adds a statement modifier for attaching custom logic to the UPDATE statement.
 func (agdcu *AppGoodDisplayColorUpdate) Modify(modifiers ...func(u *sql.UpdateBuilder)) *AppGoodDisplayColorUpdate {
 	agdcu.modifiers = append(agdcu.modifiers, modifiers...)
@@ -159,6 +223,24 @@ func (agdcu *AppGoodDisplayColorUpdate) sqlSave(ctx context.Context) (n int, err
 	}
 	if value, ok := agdcu.mutation.EntID(); ok {
 		_spec.SetField(appgooddisplaycolor.FieldEntID, field.TypeUUID, value)
+	}
+	if value, ok := agdcu.mutation.CreatedAt(); ok {
+		_spec.SetField(appgooddisplaycolor.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := agdcu.mutation.AddedCreatedAt(); ok {
+		_spec.AddField(appgooddisplaycolor.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := agdcu.mutation.UpdatedAt(); ok {
+		_spec.SetField(appgooddisplaycolor.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := agdcu.mutation.AddedUpdatedAt(); ok {
+		_spec.AddField(appgooddisplaycolor.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := agdcu.mutation.DeletedAt(); ok {
+		_spec.SetField(appgooddisplaycolor.FieldDeletedAt, field.TypeUint32, value)
+	}
+	if value, ok := agdcu.mutation.AddedDeletedAt(); ok {
+		_spec.AddField(appgooddisplaycolor.FieldDeletedAt, field.TypeUint32, value)
 	}
 	if value, ok := agdcu.mutation.AppGoodID(); ok {
 		_spec.SetField(appgooddisplaycolor.FieldAppGoodID, field.TypeUUID, value)
@@ -214,6 +296,61 @@ func (agdcuo *AppGoodDisplayColorUpdateOne) SetNillableEntID(u *uuid.UUID) *AppG
 	if u != nil {
 		agdcuo.SetEntID(*u)
 	}
+	return agdcuo
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (agdcuo *AppGoodDisplayColorUpdateOne) SetCreatedAt(u uint32) *AppGoodDisplayColorUpdateOne {
+	agdcuo.mutation.ResetCreatedAt()
+	agdcuo.mutation.SetCreatedAt(u)
+	return agdcuo
+}
+
+// SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
+func (agdcuo *AppGoodDisplayColorUpdateOne) SetNillableCreatedAt(u *uint32) *AppGoodDisplayColorUpdateOne {
+	if u != nil {
+		agdcuo.SetCreatedAt(*u)
+	}
+	return agdcuo
+}
+
+// AddCreatedAt adds u to the "created_at" field.
+func (agdcuo *AppGoodDisplayColorUpdateOne) AddCreatedAt(u int32) *AppGoodDisplayColorUpdateOne {
+	agdcuo.mutation.AddCreatedAt(u)
+	return agdcuo
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (agdcuo *AppGoodDisplayColorUpdateOne) SetUpdatedAt(u uint32) *AppGoodDisplayColorUpdateOne {
+	agdcuo.mutation.ResetUpdatedAt()
+	agdcuo.mutation.SetUpdatedAt(u)
+	return agdcuo
+}
+
+// AddUpdatedAt adds u to the "updated_at" field.
+func (agdcuo *AppGoodDisplayColorUpdateOne) AddUpdatedAt(u int32) *AppGoodDisplayColorUpdateOne {
+	agdcuo.mutation.AddUpdatedAt(u)
+	return agdcuo
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (agdcuo *AppGoodDisplayColorUpdateOne) SetDeletedAt(u uint32) *AppGoodDisplayColorUpdateOne {
+	agdcuo.mutation.ResetDeletedAt()
+	agdcuo.mutation.SetDeletedAt(u)
+	return agdcuo
+}
+
+// SetNillableDeletedAt sets the "deleted_at" field if the given value is not nil.
+func (agdcuo *AppGoodDisplayColorUpdateOne) SetNillableDeletedAt(u *uint32) *AppGoodDisplayColorUpdateOne {
+	if u != nil {
+		agdcuo.SetDeletedAt(*u)
+	}
+	return agdcuo
+}
+
+// AddDeletedAt adds u to the "deleted_at" field.
+func (agdcuo *AppGoodDisplayColorUpdateOne) AddDeletedAt(u int32) *AppGoodDisplayColorUpdateOne {
+	agdcuo.mutation.AddDeletedAt(u)
 	return agdcuo
 }
 
@@ -304,6 +441,7 @@ func (agdcuo *AppGoodDisplayColorUpdateOne) Select(field string, fields ...strin
 
 // Save executes the query and returns the updated AppGoodDisplayColor entity.
 func (agdcuo *AppGoodDisplayColorUpdateOne) Save(ctx context.Context) (*AppGoodDisplayColor, error) {
+	agdcuo.defaults()
 	return withHooks(ctx, agdcuo.sqlSave, agdcuo.mutation, agdcuo.hooks)
 }
 
@@ -326,6 +464,14 @@ func (agdcuo *AppGoodDisplayColorUpdateOne) Exec(ctx context.Context) error {
 func (agdcuo *AppGoodDisplayColorUpdateOne) ExecX(ctx context.Context) {
 	if err := agdcuo.Exec(ctx); err != nil {
 		panic(err)
+	}
+}
+
+// defaults sets the default values of the builder before save.
+func (agdcuo *AppGoodDisplayColorUpdateOne) defaults() {
+	if _, ok := agdcuo.mutation.UpdatedAt(); !ok {
+		v := appgooddisplaycolor.UpdateDefaultUpdatedAt()
+		agdcuo.mutation.SetUpdatedAt(v)
 	}
 }
 
@@ -363,6 +509,24 @@ func (agdcuo *AppGoodDisplayColorUpdateOne) sqlSave(ctx context.Context) (_node 
 	}
 	if value, ok := agdcuo.mutation.EntID(); ok {
 		_spec.SetField(appgooddisplaycolor.FieldEntID, field.TypeUUID, value)
+	}
+	if value, ok := agdcuo.mutation.CreatedAt(); ok {
+		_spec.SetField(appgooddisplaycolor.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := agdcuo.mutation.AddedCreatedAt(); ok {
+		_spec.AddField(appgooddisplaycolor.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := agdcuo.mutation.UpdatedAt(); ok {
+		_spec.SetField(appgooddisplaycolor.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := agdcuo.mutation.AddedUpdatedAt(); ok {
+		_spec.AddField(appgooddisplaycolor.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := agdcuo.mutation.DeletedAt(); ok {
+		_spec.SetField(appgooddisplaycolor.FieldDeletedAt, field.TypeUint32, value)
+	}
+	if value, ok := agdcuo.mutation.AddedDeletedAt(); ok {
+		_spec.AddField(appgooddisplaycolor.FieldDeletedAt, field.TypeUint32, value)
 	}
 	if value, ok := agdcuo.mutation.AppGoodID(); ok {
 		_spec.SetField(appgooddisplaycolor.FieldAppGoodID, field.TypeUUID, value)

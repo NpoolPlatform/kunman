@@ -43,6 +43,61 @@ func (dpu *DevicePosterUpdate) SetNillableEntID(u *uuid.UUID) *DevicePosterUpdat
 	return dpu
 }
 
+// SetCreatedAt sets the "created_at" field.
+func (dpu *DevicePosterUpdate) SetCreatedAt(u uint32) *DevicePosterUpdate {
+	dpu.mutation.ResetCreatedAt()
+	dpu.mutation.SetCreatedAt(u)
+	return dpu
+}
+
+// SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
+func (dpu *DevicePosterUpdate) SetNillableCreatedAt(u *uint32) *DevicePosterUpdate {
+	if u != nil {
+		dpu.SetCreatedAt(*u)
+	}
+	return dpu
+}
+
+// AddCreatedAt adds u to the "created_at" field.
+func (dpu *DevicePosterUpdate) AddCreatedAt(u int32) *DevicePosterUpdate {
+	dpu.mutation.AddCreatedAt(u)
+	return dpu
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (dpu *DevicePosterUpdate) SetUpdatedAt(u uint32) *DevicePosterUpdate {
+	dpu.mutation.ResetUpdatedAt()
+	dpu.mutation.SetUpdatedAt(u)
+	return dpu
+}
+
+// AddUpdatedAt adds u to the "updated_at" field.
+func (dpu *DevicePosterUpdate) AddUpdatedAt(u int32) *DevicePosterUpdate {
+	dpu.mutation.AddUpdatedAt(u)
+	return dpu
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (dpu *DevicePosterUpdate) SetDeletedAt(u uint32) *DevicePosterUpdate {
+	dpu.mutation.ResetDeletedAt()
+	dpu.mutation.SetDeletedAt(u)
+	return dpu
+}
+
+// SetNillableDeletedAt sets the "deleted_at" field if the given value is not nil.
+func (dpu *DevicePosterUpdate) SetNillableDeletedAt(u *uint32) *DevicePosterUpdate {
+	if u != nil {
+		dpu.SetDeletedAt(*u)
+	}
+	return dpu
+}
+
+// AddDeletedAt adds u to the "deleted_at" field.
+func (dpu *DevicePosterUpdate) AddDeletedAt(u int32) *DevicePosterUpdate {
+	dpu.mutation.AddDeletedAt(u)
+	return dpu
+}
+
 // SetDeviceTypeID sets the "device_type_id" field.
 func (dpu *DevicePosterUpdate) SetDeviceTypeID(u uuid.UUID) *DevicePosterUpdate {
 	dpu.mutation.SetDeviceTypeID(u)
@@ -117,6 +172,7 @@ func (dpu *DevicePosterUpdate) Mutation() *DevicePosterMutation {
 
 // Save executes the query and returns the number of nodes affected by the update operation.
 func (dpu *DevicePosterUpdate) Save(ctx context.Context) (int, error) {
+	dpu.defaults()
 	return withHooks(ctx, dpu.sqlSave, dpu.mutation, dpu.hooks)
 }
 
@@ -142,6 +198,14 @@ func (dpu *DevicePosterUpdate) ExecX(ctx context.Context) {
 	}
 }
 
+// defaults sets the default values of the builder before save.
+func (dpu *DevicePosterUpdate) defaults() {
+	if _, ok := dpu.mutation.UpdatedAt(); !ok {
+		v := deviceposter.UpdateDefaultUpdatedAt()
+		dpu.mutation.SetUpdatedAt(v)
+	}
+}
+
 // Modify adds a statement modifier for attaching custom logic to the UPDATE statement.
 func (dpu *DevicePosterUpdate) Modify(modifiers ...func(u *sql.UpdateBuilder)) *DevicePosterUpdate {
 	dpu.modifiers = append(dpu.modifiers, modifiers...)
@@ -159,6 +223,24 @@ func (dpu *DevicePosterUpdate) sqlSave(ctx context.Context) (n int, err error) {
 	}
 	if value, ok := dpu.mutation.EntID(); ok {
 		_spec.SetField(deviceposter.FieldEntID, field.TypeUUID, value)
+	}
+	if value, ok := dpu.mutation.CreatedAt(); ok {
+		_spec.SetField(deviceposter.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := dpu.mutation.AddedCreatedAt(); ok {
+		_spec.AddField(deviceposter.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := dpu.mutation.UpdatedAt(); ok {
+		_spec.SetField(deviceposter.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := dpu.mutation.AddedUpdatedAt(); ok {
+		_spec.AddField(deviceposter.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := dpu.mutation.DeletedAt(); ok {
+		_spec.SetField(deviceposter.FieldDeletedAt, field.TypeUint32, value)
+	}
+	if value, ok := dpu.mutation.AddedDeletedAt(); ok {
+		_spec.AddField(deviceposter.FieldDeletedAt, field.TypeUint32, value)
 	}
 	if value, ok := dpu.mutation.DeviceTypeID(); ok {
 		_spec.SetField(deviceposter.FieldDeviceTypeID, field.TypeUUID, value)
@@ -214,6 +296,61 @@ func (dpuo *DevicePosterUpdateOne) SetNillableEntID(u *uuid.UUID) *DevicePosterU
 	if u != nil {
 		dpuo.SetEntID(*u)
 	}
+	return dpuo
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (dpuo *DevicePosterUpdateOne) SetCreatedAt(u uint32) *DevicePosterUpdateOne {
+	dpuo.mutation.ResetCreatedAt()
+	dpuo.mutation.SetCreatedAt(u)
+	return dpuo
+}
+
+// SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
+func (dpuo *DevicePosterUpdateOne) SetNillableCreatedAt(u *uint32) *DevicePosterUpdateOne {
+	if u != nil {
+		dpuo.SetCreatedAt(*u)
+	}
+	return dpuo
+}
+
+// AddCreatedAt adds u to the "created_at" field.
+func (dpuo *DevicePosterUpdateOne) AddCreatedAt(u int32) *DevicePosterUpdateOne {
+	dpuo.mutation.AddCreatedAt(u)
+	return dpuo
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (dpuo *DevicePosterUpdateOne) SetUpdatedAt(u uint32) *DevicePosterUpdateOne {
+	dpuo.mutation.ResetUpdatedAt()
+	dpuo.mutation.SetUpdatedAt(u)
+	return dpuo
+}
+
+// AddUpdatedAt adds u to the "updated_at" field.
+func (dpuo *DevicePosterUpdateOne) AddUpdatedAt(u int32) *DevicePosterUpdateOne {
+	dpuo.mutation.AddUpdatedAt(u)
+	return dpuo
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (dpuo *DevicePosterUpdateOne) SetDeletedAt(u uint32) *DevicePosterUpdateOne {
+	dpuo.mutation.ResetDeletedAt()
+	dpuo.mutation.SetDeletedAt(u)
+	return dpuo
+}
+
+// SetNillableDeletedAt sets the "deleted_at" field if the given value is not nil.
+func (dpuo *DevicePosterUpdateOne) SetNillableDeletedAt(u *uint32) *DevicePosterUpdateOne {
+	if u != nil {
+		dpuo.SetDeletedAt(*u)
+	}
+	return dpuo
+}
+
+// AddDeletedAt adds u to the "deleted_at" field.
+func (dpuo *DevicePosterUpdateOne) AddDeletedAt(u int32) *DevicePosterUpdateOne {
+	dpuo.mutation.AddDeletedAt(u)
 	return dpuo
 }
 
@@ -304,6 +441,7 @@ func (dpuo *DevicePosterUpdateOne) Select(field string, fields ...string) *Devic
 
 // Save executes the query and returns the updated DevicePoster entity.
 func (dpuo *DevicePosterUpdateOne) Save(ctx context.Context) (*DevicePoster, error) {
+	dpuo.defaults()
 	return withHooks(ctx, dpuo.sqlSave, dpuo.mutation, dpuo.hooks)
 }
 
@@ -326,6 +464,14 @@ func (dpuo *DevicePosterUpdateOne) Exec(ctx context.Context) error {
 func (dpuo *DevicePosterUpdateOne) ExecX(ctx context.Context) {
 	if err := dpuo.Exec(ctx); err != nil {
 		panic(err)
+	}
+}
+
+// defaults sets the default values of the builder before save.
+func (dpuo *DevicePosterUpdateOne) defaults() {
+	if _, ok := dpuo.mutation.UpdatedAt(); !ok {
+		v := deviceposter.UpdateDefaultUpdatedAt()
+		dpuo.mutation.SetUpdatedAt(v)
 	}
 }
 
@@ -363,6 +509,24 @@ func (dpuo *DevicePosterUpdateOne) sqlSave(ctx context.Context) (_node *DevicePo
 	}
 	if value, ok := dpuo.mutation.EntID(); ok {
 		_spec.SetField(deviceposter.FieldEntID, field.TypeUUID, value)
+	}
+	if value, ok := dpuo.mutation.CreatedAt(); ok {
+		_spec.SetField(deviceposter.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := dpuo.mutation.AddedCreatedAt(); ok {
+		_spec.AddField(deviceposter.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := dpuo.mutation.UpdatedAt(); ok {
+		_spec.SetField(deviceposter.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := dpuo.mutation.AddedUpdatedAt(); ok {
+		_spec.AddField(deviceposter.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := dpuo.mutation.DeletedAt(); ok {
+		_spec.SetField(deviceposter.FieldDeletedAt, field.TypeUint32, value)
+	}
+	if value, ok := dpuo.mutation.AddedDeletedAt(); ok {
+		_spec.AddField(deviceposter.FieldDeletedAt, field.TypeUint32, value)
 	}
 	if value, ok := dpuo.mutation.DeviceTypeID(); ok {
 		_spec.SetField(deviceposter.FieldDeviceTypeID, field.TypeUUID, value)

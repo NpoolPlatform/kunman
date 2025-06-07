@@ -7,9 +7,9 @@ import (
 	"time"
 
 	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
+	appgoodbase1 "github.com/NpoolPlatform/kunman/middleware/good/app/good/goodbase"
 	"github.com/NpoolPlatform/kunman/middleware/good/db"
-	"github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated"
-	appgoodbase1 "github.com/NpoolPlatform/kunman/middleware/good/middleware/app/good/goodbase"
+	ent "github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated"
 	cruder "github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 )
 

@@ -20,6 +20,12 @@ type AppMiningGoodStock struct {
 	ID uint32 `json:"id,omitempty"`
 	// EntID holds the value of the "ent_id" field.
 	EntID uuid.UUID `json:"ent_id,omitempty"`
+	// CreatedAt holds the value of the "created_at" field.
+	CreatedAt uint32 `json:"created_at,omitempty"`
+	// UpdatedAt holds the value of the "updated_at" field.
+	UpdatedAt uint32 `json:"updated_at,omitempty"`
+	// DeletedAt holds the value of the "deleted_at" field.
+	DeletedAt uint32 `json:"deleted_at,omitempty"`
 	// AppGoodStockID holds the value of the "app_good_stock_id" field.
 	AppGoodStockID uuid.UUID `json:"app_good_stock_id,omitempty"`
 	// MiningGoodStockID holds the value of the "mining_good_stock_id" field.
@@ -46,7 +52,7 @@ func (*AppMiningGoodStock) scanValues(columns []string) ([]any, error) {
 		switch columns[i] {
 		case appmininggoodstock.FieldReserved, appmininggoodstock.FieldSpotQuantity, appmininggoodstock.FieldLocked, appmininggoodstock.FieldInService, appmininggoodstock.FieldWaitStart, appmininggoodstock.FieldSold:
 			values[i] = new(decimal.Decimal)
-		case appmininggoodstock.FieldID:
+		case appmininggoodstock.FieldID, appmininggoodstock.FieldCreatedAt, appmininggoodstock.FieldUpdatedAt, appmininggoodstock.FieldDeletedAt:
 			values[i] = new(sql.NullInt64)
 		case appmininggoodstock.FieldEntID, appmininggoodstock.FieldAppGoodStockID, appmininggoodstock.FieldMiningGoodStockID:
 			values[i] = new(uuid.UUID)
@@ -76,6 +82,24 @@ func (amgs *AppMiningGoodStock) assignValues(columns []string, values []any) err
 				return fmt.Errorf("unexpected type %T for field ent_id", values[i])
 			} else if value != nil {
 				amgs.EntID = *value
+			}
+		case appmininggoodstock.FieldCreatedAt:
+			if value, ok := values[i].(*sql.NullInt64); !ok {
+				return fmt.Errorf("unexpected type %T for field created_at", values[i])
+			} else if value.Valid {
+				amgs.CreatedAt = uint32(value.Int64)
+			}
+		case appmininggoodstock.FieldUpdatedAt:
+			if value, ok := values[i].(*sql.NullInt64); !ok {
+				return fmt.Errorf("unexpected type %T for field updated_at", values[i])
+			} else if value.Valid {
+				amgs.UpdatedAt = uint32(value.Int64)
+			}
+		case appmininggoodstock.FieldDeletedAt:
+			if value, ok := values[i].(*sql.NullInt64); !ok {
+				return fmt.Errorf("unexpected type %T for field deleted_at", values[i])
+			} else if value.Valid {
+				amgs.DeletedAt = uint32(value.Int64)
 			}
 		case appmininggoodstock.FieldAppGoodStockID:
 			if value, ok := values[i].(*uuid.UUID); !ok {
@@ -163,6 +187,15 @@ func (amgs *AppMiningGoodStock) String() string {
 	builder.WriteString(fmt.Sprintf("id=%v, ", amgs.ID))
 	builder.WriteString("ent_id=")
 	builder.WriteString(fmt.Sprintf("%v", amgs.EntID))
+	builder.WriteString(", ")
+	builder.WriteString("created_at=")
+	builder.WriteString(fmt.Sprintf("%v", amgs.CreatedAt))
+	builder.WriteString(", ")
+	builder.WriteString("updated_at=")
+	builder.WriteString(fmt.Sprintf("%v", amgs.UpdatedAt))
+	builder.WriteString(", ")
+	builder.WriteString("deleted_at=")
+	builder.WriteString(fmt.Sprintf("%v", amgs.DeletedAt))
 	builder.WriteString(", ")
 	builder.WriteString("app_good_stock_id=")
 	builder.WriteString(fmt.Sprintf("%v", amgs.AppGoodStockID))

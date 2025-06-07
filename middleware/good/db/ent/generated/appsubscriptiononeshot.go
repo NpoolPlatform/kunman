@@ -20,6 +20,12 @@ type AppSubscriptionOneShot struct {
 	ID uint32 `json:"id,omitempty"`
 	// EntID holds the value of the "ent_id" field.
 	EntID uuid.UUID `json:"ent_id,omitempty"`
+	// CreatedAt holds the value of the "created_at" field.
+	CreatedAt uint32 `json:"created_at,omitempty"`
+	// UpdatedAt holds the value of the "updated_at" field.
+	UpdatedAt uint32 `json:"updated_at,omitempty"`
+	// DeletedAt holds the value of the "deleted_at" field.
+	DeletedAt uint32 `json:"deleted_at,omitempty"`
 	// AppID holds the value of the "app_id" field.
 	AppID uuid.UUID `json:"app_id,omitempty"`
 	// GoodID holds the value of the "good_id" field.
@@ -42,7 +48,7 @@ func (*AppSubscriptionOneShot) scanValues(columns []string) ([]any, error) {
 		switch columns[i] {
 		case appsubscriptiononeshot.FieldUsdPrice:
 			values[i] = new(decimal.Decimal)
-		case appsubscriptiononeshot.FieldID:
+		case appsubscriptiononeshot.FieldID, appsubscriptiononeshot.FieldCreatedAt, appsubscriptiononeshot.FieldUpdatedAt, appsubscriptiononeshot.FieldDeletedAt:
 			values[i] = new(sql.NullInt64)
 		case appsubscriptiononeshot.FieldName, appsubscriptiononeshot.FieldBanner:
 			values[i] = new(sql.NullString)
@@ -74,6 +80,24 @@ func (asos *AppSubscriptionOneShot) assignValues(columns []string, values []any)
 				return fmt.Errorf("unexpected type %T for field ent_id", values[i])
 			} else if value != nil {
 				asos.EntID = *value
+			}
+		case appsubscriptiononeshot.FieldCreatedAt:
+			if value, ok := values[i].(*sql.NullInt64); !ok {
+				return fmt.Errorf("unexpected type %T for field created_at", values[i])
+			} else if value.Valid {
+				asos.CreatedAt = uint32(value.Int64)
+			}
+		case appsubscriptiononeshot.FieldUpdatedAt:
+			if value, ok := values[i].(*sql.NullInt64); !ok {
+				return fmt.Errorf("unexpected type %T for field updated_at", values[i])
+			} else if value.Valid {
+				asos.UpdatedAt = uint32(value.Int64)
+			}
+		case appsubscriptiononeshot.FieldDeletedAt:
+			if value, ok := values[i].(*sql.NullInt64); !ok {
+				return fmt.Errorf("unexpected type %T for field deleted_at", values[i])
+			} else if value.Valid {
+				asos.DeletedAt = uint32(value.Int64)
 			}
 		case appsubscriptiononeshot.FieldAppID:
 			if value, ok := values[i].(*uuid.UUID); !ok {
@@ -149,6 +173,15 @@ func (asos *AppSubscriptionOneShot) String() string {
 	builder.WriteString(fmt.Sprintf("id=%v, ", asos.ID))
 	builder.WriteString("ent_id=")
 	builder.WriteString(fmt.Sprintf("%v", asos.EntID))
+	builder.WriteString(", ")
+	builder.WriteString("created_at=")
+	builder.WriteString(fmt.Sprintf("%v", asos.CreatedAt))
+	builder.WriteString(", ")
+	builder.WriteString("updated_at=")
+	builder.WriteString(fmt.Sprintf("%v", asos.UpdatedAt))
+	builder.WriteString(", ")
+	builder.WriteString("deleted_at=")
+	builder.WriteString(fmt.Sprintf("%v", asos.DeletedAt))
 	builder.WriteString(", ")
 	builder.WriteString("app_id=")
 	builder.WriteString(fmt.Sprintf("%v", asos.AppID))

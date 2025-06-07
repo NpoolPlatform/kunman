@@ -3,7 +3,7 @@ package appgoodbase
 import (
 	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
 
-	"github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated"
+	ent "github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated"
 	entappgoodbase "github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated/appgoodbase"
 	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 

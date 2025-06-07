@@ -43,6 +43,61 @@ func (agdnu *AppGoodDisplayNameUpdate) SetNillableEntID(u *uuid.UUID) *AppGoodDi
 	return agdnu
 }
 
+// SetCreatedAt sets the "created_at" field.
+func (agdnu *AppGoodDisplayNameUpdate) SetCreatedAt(u uint32) *AppGoodDisplayNameUpdate {
+	agdnu.mutation.ResetCreatedAt()
+	agdnu.mutation.SetCreatedAt(u)
+	return agdnu
+}
+
+// SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
+func (agdnu *AppGoodDisplayNameUpdate) SetNillableCreatedAt(u *uint32) *AppGoodDisplayNameUpdate {
+	if u != nil {
+		agdnu.SetCreatedAt(*u)
+	}
+	return agdnu
+}
+
+// AddCreatedAt adds u to the "created_at" field.
+func (agdnu *AppGoodDisplayNameUpdate) AddCreatedAt(u int32) *AppGoodDisplayNameUpdate {
+	agdnu.mutation.AddCreatedAt(u)
+	return agdnu
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (agdnu *AppGoodDisplayNameUpdate) SetUpdatedAt(u uint32) *AppGoodDisplayNameUpdate {
+	agdnu.mutation.ResetUpdatedAt()
+	agdnu.mutation.SetUpdatedAt(u)
+	return agdnu
+}
+
+// AddUpdatedAt adds u to the "updated_at" field.
+func (agdnu *AppGoodDisplayNameUpdate) AddUpdatedAt(u int32) *AppGoodDisplayNameUpdate {
+	agdnu.mutation.AddUpdatedAt(u)
+	return agdnu
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (agdnu *AppGoodDisplayNameUpdate) SetDeletedAt(u uint32) *AppGoodDisplayNameUpdate {
+	agdnu.mutation.ResetDeletedAt()
+	agdnu.mutation.SetDeletedAt(u)
+	return agdnu
+}
+
+// SetNillableDeletedAt sets the "deleted_at" field if the given value is not nil.
+func (agdnu *AppGoodDisplayNameUpdate) SetNillableDeletedAt(u *uint32) *AppGoodDisplayNameUpdate {
+	if u != nil {
+		agdnu.SetDeletedAt(*u)
+	}
+	return agdnu
+}
+
+// AddDeletedAt adds u to the "deleted_at" field.
+func (agdnu *AppGoodDisplayNameUpdate) AddDeletedAt(u int32) *AppGoodDisplayNameUpdate {
+	agdnu.mutation.AddDeletedAt(u)
+	return agdnu
+}
+
 // SetAppGoodID sets the "app_good_id" field.
 func (agdnu *AppGoodDisplayNameUpdate) SetAppGoodID(u uuid.UUID) *AppGoodDisplayNameUpdate {
 	agdnu.mutation.SetAppGoodID(u)
@@ -117,6 +172,7 @@ func (agdnu *AppGoodDisplayNameUpdate) Mutation() *AppGoodDisplayNameMutation {
 
 // Save executes the query and returns the number of nodes affected by the update operation.
 func (agdnu *AppGoodDisplayNameUpdate) Save(ctx context.Context) (int, error) {
+	agdnu.defaults()
 	return withHooks(ctx, agdnu.sqlSave, agdnu.mutation, agdnu.hooks)
 }
 
@@ -142,6 +198,14 @@ func (agdnu *AppGoodDisplayNameUpdate) ExecX(ctx context.Context) {
 	}
 }
 
+// defaults sets the default values of the builder before save.
+func (agdnu *AppGoodDisplayNameUpdate) defaults() {
+	if _, ok := agdnu.mutation.UpdatedAt(); !ok {
+		v := appgooddisplayname.UpdateDefaultUpdatedAt()
+		agdnu.mutation.SetUpdatedAt(v)
+	}
+}
+
 // Modify adds a statement modifier for attaching custom logic to the UPDATE statement.
 func (agdnu *AppGoodDisplayNameUpdate) Modify(modifiers ...func(u *sql.UpdateBuilder)) *AppGoodDisplayNameUpdate {
 	agdnu.modifiers = append(agdnu.modifiers, modifiers...)
@@ -159,6 +223,24 @@ func (agdnu *AppGoodDisplayNameUpdate) sqlSave(ctx context.Context) (n int, err 
 	}
 	if value, ok := agdnu.mutation.EntID(); ok {
 		_spec.SetField(appgooddisplayname.FieldEntID, field.TypeUUID, value)
+	}
+	if value, ok := agdnu.mutation.CreatedAt(); ok {
+		_spec.SetField(appgooddisplayname.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := agdnu.mutation.AddedCreatedAt(); ok {
+		_spec.AddField(appgooddisplayname.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := agdnu.mutation.UpdatedAt(); ok {
+		_spec.SetField(appgooddisplayname.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := agdnu.mutation.AddedUpdatedAt(); ok {
+		_spec.AddField(appgooddisplayname.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := agdnu.mutation.DeletedAt(); ok {
+		_spec.SetField(appgooddisplayname.FieldDeletedAt, field.TypeUint32, value)
+	}
+	if value, ok := agdnu.mutation.AddedDeletedAt(); ok {
+		_spec.AddField(appgooddisplayname.FieldDeletedAt, field.TypeUint32, value)
 	}
 	if value, ok := agdnu.mutation.AppGoodID(); ok {
 		_spec.SetField(appgooddisplayname.FieldAppGoodID, field.TypeUUID, value)
@@ -214,6 +296,61 @@ func (agdnuo *AppGoodDisplayNameUpdateOne) SetNillableEntID(u *uuid.UUID) *AppGo
 	if u != nil {
 		agdnuo.SetEntID(*u)
 	}
+	return agdnuo
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (agdnuo *AppGoodDisplayNameUpdateOne) SetCreatedAt(u uint32) *AppGoodDisplayNameUpdateOne {
+	agdnuo.mutation.ResetCreatedAt()
+	agdnuo.mutation.SetCreatedAt(u)
+	return agdnuo
+}
+
+// SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
+func (agdnuo *AppGoodDisplayNameUpdateOne) SetNillableCreatedAt(u *uint32) *AppGoodDisplayNameUpdateOne {
+	if u != nil {
+		agdnuo.SetCreatedAt(*u)
+	}
+	return agdnuo
+}
+
+// AddCreatedAt adds u to the "created_at" field.
+func (agdnuo *AppGoodDisplayNameUpdateOne) AddCreatedAt(u int32) *AppGoodDisplayNameUpdateOne {
+	agdnuo.mutation.AddCreatedAt(u)
+	return agdnuo
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (agdnuo *AppGoodDisplayNameUpdateOne) SetUpdatedAt(u uint32) *AppGoodDisplayNameUpdateOne {
+	agdnuo.mutation.ResetUpdatedAt()
+	agdnuo.mutation.SetUpdatedAt(u)
+	return agdnuo
+}
+
+// AddUpdatedAt adds u to the "updated_at" field.
+func (agdnuo *AppGoodDisplayNameUpdateOne) AddUpdatedAt(u int32) *AppGoodDisplayNameUpdateOne {
+	agdnuo.mutation.AddUpdatedAt(u)
+	return agdnuo
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (agdnuo *AppGoodDisplayNameUpdateOne) SetDeletedAt(u uint32) *AppGoodDisplayNameUpdateOne {
+	agdnuo.mutation.ResetDeletedAt()
+	agdnuo.mutation.SetDeletedAt(u)
+	return agdnuo
+}
+
+// SetNillableDeletedAt sets the "deleted_at" field if the given value is not nil.
+func (agdnuo *AppGoodDisplayNameUpdateOne) SetNillableDeletedAt(u *uint32) *AppGoodDisplayNameUpdateOne {
+	if u != nil {
+		agdnuo.SetDeletedAt(*u)
+	}
+	return agdnuo
+}
+
+// AddDeletedAt adds u to the "deleted_at" field.
+func (agdnuo *AppGoodDisplayNameUpdateOne) AddDeletedAt(u int32) *AppGoodDisplayNameUpdateOne {
+	agdnuo.mutation.AddDeletedAt(u)
 	return agdnuo
 }
 
@@ -304,6 +441,7 @@ func (agdnuo *AppGoodDisplayNameUpdateOne) Select(field string, fields ...string
 
 // Save executes the query and returns the updated AppGoodDisplayName entity.
 func (agdnuo *AppGoodDisplayNameUpdateOne) Save(ctx context.Context) (*AppGoodDisplayName, error) {
+	agdnuo.defaults()
 	return withHooks(ctx, agdnuo.sqlSave, agdnuo.mutation, agdnuo.hooks)
 }
 
@@ -326,6 +464,14 @@ func (agdnuo *AppGoodDisplayNameUpdateOne) Exec(ctx context.Context) error {
 func (agdnuo *AppGoodDisplayNameUpdateOne) ExecX(ctx context.Context) {
 	if err := agdnuo.Exec(ctx); err != nil {
 		panic(err)
+	}
+}
+
+// defaults sets the default values of the builder before save.
+func (agdnuo *AppGoodDisplayNameUpdateOne) defaults() {
+	if _, ok := agdnuo.mutation.UpdatedAt(); !ok {
+		v := appgooddisplayname.UpdateDefaultUpdatedAt()
+		agdnuo.mutation.SetUpdatedAt(v)
 	}
 }
 
@@ -363,6 +509,24 @@ func (agdnuo *AppGoodDisplayNameUpdateOne) sqlSave(ctx context.Context) (_node *
 	}
 	if value, ok := agdnuo.mutation.EntID(); ok {
 		_spec.SetField(appgooddisplayname.FieldEntID, field.TypeUUID, value)
+	}
+	if value, ok := agdnuo.mutation.CreatedAt(); ok {
+		_spec.SetField(appgooddisplayname.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := agdnuo.mutation.AddedCreatedAt(); ok {
+		_spec.AddField(appgooddisplayname.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := agdnuo.mutation.UpdatedAt(); ok {
+		_spec.SetField(appgooddisplayname.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := agdnuo.mutation.AddedUpdatedAt(); ok {
+		_spec.AddField(appgooddisplayname.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := agdnuo.mutation.DeletedAt(); ok {
+		_spec.SetField(appgooddisplayname.FieldDeletedAt, field.TypeUint32, value)
+	}
+	if value, ok := agdnuo.mutation.AddedDeletedAt(); ok {
+		_spec.AddField(appgooddisplayname.FieldDeletedAt, field.TypeUint32, value)
 	}
 	if value, ok := agdnuo.mutation.AppGoodID(); ok {
 		_spec.SetField(appgooddisplayname.FieldAppGoodID, field.TypeUUID, value)

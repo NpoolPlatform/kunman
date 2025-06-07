@@ -5,7 +5,7 @@ import (
 
 	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
 	"github.com/NpoolPlatform/kunman/middleware/good/db"
-	"github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated"
+	ent "github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated"
 )
 
 func (h *Handler) ExistMalfunction(ctx context.Context) (exist bool, err error) {

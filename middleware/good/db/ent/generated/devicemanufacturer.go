@@ -19,6 +19,12 @@ type DeviceManufacturer struct {
 	ID uint32 `json:"id,omitempty"`
 	// EntID holds the value of the "ent_id" field.
 	EntID uuid.UUID `json:"ent_id,omitempty"`
+	// CreatedAt holds the value of the "created_at" field.
+	CreatedAt uint32 `json:"created_at,omitempty"`
+	// UpdatedAt holds the value of the "updated_at" field.
+	UpdatedAt uint32 `json:"updated_at,omitempty"`
+	// DeletedAt holds the value of the "deleted_at" field.
+	DeletedAt uint32 `json:"deleted_at,omitempty"`
 	// Name holds the value of the "name" field.
 	Name string `json:"name,omitempty"`
 	// Logo holds the value of the "logo" field.
@@ -31,7 +37,7 @@ func (*DeviceManufacturer) scanValues(columns []string) ([]any, error) {
 	values := make([]any, len(columns))
 	for i := range columns {
 		switch columns[i] {
-		case devicemanufacturer.FieldID:
+		case devicemanufacturer.FieldID, devicemanufacturer.FieldCreatedAt, devicemanufacturer.FieldUpdatedAt, devicemanufacturer.FieldDeletedAt:
 			values[i] = new(sql.NullInt64)
 		case devicemanufacturer.FieldName, devicemanufacturer.FieldLogo:
 			values[i] = new(sql.NullString)
@@ -63,6 +69,24 @@ func (dm *DeviceManufacturer) assignValues(columns []string, values []any) error
 				return fmt.Errorf("unexpected type %T for field ent_id", values[i])
 			} else if value != nil {
 				dm.EntID = *value
+			}
+		case devicemanufacturer.FieldCreatedAt:
+			if value, ok := values[i].(*sql.NullInt64); !ok {
+				return fmt.Errorf("unexpected type %T for field created_at", values[i])
+			} else if value.Valid {
+				dm.CreatedAt = uint32(value.Int64)
+			}
+		case devicemanufacturer.FieldUpdatedAt:
+			if value, ok := values[i].(*sql.NullInt64); !ok {
+				return fmt.Errorf("unexpected type %T for field updated_at", values[i])
+			} else if value.Valid {
+				dm.UpdatedAt = uint32(value.Int64)
+			}
+		case devicemanufacturer.FieldDeletedAt:
+			if value, ok := values[i].(*sql.NullInt64); !ok {
+				return fmt.Errorf("unexpected type %T for field deleted_at", values[i])
+			} else if value.Valid {
+				dm.DeletedAt = uint32(value.Int64)
 			}
 		case devicemanufacturer.FieldName:
 			if value, ok := values[i].(*sql.NullString); !ok {
@@ -114,6 +138,15 @@ func (dm *DeviceManufacturer) String() string {
 	builder.WriteString(fmt.Sprintf("id=%v, ", dm.ID))
 	builder.WriteString("ent_id=")
 	builder.WriteString(fmt.Sprintf("%v", dm.EntID))
+	builder.WriteString(", ")
+	builder.WriteString("created_at=")
+	builder.WriteString(fmt.Sprintf("%v", dm.CreatedAt))
+	builder.WriteString(", ")
+	builder.WriteString("updated_at=")
+	builder.WriteString(fmt.Sprintf("%v", dm.UpdatedAt))
+	builder.WriteString(", ")
+	builder.WriteString("deleted_at=")
+	builder.WriteString(fmt.Sprintf("%v", dm.DeletedAt))
 	builder.WriteString(", ")
 	builder.WriteString("name=")
 	builder.WriteString(dm.Name)

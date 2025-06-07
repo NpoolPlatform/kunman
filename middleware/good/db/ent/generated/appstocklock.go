@@ -20,6 +20,12 @@ type AppStockLock struct {
 	ID uint32 `json:"id,omitempty"`
 	// EntID holds the value of the "ent_id" field.
 	EntID uuid.UUID `json:"ent_id,omitempty"`
+	// CreatedAt holds the value of the "created_at" field.
+	CreatedAt uint32 `json:"created_at,omitempty"`
+	// UpdatedAt holds the value of the "updated_at" field.
+	UpdatedAt uint32 `json:"updated_at,omitempty"`
+	// DeletedAt holds the value of the "deleted_at" field.
+	DeletedAt uint32 `json:"deleted_at,omitempty"`
 	// AppStockID holds the value of the "app_stock_id" field.
 	AppStockID uuid.UUID `json:"app_stock_id,omitempty"`
 	// AppGoodID holds the value of the "app_good_id" field.
@@ -44,7 +50,7 @@ func (*AppStockLock) scanValues(columns []string) ([]any, error) {
 		switch columns[i] {
 		case appstocklock.FieldUnits, appstocklock.FieldAppSpotUnits:
 			values[i] = new(decimal.Decimal)
-		case appstocklock.FieldID:
+		case appstocklock.FieldID, appstocklock.FieldCreatedAt, appstocklock.FieldUpdatedAt, appstocklock.FieldDeletedAt:
 			values[i] = new(sql.NullInt64)
 		case appstocklock.FieldLockState, appstocklock.FieldChargeBackState:
 			values[i] = new(sql.NullString)
@@ -76,6 +82,24 @@ func (asl *AppStockLock) assignValues(columns []string, values []any) error {
 				return fmt.Errorf("unexpected type %T for field ent_id", values[i])
 			} else if value != nil {
 				asl.EntID = *value
+			}
+		case appstocklock.FieldCreatedAt:
+			if value, ok := values[i].(*sql.NullInt64); !ok {
+				return fmt.Errorf("unexpected type %T for field created_at", values[i])
+			} else if value.Valid {
+				asl.CreatedAt = uint32(value.Int64)
+			}
+		case appstocklock.FieldUpdatedAt:
+			if value, ok := values[i].(*sql.NullInt64); !ok {
+				return fmt.Errorf("unexpected type %T for field updated_at", values[i])
+			} else if value.Valid {
+				asl.UpdatedAt = uint32(value.Int64)
+			}
+		case appstocklock.FieldDeletedAt:
+			if value, ok := values[i].(*sql.NullInt64); !ok {
+				return fmt.Errorf("unexpected type %T for field deleted_at", values[i])
+			} else if value.Valid {
+				asl.DeletedAt = uint32(value.Int64)
 			}
 		case appstocklock.FieldAppStockID:
 			if value, ok := values[i].(*uuid.UUID); !ok {
@@ -157,6 +181,15 @@ func (asl *AppStockLock) String() string {
 	builder.WriteString(fmt.Sprintf("id=%v, ", asl.ID))
 	builder.WriteString("ent_id=")
 	builder.WriteString(fmt.Sprintf("%v", asl.EntID))
+	builder.WriteString(", ")
+	builder.WriteString("created_at=")
+	builder.WriteString(fmt.Sprintf("%v", asl.CreatedAt))
+	builder.WriteString(", ")
+	builder.WriteString("updated_at=")
+	builder.WriteString(fmt.Sprintf("%v", asl.UpdatedAt))
+	builder.WriteString(", ")
+	builder.WriteString("deleted_at=")
+	builder.WriteString(fmt.Sprintf("%v", asl.DeletedAt))
 	builder.WriteString(", ")
 	builder.WriteString("app_stock_id=")
 	builder.WriteString(fmt.Sprintf("%v", asl.AppStockID))

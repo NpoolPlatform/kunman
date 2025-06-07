@@ -44,6 +44,61 @@ func (tmcu *TopMostConstraintUpdate) SetNillableEntID(u *uuid.UUID) *TopMostCons
 	return tmcu
 }
 
+// SetCreatedAt sets the "created_at" field.
+func (tmcu *TopMostConstraintUpdate) SetCreatedAt(u uint32) *TopMostConstraintUpdate {
+	tmcu.mutation.ResetCreatedAt()
+	tmcu.mutation.SetCreatedAt(u)
+	return tmcu
+}
+
+// SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
+func (tmcu *TopMostConstraintUpdate) SetNillableCreatedAt(u *uint32) *TopMostConstraintUpdate {
+	if u != nil {
+		tmcu.SetCreatedAt(*u)
+	}
+	return tmcu
+}
+
+// AddCreatedAt adds u to the "created_at" field.
+func (tmcu *TopMostConstraintUpdate) AddCreatedAt(u int32) *TopMostConstraintUpdate {
+	tmcu.mutation.AddCreatedAt(u)
+	return tmcu
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (tmcu *TopMostConstraintUpdate) SetUpdatedAt(u uint32) *TopMostConstraintUpdate {
+	tmcu.mutation.ResetUpdatedAt()
+	tmcu.mutation.SetUpdatedAt(u)
+	return tmcu
+}
+
+// AddUpdatedAt adds u to the "updated_at" field.
+func (tmcu *TopMostConstraintUpdate) AddUpdatedAt(u int32) *TopMostConstraintUpdate {
+	tmcu.mutation.AddUpdatedAt(u)
+	return tmcu
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (tmcu *TopMostConstraintUpdate) SetDeletedAt(u uint32) *TopMostConstraintUpdate {
+	tmcu.mutation.ResetDeletedAt()
+	tmcu.mutation.SetDeletedAt(u)
+	return tmcu
+}
+
+// SetNillableDeletedAt sets the "deleted_at" field if the given value is not nil.
+func (tmcu *TopMostConstraintUpdate) SetNillableDeletedAt(u *uint32) *TopMostConstraintUpdate {
+	if u != nil {
+		tmcu.SetDeletedAt(*u)
+	}
+	return tmcu
+}
+
+// AddDeletedAt adds u to the "deleted_at" field.
+func (tmcu *TopMostConstraintUpdate) AddDeletedAt(u int32) *TopMostConstraintUpdate {
+	tmcu.mutation.AddDeletedAt(u)
+	return tmcu
+}
+
 // SetTopMostID sets the "top_most_id" field.
 func (tmcu *TopMostConstraintUpdate) SetTopMostID(u uuid.UUID) *TopMostConstraintUpdate {
 	tmcu.mutation.SetTopMostID(u)
@@ -138,6 +193,7 @@ func (tmcu *TopMostConstraintUpdate) Mutation() *TopMostConstraintMutation {
 
 // Save executes the query and returns the number of nodes affected by the update operation.
 func (tmcu *TopMostConstraintUpdate) Save(ctx context.Context) (int, error) {
+	tmcu.defaults()
 	return withHooks(ctx, tmcu.sqlSave, tmcu.mutation, tmcu.hooks)
 }
 
@@ -163,6 +219,14 @@ func (tmcu *TopMostConstraintUpdate) ExecX(ctx context.Context) {
 	}
 }
 
+// defaults sets the default values of the builder before save.
+func (tmcu *TopMostConstraintUpdate) defaults() {
+	if _, ok := tmcu.mutation.UpdatedAt(); !ok {
+		v := topmostconstraint.UpdateDefaultUpdatedAt()
+		tmcu.mutation.SetUpdatedAt(v)
+	}
+}
+
 // Modify adds a statement modifier for attaching custom logic to the UPDATE statement.
 func (tmcu *TopMostConstraintUpdate) Modify(modifiers ...func(u *sql.UpdateBuilder)) *TopMostConstraintUpdate {
 	tmcu.modifiers = append(tmcu.modifiers, modifiers...)
@@ -180,6 +244,24 @@ func (tmcu *TopMostConstraintUpdate) sqlSave(ctx context.Context) (n int, err er
 	}
 	if value, ok := tmcu.mutation.EntID(); ok {
 		_spec.SetField(topmostconstraint.FieldEntID, field.TypeUUID, value)
+	}
+	if value, ok := tmcu.mutation.CreatedAt(); ok {
+		_spec.SetField(topmostconstraint.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := tmcu.mutation.AddedCreatedAt(); ok {
+		_spec.AddField(topmostconstraint.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := tmcu.mutation.UpdatedAt(); ok {
+		_spec.SetField(topmostconstraint.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := tmcu.mutation.AddedUpdatedAt(); ok {
+		_spec.AddField(topmostconstraint.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := tmcu.mutation.DeletedAt(); ok {
+		_spec.SetField(topmostconstraint.FieldDeletedAt, field.TypeUint32, value)
+	}
+	if value, ok := tmcu.mutation.AddedDeletedAt(); ok {
+		_spec.AddField(topmostconstraint.FieldDeletedAt, field.TypeUint32, value)
 	}
 	if value, ok := tmcu.mutation.TopMostID(); ok {
 		_spec.SetField(topmostconstraint.FieldTopMostID, field.TypeUUID, value)
@@ -241,6 +323,61 @@ func (tmcuo *TopMostConstraintUpdateOne) SetNillableEntID(u *uuid.UUID) *TopMost
 	if u != nil {
 		tmcuo.SetEntID(*u)
 	}
+	return tmcuo
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (tmcuo *TopMostConstraintUpdateOne) SetCreatedAt(u uint32) *TopMostConstraintUpdateOne {
+	tmcuo.mutation.ResetCreatedAt()
+	tmcuo.mutation.SetCreatedAt(u)
+	return tmcuo
+}
+
+// SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
+func (tmcuo *TopMostConstraintUpdateOne) SetNillableCreatedAt(u *uint32) *TopMostConstraintUpdateOne {
+	if u != nil {
+		tmcuo.SetCreatedAt(*u)
+	}
+	return tmcuo
+}
+
+// AddCreatedAt adds u to the "created_at" field.
+func (tmcuo *TopMostConstraintUpdateOne) AddCreatedAt(u int32) *TopMostConstraintUpdateOne {
+	tmcuo.mutation.AddCreatedAt(u)
+	return tmcuo
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (tmcuo *TopMostConstraintUpdateOne) SetUpdatedAt(u uint32) *TopMostConstraintUpdateOne {
+	tmcuo.mutation.ResetUpdatedAt()
+	tmcuo.mutation.SetUpdatedAt(u)
+	return tmcuo
+}
+
+// AddUpdatedAt adds u to the "updated_at" field.
+func (tmcuo *TopMostConstraintUpdateOne) AddUpdatedAt(u int32) *TopMostConstraintUpdateOne {
+	tmcuo.mutation.AddUpdatedAt(u)
+	return tmcuo
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (tmcuo *TopMostConstraintUpdateOne) SetDeletedAt(u uint32) *TopMostConstraintUpdateOne {
+	tmcuo.mutation.ResetDeletedAt()
+	tmcuo.mutation.SetDeletedAt(u)
+	return tmcuo
+}
+
+// SetNillableDeletedAt sets the "deleted_at" field if the given value is not nil.
+func (tmcuo *TopMostConstraintUpdateOne) SetNillableDeletedAt(u *uint32) *TopMostConstraintUpdateOne {
+	if u != nil {
+		tmcuo.SetDeletedAt(*u)
+	}
+	return tmcuo
+}
+
+// AddDeletedAt adds u to the "deleted_at" field.
+func (tmcuo *TopMostConstraintUpdateOne) AddDeletedAt(u int32) *TopMostConstraintUpdateOne {
+	tmcuo.mutation.AddDeletedAt(u)
 	return tmcuo
 }
 
@@ -351,6 +488,7 @@ func (tmcuo *TopMostConstraintUpdateOne) Select(field string, fields ...string) 
 
 // Save executes the query and returns the updated TopMostConstraint entity.
 func (tmcuo *TopMostConstraintUpdateOne) Save(ctx context.Context) (*TopMostConstraint, error) {
+	tmcuo.defaults()
 	return withHooks(ctx, tmcuo.sqlSave, tmcuo.mutation, tmcuo.hooks)
 }
 
@@ -373,6 +511,14 @@ func (tmcuo *TopMostConstraintUpdateOne) Exec(ctx context.Context) error {
 func (tmcuo *TopMostConstraintUpdateOne) ExecX(ctx context.Context) {
 	if err := tmcuo.Exec(ctx); err != nil {
 		panic(err)
+	}
+}
+
+// defaults sets the default values of the builder before save.
+func (tmcuo *TopMostConstraintUpdateOne) defaults() {
+	if _, ok := tmcuo.mutation.UpdatedAt(); !ok {
+		v := topmostconstraint.UpdateDefaultUpdatedAt()
+		tmcuo.mutation.SetUpdatedAt(v)
 	}
 }
 
@@ -410,6 +556,24 @@ func (tmcuo *TopMostConstraintUpdateOne) sqlSave(ctx context.Context) (_node *To
 	}
 	if value, ok := tmcuo.mutation.EntID(); ok {
 		_spec.SetField(topmostconstraint.FieldEntID, field.TypeUUID, value)
+	}
+	if value, ok := tmcuo.mutation.CreatedAt(); ok {
+		_spec.SetField(topmostconstraint.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := tmcuo.mutation.AddedCreatedAt(); ok {
+		_spec.AddField(topmostconstraint.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := tmcuo.mutation.UpdatedAt(); ok {
+		_spec.SetField(topmostconstraint.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := tmcuo.mutation.AddedUpdatedAt(); ok {
+		_spec.AddField(topmostconstraint.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := tmcuo.mutation.DeletedAt(); ok {
+		_spec.SetField(topmostconstraint.FieldDeletedAt, field.TypeUint32, value)
+	}
+	if value, ok := tmcuo.mutation.AddedDeletedAt(); ok {
+		_spec.AddField(topmostconstraint.FieldDeletedAt, field.TypeUint32, value)
 	}
 	if value, ok := tmcuo.mutation.TopMostID(); ok {
 		_spec.SetField(topmostconstraint.FieldTopMostID, field.TypeUUID, value)

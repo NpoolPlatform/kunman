@@ -44,6 +44,61 @@ func (amgsu *AppMiningGoodStockUpdate) SetNillableEntID(u *uuid.UUID) *AppMining
 	return amgsu
 }
 
+// SetCreatedAt sets the "created_at" field.
+func (amgsu *AppMiningGoodStockUpdate) SetCreatedAt(u uint32) *AppMiningGoodStockUpdate {
+	amgsu.mutation.ResetCreatedAt()
+	amgsu.mutation.SetCreatedAt(u)
+	return amgsu
+}
+
+// SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
+func (amgsu *AppMiningGoodStockUpdate) SetNillableCreatedAt(u *uint32) *AppMiningGoodStockUpdate {
+	if u != nil {
+		amgsu.SetCreatedAt(*u)
+	}
+	return amgsu
+}
+
+// AddCreatedAt adds u to the "created_at" field.
+func (amgsu *AppMiningGoodStockUpdate) AddCreatedAt(u int32) *AppMiningGoodStockUpdate {
+	amgsu.mutation.AddCreatedAt(u)
+	return amgsu
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (amgsu *AppMiningGoodStockUpdate) SetUpdatedAt(u uint32) *AppMiningGoodStockUpdate {
+	amgsu.mutation.ResetUpdatedAt()
+	amgsu.mutation.SetUpdatedAt(u)
+	return amgsu
+}
+
+// AddUpdatedAt adds u to the "updated_at" field.
+func (amgsu *AppMiningGoodStockUpdate) AddUpdatedAt(u int32) *AppMiningGoodStockUpdate {
+	amgsu.mutation.AddUpdatedAt(u)
+	return amgsu
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (amgsu *AppMiningGoodStockUpdate) SetDeletedAt(u uint32) *AppMiningGoodStockUpdate {
+	amgsu.mutation.ResetDeletedAt()
+	amgsu.mutation.SetDeletedAt(u)
+	return amgsu
+}
+
+// SetNillableDeletedAt sets the "deleted_at" field if the given value is not nil.
+func (amgsu *AppMiningGoodStockUpdate) SetNillableDeletedAt(u *uint32) *AppMiningGoodStockUpdate {
+	if u != nil {
+		amgsu.SetDeletedAt(*u)
+	}
+	return amgsu
+}
+
+// AddDeletedAt adds u to the "deleted_at" field.
+func (amgsu *AppMiningGoodStockUpdate) AddDeletedAt(u int32) *AppMiningGoodStockUpdate {
+	amgsu.mutation.AddDeletedAt(u)
+	return amgsu
+}
+
 // SetAppGoodStockID sets the "app_good_stock_id" field.
 func (amgsu *AppMiningGoodStockUpdate) SetAppGoodStockID(u uuid.UUID) *AppMiningGoodStockUpdate {
 	amgsu.mutation.SetAppGoodStockID(u)
@@ -211,6 +266,7 @@ func (amgsu *AppMiningGoodStockUpdate) Mutation() *AppMiningGoodStockMutation {
 
 // Save executes the query and returns the number of nodes affected by the update operation.
 func (amgsu *AppMiningGoodStockUpdate) Save(ctx context.Context) (int, error) {
+	amgsu.defaults()
 	return withHooks(ctx, amgsu.sqlSave, amgsu.mutation, amgsu.hooks)
 }
 
@@ -236,6 +292,14 @@ func (amgsu *AppMiningGoodStockUpdate) ExecX(ctx context.Context) {
 	}
 }
 
+// defaults sets the default values of the builder before save.
+func (amgsu *AppMiningGoodStockUpdate) defaults() {
+	if _, ok := amgsu.mutation.UpdatedAt(); !ok {
+		v := appmininggoodstock.UpdateDefaultUpdatedAt()
+		amgsu.mutation.SetUpdatedAt(v)
+	}
+}
+
 // Modify adds a statement modifier for attaching custom logic to the UPDATE statement.
 func (amgsu *AppMiningGoodStockUpdate) Modify(modifiers ...func(u *sql.UpdateBuilder)) *AppMiningGoodStockUpdate {
 	amgsu.modifiers = append(amgsu.modifiers, modifiers...)
@@ -253,6 +317,24 @@ func (amgsu *AppMiningGoodStockUpdate) sqlSave(ctx context.Context) (n int, err 
 	}
 	if value, ok := amgsu.mutation.EntID(); ok {
 		_spec.SetField(appmininggoodstock.FieldEntID, field.TypeUUID, value)
+	}
+	if value, ok := amgsu.mutation.CreatedAt(); ok {
+		_spec.SetField(appmininggoodstock.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := amgsu.mutation.AddedCreatedAt(); ok {
+		_spec.AddField(appmininggoodstock.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := amgsu.mutation.UpdatedAt(); ok {
+		_spec.SetField(appmininggoodstock.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := amgsu.mutation.AddedUpdatedAt(); ok {
+		_spec.AddField(appmininggoodstock.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := amgsu.mutation.DeletedAt(); ok {
+		_spec.SetField(appmininggoodstock.FieldDeletedAt, field.TypeUint32, value)
+	}
+	if value, ok := amgsu.mutation.AddedDeletedAt(); ok {
+		_spec.AddField(appmininggoodstock.FieldDeletedAt, field.TypeUint32, value)
 	}
 	if value, ok := amgsu.mutation.AppGoodStockID(); ok {
 		_spec.SetField(appmininggoodstock.FieldAppGoodStockID, field.TypeUUID, value)
@@ -335,6 +417,61 @@ func (amgsuo *AppMiningGoodStockUpdateOne) SetNillableEntID(u *uuid.UUID) *AppMi
 	if u != nil {
 		amgsuo.SetEntID(*u)
 	}
+	return amgsuo
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (amgsuo *AppMiningGoodStockUpdateOne) SetCreatedAt(u uint32) *AppMiningGoodStockUpdateOne {
+	amgsuo.mutation.ResetCreatedAt()
+	amgsuo.mutation.SetCreatedAt(u)
+	return amgsuo
+}
+
+// SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
+func (amgsuo *AppMiningGoodStockUpdateOne) SetNillableCreatedAt(u *uint32) *AppMiningGoodStockUpdateOne {
+	if u != nil {
+		amgsuo.SetCreatedAt(*u)
+	}
+	return amgsuo
+}
+
+// AddCreatedAt adds u to the "created_at" field.
+func (amgsuo *AppMiningGoodStockUpdateOne) AddCreatedAt(u int32) *AppMiningGoodStockUpdateOne {
+	amgsuo.mutation.AddCreatedAt(u)
+	return amgsuo
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (amgsuo *AppMiningGoodStockUpdateOne) SetUpdatedAt(u uint32) *AppMiningGoodStockUpdateOne {
+	amgsuo.mutation.ResetUpdatedAt()
+	amgsuo.mutation.SetUpdatedAt(u)
+	return amgsuo
+}
+
+// AddUpdatedAt adds u to the "updated_at" field.
+func (amgsuo *AppMiningGoodStockUpdateOne) AddUpdatedAt(u int32) *AppMiningGoodStockUpdateOne {
+	amgsuo.mutation.AddUpdatedAt(u)
+	return amgsuo
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (amgsuo *AppMiningGoodStockUpdateOne) SetDeletedAt(u uint32) *AppMiningGoodStockUpdateOne {
+	amgsuo.mutation.ResetDeletedAt()
+	amgsuo.mutation.SetDeletedAt(u)
+	return amgsuo
+}
+
+// SetNillableDeletedAt sets the "deleted_at" field if the given value is not nil.
+func (amgsuo *AppMiningGoodStockUpdateOne) SetNillableDeletedAt(u *uint32) *AppMiningGoodStockUpdateOne {
+	if u != nil {
+		amgsuo.SetDeletedAt(*u)
+	}
+	return amgsuo
+}
+
+// AddDeletedAt adds u to the "deleted_at" field.
+func (amgsuo *AppMiningGoodStockUpdateOne) AddDeletedAt(u int32) *AppMiningGoodStockUpdateOne {
+	amgsuo.mutation.AddDeletedAt(u)
 	return amgsuo
 }
 
@@ -518,6 +655,7 @@ func (amgsuo *AppMiningGoodStockUpdateOne) Select(field string, fields ...string
 
 // Save executes the query and returns the updated AppMiningGoodStock entity.
 func (amgsuo *AppMiningGoodStockUpdateOne) Save(ctx context.Context) (*AppMiningGoodStock, error) {
+	amgsuo.defaults()
 	return withHooks(ctx, amgsuo.sqlSave, amgsuo.mutation, amgsuo.hooks)
 }
 
@@ -540,6 +678,14 @@ func (amgsuo *AppMiningGoodStockUpdateOne) Exec(ctx context.Context) error {
 func (amgsuo *AppMiningGoodStockUpdateOne) ExecX(ctx context.Context) {
 	if err := amgsuo.Exec(ctx); err != nil {
 		panic(err)
+	}
+}
+
+// defaults sets the default values of the builder before save.
+func (amgsuo *AppMiningGoodStockUpdateOne) defaults() {
+	if _, ok := amgsuo.mutation.UpdatedAt(); !ok {
+		v := appmininggoodstock.UpdateDefaultUpdatedAt()
+		amgsuo.mutation.SetUpdatedAt(v)
 	}
 }
 
@@ -577,6 +723,24 @@ func (amgsuo *AppMiningGoodStockUpdateOne) sqlSave(ctx context.Context) (_node *
 	}
 	if value, ok := amgsuo.mutation.EntID(); ok {
 		_spec.SetField(appmininggoodstock.FieldEntID, field.TypeUUID, value)
+	}
+	if value, ok := amgsuo.mutation.CreatedAt(); ok {
+		_spec.SetField(appmininggoodstock.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := amgsuo.mutation.AddedCreatedAt(); ok {
+		_spec.AddField(appmininggoodstock.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := amgsuo.mutation.UpdatedAt(); ok {
+		_spec.SetField(appmininggoodstock.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := amgsuo.mutation.AddedUpdatedAt(); ok {
+		_spec.AddField(appmininggoodstock.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := amgsuo.mutation.DeletedAt(); ok {
+		_spec.SetField(appmininggoodstock.FieldDeletedAt, field.TypeUint32, value)
+	}
+	if value, ok := amgsuo.mutation.AddedDeletedAt(); ok {
+		_spec.AddField(appmininggoodstock.FieldDeletedAt, field.TypeUint32, value)
 	}
 	if value, ok := amgsuo.mutation.AppGoodStockID(); ok {
 		_spec.SetField(appmininggoodstock.FieldAppGoodStockID, field.TypeUUID, value)

@@ -9,7 +9,7 @@ package fbmcrowdfunding
 import (
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/good/v1"
 	v11 "github.com/NpoolPlatform/kunman/message/basetypes/v1"
-	coin "github.com/NpoolPlatform/message/good/middleware/v1/good/coin"
+	coin "github.com/NpoolPlatform/kunman/message/good/middleware/v1/good/coin"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	reflect "reflect"

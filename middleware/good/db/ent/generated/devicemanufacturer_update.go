@@ -43,6 +43,61 @@ func (dmu *DeviceManufacturerUpdate) SetNillableEntID(u *uuid.UUID) *DeviceManuf
 	return dmu
 }
 
+// SetCreatedAt sets the "created_at" field.
+func (dmu *DeviceManufacturerUpdate) SetCreatedAt(u uint32) *DeviceManufacturerUpdate {
+	dmu.mutation.ResetCreatedAt()
+	dmu.mutation.SetCreatedAt(u)
+	return dmu
+}
+
+// SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
+func (dmu *DeviceManufacturerUpdate) SetNillableCreatedAt(u *uint32) *DeviceManufacturerUpdate {
+	if u != nil {
+		dmu.SetCreatedAt(*u)
+	}
+	return dmu
+}
+
+// AddCreatedAt adds u to the "created_at" field.
+func (dmu *DeviceManufacturerUpdate) AddCreatedAt(u int32) *DeviceManufacturerUpdate {
+	dmu.mutation.AddCreatedAt(u)
+	return dmu
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (dmu *DeviceManufacturerUpdate) SetUpdatedAt(u uint32) *DeviceManufacturerUpdate {
+	dmu.mutation.ResetUpdatedAt()
+	dmu.mutation.SetUpdatedAt(u)
+	return dmu
+}
+
+// AddUpdatedAt adds u to the "updated_at" field.
+func (dmu *DeviceManufacturerUpdate) AddUpdatedAt(u int32) *DeviceManufacturerUpdate {
+	dmu.mutation.AddUpdatedAt(u)
+	return dmu
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (dmu *DeviceManufacturerUpdate) SetDeletedAt(u uint32) *DeviceManufacturerUpdate {
+	dmu.mutation.ResetDeletedAt()
+	dmu.mutation.SetDeletedAt(u)
+	return dmu
+}
+
+// SetNillableDeletedAt sets the "deleted_at" field if the given value is not nil.
+func (dmu *DeviceManufacturerUpdate) SetNillableDeletedAt(u *uint32) *DeviceManufacturerUpdate {
+	if u != nil {
+		dmu.SetDeletedAt(*u)
+	}
+	return dmu
+}
+
+// AddDeletedAt adds u to the "deleted_at" field.
+func (dmu *DeviceManufacturerUpdate) AddDeletedAt(u int32) *DeviceManufacturerUpdate {
+	dmu.mutation.AddDeletedAt(u)
+	return dmu
+}
+
 // SetName sets the "name" field.
 func (dmu *DeviceManufacturerUpdate) SetName(s string) *DeviceManufacturerUpdate {
 	dmu.mutation.SetName(s)
@@ -90,6 +145,7 @@ func (dmu *DeviceManufacturerUpdate) Mutation() *DeviceManufacturerMutation {
 
 // Save executes the query and returns the number of nodes affected by the update operation.
 func (dmu *DeviceManufacturerUpdate) Save(ctx context.Context) (int, error) {
+	dmu.defaults()
 	return withHooks(ctx, dmu.sqlSave, dmu.mutation, dmu.hooks)
 }
 
@@ -112,6 +168,14 @@ func (dmu *DeviceManufacturerUpdate) Exec(ctx context.Context) error {
 func (dmu *DeviceManufacturerUpdate) ExecX(ctx context.Context) {
 	if err := dmu.Exec(ctx); err != nil {
 		panic(err)
+	}
+}
+
+// defaults sets the default values of the builder before save.
+func (dmu *DeviceManufacturerUpdate) defaults() {
+	if _, ok := dmu.mutation.UpdatedAt(); !ok {
+		v := devicemanufacturer.UpdateDefaultUpdatedAt()
+		dmu.mutation.SetUpdatedAt(v)
 	}
 }
 
@@ -150,6 +214,24 @@ func (dmu *DeviceManufacturerUpdate) sqlSave(ctx context.Context) (n int, err er
 	}
 	if value, ok := dmu.mutation.EntID(); ok {
 		_spec.SetField(devicemanufacturer.FieldEntID, field.TypeUUID, value)
+	}
+	if value, ok := dmu.mutation.CreatedAt(); ok {
+		_spec.SetField(devicemanufacturer.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := dmu.mutation.AddedCreatedAt(); ok {
+		_spec.AddField(devicemanufacturer.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := dmu.mutation.UpdatedAt(); ok {
+		_spec.SetField(devicemanufacturer.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := dmu.mutation.AddedUpdatedAt(); ok {
+		_spec.AddField(devicemanufacturer.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := dmu.mutation.DeletedAt(); ok {
+		_spec.SetField(devicemanufacturer.FieldDeletedAt, field.TypeUint32, value)
+	}
+	if value, ok := dmu.mutation.AddedDeletedAt(); ok {
+		_spec.AddField(devicemanufacturer.FieldDeletedAt, field.TypeUint32, value)
 	}
 	if value, ok := dmu.mutation.Name(); ok {
 		_spec.SetField(devicemanufacturer.FieldName, field.TypeString, value)
@@ -196,6 +278,61 @@ func (dmuo *DeviceManufacturerUpdateOne) SetNillableEntID(u *uuid.UUID) *DeviceM
 	if u != nil {
 		dmuo.SetEntID(*u)
 	}
+	return dmuo
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (dmuo *DeviceManufacturerUpdateOne) SetCreatedAt(u uint32) *DeviceManufacturerUpdateOne {
+	dmuo.mutation.ResetCreatedAt()
+	dmuo.mutation.SetCreatedAt(u)
+	return dmuo
+}
+
+// SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
+func (dmuo *DeviceManufacturerUpdateOne) SetNillableCreatedAt(u *uint32) *DeviceManufacturerUpdateOne {
+	if u != nil {
+		dmuo.SetCreatedAt(*u)
+	}
+	return dmuo
+}
+
+// AddCreatedAt adds u to the "created_at" field.
+func (dmuo *DeviceManufacturerUpdateOne) AddCreatedAt(u int32) *DeviceManufacturerUpdateOne {
+	dmuo.mutation.AddCreatedAt(u)
+	return dmuo
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (dmuo *DeviceManufacturerUpdateOne) SetUpdatedAt(u uint32) *DeviceManufacturerUpdateOne {
+	dmuo.mutation.ResetUpdatedAt()
+	dmuo.mutation.SetUpdatedAt(u)
+	return dmuo
+}
+
+// AddUpdatedAt adds u to the "updated_at" field.
+func (dmuo *DeviceManufacturerUpdateOne) AddUpdatedAt(u int32) *DeviceManufacturerUpdateOne {
+	dmuo.mutation.AddUpdatedAt(u)
+	return dmuo
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (dmuo *DeviceManufacturerUpdateOne) SetDeletedAt(u uint32) *DeviceManufacturerUpdateOne {
+	dmuo.mutation.ResetDeletedAt()
+	dmuo.mutation.SetDeletedAt(u)
+	return dmuo
+}
+
+// SetNillableDeletedAt sets the "deleted_at" field if the given value is not nil.
+func (dmuo *DeviceManufacturerUpdateOne) SetNillableDeletedAt(u *uint32) *DeviceManufacturerUpdateOne {
+	if u != nil {
+		dmuo.SetDeletedAt(*u)
+	}
+	return dmuo
+}
+
+// AddDeletedAt adds u to the "deleted_at" field.
+func (dmuo *DeviceManufacturerUpdateOne) AddDeletedAt(u int32) *DeviceManufacturerUpdateOne {
+	dmuo.mutation.AddDeletedAt(u)
 	return dmuo
 }
 
@@ -259,6 +396,7 @@ func (dmuo *DeviceManufacturerUpdateOne) Select(field string, fields ...string) 
 
 // Save executes the query and returns the updated DeviceManufacturer entity.
 func (dmuo *DeviceManufacturerUpdateOne) Save(ctx context.Context) (*DeviceManufacturer, error) {
+	dmuo.defaults()
 	return withHooks(ctx, dmuo.sqlSave, dmuo.mutation, dmuo.hooks)
 }
 
@@ -281,6 +419,14 @@ func (dmuo *DeviceManufacturerUpdateOne) Exec(ctx context.Context) error {
 func (dmuo *DeviceManufacturerUpdateOne) ExecX(ctx context.Context) {
 	if err := dmuo.Exec(ctx); err != nil {
 		panic(err)
+	}
+}
+
+// defaults sets the default values of the builder before save.
+func (dmuo *DeviceManufacturerUpdateOne) defaults() {
+	if _, ok := dmuo.mutation.UpdatedAt(); !ok {
+		v := devicemanufacturer.UpdateDefaultUpdatedAt()
+		dmuo.mutation.SetUpdatedAt(v)
 	}
 }
 
@@ -336,6 +482,24 @@ func (dmuo *DeviceManufacturerUpdateOne) sqlSave(ctx context.Context) (_node *De
 	}
 	if value, ok := dmuo.mutation.EntID(); ok {
 		_spec.SetField(devicemanufacturer.FieldEntID, field.TypeUUID, value)
+	}
+	if value, ok := dmuo.mutation.CreatedAt(); ok {
+		_spec.SetField(devicemanufacturer.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := dmuo.mutation.AddedCreatedAt(); ok {
+		_spec.AddField(devicemanufacturer.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := dmuo.mutation.UpdatedAt(); ok {
+		_spec.SetField(devicemanufacturer.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := dmuo.mutation.AddedUpdatedAt(); ok {
+		_spec.AddField(devicemanufacturer.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := dmuo.mutation.DeletedAt(); ok {
+		_spec.SetField(devicemanufacturer.FieldDeletedAt, field.TypeUint32, value)
+	}
+	if value, ok := dmuo.mutation.AddedDeletedAt(); ok {
+		_spec.AddField(devicemanufacturer.FieldDeletedAt, field.TypeUint32, value)
 	}
 	if value, ok := dmuo.mutation.Name(); ok {
 		_spec.SetField(devicemanufacturer.FieldName, field.TypeString, value)

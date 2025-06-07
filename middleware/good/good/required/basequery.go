@@ -5,7 +5,7 @@ import (
 
 	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
 	requiredcrud "github.com/NpoolPlatform/kunman/middleware/good/crud/good/required"
-	"github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated"
+	ent "github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated"
 	entgoodbase "github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated/goodbase"
 	entrequiredgood "github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated/requiredgood"
 )

@@ -3,7 +3,7 @@ package appgooddisplayname
 import (
 	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
 
-	"github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated"
+	ent "github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated"
 	entappgooddisplayname "github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated/appgooddisplayname"
 	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 

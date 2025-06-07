@@ -36,6 +36,48 @@ func (tmpc *TopMostPosterCreate) SetNillableEntID(u *uuid.UUID) *TopMostPosterCr
 	return tmpc
 }
 
+// SetCreatedAt sets the "created_at" field.
+func (tmpc *TopMostPosterCreate) SetCreatedAt(u uint32) *TopMostPosterCreate {
+	tmpc.mutation.SetCreatedAt(u)
+	return tmpc
+}
+
+// SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
+func (tmpc *TopMostPosterCreate) SetNillableCreatedAt(u *uint32) *TopMostPosterCreate {
+	if u != nil {
+		tmpc.SetCreatedAt(*u)
+	}
+	return tmpc
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (tmpc *TopMostPosterCreate) SetUpdatedAt(u uint32) *TopMostPosterCreate {
+	tmpc.mutation.SetUpdatedAt(u)
+	return tmpc
+}
+
+// SetNillableUpdatedAt sets the "updated_at" field if the given value is not nil.
+func (tmpc *TopMostPosterCreate) SetNillableUpdatedAt(u *uint32) *TopMostPosterCreate {
+	if u != nil {
+		tmpc.SetUpdatedAt(*u)
+	}
+	return tmpc
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (tmpc *TopMostPosterCreate) SetDeletedAt(u uint32) *TopMostPosterCreate {
+	tmpc.mutation.SetDeletedAt(u)
+	return tmpc
+}
+
+// SetNillableDeletedAt sets the "deleted_at" field if the given value is not nil.
+func (tmpc *TopMostPosterCreate) SetNillableDeletedAt(u *uint32) *TopMostPosterCreate {
+	if u != nil {
+		tmpc.SetDeletedAt(*u)
+	}
+	return tmpc
+}
+
 // SetTopMostID sets the "top_most_id" field.
 func (tmpc *TopMostPosterCreate) SetTopMostID(u uuid.UUID) *TopMostPosterCreate {
 	tmpc.mutation.SetTopMostID(u)
@@ -123,6 +165,18 @@ func (tmpc *TopMostPosterCreate) defaults() {
 		v := topmostposter.DefaultEntID()
 		tmpc.mutation.SetEntID(v)
 	}
+	if _, ok := tmpc.mutation.CreatedAt(); !ok {
+		v := topmostposter.DefaultCreatedAt()
+		tmpc.mutation.SetCreatedAt(v)
+	}
+	if _, ok := tmpc.mutation.UpdatedAt(); !ok {
+		v := topmostposter.DefaultUpdatedAt()
+		tmpc.mutation.SetUpdatedAt(v)
+	}
+	if _, ok := tmpc.mutation.DeletedAt(); !ok {
+		v := topmostposter.DefaultDeletedAt()
+		tmpc.mutation.SetDeletedAt(v)
+	}
 	if _, ok := tmpc.mutation.TopMostID(); !ok {
 		v := topmostposter.DefaultTopMostID()
 		tmpc.mutation.SetTopMostID(v)
@@ -141,6 +195,15 @@ func (tmpc *TopMostPosterCreate) defaults() {
 func (tmpc *TopMostPosterCreate) check() error {
 	if _, ok := tmpc.mutation.EntID(); !ok {
 		return &ValidationError{Name: "ent_id", err: errors.New(`generated: missing required field "TopMostPoster.ent_id"`)}
+	}
+	if _, ok := tmpc.mutation.CreatedAt(); !ok {
+		return &ValidationError{Name: "created_at", err: errors.New(`generated: missing required field "TopMostPoster.created_at"`)}
+	}
+	if _, ok := tmpc.mutation.UpdatedAt(); !ok {
+		return &ValidationError{Name: "updated_at", err: errors.New(`generated: missing required field "TopMostPoster.updated_at"`)}
+	}
+	if _, ok := tmpc.mutation.DeletedAt(); !ok {
+		return &ValidationError{Name: "deleted_at", err: errors.New(`generated: missing required field "TopMostPoster.deleted_at"`)}
 	}
 	return nil
 }
@@ -178,6 +241,18 @@ func (tmpc *TopMostPosterCreate) createSpec() (*TopMostPoster, *sqlgraph.CreateS
 	if value, ok := tmpc.mutation.EntID(); ok {
 		_spec.SetField(topmostposter.FieldEntID, field.TypeUUID, value)
 		_node.EntID = value
+	}
+	if value, ok := tmpc.mutation.CreatedAt(); ok {
+		_spec.SetField(topmostposter.FieldCreatedAt, field.TypeUint32, value)
+		_node.CreatedAt = value
+	}
+	if value, ok := tmpc.mutation.UpdatedAt(); ok {
+		_spec.SetField(topmostposter.FieldUpdatedAt, field.TypeUint32, value)
+		_node.UpdatedAt = value
+	}
+	if value, ok := tmpc.mutation.DeletedAt(); ok {
+		_spec.SetField(topmostposter.FieldDeletedAt, field.TypeUint32, value)
+		_node.DeletedAt = value
 	}
 	if value, ok := tmpc.mutation.TopMostID(); ok {
 		_spec.SetField(topmostposter.FieldTopMostID, field.TypeUUID, value)
@@ -252,6 +327,60 @@ func (u *TopMostPosterUpsert) SetEntID(v uuid.UUID) *TopMostPosterUpsert {
 // UpdateEntID sets the "ent_id" field to the value that was provided on create.
 func (u *TopMostPosterUpsert) UpdateEntID() *TopMostPosterUpsert {
 	u.SetExcluded(topmostposter.FieldEntID)
+	return u
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (u *TopMostPosterUpsert) SetCreatedAt(v uint32) *TopMostPosterUpsert {
+	u.Set(topmostposter.FieldCreatedAt, v)
+	return u
+}
+
+// UpdateCreatedAt sets the "created_at" field to the value that was provided on create.
+func (u *TopMostPosterUpsert) UpdateCreatedAt() *TopMostPosterUpsert {
+	u.SetExcluded(topmostposter.FieldCreatedAt)
+	return u
+}
+
+// AddCreatedAt adds v to the "created_at" field.
+func (u *TopMostPosterUpsert) AddCreatedAt(v uint32) *TopMostPosterUpsert {
+	u.Add(topmostposter.FieldCreatedAt, v)
+	return u
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (u *TopMostPosterUpsert) SetUpdatedAt(v uint32) *TopMostPosterUpsert {
+	u.Set(topmostposter.FieldUpdatedAt, v)
+	return u
+}
+
+// UpdateUpdatedAt sets the "updated_at" field to the value that was provided on create.
+func (u *TopMostPosterUpsert) UpdateUpdatedAt() *TopMostPosterUpsert {
+	u.SetExcluded(topmostposter.FieldUpdatedAt)
+	return u
+}
+
+// AddUpdatedAt adds v to the "updated_at" field.
+func (u *TopMostPosterUpsert) AddUpdatedAt(v uint32) *TopMostPosterUpsert {
+	u.Add(topmostposter.FieldUpdatedAt, v)
+	return u
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (u *TopMostPosterUpsert) SetDeletedAt(v uint32) *TopMostPosterUpsert {
+	u.Set(topmostposter.FieldDeletedAt, v)
+	return u
+}
+
+// UpdateDeletedAt sets the "deleted_at" field to the value that was provided on create.
+func (u *TopMostPosterUpsert) UpdateDeletedAt() *TopMostPosterUpsert {
+	u.SetExcluded(topmostposter.FieldDeletedAt)
+	return u
+}
+
+// AddDeletedAt adds v to the "deleted_at" field.
+func (u *TopMostPosterUpsert) AddDeletedAt(v uint32) *TopMostPosterUpsert {
+	u.Add(topmostposter.FieldDeletedAt, v)
 	return u
 }
 
@@ -374,6 +503,69 @@ func (u *TopMostPosterUpsertOne) SetEntID(v uuid.UUID) *TopMostPosterUpsertOne {
 func (u *TopMostPosterUpsertOne) UpdateEntID() *TopMostPosterUpsertOne {
 	return u.Update(func(s *TopMostPosterUpsert) {
 		s.UpdateEntID()
+	})
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (u *TopMostPosterUpsertOne) SetCreatedAt(v uint32) *TopMostPosterUpsertOne {
+	return u.Update(func(s *TopMostPosterUpsert) {
+		s.SetCreatedAt(v)
+	})
+}
+
+// AddCreatedAt adds v to the "created_at" field.
+func (u *TopMostPosterUpsertOne) AddCreatedAt(v uint32) *TopMostPosterUpsertOne {
+	return u.Update(func(s *TopMostPosterUpsert) {
+		s.AddCreatedAt(v)
+	})
+}
+
+// UpdateCreatedAt sets the "created_at" field to the value that was provided on create.
+func (u *TopMostPosterUpsertOne) UpdateCreatedAt() *TopMostPosterUpsertOne {
+	return u.Update(func(s *TopMostPosterUpsert) {
+		s.UpdateCreatedAt()
+	})
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (u *TopMostPosterUpsertOne) SetUpdatedAt(v uint32) *TopMostPosterUpsertOne {
+	return u.Update(func(s *TopMostPosterUpsert) {
+		s.SetUpdatedAt(v)
+	})
+}
+
+// AddUpdatedAt adds v to the "updated_at" field.
+func (u *TopMostPosterUpsertOne) AddUpdatedAt(v uint32) *TopMostPosterUpsertOne {
+	return u.Update(func(s *TopMostPosterUpsert) {
+		s.AddUpdatedAt(v)
+	})
+}
+
+// UpdateUpdatedAt sets the "updated_at" field to the value that was provided on create.
+func (u *TopMostPosterUpsertOne) UpdateUpdatedAt() *TopMostPosterUpsertOne {
+	return u.Update(func(s *TopMostPosterUpsert) {
+		s.UpdateUpdatedAt()
+	})
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (u *TopMostPosterUpsertOne) SetDeletedAt(v uint32) *TopMostPosterUpsertOne {
+	return u.Update(func(s *TopMostPosterUpsert) {
+		s.SetDeletedAt(v)
+	})
+}
+
+// AddDeletedAt adds v to the "deleted_at" field.
+func (u *TopMostPosterUpsertOne) AddDeletedAt(v uint32) *TopMostPosterUpsertOne {
+	return u.Update(func(s *TopMostPosterUpsert) {
+		s.AddDeletedAt(v)
+	})
+}
+
+// UpdateDeletedAt sets the "deleted_at" field to the value that was provided on create.
+func (u *TopMostPosterUpsertOne) UpdateDeletedAt() *TopMostPosterUpsertOne {
+	return u.Update(func(s *TopMostPosterUpsert) {
+		s.UpdateDeletedAt()
 	})
 }
 
@@ -672,6 +864,69 @@ func (u *TopMostPosterUpsertBulk) SetEntID(v uuid.UUID) *TopMostPosterUpsertBulk
 func (u *TopMostPosterUpsertBulk) UpdateEntID() *TopMostPosterUpsertBulk {
 	return u.Update(func(s *TopMostPosterUpsert) {
 		s.UpdateEntID()
+	})
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (u *TopMostPosterUpsertBulk) SetCreatedAt(v uint32) *TopMostPosterUpsertBulk {
+	return u.Update(func(s *TopMostPosterUpsert) {
+		s.SetCreatedAt(v)
+	})
+}
+
+// AddCreatedAt adds v to the "created_at" field.
+func (u *TopMostPosterUpsertBulk) AddCreatedAt(v uint32) *TopMostPosterUpsertBulk {
+	return u.Update(func(s *TopMostPosterUpsert) {
+		s.AddCreatedAt(v)
+	})
+}
+
+// UpdateCreatedAt sets the "created_at" field to the value that was provided on create.
+func (u *TopMostPosterUpsertBulk) UpdateCreatedAt() *TopMostPosterUpsertBulk {
+	return u.Update(func(s *TopMostPosterUpsert) {
+		s.UpdateCreatedAt()
+	})
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (u *TopMostPosterUpsertBulk) SetUpdatedAt(v uint32) *TopMostPosterUpsertBulk {
+	return u.Update(func(s *TopMostPosterUpsert) {
+		s.SetUpdatedAt(v)
+	})
+}
+
+// AddUpdatedAt adds v to the "updated_at" field.
+func (u *TopMostPosterUpsertBulk) AddUpdatedAt(v uint32) *TopMostPosterUpsertBulk {
+	return u.Update(func(s *TopMostPosterUpsert) {
+		s.AddUpdatedAt(v)
+	})
+}
+
+// UpdateUpdatedAt sets the "updated_at" field to the value that was provided on create.
+func (u *TopMostPosterUpsertBulk) UpdateUpdatedAt() *TopMostPosterUpsertBulk {
+	return u.Update(func(s *TopMostPosterUpsert) {
+		s.UpdateUpdatedAt()
+	})
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (u *TopMostPosterUpsertBulk) SetDeletedAt(v uint32) *TopMostPosterUpsertBulk {
+	return u.Update(func(s *TopMostPosterUpsert) {
+		s.SetDeletedAt(v)
+	})
+}
+
+// AddDeletedAt adds v to the "deleted_at" field.
+func (u *TopMostPosterUpsertBulk) AddDeletedAt(v uint32) *TopMostPosterUpsertBulk {
+	return u.Update(func(s *TopMostPosterUpsert) {
+		s.AddDeletedAt(v)
+	})
+}
+
+// UpdateDeletedAt sets the "deleted_at" field to the value that was provided on create.
+func (u *TopMostPosterUpsertBulk) UpdateDeletedAt() *TopMostPosterUpsertBulk {
+	return u.Update(func(s *TopMostPosterUpsert) {
+		s.UpdateDeletedAt()
 	})
 }
 

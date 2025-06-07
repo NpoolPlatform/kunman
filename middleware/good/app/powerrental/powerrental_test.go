@@ -11,12 +11,12 @@ import (
 
 	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 
-	devicetype1 "github.com/NpoolPlatform/kunman/middleware/good/middleware/device"
-	manufacturer1 "github.com/NpoolPlatform/kunman/middleware/good/middleware/device/manufacturer"
-	goodcoin1 "github.com/NpoolPlatform/kunman/middleware/good/middleware/good/coin"
-	powerrental1 "github.com/NpoolPlatform/kunman/middleware/good/middleware/powerrental"
-	vendorbrand1 "github.com/NpoolPlatform/kunman/middleware/good/middleware/vender/brand"
-	vendorlocation1 "github.com/NpoolPlatform/kunman/middleware/good/middleware/vender/location"
+	devicetype1 "github.com/NpoolPlatform/kunman/middleware/good/device"
+	manufacturer1 "github.com/NpoolPlatform/kunman/middleware/good/device/manufacturer"
+	goodcoin1 "github.com/NpoolPlatform/kunman/middleware/good/good/coin"
+	powerrental1 "github.com/NpoolPlatform/kunman/middleware/good/powerrental"
+	vendorbrand1 "github.com/NpoolPlatform/kunman/middleware/good/vender/brand"
+	vendorlocation1 "github.com/NpoolPlatform/kunman/middleware/good/vender/location"
 	appmininggoodstockmwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/app/good/stock/mining"
 	npool "github.com/NpoolPlatform/kunman/message/good/middleware/v1/app/powerrental"
 	goodcoinmwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/good/coin"

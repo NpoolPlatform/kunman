@@ -9,9 +9,9 @@ import (
 	"testing"
 	"time"
 
-	appgoodbase1 "github.com/NpoolPlatform/kunman/middleware/good/middleware/app/good/goodbase"
-	goodbase1 "github.com/NpoolPlatform/kunman/middleware/good/middleware/good/goodbase"
-	requiredgood1 "github.com/NpoolPlatform/kunman/middleware/good/middleware/good/required"
+	appgoodbase1 "github.com/NpoolPlatform/kunman/middleware/good/app/good/goodbase"
+	goodbase1 "github.com/NpoolPlatform/kunman/middleware/good/good/goodbase"
+	requiredgood1 "github.com/NpoolPlatform/kunman/middleware/good/required"
 	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 	types "github.com/NpoolPlatform/kunman/message/basetypes/good/v1"
 	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"

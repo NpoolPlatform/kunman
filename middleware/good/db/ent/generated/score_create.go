@@ -37,6 +37,48 @@ func (sc *ScoreCreate) SetNillableEntID(u *uuid.UUID) *ScoreCreate {
 	return sc
 }
 
+// SetCreatedAt sets the "created_at" field.
+func (sc *ScoreCreate) SetCreatedAt(u uint32) *ScoreCreate {
+	sc.mutation.SetCreatedAt(u)
+	return sc
+}
+
+// SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
+func (sc *ScoreCreate) SetNillableCreatedAt(u *uint32) *ScoreCreate {
+	if u != nil {
+		sc.SetCreatedAt(*u)
+	}
+	return sc
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (sc *ScoreCreate) SetUpdatedAt(u uint32) *ScoreCreate {
+	sc.mutation.SetUpdatedAt(u)
+	return sc
+}
+
+// SetNillableUpdatedAt sets the "updated_at" field if the given value is not nil.
+func (sc *ScoreCreate) SetNillableUpdatedAt(u *uint32) *ScoreCreate {
+	if u != nil {
+		sc.SetUpdatedAt(*u)
+	}
+	return sc
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (sc *ScoreCreate) SetDeletedAt(u uint32) *ScoreCreate {
+	sc.mutation.SetDeletedAt(u)
+	return sc
+}
+
+// SetNillableDeletedAt sets the "deleted_at" field if the given value is not nil.
+func (sc *ScoreCreate) SetNillableDeletedAt(u *uint32) *ScoreCreate {
+	if u != nil {
+		sc.SetDeletedAt(*u)
+	}
+	return sc
+}
+
 // SetUserID sets the "user_id" field.
 func (sc *ScoreCreate) SetUserID(u uuid.UUID) *ScoreCreate {
 	sc.mutation.SetUserID(u)
@@ -138,6 +180,18 @@ func (sc *ScoreCreate) defaults() {
 		v := score.DefaultEntID()
 		sc.mutation.SetEntID(v)
 	}
+	if _, ok := sc.mutation.CreatedAt(); !ok {
+		v := score.DefaultCreatedAt()
+		sc.mutation.SetCreatedAt(v)
+	}
+	if _, ok := sc.mutation.UpdatedAt(); !ok {
+		v := score.DefaultUpdatedAt()
+		sc.mutation.SetUpdatedAt(v)
+	}
+	if _, ok := sc.mutation.DeletedAt(); !ok {
+		v := score.DefaultDeletedAt()
+		sc.mutation.SetDeletedAt(v)
+	}
 	if _, ok := sc.mutation.UserID(); !ok {
 		v := score.DefaultUserID()
 		sc.mutation.SetUserID(v)
@@ -160,6 +214,15 @@ func (sc *ScoreCreate) defaults() {
 func (sc *ScoreCreate) check() error {
 	if _, ok := sc.mutation.EntID(); !ok {
 		return &ValidationError{Name: "ent_id", err: errors.New(`generated: missing required field "Score.ent_id"`)}
+	}
+	if _, ok := sc.mutation.CreatedAt(); !ok {
+		return &ValidationError{Name: "created_at", err: errors.New(`generated: missing required field "Score.created_at"`)}
+	}
+	if _, ok := sc.mutation.UpdatedAt(); !ok {
+		return &ValidationError{Name: "updated_at", err: errors.New(`generated: missing required field "Score.updated_at"`)}
+	}
+	if _, ok := sc.mutation.DeletedAt(); !ok {
+		return &ValidationError{Name: "deleted_at", err: errors.New(`generated: missing required field "Score.deleted_at"`)}
 	}
 	return nil
 }
@@ -197,6 +260,18 @@ func (sc *ScoreCreate) createSpec() (*Score, *sqlgraph.CreateSpec) {
 	if value, ok := sc.mutation.EntID(); ok {
 		_spec.SetField(score.FieldEntID, field.TypeUUID, value)
 		_node.EntID = value
+	}
+	if value, ok := sc.mutation.CreatedAt(); ok {
+		_spec.SetField(score.FieldCreatedAt, field.TypeUint32, value)
+		_node.CreatedAt = value
+	}
+	if value, ok := sc.mutation.UpdatedAt(); ok {
+		_spec.SetField(score.FieldUpdatedAt, field.TypeUint32, value)
+		_node.UpdatedAt = value
+	}
+	if value, ok := sc.mutation.DeletedAt(); ok {
+		_spec.SetField(score.FieldDeletedAt, field.TypeUint32, value)
+		_node.DeletedAt = value
 	}
 	if value, ok := sc.mutation.UserID(); ok {
 		_spec.SetField(score.FieldUserID, field.TypeUUID, value)
@@ -275,6 +350,60 @@ func (u *ScoreUpsert) SetEntID(v uuid.UUID) *ScoreUpsert {
 // UpdateEntID sets the "ent_id" field to the value that was provided on create.
 func (u *ScoreUpsert) UpdateEntID() *ScoreUpsert {
 	u.SetExcluded(score.FieldEntID)
+	return u
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (u *ScoreUpsert) SetCreatedAt(v uint32) *ScoreUpsert {
+	u.Set(score.FieldCreatedAt, v)
+	return u
+}
+
+// UpdateCreatedAt sets the "created_at" field to the value that was provided on create.
+func (u *ScoreUpsert) UpdateCreatedAt() *ScoreUpsert {
+	u.SetExcluded(score.FieldCreatedAt)
+	return u
+}
+
+// AddCreatedAt adds v to the "created_at" field.
+func (u *ScoreUpsert) AddCreatedAt(v uint32) *ScoreUpsert {
+	u.Add(score.FieldCreatedAt, v)
+	return u
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (u *ScoreUpsert) SetUpdatedAt(v uint32) *ScoreUpsert {
+	u.Set(score.FieldUpdatedAt, v)
+	return u
+}
+
+// UpdateUpdatedAt sets the "updated_at" field to the value that was provided on create.
+func (u *ScoreUpsert) UpdateUpdatedAt() *ScoreUpsert {
+	u.SetExcluded(score.FieldUpdatedAt)
+	return u
+}
+
+// AddUpdatedAt adds v to the "updated_at" field.
+func (u *ScoreUpsert) AddUpdatedAt(v uint32) *ScoreUpsert {
+	u.Add(score.FieldUpdatedAt, v)
+	return u
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (u *ScoreUpsert) SetDeletedAt(v uint32) *ScoreUpsert {
+	u.Set(score.FieldDeletedAt, v)
+	return u
+}
+
+// UpdateDeletedAt sets the "deleted_at" field to the value that was provided on create.
+func (u *ScoreUpsert) UpdateDeletedAt() *ScoreUpsert {
+	u.SetExcluded(score.FieldDeletedAt)
+	return u
+}
+
+// AddDeletedAt adds v to the "deleted_at" field.
+func (u *ScoreUpsert) AddDeletedAt(v uint32) *ScoreUpsert {
+	u.Add(score.FieldDeletedAt, v)
 	return u
 }
 
@@ -409,6 +538,69 @@ func (u *ScoreUpsertOne) SetEntID(v uuid.UUID) *ScoreUpsertOne {
 func (u *ScoreUpsertOne) UpdateEntID() *ScoreUpsertOne {
 	return u.Update(func(s *ScoreUpsert) {
 		s.UpdateEntID()
+	})
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (u *ScoreUpsertOne) SetCreatedAt(v uint32) *ScoreUpsertOne {
+	return u.Update(func(s *ScoreUpsert) {
+		s.SetCreatedAt(v)
+	})
+}
+
+// AddCreatedAt adds v to the "created_at" field.
+func (u *ScoreUpsertOne) AddCreatedAt(v uint32) *ScoreUpsertOne {
+	return u.Update(func(s *ScoreUpsert) {
+		s.AddCreatedAt(v)
+	})
+}
+
+// UpdateCreatedAt sets the "created_at" field to the value that was provided on create.
+func (u *ScoreUpsertOne) UpdateCreatedAt() *ScoreUpsertOne {
+	return u.Update(func(s *ScoreUpsert) {
+		s.UpdateCreatedAt()
+	})
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (u *ScoreUpsertOne) SetUpdatedAt(v uint32) *ScoreUpsertOne {
+	return u.Update(func(s *ScoreUpsert) {
+		s.SetUpdatedAt(v)
+	})
+}
+
+// AddUpdatedAt adds v to the "updated_at" field.
+func (u *ScoreUpsertOne) AddUpdatedAt(v uint32) *ScoreUpsertOne {
+	return u.Update(func(s *ScoreUpsert) {
+		s.AddUpdatedAt(v)
+	})
+}
+
+// UpdateUpdatedAt sets the "updated_at" field to the value that was provided on create.
+func (u *ScoreUpsertOne) UpdateUpdatedAt() *ScoreUpsertOne {
+	return u.Update(func(s *ScoreUpsert) {
+		s.UpdateUpdatedAt()
+	})
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (u *ScoreUpsertOne) SetDeletedAt(v uint32) *ScoreUpsertOne {
+	return u.Update(func(s *ScoreUpsert) {
+		s.SetDeletedAt(v)
+	})
+}
+
+// AddDeletedAt adds v to the "deleted_at" field.
+func (u *ScoreUpsertOne) AddDeletedAt(v uint32) *ScoreUpsertOne {
+	return u.Update(func(s *ScoreUpsert) {
+		s.AddDeletedAt(v)
+	})
+}
+
+// UpdateDeletedAt sets the "deleted_at" field to the value that was provided on create.
+func (u *ScoreUpsertOne) UpdateDeletedAt() *ScoreUpsertOne {
+	return u.Update(func(s *ScoreUpsert) {
+		s.UpdateDeletedAt()
 	})
 }
 
@@ -721,6 +913,69 @@ func (u *ScoreUpsertBulk) SetEntID(v uuid.UUID) *ScoreUpsertBulk {
 func (u *ScoreUpsertBulk) UpdateEntID() *ScoreUpsertBulk {
 	return u.Update(func(s *ScoreUpsert) {
 		s.UpdateEntID()
+	})
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (u *ScoreUpsertBulk) SetCreatedAt(v uint32) *ScoreUpsertBulk {
+	return u.Update(func(s *ScoreUpsert) {
+		s.SetCreatedAt(v)
+	})
+}
+
+// AddCreatedAt adds v to the "created_at" field.
+func (u *ScoreUpsertBulk) AddCreatedAt(v uint32) *ScoreUpsertBulk {
+	return u.Update(func(s *ScoreUpsert) {
+		s.AddCreatedAt(v)
+	})
+}
+
+// UpdateCreatedAt sets the "created_at" field to the value that was provided on create.
+func (u *ScoreUpsertBulk) UpdateCreatedAt() *ScoreUpsertBulk {
+	return u.Update(func(s *ScoreUpsert) {
+		s.UpdateCreatedAt()
+	})
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (u *ScoreUpsertBulk) SetUpdatedAt(v uint32) *ScoreUpsertBulk {
+	return u.Update(func(s *ScoreUpsert) {
+		s.SetUpdatedAt(v)
+	})
+}
+
+// AddUpdatedAt adds v to the "updated_at" field.
+func (u *ScoreUpsertBulk) AddUpdatedAt(v uint32) *ScoreUpsertBulk {
+	return u.Update(func(s *ScoreUpsert) {
+		s.AddUpdatedAt(v)
+	})
+}
+
+// UpdateUpdatedAt sets the "updated_at" field to the value that was provided on create.
+func (u *ScoreUpsertBulk) UpdateUpdatedAt() *ScoreUpsertBulk {
+	return u.Update(func(s *ScoreUpsert) {
+		s.UpdateUpdatedAt()
+	})
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (u *ScoreUpsertBulk) SetDeletedAt(v uint32) *ScoreUpsertBulk {
+	return u.Update(func(s *ScoreUpsert) {
+		s.SetDeletedAt(v)
+	})
+}
+
+// AddDeletedAt adds v to the "deleted_at" field.
+func (u *ScoreUpsertBulk) AddDeletedAt(v uint32) *ScoreUpsertBulk {
+	return u.Update(func(s *ScoreUpsert) {
+		s.AddDeletedAt(v)
+	})
+}
+
+// UpdateDeletedAt sets the "deleted_at" field to the value that was provided on create.
+func (u *ScoreUpsertBulk) UpdateDeletedAt() *ScoreUpsertBulk {
+	return u.Update(func(s *ScoreUpsert) {
+		s.UpdateDeletedAt()
 	})
 }
 

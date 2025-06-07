@@ -19,6 +19,12 @@ type DelegatedStaking struct {
 	ID uint32 `json:"id,omitempty"`
 	// EntID holds the value of the "ent_id" field.
 	EntID uuid.UUID `json:"ent_id,omitempty"`
+	// CreatedAt holds the value of the "created_at" field.
+	CreatedAt uint32 `json:"created_at,omitempty"`
+	// UpdatedAt holds the value of the "updated_at" field.
+	UpdatedAt uint32 `json:"updated_at,omitempty"`
+	// DeletedAt holds the value of the "deleted_at" field.
+	DeletedAt uint32 `json:"deleted_at,omitempty"`
 	// GoodID holds the value of the "good_id" field.
 	GoodID uuid.UUID `json:"good_id,omitempty"`
 	// ContractCodeURL holds the value of the "contract_code_url" field.
@@ -35,7 +41,7 @@ func (*DelegatedStaking) scanValues(columns []string) ([]any, error) {
 	values := make([]any, len(columns))
 	for i := range columns {
 		switch columns[i] {
-		case delegatedstaking.FieldID:
+		case delegatedstaking.FieldID, delegatedstaking.FieldCreatedAt, delegatedstaking.FieldUpdatedAt, delegatedstaking.FieldDeletedAt:
 			values[i] = new(sql.NullInt64)
 		case delegatedstaking.FieldContractCodeURL, delegatedstaking.FieldContractCodeBranch, delegatedstaking.FieldContractState:
 			values[i] = new(sql.NullString)
@@ -67,6 +73,24 @@ func (ds *DelegatedStaking) assignValues(columns []string, values []any) error {
 				return fmt.Errorf("unexpected type %T for field ent_id", values[i])
 			} else if value != nil {
 				ds.EntID = *value
+			}
+		case delegatedstaking.FieldCreatedAt:
+			if value, ok := values[i].(*sql.NullInt64); !ok {
+				return fmt.Errorf("unexpected type %T for field created_at", values[i])
+			} else if value.Valid {
+				ds.CreatedAt = uint32(value.Int64)
+			}
+		case delegatedstaking.FieldUpdatedAt:
+			if value, ok := values[i].(*sql.NullInt64); !ok {
+				return fmt.Errorf("unexpected type %T for field updated_at", values[i])
+			} else if value.Valid {
+				ds.UpdatedAt = uint32(value.Int64)
+			}
+		case delegatedstaking.FieldDeletedAt:
+			if value, ok := values[i].(*sql.NullInt64); !ok {
+				return fmt.Errorf("unexpected type %T for field deleted_at", values[i])
+			} else if value.Valid {
+				ds.DeletedAt = uint32(value.Int64)
 			}
 		case delegatedstaking.FieldGoodID:
 			if value, ok := values[i].(*uuid.UUID); !ok {
@@ -130,6 +154,15 @@ func (ds *DelegatedStaking) String() string {
 	builder.WriteString(fmt.Sprintf("id=%v, ", ds.ID))
 	builder.WriteString("ent_id=")
 	builder.WriteString(fmt.Sprintf("%v", ds.EntID))
+	builder.WriteString(", ")
+	builder.WriteString("created_at=")
+	builder.WriteString(fmt.Sprintf("%v", ds.CreatedAt))
+	builder.WriteString(", ")
+	builder.WriteString("updated_at=")
+	builder.WriteString(fmt.Sprintf("%v", ds.UpdatedAt))
+	builder.WriteString(", ")
+	builder.WriteString("deleted_at=")
+	builder.WriteString(fmt.Sprintf("%v", ds.DeletedAt))
 	builder.WriteString(", ")
 	builder.WriteString("good_id=")
 	builder.WriteString(fmt.Sprintf("%v", ds.GoodID))

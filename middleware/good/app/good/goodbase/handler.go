@@ -4,9 +4,9 @@ import (
 	"context"
 
 	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
-	constant "github.com/NpoolPlatform/kunman/middleware/good/const"
+	constant "github.com/NpoolPlatform/kunman/pkg/const"
 	appgoodbasecrud "github.com/NpoolPlatform/kunman/middleware/good/crud/app/good/goodbase"
-	goodbase1 "github.com/NpoolPlatform/kunman/middleware/good/middleware/good/goodbase"
+	goodbase1 "github.com/NpoolPlatform/kunman/middleware/good/good/goodbase"
 
 	"github.com/google/uuid"
 )

@@ -37,6 +37,48 @@ func (aslc *AppStockLockCreate) SetNillableEntID(u *uuid.UUID) *AppStockLockCrea
 	return aslc
 }
 
+// SetCreatedAt sets the "created_at" field.
+func (aslc *AppStockLockCreate) SetCreatedAt(u uint32) *AppStockLockCreate {
+	aslc.mutation.SetCreatedAt(u)
+	return aslc
+}
+
+// SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
+func (aslc *AppStockLockCreate) SetNillableCreatedAt(u *uint32) *AppStockLockCreate {
+	if u != nil {
+		aslc.SetCreatedAt(*u)
+	}
+	return aslc
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (aslc *AppStockLockCreate) SetUpdatedAt(u uint32) *AppStockLockCreate {
+	aslc.mutation.SetUpdatedAt(u)
+	return aslc
+}
+
+// SetNillableUpdatedAt sets the "updated_at" field if the given value is not nil.
+func (aslc *AppStockLockCreate) SetNillableUpdatedAt(u *uint32) *AppStockLockCreate {
+	if u != nil {
+		aslc.SetUpdatedAt(*u)
+	}
+	return aslc
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (aslc *AppStockLockCreate) SetDeletedAt(u uint32) *AppStockLockCreate {
+	aslc.mutation.SetDeletedAt(u)
+	return aslc
+}
+
+// SetNillableDeletedAt sets the "deleted_at" field if the given value is not nil.
+func (aslc *AppStockLockCreate) SetNillableDeletedAt(u *uint32) *AppStockLockCreate {
+	if u != nil {
+		aslc.SetDeletedAt(*u)
+	}
+	return aslc
+}
+
 // SetAppStockID sets the "app_stock_id" field.
 func (aslc *AppStockLockCreate) SetAppStockID(u uuid.UUID) *AppStockLockCreate {
 	aslc.mutation.SetAppStockID(u)
@@ -180,6 +222,18 @@ func (aslc *AppStockLockCreate) defaults() {
 		v := appstocklock.DefaultEntID()
 		aslc.mutation.SetEntID(v)
 	}
+	if _, ok := aslc.mutation.CreatedAt(); !ok {
+		v := appstocklock.DefaultCreatedAt()
+		aslc.mutation.SetCreatedAt(v)
+	}
+	if _, ok := aslc.mutation.UpdatedAt(); !ok {
+		v := appstocklock.DefaultUpdatedAt()
+		aslc.mutation.SetUpdatedAt(v)
+	}
+	if _, ok := aslc.mutation.DeletedAt(); !ok {
+		v := appstocklock.DefaultDeletedAt()
+		aslc.mutation.SetDeletedAt(v)
+	}
 	if _, ok := aslc.mutation.AppStockID(); !ok {
 		v := appstocklock.DefaultAppStockID()
 		aslc.mutation.SetAppStockID(v)
@@ -214,6 +268,15 @@ func (aslc *AppStockLockCreate) defaults() {
 func (aslc *AppStockLockCreate) check() error {
 	if _, ok := aslc.mutation.EntID(); !ok {
 		return &ValidationError{Name: "ent_id", err: errors.New(`generated: missing required field "AppStockLock.ent_id"`)}
+	}
+	if _, ok := aslc.mutation.CreatedAt(); !ok {
+		return &ValidationError{Name: "created_at", err: errors.New(`generated: missing required field "AppStockLock.created_at"`)}
+	}
+	if _, ok := aslc.mutation.UpdatedAt(); !ok {
+		return &ValidationError{Name: "updated_at", err: errors.New(`generated: missing required field "AppStockLock.updated_at"`)}
+	}
+	if _, ok := aslc.mutation.DeletedAt(); !ok {
+		return &ValidationError{Name: "deleted_at", err: errors.New(`generated: missing required field "AppStockLock.deleted_at"`)}
 	}
 	return nil
 }
@@ -251,6 +314,18 @@ func (aslc *AppStockLockCreate) createSpec() (*AppStockLock, *sqlgraph.CreateSpe
 	if value, ok := aslc.mutation.EntID(); ok {
 		_spec.SetField(appstocklock.FieldEntID, field.TypeUUID, value)
 		_node.EntID = value
+	}
+	if value, ok := aslc.mutation.CreatedAt(); ok {
+		_spec.SetField(appstocklock.FieldCreatedAt, field.TypeUint32, value)
+		_node.CreatedAt = value
+	}
+	if value, ok := aslc.mutation.UpdatedAt(); ok {
+		_spec.SetField(appstocklock.FieldUpdatedAt, field.TypeUint32, value)
+		_node.UpdatedAt = value
+	}
+	if value, ok := aslc.mutation.DeletedAt(); ok {
+		_spec.SetField(appstocklock.FieldDeletedAt, field.TypeUint32, value)
+		_node.DeletedAt = value
 	}
 	if value, ok := aslc.mutation.AppStockID(); ok {
 		_spec.SetField(appstocklock.FieldAppStockID, field.TypeUUID, value)
@@ -341,6 +416,60 @@ func (u *AppStockLockUpsert) SetEntID(v uuid.UUID) *AppStockLockUpsert {
 // UpdateEntID sets the "ent_id" field to the value that was provided on create.
 func (u *AppStockLockUpsert) UpdateEntID() *AppStockLockUpsert {
 	u.SetExcluded(appstocklock.FieldEntID)
+	return u
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (u *AppStockLockUpsert) SetCreatedAt(v uint32) *AppStockLockUpsert {
+	u.Set(appstocklock.FieldCreatedAt, v)
+	return u
+}
+
+// UpdateCreatedAt sets the "created_at" field to the value that was provided on create.
+func (u *AppStockLockUpsert) UpdateCreatedAt() *AppStockLockUpsert {
+	u.SetExcluded(appstocklock.FieldCreatedAt)
+	return u
+}
+
+// AddCreatedAt adds v to the "created_at" field.
+func (u *AppStockLockUpsert) AddCreatedAt(v uint32) *AppStockLockUpsert {
+	u.Add(appstocklock.FieldCreatedAt, v)
+	return u
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (u *AppStockLockUpsert) SetUpdatedAt(v uint32) *AppStockLockUpsert {
+	u.Set(appstocklock.FieldUpdatedAt, v)
+	return u
+}
+
+// UpdateUpdatedAt sets the "updated_at" field to the value that was provided on create.
+func (u *AppStockLockUpsert) UpdateUpdatedAt() *AppStockLockUpsert {
+	u.SetExcluded(appstocklock.FieldUpdatedAt)
+	return u
+}
+
+// AddUpdatedAt adds v to the "updated_at" field.
+func (u *AppStockLockUpsert) AddUpdatedAt(v uint32) *AppStockLockUpsert {
+	u.Add(appstocklock.FieldUpdatedAt, v)
+	return u
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (u *AppStockLockUpsert) SetDeletedAt(v uint32) *AppStockLockUpsert {
+	u.Set(appstocklock.FieldDeletedAt, v)
+	return u
+}
+
+// UpdateDeletedAt sets the "deleted_at" field to the value that was provided on create.
+func (u *AppStockLockUpsert) UpdateDeletedAt() *AppStockLockUpsert {
+	u.SetExcluded(appstocklock.FieldDeletedAt)
+	return u
+}
+
+// AddDeletedAt adds v to the "deleted_at" field.
+func (u *AppStockLockUpsert) AddDeletedAt(v uint32) *AppStockLockUpsert {
+	u.Add(appstocklock.FieldDeletedAt, v)
 	return u
 }
 
@@ -529,6 +658,69 @@ func (u *AppStockLockUpsertOne) SetEntID(v uuid.UUID) *AppStockLockUpsertOne {
 func (u *AppStockLockUpsertOne) UpdateEntID() *AppStockLockUpsertOne {
 	return u.Update(func(s *AppStockLockUpsert) {
 		s.UpdateEntID()
+	})
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (u *AppStockLockUpsertOne) SetCreatedAt(v uint32) *AppStockLockUpsertOne {
+	return u.Update(func(s *AppStockLockUpsert) {
+		s.SetCreatedAt(v)
+	})
+}
+
+// AddCreatedAt adds v to the "created_at" field.
+func (u *AppStockLockUpsertOne) AddCreatedAt(v uint32) *AppStockLockUpsertOne {
+	return u.Update(func(s *AppStockLockUpsert) {
+		s.AddCreatedAt(v)
+	})
+}
+
+// UpdateCreatedAt sets the "created_at" field to the value that was provided on create.
+func (u *AppStockLockUpsertOne) UpdateCreatedAt() *AppStockLockUpsertOne {
+	return u.Update(func(s *AppStockLockUpsert) {
+		s.UpdateCreatedAt()
+	})
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (u *AppStockLockUpsertOne) SetUpdatedAt(v uint32) *AppStockLockUpsertOne {
+	return u.Update(func(s *AppStockLockUpsert) {
+		s.SetUpdatedAt(v)
+	})
+}
+
+// AddUpdatedAt adds v to the "updated_at" field.
+func (u *AppStockLockUpsertOne) AddUpdatedAt(v uint32) *AppStockLockUpsertOne {
+	return u.Update(func(s *AppStockLockUpsert) {
+		s.AddUpdatedAt(v)
+	})
+}
+
+// UpdateUpdatedAt sets the "updated_at" field to the value that was provided on create.
+func (u *AppStockLockUpsertOne) UpdateUpdatedAt() *AppStockLockUpsertOne {
+	return u.Update(func(s *AppStockLockUpsert) {
+		s.UpdateUpdatedAt()
+	})
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (u *AppStockLockUpsertOne) SetDeletedAt(v uint32) *AppStockLockUpsertOne {
+	return u.Update(func(s *AppStockLockUpsert) {
+		s.SetDeletedAt(v)
+	})
+}
+
+// AddDeletedAt adds v to the "deleted_at" field.
+func (u *AppStockLockUpsertOne) AddDeletedAt(v uint32) *AppStockLockUpsertOne {
+	return u.Update(func(s *AppStockLockUpsert) {
+		s.AddDeletedAt(v)
+	})
+}
+
+// UpdateDeletedAt sets the "deleted_at" field to the value that was provided on create.
+func (u *AppStockLockUpsertOne) UpdateDeletedAt() *AppStockLockUpsertOne {
+	return u.Update(func(s *AppStockLockUpsert) {
+		s.UpdateDeletedAt()
 	})
 }
 
@@ -904,6 +1096,69 @@ func (u *AppStockLockUpsertBulk) SetEntID(v uuid.UUID) *AppStockLockUpsertBulk {
 func (u *AppStockLockUpsertBulk) UpdateEntID() *AppStockLockUpsertBulk {
 	return u.Update(func(s *AppStockLockUpsert) {
 		s.UpdateEntID()
+	})
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (u *AppStockLockUpsertBulk) SetCreatedAt(v uint32) *AppStockLockUpsertBulk {
+	return u.Update(func(s *AppStockLockUpsert) {
+		s.SetCreatedAt(v)
+	})
+}
+
+// AddCreatedAt adds v to the "created_at" field.
+func (u *AppStockLockUpsertBulk) AddCreatedAt(v uint32) *AppStockLockUpsertBulk {
+	return u.Update(func(s *AppStockLockUpsert) {
+		s.AddCreatedAt(v)
+	})
+}
+
+// UpdateCreatedAt sets the "created_at" field to the value that was provided on create.
+func (u *AppStockLockUpsertBulk) UpdateCreatedAt() *AppStockLockUpsertBulk {
+	return u.Update(func(s *AppStockLockUpsert) {
+		s.UpdateCreatedAt()
+	})
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (u *AppStockLockUpsertBulk) SetUpdatedAt(v uint32) *AppStockLockUpsertBulk {
+	return u.Update(func(s *AppStockLockUpsert) {
+		s.SetUpdatedAt(v)
+	})
+}
+
+// AddUpdatedAt adds v to the "updated_at" field.
+func (u *AppStockLockUpsertBulk) AddUpdatedAt(v uint32) *AppStockLockUpsertBulk {
+	return u.Update(func(s *AppStockLockUpsert) {
+		s.AddUpdatedAt(v)
+	})
+}
+
+// UpdateUpdatedAt sets the "updated_at" field to the value that was provided on create.
+func (u *AppStockLockUpsertBulk) UpdateUpdatedAt() *AppStockLockUpsertBulk {
+	return u.Update(func(s *AppStockLockUpsert) {
+		s.UpdateUpdatedAt()
+	})
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (u *AppStockLockUpsertBulk) SetDeletedAt(v uint32) *AppStockLockUpsertBulk {
+	return u.Update(func(s *AppStockLockUpsert) {
+		s.SetDeletedAt(v)
+	})
+}
+
+// AddDeletedAt adds v to the "deleted_at" field.
+func (u *AppStockLockUpsertBulk) AddDeletedAt(v uint32) *AppStockLockUpsertBulk {
+	return u.Update(func(s *AppStockLockUpsert) {
+		s.AddDeletedAt(v)
+	})
+}
+
+// UpdateDeletedAt sets the "deleted_at" field to the value that was provided on create.
+func (u *AppStockLockUpsertBulk) UpdateDeletedAt() *AppStockLockUpsertBulk {
+	return u.Update(func(s *AppStockLockUpsert) {
+		s.UpdateDeletedAt()
 	})
 }
 

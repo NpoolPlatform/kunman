@@ -43,6 +43,61 @@ func (vbu *VendorBrandUpdate) SetNillableEntID(u *uuid.UUID) *VendorBrandUpdate 
 	return vbu
 }
 
+// SetCreatedAt sets the "created_at" field.
+func (vbu *VendorBrandUpdate) SetCreatedAt(u uint32) *VendorBrandUpdate {
+	vbu.mutation.ResetCreatedAt()
+	vbu.mutation.SetCreatedAt(u)
+	return vbu
+}
+
+// SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
+func (vbu *VendorBrandUpdate) SetNillableCreatedAt(u *uint32) *VendorBrandUpdate {
+	if u != nil {
+		vbu.SetCreatedAt(*u)
+	}
+	return vbu
+}
+
+// AddCreatedAt adds u to the "created_at" field.
+func (vbu *VendorBrandUpdate) AddCreatedAt(u int32) *VendorBrandUpdate {
+	vbu.mutation.AddCreatedAt(u)
+	return vbu
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (vbu *VendorBrandUpdate) SetUpdatedAt(u uint32) *VendorBrandUpdate {
+	vbu.mutation.ResetUpdatedAt()
+	vbu.mutation.SetUpdatedAt(u)
+	return vbu
+}
+
+// AddUpdatedAt adds u to the "updated_at" field.
+func (vbu *VendorBrandUpdate) AddUpdatedAt(u int32) *VendorBrandUpdate {
+	vbu.mutation.AddUpdatedAt(u)
+	return vbu
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (vbu *VendorBrandUpdate) SetDeletedAt(u uint32) *VendorBrandUpdate {
+	vbu.mutation.ResetDeletedAt()
+	vbu.mutation.SetDeletedAt(u)
+	return vbu
+}
+
+// SetNillableDeletedAt sets the "deleted_at" field if the given value is not nil.
+func (vbu *VendorBrandUpdate) SetNillableDeletedAt(u *uint32) *VendorBrandUpdate {
+	if u != nil {
+		vbu.SetDeletedAt(*u)
+	}
+	return vbu
+}
+
+// AddDeletedAt adds u to the "deleted_at" field.
+func (vbu *VendorBrandUpdate) AddDeletedAt(u int32) *VendorBrandUpdate {
+	vbu.mutation.AddDeletedAt(u)
+	return vbu
+}
+
 // SetName sets the "name" field.
 func (vbu *VendorBrandUpdate) SetName(s string) *VendorBrandUpdate {
 	vbu.mutation.SetName(s)
@@ -90,6 +145,7 @@ func (vbu *VendorBrandUpdate) Mutation() *VendorBrandMutation {
 
 // Save executes the query and returns the number of nodes affected by the update operation.
 func (vbu *VendorBrandUpdate) Save(ctx context.Context) (int, error) {
+	vbu.defaults()
 	return withHooks(ctx, vbu.sqlSave, vbu.mutation, vbu.hooks)
 }
 
@@ -112,6 +168,14 @@ func (vbu *VendorBrandUpdate) Exec(ctx context.Context) error {
 func (vbu *VendorBrandUpdate) ExecX(ctx context.Context) {
 	if err := vbu.Exec(ctx); err != nil {
 		panic(err)
+	}
+}
+
+// defaults sets the default values of the builder before save.
+func (vbu *VendorBrandUpdate) defaults() {
+	if _, ok := vbu.mutation.UpdatedAt(); !ok {
+		v := vendorbrand.UpdateDefaultUpdatedAt()
+		vbu.mutation.SetUpdatedAt(v)
 	}
 }
 
@@ -150,6 +214,24 @@ func (vbu *VendorBrandUpdate) sqlSave(ctx context.Context) (n int, err error) {
 	}
 	if value, ok := vbu.mutation.EntID(); ok {
 		_spec.SetField(vendorbrand.FieldEntID, field.TypeUUID, value)
+	}
+	if value, ok := vbu.mutation.CreatedAt(); ok {
+		_spec.SetField(vendorbrand.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := vbu.mutation.AddedCreatedAt(); ok {
+		_spec.AddField(vendorbrand.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := vbu.mutation.UpdatedAt(); ok {
+		_spec.SetField(vendorbrand.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := vbu.mutation.AddedUpdatedAt(); ok {
+		_spec.AddField(vendorbrand.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := vbu.mutation.DeletedAt(); ok {
+		_spec.SetField(vendorbrand.FieldDeletedAt, field.TypeUint32, value)
+	}
+	if value, ok := vbu.mutation.AddedDeletedAt(); ok {
+		_spec.AddField(vendorbrand.FieldDeletedAt, field.TypeUint32, value)
 	}
 	if value, ok := vbu.mutation.Name(); ok {
 		_spec.SetField(vendorbrand.FieldName, field.TypeString, value)
@@ -196,6 +278,61 @@ func (vbuo *VendorBrandUpdateOne) SetNillableEntID(u *uuid.UUID) *VendorBrandUpd
 	if u != nil {
 		vbuo.SetEntID(*u)
 	}
+	return vbuo
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (vbuo *VendorBrandUpdateOne) SetCreatedAt(u uint32) *VendorBrandUpdateOne {
+	vbuo.mutation.ResetCreatedAt()
+	vbuo.mutation.SetCreatedAt(u)
+	return vbuo
+}
+
+// SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
+func (vbuo *VendorBrandUpdateOne) SetNillableCreatedAt(u *uint32) *VendorBrandUpdateOne {
+	if u != nil {
+		vbuo.SetCreatedAt(*u)
+	}
+	return vbuo
+}
+
+// AddCreatedAt adds u to the "created_at" field.
+func (vbuo *VendorBrandUpdateOne) AddCreatedAt(u int32) *VendorBrandUpdateOne {
+	vbuo.mutation.AddCreatedAt(u)
+	return vbuo
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (vbuo *VendorBrandUpdateOne) SetUpdatedAt(u uint32) *VendorBrandUpdateOne {
+	vbuo.mutation.ResetUpdatedAt()
+	vbuo.mutation.SetUpdatedAt(u)
+	return vbuo
+}
+
+// AddUpdatedAt adds u to the "updated_at" field.
+func (vbuo *VendorBrandUpdateOne) AddUpdatedAt(u int32) *VendorBrandUpdateOne {
+	vbuo.mutation.AddUpdatedAt(u)
+	return vbuo
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (vbuo *VendorBrandUpdateOne) SetDeletedAt(u uint32) *VendorBrandUpdateOne {
+	vbuo.mutation.ResetDeletedAt()
+	vbuo.mutation.SetDeletedAt(u)
+	return vbuo
+}
+
+// SetNillableDeletedAt sets the "deleted_at" field if the given value is not nil.
+func (vbuo *VendorBrandUpdateOne) SetNillableDeletedAt(u *uint32) *VendorBrandUpdateOne {
+	if u != nil {
+		vbuo.SetDeletedAt(*u)
+	}
+	return vbuo
+}
+
+// AddDeletedAt adds u to the "deleted_at" field.
+func (vbuo *VendorBrandUpdateOne) AddDeletedAt(u int32) *VendorBrandUpdateOne {
+	vbuo.mutation.AddDeletedAt(u)
 	return vbuo
 }
 
@@ -259,6 +396,7 @@ func (vbuo *VendorBrandUpdateOne) Select(field string, fields ...string) *Vendor
 
 // Save executes the query and returns the updated VendorBrand entity.
 func (vbuo *VendorBrandUpdateOne) Save(ctx context.Context) (*VendorBrand, error) {
+	vbuo.defaults()
 	return withHooks(ctx, vbuo.sqlSave, vbuo.mutation, vbuo.hooks)
 }
 
@@ -281,6 +419,14 @@ func (vbuo *VendorBrandUpdateOne) Exec(ctx context.Context) error {
 func (vbuo *VendorBrandUpdateOne) ExecX(ctx context.Context) {
 	if err := vbuo.Exec(ctx); err != nil {
 		panic(err)
+	}
+}
+
+// defaults sets the default values of the builder before save.
+func (vbuo *VendorBrandUpdateOne) defaults() {
+	if _, ok := vbuo.mutation.UpdatedAt(); !ok {
+		v := vendorbrand.UpdateDefaultUpdatedAt()
+		vbuo.mutation.SetUpdatedAt(v)
 	}
 }
 
@@ -336,6 +482,24 @@ func (vbuo *VendorBrandUpdateOne) sqlSave(ctx context.Context) (_node *VendorBra
 	}
 	if value, ok := vbuo.mutation.EntID(); ok {
 		_spec.SetField(vendorbrand.FieldEntID, field.TypeUUID, value)
+	}
+	if value, ok := vbuo.mutation.CreatedAt(); ok {
+		_spec.SetField(vendorbrand.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := vbuo.mutation.AddedCreatedAt(); ok {
+		_spec.AddField(vendorbrand.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := vbuo.mutation.UpdatedAt(); ok {
+		_spec.SetField(vendorbrand.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := vbuo.mutation.AddedUpdatedAt(); ok {
+		_spec.AddField(vendorbrand.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := vbuo.mutation.DeletedAt(); ok {
+		_spec.SetField(vendorbrand.FieldDeletedAt, field.TypeUint32, value)
+	}
+	if value, ok := vbuo.mutation.AddedDeletedAt(); ok {
+		_spec.AddField(vendorbrand.FieldDeletedAt, field.TypeUint32, value)
 	}
 	if value, ok := vbuo.mutation.Name(); ok {
 		_spec.SetField(vendorbrand.FieldName, field.TypeString, value)

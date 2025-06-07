@@ -19,6 +19,12 @@ type GoodMalfunction struct {
 	ID uint32 `json:"id,omitempty"`
 	// EntID holds the value of the "ent_id" field.
 	EntID uuid.UUID `json:"ent_id,omitempty"`
+	// CreatedAt holds the value of the "created_at" field.
+	CreatedAt uint32 `json:"created_at,omitempty"`
+	// UpdatedAt holds the value of the "updated_at" field.
+	UpdatedAt uint32 `json:"updated_at,omitempty"`
+	// DeletedAt holds the value of the "deleted_at" field.
+	DeletedAt uint32 `json:"deleted_at,omitempty"`
 	// GoodID holds the value of the "good_id" field.
 	GoodID uuid.UUID `json:"good_id,omitempty"`
 	// Title holds the value of the "title" field.
@@ -39,7 +45,7 @@ func (*GoodMalfunction) scanValues(columns []string) ([]any, error) {
 	values := make([]any, len(columns))
 	for i := range columns {
 		switch columns[i] {
-		case goodmalfunction.FieldID, goodmalfunction.FieldStartAt, goodmalfunction.FieldDurationSeconds, goodmalfunction.FieldCompensateSeconds:
+		case goodmalfunction.FieldID, goodmalfunction.FieldCreatedAt, goodmalfunction.FieldUpdatedAt, goodmalfunction.FieldDeletedAt, goodmalfunction.FieldStartAt, goodmalfunction.FieldDurationSeconds, goodmalfunction.FieldCompensateSeconds:
 			values[i] = new(sql.NullInt64)
 		case goodmalfunction.FieldTitle, goodmalfunction.FieldMessage:
 			values[i] = new(sql.NullString)
@@ -71,6 +77,24 @@ func (gm *GoodMalfunction) assignValues(columns []string, values []any) error {
 				return fmt.Errorf("unexpected type %T for field ent_id", values[i])
 			} else if value != nil {
 				gm.EntID = *value
+			}
+		case goodmalfunction.FieldCreatedAt:
+			if value, ok := values[i].(*sql.NullInt64); !ok {
+				return fmt.Errorf("unexpected type %T for field created_at", values[i])
+			} else if value.Valid {
+				gm.CreatedAt = uint32(value.Int64)
+			}
+		case goodmalfunction.FieldUpdatedAt:
+			if value, ok := values[i].(*sql.NullInt64); !ok {
+				return fmt.Errorf("unexpected type %T for field updated_at", values[i])
+			} else if value.Valid {
+				gm.UpdatedAt = uint32(value.Int64)
+			}
+		case goodmalfunction.FieldDeletedAt:
+			if value, ok := values[i].(*sql.NullInt64); !ok {
+				return fmt.Errorf("unexpected type %T for field deleted_at", values[i])
+			} else if value.Valid {
+				gm.DeletedAt = uint32(value.Int64)
 			}
 		case goodmalfunction.FieldGoodID:
 			if value, ok := values[i].(*uuid.UUID); !ok {
@@ -146,6 +170,15 @@ func (gm *GoodMalfunction) String() string {
 	builder.WriteString(fmt.Sprintf("id=%v, ", gm.ID))
 	builder.WriteString("ent_id=")
 	builder.WriteString(fmt.Sprintf("%v", gm.EntID))
+	builder.WriteString(", ")
+	builder.WriteString("created_at=")
+	builder.WriteString(fmt.Sprintf("%v", gm.CreatedAt))
+	builder.WriteString(", ")
+	builder.WriteString("updated_at=")
+	builder.WriteString(fmt.Sprintf("%v", gm.UpdatedAt))
+	builder.WriteString(", ")
+	builder.WriteString("deleted_at=")
+	builder.WriteString(fmt.Sprintf("%v", gm.DeletedAt))
 	builder.WriteString(", ")
 	builder.WriteString("good_id=")
 	builder.WriteString(fmt.Sprintf("%v", gm.GoodID))

@@ -6,7 +6,7 @@ import (
 	logger "github.com/NpoolPlatform/kunman/framework/logger"
 	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
 	malfunctioncrud "github.com/NpoolPlatform/kunman/middleware/good/crud/good/malfunction"
-	"github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated"
+	ent "github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated"
 	entappgoodbase "github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated/appgoodbase"
 	entgoodbase "github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated/goodbase"
 	entgoodmalfunction "github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated/goodmalfunction"

@@ -44,6 +44,61 @@ func (gu *GoodUpdate) SetNillableEntID(u *uuid.UUID) *GoodUpdate {
 	return gu
 }
 
+// SetCreatedAt sets the "created_at" field.
+func (gu *GoodUpdate) SetCreatedAt(u uint32) *GoodUpdate {
+	gu.mutation.ResetCreatedAt()
+	gu.mutation.SetCreatedAt(u)
+	return gu
+}
+
+// SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
+func (gu *GoodUpdate) SetNillableCreatedAt(u *uint32) *GoodUpdate {
+	if u != nil {
+		gu.SetCreatedAt(*u)
+	}
+	return gu
+}
+
+// AddCreatedAt adds u to the "created_at" field.
+func (gu *GoodUpdate) AddCreatedAt(u int32) *GoodUpdate {
+	gu.mutation.AddCreatedAt(u)
+	return gu
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (gu *GoodUpdate) SetUpdatedAt(u uint32) *GoodUpdate {
+	gu.mutation.ResetUpdatedAt()
+	gu.mutation.SetUpdatedAt(u)
+	return gu
+}
+
+// AddUpdatedAt adds u to the "updated_at" field.
+func (gu *GoodUpdate) AddUpdatedAt(u int32) *GoodUpdate {
+	gu.mutation.AddUpdatedAt(u)
+	return gu
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (gu *GoodUpdate) SetDeletedAt(u uint32) *GoodUpdate {
+	gu.mutation.ResetDeletedAt()
+	gu.mutation.SetDeletedAt(u)
+	return gu
+}
+
+// SetNillableDeletedAt sets the "deleted_at" field if the given value is not nil.
+func (gu *GoodUpdate) SetNillableDeletedAt(u *uint32) *GoodUpdate {
+	if u != nil {
+		gu.SetDeletedAt(*u)
+	}
+	return gu
+}
+
+// AddDeletedAt adds u to the "deleted_at" field.
+func (gu *GoodUpdate) AddDeletedAt(u int32) *GoodUpdate {
+	gu.mutation.AddDeletedAt(u)
+	return gu
+}
+
 // SetDeviceInfoID sets the "device_info_id" field.
 func (gu *GoodUpdate) SetDeviceInfoID(u uuid.UUID) *GoodUpdate {
 	gu.mutation.SetDeviceInfoID(u)
@@ -521,6 +576,7 @@ func (gu *GoodUpdate) Mutation() *GoodMutation {
 
 // Save executes the query and returns the number of nodes affected by the update operation.
 func (gu *GoodUpdate) Save(ctx context.Context) (int, error) {
+	gu.defaults()
 	return withHooks(ctx, gu.sqlSave, gu.mutation, gu.hooks)
 }
 
@@ -546,6 +602,14 @@ func (gu *GoodUpdate) ExecX(ctx context.Context) {
 	}
 }
 
+// defaults sets the default values of the builder before save.
+func (gu *GoodUpdate) defaults() {
+	if _, ok := gu.mutation.UpdatedAt(); !ok {
+		v := good.UpdateDefaultUpdatedAt()
+		gu.mutation.SetUpdatedAt(v)
+	}
+}
+
 // Modify adds a statement modifier for attaching custom logic to the UPDATE statement.
 func (gu *GoodUpdate) Modify(modifiers ...func(u *sql.UpdateBuilder)) *GoodUpdate {
 	gu.modifiers = append(gu.modifiers, modifiers...)
@@ -563,6 +627,24 @@ func (gu *GoodUpdate) sqlSave(ctx context.Context) (n int, err error) {
 	}
 	if value, ok := gu.mutation.EntID(); ok {
 		_spec.SetField(good.FieldEntID, field.TypeUUID, value)
+	}
+	if value, ok := gu.mutation.CreatedAt(); ok {
+		_spec.SetField(good.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := gu.mutation.AddedCreatedAt(); ok {
+		_spec.AddField(good.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := gu.mutation.UpdatedAt(); ok {
+		_spec.SetField(good.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := gu.mutation.AddedUpdatedAt(); ok {
+		_spec.AddField(good.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := gu.mutation.DeletedAt(); ok {
+		_spec.SetField(good.FieldDeletedAt, field.TypeUint32, value)
+	}
+	if value, ok := gu.mutation.AddedDeletedAt(); ok {
+		_spec.AddField(good.FieldDeletedAt, field.TypeUint32, value)
 	}
 	if value, ok := gu.mutation.DeviceInfoID(); ok {
 		_spec.SetField(good.FieldDeviceInfoID, field.TypeUUID, value)
@@ -738,6 +820,61 @@ func (guo *GoodUpdateOne) SetNillableEntID(u *uuid.UUID) *GoodUpdateOne {
 	if u != nil {
 		guo.SetEntID(*u)
 	}
+	return guo
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (guo *GoodUpdateOne) SetCreatedAt(u uint32) *GoodUpdateOne {
+	guo.mutation.ResetCreatedAt()
+	guo.mutation.SetCreatedAt(u)
+	return guo
+}
+
+// SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
+func (guo *GoodUpdateOne) SetNillableCreatedAt(u *uint32) *GoodUpdateOne {
+	if u != nil {
+		guo.SetCreatedAt(*u)
+	}
+	return guo
+}
+
+// AddCreatedAt adds u to the "created_at" field.
+func (guo *GoodUpdateOne) AddCreatedAt(u int32) *GoodUpdateOne {
+	guo.mutation.AddCreatedAt(u)
+	return guo
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (guo *GoodUpdateOne) SetUpdatedAt(u uint32) *GoodUpdateOne {
+	guo.mutation.ResetUpdatedAt()
+	guo.mutation.SetUpdatedAt(u)
+	return guo
+}
+
+// AddUpdatedAt adds u to the "updated_at" field.
+func (guo *GoodUpdateOne) AddUpdatedAt(u int32) *GoodUpdateOne {
+	guo.mutation.AddUpdatedAt(u)
+	return guo
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (guo *GoodUpdateOne) SetDeletedAt(u uint32) *GoodUpdateOne {
+	guo.mutation.ResetDeletedAt()
+	guo.mutation.SetDeletedAt(u)
+	return guo
+}
+
+// SetNillableDeletedAt sets the "deleted_at" field if the given value is not nil.
+func (guo *GoodUpdateOne) SetNillableDeletedAt(u *uint32) *GoodUpdateOne {
+	if u != nil {
+		guo.SetDeletedAt(*u)
+	}
+	return guo
+}
+
+// AddDeletedAt adds u to the "deleted_at" field.
+func (guo *GoodUpdateOne) AddDeletedAt(u int32) *GoodUpdateOne {
+	guo.mutation.AddDeletedAt(u)
 	return guo
 }
 
@@ -1231,6 +1368,7 @@ func (guo *GoodUpdateOne) Select(field string, fields ...string) *GoodUpdateOne 
 
 // Save executes the query and returns the updated Good entity.
 func (guo *GoodUpdateOne) Save(ctx context.Context) (*Good, error) {
+	guo.defaults()
 	return withHooks(ctx, guo.sqlSave, guo.mutation, guo.hooks)
 }
 
@@ -1253,6 +1391,14 @@ func (guo *GoodUpdateOne) Exec(ctx context.Context) error {
 func (guo *GoodUpdateOne) ExecX(ctx context.Context) {
 	if err := guo.Exec(ctx); err != nil {
 		panic(err)
+	}
+}
+
+// defaults sets the default values of the builder before save.
+func (guo *GoodUpdateOne) defaults() {
+	if _, ok := guo.mutation.UpdatedAt(); !ok {
+		v := good.UpdateDefaultUpdatedAt()
+		guo.mutation.SetUpdatedAt(v)
 	}
 }
 
@@ -1290,6 +1436,24 @@ func (guo *GoodUpdateOne) sqlSave(ctx context.Context) (_node *Good, err error) 
 	}
 	if value, ok := guo.mutation.EntID(); ok {
 		_spec.SetField(good.FieldEntID, field.TypeUUID, value)
+	}
+	if value, ok := guo.mutation.CreatedAt(); ok {
+		_spec.SetField(good.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := guo.mutation.AddedCreatedAt(); ok {
+		_spec.AddField(good.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := guo.mutation.UpdatedAt(); ok {
+		_spec.SetField(good.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := guo.mutation.AddedUpdatedAt(); ok {
+		_spec.AddField(good.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := guo.mutation.DeletedAt(); ok {
+		_spec.SetField(good.FieldDeletedAt, field.TypeUint32, value)
+	}
+	if value, ok := guo.mutation.AddedDeletedAt(); ok {
+		_spec.AddField(good.FieldDeletedAt, field.TypeUint32, value)
 	}
 	if value, ok := guo.mutation.DeviceInfoID(); ok {
 		_spec.SetField(good.FieldDeviceInfoID, field.TypeUUID, value)

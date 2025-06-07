@@ -7,11 +7,11 @@ import (
 	"time"
 
 	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
+	types "github.com/NpoolPlatform/kunman/message/basetypes/good/v1"
 	rewardcrud "github.com/NpoolPlatform/kunman/middleware/good/crud/good/reward"
 	"github.com/NpoolPlatform/kunman/middleware/good/db"
-	"github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated"
-	goodbase1 "github.com/NpoolPlatform/kunman/middleware/good/middleware/good/goodbase"
-	types "github.com/NpoolPlatform/kunman/message/basetypes/good/v1"
+	ent "github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated"
+	goodbase1 "github.com/NpoolPlatform/kunman/middleware/good/good/goodbase"
 
 	"github.com/google/uuid"
 )

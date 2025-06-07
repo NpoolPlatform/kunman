@@ -20,6 +20,12 @@ type GoodRewardHistory struct {
 	ID uint32 `json:"id,omitempty"`
 	// EntID holds the value of the "ent_id" field.
 	EntID uuid.UUID `json:"ent_id,omitempty"`
+	// CreatedAt holds the value of the "created_at" field.
+	CreatedAt uint32 `json:"created_at,omitempty"`
+	// UpdatedAt holds the value of the "updated_at" field.
+	UpdatedAt uint32 `json:"updated_at,omitempty"`
+	// DeletedAt holds the value of the "deleted_at" field.
+	DeletedAt uint32 `json:"deleted_at,omitempty"`
 	// GoodID holds the value of the "good_id" field.
 	GoodID uuid.UUID `json:"good_id,omitempty"`
 	// CoinTypeID holds the value of the "coin_type_id" field.
@@ -44,7 +50,7 @@ func (*GoodRewardHistory) scanValues(columns []string) ([]any, error) {
 		switch columns[i] {
 		case goodrewardhistory.FieldAmount, goodrewardhistory.FieldUnitAmount, goodrewardhistory.FieldUnitNetAmount:
 			values[i] = new(decimal.Decimal)
-		case goodrewardhistory.FieldID, goodrewardhistory.FieldRewardDate:
+		case goodrewardhistory.FieldID, goodrewardhistory.FieldCreatedAt, goodrewardhistory.FieldUpdatedAt, goodrewardhistory.FieldDeletedAt, goodrewardhistory.FieldRewardDate:
 			values[i] = new(sql.NullInt64)
 		case goodrewardhistory.FieldEntID, goodrewardhistory.FieldGoodID, goodrewardhistory.FieldCoinTypeID, goodrewardhistory.FieldTid:
 			values[i] = new(uuid.UUID)
@@ -74,6 +80,24 @@ func (grh *GoodRewardHistory) assignValues(columns []string, values []any) error
 				return fmt.Errorf("unexpected type %T for field ent_id", values[i])
 			} else if value != nil {
 				grh.EntID = *value
+			}
+		case goodrewardhistory.FieldCreatedAt:
+			if value, ok := values[i].(*sql.NullInt64); !ok {
+				return fmt.Errorf("unexpected type %T for field created_at", values[i])
+			} else if value.Valid {
+				grh.CreatedAt = uint32(value.Int64)
+			}
+		case goodrewardhistory.FieldUpdatedAt:
+			if value, ok := values[i].(*sql.NullInt64); !ok {
+				return fmt.Errorf("unexpected type %T for field updated_at", values[i])
+			} else if value.Valid {
+				grh.UpdatedAt = uint32(value.Int64)
+			}
+		case goodrewardhistory.FieldDeletedAt:
+			if value, ok := values[i].(*sql.NullInt64); !ok {
+				return fmt.Errorf("unexpected type %T for field deleted_at", values[i])
+			} else if value.Valid {
+				grh.DeletedAt = uint32(value.Int64)
 			}
 		case goodrewardhistory.FieldGoodID:
 			if value, ok := values[i].(*uuid.UUID); !ok {
@@ -155,6 +179,15 @@ func (grh *GoodRewardHistory) String() string {
 	builder.WriteString(fmt.Sprintf("id=%v, ", grh.ID))
 	builder.WriteString("ent_id=")
 	builder.WriteString(fmt.Sprintf("%v", grh.EntID))
+	builder.WriteString(", ")
+	builder.WriteString("created_at=")
+	builder.WriteString(fmt.Sprintf("%v", grh.CreatedAt))
+	builder.WriteString(", ")
+	builder.WriteString("updated_at=")
+	builder.WriteString(fmt.Sprintf("%v", grh.UpdatedAt))
+	builder.WriteString(", ")
+	builder.WriteString("deleted_at=")
+	builder.WriteString(fmt.Sprintf("%v", grh.DeletedAt))
 	builder.WriteString(", ")
 	builder.WriteString("good_id=")
 	builder.WriteString(fmt.Sprintf("%v", grh.GoodID))

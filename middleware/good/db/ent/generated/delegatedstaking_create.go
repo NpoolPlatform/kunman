@@ -36,6 +36,48 @@ func (dsc *DelegatedStakingCreate) SetNillableEntID(u *uuid.UUID) *DelegatedStak
 	return dsc
 }
 
+// SetCreatedAt sets the "created_at" field.
+func (dsc *DelegatedStakingCreate) SetCreatedAt(u uint32) *DelegatedStakingCreate {
+	dsc.mutation.SetCreatedAt(u)
+	return dsc
+}
+
+// SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
+func (dsc *DelegatedStakingCreate) SetNillableCreatedAt(u *uint32) *DelegatedStakingCreate {
+	if u != nil {
+		dsc.SetCreatedAt(*u)
+	}
+	return dsc
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (dsc *DelegatedStakingCreate) SetUpdatedAt(u uint32) *DelegatedStakingCreate {
+	dsc.mutation.SetUpdatedAt(u)
+	return dsc
+}
+
+// SetNillableUpdatedAt sets the "updated_at" field if the given value is not nil.
+func (dsc *DelegatedStakingCreate) SetNillableUpdatedAt(u *uint32) *DelegatedStakingCreate {
+	if u != nil {
+		dsc.SetUpdatedAt(*u)
+	}
+	return dsc
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (dsc *DelegatedStakingCreate) SetDeletedAt(u uint32) *DelegatedStakingCreate {
+	dsc.mutation.SetDeletedAt(u)
+	return dsc
+}
+
+// SetNillableDeletedAt sets the "deleted_at" field if the given value is not nil.
+func (dsc *DelegatedStakingCreate) SetNillableDeletedAt(u *uint32) *DelegatedStakingCreate {
+	if u != nil {
+		dsc.SetDeletedAt(*u)
+	}
+	return dsc
+}
+
 // SetGoodID sets the "good_id" field.
 func (dsc *DelegatedStakingCreate) SetGoodID(u uuid.UUID) *DelegatedStakingCreate {
 	dsc.mutation.SetGoodID(u)
@@ -137,6 +179,18 @@ func (dsc *DelegatedStakingCreate) defaults() {
 		v := delegatedstaking.DefaultEntID()
 		dsc.mutation.SetEntID(v)
 	}
+	if _, ok := dsc.mutation.CreatedAt(); !ok {
+		v := delegatedstaking.DefaultCreatedAt()
+		dsc.mutation.SetCreatedAt(v)
+	}
+	if _, ok := dsc.mutation.UpdatedAt(); !ok {
+		v := delegatedstaking.DefaultUpdatedAt()
+		dsc.mutation.SetUpdatedAt(v)
+	}
+	if _, ok := dsc.mutation.DeletedAt(); !ok {
+		v := delegatedstaking.DefaultDeletedAt()
+		dsc.mutation.SetDeletedAt(v)
+	}
 	if _, ok := dsc.mutation.GoodID(); !ok {
 		v := delegatedstaking.DefaultGoodID()
 		dsc.mutation.SetGoodID(v)
@@ -159,6 +213,15 @@ func (dsc *DelegatedStakingCreate) defaults() {
 func (dsc *DelegatedStakingCreate) check() error {
 	if _, ok := dsc.mutation.EntID(); !ok {
 		return &ValidationError{Name: "ent_id", err: errors.New(`generated: missing required field "DelegatedStaking.ent_id"`)}
+	}
+	if _, ok := dsc.mutation.CreatedAt(); !ok {
+		return &ValidationError{Name: "created_at", err: errors.New(`generated: missing required field "DelegatedStaking.created_at"`)}
+	}
+	if _, ok := dsc.mutation.UpdatedAt(); !ok {
+		return &ValidationError{Name: "updated_at", err: errors.New(`generated: missing required field "DelegatedStaking.updated_at"`)}
+	}
+	if _, ok := dsc.mutation.DeletedAt(); !ok {
+		return &ValidationError{Name: "deleted_at", err: errors.New(`generated: missing required field "DelegatedStaking.deleted_at"`)}
 	}
 	return nil
 }
@@ -196,6 +259,18 @@ func (dsc *DelegatedStakingCreate) createSpec() (*DelegatedStaking, *sqlgraph.Cr
 	if value, ok := dsc.mutation.EntID(); ok {
 		_spec.SetField(delegatedstaking.FieldEntID, field.TypeUUID, value)
 		_node.EntID = value
+	}
+	if value, ok := dsc.mutation.CreatedAt(); ok {
+		_spec.SetField(delegatedstaking.FieldCreatedAt, field.TypeUint32, value)
+		_node.CreatedAt = value
+	}
+	if value, ok := dsc.mutation.UpdatedAt(); ok {
+		_spec.SetField(delegatedstaking.FieldUpdatedAt, field.TypeUint32, value)
+		_node.UpdatedAt = value
+	}
+	if value, ok := dsc.mutation.DeletedAt(); ok {
+		_spec.SetField(delegatedstaking.FieldDeletedAt, field.TypeUint32, value)
+		_node.DeletedAt = value
 	}
 	if value, ok := dsc.mutation.GoodID(); ok {
 		_spec.SetField(delegatedstaking.FieldGoodID, field.TypeUUID, value)
@@ -274,6 +349,60 @@ func (u *DelegatedStakingUpsert) SetEntID(v uuid.UUID) *DelegatedStakingUpsert {
 // UpdateEntID sets the "ent_id" field to the value that was provided on create.
 func (u *DelegatedStakingUpsert) UpdateEntID() *DelegatedStakingUpsert {
 	u.SetExcluded(delegatedstaking.FieldEntID)
+	return u
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (u *DelegatedStakingUpsert) SetCreatedAt(v uint32) *DelegatedStakingUpsert {
+	u.Set(delegatedstaking.FieldCreatedAt, v)
+	return u
+}
+
+// UpdateCreatedAt sets the "created_at" field to the value that was provided on create.
+func (u *DelegatedStakingUpsert) UpdateCreatedAt() *DelegatedStakingUpsert {
+	u.SetExcluded(delegatedstaking.FieldCreatedAt)
+	return u
+}
+
+// AddCreatedAt adds v to the "created_at" field.
+func (u *DelegatedStakingUpsert) AddCreatedAt(v uint32) *DelegatedStakingUpsert {
+	u.Add(delegatedstaking.FieldCreatedAt, v)
+	return u
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (u *DelegatedStakingUpsert) SetUpdatedAt(v uint32) *DelegatedStakingUpsert {
+	u.Set(delegatedstaking.FieldUpdatedAt, v)
+	return u
+}
+
+// UpdateUpdatedAt sets the "updated_at" field to the value that was provided on create.
+func (u *DelegatedStakingUpsert) UpdateUpdatedAt() *DelegatedStakingUpsert {
+	u.SetExcluded(delegatedstaking.FieldUpdatedAt)
+	return u
+}
+
+// AddUpdatedAt adds v to the "updated_at" field.
+func (u *DelegatedStakingUpsert) AddUpdatedAt(v uint32) *DelegatedStakingUpsert {
+	u.Add(delegatedstaking.FieldUpdatedAt, v)
+	return u
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (u *DelegatedStakingUpsert) SetDeletedAt(v uint32) *DelegatedStakingUpsert {
+	u.Set(delegatedstaking.FieldDeletedAt, v)
+	return u
+}
+
+// UpdateDeletedAt sets the "deleted_at" field to the value that was provided on create.
+func (u *DelegatedStakingUpsert) UpdateDeletedAt() *DelegatedStakingUpsert {
+	u.SetExcluded(delegatedstaking.FieldDeletedAt)
+	return u
+}
+
+// AddDeletedAt adds v to the "deleted_at" field.
+func (u *DelegatedStakingUpsert) AddDeletedAt(v uint32) *DelegatedStakingUpsert {
+	u.Add(delegatedstaking.FieldDeletedAt, v)
 	return u
 }
 
@@ -408,6 +537,69 @@ func (u *DelegatedStakingUpsertOne) SetEntID(v uuid.UUID) *DelegatedStakingUpser
 func (u *DelegatedStakingUpsertOne) UpdateEntID() *DelegatedStakingUpsertOne {
 	return u.Update(func(s *DelegatedStakingUpsert) {
 		s.UpdateEntID()
+	})
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (u *DelegatedStakingUpsertOne) SetCreatedAt(v uint32) *DelegatedStakingUpsertOne {
+	return u.Update(func(s *DelegatedStakingUpsert) {
+		s.SetCreatedAt(v)
+	})
+}
+
+// AddCreatedAt adds v to the "created_at" field.
+func (u *DelegatedStakingUpsertOne) AddCreatedAt(v uint32) *DelegatedStakingUpsertOne {
+	return u.Update(func(s *DelegatedStakingUpsert) {
+		s.AddCreatedAt(v)
+	})
+}
+
+// UpdateCreatedAt sets the "created_at" field to the value that was provided on create.
+func (u *DelegatedStakingUpsertOne) UpdateCreatedAt() *DelegatedStakingUpsertOne {
+	return u.Update(func(s *DelegatedStakingUpsert) {
+		s.UpdateCreatedAt()
+	})
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (u *DelegatedStakingUpsertOne) SetUpdatedAt(v uint32) *DelegatedStakingUpsertOne {
+	return u.Update(func(s *DelegatedStakingUpsert) {
+		s.SetUpdatedAt(v)
+	})
+}
+
+// AddUpdatedAt adds v to the "updated_at" field.
+func (u *DelegatedStakingUpsertOne) AddUpdatedAt(v uint32) *DelegatedStakingUpsertOne {
+	return u.Update(func(s *DelegatedStakingUpsert) {
+		s.AddUpdatedAt(v)
+	})
+}
+
+// UpdateUpdatedAt sets the "updated_at" field to the value that was provided on create.
+func (u *DelegatedStakingUpsertOne) UpdateUpdatedAt() *DelegatedStakingUpsertOne {
+	return u.Update(func(s *DelegatedStakingUpsert) {
+		s.UpdateUpdatedAt()
+	})
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (u *DelegatedStakingUpsertOne) SetDeletedAt(v uint32) *DelegatedStakingUpsertOne {
+	return u.Update(func(s *DelegatedStakingUpsert) {
+		s.SetDeletedAt(v)
+	})
+}
+
+// AddDeletedAt adds v to the "deleted_at" field.
+func (u *DelegatedStakingUpsertOne) AddDeletedAt(v uint32) *DelegatedStakingUpsertOne {
+	return u.Update(func(s *DelegatedStakingUpsert) {
+		s.AddDeletedAt(v)
+	})
+}
+
+// UpdateDeletedAt sets the "deleted_at" field to the value that was provided on create.
+func (u *DelegatedStakingUpsertOne) UpdateDeletedAt() *DelegatedStakingUpsertOne {
+	return u.Update(func(s *DelegatedStakingUpsert) {
+		s.UpdateDeletedAt()
 	})
 }
 
@@ -720,6 +912,69 @@ func (u *DelegatedStakingUpsertBulk) SetEntID(v uuid.UUID) *DelegatedStakingUpse
 func (u *DelegatedStakingUpsertBulk) UpdateEntID() *DelegatedStakingUpsertBulk {
 	return u.Update(func(s *DelegatedStakingUpsert) {
 		s.UpdateEntID()
+	})
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (u *DelegatedStakingUpsertBulk) SetCreatedAt(v uint32) *DelegatedStakingUpsertBulk {
+	return u.Update(func(s *DelegatedStakingUpsert) {
+		s.SetCreatedAt(v)
+	})
+}
+
+// AddCreatedAt adds v to the "created_at" field.
+func (u *DelegatedStakingUpsertBulk) AddCreatedAt(v uint32) *DelegatedStakingUpsertBulk {
+	return u.Update(func(s *DelegatedStakingUpsert) {
+		s.AddCreatedAt(v)
+	})
+}
+
+// UpdateCreatedAt sets the "created_at" field to the value that was provided on create.
+func (u *DelegatedStakingUpsertBulk) UpdateCreatedAt() *DelegatedStakingUpsertBulk {
+	return u.Update(func(s *DelegatedStakingUpsert) {
+		s.UpdateCreatedAt()
+	})
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (u *DelegatedStakingUpsertBulk) SetUpdatedAt(v uint32) *DelegatedStakingUpsertBulk {
+	return u.Update(func(s *DelegatedStakingUpsert) {
+		s.SetUpdatedAt(v)
+	})
+}
+
+// AddUpdatedAt adds v to the "updated_at" field.
+func (u *DelegatedStakingUpsertBulk) AddUpdatedAt(v uint32) *DelegatedStakingUpsertBulk {
+	return u.Update(func(s *DelegatedStakingUpsert) {
+		s.AddUpdatedAt(v)
+	})
+}
+
+// UpdateUpdatedAt sets the "updated_at" field to the value that was provided on create.
+func (u *DelegatedStakingUpsertBulk) UpdateUpdatedAt() *DelegatedStakingUpsertBulk {
+	return u.Update(func(s *DelegatedStakingUpsert) {
+		s.UpdateUpdatedAt()
+	})
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (u *DelegatedStakingUpsertBulk) SetDeletedAt(v uint32) *DelegatedStakingUpsertBulk {
+	return u.Update(func(s *DelegatedStakingUpsert) {
+		s.SetDeletedAt(v)
+	})
+}
+
+// AddDeletedAt adds v to the "deleted_at" field.
+func (u *DelegatedStakingUpsertBulk) AddDeletedAt(v uint32) *DelegatedStakingUpsertBulk {
+	return u.Update(func(s *DelegatedStakingUpsert) {
+		s.AddDeletedAt(v)
+	})
+}
+
+// UpdateDeletedAt sets the "deleted_at" field to the value that was provided on create.
+func (u *DelegatedStakingUpsertBulk) UpdateDeletedAt() *DelegatedStakingUpsertBulk {
+	return u.Update(func(s *DelegatedStakingUpsert) {
+		s.UpdateDeletedAt()
 	})
 }
 

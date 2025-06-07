@@ -44,6 +44,61 @@ func (afu *AppFeeUpdate) SetNillableEntID(u *uuid.UUID) *AppFeeUpdate {
 	return afu
 }
 
+// SetCreatedAt sets the "created_at" field.
+func (afu *AppFeeUpdate) SetCreatedAt(u uint32) *AppFeeUpdate {
+	afu.mutation.ResetCreatedAt()
+	afu.mutation.SetCreatedAt(u)
+	return afu
+}
+
+// SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
+func (afu *AppFeeUpdate) SetNillableCreatedAt(u *uint32) *AppFeeUpdate {
+	if u != nil {
+		afu.SetCreatedAt(*u)
+	}
+	return afu
+}
+
+// AddCreatedAt adds u to the "created_at" field.
+func (afu *AppFeeUpdate) AddCreatedAt(u int32) *AppFeeUpdate {
+	afu.mutation.AddCreatedAt(u)
+	return afu
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (afu *AppFeeUpdate) SetUpdatedAt(u uint32) *AppFeeUpdate {
+	afu.mutation.ResetUpdatedAt()
+	afu.mutation.SetUpdatedAt(u)
+	return afu
+}
+
+// AddUpdatedAt adds u to the "updated_at" field.
+func (afu *AppFeeUpdate) AddUpdatedAt(u int32) *AppFeeUpdate {
+	afu.mutation.AddUpdatedAt(u)
+	return afu
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (afu *AppFeeUpdate) SetDeletedAt(u uint32) *AppFeeUpdate {
+	afu.mutation.ResetDeletedAt()
+	afu.mutation.SetDeletedAt(u)
+	return afu
+}
+
+// SetNillableDeletedAt sets the "deleted_at" field if the given value is not nil.
+func (afu *AppFeeUpdate) SetNillableDeletedAt(u *uint32) *AppFeeUpdate {
+	if u != nil {
+		afu.SetDeletedAt(*u)
+	}
+	return afu
+}
+
+// AddDeletedAt adds u to the "deleted_at" field.
+func (afu *AppFeeUpdate) AddDeletedAt(u int32) *AppFeeUpdate {
+	afu.mutation.AddDeletedAt(u)
+	return afu
+}
+
 // SetAppGoodID sets the "app_good_id" field.
 func (afu *AppFeeUpdate) SetAppGoodID(u uuid.UUID) *AppFeeUpdate {
 	afu.mutation.SetAppGoodID(u)
@@ -138,6 +193,7 @@ func (afu *AppFeeUpdate) Mutation() *AppFeeMutation {
 
 // Save executes the query and returns the number of nodes affected by the update operation.
 func (afu *AppFeeUpdate) Save(ctx context.Context) (int, error) {
+	afu.defaults()
 	return withHooks(ctx, afu.sqlSave, afu.mutation, afu.hooks)
 }
 
@@ -163,6 +219,14 @@ func (afu *AppFeeUpdate) ExecX(ctx context.Context) {
 	}
 }
 
+// defaults sets the default values of the builder before save.
+func (afu *AppFeeUpdate) defaults() {
+	if _, ok := afu.mutation.UpdatedAt(); !ok {
+		v := appfee.UpdateDefaultUpdatedAt()
+		afu.mutation.SetUpdatedAt(v)
+	}
+}
+
 // Modify adds a statement modifier for attaching custom logic to the UPDATE statement.
 func (afu *AppFeeUpdate) Modify(modifiers ...func(u *sql.UpdateBuilder)) *AppFeeUpdate {
 	afu.modifiers = append(afu.modifiers, modifiers...)
@@ -180,6 +244,24 @@ func (afu *AppFeeUpdate) sqlSave(ctx context.Context) (n int, err error) {
 	}
 	if value, ok := afu.mutation.EntID(); ok {
 		_spec.SetField(appfee.FieldEntID, field.TypeUUID, value)
+	}
+	if value, ok := afu.mutation.CreatedAt(); ok {
+		_spec.SetField(appfee.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := afu.mutation.AddedCreatedAt(); ok {
+		_spec.AddField(appfee.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := afu.mutation.UpdatedAt(); ok {
+		_spec.SetField(appfee.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := afu.mutation.AddedUpdatedAt(); ok {
+		_spec.AddField(appfee.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := afu.mutation.DeletedAt(); ok {
+		_spec.SetField(appfee.FieldDeletedAt, field.TypeUint32, value)
+	}
+	if value, ok := afu.mutation.AddedDeletedAt(); ok {
+		_spec.AddField(appfee.FieldDeletedAt, field.TypeUint32, value)
 	}
 	if value, ok := afu.mutation.AppGoodID(); ok {
 		_spec.SetField(appfee.FieldAppGoodID, field.TypeUUID, value)
@@ -241,6 +323,61 @@ func (afuo *AppFeeUpdateOne) SetNillableEntID(u *uuid.UUID) *AppFeeUpdateOne {
 	if u != nil {
 		afuo.SetEntID(*u)
 	}
+	return afuo
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (afuo *AppFeeUpdateOne) SetCreatedAt(u uint32) *AppFeeUpdateOne {
+	afuo.mutation.ResetCreatedAt()
+	afuo.mutation.SetCreatedAt(u)
+	return afuo
+}
+
+// SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
+func (afuo *AppFeeUpdateOne) SetNillableCreatedAt(u *uint32) *AppFeeUpdateOne {
+	if u != nil {
+		afuo.SetCreatedAt(*u)
+	}
+	return afuo
+}
+
+// AddCreatedAt adds u to the "created_at" field.
+func (afuo *AppFeeUpdateOne) AddCreatedAt(u int32) *AppFeeUpdateOne {
+	afuo.mutation.AddCreatedAt(u)
+	return afuo
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (afuo *AppFeeUpdateOne) SetUpdatedAt(u uint32) *AppFeeUpdateOne {
+	afuo.mutation.ResetUpdatedAt()
+	afuo.mutation.SetUpdatedAt(u)
+	return afuo
+}
+
+// AddUpdatedAt adds u to the "updated_at" field.
+func (afuo *AppFeeUpdateOne) AddUpdatedAt(u int32) *AppFeeUpdateOne {
+	afuo.mutation.AddUpdatedAt(u)
+	return afuo
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (afuo *AppFeeUpdateOne) SetDeletedAt(u uint32) *AppFeeUpdateOne {
+	afuo.mutation.ResetDeletedAt()
+	afuo.mutation.SetDeletedAt(u)
+	return afuo
+}
+
+// SetNillableDeletedAt sets the "deleted_at" field if the given value is not nil.
+func (afuo *AppFeeUpdateOne) SetNillableDeletedAt(u *uint32) *AppFeeUpdateOne {
+	if u != nil {
+		afuo.SetDeletedAt(*u)
+	}
+	return afuo
+}
+
+// AddDeletedAt adds u to the "deleted_at" field.
+func (afuo *AppFeeUpdateOne) AddDeletedAt(u int32) *AppFeeUpdateOne {
+	afuo.mutation.AddDeletedAt(u)
 	return afuo
 }
 
@@ -351,6 +488,7 @@ func (afuo *AppFeeUpdateOne) Select(field string, fields ...string) *AppFeeUpdat
 
 // Save executes the query and returns the updated AppFee entity.
 func (afuo *AppFeeUpdateOne) Save(ctx context.Context) (*AppFee, error) {
+	afuo.defaults()
 	return withHooks(ctx, afuo.sqlSave, afuo.mutation, afuo.hooks)
 }
 
@@ -373,6 +511,14 @@ func (afuo *AppFeeUpdateOne) Exec(ctx context.Context) error {
 func (afuo *AppFeeUpdateOne) ExecX(ctx context.Context) {
 	if err := afuo.Exec(ctx); err != nil {
 		panic(err)
+	}
+}
+
+// defaults sets the default values of the builder before save.
+func (afuo *AppFeeUpdateOne) defaults() {
+	if _, ok := afuo.mutation.UpdatedAt(); !ok {
+		v := appfee.UpdateDefaultUpdatedAt()
+		afuo.mutation.SetUpdatedAt(v)
 	}
 }
 
@@ -410,6 +556,24 @@ func (afuo *AppFeeUpdateOne) sqlSave(ctx context.Context) (_node *AppFee, err er
 	}
 	if value, ok := afuo.mutation.EntID(); ok {
 		_spec.SetField(appfee.FieldEntID, field.TypeUUID, value)
+	}
+	if value, ok := afuo.mutation.CreatedAt(); ok {
+		_spec.SetField(appfee.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := afuo.mutation.AddedCreatedAt(); ok {
+		_spec.AddField(appfee.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := afuo.mutation.UpdatedAt(); ok {
+		_spec.SetField(appfee.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := afuo.mutation.AddedUpdatedAt(); ok {
+		_spec.AddField(appfee.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := afuo.mutation.DeletedAt(); ok {
+		_spec.SetField(appfee.FieldDeletedAt, field.TypeUint32, value)
+	}
+	if value, ok := afuo.mutation.AddedDeletedAt(); ok {
+		_spec.AddField(appfee.FieldDeletedAt, field.TypeUint32, value)
 	}
 	if value, ok := afuo.mutation.AppGoodID(); ok {
 		_spec.SetField(appfee.FieldAppGoodID, field.TypeUUID, value)

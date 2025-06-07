@@ -37,6 +37,48 @@ func (tmgc *TopMostGoodCreate) SetNillableEntID(u *uuid.UUID) *TopMostGoodCreate
 	return tmgc
 }
 
+// SetCreatedAt sets the "created_at" field.
+func (tmgc *TopMostGoodCreate) SetCreatedAt(u uint32) *TopMostGoodCreate {
+	tmgc.mutation.SetCreatedAt(u)
+	return tmgc
+}
+
+// SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
+func (tmgc *TopMostGoodCreate) SetNillableCreatedAt(u *uint32) *TopMostGoodCreate {
+	if u != nil {
+		tmgc.SetCreatedAt(*u)
+	}
+	return tmgc
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (tmgc *TopMostGoodCreate) SetUpdatedAt(u uint32) *TopMostGoodCreate {
+	tmgc.mutation.SetUpdatedAt(u)
+	return tmgc
+}
+
+// SetNillableUpdatedAt sets the "updated_at" field if the given value is not nil.
+func (tmgc *TopMostGoodCreate) SetNillableUpdatedAt(u *uint32) *TopMostGoodCreate {
+	if u != nil {
+		tmgc.SetUpdatedAt(*u)
+	}
+	return tmgc
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (tmgc *TopMostGoodCreate) SetDeletedAt(u uint32) *TopMostGoodCreate {
+	tmgc.mutation.SetDeletedAt(u)
+	return tmgc
+}
+
+// SetNillableDeletedAt sets the "deleted_at" field if the given value is not nil.
+func (tmgc *TopMostGoodCreate) SetNillableDeletedAt(u *uint32) *TopMostGoodCreate {
+	if u != nil {
+		tmgc.SetDeletedAt(*u)
+	}
+	return tmgc
+}
+
 // SetAppGoodID sets the "app_good_id" field.
 func (tmgc *TopMostGoodCreate) SetAppGoodID(u uuid.UUID) *TopMostGoodCreate {
 	tmgc.mutation.SetAppGoodID(u)
@@ -138,6 +180,18 @@ func (tmgc *TopMostGoodCreate) defaults() {
 		v := topmostgood.DefaultEntID()
 		tmgc.mutation.SetEntID(v)
 	}
+	if _, ok := tmgc.mutation.CreatedAt(); !ok {
+		v := topmostgood.DefaultCreatedAt()
+		tmgc.mutation.SetCreatedAt(v)
+	}
+	if _, ok := tmgc.mutation.UpdatedAt(); !ok {
+		v := topmostgood.DefaultUpdatedAt()
+		tmgc.mutation.SetUpdatedAt(v)
+	}
+	if _, ok := tmgc.mutation.DeletedAt(); !ok {
+		v := topmostgood.DefaultDeletedAt()
+		tmgc.mutation.SetDeletedAt(v)
+	}
 	if _, ok := tmgc.mutation.AppGoodID(); !ok {
 		v := topmostgood.DefaultAppGoodID()
 		tmgc.mutation.SetAppGoodID(v)
@@ -160,6 +214,15 @@ func (tmgc *TopMostGoodCreate) defaults() {
 func (tmgc *TopMostGoodCreate) check() error {
 	if _, ok := tmgc.mutation.EntID(); !ok {
 		return &ValidationError{Name: "ent_id", err: errors.New(`generated: missing required field "TopMostGood.ent_id"`)}
+	}
+	if _, ok := tmgc.mutation.CreatedAt(); !ok {
+		return &ValidationError{Name: "created_at", err: errors.New(`generated: missing required field "TopMostGood.created_at"`)}
+	}
+	if _, ok := tmgc.mutation.UpdatedAt(); !ok {
+		return &ValidationError{Name: "updated_at", err: errors.New(`generated: missing required field "TopMostGood.updated_at"`)}
+	}
+	if _, ok := tmgc.mutation.DeletedAt(); !ok {
+		return &ValidationError{Name: "deleted_at", err: errors.New(`generated: missing required field "TopMostGood.deleted_at"`)}
 	}
 	return nil
 }
@@ -197,6 +260,18 @@ func (tmgc *TopMostGoodCreate) createSpec() (*TopMostGood, *sqlgraph.CreateSpec)
 	if value, ok := tmgc.mutation.EntID(); ok {
 		_spec.SetField(topmostgood.FieldEntID, field.TypeUUID, value)
 		_node.EntID = value
+	}
+	if value, ok := tmgc.mutation.CreatedAt(); ok {
+		_spec.SetField(topmostgood.FieldCreatedAt, field.TypeUint32, value)
+		_node.CreatedAt = value
+	}
+	if value, ok := tmgc.mutation.UpdatedAt(); ok {
+		_spec.SetField(topmostgood.FieldUpdatedAt, field.TypeUint32, value)
+		_node.UpdatedAt = value
+	}
+	if value, ok := tmgc.mutation.DeletedAt(); ok {
+		_spec.SetField(topmostgood.FieldDeletedAt, field.TypeUint32, value)
+		_node.DeletedAt = value
 	}
 	if value, ok := tmgc.mutation.AppGoodID(); ok {
 		_spec.SetField(topmostgood.FieldAppGoodID, field.TypeUUID, value)
@@ -275,6 +350,60 @@ func (u *TopMostGoodUpsert) SetEntID(v uuid.UUID) *TopMostGoodUpsert {
 // UpdateEntID sets the "ent_id" field to the value that was provided on create.
 func (u *TopMostGoodUpsert) UpdateEntID() *TopMostGoodUpsert {
 	u.SetExcluded(topmostgood.FieldEntID)
+	return u
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (u *TopMostGoodUpsert) SetCreatedAt(v uint32) *TopMostGoodUpsert {
+	u.Set(topmostgood.FieldCreatedAt, v)
+	return u
+}
+
+// UpdateCreatedAt sets the "created_at" field to the value that was provided on create.
+func (u *TopMostGoodUpsert) UpdateCreatedAt() *TopMostGoodUpsert {
+	u.SetExcluded(topmostgood.FieldCreatedAt)
+	return u
+}
+
+// AddCreatedAt adds v to the "created_at" field.
+func (u *TopMostGoodUpsert) AddCreatedAt(v uint32) *TopMostGoodUpsert {
+	u.Add(topmostgood.FieldCreatedAt, v)
+	return u
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (u *TopMostGoodUpsert) SetUpdatedAt(v uint32) *TopMostGoodUpsert {
+	u.Set(topmostgood.FieldUpdatedAt, v)
+	return u
+}
+
+// UpdateUpdatedAt sets the "updated_at" field to the value that was provided on create.
+func (u *TopMostGoodUpsert) UpdateUpdatedAt() *TopMostGoodUpsert {
+	u.SetExcluded(topmostgood.FieldUpdatedAt)
+	return u
+}
+
+// AddUpdatedAt adds v to the "updated_at" field.
+func (u *TopMostGoodUpsert) AddUpdatedAt(v uint32) *TopMostGoodUpsert {
+	u.Add(topmostgood.FieldUpdatedAt, v)
+	return u
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (u *TopMostGoodUpsert) SetDeletedAt(v uint32) *TopMostGoodUpsert {
+	u.Set(topmostgood.FieldDeletedAt, v)
+	return u
+}
+
+// UpdateDeletedAt sets the "deleted_at" field to the value that was provided on create.
+func (u *TopMostGoodUpsert) UpdateDeletedAt() *TopMostGoodUpsert {
+	u.SetExcluded(topmostgood.FieldDeletedAt)
+	return u
+}
+
+// AddDeletedAt adds v to the "deleted_at" field.
+func (u *TopMostGoodUpsert) AddDeletedAt(v uint32) *TopMostGoodUpsert {
+	u.Add(topmostgood.FieldDeletedAt, v)
 	return u
 }
 
@@ -415,6 +544,69 @@ func (u *TopMostGoodUpsertOne) SetEntID(v uuid.UUID) *TopMostGoodUpsertOne {
 func (u *TopMostGoodUpsertOne) UpdateEntID() *TopMostGoodUpsertOne {
 	return u.Update(func(s *TopMostGoodUpsert) {
 		s.UpdateEntID()
+	})
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (u *TopMostGoodUpsertOne) SetCreatedAt(v uint32) *TopMostGoodUpsertOne {
+	return u.Update(func(s *TopMostGoodUpsert) {
+		s.SetCreatedAt(v)
+	})
+}
+
+// AddCreatedAt adds v to the "created_at" field.
+func (u *TopMostGoodUpsertOne) AddCreatedAt(v uint32) *TopMostGoodUpsertOne {
+	return u.Update(func(s *TopMostGoodUpsert) {
+		s.AddCreatedAt(v)
+	})
+}
+
+// UpdateCreatedAt sets the "created_at" field to the value that was provided on create.
+func (u *TopMostGoodUpsertOne) UpdateCreatedAt() *TopMostGoodUpsertOne {
+	return u.Update(func(s *TopMostGoodUpsert) {
+		s.UpdateCreatedAt()
+	})
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (u *TopMostGoodUpsertOne) SetUpdatedAt(v uint32) *TopMostGoodUpsertOne {
+	return u.Update(func(s *TopMostGoodUpsert) {
+		s.SetUpdatedAt(v)
+	})
+}
+
+// AddUpdatedAt adds v to the "updated_at" field.
+func (u *TopMostGoodUpsertOne) AddUpdatedAt(v uint32) *TopMostGoodUpsertOne {
+	return u.Update(func(s *TopMostGoodUpsert) {
+		s.AddUpdatedAt(v)
+	})
+}
+
+// UpdateUpdatedAt sets the "updated_at" field to the value that was provided on create.
+func (u *TopMostGoodUpsertOne) UpdateUpdatedAt() *TopMostGoodUpsertOne {
+	return u.Update(func(s *TopMostGoodUpsert) {
+		s.UpdateUpdatedAt()
+	})
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (u *TopMostGoodUpsertOne) SetDeletedAt(v uint32) *TopMostGoodUpsertOne {
+	return u.Update(func(s *TopMostGoodUpsert) {
+		s.SetDeletedAt(v)
+	})
+}
+
+// AddDeletedAt adds v to the "deleted_at" field.
+func (u *TopMostGoodUpsertOne) AddDeletedAt(v uint32) *TopMostGoodUpsertOne {
+	return u.Update(func(s *TopMostGoodUpsert) {
+		s.AddDeletedAt(v)
+	})
+}
+
+// UpdateDeletedAt sets the "deleted_at" field to the value that was provided on create.
+func (u *TopMostGoodUpsertOne) UpdateDeletedAt() *TopMostGoodUpsertOne {
+	return u.Update(func(s *TopMostGoodUpsert) {
+		s.UpdateDeletedAt()
 	})
 }
 
@@ -734,6 +926,69 @@ func (u *TopMostGoodUpsertBulk) SetEntID(v uuid.UUID) *TopMostGoodUpsertBulk {
 func (u *TopMostGoodUpsertBulk) UpdateEntID() *TopMostGoodUpsertBulk {
 	return u.Update(func(s *TopMostGoodUpsert) {
 		s.UpdateEntID()
+	})
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (u *TopMostGoodUpsertBulk) SetCreatedAt(v uint32) *TopMostGoodUpsertBulk {
+	return u.Update(func(s *TopMostGoodUpsert) {
+		s.SetCreatedAt(v)
+	})
+}
+
+// AddCreatedAt adds v to the "created_at" field.
+func (u *TopMostGoodUpsertBulk) AddCreatedAt(v uint32) *TopMostGoodUpsertBulk {
+	return u.Update(func(s *TopMostGoodUpsert) {
+		s.AddCreatedAt(v)
+	})
+}
+
+// UpdateCreatedAt sets the "created_at" field to the value that was provided on create.
+func (u *TopMostGoodUpsertBulk) UpdateCreatedAt() *TopMostGoodUpsertBulk {
+	return u.Update(func(s *TopMostGoodUpsert) {
+		s.UpdateCreatedAt()
+	})
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (u *TopMostGoodUpsertBulk) SetUpdatedAt(v uint32) *TopMostGoodUpsertBulk {
+	return u.Update(func(s *TopMostGoodUpsert) {
+		s.SetUpdatedAt(v)
+	})
+}
+
+// AddUpdatedAt adds v to the "updated_at" field.
+func (u *TopMostGoodUpsertBulk) AddUpdatedAt(v uint32) *TopMostGoodUpsertBulk {
+	return u.Update(func(s *TopMostGoodUpsert) {
+		s.AddUpdatedAt(v)
+	})
+}
+
+// UpdateUpdatedAt sets the "updated_at" field to the value that was provided on create.
+func (u *TopMostGoodUpsertBulk) UpdateUpdatedAt() *TopMostGoodUpsertBulk {
+	return u.Update(func(s *TopMostGoodUpsert) {
+		s.UpdateUpdatedAt()
+	})
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (u *TopMostGoodUpsertBulk) SetDeletedAt(v uint32) *TopMostGoodUpsertBulk {
+	return u.Update(func(s *TopMostGoodUpsert) {
+		s.SetDeletedAt(v)
+	})
+}
+
+// AddDeletedAt adds v to the "deleted_at" field.
+func (u *TopMostGoodUpsertBulk) AddDeletedAt(v uint32) *TopMostGoodUpsertBulk {
+	return u.Update(func(s *TopMostGoodUpsert) {
+		s.AddDeletedAt(v)
+	})
+}
+
+// UpdateDeletedAt sets the "deleted_at" field to the value that was provided on create.
+func (u *TopMostGoodUpsertBulk) UpdateDeletedAt() *TopMostGoodUpsertBulk {
+	return u.Update(func(s *TopMostGoodUpsert) {
+		s.UpdateDeletedAt()
 	})
 }
 

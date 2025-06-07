@@ -17,6 +17,7 @@ type AppGoodDisplayColor struct {
 func (AppGoodDisplayColor) Mixin() []ent.Mixin {
 	return []ent.Mixin{
 		crudermixin.AutoIDMixin{},
+		crudermixin.TimeMixin{},
 	}
 }
 

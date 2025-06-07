@@ -37,6 +37,48 @@ func (gcrc *GoodCoinRewardCreate) SetNillableEntID(u *uuid.UUID) *GoodCoinReward
 	return gcrc
 }
 
+// SetCreatedAt sets the "created_at" field.
+func (gcrc *GoodCoinRewardCreate) SetCreatedAt(u uint32) *GoodCoinRewardCreate {
+	gcrc.mutation.SetCreatedAt(u)
+	return gcrc
+}
+
+// SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
+func (gcrc *GoodCoinRewardCreate) SetNillableCreatedAt(u *uint32) *GoodCoinRewardCreate {
+	if u != nil {
+		gcrc.SetCreatedAt(*u)
+	}
+	return gcrc
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (gcrc *GoodCoinRewardCreate) SetUpdatedAt(u uint32) *GoodCoinRewardCreate {
+	gcrc.mutation.SetUpdatedAt(u)
+	return gcrc
+}
+
+// SetNillableUpdatedAt sets the "updated_at" field if the given value is not nil.
+func (gcrc *GoodCoinRewardCreate) SetNillableUpdatedAt(u *uint32) *GoodCoinRewardCreate {
+	if u != nil {
+		gcrc.SetUpdatedAt(*u)
+	}
+	return gcrc
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (gcrc *GoodCoinRewardCreate) SetDeletedAt(u uint32) *GoodCoinRewardCreate {
+	gcrc.mutation.SetDeletedAt(u)
+	return gcrc
+}
+
+// SetNillableDeletedAt sets the "deleted_at" field if the given value is not nil.
+func (gcrc *GoodCoinRewardCreate) SetNillableDeletedAt(u *uint32) *GoodCoinRewardCreate {
+	if u != nil {
+		gcrc.SetDeletedAt(*u)
+	}
+	return gcrc
+}
+
 // SetGoodID sets the "good_id" field.
 func (gcrc *GoodCoinRewardCreate) SetGoodID(u uuid.UUID) *GoodCoinRewardCreate {
 	gcrc.mutation.SetGoodID(u)
@@ -180,6 +222,18 @@ func (gcrc *GoodCoinRewardCreate) defaults() {
 		v := goodcoinreward.DefaultEntID()
 		gcrc.mutation.SetEntID(v)
 	}
+	if _, ok := gcrc.mutation.CreatedAt(); !ok {
+		v := goodcoinreward.DefaultCreatedAt()
+		gcrc.mutation.SetCreatedAt(v)
+	}
+	if _, ok := gcrc.mutation.UpdatedAt(); !ok {
+		v := goodcoinreward.DefaultUpdatedAt()
+		gcrc.mutation.SetUpdatedAt(v)
+	}
+	if _, ok := gcrc.mutation.DeletedAt(); !ok {
+		v := goodcoinreward.DefaultDeletedAt()
+		gcrc.mutation.SetDeletedAt(v)
+	}
 	if _, ok := gcrc.mutation.GoodID(); !ok {
 		v := goodcoinreward.DefaultGoodID()
 		gcrc.mutation.SetGoodID(v)
@@ -214,6 +268,15 @@ func (gcrc *GoodCoinRewardCreate) defaults() {
 func (gcrc *GoodCoinRewardCreate) check() error {
 	if _, ok := gcrc.mutation.EntID(); !ok {
 		return &ValidationError{Name: "ent_id", err: errors.New(`generated: missing required field "GoodCoinReward.ent_id"`)}
+	}
+	if _, ok := gcrc.mutation.CreatedAt(); !ok {
+		return &ValidationError{Name: "created_at", err: errors.New(`generated: missing required field "GoodCoinReward.created_at"`)}
+	}
+	if _, ok := gcrc.mutation.UpdatedAt(); !ok {
+		return &ValidationError{Name: "updated_at", err: errors.New(`generated: missing required field "GoodCoinReward.updated_at"`)}
+	}
+	if _, ok := gcrc.mutation.DeletedAt(); !ok {
+		return &ValidationError{Name: "deleted_at", err: errors.New(`generated: missing required field "GoodCoinReward.deleted_at"`)}
 	}
 	return nil
 }
@@ -251,6 +314,18 @@ func (gcrc *GoodCoinRewardCreate) createSpec() (*GoodCoinReward, *sqlgraph.Creat
 	if value, ok := gcrc.mutation.EntID(); ok {
 		_spec.SetField(goodcoinreward.FieldEntID, field.TypeUUID, value)
 		_node.EntID = value
+	}
+	if value, ok := gcrc.mutation.CreatedAt(); ok {
+		_spec.SetField(goodcoinreward.FieldCreatedAt, field.TypeUint32, value)
+		_node.CreatedAt = value
+	}
+	if value, ok := gcrc.mutation.UpdatedAt(); ok {
+		_spec.SetField(goodcoinreward.FieldUpdatedAt, field.TypeUint32, value)
+		_node.UpdatedAt = value
+	}
+	if value, ok := gcrc.mutation.DeletedAt(); ok {
+		_spec.SetField(goodcoinreward.FieldDeletedAt, field.TypeUint32, value)
+		_node.DeletedAt = value
 	}
 	if value, ok := gcrc.mutation.GoodID(); ok {
 		_spec.SetField(goodcoinreward.FieldGoodID, field.TypeUUID, value)
@@ -341,6 +416,60 @@ func (u *GoodCoinRewardUpsert) SetEntID(v uuid.UUID) *GoodCoinRewardUpsert {
 // UpdateEntID sets the "ent_id" field to the value that was provided on create.
 func (u *GoodCoinRewardUpsert) UpdateEntID() *GoodCoinRewardUpsert {
 	u.SetExcluded(goodcoinreward.FieldEntID)
+	return u
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (u *GoodCoinRewardUpsert) SetCreatedAt(v uint32) *GoodCoinRewardUpsert {
+	u.Set(goodcoinreward.FieldCreatedAt, v)
+	return u
+}
+
+// UpdateCreatedAt sets the "created_at" field to the value that was provided on create.
+func (u *GoodCoinRewardUpsert) UpdateCreatedAt() *GoodCoinRewardUpsert {
+	u.SetExcluded(goodcoinreward.FieldCreatedAt)
+	return u
+}
+
+// AddCreatedAt adds v to the "created_at" field.
+func (u *GoodCoinRewardUpsert) AddCreatedAt(v uint32) *GoodCoinRewardUpsert {
+	u.Add(goodcoinreward.FieldCreatedAt, v)
+	return u
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (u *GoodCoinRewardUpsert) SetUpdatedAt(v uint32) *GoodCoinRewardUpsert {
+	u.Set(goodcoinreward.FieldUpdatedAt, v)
+	return u
+}
+
+// UpdateUpdatedAt sets the "updated_at" field to the value that was provided on create.
+func (u *GoodCoinRewardUpsert) UpdateUpdatedAt() *GoodCoinRewardUpsert {
+	u.SetExcluded(goodcoinreward.FieldUpdatedAt)
+	return u
+}
+
+// AddUpdatedAt adds v to the "updated_at" field.
+func (u *GoodCoinRewardUpsert) AddUpdatedAt(v uint32) *GoodCoinRewardUpsert {
+	u.Add(goodcoinreward.FieldUpdatedAt, v)
+	return u
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (u *GoodCoinRewardUpsert) SetDeletedAt(v uint32) *GoodCoinRewardUpsert {
+	u.Set(goodcoinreward.FieldDeletedAt, v)
+	return u
+}
+
+// UpdateDeletedAt sets the "deleted_at" field to the value that was provided on create.
+func (u *GoodCoinRewardUpsert) UpdateDeletedAt() *GoodCoinRewardUpsert {
+	u.SetExcluded(goodcoinreward.FieldDeletedAt)
+	return u
+}
+
+// AddDeletedAt adds v to the "deleted_at" field.
+func (u *GoodCoinRewardUpsert) AddDeletedAt(v uint32) *GoodCoinRewardUpsert {
+	u.Add(goodcoinreward.FieldDeletedAt, v)
 	return u
 }
 
@@ -529,6 +658,69 @@ func (u *GoodCoinRewardUpsertOne) SetEntID(v uuid.UUID) *GoodCoinRewardUpsertOne
 func (u *GoodCoinRewardUpsertOne) UpdateEntID() *GoodCoinRewardUpsertOne {
 	return u.Update(func(s *GoodCoinRewardUpsert) {
 		s.UpdateEntID()
+	})
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (u *GoodCoinRewardUpsertOne) SetCreatedAt(v uint32) *GoodCoinRewardUpsertOne {
+	return u.Update(func(s *GoodCoinRewardUpsert) {
+		s.SetCreatedAt(v)
+	})
+}
+
+// AddCreatedAt adds v to the "created_at" field.
+func (u *GoodCoinRewardUpsertOne) AddCreatedAt(v uint32) *GoodCoinRewardUpsertOne {
+	return u.Update(func(s *GoodCoinRewardUpsert) {
+		s.AddCreatedAt(v)
+	})
+}
+
+// UpdateCreatedAt sets the "created_at" field to the value that was provided on create.
+func (u *GoodCoinRewardUpsertOne) UpdateCreatedAt() *GoodCoinRewardUpsertOne {
+	return u.Update(func(s *GoodCoinRewardUpsert) {
+		s.UpdateCreatedAt()
+	})
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (u *GoodCoinRewardUpsertOne) SetUpdatedAt(v uint32) *GoodCoinRewardUpsertOne {
+	return u.Update(func(s *GoodCoinRewardUpsert) {
+		s.SetUpdatedAt(v)
+	})
+}
+
+// AddUpdatedAt adds v to the "updated_at" field.
+func (u *GoodCoinRewardUpsertOne) AddUpdatedAt(v uint32) *GoodCoinRewardUpsertOne {
+	return u.Update(func(s *GoodCoinRewardUpsert) {
+		s.AddUpdatedAt(v)
+	})
+}
+
+// UpdateUpdatedAt sets the "updated_at" field to the value that was provided on create.
+func (u *GoodCoinRewardUpsertOne) UpdateUpdatedAt() *GoodCoinRewardUpsertOne {
+	return u.Update(func(s *GoodCoinRewardUpsert) {
+		s.UpdateUpdatedAt()
+	})
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (u *GoodCoinRewardUpsertOne) SetDeletedAt(v uint32) *GoodCoinRewardUpsertOne {
+	return u.Update(func(s *GoodCoinRewardUpsert) {
+		s.SetDeletedAt(v)
+	})
+}
+
+// AddDeletedAt adds v to the "deleted_at" field.
+func (u *GoodCoinRewardUpsertOne) AddDeletedAt(v uint32) *GoodCoinRewardUpsertOne {
+	return u.Update(func(s *GoodCoinRewardUpsert) {
+		s.AddDeletedAt(v)
+	})
+}
+
+// UpdateDeletedAt sets the "deleted_at" field to the value that was provided on create.
+func (u *GoodCoinRewardUpsertOne) UpdateDeletedAt() *GoodCoinRewardUpsertOne {
+	return u.Update(func(s *GoodCoinRewardUpsert) {
+		s.UpdateDeletedAt()
 	})
 }
 
@@ -904,6 +1096,69 @@ func (u *GoodCoinRewardUpsertBulk) SetEntID(v uuid.UUID) *GoodCoinRewardUpsertBu
 func (u *GoodCoinRewardUpsertBulk) UpdateEntID() *GoodCoinRewardUpsertBulk {
 	return u.Update(func(s *GoodCoinRewardUpsert) {
 		s.UpdateEntID()
+	})
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (u *GoodCoinRewardUpsertBulk) SetCreatedAt(v uint32) *GoodCoinRewardUpsertBulk {
+	return u.Update(func(s *GoodCoinRewardUpsert) {
+		s.SetCreatedAt(v)
+	})
+}
+
+// AddCreatedAt adds v to the "created_at" field.
+func (u *GoodCoinRewardUpsertBulk) AddCreatedAt(v uint32) *GoodCoinRewardUpsertBulk {
+	return u.Update(func(s *GoodCoinRewardUpsert) {
+		s.AddCreatedAt(v)
+	})
+}
+
+// UpdateCreatedAt sets the "created_at" field to the value that was provided on create.
+func (u *GoodCoinRewardUpsertBulk) UpdateCreatedAt() *GoodCoinRewardUpsertBulk {
+	return u.Update(func(s *GoodCoinRewardUpsert) {
+		s.UpdateCreatedAt()
+	})
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (u *GoodCoinRewardUpsertBulk) SetUpdatedAt(v uint32) *GoodCoinRewardUpsertBulk {
+	return u.Update(func(s *GoodCoinRewardUpsert) {
+		s.SetUpdatedAt(v)
+	})
+}
+
+// AddUpdatedAt adds v to the "updated_at" field.
+func (u *GoodCoinRewardUpsertBulk) AddUpdatedAt(v uint32) *GoodCoinRewardUpsertBulk {
+	return u.Update(func(s *GoodCoinRewardUpsert) {
+		s.AddUpdatedAt(v)
+	})
+}
+
+// UpdateUpdatedAt sets the "updated_at" field to the value that was provided on create.
+func (u *GoodCoinRewardUpsertBulk) UpdateUpdatedAt() *GoodCoinRewardUpsertBulk {
+	return u.Update(func(s *GoodCoinRewardUpsert) {
+		s.UpdateUpdatedAt()
+	})
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (u *GoodCoinRewardUpsertBulk) SetDeletedAt(v uint32) *GoodCoinRewardUpsertBulk {
+	return u.Update(func(s *GoodCoinRewardUpsert) {
+		s.SetDeletedAt(v)
+	})
+}
+
+// AddDeletedAt adds v to the "deleted_at" field.
+func (u *GoodCoinRewardUpsertBulk) AddDeletedAt(v uint32) *GoodCoinRewardUpsertBulk {
+	return u.Update(func(s *GoodCoinRewardUpsert) {
+		s.AddDeletedAt(v)
+	})
+}
+
+// UpdateDeletedAt sets the "deleted_at" field to the value that was provided on create.
+func (u *GoodCoinRewardUpsertBulk) UpdateDeletedAt() *GoodCoinRewardUpsertBulk {
+	return u.Update(func(s *GoodCoinRewardUpsert) {
+		s.UpdateDeletedAt()
 	})
 }
 

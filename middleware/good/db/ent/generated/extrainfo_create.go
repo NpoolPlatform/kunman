@@ -37,6 +37,48 @@ func (eic *ExtraInfoCreate) SetNillableEntID(u *uuid.UUID) *ExtraInfoCreate {
 	return eic
 }
 
+// SetCreatedAt sets the "created_at" field.
+func (eic *ExtraInfoCreate) SetCreatedAt(u uint32) *ExtraInfoCreate {
+	eic.mutation.SetCreatedAt(u)
+	return eic
+}
+
+// SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
+func (eic *ExtraInfoCreate) SetNillableCreatedAt(u *uint32) *ExtraInfoCreate {
+	if u != nil {
+		eic.SetCreatedAt(*u)
+	}
+	return eic
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (eic *ExtraInfoCreate) SetUpdatedAt(u uint32) *ExtraInfoCreate {
+	eic.mutation.SetUpdatedAt(u)
+	return eic
+}
+
+// SetNillableUpdatedAt sets the "updated_at" field if the given value is not nil.
+func (eic *ExtraInfoCreate) SetNillableUpdatedAt(u *uint32) *ExtraInfoCreate {
+	if u != nil {
+		eic.SetUpdatedAt(*u)
+	}
+	return eic
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (eic *ExtraInfoCreate) SetDeletedAt(u uint32) *ExtraInfoCreate {
+	eic.mutation.SetDeletedAt(u)
+	return eic
+}
+
+// SetNillableDeletedAt sets the "deleted_at" field if the given value is not nil.
+func (eic *ExtraInfoCreate) SetNillableDeletedAt(u *uint32) *ExtraInfoCreate {
+	if u != nil {
+		eic.SetDeletedAt(*u)
+	}
+	return eic
+}
+
 // SetAppGoodID sets the "app_good_id" field.
 func (eic *ExtraInfoCreate) SetAppGoodID(u uuid.UUID) *ExtraInfoCreate {
 	eic.mutation.SetAppGoodID(u)
@@ -180,6 +222,18 @@ func (eic *ExtraInfoCreate) defaults() {
 		v := extrainfo.DefaultEntID()
 		eic.mutation.SetEntID(v)
 	}
+	if _, ok := eic.mutation.CreatedAt(); !ok {
+		v := extrainfo.DefaultCreatedAt()
+		eic.mutation.SetCreatedAt(v)
+	}
+	if _, ok := eic.mutation.UpdatedAt(); !ok {
+		v := extrainfo.DefaultUpdatedAt()
+		eic.mutation.SetUpdatedAt(v)
+	}
+	if _, ok := eic.mutation.DeletedAt(); !ok {
+		v := extrainfo.DefaultDeletedAt()
+		eic.mutation.SetDeletedAt(v)
+	}
 	if _, ok := eic.mutation.AppGoodID(); !ok {
 		v := extrainfo.DefaultAppGoodID()
 		eic.mutation.SetAppGoodID(v)
@@ -214,6 +268,15 @@ func (eic *ExtraInfoCreate) defaults() {
 func (eic *ExtraInfoCreate) check() error {
 	if _, ok := eic.mutation.EntID(); !ok {
 		return &ValidationError{Name: "ent_id", err: errors.New(`generated: missing required field "ExtraInfo.ent_id"`)}
+	}
+	if _, ok := eic.mutation.CreatedAt(); !ok {
+		return &ValidationError{Name: "created_at", err: errors.New(`generated: missing required field "ExtraInfo.created_at"`)}
+	}
+	if _, ok := eic.mutation.UpdatedAt(); !ok {
+		return &ValidationError{Name: "updated_at", err: errors.New(`generated: missing required field "ExtraInfo.updated_at"`)}
+	}
+	if _, ok := eic.mutation.DeletedAt(); !ok {
+		return &ValidationError{Name: "deleted_at", err: errors.New(`generated: missing required field "ExtraInfo.deleted_at"`)}
 	}
 	return nil
 }
@@ -251,6 +314,18 @@ func (eic *ExtraInfoCreate) createSpec() (*ExtraInfo, *sqlgraph.CreateSpec) {
 	if value, ok := eic.mutation.EntID(); ok {
 		_spec.SetField(extrainfo.FieldEntID, field.TypeUUID, value)
 		_node.EntID = value
+	}
+	if value, ok := eic.mutation.CreatedAt(); ok {
+		_spec.SetField(extrainfo.FieldCreatedAt, field.TypeUint32, value)
+		_node.CreatedAt = value
+	}
+	if value, ok := eic.mutation.UpdatedAt(); ok {
+		_spec.SetField(extrainfo.FieldUpdatedAt, field.TypeUint32, value)
+		_node.UpdatedAt = value
+	}
+	if value, ok := eic.mutation.DeletedAt(); ok {
+		_spec.SetField(extrainfo.FieldDeletedAt, field.TypeUint32, value)
+		_node.DeletedAt = value
 	}
 	if value, ok := eic.mutation.AppGoodID(); ok {
 		_spec.SetField(extrainfo.FieldAppGoodID, field.TypeUUID, value)
@@ -341,6 +416,60 @@ func (u *ExtraInfoUpsert) SetEntID(v uuid.UUID) *ExtraInfoUpsert {
 // UpdateEntID sets the "ent_id" field to the value that was provided on create.
 func (u *ExtraInfoUpsert) UpdateEntID() *ExtraInfoUpsert {
 	u.SetExcluded(extrainfo.FieldEntID)
+	return u
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (u *ExtraInfoUpsert) SetCreatedAt(v uint32) *ExtraInfoUpsert {
+	u.Set(extrainfo.FieldCreatedAt, v)
+	return u
+}
+
+// UpdateCreatedAt sets the "created_at" field to the value that was provided on create.
+func (u *ExtraInfoUpsert) UpdateCreatedAt() *ExtraInfoUpsert {
+	u.SetExcluded(extrainfo.FieldCreatedAt)
+	return u
+}
+
+// AddCreatedAt adds v to the "created_at" field.
+func (u *ExtraInfoUpsert) AddCreatedAt(v uint32) *ExtraInfoUpsert {
+	u.Add(extrainfo.FieldCreatedAt, v)
+	return u
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (u *ExtraInfoUpsert) SetUpdatedAt(v uint32) *ExtraInfoUpsert {
+	u.Set(extrainfo.FieldUpdatedAt, v)
+	return u
+}
+
+// UpdateUpdatedAt sets the "updated_at" field to the value that was provided on create.
+func (u *ExtraInfoUpsert) UpdateUpdatedAt() *ExtraInfoUpsert {
+	u.SetExcluded(extrainfo.FieldUpdatedAt)
+	return u
+}
+
+// AddUpdatedAt adds v to the "updated_at" field.
+func (u *ExtraInfoUpsert) AddUpdatedAt(v uint32) *ExtraInfoUpsert {
+	u.Add(extrainfo.FieldUpdatedAt, v)
+	return u
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (u *ExtraInfoUpsert) SetDeletedAt(v uint32) *ExtraInfoUpsert {
+	u.Set(extrainfo.FieldDeletedAt, v)
+	return u
+}
+
+// UpdateDeletedAt sets the "deleted_at" field to the value that was provided on create.
+func (u *ExtraInfoUpsert) UpdateDeletedAt() *ExtraInfoUpsert {
+	u.SetExcluded(extrainfo.FieldDeletedAt)
+	return u
+}
+
+// AddDeletedAt adds v to the "deleted_at" field.
+func (u *ExtraInfoUpsert) AddDeletedAt(v uint32) *ExtraInfoUpsert {
+	u.Add(extrainfo.FieldDeletedAt, v)
 	return u
 }
 
@@ -559,6 +688,69 @@ func (u *ExtraInfoUpsertOne) SetEntID(v uuid.UUID) *ExtraInfoUpsertOne {
 func (u *ExtraInfoUpsertOne) UpdateEntID() *ExtraInfoUpsertOne {
 	return u.Update(func(s *ExtraInfoUpsert) {
 		s.UpdateEntID()
+	})
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (u *ExtraInfoUpsertOne) SetCreatedAt(v uint32) *ExtraInfoUpsertOne {
+	return u.Update(func(s *ExtraInfoUpsert) {
+		s.SetCreatedAt(v)
+	})
+}
+
+// AddCreatedAt adds v to the "created_at" field.
+func (u *ExtraInfoUpsertOne) AddCreatedAt(v uint32) *ExtraInfoUpsertOne {
+	return u.Update(func(s *ExtraInfoUpsert) {
+		s.AddCreatedAt(v)
+	})
+}
+
+// UpdateCreatedAt sets the "created_at" field to the value that was provided on create.
+func (u *ExtraInfoUpsertOne) UpdateCreatedAt() *ExtraInfoUpsertOne {
+	return u.Update(func(s *ExtraInfoUpsert) {
+		s.UpdateCreatedAt()
+	})
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (u *ExtraInfoUpsertOne) SetUpdatedAt(v uint32) *ExtraInfoUpsertOne {
+	return u.Update(func(s *ExtraInfoUpsert) {
+		s.SetUpdatedAt(v)
+	})
+}
+
+// AddUpdatedAt adds v to the "updated_at" field.
+func (u *ExtraInfoUpsertOne) AddUpdatedAt(v uint32) *ExtraInfoUpsertOne {
+	return u.Update(func(s *ExtraInfoUpsert) {
+		s.AddUpdatedAt(v)
+	})
+}
+
+// UpdateUpdatedAt sets the "updated_at" field to the value that was provided on create.
+func (u *ExtraInfoUpsertOne) UpdateUpdatedAt() *ExtraInfoUpsertOne {
+	return u.Update(func(s *ExtraInfoUpsert) {
+		s.UpdateUpdatedAt()
+	})
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (u *ExtraInfoUpsertOne) SetDeletedAt(v uint32) *ExtraInfoUpsertOne {
+	return u.Update(func(s *ExtraInfoUpsert) {
+		s.SetDeletedAt(v)
+	})
+}
+
+// AddDeletedAt adds v to the "deleted_at" field.
+func (u *ExtraInfoUpsertOne) AddDeletedAt(v uint32) *ExtraInfoUpsertOne {
+	return u.Update(func(s *ExtraInfoUpsert) {
+		s.AddDeletedAt(v)
+	})
+}
+
+// UpdateDeletedAt sets the "deleted_at" field to the value that was provided on create.
+func (u *ExtraInfoUpsertOne) UpdateDeletedAt() *ExtraInfoUpsertOne {
+	return u.Update(func(s *ExtraInfoUpsert) {
+		s.UpdateDeletedAt()
 	})
 }
 
@@ -969,6 +1161,69 @@ func (u *ExtraInfoUpsertBulk) SetEntID(v uuid.UUID) *ExtraInfoUpsertBulk {
 func (u *ExtraInfoUpsertBulk) UpdateEntID() *ExtraInfoUpsertBulk {
 	return u.Update(func(s *ExtraInfoUpsert) {
 		s.UpdateEntID()
+	})
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (u *ExtraInfoUpsertBulk) SetCreatedAt(v uint32) *ExtraInfoUpsertBulk {
+	return u.Update(func(s *ExtraInfoUpsert) {
+		s.SetCreatedAt(v)
+	})
+}
+
+// AddCreatedAt adds v to the "created_at" field.
+func (u *ExtraInfoUpsertBulk) AddCreatedAt(v uint32) *ExtraInfoUpsertBulk {
+	return u.Update(func(s *ExtraInfoUpsert) {
+		s.AddCreatedAt(v)
+	})
+}
+
+// UpdateCreatedAt sets the "created_at" field to the value that was provided on create.
+func (u *ExtraInfoUpsertBulk) UpdateCreatedAt() *ExtraInfoUpsertBulk {
+	return u.Update(func(s *ExtraInfoUpsert) {
+		s.UpdateCreatedAt()
+	})
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (u *ExtraInfoUpsertBulk) SetUpdatedAt(v uint32) *ExtraInfoUpsertBulk {
+	return u.Update(func(s *ExtraInfoUpsert) {
+		s.SetUpdatedAt(v)
+	})
+}
+
+// AddUpdatedAt adds v to the "updated_at" field.
+func (u *ExtraInfoUpsertBulk) AddUpdatedAt(v uint32) *ExtraInfoUpsertBulk {
+	return u.Update(func(s *ExtraInfoUpsert) {
+		s.AddUpdatedAt(v)
+	})
+}
+
+// UpdateUpdatedAt sets the "updated_at" field to the value that was provided on create.
+func (u *ExtraInfoUpsertBulk) UpdateUpdatedAt() *ExtraInfoUpsertBulk {
+	return u.Update(func(s *ExtraInfoUpsert) {
+		s.UpdateUpdatedAt()
+	})
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (u *ExtraInfoUpsertBulk) SetDeletedAt(v uint32) *ExtraInfoUpsertBulk {
+	return u.Update(func(s *ExtraInfoUpsert) {
+		s.SetDeletedAt(v)
+	})
+}
+
+// AddDeletedAt adds v to the "deleted_at" field.
+func (u *ExtraInfoUpsertBulk) AddDeletedAt(v uint32) *ExtraInfoUpsertBulk {
+	return u.Update(func(s *ExtraInfoUpsert) {
+		s.AddDeletedAt(v)
+	})
+}
+
+// UpdateDeletedAt sets the "deleted_at" field to the value that was provided on create.
+func (u *ExtraInfoUpsertBulk) UpdateDeletedAt() *ExtraInfoUpsertBulk {
+	return u.Update(func(s *ExtraInfoUpsert) {
+		s.UpdateDeletedAt()
 	})
 }
 

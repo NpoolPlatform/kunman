@@ -5,8 +5,9 @@ import (
 
 	logger "github.com/NpoolPlatform/kunman/framework/logger"
 	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
+	types "github.com/NpoolPlatform/kunman/message/basetypes/good/v1"
 	appgoodbasecrud "github.com/NpoolPlatform/kunman/middleware/good/crud/app/good/goodbase"
-	"github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated"
+	ent "github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated"
 	entappdelegatedstaking "github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated/appdelegatedstaking"
 	entappgoodbase "github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated/appgoodbase"
 	entdelegatedstaking "github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated/delegatedstaking"
@@ -14,7 +15,6 @@ import (
 	entgoodbase "github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated/goodbase"
 	entgoodcoin "github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated/goodcoin"
 	entgoodreward "github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated/goodreward"
-	types "github.com/NpoolPlatform/kunman/message/basetypes/good/v1"
 
 	"github.com/google/uuid"
 )

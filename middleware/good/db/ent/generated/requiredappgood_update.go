@@ -43,6 +43,61 @@ func (ragu *RequiredAppGoodUpdate) SetNillableEntID(u *uuid.UUID) *RequiredAppGo
 	return ragu
 }
 
+// SetCreatedAt sets the "created_at" field.
+func (ragu *RequiredAppGoodUpdate) SetCreatedAt(u uint32) *RequiredAppGoodUpdate {
+	ragu.mutation.ResetCreatedAt()
+	ragu.mutation.SetCreatedAt(u)
+	return ragu
+}
+
+// SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
+func (ragu *RequiredAppGoodUpdate) SetNillableCreatedAt(u *uint32) *RequiredAppGoodUpdate {
+	if u != nil {
+		ragu.SetCreatedAt(*u)
+	}
+	return ragu
+}
+
+// AddCreatedAt adds u to the "created_at" field.
+func (ragu *RequiredAppGoodUpdate) AddCreatedAt(u int32) *RequiredAppGoodUpdate {
+	ragu.mutation.AddCreatedAt(u)
+	return ragu
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (ragu *RequiredAppGoodUpdate) SetUpdatedAt(u uint32) *RequiredAppGoodUpdate {
+	ragu.mutation.ResetUpdatedAt()
+	ragu.mutation.SetUpdatedAt(u)
+	return ragu
+}
+
+// AddUpdatedAt adds u to the "updated_at" field.
+func (ragu *RequiredAppGoodUpdate) AddUpdatedAt(u int32) *RequiredAppGoodUpdate {
+	ragu.mutation.AddUpdatedAt(u)
+	return ragu
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (ragu *RequiredAppGoodUpdate) SetDeletedAt(u uint32) *RequiredAppGoodUpdate {
+	ragu.mutation.ResetDeletedAt()
+	ragu.mutation.SetDeletedAt(u)
+	return ragu
+}
+
+// SetNillableDeletedAt sets the "deleted_at" field if the given value is not nil.
+func (ragu *RequiredAppGoodUpdate) SetNillableDeletedAt(u *uint32) *RequiredAppGoodUpdate {
+	if u != nil {
+		ragu.SetDeletedAt(*u)
+	}
+	return ragu
+}
+
+// AddDeletedAt adds u to the "deleted_at" field.
+func (ragu *RequiredAppGoodUpdate) AddDeletedAt(u int32) *RequiredAppGoodUpdate {
+	ragu.mutation.AddDeletedAt(u)
+	return ragu
+}
+
 // SetMainAppGoodID sets the "main_app_good_id" field.
 func (ragu *RequiredAppGoodUpdate) SetMainAppGoodID(u uuid.UUID) *RequiredAppGoodUpdate {
 	ragu.mutation.SetMainAppGoodID(u)
@@ -98,6 +153,7 @@ func (ragu *RequiredAppGoodUpdate) Mutation() *RequiredAppGoodMutation {
 
 // Save executes the query and returns the number of nodes affected by the update operation.
 func (ragu *RequiredAppGoodUpdate) Save(ctx context.Context) (int, error) {
+	ragu.defaults()
 	return withHooks(ctx, ragu.sqlSave, ragu.mutation, ragu.hooks)
 }
 
@@ -123,6 +179,14 @@ func (ragu *RequiredAppGoodUpdate) ExecX(ctx context.Context) {
 	}
 }
 
+// defaults sets the default values of the builder before save.
+func (ragu *RequiredAppGoodUpdate) defaults() {
+	if _, ok := ragu.mutation.UpdatedAt(); !ok {
+		v := requiredappgood.UpdateDefaultUpdatedAt()
+		ragu.mutation.SetUpdatedAt(v)
+	}
+}
+
 // Modify adds a statement modifier for attaching custom logic to the UPDATE statement.
 func (ragu *RequiredAppGoodUpdate) Modify(modifiers ...func(u *sql.UpdateBuilder)) *RequiredAppGoodUpdate {
 	ragu.modifiers = append(ragu.modifiers, modifiers...)
@@ -140,6 +204,24 @@ func (ragu *RequiredAppGoodUpdate) sqlSave(ctx context.Context) (n int, err erro
 	}
 	if value, ok := ragu.mutation.EntID(); ok {
 		_spec.SetField(requiredappgood.FieldEntID, field.TypeUUID, value)
+	}
+	if value, ok := ragu.mutation.CreatedAt(); ok {
+		_spec.SetField(requiredappgood.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := ragu.mutation.AddedCreatedAt(); ok {
+		_spec.AddField(requiredappgood.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := ragu.mutation.UpdatedAt(); ok {
+		_spec.SetField(requiredappgood.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := ragu.mutation.AddedUpdatedAt(); ok {
+		_spec.AddField(requiredappgood.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := ragu.mutation.DeletedAt(); ok {
+		_spec.SetField(requiredappgood.FieldDeletedAt, field.TypeUint32, value)
+	}
+	if value, ok := ragu.mutation.AddedDeletedAt(); ok {
+		_spec.AddField(requiredappgood.FieldDeletedAt, field.TypeUint32, value)
 	}
 	if value, ok := ragu.mutation.MainAppGoodID(); ok {
 		_spec.SetField(requiredappgood.FieldMainAppGoodID, field.TypeUUID, value)
@@ -186,6 +268,61 @@ func (raguo *RequiredAppGoodUpdateOne) SetNillableEntID(u *uuid.UUID) *RequiredA
 	if u != nil {
 		raguo.SetEntID(*u)
 	}
+	return raguo
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (raguo *RequiredAppGoodUpdateOne) SetCreatedAt(u uint32) *RequiredAppGoodUpdateOne {
+	raguo.mutation.ResetCreatedAt()
+	raguo.mutation.SetCreatedAt(u)
+	return raguo
+}
+
+// SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
+func (raguo *RequiredAppGoodUpdateOne) SetNillableCreatedAt(u *uint32) *RequiredAppGoodUpdateOne {
+	if u != nil {
+		raguo.SetCreatedAt(*u)
+	}
+	return raguo
+}
+
+// AddCreatedAt adds u to the "created_at" field.
+func (raguo *RequiredAppGoodUpdateOne) AddCreatedAt(u int32) *RequiredAppGoodUpdateOne {
+	raguo.mutation.AddCreatedAt(u)
+	return raguo
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (raguo *RequiredAppGoodUpdateOne) SetUpdatedAt(u uint32) *RequiredAppGoodUpdateOne {
+	raguo.mutation.ResetUpdatedAt()
+	raguo.mutation.SetUpdatedAt(u)
+	return raguo
+}
+
+// AddUpdatedAt adds u to the "updated_at" field.
+func (raguo *RequiredAppGoodUpdateOne) AddUpdatedAt(u int32) *RequiredAppGoodUpdateOne {
+	raguo.mutation.AddUpdatedAt(u)
+	return raguo
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (raguo *RequiredAppGoodUpdateOne) SetDeletedAt(u uint32) *RequiredAppGoodUpdateOne {
+	raguo.mutation.ResetDeletedAt()
+	raguo.mutation.SetDeletedAt(u)
+	return raguo
+}
+
+// SetNillableDeletedAt sets the "deleted_at" field if the given value is not nil.
+func (raguo *RequiredAppGoodUpdateOne) SetNillableDeletedAt(u *uint32) *RequiredAppGoodUpdateOne {
+	if u != nil {
+		raguo.SetDeletedAt(*u)
+	}
+	return raguo
+}
+
+// AddDeletedAt adds u to the "deleted_at" field.
+func (raguo *RequiredAppGoodUpdateOne) AddDeletedAt(u int32) *RequiredAppGoodUpdateOne {
+	raguo.mutation.AddDeletedAt(u)
 	return raguo
 }
 
@@ -257,6 +394,7 @@ func (raguo *RequiredAppGoodUpdateOne) Select(field string, fields ...string) *R
 
 // Save executes the query and returns the updated RequiredAppGood entity.
 func (raguo *RequiredAppGoodUpdateOne) Save(ctx context.Context) (*RequiredAppGood, error) {
+	raguo.defaults()
 	return withHooks(ctx, raguo.sqlSave, raguo.mutation, raguo.hooks)
 }
 
@@ -279,6 +417,14 @@ func (raguo *RequiredAppGoodUpdateOne) Exec(ctx context.Context) error {
 func (raguo *RequiredAppGoodUpdateOne) ExecX(ctx context.Context) {
 	if err := raguo.Exec(ctx); err != nil {
 		panic(err)
+	}
+}
+
+// defaults sets the default values of the builder before save.
+func (raguo *RequiredAppGoodUpdateOne) defaults() {
+	if _, ok := raguo.mutation.UpdatedAt(); !ok {
+		v := requiredappgood.UpdateDefaultUpdatedAt()
+		raguo.mutation.SetUpdatedAt(v)
 	}
 }
 
@@ -316,6 +462,24 @@ func (raguo *RequiredAppGoodUpdateOne) sqlSave(ctx context.Context) (_node *Requ
 	}
 	if value, ok := raguo.mutation.EntID(); ok {
 		_spec.SetField(requiredappgood.FieldEntID, field.TypeUUID, value)
+	}
+	if value, ok := raguo.mutation.CreatedAt(); ok {
+		_spec.SetField(requiredappgood.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := raguo.mutation.AddedCreatedAt(); ok {
+		_spec.AddField(requiredappgood.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := raguo.mutation.UpdatedAt(); ok {
+		_spec.SetField(requiredappgood.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := raguo.mutation.AddedUpdatedAt(); ok {
+		_spec.AddField(requiredappgood.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := raguo.mutation.DeletedAt(); ok {
+		_spec.SetField(requiredappgood.FieldDeletedAt, field.TypeUint32, value)
+	}
+	if value, ok := raguo.mutation.AddedDeletedAt(); ok {
+		_spec.AddField(requiredappgood.FieldDeletedAt, field.TypeUint32, value)
 	}
 	if value, ok := raguo.mutation.MainAppGoodID(); ok {
 		_spec.SetField(requiredappgood.FieldMainAppGoodID, field.TypeUUID, value)

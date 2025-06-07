@@ -15,6 +15,7 @@ type DeviceManufacturer struct {
 func (DeviceManufacturer) Mixin() []ent.Mixin {
 	return []ent.Mixin{
 		crudermixin.AutoIDMixin{},
+		crudermixin.TimeMixin{},
 	}
 }
 

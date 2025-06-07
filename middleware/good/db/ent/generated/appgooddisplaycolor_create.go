@@ -36,6 +36,48 @@ func (agdcc *AppGoodDisplayColorCreate) SetNillableEntID(u *uuid.UUID) *AppGoodD
 	return agdcc
 }
 
+// SetCreatedAt sets the "created_at" field.
+func (agdcc *AppGoodDisplayColorCreate) SetCreatedAt(u uint32) *AppGoodDisplayColorCreate {
+	agdcc.mutation.SetCreatedAt(u)
+	return agdcc
+}
+
+// SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
+func (agdcc *AppGoodDisplayColorCreate) SetNillableCreatedAt(u *uint32) *AppGoodDisplayColorCreate {
+	if u != nil {
+		agdcc.SetCreatedAt(*u)
+	}
+	return agdcc
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (agdcc *AppGoodDisplayColorCreate) SetUpdatedAt(u uint32) *AppGoodDisplayColorCreate {
+	agdcc.mutation.SetUpdatedAt(u)
+	return agdcc
+}
+
+// SetNillableUpdatedAt sets the "updated_at" field if the given value is not nil.
+func (agdcc *AppGoodDisplayColorCreate) SetNillableUpdatedAt(u *uint32) *AppGoodDisplayColorCreate {
+	if u != nil {
+		agdcc.SetUpdatedAt(*u)
+	}
+	return agdcc
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (agdcc *AppGoodDisplayColorCreate) SetDeletedAt(u uint32) *AppGoodDisplayColorCreate {
+	agdcc.mutation.SetDeletedAt(u)
+	return agdcc
+}
+
+// SetNillableDeletedAt sets the "deleted_at" field if the given value is not nil.
+func (agdcc *AppGoodDisplayColorCreate) SetNillableDeletedAt(u *uint32) *AppGoodDisplayColorCreate {
+	if u != nil {
+		agdcc.SetDeletedAt(*u)
+	}
+	return agdcc
+}
+
 // SetAppGoodID sets the "app_good_id" field.
 func (agdcc *AppGoodDisplayColorCreate) SetAppGoodID(u uuid.UUID) *AppGoodDisplayColorCreate {
 	agdcc.mutation.SetAppGoodID(u)
@@ -123,6 +165,18 @@ func (agdcc *AppGoodDisplayColorCreate) defaults() {
 		v := appgooddisplaycolor.DefaultEntID()
 		agdcc.mutation.SetEntID(v)
 	}
+	if _, ok := agdcc.mutation.CreatedAt(); !ok {
+		v := appgooddisplaycolor.DefaultCreatedAt()
+		agdcc.mutation.SetCreatedAt(v)
+	}
+	if _, ok := agdcc.mutation.UpdatedAt(); !ok {
+		v := appgooddisplaycolor.DefaultUpdatedAt()
+		agdcc.mutation.SetUpdatedAt(v)
+	}
+	if _, ok := agdcc.mutation.DeletedAt(); !ok {
+		v := appgooddisplaycolor.DefaultDeletedAt()
+		agdcc.mutation.SetDeletedAt(v)
+	}
 	if _, ok := agdcc.mutation.AppGoodID(); !ok {
 		v := appgooddisplaycolor.DefaultAppGoodID()
 		agdcc.mutation.SetAppGoodID(v)
@@ -141,6 +195,15 @@ func (agdcc *AppGoodDisplayColorCreate) defaults() {
 func (agdcc *AppGoodDisplayColorCreate) check() error {
 	if _, ok := agdcc.mutation.EntID(); !ok {
 		return &ValidationError{Name: "ent_id", err: errors.New(`generated: missing required field "AppGoodDisplayColor.ent_id"`)}
+	}
+	if _, ok := agdcc.mutation.CreatedAt(); !ok {
+		return &ValidationError{Name: "created_at", err: errors.New(`generated: missing required field "AppGoodDisplayColor.created_at"`)}
+	}
+	if _, ok := agdcc.mutation.UpdatedAt(); !ok {
+		return &ValidationError{Name: "updated_at", err: errors.New(`generated: missing required field "AppGoodDisplayColor.updated_at"`)}
+	}
+	if _, ok := agdcc.mutation.DeletedAt(); !ok {
+		return &ValidationError{Name: "deleted_at", err: errors.New(`generated: missing required field "AppGoodDisplayColor.deleted_at"`)}
 	}
 	return nil
 }
@@ -178,6 +241,18 @@ func (agdcc *AppGoodDisplayColorCreate) createSpec() (*AppGoodDisplayColor, *sql
 	if value, ok := agdcc.mutation.EntID(); ok {
 		_spec.SetField(appgooddisplaycolor.FieldEntID, field.TypeUUID, value)
 		_node.EntID = value
+	}
+	if value, ok := agdcc.mutation.CreatedAt(); ok {
+		_spec.SetField(appgooddisplaycolor.FieldCreatedAt, field.TypeUint32, value)
+		_node.CreatedAt = value
+	}
+	if value, ok := agdcc.mutation.UpdatedAt(); ok {
+		_spec.SetField(appgooddisplaycolor.FieldUpdatedAt, field.TypeUint32, value)
+		_node.UpdatedAt = value
+	}
+	if value, ok := agdcc.mutation.DeletedAt(); ok {
+		_spec.SetField(appgooddisplaycolor.FieldDeletedAt, field.TypeUint32, value)
+		_node.DeletedAt = value
 	}
 	if value, ok := agdcc.mutation.AppGoodID(); ok {
 		_spec.SetField(appgooddisplaycolor.FieldAppGoodID, field.TypeUUID, value)
@@ -252,6 +327,60 @@ func (u *AppGoodDisplayColorUpsert) SetEntID(v uuid.UUID) *AppGoodDisplayColorUp
 // UpdateEntID sets the "ent_id" field to the value that was provided on create.
 func (u *AppGoodDisplayColorUpsert) UpdateEntID() *AppGoodDisplayColorUpsert {
 	u.SetExcluded(appgooddisplaycolor.FieldEntID)
+	return u
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (u *AppGoodDisplayColorUpsert) SetCreatedAt(v uint32) *AppGoodDisplayColorUpsert {
+	u.Set(appgooddisplaycolor.FieldCreatedAt, v)
+	return u
+}
+
+// UpdateCreatedAt sets the "created_at" field to the value that was provided on create.
+func (u *AppGoodDisplayColorUpsert) UpdateCreatedAt() *AppGoodDisplayColorUpsert {
+	u.SetExcluded(appgooddisplaycolor.FieldCreatedAt)
+	return u
+}
+
+// AddCreatedAt adds v to the "created_at" field.
+func (u *AppGoodDisplayColorUpsert) AddCreatedAt(v uint32) *AppGoodDisplayColorUpsert {
+	u.Add(appgooddisplaycolor.FieldCreatedAt, v)
+	return u
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (u *AppGoodDisplayColorUpsert) SetUpdatedAt(v uint32) *AppGoodDisplayColorUpsert {
+	u.Set(appgooddisplaycolor.FieldUpdatedAt, v)
+	return u
+}
+
+// UpdateUpdatedAt sets the "updated_at" field to the value that was provided on create.
+func (u *AppGoodDisplayColorUpsert) UpdateUpdatedAt() *AppGoodDisplayColorUpsert {
+	u.SetExcluded(appgooddisplaycolor.FieldUpdatedAt)
+	return u
+}
+
+// AddUpdatedAt adds v to the "updated_at" field.
+func (u *AppGoodDisplayColorUpsert) AddUpdatedAt(v uint32) *AppGoodDisplayColorUpsert {
+	u.Add(appgooddisplaycolor.FieldUpdatedAt, v)
+	return u
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (u *AppGoodDisplayColorUpsert) SetDeletedAt(v uint32) *AppGoodDisplayColorUpsert {
+	u.Set(appgooddisplaycolor.FieldDeletedAt, v)
+	return u
+}
+
+// UpdateDeletedAt sets the "deleted_at" field to the value that was provided on create.
+func (u *AppGoodDisplayColorUpsert) UpdateDeletedAt() *AppGoodDisplayColorUpsert {
+	u.SetExcluded(appgooddisplaycolor.FieldDeletedAt)
+	return u
+}
+
+// AddDeletedAt adds v to the "deleted_at" field.
+func (u *AppGoodDisplayColorUpsert) AddDeletedAt(v uint32) *AppGoodDisplayColorUpsert {
+	u.Add(appgooddisplaycolor.FieldDeletedAt, v)
 	return u
 }
 
@@ -374,6 +503,69 @@ func (u *AppGoodDisplayColorUpsertOne) SetEntID(v uuid.UUID) *AppGoodDisplayColo
 func (u *AppGoodDisplayColorUpsertOne) UpdateEntID() *AppGoodDisplayColorUpsertOne {
 	return u.Update(func(s *AppGoodDisplayColorUpsert) {
 		s.UpdateEntID()
+	})
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (u *AppGoodDisplayColorUpsertOne) SetCreatedAt(v uint32) *AppGoodDisplayColorUpsertOne {
+	return u.Update(func(s *AppGoodDisplayColorUpsert) {
+		s.SetCreatedAt(v)
+	})
+}
+
+// AddCreatedAt adds v to the "created_at" field.
+func (u *AppGoodDisplayColorUpsertOne) AddCreatedAt(v uint32) *AppGoodDisplayColorUpsertOne {
+	return u.Update(func(s *AppGoodDisplayColorUpsert) {
+		s.AddCreatedAt(v)
+	})
+}
+
+// UpdateCreatedAt sets the "created_at" field to the value that was provided on create.
+func (u *AppGoodDisplayColorUpsertOne) UpdateCreatedAt() *AppGoodDisplayColorUpsertOne {
+	return u.Update(func(s *AppGoodDisplayColorUpsert) {
+		s.UpdateCreatedAt()
+	})
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (u *AppGoodDisplayColorUpsertOne) SetUpdatedAt(v uint32) *AppGoodDisplayColorUpsertOne {
+	return u.Update(func(s *AppGoodDisplayColorUpsert) {
+		s.SetUpdatedAt(v)
+	})
+}
+
+// AddUpdatedAt adds v to the "updated_at" field.
+func (u *AppGoodDisplayColorUpsertOne) AddUpdatedAt(v uint32) *AppGoodDisplayColorUpsertOne {
+	return u.Update(func(s *AppGoodDisplayColorUpsert) {
+		s.AddUpdatedAt(v)
+	})
+}
+
+// UpdateUpdatedAt sets the "updated_at" field to the value that was provided on create.
+func (u *AppGoodDisplayColorUpsertOne) UpdateUpdatedAt() *AppGoodDisplayColorUpsertOne {
+	return u.Update(func(s *AppGoodDisplayColorUpsert) {
+		s.UpdateUpdatedAt()
+	})
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (u *AppGoodDisplayColorUpsertOne) SetDeletedAt(v uint32) *AppGoodDisplayColorUpsertOne {
+	return u.Update(func(s *AppGoodDisplayColorUpsert) {
+		s.SetDeletedAt(v)
+	})
+}
+
+// AddDeletedAt adds v to the "deleted_at" field.
+func (u *AppGoodDisplayColorUpsertOne) AddDeletedAt(v uint32) *AppGoodDisplayColorUpsertOne {
+	return u.Update(func(s *AppGoodDisplayColorUpsert) {
+		s.AddDeletedAt(v)
+	})
+}
+
+// UpdateDeletedAt sets the "deleted_at" field to the value that was provided on create.
+func (u *AppGoodDisplayColorUpsertOne) UpdateDeletedAt() *AppGoodDisplayColorUpsertOne {
+	return u.Update(func(s *AppGoodDisplayColorUpsert) {
+		s.UpdateDeletedAt()
 	})
 }
 
@@ -672,6 +864,69 @@ func (u *AppGoodDisplayColorUpsertBulk) SetEntID(v uuid.UUID) *AppGoodDisplayCol
 func (u *AppGoodDisplayColorUpsertBulk) UpdateEntID() *AppGoodDisplayColorUpsertBulk {
 	return u.Update(func(s *AppGoodDisplayColorUpsert) {
 		s.UpdateEntID()
+	})
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (u *AppGoodDisplayColorUpsertBulk) SetCreatedAt(v uint32) *AppGoodDisplayColorUpsertBulk {
+	return u.Update(func(s *AppGoodDisplayColorUpsert) {
+		s.SetCreatedAt(v)
+	})
+}
+
+// AddCreatedAt adds v to the "created_at" field.
+func (u *AppGoodDisplayColorUpsertBulk) AddCreatedAt(v uint32) *AppGoodDisplayColorUpsertBulk {
+	return u.Update(func(s *AppGoodDisplayColorUpsert) {
+		s.AddCreatedAt(v)
+	})
+}
+
+// UpdateCreatedAt sets the "created_at" field to the value that was provided on create.
+func (u *AppGoodDisplayColorUpsertBulk) UpdateCreatedAt() *AppGoodDisplayColorUpsertBulk {
+	return u.Update(func(s *AppGoodDisplayColorUpsert) {
+		s.UpdateCreatedAt()
+	})
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (u *AppGoodDisplayColorUpsertBulk) SetUpdatedAt(v uint32) *AppGoodDisplayColorUpsertBulk {
+	return u.Update(func(s *AppGoodDisplayColorUpsert) {
+		s.SetUpdatedAt(v)
+	})
+}
+
+// AddUpdatedAt adds v to the "updated_at" field.
+func (u *AppGoodDisplayColorUpsertBulk) AddUpdatedAt(v uint32) *AppGoodDisplayColorUpsertBulk {
+	return u.Update(func(s *AppGoodDisplayColorUpsert) {
+		s.AddUpdatedAt(v)
+	})
+}
+
+// UpdateUpdatedAt sets the "updated_at" field to the value that was provided on create.
+func (u *AppGoodDisplayColorUpsertBulk) UpdateUpdatedAt() *AppGoodDisplayColorUpsertBulk {
+	return u.Update(func(s *AppGoodDisplayColorUpsert) {
+		s.UpdateUpdatedAt()
+	})
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (u *AppGoodDisplayColorUpsertBulk) SetDeletedAt(v uint32) *AppGoodDisplayColorUpsertBulk {
+	return u.Update(func(s *AppGoodDisplayColorUpsert) {
+		s.SetDeletedAt(v)
+	})
+}
+
+// AddDeletedAt adds v to the "deleted_at" field.
+func (u *AppGoodDisplayColorUpsertBulk) AddDeletedAt(v uint32) *AppGoodDisplayColorUpsertBulk {
+	return u.Update(func(s *AppGoodDisplayColorUpsert) {
+		s.AddDeletedAt(v)
+	})
+}
+
+// UpdateDeletedAt sets the "deleted_at" field to the value that was provided on create.
+func (u *AppGoodDisplayColorUpsertBulk) UpdateDeletedAt() *AppGoodDisplayColorUpsertBulk {
+	return u.Update(func(s *AppGoodDisplayColorUpsert) {
+		s.UpdateDeletedAt()
 	})
 }
 

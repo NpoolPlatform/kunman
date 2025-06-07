@@ -17,6 +17,7 @@ type AppGoodPoster struct {
 func (AppGoodPoster) Mixin() []ent.Mixin {
 	return []ent.Mixin{
 		crudermixin.AutoIDMixin{},
+		crudermixin.TimeMixin{},
 	}
 }
 

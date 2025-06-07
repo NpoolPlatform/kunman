@@ -4,7 +4,7 @@ import (
 	"context"
 
 	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
-	constant "github.com/NpoolPlatform/kunman/middleware/good/const"
+	constant "github.com/NpoolPlatform/kunman/pkg/const"
 	historycrud "github.com/NpoolPlatform/kunman/middleware/good/crud/good/coin/reward/history"
 	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 	npool "github.com/NpoolPlatform/kunman/message/good/middleware/v1/good/coin/reward/history"

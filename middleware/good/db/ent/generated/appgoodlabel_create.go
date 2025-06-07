@@ -36,6 +36,48 @@ func (aglc *AppGoodLabelCreate) SetNillableEntID(u *uuid.UUID) *AppGoodLabelCrea
 	return aglc
 }
 
+// SetCreatedAt sets the "created_at" field.
+func (aglc *AppGoodLabelCreate) SetCreatedAt(u uint32) *AppGoodLabelCreate {
+	aglc.mutation.SetCreatedAt(u)
+	return aglc
+}
+
+// SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
+func (aglc *AppGoodLabelCreate) SetNillableCreatedAt(u *uint32) *AppGoodLabelCreate {
+	if u != nil {
+		aglc.SetCreatedAt(*u)
+	}
+	return aglc
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (aglc *AppGoodLabelCreate) SetUpdatedAt(u uint32) *AppGoodLabelCreate {
+	aglc.mutation.SetUpdatedAt(u)
+	return aglc
+}
+
+// SetNillableUpdatedAt sets the "updated_at" field if the given value is not nil.
+func (aglc *AppGoodLabelCreate) SetNillableUpdatedAt(u *uint32) *AppGoodLabelCreate {
+	if u != nil {
+		aglc.SetUpdatedAt(*u)
+	}
+	return aglc
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (aglc *AppGoodLabelCreate) SetDeletedAt(u uint32) *AppGoodLabelCreate {
+	aglc.mutation.SetDeletedAt(u)
+	return aglc
+}
+
+// SetNillableDeletedAt sets the "deleted_at" field if the given value is not nil.
+func (aglc *AppGoodLabelCreate) SetNillableDeletedAt(u *uint32) *AppGoodLabelCreate {
+	if u != nil {
+		aglc.SetDeletedAt(*u)
+	}
+	return aglc
+}
+
 // SetAppGoodID sets the "app_good_id" field.
 func (aglc *AppGoodLabelCreate) SetAppGoodID(u uuid.UUID) *AppGoodLabelCreate {
 	aglc.mutation.SetAppGoodID(u)
@@ -165,6 +207,18 @@ func (aglc *AppGoodLabelCreate) defaults() {
 		v := appgoodlabel.DefaultEntID()
 		aglc.mutation.SetEntID(v)
 	}
+	if _, ok := aglc.mutation.CreatedAt(); !ok {
+		v := appgoodlabel.DefaultCreatedAt()
+		aglc.mutation.SetCreatedAt(v)
+	}
+	if _, ok := aglc.mutation.UpdatedAt(); !ok {
+		v := appgoodlabel.DefaultUpdatedAt()
+		aglc.mutation.SetUpdatedAt(v)
+	}
+	if _, ok := aglc.mutation.DeletedAt(); !ok {
+		v := appgoodlabel.DefaultDeletedAt()
+		aglc.mutation.SetDeletedAt(v)
+	}
 	if _, ok := aglc.mutation.AppGoodID(); !ok {
 		v := appgoodlabel.DefaultAppGoodID()
 		aglc.mutation.SetAppGoodID(v)
@@ -195,6 +249,15 @@ func (aglc *AppGoodLabelCreate) defaults() {
 func (aglc *AppGoodLabelCreate) check() error {
 	if _, ok := aglc.mutation.EntID(); !ok {
 		return &ValidationError{Name: "ent_id", err: errors.New(`generated: missing required field "AppGoodLabel.ent_id"`)}
+	}
+	if _, ok := aglc.mutation.CreatedAt(); !ok {
+		return &ValidationError{Name: "created_at", err: errors.New(`generated: missing required field "AppGoodLabel.created_at"`)}
+	}
+	if _, ok := aglc.mutation.UpdatedAt(); !ok {
+		return &ValidationError{Name: "updated_at", err: errors.New(`generated: missing required field "AppGoodLabel.updated_at"`)}
+	}
+	if _, ok := aglc.mutation.DeletedAt(); !ok {
+		return &ValidationError{Name: "deleted_at", err: errors.New(`generated: missing required field "AppGoodLabel.deleted_at"`)}
 	}
 	return nil
 }
@@ -232,6 +295,18 @@ func (aglc *AppGoodLabelCreate) createSpec() (*AppGoodLabel, *sqlgraph.CreateSpe
 	if value, ok := aglc.mutation.EntID(); ok {
 		_spec.SetField(appgoodlabel.FieldEntID, field.TypeUUID, value)
 		_node.EntID = value
+	}
+	if value, ok := aglc.mutation.CreatedAt(); ok {
+		_spec.SetField(appgoodlabel.FieldCreatedAt, field.TypeUint32, value)
+		_node.CreatedAt = value
+	}
+	if value, ok := aglc.mutation.UpdatedAt(); ok {
+		_spec.SetField(appgoodlabel.FieldUpdatedAt, field.TypeUint32, value)
+		_node.UpdatedAt = value
+	}
+	if value, ok := aglc.mutation.DeletedAt(); ok {
+		_spec.SetField(appgoodlabel.FieldDeletedAt, field.TypeUint32, value)
+		_node.DeletedAt = value
 	}
 	if value, ok := aglc.mutation.AppGoodID(); ok {
 		_spec.SetField(appgoodlabel.FieldAppGoodID, field.TypeUUID, value)
@@ -318,6 +393,60 @@ func (u *AppGoodLabelUpsert) SetEntID(v uuid.UUID) *AppGoodLabelUpsert {
 // UpdateEntID sets the "ent_id" field to the value that was provided on create.
 func (u *AppGoodLabelUpsert) UpdateEntID() *AppGoodLabelUpsert {
 	u.SetExcluded(appgoodlabel.FieldEntID)
+	return u
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (u *AppGoodLabelUpsert) SetCreatedAt(v uint32) *AppGoodLabelUpsert {
+	u.Set(appgoodlabel.FieldCreatedAt, v)
+	return u
+}
+
+// UpdateCreatedAt sets the "created_at" field to the value that was provided on create.
+func (u *AppGoodLabelUpsert) UpdateCreatedAt() *AppGoodLabelUpsert {
+	u.SetExcluded(appgoodlabel.FieldCreatedAt)
+	return u
+}
+
+// AddCreatedAt adds v to the "created_at" field.
+func (u *AppGoodLabelUpsert) AddCreatedAt(v uint32) *AppGoodLabelUpsert {
+	u.Add(appgoodlabel.FieldCreatedAt, v)
+	return u
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (u *AppGoodLabelUpsert) SetUpdatedAt(v uint32) *AppGoodLabelUpsert {
+	u.Set(appgoodlabel.FieldUpdatedAt, v)
+	return u
+}
+
+// UpdateUpdatedAt sets the "updated_at" field to the value that was provided on create.
+func (u *AppGoodLabelUpsert) UpdateUpdatedAt() *AppGoodLabelUpsert {
+	u.SetExcluded(appgoodlabel.FieldUpdatedAt)
+	return u
+}
+
+// AddUpdatedAt adds v to the "updated_at" field.
+func (u *AppGoodLabelUpsert) AddUpdatedAt(v uint32) *AppGoodLabelUpsert {
+	u.Add(appgoodlabel.FieldUpdatedAt, v)
+	return u
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (u *AppGoodLabelUpsert) SetDeletedAt(v uint32) *AppGoodLabelUpsert {
+	u.Set(appgoodlabel.FieldDeletedAt, v)
+	return u
+}
+
+// UpdateDeletedAt sets the "deleted_at" field to the value that was provided on create.
+func (u *AppGoodLabelUpsert) UpdateDeletedAt() *AppGoodLabelUpsert {
+	u.SetExcluded(appgoodlabel.FieldDeletedAt)
+	return u
+}
+
+// AddDeletedAt adds v to the "deleted_at" field.
+func (u *AppGoodLabelUpsert) AddDeletedAt(v uint32) *AppGoodLabelUpsert {
+	u.Add(appgoodlabel.FieldDeletedAt, v)
 	return u
 }
 
@@ -494,6 +623,69 @@ func (u *AppGoodLabelUpsertOne) SetEntID(v uuid.UUID) *AppGoodLabelUpsertOne {
 func (u *AppGoodLabelUpsertOne) UpdateEntID() *AppGoodLabelUpsertOne {
 	return u.Update(func(s *AppGoodLabelUpsert) {
 		s.UpdateEntID()
+	})
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (u *AppGoodLabelUpsertOne) SetCreatedAt(v uint32) *AppGoodLabelUpsertOne {
+	return u.Update(func(s *AppGoodLabelUpsert) {
+		s.SetCreatedAt(v)
+	})
+}
+
+// AddCreatedAt adds v to the "created_at" field.
+func (u *AppGoodLabelUpsertOne) AddCreatedAt(v uint32) *AppGoodLabelUpsertOne {
+	return u.Update(func(s *AppGoodLabelUpsert) {
+		s.AddCreatedAt(v)
+	})
+}
+
+// UpdateCreatedAt sets the "created_at" field to the value that was provided on create.
+func (u *AppGoodLabelUpsertOne) UpdateCreatedAt() *AppGoodLabelUpsertOne {
+	return u.Update(func(s *AppGoodLabelUpsert) {
+		s.UpdateCreatedAt()
+	})
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (u *AppGoodLabelUpsertOne) SetUpdatedAt(v uint32) *AppGoodLabelUpsertOne {
+	return u.Update(func(s *AppGoodLabelUpsert) {
+		s.SetUpdatedAt(v)
+	})
+}
+
+// AddUpdatedAt adds v to the "updated_at" field.
+func (u *AppGoodLabelUpsertOne) AddUpdatedAt(v uint32) *AppGoodLabelUpsertOne {
+	return u.Update(func(s *AppGoodLabelUpsert) {
+		s.AddUpdatedAt(v)
+	})
+}
+
+// UpdateUpdatedAt sets the "updated_at" field to the value that was provided on create.
+func (u *AppGoodLabelUpsertOne) UpdateUpdatedAt() *AppGoodLabelUpsertOne {
+	return u.Update(func(s *AppGoodLabelUpsert) {
+		s.UpdateUpdatedAt()
+	})
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (u *AppGoodLabelUpsertOne) SetDeletedAt(v uint32) *AppGoodLabelUpsertOne {
+	return u.Update(func(s *AppGoodLabelUpsert) {
+		s.SetDeletedAt(v)
+	})
+}
+
+// AddDeletedAt adds v to the "deleted_at" field.
+func (u *AppGoodLabelUpsertOne) AddDeletedAt(v uint32) *AppGoodLabelUpsertOne {
+	return u.Update(func(s *AppGoodLabelUpsert) {
+		s.AddDeletedAt(v)
+	})
+}
+
+// UpdateDeletedAt sets the "deleted_at" field to the value that was provided on create.
+func (u *AppGoodLabelUpsertOne) UpdateDeletedAt() *AppGoodLabelUpsertOne {
+	return u.Update(func(s *AppGoodLabelUpsert) {
+		s.UpdateDeletedAt()
 	})
 }
 
@@ -855,6 +1047,69 @@ func (u *AppGoodLabelUpsertBulk) SetEntID(v uuid.UUID) *AppGoodLabelUpsertBulk {
 func (u *AppGoodLabelUpsertBulk) UpdateEntID() *AppGoodLabelUpsertBulk {
 	return u.Update(func(s *AppGoodLabelUpsert) {
 		s.UpdateEntID()
+	})
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (u *AppGoodLabelUpsertBulk) SetCreatedAt(v uint32) *AppGoodLabelUpsertBulk {
+	return u.Update(func(s *AppGoodLabelUpsert) {
+		s.SetCreatedAt(v)
+	})
+}
+
+// AddCreatedAt adds v to the "created_at" field.
+func (u *AppGoodLabelUpsertBulk) AddCreatedAt(v uint32) *AppGoodLabelUpsertBulk {
+	return u.Update(func(s *AppGoodLabelUpsert) {
+		s.AddCreatedAt(v)
+	})
+}
+
+// UpdateCreatedAt sets the "created_at" field to the value that was provided on create.
+func (u *AppGoodLabelUpsertBulk) UpdateCreatedAt() *AppGoodLabelUpsertBulk {
+	return u.Update(func(s *AppGoodLabelUpsert) {
+		s.UpdateCreatedAt()
+	})
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (u *AppGoodLabelUpsertBulk) SetUpdatedAt(v uint32) *AppGoodLabelUpsertBulk {
+	return u.Update(func(s *AppGoodLabelUpsert) {
+		s.SetUpdatedAt(v)
+	})
+}
+
+// AddUpdatedAt adds v to the "updated_at" field.
+func (u *AppGoodLabelUpsertBulk) AddUpdatedAt(v uint32) *AppGoodLabelUpsertBulk {
+	return u.Update(func(s *AppGoodLabelUpsert) {
+		s.AddUpdatedAt(v)
+	})
+}
+
+// UpdateUpdatedAt sets the "updated_at" field to the value that was provided on create.
+func (u *AppGoodLabelUpsertBulk) UpdateUpdatedAt() *AppGoodLabelUpsertBulk {
+	return u.Update(func(s *AppGoodLabelUpsert) {
+		s.UpdateUpdatedAt()
+	})
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (u *AppGoodLabelUpsertBulk) SetDeletedAt(v uint32) *AppGoodLabelUpsertBulk {
+	return u.Update(func(s *AppGoodLabelUpsert) {
+		s.SetDeletedAt(v)
+	})
+}
+
+// AddDeletedAt adds v to the "deleted_at" field.
+func (u *AppGoodLabelUpsertBulk) AddDeletedAt(v uint32) *AppGoodLabelUpsertBulk {
+	return u.Update(func(s *AppGoodLabelUpsert) {
+		s.AddDeletedAt(v)
+	})
+}
+
+// UpdateDeletedAt sets the "deleted_at" field to the value that was provided on create.
+func (u *AppGoodLabelUpsertBulk) UpdateDeletedAt() *AppGoodLabelUpsertBulk {
+	return u.Update(func(s *AppGoodLabelUpsert) {
+		s.UpdateDeletedAt()
 	})
 }
 

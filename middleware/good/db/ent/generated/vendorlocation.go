@@ -19,6 +19,12 @@ type VendorLocation struct {
 	ID uint32 `json:"id,omitempty"`
 	// EntID holds the value of the "ent_id" field.
 	EntID uuid.UUID `json:"ent_id,omitempty"`
+	// CreatedAt holds the value of the "created_at" field.
+	CreatedAt uint32 `json:"created_at,omitempty"`
+	// UpdatedAt holds the value of the "updated_at" field.
+	UpdatedAt uint32 `json:"updated_at,omitempty"`
+	// DeletedAt holds the value of the "deleted_at" field.
+	DeletedAt uint32 `json:"deleted_at,omitempty"`
 	// Country holds the value of the "country" field.
 	Country string `json:"country,omitempty"`
 	// Province holds the value of the "province" field.
@@ -37,7 +43,7 @@ func (*VendorLocation) scanValues(columns []string) ([]any, error) {
 	values := make([]any, len(columns))
 	for i := range columns {
 		switch columns[i] {
-		case vendorlocation.FieldID:
+		case vendorlocation.FieldID, vendorlocation.FieldCreatedAt, vendorlocation.FieldUpdatedAt, vendorlocation.FieldDeletedAt:
 			values[i] = new(sql.NullInt64)
 		case vendorlocation.FieldCountry, vendorlocation.FieldProvince, vendorlocation.FieldCity, vendorlocation.FieldAddress:
 			values[i] = new(sql.NullString)
@@ -69,6 +75,24 @@ func (vl *VendorLocation) assignValues(columns []string, values []any) error {
 				return fmt.Errorf("unexpected type %T for field ent_id", values[i])
 			} else if value != nil {
 				vl.EntID = *value
+			}
+		case vendorlocation.FieldCreatedAt:
+			if value, ok := values[i].(*sql.NullInt64); !ok {
+				return fmt.Errorf("unexpected type %T for field created_at", values[i])
+			} else if value.Valid {
+				vl.CreatedAt = uint32(value.Int64)
+			}
+		case vendorlocation.FieldUpdatedAt:
+			if value, ok := values[i].(*sql.NullInt64); !ok {
+				return fmt.Errorf("unexpected type %T for field updated_at", values[i])
+			} else if value.Valid {
+				vl.UpdatedAt = uint32(value.Int64)
+			}
+		case vendorlocation.FieldDeletedAt:
+			if value, ok := values[i].(*sql.NullInt64); !ok {
+				return fmt.Errorf("unexpected type %T for field deleted_at", values[i])
+			} else if value.Valid {
+				vl.DeletedAt = uint32(value.Int64)
 			}
 		case vendorlocation.FieldCountry:
 			if value, ok := values[i].(*sql.NullString); !ok {
@@ -138,6 +162,15 @@ func (vl *VendorLocation) String() string {
 	builder.WriteString(fmt.Sprintf("id=%v, ", vl.ID))
 	builder.WriteString("ent_id=")
 	builder.WriteString(fmt.Sprintf("%v", vl.EntID))
+	builder.WriteString(", ")
+	builder.WriteString("created_at=")
+	builder.WriteString(fmt.Sprintf("%v", vl.CreatedAt))
+	builder.WriteString(", ")
+	builder.WriteString("updated_at=")
+	builder.WriteString(fmt.Sprintf("%v", vl.UpdatedAt))
+	builder.WriteString(", ")
+	builder.WriteString("deleted_at=")
+	builder.WriteString(fmt.Sprintf("%v", vl.DeletedAt))
 	builder.WriteString(", ")
 	builder.WriteString("country=")
 	builder.WriteString(vl.Country)

@@ -19,6 +19,12 @@ type AppGoodDisplayName struct {
 	ID uint32 `json:"id,omitempty"`
 	// EntID holds the value of the "ent_id" field.
 	EntID uuid.UUID `json:"ent_id,omitempty"`
+	// CreatedAt holds the value of the "created_at" field.
+	CreatedAt uint32 `json:"created_at,omitempty"`
+	// UpdatedAt holds the value of the "updated_at" field.
+	UpdatedAt uint32 `json:"updated_at,omitempty"`
+	// DeletedAt holds the value of the "deleted_at" field.
+	DeletedAt uint32 `json:"deleted_at,omitempty"`
 	// AppGoodID holds the value of the "app_good_id" field.
 	AppGoodID uuid.UUID `json:"app_good_id,omitempty"`
 	// Name holds the value of the "name" field.
@@ -33,7 +39,7 @@ func (*AppGoodDisplayName) scanValues(columns []string) ([]any, error) {
 	values := make([]any, len(columns))
 	for i := range columns {
 		switch columns[i] {
-		case appgooddisplayname.FieldID, appgooddisplayname.FieldIndex:
+		case appgooddisplayname.FieldID, appgooddisplayname.FieldCreatedAt, appgooddisplayname.FieldUpdatedAt, appgooddisplayname.FieldDeletedAt, appgooddisplayname.FieldIndex:
 			values[i] = new(sql.NullInt64)
 		case appgooddisplayname.FieldName:
 			values[i] = new(sql.NullString)
@@ -65,6 +71,24 @@ func (agdn *AppGoodDisplayName) assignValues(columns []string, values []any) err
 				return fmt.Errorf("unexpected type %T for field ent_id", values[i])
 			} else if value != nil {
 				agdn.EntID = *value
+			}
+		case appgooddisplayname.FieldCreatedAt:
+			if value, ok := values[i].(*sql.NullInt64); !ok {
+				return fmt.Errorf("unexpected type %T for field created_at", values[i])
+			} else if value.Valid {
+				agdn.CreatedAt = uint32(value.Int64)
+			}
+		case appgooddisplayname.FieldUpdatedAt:
+			if value, ok := values[i].(*sql.NullInt64); !ok {
+				return fmt.Errorf("unexpected type %T for field updated_at", values[i])
+			} else if value.Valid {
+				agdn.UpdatedAt = uint32(value.Int64)
+			}
+		case appgooddisplayname.FieldDeletedAt:
+			if value, ok := values[i].(*sql.NullInt64); !ok {
+				return fmt.Errorf("unexpected type %T for field deleted_at", values[i])
+			} else if value.Valid {
+				agdn.DeletedAt = uint32(value.Int64)
 			}
 		case appgooddisplayname.FieldAppGoodID:
 			if value, ok := values[i].(*uuid.UUID); !ok {
@@ -122,6 +146,15 @@ func (agdn *AppGoodDisplayName) String() string {
 	builder.WriteString(fmt.Sprintf("id=%v, ", agdn.ID))
 	builder.WriteString("ent_id=")
 	builder.WriteString(fmt.Sprintf("%v", agdn.EntID))
+	builder.WriteString(", ")
+	builder.WriteString("created_at=")
+	builder.WriteString(fmt.Sprintf("%v", agdn.CreatedAt))
+	builder.WriteString(", ")
+	builder.WriteString("updated_at=")
+	builder.WriteString(fmt.Sprintf("%v", agdn.UpdatedAt))
+	builder.WriteString(", ")
+	builder.WriteString("deleted_at=")
+	builder.WriteString(fmt.Sprintf("%v", agdn.DeletedAt))
 	builder.WriteString(", ")
 	builder.WriteString("app_good_id=")
 	builder.WriteString(fmt.Sprintf("%v", agdn.AppGoodID))

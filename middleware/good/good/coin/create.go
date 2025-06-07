@@ -8,7 +8,7 @@ import (
 	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
 	goodcoinrewardcrud "github.com/NpoolPlatform/kunman/middleware/good/crud/good/coin/reward"
 	"github.com/NpoolPlatform/kunman/middleware/good/db"
-	"github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated"
+	ent "github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated"
 
 	"github.com/google/uuid"
 )

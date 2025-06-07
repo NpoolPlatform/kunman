@@ -20,6 +20,12 @@ type TopMostConstraint struct {
 	ID uint32 `json:"id,omitempty"`
 	// EntID holds the value of the "ent_id" field.
 	EntID uuid.UUID `json:"ent_id,omitempty"`
+	// CreatedAt holds the value of the "created_at" field.
+	CreatedAt uint32 `json:"created_at,omitempty"`
+	// UpdatedAt holds the value of the "updated_at" field.
+	UpdatedAt uint32 `json:"updated_at,omitempty"`
+	// DeletedAt holds the value of the "deleted_at" field.
+	DeletedAt uint32 `json:"deleted_at,omitempty"`
 	// TopMostID holds the value of the "top_most_id" field.
 	TopMostID uuid.UUID `json:"top_most_id,omitempty"`
 	// Constraint holds the value of the "constraint" field.
@@ -38,7 +44,7 @@ func (*TopMostConstraint) scanValues(columns []string) ([]any, error) {
 		switch columns[i] {
 		case topmostconstraint.FieldTargetValue:
 			values[i] = new(decimal.Decimal)
-		case topmostconstraint.FieldID, topmostconstraint.FieldIndex:
+		case topmostconstraint.FieldID, topmostconstraint.FieldCreatedAt, topmostconstraint.FieldUpdatedAt, topmostconstraint.FieldDeletedAt, topmostconstraint.FieldIndex:
 			values[i] = new(sql.NullInt64)
 		case topmostconstraint.FieldConstraint:
 			values[i] = new(sql.NullString)
@@ -70,6 +76,24 @@ func (tmc *TopMostConstraint) assignValues(columns []string, values []any) error
 				return fmt.Errorf("unexpected type %T for field ent_id", values[i])
 			} else if value != nil {
 				tmc.EntID = *value
+			}
+		case topmostconstraint.FieldCreatedAt:
+			if value, ok := values[i].(*sql.NullInt64); !ok {
+				return fmt.Errorf("unexpected type %T for field created_at", values[i])
+			} else if value.Valid {
+				tmc.CreatedAt = uint32(value.Int64)
+			}
+		case topmostconstraint.FieldUpdatedAt:
+			if value, ok := values[i].(*sql.NullInt64); !ok {
+				return fmt.Errorf("unexpected type %T for field updated_at", values[i])
+			} else if value.Valid {
+				tmc.UpdatedAt = uint32(value.Int64)
+			}
+		case topmostconstraint.FieldDeletedAt:
+			if value, ok := values[i].(*sql.NullInt64); !ok {
+				return fmt.Errorf("unexpected type %T for field deleted_at", values[i])
+			} else if value.Valid {
+				tmc.DeletedAt = uint32(value.Int64)
 			}
 		case topmostconstraint.FieldTopMostID:
 			if value, ok := values[i].(*uuid.UUID); !ok {
@@ -133,6 +157,15 @@ func (tmc *TopMostConstraint) String() string {
 	builder.WriteString(fmt.Sprintf("id=%v, ", tmc.ID))
 	builder.WriteString("ent_id=")
 	builder.WriteString(fmt.Sprintf("%v", tmc.EntID))
+	builder.WriteString(", ")
+	builder.WriteString("created_at=")
+	builder.WriteString(fmt.Sprintf("%v", tmc.CreatedAt))
+	builder.WriteString(", ")
+	builder.WriteString("updated_at=")
+	builder.WriteString(fmt.Sprintf("%v", tmc.UpdatedAt))
+	builder.WriteString(", ")
+	builder.WriteString("deleted_at=")
+	builder.WriteString(fmt.Sprintf("%v", tmc.DeletedAt))
 	builder.WriteString(", ")
 	builder.WriteString("top_most_id=")
 	builder.WriteString(fmt.Sprintf("%v", tmc.TopMostID))

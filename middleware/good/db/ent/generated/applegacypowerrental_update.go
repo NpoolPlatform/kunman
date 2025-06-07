@@ -44,6 +44,61 @@ func (alpru *AppLegacyPowerRentalUpdate) SetNillableEntID(u *uuid.UUID) *AppLega
 	return alpru
 }
 
+// SetCreatedAt sets the "created_at" field.
+func (alpru *AppLegacyPowerRentalUpdate) SetCreatedAt(u uint32) *AppLegacyPowerRentalUpdate {
+	alpru.mutation.ResetCreatedAt()
+	alpru.mutation.SetCreatedAt(u)
+	return alpru
+}
+
+// SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
+func (alpru *AppLegacyPowerRentalUpdate) SetNillableCreatedAt(u *uint32) *AppLegacyPowerRentalUpdate {
+	if u != nil {
+		alpru.SetCreatedAt(*u)
+	}
+	return alpru
+}
+
+// AddCreatedAt adds u to the "created_at" field.
+func (alpru *AppLegacyPowerRentalUpdate) AddCreatedAt(u int32) *AppLegacyPowerRentalUpdate {
+	alpru.mutation.AddCreatedAt(u)
+	return alpru
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (alpru *AppLegacyPowerRentalUpdate) SetUpdatedAt(u uint32) *AppLegacyPowerRentalUpdate {
+	alpru.mutation.ResetUpdatedAt()
+	alpru.mutation.SetUpdatedAt(u)
+	return alpru
+}
+
+// AddUpdatedAt adds u to the "updated_at" field.
+func (alpru *AppLegacyPowerRentalUpdate) AddUpdatedAt(u int32) *AppLegacyPowerRentalUpdate {
+	alpru.mutation.AddUpdatedAt(u)
+	return alpru
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (alpru *AppLegacyPowerRentalUpdate) SetDeletedAt(u uint32) *AppLegacyPowerRentalUpdate {
+	alpru.mutation.ResetDeletedAt()
+	alpru.mutation.SetDeletedAt(u)
+	return alpru
+}
+
+// SetNillableDeletedAt sets the "deleted_at" field if the given value is not nil.
+func (alpru *AppLegacyPowerRentalUpdate) SetNillableDeletedAt(u *uint32) *AppLegacyPowerRentalUpdate {
+	if u != nil {
+		alpru.SetDeletedAt(*u)
+	}
+	return alpru
+}
+
+// AddDeletedAt adds u to the "deleted_at" field.
+func (alpru *AppLegacyPowerRentalUpdate) AddDeletedAt(u int32) *AppLegacyPowerRentalUpdate {
+	alpru.mutation.AddDeletedAt(u)
+	return alpru
+}
+
 // SetAppGoodID sets the "app_good_id" field.
 func (alpru *AppLegacyPowerRentalUpdate) SetAppGoodID(u uuid.UUID) *AppLegacyPowerRentalUpdate {
 	alpru.mutation.SetAppGoodID(u)
@@ -91,6 +146,7 @@ func (alpru *AppLegacyPowerRentalUpdate) Mutation() *AppLegacyPowerRentalMutatio
 
 // Save executes the query and returns the number of nodes affected by the update operation.
 func (alpru *AppLegacyPowerRentalUpdate) Save(ctx context.Context) (int, error) {
+	alpru.defaults()
 	return withHooks(ctx, alpru.sqlSave, alpru.mutation, alpru.hooks)
 }
 
@@ -116,6 +172,14 @@ func (alpru *AppLegacyPowerRentalUpdate) ExecX(ctx context.Context) {
 	}
 }
 
+// defaults sets the default values of the builder before save.
+func (alpru *AppLegacyPowerRentalUpdate) defaults() {
+	if _, ok := alpru.mutation.UpdatedAt(); !ok {
+		v := applegacypowerrental.UpdateDefaultUpdatedAt()
+		alpru.mutation.SetUpdatedAt(v)
+	}
+}
+
 // Modify adds a statement modifier for attaching custom logic to the UPDATE statement.
 func (alpru *AppLegacyPowerRentalUpdate) Modify(modifiers ...func(u *sql.UpdateBuilder)) *AppLegacyPowerRentalUpdate {
 	alpru.modifiers = append(alpru.modifiers, modifiers...)
@@ -133,6 +197,24 @@ func (alpru *AppLegacyPowerRentalUpdate) sqlSave(ctx context.Context) (n int, er
 	}
 	if value, ok := alpru.mutation.EntID(); ok {
 		_spec.SetField(applegacypowerrental.FieldEntID, field.TypeUUID, value)
+	}
+	if value, ok := alpru.mutation.CreatedAt(); ok {
+		_spec.SetField(applegacypowerrental.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := alpru.mutation.AddedCreatedAt(); ok {
+		_spec.AddField(applegacypowerrental.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := alpru.mutation.UpdatedAt(); ok {
+		_spec.SetField(applegacypowerrental.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := alpru.mutation.AddedUpdatedAt(); ok {
+		_spec.AddField(applegacypowerrental.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := alpru.mutation.DeletedAt(); ok {
+		_spec.SetField(applegacypowerrental.FieldDeletedAt, field.TypeUint32, value)
+	}
+	if value, ok := alpru.mutation.AddedDeletedAt(); ok {
+		_spec.AddField(applegacypowerrental.FieldDeletedAt, field.TypeUint32, value)
 	}
 	if value, ok := alpru.mutation.AppGoodID(); ok {
 		_spec.SetField(applegacypowerrental.FieldAppGoodID, field.TypeUUID, value)
@@ -179,6 +261,61 @@ func (alpruo *AppLegacyPowerRentalUpdateOne) SetNillableEntID(u *uuid.UUID) *App
 	if u != nil {
 		alpruo.SetEntID(*u)
 	}
+	return alpruo
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (alpruo *AppLegacyPowerRentalUpdateOne) SetCreatedAt(u uint32) *AppLegacyPowerRentalUpdateOne {
+	alpruo.mutation.ResetCreatedAt()
+	alpruo.mutation.SetCreatedAt(u)
+	return alpruo
+}
+
+// SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
+func (alpruo *AppLegacyPowerRentalUpdateOne) SetNillableCreatedAt(u *uint32) *AppLegacyPowerRentalUpdateOne {
+	if u != nil {
+		alpruo.SetCreatedAt(*u)
+	}
+	return alpruo
+}
+
+// AddCreatedAt adds u to the "created_at" field.
+func (alpruo *AppLegacyPowerRentalUpdateOne) AddCreatedAt(u int32) *AppLegacyPowerRentalUpdateOne {
+	alpruo.mutation.AddCreatedAt(u)
+	return alpruo
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (alpruo *AppLegacyPowerRentalUpdateOne) SetUpdatedAt(u uint32) *AppLegacyPowerRentalUpdateOne {
+	alpruo.mutation.ResetUpdatedAt()
+	alpruo.mutation.SetUpdatedAt(u)
+	return alpruo
+}
+
+// AddUpdatedAt adds u to the "updated_at" field.
+func (alpruo *AppLegacyPowerRentalUpdateOne) AddUpdatedAt(u int32) *AppLegacyPowerRentalUpdateOne {
+	alpruo.mutation.AddUpdatedAt(u)
+	return alpruo
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (alpruo *AppLegacyPowerRentalUpdateOne) SetDeletedAt(u uint32) *AppLegacyPowerRentalUpdateOne {
+	alpruo.mutation.ResetDeletedAt()
+	alpruo.mutation.SetDeletedAt(u)
+	return alpruo
+}
+
+// SetNillableDeletedAt sets the "deleted_at" field if the given value is not nil.
+func (alpruo *AppLegacyPowerRentalUpdateOne) SetNillableDeletedAt(u *uint32) *AppLegacyPowerRentalUpdateOne {
+	if u != nil {
+		alpruo.SetDeletedAt(*u)
+	}
+	return alpruo
+}
+
+// AddDeletedAt adds u to the "deleted_at" field.
+func (alpruo *AppLegacyPowerRentalUpdateOne) AddDeletedAt(u int32) *AppLegacyPowerRentalUpdateOne {
+	alpruo.mutation.AddDeletedAt(u)
 	return alpruo
 }
 
@@ -242,6 +379,7 @@ func (alpruo *AppLegacyPowerRentalUpdateOne) Select(field string, fields ...stri
 
 // Save executes the query and returns the updated AppLegacyPowerRental entity.
 func (alpruo *AppLegacyPowerRentalUpdateOne) Save(ctx context.Context) (*AppLegacyPowerRental, error) {
+	alpruo.defaults()
 	return withHooks(ctx, alpruo.sqlSave, alpruo.mutation, alpruo.hooks)
 }
 
@@ -264,6 +402,14 @@ func (alpruo *AppLegacyPowerRentalUpdateOne) Exec(ctx context.Context) error {
 func (alpruo *AppLegacyPowerRentalUpdateOne) ExecX(ctx context.Context) {
 	if err := alpruo.Exec(ctx); err != nil {
 		panic(err)
+	}
+}
+
+// defaults sets the default values of the builder before save.
+func (alpruo *AppLegacyPowerRentalUpdateOne) defaults() {
+	if _, ok := alpruo.mutation.UpdatedAt(); !ok {
+		v := applegacypowerrental.UpdateDefaultUpdatedAt()
+		alpruo.mutation.SetUpdatedAt(v)
 	}
 }
 
@@ -301,6 +447,24 @@ func (alpruo *AppLegacyPowerRentalUpdateOne) sqlSave(ctx context.Context) (_node
 	}
 	if value, ok := alpruo.mutation.EntID(); ok {
 		_spec.SetField(applegacypowerrental.FieldEntID, field.TypeUUID, value)
+	}
+	if value, ok := alpruo.mutation.CreatedAt(); ok {
+		_spec.SetField(applegacypowerrental.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := alpruo.mutation.AddedCreatedAt(); ok {
+		_spec.AddField(applegacypowerrental.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := alpruo.mutation.UpdatedAt(); ok {
+		_spec.SetField(applegacypowerrental.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := alpruo.mutation.AddedUpdatedAt(); ok {
+		_spec.AddField(applegacypowerrental.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := alpruo.mutation.DeletedAt(); ok {
+		_spec.SetField(applegacypowerrental.FieldDeletedAt, field.TypeUint32, value)
+	}
+	if value, ok := alpruo.mutation.AddedDeletedAt(); ok {
+		_spec.AddField(applegacypowerrental.FieldDeletedAt, field.TypeUint32, value)
 	}
 	if value, ok := alpruo.mutation.AppGoodID(); ok {
 		_spec.SetField(applegacypowerrental.FieldAppGoodID, field.TypeUUID, value)

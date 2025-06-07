@@ -3,8 +3,8 @@ package delegatedstaking
 import (
 	"time"
 
-	"github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated"
 	types "github.com/NpoolPlatform/kunman/message/basetypes/good/v1"
+	ent "github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated"
 )
 
 type DelegatedStaking interface {

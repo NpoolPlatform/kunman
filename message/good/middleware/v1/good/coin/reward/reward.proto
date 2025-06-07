@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package good.middleware.good1.coin.reward.v1;
 
-option go_package = "github.com/NpoolPlatform/message/good/middleware/v1/good/coin/reward";
+option go_package = "github.com/NpoolPlatform/kunman/message/good/middleware/v1/good/coin/reward";
 
 import "basetypes/v1/conds.proto";
 

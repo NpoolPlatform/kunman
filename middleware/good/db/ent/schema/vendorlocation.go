@@ -15,6 +15,7 @@ type VendorLocation struct {
 func (VendorLocation) Mixin() []ent.Mixin {
 	return []ent.Mixin{
 		crudermixin.AutoIDMixin{},
+		crudermixin.TimeMixin{},
 	}
 }
 

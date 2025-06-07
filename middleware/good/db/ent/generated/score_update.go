@@ -44,6 +44,61 @@ func (su *ScoreUpdate) SetNillableEntID(u *uuid.UUID) *ScoreUpdate {
 	return su
 }
 
+// SetCreatedAt sets the "created_at" field.
+func (su *ScoreUpdate) SetCreatedAt(u uint32) *ScoreUpdate {
+	su.mutation.ResetCreatedAt()
+	su.mutation.SetCreatedAt(u)
+	return su
+}
+
+// SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
+func (su *ScoreUpdate) SetNillableCreatedAt(u *uint32) *ScoreUpdate {
+	if u != nil {
+		su.SetCreatedAt(*u)
+	}
+	return su
+}
+
+// AddCreatedAt adds u to the "created_at" field.
+func (su *ScoreUpdate) AddCreatedAt(u int32) *ScoreUpdate {
+	su.mutation.AddCreatedAt(u)
+	return su
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (su *ScoreUpdate) SetUpdatedAt(u uint32) *ScoreUpdate {
+	su.mutation.ResetUpdatedAt()
+	su.mutation.SetUpdatedAt(u)
+	return su
+}
+
+// AddUpdatedAt adds u to the "updated_at" field.
+func (su *ScoreUpdate) AddUpdatedAt(u int32) *ScoreUpdate {
+	su.mutation.AddUpdatedAt(u)
+	return su
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (su *ScoreUpdate) SetDeletedAt(u uint32) *ScoreUpdate {
+	su.mutation.ResetDeletedAt()
+	su.mutation.SetDeletedAt(u)
+	return su
+}
+
+// SetNillableDeletedAt sets the "deleted_at" field if the given value is not nil.
+func (su *ScoreUpdate) SetNillableDeletedAt(u *uint32) *ScoreUpdate {
+	if u != nil {
+		su.SetDeletedAt(*u)
+	}
+	return su
+}
+
+// AddDeletedAt adds u to the "deleted_at" field.
+func (su *ScoreUpdate) AddDeletedAt(u int32) *ScoreUpdate {
+	su.mutation.AddDeletedAt(u)
+	return su
+}
+
 // SetUserID sets the "user_id" field.
 func (su *ScoreUpdate) SetUserID(u uuid.UUID) *ScoreUpdate {
 	su.mutation.SetUserID(u)
@@ -131,6 +186,7 @@ func (su *ScoreUpdate) Mutation() *ScoreMutation {
 
 // Save executes the query and returns the number of nodes affected by the update operation.
 func (su *ScoreUpdate) Save(ctx context.Context) (int, error) {
+	su.defaults()
 	return withHooks(ctx, su.sqlSave, su.mutation, su.hooks)
 }
 
@@ -156,6 +212,14 @@ func (su *ScoreUpdate) ExecX(ctx context.Context) {
 	}
 }
 
+// defaults sets the default values of the builder before save.
+func (su *ScoreUpdate) defaults() {
+	if _, ok := su.mutation.UpdatedAt(); !ok {
+		v := score.UpdateDefaultUpdatedAt()
+		su.mutation.SetUpdatedAt(v)
+	}
+}
+
 // Modify adds a statement modifier for attaching custom logic to the UPDATE statement.
 func (su *ScoreUpdate) Modify(modifiers ...func(u *sql.UpdateBuilder)) *ScoreUpdate {
 	su.modifiers = append(su.modifiers, modifiers...)
@@ -173,6 +237,24 @@ func (su *ScoreUpdate) sqlSave(ctx context.Context) (n int, err error) {
 	}
 	if value, ok := su.mutation.EntID(); ok {
 		_spec.SetField(score.FieldEntID, field.TypeUUID, value)
+	}
+	if value, ok := su.mutation.CreatedAt(); ok {
+		_spec.SetField(score.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := su.mutation.AddedCreatedAt(); ok {
+		_spec.AddField(score.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := su.mutation.UpdatedAt(); ok {
+		_spec.SetField(score.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := su.mutation.AddedUpdatedAt(); ok {
+		_spec.AddField(score.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := su.mutation.DeletedAt(); ok {
+		_spec.SetField(score.FieldDeletedAt, field.TypeUint32, value)
+	}
+	if value, ok := su.mutation.AddedDeletedAt(); ok {
+		_spec.AddField(score.FieldDeletedAt, field.TypeUint32, value)
 	}
 	if value, ok := su.mutation.UserID(); ok {
 		_spec.SetField(score.FieldUserID, field.TypeUUID, value)
@@ -231,6 +313,61 @@ func (suo *ScoreUpdateOne) SetNillableEntID(u *uuid.UUID) *ScoreUpdateOne {
 	if u != nil {
 		suo.SetEntID(*u)
 	}
+	return suo
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (suo *ScoreUpdateOne) SetCreatedAt(u uint32) *ScoreUpdateOne {
+	suo.mutation.ResetCreatedAt()
+	suo.mutation.SetCreatedAt(u)
+	return suo
+}
+
+// SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
+func (suo *ScoreUpdateOne) SetNillableCreatedAt(u *uint32) *ScoreUpdateOne {
+	if u != nil {
+		suo.SetCreatedAt(*u)
+	}
+	return suo
+}
+
+// AddCreatedAt adds u to the "created_at" field.
+func (suo *ScoreUpdateOne) AddCreatedAt(u int32) *ScoreUpdateOne {
+	suo.mutation.AddCreatedAt(u)
+	return suo
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (suo *ScoreUpdateOne) SetUpdatedAt(u uint32) *ScoreUpdateOne {
+	suo.mutation.ResetUpdatedAt()
+	suo.mutation.SetUpdatedAt(u)
+	return suo
+}
+
+// AddUpdatedAt adds u to the "updated_at" field.
+func (suo *ScoreUpdateOne) AddUpdatedAt(u int32) *ScoreUpdateOne {
+	suo.mutation.AddUpdatedAt(u)
+	return suo
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (suo *ScoreUpdateOne) SetDeletedAt(u uint32) *ScoreUpdateOne {
+	suo.mutation.ResetDeletedAt()
+	suo.mutation.SetDeletedAt(u)
+	return suo
+}
+
+// SetNillableDeletedAt sets the "deleted_at" field if the given value is not nil.
+func (suo *ScoreUpdateOne) SetNillableDeletedAt(u *uint32) *ScoreUpdateOne {
+	if u != nil {
+		suo.SetDeletedAt(*u)
+	}
+	return suo
+}
+
+// AddDeletedAt adds u to the "deleted_at" field.
+func (suo *ScoreUpdateOne) AddDeletedAt(u int32) *ScoreUpdateOne {
+	suo.mutation.AddDeletedAt(u)
 	return suo
 }
 
@@ -334,6 +471,7 @@ func (suo *ScoreUpdateOne) Select(field string, fields ...string) *ScoreUpdateOn
 
 // Save executes the query and returns the updated Score entity.
 func (suo *ScoreUpdateOne) Save(ctx context.Context) (*Score, error) {
+	suo.defaults()
 	return withHooks(ctx, suo.sqlSave, suo.mutation, suo.hooks)
 }
 
@@ -356,6 +494,14 @@ func (suo *ScoreUpdateOne) Exec(ctx context.Context) error {
 func (suo *ScoreUpdateOne) ExecX(ctx context.Context) {
 	if err := suo.Exec(ctx); err != nil {
 		panic(err)
+	}
+}
+
+// defaults sets the default values of the builder before save.
+func (suo *ScoreUpdateOne) defaults() {
+	if _, ok := suo.mutation.UpdatedAt(); !ok {
+		v := score.UpdateDefaultUpdatedAt()
+		suo.mutation.SetUpdatedAt(v)
 	}
 }
 
@@ -393,6 +539,24 @@ func (suo *ScoreUpdateOne) sqlSave(ctx context.Context) (_node *Score, err error
 	}
 	if value, ok := suo.mutation.EntID(); ok {
 		_spec.SetField(score.FieldEntID, field.TypeUUID, value)
+	}
+	if value, ok := suo.mutation.CreatedAt(); ok {
+		_spec.SetField(score.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := suo.mutation.AddedCreatedAt(); ok {
+		_spec.AddField(score.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := suo.mutation.UpdatedAt(); ok {
+		_spec.SetField(score.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := suo.mutation.AddedUpdatedAt(); ok {
+		_spec.AddField(score.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := suo.mutation.DeletedAt(); ok {
+		_spec.SetField(score.FieldDeletedAt, field.TypeUint32, value)
+	}
+	if value, ok := suo.mutation.AddedDeletedAt(); ok {
+		_spec.AddField(score.FieldDeletedAt, field.TypeUint32, value)
 	}
 	if value, ok := suo.mutation.UserID(); ok {
 		_spec.SetField(score.FieldUserID, field.TypeUUID, value)

@@ -20,6 +20,12 @@ type TopMostGood struct {
 	ID uint32 `json:"id,omitempty"`
 	// EntID holds the value of the "ent_id" field.
 	EntID uuid.UUID `json:"ent_id,omitempty"`
+	// CreatedAt holds the value of the "created_at" field.
+	CreatedAt uint32 `json:"created_at,omitempty"`
+	// UpdatedAt holds the value of the "updated_at" field.
+	UpdatedAt uint32 `json:"updated_at,omitempty"`
+	// DeletedAt holds the value of the "deleted_at" field.
+	DeletedAt uint32 `json:"deleted_at,omitempty"`
 	// AppGoodID holds the value of the "app_good_id" field.
 	AppGoodID uuid.UUID `json:"app_good_id,omitempty"`
 	// TopMostID holds the value of the "top_most_id" field.
@@ -38,7 +44,7 @@ func (*TopMostGood) scanValues(columns []string) ([]any, error) {
 		switch columns[i] {
 		case topmostgood.FieldUnitPrice:
 			values[i] = new(decimal.Decimal)
-		case topmostgood.FieldID, topmostgood.FieldDisplayIndex:
+		case topmostgood.FieldID, topmostgood.FieldCreatedAt, topmostgood.FieldUpdatedAt, topmostgood.FieldDeletedAt, topmostgood.FieldDisplayIndex:
 			values[i] = new(sql.NullInt64)
 		case topmostgood.FieldEntID, topmostgood.FieldAppGoodID, topmostgood.FieldTopMostID:
 			values[i] = new(uuid.UUID)
@@ -68,6 +74,24 @@ func (tmg *TopMostGood) assignValues(columns []string, values []any) error {
 				return fmt.Errorf("unexpected type %T for field ent_id", values[i])
 			} else if value != nil {
 				tmg.EntID = *value
+			}
+		case topmostgood.FieldCreatedAt:
+			if value, ok := values[i].(*sql.NullInt64); !ok {
+				return fmt.Errorf("unexpected type %T for field created_at", values[i])
+			} else if value.Valid {
+				tmg.CreatedAt = uint32(value.Int64)
+			}
+		case topmostgood.FieldUpdatedAt:
+			if value, ok := values[i].(*sql.NullInt64); !ok {
+				return fmt.Errorf("unexpected type %T for field updated_at", values[i])
+			} else if value.Valid {
+				tmg.UpdatedAt = uint32(value.Int64)
+			}
+		case topmostgood.FieldDeletedAt:
+			if value, ok := values[i].(*sql.NullInt64); !ok {
+				return fmt.Errorf("unexpected type %T for field deleted_at", values[i])
+			} else if value.Valid {
+				tmg.DeletedAt = uint32(value.Int64)
 			}
 		case topmostgood.FieldAppGoodID:
 			if value, ok := values[i].(*uuid.UUID); !ok {
@@ -131,6 +155,15 @@ func (tmg *TopMostGood) String() string {
 	builder.WriteString(fmt.Sprintf("id=%v, ", tmg.ID))
 	builder.WriteString("ent_id=")
 	builder.WriteString(fmt.Sprintf("%v", tmg.EntID))
+	builder.WriteString(", ")
+	builder.WriteString("created_at=")
+	builder.WriteString(fmt.Sprintf("%v", tmg.CreatedAt))
+	builder.WriteString(", ")
+	builder.WriteString("updated_at=")
+	builder.WriteString(fmt.Sprintf("%v", tmg.UpdatedAt))
+	builder.WriteString(", ")
+	builder.WriteString("deleted_at=")
+	builder.WriteString(fmt.Sprintf("%v", tmg.DeletedAt))
 	builder.WriteString(", ")
 	builder.WriteString("app_good_id=")
 	builder.WriteString(fmt.Sprintf("%v", tmg.AppGoodID))

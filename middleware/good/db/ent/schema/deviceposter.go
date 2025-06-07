@@ -17,6 +17,7 @@ type DevicePoster struct {
 func (DevicePoster) Mixin() []ent.Mixin {
 	return []ent.Mixin{
 		crudermixin.AutoIDMixin{},
+		crudermixin.TimeMixin{},
 	}
 }
 

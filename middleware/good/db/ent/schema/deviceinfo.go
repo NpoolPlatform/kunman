@@ -15,6 +15,7 @@ type DeviceInfo struct {
 func (DeviceInfo) Mixin() []ent.Mixin {
 	return []ent.Mixin{
 		crudermixin.AutoIDMixin{},
+		crudermixin.TimeMixin{},
 	}
 }
 

@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package good.middleware.app.powerrental.simulate.v1;
 
-option go_package = "github.com/NpoolPlatform/message/good/middleware/v1/app/powerrental/simulate";
+option go_package = "github.com/NpoolPlatform/kunman/message/good/middleware/v1/app/powerrental/simulate";
 
 import "basetypes/v1/conds.proto";
 import "good/middleware/v1/good/coin/coin.proto";

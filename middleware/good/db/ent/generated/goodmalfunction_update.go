@@ -43,6 +43,61 @@ func (gmu *GoodMalfunctionUpdate) SetNillableEntID(u *uuid.UUID) *GoodMalfunctio
 	return gmu
 }
 
+// SetCreatedAt sets the "created_at" field.
+func (gmu *GoodMalfunctionUpdate) SetCreatedAt(u uint32) *GoodMalfunctionUpdate {
+	gmu.mutation.ResetCreatedAt()
+	gmu.mutation.SetCreatedAt(u)
+	return gmu
+}
+
+// SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
+func (gmu *GoodMalfunctionUpdate) SetNillableCreatedAt(u *uint32) *GoodMalfunctionUpdate {
+	if u != nil {
+		gmu.SetCreatedAt(*u)
+	}
+	return gmu
+}
+
+// AddCreatedAt adds u to the "created_at" field.
+func (gmu *GoodMalfunctionUpdate) AddCreatedAt(u int32) *GoodMalfunctionUpdate {
+	gmu.mutation.AddCreatedAt(u)
+	return gmu
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (gmu *GoodMalfunctionUpdate) SetUpdatedAt(u uint32) *GoodMalfunctionUpdate {
+	gmu.mutation.ResetUpdatedAt()
+	gmu.mutation.SetUpdatedAt(u)
+	return gmu
+}
+
+// AddUpdatedAt adds u to the "updated_at" field.
+func (gmu *GoodMalfunctionUpdate) AddUpdatedAt(u int32) *GoodMalfunctionUpdate {
+	gmu.mutation.AddUpdatedAt(u)
+	return gmu
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (gmu *GoodMalfunctionUpdate) SetDeletedAt(u uint32) *GoodMalfunctionUpdate {
+	gmu.mutation.ResetDeletedAt()
+	gmu.mutation.SetDeletedAt(u)
+	return gmu
+}
+
+// SetNillableDeletedAt sets the "deleted_at" field if the given value is not nil.
+func (gmu *GoodMalfunctionUpdate) SetNillableDeletedAt(u *uint32) *GoodMalfunctionUpdate {
+	if u != nil {
+		gmu.SetDeletedAt(*u)
+	}
+	return gmu
+}
+
+// AddDeletedAt adds u to the "deleted_at" field.
+func (gmu *GoodMalfunctionUpdate) AddDeletedAt(u int32) *GoodMalfunctionUpdate {
+	gmu.mutation.AddDeletedAt(u)
+	return gmu
+}
+
 // SetGoodID sets the "good_id" field.
 func (gmu *GoodMalfunctionUpdate) SetGoodID(u uuid.UUID) *GoodMalfunctionUpdate {
 	gmu.mutation.SetGoodID(u)
@@ -191,6 +246,7 @@ func (gmu *GoodMalfunctionUpdate) Mutation() *GoodMalfunctionMutation {
 
 // Save executes the query and returns the number of nodes affected by the update operation.
 func (gmu *GoodMalfunctionUpdate) Save(ctx context.Context) (int, error) {
+	gmu.defaults()
 	return withHooks(ctx, gmu.sqlSave, gmu.mutation, gmu.hooks)
 }
 
@@ -216,6 +272,14 @@ func (gmu *GoodMalfunctionUpdate) ExecX(ctx context.Context) {
 	}
 }
 
+// defaults sets the default values of the builder before save.
+func (gmu *GoodMalfunctionUpdate) defaults() {
+	if _, ok := gmu.mutation.UpdatedAt(); !ok {
+		v := goodmalfunction.UpdateDefaultUpdatedAt()
+		gmu.mutation.SetUpdatedAt(v)
+	}
+}
+
 // Modify adds a statement modifier for attaching custom logic to the UPDATE statement.
 func (gmu *GoodMalfunctionUpdate) Modify(modifiers ...func(u *sql.UpdateBuilder)) *GoodMalfunctionUpdate {
 	gmu.modifiers = append(gmu.modifiers, modifiers...)
@@ -233,6 +297,24 @@ func (gmu *GoodMalfunctionUpdate) sqlSave(ctx context.Context) (n int, err error
 	}
 	if value, ok := gmu.mutation.EntID(); ok {
 		_spec.SetField(goodmalfunction.FieldEntID, field.TypeUUID, value)
+	}
+	if value, ok := gmu.mutation.CreatedAt(); ok {
+		_spec.SetField(goodmalfunction.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := gmu.mutation.AddedCreatedAt(); ok {
+		_spec.AddField(goodmalfunction.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := gmu.mutation.UpdatedAt(); ok {
+		_spec.SetField(goodmalfunction.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := gmu.mutation.AddedUpdatedAt(); ok {
+		_spec.AddField(goodmalfunction.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := gmu.mutation.DeletedAt(); ok {
+		_spec.SetField(goodmalfunction.FieldDeletedAt, field.TypeUint32, value)
+	}
+	if value, ok := gmu.mutation.AddedDeletedAt(); ok {
+		_spec.AddField(goodmalfunction.FieldDeletedAt, field.TypeUint32, value)
 	}
 	if value, ok := gmu.mutation.GoodID(); ok {
 		_spec.SetField(goodmalfunction.FieldGoodID, field.TypeUUID, value)
@@ -312,6 +394,61 @@ func (gmuo *GoodMalfunctionUpdateOne) SetNillableEntID(u *uuid.UUID) *GoodMalfun
 	if u != nil {
 		gmuo.SetEntID(*u)
 	}
+	return gmuo
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (gmuo *GoodMalfunctionUpdateOne) SetCreatedAt(u uint32) *GoodMalfunctionUpdateOne {
+	gmuo.mutation.ResetCreatedAt()
+	gmuo.mutation.SetCreatedAt(u)
+	return gmuo
+}
+
+// SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
+func (gmuo *GoodMalfunctionUpdateOne) SetNillableCreatedAt(u *uint32) *GoodMalfunctionUpdateOne {
+	if u != nil {
+		gmuo.SetCreatedAt(*u)
+	}
+	return gmuo
+}
+
+// AddCreatedAt adds u to the "created_at" field.
+func (gmuo *GoodMalfunctionUpdateOne) AddCreatedAt(u int32) *GoodMalfunctionUpdateOne {
+	gmuo.mutation.AddCreatedAt(u)
+	return gmuo
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (gmuo *GoodMalfunctionUpdateOne) SetUpdatedAt(u uint32) *GoodMalfunctionUpdateOne {
+	gmuo.mutation.ResetUpdatedAt()
+	gmuo.mutation.SetUpdatedAt(u)
+	return gmuo
+}
+
+// AddUpdatedAt adds u to the "updated_at" field.
+func (gmuo *GoodMalfunctionUpdateOne) AddUpdatedAt(u int32) *GoodMalfunctionUpdateOne {
+	gmuo.mutation.AddUpdatedAt(u)
+	return gmuo
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (gmuo *GoodMalfunctionUpdateOne) SetDeletedAt(u uint32) *GoodMalfunctionUpdateOne {
+	gmuo.mutation.ResetDeletedAt()
+	gmuo.mutation.SetDeletedAt(u)
+	return gmuo
+}
+
+// SetNillableDeletedAt sets the "deleted_at" field if the given value is not nil.
+func (gmuo *GoodMalfunctionUpdateOne) SetNillableDeletedAt(u *uint32) *GoodMalfunctionUpdateOne {
+	if u != nil {
+		gmuo.SetDeletedAt(*u)
+	}
+	return gmuo
+}
+
+// AddDeletedAt adds u to the "deleted_at" field.
+func (gmuo *GoodMalfunctionUpdateOne) AddDeletedAt(u int32) *GoodMalfunctionUpdateOne {
+	gmuo.mutation.AddDeletedAt(u)
 	return gmuo
 }
 
@@ -476,6 +613,7 @@ func (gmuo *GoodMalfunctionUpdateOne) Select(field string, fields ...string) *Go
 
 // Save executes the query and returns the updated GoodMalfunction entity.
 func (gmuo *GoodMalfunctionUpdateOne) Save(ctx context.Context) (*GoodMalfunction, error) {
+	gmuo.defaults()
 	return withHooks(ctx, gmuo.sqlSave, gmuo.mutation, gmuo.hooks)
 }
 
@@ -498,6 +636,14 @@ func (gmuo *GoodMalfunctionUpdateOne) Exec(ctx context.Context) error {
 func (gmuo *GoodMalfunctionUpdateOne) ExecX(ctx context.Context) {
 	if err := gmuo.Exec(ctx); err != nil {
 		panic(err)
+	}
+}
+
+// defaults sets the default values of the builder before save.
+func (gmuo *GoodMalfunctionUpdateOne) defaults() {
+	if _, ok := gmuo.mutation.UpdatedAt(); !ok {
+		v := goodmalfunction.UpdateDefaultUpdatedAt()
+		gmuo.mutation.SetUpdatedAt(v)
 	}
 }
 
@@ -535,6 +681,24 @@ func (gmuo *GoodMalfunctionUpdateOne) sqlSave(ctx context.Context) (_node *GoodM
 	}
 	if value, ok := gmuo.mutation.EntID(); ok {
 		_spec.SetField(goodmalfunction.FieldEntID, field.TypeUUID, value)
+	}
+	if value, ok := gmuo.mutation.CreatedAt(); ok {
+		_spec.SetField(goodmalfunction.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := gmuo.mutation.AddedCreatedAt(); ok {
+		_spec.AddField(goodmalfunction.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := gmuo.mutation.UpdatedAt(); ok {
+		_spec.SetField(goodmalfunction.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := gmuo.mutation.AddedUpdatedAt(); ok {
+		_spec.AddField(goodmalfunction.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := gmuo.mutation.DeletedAt(); ok {
+		_spec.SetField(goodmalfunction.FieldDeletedAt, field.TypeUint32, value)
+	}
+	if value, ok := gmuo.mutation.AddedDeletedAt(); ok {
+		_spec.AddField(goodmalfunction.FieldDeletedAt, field.TypeUint32, value)
 	}
 	if value, ok := gmuo.mutation.GoodID(); ok {
 		_spec.SetField(goodmalfunction.FieldGoodID, field.TypeUUID, value)

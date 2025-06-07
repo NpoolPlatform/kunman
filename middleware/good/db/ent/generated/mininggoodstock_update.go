@@ -44,6 +44,61 @@ func (mgsu *MiningGoodStockUpdate) SetNillableEntID(u *uuid.UUID) *MiningGoodSto
 	return mgsu
 }
 
+// SetCreatedAt sets the "created_at" field.
+func (mgsu *MiningGoodStockUpdate) SetCreatedAt(u uint32) *MiningGoodStockUpdate {
+	mgsu.mutation.ResetCreatedAt()
+	mgsu.mutation.SetCreatedAt(u)
+	return mgsu
+}
+
+// SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
+func (mgsu *MiningGoodStockUpdate) SetNillableCreatedAt(u *uint32) *MiningGoodStockUpdate {
+	if u != nil {
+		mgsu.SetCreatedAt(*u)
+	}
+	return mgsu
+}
+
+// AddCreatedAt adds u to the "created_at" field.
+func (mgsu *MiningGoodStockUpdate) AddCreatedAt(u int32) *MiningGoodStockUpdate {
+	mgsu.mutation.AddCreatedAt(u)
+	return mgsu
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (mgsu *MiningGoodStockUpdate) SetUpdatedAt(u uint32) *MiningGoodStockUpdate {
+	mgsu.mutation.ResetUpdatedAt()
+	mgsu.mutation.SetUpdatedAt(u)
+	return mgsu
+}
+
+// AddUpdatedAt adds u to the "updated_at" field.
+func (mgsu *MiningGoodStockUpdate) AddUpdatedAt(u int32) *MiningGoodStockUpdate {
+	mgsu.mutation.AddUpdatedAt(u)
+	return mgsu
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (mgsu *MiningGoodStockUpdate) SetDeletedAt(u uint32) *MiningGoodStockUpdate {
+	mgsu.mutation.ResetDeletedAt()
+	mgsu.mutation.SetDeletedAt(u)
+	return mgsu
+}
+
+// SetNillableDeletedAt sets the "deleted_at" field if the given value is not nil.
+func (mgsu *MiningGoodStockUpdate) SetNillableDeletedAt(u *uint32) *MiningGoodStockUpdate {
+	if u != nil {
+		mgsu.SetDeletedAt(*u)
+	}
+	return mgsu
+}
+
+// AddDeletedAt adds u to the "deleted_at" field.
+func (mgsu *MiningGoodStockUpdate) AddDeletedAt(u int32) *MiningGoodStockUpdate {
+	mgsu.mutation.AddDeletedAt(u)
+	return mgsu
+}
+
 // SetGoodStockID sets the "good_stock_id" field.
 func (mgsu *MiningGoodStockUpdate) SetGoodStockID(u uuid.UUID) *MiningGoodStockUpdate {
 	mgsu.mutation.SetGoodStockID(u)
@@ -271,6 +326,7 @@ func (mgsu *MiningGoodStockUpdate) Mutation() *MiningGoodStockMutation {
 
 // Save executes the query and returns the number of nodes affected by the update operation.
 func (mgsu *MiningGoodStockUpdate) Save(ctx context.Context) (int, error) {
+	mgsu.defaults()
 	return withHooks(ctx, mgsu.sqlSave, mgsu.mutation, mgsu.hooks)
 }
 
@@ -296,6 +352,14 @@ func (mgsu *MiningGoodStockUpdate) ExecX(ctx context.Context) {
 	}
 }
 
+// defaults sets the default values of the builder before save.
+func (mgsu *MiningGoodStockUpdate) defaults() {
+	if _, ok := mgsu.mutation.UpdatedAt(); !ok {
+		v := mininggoodstock.UpdateDefaultUpdatedAt()
+		mgsu.mutation.SetUpdatedAt(v)
+	}
+}
+
 // Modify adds a statement modifier for attaching custom logic to the UPDATE statement.
 func (mgsu *MiningGoodStockUpdate) Modify(modifiers ...func(u *sql.UpdateBuilder)) *MiningGoodStockUpdate {
 	mgsu.modifiers = append(mgsu.modifiers, modifiers...)
@@ -313,6 +377,24 @@ func (mgsu *MiningGoodStockUpdate) sqlSave(ctx context.Context) (n int, err erro
 	}
 	if value, ok := mgsu.mutation.EntID(); ok {
 		_spec.SetField(mininggoodstock.FieldEntID, field.TypeUUID, value)
+	}
+	if value, ok := mgsu.mutation.CreatedAt(); ok {
+		_spec.SetField(mininggoodstock.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := mgsu.mutation.AddedCreatedAt(); ok {
+		_spec.AddField(mininggoodstock.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := mgsu.mutation.UpdatedAt(); ok {
+		_spec.SetField(mininggoodstock.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := mgsu.mutation.AddedUpdatedAt(); ok {
+		_spec.AddField(mininggoodstock.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := mgsu.mutation.DeletedAt(); ok {
+		_spec.SetField(mininggoodstock.FieldDeletedAt, field.TypeUint32, value)
+	}
+	if value, ok := mgsu.mutation.AddedDeletedAt(); ok {
+		_spec.AddField(mininggoodstock.FieldDeletedAt, field.TypeUint32, value)
 	}
 	if value, ok := mgsu.mutation.GoodStockID(); ok {
 		_spec.SetField(mininggoodstock.FieldGoodStockID, field.TypeUUID, value)
@@ -413,6 +495,61 @@ func (mgsuo *MiningGoodStockUpdateOne) SetNillableEntID(u *uuid.UUID) *MiningGoo
 	if u != nil {
 		mgsuo.SetEntID(*u)
 	}
+	return mgsuo
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (mgsuo *MiningGoodStockUpdateOne) SetCreatedAt(u uint32) *MiningGoodStockUpdateOne {
+	mgsuo.mutation.ResetCreatedAt()
+	mgsuo.mutation.SetCreatedAt(u)
+	return mgsuo
+}
+
+// SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
+func (mgsuo *MiningGoodStockUpdateOne) SetNillableCreatedAt(u *uint32) *MiningGoodStockUpdateOne {
+	if u != nil {
+		mgsuo.SetCreatedAt(*u)
+	}
+	return mgsuo
+}
+
+// AddCreatedAt adds u to the "created_at" field.
+func (mgsuo *MiningGoodStockUpdateOne) AddCreatedAt(u int32) *MiningGoodStockUpdateOne {
+	mgsuo.mutation.AddCreatedAt(u)
+	return mgsuo
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (mgsuo *MiningGoodStockUpdateOne) SetUpdatedAt(u uint32) *MiningGoodStockUpdateOne {
+	mgsuo.mutation.ResetUpdatedAt()
+	mgsuo.mutation.SetUpdatedAt(u)
+	return mgsuo
+}
+
+// AddUpdatedAt adds u to the "updated_at" field.
+func (mgsuo *MiningGoodStockUpdateOne) AddUpdatedAt(u int32) *MiningGoodStockUpdateOne {
+	mgsuo.mutation.AddUpdatedAt(u)
+	return mgsuo
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (mgsuo *MiningGoodStockUpdateOne) SetDeletedAt(u uint32) *MiningGoodStockUpdateOne {
+	mgsuo.mutation.ResetDeletedAt()
+	mgsuo.mutation.SetDeletedAt(u)
+	return mgsuo
+}
+
+// SetNillableDeletedAt sets the "deleted_at" field if the given value is not nil.
+func (mgsuo *MiningGoodStockUpdateOne) SetNillableDeletedAt(u *uint32) *MiningGoodStockUpdateOne {
+	if u != nil {
+		mgsuo.SetDeletedAt(*u)
+	}
+	return mgsuo
+}
+
+// AddDeletedAt adds u to the "deleted_at" field.
+func (mgsuo *MiningGoodStockUpdateOne) AddDeletedAt(u int32) *MiningGoodStockUpdateOne {
+	mgsuo.mutation.AddDeletedAt(u)
 	return mgsuo
 }
 
@@ -656,6 +793,7 @@ func (mgsuo *MiningGoodStockUpdateOne) Select(field string, fields ...string) *M
 
 // Save executes the query and returns the updated MiningGoodStock entity.
 func (mgsuo *MiningGoodStockUpdateOne) Save(ctx context.Context) (*MiningGoodStock, error) {
+	mgsuo.defaults()
 	return withHooks(ctx, mgsuo.sqlSave, mgsuo.mutation, mgsuo.hooks)
 }
 
@@ -678,6 +816,14 @@ func (mgsuo *MiningGoodStockUpdateOne) Exec(ctx context.Context) error {
 func (mgsuo *MiningGoodStockUpdateOne) ExecX(ctx context.Context) {
 	if err := mgsuo.Exec(ctx); err != nil {
 		panic(err)
+	}
+}
+
+// defaults sets the default values of the builder before save.
+func (mgsuo *MiningGoodStockUpdateOne) defaults() {
+	if _, ok := mgsuo.mutation.UpdatedAt(); !ok {
+		v := mininggoodstock.UpdateDefaultUpdatedAt()
+		mgsuo.mutation.SetUpdatedAt(v)
 	}
 }
 
@@ -715,6 +861,24 @@ func (mgsuo *MiningGoodStockUpdateOne) sqlSave(ctx context.Context) (_node *Mini
 	}
 	if value, ok := mgsuo.mutation.EntID(); ok {
 		_spec.SetField(mininggoodstock.FieldEntID, field.TypeUUID, value)
+	}
+	if value, ok := mgsuo.mutation.CreatedAt(); ok {
+		_spec.SetField(mininggoodstock.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := mgsuo.mutation.AddedCreatedAt(); ok {
+		_spec.AddField(mininggoodstock.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := mgsuo.mutation.UpdatedAt(); ok {
+		_spec.SetField(mininggoodstock.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := mgsuo.mutation.AddedUpdatedAt(); ok {
+		_spec.AddField(mininggoodstock.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := mgsuo.mutation.DeletedAt(); ok {
+		_spec.SetField(mininggoodstock.FieldDeletedAt, field.TypeUint32, value)
+	}
+	if value, ok := mgsuo.mutation.AddedDeletedAt(); ok {
+		_spec.AddField(mininggoodstock.FieldDeletedAt, field.TypeUint32, value)
 	}
 	if value, ok := mgsuo.mutation.GoodStockID(); ok {
 		_spec.SetField(mininggoodstock.FieldGoodStockID, field.TypeUUID, value)

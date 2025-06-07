@@ -19,6 +19,12 @@ type AppGoodLabel struct {
 	ID uint32 `json:"id,omitempty"`
 	// EntID holds the value of the "ent_id" field.
 	EntID uuid.UUID `json:"ent_id,omitempty"`
+	// CreatedAt holds the value of the "created_at" field.
+	CreatedAt uint32 `json:"created_at,omitempty"`
+	// UpdatedAt holds the value of the "updated_at" field.
+	UpdatedAt uint32 `json:"updated_at,omitempty"`
+	// DeletedAt holds the value of the "deleted_at" field.
+	DeletedAt uint32 `json:"deleted_at,omitempty"`
 	// AppGoodID holds the value of the "app_good_id" field.
 	AppGoodID uuid.UUID `json:"app_good_id,omitempty"`
 	// Icon holds the value of the "icon" field.
@@ -39,7 +45,7 @@ func (*AppGoodLabel) scanValues(columns []string) ([]any, error) {
 	values := make([]any, len(columns))
 	for i := range columns {
 		switch columns[i] {
-		case appgoodlabel.FieldID, appgoodlabel.FieldIndex:
+		case appgoodlabel.FieldID, appgoodlabel.FieldCreatedAt, appgoodlabel.FieldUpdatedAt, appgoodlabel.FieldDeletedAt, appgoodlabel.FieldIndex:
 			values[i] = new(sql.NullInt64)
 		case appgoodlabel.FieldIcon, appgoodlabel.FieldIconBgColor, appgoodlabel.FieldLabel, appgoodlabel.FieldLabelBgColor:
 			values[i] = new(sql.NullString)
@@ -71,6 +77,24 @@ func (agl *AppGoodLabel) assignValues(columns []string, values []any) error {
 				return fmt.Errorf("unexpected type %T for field ent_id", values[i])
 			} else if value != nil {
 				agl.EntID = *value
+			}
+		case appgoodlabel.FieldCreatedAt:
+			if value, ok := values[i].(*sql.NullInt64); !ok {
+				return fmt.Errorf("unexpected type %T for field created_at", values[i])
+			} else if value.Valid {
+				agl.CreatedAt = uint32(value.Int64)
+			}
+		case appgoodlabel.FieldUpdatedAt:
+			if value, ok := values[i].(*sql.NullInt64); !ok {
+				return fmt.Errorf("unexpected type %T for field updated_at", values[i])
+			} else if value.Valid {
+				agl.UpdatedAt = uint32(value.Int64)
+			}
+		case appgoodlabel.FieldDeletedAt:
+			if value, ok := values[i].(*sql.NullInt64); !ok {
+				return fmt.Errorf("unexpected type %T for field deleted_at", values[i])
+			} else if value.Valid {
+				agl.DeletedAt = uint32(value.Int64)
 			}
 		case appgoodlabel.FieldAppGoodID:
 			if value, ok := values[i].(*uuid.UUID); !ok {
@@ -146,6 +170,15 @@ func (agl *AppGoodLabel) String() string {
 	builder.WriteString(fmt.Sprintf("id=%v, ", agl.ID))
 	builder.WriteString("ent_id=")
 	builder.WriteString(fmt.Sprintf("%v", agl.EntID))
+	builder.WriteString(", ")
+	builder.WriteString("created_at=")
+	builder.WriteString(fmt.Sprintf("%v", agl.CreatedAt))
+	builder.WriteString(", ")
+	builder.WriteString("updated_at=")
+	builder.WriteString(fmt.Sprintf("%v", agl.UpdatedAt))
+	builder.WriteString(", ")
+	builder.WriteString("deleted_at=")
+	builder.WriteString(fmt.Sprintf("%v", agl.DeletedAt))
 	builder.WriteString(", ")
 	builder.WriteString("app_good_id=")
 	builder.WriteString(fmt.Sprintf("%v", agl.AppGoodID))

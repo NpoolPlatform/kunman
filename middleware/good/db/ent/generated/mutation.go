@@ -880,6 +880,12 @@ type AppDelegatedStakingMutation struct {
 	typ                   string
 	id                    *uint32
 	ent_id                *uuid.UUID
+	created_at            *uint32
+	addcreated_at         *int32
+	updated_at            *uint32
+	addupdated_at         *int32
+	deleted_at            *uint32
+	adddeleted_at         *int32
 	app_good_id           *uuid.UUID
 	service_start_at      *uint32
 	addservice_start_at   *int32
@@ -1029,6 +1035,174 @@ func (m *AppDelegatedStakingMutation) OldEntID(ctx context.Context) (v uuid.UUID
 // ResetEntID resets all changes to the "ent_id" field.
 func (m *AppDelegatedStakingMutation) ResetEntID() {
 	m.ent_id = nil
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (m *AppDelegatedStakingMutation) SetCreatedAt(u uint32) {
+	m.created_at = &u
+	m.addcreated_at = nil
+}
+
+// CreatedAt returns the value of the "created_at" field in the mutation.
+func (m *AppDelegatedStakingMutation) CreatedAt() (r uint32, exists bool) {
+	v := m.created_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldCreatedAt returns the old "created_at" field's value of the AppDelegatedStaking entity.
+// If the AppDelegatedStaking object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *AppDelegatedStakingMutation) OldCreatedAt(ctx context.Context) (v uint32, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldCreatedAt is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldCreatedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldCreatedAt: %w", err)
+	}
+	return oldValue.CreatedAt, nil
+}
+
+// AddCreatedAt adds u to the "created_at" field.
+func (m *AppDelegatedStakingMutation) AddCreatedAt(u int32) {
+	if m.addcreated_at != nil {
+		*m.addcreated_at += u
+	} else {
+		m.addcreated_at = &u
+	}
+}
+
+// AddedCreatedAt returns the value that was added to the "created_at" field in this mutation.
+func (m *AppDelegatedStakingMutation) AddedCreatedAt() (r int32, exists bool) {
+	v := m.addcreated_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetCreatedAt resets all changes to the "created_at" field.
+func (m *AppDelegatedStakingMutation) ResetCreatedAt() {
+	m.created_at = nil
+	m.addcreated_at = nil
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (m *AppDelegatedStakingMutation) SetUpdatedAt(u uint32) {
+	m.updated_at = &u
+	m.addupdated_at = nil
+}
+
+// UpdatedAt returns the value of the "updated_at" field in the mutation.
+func (m *AppDelegatedStakingMutation) UpdatedAt() (r uint32, exists bool) {
+	v := m.updated_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldUpdatedAt returns the old "updated_at" field's value of the AppDelegatedStaking entity.
+// If the AppDelegatedStaking object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *AppDelegatedStakingMutation) OldUpdatedAt(ctx context.Context) (v uint32, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldUpdatedAt is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldUpdatedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldUpdatedAt: %w", err)
+	}
+	return oldValue.UpdatedAt, nil
+}
+
+// AddUpdatedAt adds u to the "updated_at" field.
+func (m *AppDelegatedStakingMutation) AddUpdatedAt(u int32) {
+	if m.addupdated_at != nil {
+		*m.addupdated_at += u
+	} else {
+		m.addupdated_at = &u
+	}
+}
+
+// AddedUpdatedAt returns the value that was added to the "updated_at" field in this mutation.
+func (m *AppDelegatedStakingMutation) AddedUpdatedAt() (r int32, exists bool) {
+	v := m.addupdated_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetUpdatedAt resets all changes to the "updated_at" field.
+func (m *AppDelegatedStakingMutation) ResetUpdatedAt() {
+	m.updated_at = nil
+	m.addupdated_at = nil
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (m *AppDelegatedStakingMutation) SetDeletedAt(u uint32) {
+	m.deleted_at = &u
+	m.adddeleted_at = nil
+}
+
+// DeletedAt returns the value of the "deleted_at" field in the mutation.
+func (m *AppDelegatedStakingMutation) DeletedAt() (r uint32, exists bool) {
+	v := m.deleted_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldDeletedAt returns the old "deleted_at" field's value of the AppDelegatedStaking entity.
+// If the AppDelegatedStaking object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *AppDelegatedStakingMutation) OldDeletedAt(ctx context.Context) (v uint32, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldDeletedAt is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldDeletedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldDeletedAt: %w", err)
+	}
+	return oldValue.DeletedAt, nil
+}
+
+// AddDeletedAt adds u to the "deleted_at" field.
+func (m *AppDelegatedStakingMutation) AddDeletedAt(u int32) {
+	if m.adddeleted_at != nil {
+		*m.adddeleted_at += u
+	} else {
+		m.adddeleted_at = &u
+	}
+}
+
+// AddedDeletedAt returns the value that was added to the "deleted_at" field in this mutation.
+func (m *AppDelegatedStakingMutation) AddedDeletedAt() (r int32, exists bool) {
+	v := m.adddeleted_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetDeletedAt resets all changes to the "deleted_at" field.
+func (m *AppDelegatedStakingMutation) ResetDeletedAt() {
+	m.deleted_at = nil
+	m.adddeleted_at = nil
 }
 
 // SetAppGoodID sets the "app_good_id" field.
@@ -1282,9 +1456,18 @@ func (m *AppDelegatedStakingMutation) Type() string {
 // order to get all numeric fields that were incremented/decremented, call
 // AddedFields().
 func (m *AppDelegatedStakingMutation) Fields() []string {
-	fields := make([]string, 0, 5)
+	fields := make([]string, 0, 8)
 	if m.ent_id != nil {
 		fields = append(fields, appdelegatedstaking.FieldEntID)
+	}
+	if m.created_at != nil {
+		fields = append(fields, appdelegatedstaking.FieldCreatedAt)
+	}
+	if m.updated_at != nil {
+		fields = append(fields, appdelegatedstaking.FieldUpdatedAt)
+	}
+	if m.deleted_at != nil {
+		fields = append(fields, appdelegatedstaking.FieldDeletedAt)
 	}
 	if m.app_good_id != nil {
 		fields = append(fields, appdelegatedstaking.FieldAppGoodID)
@@ -1308,6 +1491,12 @@ func (m *AppDelegatedStakingMutation) Field(name string) (ent.Value, bool) {
 	switch name {
 	case appdelegatedstaking.FieldEntID:
 		return m.EntID()
+	case appdelegatedstaking.FieldCreatedAt:
+		return m.CreatedAt()
+	case appdelegatedstaking.FieldUpdatedAt:
+		return m.UpdatedAt()
+	case appdelegatedstaking.FieldDeletedAt:
+		return m.DeletedAt()
 	case appdelegatedstaking.FieldAppGoodID:
 		return m.AppGoodID()
 	case appdelegatedstaking.FieldServiceStartAt:
@@ -1327,6 +1516,12 @@ func (m *AppDelegatedStakingMutation) OldField(ctx context.Context, name string)
 	switch name {
 	case appdelegatedstaking.FieldEntID:
 		return m.OldEntID(ctx)
+	case appdelegatedstaking.FieldCreatedAt:
+		return m.OldCreatedAt(ctx)
+	case appdelegatedstaking.FieldUpdatedAt:
+		return m.OldUpdatedAt(ctx)
+	case appdelegatedstaking.FieldDeletedAt:
+		return m.OldDeletedAt(ctx)
 	case appdelegatedstaking.FieldAppGoodID:
 		return m.OldAppGoodID(ctx)
 	case appdelegatedstaking.FieldServiceStartAt:
@@ -1350,6 +1545,27 @@ func (m *AppDelegatedStakingMutation) SetField(name string, value ent.Value) err
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetEntID(v)
+		return nil
+	case appdelegatedstaking.FieldCreatedAt:
+		v, ok := value.(uint32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetCreatedAt(v)
+		return nil
+	case appdelegatedstaking.FieldUpdatedAt:
+		v, ok := value.(uint32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetUpdatedAt(v)
+		return nil
+	case appdelegatedstaking.FieldDeletedAt:
+		v, ok := value.(uint32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetDeletedAt(v)
 		return nil
 	case appdelegatedstaking.FieldAppGoodID:
 		v, ok := value.(uuid.UUID)
@@ -1387,6 +1603,15 @@ func (m *AppDelegatedStakingMutation) SetField(name string, value ent.Value) err
 // this mutation.
 func (m *AppDelegatedStakingMutation) AddedFields() []string {
 	var fields []string
+	if m.addcreated_at != nil {
+		fields = append(fields, appdelegatedstaking.FieldCreatedAt)
+	}
+	if m.addupdated_at != nil {
+		fields = append(fields, appdelegatedstaking.FieldUpdatedAt)
+	}
+	if m.adddeleted_at != nil {
+		fields = append(fields, appdelegatedstaking.FieldDeletedAt)
+	}
 	if m.addservice_start_at != nil {
 		fields = append(fields, appdelegatedstaking.FieldServiceStartAt)
 	}
@@ -1398,6 +1623,12 @@ func (m *AppDelegatedStakingMutation) AddedFields() []string {
 // was not set, or was not defined in the schema.
 func (m *AppDelegatedStakingMutation) AddedField(name string) (ent.Value, bool) {
 	switch name {
+	case appdelegatedstaking.FieldCreatedAt:
+		return m.AddedCreatedAt()
+	case appdelegatedstaking.FieldUpdatedAt:
+		return m.AddedUpdatedAt()
+	case appdelegatedstaking.FieldDeletedAt:
+		return m.AddedDeletedAt()
 	case appdelegatedstaking.FieldServiceStartAt:
 		return m.AddedServiceStartAt()
 	}
@@ -1409,6 +1640,27 @@ func (m *AppDelegatedStakingMutation) AddedField(name string) (ent.Value, bool) 
 // type.
 func (m *AppDelegatedStakingMutation) AddField(name string, value ent.Value) error {
 	switch name {
+	case appdelegatedstaking.FieldCreatedAt:
+		v, ok := value.(int32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddCreatedAt(v)
+		return nil
+	case appdelegatedstaking.FieldUpdatedAt:
+		v, ok := value.(int32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddUpdatedAt(v)
+		return nil
+	case appdelegatedstaking.FieldDeletedAt:
+		v, ok := value.(int32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddDeletedAt(v)
+		return nil
 	case appdelegatedstaking.FieldServiceStartAt:
 		v, ok := value.(int32)
 		if !ok {
@@ -1472,6 +1724,15 @@ func (m *AppDelegatedStakingMutation) ResetField(name string) error {
 	switch name {
 	case appdelegatedstaking.FieldEntID:
 		m.ResetEntID()
+		return nil
+	case appdelegatedstaking.FieldCreatedAt:
+		m.ResetCreatedAt()
+		return nil
+	case appdelegatedstaking.FieldUpdatedAt:
+		m.ResetUpdatedAt()
+		return nil
+	case appdelegatedstaking.FieldDeletedAt:
+		m.ResetDeletedAt()
 		return nil
 	case appdelegatedstaking.FieldAppGoodID:
 		m.ResetAppGoodID()
@@ -1544,6 +1805,12 @@ type AppFeeMutation struct {
 	typ                           string
 	id                            *uint32
 	ent_id                        *uuid.UUID
+	created_at                    *uint32
+	addcreated_at                 *int32
+	updated_at                    *uint32
+	addupdated_at                 *int32
+	deleted_at                    *uint32
+	adddeleted_at                 *int32
 	app_good_id                   *uuid.UUID
 	unit_value                    *decimal.Decimal
 	cancel_mode                   *string
@@ -1693,6 +1960,174 @@ func (m *AppFeeMutation) OldEntID(ctx context.Context) (v uuid.UUID, err error) 
 // ResetEntID resets all changes to the "ent_id" field.
 func (m *AppFeeMutation) ResetEntID() {
 	m.ent_id = nil
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (m *AppFeeMutation) SetCreatedAt(u uint32) {
+	m.created_at = &u
+	m.addcreated_at = nil
+}
+
+// CreatedAt returns the value of the "created_at" field in the mutation.
+func (m *AppFeeMutation) CreatedAt() (r uint32, exists bool) {
+	v := m.created_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldCreatedAt returns the old "created_at" field's value of the AppFee entity.
+// If the AppFee object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *AppFeeMutation) OldCreatedAt(ctx context.Context) (v uint32, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldCreatedAt is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldCreatedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldCreatedAt: %w", err)
+	}
+	return oldValue.CreatedAt, nil
+}
+
+// AddCreatedAt adds u to the "created_at" field.
+func (m *AppFeeMutation) AddCreatedAt(u int32) {
+	if m.addcreated_at != nil {
+		*m.addcreated_at += u
+	} else {
+		m.addcreated_at = &u
+	}
+}
+
+// AddedCreatedAt returns the value that was added to the "created_at" field in this mutation.
+func (m *AppFeeMutation) AddedCreatedAt() (r int32, exists bool) {
+	v := m.addcreated_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetCreatedAt resets all changes to the "created_at" field.
+func (m *AppFeeMutation) ResetCreatedAt() {
+	m.created_at = nil
+	m.addcreated_at = nil
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (m *AppFeeMutation) SetUpdatedAt(u uint32) {
+	m.updated_at = &u
+	m.addupdated_at = nil
+}
+
+// UpdatedAt returns the value of the "updated_at" field in the mutation.
+func (m *AppFeeMutation) UpdatedAt() (r uint32, exists bool) {
+	v := m.updated_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldUpdatedAt returns the old "updated_at" field's value of the AppFee entity.
+// If the AppFee object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *AppFeeMutation) OldUpdatedAt(ctx context.Context) (v uint32, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldUpdatedAt is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldUpdatedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldUpdatedAt: %w", err)
+	}
+	return oldValue.UpdatedAt, nil
+}
+
+// AddUpdatedAt adds u to the "updated_at" field.
+func (m *AppFeeMutation) AddUpdatedAt(u int32) {
+	if m.addupdated_at != nil {
+		*m.addupdated_at += u
+	} else {
+		m.addupdated_at = &u
+	}
+}
+
+// AddedUpdatedAt returns the value that was added to the "updated_at" field in this mutation.
+func (m *AppFeeMutation) AddedUpdatedAt() (r int32, exists bool) {
+	v := m.addupdated_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetUpdatedAt resets all changes to the "updated_at" field.
+func (m *AppFeeMutation) ResetUpdatedAt() {
+	m.updated_at = nil
+	m.addupdated_at = nil
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (m *AppFeeMutation) SetDeletedAt(u uint32) {
+	m.deleted_at = &u
+	m.adddeleted_at = nil
+}
+
+// DeletedAt returns the value of the "deleted_at" field in the mutation.
+func (m *AppFeeMutation) DeletedAt() (r uint32, exists bool) {
+	v := m.deleted_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldDeletedAt returns the old "deleted_at" field's value of the AppFee entity.
+// If the AppFee object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *AppFeeMutation) OldDeletedAt(ctx context.Context) (v uint32, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldDeletedAt is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldDeletedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldDeletedAt: %w", err)
+	}
+	return oldValue.DeletedAt, nil
+}
+
+// AddDeletedAt adds u to the "deleted_at" field.
+func (m *AppFeeMutation) AddDeletedAt(u int32) {
+	if m.adddeleted_at != nil {
+		*m.adddeleted_at += u
+	} else {
+		m.adddeleted_at = &u
+	}
+}
+
+// AddedDeletedAt returns the value that was added to the "deleted_at" field in this mutation.
+func (m *AppFeeMutation) AddedDeletedAt() (r int32, exists bool) {
+	v := m.adddeleted_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetDeletedAt resets all changes to the "deleted_at" field.
+func (m *AppFeeMutation) ResetDeletedAt() {
+	m.deleted_at = nil
+	m.adddeleted_at = nil
 }
 
 // SetAppGoodID sets the "app_good_id" field.
@@ -1946,9 +2381,18 @@ func (m *AppFeeMutation) Type() string {
 // order to get all numeric fields that were incremented/decremented, call
 // AddedFields().
 func (m *AppFeeMutation) Fields() []string {
-	fields := make([]string, 0, 5)
+	fields := make([]string, 0, 8)
 	if m.ent_id != nil {
 		fields = append(fields, appfee.FieldEntID)
+	}
+	if m.created_at != nil {
+		fields = append(fields, appfee.FieldCreatedAt)
+	}
+	if m.updated_at != nil {
+		fields = append(fields, appfee.FieldUpdatedAt)
+	}
+	if m.deleted_at != nil {
+		fields = append(fields, appfee.FieldDeletedAt)
 	}
 	if m.app_good_id != nil {
 		fields = append(fields, appfee.FieldAppGoodID)
@@ -1972,6 +2416,12 @@ func (m *AppFeeMutation) Field(name string) (ent.Value, bool) {
 	switch name {
 	case appfee.FieldEntID:
 		return m.EntID()
+	case appfee.FieldCreatedAt:
+		return m.CreatedAt()
+	case appfee.FieldUpdatedAt:
+		return m.UpdatedAt()
+	case appfee.FieldDeletedAt:
+		return m.DeletedAt()
 	case appfee.FieldAppGoodID:
 		return m.AppGoodID()
 	case appfee.FieldUnitValue:
@@ -1991,6 +2441,12 @@ func (m *AppFeeMutation) OldField(ctx context.Context, name string) (ent.Value, 
 	switch name {
 	case appfee.FieldEntID:
 		return m.OldEntID(ctx)
+	case appfee.FieldCreatedAt:
+		return m.OldCreatedAt(ctx)
+	case appfee.FieldUpdatedAt:
+		return m.OldUpdatedAt(ctx)
+	case appfee.FieldDeletedAt:
+		return m.OldDeletedAt(ctx)
 	case appfee.FieldAppGoodID:
 		return m.OldAppGoodID(ctx)
 	case appfee.FieldUnitValue:
@@ -2014,6 +2470,27 @@ func (m *AppFeeMutation) SetField(name string, value ent.Value) error {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetEntID(v)
+		return nil
+	case appfee.FieldCreatedAt:
+		v, ok := value.(uint32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetCreatedAt(v)
+		return nil
+	case appfee.FieldUpdatedAt:
+		v, ok := value.(uint32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetUpdatedAt(v)
+		return nil
+	case appfee.FieldDeletedAt:
+		v, ok := value.(uint32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetDeletedAt(v)
 		return nil
 	case appfee.FieldAppGoodID:
 		v, ok := value.(uuid.UUID)
@@ -2051,6 +2528,15 @@ func (m *AppFeeMutation) SetField(name string, value ent.Value) error {
 // this mutation.
 func (m *AppFeeMutation) AddedFields() []string {
 	var fields []string
+	if m.addcreated_at != nil {
+		fields = append(fields, appfee.FieldCreatedAt)
+	}
+	if m.addupdated_at != nil {
+		fields = append(fields, appfee.FieldUpdatedAt)
+	}
+	if m.adddeleted_at != nil {
+		fields = append(fields, appfee.FieldDeletedAt)
+	}
 	if m.addmin_order_duration_seconds != nil {
 		fields = append(fields, appfee.FieldMinOrderDurationSeconds)
 	}
@@ -2062,6 +2548,12 @@ func (m *AppFeeMutation) AddedFields() []string {
 // was not set, or was not defined in the schema.
 func (m *AppFeeMutation) AddedField(name string) (ent.Value, bool) {
 	switch name {
+	case appfee.FieldCreatedAt:
+		return m.AddedCreatedAt()
+	case appfee.FieldUpdatedAt:
+		return m.AddedUpdatedAt()
+	case appfee.FieldDeletedAt:
+		return m.AddedDeletedAt()
 	case appfee.FieldMinOrderDurationSeconds:
 		return m.AddedMinOrderDurationSeconds()
 	}
@@ -2073,6 +2565,27 @@ func (m *AppFeeMutation) AddedField(name string) (ent.Value, bool) {
 // type.
 func (m *AppFeeMutation) AddField(name string, value ent.Value) error {
 	switch name {
+	case appfee.FieldCreatedAt:
+		v, ok := value.(int32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddCreatedAt(v)
+		return nil
+	case appfee.FieldUpdatedAt:
+		v, ok := value.(int32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddUpdatedAt(v)
+		return nil
+	case appfee.FieldDeletedAt:
+		v, ok := value.(int32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddDeletedAt(v)
+		return nil
 	case appfee.FieldMinOrderDurationSeconds:
 		v, ok := value.(int32)
 		if !ok {
@@ -2136,6 +2649,15 @@ func (m *AppFeeMutation) ResetField(name string) error {
 	switch name {
 	case appfee.FieldEntID:
 		m.ResetEntID()
+		return nil
+	case appfee.FieldCreatedAt:
+		m.ResetCreatedAt()
+		return nil
+	case appfee.FieldUpdatedAt:
+		m.ResetUpdatedAt()
+		return nil
+	case appfee.FieldDeletedAt:
+		m.ResetDeletedAt()
 		return nil
 	case appfee.FieldAppGoodID:
 		m.ResetAppGoodID()
@@ -2208,6 +2730,12 @@ type AppGoodMutation struct {
 	typ                         string
 	id                          *uint32
 	ent_id                      *uuid.UUID
+	created_at                  *uint32
+	addcreated_at               *int32
+	updated_at                  *uint32
+	addupdated_at               *int32
+	deleted_at                  *uint32
+	adddeleted_at               *int32
 	app_id                      *uuid.UUID
 	good_id                     *uuid.UUID
 	online                      *bool
@@ -2393,6 +2921,174 @@ func (m *AppGoodMutation) OldEntID(ctx context.Context) (v uuid.UUID, err error)
 // ResetEntID resets all changes to the "ent_id" field.
 func (m *AppGoodMutation) ResetEntID() {
 	m.ent_id = nil
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (m *AppGoodMutation) SetCreatedAt(u uint32) {
+	m.created_at = &u
+	m.addcreated_at = nil
+}
+
+// CreatedAt returns the value of the "created_at" field in the mutation.
+func (m *AppGoodMutation) CreatedAt() (r uint32, exists bool) {
+	v := m.created_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldCreatedAt returns the old "created_at" field's value of the AppGood entity.
+// If the AppGood object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *AppGoodMutation) OldCreatedAt(ctx context.Context) (v uint32, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldCreatedAt is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldCreatedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldCreatedAt: %w", err)
+	}
+	return oldValue.CreatedAt, nil
+}
+
+// AddCreatedAt adds u to the "created_at" field.
+func (m *AppGoodMutation) AddCreatedAt(u int32) {
+	if m.addcreated_at != nil {
+		*m.addcreated_at += u
+	} else {
+		m.addcreated_at = &u
+	}
+}
+
+// AddedCreatedAt returns the value that was added to the "created_at" field in this mutation.
+func (m *AppGoodMutation) AddedCreatedAt() (r int32, exists bool) {
+	v := m.addcreated_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetCreatedAt resets all changes to the "created_at" field.
+func (m *AppGoodMutation) ResetCreatedAt() {
+	m.created_at = nil
+	m.addcreated_at = nil
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (m *AppGoodMutation) SetUpdatedAt(u uint32) {
+	m.updated_at = &u
+	m.addupdated_at = nil
+}
+
+// UpdatedAt returns the value of the "updated_at" field in the mutation.
+func (m *AppGoodMutation) UpdatedAt() (r uint32, exists bool) {
+	v := m.updated_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldUpdatedAt returns the old "updated_at" field's value of the AppGood entity.
+// If the AppGood object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *AppGoodMutation) OldUpdatedAt(ctx context.Context) (v uint32, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldUpdatedAt is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldUpdatedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldUpdatedAt: %w", err)
+	}
+	return oldValue.UpdatedAt, nil
+}
+
+// AddUpdatedAt adds u to the "updated_at" field.
+func (m *AppGoodMutation) AddUpdatedAt(u int32) {
+	if m.addupdated_at != nil {
+		*m.addupdated_at += u
+	} else {
+		m.addupdated_at = &u
+	}
+}
+
+// AddedUpdatedAt returns the value that was added to the "updated_at" field in this mutation.
+func (m *AppGoodMutation) AddedUpdatedAt() (r int32, exists bool) {
+	v := m.addupdated_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetUpdatedAt resets all changes to the "updated_at" field.
+func (m *AppGoodMutation) ResetUpdatedAt() {
+	m.updated_at = nil
+	m.addupdated_at = nil
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (m *AppGoodMutation) SetDeletedAt(u uint32) {
+	m.deleted_at = &u
+	m.adddeleted_at = nil
+}
+
+// DeletedAt returns the value of the "deleted_at" field in the mutation.
+func (m *AppGoodMutation) DeletedAt() (r uint32, exists bool) {
+	v := m.deleted_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldDeletedAt returns the old "deleted_at" field's value of the AppGood entity.
+// If the AppGood object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *AppGoodMutation) OldDeletedAt(ctx context.Context) (v uint32, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldDeletedAt is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldDeletedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldDeletedAt: %w", err)
+	}
+	return oldValue.DeletedAt, nil
+}
+
+// AddDeletedAt adds u to the "deleted_at" field.
+func (m *AppGoodMutation) AddDeletedAt(u int32) {
+	if m.adddeleted_at != nil {
+		*m.adddeleted_at += u
+	} else {
+		m.adddeleted_at = &u
+	}
+}
+
+// AddedDeletedAt returns the value that was added to the "deleted_at" field in this mutation.
+func (m *AppGoodMutation) AddedDeletedAt() (r int32, exists bool) {
+	v := m.adddeleted_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetDeletedAt resets all changes to the "deleted_at" field.
+func (m *AppGoodMutation) ResetDeletedAt() {
+	m.deleted_at = nil
+	m.adddeleted_at = nil
 }
 
 // SetAppID sets the "app_id" field.
@@ -4084,9 +4780,18 @@ func (m *AppGoodMutation) Type() string {
 // order to get all numeric fields that were incremented/decremented, call
 // AddedFields().
 func (m *AppGoodMutation) Fields() []string {
-	fields := make([]string, 0, 31)
+	fields := make([]string, 0, 34)
 	if m.ent_id != nil {
 		fields = append(fields, appgood.FieldEntID)
+	}
+	if m.created_at != nil {
+		fields = append(fields, appgood.FieldCreatedAt)
+	}
+	if m.updated_at != nil {
+		fields = append(fields, appgood.FieldUpdatedAt)
+	}
+	if m.deleted_at != nil {
+		fields = append(fields, appgood.FieldDeletedAt)
 	}
 	if m.app_id != nil {
 		fields = append(fields, appgood.FieldAppID)
@@ -4188,6 +4893,12 @@ func (m *AppGoodMutation) Field(name string) (ent.Value, bool) {
 	switch name {
 	case appgood.FieldEntID:
 		return m.EntID()
+	case appgood.FieldCreatedAt:
+		return m.CreatedAt()
+	case appgood.FieldUpdatedAt:
+		return m.UpdatedAt()
+	case appgood.FieldDeletedAt:
+		return m.DeletedAt()
 	case appgood.FieldAppID:
 		return m.AppID()
 	case appgood.FieldGoodID:
@@ -4259,6 +4970,12 @@ func (m *AppGoodMutation) OldField(ctx context.Context, name string) (ent.Value,
 	switch name {
 	case appgood.FieldEntID:
 		return m.OldEntID(ctx)
+	case appgood.FieldCreatedAt:
+		return m.OldCreatedAt(ctx)
+	case appgood.FieldUpdatedAt:
+		return m.OldUpdatedAt(ctx)
+	case appgood.FieldDeletedAt:
+		return m.OldDeletedAt(ctx)
 	case appgood.FieldAppID:
 		return m.OldAppID(ctx)
 	case appgood.FieldGoodID:
@@ -4334,6 +5051,27 @@ func (m *AppGoodMutation) SetField(name string, value ent.Value) error {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetEntID(v)
+		return nil
+	case appgood.FieldCreatedAt:
+		v, ok := value.(uint32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetCreatedAt(v)
+		return nil
+	case appgood.FieldUpdatedAt:
+		v, ok := value.(uint32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetUpdatedAt(v)
+		return nil
+	case appgood.FieldDeletedAt:
+		v, ok := value.(uint32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetDeletedAt(v)
 		return nil
 	case appgood.FieldAppID:
 		v, ok := value.(uuid.UUID)
@@ -4553,6 +5291,15 @@ func (m *AppGoodMutation) SetField(name string, value ent.Value) error {
 // this mutation.
 func (m *AppGoodMutation) AddedFields() []string {
 	var fields []string
+	if m.addcreated_at != nil {
+		fields = append(fields, appgood.FieldCreatedAt)
+	}
+	if m.addupdated_at != nil {
+		fields = append(fields, appgood.FieldUpdatedAt)
+	}
+	if m.adddeleted_at != nil {
+		fields = append(fields, appgood.FieldDeletedAt)
+	}
 	if m.adddisplay_index != nil {
 		fields = append(fields, appgood.FieldDisplayIndex)
 	}
@@ -4582,6 +5329,12 @@ func (m *AppGoodMutation) AddedFields() []string {
 // was not set, or was not defined in the schema.
 func (m *AppGoodMutation) AddedField(name string) (ent.Value, bool) {
 	switch name {
+	case appgood.FieldCreatedAt:
+		return m.AddedCreatedAt()
+	case appgood.FieldUpdatedAt:
+		return m.AddedUpdatedAt()
+	case appgood.FieldDeletedAt:
+		return m.AddedDeletedAt()
 	case appgood.FieldDisplayIndex:
 		return m.AddedDisplayIndex()
 	case appgood.FieldSaleStartAt:
@@ -4605,6 +5358,27 @@ func (m *AppGoodMutation) AddedField(name string) (ent.Value, bool) {
 // type.
 func (m *AppGoodMutation) AddField(name string, value ent.Value) error {
 	switch name {
+	case appgood.FieldCreatedAt:
+		v, ok := value.(int32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddCreatedAt(v)
+		return nil
+	case appgood.FieldUpdatedAt:
+		v, ok := value.(int32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddUpdatedAt(v)
+		return nil
+	case appgood.FieldDeletedAt:
+		v, ok := value.(int32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddDeletedAt(v)
+		return nil
 	case appgood.FieldDisplayIndex:
 		v, ok := value.(int32)
 		if !ok {
@@ -4855,6 +5629,15 @@ func (m *AppGoodMutation) ResetField(name string) error {
 	case appgood.FieldEntID:
 		m.ResetEntID()
 		return nil
+	case appgood.FieldCreatedAt:
+		m.ResetCreatedAt()
+		return nil
+	case appgood.FieldUpdatedAt:
+		m.ResetUpdatedAt()
+		return nil
+	case appgood.FieldDeletedAt:
+		m.ResetDeletedAt()
+		return nil
 	case appgood.FieldAppID:
 		m.ResetAppID()
 		return nil
@@ -5004,6 +5787,12 @@ type AppGoodBaseMutation struct {
 	typ                 string
 	id                  *uint32
 	ent_id              *uuid.UUID
+	created_at          *uint32
+	addcreated_at       *int32
+	updated_at          *uint32
+	addupdated_at       *int32
+	deleted_at          *uint32
+	adddeleted_at       *int32
 	app_id              *uuid.UUID
 	good_id             *uuid.UUID
 	purchasable         *bool
@@ -5159,6 +5948,174 @@ func (m *AppGoodBaseMutation) OldEntID(ctx context.Context) (v uuid.UUID, err er
 // ResetEntID resets all changes to the "ent_id" field.
 func (m *AppGoodBaseMutation) ResetEntID() {
 	m.ent_id = nil
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (m *AppGoodBaseMutation) SetCreatedAt(u uint32) {
+	m.created_at = &u
+	m.addcreated_at = nil
+}
+
+// CreatedAt returns the value of the "created_at" field in the mutation.
+func (m *AppGoodBaseMutation) CreatedAt() (r uint32, exists bool) {
+	v := m.created_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldCreatedAt returns the old "created_at" field's value of the AppGoodBase entity.
+// If the AppGoodBase object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *AppGoodBaseMutation) OldCreatedAt(ctx context.Context) (v uint32, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldCreatedAt is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldCreatedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldCreatedAt: %w", err)
+	}
+	return oldValue.CreatedAt, nil
+}
+
+// AddCreatedAt adds u to the "created_at" field.
+func (m *AppGoodBaseMutation) AddCreatedAt(u int32) {
+	if m.addcreated_at != nil {
+		*m.addcreated_at += u
+	} else {
+		m.addcreated_at = &u
+	}
+}
+
+// AddedCreatedAt returns the value that was added to the "created_at" field in this mutation.
+func (m *AppGoodBaseMutation) AddedCreatedAt() (r int32, exists bool) {
+	v := m.addcreated_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetCreatedAt resets all changes to the "created_at" field.
+func (m *AppGoodBaseMutation) ResetCreatedAt() {
+	m.created_at = nil
+	m.addcreated_at = nil
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (m *AppGoodBaseMutation) SetUpdatedAt(u uint32) {
+	m.updated_at = &u
+	m.addupdated_at = nil
+}
+
+// UpdatedAt returns the value of the "updated_at" field in the mutation.
+func (m *AppGoodBaseMutation) UpdatedAt() (r uint32, exists bool) {
+	v := m.updated_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldUpdatedAt returns the old "updated_at" field's value of the AppGoodBase entity.
+// If the AppGoodBase object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *AppGoodBaseMutation) OldUpdatedAt(ctx context.Context) (v uint32, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldUpdatedAt is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldUpdatedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldUpdatedAt: %w", err)
+	}
+	return oldValue.UpdatedAt, nil
+}
+
+// AddUpdatedAt adds u to the "updated_at" field.
+func (m *AppGoodBaseMutation) AddUpdatedAt(u int32) {
+	if m.addupdated_at != nil {
+		*m.addupdated_at += u
+	} else {
+		m.addupdated_at = &u
+	}
+}
+
+// AddedUpdatedAt returns the value that was added to the "updated_at" field in this mutation.
+func (m *AppGoodBaseMutation) AddedUpdatedAt() (r int32, exists bool) {
+	v := m.addupdated_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetUpdatedAt resets all changes to the "updated_at" field.
+func (m *AppGoodBaseMutation) ResetUpdatedAt() {
+	m.updated_at = nil
+	m.addupdated_at = nil
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (m *AppGoodBaseMutation) SetDeletedAt(u uint32) {
+	m.deleted_at = &u
+	m.adddeleted_at = nil
+}
+
+// DeletedAt returns the value of the "deleted_at" field in the mutation.
+func (m *AppGoodBaseMutation) DeletedAt() (r uint32, exists bool) {
+	v := m.deleted_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldDeletedAt returns the old "deleted_at" field's value of the AppGoodBase entity.
+// If the AppGoodBase object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *AppGoodBaseMutation) OldDeletedAt(ctx context.Context) (v uint32, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldDeletedAt is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldDeletedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldDeletedAt: %w", err)
+	}
+	return oldValue.DeletedAt, nil
+}
+
+// AddDeletedAt adds u to the "deleted_at" field.
+func (m *AppGoodBaseMutation) AddDeletedAt(u int32) {
+	if m.adddeleted_at != nil {
+		*m.adddeleted_at += u
+	} else {
+		m.adddeleted_at = &u
+	}
+}
+
+// AddedDeletedAt returns the value that was added to the "deleted_at" field in this mutation.
+func (m *AppGoodBaseMutation) AddedDeletedAt() (r int32, exists bool) {
+	v := m.adddeleted_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetDeletedAt resets all changes to the "deleted_at" field.
+func (m *AppGoodBaseMutation) ResetDeletedAt() {
+	m.deleted_at = nil
+	m.adddeleted_at = nil
 }
 
 // SetAppID sets the "app_id" field.
@@ -5706,9 +6663,18 @@ func (m *AppGoodBaseMutation) Type() string {
 // order to get all numeric fields that were incremented/decremented, call
 // AddedFields().
 func (m *AppGoodBaseMutation) Fields() []string {
-	fields := make([]string, 0, 11)
+	fields := make([]string, 0, 14)
 	if m.ent_id != nil {
 		fields = append(fields, appgoodbase.FieldEntID)
+	}
+	if m.created_at != nil {
+		fields = append(fields, appgoodbase.FieldCreatedAt)
+	}
+	if m.updated_at != nil {
+		fields = append(fields, appgoodbase.FieldUpdatedAt)
+	}
+	if m.deleted_at != nil {
+		fields = append(fields, appgoodbase.FieldDeletedAt)
 	}
 	if m.app_id != nil {
 		fields = append(fields, appgoodbase.FieldAppID)
@@ -5750,6 +6716,12 @@ func (m *AppGoodBaseMutation) Field(name string) (ent.Value, bool) {
 	switch name {
 	case appgoodbase.FieldEntID:
 		return m.EntID()
+	case appgoodbase.FieldCreatedAt:
+		return m.CreatedAt()
+	case appgoodbase.FieldUpdatedAt:
+		return m.UpdatedAt()
+	case appgoodbase.FieldDeletedAt:
+		return m.DeletedAt()
 	case appgoodbase.FieldAppID:
 		return m.AppID()
 	case appgoodbase.FieldGoodID:
@@ -5781,6 +6753,12 @@ func (m *AppGoodBaseMutation) OldField(ctx context.Context, name string) (ent.Va
 	switch name {
 	case appgoodbase.FieldEntID:
 		return m.OldEntID(ctx)
+	case appgoodbase.FieldCreatedAt:
+		return m.OldCreatedAt(ctx)
+	case appgoodbase.FieldUpdatedAt:
+		return m.OldUpdatedAt(ctx)
+	case appgoodbase.FieldDeletedAt:
+		return m.OldDeletedAt(ctx)
 	case appgoodbase.FieldAppID:
 		return m.OldAppID(ctx)
 	case appgoodbase.FieldGoodID:
@@ -5816,6 +6794,27 @@ func (m *AppGoodBaseMutation) SetField(name string, value ent.Value) error {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetEntID(v)
+		return nil
+	case appgoodbase.FieldCreatedAt:
+		v, ok := value.(uint32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetCreatedAt(v)
+		return nil
+	case appgoodbase.FieldUpdatedAt:
+		v, ok := value.(uint32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetUpdatedAt(v)
+		return nil
+	case appgoodbase.FieldDeletedAt:
+		v, ok := value.(uint32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetDeletedAt(v)
 		return nil
 	case appgoodbase.FieldAppID:
 		v, ok := value.(uuid.UUID)
@@ -5895,6 +6894,15 @@ func (m *AppGoodBaseMutation) SetField(name string, value ent.Value) error {
 // this mutation.
 func (m *AppGoodBaseMutation) AddedFields() []string {
 	var fields []string
+	if m.addcreated_at != nil {
+		fields = append(fields, appgoodbase.FieldCreatedAt)
+	}
+	if m.addupdated_at != nil {
+		fields = append(fields, appgoodbase.FieldUpdatedAt)
+	}
+	if m.adddeleted_at != nil {
+		fields = append(fields, appgoodbase.FieldDeletedAt)
+	}
 	if m.adddisplay_index != nil {
 		fields = append(fields, appgoodbase.FieldDisplayIndex)
 	}
@@ -5906,6 +6914,12 @@ func (m *AppGoodBaseMutation) AddedFields() []string {
 // was not set, or was not defined in the schema.
 func (m *AppGoodBaseMutation) AddedField(name string) (ent.Value, bool) {
 	switch name {
+	case appgoodbase.FieldCreatedAt:
+		return m.AddedCreatedAt()
+	case appgoodbase.FieldUpdatedAt:
+		return m.AddedUpdatedAt()
+	case appgoodbase.FieldDeletedAt:
+		return m.AddedDeletedAt()
 	case appgoodbase.FieldDisplayIndex:
 		return m.AddedDisplayIndex()
 	}
@@ -5917,6 +6931,27 @@ func (m *AppGoodBaseMutation) AddedField(name string) (ent.Value, bool) {
 // type.
 func (m *AppGoodBaseMutation) AddField(name string, value ent.Value) error {
 	switch name {
+	case appgoodbase.FieldCreatedAt:
+		v, ok := value.(int32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddCreatedAt(v)
+		return nil
+	case appgoodbase.FieldUpdatedAt:
+		v, ok := value.(int32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddUpdatedAt(v)
+		return nil
+	case appgoodbase.FieldDeletedAt:
+		v, ok := value.(int32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddDeletedAt(v)
+		return nil
 	case appgoodbase.FieldDisplayIndex:
 		v, ok := value.(int32)
 		if !ok {
@@ -6017,6 +7052,15 @@ func (m *AppGoodBaseMutation) ResetField(name string) error {
 	case appgoodbase.FieldEntID:
 		m.ResetEntID()
 		return nil
+	case appgoodbase.FieldCreatedAt:
+		m.ResetCreatedAt()
+		return nil
+	case appgoodbase.FieldUpdatedAt:
+		m.ResetUpdatedAt()
+		return nil
+	case appgoodbase.FieldDeletedAt:
+		m.ResetDeletedAt()
+		return nil
 	case appgoodbase.FieldAppID:
 		m.ResetAppID()
 		return nil
@@ -6106,6 +7150,12 @@ type AppGoodDescriptionMutation struct {
 	typ           string
 	id            *uint32
 	ent_id        *uuid.UUID
+	created_at    *uint32
+	addcreated_at *int32
+	updated_at    *uint32
+	addupdated_at *int32
+	deleted_at    *uint32
+	adddeleted_at *int32
 	app_good_id   *uuid.UUID
 	description   *string
 	index         *uint8
@@ -6254,6 +7304,174 @@ func (m *AppGoodDescriptionMutation) OldEntID(ctx context.Context) (v uuid.UUID,
 // ResetEntID resets all changes to the "ent_id" field.
 func (m *AppGoodDescriptionMutation) ResetEntID() {
 	m.ent_id = nil
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (m *AppGoodDescriptionMutation) SetCreatedAt(u uint32) {
+	m.created_at = &u
+	m.addcreated_at = nil
+}
+
+// CreatedAt returns the value of the "created_at" field in the mutation.
+func (m *AppGoodDescriptionMutation) CreatedAt() (r uint32, exists bool) {
+	v := m.created_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldCreatedAt returns the old "created_at" field's value of the AppGoodDescription entity.
+// If the AppGoodDescription object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *AppGoodDescriptionMutation) OldCreatedAt(ctx context.Context) (v uint32, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldCreatedAt is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldCreatedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldCreatedAt: %w", err)
+	}
+	return oldValue.CreatedAt, nil
+}
+
+// AddCreatedAt adds u to the "created_at" field.
+func (m *AppGoodDescriptionMutation) AddCreatedAt(u int32) {
+	if m.addcreated_at != nil {
+		*m.addcreated_at += u
+	} else {
+		m.addcreated_at = &u
+	}
+}
+
+// AddedCreatedAt returns the value that was added to the "created_at" field in this mutation.
+func (m *AppGoodDescriptionMutation) AddedCreatedAt() (r int32, exists bool) {
+	v := m.addcreated_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetCreatedAt resets all changes to the "created_at" field.
+func (m *AppGoodDescriptionMutation) ResetCreatedAt() {
+	m.created_at = nil
+	m.addcreated_at = nil
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (m *AppGoodDescriptionMutation) SetUpdatedAt(u uint32) {
+	m.updated_at = &u
+	m.addupdated_at = nil
+}
+
+// UpdatedAt returns the value of the "updated_at" field in the mutation.
+func (m *AppGoodDescriptionMutation) UpdatedAt() (r uint32, exists bool) {
+	v := m.updated_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldUpdatedAt returns the old "updated_at" field's value of the AppGoodDescription entity.
+// If the AppGoodDescription object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *AppGoodDescriptionMutation) OldUpdatedAt(ctx context.Context) (v uint32, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldUpdatedAt is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldUpdatedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldUpdatedAt: %w", err)
+	}
+	return oldValue.UpdatedAt, nil
+}
+
+// AddUpdatedAt adds u to the "updated_at" field.
+func (m *AppGoodDescriptionMutation) AddUpdatedAt(u int32) {
+	if m.addupdated_at != nil {
+		*m.addupdated_at += u
+	} else {
+		m.addupdated_at = &u
+	}
+}
+
+// AddedUpdatedAt returns the value that was added to the "updated_at" field in this mutation.
+func (m *AppGoodDescriptionMutation) AddedUpdatedAt() (r int32, exists bool) {
+	v := m.addupdated_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetUpdatedAt resets all changes to the "updated_at" field.
+func (m *AppGoodDescriptionMutation) ResetUpdatedAt() {
+	m.updated_at = nil
+	m.addupdated_at = nil
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (m *AppGoodDescriptionMutation) SetDeletedAt(u uint32) {
+	m.deleted_at = &u
+	m.adddeleted_at = nil
+}
+
+// DeletedAt returns the value of the "deleted_at" field in the mutation.
+func (m *AppGoodDescriptionMutation) DeletedAt() (r uint32, exists bool) {
+	v := m.deleted_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldDeletedAt returns the old "deleted_at" field's value of the AppGoodDescription entity.
+// If the AppGoodDescription object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *AppGoodDescriptionMutation) OldDeletedAt(ctx context.Context) (v uint32, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldDeletedAt is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldDeletedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldDeletedAt: %w", err)
+	}
+	return oldValue.DeletedAt, nil
+}
+
+// AddDeletedAt adds u to the "deleted_at" field.
+func (m *AppGoodDescriptionMutation) AddDeletedAt(u int32) {
+	if m.adddeleted_at != nil {
+		*m.adddeleted_at += u
+	} else {
+		m.adddeleted_at = &u
+	}
+}
+
+// AddedDeletedAt returns the value that was added to the "deleted_at" field in this mutation.
+func (m *AppGoodDescriptionMutation) AddedDeletedAt() (r int32, exists bool) {
+	v := m.adddeleted_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetDeletedAt resets all changes to the "deleted_at" field.
+func (m *AppGoodDescriptionMutation) ResetDeletedAt() {
+	m.deleted_at = nil
+	m.adddeleted_at = nil
 }
 
 // SetAppGoodID sets the "app_good_id" field.
@@ -6458,9 +7676,18 @@ func (m *AppGoodDescriptionMutation) Type() string {
 // order to get all numeric fields that were incremented/decremented, call
 // AddedFields().
 func (m *AppGoodDescriptionMutation) Fields() []string {
-	fields := make([]string, 0, 4)
+	fields := make([]string, 0, 7)
 	if m.ent_id != nil {
 		fields = append(fields, appgooddescription.FieldEntID)
+	}
+	if m.created_at != nil {
+		fields = append(fields, appgooddescription.FieldCreatedAt)
+	}
+	if m.updated_at != nil {
+		fields = append(fields, appgooddescription.FieldUpdatedAt)
+	}
+	if m.deleted_at != nil {
+		fields = append(fields, appgooddescription.FieldDeletedAt)
 	}
 	if m.app_good_id != nil {
 		fields = append(fields, appgooddescription.FieldAppGoodID)
@@ -6481,6 +7708,12 @@ func (m *AppGoodDescriptionMutation) Field(name string) (ent.Value, bool) {
 	switch name {
 	case appgooddescription.FieldEntID:
 		return m.EntID()
+	case appgooddescription.FieldCreatedAt:
+		return m.CreatedAt()
+	case appgooddescription.FieldUpdatedAt:
+		return m.UpdatedAt()
+	case appgooddescription.FieldDeletedAt:
+		return m.DeletedAt()
 	case appgooddescription.FieldAppGoodID:
 		return m.AppGoodID()
 	case appgooddescription.FieldDescription:
@@ -6498,6 +7731,12 @@ func (m *AppGoodDescriptionMutation) OldField(ctx context.Context, name string) 
 	switch name {
 	case appgooddescription.FieldEntID:
 		return m.OldEntID(ctx)
+	case appgooddescription.FieldCreatedAt:
+		return m.OldCreatedAt(ctx)
+	case appgooddescription.FieldUpdatedAt:
+		return m.OldUpdatedAt(ctx)
+	case appgooddescription.FieldDeletedAt:
+		return m.OldDeletedAt(ctx)
 	case appgooddescription.FieldAppGoodID:
 		return m.OldAppGoodID(ctx)
 	case appgooddescription.FieldDescription:
@@ -6519,6 +7758,27 @@ func (m *AppGoodDescriptionMutation) SetField(name string, value ent.Value) erro
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetEntID(v)
+		return nil
+	case appgooddescription.FieldCreatedAt:
+		v, ok := value.(uint32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetCreatedAt(v)
+		return nil
+	case appgooddescription.FieldUpdatedAt:
+		v, ok := value.(uint32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetUpdatedAt(v)
+		return nil
+	case appgooddescription.FieldDeletedAt:
+		v, ok := value.(uint32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetDeletedAt(v)
 		return nil
 	case appgooddescription.FieldAppGoodID:
 		v, ok := value.(uuid.UUID)
@@ -6549,6 +7809,15 @@ func (m *AppGoodDescriptionMutation) SetField(name string, value ent.Value) erro
 // this mutation.
 func (m *AppGoodDescriptionMutation) AddedFields() []string {
 	var fields []string
+	if m.addcreated_at != nil {
+		fields = append(fields, appgooddescription.FieldCreatedAt)
+	}
+	if m.addupdated_at != nil {
+		fields = append(fields, appgooddescription.FieldUpdatedAt)
+	}
+	if m.adddeleted_at != nil {
+		fields = append(fields, appgooddescription.FieldDeletedAt)
+	}
 	if m.addindex != nil {
 		fields = append(fields, appgooddescription.FieldIndex)
 	}
@@ -6560,6 +7829,12 @@ func (m *AppGoodDescriptionMutation) AddedFields() []string {
 // was not set, or was not defined in the schema.
 func (m *AppGoodDescriptionMutation) AddedField(name string) (ent.Value, bool) {
 	switch name {
+	case appgooddescription.FieldCreatedAt:
+		return m.AddedCreatedAt()
+	case appgooddescription.FieldUpdatedAt:
+		return m.AddedUpdatedAt()
+	case appgooddescription.FieldDeletedAt:
+		return m.AddedDeletedAt()
 	case appgooddescription.FieldIndex:
 		return m.AddedIndex()
 	}
@@ -6571,6 +7846,27 @@ func (m *AppGoodDescriptionMutation) AddedField(name string) (ent.Value, bool) {
 // type.
 func (m *AppGoodDescriptionMutation) AddField(name string, value ent.Value) error {
 	switch name {
+	case appgooddescription.FieldCreatedAt:
+		v, ok := value.(int32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddCreatedAt(v)
+		return nil
+	case appgooddescription.FieldUpdatedAt:
+		v, ok := value.(int32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddUpdatedAt(v)
+		return nil
+	case appgooddescription.FieldDeletedAt:
+		v, ok := value.(int32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddDeletedAt(v)
+		return nil
 	case appgooddescription.FieldIndex:
 		v, ok := value.(int8)
 		if !ok {
@@ -6628,6 +7924,15 @@ func (m *AppGoodDescriptionMutation) ResetField(name string) error {
 	switch name {
 	case appgooddescription.FieldEntID:
 		m.ResetEntID()
+		return nil
+	case appgooddescription.FieldCreatedAt:
+		m.ResetCreatedAt()
+		return nil
+	case appgooddescription.FieldUpdatedAt:
+		m.ResetUpdatedAt()
+		return nil
+	case appgooddescription.FieldDeletedAt:
+		m.ResetDeletedAt()
 		return nil
 	case appgooddescription.FieldAppGoodID:
 		m.ResetAppGoodID()
@@ -6697,6 +8002,12 @@ type AppGoodDisplayColorMutation struct {
 	typ           string
 	id            *uint32
 	ent_id        *uuid.UUID
+	created_at    *uint32
+	addcreated_at *int32
+	updated_at    *uint32
+	addupdated_at *int32
+	deleted_at    *uint32
+	adddeleted_at *int32
 	app_good_id   *uuid.UUID
 	color         *string
 	index         *uint8
@@ -6845,6 +8156,174 @@ func (m *AppGoodDisplayColorMutation) OldEntID(ctx context.Context) (v uuid.UUID
 // ResetEntID resets all changes to the "ent_id" field.
 func (m *AppGoodDisplayColorMutation) ResetEntID() {
 	m.ent_id = nil
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (m *AppGoodDisplayColorMutation) SetCreatedAt(u uint32) {
+	m.created_at = &u
+	m.addcreated_at = nil
+}
+
+// CreatedAt returns the value of the "created_at" field in the mutation.
+func (m *AppGoodDisplayColorMutation) CreatedAt() (r uint32, exists bool) {
+	v := m.created_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldCreatedAt returns the old "created_at" field's value of the AppGoodDisplayColor entity.
+// If the AppGoodDisplayColor object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *AppGoodDisplayColorMutation) OldCreatedAt(ctx context.Context) (v uint32, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldCreatedAt is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldCreatedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldCreatedAt: %w", err)
+	}
+	return oldValue.CreatedAt, nil
+}
+
+// AddCreatedAt adds u to the "created_at" field.
+func (m *AppGoodDisplayColorMutation) AddCreatedAt(u int32) {
+	if m.addcreated_at != nil {
+		*m.addcreated_at += u
+	} else {
+		m.addcreated_at = &u
+	}
+}
+
+// AddedCreatedAt returns the value that was added to the "created_at" field in this mutation.
+func (m *AppGoodDisplayColorMutation) AddedCreatedAt() (r int32, exists bool) {
+	v := m.addcreated_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetCreatedAt resets all changes to the "created_at" field.
+func (m *AppGoodDisplayColorMutation) ResetCreatedAt() {
+	m.created_at = nil
+	m.addcreated_at = nil
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (m *AppGoodDisplayColorMutation) SetUpdatedAt(u uint32) {
+	m.updated_at = &u
+	m.addupdated_at = nil
+}
+
+// UpdatedAt returns the value of the "updated_at" field in the mutation.
+func (m *AppGoodDisplayColorMutation) UpdatedAt() (r uint32, exists bool) {
+	v := m.updated_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldUpdatedAt returns the old "updated_at" field's value of the AppGoodDisplayColor entity.
+// If the AppGoodDisplayColor object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *AppGoodDisplayColorMutation) OldUpdatedAt(ctx context.Context) (v uint32, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldUpdatedAt is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldUpdatedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldUpdatedAt: %w", err)
+	}
+	return oldValue.UpdatedAt, nil
+}
+
+// AddUpdatedAt adds u to the "updated_at" field.
+func (m *AppGoodDisplayColorMutation) AddUpdatedAt(u int32) {
+	if m.addupdated_at != nil {
+		*m.addupdated_at += u
+	} else {
+		m.addupdated_at = &u
+	}
+}
+
+// AddedUpdatedAt returns the value that was added to the "updated_at" field in this mutation.
+func (m *AppGoodDisplayColorMutation) AddedUpdatedAt() (r int32, exists bool) {
+	v := m.addupdated_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetUpdatedAt resets all changes to the "updated_at" field.
+func (m *AppGoodDisplayColorMutation) ResetUpdatedAt() {
+	m.updated_at = nil
+	m.addupdated_at = nil
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (m *AppGoodDisplayColorMutation) SetDeletedAt(u uint32) {
+	m.deleted_at = &u
+	m.adddeleted_at = nil
+}
+
+// DeletedAt returns the value of the "deleted_at" field in the mutation.
+func (m *AppGoodDisplayColorMutation) DeletedAt() (r uint32, exists bool) {
+	v := m.deleted_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldDeletedAt returns the old "deleted_at" field's value of the AppGoodDisplayColor entity.
+// If the AppGoodDisplayColor object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *AppGoodDisplayColorMutation) OldDeletedAt(ctx context.Context) (v uint32, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldDeletedAt is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldDeletedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldDeletedAt: %w", err)
+	}
+	return oldValue.DeletedAt, nil
+}
+
+// AddDeletedAt adds u to the "deleted_at" field.
+func (m *AppGoodDisplayColorMutation) AddDeletedAt(u int32) {
+	if m.adddeleted_at != nil {
+		*m.adddeleted_at += u
+	} else {
+		m.adddeleted_at = &u
+	}
+}
+
+// AddedDeletedAt returns the value that was added to the "deleted_at" field in this mutation.
+func (m *AppGoodDisplayColorMutation) AddedDeletedAt() (r int32, exists bool) {
+	v := m.adddeleted_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetDeletedAt resets all changes to the "deleted_at" field.
+func (m *AppGoodDisplayColorMutation) ResetDeletedAt() {
+	m.deleted_at = nil
+	m.adddeleted_at = nil
 }
 
 // SetAppGoodID sets the "app_good_id" field.
@@ -7049,9 +8528,18 @@ func (m *AppGoodDisplayColorMutation) Type() string {
 // order to get all numeric fields that were incremented/decremented, call
 // AddedFields().
 func (m *AppGoodDisplayColorMutation) Fields() []string {
-	fields := make([]string, 0, 4)
+	fields := make([]string, 0, 7)
 	if m.ent_id != nil {
 		fields = append(fields, appgooddisplaycolor.FieldEntID)
+	}
+	if m.created_at != nil {
+		fields = append(fields, appgooddisplaycolor.FieldCreatedAt)
+	}
+	if m.updated_at != nil {
+		fields = append(fields, appgooddisplaycolor.FieldUpdatedAt)
+	}
+	if m.deleted_at != nil {
+		fields = append(fields, appgooddisplaycolor.FieldDeletedAt)
 	}
 	if m.app_good_id != nil {
 		fields = append(fields, appgooddisplaycolor.FieldAppGoodID)
@@ -7072,6 +8560,12 @@ func (m *AppGoodDisplayColorMutation) Field(name string) (ent.Value, bool) {
 	switch name {
 	case appgooddisplaycolor.FieldEntID:
 		return m.EntID()
+	case appgooddisplaycolor.FieldCreatedAt:
+		return m.CreatedAt()
+	case appgooddisplaycolor.FieldUpdatedAt:
+		return m.UpdatedAt()
+	case appgooddisplaycolor.FieldDeletedAt:
+		return m.DeletedAt()
 	case appgooddisplaycolor.FieldAppGoodID:
 		return m.AppGoodID()
 	case appgooddisplaycolor.FieldColor:
@@ -7089,6 +8583,12 @@ func (m *AppGoodDisplayColorMutation) OldField(ctx context.Context, name string)
 	switch name {
 	case appgooddisplaycolor.FieldEntID:
 		return m.OldEntID(ctx)
+	case appgooddisplaycolor.FieldCreatedAt:
+		return m.OldCreatedAt(ctx)
+	case appgooddisplaycolor.FieldUpdatedAt:
+		return m.OldUpdatedAt(ctx)
+	case appgooddisplaycolor.FieldDeletedAt:
+		return m.OldDeletedAt(ctx)
 	case appgooddisplaycolor.FieldAppGoodID:
 		return m.OldAppGoodID(ctx)
 	case appgooddisplaycolor.FieldColor:
@@ -7110,6 +8610,27 @@ func (m *AppGoodDisplayColorMutation) SetField(name string, value ent.Value) err
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetEntID(v)
+		return nil
+	case appgooddisplaycolor.FieldCreatedAt:
+		v, ok := value.(uint32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetCreatedAt(v)
+		return nil
+	case appgooddisplaycolor.FieldUpdatedAt:
+		v, ok := value.(uint32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetUpdatedAt(v)
+		return nil
+	case appgooddisplaycolor.FieldDeletedAt:
+		v, ok := value.(uint32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetDeletedAt(v)
 		return nil
 	case appgooddisplaycolor.FieldAppGoodID:
 		v, ok := value.(uuid.UUID)
@@ -7140,6 +8661,15 @@ func (m *AppGoodDisplayColorMutation) SetField(name string, value ent.Value) err
 // this mutation.
 func (m *AppGoodDisplayColorMutation) AddedFields() []string {
 	var fields []string
+	if m.addcreated_at != nil {
+		fields = append(fields, appgooddisplaycolor.FieldCreatedAt)
+	}
+	if m.addupdated_at != nil {
+		fields = append(fields, appgooddisplaycolor.FieldUpdatedAt)
+	}
+	if m.adddeleted_at != nil {
+		fields = append(fields, appgooddisplaycolor.FieldDeletedAt)
+	}
 	if m.addindex != nil {
 		fields = append(fields, appgooddisplaycolor.FieldIndex)
 	}
@@ -7151,6 +8681,12 @@ func (m *AppGoodDisplayColorMutation) AddedFields() []string {
 // was not set, or was not defined in the schema.
 func (m *AppGoodDisplayColorMutation) AddedField(name string) (ent.Value, bool) {
 	switch name {
+	case appgooddisplaycolor.FieldCreatedAt:
+		return m.AddedCreatedAt()
+	case appgooddisplaycolor.FieldUpdatedAt:
+		return m.AddedUpdatedAt()
+	case appgooddisplaycolor.FieldDeletedAt:
+		return m.AddedDeletedAt()
 	case appgooddisplaycolor.FieldIndex:
 		return m.AddedIndex()
 	}
@@ -7162,6 +8698,27 @@ func (m *AppGoodDisplayColorMutation) AddedField(name string) (ent.Value, bool) 
 // type.
 func (m *AppGoodDisplayColorMutation) AddField(name string, value ent.Value) error {
 	switch name {
+	case appgooddisplaycolor.FieldCreatedAt:
+		v, ok := value.(int32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddCreatedAt(v)
+		return nil
+	case appgooddisplaycolor.FieldUpdatedAt:
+		v, ok := value.(int32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddUpdatedAt(v)
+		return nil
+	case appgooddisplaycolor.FieldDeletedAt:
+		v, ok := value.(int32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddDeletedAt(v)
+		return nil
 	case appgooddisplaycolor.FieldIndex:
 		v, ok := value.(int8)
 		if !ok {
@@ -7219,6 +8776,15 @@ func (m *AppGoodDisplayColorMutation) ResetField(name string) error {
 	switch name {
 	case appgooddisplaycolor.FieldEntID:
 		m.ResetEntID()
+		return nil
+	case appgooddisplaycolor.FieldCreatedAt:
+		m.ResetCreatedAt()
+		return nil
+	case appgooddisplaycolor.FieldUpdatedAt:
+		m.ResetUpdatedAt()
+		return nil
+	case appgooddisplaycolor.FieldDeletedAt:
+		m.ResetDeletedAt()
 		return nil
 	case appgooddisplaycolor.FieldAppGoodID:
 		m.ResetAppGoodID()
@@ -7288,6 +8854,12 @@ type AppGoodDisplayNameMutation struct {
 	typ           string
 	id            *uint32
 	ent_id        *uuid.UUID
+	created_at    *uint32
+	addcreated_at *int32
+	updated_at    *uint32
+	addupdated_at *int32
+	deleted_at    *uint32
+	adddeleted_at *int32
 	app_good_id   *uuid.UUID
 	name          *string
 	index         *uint8
@@ -7436,6 +9008,174 @@ func (m *AppGoodDisplayNameMutation) OldEntID(ctx context.Context) (v uuid.UUID,
 // ResetEntID resets all changes to the "ent_id" field.
 func (m *AppGoodDisplayNameMutation) ResetEntID() {
 	m.ent_id = nil
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (m *AppGoodDisplayNameMutation) SetCreatedAt(u uint32) {
+	m.created_at = &u
+	m.addcreated_at = nil
+}
+
+// CreatedAt returns the value of the "created_at" field in the mutation.
+func (m *AppGoodDisplayNameMutation) CreatedAt() (r uint32, exists bool) {
+	v := m.created_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldCreatedAt returns the old "created_at" field's value of the AppGoodDisplayName entity.
+// If the AppGoodDisplayName object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *AppGoodDisplayNameMutation) OldCreatedAt(ctx context.Context) (v uint32, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldCreatedAt is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldCreatedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldCreatedAt: %w", err)
+	}
+	return oldValue.CreatedAt, nil
+}
+
+// AddCreatedAt adds u to the "created_at" field.
+func (m *AppGoodDisplayNameMutation) AddCreatedAt(u int32) {
+	if m.addcreated_at != nil {
+		*m.addcreated_at += u
+	} else {
+		m.addcreated_at = &u
+	}
+}
+
+// AddedCreatedAt returns the value that was added to the "created_at" field in this mutation.
+func (m *AppGoodDisplayNameMutation) AddedCreatedAt() (r int32, exists bool) {
+	v := m.addcreated_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetCreatedAt resets all changes to the "created_at" field.
+func (m *AppGoodDisplayNameMutation) ResetCreatedAt() {
+	m.created_at = nil
+	m.addcreated_at = nil
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (m *AppGoodDisplayNameMutation) SetUpdatedAt(u uint32) {
+	m.updated_at = &u
+	m.addupdated_at = nil
+}
+
+// UpdatedAt returns the value of the "updated_at" field in the mutation.
+func (m *AppGoodDisplayNameMutation) UpdatedAt() (r uint32, exists bool) {
+	v := m.updated_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldUpdatedAt returns the old "updated_at" field's value of the AppGoodDisplayName entity.
+// If the AppGoodDisplayName object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *AppGoodDisplayNameMutation) OldUpdatedAt(ctx context.Context) (v uint32, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldUpdatedAt is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldUpdatedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldUpdatedAt: %w", err)
+	}
+	return oldValue.UpdatedAt, nil
+}
+
+// AddUpdatedAt adds u to the "updated_at" field.
+func (m *AppGoodDisplayNameMutation) AddUpdatedAt(u int32) {
+	if m.addupdated_at != nil {
+		*m.addupdated_at += u
+	} else {
+		m.addupdated_at = &u
+	}
+}
+
+// AddedUpdatedAt returns the value that was added to the "updated_at" field in this mutation.
+func (m *AppGoodDisplayNameMutation) AddedUpdatedAt() (r int32, exists bool) {
+	v := m.addupdated_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetUpdatedAt resets all changes to the "updated_at" field.
+func (m *AppGoodDisplayNameMutation) ResetUpdatedAt() {
+	m.updated_at = nil
+	m.addupdated_at = nil
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (m *AppGoodDisplayNameMutation) SetDeletedAt(u uint32) {
+	m.deleted_at = &u
+	m.adddeleted_at = nil
+}
+
+// DeletedAt returns the value of the "deleted_at" field in the mutation.
+func (m *AppGoodDisplayNameMutation) DeletedAt() (r uint32, exists bool) {
+	v := m.deleted_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldDeletedAt returns the old "deleted_at" field's value of the AppGoodDisplayName entity.
+// If the AppGoodDisplayName object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *AppGoodDisplayNameMutation) OldDeletedAt(ctx context.Context) (v uint32, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldDeletedAt is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldDeletedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldDeletedAt: %w", err)
+	}
+	return oldValue.DeletedAt, nil
+}
+
+// AddDeletedAt adds u to the "deleted_at" field.
+func (m *AppGoodDisplayNameMutation) AddDeletedAt(u int32) {
+	if m.adddeleted_at != nil {
+		*m.adddeleted_at += u
+	} else {
+		m.adddeleted_at = &u
+	}
+}
+
+// AddedDeletedAt returns the value that was added to the "deleted_at" field in this mutation.
+func (m *AppGoodDisplayNameMutation) AddedDeletedAt() (r int32, exists bool) {
+	v := m.adddeleted_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetDeletedAt resets all changes to the "deleted_at" field.
+func (m *AppGoodDisplayNameMutation) ResetDeletedAt() {
+	m.deleted_at = nil
+	m.adddeleted_at = nil
 }
 
 // SetAppGoodID sets the "app_good_id" field.
@@ -7640,9 +9380,18 @@ func (m *AppGoodDisplayNameMutation) Type() string {
 // order to get all numeric fields that were incremented/decremented, call
 // AddedFields().
 func (m *AppGoodDisplayNameMutation) Fields() []string {
-	fields := make([]string, 0, 4)
+	fields := make([]string, 0, 7)
 	if m.ent_id != nil {
 		fields = append(fields, appgooddisplayname.FieldEntID)
+	}
+	if m.created_at != nil {
+		fields = append(fields, appgooddisplayname.FieldCreatedAt)
+	}
+	if m.updated_at != nil {
+		fields = append(fields, appgooddisplayname.FieldUpdatedAt)
+	}
+	if m.deleted_at != nil {
+		fields = append(fields, appgooddisplayname.FieldDeletedAt)
 	}
 	if m.app_good_id != nil {
 		fields = append(fields, appgooddisplayname.FieldAppGoodID)
@@ -7663,6 +9412,12 @@ func (m *AppGoodDisplayNameMutation) Field(name string) (ent.Value, bool) {
 	switch name {
 	case appgooddisplayname.FieldEntID:
 		return m.EntID()
+	case appgooddisplayname.FieldCreatedAt:
+		return m.CreatedAt()
+	case appgooddisplayname.FieldUpdatedAt:
+		return m.UpdatedAt()
+	case appgooddisplayname.FieldDeletedAt:
+		return m.DeletedAt()
 	case appgooddisplayname.FieldAppGoodID:
 		return m.AppGoodID()
 	case appgooddisplayname.FieldName:
@@ -7680,6 +9435,12 @@ func (m *AppGoodDisplayNameMutation) OldField(ctx context.Context, name string) 
 	switch name {
 	case appgooddisplayname.FieldEntID:
 		return m.OldEntID(ctx)
+	case appgooddisplayname.FieldCreatedAt:
+		return m.OldCreatedAt(ctx)
+	case appgooddisplayname.FieldUpdatedAt:
+		return m.OldUpdatedAt(ctx)
+	case appgooddisplayname.FieldDeletedAt:
+		return m.OldDeletedAt(ctx)
 	case appgooddisplayname.FieldAppGoodID:
 		return m.OldAppGoodID(ctx)
 	case appgooddisplayname.FieldName:
@@ -7701,6 +9462,27 @@ func (m *AppGoodDisplayNameMutation) SetField(name string, value ent.Value) erro
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetEntID(v)
+		return nil
+	case appgooddisplayname.FieldCreatedAt:
+		v, ok := value.(uint32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetCreatedAt(v)
+		return nil
+	case appgooddisplayname.FieldUpdatedAt:
+		v, ok := value.(uint32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetUpdatedAt(v)
+		return nil
+	case appgooddisplayname.FieldDeletedAt:
+		v, ok := value.(uint32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetDeletedAt(v)
 		return nil
 	case appgooddisplayname.FieldAppGoodID:
 		v, ok := value.(uuid.UUID)
@@ -7731,6 +9513,15 @@ func (m *AppGoodDisplayNameMutation) SetField(name string, value ent.Value) erro
 // this mutation.
 func (m *AppGoodDisplayNameMutation) AddedFields() []string {
 	var fields []string
+	if m.addcreated_at != nil {
+		fields = append(fields, appgooddisplayname.FieldCreatedAt)
+	}
+	if m.addupdated_at != nil {
+		fields = append(fields, appgooddisplayname.FieldUpdatedAt)
+	}
+	if m.adddeleted_at != nil {
+		fields = append(fields, appgooddisplayname.FieldDeletedAt)
+	}
 	if m.addindex != nil {
 		fields = append(fields, appgooddisplayname.FieldIndex)
 	}
@@ -7742,6 +9533,12 @@ func (m *AppGoodDisplayNameMutation) AddedFields() []string {
 // was not set, or was not defined in the schema.
 func (m *AppGoodDisplayNameMutation) AddedField(name string) (ent.Value, bool) {
 	switch name {
+	case appgooddisplayname.FieldCreatedAt:
+		return m.AddedCreatedAt()
+	case appgooddisplayname.FieldUpdatedAt:
+		return m.AddedUpdatedAt()
+	case appgooddisplayname.FieldDeletedAt:
+		return m.AddedDeletedAt()
 	case appgooddisplayname.FieldIndex:
 		return m.AddedIndex()
 	}
@@ -7753,6 +9550,27 @@ func (m *AppGoodDisplayNameMutation) AddedField(name string) (ent.Value, bool) {
 // type.
 func (m *AppGoodDisplayNameMutation) AddField(name string, value ent.Value) error {
 	switch name {
+	case appgooddisplayname.FieldCreatedAt:
+		v, ok := value.(int32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddCreatedAt(v)
+		return nil
+	case appgooddisplayname.FieldUpdatedAt:
+		v, ok := value.(int32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddUpdatedAt(v)
+		return nil
+	case appgooddisplayname.FieldDeletedAt:
+		v, ok := value.(int32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddDeletedAt(v)
+		return nil
 	case appgooddisplayname.FieldIndex:
 		v, ok := value.(int8)
 		if !ok {
@@ -7810,6 +9628,15 @@ func (m *AppGoodDisplayNameMutation) ResetField(name string) error {
 	switch name {
 	case appgooddisplayname.FieldEntID:
 		m.ResetEntID()
+		return nil
+	case appgooddisplayname.FieldCreatedAt:
+		m.ResetCreatedAt()
+		return nil
+	case appgooddisplayname.FieldUpdatedAt:
+		m.ResetUpdatedAt()
+		return nil
+	case appgooddisplayname.FieldDeletedAt:
+		m.ResetDeletedAt()
 		return nil
 	case appgooddisplayname.FieldAppGoodID:
 		m.ResetAppGoodID()
@@ -7879,6 +9706,12 @@ type AppGoodLabelMutation struct {
 	typ            string
 	id             *uint32
 	ent_id         *uuid.UUID
+	created_at     *uint32
+	addcreated_at  *int32
+	updated_at     *uint32
+	addupdated_at  *int32
+	deleted_at     *uint32
+	adddeleted_at  *int32
 	app_good_id    *uuid.UUID
 	icon           *string
 	icon_bg_color  *string
@@ -8030,6 +9863,174 @@ func (m *AppGoodLabelMutation) OldEntID(ctx context.Context) (v uuid.UUID, err e
 // ResetEntID resets all changes to the "ent_id" field.
 func (m *AppGoodLabelMutation) ResetEntID() {
 	m.ent_id = nil
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (m *AppGoodLabelMutation) SetCreatedAt(u uint32) {
+	m.created_at = &u
+	m.addcreated_at = nil
+}
+
+// CreatedAt returns the value of the "created_at" field in the mutation.
+func (m *AppGoodLabelMutation) CreatedAt() (r uint32, exists bool) {
+	v := m.created_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldCreatedAt returns the old "created_at" field's value of the AppGoodLabel entity.
+// If the AppGoodLabel object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *AppGoodLabelMutation) OldCreatedAt(ctx context.Context) (v uint32, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldCreatedAt is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldCreatedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldCreatedAt: %w", err)
+	}
+	return oldValue.CreatedAt, nil
+}
+
+// AddCreatedAt adds u to the "created_at" field.
+func (m *AppGoodLabelMutation) AddCreatedAt(u int32) {
+	if m.addcreated_at != nil {
+		*m.addcreated_at += u
+	} else {
+		m.addcreated_at = &u
+	}
+}
+
+// AddedCreatedAt returns the value that was added to the "created_at" field in this mutation.
+func (m *AppGoodLabelMutation) AddedCreatedAt() (r int32, exists bool) {
+	v := m.addcreated_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetCreatedAt resets all changes to the "created_at" field.
+func (m *AppGoodLabelMutation) ResetCreatedAt() {
+	m.created_at = nil
+	m.addcreated_at = nil
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (m *AppGoodLabelMutation) SetUpdatedAt(u uint32) {
+	m.updated_at = &u
+	m.addupdated_at = nil
+}
+
+// UpdatedAt returns the value of the "updated_at" field in the mutation.
+func (m *AppGoodLabelMutation) UpdatedAt() (r uint32, exists bool) {
+	v := m.updated_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldUpdatedAt returns the old "updated_at" field's value of the AppGoodLabel entity.
+// If the AppGoodLabel object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *AppGoodLabelMutation) OldUpdatedAt(ctx context.Context) (v uint32, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldUpdatedAt is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldUpdatedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldUpdatedAt: %w", err)
+	}
+	return oldValue.UpdatedAt, nil
+}
+
+// AddUpdatedAt adds u to the "updated_at" field.
+func (m *AppGoodLabelMutation) AddUpdatedAt(u int32) {
+	if m.addupdated_at != nil {
+		*m.addupdated_at += u
+	} else {
+		m.addupdated_at = &u
+	}
+}
+
+// AddedUpdatedAt returns the value that was added to the "updated_at" field in this mutation.
+func (m *AppGoodLabelMutation) AddedUpdatedAt() (r int32, exists bool) {
+	v := m.addupdated_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetUpdatedAt resets all changes to the "updated_at" field.
+func (m *AppGoodLabelMutation) ResetUpdatedAt() {
+	m.updated_at = nil
+	m.addupdated_at = nil
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (m *AppGoodLabelMutation) SetDeletedAt(u uint32) {
+	m.deleted_at = &u
+	m.adddeleted_at = nil
+}
+
+// DeletedAt returns the value of the "deleted_at" field in the mutation.
+func (m *AppGoodLabelMutation) DeletedAt() (r uint32, exists bool) {
+	v := m.deleted_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldDeletedAt returns the old "deleted_at" field's value of the AppGoodLabel entity.
+// If the AppGoodLabel object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *AppGoodLabelMutation) OldDeletedAt(ctx context.Context) (v uint32, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldDeletedAt is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldDeletedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldDeletedAt: %w", err)
+	}
+	return oldValue.DeletedAt, nil
+}
+
+// AddDeletedAt adds u to the "deleted_at" field.
+func (m *AppGoodLabelMutation) AddDeletedAt(u int32) {
+	if m.adddeleted_at != nil {
+		*m.adddeleted_at += u
+	} else {
+		m.adddeleted_at = &u
+	}
+}
+
+// AddedDeletedAt returns the value that was added to the "deleted_at" field in this mutation.
+func (m *AppGoodLabelMutation) AddedDeletedAt() (r int32, exists bool) {
+	v := m.adddeleted_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetDeletedAt resets all changes to the "deleted_at" field.
+func (m *AppGoodLabelMutation) ResetDeletedAt() {
+	m.deleted_at = nil
+	m.adddeleted_at = nil
 }
 
 // SetAppGoodID sets the "app_good_id" field.
@@ -8381,9 +10382,18 @@ func (m *AppGoodLabelMutation) Type() string {
 // order to get all numeric fields that were incremented/decremented, call
 // AddedFields().
 func (m *AppGoodLabelMutation) Fields() []string {
-	fields := make([]string, 0, 7)
+	fields := make([]string, 0, 10)
 	if m.ent_id != nil {
 		fields = append(fields, appgoodlabel.FieldEntID)
+	}
+	if m.created_at != nil {
+		fields = append(fields, appgoodlabel.FieldCreatedAt)
+	}
+	if m.updated_at != nil {
+		fields = append(fields, appgoodlabel.FieldUpdatedAt)
+	}
+	if m.deleted_at != nil {
+		fields = append(fields, appgoodlabel.FieldDeletedAt)
 	}
 	if m.app_good_id != nil {
 		fields = append(fields, appgoodlabel.FieldAppGoodID)
@@ -8413,6 +10423,12 @@ func (m *AppGoodLabelMutation) Field(name string) (ent.Value, bool) {
 	switch name {
 	case appgoodlabel.FieldEntID:
 		return m.EntID()
+	case appgoodlabel.FieldCreatedAt:
+		return m.CreatedAt()
+	case appgoodlabel.FieldUpdatedAt:
+		return m.UpdatedAt()
+	case appgoodlabel.FieldDeletedAt:
+		return m.DeletedAt()
 	case appgoodlabel.FieldAppGoodID:
 		return m.AppGoodID()
 	case appgoodlabel.FieldIcon:
@@ -8436,6 +10452,12 @@ func (m *AppGoodLabelMutation) OldField(ctx context.Context, name string) (ent.V
 	switch name {
 	case appgoodlabel.FieldEntID:
 		return m.OldEntID(ctx)
+	case appgoodlabel.FieldCreatedAt:
+		return m.OldCreatedAt(ctx)
+	case appgoodlabel.FieldUpdatedAt:
+		return m.OldUpdatedAt(ctx)
+	case appgoodlabel.FieldDeletedAt:
+		return m.OldDeletedAt(ctx)
 	case appgoodlabel.FieldAppGoodID:
 		return m.OldAppGoodID(ctx)
 	case appgoodlabel.FieldIcon:
@@ -8463,6 +10485,27 @@ func (m *AppGoodLabelMutation) SetField(name string, value ent.Value) error {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetEntID(v)
+		return nil
+	case appgoodlabel.FieldCreatedAt:
+		v, ok := value.(uint32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetCreatedAt(v)
+		return nil
+	case appgoodlabel.FieldUpdatedAt:
+		v, ok := value.(uint32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetUpdatedAt(v)
+		return nil
+	case appgoodlabel.FieldDeletedAt:
+		v, ok := value.(uint32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetDeletedAt(v)
 		return nil
 	case appgoodlabel.FieldAppGoodID:
 		v, ok := value.(uuid.UUID)
@@ -8514,6 +10557,15 @@ func (m *AppGoodLabelMutation) SetField(name string, value ent.Value) error {
 // this mutation.
 func (m *AppGoodLabelMutation) AddedFields() []string {
 	var fields []string
+	if m.addcreated_at != nil {
+		fields = append(fields, appgoodlabel.FieldCreatedAt)
+	}
+	if m.addupdated_at != nil {
+		fields = append(fields, appgoodlabel.FieldUpdatedAt)
+	}
+	if m.adddeleted_at != nil {
+		fields = append(fields, appgoodlabel.FieldDeletedAt)
+	}
 	if m.addindex != nil {
 		fields = append(fields, appgoodlabel.FieldIndex)
 	}
@@ -8525,6 +10577,12 @@ func (m *AppGoodLabelMutation) AddedFields() []string {
 // was not set, or was not defined in the schema.
 func (m *AppGoodLabelMutation) AddedField(name string) (ent.Value, bool) {
 	switch name {
+	case appgoodlabel.FieldCreatedAt:
+		return m.AddedCreatedAt()
+	case appgoodlabel.FieldUpdatedAt:
+		return m.AddedUpdatedAt()
+	case appgoodlabel.FieldDeletedAt:
+		return m.AddedDeletedAt()
 	case appgoodlabel.FieldIndex:
 		return m.AddedIndex()
 	}
@@ -8536,6 +10594,27 @@ func (m *AppGoodLabelMutation) AddedField(name string) (ent.Value, bool) {
 // type.
 func (m *AppGoodLabelMutation) AddField(name string, value ent.Value) error {
 	switch name {
+	case appgoodlabel.FieldCreatedAt:
+		v, ok := value.(int32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddCreatedAt(v)
+		return nil
+	case appgoodlabel.FieldUpdatedAt:
+		v, ok := value.(int32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddUpdatedAt(v)
+		return nil
+	case appgoodlabel.FieldDeletedAt:
+		v, ok := value.(int32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddDeletedAt(v)
+		return nil
 	case appgoodlabel.FieldIndex:
 		v, ok := value.(int8)
 		if !ok {
@@ -8611,6 +10690,15 @@ func (m *AppGoodLabelMutation) ResetField(name string) error {
 	switch name {
 	case appgoodlabel.FieldEntID:
 		m.ResetEntID()
+		return nil
+	case appgoodlabel.FieldCreatedAt:
+		m.ResetCreatedAt()
+		return nil
+	case appgoodlabel.FieldUpdatedAt:
+		m.ResetUpdatedAt()
+		return nil
+	case appgoodlabel.FieldDeletedAt:
+		m.ResetDeletedAt()
 		return nil
 	case appgoodlabel.FieldAppGoodID:
 		m.ResetAppGoodID()
@@ -8689,6 +10777,12 @@ type AppGoodPosterMutation struct {
 	typ           string
 	id            *uint32
 	ent_id        *uuid.UUID
+	created_at    *uint32
+	addcreated_at *int32
+	updated_at    *uint32
+	addupdated_at *int32
+	deleted_at    *uint32
+	adddeleted_at *int32
 	app_good_id   *uuid.UUID
 	poster        *string
 	index         *uint8
@@ -8837,6 +10931,174 @@ func (m *AppGoodPosterMutation) OldEntID(ctx context.Context) (v uuid.UUID, err 
 // ResetEntID resets all changes to the "ent_id" field.
 func (m *AppGoodPosterMutation) ResetEntID() {
 	m.ent_id = nil
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (m *AppGoodPosterMutation) SetCreatedAt(u uint32) {
+	m.created_at = &u
+	m.addcreated_at = nil
+}
+
+// CreatedAt returns the value of the "created_at" field in the mutation.
+func (m *AppGoodPosterMutation) CreatedAt() (r uint32, exists bool) {
+	v := m.created_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldCreatedAt returns the old "created_at" field's value of the AppGoodPoster entity.
+// If the AppGoodPoster object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *AppGoodPosterMutation) OldCreatedAt(ctx context.Context) (v uint32, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldCreatedAt is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldCreatedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldCreatedAt: %w", err)
+	}
+	return oldValue.CreatedAt, nil
+}
+
+// AddCreatedAt adds u to the "created_at" field.
+func (m *AppGoodPosterMutation) AddCreatedAt(u int32) {
+	if m.addcreated_at != nil {
+		*m.addcreated_at += u
+	} else {
+		m.addcreated_at = &u
+	}
+}
+
+// AddedCreatedAt returns the value that was added to the "created_at" field in this mutation.
+func (m *AppGoodPosterMutation) AddedCreatedAt() (r int32, exists bool) {
+	v := m.addcreated_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetCreatedAt resets all changes to the "created_at" field.
+func (m *AppGoodPosterMutation) ResetCreatedAt() {
+	m.created_at = nil
+	m.addcreated_at = nil
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (m *AppGoodPosterMutation) SetUpdatedAt(u uint32) {
+	m.updated_at = &u
+	m.addupdated_at = nil
+}
+
+// UpdatedAt returns the value of the "updated_at" field in the mutation.
+func (m *AppGoodPosterMutation) UpdatedAt() (r uint32, exists bool) {
+	v := m.updated_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldUpdatedAt returns the old "updated_at" field's value of the AppGoodPoster entity.
+// If the AppGoodPoster object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *AppGoodPosterMutation) OldUpdatedAt(ctx context.Context) (v uint32, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldUpdatedAt is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldUpdatedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldUpdatedAt: %w", err)
+	}
+	return oldValue.UpdatedAt, nil
+}
+
+// AddUpdatedAt adds u to the "updated_at" field.
+func (m *AppGoodPosterMutation) AddUpdatedAt(u int32) {
+	if m.addupdated_at != nil {
+		*m.addupdated_at += u
+	} else {
+		m.addupdated_at = &u
+	}
+}
+
+// AddedUpdatedAt returns the value that was added to the "updated_at" field in this mutation.
+func (m *AppGoodPosterMutation) AddedUpdatedAt() (r int32, exists bool) {
+	v := m.addupdated_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetUpdatedAt resets all changes to the "updated_at" field.
+func (m *AppGoodPosterMutation) ResetUpdatedAt() {
+	m.updated_at = nil
+	m.addupdated_at = nil
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (m *AppGoodPosterMutation) SetDeletedAt(u uint32) {
+	m.deleted_at = &u
+	m.adddeleted_at = nil
+}
+
+// DeletedAt returns the value of the "deleted_at" field in the mutation.
+func (m *AppGoodPosterMutation) DeletedAt() (r uint32, exists bool) {
+	v := m.deleted_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldDeletedAt returns the old "deleted_at" field's value of the AppGoodPoster entity.
+// If the AppGoodPoster object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *AppGoodPosterMutation) OldDeletedAt(ctx context.Context) (v uint32, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldDeletedAt is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldDeletedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldDeletedAt: %w", err)
+	}
+	return oldValue.DeletedAt, nil
+}
+
+// AddDeletedAt adds u to the "deleted_at" field.
+func (m *AppGoodPosterMutation) AddDeletedAt(u int32) {
+	if m.adddeleted_at != nil {
+		*m.adddeleted_at += u
+	} else {
+		m.adddeleted_at = &u
+	}
+}
+
+// AddedDeletedAt returns the value that was added to the "deleted_at" field in this mutation.
+func (m *AppGoodPosterMutation) AddedDeletedAt() (r int32, exists bool) {
+	v := m.adddeleted_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetDeletedAt resets all changes to the "deleted_at" field.
+func (m *AppGoodPosterMutation) ResetDeletedAt() {
+	m.deleted_at = nil
+	m.adddeleted_at = nil
 }
 
 // SetAppGoodID sets the "app_good_id" field.
@@ -9041,9 +11303,18 @@ func (m *AppGoodPosterMutation) Type() string {
 // order to get all numeric fields that were incremented/decremented, call
 // AddedFields().
 func (m *AppGoodPosterMutation) Fields() []string {
-	fields := make([]string, 0, 4)
+	fields := make([]string, 0, 7)
 	if m.ent_id != nil {
 		fields = append(fields, appgoodposter.FieldEntID)
+	}
+	if m.created_at != nil {
+		fields = append(fields, appgoodposter.FieldCreatedAt)
+	}
+	if m.updated_at != nil {
+		fields = append(fields, appgoodposter.FieldUpdatedAt)
+	}
+	if m.deleted_at != nil {
+		fields = append(fields, appgoodposter.FieldDeletedAt)
 	}
 	if m.app_good_id != nil {
 		fields = append(fields, appgoodposter.FieldAppGoodID)
@@ -9064,6 +11335,12 @@ func (m *AppGoodPosterMutation) Field(name string) (ent.Value, bool) {
 	switch name {
 	case appgoodposter.FieldEntID:
 		return m.EntID()
+	case appgoodposter.FieldCreatedAt:
+		return m.CreatedAt()
+	case appgoodposter.FieldUpdatedAt:
+		return m.UpdatedAt()
+	case appgoodposter.FieldDeletedAt:
+		return m.DeletedAt()
 	case appgoodposter.FieldAppGoodID:
 		return m.AppGoodID()
 	case appgoodposter.FieldPoster:
@@ -9081,6 +11358,12 @@ func (m *AppGoodPosterMutation) OldField(ctx context.Context, name string) (ent.
 	switch name {
 	case appgoodposter.FieldEntID:
 		return m.OldEntID(ctx)
+	case appgoodposter.FieldCreatedAt:
+		return m.OldCreatedAt(ctx)
+	case appgoodposter.FieldUpdatedAt:
+		return m.OldUpdatedAt(ctx)
+	case appgoodposter.FieldDeletedAt:
+		return m.OldDeletedAt(ctx)
 	case appgoodposter.FieldAppGoodID:
 		return m.OldAppGoodID(ctx)
 	case appgoodposter.FieldPoster:
@@ -9102,6 +11385,27 @@ func (m *AppGoodPosterMutation) SetField(name string, value ent.Value) error {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetEntID(v)
+		return nil
+	case appgoodposter.FieldCreatedAt:
+		v, ok := value.(uint32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetCreatedAt(v)
+		return nil
+	case appgoodposter.FieldUpdatedAt:
+		v, ok := value.(uint32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetUpdatedAt(v)
+		return nil
+	case appgoodposter.FieldDeletedAt:
+		v, ok := value.(uint32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetDeletedAt(v)
 		return nil
 	case appgoodposter.FieldAppGoodID:
 		v, ok := value.(uuid.UUID)
@@ -9132,6 +11436,15 @@ func (m *AppGoodPosterMutation) SetField(name string, value ent.Value) error {
 // this mutation.
 func (m *AppGoodPosterMutation) AddedFields() []string {
 	var fields []string
+	if m.addcreated_at != nil {
+		fields = append(fields, appgoodposter.FieldCreatedAt)
+	}
+	if m.addupdated_at != nil {
+		fields = append(fields, appgoodposter.FieldUpdatedAt)
+	}
+	if m.adddeleted_at != nil {
+		fields = append(fields, appgoodposter.FieldDeletedAt)
+	}
 	if m.addindex != nil {
 		fields = append(fields, appgoodposter.FieldIndex)
 	}
@@ -9143,6 +11456,12 @@ func (m *AppGoodPosterMutation) AddedFields() []string {
 // was not set, or was not defined in the schema.
 func (m *AppGoodPosterMutation) AddedField(name string) (ent.Value, bool) {
 	switch name {
+	case appgoodposter.FieldCreatedAt:
+		return m.AddedCreatedAt()
+	case appgoodposter.FieldUpdatedAt:
+		return m.AddedUpdatedAt()
+	case appgoodposter.FieldDeletedAt:
+		return m.AddedDeletedAt()
 	case appgoodposter.FieldIndex:
 		return m.AddedIndex()
 	}
@@ -9154,6 +11473,27 @@ func (m *AppGoodPosterMutation) AddedField(name string) (ent.Value, bool) {
 // type.
 func (m *AppGoodPosterMutation) AddField(name string, value ent.Value) error {
 	switch name {
+	case appgoodposter.FieldCreatedAt:
+		v, ok := value.(int32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddCreatedAt(v)
+		return nil
+	case appgoodposter.FieldUpdatedAt:
+		v, ok := value.(int32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddUpdatedAt(v)
+		return nil
+	case appgoodposter.FieldDeletedAt:
+		v, ok := value.(int32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddDeletedAt(v)
+		return nil
 	case appgoodposter.FieldIndex:
 		v, ok := value.(int8)
 		if !ok {
@@ -9211,6 +11551,15 @@ func (m *AppGoodPosterMutation) ResetField(name string) error {
 	switch name {
 	case appgoodposter.FieldEntID:
 		m.ResetEntID()
+		return nil
+	case appgoodposter.FieldCreatedAt:
+		m.ResetCreatedAt()
+		return nil
+	case appgoodposter.FieldUpdatedAt:
+		m.ResetUpdatedAt()
+		return nil
+	case appgoodposter.FieldDeletedAt:
+		m.ResetDeletedAt()
 		return nil
 	case appgoodposter.FieldAppGoodID:
 		m.ResetAppGoodID()
@@ -9280,6 +11629,12 @@ type AppLegacyPowerRentalMutation struct {
 	typ                 string
 	id                  *uint32
 	ent_id              *uuid.UUID
+	created_at          *uint32
+	addcreated_at       *int32
+	updated_at          *uint32
+	addupdated_at       *int32
+	deleted_at          *uint32
+	adddeleted_at       *int32
 	app_good_id         *uuid.UUID
 	technique_fee_ratio *decimal.Decimal
 	clearedFields       map[string]struct{}
@@ -9428,6 +11783,174 @@ func (m *AppLegacyPowerRentalMutation) ResetEntID() {
 	m.ent_id = nil
 }
 
+// SetCreatedAt sets the "created_at" field.
+func (m *AppLegacyPowerRentalMutation) SetCreatedAt(u uint32) {
+	m.created_at = &u
+	m.addcreated_at = nil
+}
+
+// CreatedAt returns the value of the "created_at" field in the mutation.
+func (m *AppLegacyPowerRentalMutation) CreatedAt() (r uint32, exists bool) {
+	v := m.created_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldCreatedAt returns the old "created_at" field's value of the AppLegacyPowerRental entity.
+// If the AppLegacyPowerRental object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *AppLegacyPowerRentalMutation) OldCreatedAt(ctx context.Context) (v uint32, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldCreatedAt is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldCreatedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldCreatedAt: %w", err)
+	}
+	return oldValue.CreatedAt, nil
+}
+
+// AddCreatedAt adds u to the "created_at" field.
+func (m *AppLegacyPowerRentalMutation) AddCreatedAt(u int32) {
+	if m.addcreated_at != nil {
+		*m.addcreated_at += u
+	} else {
+		m.addcreated_at = &u
+	}
+}
+
+// AddedCreatedAt returns the value that was added to the "created_at" field in this mutation.
+func (m *AppLegacyPowerRentalMutation) AddedCreatedAt() (r int32, exists bool) {
+	v := m.addcreated_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetCreatedAt resets all changes to the "created_at" field.
+func (m *AppLegacyPowerRentalMutation) ResetCreatedAt() {
+	m.created_at = nil
+	m.addcreated_at = nil
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (m *AppLegacyPowerRentalMutation) SetUpdatedAt(u uint32) {
+	m.updated_at = &u
+	m.addupdated_at = nil
+}
+
+// UpdatedAt returns the value of the "updated_at" field in the mutation.
+func (m *AppLegacyPowerRentalMutation) UpdatedAt() (r uint32, exists bool) {
+	v := m.updated_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldUpdatedAt returns the old "updated_at" field's value of the AppLegacyPowerRental entity.
+// If the AppLegacyPowerRental object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *AppLegacyPowerRentalMutation) OldUpdatedAt(ctx context.Context) (v uint32, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldUpdatedAt is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldUpdatedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldUpdatedAt: %w", err)
+	}
+	return oldValue.UpdatedAt, nil
+}
+
+// AddUpdatedAt adds u to the "updated_at" field.
+func (m *AppLegacyPowerRentalMutation) AddUpdatedAt(u int32) {
+	if m.addupdated_at != nil {
+		*m.addupdated_at += u
+	} else {
+		m.addupdated_at = &u
+	}
+}
+
+// AddedUpdatedAt returns the value that was added to the "updated_at" field in this mutation.
+func (m *AppLegacyPowerRentalMutation) AddedUpdatedAt() (r int32, exists bool) {
+	v := m.addupdated_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetUpdatedAt resets all changes to the "updated_at" field.
+func (m *AppLegacyPowerRentalMutation) ResetUpdatedAt() {
+	m.updated_at = nil
+	m.addupdated_at = nil
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (m *AppLegacyPowerRentalMutation) SetDeletedAt(u uint32) {
+	m.deleted_at = &u
+	m.adddeleted_at = nil
+}
+
+// DeletedAt returns the value of the "deleted_at" field in the mutation.
+func (m *AppLegacyPowerRentalMutation) DeletedAt() (r uint32, exists bool) {
+	v := m.deleted_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldDeletedAt returns the old "deleted_at" field's value of the AppLegacyPowerRental entity.
+// If the AppLegacyPowerRental object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *AppLegacyPowerRentalMutation) OldDeletedAt(ctx context.Context) (v uint32, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldDeletedAt is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldDeletedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldDeletedAt: %w", err)
+	}
+	return oldValue.DeletedAt, nil
+}
+
+// AddDeletedAt adds u to the "deleted_at" field.
+func (m *AppLegacyPowerRentalMutation) AddDeletedAt(u int32) {
+	if m.adddeleted_at != nil {
+		*m.adddeleted_at += u
+	} else {
+		m.adddeleted_at = &u
+	}
+}
+
+// AddedDeletedAt returns the value that was added to the "deleted_at" field in this mutation.
+func (m *AppLegacyPowerRentalMutation) AddedDeletedAt() (r int32, exists bool) {
+	v := m.adddeleted_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetDeletedAt resets all changes to the "deleted_at" field.
+func (m *AppLegacyPowerRentalMutation) ResetDeletedAt() {
+	m.deleted_at = nil
+	m.adddeleted_at = nil
+}
+
 // SetAppGoodID sets the "app_good_id" field.
 func (m *AppLegacyPowerRentalMutation) SetAppGoodID(u uuid.UUID) {
 	m.app_good_id = &u
@@ -9560,9 +12083,18 @@ func (m *AppLegacyPowerRentalMutation) Type() string {
 // order to get all numeric fields that were incremented/decremented, call
 // AddedFields().
 func (m *AppLegacyPowerRentalMutation) Fields() []string {
-	fields := make([]string, 0, 3)
+	fields := make([]string, 0, 6)
 	if m.ent_id != nil {
 		fields = append(fields, applegacypowerrental.FieldEntID)
+	}
+	if m.created_at != nil {
+		fields = append(fields, applegacypowerrental.FieldCreatedAt)
+	}
+	if m.updated_at != nil {
+		fields = append(fields, applegacypowerrental.FieldUpdatedAt)
+	}
+	if m.deleted_at != nil {
+		fields = append(fields, applegacypowerrental.FieldDeletedAt)
 	}
 	if m.app_good_id != nil {
 		fields = append(fields, applegacypowerrental.FieldAppGoodID)
@@ -9580,6 +12112,12 @@ func (m *AppLegacyPowerRentalMutation) Field(name string) (ent.Value, bool) {
 	switch name {
 	case applegacypowerrental.FieldEntID:
 		return m.EntID()
+	case applegacypowerrental.FieldCreatedAt:
+		return m.CreatedAt()
+	case applegacypowerrental.FieldUpdatedAt:
+		return m.UpdatedAt()
+	case applegacypowerrental.FieldDeletedAt:
+		return m.DeletedAt()
 	case applegacypowerrental.FieldAppGoodID:
 		return m.AppGoodID()
 	case applegacypowerrental.FieldTechniqueFeeRatio:
@@ -9595,6 +12133,12 @@ func (m *AppLegacyPowerRentalMutation) OldField(ctx context.Context, name string
 	switch name {
 	case applegacypowerrental.FieldEntID:
 		return m.OldEntID(ctx)
+	case applegacypowerrental.FieldCreatedAt:
+		return m.OldCreatedAt(ctx)
+	case applegacypowerrental.FieldUpdatedAt:
+		return m.OldUpdatedAt(ctx)
+	case applegacypowerrental.FieldDeletedAt:
+		return m.OldDeletedAt(ctx)
 	case applegacypowerrental.FieldAppGoodID:
 		return m.OldAppGoodID(ctx)
 	case applegacypowerrental.FieldTechniqueFeeRatio:
@@ -9614,6 +12158,27 @@ func (m *AppLegacyPowerRentalMutation) SetField(name string, value ent.Value) er
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetEntID(v)
+		return nil
+	case applegacypowerrental.FieldCreatedAt:
+		v, ok := value.(uint32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetCreatedAt(v)
+		return nil
+	case applegacypowerrental.FieldUpdatedAt:
+		v, ok := value.(uint32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetUpdatedAt(v)
+		return nil
+	case applegacypowerrental.FieldDeletedAt:
+		v, ok := value.(uint32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetDeletedAt(v)
 		return nil
 	case applegacypowerrental.FieldAppGoodID:
 		v, ok := value.(uuid.UUID)
@@ -9636,13 +12201,31 @@ func (m *AppLegacyPowerRentalMutation) SetField(name string, value ent.Value) er
 // AddedFields returns all numeric fields that were incremented/decremented during
 // this mutation.
 func (m *AppLegacyPowerRentalMutation) AddedFields() []string {
-	return nil
+	var fields []string
+	if m.addcreated_at != nil {
+		fields = append(fields, applegacypowerrental.FieldCreatedAt)
+	}
+	if m.addupdated_at != nil {
+		fields = append(fields, applegacypowerrental.FieldUpdatedAt)
+	}
+	if m.adddeleted_at != nil {
+		fields = append(fields, applegacypowerrental.FieldDeletedAt)
+	}
+	return fields
 }
 
 // AddedField returns the numeric value that was incremented/decremented on a field
 // with the given name. The second boolean return value indicates that this field
 // was not set, or was not defined in the schema.
 func (m *AppLegacyPowerRentalMutation) AddedField(name string) (ent.Value, bool) {
+	switch name {
+	case applegacypowerrental.FieldCreatedAt:
+		return m.AddedCreatedAt()
+	case applegacypowerrental.FieldUpdatedAt:
+		return m.AddedUpdatedAt()
+	case applegacypowerrental.FieldDeletedAt:
+		return m.AddedDeletedAt()
+	}
 	return nil, false
 }
 
@@ -9651,6 +12234,27 @@ func (m *AppLegacyPowerRentalMutation) AddedField(name string) (ent.Value, bool)
 // type.
 func (m *AppLegacyPowerRentalMutation) AddField(name string, value ent.Value) error {
 	switch name {
+	case applegacypowerrental.FieldCreatedAt:
+		v, ok := value.(int32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddCreatedAt(v)
+		return nil
+	case applegacypowerrental.FieldUpdatedAt:
+		v, ok := value.(int32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddUpdatedAt(v)
+		return nil
+	case applegacypowerrental.FieldDeletedAt:
+		v, ok := value.(int32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddDeletedAt(v)
+		return nil
 	}
 	return fmt.Errorf("unknown AppLegacyPowerRental numeric field %s", name)
 }
@@ -9695,6 +12299,15 @@ func (m *AppLegacyPowerRentalMutation) ResetField(name string) error {
 	switch name {
 	case applegacypowerrental.FieldEntID:
 		m.ResetEntID()
+		return nil
+	case applegacypowerrental.FieldCreatedAt:
+		m.ResetCreatedAt()
+		return nil
+	case applegacypowerrental.FieldUpdatedAt:
+		m.ResetUpdatedAt()
+		return nil
+	case applegacypowerrental.FieldDeletedAt:
+		m.ResetDeletedAt()
 		return nil
 	case applegacypowerrental.FieldAppGoodID:
 		m.ResetAppGoodID()
@@ -9761,6 +12374,12 @@ type AppMiningGoodStockMutation struct {
 	typ                  string
 	id                   *uint32
 	ent_id               *uuid.UUID
+	created_at           *uint32
+	addcreated_at        *int32
+	updated_at           *uint32
+	addupdated_at        *int32
+	deleted_at           *uint32
+	adddeleted_at        *int32
 	app_good_stock_id    *uuid.UUID
 	mining_good_stock_id *uuid.UUID
 	reserved             *decimal.Decimal
@@ -9913,6 +12532,174 @@ func (m *AppMiningGoodStockMutation) OldEntID(ctx context.Context) (v uuid.UUID,
 // ResetEntID resets all changes to the "ent_id" field.
 func (m *AppMiningGoodStockMutation) ResetEntID() {
 	m.ent_id = nil
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (m *AppMiningGoodStockMutation) SetCreatedAt(u uint32) {
+	m.created_at = &u
+	m.addcreated_at = nil
+}
+
+// CreatedAt returns the value of the "created_at" field in the mutation.
+func (m *AppMiningGoodStockMutation) CreatedAt() (r uint32, exists bool) {
+	v := m.created_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldCreatedAt returns the old "created_at" field's value of the AppMiningGoodStock entity.
+// If the AppMiningGoodStock object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *AppMiningGoodStockMutation) OldCreatedAt(ctx context.Context) (v uint32, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldCreatedAt is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldCreatedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldCreatedAt: %w", err)
+	}
+	return oldValue.CreatedAt, nil
+}
+
+// AddCreatedAt adds u to the "created_at" field.
+func (m *AppMiningGoodStockMutation) AddCreatedAt(u int32) {
+	if m.addcreated_at != nil {
+		*m.addcreated_at += u
+	} else {
+		m.addcreated_at = &u
+	}
+}
+
+// AddedCreatedAt returns the value that was added to the "created_at" field in this mutation.
+func (m *AppMiningGoodStockMutation) AddedCreatedAt() (r int32, exists bool) {
+	v := m.addcreated_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetCreatedAt resets all changes to the "created_at" field.
+func (m *AppMiningGoodStockMutation) ResetCreatedAt() {
+	m.created_at = nil
+	m.addcreated_at = nil
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (m *AppMiningGoodStockMutation) SetUpdatedAt(u uint32) {
+	m.updated_at = &u
+	m.addupdated_at = nil
+}
+
+// UpdatedAt returns the value of the "updated_at" field in the mutation.
+func (m *AppMiningGoodStockMutation) UpdatedAt() (r uint32, exists bool) {
+	v := m.updated_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldUpdatedAt returns the old "updated_at" field's value of the AppMiningGoodStock entity.
+// If the AppMiningGoodStock object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *AppMiningGoodStockMutation) OldUpdatedAt(ctx context.Context) (v uint32, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldUpdatedAt is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldUpdatedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldUpdatedAt: %w", err)
+	}
+	return oldValue.UpdatedAt, nil
+}
+
+// AddUpdatedAt adds u to the "updated_at" field.
+func (m *AppMiningGoodStockMutation) AddUpdatedAt(u int32) {
+	if m.addupdated_at != nil {
+		*m.addupdated_at += u
+	} else {
+		m.addupdated_at = &u
+	}
+}
+
+// AddedUpdatedAt returns the value that was added to the "updated_at" field in this mutation.
+func (m *AppMiningGoodStockMutation) AddedUpdatedAt() (r int32, exists bool) {
+	v := m.addupdated_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetUpdatedAt resets all changes to the "updated_at" field.
+func (m *AppMiningGoodStockMutation) ResetUpdatedAt() {
+	m.updated_at = nil
+	m.addupdated_at = nil
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (m *AppMiningGoodStockMutation) SetDeletedAt(u uint32) {
+	m.deleted_at = &u
+	m.adddeleted_at = nil
+}
+
+// DeletedAt returns the value of the "deleted_at" field in the mutation.
+func (m *AppMiningGoodStockMutation) DeletedAt() (r uint32, exists bool) {
+	v := m.deleted_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldDeletedAt returns the old "deleted_at" field's value of the AppMiningGoodStock entity.
+// If the AppMiningGoodStock object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *AppMiningGoodStockMutation) OldDeletedAt(ctx context.Context) (v uint32, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldDeletedAt is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldDeletedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldDeletedAt: %w", err)
+	}
+	return oldValue.DeletedAt, nil
+}
+
+// AddDeletedAt adds u to the "deleted_at" field.
+func (m *AppMiningGoodStockMutation) AddDeletedAt(u int32) {
+	if m.adddeleted_at != nil {
+		*m.adddeleted_at += u
+	} else {
+		m.adddeleted_at = &u
+	}
+}
+
+// AddedDeletedAt returns the value that was added to the "deleted_at" field in this mutation.
+func (m *AppMiningGoodStockMutation) AddedDeletedAt() (r int32, exists bool) {
+	v := m.adddeleted_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetDeletedAt resets all changes to the "deleted_at" field.
+func (m *AppMiningGoodStockMutation) ResetDeletedAt() {
+	m.deleted_at = nil
+	m.adddeleted_at = nil
 }
 
 // SetAppGoodStockID sets the "app_good_stock_id" field.
@@ -10341,9 +13128,18 @@ func (m *AppMiningGoodStockMutation) Type() string {
 // order to get all numeric fields that were incremented/decremented, call
 // AddedFields().
 func (m *AppMiningGoodStockMutation) Fields() []string {
-	fields := make([]string, 0, 9)
+	fields := make([]string, 0, 12)
 	if m.ent_id != nil {
 		fields = append(fields, appmininggoodstock.FieldEntID)
+	}
+	if m.created_at != nil {
+		fields = append(fields, appmininggoodstock.FieldCreatedAt)
+	}
+	if m.updated_at != nil {
+		fields = append(fields, appmininggoodstock.FieldUpdatedAt)
+	}
+	if m.deleted_at != nil {
+		fields = append(fields, appmininggoodstock.FieldDeletedAt)
 	}
 	if m.app_good_stock_id != nil {
 		fields = append(fields, appmininggoodstock.FieldAppGoodStockID)
@@ -10379,6 +13175,12 @@ func (m *AppMiningGoodStockMutation) Field(name string) (ent.Value, bool) {
 	switch name {
 	case appmininggoodstock.FieldEntID:
 		return m.EntID()
+	case appmininggoodstock.FieldCreatedAt:
+		return m.CreatedAt()
+	case appmininggoodstock.FieldUpdatedAt:
+		return m.UpdatedAt()
+	case appmininggoodstock.FieldDeletedAt:
+		return m.DeletedAt()
 	case appmininggoodstock.FieldAppGoodStockID:
 		return m.AppGoodStockID()
 	case appmininggoodstock.FieldMiningGoodStockID:
@@ -10406,6 +13208,12 @@ func (m *AppMiningGoodStockMutation) OldField(ctx context.Context, name string) 
 	switch name {
 	case appmininggoodstock.FieldEntID:
 		return m.OldEntID(ctx)
+	case appmininggoodstock.FieldCreatedAt:
+		return m.OldCreatedAt(ctx)
+	case appmininggoodstock.FieldUpdatedAt:
+		return m.OldUpdatedAt(ctx)
+	case appmininggoodstock.FieldDeletedAt:
+		return m.OldDeletedAt(ctx)
 	case appmininggoodstock.FieldAppGoodStockID:
 		return m.OldAppGoodStockID(ctx)
 	case appmininggoodstock.FieldMiningGoodStockID:
@@ -10437,6 +13245,27 @@ func (m *AppMiningGoodStockMutation) SetField(name string, value ent.Value) erro
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetEntID(v)
+		return nil
+	case appmininggoodstock.FieldCreatedAt:
+		v, ok := value.(uint32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetCreatedAt(v)
+		return nil
+	case appmininggoodstock.FieldUpdatedAt:
+		v, ok := value.(uint32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetUpdatedAt(v)
+		return nil
+	case appmininggoodstock.FieldDeletedAt:
+		v, ok := value.(uint32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetDeletedAt(v)
 		return nil
 	case appmininggoodstock.FieldAppGoodStockID:
 		v, ok := value.(uuid.UUID)
@@ -10501,13 +13330,31 @@ func (m *AppMiningGoodStockMutation) SetField(name string, value ent.Value) erro
 // AddedFields returns all numeric fields that were incremented/decremented during
 // this mutation.
 func (m *AppMiningGoodStockMutation) AddedFields() []string {
-	return nil
+	var fields []string
+	if m.addcreated_at != nil {
+		fields = append(fields, appmininggoodstock.FieldCreatedAt)
+	}
+	if m.addupdated_at != nil {
+		fields = append(fields, appmininggoodstock.FieldUpdatedAt)
+	}
+	if m.adddeleted_at != nil {
+		fields = append(fields, appmininggoodstock.FieldDeletedAt)
+	}
+	return fields
 }
 
 // AddedField returns the numeric value that was incremented/decremented on a field
 // with the given name. The second boolean return value indicates that this field
 // was not set, or was not defined in the schema.
 func (m *AppMiningGoodStockMutation) AddedField(name string) (ent.Value, bool) {
+	switch name {
+	case appmininggoodstock.FieldCreatedAt:
+		return m.AddedCreatedAt()
+	case appmininggoodstock.FieldUpdatedAt:
+		return m.AddedUpdatedAt()
+	case appmininggoodstock.FieldDeletedAt:
+		return m.AddedDeletedAt()
+	}
 	return nil, false
 }
 
@@ -10516,6 +13363,27 @@ func (m *AppMiningGoodStockMutation) AddedField(name string) (ent.Value, bool) {
 // type.
 func (m *AppMiningGoodStockMutation) AddField(name string, value ent.Value) error {
 	switch name {
+	case appmininggoodstock.FieldCreatedAt:
+		v, ok := value.(int32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddCreatedAt(v)
+		return nil
+	case appmininggoodstock.FieldUpdatedAt:
+		v, ok := value.(int32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddUpdatedAt(v)
+		return nil
+	case appmininggoodstock.FieldDeletedAt:
+		v, ok := value.(int32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddDeletedAt(v)
+		return nil
 	}
 	return fmt.Errorf("unknown AppMiningGoodStock numeric field %s", name)
 }
@@ -10596,6 +13464,15 @@ func (m *AppMiningGoodStockMutation) ResetField(name string) error {
 	switch name {
 	case appmininggoodstock.FieldEntID:
 		m.ResetEntID()
+		return nil
+	case appmininggoodstock.FieldCreatedAt:
+		m.ResetCreatedAt()
+		return nil
+	case appmininggoodstock.FieldUpdatedAt:
+		m.ResetUpdatedAt()
+		return nil
+	case appmininggoodstock.FieldDeletedAt:
+		m.ResetDeletedAt()
 		return nil
 	case appmininggoodstock.FieldAppGoodStockID:
 		m.ResetAppGoodStockID()
@@ -10680,6 +13557,12 @@ type AppPowerRentalMutation struct {
 	typ                                string
 	id                                 *uint32
 	ent_id                             *uuid.UUID
+	created_at                         *uint32
+	addcreated_at                      *int32
+	updated_at                         *uint32
+	addupdated_at                      *int32
+	deleted_at                         *uint32
+	adddeleted_at                      *int32
 	app_good_id                        *uuid.UUID
 	service_start_at                   *uint32
 	addservice_start_at                *int32
@@ -10847,6 +13730,174 @@ func (m *AppPowerRentalMutation) OldEntID(ctx context.Context) (v uuid.UUID, err
 // ResetEntID resets all changes to the "ent_id" field.
 func (m *AppPowerRentalMutation) ResetEntID() {
 	m.ent_id = nil
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (m *AppPowerRentalMutation) SetCreatedAt(u uint32) {
+	m.created_at = &u
+	m.addcreated_at = nil
+}
+
+// CreatedAt returns the value of the "created_at" field in the mutation.
+func (m *AppPowerRentalMutation) CreatedAt() (r uint32, exists bool) {
+	v := m.created_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldCreatedAt returns the old "created_at" field's value of the AppPowerRental entity.
+// If the AppPowerRental object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *AppPowerRentalMutation) OldCreatedAt(ctx context.Context) (v uint32, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldCreatedAt is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldCreatedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldCreatedAt: %w", err)
+	}
+	return oldValue.CreatedAt, nil
+}
+
+// AddCreatedAt adds u to the "created_at" field.
+func (m *AppPowerRentalMutation) AddCreatedAt(u int32) {
+	if m.addcreated_at != nil {
+		*m.addcreated_at += u
+	} else {
+		m.addcreated_at = &u
+	}
+}
+
+// AddedCreatedAt returns the value that was added to the "created_at" field in this mutation.
+func (m *AppPowerRentalMutation) AddedCreatedAt() (r int32, exists bool) {
+	v := m.addcreated_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetCreatedAt resets all changes to the "created_at" field.
+func (m *AppPowerRentalMutation) ResetCreatedAt() {
+	m.created_at = nil
+	m.addcreated_at = nil
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (m *AppPowerRentalMutation) SetUpdatedAt(u uint32) {
+	m.updated_at = &u
+	m.addupdated_at = nil
+}
+
+// UpdatedAt returns the value of the "updated_at" field in the mutation.
+func (m *AppPowerRentalMutation) UpdatedAt() (r uint32, exists bool) {
+	v := m.updated_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldUpdatedAt returns the old "updated_at" field's value of the AppPowerRental entity.
+// If the AppPowerRental object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *AppPowerRentalMutation) OldUpdatedAt(ctx context.Context) (v uint32, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldUpdatedAt is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldUpdatedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldUpdatedAt: %w", err)
+	}
+	return oldValue.UpdatedAt, nil
+}
+
+// AddUpdatedAt adds u to the "updated_at" field.
+func (m *AppPowerRentalMutation) AddUpdatedAt(u int32) {
+	if m.addupdated_at != nil {
+		*m.addupdated_at += u
+	} else {
+		m.addupdated_at = &u
+	}
+}
+
+// AddedUpdatedAt returns the value that was added to the "updated_at" field in this mutation.
+func (m *AppPowerRentalMutation) AddedUpdatedAt() (r int32, exists bool) {
+	v := m.addupdated_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetUpdatedAt resets all changes to the "updated_at" field.
+func (m *AppPowerRentalMutation) ResetUpdatedAt() {
+	m.updated_at = nil
+	m.addupdated_at = nil
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (m *AppPowerRentalMutation) SetDeletedAt(u uint32) {
+	m.deleted_at = &u
+	m.adddeleted_at = nil
+}
+
+// DeletedAt returns the value of the "deleted_at" field in the mutation.
+func (m *AppPowerRentalMutation) DeletedAt() (r uint32, exists bool) {
+	v := m.deleted_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldDeletedAt returns the old "deleted_at" field's value of the AppPowerRental entity.
+// If the AppPowerRental object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *AppPowerRentalMutation) OldDeletedAt(ctx context.Context) (v uint32, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldDeletedAt is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldDeletedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldDeletedAt: %w", err)
+	}
+	return oldValue.DeletedAt, nil
+}
+
+// AddDeletedAt adds u to the "deleted_at" field.
+func (m *AppPowerRentalMutation) AddDeletedAt(u int32) {
+	if m.adddeleted_at != nil {
+		*m.adddeleted_at += u
+	} else {
+		m.adddeleted_at = &u
+	}
+}
+
+// AddedDeletedAt returns the value that was added to the "deleted_at" field in this mutation.
+func (m *AppPowerRentalMutation) AddedDeletedAt() (r int32, exists bool) {
+	v := m.adddeleted_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetDeletedAt resets all changes to the "deleted_at" field.
+func (m *AppPowerRentalMutation) ResetDeletedAt() {
+	m.deleted_at = nil
+	m.adddeleted_at = nil
 }
 
 // SetAppGoodID sets the "app_good_id" field.
@@ -11842,9 +14893,18 @@ func (m *AppPowerRentalMutation) Type() string {
 // order to get all numeric fields that were incremented/decremented, call
 // AddedFields().
 func (m *AppPowerRentalMutation) Fields() []string {
-	fields := make([]string, 0, 18)
+	fields := make([]string, 0, 21)
 	if m.ent_id != nil {
 		fields = append(fields, apppowerrental.FieldEntID)
+	}
+	if m.created_at != nil {
+		fields = append(fields, apppowerrental.FieldCreatedAt)
+	}
+	if m.updated_at != nil {
+		fields = append(fields, apppowerrental.FieldUpdatedAt)
+	}
+	if m.deleted_at != nil {
+		fields = append(fields, apppowerrental.FieldDeletedAt)
 	}
 	if m.app_good_id != nil {
 		fields = append(fields, apppowerrental.FieldAppGoodID)
@@ -11907,6 +14967,12 @@ func (m *AppPowerRentalMutation) Field(name string) (ent.Value, bool) {
 	switch name {
 	case apppowerrental.FieldEntID:
 		return m.EntID()
+	case apppowerrental.FieldCreatedAt:
+		return m.CreatedAt()
+	case apppowerrental.FieldUpdatedAt:
+		return m.UpdatedAt()
+	case apppowerrental.FieldDeletedAt:
+		return m.DeletedAt()
 	case apppowerrental.FieldAppGoodID:
 		return m.AppGoodID()
 	case apppowerrental.FieldServiceStartAt:
@@ -11952,6 +15018,12 @@ func (m *AppPowerRentalMutation) OldField(ctx context.Context, name string) (ent
 	switch name {
 	case apppowerrental.FieldEntID:
 		return m.OldEntID(ctx)
+	case apppowerrental.FieldCreatedAt:
+		return m.OldCreatedAt(ctx)
+	case apppowerrental.FieldUpdatedAt:
+		return m.OldUpdatedAt(ctx)
+	case apppowerrental.FieldDeletedAt:
+		return m.OldDeletedAt(ctx)
 	case apppowerrental.FieldAppGoodID:
 		return m.OldAppGoodID(ctx)
 	case apppowerrental.FieldServiceStartAt:
@@ -12001,6 +15073,27 @@ func (m *AppPowerRentalMutation) SetField(name string, value ent.Value) error {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetEntID(v)
+		return nil
+	case apppowerrental.FieldCreatedAt:
+		v, ok := value.(uint32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetCreatedAt(v)
+		return nil
+	case apppowerrental.FieldUpdatedAt:
+		v, ok := value.(uint32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetUpdatedAt(v)
+		return nil
+	case apppowerrental.FieldDeletedAt:
+		v, ok := value.(uint32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetDeletedAt(v)
 		return nil
 	case apppowerrental.FieldAppGoodID:
 		v, ok := value.(uuid.UUID)
@@ -12129,6 +15222,15 @@ func (m *AppPowerRentalMutation) SetField(name string, value ent.Value) error {
 // this mutation.
 func (m *AppPowerRentalMutation) AddedFields() []string {
 	var fields []string
+	if m.addcreated_at != nil {
+		fields = append(fields, apppowerrental.FieldCreatedAt)
+	}
+	if m.addupdated_at != nil {
+		fields = append(fields, apppowerrental.FieldUpdatedAt)
+	}
+	if m.adddeleted_at != nil {
+		fields = append(fields, apppowerrental.FieldDeletedAt)
+	}
 	if m.addservice_start_at != nil {
 		fields = append(fields, apppowerrental.FieldServiceStartAt)
 	}
@@ -12155,6 +15257,12 @@ func (m *AppPowerRentalMutation) AddedFields() []string {
 // was not set, or was not defined in the schema.
 func (m *AppPowerRentalMutation) AddedField(name string) (ent.Value, bool) {
 	switch name {
+	case apppowerrental.FieldCreatedAt:
+		return m.AddedCreatedAt()
+	case apppowerrental.FieldUpdatedAt:
+		return m.AddedUpdatedAt()
+	case apppowerrental.FieldDeletedAt:
+		return m.AddedDeletedAt()
 	case apppowerrental.FieldServiceStartAt:
 		return m.AddedServiceStartAt()
 	case apppowerrental.FieldCancelableBeforeStartSeconds:
@@ -12176,6 +15284,27 @@ func (m *AppPowerRentalMutation) AddedField(name string) (ent.Value, bool) {
 // type.
 func (m *AppPowerRentalMutation) AddField(name string, value ent.Value) error {
 	switch name {
+	case apppowerrental.FieldCreatedAt:
+		v, ok := value.(int32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddCreatedAt(v)
+		return nil
+	case apppowerrental.FieldUpdatedAt:
+		v, ok := value.(int32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddUpdatedAt(v)
+		return nil
+	case apppowerrental.FieldDeletedAt:
+		v, ok := value.(int32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddDeletedAt(v)
+		return nil
 	case apppowerrental.FieldServiceStartAt:
 		v, ok := value.(int32)
 		if !ok {
@@ -12353,6 +15482,15 @@ func (m *AppPowerRentalMutation) ResetField(name string) error {
 	case apppowerrental.FieldEntID:
 		m.ResetEntID()
 		return nil
+	case apppowerrental.FieldCreatedAt:
+		m.ResetCreatedAt()
+		return nil
+	case apppowerrental.FieldUpdatedAt:
+		m.ResetUpdatedAt()
+		return nil
+	case apppowerrental.FieldDeletedAt:
+		m.ResetDeletedAt()
+		return nil
 	case apppowerrental.FieldAppGoodID:
 		m.ResetAppGoodID()
 		return nil
@@ -12463,6 +15601,12 @@ type AppSimulatePowerRentalMutation struct {
 	typ                       string
 	id                        *uint32
 	ent_id                    *uuid.UUID
+	created_at                *uint32
+	addcreated_at             *int32
+	updated_at                *uint32
+	addupdated_at             *int32
+	deleted_at                *uint32
+	adddeleted_at             *int32
 	app_good_id               *uuid.UUID
 	coin_type_id              *uuid.UUID
 	order_units               *decimal.Decimal
@@ -12612,6 +15756,174 @@ func (m *AppSimulatePowerRentalMutation) OldEntID(ctx context.Context) (v uuid.U
 // ResetEntID resets all changes to the "ent_id" field.
 func (m *AppSimulatePowerRentalMutation) ResetEntID() {
 	m.ent_id = nil
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (m *AppSimulatePowerRentalMutation) SetCreatedAt(u uint32) {
+	m.created_at = &u
+	m.addcreated_at = nil
+}
+
+// CreatedAt returns the value of the "created_at" field in the mutation.
+func (m *AppSimulatePowerRentalMutation) CreatedAt() (r uint32, exists bool) {
+	v := m.created_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldCreatedAt returns the old "created_at" field's value of the AppSimulatePowerRental entity.
+// If the AppSimulatePowerRental object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *AppSimulatePowerRentalMutation) OldCreatedAt(ctx context.Context) (v uint32, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldCreatedAt is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldCreatedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldCreatedAt: %w", err)
+	}
+	return oldValue.CreatedAt, nil
+}
+
+// AddCreatedAt adds u to the "created_at" field.
+func (m *AppSimulatePowerRentalMutation) AddCreatedAt(u int32) {
+	if m.addcreated_at != nil {
+		*m.addcreated_at += u
+	} else {
+		m.addcreated_at = &u
+	}
+}
+
+// AddedCreatedAt returns the value that was added to the "created_at" field in this mutation.
+func (m *AppSimulatePowerRentalMutation) AddedCreatedAt() (r int32, exists bool) {
+	v := m.addcreated_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetCreatedAt resets all changes to the "created_at" field.
+func (m *AppSimulatePowerRentalMutation) ResetCreatedAt() {
+	m.created_at = nil
+	m.addcreated_at = nil
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (m *AppSimulatePowerRentalMutation) SetUpdatedAt(u uint32) {
+	m.updated_at = &u
+	m.addupdated_at = nil
+}
+
+// UpdatedAt returns the value of the "updated_at" field in the mutation.
+func (m *AppSimulatePowerRentalMutation) UpdatedAt() (r uint32, exists bool) {
+	v := m.updated_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldUpdatedAt returns the old "updated_at" field's value of the AppSimulatePowerRental entity.
+// If the AppSimulatePowerRental object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *AppSimulatePowerRentalMutation) OldUpdatedAt(ctx context.Context) (v uint32, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldUpdatedAt is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldUpdatedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldUpdatedAt: %w", err)
+	}
+	return oldValue.UpdatedAt, nil
+}
+
+// AddUpdatedAt adds u to the "updated_at" field.
+func (m *AppSimulatePowerRentalMutation) AddUpdatedAt(u int32) {
+	if m.addupdated_at != nil {
+		*m.addupdated_at += u
+	} else {
+		m.addupdated_at = &u
+	}
+}
+
+// AddedUpdatedAt returns the value that was added to the "updated_at" field in this mutation.
+func (m *AppSimulatePowerRentalMutation) AddedUpdatedAt() (r int32, exists bool) {
+	v := m.addupdated_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetUpdatedAt resets all changes to the "updated_at" field.
+func (m *AppSimulatePowerRentalMutation) ResetUpdatedAt() {
+	m.updated_at = nil
+	m.addupdated_at = nil
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (m *AppSimulatePowerRentalMutation) SetDeletedAt(u uint32) {
+	m.deleted_at = &u
+	m.adddeleted_at = nil
+}
+
+// DeletedAt returns the value of the "deleted_at" field in the mutation.
+func (m *AppSimulatePowerRentalMutation) DeletedAt() (r uint32, exists bool) {
+	v := m.deleted_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldDeletedAt returns the old "deleted_at" field's value of the AppSimulatePowerRental entity.
+// If the AppSimulatePowerRental object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *AppSimulatePowerRentalMutation) OldDeletedAt(ctx context.Context) (v uint32, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldDeletedAt is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldDeletedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldDeletedAt: %w", err)
+	}
+	return oldValue.DeletedAt, nil
+}
+
+// AddDeletedAt adds u to the "deleted_at" field.
+func (m *AppSimulatePowerRentalMutation) AddDeletedAt(u int32) {
+	if m.adddeleted_at != nil {
+		*m.adddeleted_at += u
+	} else {
+		m.adddeleted_at = &u
+	}
+}
+
+// AddedDeletedAt returns the value that was added to the "deleted_at" field in this mutation.
+func (m *AppSimulatePowerRentalMutation) AddedDeletedAt() (r int32, exists bool) {
+	v := m.adddeleted_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetDeletedAt resets all changes to the "deleted_at" field.
+func (m *AppSimulatePowerRentalMutation) ResetDeletedAt() {
+	m.deleted_at = nil
+	m.adddeleted_at = nil
 }
 
 // SetAppGoodID sets the "app_good_id" field.
@@ -12865,9 +16177,18 @@ func (m *AppSimulatePowerRentalMutation) Type() string {
 // order to get all numeric fields that were incremented/decremented, call
 // AddedFields().
 func (m *AppSimulatePowerRentalMutation) Fields() []string {
-	fields := make([]string, 0, 5)
+	fields := make([]string, 0, 8)
 	if m.ent_id != nil {
 		fields = append(fields, appsimulatepowerrental.FieldEntID)
+	}
+	if m.created_at != nil {
+		fields = append(fields, appsimulatepowerrental.FieldCreatedAt)
+	}
+	if m.updated_at != nil {
+		fields = append(fields, appsimulatepowerrental.FieldUpdatedAt)
+	}
+	if m.deleted_at != nil {
+		fields = append(fields, appsimulatepowerrental.FieldDeletedAt)
 	}
 	if m.app_good_id != nil {
 		fields = append(fields, appsimulatepowerrental.FieldAppGoodID)
@@ -12891,6 +16212,12 @@ func (m *AppSimulatePowerRentalMutation) Field(name string) (ent.Value, bool) {
 	switch name {
 	case appsimulatepowerrental.FieldEntID:
 		return m.EntID()
+	case appsimulatepowerrental.FieldCreatedAt:
+		return m.CreatedAt()
+	case appsimulatepowerrental.FieldUpdatedAt:
+		return m.UpdatedAt()
+	case appsimulatepowerrental.FieldDeletedAt:
+		return m.DeletedAt()
 	case appsimulatepowerrental.FieldAppGoodID:
 		return m.AppGoodID()
 	case appsimulatepowerrental.FieldCoinTypeID:
@@ -12910,6 +16237,12 @@ func (m *AppSimulatePowerRentalMutation) OldField(ctx context.Context, name stri
 	switch name {
 	case appsimulatepowerrental.FieldEntID:
 		return m.OldEntID(ctx)
+	case appsimulatepowerrental.FieldCreatedAt:
+		return m.OldCreatedAt(ctx)
+	case appsimulatepowerrental.FieldUpdatedAt:
+		return m.OldUpdatedAt(ctx)
+	case appsimulatepowerrental.FieldDeletedAt:
+		return m.OldDeletedAt(ctx)
 	case appsimulatepowerrental.FieldAppGoodID:
 		return m.OldAppGoodID(ctx)
 	case appsimulatepowerrental.FieldCoinTypeID:
@@ -12933,6 +16266,27 @@ func (m *AppSimulatePowerRentalMutation) SetField(name string, value ent.Value) 
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetEntID(v)
+		return nil
+	case appsimulatepowerrental.FieldCreatedAt:
+		v, ok := value.(uint32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetCreatedAt(v)
+		return nil
+	case appsimulatepowerrental.FieldUpdatedAt:
+		v, ok := value.(uint32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetUpdatedAt(v)
+		return nil
+	case appsimulatepowerrental.FieldDeletedAt:
+		v, ok := value.(uint32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetDeletedAt(v)
 		return nil
 	case appsimulatepowerrental.FieldAppGoodID:
 		v, ok := value.(uuid.UUID)
@@ -12970,6 +16324,15 @@ func (m *AppSimulatePowerRentalMutation) SetField(name string, value ent.Value) 
 // this mutation.
 func (m *AppSimulatePowerRentalMutation) AddedFields() []string {
 	var fields []string
+	if m.addcreated_at != nil {
+		fields = append(fields, appsimulatepowerrental.FieldCreatedAt)
+	}
+	if m.addupdated_at != nil {
+		fields = append(fields, appsimulatepowerrental.FieldUpdatedAt)
+	}
+	if m.adddeleted_at != nil {
+		fields = append(fields, appsimulatepowerrental.FieldDeletedAt)
+	}
 	if m.addorder_duration_seconds != nil {
 		fields = append(fields, appsimulatepowerrental.FieldOrderDurationSeconds)
 	}
@@ -12981,6 +16344,12 @@ func (m *AppSimulatePowerRentalMutation) AddedFields() []string {
 // was not set, or was not defined in the schema.
 func (m *AppSimulatePowerRentalMutation) AddedField(name string) (ent.Value, bool) {
 	switch name {
+	case appsimulatepowerrental.FieldCreatedAt:
+		return m.AddedCreatedAt()
+	case appsimulatepowerrental.FieldUpdatedAt:
+		return m.AddedUpdatedAt()
+	case appsimulatepowerrental.FieldDeletedAt:
+		return m.AddedDeletedAt()
 	case appsimulatepowerrental.FieldOrderDurationSeconds:
 		return m.AddedOrderDurationSeconds()
 	}
@@ -12992,6 +16361,27 @@ func (m *AppSimulatePowerRentalMutation) AddedField(name string) (ent.Value, boo
 // type.
 func (m *AppSimulatePowerRentalMutation) AddField(name string, value ent.Value) error {
 	switch name {
+	case appsimulatepowerrental.FieldCreatedAt:
+		v, ok := value.(int32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddCreatedAt(v)
+		return nil
+	case appsimulatepowerrental.FieldUpdatedAt:
+		v, ok := value.(int32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddUpdatedAt(v)
+		return nil
+	case appsimulatepowerrental.FieldDeletedAt:
+		v, ok := value.(int32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddDeletedAt(v)
+		return nil
 	case appsimulatepowerrental.FieldOrderDurationSeconds:
 		v, ok := value.(int32)
 		if !ok {
@@ -13055,6 +16445,15 @@ func (m *AppSimulatePowerRentalMutation) ResetField(name string) error {
 	switch name {
 	case appsimulatepowerrental.FieldEntID:
 		m.ResetEntID()
+		return nil
+	case appsimulatepowerrental.FieldCreatedAt:
+		m.ResetCreatedAt()
+		return nil
+	case appsimulatepowerrental.FieldUpdatedAt:
+		m.ResetUpdatedAt()
+		return nil
+	case appsimulatepowerrental.FieldDeletedAt:
+		m.ResetDeletedAt()
 		return nil
 	case appsimulatepowerrental.FieldAppGoodID:
 		m.ResetAppGoodID()
@@ -13127,6 +16526,12 @@ type AppStockMutation struct {
 	typ           string
 	id            *uint32
 	ent_id        *uuid.UUID
+	created_at    *uint32
+	addcreated_at *int32
+	updated_at    *uint32
+	addupdated_at *int32
+	deleted_at    *uint32
+	adddeleted_at *int32
 	app_good_id   *uuid.UUID
 	reserved      *decimal.Decimal
 	spot_quantity *decimal.Decimal
@@ -13278,6 +16683,174 @@ func (m *AppStockMutation) OldEntID(ctx context.Context) (v uuid.UUID, err error
 // ResetEntID resets all changes to the "ent_id" field.
 func (m *AppStockMutation) ResetEntID() {
 	m.ent_id = nil
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (m *AppStockMutation) SetCreatedAt(u uint32) {
+	m.created_at = &u
+	m.addcreated_at = nil
+}
+
+// CreatedAt returns the value of the "created_at" field in the mutation.
+func (m *AppStockMutation) CreatedAt() (r uint32, exists bool) {
+	v := m.created_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldCreatedAt returns the old "created_at" field's value of the AppStock entity.
+// If the AppStock object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *AppStockMutation) OldCreatedAt(ctx context.Context) (v uint32, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldCreatedAt is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldCreatedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldCreatedAt: %w", err)
+	}
+	return oldValue.CreatedAt, nil
+}
+
+// AddCreatedAt adds u to the "created_at" field.
+func (m *AppStockMutation) AddCreatedAt(u int32) {
+	if m.addcreated_at != nil {
+		*m.addcreated_at += u
+	} else {
+		m.addcreated_at = &u
+	}
+}
+
+// AddedCreatedAt returns the value that was added to the "created_at" field in this mutation.
+func (m *AppStockMutation) AddedCreatedAt() (r int32, exists bool) {
+	v := m.addcreated_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetCreatedAt resets all changes to the "created_at" field.
+func (m *AppStockMutation) ResetCreatedAt() {
+	m.created_at = nil
+	m.addcreated_at = nil
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (m *AppStockMutation) SetUpdatedAt(u uint32) {
+	m.updated_at = &u
+	m.addupdated_at = nil
+}
+
+// UpdatedAt returns the value of the "updated_at" field in the mutation.
+func (m *AppStockMutation) UpdatedAt() (r uint32, exists bool) {
+	v := m.updated_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldUpdatedAt returns the old "updated_at" field's value of the AppStock entity.
+// If the AppStock object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *AppStockMutation) OldUpdatedAt(ctx context.Context) (v uint32, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldUpdatedAt is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldUpdatedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldUpdatedAt: %w", err)
+	}
+	return oldValue.UpdatedAt, nil
+}
+
+// AddUpdatedAt adds u to the "updated_at" field.
+func (m *AppStockMutation) AddUpdatedAt(u int32) {
+	if m.addupdated_at != nil {
+		*m.addupdated_at += u
+	} else {
+		m.addupdated_at = &u
+	}
+}
+
+// AddedUpdatedAt returns the value that was added to the "updated_at" field in this mutation.
+func (m *AppStockMutation) AddedUpdatedAt() (r int32, exists bool) {
+	v := m.addupdated_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetUpdatedAt resets all changes to the "updated_at" field.
+func (m *AppStockMutation) ResetUpdatedAt() {
+	m.updated_at = nil
+	m.addupdated_at = nil
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (m *AppStockMutation) SetDeletedAt(u uint32) {
+	m.deleted_at = &u
+	m.adddeleted_at = nil
+}
+
+// DeletedAt returns the value of the "deleted_at" field in the mutation.
+func (m *AppStockMutation) DeletedAt() (r uint32, exists bool) {
+	v := m.deleted_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldDeletedAt returns the old "deleted_at" field's value of the AppStock entity.
+// If the AppStock object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *AppStockMutation) OldDeletedAt(ctx context.Context) (v uint32, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldDeletedAt is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldDeletedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldDeletedAt: %w", err)
+	}
+	return oldValue.DeletedAt, nil
+}
+
+// AddDeletedAt adds u to the "deleted_at" field.
+func (m *AppStockMutation) AddDeletedAt(u int32) {
+	if m.adddeleted_at != nil {
+		*m.adddeleted_at += u
+	} else {
+		m.adddeleted_at = &u
+	}
+}
+
+// AddedDeletedAt returns the value that was added to the "deleted_at" field in this mutation.
+func (m *AppStockMutation) AddedDeletedAt() (r int32, exists bool) {
+	v := m.adddeleted_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetDeletedAt resets all changes to the "deleted_at" field.
+func (m *AppStockMutation) ResetDeletedAt() {
+	m.deleted_at = nil
+	m.adddeleted_at = nil
 }
 
 // SetAppGoodID sets the "app_good_id" field.
@@ -13657,9 +17230,18 @@ func (m *AppStockMutation) Type() string {
 // order to get all numeric fields that were incremented/decremented, call
 // AddedFields().
 func (m *AppStockMutation) Fields() []string {
-	fields := make([]string, 0, 8)
+	fields := make([]string, 0, 11)
 	if m.ent_id != nil {
 		fields = append(fields, appstock.FieldEntID)
+	}
+	if m.created_at != nil {
+		fields = append(fields, appstock.FieldCreatedAt)
+	}
+	if m.updated_at != nil {
+		fields = append(fields, appstock.FieldUpdatedAt)
+	}
+	if m.deleted_at != nil {
+		fields = append(fields, appstock.FieldDeletedAt)
 	}
 	if m.app_good_id != nil {
 		fields = append(fields, appstock.FieldAppGoodID)
@@ -13692,6 +17274,12 @@ func (m *AppStockMutation) Field(name string) (ent.Value, bool) {
 	switch name {
 	case appstock.FieldEntID:
 		return m.EntID()
+	case appstock.FieldCreatedAt:
+		return m.CreatedAt()
+	case appstock.FieldUpdatedAt:
+		return m.UpdatedAt()
+	case appstock.FieldDeletedAt:
+		return m.DeletedAt()
 	case appstock.FieldAppGoodID:
 		return m.AppGoodID()
 	case appstock.FieldReserved:
@@ -13717,6 +17305,12 @@ func (m *AppStockMutation) OldField(ctx context.Context, name string) (ent.Value
 	switch name {
 	case appstock.FieldEntID:
 		return m.OldEntID(ctx)
+	case appstock.FieldCreatedAt:
+		return m.OldCreatedAt(ctx)
+	case appstock.FieldUpdatedAt:
+		return m.OldUpdatedAt(ctx)
+	case appstock.FieldDeletedAt:
+		return m.OldDeletedAt(ctx)
 	case appstock.FieldAppGoodID:
 		return m.OldAppGoodID(ctx)
 	case appstock.FieldReserved:
@@ -13746,6 +17340,27 @@ func (m *AppStockMutation) SetField(name string, value ent.Value) error {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetEntID(v)
+		return nil
+	case appstock.FieldCreatedAt:
+		v, ok := value.(uint32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetCreatedAt(v)
+		return nil
+	case appstock.FieldUpdatedAt:
+		v, ok := value.(uint32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetUpdatedAt(v)
+		return nil
+	case appstock.FieldDeletedAt:
+		v, ok := value.(uint32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetDeletedAt(v)
 		return nil
 	case appstock.FieldAppGoodID:
 		v, ok := value.(uuid.UUID)
@@ -13803,13 +17418,31 @@ func (m *AppStockMutation) SetField(name string, value ent.Value) error {
 // AddedFields returns all numeric fields that were incremented/decremented during
 // this mutation.
 func (m *AppStockMutation) AddedFields() []string {
-	return nil
+	var fields []string
+	if m.addcreated_at != nil {
+		fields = append(fields, appstock.FieldCreatedAt)
+	}
+	if m.addupdated_at != nil {
+		fields = append(fields, appstock.FieldUpdatedAt)
+	}
+	if m.adddeleted_at != nil {
+		fields = append(fields, appstock.FieldDeletedAt)
+	}
+	return fields
 }
 
 // AddedField returns the numeric value that was incremented/decremented on a field
 // with the given name. The second boolean return value indicates that this field
 // was not set, or was not defined in the schema.
 func (m *AppStockMutation) AddedField(name string) (ent.Value, bool) {
+	switch name {
+	case appstock.FieldCreatedAt:
+		return m.AddedCreatedAt()
+	case appstock.FieldUpdatedAt:
+		return m.AddedUpdatedAt()
+	case appstock.FieldDeletedAt:
+		return m.AddedDeletedAt()
+	}
 	return nil, false
 }
 
@@ -13818,6 +17451,27 @@ func (m *AppStockMutation) AddedField(name string) (ent.Value, bool) {
 // type.
 func (m *AppStockMutation) AddField(name string, value ent.Value) error {
 	switch name {
+	case appstock.FieldCreatedAt:
+		v, ok := value.(int32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddCreatedAt(v)
+		return nil
+	case appstock.FieldUpdatedAt:
+		v, ok := value.(int32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddUpdatedAt(v)
+		return nil
+	case appstock.FieldDeletedAt:
+		v, ok := value.(int32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddDeletedAt(v)
+		return nil
 	}
 	return fmt.Errorf("unknown AppStock numeric field %s", name)
 }
@@ -13892,6 +17546,15 @@ func (m *AppStockMutation) ResetField(name string) error {
 	switch name {
 	case appstock.FieldEntID:
 		m.ResetEntID()
+		return nil
+	case appstock.FieldCreatedAt:
+		m.ResetCreatedAt()
+		return nil
+	case appstock.FieldUpdatedAt:
+		m.ResetUpdatedAt()
+		return nil
+	case appstock.FieldDeletedAt:
+		m.ResetDeletedAt()
 		return nil
 	case appstock.FieldAppGoodID:
 		m.ResetAppGoodID()
@@ -13973,6 +17636,12 @@ type AppStockLockMutation struct {
 	typ               string
 	id                *uint32
 	ent_id            *uuid.UUID
+	created_at        *uint32
+	addcreated_at     *int32
+	updated_at        *uint32
+	addupdated_at     *int32
+	deleted_at        *uint32
+	adddeleted_at     *int32
 	app_stock_id      *uuid.UUID
 	app_good_id       *uuid.UUID
 	units             *decimal.Decimal
@@ -14124,6 +17793,174 @@ func (m *AppStockLockMutation) OldEntID(ctx context.Context) (v uuid.UUID, err e
 // ResetEntID resets all changes to the "ent_id" field.
 func (m *AppStockLockMutation) ResetEntID() {
 	m.ent_id = nil
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (m *AppStockLockMutation) SetCreatedAt(u uint32) {
+	m.created_at = &u
+	m.addcreated_at = nil
+}
+
+// CreatedAt returns the value of the "created_at" field in the mutation.
+func (m *AppStockLockMutation) CreatedAt() (r uint32, exists bool) {
+	v := m.created_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldCreatedAt returns the old "created_at" field's value of the AppStockLock entity.
+// If the AppStockLock object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *AppStockLockMutation) OldCreatedAt(ctx context.Context) (v uint32, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldCreatedAt is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldCreatedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldCreatedAt: %w", err)
+	}
+	return oldValue.CreatedAt, nil
+}
+
+// AddCreatedAt adds u to the "created_at" field.
+func (m *AppStockLockMutation) AddCreatedAt(u int32) {
+	if m.addcreated_at != nil {
+		*m.addcreated_at += u
+	} else {
+		m.addcreated_at = &u
+	}
+}
+
+// AddedCreatedAt returns the value that was added to the "created_at" field in this mutation.
+func (m *AppStockLockMutation) AddedCreatedAt() (r int32, exists bool) {
+	v := m.addcreated_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetCreatedAt resets all changes to the "created_at" field.
+func (m *AppStockLockMutation) ResetCreatedAt() {
+	m.created_at = nil
+	m.addcreated_at = nil
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (m *AppStockLockMutation) SetUpdatedAt(u uint32) {
+	m.updated_at = &u
+	m.addupdated_at = nil
+}
+
+// UpdatedAt returns the value of the "updated_at" field in the mutation.
+func (m *AppStockLockMutation) UpdatedAt() (r uint32, exists bool) {
+	v := m.updated_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldUpdatedAt returns the old "updated_at" field's value of the AppStockLock entity.
+// If the AppStockLock object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *AppStockLockMutation) OldUpdatedAt(ctx context.Context) (v uint32, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldUpdatedAt is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldUpdatedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldUpdatedAt: %w", err)
+	}
+	return oldValue.UpdatedAt, nil
+}
+
+// AddUpdatedAt adds u to the "updated_at" field.
+func (m *AppStockLockMutation) AddUpdatedAt(u int32) {
+	if m.addupdated_at != nil {
+		*m.addupdated_at += u
+	} else {
+		m.addupdated_at = &u
+	}
+}
+
+// AddedUpdatedAt returns the value that was added to the "updated_at" field in this mutation.
+func (m *AppStockLockMutation) AddedUpdatedAt() (r int32, exists bool) {
+	v := m.addupdated_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetUpdatedAt resets all changes to the "updated_at" field.
+func (m *AppStockLockMutation) ResetUpdatedAt() {
+	m.updated_at = nil
+	m.addupdated_at = nil
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (m *AppStockLockMutation) SetDeletedAt(u uint32) {
+	m.deleted_at = &u
+	m.adddeleted_at = nil
+}
+
+// DeletedAt returns the value of the "deleted_at" field in the mutation.
+func (m *AppStockLockMutation) DeletedAt() (r uint32, exists bool) {
+	v := m.deleted_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldDeletedAt returns the old "deleted_at" field's value of the AppStockLock entity.
+// If the AppStockLock object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *AppStockLockMutation) OldDeletedAt(ctx context.Context) (v uint32, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldDeletedAt is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldDeletedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldDeletedAt: %w", err)
+	}
+	return oldValue.DeletedAt, nil
+}
+
+// AddDeletedAt adds u to the "deleted_at" field.
+func (m *AppStockLockMutation) AddDeletedAt(u int32) {
+	if m.adddeleted_at != nil {
+		*m.adddeleted_at += u
+	} else {
+		m.adddeleted_at = &u
+	}
+}
+
+// AddedDeletedAt returns the value that was added to the "deleted_at" field in this mutation.
+func (m *AppStockLockMutation) AddedDeletedAt() (r int32, exists bool) {
+	v := m.adddeleted_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetDeletedAt resets all changes to the "deleted_at" field.
+func (m *AppStockLockMutation) ResetDeletedAt() {
+	m.deleted_at = nil
+	m.adddeleted_at = nil
 }
 
 // SetAppStockID sets the "app_stock_id" field.
@@ -14503,9 +18340,18 @@ func (m *AppStockLockMutation) Type() string {
 // order to get all numeric fields that were incremented/decremented, call
 // AddedFields().
 func (m *AppStockLockMutation) Fields() []string {
-	fields := make([]string, 0, 8)
+	fields := make([]string, 0, 11)
 	if m.ent_id != nil {
 		fields = append(fields, appstocklock.FieldEntID)
+	}
+	if m.created_at != nil {
+		fields = append(fields, appstocklock.FieldCreatedAt)
+	}
+	if m.updated_at != nil {
+		fields = append(fields, appstocklock.FieldUpdatedAt)
+	}
+	if m.deleted_at != nil {
+		fields = append(fields, appstocklock.FieldDeletedAt)
 	}
 	if m.app_stock_id != nil {
 		fields = append(fields, appstocklock.FieldAppStockID)
@@ -14538,6 +18384,12 @@ func (m *AppStockLockMutation) Field(name string) (ent.Value, bool) {
 	switch name {
 	case appstocklock.FieldEntID:
 		return m.EntID()
+	case appstocklock.FieldCreatedAt:
+		return m.CreatedAt()
+	case appstocklock.FieldUpdatedAt:
+		return m.UpdatedAt()
+	case appstocklock.FieldDeletedAt:
+		return m.DeletedAt()
 	case appstocklock.FieldAppStockID:
 		return m.AppStockID()
 	case appstocklock.FieldAppGoodID:
@@ -14563,6 +18415,12 @@ func (m *AppStockLockMutation) OldField(ctx context.Context, name string) (ent.V
 	switch name {
 	case appstocklock.FieldEntID:
 		return m.OldEntID(ctx)
+	case appstocklock.FieldCreatedAt:
+		return m.OldCreatedAt(ctx)
+	case appstocklock.FieldUpdatedAt:
+		return m.OldUpdatedAt(ctx)
+	case appstocklock.FieldDeletedAt:
+		return m.OldDeletedAt(ctx)
 	case appstocklock.FieldAppStockID:
 		return m.OldAppStockID(ctx)
 	case appstocklock.FieldAppGoodID:
@@ -14592,6 +18450,27 @@ func (m *AppStockLockMutation) SetField(name string, value ent.Value) error {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetEntID(v)
+		return nil
+	case appstocklock.FieldCreatedAt:
+		v, ok := value.(uint32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetCreatedAt(v)
+		return nil
+	case appstocklock.FieldUpdatedAt:
+		v, ok := value.(uint32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetUpdatedAt(v)
+		return nil
+	case appstocklock.FieldDeletedAt:
+		v, ok := value.(uint32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetDeletedAt(v)
 		return nil
 	case appstocklock.FieldAppStockID:
 		v, ok := value.(uuid.UUID)
@@ -14649,13 +18528,31 @@ func (m *AppStockLockMutation) SetField(name string, value ent.Value) error {
 // AddedFields returns all numeric fields that were incremented/decremented during
 // this mutation.
 func (m *AppStockLockMutation) AddedFields() []string {
-	return nil
+	var fields []string
+	if m.addcreated_at != nil {
+		fields = append(fields, appstocklock.FieldCreatedAt)
+	}
+	if m.addupdated_at != nil {
+		fields = append(fields, appstocklock.FieldUpdatedAt)
+	}
+	if m.adddeleted_at != nil {
+		fields = append(fields, appstocklock.FieldDeletedAt)
+	}
+	return fields
 }
 
 // AddedField returns the numeric value that was incremented/decremented on a field
 // with the given name. The second boolean return value indicates that this field
 // was not set, or was not defined in the schema.
 func (m *AppStockLockMutation) AddedField(name string) (ent.Value, bool) {
+	switch name {
+	case appstocklock.FieldCreatedAt:
+		return m.AddedCreatedAt()
+	case appstocklock.FieldUpdatedAt:
+		return m.AddedUpdatedAt()
+	case appstocklock.FieldDeletedAt:
+		return m.AddedDeletedAt()
+	}
 	return nil, false
 }
 
@@ -14664,6 +18561,27 @@ func (m *AppStockLockMutation) AddedField(name string) (ent.Value, bool) {
 // type.
 func (m *AppStockLockMutation) AddField(name string, value ent.Value) error {
 	switch name {
+	case appstocklock.FieldCreatedAt:
+		v, ok := value.(int32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddCreatedAt(v)
+		return nil
+	case appstocklock.FieldUpdatedAt:
+		v, ok := value.(int32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddUpdatedAt(v)
+		return nil
+	case appstocklock.FieldDeletedAt:
+		v, ok := value.(int32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddDeletedAt(v)
+		return nil
 	}
 	return fmt.Errorf("unknown AppStockLock numeric field %s", name)
 }
@@ -14738,6 +18656,15 @@ func (m *AppStockLockMutation) ResetField(name string) error {
 	switch name {
 	case appstocklock.FieldEntID:
 		m.ResetEntID()
+		return nil
+	case appstocklock.FieldCreatedAt:
+		m.ResetCreatedAt()
+		return nil
+	case appstocklock.FieldUpdatedAt:
+		m.ResetUpdatedAt()
+		return nil
+	case appstocklock.FieldDeletedAt:
+		m.ResetDeletedAt()
 		return nil
 	case appstocklock.FieldAppStockID:
 		m.ResetAppStockID()
@@ -14819,6 +18746,12 @@ type AppSubscriptionMutation struct {
 	typ           string
 	id            *uint32
 	ent_id        *uuid.UUID
+	created_at    *uint32
+	addcreated_at *int32
+	updated_at    *uint32
+	addupdated_at *int32
+	deleted_at    *uint32
+	adddeleted_at *int32
 	app_id        *uuid.UUID
 	good_id       *uuid.UUID
 	app_good_id   *uuid.UUID
@@ -14969,6 +18902,174 @@ func (m *AppSubscriptionMutation) OldEntID(ctx context.Context) (v uuid.UUID, er
 // ResetEntID resets all changes to the "ent_id" field.
 func (m *AppSubscriptionMutation) ResetEntID() {
 	m.ent_id = nil
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (m *AppSubscriptionMutation) SetCreatedAt(u uint32) {
+	m.created_at = &u
+	m.addcreated_at = nil
+}
+
+// CreatedAt returns the value of the "created_at" field in the mutation.
+func (m *AppSubscriptionMutation) CreatedAt() (r uint32, exists bool) {
+	v := m.created_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldCreatedAt returns the old "created_at" field's value of the AppSubscription entity.
+// If the AppSubscription object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *AppSubscriptionMutation) OldCreatedAt(ctx context.Context) (v uint32, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldCreatedAt is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldCreatedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldCreatedAt: %w", err)
+	}
+	return oldValue.CreatedAt, nil
+}
+
+// AddCreatedAt adds u to the "created_at" field.
+func (m *AppSubscriptionMutation) AddCreatedAt(u int32) {
+	if m.addcreated_at != nil {
+		*m.addcreated_at += u
+	} else {
+		m.addcreated_at = &u
+	}
+}
+
+// AddedCreatedAt returns the value that was added to the "created_at" field in this mutation.
+func (m *AppSubscriptionMutation) AddedCreatedAt() (r int32, exists bool) {
+	v := m.addcreated_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetCreatedAt resets all changes to the "created_at" field.
+func (m *AppSubscriptionMutation) ResetCreatedAt() {
+	m.created_at = nil
+	m.addcreated_at = nil
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (m *AppSubscriptionMutation) SetUpdatedAt(u uint32) {
+	m.updated_at = &u
+	m.addupdated_at = nil
+}
+
+// UpdatedAt returns the value of the "updated_at" field in the mutation.
+func (m *AppSubscriptionMutation) UpdatedAt() (r uint32, exists bool) {
+	v := m.updated_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldUpdatedAt returns the old "updated_at" field's value of the AppSubscription entity.
+// If the AppSubscription object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *AppSubscriptionMutation) OldUpdatedAt(ctx context.Context) (v uint32, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldUpdatedAt is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldUpdatedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldUpdatedAt: %w", err)
+	}
+	return oldValue.UpdatedAt, nil
+}
+
+// AddUpdatedAt adds u to the "updated_at" field.
+func (m *AppSubscriptionMutation) AddUpdatedAt(u int32) {
+	if m.addupdated_at != nil {
+		*m.addupdated_at += u
+	} else {
+		m.addupdated_at = &u
+	}
+}
+
+// AddedUpdatedAt returns the value that was added to the "updated_at" field in this mutation.
+func (m *AppSubscriptionMutation) AddedUpdatedAt() (r int32, exists bool) {
+	v := m.addupdated_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetUpdatedAt resets all changes to the "updated_at" field.
+func (m *AppSubscriptionMutation) ResetUpdatedAt() {
+	m.updated_at = nil
+	m.addupdated_at = nil
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (m *AppSubscriptionMutation) SetDeletedAt(u uint32) {
+	m.deleted_at = &u
+	m.adddeleted_at = nil
+}
+
+// DeletedAt returns the value of the "deleted_at" field in the mutation.
+func (m *AppSubscriptionMutation) DeletedAt() (r uint32, exists bool) {
+	v := m.deleted_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldDeletedAt returns the old "deleted_at" field's value of the AppSubscription entity.
+// If the AppSubscription object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *AppSubscriptionMutation) OldDeletedAt(ctx context.Context) (v uint32, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldDeletedAt is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldDeletedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldDeletedAt: %w", err)
+	}
+	return oldValue.DeletedAt, nil
+}
+
+// AddDeletedAt adds u to the "deleted_at" field.
+func (m *AppSubscriptionMutation) AddDeletedAt(u int32) {
+	if m.adddeleted_at != nil {
+		*m.adddeleted_at += u
+	} else {
+		m.adddeleted_at = &u
+	}
+}
+
+// AddedDeletedAt returns the value that was added to the "deleted_at" field in this mutation.
+func (m *AppSubscriptionMutation) AddedDeletedAt() (r int32, exists bool) {
+	v := m.adddeleted_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetDeletedAt resets all changes to the "deleted_at" field.
+func (m *AppSubscriptionMutation) ResetDeletedAt() {
+	m.deleted_at = nil
+	m.adddeleted_at = nil
 }
 
 // SetAppID sets the "app_id" field.
@@ -15299,9 +19400,18 @@ func (m *AppSubscriptionMutation) Type() string {
 // order to get all numeric fields that were incremented/decremented, call
 // AddedFields().
 func (m *AppSubscriptionMutation) Fields() []string {
-	fields := make([]string, 0, 7)
+	fields := make([]string, 0, 10)
 	if m.ent_id != nil {
 		fields = append(fields, appsubscription.FieldEntID)
+	}
+	if m.created_at != nil {
+		fields = append(fields, appsubscription.FieldCreatedAt)
+	}
+	if m.updated_at != nil {
+		fields = append(fields, appsubscription.FieldUpdatedAt)
+	}
+	if m.deleted_at != nil {
+		fields = append(fields, appsubscription.FieldDeletedAt)
 	}
 	if m.app_id != nil {
 		fields = append(fields, appsubscription.FieldAppID)
@@ -15331,6 +19441,12 @@ func (m *AppSubscriptionMutation) Field(name string) (ent.Value, bool) {
 	switch name {
 	case appsubscription.FieldEntID:
 		return m.EntID()
+	case appsubscription.FieldCreatedAt:
+		return m.CreatedAt()
+	case appsubscription.FieldUpdatedAt:
+		return m.UpdatedAt()
+	case appsubscription.FieldDeletedAt:
+		return m.DeletedAt()
 	case appsubscription.FieldAppID:
 		return m.AppID()
 	case appsubscription.FieldGoodID:
@@ -15354,6 +19470,12 @@ func (m *AppSubscriptionMutation) OldField(ctx context.Context, name string) (en
 	switch name {
 	case appsubscription.FieldEntID:
 		return m.OldEntID(ctx)
+	case appsubscription.FieldCreatedAt:
+		return m.OldCreatedAt(ctx)
+	case appsubscription.FieldUpdatedAt:
+		return m.OldUpdatedAt(ctx)
+	case appsubscription.FieldDeletedAt:
+		return m.OldDeletedAt(ctx)
 	case appsubscription.FieldAppID:
 		return m.OldAppID(ctx)
 	case appsubscription.FieldGoodID:
@@ -15381,6 +19503,27 @@ func (m *AppSubscriptionMutation) SetField(name string, value ent.Value) error {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetEntID(v)
+		return nil
+	case appsubscription.FieldCreatedAt:
+		v, ok := value.(uint32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetCreatedAt(v)
+		return nil
+	case appsubscription.FieldUpdatedAt:
+		v, ok := value.(uint32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetUpdatedAt(v)
+		return nil
+	case appsubscription.FieldDeletedAt:
+		v, ok := value.(uint32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetDeletedAt(v)
 		return nil
 	case appsubscription.FieldAppID:
 		v, ok := value.(uuid.UUID)
@@ -15431,13 +19574,31 @@ func (m *AppSubscriptionMutation) SetField(name string, value ent.Value) error {
 // AddedFields returns all numeric fields that were incremented/decremented during
 // this mutation.
 func (m *AppSubscriptionMutation) AddedFields() []string {
-	return nil
+	var fields []string
+	if m.addcreated_at != nil {
+		fields = append(fields, appsubscription.FieldCreatedAt)
+	}
+	if m.addupdated_at != nil {
+		fields = append(fields, appsubscription.FieldUpdatedAt)
+	}
+	if m.adddeleted_at != nil {
+		fields = append(fields, appsubscription.FieldDeletedAt)
+	}
+	return fields
 }
 
 // AddedField returns the numeric value that was incremented/decremented on a field
 // with the given name. The second boolean return value indicates that this field
 // was not set, or was not defined in the schema.
 func (m *AppSubscriptionMutation) AddedField(name string) (ent.Value, bool) {
+	switch name {
+	case appsubscription.FieldCreatedAt:
+		return m.AddedCreatedAt()
+	case appsubscription.FieldUpdatedAt:
+		return m.AddedUpdatedAt()
+	case appsubscription.FieldDeletedAt:
+		return m.AddedDeletedAt()
+	}
 	return nil, false
 }
 
@@ -15446,6 +19607,27 @@ func (m *AppSubscriptionMutation) AddedField(name string) (ent.Value, bool) {
 // type.
 func (m *AppSubscriptionMutation) AddField(name string, value ent.Value) error {
 	switch name {
+	case appsubscription.FieldCreatedAt:
+		v, ok := value.(int32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddCreatedAt(v)
+		return nil
+	case appsubscription.FieldUpdatedAt:
+		v, ok := value.(int32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddUpdatedAt(v)
+		return nil
+	case appsubscription.FieldDeletedAt:
+		v, ok := value.(int32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddDeletedAt(v)
+		return nil
 	}
 	return fmt.Errorf("unknown AppSubscription numeric field %s", name)
 }
@@ -15514,6 +19696,15 @@ func (m *AppSubscriptionMutation) ResetField(name string) error {
 	switch name {
 	case appsubscription.FieldEntID:
 		m.ResetEntID()
+		return nil
+	case appsubscription.FieldCreatedAt:
+		m.ResetCreatedAt()
+		return nil
+	case appsubscription.FieldUpdatedAt:
+		m.ResetUpdatedAt()
+		return nil
+	case appsubscription.FieldDeletedAt:
+		m.ResetDeletedAt()
 		return nil
 	case appsubscription.FieldAppID:
 		m.ResetAppID()
@@ -15592,6 +19783,12 @@ type AppSubscriptionOneShotMutation struct {
 	typ           string
 	id            *uint32
 	ent_id        *uuid.UUID
+	created_at    *uint32
+	addcreated_at *int32
+	updated_at    *uint32
+	addupdated_at *int32
+	deleted_at    *uint32
+	adddeleted_at *int32
 	app_id        *uuid.UUID
 	good_id       *uuid.UUID
 	app_good_id   *uuid.UUID
@@ -15742,6 +19939,174 @@ func (m *AppSubscriptionOneShotMutation) OldEntID(ctx context.Context) (v uuid.U
 // ResetEntID resets all changes to the "ent_id" field.
 func (m *AppSubscriptionOneShotMutation) ResetEntID() {
 	m.ent_id = nil
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (m *AppSubscriptionOneShotMutation) SetCreatedAt(u uint32) {
+	m.created_at = &u
+	m.addcreated_at = nil
+}
+
+// CreatedAt returns the value of the "created_at" field in the mutation.
+func (m *AppSubscriptionOneShotMutation) CreatedAt() (r uint32, exists bool) {
+	v := m.created_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldCreatedAt returns the old "created_at" field's value of the AppSubscriptionOneShot entity.
+// If the AppSubscriptionOneShot object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *AppSubscriptionOneShotMutation) OldCreatedAt(ctx context.Context) (v uint32, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldCreatedAt is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldCreatedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldCreatedAt: %w", err)
+	}
+	return oldValue.CreatedAt, nil
+}
+
+// AddCreatedAt adds u to the "created_at" field.
+func (m *AppSubscriptionOneShotMutation) AddCreatedAt(u int32) {
+	if m.addcreated_at != nil {
+		*m.addcreated_at += u
+	} else {
+		m.addcreated_at = &u
+	}
+}
+
+// AddedCreatedAt returns the value that was added to the "created_at" field in this mutation.
+func (m *AppSubscriptionOneShotMutation) AddedCreatedAt() (r int32, exists bool) {
+	v := m.addcreated_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetCreatedAt resets all changes to the "created_at" field.
+func (m *AppSubscriptionOneShotMutation) ResetCreatedAt() {
+	m.created_at = nil
+	m.addcreated_at = nil
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (m *AppSubscriptionOneShotMutation) SetUpdatedAt(u uint32) {
+	m.updated_at = &u
+	m.addupdated_at = nil
+}
+
+// UpdatedAt returns the value of the "updated_at" field in the mutation.
+func (m *AppSubscriptionOneShotMutation) UpdatedAt() (r uint32, exists bool) {
+	v := m.updated_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldUpdatedAt returns the old "updated_at" field's value of the AppSubscriptionOneShot entity.
+// If the AppSubscriptionOneShot object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *AppSubscriptionOneShotMutation) OldUpdatedAt(ctx context.Context) (v uint32, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldUpdatedAt is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldUpdatedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldUpdatedAt: %w", err)
+	}
+	return oldValue.UpdatedAt, nil
+}
+
+// AddUpdatedAt adds u to the "updated_at" field.
+func (m *AppSubscriptionOneShotMutation) AddUpdatedAt(u int32) {
+	if m.addupdated_at != nil {
+		*m.addupdated_at += u
+	} else {
+		m.addupdated_at = &u
+	}
+}
+
+// AddedUpdatedAt returns the value that was added to the "updated_at" field in this mutation.
+func (m *AppSubscriptionOneShotMutation) AddedUpdatedAt() (r int32, exists bool) {
+	v := m.addupdated_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetUpdatedAt resets all changes to the "updated_at" field.
+func (m *AppSubscriptionOneShotMutation) ResetUpdatedAt() {
+	m.updated_at = nil
+	m.addupdated_at = nil
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (m *AppSubscriptionOneShotMutation) SetDeletedAt(u uint32) {
+	m.deleted_at = &u
+	m.adddeleted_at = nil
+}
+
+// DeletedAt returns the value of the "deleted_at" field in the mutation.
+func (m *AppSubscriptionOneShotMutation) DeletedAt() (r uint32, exists bool) {
+	v := m.deleted_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldDeletedAt returns the old "deleted_at" field's value of the AppSubscriptionOneShot entity.
+// If the AppSubscriptionOneShot object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *AppSubscriptionOneShotMutation) OldDeletedAt(ctx context.Context) (v uint32, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldDeletedAt is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldDeletedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldDeletedAt: %w", err)
+	}
+	return oldValue.DeletedAt, nil
+}
+
+// AddDeletedAt adds u to the "deleted_at" field.
+func (m *AppSubscriptionOneShotMutation) AddDeletedAt(u int32) {
+	if m.adddeleted_at != nil {
+		*m.adddeleted_at += u
+	} else {
+		m.adddeleted_at = &u
+	}
+}
+
+// AddedDeletedAt returns the value that was added to the "deleted_at" field in this mutation.
+func (m *AppSubscriptionOneShotMutation) AddedDeletedAt() (r int32, exists bool) {
+	v := m.adddeleted_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetDeletedAt resets all changes to the "deleted_at" field.
+func (m *AppSubscriptionOneShotMutation) ResetDeletedAt() {
+	m.deleted_at = nil
+	m.adddeleted_at = nil
 }
 
 // SetAppID sets the "app_id" field.
@@ -16072,9 +20437,18 @@ func (m *AppSubscriptionOneShotMutation) Type() string {
 // order to get all numeric fields that were incremented/decremented, call
 // AddedFields().
 func (m *AppSubscriptionOneShotMutation) Fields() []string {
-	fields := make([]string, 0, 7)
+	fields := make([]string, 0, 10)
 	if m.ent_id != nil {
 		fields = append(fields, appsubscriptiononeshot.FieldEntID)
+	}
+	if m.created_at != nil {
+		fields = append(fields, appsubscriptiononeshot.FieldCreatedAt)
+	}
+	if m.updated_at != nil {
+		fields = append(fields, appsubscriptiononeshot.FieldUpdatedAt)
+	}
+	if m.deleted_at != nil {
+		fields = append(fields, appsubscriptiononeshot.FieldDeletedAt)
 	}
 	if m.app_id != nil {
 		fields = append(fields, appsubscriptiononeshot.FieldAppID)
@@ -16104,6 +20478,12 @@ func (m *AppSubscriptionOneShotMutation) Field(name string) (ent.Value, bool) {
 	switch name {
 	case appsubscriptiononeshot.FieldEntID:
 		return m.EntID()
+	case appsubscriptiononeshot.FieldCreatedAt:
+		return m.CreatedAt()
+	case appsubscriptiononeshot.FieldUpdatedAt:
+		return m.UpdatedAt()
+	case appsubscriptiononeshot.FieldDeletedAt:
+		return m.DeletedAt()
 	case appsubscriptiononeshot.FieldAppID:
 		return m.AppID()
 	case appsubscriptiononeshot.FieldGoodID:
@@ -16127,6 +20507,12 @@ func (m *AppSubscriptionOneShotMutation) OldField(ctx context.Context, name stri
 	switch name {
 	case appsubscriptiononeshot.FieldEntID:
 		return m.OldEntID(ctx)
+	case appsubscriptiononeshot.FieldCreatedAt:
+		return m.OldCreatedAt(ctx)
+	case appsubscriptiononeshot.FieldUpdatedAt:
+		return m.OldUpdatedAt(ctx)
+	case appsubscriptiononeshot.FieldDeletedAt:
+		return m.OldDeletedAt(ctx)
 	case appsubscriptiononeshot.FieldAppID:
 		return m.OldAppID(ctx)
 	case appsubscriptiononeshot.FieldGoodID:
@@ -16154,6 +20540,27 @@ func (m *AppSubscriptionOneShotMutation) SetField(name string, value ent.Value) 
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetEntID(v)
+		return nil
+	case appsubscriptiononeshot.FieldCreatedAt:
+		v, ok := value.(uint32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetCreatedAt(v)
+		return nil
+	case appsubscriptiononeshot.FieldUpdatedAt:
+		v, ok := value.(uint32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetUpdatedAt(v)
+		return nil
+	case appsubscriptiononeshot.FieldDeletedAt:
+		v, ok := value.(uint32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetDeletedAt(v)
 		return nil
 	case appsubscriptiononeshot.FieldAppID:
 		v, ok := value.(uuid.UUID)
@@ -16204,13 +20611,31 @@ func (m *AppSubscriptionOneShotMutation) SetField(name string, value ent.Value) 
 // AddedFields returns all numeric fields that were incremented/decremented during
 // this mutation.
 func (m *AppSubscriptionOneShotMutation) AddedFields() []string {
-	return nil
+	var fields []string
+	if m.addcreated_at != nil {
+		fields = append(fields, appsubscriptiononeshot.FieldCreatedAt)
+	}
+	if m.addupdated_at != nil {
+		fields = append(fields, appsubscriptiononeshot.FieldUpdatedAt)
+	}
+	if m.adddeleted_at != nil {
+		fields = append(fields, appsubscriptiononeshot.FieldDeletedAt)
+	}
+	return fields
 }
 
 // AddedField returns the numeric value that was incremented/decremented on a field
 // with the given name. The second boolean return value indicates that this field
 // was not set, or was not defined in the schema.
 func (m *AppSubscriptionOneShotMutation) AddedField(name string) (ent.Value, bool) {
+	switch name {
+	case appsubscriptiononeshot.FieldCreatedAt:
+		return m.AddedCreatedAt()
+	case appsubscriptiononeshot.FieldUpdatedAt:
+		return m.AddedUpdatedAt()
+	case appsubscriptiononeshot.FieldDeletedAt:
+		return m.AddedDeletedAt()
+	}
 	return nil, false
 }
 
@@ -16219,6 +20644,27 @@ func (m *AppSubscriptionOneShotMutation) AddedField(name string) (ent.Value, boo
 // type.
 func (m *AppSubscriptionOneShotMutation) AddField(name string, value ent.Value) error {
 	switch name {
+	case appsubscriptiononeshot.FieldCreatedAt:
+		v, ok := value.(int32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddCreatedAt(v)
+		return nil
+	case appsubscriptiononeshot.FieldUpdatedAt:
+		v, ok := value.(int32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddUpdatedAt(v)
+		return nil
+	case appsubscriptiononeshot.FieldDeletedAt:
+		v, ok := value.(int32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddDeletedAt(v)
+		return nil
 	}
 	return fmt.Errorf("unknown AppSubscriptionOneShot numeric field %s", name)
 }
@@ -16287,6 +20733,15 @@ func (m *AppSubscriptionOneShotMutation) ResetField(name string) error {
 	switch name {
 	case appsubscriptiononeshot.FieldEntID:
 		m.ResetEntID()
+		return nil
+	case appsubscriptiononeshot.FieldCreatedAt:
+		m.ResetCreatedAt()
+		return nil
+	case appsubscriptiononeshot.FieldUpdatedAt:
+		m.ResetUpdatedAt()
+		return nil
+	case appsubscriptiononeshot.FieldDeletedAt:
+		m.ResetDeletedAt()
 		return nil
 	case appsubscriptiononeshot.FieldAppID:
 		m.ResetAppID()
@@ -16365,6 +20820,12 @@ type CommentMutation struct {
 	typ            string
 	id             *uint32
 	ent_id         *uuid.UUID
+	created_at     *uint32
+	addcreated_at  *int32
+	updated_at     *uint32
+	addupdated_at  *int32
+	deleted_at     *uint32
+	adddeleted_at  *int32
 	user_id        *uuid.UUID
 	app_good_id    *uuid.UUID
 	order_id       *uuid.UUID
@@ -16519,6 +20980,174 @@ func (m *CommentMutation) OldEntID(ctx context.Context) (v uuid.UUID, err error)
 // ResetEntID resets all changes to the "ent_id" field.
 func (m *CommentMutation) ResetEntID() {
 	m.ent_id = nil
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (m *CommentMutation) SetCreatedAt(u uint32) {
+	m.created_at = &u
+	m.addcreated_at = nil
+}
+
+// CreatedAt returns the value of the "created_at" field in the mutation.
+func (m *CommentMutation) CreatedAt() (r uint32, exists bool) {
+	v := m.created_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldCreatedAt returns the old "created_at" field's value of the Comment entity.
+// If the Comment object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *CommentMutation) OldCreatedAt(ctx context.Context) (v uint32, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldCreatedAt is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldCreatedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldCreatedAt: %w", err)
+	}
+	return oldValue.CreatedAt, nil
+}
+
+// AddCreatedAt adds u to the "created_at" field.
+func (m *CommentMutation) AddCreatedAt(u int32) {
+	if m.addcreated_at != nil {
+		*m.addcreated_at += u
+	} else {
+		m.addcreated_at = &u
+	}
+}
+
+// AddedCreatedAt returns the value that was added to the "created_at" field in this mutation.
+func (m *CommentMutation) AddedCreatedAt() (r int32, exists bool) {
+	v := m.addcreated_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetCreatedAt resets all changes to the "created_at" field.
+func (m *CommentMutation) ResetCreatedAt() {
+	m.created_at = nil
+	m.addcreated_at = nil
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (m *CommentMutation) SetUpdatedAt(u uint32) {
+	m.updated_at = &u
+	m.addupdated_at = nil
+}
+
+// UpdatedAt returns the value of the "updated_at" field in the mutation.
+func (m *CommentMutation) UpdatedAt() (r uint32, exists bool) {
+	v := m.updated_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldUpdatedAt returns the old "updated_at" field's value of the Comment entity.
+// If the Comment object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *CommentMutation) OldUpdatedAt(ctx context.Context) (v uint32, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldUpdatedAt is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldUpdatedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldUpdatedAt: %w", err)
+	}
+	return oldValue.UpdatedAt, nil
+}
+
+// AddUpdatedAt adds u to the "updated_at" field.
+func (m *CommentMutation) AddUpdatedAt(u int32) {
+	if m.addupdated_at != nil {
+		*m.addupdated_at += u
+	} else {
+		m.addupdated_at = &u
+	}
+}
+
+// AddedUpdatedAt returns the value that was added to the "updated_at" field in this mutation.
+func (m *CommentMutation) AddedUpdatedAt() (r int32, exists bool) {
+	v := m.addupdated_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetUpdatedAt resets all changes to the "updated_at" field.
+func (m *CommentMutation) ResetUpdatedAt() {
+	m.updated_at = nil
+	m.addupdated_at = nil
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (m *CommentMutation) SetDeletedAt(u uint32) {
+	m.deleted_at = &u
+	m.adddeleted_at = nil
+}
+
+// DeletedAt returns the value of the "deleted_at" field in the mutation.
+func (m *CommentMutation) DeletedAt() (r uint32, exists bool) {
+	v := m.deleted_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldDeletedAt returns the old "deleted_at" field's value of the Comment entity.
+// If the Comment object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *CommentMutation) OldDeletedAt(ctx context.Context) (v uint32, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldDeletedAt is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldDeletedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldDeletedAt: %w", err)
+	}
+	return oldValue.DeletedAt, nil
+}
+
+// AddDeletedAt adds u to the "deleted_at" field.
+func (m *CommentMutation) AddDeletedAt(u int32) {
+	if m.adddeleted_at != nil {
+		*m.adddeleted_at += u
+	} else {
+		m.adddeleted_at = &u
+	}
+}
+
+// AddedDeletedAt returns the value that was added to the "deleted_at" field in this mutation.
+func (m *CommentMutation) AddedDeletedAt() (r int32, exists bool) {
+	v := m.adddeleted_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetDeletedAt resets all changes to the "deleted_at" field.
+func (m *CommentMutation) ResetDeletedAt() {
+	m.deleted_at = nil
+	m.adddeleted_at = nil
 }
 
 // SetUserID sets the "user_id" field.
@@ -17045,9 +21674,18 @@ func (m *CommentMutation) Type() string {
 // order to get all numeric fields that were incremented/decremented, call
 // AddedFields().
 func (m *CommentMutation) Fields() []string {
-	fields := make([]string, 0, 11)
+	fields := make([]string, 0, 14)
 	if m.ent_id != nil {
 		fields = append(fields, comment.FieldEntID)
+	}
+	if m.created_at != nil {
+		fields = append(fields, comment.FieldCreatedAt)
+	}
+	if m.updated_at != nil {
+		fields = append(fields, comment.FieldUpdatedAt)
+	}
+	if m.deleted_at != nil {
+		fields = append(fields, comment.FieldDeletedAt)
 	}
 	if m.user_id != nil {
 		fields = append(fields, comment.FieldUserID)
@@ -17089,6 +21727,12 @@ func (m *CommentMutation) Field(name string) (ent.Value, bool) {
 	switch name {
 	case comment.FieldEntID:
 		return m.EntID()
+	case comment.FieldCreatedAt:
+		return m.CreatedAt()
+	case comment.FieldUpdatedAt:
+		return m.UpdatedAt()
+	case comment.FieldDeletedAt:
+		return m.DeletedAt()
 	case comment.FieldUserID:
 		return m.UserID()
 	case comment.FieldAppGoodID:
@@ -17120,6 +21764,12 @@ func (m *CommentMutation) OldField(ctx context.Context, name string) (ent.Value,
 	switch name {
 	case comment.FieldEntID:
 		return m.OldEntID(ctx)
+	case comment.FieldCreatedAt:
+		return m.OldCreatedAt(ctx)
+	case comment.FieldUpdatedAt:
+		return m.OldUpdatedAt(ctx)
+	case comment.FieldDeletedAt:
+		return m.OldDeletedAt(ctx)
 	case comment.FieldUserID:
 		return m.OldUserID(ctx)
 	case comment.FieldAppGoodID:
@@ -17155,6 +21805,27 @@ func (m *CommentMutation) SetField(name string, value ent.Value) error {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetEntID(v)
+		return nil
+	case comment.FieldCreatedAt:
+		v, ok := value.(uint32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetCreatedAt(v)
+		return nil
+	case comment.FieldUpdatedAt:
+		v, ok := value.(uint32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetUpdatedAt(v)
+		return nil
+	case comment.FieldDeletedAt:
+		v, ok := value.(uint32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetDeletedAt(v)
 		return nil
 	case comment.FieldUserID:
 		v, ok := value.(uuid.UUID)
@@ -17233,13 +21904,31 @@ func (m *CommentMutation) SetField(name string, value ent.Value) error {
 // AddedFields returns all numeric fields that were incremented/decremented during
 // this mutation.
 func (m *CommentMutation) AddedFields() []string {
-	return nil
+	var fields []string
+	if m.addcreated_at != nil {
+		fields = append(fields, comment.FieldCreatedAt)
+	}
+	if m.addupdated_at != nil {
+		fields = append(fields, comment.FieldUpdatedAt)
+	}
+	if m.adddeleted_at != nil {
+		fields = append(fields, comment.FieldDeletedAt)
+	}
+	return fields
 }
 
 // AddedField returns the numeric value that was incremented/decremented on a field
 // with the given name. The second boolean return value indicates that this field
 // was not set, or was not defined in the schema.
 func (m *CommentMutation) AddedField(name string) (ent.Value, bool) {
+	switch name {
+	case comment.FieldCreatedAt:
+		return m.AddedCreatedAt()
+	case comment.FieldUpdatedAt:
+		return m.AddedUpdatedAt()
+	case comment.FieldDeletedAt:
+		return m.AddedDeletedAt()
+	}
 	return nil, false
 }
 
@@ -17248,6 +21937,27 @@ func (m *CommentMutation) AddedField(name string) (ent.Value, bool) {
 // type.
 func (m *CommentMutation) AddField(name string, value ent.Value) error {
 	switch name {
+	case comment.FieldCreatedAt:
+		v, ok := value.(int32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddCreatedAt(v)
+		return nil
+	case comment.FieldUpdatedAt:
+		v, ok := value.(int32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddUpdatedAt(v)
+		return nil
+	case comment.FieldDeletedAt:
+		v, ok := value.(int32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddDeletedAt(v)
+		return nil
 	}
 	return fmt.Errorf("unknown Comment numeric field %s", name)
 }
@@ -17341,6 +22051,15 @@ func (m *CommentMutation) ResetField(name string) error {
 	case comment.FieldEntID:
 		m.ResetEntID()
 		return nil
+	case comment.FieldCreatedAt:
+		m.ResetCreatedAt()
+		return nil
+	case comment.FieldUpdatedAt:
+		m.ResetUpdatedAt()
+		return nil
+	case comment.FieldDeletedAt:
+		m.ResetDeletedAt()
+		return nil
 	case comment.FieldUserID:
 		m.ResetUserID()
 		return nil
@@ -17430,6 +22149,12 @@ type DelegatedStakingMutation struct {
 	typ                  string
 	id                   *uint32
 	ent_id               *uuid.UUID
+	created_at           *uint32
+	addcreated_at        *int32
+	updated_at           *uint32
+	addupdated_at        *int32
+	deleted_at           *uint32
+	adddeleted_at        *int32
 	good_id              *uuid.UUID
 	contract_code_url    *string
 	contract_code_branch *string
@@ -17578,6 +22303,174 @@ func (m *DelegatedStakingMutation) OldEntID(ctx context.Context) (v uuid.UUID, e
 // ResetEntID resets all changes to the "ent_id" field.
 func (m *DelegatedStakingMutation) ResetEntID() {
 	m.ent_id = nil
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (m *DelegatedStakingMutation) SetCreatedAt(u uint32) {
+	m.created_at = &u
+	m.addcreated_at = nil
+}
+
+// CreatedAt returns the value of the "created_at" field in the mutation.
+func (m *DelegatedStakingMutation) CreatedAt() (r uint32, exists bool) {
+	v := m.created_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldCreatedAt returns the old "created_at" field's value of the DelegatedStaking entity.
+// If the DelegatedStaking object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *DelegatedStakingMutation) OldCreatedAt(ctx context.Context) (v uint32, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldCreatedAt is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldCreatedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldCreatedAt: %w", err)
+	}
+	return oldValue.CreatedAt, nil
+}
+
+// AddCreatedAt adds u to the "created_at" field.
+func (m *DelegatedStakingMutation) AddCreatedAt(u int32) {
+	if m.addcreated_at != nil {
+		*m.addcreated_at += u
+	} else {
+		m.addcreated_at = &u
+	}
+}
+
+// AddedCreatedAt returns the value that was added to the "created_at" field in this mutation.
+func (m *DelegatedStakingMutation) AddedCreatedAt() (r int32, exists bool) {
+	v := m.addcreated_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetCreatedAt resets all changes to the "created_at" field.
+func (m *DelegatedStakingMutation) ResetCreatedAt() {
+	m.created_at = nil
+	m.addcreated_at = nil
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (m *DelegatedStakingMutation) SetUpdatedAt(u uint32) {
+	m.updated_at = &u
+	m.addupdated_at = nil
+}
+
+// UpdatedAt returns the value of the "updated_at" field in the mutation.
+func (m *DelegatedStakingMutation) UpdatedAt() (r uint32, exists bool) {
+	v := m.updated_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldUpdatedAt returns the old "updated_at" field's value of the DelegatedStaking entity.
+// If the DelegatedStaking object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *DelegatedStakingMutation) OldUpdatedAt(ctx context.Context) (v uint32, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldUpdatedAt is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldUpdatedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldUpdatedAt: %w", err)
+	}
+	return oldValue.UpdatedAt, nil
+}
+
+// AddUpdatedAt adds u to the "updated_at" field.
+func (m *DelegatedStakingMutation) AddUpdatedAt(u int32) {
+	if m.addupdated_at != nil {
+		*m.addupdated_at += u
+	} else {
+		m.addupdated_at = &u
+	}
+}
+
+// AddedUpdatedAt returns the value that was added to the "updated_at" field in this mutation.
+func (m *DelegatedStakingMutation) AddedUpdatedAt() (r int32, exists bool) {
+	v := m.addupdated_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetUpdatedAt resets all changes to the "updated_at" field.
+func (m *DelegatedStakingMutation) ResetUpdatedAt() {
+	m.updated_at = nil
+	m.addupdated_at = nil
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (m *DelegatedStakingMutation) SetDeletedAt(u uint32) {
+	m.deleted_at = &u
+	m.adddeleted_at = nil
+}
+
+// DeletedAt returns the value of the "deleted_at" field in the mutation.
+func (m *DelegatedStakingMutation) DeletedAt() (r uint32, exists bool) {
+	v := m.deleted_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldDeletedAt returns the old "deleted_at" field's value of the DelegatedStaking entity.
+// If the DelegatedStaking object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *DelegatedStakingMutation) OldDeletedAt(ctx context.Context) (v uint32, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldDeletedAt is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldDeletedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldDeletedAt: %w", err)
+	}
+	return oldValue.DeletedAt, nil
+}
+
+// AddDeletedAt adds u to the "deleted_at" field.
+func (m *DelegatedStakingMutation) AddDeletedAt(u int32) {
+	if m.adddeleted_at != nil {
+		*m.adddeleted_at += u
+	} else {
+		m.adddeleted_at = &u
+	}
+}
+
+// AddedDeletedAt returns the value that was added to the "deleted_at" field in this mutation.
+func (m *DelegatedStakingMutation) AddedDeletedAt() (r int32, exists bool) {
+	v := m.adddeleted_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetDeletedAt resets all changes to the "deleted_at" field.
+func (m *DelegatedStakingMutation) ResetDeletedAt() {
+	m.deleted_at = nil
+	m.adddeleted_at = nil
 }
 
 // SetGoodID sets the "good_id" field.
@@ -17810,9 +22703,18 @@ func (m *DelegatedStakingMutation) Type() string {
 // order to get all numeric fields that were incremented/decremented, call
 // AddedFields().
 func (m *DelegatedStakingMutation) Fields() []string {
-	fields := make([]string, 0, 5)
+	fields := make([]string, 0, 8)
 	if m.ent_id != nil {
 		fields = append(fields, delegatedstaking.FieldEntID)
+	}
+	if m.created_at != nil {
+		fields = append(fields, delegatedstaking.FieldCreatedAt)
+	}
+	if m.updated_at != nil {
+		fields = append(fields, delegatedstaking.FieldUpdatedAt)
+	}
+	if m.deleted_at != nil {
+		fields = append(fields, delegatedstaking.FieldDeletedAt)
 	}
 	if m.good_id != nil {
 		fields = append(fields, delegatedstaking.FieldGoodID)
@@ -17836,6 +22738,12 @@ func (m *DelegatedStakingMutation) Field(name string) (ent.Value, bool) {
 	switch name {
 	case delegatedstaking.FieldEntID:
 		return m.EntID()
+	case delegatedstaking.FieldCreatedAt:
+		return m.CreatedAt()
+	case delegatedstaking.FieldUpdatedAt:
+		return m.UpdatedAt()
+	case delegatedstaking.FieldDeletedAt:
+		return m.DeletedAt()
 	case delegatedstaking.FieldGoodID:
 		return m.GoodID()
 	case delegatedstaking.FieldContractCodeURL:
@@ -17855,6 +22763,12 @@ func (m *DelegatedStakingMutation) OldField(ctx context.Context, name string) (e
 	switch name {
 	case delegatedstaking.FieldEntID:
 		return m.OldEntID(ctx)
+	case delegatedstaking.FieldCreatedAt:
+		return m.OldCreatedAt(ctx)
+	case delegatedstaking.FieldUpdatedAt:
+		return m.OldUpdatedAt(ctx)
+	case delegatedstaking.FieldDeletedAt:
+		return m.OldDeletedAt(ctx)
 	case delegatedstaking.FieldGoodID:
 		return m.OldGoodID(ctx)
 	case delegatedstaking.FieldContractCodeURL:
@@ -17878,6 +22792,27 @@ func (m *DelegatedStakingMutation) SetField(name string, value ent.Value) error 
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetEntID(v)
+		return nil
+	case delegatedstaking.FieldCreatedAt:
+		v, ok := value.(uint32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetCreatedAt(v)
+		return nil
+	case delegatedstaking.FieldUpdatedAt:
+		v, ok := value.(uint32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetUpdatedAt(v)
+		return nil
+	case delegatedstaking.FieldDeletedAt:
+		v, ok := value.(uint32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetDeletedAt(v)
 		return nil
 	case delegatedstaking.FieldGoodID:
 		v, ok := value.(uuid.UUID)
@@ -17914,13 +22849,31 @@ func (m *DelegatedStakingMutation) SetField(name string, value ent.Value) error 
 // AddedFields returns all numeric fields that were incremented/decremented during
 // this mutation.
 func (m *DelegatedStakingMutation) AddedFields() []string {
-	return nil
+	var fields []string
+	if m.addcreated_at != nil {
+		fields = append(fields, delegatedstaking.FieldCreatedAt)
+	}
+	if m.addupdated_at != nil {
+		fields = append(fields, delegatedstaking.FieldUpdatedAt)
+	}
+	if m.adddeleted_at != nil {
+		fields = append(fields, delegatedstaking.FieldDeletedAt)
+	}
+	return fields
 }
 
 // AddedField returns the numeric value that was incremented/decremented on a field
 // with the given name. The second boolean return value indicates that this field
 // was not set, or was not defined in the schema.
 func (m *DelegatedStakingMutation) AddedField(name string) (ent.Value, bool) {
+	switch name {
+	case delegatedstaking.FieldCreatedAt:
+		return m.AddedCreatedAt()
+	case delegatedstaking.FieldUpdatedAt:
+		return m.AddedUpdatedAt()
+	case delegatedstaking.FieldDeletedAt:
+		return m.AddedDeletedAt()
+	}
 	return nil, false
 }
 
@@ -17929,6 +22882,27 @@ func (m *DelegatedStakingMutation) AddedField(name string) (ent.Value, bool) {
 // type.
 func (m *DelegatedStakingMutation) AddField(name string, value ent.Value) error {
 	switch name {
+	case delegatedstaking.FieldCreatedAt:
+		v, ok := value.(int32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddCreatedAt(v)
+		return nil
+	case delegatedstaking.FieldUpdatedAt:
+		v, ok := value.(int32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddUpdatedAt(v)
+		return nil
+	case delegatedstaking.FieldDeletedAt:
+		v, ok := value.(int32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddDeletedAt(v)
+		return nil
 	}
 	return fmt.Errorf("unknown DelegatedStaking numeric field %s", name)
 }
@@ -17985,6 +22959,15 @@ func (m *DelegatedStakingMutation) ResetField(name string) error {
 	switch name {
 	case delegatedstaking.FieldEntID:
 		m.ResetEntID()
+		return nil
+	case delegatedstaking.FieldCreatedAt:
+		m.ResetCreatedAt()
+		return nil
+	case delegatedstaking.FieldUpdatedAt:
+		m.ResetUpdatedAt()
+		return nil
+	case delegatedstaking.FieldDeletedAt:
+		m.ResetDeletedAt()
 		return nil
 	case delegatedstaking.FieldGoodID:
 		m.ResetGoodID()
@@ -18057,6 +23040,12 @@ type DeviceInfoMutation struct {
 	typ                  string
 	id                   *uint32
 	ent_id               *uuid.UUID
+	created_at           *uint32
+	addcreated_at        *int32
+	updated_at           *uint32
+	addupdated_at        *int32
+	deleted_at           *uint32
+	adddeleted_at        *int32
 	_type                *string
 	manufacturer_id      *uuid.UUID
 	power_consumption    *uint32
@@ -18207,6 +23196,174 @@ func (m *DeviceInfoMutation) OldEntID(ctx context.Context) (v uuid.UUID, err err
 // ResetEntID resets all changes to the "ent_id" field.
 func (m *DeviceInfoMutation) ResetEntID() {
 	m.ent_id = nil
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (m *DeviceInfoMutation) SetCreatedAt(u uint32) {
+	m.created_at = &u
+	m.addcreated_at = nil
+}
+
+// CreatedAt returns the value of the "created_at" field in the mutation.
+func (m *DeviceInfoMutation) CreatedAt() (r uint32, exists bool) {
+	v := m.created_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldCreatedAt returns the old "created_at" field's value of the DeviceInfo entity.
+// If the DeviceInfo object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *DeviceInfoMutation) OldCreatedAt(ctx context.Context) (v uint32, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldCreatedAt is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldCreatedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldCreatedAt: %w", err)
+	}
+	return oldValue.CreatedAt, nil
+}
+
+// AddCreatedAt adds u to the "created_at" field.
+func (m *DeviceInfoMutation) AddCreatedAt(u int32) {
+	if m.addcreated_at != nil {
+		*m.addcreated_at += u
+	} else {
+		m.addcreated_at = &u
+	}
+}
+
+// AddedCreatedAt returns the value that was added to the "created_at" field in this mutation.
+func (m *DeviceInfoMutation) AddedCreatedAt() (r int32, exists bool) {
+	v := m.addcreated_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetCreatedAt resets all changes to the "created_at" field.
+func (m *DeviceInfoMutation) ResetCreatedAt() {
+	m.created_at = nil
+	m.addcreated_at = nil
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (m *DeviceInfoMutation) SetUpdatedAt(u uint32) {
+	m.updated_at = &u
+	m.addupdated_at = nil
+}
+
+// UpdatedAt returns the value of the "updated_at" field in the mutation.
+func (m *DeviceInfoMutation) UpdatedAt() (r uint32, exists bool) {
+	v := m.updated_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldUpdatedAt returns the old "updated_at" field's value of the DeviceInfo entity.
+// If the DeviceInfo object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *DeviceInfoMutation) OldUpdatedAt(ctx context.Context) (v uint32, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldUpdatedAt is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldUpdatedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldUpdatedAt: %w", err)
+	}
+	return oldValue.UpdatedAt, nil
+}
+
+// AddUpdatedAt adds u to the "updated_at" field.
+func (m *DeviceInfoMutation) AddUpdatedAt(u int32) {
+	if m.addupdated_at != nil {
+		*m.addupdated_at += u
+	} else {
+		m.addupdated_at = &u
+	}
+}
+
+// AddedUpdatedAt returns the value that was added to the "updated_at" field in this mutation.
+func (m *DeviceInfoMutation) AddedUpdatedAt() (r int32, exists bool) {
+	v := m.addupdated_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetUpdatedAt resets all changes to the "updated_at" field.
+func (m *DeviceInfoMutation) ResetUpdatedAt() {
+	m.updated_at = nil
+	m.addupdated_at = nil
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (m *DeviceInfoMutation) SetDeletedAt(u uint32) {
+	m.deleted_at = &u
+	m.adddeleted_at = nil
+}
+
+// DeletedAt returns the value of the "deleted_at" field in the mutation.
+func (m *DeviceInfoMutation) DeletedAt() (r uint32, exists bool) {
+	v := m.deleted_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldDeletedAt returns the old "deleted_at" field's value of the DeviceInfo entity.
+// If the DeviceInfo object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *DeviceInfoMutation) OldDeletedAt(ctx context.Context) (v uint32, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldDeletedAt is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldDeletedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldDeletedAt: %w", err)
+	}
+	return oldValue.DeletedAt, nil
+}
+
+// AddDeletedAt adds u to the "deleted_at" field.
+func (m *DeviceInfoMutation) AddDeletedAt(u int32) {
+	if m.adddeleted_at != nil {
+		*m.adddeleted_at += u
+	} else {
+		m.adddeleted_at = &u
+	}
+}
+
+// AddedDeletedAt returns the value that was added to the "deleted_at" field in this mutation.
+func (m *DeviceInfoMutation) AddedDeletedAt() (r int32, exists bool) {
+	v := m.adddeleted_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetDeletedAt resets all changes to the "deleted_at" field.
+func (m *DeviceInfoMutation) ResetDeletedAt() {
+	m.deleted_at = nil
+	m.adddeleted_at = nil
 }
 
 // SetType sets the "type" field.
@@ -18481,9 +23638,18 @@ func (m *DeviceInfoMutation) Type() string {
 // order to get all numeric fields that were incremented/decremented, call
 // AddedFields().
 func (m *DeviceInfoMutation) Fields() []string {
-	fields := make([]string, 0, 5)
+	fields := make([]string, 0, 8)
 	if m.ent_id != nil {
 		fields = append(fields, deviceinfo.FieldEntID)
+	}
+	if m.created_at != nil {
+		fields = append(fields, deviceinfo.FieldCreatedAt)
+	}
+	if m.updated_at != nil {
+		fields = append(fields, deviceinfo.FieldUpdatedAt)
+	}
+	if m.deleted_at != nil {
+		fields = append(fields, deviceinfo.FieldDeletedAt)
 	}
 	if m._type != nil {
 		fields = append(fields, deviceinfo.FieldType)
@@ -18507,6 +23673,12 @@ func (m *DeviceInfoMutation) Field(name string) (ent.Value, bool) {
 	switch name {
 	case deviceinfo.FieldEntID:
 		return m.EntID()
+	case deviceinfo.FieldCreatedAt:
+		return m.CreatedAt()
+	case deviceinfo.FieldUpdatedAt:
+		return m.UpdatedAt()
+	case deviceinfo.FieldDeletedAt:
+		return m.DeletedAt()
 	case deviceinfo.FieldType:
 		return m.GetType()
 	case deviceinfo.FieldManufacturerID:
@@ -18526,6 +23698,12 @@ func (m *DeviceInfoMutation) OldField(ctx context.Context, name string) (ent.Val
 	switch name {
 	case deviceinfo.FieldEntID:
 		return m.OldEntID(ctx)
+	case deviceinfo.FieldCreatedAt:
+		return m.OldCreatedAt(ctx)
+	case deviceinfo.FieldUpdatedAt:
+		return m.OldUpdatedAt(ctx)
+	case deviceinfo.FieldDeletedAt:
+		return m.OldDeletedAt(ctx)
 	case deviceinfo.FieldType:
 		return m.OldType(ctx)
 	case deviceinfo.FieldManufacturerID:
@@ -18549,6 +23727,27 @@ func (m *DeviceInfoMutation) SetField(name string, value ent.Value) error {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetEntID(v)
+		return nil
+	case deviceinfo.FieldCreatedAt:
+		v, ok := value.(uint32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetCreatedAt(v)
+		return nil
+	case deviceinfo.FieldUpdatedAt:
+		v, ok := value.(uint32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetUpdatedAt(v)
+		return nil
+	case deviceinfo.FieldDeletedAt:
+		v, ok := value.(uint32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetDeletedAt(v)
 		return nil
 	case deviceinfo.FieldType:
 		v, ok := value.(string)
@@ -18586,6 +23785,15 @@ func (m *DeviceInfoMutation) SetField(name string, value ent.Value) error {
 // this mutation.
 func (m *DeviceInfoMutation) AddedFields() []string {
 	var fields []string
+	if m.addcreated_at != nil {
+		fields = append(fields, deviceinfo.FieldCreatedAt)
+	}
+	if m.addupdated_at != nil {
+		fields = append(fields, deviceinfo.FieldUpdatedAt)
+	}
+	if m.adddeleted_at != nil {
+		fields = append(fields, deviceinfo.FieldDeletedAt)
+	}
 	if m.addpower_consumption != nil {
 		fields = append(fields, deviceinfo.FieldPowerConsumption)
 	}
@@ -18600,6 +23808,12 @@ func (m *DeviceInfoMutation) AddedFields() []string {
 // was not set, or was not defined in the schema.
 func (m *DeviceInfoMutation) AddedField(name string) (ent.Value, bool) {
 	switch name {
+	case deviceinfo.FieldCreatedAt:
+		return m.AddedCreatedAt()
+	case deviceinfo.FieldUpdatedAt:
+		return m.AddedUpdatedAt()
+	case deviceinfo.FieldDeletedAt:
+		return m.AddedDeletedAt()
 	case deviceinfo.FieldPowerConsumption:
 		return m.AddedPowerConsumption()
 	case deviceinfo.FieldShipmentAt:
@@ -18613,6 +23827,27 @@ func (m *DeviceInfoMutation) AddedField(name string) (ent.Value, bool) {
 // type.
 func (m *DeviceInfoMutation) AddField(name string, value ent.Value) error {
 	switch name {
+	case deviceinfo.FieldCreatedAt:
+		v, ok := value.(int32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddCreatedAt(v)
+		return nil
+	case deviceinfo.FieldUpdatedAt:
+		v, ok := value.(int32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddUpdatedAt(v)
+		return nil
+	case deviceinfo.FieldDeletedAt:
+		v, ok := value.(int32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddDeletedAt(v)
+		return nil
 	case deviceinfo.FieldPowerConsumption:
 		v, ok := value.(int32)
 		if !ok {
@@ -18683,6 +23918,15 @@ func (m *DeviceInfoMutation) ResetField(name string) error {
 	switch name {
 	case deviceinfo.FieldEntID:
 		m.ResetEntID()
+		return nil
+	case deviceinfo.FieldCreatedAt:
+		m.ResetCreatedAt()
+		return nil
+	case deviceinfo.FieldUpdatedAt:
+		m.ResetUpdatedAt()
+		return nil
+	case deviceinfo.FieldDeletedAt:
+		m.ResetDeletedAt()
 		return nil
 	case deviceinfo.FieldType:
 		m.ResetType()
@@ -18755,6 +23999,12 @@ type DeviceManufacturerMutation struct {
 	typ           string
 	id            *uint32
 	ent_id        *uuid.UUID
+	created_at    *uint32
+	addcreated_at *int32
+	updated_at    *uint32
+	addupdated_at *int32
+	deleted_at    *uint32
+	adddeleted_at *int32
 	name          *string
 	logo          *string
 	clearedFields map[string]struct{}
@@ -18903,6 +24153,174 @@ func (m *DeviceManufacturerMutation) ResetEntID() {
 	m.ent_id = nil
 }
 
+// SetCreatedAt sets the "created_at" field.
+func (m *DeviceManufacturerMutation) SetCreatedAt(u uint32) {
+	m.created_at = &u
+	m.addcreated_at = nil
+}
+
+// CreatedAt returns the value of the "created_at" field in the mutation.
+func (m *DeviceManufacturerMutation) CreatedAt() (r uint32, exists bool) {
+	v := m.created_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldCreatedAt returns the old "created_at" field's value of the DeviceManufacturer entity.
+// If the DeviceManufacturer object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *DeviceManufacturerMutation) OldCreatedAt(ctx context.Context) (v uint32, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldCreatedAt is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldCreatedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldCreatedAt: %w", err)
+	}
+	return oldValue.CreatedAt, nil
+}
+
+// AddCreatedAt adds u to the "created_at" field.
+func (m *DeviceManufacturerMutation) AddCreatedAt(u int32) {
+	if m.addcreated_at != nil {
+		*m.addcreated_at += u
+	} else {
+		m.addcreated_at = &u
+	}
+}
+
+// AddedCreatedAt returns the value that was added to the "created_at" field in this mutation.
+func (m *DeviceManufacturerMutation) AddedCreatedAt() (r int32, exists bool) {
+	v := m.addcreated_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetCreatedAt resets all changes to the "created_at" field.
+func (m *DeviceManufacturerMutation) ResetCreatedAt() {
+	m.created_at = nil
+	m.addcreated_at = nil
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (m *DeviceManufacturerMutation) SetUpdatedAt(u uint32) {
+	m.updated_at = &u
+	m.addupdated_at = nil
+}
+
+// UpdatedAt returns the value of the "updated_at" field in the mutation.
+func (m *DeviceManufacturerMutation) UpdatedAt() (r uint32, exists bool) {
+	v := m.updated_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldUpdatedAt returns the old "updated_at" field's value of the DeviceManufacturer entity.
+// If the DeviceManufacturer object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *DeviceManufacturerMutation) OldUpdatedAt(ctx context.Context) (v uint32, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldUpdatedAt is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldUpdatedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldUpdatedAt: %w", err)
+	}
+	return oldValue.UpdatedAt, nil
+}
+
+// AddUpdatedAt adds u to the "updated_at" field.
+func (m *DeviceManufacturerMutation) AddUpdatedAt(u int32) {
+	if m.addupdated_at != nil {
+		*m.addupdated_at += u
+	} else {
+		m.addupdated_at = &u
+	}
+}
+
+// AddedUpdatedAt returns the value that was added to the "updated_at" field in this mutation.
+func (m *DeviceManufacturerMutation) AddedUpdatedAt() (r int32, exists bool) {
+	v := m.addupdated_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetUpdatedAt resets all changes to the "updated_at" field.
+func (m *DeviceManufacturerMutation) ResetUpdatedAt() {
+	m.updated_at = nil
+	m.addupdated_at = nil
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (m *DeviceManufacturerMutation) SetDeletedAt(u uint32) {
+	m.deleted_at = &u
+	m.adddeleted_at = nil
+}
+
+// DeletedAt returns the value of the "deleted_at" field in the mutation.
+func (m *DeviceManufacturerMutation) DeletedAt() (r uint32, exists bool) {
+	v := m.deleted_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldDeletedAt returns the old "deleted_at" field's value of the DeviceManufacturer entity.
+// If the DeviceManufacturer object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *DeviceManufacturerMutation) OldDeletedAt(ctx context.Context) (v uint32, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldDeletedAt is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldDeletedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldDeletedAt: %w", err)
+	}
+	return oldValue.DeletedAt, nil
+}
+
+// AddDeletedAt adds u to the "deleted_at" field.
+func (m *DeviceManufacturerMutation) AddDeletedAt(u int32) {
+	if m.adddeleted_at != nil {
+		*m.adddeleted_at += u
+	} else {
+		m.adddeleted_at = &u
+	}
+}
+
+// AddedDeletedAt returns the value that was added to the "deleted_at" field in this mutation.
+func (m *DeviceManufacturerMutation) AddedDeletedAt() (r int32, exists bool) {
+	v := m.adddeleted_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetDeletedAt resets all changes to the "deleted_at" field.
+func (m *DeviceManufacturerMutation) ResetDeletedAt() {
+	m.deleted_at = nil
+	m.adddeleted_at = nil
+}
+
 // SetName sets the "name" field.
 func (m *DeviceManufacturerMutation) SetName(s string) {
 	m.name = &s
@@ -19035,9 +24453,18 @@ func (m *DeviceManufacturerMutation) Type() string {
 // order to get all numeric fields that were incremented/decremented, call
 // AddedFields().
 func (m *DeviceManufacturerMutation) Fields() []string {
-	fields := make([]string, 0, 3)
+	fields := make([]string, 0, 6)
 	if m.ent_id != nil {
 		fields = append(fields, devicemanufacturer.FieldEntID)
+	}
+	if m.created_at != nil {
+		fields = append(fields, devicemanufacturer.FieldCreatedAt)
+	}
+	if m.updated_at != nil {
+		fields = append(fields, devicemanufacturer.FieldUpdatedAt)
+	}
+	if m.deleted_at != nil {
+		fields = append(fields, devicemanufacturer.FieldDeletedAt)
 	}
 	if m.name != nil {
 		fields = append(fields, devicemanufacturer.FieldName)
@@ -19055,6 +24482,12 @@ func (m *DeviceManufacturerMutation) Field(name string) (ent.Value, bool) {
 	switch name {
 	case devicemanufacturer.FieldEntID:
 		return m.EntID()
+	case devicemanufacturer.FieldCreatedAt:
+		return m.CreatedAt()
+	case devicemanufacturer.FieldUpdatedAt:
+		return m.UpdatedAt()
+	case devicemanufacturer.FieldDeletedAt:
+		return m.DeletedAt()
 	case devicemanufacturer.FieldName:
 		return m.Name()
 	case devicemanufacturer.FieldLogo:
@@ -19070,6 +24503,12 @@ func (m *DeviceManufacturerMutation) OldField(ctx context.Context, name string) 
 	switch name {
 	case devicemanufacturer.FieldEntID:
 		return m.OldEntID(ctx)
+	case devicemanufacturer.FieldCreatedAt:
+		return m.OldCreatedAt(ctx)
+	case devicemanufacturer.FieldUpdatedAt:
+		return m.OldUpdatedAt(ctx)
+	case devicemanufacturer.FieldDeletedAt:
+		return m.OldDeletedAt(ctx)
 	case devicemanufacturer.FieldName:
 		return m.OldName(ctx)
 	case devicemanufacturer.FieldLogo:
@@ -19089,6 +24528,27 @@ func (m *DeviceManufacturerMutation) SetField(name string, value ent.Value) erro
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetEntID(v)
+		return nil
+	case devicemanufacturer.FieldCreatedAt:
+		v, ok := value.(uint32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetCreatedAt(v)
+		return nil
+	case devicemanufacturer.FieldUpdatedAt:
+		v, ok := value.(uint32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetUpdatedAt(v)
+		return nil
+	case devicemanufacturer.FieldDeletedAt:
+		v, ok := value.(uint32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetDeletedAt(v)
 		return nil
 	case devicemanufacturer.FieldName:
 		v, ok := value.(string)
@@ -19111,13 +24571,31 @@ func (m *DeviceManufacturerMutation) SetField(name string, value ent.Value) erro
 // AddedFields returns all numeric fields that were incremented/decremented during
 // this mutation.
 func (m *DeviceManufacturerMutation) AddedFields() []string {
-	return nil
+	var fields []string
+	if m.addcreated_at != nil {
+		fields = append(fields, devicemanufacturer.FieldCreatedAt)
+	}
+	if m.addupdated_at != nil {
+		fields = append(fields, devicemanufacturer.FieldUpdatedAt)
+	}
+	if m.adddeleted_at != nil {
+		fields = append(fields, devicemanufacturer.FieldDeletedAt)
+	}
+	return fields
 }
 
 // AddedField returns the numeric value that was incremented/decremented on a field
 // with the given name. The second boolean return value indicates that this field
 // was not set, or was not defined in the schema.
 func (m *DeviceManufacturerMutation) AddedField(name string) (ent.Value, bool) {
+	switch name {
+	case devicemanufacturer.FieldCreatedAt:
+		return m.AddedCreatedAt()
+	case devicemanufacturer.FieldUpdatedAt:
+		return m.AddedUpdatedAt()
+	case devicemanufacturer.FieldDeletedAt:
+		return m.AddedDeletedAt()
+	}
 	return nil, false
 }
 
@@ -19126,6 +24604,27 @@ func (m *DeviceManufacturerMutation) AddedField(name string) (ent.Value, bool) {
 // type.
 func (m *DeviceManufacturerMutation) AddField(name string, value ent.Value) error {
 	switch name {
+	case devicemanufacturer.FieldCreatedAt:
+		v, ok := value.(int32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddCreatedAt(v)
+		return nil
+	case devicemanufacturer.FieldUpdatedAt:
+		v, ok := value.(int32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddUpdatedAt(v)
+		return nil
+	case devicemanufacturer.FieldDeletedAt:
+		v, ok := value.(int32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddDeletedAt(v)
+		return nil
 	}
 	return fmt.Errorf("unknown DeviceManufacturer numeric field %s", name)
 }
@@ -19170,6 +24669,15 @@ func (m *DeviceManufacturerMutation) ResetField(name string) error {
 	switch name {
 	case devicemanufacturer.FieldEntID:
 		m.ResetEntID()
+		return nil
+	case devicemanufacturer.FieldCreatedAt:
+		m.ResetCreatedAt()
+		return nil
+	case devicemanufacturer.FieldUpdatedAt:
+		m.ResetUpdatedAt()
+		return nil
+	case devicemanufacturer.FieldDeletedAt:
+		m.ResetDeletedAt()
 		return nil
 	case devicemanufacturer.FieldName:
 		m.ResetName()
@@ -19236,6 +24744,12 @@ type DevicePosterMutation struct {
 	typ            string
 	id             *uint32
 	ent_id         *uuid.UUID
+	created_at     *uint32
+	addcreated_at  *int32
+	updated_at     *uint32
+	addupdated_at  *int32
+	deleted_at     *uint32
+	adddeleted_at  *int32
 	device_type_id *uuid.UUID
 	poster         *string
 	index          *uint8
@@ -19384,6 +24898,174 @@ func (m *DevicePosterMutation) OldEntID(ctx context.Context) (v uuid.UUID, err e
 // ResetEntID resets all changes to the "ent_id" field.
 func (m *DevicePosterMutation) ResetEntID() {
 	m.ent_id = nil
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (m *DevicePosterMutation) SetCreatedAt(u uint32) {
+	m.created_at = &u
+	m.addcreated_at = nil
+}
+
+// CreatedAt returns the value of the "created_at" field in the mutation.
+func (m *DevicePosterMutation) CreatedAt() (r uint32, exists bool) {
+	v := m.created_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldCreatedAt returns the old "created_at" field's value of the DevicePoster entity.
+// If the DevicePoster object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *DevicePosterMutation) OldCreatedAt(ctx context.Context) (v uint32, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldCreatedAt is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldCreatedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldCreatedAt: %w", err)
+	}
+	return oldValue.CreatedAt, nil
+}
+
+// AddCreatedAt adds u to the "created_at" field.
+func (m *DevicePosterMutation) AddCreatedAt(u int32) {
+	if m.addcreated_at != nil {
+		*m.addcreated_at += u
+	} else {
+		m.addcreated_at = &u
+	}
+}
+
+// AddedCreatedAt returns the value that was added to the "created_at" field in this mutation.
+func (m *DevicePosterMutation) AddedCreatedAt() (r int32, exists bool) {
+	v := m.addcreated_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetCreatedAt resets all changes to the "created_at" field.
+func (m *DevicePosterMutation) ResetCreatedAt() {
+	m.created_at = nil
+	m.addcreated_at = nil
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (m *DevicePosterMutation) SetUpdatedAt(u uint32) {
+	m.updated_at = &u
+	m.addupdated_at = nil
+}
+
+// UpdatedAt returns the value of the "updated_at" field in the mutation.
+func (m *DevicePosterMutation) UpdatedAt() (r uint32, exists bool) {
+	v := m.updated_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldUpdatedAt returns the old "updated_at" field's value of the DevicePoster entity.
+// If the DevicePoster object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *DevicePosterMutation) OldUpdatedAt(ctx context.Context) (v uint32, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldUpdatedAt is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldUpdatedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldUpdatedAt: %w", err)
+	}
+	return oldValue.UpdatedAt, nil
+}
+
+// AddUpdatedAt adds u to the "updated_at" field.
+func (m *DevicePosterMutation) AddUpdatedAt(u int32) {
+	if m.addupdated_at != nil {
+		*m.addupdated_at += u
+	} else {
+		m.addupdated_at = &u
+	}
+}
+
+// AddedUpdatedAt returns the value that was added to the "updated_at" field in this mutation.
+func (m *DevicePosterMutation) AddedUpdatedAt() (r int32, exists bool) {
+	v := m.addupdated_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetUpdatedAt resets all changes to the "updated_at" field.
+func (m *DevicePosterMutation) ResetUpdatedAt() {
+	m.updated_at = nil
+	m.addupdated_at = nil
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (m *DevicePosterMutation) SetDeletedAt(u uint32) {
+	m.deleted_at = &u
+	m.adddeleted_at = nil
+}
+
+// DeletedAt returns the value of the "deleted_at" field in the mutation.
+func (m *DevicePosterMutation) DeletedAt() (r uint32, exists bool) {
+	v := m.deleted_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldDeletedAt returns the old "deleted_at" field's value of the DevicePoster entity.
+// If the DevicePoster object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *DevicePosterMutation) OldDeletedAt(ctx context.Context) (v uint32, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldDeletedAt is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldDeletedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldDeletedAt: %w", err)
+	}
+	return oldValue.DeletedAt, nil
+}
+
+// AddDeletedAt adds u to the "deleted_at" field.
+func (m *DevicePosterMutation) AddDeletedAt(u int32) {
+	if m.adddeleted_at != nil {
+		*m.adddeleted_at += u
+	} else {
+		m.adddeleted_at = &u
+	}
+}
+
+// AddedDeletedAt returns the value that was added to the "deleted_at" field in this mutation.
+func (m *DevicePosterMutation) AddedDeletedAt() (r int32, exists bool) {
+	v := m.adddeleted_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetDeletedAt resets all changes to the "deleted_at" field.
+func (m *DevicePosterMutation) ResetDeletedAt() {
+	m.deleted_at = nil
+	m.adddeleted_at = nil
 }
 
 // SetDeviceTypeID sets the "device_type_id" field.
@@ -19588,9 +25270,18 @@ func (m *DevicePosterMutation) Type() string {
 // order to get all numeric fields that were incremented/decremented, call
 // AddedFields().
 func (m *DevicePosterMutation) Fields() []string {
-	fields := make([]string, 0, 4)
+	fields := make([]string, 0, 7)
 	if m.ent_id != nil {
 		fields = append(fields, deviceposter.FieldEntID)
+	}
+	if m.created_at != nil {
+		fields = append(fields, deviceposter.FieldCreatedAt)
+	}
+	if m.updated_at != nil {
+		fields = append(fields, deviceposter.FieldUpdatedAt)
+	}
+	if m.deleted_at != nil {
+		fields = append(fields, deviceposter.FieldDeletedAt)
 	}
 	if m.device_type_id != nil {
 		fields = append(fields, deviceposter.FieldDeviceTypeID)
@@ -19611,6 +25302,12 @@ func (m *DevicePosterMutation) Field(name string) (ent.Value, bool) {
 	switch name {
 	case deviceposter.FieldEntID:
 		return m.EntID()
+	case deviceposter.FieldCreatedAt:
+		return m.CreatedAt()
+	case deviceposter.FieldUpdatedAt:
+		return m.UpdatedAt()
+	case deviceposter.FieldDeletedAt:
+		return m.DeletedAt()
 	case deviceposter.FieldDeviceTypeID:
 		return m.DeviceTypeID()
 	case deviceposter.FieldPoster:
@@ -19628,6 +25325,12 @@ func (m *DevicePosterMutation) OldField(ctx context.Context, name string) (ent.V
 	switch name {
 	case deviceposter.FieldEntID:
 		return m.OldEntID(ctx)
+	case deviceposter.FieldCreatedAt:
+		return m.OldCreatedAt(ctx)
+	case deviceposter.FieldUpdatedAt:
+		return m.OldUpdatedAt(ctx)
+	case deviceposter.FieldDeletedAt:
+		return m.OldDeletedAt(ctx)
 	case deviceposter.FieldDeviceTypeID:
 		return m.OldDeviceTypeID(ctx)
 	case deviceposter.FieldPoster:
@@ -19649,6 +25352,27 @@ func (m *DevicePosterMutation) SetField(name string, value ent.Value) error {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetEntID(v)
+		return nil
+	case deviceposter.FieldCreatedAt:
+		v, ok := value.(uint32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetCreatedAt(v)
+		return nil
+	case deviceposter.FieldUpdatedAt:
+		v, ok := value.(uint32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetUpdatedAt(v)
+		return nil
+	case deviceposter.FieldDeletedAt:
+		v, ok := value.(uint32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetDeletedAt(v)
 		return nil
 	case deviceposter.FieldDeviceTypeID:
 		v, ok := value.(uuid.UUID)
@@ -19679,6 +25403,15 @@ func (m *DevicePosterMutation) SetField(name string, value ent.Value) error {
 // this mutation.
 func (m *DevicePosterMutation) AddedFields() []string {
 	var fields []string
+	if m.addcreated_at != nil {
+		fields = append(fields, deviceposter.FieldCreatedAt)
+	}
+	if m.addupdated_at != nil {
+		fields = append(fields, deviceposter.FieldUpdatedAt)
+	}
+	if m.adddeleted_at != nil {
+		fields = append(fields, deviceposter.FieldDeletedAt)
+	}
 	if m.addindex != nil {
 		fields = append(fields, deviceposter.FieldIndex)
 	}
@@ -19690,6 +25423,12 @@ func (m *DevicePosterMutation) AddedFields() []string {
 // was not set, or was not defined in the schema.
 func (m *DevicePosterMutation) AddedField(name string) (ent.Value, bool) {
 	switch name {
+	case deviceposter.FieldCreatedAt:
+		return m.AddedCreatedAt()
+	case deviceposter.FieldUpdatedAt:
+		return m.AddedUpdatedAt()
+	case deviceposter.FieldDeletedAt:
+		return m.AddedDeletedAt()
 	case deviceposter.FieldIndex:
 		return m.AddedIndex()
 	}
@@ -19701,6 +25440,27 @@ func (m *DevicePosterMutation) AddedField(name string) (ent.Value, bool) {
 // type.
 func (m *DevicePosterMutation) AddField(name string, value ent.Value) error {
 	switch name {
+	case deviceposter.FieldCreatedAt:
+		v, ok := value.(int32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddCreatedAt(v)
+		return nil
+	case deviceposter.FieldUpdatedAt:
+		v, ok := value.(int32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddUpdatedAt(v)
+		return nil
+	case deviceposter.FieldDeletedAt:
+		v, ok := value.(int32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddDeletedAt(v)
+		return nil
 	case deviceposter.FieldIndex:
 		v, ok := value.(int8)
 		if !ok {
@@ -19758,6 +25518,15 @@ func (m *DevicePosterMutation) ResetField(name string) error {
 	switch name {
 	case deviceposter.FieldEntID:
 		m.ResetEntID()
+		return nil
+	case deviceposter.FieldCreatedAt:
+		m.ResetCreatedAt()
+		return nil
+	case deviceposter.FieldUpdatedAt:
+		m.ResetUpdatedAt()
+		return nil
+	case deviceposter.FieldDeletedAt:
+		m.ResetDeletedAt()
 		return nil
 	case deviceposter.FieldDeviceTypeID:
 		m.ResetDeviceTypeID()
@@ -19827,6 +25596,12 @@ type ExtraInfoMutation struct {
 	typ                string
 	id                 *uint32
 	ent_id             *uuid.UUID
+	created_at         *uint32
+	addcreated_at      *int32
+	updated_at         *uint32
+	addupdated_at      *int32
+	deleted_at         *uint32
+	adddeleted_at      *int32
 	app_good_id        *uuid.UUID
 	likes              *uint32
 	addlikes           *int32
@@ -19983,6 +25758,174 @@ func (m *ExtraInfoMutation) OldEntID(ctx context.Context) (v uuid.UUID, err erro
 // ResetEntID resets all changes to the "ent_id" field.
 func (m *ExtraInfoMutation) ResetEntID() {
 	m.ent_id = nil
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (m *ExtraInfoMutation) SetCreatedAt(u uint32) {
+	m.created_at = &u
+	m.addcreated_at = nil
+}
+
+// CreatedAt returns the value of the "created_at" field in the mutation.
+func (m *ExtraInfoMutation) CreatedAt() (r uint32, exists bool) {
+	v := m.created_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldCreatedAt returns the old "created_at" field's value of the ExtraInfo entity.
+// If the ExtraInfo object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *ExtraInfoMutation) OldCreatedAt(ctx context.Context) (v uint32, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldCreatedAt is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldCreatedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldCreatedAt: %w", err)
+	}
+	return oldValue.CreatedAt, nil
+}
+
+// AddCreatedAt adds u to the "created_at" field.
+func (m *ExtraInfoMutation) AddCreatedAt(u int32) {
+	if m.addcreated_at != nil {
+		*m.addcreated_at += u
+	} else {
+		m.addcreated_at = &u
+	}
+}
+
+// AddedCreatedAt returns the value that was added to the "created_at" field in this mutation.
+func (m *ExtraInfoMutation) AddedCreatedAt() (r int32, exists bool) {
+	v := m.addcreated_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetCreatedAt resets all changes to the "created_at" field.
+func (m *ExtraInfoMutation) ResetCreatedAt() {
+	m.created_at = nil
+	m.addcreated_at = nil
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (m *ExtraInfoMutation) SetUpdatedAt(u uint32) {
+	m.updated_at = &u
+	m.addupdated_at = nil
+}
+
+// UpdatedAt returns the value of the "updated_at" field in the mutation.
+func (m *ExtraInfoMutation) UpdatedAt() (r uint32, exists bool) {
+	v := m.updated_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldUpdatedAt returns the old "updated_at" field's value of the ExtraInfo entity.
+// If the ExtraInfo object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *ExtraInfoMutation) OldUpdatedAt(ctx context.Context) (v uint32, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldUpdatedAt is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldUpdatedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldUpdatedAt: %w", err)
+	}
+	return oldValue.UpdatedAt, nil
+}
+
+// AddUpdatedAt adds u to the "updated_at" field.
+func (m *ExtraInfoMutation) AddUpdatedAt(u int32) {
+	if m.addupdated_at != nil {
+		*m.addupdated_at += u
+	} else {
+		m.addupdated_at = &u
+	}
+}
+
+// AddedUpdatedAt returns the value that was added to the "updated_at" field in this mutation.
+func (m *ExtraInfoMutation) AddedUpdatedAt() (r int32, exists bool) {
+	v := m.addupdated_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetUpdatedAt resets all changes to the "updated_at" field.
+func (m *ExtraInfoMutation) ResetUpdatedAt() {
+	m.updated_at = nil
+	m.addupdated_at = nil
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (m *ExtraInfoMutation) SetDeletedAt(u uint32) {
+	m.deleted_at = &u
+	m.adddeleted_at = nil
+}
+
+// DeletedAt returns the value of the "deleted_at" field in the mutation.
+func (m *ExtraInfoMutation) DeletedAt() (r uint32, exists bool) {
+	v := m.deleted_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldDeletedAt returns the old "deleted_at" field's value of the ExtraInfo entity.
+// If the ExtraInfo object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *ExtraInfoMutation) OldDeletedAt(ctx context.Context) (v uint32, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldDeletedAt is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldDeletedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldDeletedAt: %w", err)
+	}
+	return oldValue.DeletedAt, nil
+}
+
+// AddDeletedAt adds u to the "deleted_at" field.
+func (m *ExtraInfoMutation) AddDeletedAt(u int32) {
+	if m.adddeleted_at != nil {
+		*m.adddeleted_at += u
+	} else {
+		m.adddeleted_at = &u
+	}
+}
+
+// AddedDeletedAt returns the value that was added to the "deleted_at" field in this mutation.
+func (m *ExtraInfoMutation) AddedDeletedAt() (r int32, exists bool) {
+	v := m.adddeleted_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetDeletedAt resets all changes to the "deleted_at" field.
+func (m *ExtraInfoMutation) ResetDeletedAt() {
+	m.deleted_at = nil
+	m.adddeleted_at = nil
 }
 
 // SetAppGoodID sets the "app_good_id" field.
@@ -20467,9 +26410,18 @@ func (m *ExtraInfoMutation) Type() string {
 // order to get all numeric fields that were incremented/decremented, call
 // AddedFields().
 func (m *ExtraInfoMutation) Fields() []string {
-	fields := make([]string, 0, 8)
+	fields := make([]string, 0, 11)
 	if m.ent_id != nil {
 		fields = append(fields, extrainfo.FieldEntID)
+	}
+	if m.created_at != nil {
+		fields = append(fields, extrainfo.FieldCreatedAt)
+	}
+	if m.updated_at != nil {
+		fields = append(fields, extrainfo.FieldUpdatedAt)
+	}
+	if m.deleted_at != nil {
+		fields = append(fields, extrainfo.FieldDeletedAt)
 	}
 	if m.app_good_id != nil {
 		fields = append(fields, extrainfo.FieldAppGoodID)
@@ -20502,6 +26454,12 @@ func (m *ExtraInfoMutation) Field(name string) (ent.Value, bool) {
 	switch name {
 	case extrainfo.FieldEntID:
 		return m.EntID()
+	case extrainfo.FieldCreatedAt:
+		return m.CreatedAt()
+	case extrainfo.FieldUpdatedAt:
+		return m.UpdatedAt()
+	case extrainfo.FieldDeletedAt:
+		return m.DeletedAt()
 	case extrainfo.FieldAppGoodID:
 		return m.AppGoodID()
 	case extrainfo.FieldLikes:
@@ -20527,6 +26485,12 @@ func (m *ExtraInfoMutation) OldField(ctx context.Context, name string) (ent.Valu
 	switch name {
 	case extrainfo.FieldEntID:
 		return m.OldEntID(ctx)
+	case extrainfo.FieldCreatedAt:
+		return m.OldCreatedAt(ctx)
+	case extrainfo.FieldUpdatedAt:
+		return m.OldUpdatedAt(ctx)
+	case extrainfo.FieldDeletedAt:
+		return m.OldDeletedAt(ctx)
 	case extrainfo.FieldAppGoodID:
 		return m.OldAppGoodID(ctx)
 	case extrainfo.FieldLikes:
@@ -20556,6 +26520,27 @@ func (m *ExtraInfoMutation) SetField(name string, value ent.Value) error {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetEntID(v)
+		return nil
+	case extrainfo.FieldCreatedAt:
+		v, ok := value.(uint32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetCreatedAt(v)
+		return nil
+	case extrainfo.FieldUpdatedAt:
+		v, ok := value.(uint32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetUpdatedAt(v)
+		return nil
+	case extrainfo.FieldDeletedAt:
+		v, ok := value.(uint32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetDeletedAt(v)
 		return nil
 	case extrainfo.FieldAppGoodID:
 		v, ok := value.(uuid.UUID)
@@ -20614,6 +26599,15 @@ func (m *ExtraInfoMutation) SetField(name string, value ent.Value) error {
 // this mutation.
 func (m *ExtraInfoMutation) AddedFields() []string {
 	var fields []string
+	if m.addcreated_at != nil {
+		fields = append(fields, extrainfo.FieldCreatedAt)
+	}
+	if m.addupdated_at != nil {
+		fields = append(fields, extrainfo.FieldUpdatedAt)
+	}
+	if m.adddeleted_at != nil {
+		fields = append(fields, extrainfo.FieldDeletedAt)
+	}
 	if m.addlikes != nil {
 		fields = append(fields, extrainfo.FieldLikes)
 	}
@@ -20637,6 +26631,12 @@ func (m *ExtraInfoMutation) AddedFields() []string {
 // was not set, or was not defined in the schema.
 func (m *ExtraInfoMutation) AddedField(name string) (ent.Value, bool) {
 	switch name {
+	case extrainfo.FieldCreatedAt:
+		return m.AddedCreatedAt()
+	case extrainfo.FieldUpdatedAt:
+		return m.AddedUpdatedAt()
+	case extrainfo.FieldDeletedAt:
+		return m.AddedDeletedAt()
 	case extrainfo.FieldLikes:
 		return m.AddedLikes()
 	case extrainfo.FieldDislikes:
@@ -20656,6 +26656,27 @@ func (m *ExtraInfoMutation) AddedField(name string) (ent.Value, bool) {
 // type.
 func (m *ExtraInfoMutation) AddField(name string, value ent.Value) error {
 	switch name {
+	case extrainfo.FieldCreatedAt:
+		v, ok := value.(int32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddCreatedAt(v)
+		return nil
+	case extrainfo.FieldUpdatedAt:
+		v, ok := value.(int32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddUpdatedAt(v)
+		return nil
+	case extrainfo.FieldDeletedAt:
+		v, ok := value.(int32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddDeletedAt(v)
+		return nil
 	case extrainfo.FieldLikes:
 		v, ok := value.(int32)
 		if !ok {
@@ -20765,6 +26786,15 @@ func (m *ExtraInfoMutation) ResetField(name string) error {
 	switch name {
 	case extrainfo.FieldEntID:
 		m.ResetEntID()
+		return nil
+	case extrainfo.FieldCreatedAt:
+		m.ResetCreatedAt()
+		return nil
+	case extrainfo.FieldUpdatedAt:
+		m.ResetUpdatedAt()
+		return nil
+	case extrainfo.FieldDeletedAt:
+		m.ResetDeletedAt()
 		return nil
 	case extrainfo.FieldAppGoodID:
 		m.ResetAppGoodID()
@@ -22230,6 +28260,12 @@ type FeeMutation struct {
 	typ                   string
 	id                    *uint32
 	ent_id                *uuid.UUID
+	created_at            *uint32
+	addcreated_at         *int32
+	updated_at            *uint32
+	addupdated_at         *int32
+	deleted_at            *uint32
+	adddeleted_at         *int32
 	good_id               *uuid.UUID
 	settlement_type       *string
 	unit_value            *decimal.Decimal
@@ -22378,6 +28414,174 @@ func (m *FeeMutation) OldEntID(ctx context.Context) (v uuid.UUID, err error) {
 // ResetEntID resets all changes to the "ent_id" field.
 func (m *FeeMutation) ResetEntID() {
 	m.ent_id = nil
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (m *FeeMutation) SetCreatedAt(u uint32) {
+	m.created_at = &u
+	m.addcreated_at = nil
+}
+
+// CreatedAt returns the value of the "created_at" field in the mutation.
+func (m *FeeMutation) CreatedAt() (r uint32, exists bool) {
+	v := m.created_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldCreatedAt returns the old "created_at" field's value of the Fee entity.
+// If the Fee object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *FeeMutation) OldCreatedAt(ctx context.Context) (v uint32, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldCreatedAt is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldCreatedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldCreatedAt: %w", err)
+	}
+	return oldValue.CreatedAt, nil
+}
+
+// AddCreatedAt adds u to the "created_at" field.
+func (m *FeeMutation) AddCreatedAt(u int32) {
+	if m.addcreated_at != nil {
+		*m.addcreated_at += u
+	} else {
+		m.addcreated_at = &u
+	}
+}
+
+// AddedCreatedAt returns the value that was added to the "created_at" field in this mutation.
+func (m *FeeMutation) AddedCreatedAt() (r int32, exists bool) {
+	v := m.addcreated_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetCreatedAt resets all changes to the "created_at" field.
+func (m *FeeMutation) ResetCreatedAt() {
+	m.created_at = nil
+	m.addcreated_at = nil
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (m *FeeMutation) SetUpdatedAt(u uint32) {
+	m.updated_at = &u
+	m.addupdated_at = nil
+}
+
+// UpdatedAt returns the value of the "updated_at" field in the mutation.
+func (m *FeeMutation) UpdatedAt() (r uint32, exists bool) {
+	v := m.updated_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldUpdatedAt returns the old "updated_at" field's value of the Fee entity.
+// If the Fee object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *FeeMutation) OldUpdatedAt(ctx context.Context) (v uint32, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldUpdatedAt is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldUpdatedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldUpdatedAt: %w", err)
+	}
+	return oldValue.UpdatedAt, nil
+}
+
+// AddUpdatedAt adds u to the "updated_at" field.
+func (m *FeeMutation) AddUpdatedAt(u int32) {
+	if m.addupdated_at != nil {
+		*m.addupdated_at += u
+	} else {
+		m.addupdated_at = &u
+	}
+}
+
+// AddedUpdatedAt returns the value that was added to the "updated_at" field in this mutation.
+func (m *FeeMutation) AddedUpdatedAt() (r int32, exists bool) {
+	v := m.addupdated_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetUpdatedAt resets all changes to the "updated_at" field.
+func (m *FeeMutation) ResetUpdatedAt() {
+	m.updated_at = nil
+	m.addupdated_at = nil
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (m *FeeMutation) SetDeletedAt(u uint32) {
+	m.deleted_at = &u
+	m.adddeleted_at = nil
+}
+
+// DeletedAt returns the value of the "deleted_at" field in the mutation.
+func (m *FeeMutation) DeletedAt() (r uint32, exists bool) {
+	v := m.deleted_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldDeletedAt returns the old "deleted_at" field's value of the Fee entity.
+// If the Fee object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *FeeMutation) OldDeletedAt(ctx context.Context) (v uint32, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldDeletedAt is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldDeletedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldDeletedAt: %w", err)
+	}
+	return oldValue.DeletedAt, nil
+}
+
+// AddDeletedAt adds u to the "deleted_at" field.
+func (m *FeeMutation) AddDeletedAt(u int32) {
+	if m.adddeleted_at != nil {
+		*m.adddeleted_at += u
+	} else {
+		m.adddeleted_at = &u
+	}
+}
+
+// AddedDeletedAt returns the value that was added to the "deleted_at" field in this mutation.
+func (m *FeeMutation) AddedDeletedAt() (r int32, exists bool) {
+	v := m.adddeleted_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetDeletedAt resets all changes to the "deleted_at" field.
+func (m *FeeMutation) ResetDeletedAt() {
+	m.deleted_at = nil
+	m.adddeleted_at = nil
 }
 
 // SetGoodID sets the "good_id" field.
@@ -22610,9 +28814,18 @@ func (m *FeeMutation) Type() string {
 // order to get all numeric fields that were incremented/decremented, call
 // AddedFields().
 func (m *FeeMutation) Fields() []string {
-	fields := make([]string, 0, 5)
+	fields := make([]string, 0, 8)
 	if m.ent_id != nil {
 		fields = append(fields, fee.FieldEntID)
+	}
+	if m.created_at != nil {
+		fields = append(fields, fee.FieldCreatedAt)
+	}
+	if m.updated_at != nil {
+		fields = append(fields, fee.FieldUpdatedAt)
+	}
+	if m.deleted_at != nil {
+		fields = append(fields, fee.FieldDeletedAt)
 	}
 	if m.good_id != nil {
 		fields = append(fields, fee.FieldGoodID)
@@ -22636,6 +28849,12 @@ func (m *FeeMutation) Field(name string) (ent.Value, bool) {
 	switch name {
 	case fee.FieldEntID:
 		return m.EntID()
+	case fee.FieldCreatedAt:
+		return m.CreatedAt()
+	case fee.FieldUpdatedAt:
+		return m.UpdatedAt()
+	case fee.FieldDeletedAt:
+		return m.DeletedAt()
 	case fee.FieldGoodID:
 		return m.GoodID()
 	case fee.FieldSettlementType:
@@ -22655,6 +28874,12 @@ func (m *FeeMutation) OldField(ctx context.Context, name string) (ent.Value, err
 	switch name {
 	case fee.FieldEntID:
 		return m.OldEntID(ctx)
+	case fee.FieldCreatedAt:
+		return m.OldCreatedAt(ctx)
+	case fee.FieldUpdatedAt:
+		return m.OldUpdatedAt(ctx)
+	case fee.FieldDeletedAt:
+		return m.OldDeletedAt(ctx)
 	case fee.FieldGoodID:
 		return m.OldGoodID(ctx)
 	case fee.FieldSettlementType:
@@ -22678,6 +28903,27 @@ func (m *FeeMutation) SetField(name string, value ent.Value) error {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetEntID(v)
+		return nil
+	case fee.FieldCreatedAt:
+		v, ok := value.(uint32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetCreatedAt(v)
+		return nil
+	case fee.FieldUpdatedAt:
+		v, ok := value.(uint32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetUpdatedAt(v)
+		return nil
+	case fee.FieldDeletedAt:
+		v, ok := value.(uint32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetDeletedAt(v)
 		return nil
 	case fee.FieldGoodID:
 		v, ok := value.(uuid.UUID)
@@ -22714,13 +28960,31 @@ func (m *FeeMutation) SetField(name string, value ent.Value) error {
 // AddedFields returns all numeric fields that were incremented/decremented during
 // this mutation.
 func (m *FeeMutation) AddedFields() []string {
-	return nil
+	var fields []string
+	if m.addcreated_at != nil {
+		fields = append(fields, fee.FieldCreatedAt)
+	}
+	if m.addupdated_at != nil {
+		fields = append(fields, fee.FieldUpdatedAt)
+	}
+	if m.adddeleted_at != nil {
+		fields = append(fields, fee.FieldDeletedAt)
+	}
+	return fields
 }
 
 // AddedField returns the numeric value that was incremented/decremented on a field
 // with the given name. The second boolean return value indicates that this field
 // was not set, or was not defined in the schema.
 func (m *FeeMutation) AddedField(name string) (ent.Value, bool) {
+	switch name {
+	case fee.FieldCreatedAt:
+		return m.AddedCreatedAt()
+	case fee.FieldUpdatedAt:
+		return m.AddedUpdatedAt()
+	case fee.FieldDeletedAt:
+		return m.AddedDeletedAt()
+	}
 	return nil, false
 }
 
@@ -22729,6 +28993,27 @@ func (m *FeeMutation) AddedField(name string) (ent.Value, bool) {
 // type.
 func (m *FeeMutation) AddField(name string, value ent.Value) error {
 	switch name {
+	case fee.FieldCreatedAt:
+		v, ok := value.(int32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddCreatedAt(v)
+		return nil
+	case fee.FieldUpdatedAt:
+		v, ok := value.(int32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddUpdatedAt(v)
+		return nil
+	case fee.FieldDeletedAt:
+		v, ok := value.(int32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddDeletedAt(v)
+		return nil
 	}
 	return fmt.Errorf("unknown Fee numeric field %s", name)
 }
@@ -22785,6 +29070,15 @@ func (m *FeeMutation) ResetField(name string) error {
 	switch name {
 	case fee.FieldEntID:
 		m.ResetEntID()
+		return nil
+	case fee.FieldCreatedAt:
+		m.ResetCreatedAt()
+		return nil
+	case fee.FieldUpdatedAt:
+		m.ResetUpdatedAt()
+		return nil
+	case fee.FieldDeletedAt:
+		m.ResetDeletedAt()
 		return nil
 	case fee.FieldGoodID:
 		m.ResetGoodID()
@@ -22857,6 +29151,12 @@ type GoodMutation struct {
 	typ                       string
 	id                        *uint32
 	ent_id                    *uuid.UUID
+	created_at                *uint32
+	addcreated_at             *int32
+	updated_at                *uint32
+	addupdated_at             *int32
+	deleted_at                *uint32
+	adddeleted_at             *int32
 	device_info_id            *uuid.UUID
 	coin_type_id              *uuid.UUID
 	inherit_from_good_id      *uuid.UUID
@@ -23028,6 +29328,174 @@ func (m *GoodMutation) OldEntID(ctx context.Context) (v uuid.UUID, err error) {
 // ResetEntID resets all changes to the "ent_id" field.
 func (m *GoodMutation) ResetEntID() {
 	m.ent_id = nil
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (m *GoodMutation) SetCreatedAt(u uint32) {
+	m.created_at = &u
+	m.addcreated_at = nil
+}
+
+// CreatedAt returns the value of the "created_at" field in the mutation.
+func (m *GoodMutation) CreatedAt() (r uint32, exists bool) {
+	v := m.created_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldCreatedAt returns the old "created_at" field's value of the Good entity.
+// If the Good object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *GoodMutation) OldCreatedAt(ctx context.Context) (v uint32, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldCreatedAt is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldCreatedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldCreatedAt: %w", err)
+	}
+	return oldValue.CreatedAt, nil
+}
+
+// AddCreatedAt adds u to the "created_at" field.
+func (m *GoodMutation) AddCreatedAt(u int32) {
+	if m.addcreated_at != nil {
+		*m.addcreated_at += u
+	} else {
+		m.addcreated_at = &u
+	}
+}
+
+// AddedCreatedAt returns the value that was added to the "created_at" field in this mutation.
+func (m *GoodMutation) AddedCreatedAt() (r int32, exists bool) {
+	v := m.addcreated_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetCreatedAt resets all changes to the "created_at" field.
+func (m *GoodMutation) ResetCreatedAt() {
+	m.created_at = nil
+	m.addcreated_at = nil
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (m *GoodMutation) SetUpdatedAt(u uint32) {
+	m.updated_at = &u
+	m.addupdated_at = nil
+}
+
+// UpdatedAt returns the value of the "updated_at" field in the mutation.
+func (m *GoodMutation) UpdatedAt() (r uint32, exists bool) {
+	v := m.updated_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldUpdatedAt returns the old "updated_at" field's value of the Good entity.
+// If the Good object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *GoodMutation) OldUpdatedAt(ctx context.Context) (v uint32, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldUpdatedAt is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldUpdatedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldUpdatedAt: %w", err)
+	}
+	return oldValue.UpdatedAt, nil
+}
+
+// AddUpdatedAt adds u to the "updated_at" field.
+func (m *GoodMutation) AddUpdatedAt(u int32) {
+	if m.addupdated_at != nil {
+		*m.addupdated_at += u
+	} else {
+		m.addupdated_at = &u
+	}
+}
+
+// AddedUpdatedAt returns the value that was added to the "updated_at" field in this mutation.
+func (m *GoodMutation) AddedUpdatedAt() (r int32, exists bool) {
+	v := m.addupdated_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetUpdatedAt resets all changes to the "updated_at" field.
+func (m *GoodMutation) ResetUpdatedAt() {
+	m.updated_at = nil
+	m.addupdated_at = nil
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (m *GoodMutation) SetDeletedAt(u uint32) {
+	m.deleted_at = &u
+	m.adddeleted_at = nil
+}
+
+// DeletedAt returns the value of the "deleted_at" field in the mutation.
+func (m *GoodMutation) DeletedAt() (r uint32, exists bool) {
+	v := m.deleted_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldDeletedAt returns the old "deleted_at" field's value of the Good entity.
+// If the Good object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *GoodMutation) OldDeletedAt(ctx context.Context) (v uint32, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldDeletedAt is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldDeletedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldDeletedAt: %w", err)
+	}
+	return oldValue.DeletedAt, nil
+}
+
+// AddDeletedAt adds u to the "deleted_at" field.
+func (m *GoodMutation) AddDeletedAt(u int32) {
+	if m.adddeleted_at != nil {
+		*m.adddeleted_at += u
+	} else {
+		m.adddeleted_at = &u
+	}
+}
+
+// AddedDeletedAt returns the value that was added to the "deleted_at" field in this mutation.
+func (m *GoodMutation) AddedDeletedAt() (r int32, exists bool) {
+	v := m.adddeleted_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetDeletedAt resets all changes to the "deleted_at" field.
+func (m *GoodMutation) ResetDeletedAt() {
+	m.deleted_at = nil
+	m.adddeleted_at = nil
 }
 
 // SetDeviceInfoID sets the "device_info_id" field.
@@ -24236,9 +30704,18 @@ func (m *GoodMutation) Type() string {
 // order to get all numeric fields that were incremented/decremented, call
 // AddedFields().
 func (m *GoodMutation) Fields() []string {
-	fields := make([]string, 0, 24)
+	fields := make([]string, 0, 27)
 	if m.ent_id != nil {
 		fields = append(fields, good.FieldEntID)
+	}
+	if m.created_at != nil {
+		fields = append(fields, good.FieldCreatedAt)
+	}
+	if m.updated_at != nil {
+		fields = append(fields, good.FieldUpdatedAt)
+	}
+	if m.deleted_at != nil {
+		fields = append(fields, good.FieldDeletedAt)
 	}
 	if m.device_info_id != nil {
 		fields = append(fields, good.FieldDeviceInfoID)
@@ -24319,6 +30796,12 @@ func (m *GoodMutation) Field(name string) (ent.Value, bool) {
 	switch name {
 	case good.FieldEntID:
 		return m.EntID()
+	case good.FieldCreatedAt:
+		return m.CreatedAt()
+	case good.FieldUpdatedAt:
+		return m.UpdatedAt()
+	case good.FieldDeletedAt:
+		return m.DeletedAt()
 	case good.FieldDeviceInfoID:
 		return m.DeviceInfoID()
 	case good.FieldCoinTypeID:
@@ -24376,6 +30859,12 @@ func (m *GoodMutation) OldField(ctx context.Context, name string) (ent.Value, er
 	switch name {
 	case good.FieldEntID:
 		return m.OldEntID(ctx)
+	case good.FieldCreatedAt:
+		return m.OldCreatedAt(ctx)
+	case good.FieldUpdatedAt:
+		return m.OldUpdatedAt(ctx)
+	case good.FieldDeletedAt:
+		return m.OldDeletedAt(ctx)
 	case good.FieldDeviceInfoID:
 		return m.OldDeviceInfoID(ctx)
 	case good.FieldCoinTypeID:
@@ -24437,6 +30926,27 @@ func (m *GoodMutation) SetField(name string, value ent.Value) error {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetEntID(v)
+		return nil
+	case good.FieldCreatedAt:
+		v, ok := value.(uint32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetCreatedAt(v)
+		return nil
+	case good.FieldUpdatedAt:
+		v, ok := value.(uint32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetUpdatedAt(v)
+		return nil
+	case good.FieldDeletedAt:
+		v, ok := value.(uint32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetDeletedAt(v)
 		return nil
 	case good.FieldDeviceInfoID:
 		v, ok := value.(uuid.UUID)
@@ -24607,6 +31117,15 @@ func (m *GoodMutation) SetField(name string, value ent.Value) error {
 // this mutation.
 func (m *GoodMutation) AddedFields() []string {
 	var fields []string
+	if m.addcreated_at != nil {
+		fields = append(fields, good.FieldCreatedAt)
+	}
+	if m.addupdated_at != nil {
+		fields = append(fields, good.FieldUpdatedAt)
+	}
+	if m.adddeleted_at != nil {
+		fields = append(fields, good.FieldDeletedAt)
+	}
 	if m.addunit_amount != nil {
 		fields = append(fields, good.FieldUnitAmount)
 	}
@@ -24627,6 +31146,12 @@ func (m *GoodMutation) AddedFields() []string {
 // was not set, or was not defined in the schema.
 func (m *GoodMutation) AddedField(name string) (ent.Value, bool) {
 	switch name {
+	case good.FieldCreatedAt:
+		return m.AddedCreatedAt()
+	case good.FieldUpdatedAt:
+		return m.AddedUpdatedAt()
+	case good.FieldDeletedAt:
+		return m.AddedDeletedAt()
 	case good.FieldUnitAmount:
 		return m.AddedUnitAmount()
 	case good.FieldDeliveryAt:
@@ -24644,6 +31169,27 @@ func (m *GoodMutation) AddedField(name string) (ent.Value, bool) {
 // type.
 func (m *GoodMutation) AddField(name string, value ent.Value) error {
 	switch name {
+	case good.FieldCreatedAt:
+		v, ok := value.(int32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddCreatedAt(v)
+		return nil
+	case good.FieldUpdatedAt:
+		v, ok := value.(int32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddUpdatedAt(v)
+		return nil
+	case good.FieldDeletedAt:
+		v, ok := value.(int32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddDeletedAt(v)
+		return nil
 	case good.FieldUnitAmount:
 		v, ok := value.(int32)
 		if !ok {
@@ -24824,6 +31370,15 @@ func (m *GoodMutation) ResetField(name string) error {
 	switch name {
 	case good.FieldEntID:
 		m.ResetEntID()
+		return nil
+	case good.FieldCreatedAt:
+		m.ResetCreatedAt()
+		return nil
+	case good.FieldUpdatedAt:
+		m.ResetUpdatedAt()
+		return nil
+	case good.FieldDeletedAt:
+		m.ResetDeletedAt()
 		return nil
 	case good.FieldDeviceInfoID:
 		m.ResetDeviceInfoID()
@@ -26350,6 +32905,12 @@ type GoodCoinMutation struct {
 	typ           string
 	id            *uint32
 	ent_id        *uuid.UUID
+	created_at    *uint32
+	addcreated_at *int32
+	updated_at    *uint32
+	addupdated_at *int32
+	deleted_at    *uint32
+	adddeleted_at *int32
 	good_id       *uuid.UUID
 	coin_type_id  *uuid.UUID
 	main          *bool
@@ -26499,6 +33060,174 @@ func (m *GoodCoinMutation) OldEntID(ctx context.Context) (v uuid.UUID, err error
 // ResetEntID resets all changes to the "ent_id" field.
 func (m *GoodCoinMutation) ResetEntID() {
 	m.ent_id = nil
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (m *GoodCoinMutation) SetCreatedAt(u uint32) {
+	m.created_at = &u
+	m.addcreated_at = nil
+}
+
+// CreatedAt returns the value of the "created_at" field in the mutation.
+func (m *GoodCoinMutation) CreatedAt() (r uint32, exists bool) {
+	v := m.created_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldCreatedAt returns the old "created_at" field's value of the GoodCoin entity.
+// If the GoodCoin object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *GoodCoinMutation) OldCreatedAt(ctx context.Context) (v uint32, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldCreatedAt is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldCreatedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldCreatedAt: %w", err)
+	}
+	return oldValue.CreatedAt, nil
+}
+
+// AddCreatedAt adds u to the "created_at" field.
+func (m *GoodCoinMutation) AddCreatedAt(u int32) {
+	if m.addcreated_at != nil {
+		*m.addcreated_at += u
+	} else {
+		m.addcreated_at = &u
+	}
+}
+
+// AddedCreatedAt returns the value that was added to the "created_at" field in this mutation.
+func (m *GoodCoinMutation) AddedCreatedAt() (r int32, exists bool) {
+	v := m.addcreated_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetCreatedAt resets all changes to the "created_at" field.
+func (m *GoodCoinMutation) ResetCreatedAt() {
+	m.created_at = nil
+	m.addcreated_at = nil
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (m *GoodCoinMutation) SetUpdatedAt(u uint32) {
+	m.updated_at = &u
+	m.addupdated_at = nil
+}
+
+// UpdatedAt returns the value of the "updated_at" field in the mutation.
+func (m *GoodCoinMutation) UpdatedAt() (r uint32, exists bool) {
+	v := m.updated_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldUpdatedAt returns the old "updated_at" field's value of the GoodCoin entity.
+// If the GoodCoin object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *GoodCoinMutation) OldUpdatedAt(ctx context.Context) (v uint32, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldUpdatedAt is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldUpdatedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldUpdatedAt: %w", err)
+	}
+	return oldValue.UpdatedAt, nil
+}
+
+// AddUpdatedAt adds u to the "updated_at" field.
+func (m *GoodCoinMutation) AddUpdatedAt(u int32) {
+	if m.addupdated_at != nil {
+		*m.addupdated_at += u
+	} else {
+		m.addupdated_at = &u
+	}
+}
+
+// AddedUpdatedAt returns the value that was added to the "updated_at" field in this mutation.
+func (m *GoodCoinMutation) AddedUpdatedAt() (r int32, exists bool) {
+	v := m.addupdated_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetUpdatedAt resets all changes to the "updated_at" field.
+func (m *GoodCoinMutation) ResetUpdatedAt() {
+	m.updated_at = nil
+	m.addupdated_at = nil
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (m *GoodCoinMutation) SetDeletedAt(u uint32) {
+	m.deleted_at = &u
+	m.adddeleted_at = nil
+}
+
+// DeletedAt returns the value of the "deleted_at" field in the mutation.
+func (m *GoodCoinMutation) DeletedAt() (r uint32, exists bool) {
+	v := m.deleted_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldDeletedAt returns the old "deleted_at" field's value of the GoodCoin entity.
+// If the GoodCoin object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *GoodCoinMutation) OldDeletedAt(ctx context.Context) (v uint32, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldDeletedAt is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldDeletedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldDeletedAt: %w", err)
+	}
+	return oldValue.DeletedAt, nil
+}
+
+// AddDeletedAt adds u to the "deleted_at" field.
+func (m *GoodCoinMutation) AddDeletedAt(u int32) {
+	if m.adddeleted_at != nil {
+		*m.adddeleted_at += u
+	} else {
+		m.adddeleted_at = &u
+	}
+}
+
+// AddedDeletedAt returns the value that was added to the "deleted_at" field in this mutation.
+func (m *GoodCoinMutation) AddedDeletedAt() (r int32, exists bool) {
+	v := m.adddeleted_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetDeletedAt resets all changes to the "deleted_at" field.
+func (m *GoodCoinMutation) ResetDeletedAt() {
+	m.deleted_at = nil
+	m.adddeleted_at = nil
 }
 
 // SetGoodID sets the "good_id" field.
@@ -26752,9 +33481,18 @@ func (m *GoodCoinMutation) Type() string {
 // order to get all numeric fields that were incremented/decremented, call
 // AddedFields().
 func (m *GoodCoinMutation) Fields() []string {
-	fields := make([]string, 0, 5)
+	fields := make([]string, 0, 8)
 	if m.ent_id != nil {
 		fields = append(fields, goodcoin.FieldEntID)
+	}
+	if m.created_at != nil {
+		fields = append(fields, goodcoin.FieldCreatedAt)
+	}
+	if m.updated_at != nil {
+		fields = append(fields, goodcoin.FieldUpdatedAt)
+	}
+	if m.deleted_at != nil {
+		fields = append(fields, goodcoin.FieldDeletedAt)
 	}
 	if m.good_id != nil {
 		fields = append(fields, goodcoin.FieldGoodID)
@@ -26778,6 +33516,12 @@ func (m *GoodCoinMutation) Field(name string) (ent.Value, bool) {
 	switch name {
 	case goodcoin.FieldEntID:
 		return m.EntID()
+	case goodcoin.FieldCreatedAt:
+		return m.CreatedAt()
+	case goodcoin.FieldUpdatedAt:
+		return m.UpdatedAt()
+	case goodcoin.FieldDeletedAt:
+		return m.DeletedAt()
 	case goodcoin.FieldGoodID:
 		return m.GoodID()
 	case goodcoin.FieldCoinTypeID:
@@ -26797,6 +33541,12 @@ func (m *GoodCoinMutation) OldField(ctx context.Context, name string) (ent.Value
 	switch name {
 	case goodcoin.FieldEntID:
 		return m.OldEntID(ctx)
+	case goodcoin.FieldCreatedAt:
+		return m.OldCreatedAt(ctx)
+	case goodcoin.FieldUpdatedAt:
+		return m.OldUpdatedAt(ctx)
+	case goodcoin.FieldDeletedAt:
+		return m.OldDeletedAt(ctx)
 	case goodcoin.FieldGoodID:
 		return m.OldGoodID(ctx)
 	case goodcoin.FieldCoinTypeID:
@@ -26820,6 +33570,27 @@ func (m *GoodCoinMutation) SetField(name string, value ent.Value) error {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetEntID(v)
+		return nil
+	case goodcoin.FieldCreatedAt:
+		v, ok := value.(uint32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetCreatedAt(v)
+		return nil
+	case goodcoin.FieldUpdatedAt:
+		v, ok := value.(uint32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetUpdatedAt(v)
+		return nil
+	case goodcoin.FieldDeletedAt:
+		v, ok := value.(uint32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetDeletedAt(v)
 		return nil
 	case goodcoin.FieldGoodID:
 		v, ok := value.(uuid.UUID)
@@ -26857,6 +33628,15 @@ func (m *GoodCoinMutation) SetField(name string, value ent.Value) error {
 // this mutation.
 func (m *GoodCoinMutation) AddedFields() []string {
 	var fields []string
+	if m.addcreated_at != nil {
+		fields = append(fields, goodcoin.FieldCreatedAt)
+	}
+	if m.addupdated_at != nil {
+		fields = append(fields, goodcoin.FieldUpdatedAt)
+	}
+	if m.adddeleted_at != nil {
+		fields = append(fields, goodcoin.FieldDeletedAt)
+	}
 	if m.addindex != nil {
 		fields = append(fields, goodcoin.FieldIndex)
 	}
@@ -26868,6 +33648,12 @@ func (m *GoodCoinMutation) AddedFields() []string {
 // was not set, or was not defined in the schema.
 func (m *GoodCoinMutation) AddedField(name string) (ent.Value, bool) {
 	switch name {
+	case goodcoin.FieldCreatedAt:
+		return m.AddedCreatedAt()
+	case goodcoin.FieldUpdatedAt:
+		return m.AddedUpdatedAt()
+	case goodcoin.FieldDeletedAt:
+		return m.AddedDeletedAt()
 	case goodcoin.FieldIndex:
 		return m.AddedIndex()
 	}
@@ -26879,6 +33665,27 @@ func (m *GoodCoinMutation) AddedField(name string) (ent.Value, bool) {
 // type.
 func (m *GoodCoinMutation) AddField(name string, value ent.Value) error {
 	switch name {
+	case goodcoin.FieldCreatedAt:
+		v, ok := value.(int32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddCreatedAt(v)
+		return nil
+	case goodcoin.FieldUpdatedAt:
+		v, ok := value.(int32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddUpdatedAt(v)
+		return nil
+	case goodcoin.FieldDeletedAt:
+		v, ok := value.(int32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddDeletedAt(v)
+		return nil
 	case goodcoin.FieldIndex:
 		v, ok := value.(int32)
 		if !ok {
@@ -26942,6 +33749,15 @@ func (m *GoodCoinMutation) ResetField(name string) error {
 	switch name {
 	case goodcoin.FieldEntID:
 		m.ResetEntID()
+		return nil
+	case goodcoin.FieldCreatedAt:
+		m.ResetCreatedAt()
+		return nil
+	case goodcoin.FieldUpdatedAt:
+		m.ResetUpdatedAt()
+		return nil
+	case goodcoin.FieldDeletedAt:
+		m.ResetDeletedAt()
 		return nil
 	case goodcoin.FieldGoodID:
 		m.ResetGoodID()
@@ -27014,6 +33830,12 @@ type GoodCoinRewardMutation struct {
 	typ                      string
 	id                       *uint32
 	ent_id                   *uuid.UUID
+	created_at               *uint32
+	addcreated_at            *int32
+	updated_at               *uint32
+	addupdated_at            *int32
+	deleted_at               *uint32
+	adddeleted_at            *int32
 	good_id                  *uuid.UUID
 	coin_type_id             *uuid.UUID
 	reward_tid               *uuid.UUID
@@ -27165,6 +33987,174 @@ func (m *GoodCoinRewardMutation) OldEntID(ctx context.Context) (v uuid.UUID, err
 // ResetEntID resets all changes to the "ent_id" field.
 func (m *GoodCoinRewardMutation) ResetEntID() {
 	m.ent_id = nil
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (m *GoodCoinRewardMutation) SetCreatedAt(u uint32) {
+	m.created_at = &u
+	m.addcreated_at = nil
+}
+
+// CreatedAt returns the value of the "created_at" field in the mutation.
+func (m *GoodCoinRewardMutation) CreatedAt() (r uint32, exists bool) {
+	v := m.created_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldCreatedAt returns the old "created_at" field's value of the GoodCoinReward entity.
+// If the GoodCoinReward object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *GoodCoinRewardMutation) OldCreatedAt(ctx context.Context) (v uint32, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldCreatedAt is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldCreatedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldCreatedAt: %w", err)
+	}
+	return oldValue.CreatedAt, nil
+}
+
+// AddCreatedAt adds u to the "created_at" field.
+func (m *GoodCoinRewardMutation) AddCreatedAt(u int32) {
+	if m.addcreated_at != nil {
+		*m.addcreated_at += u
+	} else {
+		m.addcreated_at = &u
+	}
+}
+
+// AddedCreatedAt returns the value that was added to the "created_at" field in this mutation.
+func (m *GoodCoinRewardMutation) AddedCreatedAt() (r int32, exists bool) {
+	v := m.addcreated_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetCreatedAt resets all changes to the "created_at" field.
+func (m *GoodCoinRewardMutation) ResetCreatedAt() {
+	m.created_at = nil
+	m.addcreated_at = nil
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (m *GoodCoinRewardMutation) SetUpdatedAt(u uint32) {
+	m.updated_at = &u
+	m.addupdated_at = nil
+}
+
+// UpdatedAt returns the value of the "updated_at" field in the mutation.
+func (m *GoodCoinRewardMutation) UpdatedAt() (r uint32, exists bool) {
+	v := m.updated_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldUpdatedAt returns the old "updated_at" field's value of the GoodCoinReward entity.
+// If the GoodCoinReward object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *GoodCoinRewardMutation) OldUpdatedAt(ctx context.Context) (v uint32, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldUpdatedAt is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldUpdatedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldUpdatedAt: %w", err)
+	}
+	return oldValue.UpdatedAt, nil
+}
+
+// AddUpdatedAt adds u to the "updated_at" field.
+func (m *GoodCoinRewardMutation) AddUpdatedAt(u int32) {
+	if m.addupdated_at != nil {
+		*m.addupdated_at += u
+	} else {
+		m.addupdated_at = &u
+	}
+}
+
+// AddedUpdatedAt returns the value that was added to the "updated_at" field in this mutation.
+func (m *GoodCoinRewardMutation) AddedUpdatedAt() (r int32, exists bool) {
+	v := m.addupdated_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetUpdatedAt resets all changes to the "updated_at" field.
+func (m *GoodCoinRewardMutation) ResetUpdatedAt() {
+	m.updated_at = nil
+	m.addupdated_at = nil
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (m *GoodCoinRewardMutation) SetDeletedAt(u uint32) {
+	m.deleted_at = &u
+	m.adddeleted_at = nil
+}
+
+// DeletedAt returns the value of the "deleted_at" field in the mutation.
+func (m *GoodCoinRewardMutation) DeletedAt() (r uint32, exists bool) {
+	v := m.deleted_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldDeletedAt returns the old "deleted_at" field's value of the GoodCoinReward entity.
+// If the GoodCoinReward object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *GoodCoinRewardMutation) OldDeletedAt(ctx context.Context) (v uint32, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldDeletedAt is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldDeletedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldDeletedAt: %w", err)
+	}
+	return oldValue.DeletedAt, nil
+}
+
+// AddDeletedAt adds u to the "deleted_at" field.
+func (m *GoodCoinRewardMutation) AddDeletedAt(u int32) {
+	if m.adddeleted_at != nil {
+		*m.adddeleted_at += u
+	} else {
+		m.adddeleted_at = &u
+	}
+}
+
+// AddedDeletedAt returns the value that was added to the "deleted_at" field in this mutation.
+func (m *GoodCoinRewardMutation) AddedDeletedAt() (r int32, exists bool) {
+	v := m.adddeleted_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetDeletedAt resets all changes to the "deleted_at" field.
+func (m *GoodCoinRewardMutation) ResetDeletedAt() {
+	m.deleted_at = nil
+	m.adddeleted_at = nil
 }
 
 // SetGoodID sets the "good_id" field.
@@ -27544,9 +34534,18 @@ func (m *GoodCoinRewardMutation) Type() string {
 // order to get all numeric fields that were incremented/decremented, call
 // AddedFields().
 func (m *GoodCoinRewardMutation) Fields() []string {
-	fields := make([]string, 0, 8)
+	fields := make([]string, 0, 11)
 	if m.ent_id != nil {
 		fields = append(fields, goodcoinreward.FieldEntID)
+	}
+	if m.created_at != nil {
+		fields = append(fields, goodcoinreward.FieldCreatedAt)
+	}
+	if m.updated_at != nil {
+		fields = append(fields, goodcoinreward.FieldUpdatedAt)
+	}
+	if m.deleted_at != nil {
+		fields = append(fields, goodcoinreward.FieldDeletedAt)
 	}
 	if m.good_id != nil {
 		fields = append(fields, goodcoinreward.FieldGoodID)
@@ -27579,6 +34578,12 @@ func (m *GoodCoinRewardMutation) Field(name string) (ent.Value, bool) {
 	switch name {
 	case goodcoinreward.FieldEntID:
 		return m.EntID()
+	case goodcoinreward.FieldCreatedAt:
+		return m.CreatedAt()
+	case goodcoinreward.FieldUpdatedAt:
+		return m.UpdatedAt()
+	case goodcoinreward.FieldDeletedAt:
+		return m.DeletedAt()
 	case goodcoinreward.FieldGoodID:
 		return m.GoodID()
 	case goodcoinreward.FieldCoinTypeID:
@@ -27604,6 +34609,12 @@ func (m *GoodCoinRewardMutation) OldField(ctx context.Context, name string) (ent
 	switch name {
 	case goodcoinreward.FieldEntID:
 		return m.OldEntID(ctx)
+	case goodcoinreward.FieldCreatedAt:
+		return m.OldCreatedAt(ctx)
+	case goodcoinreward.FieldUpdatedAt:
+		return m.OldUpdatedAt(ctx)
+	case goodcoinreward.FieldDeletedAt:
+		return m.OldDeletedAt(ctx)
 	case goodcoinreward.FieldGoodID:
 		return m.OldGoodID(ctx)
 	case goodcoinreward.FieldCoinTypeID:
@@ -27633,6 +34644,27 @@ func (m *GoodCoinRewardMutation) SetField(name string, value ent.Value) error {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetEntID(v)
+		return nil
+	case goodcoinreward.FieldCreatedAt:
+		v, ok := value.(uint32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetCreatedAt(v)
+		return nil
+	case goodcoinreward.FieldUpdatedAt:
+		v, ok := value.(uint32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetUpdatedAt(v)
+		return nil
+	case goodcoinreward.FieldDeletedAt:
+		v, ok := value.(uint32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetDeletedAt(v)
 		return nil
 	case goodcoinreward.FieldGoodID:
 		v, ok := value.(uuid.UUID)
@@ -27690,13 +34722,31 @@ func (m *GoodCoinRewardMutation) SetField(name string, value ent.Value) error {
 // AddedFields returns all numeric fields that were incremented/decremented during
 // this mutation.
 func (m *GoodCoinRewardMutation) AddedFields() []string {
-	return nil
+	var fields []string
+	if m.addcreated_at != nil {
+		fields = append(fields, goodcoinreward.FieldCreatedAt)
+	}
+	if m.addupdated_at != nil {
+		fields = append(fields, goodcoinreward.FieldUpdatedAt)
+	}
+	if m.adddeleted_at != nil {
+		fields = append(fields, goodcoinreward.FieldDeletedAt)
+	}
+	return fields
 }
 
 // AddedField returns the numeric value that was incremented/decremented on a field
 // with the given name. The second boolean return value indicates that this field
 // was not set, or was not defined in the schema.
 func (m *GoodCoinRewardMutation) AddedField(name string) (ent.Value, bool) {
+	switch name {
+	case goodcoinreward.FieldCreatedAt:
+		return m.AddedCreatedAt()
+	case goodcoinreward.FieldUpdatedAt:
+		return m.AddedUpdatedAt()
+	case goodcoinreward.FieldDeletedAt:
+		return m.AddedDeletedAt()
+	}
 	return nil, false
 }
 
@@ -27705,6 +34755,27 @@ func (m *GoodCoinRewardMutation) AddedField(name string) (ent.Value, bool) {
 // type.
 func (m *GoodCoinRewardMutation) AddField(name string, value ent.Value) error {
 	switch name {
+	case goodcoinreward.FieldCreatedAt:
+		v, ok := value.(int32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddCreatedAt(v)
+		return nil
+	case goodcoinreward.FieldUpdatedAt:
+		v, ok := value.(int32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddUpdatedAt(v)
+		return nil
+	case goodcoinreward.FieldDeletedAt:
+		v, ok := value.(int32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddDeletedAt(v)
+		return nil
 	}
 	return fmt.Errorf("unknown GoodCoinReward numeric field %s", name)
 }
@@ -27779,6 +34850,15 @@ func (m *GoodCoinRewardMutation) ResetField(name string) error {
 	switch name {
 	case goodcoinreward.FieldEntID:
 		m.ResetEntID()
+		return nil
+	case goodcoinreward.FieldCreatedAt:
+		m.ResetCreatedAt()
+		return nil
+	case goodcoinreward.FieldUpdatedAt:
+		m.ResetUpdatedAt()
+		return nil
+	case goodcoinreward.FieldDeletedAt:
+		m.ResetDeletedAt()
 		return nil
 	case goodcoinreward.FieldGoodID:
 		m.ResetGoodID()
@@ -27860,6 +34940,12 @@ type GoodMalfunctionMutation struct {
 	typ                   string
 	id                    *uint32
 	ent_id                *uuid.UUID
+	created_at            *uint32
+	addcreated_at         *int32
+	updated_at            *uint32
+	addupdated_at         *int32
+	deleted_at            *uint32
+	adddeleted_at         *int32
 	good_id               *uuid.UUID
 	title                 *string
 	message               *string
@@ -28013,6 +35099,174 @@ func (m *GoodMalfunctionMutation) OldEntID(ctx context.Context) (v uuid.UUID, er
 // ResetEntID resets all changes to the "ent_id" field.
 func (m *GoodMalfunctionMutation) ResetEntID() {
 	m.ent_id = nil
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (m *GoodMalfunctionMutation) SetCreatedAt(u uint32) {
+	m.created_at = &u
+	m.addcreated_at = nil
+}
+
+// CreatedAt returns the value of the "created_at" field in the mutation.
+func (m *GoodMalfunctionMutation) CreatedAt() (r uint32, exists bool) {
+	v := m.created_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldCreatedAt returns the old "created_at" field's value of the GoodMalfunction entity.
+// If the GoodMalfunction object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *GoodMalfunctionMutation) OldCreatedAt(ctx context.Context) (v uint32, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldCreatedAt is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldCreatedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldCreatedAt: %w", err)
+	}
+	return oldValue.CreatedAt, nil
+}
+
+// AddCreatedAt adds u to the "created_at" field.
+func (m *GoodMalfunctionMutation) AddCreatedAt(u int32) {
+	if m.addcreated_at != nil {
+		*m.addcreated_at += u
+	} else {
+		m.addcreated_at = &u
+	}
+}
+
+// AddedCreatedAt returns the value that was added to the "created_at" field in this mutation.
+func (m *GoodMalfunctionMutation) AddedCreatedAt() (r int32, exists bool) {
+	v := m.addcreated_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetCreatedAt resets all changes to the "created_at" field.
+func (m *GoodMalfunctionMutation) ResetCreatedAt() {
+	m.created_at = nil
+	m.addcreated_at = nil
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (m *GoodMalfunctionMutation) SetUpdatedAt(u uint32) {
+	m.updated_at = &u
+	m.addupdated_at = nil
+}
+
+// UpdatedAt returns the value of the "updated_at" field in the mutation.
+func (m *GoodMalfunctionMutation) UpdatedAt() (r uint32, exists bool) {
+	v := m.updated_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldUpdatedAt returns the old "updated_at" field's value of the GoodMalfunction entity.
+// If the GoodMalfunction object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *GoodMalfunctionMutation) OldUpdatedAt(ctx context.Context) (v uint32, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldUpdatedAt is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldUpdatedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldUpdatedAt: %w", err)
+	}
+	return oldValue.UpdatedAt, nil
+}
+
+// AddUpdatedAt adds u to the "updated_at" field.
+func (m *GoodMalfunctionMutation) AddUpdatedAt(u int32) {
+	if m.addupdated_at != nil {
+		*m.addupdated_at += u
+	} else {
+		m.addupdated_at = &u
+	}
+}
+
+// AddedUpdatedAt returns the value that was added to the "updated_at" field in this mutation.
+func (m *GoodMalfunctionMutation) AddedUpdatedAt() (r int32, exists bool) {
+	v := m.addupdated_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetUpdatedAt resets all changes to the "updated_at" field.
+func (m *GoodMalfunctionMutation) ResetUpdatedAt() {
+	m.updated_at = nil
+	m.addupdated_at = nil
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (m *GoodMalfunctionMutation) SetDeletedAt(u uint32) {
+	m.deleted_at = &u
+	m.adddeleted_at = nil
+}
+
+// DeletedAt returns the value of the "deleted_at" field in the mutation.
+func (m *GoodMalfunctionMutation) DeletedAt() (r uint32, exists bool) {
+	v := m.deleted_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldDeletedAt returns the old "deleted_at" field's value of the GoodMalfunction entity.
+// If the GoodMalfunction object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *GoodMalfunctionMutation) OldDeletedAt(ctx context.Context) (v uint32, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldDeletedAt is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldDeletedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldDeletedAt: %w", err)
+	}
+	return oldValue.DeletedAt, nil
+}
+
+// AddDeletedAt adds u to the "deleted_at" field.
+func (m *GoodMalfunctionMutation) AddDeletedAt(u int32) {
+	if m.adddeleted_at != nil {
+		*m.adddeleted_at += u
+	} else {
+		m.adddeleted_at = &u
+	}
+}
+
+// AddedDeletedAt returns the value that was added to the "deleted_at" field in this mutation.
+func (m *GoodMalfunctionMutation) AddedDeletedAt() (r int32, exists bool) {
+	v := m.adddeleted_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetDeletedAt resets all changes to the "deleted_at" field.
+func (m *GoodMalfunctionMutation) ResetDeletedAt() {
+	m.deleted_at = nil
+	m.adddeleted_at = nil
 }
 
 // SetGoodID sets the "good_id" field.
@@ -28406,9 +35660,18 @@ func (m *GoodMalfunctionMutation) Type() string {
 // order to get all numeric fields that were incremented/decremented, call
 // AddedFields().
 func (m *GoodMalfunctionMutation) Fields() []string {
-	fields := make([]string, 0, 7)
+	fields := make([]string, 0, 10)
 	if m.ent_id != nil {
 		fields = append(fields, goodmalfunction.FieldEntID)
+	}
+	if m.created_at != nil {
+		fields = append(fields, goodmalfunction.FieldCreatedAt)
+	}
+	if m.updated_at != nil {
+		fields = append(fields, goodmalfunction.FieldUpdatedAt)
+	}
+	if m.deleted_at != nil {
+		fields = append(fields, goodmalfunction.FieldDeletedAt)
 	}
 	if m.good_id != nil {
 		fields = append(fields, goodmalfunction.FieldGoodID)
@@ -28438,6 +35701,12 @@ func (m *GoodMalfunctionMutation) Field(name string) (ent.Value, bool) {
 	switch name {
 	case goodmalfunction.FieldEntID:
 		return m.EntID()
+	case goodmalfunction.FieldCreatedAt:
+		return m.CreatedAt()
+	case goodmalfunction.FieldUpdatedAt:
+		return m.UpdatedAt()
+	case goodmalfunction.FieldDeletedAt:
+		return m.DeletedAt()
 	case goodmalfunction.FieldGoodID:
 		return m.GoodID()
 	case goodmalfunction.FieldTitle:
@@ -28461,6 +35730,12 @@ func (m *GoodMalfunctionMutation) OldField(ctx context.Context, name string) (en
 	switch name {
 	case goodmalfunction.FieldEntID:
 		return m.OldEntID(ctx)
+	case goodmalfunction.FieldCreatedAt:
+		return m.OldCreatedAt(ctx)
+	case goodmalfunction.FieldUpdatedAt:
+		return m.OldUpdatedAt(ctx)
+	case goodmalfunction.FieldDeletedAt:
+		return m.OldDeletedAt(ctx)
 	case goodmalfunction.FieldGoodID:
 		return m.OldGoodID(ctx)
 	case goodmalfunction.FieldTitle:
@@ -28488,6 +35763,27 @@ func (m *GoodMalfunctionMutation) SetField(name string, value ent.Value) error {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetEntID(v)
+		return nil
+	case goodmalfunction.FieldCreatedAt:
+		v, ok := value.(uint32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetCreatedAt(v)
+		return nil
+	case goodmalfunction.FieldUpdatedAt:
+		v, ok := value.(uint32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetUpdatedAt(v)
+		return nil
+	case goodmalfunction.FieldDeletedAt:
+		v, ok := value.(uint32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetDeletedAt(v)
 		return nil
 	case goodmalfunction.FieldGoodID:
 		v, ok := value.(uuid.UUID)
@@ -28539,6 +35835,15 @@ func (m *GoodMalfunctionMutation) SetField(name string, value ent.Value) error {
 // this mutation.
 func (m *GoodMalfunctionMutation) AddedFields() []string {
 	var fields []string
+	if m.addcreated_at != nil {
+		fields = append(fields, goodmalfunction.FieldCreatedAt)
+	}
+	if m.addupdated_at != nil {
+		fields = append(fields, goodmalfunction.FieldUpdatedAt)
+	}
+	if m.adddeleted_at != nil {
+		fields = append(fields, goodmalfunction.FieldDeletedAt)
+	}
 	if m.addstart_at != nil {
 		fields = append(fields, goodmalfunction.FieldStartAt)
 	}
@@ -28556,6 +35861,12 @@ func (m *GoodMalfunctionMutation) AddedFields() []string {
 // was not set, or was not defined in the schema.
 func (m *GoodMalfunctionMutation) AddedField(name string) (ent.Value, bool) {
 	switch name {
+	case goodmalfunction.FieldCreatedAt:
+		return m.AddedCreatedAt()
+	case goodmalfunction.FieldUpdatedAt:
+		return m.AddedUpdatedAt()
+	case goodmalfunction.FieldDeletedAt:
+		return m.AddedDeletedAt()
 	case goodmalfunction.FieldStartAt:
 		return m.AddedStartAt()
 	case goodmalfunction.FieldDurationSeconds:
@@ -28571,6 +35882,27 @@ func (m *GoodMalfunctionMutation) AddedField(name string) (ent.Value, bool) {
 // type.
 func (m *GoodMalfunctionMutation) AddField(name string, value ent.Value) error {
 	switch name {
+	case goodmalfunction.FieldCreatedAt:
+		v, ok := value.(int32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddCreatedAt(v)
+		return nil
+	case goodmalfunction.FieldUpdatedAt:
+		v, ok := value.(int32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddUpdatedAt(v)
+		return nil
+	case goodmalfunction.FieldDeletedAt:
+		v, ok := value.(int32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddDeletedAt(v)
+		return nil
 	case goodmalfunction.FieldStartAt:
 		v, ok := value.(int32)
 		if !ok {
@@ -28661,6 +35993,15 @@ func (m *GoodMalfunctionMutation) ResetField(name string) error {
 	case goodmalfunction.FieldEntID:
 		m.ResetEntID()
 		return nil
+	case goodmalfunction.FieldCreatedAt:
+		m.ResetCreatedAt()
+		return nil
+	case goodmalfunction.FieldUpdatedAt:
+		m.ResetUpdatedAt()
+		return nil
+	case goodmalfunction.FieldDeletedAt:
+		m.ResetDeletedAt()
+		return nil
 	case goodmalfunction.FieldGoodID:
 		m.ResetGoodID()
 		return nil
@@ -28738,6 +36079,12 @@ type GoodRewardMutation struct {
 	typ               string
 	id                *uint32
 	ent_id            *uuid.UUID
+	created_at        *uint32
+	addcreated_at     *int32
+	updated_at        *uint32
+	addupdated_at     *int32
+	deleted_at        *uint32
+	adddeleted_at     *int32
 	good_id           *uuid.UUID
 	reward_state      *string
 	last_reward_at    *uint32
@@ -28886,6 +36233,174 @@ func (m *GoodRewardMutation) OldEntID(ctx context.Context) (v uuid.UUID, err err
 // ResetEntID resets all changes to the "ent_id" field.
 func (m *GoodRewardMutation) ResetEntID() {
 	m.ent_id = nil
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (m *GoodRewardMutation) SetCreatedAt(u uint32) {
+	m.created_at = &u
+	m.addcreated_at = nil
+}
+
+// CreatedAt returns the value of the "created_at" field in the mutation.
+func (m *GoodRewardMutation) CreatedAt() (r uint32, exists bool) {
+	v := m.created_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldCreatedAt returns the old "created_at" field's value of the GoodReward entity.
+// If the GoodReward object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *GoodRewardMutation) OldCreatedAt(ctx context.Context) (v uint32, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldCreatedAt is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldCreatedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldCreatedAt: %w", err)
+	}
+	return oldValue.CreatedAt, nil
+}
+
+// AddCreatedAt adds u to the "created_at" field.
+func (m *GoodRewardMutation) AddCreatedAt(u int32) {
+	if m.addcreated_at != nil {
+		*m.addcreated_at += u
+	} else {
+		m.addcreated_at = &u
+	}
+}
+
+// AddedCreatedAt returns the value that was added to the "created_at" field in this mutation.
+func (m *GoodRewardMutation) AddedCreatedAt() (r int32, exists bool) {
+	v := m.addcreated_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetCreatedAt resets all changes to the "created_at" field.
+func (m *GoodRewardMutation) ResetCreatedAt() {
+	m.created_at = nil
+	m.addcreated_at = nil
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (m *GoodRewardMutation) SetUpdatedAt(u uint32) {
+	m.updated_at = &u
+	m.addupdated_at = nil
+}
+
+// UpdatedAt returns the value of the "updated_at" field in the mutation.
+func (m *GoodRewardMutation) UpdatedAt() (r uint32, exists bool) {
+	v := m.updated_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldUpdatedAt returns the old "updated_at" field's value of the GoodReward entity.
+// If the GoodReward object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *GoodRewardMutation) OldUpdatedAt(ctx context.Context) (v uint32, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldUpdatedAt is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldUpdatedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldUpdatedAt: %w", err)
+	}
+	return oldValue.UpdatedAt, nil
+}
+
+// AddUpdatedAt adds u to the "updated_at" field.
+func (m *GoodRewardMutation) AddUpdatedAt(u int32) {
+	if m.addupdated_at != nil {
+		*m.addupdated_at += u
+	} else {
+		m.addupdated_at = &u
+	}
+}
+
+// AddedUpdatedAt returns the value that was added to the "updated_at" field in this mutation.
+func (m *GoodRewardMutation) AddedUpdatedAt() (r int32, exists bool) {
+	v := m.addupdated_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetUpdatedAt resets all changes to the "updated_at" field.
+func (m *GoodRewardMutation) ResetUpdatedAt() {
+	m.updated_at = nil
+	m.addupdated_at = nil
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (m *GoodRewardMutation) SetDeletedAt(u uint32) {
+	m.deleted_at = &u
+	m.adddeleted_at = nil
+}
+
+// DeletedAt returns the value of the "deleted_at" field in the mutation.
+func (m *GoodRewardMutation) DeletedAt() (r uint32, exists bool) {
+	v := m.deleted_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldDeletedAt returns the old "deleted_at" field's value of the GoodReward entity.
+// If the GoodReward object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *GoodRewardMutation) OldDeletedAt(ctx context.Context) (v uint32, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldDeletedAt is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldDeletedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldDeletedAt: %w", err)
+	}
+	return oldValue.DeletedAt, nil
+}
+
+// AddDeletedAt adds u to the "deleted_at" field.
+func (m *GoodRewardMutation) AddDeletedAt(u int32) {
+	if m.adddeleted_at != nil {
+		*m.adddeleted_at += u
+	} else {
+		m.adddeleted_at = &u
+	}
+}
+
+// AddedDeletedAt returns the value that was added to the "deleted_at" field in this mutation.
+func (m *GoodRewardMutation) AddedDeletedAt() (r int32, exists bool) {
+	v := m.adddeleted_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetDeletedAt resets all changes to the "deleted_at" field.
+func (m *GoodRewardMutation) ResetDeletedAt() {
+	m.deleted_at = nil
+	m.adddeleted_at = nil
 }
 
 // SetGoodID sets the "good_id" field.
@@ -29090,9 +36605,18 @@ func (m *GoodRewardMutation) Type() string {
 // order to get all numeric fields that were incremented/decremented, call
 // AddedFields().
 func (m *GoodRewardMutation) Fields() []string {
-	fields := make([]string, 0, 4)
+	fields := make([]string, 0, 7)
 	if m.ent_id != nil {
 		fields = append(fields, goodreward.FieldEntID)
+	}
+	if m.created_at != nil {
+		fields = append(fields, goodreward.FieldCreatedAt)
+	}
+	if m.updated_at != nil {
+		fields = append(fields, goodreward.FieldUpdatedAt)
+	}
+	if m.deleted_at != nil {
+		fields = append(fields, goodreward.FieldDeletedAt)
 	}
 	if m.good_id != nil {
 		fields = append(fields, goodreward.FieldGoodID)
@@ -29113,6 +36637,12 @@ func (m *GoodRewardMutation) Field(name string) (ent.Value, bool) {
 	switch name {
 	case goodreward.FieldEntID:
 		return m.EntID()
+	case goodreward.FieldCreatedAt:
+		return m.CreatedAt()
+	case goodreward.FieldUpdatedAt:
+		return m.UpdatedAt()
+	case goodreward.FieldDeletedAt:
+		return m.DeletedAt()
 	case goodreward.FieldGoodID:
 		return m.GoodID()
 	case goodreward.FieldRewardState:
@@ -29130,6 +36660,12 @@ func (m *GoodRewardMutation) OldField(ctx context.Context, name string) (ent.Val
 	switch name {
 	case goodreward.FieldEntID:
 		return m.OldEntID(ctx)
+	case goodreward.FieldCreatedAt:
+		return m.OldCreatedAt(ctx)
+	case goodreward.FieldUpdatedAt:
+		return m.OldUpdatedAt(ctx)
+	case goodreward.FieldDeletedAt:
+		return m.OldDeletedAt(ctx)
 	case goodreward.FieldGoodID:
 		return m.OldGoodID(ctx)
 	case goodreward.FieldRewardState:
@@ -29151,6 +36687,27 @@ func (m *GoodRewardMutation) SetField(name string, value ent.Value) error {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetEntID(v)
+		return nil
+	case goodreward.FieldCreatedAt:
+		v, ok := value.(uint32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetCreatedAt(v)
+		return nil
+	case goodreward.FieldUpdatedAt:
+		v, ok := value.(uint32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetUpdatedAt(v)
+		return nil
+	case goodreward.FieldDeletedAt:
+		v, ok := value.(uint32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetDeletedAt(v)
 		return nil
 	case goodreward.FieldGoodID:
 		v, ok := value.(uuid.UUID)
@@ -29181,6 +36738,15 @@ func (m *GoodRewardMutation) SetField(name string, value ent.Value) error {
 // this mutation.
 func (m *GoodRewardMutation) AddedFields() []string {
 	var fields []string
+	if m.addcreated_at != nil {
+		fields = append(fields, goodreward.FieldCreatedAt)
+	}
+	if m.addupdated_at != nil {
+		fields = append(fields, goodreward.FieldUpdatedAt)
+	}
+	if m.adddeleted_at != nil {
+		fields = append(fields, goodreward.FieldDeletedAt)
+	}
 	if m.addlast_reward_at != nil {
 		fields = append(fields, goodreward.FieldLastRewardAt)
 	}
@@ -29192,6 +36758,12 @@ func (m *GoodRewardMutation) AddedFields() []string {
 // was not set, or was not defined in the schema.
 func (m *GoodRewardMutation) AddedField(name string) (ent.Value, bool) {
 	switch name {
+	case goodreward.FieldCreatedAt:
+		return m.AddedCreatedAt()
+	case goodreward.FieldUpdatedAt:
+		return m.AddedUpdatedAt()
+	case goodreward.FieldDeletedAt:
+		return m.AddedDeletedAt()
 	case goodreward.FieldLastRewardAt:
 		return m.AddedLastRewardAt()
 	}
@@ -29203,6 +36775,27 @@ func (m *GoodRewardMutation) AddedField(name string) (ent.Value, bool) {
 // type.
 func (m *GoodRewardMutation) AddField(name string, value ent.Value) error {
 	switch name {
+	case goodreward.FieldCreatedAt:
+		v, ok := value.(int32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddCreatedAt(v)
+		return nil
+	case goodreward.FieldUpdatedAt:
+		v, ok := value.(int32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddUpdatedAt(v)
+		return nil
+	case goodreward.FieldDeletedAt:
+		v, ok := value.(int32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddDeletedAt(v)
+		return nil
 	case goodreward.FieldLastRewardAt:
 		v, ok := value.(int32)
 		if !ok {
@@ -29260,6 +36853,15 @@ func (m *GoodRewardMutation) ResetField(name string) error {
 	switch name {
 	case goodreward.FieldEntID:
 		m.ResetEntID()
+		return nil
+	case goodreward.FieldCreatedAt:
+		m.ResetCreatedAt()
+		return nil
+	case goodreward.FieldUpdatedAt:
+		m.ResetUpdatedAt()
+		return nil
+	case goodreward.FieldDeletedAt:
+		m.ResetDeletedAt()
 		return nil
 	case goodreward.FieldGoodID:
 		m.ResetGoodID()
@@ -29329,6 +36931,12 @@ type GoodRewardHistoryMutation struct {
 	typ             string
 	id              *uint32
 	ent_id          *uuid.UUID
+	created_at      *uint32
+	addcreated_at   *int32
+	updated_at      *uint32
+	addupdated_at   *int32
+	deleted_at      *uint32
+	adddeleted_at   *int32
 	good_id         *uuid.UUID
 	coin_type_id    *uuid.UUID
 	reward_date     *uint32
@@ -29481,6 +37089,174 @@ func (m *GoodRewardHistoryMutation) OldEntID(ctx context.Context) (v uuid.UUID, 
 // ResetEntID resets all changes to the "ent_id" field.
 func (m *GoodRewardHistoryMutation) ResetEntID() {
 	m.ent_id = nil
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (m *GoodRewardHistoryMutation) SetCreatedAt(u uint32) {
+	m.created_at = &u
+	m.addcreated_at = nil
+}
+
+// CreatedAt returns the value of the "created_at" field in the mutation.
+func (m *GoodRewardHistoryMutation) CreatedAt() (r uint32, exists bool) {
+	v := m.created_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldCreatedAt returns the old "created_at" field's value of the GoodRewardHistory entity.
+// If the GoodRewardHistory object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *GoodRewardHistoryMutation) OldCreatedAt(ctx context.Context) (v uint32, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldCreatedAt is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldCreatedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldCreatedAt: %w", err)
+	}
+	return oldValue.CreatedAt, nil
+}
+
+// AddCreatedAt adds u to the "created_at" field.
+func (m *GoodRewardHistoryMutation) AddCreatedAt(u int32) {
+	if m.addcreated_at != nil {
+		*m.addcreated_at += u
+	} else {
+		m.addcreated_at = &u
+	}
+}
+
+// AddedCreatedAt returns the value that was added to the "created_at" field in this mutation.
+func (m *GoodRewardHistoryMutation) AddedCreatedAt() (r int32, exists bool) {
+	v := m.addcreated_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetCreatedAt resets all changes to the "created_at" field.
+func (m *GoodRewardHistoryMutation) ResetCreatedAt() {
+	m.created_at = nil
+	m.addcreated_at = nil
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (m *GoodRewardHistoryMutation) SetUpdatedAt(u uint32) {
+	m.updated_at = &u
+	m.addupdated_at = nil
+}
+
+// UpdatedAt returns the value of the "updated_at" field in the mutation.
+func (m *GoodRewardHistoryMutation) UpdatedAt() (r uint32, exists bool) {
+	v := m.updated_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldUpdatedAt returns the old "updated_at" field's value of the GoodRewardHistory entity.
+// If the GoodRewardHistory object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *GoodRewardHistoryMutation) OldUpdatedAt(ctx context.Context) (v uint32, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldUpdatedAt is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldUpdatedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldUpdatedAt: %w", err)
+	}
+	return oldValue.UpdatedAt, nil
+}
+
+// AddUpdatedAt adds u to the "updated_at" field.
+func (m *GoodRewardHistoryMutation) AddUpdatedAt(u int32) {
+	if m.addupdated_at != nil {
+		*m.addupdated_at += u
+	} else {
+		m.addupdated_at = &u
+	}
+}
+
+// AddedUpdatedAt returns the value that was added to the "updated_at" field in this mutation.
+func (m *GoodRewardHistoryMutation) AddedUpdatedAt() (r int32, exists bool) {
+	v := m.addupdated_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetUpdatedAt resets all changes to the "updated_at" field.
+func (m *GoodRewardHistoryMutation) ResetUpdatedAt() {
+	m.updated_at = nil
+	m.addupdated_at = nil
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (m *GoodRewardHistoryMutation) SetDeletedAt(u uint32) {
+	m.deleted_at = &u
+	m.adddeleted_at = nil
+}
+
+// DeletedAt returns the value of the "deleted_at" field in the mutation.
+func (m *GoodRewardHistoryMutation) DeletedAt() (r uint32, exists bool) {
+	v := m.deleted_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldDeletedAt returns the old "deleted_at" field's value of the GoodRewardHistory entity.
+// If the GoodRewardHistory object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *GoodRewardHistoryMutation) OldDeletedAt(ctx context.Context) (v uint32, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldDeletedAt is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldDeletedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldDeletedAt: %w", err)
+	}
+	return oldValue.DeletedAt, nil
+}
+
+// AddDeletedAt adds u to the "deleted_at" field.
+func (m *GoodRewardHistoryMutation) AddDeletedAt(u int32) {
+	if m.adddeleted_at != nil {
+		*m.adddeleted_at += u
+	} else {
+		m.adddeleted_at = &u
+	}
+}
+
+// AddedDeletedAt returns the value that was added to the "deleted_at" field in this mutation.
+func (m *GoodRewardHistoryMutation) AddedDeletedAt() (r int32, exists bool) {
+	v := m.adddeleted_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetDeletedAt resets all changes to the "deleted_at" field.
+func (m *GoodRewardHistoryMutation) ResetDeletedAt() {
+	m.deleted_at = nil
+	m.adddeleted_at = nil
 }
 
 // SetGoodID sets the "good_id" field.
@@ -29881,9 +37657,18 @@ func (m *GoodRewardHistoryMutation) Type() string {
 // order to get all numeric fields that were incremented/decremented, call
 // AddedFields().
 func (m *GoodRewardHistoryMutation) Fields() []string {
-	fields := make([]string, 0, 8)
+	fields := make([]string, 0, 11)
 	if m.ent_id != nil {
 		fields = append(fields, goodrewardhistory.FieldEntID)
+	}
+	if m.created_at != nil {
+		fields = append(fields, goodrewardhistory.FieldCreatedAt)
+	}
+	if m.updated_at != nil {
+		fields = append(fields, goodrewardhistory.FieldUpdatedAt)
+	}
+	if m.deleted_at != nil {
+		fields = append(fields, goodrewardhistory.FieldDeletedAt)
 	}
 	if m.good_id != nil {
 		fields = append(fields, goodrewardhistory.FieldGoodID)
@@ -29916,6 +37701,12 @@ func (m *GoodRewardHistoryMutation) Field(name string) (ent.Value, bool) {
 	switch name {
 	case goodrewardhistory.FieldEntID:
 		return m.EntID()
+	case goodrewardhistory.FieldCreatedAt:
+		return m.CreatedAt()
+	case goodrewardhistory.FieldUpdatedAt:
+		return m.UpdatedAt()
+	case goodrewardhistory.FieldDeletedAt:
+		return m.DeletedAt()
 	case goodrewardhistory.FieldGoodID:
 		return m.GoodID()
 	case goodrewardhistory.FieldCoinTypeID:
@@ -29941,6 +37732,12 @@ func (m *GoodRewardHistoryMutation) OldField(ctx context.Context, name string) (
 	switch name {
 	case goodrewardhistory.FieldEntID:
 		return m.OldEntID(ctx)
+	case goodrewardhistory.FieldCreatedAt:
+		return m.OldCreatedAt(ctx)
+	case goodrewardhistory.FieldUpdatedAt:
+		return m.OldUpdatedAt(ctx)
+	case goodrewardhistory.FieldDeletedAt:
+		return m.OldDeletedAt(ctx)
 	case goodrewardhistory.FieldGoodID:
 		return m.OldGoodID(ctx)
 	case goodrewardhistory.FieldCoinTypeID:
@@ -29970,6 +37767,27 @@ func (m *GoodRewardHistoryMutation) SetField(name string, value ent.Value) error
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetEntID(v)
+		return nil
+	case goodrewardhistory.FieldCreatedAt:
+		v, ok := value.(uint32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetCreatedAt(v)
+		return nil
+	case goodrewardhistory.FieldUpdatedAt:
+		v, ok := value.(uint32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetUpdatedAt(v)
+		return nil
+	case goodrewardhistory.FieldDeletedAt:
+		v, ok := value.(uint32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetDeletedAt(v)
 		return nil
 	case goodrewardhistory.FieldGoodID:
 		v, ok := value.(uuid.UUID)
@@ -30028,6 +37846,15 @@ func (m *GoodRewardHistoryMutation) SetField(name string, value ent.Value) error
 // this mutation.
 func (m *GoodRewardHistoryMutation) AddedFields() []string {
 	var fields []string
+	if m.addcreated_at != nil {
+		fields = append(fields, goodrewardhistory.FieldCreatedAt)
+	}
+	if m.addupdated_at != nil {
+		fields = append(fields, goodrewardhistory.FieldUpdatedAt)
+	}
+	if m.adddeleted_at != nil {
+		fields = append(fields, goodrewardhistory.FieldDeletedAt)
+	}
 	if m.addreward_date != nil {
 		fields = append(fields, goodrewardhistory.FieldRewardDate)
 	}
@@ -30039,6 +37866,12 @@ func (m *GoodRewardHistoryMutation) AddedFields() []string {
 // was not set, or was not defined in the schema.
 func (m *GoodRewardHistoryMutation) AddedField(name string) (ent.Value, bool) {
 	switch name {
+	case goodrewardhistory.FieldCreatedAt:
+		return m.AddedCreatedAt()
+	case goodrewardhistory.FieldUpdatedAt:
+		return m.AddedUpdatedAt()
+	case goodrewardhistory.FieldDeletedAt:
+		return m.AddedDeletedAt()
 	case goodrewardhistory.FieldRewardDate:
 		return m.AddedRewardDate()
 	}
@@ -30050,6 +37883,27 @@ func (m *GoodRewardHistoryMutation) AddedField(name string) (ent.Value, bool) {
 // type.
 func (m *GoodRewardHistoryMutation) AddField(name string, value ent.Value) error {
 	switch name {
+	case goodrewardhistory.FieldCreatedAt:
+		v, ok := value.(int32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddCreatedAt(v)
+		return nil
+	case goodrewardhistory.FieldUpdatedAt:
+		v, ok := value.(int32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddUpdatedAt(v)
+		return nil
+	case goodrewardhistory.FieldDeletedAt:
+		v, ok := value.(int32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddDeletedAt(v)
+		return nil
 	case goodrewardhistory.FieldRewardDate:
 		v, ok := value.(int32)
 		if !ok {
@@ -30132,6 +37986,15 @@ func (m *GoodRewardHistoryMutation) ResetField(name string) error {
 	case goodrewardhistory.FieldEntID:
 		m.ResetEntID()
 		return nil
+	case goodrewardhistory.FieldCreatedAt:
+		m.ResetCreatedAt()
+		return nil
+	case goodrewardhistory.FieldUpdatedAt:
+		m.ResetUpdatedAt()
+		return nil
+	case goodrewardhistory.FieldDeletedAt:
+		m.ResetDeletedAt()
+		return nil
 	case goodrewardhistory.FieldGoodID:
 		m.ResetGoodID()
 		return nil
@@ -30212,6 +38075,12 @@ type LikeMutation struct {
 	typ           string
 	id            *uint32
 	ent_id        *uuid.UUID
+	created_at    *uint32
+	addcreated_at *int32
+	updated_at    *uint32
+	addupdated_at *int32
+	deleted_at    *uint32
+	adddeleted_at *int32
 	user_id       *uuid.UUID
 	app_good_id   *uuid.UUID
 	like          *bool
@@ -30359,6 +38228,174 @@ func (m *LikeMutation) OldEntID(ctx context.Context) (v uuid.UUID, err error) {
 // ResetEntID resets all changes to the "ent_id" field.
 func (m *LikeMutation) ResetEntID() {
 	m.ent_id = nil
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (m *LikeMutation) SetCreatedAt(u uint32) {
+	m.created_at = &u
+	m.addcreated_at = nil
+}
+
+// CreatedAt returns the value of the "created_at" field in the mutation.
+func (m *LikeMutation) CreatedAt() (r uint32, exists bool) {
+	v := m.created_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldCreatedAt returns the old "created_at" field's value of the Like entity.
+// If the Like object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *LikeMutation) OldCreatedAt(ctx context.Context) (v uint32, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldCreatedAt is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldCreatedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldCreatedAt: %w", err)
+	}
+	return oldValue.CreatedAt, nil
+}
+
+// AddCreatedAt adds u to the "created_at" field.
+func (m *LikeMutation) AddCreatedAt(u int32) {
+	if m.addcreated_at != nil {
+		*m.addcreated_at += u
+	} else {
+		m.addcreated_at = &u
+	}
+}
+
+// AddedCreatedAt returns the value that was added to the "created_at" field in this mutation.
+func (m *LikeMutation) AddedCreatedAt() (r int32, exists bool) {
+	v := m.addcreated_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetCreatedAt resets all changes to the "created_at" field.
+func (m *LikeMutation) ResetCreatedAt() {
+	m.created_at = nil
+	m.addcreated_at = nil
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (m *LikeMutation) SetUpdatedAt(u uint32) {
+	m.updated_at = &u
+	m.addupdated_at = nil
+}
+
+// UpdatedAt returns the value of the "updated_at" field in the mutation.
+func (m *LikeMutation) UpdatedAt() (r uint32, exists bool) {
+	v := m.updated_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldUpdatedAt returns the old "updated_at" field's value of the Like entity.
+// If the Like object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *LikeMutation) OldUpdatedAt(ctx context.Context) (v uint32, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldUpdatedAt is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldUpdatedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldUpdatedAt: %w", err)
+	}
+	return oldValue.UpdatedAt, nil
+}
+
+// AddUpdatedAt adds u to the "updated_at" field.
+func (m *LikeMutation) AddUpdatedAt(u int32) {
+	if m.addupdated_at != nil {
+		*m.addupdated_at += u
+	} else {
+		m.addupdated_at = &u
+	}
+}
+
+// AddedUpdatedAt returns the value that was added to the "updated_at" field in this mutation.
+func (m *LikeMutation) AddedUpdatedAt() (r int32, exists bool) {
+	v := m.addupdated_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetUpdatedAt resets all changes to the "updated_at" field.
+func (m *LikeMutation) ResetUpdatedAt() {
+	m.updated_at = nil
+	m.addupdated_at = nil
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (m *LikeMutation) SetDeletedAt(u uint32) {
+	m.deleted_at = &u
+	m.adddeleted_at = nil
+}
+
+// DeletedAt returns the value of the "deleted_at" field in the mutation.
+func (m *LikeMutation) DeletedAt() (r uint32, exists bool) {
+	v := m.deleted_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldDeletedAt returns the old "deleted_at" field's value of the Like entity.
+// If the Like object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *LikeMutation) OldDeletedAt(ctx context.Context) (v uint32, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldDeletedAt is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldDeletedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldDeletedAt: %w", err)
+	}
+	return oldValue.DeletedAt, nil
+}
+
+// AddDeletedAt adds u to the "deleted_at" field.
+func (m *LikeMutation) AddDeletedAt(u int32) {
+	if m.adddeleted_at != nil {
+		*m.adddeleted_at += u
+	} else {
+		m.adddeleted_at = &u
+	}
+}
+
+// AddedDeletedAt returns the value that was added to the "deleted_at" field in this mutation.
+func (m *LikeMutation) AddedDeletedAt() (r int32, exists bool) {
+	v := m.adddeleted_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetDeletedAt resets all changes to the "deleted_at" field.
+func (m *LikeMutation) ResetDeletedAt() {
+	m.deleted_at = nil
+	m.adddeleted_at = nil
 }
 
 // SetUserID sets the "user_id" field.
@@ -30529,9 +38566,18 @@ func (m *LikeMutation) Type() string {
 // order to get all numeric fields that were incremented/decremented, call
 // AddedFields().
 func (m *LikeMutation) Fields() []string {
-	fields := make([]string, 0, 4)
+	fields := make([]string, 0, 7)
 	if m.ent_id != nil {
 		fields = append(fields, like.FieldEntID)
+	}
+	if m.created_at != nil {
+		fields = append(fields, like.FieldCreatedAt)
+	}
+	if m.updated_at != nil {
+		fields = append(fields, like.FieldUpdatedAt)
+	}
+	if m.deleted_at != nil {
+		fields = append(fields, like.FieldDeletedAt)
 	}
 	if m.user_id != nil {
 		fields = append(fields, like.FieldUserID)
@@ -30552,6 +38598,12 @@ func (m *LikeMutation) Field(name string) (ent.Value, bool) {
 	switch name {
 	case like.FieldEntID:
 		return m.EntID()
+	case like.FieldCreatedAt:
+		return m.CreatedAt()
+	case like.FieldUpdatedAt:
+		return m.UpdatedAt()
+	case like.FieldDeletedAt:
+		return m.DeletedAt()
 	case like.FieldUserID:
 		return m.UserID()
 	case like.FieldAppGoodID:
@@ -30569,6 +38621,12 @@ func (m *LikeMutation) OldField(ctx context.Context, name string) (ent.Value, er
 	switch name {
 	case like.FieldEntID:
 		return m.OldEntID(ctx)
+	case like.FieldCreatedAt:
+		return m.OldCreatedAt(ctx)
+	case like.FieldUpdatedAt:
+		return m.OldUpdatedAt(ctx)
+	case like.FieldDeletedAt:
+		return m.OldDeletedAt(ctx)
 	case like.FieldUserID:
 		return m.OldUserID(ctx)
 	case like.FieldAppGoodID:
@@ -30590,6 +38648,27 @@ func (m *LikeMutation) SetField(name string, value ent.Value) error {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetEntID(v)
+		return nil
+	case like.FieldCreatedAt:
+		v, ok := value.(uint32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetCreatedAt(v)
+		return nil
+	case like.FieldUpdatedAt:
+		v, ok := value.(uint32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetUpdatedAt(v)
+		return nil
+	case like.FieldDeletedAt:
+		v, ok := value.(uint32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetDeletedAt(v)
 		return nil
 	case like.FieldUserID:
 		v, ok := value.(uuid.UUID)
@@ -30619,13 +38698,31 @@ func (m *LikeMutation) SetField(name string, value ent.Value) error {
 // AddedFields returns all numeric fields that were incremented/decremented during
 // this mutation.
 func (m *LikeMutation) AddedFields() []string {
-	return nil
+	var fields []string
+	if m.addcreated_at != nil {
+		fields = append(fields, like.FieldCreatedAt)
+	}
+	if m.addupdated_at != nil {
+		fields = append(fields, like.FieldUpdatedAt)
+	}
+	if m.adddeleted_at != nil {
+		fields = append(fields, like.FieldDeletedAt)
+	}
+	return fields
 }
 
 // AddedField returns the numeric value that was incremented/decremented on a field
 // with the given name. The second boolean return value indicates that this field
 // was not set, or was not defined in the schema.
 func (m *LikeMutation) AddedField(name string) (ent.Value, bool) {
+	switch name {
+	case like.FieldCreatedAt:
+		return m.AddedCreatedAt()
+	case like.FieldUpdatedAt:
+		return m.AddedUpdatedAt()
+	case like.FieldDeletedAt:
+		return m.AddedDeletedAt()
+	}
 	return nil, false
 }
 
@@ -30634,6 +38731,27 @@ func (m *LikeMutation) AddedField(name string) (ent.Value, bool) {
 // type.
 func (m *LikeMutation) AddField(name string, value ent.Value) error {
 	switch name {
+	case like.FieldCreatedAt:
+		v, ok := value.(int32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddCreatedAt(v)
+		return nil
+	case like.FieldUpdatedAt:
+		v, ok := value.(int32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddUpdatedAt(v)
+		return nil
+	case like.FieldDeletedAt:
+		v, ok := value.(int32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddDeletedAt(v)
+		return nil
 	}
 	return fmt.Errorf("unknown Like numeric field %s", name)
 }
@@ -30678,6 +38796,15 @@ func (m *LikeMutation) ResetField(name string) error {
 	switch name {
 	case like.FieldEntID:
 		m.ResetEntID()
+		return nil
+	case like.FieldCreatedAt:
+		m.ResetCreatedAt()
+		return nil
+	case like.FieldUpdatedAt:
+		m.ResetUpdatedAt()
+		return nil
+	case like.FieldDeletedAt:
+		m.ResetDeletedAt()
 		return nil
 	case like.FieldUserID:
 		m.ResetUserID()
@@ -30747,6 +38874,12 @@ type MiningGoodStockMutation struct {
 	typ               string
 	id                *uint32
 	ent_id            *uuid.UUID
+	created_at        *uint32
+	addcreated_at     *int32
+	updated_at        *uint32
+	addupdated_at     *int32
+	deleted_at        *uint32
+	adddeleted_at     *int32
 	good_stock_id     *uuid.UUID
 	pool_root_user_id *uuid.UUID
 	pool_good_user_id *uuid.UUID
@@ -30902,6 +39035,174 @@ func (m *MiningGoodStockMutation) OldEntID(ctx context.Context) (v uuid.UUID, er
 // ResetEntID resets all changes to the "ent_id" field.
 func (m *MiningGoodStockMutation) ResetEntID() {
 	m.ent_id = nil
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (m *MiningGoodStockMutation) SetCreatedAt(u uint32) {
+	m.created_at = &u
+	m.addcreated_at = nil
+}
+
+// CreatedAt returns the value of the "created_at" field in the mutation.
+func (m *MiningGoodStockMutation) CreatedAt() (r uint32, exists bool) {
+	v := m.created_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldCreatedAt returns the old "created_at" field's value of the MiningGoodStock entity.
+// If the MiningGoodStock object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *MiningGoodStockMutation) OldCreatedAt(ctx context.Context) (v uint32, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldCreatedAt is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldCreatedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldCreatedAt: %w", err)
+	}
+	return oldValue.CreatedAt, nil
+}
+
+// AddCreatedAt adds u to the "created_at" field.
+func (m *MiningGoodStockMutation) AddCreatedAt(u int32) {
+	if m.addcreated_at != nil {
+		*m.addcreated_at += u
+	} else {
+		m.addcreated_at = &u
+	}
+}
+
+// AddedCreatedAt returns the value that was added to the "created_at" field in this mutation.
+func (m *MiningGoodStockMutation) AddedCreatedAt() (r int32, exists bool) {
+	v := m.addcreated_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetCreatedAt resets all changes to the "created_at" field.
+func (m *MiningGoodStockMutation) ResetCreatedAt() {
+	m.created_at = nil
+	m.addcreated_at = nil
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (m *MiningGoodStockMutation) SetUpdatedAt(u uint32) {
+	m.updated_at = &u
+	m.addupdated_at = nil
+}
+
+// UpdatedAt returns the value of the "updated_at" field in the mutation.
+func (m *MiningGoodStockMutation) UpdatedAt() (r uint32, exists bool) {
+	v := m.updated_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldUpdatedAt returns the old "updated_at" field's value of the MiningGoodStock entity.
+// If the MiningGoodStock object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *MiningGoodStockMutation) OldUpdatedAt(ctx context.Context) (v uint32, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldUpdatedAt is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldUpdatedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldUpdatedAt: %w", err)
+	}
+	return oldValue.UpdatedAt, nil
+}
+
+// AddUpdatedAt adds u to the "updated_at" field.
+func (m *MiningGoodStockMutation) AddUpdatedAt(u int32) {
+	if m.addupdated_at != nil {
+		*m.addupdated_at += u
+	} else {
+		m.addupdated_at = &u
+	}
+}
+
+// AddedUpdatedAt returns the value that was added to the "updated_at" field in this mutation.
+func (m *MiningGoodStockMutation) AddedUpdatedAt() (r int32, exists bool) {
+	v := m.addupdated_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetUpdatedAt resets all changes to the "updated_at" field.
+func (m *MiningGoodStockMutation) ResetUpdatedAt() {
+	m.updated_at = nil
+	m.addupdated_at = nil
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (m *MiningGoodStockMutation) SetDeletedAt(u uint32) {
+	m.deleted_at = &u
+	m.adddeleted_at = nil
+}
+
+// DeletedAt returns the value of the "deleted_at" field in the mutation.
+func (m *MiningGoodStockMutation) DeletedAt() (r uint32, exists bool) {
+	v := m.deleted_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldDeletedAt returns the old "deleted_at" field's value of the MiningGoodStock entity.
+// If the MiningGoodStock object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *MiningGoodStockMutation) OldDeletedAt(ctx context.Context) (v uint32, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldDeletedAt is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldDeletedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldDeletedAt: %w", err)
+	}
+	return oldValue.DeletedAt, nil
+}
+
+// AddDeletedAt adds u to the "deleted_at" field.
+func (m *MiningGoodStockMutation) AddDeletedAt(u int32) {
+	if m.adddeleted_at != nil {
+		*m.adddeleted_at += u
+	} else {
+		m.adddeleted_at = &u
+	}
+}
+
+// AddedDeletedAt returns the value that was added to the "deleted_at" field in this mutation.
+func (m *MiningGoodStockMutation) AddedDeletedAt() (r int32, exists bool) {
+	v := m.adddeleted_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetDeletedAt resets all changes to the "deleted_at" field.
+func (m *MiningGoodStockMutation) ResetDeletedAt() {
+	m.deleted_at = nil
+	m.adddeleted_at = nil
 }
 
 // SetGoodStockID sets the "good_stock_id" field.
@@ -31477,9 +39778,18 @@ func (m *MiningGoodStockMutation) Type() string {
 // order to get all numeric fields that were incremented/decremented, call
 // AddedFields().
 func (m *MiningGoodStockMutation) Fields() []string {
-	fields := make([]string, 0, 12)
+	fields := make([]string, 0, 15)
 	if m.ent_id != nil {
 		fields = append(fields, mininggoodstock.FieldEntID)
+	}
+	if m.created_at != nil {
+		fields = append(fields, mininggoodstock.FieldCreatedAt)
+	}
+	if m.updated_at != nil {
+		fields = append(fields, mininggoodstock.FieldUpdatedAt)
+	}
+	if m.deleted_at != nil {
+		fields = append(fields, mininggoodstock.FieldDeletedAt)
 	}
 	if m.good_stock_id != nil {
 		fields = append(fields, mininggoodstock.FieldGoodStockID)
@@ -31524,6 +39834,12 @@ func (m *MiningGoodStockMutation) Field(name string) (ent.Value, bool) {
 	switch name {
 	case mininggoodstock.FieldEntID:
 		return m.EntID()
+	case mininggoodstock.FieldCreatedAt:
+		return m.CreatedAt()
+	case mininggoodstock.FieldUpdatedAt:
+		return m.UpdatedAt()
+	case mininggoodstock.FieldDeletedAt:
+		return m.DeletedAt()
 	case mininggoodstock.FieldGoodStockID:
 		return m.GoodStockID()
 	case mininggoodstock.FieldPoolRootUserID:
@@ -31557,6 +39873,12 @@ func (m *MiningGoodStockMutation) OldField(ctx context.Context, name string) (en
 	switch name {
 	case mininggoodstock.FieldEntID:
 		return m.OldEntID(ctx)
+	case mininggoodstock.FieldCreatedAt:
+		return m.OldCreatedAt(ctx)
+	case mininggoodstock.FieldUpdatedAt:
+		return m.OldUpdatedAt(ctx)
+	case mininggoodstock.FieldDeletedAt:
+		return m.OldDeletedAt(ctx)
 	case mininggoodstock.FieldGoodStockID:
 		return m.OldGoodStockID(ctx)
 	case mininggoodstock.FieldPoolRootUserID:
@@ -31594,6 +39916,27 @@ func (m *MiningGoodStockMutation) SetField(name string, value ent.Value) error {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetEntID(v)
+		return nil
+	case mininggoodstock.FieldCreatedAt:
+		v, ok := value.(uint32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetCreatedAt(v)
+		return nil
+	case mininggoodstock.FieldUpdatedAt:
+		v, ok := value.(uint32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetUpdatedAt(v)
+		return nil
+	case mininggoodstock.FieldDeletedAt:
+		v, ok := value.(uint32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetDeletedAt(v)
 		return nil
 	case mininggoodstock.FieldGoodStockID:
 		v, ok := value.(uuid.UUID)
@@ -31679,13 +40022,31 @@ func (m *MiningGoodStockMutation) SetField(name string, value ent.Value) error {
 // AddedFields returns all numeric fields that were incremented/decremented during
 // this mutation.
 func (m *MiningGoodStockMutation) AddedFields() []string {
-	return nil
+	var fields []string
+	if m.addcreated_at != nil {
+		fields = append(fields, mininggoodstock.FieldCreatedAt)
+	}
+	if m.addupdated_at != nil {
+		fields = append(fields, mininggoodstock.FieldUpdatedAt)
+	}
+	if m.adddeleted_at != nil {
+		fields = append(fields, mininggoodstock.FieldDeletedAt)
+	}
+	return fields
 }
 
 // AddedField returns the numeric value that was incremented/decremented on a field
 // with the given name. The second boolean return value indicates that this field
 // was not set, or was not defined in the schema.
 func (m *MiningGoodStockMutation) AddedField(name string) (ent.Value, bool) {
+	switch name {
+	case mininggoodstock.FieldCreatedAt:
+		return m.AddedCreatedAt()
+	case mininggoodstock.FieldUpdatedAt:
+		return m.AddedUpdatedAt()
+	case mininggoodstock.FieldDeletedAt:
+		return m.AddedDeletedAt()
+	}
 	return nil, false
 }
 
@@ -31694,6 +40055,27 @@ func (m *MiningGoodStockMutation) AddedField(name string) (ent.Value, bool) {
 // type.
 func (m *MiningGoodStockMutation) AddField(name string, value ent.Value) error {
 	switch name {
+	case mininggoodstock.FieldCreatedAt:
+		v, ok := value.(int32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddCreatedAt(v)
+		return nil
+	case mininggoodstock.FieldUpdatedAt:
+		v, ok := value.(int32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddUpdatedAt(v)
+		return nil
+	case mininggoodstock.FieldDeletedAt:
+		v, ok := value.(int32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddDeletedAt(v)
+		return nil
 	}
 	return fmt.Errorf("unknown MiningGoodStock numeric field %s", name)
 }
@@ -31793,6 +40175,15 @@ func (m *MiningGoodStockMutation) ResetField(name string) error {
 	case mininggoodstock.FieldEntID:
 		m.ResetEntID()
 		return nil
+	case mininggoodstock.FieldCreatedAt:
+		m.ResetCreatedAt()
+		return nil
+	case mininggoodstock.FieldUpdatedAt:
+		m.ResetUpdatedAt()
+		return nil
+	case mininggoodstock.FieldDeletedAt:
+		m.ResetDeletedAt()
+		return nil
 	case mininggoodstock.FieldGoodStockID:
 		m.ResetGoodStockID()
 		return nil
@@ -31885,6 +40276,12 @@ type PowerRentalMutation struct {
 	typ                   string
 	id                    *uint32
 	ent_id                *uuid.UUID
+	created_at            *uint32
+	addcreated_at         *int32
+	updated_at            *uint32
+	addupdated_at         *int32
+	deleted_at            *uint32
+	adddeleted_at         *int32
 	good_id               *uuid.UUID
 	device_type_id        *uuid.UUID
 	vendor_location_id    *uuid.UUID
@@ -32040,6 +40437,174 @@ func (m *PowerRentalMutation) OldEntID(ctx context.Context) (v uuid.UUID, err er
 // ResetEntID resets all changes to the "ent_id" field.
 func (m *PowerRentalMutation) ResetEntID() {
 	m.ent_id = nil
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (m *PowerRentalMutation) SetCreatedAt(u uint32) {
+	m.created_at = &u
+	m.addcreated_at = nil
+}
+
+// CreatedAt returns the value of the "created_at" field in the mutation.
+func (m *PowerRentalMutation) CreatedAt() (r uint32, exists bool) {
+	v := m.created_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldCreatedAt returns the old "created_at" field's value of the PowerRental entity.
+// If the PowerRental object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *PowerRentalMutation) OldCreatedAt(ctx context.Context) (v uint32, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldCreatedAt is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldCreatedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldCreatedAt: %w", err)
+	}
+	return oldValue.CreatedAt, nil
+}
+
+// AddCreatedAt adds u to the "created_at" field.
+func (m *PowerRentalMutation) AddCreatedAt(u int32) {
+	if m.addcreated_at != nil {
+		*m.addcreated_at += u
+	} else {
+		m.addcreated_at = &u
+	}
+}
+
+// AddedCreatedAt returns the value that was added to the "created_at" field in this mutation.
+func (m *PowerRentalMutation) AddedCreatedAt() (r int32, exists bool) {
+	v := m.addcreated_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetCreatedAt resets all changes to the "created_at" field.
+func (m *PowerRentalMutation) ResetCreatedAt() {
+	m.created_at = nil
+	m.addcreated_at = nil
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (m *PowerRentalMutation) SetUpdatedAt(u uint32) {
+	m.updated_at = &u
+	m.addupdated_at = nil
+}
+
+// UpdatedAt returns the value of the "updated_at" field in the mutation.
+func (m *PowerRentalMutation) UpdatedAt() (r uint32, exists bool) {
+	v := m.updated_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldUpdatedAt returns the old "updated_at" field's value of the PowerRental entity.
+// If the PowerRental object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *PowerRentalMutation) OldUpdatedAt(ctx context.Context) (v uint32, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldUpdatedAt is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldUpdatedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldUpdatedAt: %w", err)
+	}
+	return oldValue.UpdatedAt, nil
+}
+
+// AddUpdatedAt adds u to the "updated_at" field.
+func (m *PowerRentalMutation) AddUpdatedAt(u int32) {
+	if m.addupdated_at != nil {
+		*m.addupdated_at += u
+	} else {
+		m.addupdated_at = &u
+	}
+}
+
+// AddedUpdatedAt returns the value that was added to the "updated_at" field in this mutation.
+func (m *PowerRentalMutation) AddedUpdatedAt() (r int32, exists bool) {
+	v := m.addupdated_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetUpdatedAt resets all changes to the "updated_at" field.
+func (m *PowerRentalMutation) ResetUpdatedAt() {
+	m.updated_at = nil
+	m.addupdated_at = nil
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (m *PowerRentalMutation) SetDeletedAt(u uint32) {
+	m.deleted_at = &u
+	m.adddeleted_at = nil
+}
+
+// DeletedAt returns the value of the "deleted_at" field in the mutation.
+func (m *PowerRentalMutation) DeletedAt() (r uint32, exists bool) {
+	v := m.deleted_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldDeletedAt returns the old "deleted_at" field's value of the PowerRental entity.
+// If the PowerRental object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *PowerRentalMutation) OldDeletedAt(ctx context.Context) (v uint32, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldDeletedAt is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldDeletedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldDeletedAt: %w", err)
+	}
+	return oldValue.DeletedAt, nil
+}
+
+// AddDeletedAt adds u to the "deleted_at" field.
+func (m *PowerRentalMutation) AddDeletedAt(u int32) {
+	if m.adddeleted_at != nil {
+		*m.adddeleted_at += u
+	} else {
+		m.adddeleted_at = &u
+	}
+}
+
+// AddedDeletedAt returns the value that was added to the "deleted_at" field in this mutation.
+func (m *PowerRentalMutation) AddedDeletedAt() (r int32, exists bool) {
+	v := m.adddeleted_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetDeletedAt resets all changes to the "deleted_at" field.
+func (m *PowerRentalMutation) ResetDeletedAt() {
+	m.deleted_at = nil
+	m.adddeleted_at = nil
 }
 
 // SetGoodID sets the "good_id" field.
@@ -32587,9 +41152,18 @@ func (m *PowerRentalMutation) Type() string {
 // order to get all numeric fields that were incremented/decremented, call
 // AddedFields().
 func (m *PowerRentalMutation) Fields() []string {
-	fields := make([]string, 0, 11)
+	fields := make([]string, 0, 14)
 	if m.ent_id != nil {
 		fields = append(fields, powerrental.FieldEntID)
+	}
+	if m.created_at != nil {
+		fields = append(fields, powerrental.FieldCreatedAt)
+	}
+	if m.updated_at != nil {
+		fields = append(fields, powerrental.FieldUpdatedAt)
+	}
+	if m.deleted_at != nil {
+		fields = append(fields, powerrental.FieldDeletedAt)
 	}
 	if m.good_id != nil {
 		fields = append(fields, powerrental.FieldGoodID)
@@ -32631,6 +41205,12 @@ func (m *PowerRentalMutation) Field(name string) (ent.Value, bool) {
 	switch name {
 	case powerrental.FieldEntID:
 		return m.EntID()
+	case powerrental.FieldCreatedAt:
+		return m.CreatedAt()
+	case powerrental.FieldUpdatedAt:
+		return m.UpdatedAt()
+	case powerrental.FieldDeletedAt:
+		return m.DeletedAt()
 	case powerrental.FieldGoodID:
 		return m.GoodID()
 	case powerrental.FieldDeviceTypeID:
@@ -32662,6 +41242,12 @@ func (m *PowerRentalMutation) OldField(ctx context.Context, name string) (ent.Va
 	switch name {
 	case powerrental.FieldEntID:
 		return m.OldEntID(ctx)
+	case powerrental.FieldCreatedAt:
+		return m.OldCreatedAt(ctx)
+	case powerrental.FieldUpdatedAt:
+		return m.OldUpdatedAt(ctx)
+	case powerrental.FieldDeletedAt:
+		return m.OldDeletedAt(ctx)
 	case powerrental.FieldGoodID:
 		return m.OldGoodID(ctx)
 	case powerrental.FieldDeviceTypeID:
@@ -32697,6 +41283,27 @@ func (m *PowerRentalMutation) SetField(name string, value ent.Value) error {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetEntID(v)
+		return nil
+	case powerrental.FieldCreatedAt:
+		v, ok := value.(uint32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetCreatedAt(v)
+		return nil
+	case powerrental.FieldUpdatedAt:
+		v, ok := value.(uint32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetUpdatedAt(v)
+		return nil
+	case powerrental.FieldDeletedAt:
+		v, ok := value.(uint32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetDeletedAt(v)
 		return nil
 	case powerrental.FieldGoodID:
 		v, ok := value.(uuid.UUID)
@@ -32776,6 +41383,15 @@ func (m *PowerRentalMutation) SetField(name string, value ent.Value) error {
 // this mutation.
 func (m *PowerRentalMutation) AddedFields() []string {
 	var fields []string
+	if m.addcreated_at != nil {
+		fields = append(fields, powerrental.FieldCreatedAt)
+	}
+	if m.addupdated_at != nil {
+		fields = append(fields, powerrental.FieldUpdatedAt)
+	}
+	if m.adddeleted_at != nil {
+		fields = append(fields, powerrental.FieldDeletedAt)
+	}
 	if m.adddelivery_at != nil {
 		fields = append(fields, powerrental.FieldDeliveryAt)
 	}
@@ -32787,6 +41403,12 @@ func (m *PowerRentalMutation) AddedFields() []string {
 // was not set, or was not defined in the schema.
 func (m *PowerRentalMutation) AddedField(name string) (ent.Value, bool) {
 	switch name {
+	case powerrental.FieldCreatedAt:
+		return m.AddedCreatedAt()
+	case powerrental.FieldUpdatedAt:
+		return m.AddedUpdatedAt()
+	case powerrental.FieldDeletedAt:
+		return m.AddedDeletedAt()
 	case powerrental.FieldDeliveryAt:
 		return m.AddedDeliveryAt()
 	}
@@ -32798,6 +41420,27 @@ func (m *PowerRentalMutation) AddedField(name string) (ent.Value, bool) {
 // type.
 func (m *PowerRentalMutation) AddField(name string, value ent.Value) error {
 	switch name {
+	case powerrental.FieldCreatedAt:
+		v, ok := value.(int32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddCreatedAt(v)
+		return nil
+	case powerrental.FieldUpdatedAt:
+		v, ok := value.(int32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddUpdatedAt(v)
+		return nil
+	case powerrental.FieldDeletedAt:
+		v, ok := value.(int32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddDeletedAt(v)
+		return nil
 	case powerrental.FieldDeliveryAt:
 		v, ok := value.(int32)
 		if !ok {
@@ -32898,6 +41541,15 @@ func (m *PowerRentalMutation) ResetField(name string) error {
 	case powerrental.FieldEntID:
 		m.ResetEntID()
 		return nil
+	case powerrental.FieldCreatedAt:
+		m.ResetCreatedAt()
+		return nil
+	case powerrental.FieldUpdatedAt:
+		m.ResetUpdatedAt()
+		return nil
+	case powerrental.FieldDeletedAt:
+		m.ResetDeletedAt()
+		return nil
 	case powerrental.FieldGoodID:
 		m.ResetGoodID()
 		return nil
@@ -32987,6 +41639,12 @@ type RecommendMutation struct {
 	typ             string
 	id              *uint32
 	ent_id          *uuid.UUID
+	created_at      *uint32
+	addcreated_at   *int32
+	updated_at      *uint32
+	addupdated_at   *int32
+	deleted_at      *uint32
+	adddeleted_at   *int32
 	app_good_id     *uuid.UUID
 	recommender_id  *uuid.UUID
 	message         *string
@@ -33137,6 +41795,174 @@ func (m *RecommendMutation) OldEntID(ctx context.Context) (v uuid.UUID, err erro
 // ResetEntID resets all changes to the "ent_id" field.
 func (m *RecommendMutation) ResetEntID() {
 	m.ent_id = nil
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (m *RecommendMutation) SetCreatedAt(u uint32) {
+	m.created_at = &u
+	m.addcreated_at = nil
+}
+
+// CreatedAt returns the value of the "created_at" field in the mutation.
+func (m *RecommendMutation) CreatedAt() (r uint32, exists bool) {
+	v := m.created_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldCreatedAt returns the old "created_at" field's value of the Recommend entity.
+// If the Recommend object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *RecommendMutation) OldCreatedAt(ctx context.Context) (v uint32, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldCreatedAt is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldCreatedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldCreatedAt: %w", err)
+	}
+	return oldValue.CreatedAt, nil
+}
+
+// AddCreatedAt adds u to the "created_at" field.
+func (m *RecommendMutation) AddCreatedAt(u int32) {
+	if m.addcreated_at != nil {
+		*m.addcreated_at += u
+	} else {
+		m.addcreated_at = &u
+	}
+}
+
+// AddedCreatedAt returns the value that was added to the "created_at" field in this mutation.
+func (m *RecommendMutation) AddedCreatedAt() (r int32, exists bool) {
+	v := m.addcreated_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetCreatedAt resets all changes to the "created_at" field.
+func (m *RecommendMutation) ResetCreatedAt() {
+	m.created_at = nil
+	m.addcreated_at = nil
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (m *RecommendMutation) SetUpdatedAt(u uint32) {
+	m.updated_at = &u
+	m.addupdated_at = nil
+}
+
+// UpdatedAt returns the value of the "updated_at" field in the mutation.
+func (m *RecommendMutation) UpdatedAt() (r uint32, exists bool) {
+	v := m.updated_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldUpdatedAt returns the old "updated_at" field's value of the Recommend entity.
+// If the Recommend object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *RecommendMutation) OldUpdatedAt(ctx context.Context) (v uint32, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldUpdatedAt is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldUpdatedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldUpdatedAt: %w", err)
+	}
+	return oldValue.UpdatedAt, nil
+}
+
+// AddUpdatedAt adds u to the "updated_at" field.
+func (m *RecommendMutation) AddUpdatedAt(u int32) {
+	if m.addupdated_at != nil {
+		*m.addupdated_at += u
+	} else {
+		m.addupdated_at = &u
+	}
+}
+
+// AddedUpdatedAt returns the value that was added to the "updated_at" field in this mutation.
+func (m *RecommendMutation) AddedUpdatedAt() (r int32, exists bool) {
+	v := m.addupdated_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetUpdatedAt resets all changes to the "updated_at" field.
+func (m *RecommendMutation) ResetUpdatedAt() {
+	m.updated_at = nil
+	m.addupdated_at = nil
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (m *RecommendMutation) SetDeletedAt(u uint32) {
+	m.deleted_at = &u
+	m.adddeleted_at = nil
+}
+
+// DeletedAt returns the value of the "deleted_at" field in the mutation.
+func (m *RecommendMutation) DeletedAt() (r uint32, exists bool) {
+	v := m.deleted_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldDeletedAt returns the old "deleted_at" field's value of the Recommend entity.
+// If the Recommend object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *RecommendMutation) OldDeletedAt(ctx context.Context) (v uint32, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldDeletedAt is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldDeletedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldDeletedAt: %w", err)
+	}
+	return oldValue.DeletedAt, nil
+}
+
+// AddDeletedAt adds u to the "deleted_at" field.
+func (m *RecommendMutation) AddDeletedAt(u int32) {
+	if m.adddeleted_at != nil {
+		*m.adddeleted_at += u
+	} else {
+		m.adddeleted_at = &u
+	}
+}
+
+// AddedDeletedAt returns the value that was added to the "deleted_at" field in this mutation.
+func (m *RecommendMutation) AddedDeletedAt() (r int32, exists bool) {
+	v := m.adddeleted_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetDeletedAt resets all changes to the "deleted_at" field.
+func (m *RecommendMutation) ResetDeletedAt() {
+	m.deleted_at = nil
+	m.adddeleted_at = nil
 }
 
 // SetAppGoodID sets the "app_good_id" field.
@@ -33467,9 +42293,18 @@ func (m *RecommendMutation) Type() string {
 // order to get all numeric fields that were incremented/decremented, call
 // AddedFields().
 func (m *RecommendMutation) Fields() []string {
-	fields := make([]string, 0, 7)
+	fields := make([]string, 0, 10)
 	if m.ent_id != nil {
 		fields = append(fields, recommend.FieldEntID)
+	}
+	if m.created_at != nil {
+		fields = append(fields, recommend.FieldCreatedAt)
+	}
+	if m.updated_at != nil {
+		fields = append(fields, recommend.FieldUpdatedAt)
+	}
+	if m.deleted_at != nil {
+		fields = append(fields, recommend.FieldDeletedAt)
 	}
 	if m.app_good_id != nil {
 		fields = append(fields, recommend.FieldAppGoodID)
@@ -33499,6 +42334,12 @@ func (m *RecommendMutation) Field(name string) (ent.Value, bool) {
 	switch name {
 	case recommend.FieldEntID:
 		return m.EntID()
+	case recommend.FieldCreatedAt:
+		return m.CreatedAt()
+	case recommend.FieldUpdatedAt:
+		return m.UpdatedAt()
+	case recommend.FieldDeletedAt:
+		return m.DeletedAt()
 	case recommend.FieldAppGoodID:
 		return m.AppGoodID()
 	case recommend.FieldRecommenderID:
@@ -33522,6 +42363,12 @@ func (m *RecommendMutation) OldField(ctx context.Context, name string) (ent.Valu
 	switch name {
 	case recommend.FieldEntID:
 		return m.OldEntID(ctx)
+	case recommend.FieldCreatedAt:
+		return m.OldCreatedAt(ctx)
+	case recommend.FieldUpdatedAt:
+		return m.OldUpdatedAt(ctx)
+	case recommend.FieldDeletedAt:
+		return m.OldDeletedAt(ctx)
 	case recommend.FieldAppGoodID:
 		return m.OldAppGoodID(ctx)
 	case recommend.FieldRecommenderID:
@@ -33549,6 +42396,27 @@ func (m *RecommendMutation) SetField(name string, value ent.Value) error {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetEntID(v)
+		return nil
+	case recommend.FieldCreatedAt:
+		v, ok := value.(uint32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetCreatedAt(v)
+		return nil
+	case recommend.FieldUpdatedAt:
+		v, ok := value.(uint32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetUpdatedAt(v)
+		return nil
+	case recommend.FieldDeletedAt:
+		v, ok := value.(uint32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetDeletedAt(v)
 		return nil
 	case recommend.FieldAppGoodID:
 		v, ok := value.(uuid.UUID)
@@ -33599,13 +42467,31 @@ func (m *RecommendMutation) SetField(name string, value ent.Value) error {
 // AddedFields returns all numeric fields that were incremented/decremented during
 // this mutation.
 func (m *RecommendMutation) AddedFields() []string {
-	return nil
+	var fields []string
+	if m.addcreated_at != nil {
+		fields = append(fields, recommend.FieldCreatedAt)
+	}
+	if m.addupdated_at != nil {
+		fields = append(fields, recommend.FieldUpdatedAt)
+	}
+	if m.adddeleted_at != nil {
+		fields = append(fields, recommend.FieldDeletedAt)
+	}
+	return fields
 }
 
 // AddedField returns the numeric value that was incremented/decremented on a field
 // with the given name. The second boolean return value indicates that this field
 // was not set, or was not defined in the schema.
 func (m *RecommendMutation) AddedField(name string) (ent.Value, bool) {
+	switch name {
+	case recommend.FieldCreatedAt:
+		return m.AddedCreatedAt()
+	case recommend.FieldUpdatedAt:
+		return m.AddedUpdatedAt()
+	case recommend.FieldDeletedAt:
+		return m.AddedDeletedAt()
+	}
 	return nil, false
 }
 
@@ -33614,6 +42500,27 @@ func (m *RecommendMutation) AddedField(name string) (ent.Value, bool) {
 // type.
 func (m *RecommendMutation) AddField(name string, value ent.Value) error {
 	switch name {
+	case recommend.FieldCreatedAt:
+		v, ok := value.(int32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddCreatedAt(v)
+		return nil
+	case recommend.FieldUpdatedAt:
+		v, ok := value.(int32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddUpdatedAt(v)
+		return nil
+	case recommend.FieldDeletedAt:
+		v, ok := value.(int32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddDeletedAt(v)
+		return nil
 	}
 	return fmt.Errorf("unknown Recommend numeric field %s", name)
 }
@@ -33682,6 +42589,15 @@ func (m *RecommendMutation) ResetField(name string) error {
 	switch name {
 	case recommend.FieldEntID:
 		m.ResetEntID()
+		return nil
+	case recommend.FieldCreatedAt:
+		m.ResetCreatedAt()
+		return nil
+	case recommend.FieldUpdatedAt:
+		m.ResetUpdatedAt()
+		return nil
+	case recommend.FieldDeletedAt:
+		m.ResetDeletedAt()
 		return nil
 	case recommend.FieldAppGoodID:
 		m.ResetAppGoodID()
@@ -33760,6 +42676,12 @@ type RequiredAppGoodMutation struct {
 	typ                  string
 	id                   *uint32
 	ent_id               *uuid.UUID
+	created_at           *uint32
+	addcreated_at        *int32
+	updated_at           *uint32
+	addupdated_at        *int32
+	deleted_at           *uint32
+	adddeleted_at        *int32
 	main_app_good_id     *uuid.UUID
 	required_app_good_id *uuid.UUID
 	must                 *bool
@@ -33907,6 +42829,174 @@ func (m *RequiredAppGoodMutation) OldEntID(ctx context.Context) (v uuid.UUID, er
 // ResetEntID resets all changes to the "ent_id" field.
 func (m *RequiredAppGoodMutation) ResetEntID() {
 	m.ent_id = nil
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (m *RequiredAppGoodMutation) SetCreatedAt(u uint32) {
+	m.created_at = &u
+	m.addcreated_at = nil
+}
+
+// CreatedAt returns the value of the "created_at" field in the mutation.
+func (m *RequiredAppGoodMutation) CreatedAt() (r uint32, exists bool) {
+	v := m.created_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldCreatedAt returns the old "created_at" field's value of the RequiredAppGood entity.
+// If the RequiredAppGood object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *RequiredAppGoodMutation) OldCreatedAt(ctx context.Context) (v uint32, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldCreatedAt is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldCreatedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldCreatedAt: %w", err)
+	}
+	return oldValue.CreatedAt, nil
+}
+
+// AddCreatedAt adds u to the "created_at" field.
+func (m *RequiredAppGoodMutation) AddCreatedAt(u int32) {
+	if m.addcreated_at != nil {
+		*m.addcreated_at += u
+	} else {
+		m.addcreated_at = &u
+	}
+}
+
+// AddedCreatedAt returns the value that was added to the "created_at" field in this mutation.
+func (m *RequiredAppGoodMutation) AddedCreatedAt() (r int32, exists bool) {
+	v := m.addcreated_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetCreatedAt resets all changes to the "created_at" field.
+func (m *RequiredAppGoodMutation) ResetCreatedAt() {
+	m.created_at = nil
+	m.addcreated_at = nil
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (m *RequiredAppGoodMutation) SetUpdatedAt(u uint32) {
+	m.updated_at = &u
+	m.addupdated_at = nil
+}
+
+// UpdatedAt returns the value of the "updated_at" field in the mutation.
+func (m *RequiredAppGoodMutation) UpdatedAt() (r uint32, exists bool) {
+	v := m.updated_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldUpdatedAt returns the old "updated_at" field's value of the RequiredAppGood entity.
+// If the RequiredAppGood object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *RequiredAppGoodMutation) OldUpdatedAt(ctx context.Context) (v uint32, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldUpdatedAt is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldUpdatedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldUpdatedAt: %w", err)
+	}
+	return oldValue.UpdatedAt, nil
+}
+
+// AddUpdatedAt adds u to the "updated_at" field.
+func (m *RequiredAppGoodMutation) AddUpdatedAt(u int32) {
+	if m.addupdated_at != nil {
+		*m.addupdated_at += u
+	} else {
+		m.addupdated_at = &u
+	}
+}
+
+// AddedUpdatedAt returns the value that was added to the "updated_at" field in this mutation.
+func (m *RequiredAppGoodMutation) AddedUpdatedAt() (r int32, exists bool) {
+	v := m.addupdated_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetUpdatedAt resets all changes to the "updated_at" field.
+func (m *RequiredAppGoodMutation) ResetUpdatedAt() {
+	m.updated_at = nil
+	m.addupdated_at = nil
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (m *RequiredAppGoodMutation) SetDeletedAt(u uint32) {
+	m.deleted_at = &u
+	m.adddeleted_at = nil
+}
+
+// DeletedAt returns the value of the "deleted_at" field in the mutation.
+func (m *RequiredAppGoodMutation) DeletedAt() (r uint32, exists bool) {
+	v := m.deleted_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldDeletedAt returns the old "deleted_at" field's value of the RequiredAppGood entity.
+// If the RequiredAppGood object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *RequiredAppGoodMutation) OldDeletedAt(ctx context.Context) (v uint32, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldDeletedAt is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldDeletedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldDeletedAt: %w", err)
+	}
+	return oldValue.DeletedAt, nil
+}
+
+// AddDeletedAt adds u to the "deleted_at" field.
+func (m *RequiredAppGoodMutation) AddDeletedAt(u int32) {
+	if m.adddeleted_at != nil {
+		*m.adddeleted_at += u
+	} else {
+		m.adddeleted_at = &u
+	}
+}
+
+// AddedDeletedAt returns the value that was added to the "deleted_at" field in this mutation.
+func (m *RequiredAppGoodMutation) AddedDeletedAt() (r int32, exists bool) {
+	v := m.adddeleted_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetDeletedAt resets all changes to the "deleted_at" field.
+func (m *RequiredAppGoodMutation) ResetDeletedAt() {
+	m.deleted_at = nil
+	m.adddeleted_at = nil
 }
 
 // SetMainAppGoodID sets the "main_app_good_id" field.
@@ -34064,9 +43154,18 @@ func (m *RequiredAppGoodMutation) Type() string {
 // order to get all numeric fields that were incremented/decremented, call
 // AddedFields().
 func (m *RequiredAppGoodMutation) Fields() []string {
-	fields := make([]string, 0, 4)
+	fields := make([]string, 0, 7)
 	if m.ent_id != nil {
 		fields = append(fields, requiredappgood.FieldEntID)
+	}
+	if m.created_at != nil {
+		fields = append(fields, requiredappgood.FieldCreatedAt)
+	}
+	if m.updated_at != nil {
+		fields = append(fields, requiredappgood.FieldUpdatedAt)
+	}
+	if m.deleted_at != nil {
+		fields = append(fields, requiredappgood.FieldDeletedAt)
 	}
 	if m.main_app_good_id != nil {
 		fields = append(fields, requiredappgood.FieldMainAppGoodID)
@@ -34087,6 +43186,12 @@ func (m *RequiredAppGoodMutation) Field(name string) (ent.Value, bool) {
 	switch name {
 	case requiredappgood.FieldEntID:
 		return m.EntID()
+	case requiredappgood.FieldCreatedAt:
+		return m.CreatedAt()
+	case requiredappgood.FieldUpdatedAt:
+		return m.UpdatedAt()
+	case requiredappgood.FieldDeletedAt:
+		return m.DeletedAt()
 	case requiredappgood.FieldMainAppGoodID:
 		return m.MainAppGoodID()
 	case requiredappgood.FieldRequiredAppGoodID:
@@ -34104,6 +43209,12 @@ func (m *RequiredAppGoodMutation) OldField(ctx context.Context, name string) (en
 	switch name {
 	case requiredappgood.FieldEntID:
 		return m.OldEntID(ctx)
+	case requiredappgood.FieldCreatedAt:
+		return m.OldCreatedAt(ctx)
+	case requiredappgood.FieldUpdatedAt:
+		return m.OldUpdatedAt(ctx)
+	case requiredappgood.FieldDeletedAt:
+		return m.OldDeletedAt(ctx)
 	case requiredappgood.FieldMainAppGoodID:
 		return m.OldMainAppGoodID(ctx)
 	case requiredappgood.FieldRequiredAppGoodID:
@@ -34125,6 +43236,27 @@ func (m *RequiredAppGoodMutation) SetField(name string, value ent.Value) error {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetEntID(v)
+		return nil
+	case requiredappgood.FieldCreatedAt:
+		v, ok := value.(uint32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetCreatedAt(v)
+		return nil
+	case requiredappgood.FieldUpdatedAt:
+		v, ok := value.(uint32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetUpdatedAt(v)
+		return nil
+	case requiredappgood.FieldDeletedAt:
+		v, ok := value.(uint32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetDeletedAt(v)
 		return nil
 	case requiredappgood.FieldMainAppGoodID:
 		v, ok := value.(uuid.UUID)
@@ -34154,13 +43286,31 @@ func (m *RequiredAppGoodMutation) SetField(name string, value ent.Value) error {
 // AddedFields returns all numeric fields that were incremented/decremented during
 // this mutation.
 func (m *RequiredAppGoodMutation) AddedFields() []string {
-	return nil
+	var fields []string
+	if m.addcreated_at != nil {
+		fields = append(fields, requiredappgood.FieldCreatedAt)
+	}
+	if m.addupdated_at != nil {
+		fields = append(fields, requiredappgood.FieldUpdatedAt)
+	}
+	if m.adddeleted_at != nil {
+		fields = append(fields, requiredappgood.FieldDeletedAt)
+	}
+	return fields
 }
 
 // AddedField returns the numeric value that was incremented/decremented on a field
 // with the given name. The second boolean return value indicates that this field
 // was not set, or was not defined in the schema.
 func (m *RequiredAppGoodMutation) AddedField(name string) (ent.Value, bool) {
+	switch name {
+	case requiredappgood.FieldCreatedAt:
+		return m.AddedCreatedAt()
+	case requiredappgood.FieldUpdatedAt:
+		return m.AddedUpdatedAt()
+	case requiredappgood.FieldDeletedAt:
+		return m.AddedDeletedAt()
+	}
 	return nil, false
 }
 
@@ -34169,6 +43319,27 @@ func (m *RequiredAppGoodMutation) AddedField(name string) (ent.Value, bool) {
 // type.
 func (m *RequiredAppGoodMutation) AddField(name string, value ent.Value) error {
 	switch name {
+	case requiredappgood.FieldCreatedAt:
+		v, ok := value.(int32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddCreatedAt(v)
+		return nil
+	case requiredappgood.FieldUpdatedAt:
+		v, ok := value.(int32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddUpdatedAt(v)
+		return nil
+	case requiredappgood.FieldDeletedAt:
+		v, ok := value.(int32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddDeletedAt(v)
+		return nil
 	}
 	return fmt.Errorf("unknown RequiredAppGood numeric field %s", name)
 }
@@ -34207,6 +43378,15 @@ func (m *RequiredAppGoodMutation) ResetField(name string) error {
 	switch name {
 	case requiredappgood.FieldEntID:
 		m.ResetEntID()
+		return nil
+	case requiredappgood.FieldCreatedAt:
+		m.ResetCreatedAt()
+		return nil
+	case requiredappgood.FieldUpdatedAt:
+		m.ResetUpdatedAt()
+		return nil
+	case requiredappgood.FieldDeletedAt:
+		m.ResetDeletedAt()
 		return nil
 	case requiredappgood.FieldMainAppGoodID:
 		m.ResetMainAppGoodID()
@@ -34276,6 +43456,12 @@ type RequiredGoodMutation struct {
 	typ              string
 	id               *uint32
 	ent_id           *uuid.UUID
+	created_at       *uint32
+	addcreated_at    *int32
+	updated_at       *uint32
+	addupdated_at    *int32
+	deleted_at       *uint32
+	adddeleted_at    *int32
 	main_good_id     *uuid.UUID
 	required_good_id *uuid.UUID
 	must             *bool
@@ -34423,6 +43609,174 @@ func (m *RequiredGoodMutation) OldEntID(ctx context.Context) (v uuid.UUID, err e
 // ResetEntID resets all changes to the "ent_id" field.
 func (m *RequiredGoodMutation) ResetEntID() {
 	m.ent_id = nil
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (m *RequiredGoodMutation) SetCreatedAt(u uint32) {
+	m.created_at = &u
+	m.addcreated_at = nil
+}
+
+// CreatedAt returns the value of the "created_at" field in the mutation.
+func (m *RequiredGoodMutation) CreatedAt() (r uint32, exists bool) {
+	v := m.created_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldCreatedAt returns the old "created_at" field's value of the RequiredGood entity.
+// If the RequiredGood object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *RequiredGoodMutation) OldCreatedAt(ctx context.Context) (v uint32, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldCreatedAt is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldCreatedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldCreatedAt: %w", err)
+	}
+	return oldValue.CreatedAt, nil
+}
+
+// AddCreatedAt adds u to the "created_at" field.
+func (m *RequiredGoodMutation) AddCreatedAt(u int32) {
+	if m.addcreated_at != nil {
+		*m.addcreated_at += u
+	} else {
+		m.addcreated_at = &u
+	}
+}
+
+// AddedCreatedAt returns the value that was added to the "created_at" field in this mutation.
+func (m *RequiredGoodMutation) AddedCreatedAt() (r int32, exists bool) {
+	v := m.addcreated_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetCreatedAt resets all changes to the "created_at" field.
+func (m *RequiredGoodMutation) ResetCreatedAt() {
+	m.created_at = nil
+	m.addcreated_at = nil
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (m *RequiredGoodMutation) SetUpdatedAt(u uint32) {
+	m.updated_at = &u
+	m.addupdated_at = nil
+}
+
+// UpdatedAt returns the value of the "updated_at" field in the mutation.
+func (m *RequiredGoodMutation) UpdatedAt() (r uint32, exists bool) {
+	v := m.updated_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldUpdatedAt returns the old "updated_at" field's value of the RequiredGood entity.
+// If the RequiredGood object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *RequiredGoodMutation) OldUpdatedAt(ctx context.Context) (v uint32, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldUpdatedAt is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldUpdatedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldUpdatedAt: %w", err)
+	}
+	return oldValue.UpdatedAt, nil
+}
+
+// AddUpdatedAt adds u to the "updated_at" field.
+func (m *RequiredGoodMutation) AddUpdatedAt(u int32) {
+	if m.addupdated_at != nil {
+		*m.addupdated_at += u
+	} else {
+		m.addupdated_at = &u
+	}
+}
+
+// AddedUpdatedAt returns the value that was added to the "updated_at" field in this mutation.
+func (m *RequiredGoodMutation) AddedUpdatedAt() (r int32, exists bool) {
+	v := m.addupdated_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetUpdatedAt resets all changes to the "updated_at" field.
+func (m *RequiredGoodMutation) ResetUpdatedAt() {
+	m.updated_at = nil
+	m.addupdated_at = nil
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (m *RequiredGoodMutation) SetDeletedAt(u uint32) {
+	m.deleted_at = &u
+	m.adddeleted_at = nil
+}
+
+// DeletedAt returns the value of the "deleted_at" field in the mutation.
+func (m *RequiredGoodMutation) DeletedAt() (r uint32, exists bool) {
+	v := m.deleted_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldDeletedAt returns the old "deleted_at" field's value of the RequiredGood entity.
+// If the RequiredGood object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *RequiredGoodMutation) OldDeletedAt(ctx context.Context) (v uint32, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldDeletedAt is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldDeletedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldDeletedAt: %w", err)
+	}
+	return oldValue.DeletedAt, nil
+}
+
+// AddDeletedAt adds u to the "deleted_at" field.
+func (m *RequiredGoodMutation) AddDeletedAt(u int32) {
+	if m.adddeleted_at != nil {
+		*m.adddeleted_at += u
+	} else {
+		m.adddeleted_at = &u
+	}
+}
+
+// AddedDeletedAt returns the value that was added to the "deleted_at" field in this mutation.
+func (m *RequiredGoodMutation) AddedDeletedAt() (r int32, exists bool) {
+	v := m.adddeleted_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetDeletedAt resets all changes to the "deleted_at" field.
+func (m *RequiredGoodMutation) ResetDeletedAt() {
+	m.deleted_at = nil
+	m.adddeleted_at = nil
 }
 
 // SetMainGoodID sets the "main_good_id" field.
@@ -34580,9 +43934,18 @@ func (m *RequiredGoodMutation) Type() string {
 // order to get all numeric fields that were incremented/decremented, call
 // AddedFields().
 func (m *RequiredGoodMutation) Fields() []string {
-	fields := make([]string, 0, 4)
+	fields := make([]string, 0, 7)
 	if m.ent_id != nil {
 		fields = append(fields, requiredgood.FieldEntID)
+	}
+	if m.created_at != nil {
+		fields = append(fields, requiredgood.FieldCreatedAt)
+	}
+	if m.updated_at != nil {
+		fields = append(fields, requiredgood.FieldUpdatedAt)
+	}
+	if m.deleted_at != nil {
+		fields = append(fields, requiredgood.FieldDeletedAt)
 	}
 	if m.main_good_id != nil {
 		fields = append(fields, requiredgood.FieldMainGoodID)
@@ -34603,6 +43966,12 @@ func (m *RequiredGoodMutation) Field(name string) (ent.Value, bool) {
 	switch name {
 	case requiredgood.FieldEntID:
 		return m.EntID()
+	case requiredgood.FieldCreatedAt:
+		return m.CreatedAt()
+	case requiredgood.FieldUpdatedAt:
+		return m.UpdatedAt()
+	case requiredgood.FieldDeletedAt:
+		return m.DeletedAt()
 	case requiredgood.FieldMainGoodID:
 		return m.MainGoodID()
 	case requiredgood.FieldRequiredGoodID:
@@ -34620,6 +43989,12 @@ func (m *RequiredGoodMutation) OldField(ctx context.Context, name string) (ent.V
 	switch name {
 	case requiredgood.FieldEntID:
 		return m.OldEntID(ctx)
+	case requiredgood.FieldCreatedAt:
+		return m.OldCreatedAt(ctx)
+	case requiredgood.FieldUpdatedAt:
+		return m.OldUpdatedAt(ctx)
+	case requiredgood.FieldDeletedAt:
+		return m.OldDeletedAt(ctx)
 	case requiredgood.FieldMainGoodID:
 		return m.OldMainGoodID(ctx)
 	case requiredgood.FieldRequiredGoodID:
@@ -34641,6 +44016,27 @@ func (m *RequiredGoodMutation) SetField(name string, value ent.Value) error {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetEntID(v)
+		return nil
+	case requiredgood.FieldCreatedAt:
+		v, ok := value.(uint32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetCreatedAt(v)
+		return nil
+	case requiredgood.FieldUpdatedAt:
+		v, ok := value.(uint32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetUpdatedAt(v)
+		return nil
+	case requiredgood.FieldDeletedAt:
+		v, ok := value.(uint32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetDeletedAt(v)
 		return nil
 	case requiredgood.FieldMainGoodID:
 		v, ok := value.(uuid.UUID)
@@ -34670,13 +44066,31 @@ func (m *RequiredGoodMutation) SetField(name string, value ent.Value) error {
 // AddedFields returns all numeric fields that were incremented/decremented during
 // this mutation.
 func (m *RequiredGoodMutation) AddedFields() []string {
-	return nil
+	var fields []string
+	if m.addcreated_at != nil {
+		fields = append(fields, requiredgood.FieldCreatedAt)
+	}
+	if m.addupdated_at != nil {
+		fields = append(fields, requiredgood.FieldUpdatedAt)
+	}
+	if m.adddeleted_at != nil {
+		fields = append(fields, requiredgood.FieldDeletedAt)
+	}
+	return fields
 }
 
 // AddedField returns the numeric value that was incremented/decremented on a field
 // with the given name. The second boolean return value indicates that this field
 // was not set, or was not defined in the schema.
 func (m *RequiredGoodMutation) AddedField(name string) (ent.Value, bool) {
+	switch name {
+	case requiredgood.FieldCreatedAt:
+		return m.AddedCreatedAt()
+	case requiredgood.FieldUpdatedAt:
+		return m.AddedUpdatedAt()
+	case requiredgood.FieldDeletedAt:
+		return m.AddedDeletedAt()
+	}
 	return nil, false
 }
 
@@ -34685,6 +44099,27 @@ func (m *RequiredGoodMutation) AddedField(name string) (ent.Value, bool) {
 // type.
 func (m *RequiredGoodMutation) AddField(name string, value ent.Value) error {
 	switch name {
+	case requiredgood.FieldCreatedAt:
+		v, ok := value.(int32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddCreatedAt(v)
+		return nil
+	case requiredgood.FieldUpdatedAt:
+		v, ok := value.(int32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddUpdatedAt(v)
+		return nil
+	case requiredgood.FieldDeletedAt:
+		v, ok := value.(int32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddDeletedAt(v)
+		return nil
 	}
 	return fmt.Errorf("unknown RequiredGood numeric field %s", name)
 }
@@ -34723,6 +44158,15 @@ func (m *RequiredGoodMutation) ResetField(name string) error {
 	switch name {
 	case requiredgood.FieldEntID:
 		m.ResetEntID()
+		return nil
+	case requiredgood.FieldCreatedAt:
+		m.ResetCreatedAt()
+		return nil
+	case requiredgood.FieldUpdatedAt:
+		m.ResetUpdatedAt()
+		return nil
+	case requiredgood.FieldDeletedAt:
+		m.ResetDeletedAt()
 		return nil
 	case requiredgood.FieldMainGoodID:
 		m.ResetMainGoodID()
@@ -34792,6 +44236,12 @@ type ScoreMutation struct {
 	typ           string
 	id            *uint32
 	ent_id        *uuid.UUID
+	created_at    *uint32
+	addcreated_at *int32
+	updated_at    *uint32
+	addupdated_at *int32
+	deleted_at    *uint32
+	adddeleted_at *int32
 	user_id       *uuid.UUID
 	app_good_id   *uuid.UUID
 	score         *decimal.Decimal
@@ -34940,6 +44390,174 @@ func (m *ScoreMutation) OldEntID(ctx context.Context) (v uuid.UUID, err error) {
 // ResetEntID resets all changes to the "ent_id" field.
 func (m *ScoreMutation) ResetEntID() {
 	m.ent_id = nil
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (m *ScoreMutation) SetCreatedAt(u uint32) {
+	m.created_at = &u
+	m.addcreated_at = nil
+}
+
+// CreatedAt returns the value of the "created_at" field in the mutation.
+func (m *ScoreMutation) CreatedAt() (r uint32, exists bool) {
+	v := m.created_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldCreatedAt returns the old "created_at" field's value of the Score entity.
+// If the Score object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *ScoreMutation) OldCreatedAt(ctx context.Context) (v uint32, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldCreatedAt is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldCreatedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldCreatedAt: %w", err)
+	}
+	return oldValue.CreatedAt, nil
+}
+
+// AddCreatedAt adds u to the "created_at" field.
+func (m *ScoreMutation) AddCreatedAt(u int32) {
+	if m.addcreated_at != nil {
+		*m.addcreated_at += u
+	} else {
+		m.addcreated_at = &u
+	}
+}
+
+// AddedCreatedAt returns the value that was added to the "created_at" field in this mutation.
+func (m *ScoreMutation) AddedCreatedAt() (r int32, exists bool) {
+	v := m.addcreated_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetCreatedAt resets all changes to the "created_at" field.
+func (m *ScoreMutation) ResetCreatedAt() {
+	m.created_at = nil
+	m.addcreated_at = nil
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (m *ScoreMutation) SetUpdatedAt(u uint32) {
+	m.updated_at = &u
+	m.addupdated_at = nil
+}
+
+// UpdatedAt returns the value of the "updated_at" field in the mutation.
+func (m *ScoreMutation) UpdatedAt() (r uint32, exists bool) {
+	v := m.updated_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldUpdatedAt returns the old "updated_at" field's value of the Score entity.
+// If the Score object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *ScoreMutation) OldUpdatedAt(ctx context.Context) (v uint32, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldUpdatedAt is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldUpdatedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldUpdatedAt: %w", err)
+	}
+	return oldValue.UpdatedAt, nil
+}
+
+// AddUpdatedAt adds u to the "updated_at" field.
+func (m *ScoreMutation) AddUpdatedAt(u int32) {
+	if m.addupdated_at != nil {
+		*m.addupdated_at += u
+	} else {
+		m.addupdated_at = &u
+	}
+}
+
+// AddedUpdatedAt returns the value that was added to the "updated_at" field in this mutation.
+func (m *ScoreMutation) AddedUpdatedAt() (r int32, exists bool) {
+	v := m.addupdated_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetUpdatedAt resets all changes to the "updated_at" field.
+func (m *ScoreMutation) ResetUpdatedAt() {
+	m.updated_at = nil
+	m.addupdated_at = nil
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (m *ScoreMutation) SetDeletedAt(u uint32) {
+	m.deleted_at = &u
+	m.adddeleted_at = nil
+}
+
+// DeletedAt returns the value of the "deleted_at" field in the mutation.
+func (m *ScoreMutation) DeletedAt() (r uint32, exists bool) {
+	v := m.deleted_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldDeletedAt returns the old "deleted_at" field's value of the Score entity.
+// If the Score object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *ScoreMutation) OldDeletedAt(ctx context.Context) (v uint32, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldDeletedAt is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldDeletedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldDeletedAt: %w", err)
+	}
+	return oldValue.DeletedAt, nil
+}
+
+// AddDeletedAt adds u to the "deleted_at" field.
+func (m *ScoreMutation) AddDeletedAt(u int32) {
+	if m.adddeleted_at != nil {
+		*m.adddeleted_at += u
+	} else {
+		m.adddeleted_at = &u
+	}
+}
+
+// AddedDeletedAt returns the value that was added to the "deleted_at" field in this mutation.
+func (m *ScoreMutation) AddedDeletedAt() (r int32, exists bool) {
+	v := m.adddeleted_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetDeletedAt resets all changes to the "deleted_at" field.
+func (m *ScoreMutation) ResetDeletedAt() {
+	m.deleted_at = nil
+	m.adddeleted_at = nil
 }
 
 // SetUserID sets the "user_id" field.
@@ -35172,9 +44790,18 @@ func (m *ScoreMutation) Type() string {
 // order to get all numeric fields that were incremented/decremented, call
 // AddedFields().
 func (m *ScoreMutation) Fields() []string {
-	fields := make([]string, 0, 5)
+	fields := make([]string, 0, 8)
 	if m.ent_id != nil {
 		fields = append(fields, score.FieldEntID)
+	}
+	if m.created_at != nil {
+		fields = append(fields, score.FieldCreatedAt)
+	}
+	if m.updated_at != nil {
+		fields = append(fields, score.FieldUpdatedAt)
+	}
+	if m.deleted_at != nil {
+		fields = append(fields, score.FieldDeletedAt)
 	}
 	if m.user_id != nil {
 		fields = append(fields, score.FieldUserID)
@@ -35198,6 +44825,12 @@ func (m *ScoreMutation) Field(name string) (ent.Value, bool) {
 	switch name {
 	case score.FieldEntID:
 		return m.EntID()
+	case score.FieldCreatedAt:
+		return m.CreatedAt()
+	case score.FieldUpdatedAt:
+		return m.UpdatedAt()
+	case score.FieldDeletedAt:
+		return m.DeletedAt()
 	case score.FieldUserID:
 		return m.UserID()
 	case score.FieldAppGoodID:
@@ -35217,6 +44850,12 @@ func (m *ScoreMutation) OldField(ctx context.Context, name string) (ent.Value, e
 	switch name {
 	case score.FieldEntID:
 		return m.OldEntID(ctx)
+	case score.FieldCreatedAt:
+		return m.OldCreatedAt(ctx)
+	case score.FieldUpdatedAt:
+		return m.OldUpdatedAt(ctx)
+	case score.FieldDeletedAt:
+		return m.OldDeletedAt(ctx)
 	case score.FieldUserID:
 		return m.OldUserID(ctx)
 	case score.FieldAppGoodID:
@@ -35240,6 +44879,27 @@ func (m *ScoreMutation) SetField(name string, value ent.Value) error {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetEntID(v)
+		return nil
+	case score.FieldCreatedAt:
+		v, ok := value.(uint32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetCreatedAt(v)
+		return nil
+	case score.FieldUpdatedAt:
+		v, ok := value.(uint32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetUpdatedAt(v)
+		return nil
+	case score.FieldDeletedAt:
+		v, ok := value.(uint32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetDeletedAt(v)
 		return nil
 	case score.FieldUserID:
 		v, ok := value.(uuid.UUID)
@@ -35276,13 +44936,31 @@ func (m *ScoreMutation) SetField(name string, value ent.Value) error {
 // AddedFields returns all numeric fields that were incremented/decremented during
 // this mutation.
 func (m *ScoreMutation) AddedFields() []string {
-	return nil
+	var fields []string
+	if m.addcreated_at != nil {
+		fields = append(fields, score.FieldCreatedAt)
+	}
+	if m.addupdated_at != nil {
+		fields = append(fields, score.FieldUpdatedAt)
+	}
+	if m.adddeleted_at != nil {
+		fields = append(fields, score.FieldDeletedAt)
+	}
+	return fields
 }
 
 // AddedField returns the numeric value that was incremented/decremented on a field
 // with the given name. The second boolean return value indicates that this field
 // was not set, or was not defined in the schema.
 func (m *ScoreMutation) AddedField(name string) (ent.Value, bool) {
+	switch name {
+	case score.FieldCreatedAt:
+		return m.AddedCreatedAt()
+	case score.FieldUpdatedAt:
+		return m.AddedUpdatedAt()
+	case score.FieldDeletedAt:
+		return m.AddedDeletedAt()
+	}
 	return nil, false
 }
 
@@ -35291,6 +44969,27 @@ func (m *ScoreMutation) AddedField(name string) (ent.Value, bool) {
 // type.
 func (m *ScoreMutation) AddField(name string, value ent.Value) error {
 	switch name {
+	case score.FieldCreatedAt:
+		v, ok := value.(int32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddCreatedAt(v)
+		return nil
+	case score.FieldUpdatedAt:
+		v, ok := value.(int32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddUpdatedAt(v)
+		return nil
+	case score.FieldDeletedAt:
+		v, ok := value.(int32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddDeletedAt(v)
+		return nil
 	}
 	return fmt.Errorf("unknown Score numeric field %s", name)
 }
@@ -35347,6 +45046,15 @@ func (m *ScoreMutation) ResetField(name string) error {
 	switch name {
 	case score.FieldEntID:
 		m.ResetEntID()
+		return nil
+	case score.FieldCreatedAt:
+		m.ResetCreatedAt()
+		return nil
+	case score.FieldUpdatedAt:
+		m.ResetUpdatedAt()
+		return nil
+	case score.FieldDeletedAt:
+		m.ResetDeletedAt()
 		return nil
 	case score.FieldUserID:
 		m.ResetUserID()
@@ -35419,6 +45127,12 @@ type StockMutation struct {
 	typ           string
 	id            *uint32
 	ent_id        *uuid.UUID
+	created_at    *uint32
+	addcreated_at *int32
+	updated_at    *uint32
+	addupdated_at *int32
+	deleted_at    *uint32
+	adddeleted_at *int32
 	good_id       *uuid.UUID
 	total         *decimal.Decimal
 	spot_quantity *decimal.Decimal
@@ -35571,6 +45285,174 @@ func (m *StockMutation) OldEntID(ctx context.Context) (v uuid.UUID, err error) {
 // ResetEntID resets all changes to the "ent_id" field.
 func (m *StockMutation) ResetEntID() {
 	m.ent_id = nil
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (m *StockMutation) SetCreatedAt(u uint32) {
+	m.created_at = &u
+	m.addcreated_at = nil
+}
+
+// CreatedAt returns the value of the "created_at" field in the mutation.
+func (m *StockMutation) CreatedAt() (r uint32, exists bool) {
+	v := m.created_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldCreatedAt returns the old "created_at" field's value of the Stock entity.
+// If the Stock object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *StockMutation) OldCreatedAt(ctx context.Context) (v uint32, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldCreatedAt is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldCreatedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldCreatedAt: %w", err)
+	}
+	return oldValue.CreatedAt, nil
+}
+
+// AddCreatedAt adds u to the "created_at" field.
+func (m *StockMutation) AddCreatedAt(u int32) {
+	if m.addcreated_at != nil {
+		*m.addcreated_at += u
+	} else {
+		m.addcreated_at = &u
+	}
+}
+
+// AddedCreatedAt returns the value that was added to the "created_at" field in this mutation.
+func (m *StockMutation) AddedCreatedAt() (r int32, exists bool) {
+	v := m.addcreated_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetCreatedAt resets all changes to the "created_at" field.
+func (m *StockMutation) ResetCreatedAt() {
+	m.created_at = nil
+	m.addcreated_at = nil
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (m *StockMutation) SetUpdatedAt(u uint32) {
+	m.updated_at = &u
+	m.addupdated_at = nil
+}
+
+// UpdatedAt returns the value of the "updated_at" field in the mutation.
+func (m *StockMutation) UpdatedAt() (r uint32, exists bool) {
+	v := m.updated_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldUpdatedAt returns the old "updated_at" field's value of the Stock entity.
+// If the Stock object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *StockMutation) OldUpdatedAt(ctx context.Context) (v uint32, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldUpdatedAt is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldUpdatedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldUpdatedAt: %w", err)
+	}
+	return oldValue.UpdatedAt, nil
+}
+
+// AddUpdatedAt adds u to the "updated_at" field.
+func (m *StockMutation) AddUpdatedAt(u int32) {
+	if m.addupdated_at != nil {
+		*m.addupdated_at += u
+	} else {
+		m.addupdated_at = &u
+	}
+}
+
+// AddedUpdatedAt returns the value that was added to the "updated_at" field in this mutation.
+func (m *StockMutation) AddedUpdatedAt() (r int32, exists bool) {
+	v := m.addupdated_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetUpdatedAt resets all changes to the "updated_at" field.
+func (m *StockMutation) ResetUpdatedAt() {
+	m.updated_at = nil
+	m.addupdated_at = nil
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (m *StockMutation) SetDeletedAt(u uint32) {
+	m.deleted_at = &u
+	m.adddeleted_at = nil
+}
+
+// DeletedAt returns the value of the "deleted_at" field in the mutation.
+func (m *StockMutation) DeletedAt() (r uint32, exists bool) {
+	v := m.deleted_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldDeletedAt returns the old "deleted_at" field's value of the Stock entity.
+// If the Stock object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *StockMutation) OldDeletedAt(ctx context.Context) (v uint32, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldDeletedAt is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldDeletedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldDeletedAt: %w", err)
+	}
+	return oldValue.DeletedAt, nil
+}
+
+// AddDeletedAt adds u to the "deleted_at" field.
+func (m *StockMutation) AddDeletedAt(u int32) {
+	if m.adddeleted_at != nil {
+		*m.adddeleted_at += u
+	} else {
+		m.adddeleted_at = &u
+	}
+}
+
+// AddedDeletedAt returns the value that was added to the "deleted_at" field in this mutation.
+func (m *StockMutation) AddedDeletedAt() (r int32, exists bool) {
+	v := m.adddeleted_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetDeletedAt resets all changes to the "deleted_at" field.
+func (m *StockMutation) ResetDeletedAt() {
+	m.deleted_at = nil
+	m.adddeleted_at = nil
 }
 
 // SetGoodID sets the "good_id" field.
@@ -35999,9 +45881,18 @@ func (m *StockMutation) Type() string {
 // order to get all numeric fields that were incremented/decremented, call
 // AddedFields().
 func (m *StockMutation) Fields() []string {
-	fields := make([]string, 0, 9)
+	fields := make([]string, 0, 12)
 	if m.ent_id != nil {
 		fields = append(fields, stock.FieldEntID)
+	}
+	if m.created_at != nil {
+		fields = append(fields, stock.FieldCreatedAt)
+	}
+	if m.updated_at != nil {
+		fields = append(fields, stock.FieldUpdatedAt)
+	}
+	if m.deleted_at != nil {
+		fields = append(fields, stock.FieldDeletedAt)
 	}
 	if m.good_id != nil {
 		fields = append(fields, stock.FieldGoodID)
@@ -36037,6 +45928,12 @@ func (m *StockMutation) Field(name string) (ent.Value, bool) {
 	switch name {
 	case stock.FieldEntID:
 		return m.EntID()
+	case stock.FieldCreatedAt:
+		return m.CreatedAt()
+	case stock.FieldUpdatedAt:
+		return m.UpdatedAt()
+	case stock.FieldDeletedAt:
+		return m.DeletedAt()
 	case stock.FieldGoodID:
 		return m.GoodID()
 	case stock.FieldTotal:
@@ -36064,6 +45961,12 @@ func (m *StockMutation) OldField(ctx context.Context, name string) (ent.Value, e
 	switch name {
 	case stock.FieldEntID:
 		return m.OldEntID(ctx)
+	case stock.FieldCreatedAt:
+		return m.OldCreatedAt(ctx)
+	case stock.FieldUpdatedAt:
+		return m.OldUpdatedAt(ctx)
+	case stock.FieldDeletedAt:
+		return m.OldDeletedAt(ctx)
 	case stock.FieldGoodID:
 		return m.OldGoodID(ctx)
 	case stock.FieldTotal:
@@ -36095,6 +45998,27 @@ func (m *StockMutation) SetField(name string, value ent.Value) error {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetEntID(v)
+		return nil
+	case stock.FieldCreatedAt:
+		v, ok := value.(uint32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetCreatedAt(v)
+		return nil
+	case stock.FieldUpdatedAt:
+		v, ok := value.(uint32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetUpdatedAt(v)
+		return nil
+	case stock.FieldDeletedAt:
+		v, ok := value.(uint32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetDeletedAt(v)
 		return nil
 	case stock.FieldGoodID:
 		v, ok := value.(uuid.UUID)
@@ -36159,13 +46083,31 @@ func (m *StockMutation) SetField(name string, value ent.Value) error {
 // AddedFields returns all numeric fields that were incremented/decremented during
 // this mutation.
 func (m *StockMutation) AddedFields() []string {
-	return nil
+	var fields []string
+	if m.addcreated_at != nil {
+		fields = append(fields, stock.FieldCreatedAt)
+	}
+	if m.addupdated_at != nil {
+		fields = append(fields, stock.FieldUpdatedAt)
+	}
+	if m.adddeleted_at != nil {
+		fields = append(fields, stock.FieldDeletedAt)
+	}
+	return fields
 }
 
 // AddedField returns the numeric value that was incremented/decremented on a field
 // with the given name. The second boolean return value indicates that this field
 // was not set, or was not defined in the schema.
 func (m *StockMutation) AddedField(name string) (ent.Value, bool) {
+	switch name {
+	case stock.FieldCreatedAt:
+		return m.AddedCreatedAt()
+	case stock.FieldUpdatedAt:
+		return m.AddedUpdatedAt()
+	case stock.FieldDeletedAt:
+		return m.AddedDeletedAt()
+	}
 	return nil, false
 }
 
@@ -36174,6 +46116,27 @@ func (m *StockMutation) AddedField(name string) (ent.Value, bool) {
 // type.
 func (m *StockMutation) AddField(name string, value ent.Value) error {
 	switch name {
+	case stock.FieldCreatedAt:
+		v, ok := value.(int32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddCreatedAt(v)
+		return nil
+	case stock.FieldUpdatedAt:
+		v, ok := value.(int32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddUpdatedAt(v)
+		return nil
+	case stock.FieldDeletedAt:
+		v, ok := value.(int32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddDeletedAt(v)
+		return nil
 	}
 	return fmt.Errorf("unknown Stock numeric field %s", name)
 }
@@ -36254,6 +46217,15 @@ func (m *StockMutation) ResetField(name string) error {
 	switch name {
 	case stock.FieldEntID:
 		m.ResetEntID()
+		return nil
+	case stock.FieldCreatedAt:
+		m.ResetCreatedAt()
+		return nil
+	case stock.FieldUpdatedAt:
+		m.ResetUpdatedAt()
+		return nil
+	case stock.FieldDeletedAt:
+		m.ResetDeletedAt()
 		return nil
 	case stock.FieldGoodID:
 		m.ResetGoodID()
@@ -38728,6 +48700,12 @@ type TopMostMutation struct {
 	typ           string
 	id            *uint32
 	ent_id        *uuid.UUID
+	created_at    *uint32
+	addcreated_at *int32
+	updated_at    *uint32
+	addupdated_at *int32
+	deleted_at    *uint32
+	adddeleted_at *int32
 	app_id        *uuid.UUID
 	top_most_type *string
 	title         *string
@@ -38881,6 +48859,174 @@ func (m *TopMostMutation) OldEntID(ctx context.Context) (v uuid.UUID, err error)
 // ResetEntID resets all changes to the "ent_id" field.
 func (m *TopMostMutation) ResetEntID() {
 	m.ent_id = nil
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (m *TopMostMutation) SetCreatedAt(u uint32) {
+	m.created_at = &u
+	m.addcreated_at = nil
+}
+
+// CreatedAt returns the value of the "created_at" field in the mutation.
+func (m *TopMostMutation) CreatedAt() (r uint32, exists bool) {
+	v := m.created_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldCreatedAt returns the old "created_at" field's value of the TopMost entity.
+// If the TopMost object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *TopMostMutation) OldCreatedAt(ctx context.Context) (v uint32, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldCreatedAt is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldCreatedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldCreatedAt: %w", err)
+	}
+	return oldValue.CreatedAt, nil
+}
+
+// AddCreatedAt adds u to the "created_at" field.
+func (m *TopMostMutation) AddCreatedAt(u int32) {
+	if m.addcreated_at != nil {
+		*m.addcreated_at += u
+	} else {
+		m.addcreated_at = &u
+	}
+}
+
+// AddedCreatedAt returns the value that was added to the "created_at" field in this mutation.
+func (m *TopMostMutation) AddedCreatedAt() (r int32, exists bool) {
+	v := m.addcreated_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetCreatedAt resets all changes to the "created_at" field.
+func (m *TopMostMutation) ResetCreatedAt() {
+	m.created_at = nil
+	m.addcreated_at = nil
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (m *TopMostMutation) SetUpdatedAt(u uint32) {
+	m.updated_at = &u
+	m.addupdated_at = nil
+}
+
+// UpdatedAt returns the value of the "updated_at" field in the mutation.
+func (m *TopMostMutation) UpdatedAt() (r uint32, exists bool) {
+	v := m.updated_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldUpdatedAt returns the old "updated_at" field's value of the TopMost entity.
+// If the TopMost object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *TopMostMutation) OldUpdatedAt(ctx context.Context) (v uint32, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldUpdatedAt is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldUpdatedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldUpdatedAt: %w", err)
+	}
+	return oldValue.UpdatedAt, nil
+}
+
+// AddUpdatedAt adds u to the "updated_at" field.
+func (m *TopMostMutation) AddUpdatedAt(u int32) {
+	if m.addupdated_at != nil {
+		*m.addupdated_at += u
+	} else {
+		m.addupdated_at = &u
+	}
+}
+
+// AddedUpdatedAt returns the value that was added to the "updated_at" field in this mutation.
+func (m *TopMostMutation) AddedUpdatedAt() (r int32, exists bool) {
+	v := m.addupdated_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetUpdatedAt resets all changes to the "updated_at" field.
+func (m *TopMostMutation) ResetUpdatedAt() {
+	m.updated_at = nil
+	m.addupdated_at = nil
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (m *TopMostMutation) SetDeletedAt(u uint32) {
+	m.deleted_at = &u
+	m.adddeleted_at = nil
+}
+
+// DeletedAt returns the value of the "deleted_at" field in the mutation.
+func (m *TopMostMutation) DeletedAt() (r uint32, exists bool) {
+	v := m.deleted_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldDeletedAt returns the old "deleted_at" field's value of the TopMost entity.
+// If the TopMost object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *TopMostMutation) OldDeletedAt(ctx context.Context) (v uint32, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldDeletedAt is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldDeletedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldDeletedAt: %w", err)
+	}
+	return oldValue.DeletedAt, nil
+}
+
+// AddDeletedAt adds u to the "deleted_at" field.
+func (m *TopMostMutation) AddDeletedAt(u int32) {
+	if m.adddeleted_at != nil {
+		*m.adddeleted_at += u
+	} else {
+		m.adddeleted_at = &u
+	}
+}
+
+// AddedDeletedAt returns the value that was added to the "deleted_at" field in this mutation.
+func (m *TopMostMutation) AddedDeletedAt() (r int32, exists bool) {
+	v := m.adddeleted_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetDeletedAt resets all changes to the "deleted_at" field.
+func (m *TopMostMutation) ResetDeletedAt() {
+	m.deleted_at = nil
+	m.adddeleted_at = nil
 }
 
 // SetAppID sets the "app_id" field.
@@ -39302,9 +49448,18 @@ func (m *TopMostMutation) Type() string {
 // order to get all numeric fields that were incremented/decremented, call
 // AddedFields().
 func (m *TopMostMutation) Fields() []string {
-	fields := make([]string, 0, 8)
+	fields := make([]string, 0, 11)
 	if m.ent_id != nil {
 		fields = append(fields, topmost.FieldEntID)
+	}
+	if m.created_at != nil {
+		fields = append(fields, topmost.FieldCreatedAt)
+	}
+	if m.updated_at != nil {
+		fields = append(fields, topmost.FieldUpdatedAt)
+	}
+	if m.deleted_at != nil {
+		fields = append(fields, topmost.FieldDeletedAt)
 	}
 	if m.app_id != nil {
 		fields = append(fields, topmost.FieldAppID)
@@ -39337,6 +49492,12 @@ func (m *TopMostMutation) Field(name string) (ent.Value, bool) {
 	switch name {
 	case topmost.FieldEntID:
 		return m.EntID()
+	case topmost.FieldCreatedAt:
+		return m.CreatedAt()
+	case topmost.FieldUpdatedAt:
+		return m.UpdatedAt()
+	case topmost.FieldDeletedAt:
+		return m.DeletedAt()
 	case topmost.FieldAppID:
 		return m.AppID()
 	case topmost.FieldTopMostType:
@@ -39362,6 +49523,12 @@ func (m *TopMostMutation) OldField(ctx context.Context, name string) (ent.Value,
 	switch name {
 	case topmost.FieldEntID:
 		return m.OldEntID(ctx)
+	case topmost.FieldCreatedAt:
+		return m.OldCreatedAt(ctx)
+	case topmost.FieldUpdatedAt:
+		return m.OldUpdatedAt(ctx)
+	case topmost.FieldDeletedAt:
+		return m.OldDeletedAt(ctx)
 	case topmost.FieldAppID:
 		return m.OldAppID(ctx)
 	case topmost.FieldTopMostType:
@@ -39391,6 +49558,27 @@ func (m *TopMostMutation) SetField(name string, value ent.Value) error {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetEntID(v)
+		return nil
+	case topmost.FieldCreatedAt:
+		v, ok := value.(uint32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetCreatedAt(v)
+		return nil
+	case topmost.FieldUpdatedAt:
+		v, ok := value.(uint32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetUpdatedAt(v)
+		return nil
+	case topmost.FieldDeletedAt:
+		v, ok := value.(uint32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetDeletedAt(v)
 		return nil
 	case topmost.FieldAppID:
 		v, ok := value.(uuid.UUID)
@@ -39449,6 +49637,15 @@ func (m *TopMostMutation) SetField(name string, value ent.Value) error {
 // this mutation.
 func (m *TopMostMutation) AddedFields() []string {
 	var fields []string
+	if m.addcreated_at != nil {
+		fields = append(fields, topmost.FieldCreatedAt)
+	}
+	if m.addupdated_at != nil {
+		fields = append(fields, topmost.FieldUpdatedAt)
+	}
+	if m.adddeleted_at != nil {
+		fields = append(fields, topmost.FieldDeletedAt)
+	}
 	if m.addstart_at != nil {
 		fields = append(fields, topmost.FieldStartAt)
 	}
@@ -39463,6 +49660,12 @@ func (m *TopMostMutation) AddedFields() []string {
 // was not set, or was not defined in the schema.
 func (m *TopMostMutation) AddedField(name string) (ent.Value, bool) {
 	switch name {
+	case topmost.FieldCreatedAt:
+		return m.AddedCreatedAt()
+	case topmost.FieldUpdatedAt:
+		return m.AddedUpdatedAt()
+	case topmost.FieldDeletedAt:
+		return m.AddedDeletedAt()
 	case topmost.FieldStartAt:
 		return m.AddedStartAt()
 	case topmost.FieldEndAt:
@@ -39476,6 +49679,27 @@ func (m *TopMostMutation) AddedField(name string) (ent.Value, bool) {
 // type.
 func (m *TopMostMutation) AddField(name string, value ent.Value) error {
 	switch name {
+	case topmost.FieldCreatedAt:
+		v, ok := value.(int32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddCreatedAt(v)
+		return nil
+	case topmost.FieldUpdatedAt:
+		v, ok := value.(int32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddUpdatedAt(v)
+		return nil
+	case topmost.FieldDeletedAt:
+		v, ok := value.(int32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddDeletedAt(v)
+		return nil
 	case topmost.FieldStartAt:
 		v, ok := value.(int32)
 		if !ok {
@@ -39565,6 +49789,15 @@ func (m *TopMostMutation) ResetField(name string) error {
 	case topmost.FieldEntID:
 		m.ResetEntID()
 		return nil
+	case topmost.FieldCreatedAt:
+		m.ResetCreatedAt()
+		return nil
+	case topmost.FieldUpdatedAt:
+		m.ResetUpdatedAt()
+		return nil
+	case topmost.FieldDeletedAt:
+		m.ResetDeletedAt()
+		return nil
 	case topmost.FieldAppID:
 		m.ResetAppID()
 		return nil
@@ -39645,6 +49878,12 @@ type TopMostConstraintMutation struct {
 	typ           string
 	id            *uint32
 	ent_id        *uuid.UUID
+	created_at    *uint32
+	addcreated_at *int32
+	updated_at    *uint32
+	addupdated_at *int32
+	deleted_at    *uint32
+	adddeleted_at *int32
 	top_most_id   *uuid.UUID
 	constraint    *string
 	target_value  *decimal.Decimal
@@ -39794,6 +50033,174 @@ func (m *TopMostConstraintMutation) OldEntID(ctx context.Context) (v uuid.UUID, 
 // ResetEntID resets all changes to the "ent_id" field.
 func (m *TopMostConstraintMutation) ResetEntID() {
 	m.ent_id = nil
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (m *TopMostConstraintMutation) SetCreatedAt(u uint32) {
+	m.created_at = &u
+	m.addcreated_at = nil
+}
+
+// CreatedAt returns the value of the "created_at" field in the mutation.
+func (m *TopMostConstraintMutation) CreatedAt() (r uint32, exists bool) {
+	v := m.created_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldCreatedAt returns the old "created_at" field's value of the TopMostConstraint entity.
+// If the TopMostConstraint object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *TopMostConstraintMutation) OldCreatedAt(ctx context.Context) (v uint32, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldCreatedAt is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldCreatedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldCreatedAt: %w", err)
+	}
+	return oldValue.CreatedAt, nil
+}
+
+// AddCreatedAt adds u to the "created_at" field.
+func (m *TopMostConstraintMutation) AddCreatedAt(u int32) {
+	if m.addcreated_at != nil {
+		*m.addcreated_at += u
+	} else {
+		m.addcreated_at = &u
+	}
+}
+
+// AddedCreatedAt returns the value that was added to the "created_at" field in this mutation.
+func (m *TopMostConstraintMutation) AddedCreatedAt() (r int32, exists bool) {
+	v := m.addcreated_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetCreatedAt resets all changes to the "created_at" field.
+func (m *TopMostConstraintMutation) ResetCreatedAt() {
+	m.created_at = nil
+	m.addcreated_at = nil
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (m *TopMostConstraintMutation) SetUpdatedAt(u uint32) {
+	m.updated_at = &u
+	m.addupdated_at = nil
+}
+
+// UpdatedAt returns the value of the "updated_at" field in the mutation.
+func (m *TopMostConstraintMutation) UpdatedAt() (r uint32, exists bool) {
+	v := m.updated_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldUpdatedAt returns the old "updated_at" field's value of the TopMostConstraint entity.
+// If the TopMostConstraint object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *TopMostConstraintMutation) OldUpdatedAt(ctx context.Context) (v uint32, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldUpdatedAt is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldUpdatedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldUpdatedAt: %w", err)
+	}
+	return oldValue.UpdatedAt, nil
+}
+
+// AddUpdatedAt adds u to the "updated_at" field.
+func (m *TopMostConstraintMutation) AddUpdatedAt(u int32) {
+	if m.addupdated_at != nil {
+		*m.addupdated_at += u
+	} else {
+		m.addupdated_at = &u
+	}
+}
+
+// AddedUpdatedAt returns the value that was added to the "updated_at" field in this mutation.
+func (m *TopMostConstraintMutation) AddedUpdatedAt() (r int32, exists bool) {
+	v := m.addupdated_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetUpdatedAt resets all changes to the "updated_at" field.
+func (m *TopMostConstraintMutation) ResetUpdatedAt() {
+	m.updated_at = nil
+	m.addupdated_at = nil
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (m *TopMostConstraintMutation) SetDeletedAt(u uint32) {
+	m.deleted_at = &u
+	m.adddeleted_at = nil
+}
+
+// DeletedAt returns the value of the "deleted_at" field in the mutation.
+func (m *TopMostConstraintMutation) DeletedAt() (r uint32, exists bool) {
+	v := m.deleted_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldDeletedAt returns the old "deleted_at" field's value of the TopMostConstraint entity.
+// If the TopMostConstraint object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *TopMostConstraintMutation) OldDeletedAt(ctx context.Context) (v uint32, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldDeletedAt is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldDeletedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldDeletedAt: %w", err)
+	}
+	return oldValue.DeletedAt, nil
+}
+
+// AddDeletedAt adds u to the "deleted_at" field.
+func (m *TopMostConstraintMutation) AddDeletedAt(u int32) {
+	if m.adddeleted_at != nil {
+		*m.adddeleted_at += u
+	} else {
+		m.adddeleted_at = &u
+	}
+}
+
+// AddedDeletedAt returns the value that was added to the "deleted_at" field in this mutation.
+func (m *TopMostConstraintMutation) AddedDeletedAt() (r int32, exists bool) {
+	v := m.adddeleted_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetDeletedAt resets all changes to the "deleted_at" field.
+func (m *TopMostConstraintMutation) ResetDeletedAt() {
+	m.deleted_at = nil
+	m.adddeleted_at = nil
 }
 
 // SetTopMostID sets the "top_most_id" field.
@@ -40047,9 +50454,18 @@ func (m *TopMostConstraintMutation) Type() string {
 // order to get all numeric fields that were incremented/decremented, call
 // AddedFields().
 func (m *TopMostConstraintMutation) Fields() []string {
-	fields := make([]string, 0, 5)
+	fields := make([]string, 0, 8)
 	if m.ent_id != nil {
 		fields = append(fields, topmostconstraint.FieldEntID)
+	}
+	if m.created_at != nil {
+		fields = append(fields, topmostconstraint.FieldCreatedAt)
+	}
+	if m.updated_at != nil {
+		fields = append(fields, topmostconstraint.FieldUpdatedAt)
+	}
+	if m.deleted_at != nil {
+		fields = append(fields, topmostconstraint.FieldDeletedAt)
 	}
 	if m.top_most_id != nil {
 		fields = append(fields, topmostconstraint.FieldTopMostID)
@@ -40073,6 +50489,12 @@ func (m *TopMostConstraintMutation) Field(name string) (ent.Value, bool) {
 	switch name {
 	case topmostconstraint.FieldEntID:
 		return m.EntID()
+	case topmostconstraint.FieldCreatedAt:
+		return m.CreatedAt()
+	case topmostconstraint.FieldUpdatedAt:
+		return m.UpdatedAt()
+	case topmostconstraint.FieldDeletedAt:
+		return m.DeletedAt()
 	case topmostconstraint.FieldTopMostID:
 		return m.TopMostID()
 	case topmostconstraint.FieldConstraint:
@@ -40092,6 +50514,12 @@ func (m *TopMostConstraintMutation) OldField(ctx context.Context, name string) (
 	switch name {
 	case topmostconstraint.FieldEntID:
 		return m.OldEntID(ctx)
+	case topmostconstraint.FieldCreatedAt:
+		return m.OldCreatedAt(ctx)
+	case topmostconstraint.FieldUpdatedAt:
+		return m.OldUpdatedAt(ctx)
+	case topmostconstraint.FieldDeletedAt:
+		return m.OldDeletedAt(ctx)
 	case topmostconstraint.FieldTopMostID:
 		return m.OldTopMostID(ctx)
 	case topmostconstraint.FieldConstraint:
@@ -40115,6 +50543,27 @@ func (m *TopMostConstraintMutation) SetField(name string, value ent.Value) error
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetEntID(v)
+		return nil
+	case topmostconstraint.FieldCreatedAt:
+		v, ok := value.(uint32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetCreatedAt(v)
+		return nil
+	case topmostconstraint.FieldUpdatedAt:
+		v, ok := value.(uint32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetUpdatedAt(v)
+		return nil
+	case topmostconstraint.FieldDeletedAt:
+		v, ok := value.(uint32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetDeletedAt(v)
 		return nil
 	case topmostconstraint.FieldTopMostID:
 		v, ok := value.(uuid.UUID)
@@ -40152,6 +50601,15 @@ func (m *TopMostConstraintMutation) SetField(name string, value ent.Value) error
 // this mutation.
 func (m *TopMostConstraintMutation) AddedFields() []string {
 	var fields []string
+	if m.addcreated_at != nil {
+		fields = append(fields, topmostconstraint.FieldCreatedAt)
+	}
+	if m.addupdated_at != nil {
+		fields = append(fields, topmostconstraint.FieldUpdatedAt)
+	}
+	if m.adddeleted_at != nil {
+		fields = append(fields, topmostconstraint.FieldDeletedAt)
+	}
 	if m.addindex != nil {
 		fields = append(fields, topmostconstraint.FieldIndex)
 	}
@@ -40163,6 +50621,12 @@ func (m *TopMostConstraintMutation) AddedFields() []string {
 // was not set, or was not defined in the schema.
 func (m *TopMostConstraintMutation) AddedField(name string) (ent.Value, bool) {
 	switch name {
+	case topmostconstraint.FieldCreatedAt:
+		return m.AddedCreatedAt()
+	case topmostconstraint.FieldUpdatedAt:
+		return m.AddedUpdatedAt()
+	case topmostconstraint.FieldDeletedAt:
+		return m.AddedDeletedAt()
 	case topmostconstraint.FieldIndex:
 		return m.AddedIndex()
 	}
@@ -40174,6 +50638,27 @@ func (m *TopMostConstraintMutation) AddedField(name string) (ent.Value, bool) {
 // type.
 func (m *TopMostConstraintMutation) AddField(name string, value ent.Value) error {
 	switch name {
+	case topmostconstraint.FieldCreatedAt:
+		v, ok := value.(int32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddCreatedAt(v)
+		return nil
+	case topmostconstraint.FieldUpdatedAt:
+		v, ok := value.(int32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddUpdatedAt(v)
+		return nil
+	case topmostconstraint.FieldDeletedAt:
+		v, ok := value.(int32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddDeletedAt(v)
+		return nil
 	case topmostconstraint.FieldIndex:
 		v, ok := value.(int8)
 		if !ok {
@@ -40237,6 +50722,15 @@ func (m *TopMostConstraintMutation) ResetField(name string) error {
 	switch name {
 	case topmostconstraint.FieldEntID:
 		m.ResetEntID()
+		return nil
+	case topmostconstraint.FieldCreatedAt:
+		m.ResetCreatedAt()
+		return nil
+	case topmostconstraint.FieldUpdatedAt:
+		m.ResetUpdatedAt()
+		return nil
+	case topmostconstraint.FieldDeletedAt:
+		m.ResetDeletedAt()
 		return nil
 	case topmostconstraint.FieldTopMostID:
 		m.ResetTopMostID()
@@ -40309,6 +50803,12 @@ type TopMostGoodMutation struct {
 	typ              string
 	id               *uint32
 	ent_id           *uuid.UUID
+	created_at       *uint32
+	addcreated_at    *int32
+	updated_at       *uint32
+	addupdated_at    *int32
+	deleted_at       *uint32
+	adddeleted_at    *int32
 	app_good_id      *uuid.UUID
 	top_most_id      *uuid.UUID
 	display_index    *uint32
@@ -40458,6 +50958,174 @@ func (m *TopMostGoodMutation) OldEntID(ctx context.Context) (v uuid.UUID, err er
 // ResetEntID resets all changes to the "ent_id" field.
 func (m *TopMostGoodMutation) ResetEntID() {
 	m.ent_id = nil
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (m *TopMostGoodMutation) SetCreatedAt(u uint32) {
+	m.created_at = &u
+	m.addcreated_at = nil
+}
+
+// CreatedAt returns the value of the "created_at" field in the mutation.
+func (m *TopMostGoodMutation) CreatedAt() (r uint32, exists bool) {
+	v := m.created_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldCreatedAt returns the old "created_at" field's value of the TopMostGood entity.
+// If the TopMostGood object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *TopMostGoodMutation) OldCreatedAt(ctx context.Context) (v uint32, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldCreatedAt is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldCreatedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldCreatedAt: %w", err)
+	}
+	return oldValue.CreatedAt, nil
+}
+
+// AddCreatedAt adds u to the "created_at" field.
+func (m *TopMostGoodMutation) AddCreatedAt(u int32) {
+	if m.addcreated_at != nil {
+		*m.addcreated_at += u
+	} else {
+		m.addcreated_at = &u
+	}
+}
+
+// AddedCreatedAt returns the value that was added to the "created_at" field in this mutation.
+func (m *TopMostGoodMutation) AddedCreatedAt() (r int32, exists bool) {
+	v := m.addcreated_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetCreatedAt resets all changes to the "created_at" field.
+func (m *TopMostGoodMutation) ResetCreatedAt() {
+	m.created_at = nil
+	m.addcreated_at = nil
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (m *TopMostGoodMutation) SetUpdatedAt(u uint32) {
+	m.updated_at = &u
+	m.addupdated_at = nil
+}
+
+// UpdatedAt returns the value of the "updated_at" field in the mutation.
+func (m *TopMostGoodMutation) UpdatedAt() (r uint32, exists bool) {
+	v := m.updated_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldUpdatedAt returns the old "updated_at" field's value of the TopMostGood entity.
+// If the TopMostGood object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *TopMostGoodMutation) OldUpdatedAt(ctx context.Context) (v uint32, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldUpdatedAt is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldUpdatedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldUpdatedAt: %w", err)
+	}
+	return oldValue.UpdatedAt, nil
+}
+
+// AddUpdatedAt adds u to the "updated_at" field.
+func (m *TopMostGoodMutation) AddUpdatedAt(u int32) {
+	if m.addupdated_at != nil {
+		*m.addupdated_at += u
+	} else {
+		m.addupdated_at = &u
+	}
+}
+
+// AddedUpdatedAt returns the value that was added to the "updated_at" field in this mutation.
+func (m *TopMostGoodMutation) AddedUpdatedAt() (r int32, exists bool) {
+	v := m.addupdated_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetUpdatedAt resets all changes to the "updated_at" field.
+func (m *TopMostGoodMutation) ResetUpdatedAt() {
+	m.updated_at = nil
+	m.addupdated_at = nil
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (m *TopMostGoodMutation) SetDeletedAt(u uint32) {
+	m.deleted_at = &u
+	m.adddeleted_at = nil
+}
+
+// DeletedAt returns the value of the "deleted_at" field in the mutation.
+func (m *TopMostGoodMutation) DeletedAt() (r uint32, exists bool) {
+	v := m.deleted_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldDeletedAt returns the old "deleted_at" field's value of the TopMostGood entity.
+// If the TopMostGood object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *TopMostGoodMutation) OldDeletedAt(ctx context.Context) (v uint32, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldDeletedAt is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldDeletedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldDeletedAt: %w", err)
+	}
+	return oldValue.DeletedAt, nil
+}
+
+// AddDeletedAt adds u to the "deleted_at" field.
+func (m *TopMostGoodMutation) AddDeletedAt(u int32) {
+	if m.adddeleted_at != nil {
+		*m.adddeleted_at += u
+	} else {
+		m.adddeleted_at = &u
+	}
+}
+
+// AddedDeletedAt returns the value that was added to the "deleted_at" field in this mutation.
+func (m *TopMostGoodMutation) AddedDeletedAt() (r int32, exists bool) {
+	v := m.adddeleted_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetDeletedAt resets all changes to the "deleted_at" field.
+func (m *TopMostGoodMutation) ResetDeletedAt() {
+	m.deleted_at = nil
+	m.adddeleted_at = nil
 }
 
 // SetAppGoodID sets the "app_good_id" field.
@@ -40711,9 +51379,18 @@ func (m *TopMostGoodMutation) Type() string {
 // order to get all numeric fields that were incremented/decremented, call
 // AddedFields().
 func (m *TopMostGoodMutation) Fields() []string {
-	fields := make([]string, 0, 5)
+	fields := make([]string, 0, 8)
 	if m.ent_id != nil {
 		fields = append(fields, topmostgood.FieldEntID)
+	}
+	if m.created_at != nil {
+		fields = append(fields, topmostgood.FieldCreatedAt)
+	}
+	if m.updated_at != nil {
+		fields = append(fields, topmostgood.FieldUpdatedAt)
+	}
+	if m.deleted_at != nil {
+		fields = append(fields, topmostgood.FieldDeletedAt)
 	}
 	if m.app_good_id != nil {
 		fields = append(fields, topmostgood.FieldAppGoodID)
@@ -40737,6 +51414,12 @@ func (m *TopMostGoodMutation) Field(name string) (ent.Value, bool) {
 	switch name {
 	case topmostgood.FieldEntID:
 		return m.EntID()
+	case topmostgood.FieldCreatedAt:
+		return m.CreatedAt()
+	case topmostgood.FieldUpdatedAt:
+		return m.UpdatedAt()
+	case topmostgood.FieldDeletedAt:
+		return m.DeletedAt()
 	case topmostgood.FieldAppGoodID:
 		return m.AppGoodID()
 	case topmostgood.FieldTopMostID:
@@ -40756,6 +51439,12 @@ func (m *TopMostGoodMutation) OldField(ctx context.Context, name string) (ent.Va
 	switch name {
 	case topmostgood.FieldEntID:
 		return m.OldEntID(ctx)
+	case topmostgood.FieldCreatedAt:
+		return m.OldCreatedAt(ctx)
+	case topmostgood.FieldUpdatedAt:
+		return m.OldUpdatedAt(ctx)
+	case topmostgood.FieldDeletedAt:
+		return m.OldDeletedAt(ctx)
 	case topmostgood.FieldAppGoodID:
 		return m.OldAppGoodID(ctx)
 	case topmostgood.FieldTopMostID:
@@ -40779,6 +51468,27 @@ func (m *TopMostGoodMutation) SetField(name string, value ent.Value) error {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetEntID(v)
+		return nil
+	case topmostgood.FieldCreatedAt:
+		v, ok := value.(uint32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetCreatedAt(v)
+		return nil
+	case topmostgood.FieldUpdatedAt:
+		v, ok := value.(uint32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetUpdatedAt(v)
+		return nil
+	case topmostgood.FieldDeletedAt:
+		v, ok := value.(uint32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetDeletedAt(v)
 		return nil
 	case topmostgood.FieldAppGoodID:
 		v, ok := value.(uuid.UUID)
@@ -40816,6 +51526,15 @@ func (m *TopMostGoodMutation) SetField(name string, value ent.Value) error {
 // this mutation.
 func (m *TopMostGoodMutation) AddedFields() []string {
 	var fields []string
+	if m.addcreated_at != nil {
+		fields = append(fields, topmostgood.FieldCreatedAt)
+	}
+	if m.addupdated_at != nil {
+		fields = append(fields, topmostgood.FieldUpdatedAt)
+	}
+	if m.adddeleted_at != nil {
+		fields = append(fields, topmostgood.FieldDeletedAt)
+	}
 	if m.adddisplay_index != nil {
 		fields = append(fields, topmostgood.FieldDisplayIndex)
 	}
@@ -40827,6 +51546,12 @@ func (m *TopMostGoodMutation) AddedFields() []string {
 // was not set, or was not defined in the schema.
 func (m *TopMostGoodMutation) AddedField(name string) (ent.Value, bool) {
 	switch name {
+	case topmostgood.FieldCreatedAt:
+		return m.AddedCreatedAt()
+	case topmostgood.FieldUpdatedAt:
+		return m.AddedUpdatedAt()
+	case topmostgood.FieldDeletedAt:
+		return m.AddedDeletedAt()
 	case topmostgood.FieldDisplayIndex:
 		return m.AddedDisplayIndex()
 	}
@@ -40838,6 +51563,27 @@ func (m *TopMostGoodMutation) AddedField(name string) (ent.Value, bool) {
 // type.
 func (m *TopMostGoodMutation) AddField(name string, value ent.Value) error {
 	switch name {
+	case topmostgood.FieldCreatedAt:
+		v, ok := value.(int32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddCreatedAt(v)
+		return nil
+	case topmostgood.FieldUpdatedAt:
+		v, ok := value.(int32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddUpdatedAt(v)
+		return nil
+	case topmostgood.FieldDeletedAt:
+		v, ok := value.(int32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddDeletedAt(v)
+		return nil
 	case topmostgood.FieldDisplayIndex:
 		v, ok := value.(int32)
 		if !ok {
@@ -40901,6 +51647,15 @@ func (m *TopMostGoodMutation) ResetField(name string) error {
 	switch name {
 	case topmostgood.FieldEntID:
 		m.ResetEntID()
+		return nil
+	case topmostgood.FieldCreatedAt:
+		m.ResetCreatedAt()
+		return nil
+	case topmostgood.FieldUpdatedAt:
+		m.ResetUpdatedAt()
+		return nil
+	case topmostgood.FieldDeletedAt:
+		m.ResetDeletedAt()
 		return nil
 	case topmostgood.FieldAppGoodID:
 		m.ResetAppGoodID()
@@ -40973,6 +51728,12 @@ type TopMostGoodConstraintMutation struct {
 	typ              string
 	id               *uint32
 	ent_id           *uuid.UUID
+	created_at       *uint32
+	addcreated_at    *int32
+	updated_at       *uint32
+	addupdated_at    *int32
+	deleted_at       *uint32
+	adddeleted_at    *int32
 	top_most_good_id *uuid.UUID
 	constraint       *string
 	target_value     *decimal.Decimal
@@ -41122,6 +51883,174 @@ func (m *TopMostGoodConstraintMutation) OldEntID(ctx context.Context) (v uuid.UU
 // ResetEntID resets all changes to the "ent_id" field.
 func (m *TopMostGoodConstraintMutation) ResetEntID() {
 	m.ent_id = nil
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (m *TopMostGoodConstraintMutation) SetCreatedAt(u uint32) {
+	m.created_at = &u
+	m.addcreated_at = nil
+}
+
+// CreatedAt returns the value of the "created_at" field in the mutation.
+func (m *TopMostGoodConstraintMutation) CreatedAt() (r uint32, exists bool) {
+	v := m.created_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldCreatedAt returns the old "created_at" field's value of the TopMostGoodConstraint entity.
+// If the TopMostGoodConstraint object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *TopMostGoodConstraintMutation) OldCreatedAt(ctx context.Context) (v uint32, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldCreatedAt is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldCreatedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldCreatedAt: %w", err)
+	}
+	return oldValue.CreatedAt, nil
+}
+
+// AddCreatedAt adds u to the "created_at" field.
+func (m *TopMostGoodConstraintMutation) AddCreatedAt(u int32) {
+	if m.addcreated_at != nil {
+		*m.addcreated_at += u
+	} else {
+		m.addcreated_at = &u
+	}
+}
+
+// AddedCreatedAt returns the value that was added to the "created_at" field in this mutation.
+func (m *TopMostGoodConstraintMutation) AddedCreatedAt() (r int32, exists bool) {
+	v := m.addcreated_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetCreatedAt resets all changes to the "created_at" field.
+func (m *TopMostGoodConstraintMutation) ResetCreatedAt() {
+	m.created_at = nil
+	m.addcreated_at = nil
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (m *TopMostGoodConstraintMutation) SetUpdatedAt(u uint32) {
+	m.updated_at = &u
+	m.addupdated_at = nil
+}
+
+// UpdatedAt returns the value of the "updated_at" field in the mutation.
+func (m *TopMostGoodConstraintMutation) UpdatedAt() (r uint32, exists bool) {
+	v := m.updated_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldUpdatedAt returns the old "updated_at" field's value of the TopMostGoodConstraint entity.
+// If the TopMostGoodConstraint object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *TopMostGoodConstraintMutation) OldUpdatedAt(ctx context.Context) (v uint32, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldUpdatedAt is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldUpdatedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldUpdatedAt: %w", err)
+	}
+	return oldValue.UpdatedAt, nil
+}
+
+// AddUpdatedAt adds u to the "updated_at" field.
+func (m *TopMostGoodConstraintMutation) AddUpdatedAt(u int32) {
+	if m.addupdated_at != nil {
+		*m.addupdated_at += u
+	} else {
+		m.addupdated_at = &u
+	}
+}
+
+// AddedUpdatedAt returns the value that was added to the "updated_at" field in this mutation.
+func (m *TopMostGoodConstraintMutation) AddedUpdatedAt() (r int32, exists bool) {
+	v := m.addupdated_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetUpdatedAt resets all changes to the "updated_at" field.
+func (m *TopMostGoodConstraintMutation) ResetUpdatedAt() {
+	m.updated_at = nil
+	m.addupdated_at = nil
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (m *TopMostGoodConstraintMutation) SetDeletedAt(u uint32) {
+	m.deleted_at = &u
+	m.adddeleted_at = nil
+}
+
+// DeletedAt returns the value of the "deleted_at" field in the mutation.
+func (m *TopMostGoodConstraintMutation) DeletedAt() (r uint32, exists bool) {
+	v := m.deleted_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldDeletedAt returns the old "deleted_at" field's value of the TopMostGoodConstraint entity.
+// If the TopMostGoodConstraint object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *TopMostGoodConstraintMutation) OldDeletedAt(ctx context.Context) (v uint32, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldDeletedAt is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldDeletedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldDeletedAt: %w", err)
+	}
+	return oldValue.DeletedAt, nil
+}
+
+// AddDeletedAt adds u to the "deleted_at" field.
+func (m *TopMostGoodConstraintMutation) AddDeletedAt(u int32) {
+	if m.adddeleted_at != nil {
+		*m.adddeleted_at += u
+	} else {
+		m.adddeleted_at = &u
+	}
+}
+
+// AddedDeletedAt returns the value that was added to the "deleted_at" field in this mutation.
+func (m *TopMostGoodConstraintMutation) AddedDeletedAt() (r int32, exists bool) {
+	v := m.adddeleted_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetDeletedAt resets all changes to the "deleted_at" field.
+func (m *TopMostGoodConstraintMutation) ResetDeletedAt() {
+	m.deleted_at = nil
+	m.adddeleted_at = nil
 }
 
 // SetTopMostGoodID sets the "top_most_good_id" field.
@@ -41375,9 +52304,18 @@ func (m *TopMostGoodConstraintMutation) Type() string {
 // order to get all numeric fields that were incremented/decremented, call
 // AddedFields().
 func (m *TopMostGoodConstraintMutation) Fields() []string {
-	fields := make([]string, 0, 5)
+	fields := make([]string, 0, 8)
 	if m.ent_id != nil {
 		fields = append(fields, topmostgoodconstraint.FieldEntID)
+	}
+	if m.created_at != nil {
+		fields = append(fields, topmostgoodconstraint.FieldCreatedAt)
+	}
+	if m.updated_at != nil {
+		fields = append(fields, topmostgoodconstraint.FieldUpdatedAt)
+	}
+	if m.deleted_at != nil {
+		fields = append(fields, topmostgoodconstraint.FieldDeletedAt)
 	}
 	if m.top_most_good_id != nil {
 		fields = append(fields, topmostgoodconstraint.FieldTopMostGoodID)
@@ -41401,6 +52339,12 @@ func (m *TopMostGoodConstraintMutation) Field(name string) (ent.Value, bool) {
 	switch name {
 	case topmostgoodconstraint.FieldEntID:
 		return m.EntID()
+	case topmostgoodconstraint.FieldCreatedAt:
+		return m.CreatedAt()
+	case topmostgoodconstraint.FieldUpdatedAt:
+		return m.UpdatedAt()
+	case topmostgoodconstraint.FieldDeletedAt:
+		return m.DeletedAt()
 	case topmostgoodconstraint.FieldTopMostGoodID:
 		return m.TopMostGoodID()
 	case topmostgoodconstraint.FieldConstraint:
@@ -41420,6 +52364,12 @@ func (m *TopMostGoodConstraintMutation) OldField(ctx context.Context, name strin
 	switch name {
 	case topmostgoodconstraint.FieldEntID:
 		return m.OldEntID(ctx)
+	case topmostgoodconstraint.FieldCreatedAt:
+		return m.OldCreatedAt(ctx)
+	case topmostgoodconstraint.FieldUpdatedAt:
+		return m.OldUpdatedAt(ctx)
+	case topmostgoodconstraint.FieldDeletedAt:
+		return m.OldDeletedAt(ctx)
 	case topmostgoodconstraint.FieldTopMostGoodID:
 		return m.OldTopMostGoodID(ctx)
 	case topmostgoodconstraint.FieldConstraint:
@@ -41443,6 +52393,27 @@ func (m *TopMostGoodConstraintMutation) SetField(name string, value ent.Value) e
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetEntID(v)
+		return nil
+	case topmostgoodconstraint.FieldCreatedAt:
+		v, ok := value.(uint32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetCreatedAt(v)
+		return nil
+	case topmostgoodconstraint.FieldUpdatedAt:
+		v, ok := value.(uint32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetUpdatedAt(v)
+		return nil
+	case topmostgoodconstraint.FieldDeletedAt:
+		v, ok := value.(uint32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetDeletedAt(v)
 		return nil
 	case topmostgoodconstraint.FieldTopMostGoodID:
 		v, ok := value.(uuid.UUID)
@@ -41480,6 +52451,15 @@ func (m *TopMostGoodConstraintMutation) SetField(name string, value ent.Value) e
 // this mutation.
 func (m *TopMostGoodConstraintMutation) AddedFields() []string {
 	var fields []string
+	if m.addcreated_at != nil {
+		fields = append(fields, topmostgoodconstraint.FieldCreatedAt)
+	}
+	if m.addupdated_at != nil {
+		fields = append(fields, topmostgoodconstraint.FieldUpdatedAt)
+	}
+	if m.adddeleted_at != nil {
+		fields = append(fields, topmostgoodconstraint.FieldDeletedAt)
+	}
 	if m.addindex != nil {
 		fields = append(fields, topmostgoodconstraint.FieldIndex)
 	}
@@ -41491,6 +52471,12 @@ func (m *TopMostGoodConstraintMutation) AddedFields() []string {
 // was not set, or was not defined in the schema.
 func (m *TopMostGoodConstraintMutation) AddedField(name string) (ent.Value, bool) {
 	switch name {
+	case topmostgoodconstraint.FieldCreatedAt:
+		return m.AddedCreatedAt()
+	case topmostgoodconstraint.FieldUpdatedAt:
+		return m.AddedUpdatedAt()
+	case topmostgoodconstraint.FieldDeletedAt:
+		return m.AddedDeletedAt()
 	case topmostgoodconstraint.FieldIndex:
 		return m.AddedIndex()
 	}
@@ -41502,6 +52488,27 @@ func (m *TopMostGoodConstraintMutation) AddedField(name string) (ent.Value, bool
 // type.
 func (m *TopMostGoodConstraintMutation) AddField(name string, value ent.Value) error {
 	switch name {
+	case topmostgoodconstraint.FieldCreatedAt:
+		v, ok := value.(int32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddCreatedAt(v)
+		return nil
+	case topmostgoodconstraint.FieldUpdatedAt:
+		v, ok := value.(int32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddUpdatedAt(v)
+		return nil
+	case topmostgoodconstraint.FieldDeletedAt:
+		v, ok := value.(int32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddDeletedAt(v)
+		return nil
 	case topmostgoodconstraint.FieldIndex:
 		v, ok := value.(int8)
 		if !ok {
@@ -41565,6 +52572,15 @@ func (m *TopMostGoodConstraintMutation) ResetField(name string) error {
 	switch name {
 	case topmostgoodconstraint.FieldEntID:
 		m.ResetEntID()
+		return nil
+	case topmostgoodconstraint.FieldCreatedAt:
+		m.ResetCreatedAt()
+		return nil
+	case topmostgoodconstraint.FieldUpdatedAt:
+		m.ResetUpdatedAt()
+		return nil
+	case topmostgoodconstraint.FieldDeletedAt:
+		m.ResetDeletedAt()
 		return nil
 	case topmostgoodconstraint.FieldTopMostGoodID:
 		m.ResetTopMostGoodID()
@@ -41637,6 +52653,12 @@ type TopMostGoodPosterMutation struct {
 	typ              string
 	id               *uint32
 	ent_id           *uuid.UUID
+	created_at       *uint32
+	addcreated_at    *int32
+	updated_at       *uint32
+	addupdated_at    *int32
+	deleted_at       *uint32
+	adddeleted_at    *int32
 	top_most_good_id *uuid.UUID
 	poster           *string
 	index            *uint8
@@ -41785,6 +52807,174 @@ func (m *TopMostGoodPosterMutation) OldEntID(ctx context.Context) (v uuid.UUID, 
 // ResetEntID resets all changes to the "ent_id" field.
 func (m *TopMostGoodPosterMutation) ResetEntID() {
 	m.ent_id = nil
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (m *TopMostGoodPosterMutation) SetCreatedAt(u uint32) {
+	m.created_at = &u
+	m.addcreated_at = nil
+}
+
+// CreatedAt returns the value of the "created_at" field in the mutation.
+func (m *TopMostGoodPosterMutation) CreatedAt() (r uint32, exists bool) {
+	v := m.created_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldCreatedAt returns the old "created_at" field's value of the TopMostGoodPoster entity.
+// If the TopMostGoodPoster object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *TopMostGoodPosterMutation) OldCreatedAt(ctx context.Context) (v uint32, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldCreatedAt is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldCreatedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldCreatedAt: %w", err)
+	}
+	return oldValue.CreatedAt, nil
+}
+
+// AddCreatedAt adds u to the "created_at" field.
+func (m *TopMostGoodPosterMutation) AddCreatedAt(u int32) {
+	if m.addcreated_at != nil {
+		*m.addcreated_at += u
+	} else {
+		m.addcreated_at = &u
+	}
+}
+
+// AddedCreatedAt returns the value that was added to the "created_at" field in this mutation.
+func (m *TopMostGoodPosterMutation) AddedCreatedAt() (r int32, exists bool) {
+	v := m.addcreated_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetCreatedAt resets all changes to the "created_at" field.
+func (m *TopMostGoodPosterMutation) ResetCreatedAt() {
+	m.created_at = nil
+	m.addcreated_at = nil
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (m *TopMostGoodPosterMutation) SetUpdatedAt(u uint32) {
+	m.updated_at = &u
+	m.addupdated_at = nil
+}
+
+// UpdatedAt returns the value of the "updated_at" field in the mutation.
+func (m *TopMostGoodPosterMutation) UpdatedAt() (r uint32, exists bool) {
+	v := m.updated_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldUpdatedAt returns the old "updated_at" field's value of the TopMostGoodPoster entity.
+// If the TopMostGoodPoster object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *TopMostGoodPosterMutation) OldUpdatedAt(ctx context.Context) (v uint32, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldUpdatedAt is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldUpdatedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldUpdatedAt: %w", err)
+	}
+	return oldValue.UpdatedAt, nil
+}
+
+// AddUpdatedAt adds u to the "updated_at" field.
+func (m *TopMostGoodPosterMutation) AddUpdatedAt(u int32) {
+	if m.addupdated_at != nil {
+		*m.addupdated_at += u
+	} else {
+		m.addupdated_at = &u
+	}
+}
+
+// AddedUpdatedAt returns the value that was added to the "updated_at" field in this mutation.
+func (m *TopMostGoodPosterMutation) AddedUpdatedAt() (r int32, exists bool) {
+	v := m.addupdated_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetUpdatedAt resets all changes to the "updated_at" field.
+func (m *TopMostGoodPosterMutation) ResetUpdatedAt() {
+	m.updated_at = nil
+	m.addupdated_at = nil
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (m *TopMostGoodPosterMutation) SetDeletedAt(u uint32) {
+	m.deleted_at = &u
+	m.adddeleted_at = nil
+}
+
+// DeletedAt returns the value of the "deleted_at" field in the mutation.
+func (m *TopMostGoodPosterMutation) DeletedAt() (r uint32, exists bool) {
+	v := m.deleted_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldDeletedAt returns the old "deleted_at" field's value of the TopMostGoodPoster entity.
+// If the TopMostGoodPoster object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *TopMostGoodPosterMutation) OldDeletedAt(ctx context.Context) (v uint32, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldDeletedAt is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldDeletedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldDeletedAt: %w", err)
+	}
+	return oldValue.DeletedAt, nil
+}
+
+// AddDeletedAt adds u to the "deleted_at" field.
+func (m *TopMostGoodPosterMutation) AddDeletedAt(u int32) {
+	if m.adddeleted_at != nil {
+		*m.adddeleted_at += u
+	} else {
+		m.adddeleted_at = &u
+	}
+}
+
+// AddedDeletedAt returns the value that was added to the "deleted_at" field in this mutation.
+func (m *TopMostGoodPosterMutation) AddedDeletedAt() (r int32, exists bool) {
+	v := m.adddeleted_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetDeletedAt resets all changes to the "deleted_at" field.
+func (m *TopMostGoodPosterMutation) ResetDeletedAt() {
+	m.deleted_at = nil
+	m.adddeleted_at = nil
 }
 
 // SetTopMostGoodID sets the "top_most_good_id" field.
@@ -41989,9 +53179,18 @@ func (m *TopMostGoodPosterMutation) Type() string {
 // order to get all numeric fields that were incremented/decremented, call
 // AddedFields().
 func (m *TopMostGoodPosterMutation) Fields() []string {
-	fields := make([]string, 0, 4)
+	fields := make([]string, 0, 7)
 	if m.ent_id != nil {
 		fields = append(fields, topmostgoodposter.FieldEntID)
+	}
+	if m.created_at != nil {
+		fields = append(fields, topmostgoodposter.FieldCreatedAt)
+	}
+	if m.updated_at != nil {
+		fields = append(fields, topmostgoodposter.FieldUpdatedAt)
+	}
+	if m.deleted_at != nil {
+		fields = append(fields, topmostgoodposter.FieldDeletedAt)
 	}
 	if m.top_most_good_id != nil {
 		fields = append(fields, topmostgoodposter.FieldTopMostGoodID)
@@ -42012,6 +53211,12 @@ func (m *TopMostGoodPosterMutation) Field(name string) (ent.Value, bool) {
 	switch name {
 	case topmostgoodposter.FieldEntID:
 		return m.EntID()
+	case topmostgoodposter.FieldCreatedAt:
+		return m.CreatedAt()
+	case topmostgoodposter.FieldUpdatedAt:
+		return m.UpdatedAt()
+	case topmostgoodposter.FieldDeletedAt:
+		return m.DeletedAt()
 	case topmostgoodposter.FieldTopMostGoodID:
 		return m.TopMostGoodID()
 	case topmostgoodposter.FieldPoster:
@@ -42029,6 +53234,12 @@ func (m *TopMostGoodPosterMutation) OldField(ctx context.Context, name string) (
 	switch name {
 	case topmostgoodposter.FieldEntID:
 		return m.OldEntID(ctx)
+	case topmostgoodposter.FieldCreatedAt:
+		return m.OldCreatedAt(ctx)
+	case topmostgoodposter.FieldUpdatedAt:
+		return m.OldUpdatedAt(ctx)
+	case topmostgoodposter.FieldDeletedAt:
+		return m.OldDeletedAt(ctx)
 	case topmostgoodposter.FieldTopMostGoodID:
 		return m.OldTopMostGoodID(ctx)
 	case topmostgoodposter.FieldPoster:
@@ -42050,6 +53261,27 @@ func (m *TopMostGoodPosterMutation) SetField(name string, value ent.Value) error
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetEntID(v)
+		return nil
+	case topmostgoodposter.FieldCreatedAt:
+		v, ok := value.(uint32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetCreatedAt(v)
+		return nil
+	case topmostgoodposter.FieldUpdatedAt:
+		v, ok := value.(uint32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetUpdatedAt(v)
+		return nil
+	case topmostgoodposter.FieldDeletedAt:
+		v, ok := value.(uint32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetDeletedAt(v)
 		return nil
 	case topmostgoodposter.FieldTopMostGoodID:
 		v, ok := value.(uuid.UUID)
@@ -42080,6 +53312,15 @@ func (m *TopMostGoodPosterMutation) SetField(name string, value ent.Value) error
 // this mutation.
 func (m *TopMostGoodPosterMutation) AddedFields() []string {
 	var fields []string
+	if m.addcreated_at != nil {
+		fields = append(fields, topmostgoodposter.FieldCreatedAt)
+	}
+	if m.addupdated_at != nil {
+		fields = append(fields, topmostgoodposter.FieldUpdatedAt)
+	}
+	if m.adddeleted_at != nil {
+		fields = append(fields, topmostgoodposter.FieldDeletedAt)
+	}
 	if m.addindex != nil {
 		fields = append(fields, topmostgoodposter.FieldIndex)
 	}
@@ -42091,6 +53332,12 @@ func (m *TopMostGoodPosterMutation) AddedFields() []string {
 // was not set, or was not defined in the schema.
 func (m *TopMostGoodPosterMutation) AddedField(name string) (ent.Value, bool) {
 	switch name {
+	case topmostgoodposter.FieldCreatedAt:
+		return m.AddedCreatedAt()
+	case topmostgoodposter.FieldUpdatedAt:
+		return m.AddedUpdatedAt()
+	case topmostgoodposter.FieldDeletedAt:
+		return m.AddedDeletedAt()
 	case topmostgoodposter.FieldIndex:
 		return m.AddedIndex()
 	}
@@ -42102,6 +53349,27 @@ func (m *TopMostGoodPosterMutation) AddedField(name string) (ent.Value, bool) {
 // type.
 func (m *TopMostGoodPosterMutation) AddField(name string, value ent.Value) error {
 	switch name {
+	case topmostgoodposter.FieldCreatedAt:
+		v, ok := value.(int32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddCreatedAt(v)
+		return nil
+	case topmostgoodposter.FieldUpdatedAt:
+		v, ok := value.(int32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddUpdatedAt(v)
+		return nil
+	case topmostgoodposter.FieldDeletedAt:
+		v, ok := value.(int32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddDeletedAt(v)
+		return nil
 	case topmostgoodposter.FieldIndex:
 		v, ok := value.(int8)
 		if !ok {
@@ -42159,6 +53427,15 @@ func (m *TopMostGoodPosterMutation) ResetField(name string) error {
 	switch name {
 	case topmostgoodposter.FieldEntID:
 		m.ResetEntID()
+		return nil
+	case topmostgoodposter.FieldCreatedAt:
+		m.ResetCreatedAt()
+		return nil
+	case topmostgoodposter.FieldUpdatedAt:
+		m.ResetUpdatedAt()
+		return nil
+	case topmostgoodposter.FieldDeletedAt:
+		m.ResetDeletedAt()
 		return nil
 	case topmostgoodposter.FieldTopMostGoodID:
 		m.ResetTopMostGoodID()
@@ -42228,6 +53505,12 @@ type TopMostPosterMutation struct {
 	typ           string
 	id            *uint32
 	ent_id        *uuid.UUID
+	created_at    *uint32
+	addcreated_at *int32
+	updated_at    *uint32
+	addupdated_at *int32
+	deleted_at    *uint32
+	adddeleted_at *int32
 	top_most_id   *uuid.UUID
 	poster        *string
 	index         *uint8
@@ -42376,6 +53659,174 @@ func (m *TopMostPosterMutation) OldEntID(ctx context.Context) (v uuid.UUID, err 
 // ResetEntID resets all changes to the "ent_id" field.
 func (m *TopMostPosterMutation) ResetEntID() {
 	m.ent_id = nil
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (m *TopMostPosterMutation) SetCreatedAt(u uint32) {
+	m.created_at = &u
+	m.addcreated_at = nil
+}
+
+// CreatedAt returns the value of the "created_at" field in the mutation.
+func (m *TopMostPosterMutation) CreatedAt() (r uint32, exists bool) {
+	v := m.created_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldCreatedAt returns the old "created_at" field's value of the TopMostPoster entity.
+// If the TopMostPoster object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *TopMostPosterMutation) OldCreatedAt(ctx context.Context) (v uint32, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldCreatedAt is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldCreatedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldCreatedAt: %w", err)
+	}
+	return oldValue.CreatedAt, nil
+}
+
+// AddCreatedAt adds u to the "created_at" field.
+func (m *TopMostPosterMutation) AddCreatedAt(u int32) {
+	if m.addcreated_at != nil {
+		*m.addcreated_at += u
+	} else {
+		m.addcreated_at = &u
+	}
+}
+
+// AddedCreatedAt returns the value that was added to the "created_at" field in this mutation.
+func (m *TopMostPosterMutation) AddedCreatedAt() (r int32, exists bool) {
+	v := m.addcreated_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetCreatedAt resets all changes to the "created_at" field.
+func (m *TopMostPosterMutation) ResetCreatedAt() {
+	m.created_at = nil
+	m.addcreated_at = nil
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (m *TopMostPosterMutation) SetUpdatedAt(u uint32) {
+	m.updated_at = &u
+	m.addupdated_at = nil
+}
+
+// UpdatedAt returns the value of the "updated_at" field in the mutation.
+func (m *TopMostPosterMutation) UpdatedAt() (r uint32, exists bool) {
+	v := m.updated_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldUpdatedAt returns the old "updated_at" field's value of the TopMostPoster entity.
+// If the TopMostPoster object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *TopMostPosterMutation) OldUpdatedAt(ctx context.Context) (v uint32, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldUpdatedAt is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldUpdatedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldUpdatedAt: %w", err)
+	}
+	return oldValue.UpdatedAt, nil
+}
+
+// AddUpdatedAt adds u to the "updated_at" field.
+func (m *TopMostPosterMutation) AddUpdatedAt(u int32) {
+	if m.addupdated_at != nil {
+		*m.addupdated_at += u
+	} else {
+		m.addupdated_at = &u
+	}
+}
+
+// AddedUpdatedAt returns the value that was added to the "updated_at" field in this mutation.
+func (m *TopMostPosterMutation) AddedUpdatedAt() (r int32, exists bool) {
+	v := m.addupdated_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetUpdatedAt resets all changes to the "updated_at" field.
+func (m *TopMostPosterMutation) ResetUpdatedAt() {
+	m.updated_at = nil
+	m.addupdated_at = nil
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (m *TopMostPosterMutation) SetDeletedAt(u uint32) {
+	m.deleted_at = &u
+	m.adddeleted_at = nil
+}
+
+// DeletedAt returns the value of the "deleted_at" field in the mutation.
+func (m *TopMostPosterMutation) DeletedAt() (r uint32, exists bool) {
+	v := m.deleted_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldDeletedAt returns the old "deleted_at" field's value of the TopMostPoster entity.
+// If the TopMostPoster object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *TopMostPosterMutation) OldDeletedAt(ctx context.Context) (v uint32, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldDeletedAt is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldDeletedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldDeletedAt: %w", err)
+	}
+	return oldValue.DeletedAt, nil
+}
+
+// AddDeletedAt adds u to the "deleted_at" field.
+func (m *TopMostPosterMutation) AddDeletedAt(u int32) {
+	if m.adddeleted_at != nil {
+		*m.adddeleted_at += u
+	} else {
+		m.adddeleted_at = &u
+	}
+}
+
+// AddedDeletedAt returns the value that was added to the "deleted_at" field in this mutation.
+func (m *TopMostPosterMutation) AddedDeletedAt() (r int32, exists bool) {
+	v := m.adddeleted_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetDeletedAt resets all changes to the "deleted_at" field.
+func (m *TopMostPosterMutation) ResetDeletedAt() {
+	m.deleted_at = nil
+	m.adddeleted_at = nil
 }
 
 // SetTopMostID sets the "top_most_id" field.
@@ -42580,9 +54031,18 @@ func (m *TopMostPosterMutation) Type() string {
 // order to get all numeric fields that were incremented/decremented, call
 // AddedFields().
 func (m *TopMostPosterMutation) Fields() []string {
-	fields := make([]string, 0, 4)
+	fields := make([]string, 0, 7)
 	if m.ent_id != nil {
 		fields = append(fields, topmostposter.FieldEntID)
+	}
+	if m.created_at != nil {
+		fields = append(fields, topmostposter.FieldCreatedAt)
+	}
+	if m.updated_at != nil {
+		fields = append(fields, topmostposter.FieldUpdatedAt)
+	}
+	if m.deleted_at != nil {
+		fields = append(fields, topmostposter.FieldDeletedAt)
 	}
 	if m.top_most_id != nil {
 		fields = append(fields, topmostposter.FieldTopMostID)
@@ -42603,6 +54063,12 @@ func (m *TopMostPosterMutation) Field(name string) (ent.Value, bool) {
 	switch name {
 	case topmostposter.FieldEntID:
 		return m.EntID()
+	case topmostposter.FieldCreatedAt:
+		return m.CreatedAt()
+	case topmostposter.FieldUpdatedAt:
+		return m.UpdatedAt()
+	case topmostposter.FieldDeletedAt:
+		return m.DeletedAt()
 	case topmostposter.FieldTopMostID:
 		return m.TopMostID()
 	case topmostposter.FieldPoster:
@@ -42620,6 +54086,12 @@ func (m *TopMostPosterMutation) OldField(ctx context.Context, name string) (ent.
 	switch name {
 	case topmostposter.FieldEntID:
 		return m.OldEntID(ctx)
+	case topmostposter.FieldCreatedAt:
+		return m.OldCreatedAt(ctx)
+	case topmostposter.FieldUpdatedAt:
+		return m.OldUpdatedAt(ctx)
+	case topmostposter.FieldDeletedAt:
+		return m.OldDeletedAt(ctx)
 	case topmostposter.FieldTopMostID:
 		return m.OldTopMostID(ctx)
 	case topmostposter.FieldPoster:
@@ -42641,6 +54113,27 @@ func (m *TopMostPosterMutation) SetField(name string, value ent.Value) error {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetEntID(v)
+		return nil
+	case topmostposter.FieldCreatedAt:
+		v, ok := value.(uint32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetCreatedAt(v)
+		return nil
+	case topmostposter.FieldUpdatedAt:
+		v, ok := value.(uint32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetUpdatedAt(v)
+		return nil
+	case topmostposter.FieldDeletedAt:
+		v, ok := value.(uint32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetDeletedAt(v)
 		return nil
 	case topmostposter.FieldTopMostID:
 		v, ok := value.(uuid.UUID)
@@ -42671,6 +54164,15 @@ func (m *TopMostPosterMutation) SetField(name string, value ent.Value) error {
 // this mutation.
 func (m *TopMostPosterMutation) AddedFields() []string {
 	var fields []string
+	if m.addcreated_at != nil {
+		fields = append(fields, topmostposter.FieldCreatedAt)
+	}
+	if m.addupdated_at != nil {
+		fields = append(fields, topmostposter.FieldUpdatedAt)
+	}
+	if m.adddeleted_at != nil {
+		fields = append(fields, topmostposter.FieldDeletedAt)
+	}
 	if m.addindex != nil {
 		fields = append(fields, topmostposter.FieldIndex)
 	}
@@ -42682,6 +54184,12 @@ func (m *TopMostPosterMutation) AddedFields() []string {
 // was not set, or was not defined in the schema.
 func (m *TopMostPosterMutation) AddedField(name string) (ent.Value, bool) {
 	switch name {
+	case topmostposter.FieldCreatedAt:
+		return m.AddedCreatedAt()
+	case topmostposter.FieldUpdatedAt:
+		return m.AddedUpdatedAt()
+	case topmostposter.FieldDeletedAt:
+		return m.AddedDeletedAt()
 	case topmostposter.FieldIndex:
 		return m.AddedIndex()
 	}
@@ -42693,6 +54201,27 @@ func (m *TopMostPosterMutation) AddedField(name string) (ent.Value, bool) {
 // type.
 func (m *TopMostPosterMutation) AddField(name string, value ent.Value) error {
 	switch name {
+	case topmostposter.FieldCreatedAt:
+		v, ok := value.(int32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddCreatedAt(v)
+		return nil
+	case topmostposter.FieldUpdatedAt:
+		v, ok := value.(int32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddUpdatedAt(v)
+		return nil
+	case topmostposter.FieldDeletedAt:
+		v, ok := value.(int32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddDeletedAt(v)
+		return nil
 	case topmostposter.FieldIndex:
 		v, ok := value.(int8)
 		if !ok {
@@ -42750,6 +54279,15 @@ func (m *TopMostPosterMutation) ResetField(name string) error {
 	switch name {
 	case topmostposter.FieldEntID:
 		m.ResetEntID()
+		return nil
+	case topmostposter.FieldCreatedAt:
+		m.ResetCreatedAt()
+		return nil
+	case topmostposter.FieldUpdatedAt:
+		m.ResetUpdatedAt()
+		return nil
+	case topmostposter.FieldDeletedAt:
+		m.ResetDeletedAt()
 		return nil
 	case topmostposter.FieldTopMostID:
 		m.ResetTopMostID()
@@ -42819,6 +54357,12 @@ type VendorBrandMutation struct {
 	typ           string
 	id            *uint32
 	ent_id        *uuid.UUID
+	created_at    *uint32
+	addcreated_at *int32
+	updated_at    *uint32
+	addupdated_at *int32
+	deleted_at    *uint32
+	adddeleted_at *int32
 	name          *string
 	logo          *string
 	clearedFields map[string]struct{}
@@ -42967,6 +54511,174 @@ func (m *VendorBrandMutation) ResetEntID() {
 	m.ent_id = nil
 }
 
+// SetCreatedAt sets the "created_at" field.
+func (m *VendorBrandMutation) SetCreatedAt(u uint32) {
+	m.created_at = &u
+	m.addcreated_at = nil
+}
+
+// CreatedAt returns the value of the "created_at" field in the mutation.
+func (m *VendorBrandMutation) CreatedAt() (r uint32, exists bool) {
+	v := m.created_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldCreatedAt returns the old "created_at" field's value of the VendorBrand entity.
+// If the VendorBrand object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *VendorBrandMutation) OldCreatedAt(ctx context.Context) (v uint32, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldCreatedAt is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldCreatedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldCreatedAt: %w", err)
+	}
+	return oldValue.CreatedAt, nil
+}
+
+// AddCreatedAt adds u to the "created_at" field.
+func (m *VendorBrandMutation) AddCreatedAt(u int32) {
+	if m.addcreated_at != nil {
+		*m.addcreated_at += u
+	} else {
+		m.addcreated_at = &u
+	}
+}
+
+// AddedCreatedAt returns the value that was added to the "created_at" field in this mutation.
+func (m *VendorBrandMutation) AddedCreatedAt() (r int32, exists bool) {
+	v := m.addcreated_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetCreatedAt resets all changes to the "created_at" field.
+func (m *VendorBrandMutation) ResetCreatedAt() {
+	m.created_at = nil
+	m.addcreated_at = nil
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (m *VendorBrandMutation) SetUpdatedAt(u uint32) {
+	m.updated_at = &u
+	m.addupdated_at = nil
+}
+
+// UpdatedAt returns the value of the "updated_at" field in the mutation.
+func (m *VendorBrandMutation) UpdatedAt() (r uint32, exists bool) {
+	v := m.updated_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldUpdatedAt returns the old "updated_at" field's value of the VendorBrand entity.
+// If the VendorBrand object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *VendorBrandMutation) OldUpdatedAt(ctx context.Context) (v uint32, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldUpdatedAt is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldUpdatedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldUpdatedAt: %w", err)
+	}
+	return oldValue.UpdatedAt, nil
+}
+
+// AddUpdatedAt adds u to the "updated_at" field.
+func (m *VendorBrandMutation) AddUpdatedAt(u int32) {
+	if m.addupdated_at != nil {
+		*m.addupdated_at += u
+	} else {
+		m.addupdated_at = &u
+	}
+}
+
+// AddedUpdatedAt returns the value that was added to the "updated_at" field in this mutation.
+func (m *VendorBrandMutation) AddedUpdatedAt() (r int32, exists bool) {
+	v := m.addupdated_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetUpdatedAt resets all changes to the "updated_at" field.
+func (m *VendorBrandMutation) ResetUpdatedAt() {
+	m.updated_at = nil
+	m.addupdated_at = nil
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (m *VendorBrandMutation) SetDeletedAt(u uint32) {
+	m.deleted_at = &u
+	m.adddeleted_at = nil
+}
+
+// DeletedAt returns the value of the "deleted_at" field in the mutation.
+func (m *VendorBrandMutation) DeletedAt() (r uint32, exists bool) {
+	v := m.deleted_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldDeletedAt returns the old "deleted_at" field's value of the VendorBrand entity.
+// If the VendorBrand object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *VendorBrandMutation) OldDeletedAt(ctx context.Context) (v uint32, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldDeletedAt is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldDeletedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldDeletedAt: %w", err)
+	}
+	return oldValue.DeletedAt, nil
+}
+
+// AddDeletedAt adds u to the "deleted_at" field.
+func (m *VendorBrandMutation) AddDeletedAt(u int32) {
+	if m.adddeleted_at != nil {
+		*m.adddeleted_at += u
+	} else {
+		m.adddeleted_at = &u
+	}
+}
+
+// AddedDeletedAt returns the value that was added to the "deleted_at" field in this mutation.
+func (m *VendorBrandMutation) AddedDeletedAt() (r int32, exists bool) {
+	v := m.adddeleted_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetDeletedAt resets all changes to the "deleted_at" field.
+func (m *VendorBrandMutation) ResetDeletedAt() {
+	m.deleted_at = nil
+	m.adddeleted_at = nil
+}
+
 // SetName sets the "name" field.
 func (m *VendorBrandMutation) SetName(s string) {
 	m.name = &s
@@ -43099,9 +54811,18 @@ func (m *VendorBrandMutation) Type() string {
 // order to get all numeric fields that were incremented/decremented, call
 // AddedFields().
 func (m *VendorBrandMutation) Fields() []string {
-	fields := make([]string, 0, 3)
+	fields := make([]string, 0, 6)
 	if m.ent_id != nil {
 		fields = append(fields, vendorbrand.FieldEntID)
+	}
+	if m.created_at != nil {
+		fields = append(fields, vendorbrand.FieldCreatedAt)
+	}
+	if m.updated_at != nil {
+		fields = append(fields, vendorbrand.FieldUpdatedAt)
+	}
+	if m.deleted_at != nil {
+		fields = append(fields, vendorbrand.FieldDeletedAt)
 	}
 	if m.name != nil {
 		fields = append(fields, vendorbrand.FieldName)
@@ -43119,6 +54840,12 @@ func (m *VendorBrandMutation) Field(name string) (ent.Value, bool) {
 	switch name {
 	case vendorbrand.FieldEntID:
 		return m.EntID()
+	case vendorbrand.FieldCreatedAt:
+		return m.CreatedAt()
+	case vendorbrand.FieldUpdatedAt:
+		return m.UpdatedAt()
+	case vendorbrand.FieldDeletedAt:
+		return m.DeletedAt()
 	case vendorbrand.FieldName:
 		return m.Name()
 	case vendorbrand.FieldLogo:
@@ -43134,6 +54861,12 @@ func (m *VendorBrandMutation) OldField(ctx context.Context, name string) (ent.Va
 	switch name {
 	case vendorbrand.FieldEntID:
 		return m.OldEntID(ctx)
+	case vendorbrand.FieldCreatedAt:
+		return m.OldCreatedAt(ctx)
+	case vendorbrand.FieldUpdatedAt:
+		return m.OldUpdatedAt(ctx)
+	case vendorbrand.FieldDeletedAt:
+		return m.OldDeletedAt(ctx)
 	case vendorbrand.FieldName:
 		return m.OldName(ctx)
 	case vendorbrand.FieldLogo:
@@ -43153,6 +54886,27 @@ func (m *VendorBrandMutation) SetField(name string, value ent.Value) error {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetEntID(v)
+		return nil
+	case vendorbrand.FieldCreatedAt:
+		v, ok := value.(uint32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetCreatedAt(v)
+		return nil
+	case vendorbrand.FieldUpdatedAt:
+		v, ok := value.(uint32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetUpdatedAt(v)
+		return nil
+	case vendorbrand.FieldDeletedAt:
+		v, ok := value.(uint32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetDeletedAt(v)
 		return nil
 	case vendorbrand.FieldName:
 		v, ok := value.(string)
@@ -43175,13 +54929,31 @@ func (m *VendorBrandMutation) SetField(name string, value ent.Value) error {
 // AddedFields returns all numeric fields that were incremented/decremented during
 // this mutation.
 func (m *VendorBrandMutation) AddedFields() []string {
-	return nil
+	var fields []string
+	if m.addcreated_at != nil {
+		fields = append(fields, vendorbrand.FieldCreatedAt)
+	}
+	if m.addupdated_at != nil {
+		fields = append(fields, vendorbrand.FieldUpdatedAt)
+	}
+	if m.adddeleted_at != nil {
+		fields = append(fields, vendorbrand.FieldDeletedAt)
+	}
+	return fields
 }
 
 // AddedField returns the numeric value that was incremented/decremented on a field
 // with the given name. The second boolean return value indicates that this field
 // was not set, or was not defined in the schema.
 func (m *VendorBrandMutation) AddedField(name string) (ent.Value, bool) {
+	switch name {
+	case vendorbrand.FieldCreatedAt:
+		return m.AddedCreatedAt()
+	case vendorbrand.FieldUpdatedAt:
+		return m.AddedUpdatedAt()
+	case vendorbrand.FieldDeletedAt:
+		return m.AddedDeletedAt()
+	}
 	return nil, false
 }
 
@@ -43190,6 +54962,27 @@ func (m *VendorBrandMutation) AddedField(name string) (ent.Value, bool) {
 // type.
 func (m *VendorBrandMutation) AddField(name string, value ent.Value) error {
 	switch name {
+	case vendorbrand.FieldCreatedAt:
+		v, ok := value.(int32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddCreatedAt(v)
+		return nil
+	case vendorbrand.FieldUpdatedAt:
+		v, ok := value.(int32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddUpdatedAt(v)
+		return nil
+	case vendorbrand.FieldDeletedAt:
+		v, ok := value.(int32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddDeletedAt(v)
+		return nil
 	}
 	return fmt.Errorf("unknown VendorBrand numeric field %s", name)
 }
@@ -43234,6 +55027,15 @@ func (m *VendorBrandMutation) ResetField(name string) error {
 	switch name {
 	case vendorbrand.FieldEntID:
 		m.ResetEntID()
+		return nil
+	case vendorbrand.FieldCreatedAt:
+		m.ResetCreatedAt()
+		return nil
+	case vendorbrand.FieldUpdatedAt:
+		m.ResetUpdatedAt()
+		return nil
+	case vendorbrand.FieldDeletedAt:
+		m.ResetDeletedAt()
 		return nil
 	case vendorbrand.FieldName:
 		m.ResetName()
@@ -43300,6 +55102,12 @@ type VendorLocationMutation struct {
 	typ           string
 	id            *uint32
 	ent_id        *uuid.UUID
+	created_at    *uint32
+	addcreated_at *int32
+	updated_at    *uint32
+	addupdated_at *int32
+	deleted_at    *uint32
+	adddeleted_at *int32
 	country       *string
 	province      *string
 	city          *string
@@ -43449,6 +55257,174 @@ func (m *VendorLocationMutation) OldEntID(ctx context.Context) (v uuid.UUID, err
 // ResetEntID resets all changes to the "ent_id" field.
 func (m *VendorLocationMutation) ResetEntID() {
 	m.ent_id = nil
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (m *VendorLocationMutation) SetCreatedAt(u uint32) {
+	m.created_at = &u
+	m.addcreated_at = nil
+}
+
+// CreatedAt returns the value of the "created_at" field in the mutation.
+func (m *VendorLocationMutation) CreatedAt() (r uint32, exists bool) {
+	v := m.created_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldCreatedAt returns the old "created_at" field's value of the VendorLocation entity.
+// If the VendorLocation object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *VendorLocationMutation) OldCreatedAt(ctx context.Context) (v uint32, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldCreatedAt is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldCreatedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldCreatedAt: %w", err)
+	}
+	return oldValue.CreatedAt, nil
+}
+
+// AddCreatedAt adds u to the "created_at" field.
+func (m *VendorLocationMutation) AddCreatedAt(u int32) {
+	if m.addcreated_at != nil {
+		*m.addcreated_at += u
+	} else {
+		m.addcreated_at = &u
+	}
+}
+
+// AddedCreatedAt returns the value that was added to the "created_at" field in this mutation.
+func (m *VendorLocationMutation) AddedCreatedAt() (r int32, exists bool) {
+	v := m.addcreated_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetCreatedAt resets all changes to the "created_at" field.
+func (m *VendorLocationMutation) ResetCreatedAt() {
+	m.created_at = nil
+	m.addcreated_at = nil
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (m *VendorLocationMutation) SetUpdatedAt(u uint32) {
+	m.updated_at = &u
+	m.addupdated_at = nil
+}
+
+// UpdatedAt returns the value of the "updated_at" field in the mutation.
+func (m *VendorLocationMutation) UpdatedAt() (r uint32, exists bool) {
+	v := m.updated_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldUpdatedAt returns the old "updated_at" field's value of the VendorLocation entity.
+// If the VendorLocation object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *VendorLocationMutation) OldUpdatedAt(ctx context.Context) (v uint32, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldUpdatedAt is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldUpdatedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldUpdatedAt: %w", err)
+	}
+	return oldValue.UpdatedAt, nil
+}
+
+// AddUpdatedAt adds u to the "updated_at" field.
+func (m *VendorLocationMutation) AddUpdatedAt(u int32) {
+	if m.addupdated_at != nil {
+		*m.addupdated_at += u
+	} else {
+		m.addupdated_at = &u
+	}
+}
+
+// AddedUpdatedAt returns the value that was added to the "updated_at" field in this mutation.
+func (m *VendorLocationMutation) AddedUpdatedAt() (r int32, exists bool) {
+	v := m.addupdated_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetUpdatedAt resets all changes to the "updated_at" field.
+func (m *VendorLocationMutation) ResetUpdatedAt() {
+	m.updated_at = nil
+	m.addupdated_at = nil
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (m *VendorLocationMutation) SetDeletedAt(u uint32) {
+	m.deleted_at = &u
+	m.adddeleted_at = nil
+}
+
+// DeletedAt returns the value of the "deleted_at" field in the mutation.
+func (m *VendorLocationMutation) DeletedAt() (r uint32, exists bool) {
+	v := m.deleted_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldDeletedAt returns the old "deleted_at" field's value of the VendorLocation entity.
+// If the VendorLocation object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *VendorLocationMutation) OldDeletedAt(ctx context.Context) (v uint32, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldDeletedAt is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldDeletedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldDeletedAt: %w", err)
+	}
+	return oldValue.DeletedAt, nil
+}
+
+// AddDeletedAt adds u to the "deleted_at" field.
+func (m *VendorLocationMutation) AddDeletedAt(u int32) {
+	if m.adddeleted_at != nil {
+		*m.adddeleted_at += u
+	} else {
+		m.adddeleted_at = &u
+	}
+}
+
+// AddedDeletedAt returns the value that was added to the "deleted_at" field in this mutation.
+func (m *VendorLocationMutation) AddedDeletedAt() (r int32, exists bool) {
+	v := m.adddeleted_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetDeletedAt resets all changes to the "deleted_at" field.
+func (m *VendorLocationMutation) ResetDeletedAt() {
+	m.deleted_at = nil
+	m.adddeleted_at = nil
 }
 
 // SetCountry sets the "country" field.
@@ -43730,9 +55706,18 @@ func (m *VendorLocationMutation) Type() string {
 // order to get all numeric fields that were incremented/decremented, call
 // AddedFields().
 func (m *VendorLocationMutation) Fields() []string {
-	fields := make([]string, 0, 6)
+	fields := make([]string, 0, 9)
 	if m.ent_id != nil {
 		fields = append(fields, vendorlocation.FieldEntID)
+	}
+	if m.created_at != nil {
+		fields = append(fields, vendorlocation.FieldCreatedAt)
+	}
+	if m.updated_at != nil {
+		fields = append(fields, vendorlocation.FieldUpdatedAt)
+	}
+	if m.deleted_at != nil {
+		fields = append(fields, vendorlocation.FieldDeletedAt)
 	}
 	if m.country != nil {
 		fields = append(fields, vendorlocation.FieldCountry)
@@ -43759,6 +55744,12 @@ func (m *VendorLocationMutation) Field(name string) (ent.Value, bool) {
 	switch name {
 	case vendorlocation.FieldEntID:
 		return m.EntID()
+	case vendorlocation.FieldCreatedAt:
+		return m.CreatedAt()
+	case vendorlocation.FieldUpdatedAt:
+		return m.UpdatedAt()
+	case vendorlocation.FieldDeletedAt:
+		return m.DeletedAt()
 	case vendorlocation.FieldCountry:
 		return m.Country()
 	case vendorlocation.FieldProvince:
@@ -43780,6 +55771,12 @@ func (m *VendorLocationMutation) OldField(ctx context.Context, name string) (ent
 	switch name {
 	case vendorlocation.FieldEntID:
 		return m.OldEntID(ctx)
+	case vendorlocation.FieldCreatedAt:
+		return m.OldCreatedAt(ctx)
+	case vendorlocation.FieldUpdatedAt:
+		return m.OldUpdatedAt(ctx)
+	case vendorlocation.FieldDeletedAt:
+		return m.OldDeletedAt(ctx)
 	case vendorlocation.FieldCountry:
 		return m.OldCountry(ctx)
 	case vendorlocation.FieldProvince:
@@ -43805,6 +55802,27 @@ func (m *VendorLocationMutation) SetField(name string, value ent.Value) error {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetEntID(v)
+		return nil
+	case vendorlocation.FieldCreatedAt:
+		v, ok := value.(uint32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetCreatedAt(v)
+		return nil
+	case vendorlocation.FieldUpdatedAt:
+		v, ok := value.(uint32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetUpdatedAt(v)
+		return nil
+	case vendorlocation.FieldDeletedAt:
+		v, ok := value.(uint32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetDeletedAt(v)
 		return nil
 	case vendorlocation.FieldCountry:
 		v, ok := value.(string)
@@ -43848,13 +55866,31 @@ func (m *VendorLocationMutation) SetField(name string, value ent.Value) error {
 // AddedFields returns all numeric fields that were incremented/decremented during
 // this mutation.
 func (m *VendorLocationMutation) AddedFields() []string {
-	return nil
+	var fields []string
+	if m.addcreated_at != nil {
+		fields = append(fields, vendorlocation.FieldCreatedAt)
+	}
+	if m.addupdated_at != nil {
+		fields = append(fields, vendorlocation.FieldUpdatedAt)
+	}
+	if m.adddeleted_at != nil {
+		fields = append(fields, vendorlocation.FieldDeletedAt)
+	}
+	return fields
 }
 
 // AddedField returns the numeric value that was incremented/decremented on a field
 // with the given name. The second boolean return value indicates that this field
 // was not set, or was not defined in the schema.
 func (m *VendorLocationMutation) AddedField(name string) (ent.Value, bool) {
+	switch name {
+	case vendorlocation.FieldCreatedAt:
+		return m.AddedCreatedAt()
+	case vendorlocation.FieldUpdatedAt:
+		return m.AddedUpdatedAt()
+	case vendorlocation.FieldDeletedAt:
+		return m.AddedDeletedAt()
+	}
 	return nil, false
 }
 
@@ -43863,6 +55899,27 @@ func (m *VendorLocationMutation) AddedField(name string) (ent.Value, bool) {
 // type.
 func (m *VendorLocationMutation) AddField(name string, value ent.Value) error {
 	switch name {
+	case vendorlocation.FieldCreatedAt:
+		v, ok := value.(int32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddCreatedAt(v)
+		return nil
+	case vendorlocation.FieldUpdatedAt:
+		v, ok := value.(int32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddUpdatedAt(v)
+		return nil
+	case vendorlocation.FieldDeletedAt:
+		v, ok := value.(int32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddDeletedAt(v)
+		return nil
 	}
 	return fmt.Errorf("unknown VendorLocation numeric field %s", name)
 }
@@ -43925,6 +55982,15 @@ func (m *VendorLocationMutation) ResetField(name string) error {
 	switch name {
 	case vendorlocation.FieldEntID:
 		m.ResetEntID()
+		return nil
+	case vendorlocation.FieldCreatedAt:
+		m.ResetCreatedAt()
+		return nil
+	case vendorlocation.FieldUpdatedAt:
+		m.ResetUpdatedAt()
+		return nil
+	case vendorlocation.FieldDeletedAt:
+		m.ResetDeletedAt()
 		return nil
 	case vendorlocation.FieldCountry:
 		m.ResetCountry()

@@ -20,6 +20,7 @@ type GoodRewardHistory struct {
 func (GoodRewardHistory) Mixin() []ent.Mixin {
 	return []ent.Mixin{
 		crudermixin.AutoIDMixin{},
+		crudermixin.TimeMixin{},
 	}
 }
 

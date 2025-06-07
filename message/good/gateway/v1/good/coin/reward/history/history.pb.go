@@ -7,7 +7,7 @@
 package history
 
 import (
-	history "github.com/NpoolPlatform/message/good/middleware/v1/good/coin/reward/history"
+	history "github.com/NpoolPlatform/kunman/message/good/middleware/v1/good/coin/reward/history"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"

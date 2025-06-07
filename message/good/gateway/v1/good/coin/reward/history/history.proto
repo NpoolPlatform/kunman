@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package good.gateway.good1.coin.reward.history.v1;
 
-option go_package = "github.com/NpoolPlatform/message/good/gateway/v1/good/coin/reward/history";
+option go_package = "github.com/NpoolPlatform/kunman/message/good/gateway/v1/good/coin/reward/history";
 
 import "google/api/annotations.proto";
 import "good/middleware/v1/good/coin/reward/history/history.proto";

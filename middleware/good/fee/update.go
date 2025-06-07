@@ -7,7 +7,7 @@ import (
 	feecrud "github.com/NpoolPlatform/kunman/middleware/good/crud/fee"
 	"github.com/NpoolPlatform/kunman/middleware/good/db"
 	"github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated"
-	goodbase1 "github.com/NpoolPlatform/kunman/middleware/good/middleware/good/goodbase"
+	goodbase1 "github.com/NpoolPlatform/kunman/middleware/good/good/goodbase"
 	cruder "github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 )
 

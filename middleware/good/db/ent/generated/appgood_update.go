@@ -45,6 +45,61 @@ func (agu *AppGoodUpdate) SetNillableEntID(u *uuid.UUID) *AppGoodUpdate {
 	return agu
 }
 
+// SetCreatedAt sets the "created_at" field.
+func (agu *AppGoodUpdate) SetCreatedAt(u uint32) *AppGoodUpdate {
+	agu.mutation.ResetCreatedAt()
+	agu.mutation.SetCreatedAt(u)
+	return agu
+}
+
+// SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
+func (agu *AppGoodUpdate) SetNillableCreatedAt(u *uint32) *AppGoodUpdate {
+	if u != nil {
+		agu.SetCreatedAt(*u)
+	}
+	return agu
+}
+
+// AddCreatedAt adds u to the "created_at" field.
+func (agu *AppGoodUpdate) AddCreatedAt(u int32) *AppGoodUpdate {
+	agu.mutation.AddCreatedAt(u)
+	return agu
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (agu *AppGoodUpdate) SetUpdatedAt(u uint32) *AppGoodUpdate {
+	agu.mutation.ResetUpdatedAt()
+	agu.mutation.SetUpdatedAt(u)
+	return agu
+}
+
+// AddUpdatedAt adds u to the "updated_at" field.
+func (agu *AppGoodUpdate) AddUpdatedAt(u int32) *AppGoodUpdate {
+	agu.mutation.AddUpdatedAt(u)
+	return agu
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (agu *AppGoodUpdate) SetDeletedAt(u uint32) *AppGoodUpdate {
+	agu.mutation.ResetDeletedAt()
+	agu.mutation.SetDeletedAt(u)
+	return agu
+}
+
+// SetNillableDeletedAt sets the "deleted_at" field if the given value is not nil.
+func (agu *AppGoodUpdate) SetNillableDeletedAt(u *uint32) *AppGoodUpdate {
+	if u != nil {
+		agu.SetDeletedAt(*u)
+	}
+	return agu
+}
+
+// AddDeletedAt adds u to the "deleted_at" field.
+func (agu *AppGoodUpdate) AddDeletedAt(u int32) *AppGoodUpdate {
+	agu.mutation.AddDeletedAt(u)
+	return agu
+}
+
 // SetAppID sets the "app_id" field.
 func (agu *AppGoodUpdate) SetAppID(u uuid.UUID) *AppGoodUpdate {
 	agu.mutation.SetAppID(u)
@@ -681,6 +736,7 @@ func (agu *AppGoodUpdate) Mutation() *AppGoodMutation {
 
 // Save executes the query and returns the number of nodes affected by the update operation.
 func (agu *AppGoodUpdate) Save(ctx context.Context) (int, error) {
+	agu.defaults()
 	return withHooks(ctx, agu.sqlSave, agu.mutation, agu.hooks)
 }
 
@@ -706,6 +762,14 @@ func (agu *AppGoodUpdate) ExecX(ctx context.Context) {
 	}
 }
 
+// defaults sets the default values of the builder before save.
+func (agu *AppGoodUpdate) defaults() {
+	if _, ok := agu.mutation.UpdatedAt(); !ok {
+		v := appgood.UpdateDefaultUpdatedAt()
+		agu.mutation.SetUpdatedAt(v)
+	}
+}
+
 // Modify adds a statement modifier for attaching custom logic to the UPDATE statement.
 func (agu *AppGoodUpdate) Modify(modifiers ...func(u *sql.UpdateBuilder)) *AppGoodUpdate {
 	agu.modifiers = append(agu.modifiers, modifiers...)
@@ -723,6 +787,24 @@ func (agu *AppGoodUpdate) sqlSave(ctx context.Context) (n int, err error) {
 	}
 	if value, ok := agu.mutation.EntID(); ok {
 		_spec.SetField(appgood.FieldEntID, field.TypeUUID, value)
+	}
+	if value, ok := agu.mutation.CreatedAt(); ok {
+		_spec.SetField(appgood.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := agu.mutation.AddedCreatedAt(); ok {
+		_spec.AddField(appgood.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := agu.mutation.UpdatedAt(); ok {
+		_spec.SetField(appgood.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := agu.mutation.AddedUpdatedAt(); ok {
+		_spec.AddField(appgood.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := agu.mutation.DeletedAt(); ok {
+		_spec.SetField(appgood.FieldDeletedAt, field.TypeUint32, value)
+	}
+	if value, ok := agu.mutation.AddedDeletedAt(); ok {
+		_spec.AddField(appgood.FieldDeletedAt, field.TypeUint32, value)
 	}
 	if value, ok := agu.mutation.AppID(); ok {
 		_spec.SetField(appgood.FieldAppID, field.TypeUUID, value)
@@ -972,6 +1054,61 @@ func (aguo *AppGoodUpdateOne) SetNillableEntID(u *uuid.UUID) *AppGoodUpdateOne {
 	if u != nil {
 		aguo.SetEntID(*u)
 	}
+	return aguo
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (aguo *AppGoodUpdateOne) SetCreatedAt(u uint32) *AppGoodUpdateOne {
+	aguo.mutation.ResetCreatedAt()
+	aguo.mutation.SetCreatedAt(u)
+	return aguo
+}
+
+// SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
+func (aguo *AppGoodUpdateOne) SetNillableCreatedAt(u *uint32) *AppGoodUpdateOne {
+	if u != nil {
+		aguo.SetCreatedAt(*u)
+	}
+	return aguo
+}
+
+// AddCreatedAt adds u to the "created_at" field.
+func (aguo *AppGoodUpdateOne) AddCreatedAt(u int32) *AppGoodUpdateOne {
+	aguo.mutation.AddCreatedAt(u)
+	return aguo
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (aguo *AppGoodUpdateOne) SetUpdatedAt(u uint32) *AppGoodUpdateOne {
+	aguo.mutation.ResetUpdatedAt()
+	aguo.mutation.SetUpdatedAt(u)
+	return aguo
+}
+
+// AddUpdatedAt adds u to the "updated_at" field.
+func (aguo *AppGoodUpdateOne) AddUpdatedAt(u int32) *AppGoodUpdateOne {
+	aguo.mutation.AddUpdatedAt(u)
+	return aguo
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (aguo *AppGoodUpdateOne) SetDeletedAt(u uint32) *AppGoodUpdateOne {
+	aguo.mutation.ResetDeletedAt()
+	aguo.mutation.SetDeletedAt(u)
+	return aguo
+}
+
+// SetNillableDeletedAt sets the "deleted_at" field if the given value is not nil.
+func (aguo *AppGoodUpdateOne) SetNillableDeletedAt(u *uint32) *AppGoodUpdateOne {
+	if u != nil {
+		aguo.SetDeletedAt(*u)
+	}
+	return aguo
+}
+
+// AddDeletedAt adds u to the "deleted_at" field.
+func (aguo *AppGoodUpdateOne) AddDeletedAt(u int32) *AppGoodUpdateOne {
+	aguo.mutation.AddDeletedAt(u)
 	return aguo
 }
 
@@ -1624,6 +1761,7 @@ func (aguo *AppGoodUpdateOne) Select(field string, fields ...string) *AppGoodUpd
 
 // Save executes the query and returns the updated AppGood entity.
 func (aguo *AppGoodUpdateOne) Save(ctx context.Context) (*AppGood, error) {
+	aguo.defaults()
 	return withHooks(ctx, aguo.sqlSave, aguo.mutation, aguo.hooks)
 }
 
@@ -1646,6 +1784,14 @@ func (aguo *AppGoodUpdateOne) Exec(ctx context.Context) error {
 func (aguo *AppGoodUpdateOne) ExecX(ctx context.Context) {
 	if err := aguo.Exec(ctx); err != nil {
 		panic(err)
+	}
+}
+
+// defaults sets the default values of the builder before save.
+func (aguo *AppGoodUpdateOne) defaults() {
+	if _, ok := aguo.mutation.UpdatedAt(); !ok {
+		v := appgood.UpdateDefaultUpdatedAt()
+		aguo.mutation.SetUpdatedAt(v)
 	}
 }
 
@@ -1683,6 +1829,24 @@ func (aguo *AppGoodUpdateOne) sqlSave(ctx context.Context) (_node *AppGood, err 
 	}
 	if value, ok := aguo.mutation.EntID(); ok {
 		_spec.SetField(appgood.FieldEntID, field.TypeUUID, value)
+	}
+	if value, ok := aguo.mutation.CreatedAt(); ok {
+		_spec.SetField(appgood.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := aguo.mutation.AddedCreatedAt(); ok {
+		_spec.AddField(appgood.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := aguo.mutation.UpdatedAt(); ok {
+		_spec.SetField(appgood.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := aguo.mutation.AddedUpdatedAt(); ok {
+		_spec.AddField(appgood.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := aguo.mutation.DeletedAt(); ok {
+		_spec.SetField(appgood.FieldDeletedAt, field.TypeUint32, value)
+	}
+	if value, ok := aguo.mutation.AddedDeletedAt(); ok {
+		_spec.AddField(appgood.FieldDeletedAt, field.TypeUint32, value)
 	}
 	if value, ok := aguo.mutation.AppID(); ok {
 		_spec.SetField(appgood.FieldAppID, field.TypeUUID, value)

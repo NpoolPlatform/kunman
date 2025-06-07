@@ -36,6 +36,48 @@ func (lc *LikeCreate) SetNillableEntID(u *uuid.UUID) *LikeCreate {
 	return lc
 }
 
+// SetCreatedAt sets the "created_at" field.
+func (lc *LikeCreate) SetCreatedAt(u uint32) *LikeCreate {
+	lc.mutation.SetCreatedAt(u)
+	return lc
+}
+
+// SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
+func (lc *LikeCreate) SetNillableCreatedAt(u *uint32) *LikeCreate {
+	if u != nil {
+		lc.SetCreatedAt(*u)
+	}
+	return lc
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (lc *LikeCreate) SetUpdatedAt(u uint32) *LikeCreate {
+	lc.mutation.SetUpdatedAt(u)
+	return lc
+}
+
+// SetNillableUpdatedAt sets the "updated_at" field if the given value is not nil.
+func (lc *LikeCreate) SetNillableUpdatedAt(u *uint32) *LikeCreate {
+	if u != nil {
+		lc.SetUpdatedAt(*u)
+	}
+	return lc
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (lc *LikeCreate) SetDeletedAt(u uint32) *LikeCreate {
+	lc.mutation.SetDeletedAt(u)
+	return lc
+}
+
+// SetNillableDeletedAt sets the "deleted_at" field if the given value is not nil.
+func (lc *LikeCreate) SetNillableDeletedAt(u *uint32) *LikeCreate {
+	if u != nil {
+		lc.SetDeletedAt(*u)
+	}
+	return lc
+}
+
 // SetUserID sets the "user_id" field.
 func (lc *LikeCreate) SetUserID(u uuid.UUID) *LikeCreate {
 	lc.mutation.SetUserID(u)
@@ -115,6 +157,18 @@ func (lc *LikeCreate) defaults() {
 		v := like.DefaultEntID()
 		lc.mutation.SetEntID(v)
 	}
+	if _, ok := lc.mutation.CreatedAt(); !ok {
+		v := like.DefaultCreatedAt()
+		lc.mutation.SetCreatedAt(v)
+	}
+	if _, ok := lc.mutation.UpdatedAt(); !ok {
+		v := like.DefaultUpdatedAt()
+		lc.mutation.SetUpdatedAt(v)
+	}
+	if _, ok := lc.mutation.DeletedAt(); !ok {
+		v := like.DefaultDeletedAt()
+		lc.mutation.SetDeletedAt(v)
+	}
 	if _, ok := lc.mutation.UserID(); !ok {
 		v := like.DefaultUserID()
 		lc.mutation.SetUserID(v)
@@ -129,6 +183,15 @@ func (lc *LikeCreate) defaults() {
 func (lc *LikeCreate) check() error {
 	if _, ok := lc.mutation.EntID(); !ok {
 		return &ValidationError{Name: "ent_id", err: errors.New(`generated: missing required field "Like.ent_id"`)}
+	}
+	if _, ok := lc.mutation.CreatedAt(); !ok {
+		return &ValidationError{Name: "created_at", err: errors.New(`generated: missing required field "Like.created_at"`)}
+	}
+	if _, ok := lc.mutation.UpdatedAt(); !ok {
+		return &ValidationError{Name: "updated_at", err: errors.New(`generated: missing required field "Like.updated_at"`)}
+	}
+	if _, ok := lc.mutation.DeletedAt(); !ok {
+		return &ValidationError{Name: "deleted_at", err: errors.New(`generated: missing required field "Like.deleted_at"`)}
 	}
 	if _, ok := lc.mutation.Like(); !ok {
 		return &ValidationError{Name: "like", err: errors.New(`generated: missing required field "Like.like"`)}
@@ -169,6 +232,18 @@ func (lc *LikeCreate) createSpec() (*Like, *sqlgraph.CreateSpec) {
 	if value, ok := lc.mutation.EntID(); ok {
 		_spec.SetField(like.FieldEntID, field.TypeUUID, value)
 		_node.EntID = value
+	}
+	if value, ok := lc.mutation.CreatedAt(); ok {
+		_spec.SetField(like.FieldCreatedAt, field.TypeUint32, value)
+		_node.CreatedAt = value
+	}
+	if value, ok := lc.mutation.UpdatedAt(); ok {
+		_spec.SetField(like.FieldUpdatedAt, field.TypeUint32, value)
+		_node.UpdatedAt = value
+	}
+	if value, ok := lc.mutation.DeletedAt(); ok {
+		_spec.SetField(like.FieldDeletedAt, field.TypeUint32, value)
+		_node.DeletedAt = value
 	}
 	if value, ok := lc.mutation.UserID(); ok {
 		_spec.SetField(like.FieldUserID, field.TypeUUID, value)
@@ -243,6 +318,60 @@ func (u *LikeUpsert) SetEntID(v uuid.UUID) *LikeUpsert {
 // UpdateEntID sets the "ent_id" field to the value that was provided on create.
 func (u *LikeUpsert) UpdateEntID() *LikeUpsert {
 	u.SetExcluded(like.FieldEntID)
+	return u
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (u *LikeUpsert) SetCreatedAt(v uint32) *LikeUpsert {
+	u.Set(like.FieldCreatedAt, v)
+	return u
+}
+
+// UpdateCreatedAt sets the "created_at" field to the value that was provided on create.
+func (u *LikeUpsert) UpdateCreatedAt() *LikeUpsert {
+	u.SetExcluded(like.FieldCreatedAt)
+	return u
+}
+
+// AddCreatedAt adds v to the "created_at" field.
+func (u *LikeUpsert) AddCreatedAt(v uint32) *LikeUpsert {
+	u.Add(like.FieldCreatedAt, v)
+	return u
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (u *LikeUpsert) SetUpdatedAt(v uint32) *LikeUpsert {
+	u.Set(like.FieldUpdatedAt, v)
+	return u
+}
+
+// UpdateUpdatedAt sets the "updated_at" field to the value that was provided on create.
+func (u *LikeUpsert) UpdateUpdatedAt() *LikeUpsert {
+	u.SetExcluded(like.FieldUpdatedAt)
+	return u
+}
+
+// AddUpdatedAt adds v to the "updated_at" field.
+func (u *LikeUpsert) AddUpdatedAt(v uint32) *LikeUpsert {
+	u.Add(like.FieldUpdatedAt, v)
+	return u
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (u *LikeUpsert) SetDeletedAt(v uint32) *LikeUpsert {
+	u.Set(like.FieldDeletedAt, v)
+	return u
+}
+
+// UpdateDeletedAt sets the "deleted_at" field to the value that was provided on create.
+func (u *LikeUpsert) UpdateDeletedAt() *LikeUpsert {
+	u.SetExcluded(like.FieldDeletedAt)
+	return u
+}
+
+// AddDeletedAt adds v to the "deleted_at" field.
+func (u *LikeUpsert) AddDeletedAt(v uint32) *LikeUpsert {
+	u.Add(like.FieldDeletedAt, v)
 	return u
 }
 
@@ -353,6 +482,69 @@ func (u *LikeUpsertOne) SetEntID(v uuid.UUID) *LikeUpsertOne {
 func (u *LikeUpsertOne) UpdateEntID() *LikeUpsertOne {
 	return u.Update(func(s *LikeUpsert) {
 		s.UpdateEntID()
+	})
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (u *LikeUpsertOne) SetCreatedAt(v uint32) *LikeUpsertOne {
+	return u.Update(func(s *LikeUpsert) {
+		s.SetCreatedAt(v)
+	})
+}
+
+// AddCreatedAt adds v to the "created_at" field.
+func (u *LikeUpsertOne) AddCreatedAt(v uint32) *LikeUpsertOne {
+	return u.Update(func(s *LikeUpsert) {
+		s.AddCreatedAt(v)
+	})
+}
+
+// UpdateCreatedAt sets the "created_at" field to the value that was provided on create.
+func (u *LikeUpsertOne) UpdateCreatedAt() *LikeUpsertOne {
+	return u.Update(func(s *LikeUpsert) {
+		s.UpdateCreatedAt()
+	})
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (u *LikeUpsertOne) SetUpdatedAt(v uint32) *LikeUpsertOne {
+	return u.Update(func(s *LikeUpsert) {
+		s.SetUpdatedAt(v)
+	})
+}
+
+// AddUpdatedAt adds v to the "updated_at" field.
+func (u *LikeUpsertOne) AddUpdatedAt(v uint32) *LikeUpsertOne {
+	return u.Update(func(s *LikeUpsert) {
+		s.AddUpdatedAt(v)
+	})
+}
+
+// UpdateUpdatedAt sets the "updated_at" field to the value that was provided on create.
+func (u *LikeUpsertOne) UpdateUpdatedAt() *LikeUpsertOne {
+	return u.Update(func(s *LikeUpsert) {
+		s.UpdateUpdatedAt()
+	})
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (u *LikeUpsertOne) SetDeletedAt(v uint32) *LikeUpsertOne {
+	return u.Update(func(s *LikeUpsert) {
+		s.SetDeletedAt(v)
+	})
+}
+
+// AddDeletedAt adds v to the "deleted_at" field.
+func (u *LikeUpsertOne) AddDeletedAt(v uint32) *LikeUpsertOne {
+	return u.Update(func(s *LikeUpsert) {
+		s.AddDeletedAt(v)
+	})
+}
+
+// UpdateDeletedAt sets the "deleted_at" field to the value that was provided on create.
+func (u *LikeUpsertOne) UpdateDeletedAt() *LikeUpsertOne {
+	return u.Update(func(s *LikeUpsert) {
+		s.UpdateDeletedAt()
 	})
 }
 
@@ -637,6 +829,69 @@ func (u *LikeUpsertBulk) SetEntID(v uuid.UUID) *LikeUpsertBulk {
 func (u *LikeUpsertBulk) UpdateEntID() *LikeUpsertBulk {
 	return u.Update(func(s *LikeUpsert) {
 		s.UpdateEntID()
+	})
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (u *LikeUpsertBulk) SetCreatedAt(v uint32) *LikeUpsertBulk {
+	return u.Update(func(s *LikeUpsert) {
+		s.SetCreatedAt(v)
+	})
+}
+
+// AddCreatedAt adds v to the "created_at" field.
+func (u *LikeUpsertBulk) AddCreatedAt(v uint32) *LikeUpsertBulk {
+	return u.Update(func(s *LikeUpsert) {
+		s.AddCreatedAt(v)
+	})
+}
+
+// UpdateCreatedAt sets the "created_at" field to the value that was provided on create.
+func (u *LikeUpsertBulk) UpdateCreatedAt() *LikeUpsertBulk {
+	return u.Update(func(s *LikeUpsert) {
+		s.UpdateCreatedAt()
+	})
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (u *LikeUpsertBulk) SetUpdatedAt(v uint32) *LikeUpsertBulk {
+	return u.Update(func(s *LikeUpsert) {
+		s.SetUpdatedAt(v)
+	})
+}
+
+// AddUpdatedAt adds v to the "updated_at" field.
+func (u *LikeUpsertBulk) AddUpdatedAt(v uint32) *LikeUpsertBulk {
+	return u.Update(func(s *LikeUpsert) {
+		s.AddUpdatedAt(v)
+	})
+}
+
+// UpdateUpdatedAt sets the "updated_at" field to the value that was provided on create.
+func (u *LikeUpsertBulk) UpdateUpdatedAt() *LikeUpsertBulk {
+	return u.Update(func(s *LikeUpsert) {
+		s.UpdateUpdatedAt()
+	})
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (u *LikeUpsertBulk) SetDeletedAt(v uint32) *LikeUpsertBulk {
+	return u.Update(func(s *LikeUpsert) {
+		s.SetDeletedAt(v)
+	})
+}
+
+// AddDeletedAt adds v to the "deleted_at" field.
+func (u *LikeUpsertBulk) AddDeletedAt(v uint32) *LikeUpsertBulk {
+	return u.Update(func(s *LikeUpsert) {
+		s.AddDeletedAt(v)
+	})
+}
+
+// UpdateDeletedAt sets the "deleted_at" field to the value that was provided on create.
+func (u *LikeUpsertBulk) UpdateDeletedAt() *LikeUpsertBulk {
+	return u.Update(func(s *LikeUpsert) {
+		s.UpdateDeletedAt()
 	})
 }
 

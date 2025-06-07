@@ -4,11 +4,11 @@ import (
 	"context"
 
 	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
-	constant "github.com/NpoolPlatform/kunman/middleware/good/const"
+	constant "github.com/NpoolPlatform/kunman/pkg/const"
 	topmostcrud "github.com/NpoolPlatform/kunman/middleware/good/crud/app/good/topmost"
 	topmostgoodcrud "github.com/NpoolPlatform/kunman/middleware/good/crud/app/good/topmost/good"
 	topmostgoodpostercrud "github.com/NpoolPlatform/kunman/middleware/good/crud/app/good/topmost/good/poster"
-	topmostgood1 "github.com/NpoolPlatform/kunman/middleware/good/middleware/app/good/topmost/good"
+	topmostgood1 "github.com/NpoolPlatform/kunman/middleware/good/app/good/topmost/good"
 	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 	npool "github.com/NpoolPlatform/kunman/message/good/middleware/v1/app/good/topmost/good/poster"
 

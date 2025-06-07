@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package good.gateway.subscription.v1;
 
-option go_package = "github.com/NpoolPlatform/message/good/gateway/v1/subscription";
+option go_package = "github.com/NpoolPlatform/kunman/message/good/gateway/v1/subscription";
 
 import "good/middleware/v1/subscription/subscription.proto";
 import "google/api/annotations.proto";

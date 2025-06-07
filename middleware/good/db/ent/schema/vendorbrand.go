@@ -15,6 +15,7 @@ type VendorBrand struct {
 func (VendorBrand) Mixin() []ent.Mixin {
 	return []ent.Mixin{
 		crudermixin.AutoIDMixin{},
+		crudermixin.TimeMixin{},
 	}
 }
 

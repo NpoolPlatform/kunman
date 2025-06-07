@@ -7,11 +7,11 @@ import (
 	"time"
 
 	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
+	types "github.com/NpoolPlatform/kunman/message/basetypes/good/v1"
+	appgoodbase1 "github.com/NpoolPlatform/kunman/middleware/good/app/good/goodbase"
 	extrainfocrud "github.com/NpoolPlatform/kunman/middleware/good/crud/app/good/extrainfo"
 	"github.com/NpoolPlatform/kunman/middleware/good/db"
-	"github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated"
-	appgoodbase1 "github.com/NpoolPlatform/kunman/middleware/good/middleware/app/good/goodbase"
-	types "github.com/NpoolPlatform/kunman/message/basetypes/good/v1"
+	ent "github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated"
 
 	"github.com/google/uuid"
 )
@@ -91,7 +91,6 @@ func (h *createHandler) constructAppDelegatedStakingSQL() {
 	_sql += "select 1 from delegated_stakings "
 	_sql += fmt.Sprintf("where good_id = '%v' and deleted_at=0", *h.AppGoodBaseReq.GoodID)
 	_sql += " limit 1)"
-	fmt.Println("_sql: ", _sql)
 	h.sqlAppDelegatedStaking = _sql
 }
 

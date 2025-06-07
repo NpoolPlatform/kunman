@@ -43,6 +43,61 @@ func (gru *GoodRewardUpdate) SetNillableEntID(u *uuid.UUID) *GoodRewardUpdate {
 	return gru
 }
 
+// SetCreatedAt sets the "created_at" field.
+func (gru *GoodRewardUpdate) SetCreatedAt(u uint32) *GoodRewardUpdate {
+	gru.mutation.ResetCreatedAt()
+	gru.mutation.SetCreatedAt(u)
+	return gru
+}
+
+// SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
+func (gru *GoodRewardUpdate) SetNillableCreatedAt(u *uint32) *GoodRewardUpdate {
+	if u != nil {
+		gru.SetCreatedAt(*u)
+	}
+	return gru
+}
+
+// AddCreatedAt adds u to the "created_at" field.
+func (gru *GoodRewardUpdate) AddCreatedAt(u int32) *GoodRewardUpdate {
+	gru.mutation.AddCreatedAt(u)
+	return gru
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (gru *GoodRewardUpdate) SetUpdatedAt(u uint32) *GoodRewardUpdate {
+	gru.mutation.ResetUpdatedAt()
+	gru.mutation.SetUpdatedAt(u)
+	return gru
+}
+
+// AddUpdatedAt adds u to the "updated_at" field.
+func (gru *GoodRewardUpdate) AddUpdatedAt(u int32) *GoodRewardUpdate {
+	gru.mutation.AddUpdatedAt(u)
+	return gru
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (gru *GoodRewardUpdate) SetDeletedAt(u uint32) *GoodRewardUpdate {
+	gru.mutation.ResetDeletedAt()
+	gru.mutation.SetDeletedAt(u)
+	return gru
+}
+
+// SetNillableDeletedAt sets the "deleted_at" field if the given value is not nil.
+func (gru *GoodRewardUpdate) SetNillableDeletedAt(u *uint32) *GoodRewardUpdate {
+	if u != nil {
+		gru.SetDeletedAt(*u)
+	}
+	return gru
+}
+
+// AddDeletedAt adds u to the "deleted_at" field.
+func (gru *GoodRewardUpdate) AddDeletedAt(u int32) *GoodRewardUpdate {
+	gru.mutation.AddDeletedAt(u)
+	return gru
+}
+
 // SetGoodID sets the "good_id" field.
 func (gru *GoodRewardUpdate) SetGoodID(u uuid.UUID) *GoodRewardUpdate {
 	gru.mutation.SetGoodID(u)
@@ -117,6 +172,7 @@ func (gru *GoodRewardUpdate) Mutation() *GoodRewardMutation {
 
 // Save executes the query and returns the number of nodes affected by the update operation.
 func (gru *GoodRewardUpdate) Save(ctx context.Context) (int, error) {
+	gru.defaults()
 	return withHooks(ctx, gru.sqlSave, gru.mutation, gru.hooks)
 }
 
@@ -142,6 +198,14 @@ func (gru *GoodRewardUpdate) ExecX(ctx context.Context) {
 	}
 }
 
+// defaults sets the default values of the builder before save.
+func (gru *GoodRewardUpdate) defaults() {
+	if _, ok := gru.mutation.UpdatedAt(); !ok {
+		v := goodreward.UpdateDefaultUpdatedAt()
+		gru.mutation.SetUpdatedAt(v)
+	}
+}
+
 // Modify adds a statement modifier for attaching custom logic to the UPDATE statement.
 func (gru *GoodRewardUpdate) Modify(modifiers ...func(u *sql.UpdateBuilder)) *GoodRewardUpdate {
 	gru.modifiers = append(gru.modifiers, modifiers...)
@@ -159,6 +223,24 @@ func (gru *GoodRewardUpdate) sqlSave(ctx context.Context) (n int, err error) {
 	}
 	if value, ok := gru.mutation.EntID(); ok {
 		_spec.SetField(goodreward.FieldEntID, field.TypeUUID, value)
+	}
+	if value, ok := gru.mutation.CreatedAt(); ok {
+		_spec.SetField(goodreward.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := gru.mutation.AddedCreatedAt(); ok {
+		_spec.AddField(goodreward.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := gru.mutation.UpdatedAt(); ok {
+		_spec.SetField(goodreward.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := gru.mutation.AddedUpdatedAt(); ok {
+		_spec.AddField(goodreward.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := gru.mutation.DeletedAt(); ok {
+		_spec.SetField(goodreward.FieldDeletedAt, field.TypeUint32, value)
+	}
+	if value, ok := gru.mutation.AddedDeletedAt(); ok {
+		_spec.AddField(goodreward.FieldDeletedAt, field.TypeUint32, value)
 	}
 	if value, ok := gru.mutation.GoodID(); ok {
 		_spec.SetField(goodreward.FieldGoodID, field.TypeUUID, value)
@@ -214,6 +296,61 @@ func (gruo *GoodRewardUpdateOne) SetNillableEntID(u *uuid.UUID) *GoodRewardUpdat
 	if u != nil {
 		gruo.SetEntID(*u)
 	}
+	return gruo
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (gruo *GoodRewardUpdateOne) SetCreatedAt(u uint32) *GoodRewardUpdateOne {
+	gruo.mutation.ResetCreatedAt()
+	gruo.mutation.SetCreatedAt(u)
+	return gruo
+}
+
+// SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
+func (gruo *GoodRewardUpdateOne) SetNillableCreatedAt(u *uint32) *GoodRewardUpdateOne {
+	if u != nil {
+		gruo.SetCreatedAt(*u)
+	}
+	return gruo
+}
+
+// AddCreatedAt adds u to the "created_at" field.
+func (gruo *GoodRewardUpdateOne) AddCreatedAt(u int32) *GoodRewardUpdateOne {
+	gruo.mutation.AddCreatedAt(u)
+	return gruo
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (gruo *GoodRewardUpdateOne) SetUpdatedAt(u uint32) *GoodRewardUpdateOne {
+	gruo.mutation.ResetUpdatedAt()
+	gruo.mutation.SetUpdatedAt(u)
+	return gruo
+}
+
+// AddUpdatedAt adds u to the "updated_at" field.
+func (gruo *GoodRewardUpdateOne) AddUpdatedAt(u int32) *GoodRewardUpdateOne {
+	gruo.mutation.AddUpdatedAt(u)
+	return gruo
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (gruo *GoodRewardUpdateOne) SetDeletedAt(u uint32) *GoodRewardUpdateOne {
+	gruo.mutation.ResetDeletedAt()
+	gruo.mutation.SetDeletedAt(u)
+	return gruo
+}
+
+// SetNillableDeletedAt sets the "deleted_at" field if the given value is not nil.
+func (gruo *GoodRewardUpdateOne) SetNillableDeletedAt(u *uint32) *GoodRewardUpdateOne {
+	if u != nil {
+		gruo.SetDeletedAt(*u)
+	}
+	return gruo
+}
+
+// AddDeletedAt adds u to the "deleted_at" field.
+func (gruo *GoodRewardUpdateOne) AddDeletedAt(u int32) *GoodRewardUpdateOne {
+	gruo.mutation.AddDeletedAt(u)
 	return gruo
 }
 
@@ -304,6 +441,7 @@ func (gruo *GoodRewardUpdateOne) Select(field string, fields ...string) *GoodRew
 
 // Save executes the query and returns the updated GoodReward entity.
 func (gruo *GoodRewardUpdateOne) Save(ctx context.Context) (*GoodReward, error) {
+	gruo.defaults()
 	return withHooks(ctx, gruo.sqlSave, gruo.mutation, gruo.hooks)
 }
 
@@ -326,6 +464,14 @@ func (gruo *GoodRewardUpdateOne) Exec(ctx context.Context) error {
 func (gruo *GoodRewardUpdateOne) ExecX(ctx context.Context) {
 	if err := gruo.Exec(ctx); err != nil {
 		panic(err)
+	}
+}
+
+// defaults sets the default values of the builder before save.
+func (gruo *GoodRewardUpdateOne) defaults() {
+	if _, ok := gruo.mutation.UpdatedAt(); !ok {
+		v := goodreward.UpdateDefaultUpdatedAt()
+		gruo.mutation.SetUpdatedAt(v)
 	}
 }
 
@@ -363,6 +509,24 @@ func (gruo *GoodRewardUpdateOne) sqlSave(ctx context.Context) (_node *GoodReward
 	}
 	if value, ok := gruo.mutation.EntID(); ok {
 		_spec.SetField(goodreward.FieldEntID, field.TypeUUID, value)
+	}
+	if value, ok := gruo.mutation.CreatedAt(); ok {
+		_spec.SetField(goodreward.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := gruo.mutation.AddedCreatedAt(); ok {
+		_spec.AddField(goodreward.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := gruo.mutation.UpdatedAt(); ok {
+		_spec.SetField(goodreward.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := gruo.mutation.AddedUpdatedAt(); ok {
+		_spec.AddField(goodreward.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := gruo.mutation.DeletedAt(); ok {
+		_spec.SetField(goodreward.FieldDeletedAt, field.TypeUint32, value)
+	}
+	if value, ok := gruo.mutation.AddedDeletedAt(); ok {
+		_spec.AddField(goodreward.FieldDeletedAt, field.TypeUint32, value)
 	}
 	if value, ok := gruo.mutation.GoodID(); ok {
 		_spec.SetField(goodreward.FieldGoodID, field.TypeUUID, value)

@@ -9,7 +9,7 @@ import (
 	extrainfocrud "github.com/NpoolPlatform/kunman/middleware/good/crud/app/good/extrainfo"
 	"github.com/NpoolPlatform/kunman/middleware/good/db"
 	"github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated"
-	score1 "github.com/NpoolPlatform/kunman/middleware/good/middleware/app/good/score"
+	score1 "github.com/NpoolPlatform/kunman/middleware/good/app/good/score"
 	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 
 	"github.com/google/uuid"

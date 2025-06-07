@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package good.middleware.device.manufacturer.v1;
 
-option go_package = "github.com/NpoolPlatform/message/good/middleware/v1/device/manufacturer";
+option go_package = "github.com/NpoolPlatform/kunman/message/good/middleware/v1/device/manufacturer";
 
 import "basetypes/v1/conds.proto";
 

@@ -17,6 +17,7 @@ type AppSimulatePowerRental struct {
 func (AppSimulatePowerRental) Mixin() []ent.Mixin {
 	return []ent.Mixin{
 		crudermixin.AutoIDMixin{},
+		crudermixin.TimeMixin{},
 	}
 }
 

@@ -43,6 +43,61 @@ func (vlu *VendorLocationUpdate) SetNillableEntID(u *uuid.UUID) *VendorLocationU
 	return vlu
 }
 
+// SetCreatedAt sets the "created_at" field.
+func (vlu *VendorLocationUpdate) SetCreatedAt(u uint32) *VendorLocationUpdate {
+	vlu.mutation.ResetCreatedAt()
+	vlu.mutation.SetCreatedAt(u)
+	return vlu
+}
+
+// SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
+func (vlu *VendorLocationUpdate) SetNillableCreatedAt(u *uint32) *VendorLocationUpdate {
+	if u != nil {
+		vlu.SetCreatedAt(*u)
+	}
+	return vlu
+}
+
+// AddCreatedAt adds u to the "created_at" field.
+func (vlu *VendorLocationUpdate) AddCreatedAt(u int32) *VendorLocationUpdate {
+	vlu.mutation.AddCreatedAt(u)
+	return vlu
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (vlu *VendorLocationUpdate) SetUpdatedAt(u uint32) *VendorLocationUpdate {
+	vlu.mutation.ResetUpdatedAt()
+	vlu.mutation.SetUpdatedAt(u)
+	return vlu
+}
+
+// AddUpdatedAt adds u to the "updated_at" field.
+func (vlu *VendorLocationUpdate) AddUpdatedAt(u int32) *VendorLocationUpdate {
+	vlu.mutation.AddUpdatedAt(u)
+	return vlu
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (vlu *VendorLocationUpdate) SetDeletedAt(u uint32) *VendorLocationUpdate {
+	vlu.mutation.ResetDeletedAt()
+	vlu.mutation.SetDeletedAt(u)
+	return vlu
+}
+
+// SetNillableDeletedAt sets the "deleted_at" field if the given value is not nil.
+func (vlu *VendorLocationUpdate) SetNillableDeletedAt(u *uint32) *VendorLocationUpdate {
+	if u != nil {
+		vlu.SetDeletedAt(*u)
+	}
+	return vlu
+}
+
+// AddDeletedAt adds u to the "deleted_at" field.
+func (vlu *VendorLocationUpdate) AddDeletedAt(u int32) *VendorLocationUpdate {
+	vlu.mutation.AddDeletedAt(u)
+	return vlu
+}
+
 // SetCountry sets the "country" field.
 func (vlu *VendorLocationUpdate) SetCountry(s string) *VendorLocationUpdate {
 	vlu.mutation.SetCountry(s)
@@ -150,6 +205,7 @@ func (vlu *VendorLocationUpdate) Mutation() *VendorLocationMutation {
 
 // Save executes the query and returns the number of nodes affected by the update operation.
 func (vlu *VendorLocationUpdate) Save(ctx context.Context) (int, error) {
+	vlu.defaults()
 	return withHooks(ctx, vlu.sqlSave, vlu.mutation, vlu.hooks)
 }
 
@@ -172,6 +228,14 @@ func (vlu *VendorLocationUpdate) Exec(ctx context.Context) error {
 func (vlu *VendorLocationUpdate) ExecX(ctx context.Context) {
 	if err := vlu.Exec(ctx); err != nil {
 		panic(err)
+	}
+}
+
+// defaults sets the default values of the builder before save.
+func (vlu *VendorLocationUpdate) defaults() {
+	if _, ok := vlu.mutation.UpdatedAt(); !ok {
+		v := vendorlocation.UpdateDefaultUpdatedAt()
+		vlu.mutation.SetUpdatedAt(v)
 	}
 }
 
@@ -220,6 +284,24 @@ func (vlu *VendorLocationUpdate) sqlSave(ctx context.Context) (n int, err error)
 	}
 	if value, ok := vlu.mutation.EntID(); ok {
 		_spec.SetField(vendorlocation.FieldEntID, field.TypeUUID, value)
+	}
+	if value, ok := vlu.mutation.CreatedAt(); ok {
+		_spec.SetField(vendorlocation.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := vlu.mutation.AddedCreatedAt(); ok {
+		_spec.AddField(vendorlocation.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := vlu.mutation.UpdatedAt(); ok {
+		_spec.SetField(vendorlocation.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := vlu.mutation.AddedUpdatedAt(); ok {
+		_spec.AddField(vendorlocation.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := vlu.mutation.DeletedAt(); ok {
+		_spec.SetField(vendorlocation.FieldDeletedAt, field.TypeUint32, value)
+	}
+	if value, ok := vlu.mutation.AddedDeletedAt(); ok {
+		_spec.AddField(vendorlocation.FieldDeletedAt, field.TypeUint32, value)
 	}
 	if value, ok := vlu.mutation.Country(); ok {
 		_spec.SetField(vendorlocation.FieldCountry, field.TypeString, value)
@@ -284,6 +366,61 @@ func (vluo *VendorLocationUpdateOne) SetNillableEntID(u *uuid.UUID) *VendorLocat
 	if u != nil {
 		vluo.SetEntID(*u)
 	}
+	return vluo
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (vluo *VendorLocationUpdateOne) SetCreatedAt(u uint32) *VendorLocationUpdateOne {
+	vluo.mutation.ResetCreatedAt()
+	vluo.mutation.SetCreatedAt(u)
+	return vluo
+}
+
+// SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
+func (vluo *VendorLocationUpdateOne) SetNillableCreatedAt(u *uint32) *VendorLocationUpdateOne {
+	if u != nil {
+		vluo.SetCreatedAt(*u)
+	}
+	return vluo
+}
+
+// AddCreatedAt adds u to the "created_at" field.
+func (vluo *VendorLocationUpdateOne) AddCreatedAt(u int32) *VendorLocationUpdateOne {
+	vluo.mutation.AddCreatedAt(u)
+	return vluo
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (vluo *VendorLocationUpdateOne) SetUpdatedAt(u uint32) *VendorLocationUpdateOne {
+	vluo.mutation.ResetUpdatedAt()
+	vluo.mutation.SetUpdatedAt(u)
+	return vluo
+}
+
+// AddUpdatedAt adds u to the "updated_at" field.
+func (vluo *VendorLocationUpdateOne) AddUpdatedAt(u int32) *VendorLocationUpdateOne {
+	vluo.mutation.AddUpdatedAt(u)
+	return vluo
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (vluo *VendorLocationUpdateOne) SetDeletedAt(u uint32) *VendorLocationUpdateOne {
+	vluo.mutation.ResetDeletedAt()
+	vluo.mutation.SetDeletedAt(u)
+	return vluo
+}
+
+// SetNillableDeletedAt sets the "deleted_at" field if the given value is not nil.
+func (vluo *VendorLocationUpdateOne) SetNillableDeletedAt(u *uint32) *VendorLocationUpdateOne {
+	if u != nil {
+		vluo.SetDeletedAt(*u)
+	}
+	return vluo
+}
+
+// AddDeletedAt adds u to the "deleted_at" field.
+func (vluo *VendorLocationUpdateOne) AddDeletedAt(u int32) *VendorLocationUpdateOne {
+	vluo.mutation.AddDeletedAt(u)
 	return vluo
 }
 
@@ -407,6 +544,7 @@ func (vluo *VendorLocationUpdateOne) Select(field string, fields ...string) *Ven
 
 // Save executes the query and returns the updated VendorLocation entity.
 func (vluo *VendorLocationUpdateOne) Save(ctx context.Context) (*VendorLocation, error) {
+	vluo.defaults()
 	return withHooks(ctx, vluo.sqlSave, vluo.mutation, vluo.hooks)
 }
 
@@ -429,6 +567,14 @@ func (vluo *VendorLocationUpdateOne) Exec(ctx context.Context) error {
 func (vluo *VendorLocationUpdateOne) ExecX(ctx context.Context) {
 	if err := vluo.Exec(ctx); err != nil {
 		panic(err)
+	}
+}
+
+// defaults sets the default values of the builder before save.
+func (vluo *VendorLocationUpdateOne) defaults() {
+	if _, ok := vluo.mutation.UpdatedAt(); !ok {
+		v := vendorlocation.UpdateDefaultUpdatedAt()
+		vluo.mutation.SetUpdatedAt(v)
 	}
 }
 
@@ -494,6 +640,24 @@ func (vluo *VendorLocationUpdateOne) sqlSave(ctx context.Context) (_node *Vendor
 	}
 	if value, ok := vluo.mutation.EntID(); ok {
 		_spec.SetField(vendorlocation.FieldEntID, field.TypeUUID, value)
+	}
+	if value, ok := vluo.mutation.CreatedAt(); ok {
+		_spec.SetField(vendorlocation.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := vluo.mutation.AddedCreatedAt(); ok {
+		_spec.AddField(vendorlocation.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := vluo.mutation.UpdatedAt(); ok {
+		_spec.SetField(vendorlocation.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := vluo.mutation.AddedUpdatedAt(); ok {
+		_spec.AddField(vendorlocation.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := vluo.mutation.DeletedAt(); ok {
+		_spec.SetField(vendorlocation.FieldDeletedAt, field.TypeUint32, value)
+	}
+	if value, ok := vluo.mutation.AddedDeletedAt(); ok {
+		_spec.AddField(vendorlocation.FieldDeletedAt, field.TypeUint32, value)
 	}
 	if value, ok := vluo.mutation.Country(); ok {
 		_spec.SetField(vendorlocation.FieldCountry, field.TypeString, value)
