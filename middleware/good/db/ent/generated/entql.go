@@ -76,6 +76,9 @@ var schemaGraph = func() *sqlgraph.Schema {
 		Type: "AppDefaultGood",
 		Fields: map[string]*sqlgraph.FieldSpec{
 			appdefaultgood.FieldEntID:      {Type: field.TypeUUID, Column: appdefaultgood.FieldEntID},
+			appdefaultgood.FieldCreatedAt:  {Type: field.TypeUint32, Column: appdefaultgood.FieldCreatedAt},
+			appdefaultgood.FieldUpdatedAt:  {Type: field.TypeUint32, Column: appdefaultgood.FieldUpdatedAt},
+			appdefaultgood.FieldDeletedAt:  {Type: field.TypeUint32, Column: appdefaultgood.FieldDeletedAt},
 			appdefaultgood.FieldAppGoodID:  {Type: field.TypeUUID, Column: appdefaultgood.FieldAppGoodID},
 			appdefaultgood.FieldCoinTypeID: {Type: field.TypeUUID, Column: appdefaultgood.FieldCoinTypeID},
 		},
@@ -929,6 +932,9 @@ var schemaGraph = func() *sqlgraph.Schema {
 		Type: "Subscription",
 		Fields: map[string]*sqlgraph.FieldSpec{
 			subscription.FieldEntID:               {Type: field.TypeUUID, Column: subscription.FieldEntID},
+			subscription.FieldCreatedAt:           {Type: field.TypeUint32, Column: subscription.FieldCreatedAt},
+			subscription.FieldUpdatedAt:           {Type: field.TypeUint32, Column: subscription.FieldUpdatedAt},
+			subscription.FieldDeletedAt:           {Type: field.TypeUint32, Column: subscription.FieldDeletedAt},
 			subscription.FieldGoodID:              {Type: field.TypeUUID, Column: subscription.FieldGoodID},
 			subscription.FieldGoodType:            {Type: field.TypeString, Column: subscription.FieldGoodType},
 			subscription.FieldName:                {Type: field.TypeString, Column: subscription.FieldName},
@@ -951,6 +957,9 @@ var schemaGraph = func() *sqlgraph.Schema {
 		Type: "SubscriptionOneShot",
 		Fields: map[string]*sqlgraph.FieldSpec{
 			subscriptiononeshot.FieldEntID:       {Type: field.TypeUUID, Column: subscriptiononeshot.FieldEntID},
+			subscriptiononeshot.FieldCreatedAt:   {Type: field.TypeUint32, Column: subscriptiononeshot.FieldCreatedAt},
+			subscriptiononeshot.FieldUpdatedAt:   {Type: field.TypeUint32, Column: subscriptiononeshot.FieldUpdatedAt},
+			subscriptiononeshot.FieldDeletedAt:   {Type: field.TypeUint32, Column: subscriptiononeshot.FieldDeletedAt},
 			subscriptiononeshot.FieldGoodID:      {Type: field.TypeUUID, Column: subscriptiononeshot.FieldGoodID},
 			subscriptiononeshot.FieldGoodType:    {Type: field.TypeString, Column: subscriptiononeshot.FieldGoodType},
 			subscriptiononeshot.FieldName:        {Type: field.TypeString, Column: subscriptiononeshot.FieldName},
@@ -1155,6 +1164,21 @@ func (f *AppDefaultGoodFilter) WhereID(p entql.Uint32P) {
 // WhereEntID applies the entql [16]byte predicate on the ent_id field.
 func (f *AppDefaultGoodFilter) WhereEntID(p entql.ValueP) {
 	f.Where(p.Field(appdefaultgood.FieldEntID))
+}
+
+// WhereCreatedAt applies the entql uint32 predicate on the created_at field.
+func (f *AppDefaultGoodFilter) WhereCreatedAt(p entql.Uint32P) {
+	f.Where(p.Field(appdefaultgood.FieldCreatedAt))
+}
+
+// WhereUpdatedAt applies the entql uint32 predicate on the updated_at field.
+func (f *AppDefaultGoodFilter) WhereUpdatedAt(p entql.Uint32P) {
+	f.Where(p.Field(appdefaultgood.FieldUpdatedAt))
+}
+
+// WhereDeletedAt applies the entql uint32 predicate on the deleted_at field.
+func (f *AppDefaultGoodFilter) WhereDeletedAt(p entql.Uint32P) {
+	f.Where(p.Field(appdefaultgood.FieldDeletedAt))
 }
 
 // WhereAppGoodID applies the entql [16]byte predicate on the app_good_id field.
@@ -4397,6 +4421,21 @@ func (f *SubscriptionFilter) WhereEntID(p entql.ValueP) {
 	f.Where(p.Field(subscription.FieldEntID))
 }
 
+// WhereCreatedAt applies the entql uint32 predicate on the created_at field.
+func (f *SubscriptionFilter) WhereCreatedAt(p entql.Uint32P) {
+	f.Where(p.Field(subscription.FieldCreatedAt))
+}
+
+// WhereUpdatedAt applies the entql uint32 predicate on the updated_at field.
+func (f *SubscriptionFilter) WhereUpdatedAt(p entql.Uint32P) {
+	f.Where(p.Field(subscription.FieldUpdatedAt))
+}
+
+// WhereDeletedAt applies the entql uint32 predicate on the deleted_at field.
+func (f *SubscriptionFilter) WhereDeletedAt(p entql.Uint32P) {
+	f.Where(p.Field(subscription.FieldDeletedAt))
+}
+
 // WhereGoodID applies the entql [16]byte predicate on the good_id field.
 func (f *SubscriptionFilter) WhereGoodID(p entql.ValueP) {
 	f.Where(p.Field(subscription.FieldGoodID))
@@ -4480,6 +4519,21 @@ func (f *SubscriptionOneShotFilter) WhereID(p entql.Uint32P) {
 // WhereEntID applies the entql [16]byte predicate on the ent_id field.
 func (f *SubscriptionOneShotFilter) WhereEntID(p entql.ValueP) {
 	f.Where(p.Field(subscriptiononeshot.FieldEntID))
+}
+
+// WhereCreatedAt applies the entql uint32 predicate on the created_at field.
+func (f *SubscriptionOneShotFilter) WhereCreatedAt(p entql.Uint32P) {
+	f.Where(p.Field(subscriptiononeshot.FieldCreatedAt))
+}
+
+// WhereUpdatedAt applies the entql uint32 predicate on the updated_at field.
+func (f *SubscriptionOneShotFilter) WhereUpdatedAt(p entql.Uint32P) {
+	f.Where(p.Field(subscriptiononeshot.FieldUpdatedAt))
+}
+
+// WhereDeletedAt applies the entql uint32 predicate on the deleted_at field.
+func (f *SubscriptionOneShotFilter) WhereDeletedAt(p entql.Uint32P) {
+	f.Where(p.Field(subscriptiononeshot.FieldDeletedAt))
 }
 
 // WhereGoodID applies the entql [16]byte predicate on the good_id field.

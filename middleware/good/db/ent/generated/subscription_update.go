@@ -44,6 +44,61 @@ func (su *SubscriptionUpdate) SetNillableEntID(u *uuid.UUID) *SubscriptionUpdate
 	return su
 }
 
+// SetCreatedAt sets the "created_at" field.
+func (su *SubscriptionUpdate) SetCreatedAt(u uint32) *SubscriptionUpdate {
+	su.mutation.ResetCreatedAt()
+	su.mutation.SetCreatedAt(u)
+	return su
+}
+
+// SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
+func (su *SubscriptionUpdate) SetNillableCreatedAt(u *uint32) *SubscriptionUpdate {
+	if u != nil {
+		su.SetCreatedAt(*u)
+	}
+	return su
+}
+
+// AddCreatedAt adds u to the "created_at" field.
+func (su *SubscriptionUpdate) AddCreatedAt(u int32) *SubscriptionUpdate {
+	su.mutation.AddCreatedAt(u)
+	return su
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (su *SubscriptionUpdate) SetUpdatedAt(u uint32) *SubscriptionUpdate {
+	su.mutation.ResetUpdatedAt()
+	su.mutation.SetUpdatedAt(u)
+	return su
+}
+
+// AddUpdatedAt adds u to the "updated_at" field.
+func (su *SubscriptionUpdate) AddUpdatedAt(u int32) *SubscriptionUpdate {
+	su.mutation.AddUpdatedAt(u)
+	return su
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (su *SubscriptionUpdate) SetDeletedAt(u uint32) *SubscriptionUpdate {
+	su.mutation.ResetDeletedAt()
+	su.mutation.SetDeletedAt(u)
+	return su
+}
+
+// SetNillableDeletedAt sets the "deleted_at" field if the given value is not nil.
+func (su *SubscriptionUpdate) SetNillableDeletedAt(u *uint32) *SubscriptionUpdate {
+	if u != nil {
+		su.SetDeletedAt(*u)
+	}
+	return su
+}
+
+// AddDeletedAt adds u to the "deleted_at" field.
+func (su *SubscriptionUpdate) AddDeletedAt(u int32) *SubscriptionUpdate {
+	su.mutation.AddDeletedAt(u)
+	return su
+}
+
 // SetGoodID sets the "good_id" field.
 func (su *SubscriptionUpdate) SetGoodID(u uuid.UUID) *SubscriptionUpdate {
 	su.mutation.SetGoodID(u)
@@ -232,6 +287,7 @@ func (su *SubscriptionUpdate) Mutation() *SubscriptionMutation {
 
 // Save executes the query and returns the number of nodes affected by the update operation.
 func (su *SubscriptionUpdate) Save(ctx context.Context) (int, error) {
+	su.defaults()
 	return withHooks(ctx, su.sqlSave, su.mutation, su.hooks)
 }
 
@@ -257,6 +313,14 @@ func (su *SubscriptionUpdate) ExecX(ctx context.Context) {
 	}
 }
 
+// defaults sets the default values of the builder before save.
+func (su *SubscriptionUpdate) defaults() {
+	if _, ok := su.mutation.UpdatedAt(); !ok {
+		v := subscription.UpdateDefaultUpdatedAt()
+		su.mutation.SetUpdatedAt(v)
+	}
+}
+
 // Modify adds a statement modifier for attaching custom logic to the UPDATE statement.
 func (su *SubscriptionUpdate) Modify(modifiers ...func(u *sql.UpdateBuilder)) *SubscriptionUpdate {
 	su.modifiers = append(su.modifiers, modifiers...)
@@ -274,6 +338,24 @@ func (su *SubscriptionUpdate) sqlSave(ctx context.Context) (n int, err error) {
 	}
 	if value, ok := su.mutation.EntID(); ok {
 		_spec.SetField(subscription.FieldEntID, field.TypeUUID, value)
+	}
+	if value, ok := su.mutation.CreatedAt(); ok {
+		_spec.SetField(subscription.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := su.mutation.AddedCreatedAt(); ok {
+		_spec.AddField(subscription.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := su.mutation.UpdatedAt(); ok {
+		_spec.SetField(subscription.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := su.mutation.AddedUpdatedAt(); ok {
+		_spec.AddField(subscription.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := su.mutation.DeletedAt(); ok {
+		_spec.SetField(subscription.FieldDeletedAt, field.TypeUint32, value)
+	}
+	if value, ok := su.mutation.AddedDeletedAt(); ok {
+		_spec.AddField(subscription.FieldDeletedAt, field.TypeUint32, value)
 	}
 	if value, ok := su.mutation.GoodID(); ok {
 		_spec.SetField(subscription.FieldGoodID, field.TypeUUID, value)
@@ -365,6 +447,61 @@ func (suo *SubscriptionUpdateOne) SetNillableEntID(u *uuid.UUID) *SubscriptionUp
 	if u != nil {
 		suo.SetEntID(*u)
 	}
+	return suo
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (suo *SubscriptionUpdateOne) SetCreatedAt(u uint32) *SubscriptionUpdateOne {
+	suo.mutation.ResetCreatedAt()
+	suo.mutation.SetCreatedAt(u)
+	return suo
+}
+
+// SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
+func (suo *SubscriptionUpdateOne) SetNillableCreatedAt(u *uint32) *SubscriptionUpdateOne {
+	if u != nil {
+		suo.SetCreatedAt(*u)
+	}
+	return suo
+}
+
+// AddCreatedAt adds u to the "created_at" field.
+func (suo *SubscriptionUpdateOne) AddCreatedAt(u int32) *SubscriptionUpdateOne {
+	suo.mutation.AddCreatedAt(u)
+	return suo
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (suo *SubscriptionUpdateOne) SetUpdatedAt(u uint32) *SubscriptionUpdateOne {
+	suo.mutation.ResetUpdatedAt()
+	suo.mutation.SetUpdatedAt(u)
+	return suo
+}
+
+// AddUpdatedAt adds u to the "updated_at" field.
+func (suo *SubscriptionUpdateOne) AddUpdatedAt(u int32) *SubscriptionUpdateOne {
+	suo.mutation.AddUpdatedAt(u)
+	return suo
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (suo *SubscriptionUpdateOne) SetDeletedAt(u uint32) *SubscriptionUpdateOne {
+	suo.mutation.ResetDeletedAt()
+	suo.mutation.SetDeletedAt(u)
+	return suo
+}
+
+// SetNillableDeletedAt sets the "deleted_at" field if the given value is not nil.
+func (suo *SubscriptionUpdateOne) SetNillableDeletedAt(u *uint32) *SubscriptionUpdateOne {
+	if u != nil {
+		suo.SetDeletedAt(*u)
+	}
+	return suo
+}
+
+// AddDeletedAt adds u to the "deleted_at" field.
+func (suo *SubscriptionUpdateOne) AddDeletedAt(u int32) *SubscriptionUpdateOne {
+	suo.mutation.AddDeletedAt(u)
 	return suo
 }
 
@@ -569,6 +706,7 @@ func (suo *SubscriptionUpdateOne) Select(field string, fields ...string) *Subscr
 
 // Save executes the query and returns the updated Subscription entity.
 func (suo *SubscriptionUpdateOne) Save(ctx context.Context) (*Subscription, error) {
+	suo.defaults()
 	return withHooks(ctx, suo.sqlSave, suo.mutation, suo.hooks)
 }
 
@@ -591,6 +729,14 @@ func (suo *SubscriptionUpdateOne) Exec(ctx context.Context) error {
 func (suo *SubscriptionUpdateOne) ExecX(ctx context.Context) {
 	if err := suo.Exec(ctx); err != nil {
 		panic(err)
+	}
+}
+
+// defaults sets the default values of the builder before save.
+func (suo *SubscriptionUpdateOne) defaults() {
+	if _, ok := suo.mutation.UpdatedAt(); !ok {
+		v := subscription.UpdateDefaultUpdatedAt()
+		suo.mutation.SetUpdatedAt(v)
 	}
 }
 
@@ -628,6 +774,24 @@ func (suo *SubscriptionUpdateOne) sqlSave(ctx context.Context) (_node *Subscript
 	}
 	if value, ok := suo.mutation.EntID(); ok {
 		_spec.SetField(subscription.FieldEntID, field.TypeUUID, value)
+	}
+	if value, ok := suo.mutation.CreatedAt(); ok {
+		_spec.SetField(subscription.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := suo.mutation.AddedCreatedAt(); ok {
+		_spec.AddField(subscription.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := suo.mutation.UpdatedAt(); ok {
+		_spec.SetField(subscription.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := suo.mutation.AddedUpdatedAt(); ok {
+		_spec.AddField(subscription.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := suo.mutation.DeletedAt(); ok {
+		_spec.SetField(subscription.FieldDeletedAt, field.TypeUint32, value)
+	}
+	if value, ok := suo.mutation.AddedDeletedAt(); ok {
+		_spec.AddField(subscription.FieldDeletedAt, field.TypeUint32, value)
 	}
 	if value, ok := suo.mutation.GoodID(); ok {
 		_spec.SetField(subscription.FieldGoodID, field.TypeUUID, value)

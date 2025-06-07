@@ -44,6 +44,61 @@ func (sosu *SubscriptionOneShotUpdate) SetNillableEntID(u *uuid.UUID) *Subscript
 	return sosu
 }
 
+// SetCreatedAt sets the "created_at" field.
+func (sosu *SubscriptionOneShotUpdate) SetCreatedAt(u uint32) *SubscriptionOneShotUpdate {
+	sosu.mutation.ResetCreatedAt()
+	sosu.mutation.SetCreatedAt(u)
+	return sosu
+}
+
+// SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
+func (sosu *SubscriptionOneShotUpdate) SetNillableCreatedAt(u *uint32) *SubscriptionOneShotUpdate {
+	if u != nil {
+		sosu.SetCreatedAt(*u)
+	}
+	return sosu
+}
+
+// AddCreatedAt adds u to the "created_at" field.
+func (sosu *SubscriptionOneShotUpdate) AddCreatedAt(u int32) *SubscriptionOneShotUpdate {
+	sosu.mutation.AddCreatedAt(u)
+	return sosu
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (sosu *SubscriptionOneShotUpdate) SetUpdatedAt(u uint32) *SubscriptionOneShotUpdate {
+	sosu.mutation.ResetUpdatedAt()
+	sosu.mutation.SetUpdatedAt(u)
+	return sosu
+}
+
+// AddUpdatedAt adds u to the "updated_at" field.
+func (sosu *SubscriptionOneShotUpdate) AddUpdatedAt(u int32) *SubscriptionOneShotUpdate {
+	sosu.mutation.AddUpdatedAt(u)
+	return sosu
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (sosu *SubscriptionOneShotUpdate) SetDeletedAt(u uint32) *SubscriptionOneShotUpdate {
+	sosu.mutation.ResetDeletedAt()
+	sosu.mutation.SetDeletedAt(u)
+	return sosu
+}
+
+// SetNillableDeletedAt sets the "deleted_at" field if the given value is not nil.
+func (sosu *SubscriptionOneShotUpdate) SetNillableDeletedAt(u *uint32) *SubscriptionOneShotUpdate {
+	if u != nil {
+		sosu.SetDeletedAt(*u)
+	}
+	return sosu
+}
+
+// AddDeletedAt adds u to the "deleted_at" field.
+func (sosu *SubscriptionOneShotUpdate) AddDeletedAt(u int32) *SubscriptionOneShotUpdate {
+	sosu.mutation.AddDeletedAt(u)
+	return sosu
+}
+
 // SetGoodID sets the "good_id" field.
 func (sosu *SubscriptionOneShotUpdate) SetGoodID(u uuid.UUID) *SubscriptionOneShotUpdate {
 	sosu.mutation.SetGoodID(u)
@@ -185,6 +240,7 @@ func (sosu *SubscriptionOneShotUpdate) Mutation() *SubscriptionOneShotMutation {
 
 // Save executes the query and returns the number of nodes affected by the update operation.
 func (sosu *SubscriptionOneShotUpdate) Save(ctx context.Context) (int, error) {
+	sosu.defaults()
 	return withHooks(ctx, sosu.sqlSave, sosu.mutation, sosu.hooks)
 }
 
@@ -210,6 +266,14 @@ func (sosu *SubscriptionOneShotUpdate) ExecX(ctx context.Context) {
 	}
 }
 
+// defaults sets the default values of the builder before save.
+func (sosu *SubscriptionOneShotUpdate) defaults() {
+	if _, ok := sosu.mutation.UpdatedAt(); !ok {
+		v := subscriptiononeshot.UpdateDefaultUpdatedAt()
+		sosu.mutation.SetUpdatedAt(v)
+	}
+}
+
 // Modify adds a statement modifier for attaching custom logic to the UPDATE statement.
 func (sosu *SubscriptionOneShotUpdate) Modify(modifiers ...func(u *sql.UpdateBuilder)) *SubscriptionOneShotUpdate {
 	sosu.modifiers = append(sosu.modifiers, modifiers...)
@@ -227,6 +291,24 @@ func (sosu *SubscriptionOneShotUpdate) sqlSave(ctx context.Context) (n int, err 
 	}
 	if value, ok := sosu.mutation.EntID(); ok {
 		_spec.SetField(subscriptiononeshot.FieldEntID, field.TypeUUID, value)
+	}
+	if value, ok := sosu.mutation.CreatedAt(); ok {
+		_spec.SetField(subscriptiononeshot.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := sosu.mutation.AddedCreatedAt(); ok {
+		_spec.AddField(subscriptiononeshot.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := sosu.mutation.UpdatedAt(); ok {
+		_spec.SetField(subscriptiononeshot.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := sosu.mutation.AddedUpdatedAt(); ok {
+		_spec.AddField(subscriptiononeshot.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := sosu.mutation.DeletedAt(); ok {
+		_spec.SetField(subscriptiononeshot.FieldDeletedAt, field.TypeUint32, value)
+	}
+	if value, ok := sosu.mutation.AddedDeletedAt(); ok {
+		_spec.AddField(subscriptiononeshot.FieldDeletedAt, field.TypeUint32, value)
 	}
 	if value, ok := sosu.mutation.GoodID(); ok {
 		_spec.SetField(subscriptiononeshot.FieldGoodID, field.TypeUUID, value)
@@ -303,6 +385,61 @@ func (sosuo *SubscriptionOneShotUpdateOne) SetNillableEntID(u *uuid.UUID) *Subsc
 	if u != nil {
 		sosuo.SetEntID(*u)
 	}
+	return sosuo
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (sosuo *SubscriptionOneShotUpdateOne) SetCreatedAt(u uint32) *SubscriptionOneShotUpdateOne {
+	sosuo.mutation.ResetCreatedAt()
+	sosuo.mutation.SetCreatedAt(u)
+	return sosuo
+}
+
+// SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
+func (sosuo *SubscriptionOneShotUpdateOne) SetNillableCreatedAt(u *uint32) *SubscriptionOneShotUpdateOne {
+	if u != nil {
+		sosuo.SetCreatedAt(*u)
+	}
+	return sosuo
+}
+
+// AddCreatedAt adds u to the "created_at" field.
+func (sosuo *SubscriptionOneShotUpdateOne) AddCreatedAt(u int32) *SubscriptionOneShotUpdateOne {
+	sosuo.mutation.AddCreatedAt(u)
+	return sosuo
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (sosuo *SubscriptionOneShotUpdateOne) SetUpdatedAt(u uint32) *SubscriptionOneShotUpdateOne {
+	sosuo.mutation.ResetUpdatedAt()
+	sosuo.mutation.SetUpdatedAt(u)
+	return sosuo
+}
+
+// AddUpdatedAt adds u to the "updated_at" field.
+func (sosuo *SubscriptionOneShotUpdateOne) AddUpdatedAt(u int32) *SubscriptionOneShotUpdateOne {
+	sosuo.mutation.AddUpdatedAt(u)
+	return sosuo
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (sosuo *SubscriptionOneShotUpdateOne) SetDeletedAt(u uint32) *SubscriptionOneShotUpdateOne {
+	sosuo.mutation.ResetDeletedAt()
+	sosuo.mutation.SetDeletedAt(u)
+	return sosuo
+}
+
+// SetNillableDeletedAt sets the "deleted_at" field if the given value is not nil.
+func (sosuo *SubscriptionOneShotUpdateOne) SetNillableDeletedAt(u *uint32) *SubscriptionOneShotUpdateOne {
+	if u != nil {
+		sosuo.SetDeletedAt(*u)
+	}
+	return sosuo
+}
+
+// AddDeletedAt adds u to the "deleted_at" field.
+func (sosuo *SubscriptionOneShotUpdateOne) AddDeletedAt(u int32) *SubscriptionOneShotUpdateOne {
+	sosuo.mutation.AddDeletedAt(u)
 	return sosuo
 }
 
@@ -460,6 +597,7 @@ func (sosuo *SubscriptionOneShotUpdateOne) Select(field string, fields ...string
 
 // Save executes the query and returns the updated SubscriptionOneShot entity.
 func (sosuo *SubscriptionOneShotUpdateOne) Save(ctx context.Context) (*SubscriptionOneShot, error) {
+	sosuo.defaults()
 	return withHooks(ctx, sosuo.sqlSave, sosuo.mutation, sosuo.hooks)
 }
 
@@ -482,6 +620,14 @@ func (sosuo *SubscriptionOneShotUpdateOne) Exec(ctx context.Context) error {
 func (sosuo *SubscriptionOneShotUpdateOne) ExecX(ctx context.Context) {
 	if err := sosuo.Exec(ctx); err != nil {
 		panic(err)
+	}
+}
+
+// defaults sets the default values of the builder before save.
+func (sosuo *SubscriptionOneShotUpdateOne) defaults() {
+	if _, ok := sosuo.mutation.UpdatedAt(); !ok {
+		v := subscriptiononeshot.UpdateDefaultUpdatedAt()
+		sosuo.mutation.SetUpdatedAt(v)
 	}
 }
 
@@ -519,6 +665,24 @@ func (sosuo *SubscriptionOneShotUpdateOne) sqlSave(ctx context.Context) (_node *
 	}
 	if value, ok := sosuo.mutation.EntID(); ok {
 		_spec.SetField(subscriptiononeshot.FieldEntID, field.TypeUUID, value)
+	}
+	if value, ok := sosuo.mutation.CreatedAt(); ok {
+		_spec.SetField(subscriptiononeshot.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := sosuo.mutation.AddedCreatedAt(); ok {
+		_spec.AddField(subscriptiononeshot.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := sosuo.mutation.UpdatedAt(); ok {
+		_spec.SetField(subscriptiononeshot.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := sosuo.mutation.AddedUpdatedAt(); ok {
+		_spec.AddField(subscriptiononeshot.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := sosuo.mutation.DeletedAt(); ok {
+		_spec.SetField(subscriptiononeshot.FieldDeletedAt, field.TypeUint32, value)
+	}
+	if value, ok := sosuo.mutation.AddedDeletedAt(); ok {
+		_spec.AddField(subscriptiononeshot.FieldDeletedAt, field.TypeUint32, value)
 	}
 	if value, ok := sosuo.mutation.GoodID(); ok {
 		_spec.SetField(subscriptiononeshot.FieldGoodID, field.TypeUUID, value)
