@@ -27,10 +27,14 @@ var schemaGraph = func() *sqlgraph.Schema {
 		},
 		Type: "Capacity",
 		Fields: map[string]*sqlgraph.FieldSpec{
-			capacity.FieldEntID:       {Type: field.TypeUUID, Column: capacity.FieldEntID},
-			capacity.FieldAppGoodID:   {Type: field.TypeUUID, Column: capacity.FieldAppGoodID},
-			capacity.FieldCapacityKey: {Type: field.TypeString, Column: capacity.FieldCapacityKey},
-			capacity.FieldValue:       {Type: field.TypeString, Column: capacity.FieldValue},
+			capacity.FieldEntID:         {Type: field.TypeUUID, Column: capacity.FieldEntID},
+			capacity.FieldCreatedAt:     {Type: field.TypeUint32, Column: capacity.FieldCreatedAt},
+			capacity.FieldUpdatedAt:     {Type: field.TypeUint32, Column: capacity.FieldUpdatedAt},
+			capacity.FieldDeletedAt:     {Type: field.TypeUint32, Column: capacity.FieldDeletedAt},
+			capacity.FieldAppGoodID:     {Type: field.TypeUUID, Column: capacity.FieldAppGoodID},
+			capacity.FieldCapacityKey:   {Type: field.TypeString, Column: capacity.FieldCapacityKey},
+			capacity.FieldCapacityValue: {Type: field.TypeString, Column: capacity.FieldCapacityValue},
+			capacity.FieldDescription:   {Type: field.TypeString, Column: capacity.FieldDescription},
 		},
 	}
 	graph.Nodes[1] = &sqlgraph.Node{
@@ -133,6 +137,21 @@ func (f *CapacityFilter) WhereEntID(p entql.ValueP) {
 	f.Where(p.Field(capacity.FieldEntID))
 }
 
+// WhereCreatedAt applies the entql uint32 predicate on the created_at field.
+func (f *CapacityFilter) WhereCreatedAt(p entql.Uint32P) {
+	f.Where(p.Field(capacity.FieldCreatedAt))
+}
+
+// WhereUpdatedAt applies the entql uint32 predicate on the updated_at field.
+func (f *CapacityFilter) WhereUpdatedAt(p entql.Uint32P) {
+	f.Where(p.Field(capacity.FieldUpdatedAt))
+}
+
+// WhereDeletedAt applies the entql uint32 predicate on the deleted_at field.
+func (f *CapacityFilter) WhereDeletedAt(p entql.Uint32P) {
+	f.Where(p.Field(capacity.FieldDeletedAt))
+}
+
 // WhereAppGoodID applies the entql [16]byte predicate on the app_good_id field.
 func (f *CapacityFilter) WhereAppGoodID(p entql.ValueP) {
 	f.Where(p.Field(capacity.FieldAppGoodID))
@@ -143,9 +162,14 @@ func (f *CapacityFilter) WhereCapacityKey(p entql.StringP) {
 	f.Where(p.Field(capacity.FieldCapacityKey))
 }
 
-// WhereValue applies the entql string predicate on the value field.
-func (f *CapacityFilter) WhereValue(p entql.StringP) {
-	f.Where(p.Field(capacity.FieldValue))
+// WhereCapacityValue applies the entql string predicate on the capacity_value field.
+func (f *CapacityFilter) WhereCapacityValue(p entql.StringP) {
+	f.Where(p.Field(capacity.FieldCapacityValue))
+}
+
+// WhereDescription applies the entql string predicate on the description field.
+func (f *CapacityFilter) WhereDescription(p entql.StringP) {
+	f.Where(p.Field(capacity.FieldDescription))
 }
 
 // addPredicate implements the predicateAdder interface.

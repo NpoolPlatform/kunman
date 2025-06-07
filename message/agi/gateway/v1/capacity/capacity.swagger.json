@@ -221,13 +221,20 @@
           "type": "string",
           "title": "@inject_tag: sql:\"app_good_id\""
         },
-        "CapacityKey": {
+        "CapacityKeyStr": {
           "type": "string",
           "title": "@inject_tag: sql:\"capacity_key\""
+        },
+        "CapacityKey": {
+          "$ref": "#/definitions/v1CapacityKey"
         },
         "Value": {
           "type": "string",
           "title": "@inject_tag: sql:\"capacity_value\""
+        },
+        "Description": {
+          "type": "string",
+          "title": "@inject_tag: sql:\"description\""
         },
         "CreatedAt": {
           "type": "integer",
@@ -276,6 +283,9 @@
           "$ref": "#/definitions/v1CapacityKey"
         },
         "Value": {
+          "type": "string"
+        },
+        "Description": {
           "type": "string"
         }
       }
@@ -346,6 +356,9 @@
           "type": "string"
         },
         "Value": {
+          "type": "string"
+        },
+        "Description": {
           "type": "string"
         }
       }

@@ -15,6 +15,7 @@ type Capacity struct {
 func (Capacity) Mixin() []ent.Mixin {
 	return []ent.Mixin{
 		crudermixin.AutoIDMixin{},
+		crudermixin.TimeMixin{},
 	}
 }
 
@@ -32,7 +33,11 @@ func (Capacity) Fields() []ent.Field {
 			Optional().
 			Default(""),
 		field.
-			String("value").
+			String("capacity_value").
+			Optional().
+			Default(""),
+		field.
+			String("description").
 			Optional().
 			Default(""),
 	}

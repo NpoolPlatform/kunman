@@ -34,17 +34,24 @@ const (
 // CapacityMutation represents an operation that mutates the Capacity nodes in the graph.
 type CapacityMutation struct {
 	config
-	op            Op
-	typ           string
-	id            *uint32
-	ent_id        *uuid.UUID
-	app_good_id   *uuid.UUID
-	capacity_key  *string
-	value         *string
-	clearedFields map[string]struct{}
-	done          bool
-	oldValue      func(context.Context) (*Capacity, error)
-	predicates    []predicate.Capacity
+	op             Op
+	typ            string
+	id             *uint32
+	ent_id         *uuid.UUID
+	created_at     *uint32
+	addcreated_at  *int32
+	updated_at     *uint32
+	addupdated_at  *int32
+	deleted_at     *uint32
+	adddeleted_at  *int32
+	app_good_id    *uuid.UUID
+	capacity_key   *string
+	capacity_value *string
+	description    *string
+	clearedFields  map[string]struct{}
+	done           bool
+	oldValue       func(context.Context) (*Capacity, error)
+	predicates     []predicate.Capacity
 }
 
 var _ ent.Mutation = (*CapacityMutation)(nil)
@@ -187,6 +194,174 @@ func (m *CapacityMutation) ResetEntID() {
 	m.ent_id = nil
 }
 
+// SetCreatedAt sets the "created_at" field.
+func (m *CapacityMutation) SetCreatedAt(u uint32) {
+	m.created_at = &u
+	m.addcreated_at = nil
+}
+
+// CreatedAt returns the value of the "created_at" field in the mutation.
+func (m *CapacityMutation) CreatedAt() (r uint32, exists bool) {
+	v := m.created_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldCreatedAt returns the old "created_at" field's value of the Capacity entity.
+// If the Capacity object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *CapacityMutation) OldCreatedAt(ctx context.Context) (v uint32, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldCreatedAt is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldCreatedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldCreatedAt: %w", err)
+	}
+	return oldValue.CreatedAt, nil
+}
+
+// AddCreatedAt adds u to the "created_at" field.
+func (m *CapacityMutation) AddCreatedAt(u int32) {
+	if m.addcreated_at != nil {
+		*m.addcreated_at += u
+	} else {
+		m.addcreated_at = &u
+	}
+}
+
+// AddedCreatedAt returns the value that was added to the "created_at" field in this mutation.
+func (m *CapacityMutation) AddedCreatedAt() (r int32, exists bool) {
+	v := m.addcreated_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetCreatedAt resets all changes to the "created_at" field.
+func (m *CapacityMutation) ResetCreatedAt() {
+	m.created_at = nil
+	m.addcreated_at = nil
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (m *CapacityMutation) SetUpdatedAt(u uint32) {
+	m.updated_at = &u
+	m.addupdated_at = nil
+}
+
+// UpdatedAt returns the value of the "updated_at" field in the mutation.
+func (m *CapacityMutation) UpdatedAt() (r uint32, exists bool) {
+	v := m.updated_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldUpdatedAt returns the old "updated_at" field's value of the Capacity entity.
+// If the Capacity object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *CapacityMutation) OldUpdatedAt(ctx context.Context) (v uint32, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldUpdatedAt is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldUpdatedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldUpdatedAt: %w", err)
+	}
+	return oldValue.UpdatedAt, nil
+}
+
+// AddUpdatedAt adds u to the "updated_at" field.
+func (m *CapacityMutation) AddUpdatedAt(u int32) {
+	if m.addupdated_at != nil {
+		*m.addupdated_at += u
+	} else {
+		m.addupdated_at = &u
+	}
+}
+
+// AddedUpdatedAt returns the value that was added to the "updated_at" field in this mutation.
+func (m *CapacityMutation) AddedUpdatedAt() (r int32, exists bool) {
+	v := m.addupdated_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetUpdatedAt resets all changes to the "updated_at" field.
+func (m *CapacityMutation) ResetUpdatedAt() {
+	m.updated_at = nil
+	m.addupdated_at = nil
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (m *CapacityMutation) SetDeletedAt(u uint32) {
+	m.deleted_at = &u
+	m.adddeleted_at = nil
+}
+
+// DeletedAt returns the value of the "deleted_at" field in the mutation.
+func (m *CapacityMutation) DeletedAt() (r uint32, exists bool) {
+	v := m.deleted_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldDeletedAt returns the old "deleted_at" field's value of the Capacity entity.
+// If the Capacity object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *CapacityMutation) OldDeletedAt(ctx context.Context) (v uint32, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldDeletedAt is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldDeletedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldDeletedAt: %w", err)
+	}
+	return oldValue.DeletedAt, nil
+}
+
+// AddDeletedAt adds u to the "deleted_at" field.
+func (m *CapacityMutation) AddDeletedAt(u int32) {
+	if m.adddeleted_at != nil {
+		*m.adddeleted_at += u
+	} else {
+		m.adddeleted_at = &u
+	}
+}
+
+// AddedDeletedAt returns the value that was added to the "deleted_at" field in this mutation.
+func (m *CapacityMutation) AddedDeletedAt() (r int32, exists bool) {
+	v := m.adddeleted_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetDeletedAt resets all changes to the "deleted_at" field.
+func (m *CapacityMutation) ResetDeletedAt() {
+	m.deleted_at = nil
+	m.adddeleted_at = nil
+}
+
 // SetAppGoodID sets the "app_good_id" field.
 func (m *CapacityMutation) SetAppGoodID(u uuid.UUID) {
 	m.app_good_id = &u
@@ -285,53 +460,102 @@ func (m *CapacityMutation) ResetCapacityKey() {
 	delete(m.clearedFields, capacity.FieldCapacityKey)
 }
 
-// SetValue sets the "value" field.
-func (m *CapacityMutation) SetValue(s string) {
-	m.value = &s
+// SetCapacityValue sets the "capacity_value" field.
+func (m *CapacityMutation) SetCapacityValue(s string) {
+	m.capacity_value = &s
 }
 
-// Value returns the value of the "value" field in the mutation.
-func (m *CapacityMutation) Value() (r string, exists bool) {
-	v := m.value
+// CapacityValue returns the value of the "capacity_value" field in the mutation.
+func (m *CapacityMutation) CapacityValue() (r string, exists bool) {
+	v := m.capacity_value
 	if v == nil {
 		return
 	}
 	return *v, true
 }
 
-// OldValue returns the old "value" field's value of the Capacity entity.
+// OldCapacityValue returns the old "capacity_value" field's value of the Capacity entity.
 // If the Capacity object wasn't provided to the builder, the object is fetched from the database.
 // An error is returned if the mutation operation is not UpdateOne, or the database query fails.
-func (m *CapacityMutation) OldValue(ctx context.Context) (v string, err error) {
+func (m *CapacityMutation) OldCapacityValue(ctx context.Context) (v string, err error) {
 	if !m.op.Is(OpUpdateOne) {
-		return v, errors.New("OldValue is only allowed on UpdateOne operations")
+		return v, errors.New("OldCapacityValue is only allowed on UpdateOne operations")
 	}
 	if m.id == nil || m.oldValue == nil {
-		return v, errors.New("OldValue requires an ID field in the mutation")
+		return v, errors.New("OldCapacityValue requires an ID field in the mutation")
 	}
 	oldValue, err := m.oldValue(ctx)
 	if err != nil {
-		return v, fmt.Errorf("querying old value for OldValue: %w", err)
+		return v, fmt.Errorf("querying old value for OldCapacityValue: %w", err)
 	}
-	return oldValue.Value, nil
+	return oldValue.CapacityValue, nil
 }
 
-// ClearValue clears the value of the "value" field.
-func (m *CapacityMutation) ClearValue() {
-	m.value = nil
-	m.clearedFields[capacity.FieldValue] = struct{}{}
+// ClearCapacityValue clears the value of the "capacity_value" field.
+func (m *CapacityMutation) ClearCapacityValue() {
+	m.capacity_value = nil
+	m.clearedFields[capacity.FieldCapacityValue] = struct{}{}
 }
 
-// ValueCleared returns if the "value" field was cleared in this mutation.
-func (m *CapacityMutation) ValueCleared() bool {
-	_, ok := m.clearedFields[capacity.FieldValue]
+// CapacityValueCleared returns if the "capacity_value" field was cleared in this mutation.
+func (m *CapacityMutation) CapacityValueCleared() bool {
+	_, ok := m.clearedFields[capacity.FieldCapacityValue]
 	return ok
 }
 
-// ResetValue resets all changes to the "value" field.
-func (m *CapacityMutation) ResetValue() {
-	m.value = nil
-	delete(m.clearedFields, capacity.FieldValue)
+// ResetCapacityValue resets all changes to the "capacity_value" field.
+func (m *CapacityMutation) ResetCapacityValue() {
+	m.capacity_value = nil
+	delete(m.clearedFields, capacity.FieldCapacityValue)
+}
+
+// SetDescription sets the "description" field.
+func (m *CapacityMutation) SetDescription(s string) {
+	m.description = &s
+}
+
+// Description returns the value of the "description" field in the mutation.
+func (m *CapacityMutation) Description() (r string, exists bool) {
+	v := m.description
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldDescription returns the old "description" field's value of the Capacity entity.
+// If the Capacity object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *CapacityMutation) OldDescription(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldDescription is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldDescription requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldDescription: %w", err)
+	}
+	return oldValue.Description, nil
+}
+
+// ClearDescription clears the value of the "description" field.
+func (m *CapacityMutation) ClearDescription() {
+	m.description = nil
+	m.clearedFields[capacity.FieldDescription] = struct{}{}
+}
+
+// DescriptionCleared returns if the "description" field was cleared in this mutation.
+func (m *CapacityMutation) DescriptionCleared() bool {
+	_, ok := m.clearedFields[capacity.FieldDescription]
+	return ok
+}
+
+// ResetDescription resets all changes to the "description" field.
+func (m *CapacityMutation) ResetDescription() {
+	m.description = nil
+	delete(m.clearedFields, capacity.FieldDescription)
 }
 
 // Where appends a list predicates to the CapacityMutation builder.
@@ -368,9 +592,18 @@ func (m *CapacityMutation) Type() string {
 // order to get all numeric fields that were incremented/decremented, call
 // AddedFields().
 func (m *CapacityMutation) Fields() []string {
-	fields := make([]string, 0, 4)
+	fields := make([]string, 0, 8)
 	if m.ent_id != nil {
 		fields = append(fields, capacity.FieldEntID)
+	}
+	if m.created_at != nil {
+		fields = append(fields, capacity.FieldCreatedAt)
+	}
+	if m.updated_at != nil {
+		fields = append(fields, capacity.FieldUpdatedAt)
+	}
+	if m.deleted_at != nil {
+		fields = append(fields, capacity.FieldDeletedAt)
 	}
 	if m.app_good_id != nil {
 		fields = append(fields, capacity.FieldAppGoodID)
@@ -378,8 +611,11 @@ func (m *CapacityMutation) Fields() []string {
 	if m.capacity_key != nil {
 		fields = append(fields, capacity.FieldCapacityKey)
 	}
-	if m.value != nil {
-		fields = append(fields, capacity.FieldValue)
+	if m.capacity_value != nil {
+		fields = append(fields, capacity.FieldCapacityValue)
+	}
+	if m.description != nil {
+		fields = append(fields, capacity.FieldDescription)
 	}
 	return fields
 }
@@ -391,12 +627,20 @@ func (m *CapacityMutation) Field(name string) (ent.Value, bool) {
 	switch name {
 	case capacity.FieldEntID:
 		return m.EntID()
+	case capacity.FieldCreatedAt:
+		return m.CreatedAt()
+	case capacity.FieldUpdatedAt:
+		return m.UpdatedAt()
+	case capacity.FieldDeletedAt:
+		return m.DeletedAt()
 	case capacity.FieldAppGoodID:
 		return m.AppGoodID()
 	case capacity.FieldCapacityKey:
 		return m.CapacityKey()
-	case capacity.FieldValue:
-		return m.Value()
+	case capacity.FieldCapacityValue:
+		return m.CapacityValue()
+	case capacity.FieldDescription:
+		return m.Description()
 	}
 	return nil, false
 }
@@ -408,12 +652,20 @@ func (m *CapacityMutation) OldField(ctx context.Context, name string) (ent.Value
 	switch name {
 	case capacity.FieldEntID:
 		return m.OldEntID(ctx)
+	case capacity.FieldCreatedAt:
+		return m.OldCreatedAt(ctx)
+	case capacity.FieldUpdatedAt:
+		return m.OldUpdatedAt(ctx)
+	case capacity.FieldDeletedAt:
+		return m.OldDeletedAt(ctx)
 	case capacity.FieldAppGoodID:
 		return m.OldAppGoodID(ctx)
 	case capacity.FieldCapacityKey:
 		return m.OldCapacityKey(ctx)
-	case capacity.FieldValue:
-		return m.OldValue(ctx)
+	case capacity.FieldCapacityValue:
+		return m.OldCapacityValue(ctx)
+	case capacity.FieldDescription:
+		return m.OldDescription(ctx)
 	}
 	return nil, fmt.Errorf("unknown Capacity field %s", name)
 }
@@ -430,6 +682,27 @@ func (m *CapacityMutation) SetField(name string, value ent.Value) error {
 		}
 		m.SetEntID(v)
 		return nil
+	case capacity.FieldCreatedAt:
+		v, ok := value.(uint32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetCreatedAt(v)
+		return nil
+	case capacity.FieldUpdatedAt:
+		v, ok := value.(uint32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetUpdatedAt(v)
+		return nil
+	case capacity.FieldDeletedAt:
+		v, ok := value.(uint32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetDeletedAt(v)
+		return nil
 	case capacity.FieldAppGoodID:
 		v, ok := value.(uuid.UUID)
 		if !ok {
@@ -444,12 +717,19 @@ func (m *CapacityMutation) SetField(name string, value ent.Value) error {
 		}
 		m.SetCapacityKey(v)
 		return nil
-	case capacity.FieldValue:
+	case capacity.FieldCapacityValue:
 		v, ok := value.(string)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
-		m.SetValue(v)
+		m.SetCapacityValue(v)
+		return nil
+	case capacity.FieldDescription:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetDescription(v)
 		return nil
 	}
 	return fmt.Errorf("unknown Capacity field %s", name)
@@ -458,13 +738,31 @@ func (m *CapacityMutation) SetField(name string, value ent.Value) error {
 // AddedFields returns all numeric fields that were incremented/decremented during
 // this mutation.
 func (m *CapacityMutation) AddedFields() []string {
-	return nil
+	var fields []string
+	if m.addcreated_at != nil {
+		fields = append(fields, capacity.FieldCreatedAt)
+	}
+	if m.addupdated_at != nil {
+		fields = append(fields, capacity.FieldUpdatedAt)
+	}
+	if m.adddeleted_at != nil {
+		fields = append(fields, capacity.FieldDeletedAt)
+	}
+	return fields
 }
 
 // AddedField returns the numeric value that was incremented/decremented on a field
 // with the given name. The second boolean return value indicates that this field
 // was not set, or was not defined in the schema.
 func (m *CapacityMutation) AddedField(name string) (ent.Value, bool) {
+	switch name {
+	case capacity.FieldCreatedAt:
+		return m.AddedCreatedAt()
+	case capacity.FieldUpdatedAt:
+		return m.AddedUpdatedAt()
+	case capacity.FieldDeletedAt:
+		return m.AddedDeletedAt()
+	}
 	return nil, false
 }
 
@@ -473,6 +771,27 @@ func (m *CapacityMutation) AddedField(name string) (ent.Value, bool) {
 // type.
 func (m *CapacityMutation) AddField(name string, value ent.Value) error {
 	switch name {
+	case capacity.FieldCreatedAt:
+		v, ok := value.(int32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddCreatedAt(v)
+		return nil
+	case capacity.FieldUpdatedAt:
+		v, ok := value.(int32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddUpdatedAt(v)
+		return nil
+	case capacity.FieldDeletedAt:
+		v, ok := value.(int32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddDeletedAt(v)
+		return nil
 	}
 	return fmt.Errorf("unknown Capacity numeric field %s", name)
 }
@@ -487,8 +806,11 @@ func (m *CapacityMutation) ClearedFields() []string {
 	if m.FieldCleared(capacity.FieldCapacityKey) {
 		fields = append(fields, capacity.FieldCapacityKey)
 	}
-	if m.FieldCleared(capacity.FieldValue) {
-		fields = append(fields, capacity.FieldValue)
+	if m.FieldCleared(capacity.FieldCapacityValue) {
+		fields = append(fields, capacity.FieldCapacityValue)
+	}
+	if m.FieldCleared(capacity.FieldDescription) {
+		fields = append(fields, capacity.FieldDescription)
 	}
 	return fields
 }
@@ -510,8 +832,11 @@ func (m *CapacityMutation) ClearField(name string) error {
 	case capacity.FieldCapacityKey:
 		m.ClearCapacityKey()
 		return nil
-	case capacity.FieldValue:
-		m.ClearValue()
+	case capacity.FieldCapacityValue:
+		m.ClearCapacityValue()
+		return nil
+	case capacity.FieldDescription:
+		m.ClearDescription()
 		return nil
 	}
 	return fmt.Errorf("unknown Capacity nullable field %s", name)
@@ -524,14 +849,26 @@ func (m *CapacityMutation) ResetField(name string) error {
 	case capacity.FieldEntID:
 		m.ResetEntID()
 		return nil
+	case capacity.FieldCreatedAt:
+		m.ResetCreatedAt()
+		return nil
+	case capacity.FieldUpdatedAt:
+		m.ResetUpdatedAt()
+		return nil
+	case capacity.FieldDeletedAt:
+		m.ResetDeletedAt()
+		return nil
 	case capacity.FieldAppGoodID:
 		m.ResetAppGoodID()
 		return nil
 	case capacity.FieldCapacityKey:
 		m.ResetCapacityKey()
 		return nil
-	case capacity.FieldValue:
-		m.ResetValue()
+	case capacity.FieldCapacityValue:
+		m.ResetCapacityValue()
+		return nil
+	case capacity.FieldDescription:
+		m.ResetDescription()
 		return nil
 	}
 	return fmt.Errorf("unknown Capacity field %s", name)

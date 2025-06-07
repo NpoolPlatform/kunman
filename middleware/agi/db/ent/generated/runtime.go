@@ -17,12 +17,28 @@ func init() {
 	capacityMixin := schema.Capacity{}.Mixin()
 	capacityMixinFields0 := capacityMixin[0].Fields()
 	_ = capacityMixinFields0
+	capacityMixinFields1 := capacityMixin[1].Fields()
+	_ = capacityMixinFields1
 	capacityFields := schema.Capacity{}.Fields()
 	_ = capacityFields
 	// capacityDescEntID is the schema descriptor for ent_id field.
 	capacityDescEntID := capacityMixinFields0[1].Descriptor()
 	// capacity.DefaultEntID holds the default value on creation for the ent_id field.
 	capacity.DefaultEntID = capacityDescEntID.Default.(func() uuid.UUID)
+	// capacityDescCreatedAt is the schema descriptor for created_at field.
+	capacityDescCreatedAt := capacityMixinFields1[0].Descriptor()
+	// capacity.DefaultCreatedAt holds the default value on creation for the created_at field.
+	capacity.DefaultCreatedAt = capacityDescCreatedAt.Default.(func() uint32)
+	// capacityDescUpdatedAt is the schema descriptor for updated_at field.
+	capacityDescUpdatedAt := capacityMixinFields1[1].Descriptor()
+	// capacity.DefaultUpdatedAt holds the default value on creation for the updated_at field.
+	capacity.DefaultUpdatedAt = capacityDescUpdatedAt.Default.(func() uint32)
+	// capacity.UpdateDefaultUpdatedAt holds the default value on update for the updated_at field.
+	capacity.UpdateDefaultUpdatedAt = capacityDescUpdatedAt.UpdateDefault.(func() uint32)
+	// capacityDescDeletedAt is the schema descriptor for deleted_at field.
+	capacityDescDeletedAt := capacityMixinFields1[2].Descriptor()
+	// capacity.DefaultDeletedAt holds the default value on creation for the deleted_at field.
+	capacity.DefaultDeletedAt = capacityDescDeletedAt.Default.(func() uint32)
 	// capacityDescAppGoodID is the schema descriptor for app_good_id field.
 	capacityDescAppGoodID := capacityFields[0].Descriptor()
 	// capacity.DefaultAppGoodID holds the default value on creation for the app_good_id field.
@@ -31,10 +47,14 @@ func init() {
 	capacityDescCapacityKey := capacityFields[1].Descriptor()
 	// capacity.DefaultCapacityKey holds the default value on creation for the capacity_key field.
 	capacity.DefaultCapacityKey = capacityDescCapacityKey.Default.(string)
-	// capacityDescValue is the schema descriptor for value field.
-	capacityDescValue := capacityFields[2].Descriptor()
-	// capacity.DefaultValue holds the default value on creation for the value field.
-	capacity.DefaultValue = capacityDescValue.Default.(string)
+	// capacityDescCapacityValue is the schema descriptor for capacity_value field.
+	capacityDescCapacityValue := capacityFields[2].Descriptor()
+	// capacity.DefaultCapacityValue holds the default value on creation for the capacity_value field.
+	capacity.DefaultCapacityValue = capacityDescCapacityValue.Default.(string)
+	// capacityDescDescription is the schema descriptor for description field.
+	capacityDescDescription := capacityFields[3].Descriptor()
+	// capacity.DefaultDescription holds the default value on creation for the description field.
+	capacity.DefaultDescription = capacityDescDescription.Default.(string)
 	quotaMixin := schema.Quota{}.Mixin()
 	quotaMixinFields0 := quotaMixin[0].Fields()
 	_ = quotaMixinFields0

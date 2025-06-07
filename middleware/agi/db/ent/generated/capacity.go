@@ -19,12 +19,20 @@ type Capacity struct {
 	ID uint32 `json:"id,omitempty"`
 	// EntID holds the value of the "ent_id" field.
 	EntID uuid.UUID `json:"ent_id,omitempty"`
+	// CreatedAt holds the value of the "created_at" field.
+	CreatedAt uint32 `json:"created_at,omitempty"`
+	// UpdatedAt holds the value of the "updated_at" field.
+	UpdatedAt uint32 `json:"updated_at,omitempty"`
+	// DeletedAt holds the value of the "deleted_at" field.
+	DeletedAt uint32 `json:"deleted_at,omitempty"`
 	// AppGoodID holds the value of the "app_good_id" field.
 	AppGoodID uuid.UUID `json:"app_good_id,omitempty"`
 	// CapacityKey holds the value of the "capacity_key" field.
 	CapacityKey string `json:"capacity_key,omitempty"`
-	// Value holds the value of the "value" field.
-	Value        string `json:"value,omitempty"`
+	// CapacityValue holds the value of the "capacity_value" field.
+	CapacityValue string `json:"capacity_value,omitempty"`
+	// Description holds the value of the "description" field.
+	Description  string `json:"description,omitempty"`
 	selectValues sql.SelectValues
 }
 
@@ -33,9 +41,9 @@ func (*Capacity) scanValues(columns []string) ([]any, error) {
 	values := make([]any, len(columns))
 	for i := range columns {
 		switch columns[i] {
-		case capacity.FieldID:
+		case capacity.FieldID, capacity.FieldCreatedAt, capacity.FieldUpdatedAt, capacity.FieldDeletedAt:
 			values[i] = new(sql.NullInt64)
-		case capacity.FieldCapacityKey, capacity.FieldValue:
+		case capacity.FieldCapacityKey, capacity.FieldCapacityValue, capacity.FieldDescription:
 			values[i] = new(sql.NullString)
 		case capacity.FieldEntID, capacity.FieldAppGoodID:
 			values[i] = new(uuid.UUID)
@@ -66,6 +74,24 @@ func (c *Capacity) assignValues(columns []string, values []any) error {
 			} else if value != nil {
 				c.EntID = *value
 			}
+		case capacity.FieldCreatedAt:
+			if value, ok := values[i].(*sql.NullInt64); !ok {
+				return fmt.Errorf("unexpected type %T for field created_at", values[i])
+			} else if value.Valid {
+				c.CreatedAt = uint32(value.Int64)
+			}
+		case capacity.FieldUpdatedAt:
+			if value, ok := values[i].(*sql.NullInt64); !ok {
+				return fmt.Errorf("unexpected type %T for field updated_at", values[i])
+			} else if value.Valid {
+				c.UpdatedAt = uint32(value.Int64)
+			}
+		case capacity.FieldDeletedAt:
+			if value, ok := values[i].(*sql.NullInt64); !ok {
+				return fmt.Errorf("unexpected type %T for field deleted_at", values[i])
+			} else if value.Valid {
+				c.DeletedAt = uint32(value.Int64)
+			}
 		case capacity.FieldAppGoodID:
 			if value, ok := values[i].(*uuid.UUID); !ok {
 				return fmt.Errorf("unexpected type %T for field app_good_id", values[i])
@@ -78,11 +104,17 @@ func (c *Capacity) assignValues(columns []string, values []any) error {
 			} else if value.Valid {
 				c.CapacityKey = value.String
 			}
-		case capacity.FieldValue:
+		case capacity.FieldCapacityValue:
 			if value, ok := values[i].(*sql.NullString); !ok {
-				return fmt.Errorf("unexpected type %T for field value", values[i])
+				return fmt.Errorf("unexpected type %T for field capacity_value", values[i])
 			} else if value.Valid {
-				c.Value = value.String
+				c.CapacityValue = value.String
+			}
+		case capacity.FieldDescription:
+			if value, ok := values[i].(*sql.NullString); !ok {
+				return fmt.Errorf("unexpected type %T for field description", values[i])
+			} else if value.Valid {
+				c.Description = value.String
 			}
 		default:
 			c.selectValues.Set(columns[i], values[i])
@@ -91,9 +123,9 @@ func (c *Capacity) assignValues(columns []string, values []any) error {
 	return nil
 }
 
-// GetValue returns the ent.Value that was dynamically selected and assigned to the Capacity.
+// Value returns the ent.Value that was dynamically selected and assigned to the Capacity.
 // This includes values selected through modifiers, order, etc.
-func (c *Capacity) GetValue(name string) (ent.Value, error) {
+func (c *Capacity) Value(name string) (ent.Value, error) {
 	return c.selectValues.Get(name)
 }
 
@@ -123,14 +155,26 @@ func (c *Capacity) String() string {
 	builder.WriteString("ent_id=")
 	builder.WriteString(fmt.Sprintf("%v", c.EntID))
 	builder.WriteString(", ")
+	builder.WriteString("created_at=")
+	builder.WriteString(fmt.Sprintf("%v", c.CreatedAt))
+	builder.WriteString(", ")
+	builder.WriteString("updated_at=")
+	builder.WriteString(fmt.Sprintf("%v", c.UpdatedAt))
+	builder.WriteString(", ")
+	builder.WriteString("deleted_at=")
+	builder.WriteString(fmt.Sprintf("%v", c.DeletedAt))
+	builder.WriteString(", ")
 	builder.WriteString("app_good_id=")
 	builder.WriteString(fmt.Sprintf("%v", c.AppGoodID))
 	builder.WriteString(", ")
 	builder.WriteString("capacity_key=")
 	builder.WriteString(c.CapacityKey)
 	builder.WriteString(", ")
-	builder.WriteString("value=")
-	builder.WriteString(c.Value)
+	builder.WriteString("capacity_value=")
+	builder.WriteString(c.CapacityValue)
+	builder.WriteString(", ")
+	builder.WriteString("description=")
+	builder.WriteString(c.Description)
 	builder.WriteByte(')')
 	return builder.String()
 }

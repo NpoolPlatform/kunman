@@ -58,6 +58,21 @@ func EntID(v uuid.UUID) predicate.Capacity {
 	return predicate.Capacity(sql.FieldEQ(FieldEntID, v))
 }
 
+// CreatedAt applies equality check predicate on the "created_at" field. It's identical to CreatedAtEQ.
+func CreatedAt(v uint32) predicate.Capacity {
+	return predicate.Capacity(sql.FieldEQ(FieldCreatedAt, v))
+}
+
+// UpdatedAt applies equality check predicate on the "updated_at" field. It's identical to UpdatedAtEQ.
+func UpdatedAt(v uint32) predicate.Capacity {
+	return predicate.Capacity(sql.FieldEQ(FieldUpdatedAt, v))
+}
+
+// DeletedAt applies equality check predicate on the "deleted_at" field. It's identical to DeletedAtEQ.
+func DeletedAt(v uint32) predicate.Capacity {
+	return predicate.Capacity(sql.FieldEQ(FieldDeletedAt, v))
+}
+
 // AppGoodID applies equality check predicate on the "app_good_id" field. It's identical to AppGoodIDEQ.
 func AppGoodID(v uuid.UUID) predicate.Capacity {
 	return predicate.Capacity(sql.FieldEQ(FieldAppGoodID, v))
@@ -68,9 +83,14 @@ func CapacityKey(v string) predicate.Capacity {
 	return predicate.Capacity(sql.FieldEQ(FieldCapacityKey, v))
 }
 
-// Value applies equality check predicate on the "value" field. It's identical to ValueEQ.
-func Value(v string) predicate.Capacity {
-	return predicate.Capacity(sql.FieldEQ(FieldValue, v))
+// CapacityValue applies equality check predicate on the "capacity_value" field. It's identical to CapacityValueEQ.
+func CapacityValue(v string) predicate.Capacity {
+	return predicate.Capacity(sql.FieldEQ(FieldCapacityValue, v))
+}
+
+// Description applies equality check predicate on the "description" field. It's identical to DescriptionEQ.
+func Description(v string) predicate.Capacity {
+	return predicate.Capacity(sql.FieldEQ(FieldDescription, v))
 }
 
 // EntIDEQ applies the EQ predicate on the "ent_id" field.
@@ -111,6 +131,126 @@ func EntIDLT(v uuid.UUID) predicate.Capacity {
 // EntIDLTE applies the LTE predicate on the "ent_id" field.
 func EntIDLTE(v uuid.UUID) predicate.Capacity {
 	return predicate.Capacity(sql.FieldLTE(FieldEntID, v))
+}
+
+// CreatedAtEQ applies the EQ predicate on the "created_at" field.
+func CreatedAtEQ(v uint32) predicate.Capacity {
+	return predicate.Capacity(sql.FieldEQ(FieldCreatedAt, v))
+}
+
+// CreatedAtNEQ applies the NEQ predicate on the "created_at" field.
+func CreatedAtNEQ(v uint32) predicate.Capacity {
+	return predicate.Capacity(sql.FieldNEQ(FieldCreatedAt, v))
+}
+
+// CreatedAtIn applies the In predicate on the "created_at" field.
+func CreatedAtIn(vs ...uint32) predicate.Capacity {
+	return predicate.Capacity(sql.FieldIn(FieldCreatedAt, vs...))
+}
+
+// CreatedAtNotIn applies the NotIn predicate on the "created_at" field.
+func CreatedAtNotIn(vs ...uint32) predicate.Capacity {
+	return predicate.Capacity(sql.FieldNotIn(FieldCreatedAt, vs...))
+}
+
+// CreatedAtGT applies the GT predicate on the "created_at" field.
+func CreatedAtGT(v uint32) predicate.Capacity {
+	return predicate.Capacity(sql.FieldGT(FieldCreatedAt, v))
+}
+
+// CreatedAtGTE applies the GTE predicate on the "created_at" field.
+func CreatedAtGTE(v uint32) predicate.Capacity {
+	return predicate.Capacity(sql.FieldGTE(FieldCreatedAt, v))
+}
+
+// CreatedAtLT applies the LT predicate on the "created_at" field.
+func CreatedAtLT(v uint32) predicate.Capacity {
+	return predicate.Capacity(sql.FieldLT(FieldCreatedAt, v))
+}
+
+// CreatedAtLTE applies the LTE predicate on the "created_at" field.
+func CreatedAtLTE(v uint32) predicate.Capacity {
+	return predicate.Capacity(sql.FieldLTE(FieldCreatedAt, v))
+}
+
+// UpdatedAtEQ applies the EQ predicate on the "updated_at" field.
+func UpdatedAtEQ(v uint32) predicate.Capacity {
+	return predicate.Capacity(sql.FieldEQ(FieldUpdatedAt, v))
+}
+
+// UpdatedAtNEQ applies the NEQ predicate on the "updated_at" field.
+func UpdatedAtNEQ(v uint32) predicate.Capacity {
+	return predicate.Capacity(sql.FieldNEQ(FieldUpdatedAt, v))
+}
+
+// UpdatedAtIn applies the In predicate on the "updated_at" field.
+func UpdatedAtIn(vs ...uint32) predicate.Capacity {
+	return predicate.Capacity(sql.FieldIn(FieldUpdatedAt, vs...))
+}
+
+// UpdatedAtNotIn applies the NotIn predicate on the "updated_at" field.
+func UpdatedAtNotIn(vs ...uint32) predicate.Capacity {
+	return predicate.Capacity(sql.FieldNotIn(FieldUpdatedAt, vs...))
+}
+
+// UpdatedAtGT applies the GT predicate on the "updated_at" field.
+func UpdatedAtGT(v uint32) predicate.Capacity {
+	return predicate.Capacity(sql.FieldGT(FieldUpdatedAt, v))
+}
+
+// UpdatedAtGTE applies the GTE predicate on the "updated_at" field.
+func UpdatedAtGTE(v uint32) predicate.Capacity {
+	return predicate.Capacity(sql.FieldGTE(FieldUpdatedAt, v))
+}
+
+// UpdatedAtLT applies the LT predicate on the "updated_at" field.
+func UpdatedAtLT(v uint32) predicate.Capacity {
+	return predicate.Capacity(sql.FieldLT(FieldUpdatedAt, v))
+}
+
+// UpdatedAtLTE applies the LTE predicate on the "updated_at" field.
+func UpdatedAtLTE(v uint32) predicate.Capacity {
+	return predicate.Capacity(sql.FieldLTE(FieldUpdatedAt, v))
+}
+
+// DeletedAtEQ applies the EQ predicate on the "deleted_at" field.
+func DeletedAtEQ(v uint32) predicate.Capacity {
+	return predicate.Capacity(sql.FieldEQ(FieldDeletedAt, v))
+}
+
+// DeletedAtNEQ applies the NEQ predicate on the "deleted_at" field.
+func DeletedAtNEQ(v uint32) predicate.Capacity {
+	return predicate.Capacity(sql.FieldNEQ(FieldDeletedAt, v))
+}
+
+// DeletedAtIn applies the In predicate on the "deleted_at" field.
+func DeletedAtIn(vs ...uint32) predicate.Capacity {
+	return predicate.Capacity(sql.FieldIn(FieldDeletedAt, vs...))
+}
+
+// DeletedAtNotIn applies the NotIn predicate on the "deleted_at" field.
+func DeletedAtNotIn(vs ...uint32) predicate.Capacity {
+	return predicate.Capacity(sql.FieldNotIn(FieldDeletedAt, vs...))
+}
+
+// DeletedAtGT applies the GT predicate on the "deleted_at" field.
+func DeletedAtGT(v uint32) predicate.Capacity {
+	return predicate.Capacity(sql.FieldGT(FieldDeletedAt, v))
+}
+
+// DeletedAtGTE applies the GTE predicate on the "deleted_at" field.
+func DeletedAtGTE(v uint32) predicate.Capacity {
+	return predicate.Capacity(sql.FieldGTE(FieldDeletedAt, v))
+}
+
+// DeletedAtLT applies the LT predicate on the "deleted_at" field.
+func DeletedAtLT(v uint32) predicate.Capacity {
+	return predicate.Capacity(sql.FieldLT(FieldDeletedAt, v))
+}
+
+// DeletedAtLTE applies the LTE predicate on the "deleted_at" field.
+func DeletedAtLTE(v uint32) predicate.Capacity {
+	return predicate.Capacity(sql.FieldLTE(FieldDeletedAt, v))
 }
 
 // AppGoodIDEQ applies the EQ predicate on the "app_good_id" field.
@@ -238,79 +378,154 @@ func CapacityKeyContainsFold(v string) predicate.Capacity {
 	return predicate.Capacity(sql.FieldContainsFold(FieldCapacityKey, v))
 }
 
-// ValueEQ applies the EQ predicate on the "value" field.
-func ValueEQ(v string) predicate.Capacity {
-	return predicate.Capacity(sql.FieldEQ(FieldValue, v))
+// CapacityValueEQ applies the EQ predicate on the "capacity_value" field.
+func CapacityValueEQ(v string) predicate.Capacity {
+	return predicate.Capacity(sql.FieldEQ(FieldCapacityValue, v))
 }
 
-// ValueNEQ applies the NEQ predicate on the "value" field.
-func ValueNEQ(v string) predicate.Capacity {
-	return predicate.Capacity(sql.FieldNEQ(FieldValue, v))
+// CapacityValueNEQ applies the NEQ predicate on the "capacity_value" field.
+func CapacityValueNEQ(v string) predicate.Capacity {
+	return predicate.Capacity(sql.FieldNEQ(FieldCapacityValue, v))
 }
 
-// ValueIn applies the In predicate on the "value" field.
-func ValueIn(vs ...string) predicate.Capacity {
-	return predicate.Capacity(sql.FieldIn(FieldValue, vs...))
+// CapacityValueIn applies the In predicate on the "capacity_value" field.
+func CapacityValueIn(vs ...string) predicate.Capacity {
+	return predicate.Capacity(sql.FieldIn(FieldCapacityValue, vs...))
 }
 
-// ValueNotIn applies the NotIn predicate on the "value" field.
-func ValueNotIn(vs ...string) predicate.Capacity {
-	return predicate.Capacity(sql.FieldNotIn(FieldValue, vs...))
+// CapacityValueNotIn applies the NotIn predicate on the "capacity_value" field.
+func CapacityValueNotIn(vs ...string) predicate.Capacity {
+	return predicate.Capacity(sql.FieldNotIn(FieldCapacityValue, vs...))
 }
 
-// ValueGT applies the GT predicate on the "value" field.
-func ValueGT(v string) predicate.Capacity {
-	return predicate.Capacity(sql.FieldGT(FieldValue, v))
+// CapacityValueGT applies the GT predicate on the "capacity_value" field.
+func CapacityValueGT(v string) predicate.Capacity {
+	return predicate.Capacity(sql.FieldGT(FieldCapacityValue, v))
 }
 
-// ValueGTE applies the GTE predicate on the "value" field.
-func ValueGTE(v string) predicate.Capacity {
-	return predicate.Capacity(sql.FieldGTE(FieldValue, v))
+// CapacityValueGTE applies the GTE predicate on the "capacity_value" field.
+func CapacityValueGTE(v string) predicate.Capacity {
+	return predicate.Capacity(sql.FieldGTE(FieldCapacityValue, v))
 }
 
-// ValueLT applies the LT predicate on the "value" field.
-func ValueLT(v string) predicate.Capacity {
-	return predicate.Capacity(sql.FieldLT(FieldValue, v))
+// CapacityValueLT applies the LT predicate on the "capacity_value" field.
+func CapacityValueLT(v string) predicate.Capacity {
+	return predicate.Capacity(sql.FieldLT(FieldCapacityValue, v))
 }
 
-// ValueLTE applies the LTE predicate on the "value" field.
-func ValueLTE(v string) predicate.Capacity {
-	return predicate.Capacity(sql.FieldLTE(FieldValue, v))
+// CapacityValueLTE applies the LTE predicate on the "capacity_value" field.
+func CapacityValueLTE(v string) predicate.Capacity {
+	return predicate.Capacity(sql.FieldLTE(FieldCapacityValue, v))
 }
 
-// ValueContains applies the Contains predicate on the "value" field.
-func ValueContains(v string) predicate.Capacity {
-	return predicate.Capacity(sql.FieldContains(FieldValue, v))
+// CapacityValueContains applies the Contains predicate on the "capacity_value" field.
+func CapacityValueContains(v string) predicate.Capacity {
+	return predicate.Capacity(sql.FieldContains(FieldCapacityValue, v))
 }
 
-// ValueHasPrefix applies the HasPrefix predicate on the "value" field.
-func ValueHasPrefix(v string) predicate.Capacity {
-	return predicate.Capacity(sql.FieldHasPrefix(FieldValue, v))
+// CapacityValueHasPrefix applies the HasPrefix predicate on the "capacity_value" field.
+func CapacityValueHasPrefix(v string) predicate.Capacity {
+	return predicate.Capacity(sql.FieldHasPrefix(FieldCapacityValue, v))
 }
 
-// ValueHasSuffix applies the HasSuffix predicate on the "value" field.
-func ValueHasSuffix(v string) predicate.Capacity {
-	return predicate.Capacity(sql.FieldHasSuffix(FieldValue, v))
+// CapacityValueHasSuffix applies the HasSuffix predicate on the "capacity_value" field.
+func CapacityValueHasSuffix(v string) predicate.Capacity {
+	return predicate.Capacity(sql.FieldHasSuffix(FieldCapacityValue, v))
 }
 
-// ValueIsNil applies the IsNil predicate on the "value" field.
-func ValueIsNil() predicate.Capacity {
-	return predicate.Capacity(sql.FieldIsNull(FieldValue))
+// CapacityValueIsNil applies the IsNil predicate on the "capacity_value" field.
+func CapacityValueIsNil() predicate.Capacity {
+	return predicate.Capacity(sql.FieldIsNull(FieldCapacityValue))
 }
 
-// ValueNotNil applies the NotNil predicate on the "value" field.
-func ValueNotNil() predicate.Capacity {
-	return predicate.Capacity(sql.FieldNotNull(FieldValue))
+// CapacityValueNotNil applies the NotNil predicate on the "capacity_value" field.
+func CapacityValueNotNil() predicate.Capacity {
+	return predicate.Capacity(sql.FieldNotNull(FieldCapacityValue))
 }
 
-// ValueEqualFold applies the EqualFold predicate on the "value" field.
-func ValueEqualFold(v string) predicate.Capacity {
-	return predicate.Capacity(sql.FieldEqualFold(FieldValue, v))
+// CapacityValueEqualFold applies the EqualFold predicate on the "capacity_value" field.
+func CapacityValueEqualFold(v string) predicate.Capacity {
+	return predicate.Capacity(sql.FieldEqualFold(FieldCapacityValue, v))
 }
 
-// ValueContainsFold applies the ContainsFold predicate on the "value" field.
-func ValueContainsFold(v string) predicate.Capacity {
-	return predicate.Capacity(sql.FieldContainsFold(FieldValue, v))
+// CapacityValueContainsFold applies the ContainsFold predicate on the "capacity_value" field.
+func CapacityValueContainsFold(v string) predicate.Capacity {
+	return predicate.Capacity(sql.FieldContainsFold(FieldCapacityValue, v))
+}
+
+// DescriptionEQ applies the EQ predicate on the "description" field.
+func DescriptionEQ(v string) predicate.Capacity {
+	return predicate.Capacity(sql.FieldEQ(FieldDescription, v))
+}
+
+// DescriptionNEQ applies the NEQ predicate on the "description" field.
+func DescriptionNEQ(v string) predicate.Capacity {
+	return predicate.Capacity(sql.FieldNEQ(FieldDescription, v))
+}
+
+// DescriptionIn applies the In predicate on the "description" field.
+func DescriptionIn(vs ...string) predicate.Capacity {
+	return predicate.Capacity(sql.FieldIn(FieldDescription, vs...))
+}
+
+// DescriptionNotIn applies the NotIn predicate on the "description" field.
+func DescriptionNotIn(vs ...string) predicate.Capacity {
+	return predicate.Capacity(sql.FieldNotIn(FieldDescription, vs...))
+}
+
+// DescriptionGT applies the GT predicate on the "description" field.
+func DescriptionGT(v string) predicate.Capacity {
+	return predicate.Capacity(sql.FieldGT(FieldDescription, v))
+}
+
+// DescriptionGTE applies the GTE predicate on the "description" field.
+func DescriptionGTE(v string) predicate.Capacity {
+	return predicate.Capacity(sql.FieldGTE(FieldDescription, v))
+}
+
+// DescriptionLT applies the LT predicate on the "description" field.
+func DescriptionLT(v string) predicate.Capacity {
+	return predicate.Capacity(sql.FieldLT(FieldDescription, v))
+}
+
+// DescriptionLTE applies the LTE predicate on the "description" field.
+func DescriptionLTE(v string) predicate.Capacity {
+	return predicate.Capacity(sql.FieldLTE(FieldDescription, v))
+}
+
+// DescriptionContains applies the Contains predicate on the "description" field.
+func DescriptionContains(v string) predicate.Capacity {
+	return predicate.Capacity(sql.FieldContains(FieldDescription, v))
+}
+
+// DescriptionHasPrefix applies the HasPrefix predicate on the "description" field.
+func DescriptionHasPrefix(v string) predicate.Capacity {
+	return predicate.Capacity(sql.FieldHasPrefix(FieldDescription, v))
+}
+
+// DescriptionHasSuffix applies the HasSuffix predicate on the "description" field.
+func DescriptionHasSuffix(v string) predicate.Capacity {
+	return predicate.Capacity(sql.FieldHasSuffix(FieldDescription, v))
+}
+
+// DescriptionIsNil applies the IsNil predicate on the "description" field.
+func DescriptionIsNil() predicate.Capacity {
+	return predicate.Capacity(sql.FieldIsNull(FieldDescription))
+}
+
+// DescriptionNotNil applies the NotNil predicate on the "description" field.
+func DescriptionNotNil() predicate.Capacity {
+	return predicate.Capacity(sql.FieldNotNull(FieldDescription))
+}
+
+// DescriptionEqualFold applies the EqualFold predicate on the "description" field.
+func DescriptionEqualFold(v string) predicate.Capacity {
+	return predicate.Capacity(sql.FieldEqualFold(FieldDescription, v))
+}
+
+// DescriptionContainsFold applies the ContainsFold predicate on the "description" field.
+func DescriptionContainsFold(v string) predicate.Capacity {
+	return predicate.Capacity(sql.FieldContainsFold(FieldDescription, v))
 }
 
 // And groups predicates with the AND operator between them.

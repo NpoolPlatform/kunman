@@ -14,12 +14,20 @@ const (
 	FieldID = "id"
 	// FieldEntID holds the string denoting the ent_id field in the database.
 	FieldEntID = "ent_id"
+	// FieldCreatedAt holds the string denoting the created_at field in the database.
+	FieldCreatedAt = "created_at"
+	// FieldUpdatedAt holds the string denoting the updated_at field in the database.
+	FieldUpdatedAt = "updated_at"
+	// FieldDeletedAt holds the string denoting the deleted_at field in the database.
+	FieldDeletedAt = "deleted_at"
 	// FieldAppGoodID holds the string denoting the app_good_id field in the database.
 	FieldAppGoodID = "app_good_id"
 	// FieldCapacityKey holds the string denoting the capacity_key field in the database.
 	FieldCapacityKey = "capacity_key"
-	// FieldValue holds the string denoting the value field in the database.
-	FieldValue = "value"
+	// FieldCapacityValue holds the string denoting the capacity_value field in the database.
+	FieldCapacityValue = "capacity_value"
+	// FieldDescription holds the string denoting the description field in the database.
+	FieldDescription = "description"
 	// Table holds the table name of the capacity in the database.
 	Table = "capacities"
 )
@@ -28,9 +36,13 @@ const (
 var Columns = []string{
 	FieldID,
 	FieldEntID,
+	FieldCreatedAt,
+	FieldUpdatedAt,
+	FieldDeletedAt,
 	FieldAppGoodID,
 	FieldCapacityKey,
-	FieldValue,
+	FieldCapacityValue,
+	FieldDescription,
 }
 
 // ValidColumn reports if the column name is valid (part of the table columns).
@@ -46,12 +58,22 @@ func ValidColumn(column string) bool {
 var (
 	// DefaultEntID holds the default value on creation for the "ent_id" field.
 	DefaultEntID func() uuid.UUID
+	// DefaultCreatedAt holds the default value on creation for the "created_at" field.
+	DefaultCreatedAt func() uint32
+	// DefaultUpdatedAt holds the default value on creation for the "updated_at" field.
+	DefaultUpdatedAt func() uint32
+	// UpdateDefaultUpdatedAt holds the default value on update for the "updated_at" field.
+	UpdateDefaultUpdatedAt func() uint32
+	// DefaultDeletedAt holds the default value on creation for the "deleted_at" field.
+	DefaultDeletedAt func() uint32
 	// DefaultAppGoodID holds the default value on creation for the "app_good_id" field.
 	DefaultAppGoodID func() uuid.UUID
 	// DefaultCapacityKey holds the default value on creation for the "capacity_key" field.
 	DefaultCapacityKey string
-	// DefaultValue holds the default value on creation for the "value" field.
-	DefaultValue string
+	// DefaultCapacityValue holds the default value on creation for the "capacity_value" field.
+	DefaultCapacityValue string
+	// DefaultDescription holds the default value on creation for the "description" field.
+	DefaultDescription string
 )
 
 // OrderOption defines the ordering options for the Capacity queries.
@@ -67,6 +89,21 @@ func ByEntID(opts ...sql.OrderTermOption) OrderOption {
 	return sql.OrderByField(FieldEntID, opts...).ToFunc()
 }
 
+// ByCreatedAt orders the results by the created_at field.
+func ByCreatedAt(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldCreatedAt, opts...).ToFunc()
+}
+
+// ByUpdatedAt orders the results by the updated_at field.
+func ByUpdatedAt(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldUpdatedAt, opts...).ToFunc()
+}
+
+// ByDeletedAt orders the results by the deleted_at field.
+func ByDeletedAt(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldDeletedAt, opts...).ToFunc()
+}
+
 // ByAppGoodID orders the results by the app_good_id field.
 func ByAppGoodID(opts ...sql.OrderTermOption) OrderOption {
 	return sql.OrderByField(FieldAppGoodID, opts...).ToFunc()
@@ -77,7 +114,12 @@ func ByCapacityKey(opts ...sql.OrderTermOption) OrderOption {
 	return sql.OrderByField(FieldCapacityKey, opts...).ToFunc()
 }
 
-// ByValue orders the results by the value field.
-func ByValue(opts ...sql.OrderTermOption) OrderOption {
-	return sql.OrderByField(FieldValue, opts...).ToFunc()
+// ByCapacityValue orders the results by the capacity_value field.
+func ByCapacityValue(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldCapacityValue, opts...).ToFunc()
+}
+
+// ByDescription orders the results by the description field.
+func ByDescription(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldDescription, opts...).ToFunc()
 }

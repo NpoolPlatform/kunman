@@ -46,6 +46,7 @@ message CreateCapacityRequest {
     string AppGoodID = 10;
     basetypes.agi.v1.CapacityKey CapacityKey = 20;
     string Value = 30;
+    string Description = 40;
 }
 
 message CreateCapacityResponse {
@@ -56,6 +57,7 @@ message UpdateCapacityRequest {
     uint32 ID = 10;
     string EntID = 20;
     optional string Value = 30;
+    optional string Description = 40;
 }
 
 message UpdateCapacityResponse {

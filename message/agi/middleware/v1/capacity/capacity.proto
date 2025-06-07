@@ -13,6 +13,7 @@ message CapacityReq {
     optional string AppGoodID = 30;
     optional basetypes.agi.v1.CapacityKey CapacityKey = 40;
     optional string Value = 50;
+    optional string Description = 60;
 }
 
 message Capacity {
@@ -23,9 +24,12 @@ message Capacity {
     // @inject_tag: sql:"app_good_id"
     string AppGoodID = 30;
     // @inject_tag: sql:"capacity_key"
-    string CapacityKey = 40;
+    string CapacityKeyStr = 40;
+    basetypes.agi.v1.CapacityKey CapacityKey = 50;
     // @inject_tag: sql:"capacity_value"
-    string Value = 50;
+    string Value = 60;
+    // @inject_tag: sql:"description"
+    string Description = 70;
     // @inject_tag: sql:"created_at"
     uint32 CreatedAt = 1000;
     // @inject_tag: sql:"updated_at"

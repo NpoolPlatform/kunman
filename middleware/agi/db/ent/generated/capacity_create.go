@@ -36,6 +36,48 @@ func (cc *CapacityCreate) SetNillableEntID(u *uuid.UUID) *CapacityCreate {
 	return cc
 }
 
+// SetCreatedAt sets the "created_at" field.
+func (cc *CapacityCreate) SetCreatedAt(u uint32) *CapacityCreate {
+	cc.mutation.SetCreatedAt(u)
+	return cc
+}
+
+// SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
+func (cc *CapacityCreate) SetNillableCreatedAt(u *uint32) *CapacityCreate {
+	if u != nil {
+		cc.SetCreatedAt(*u)
+	}
+	return cc
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (cc *CapacityCreate) SetUpdatedAt(u uint32) *CapacityCreate {
+	cc.mutation.SetUpdatedAt(u)
+	return cc
+}
+
+// SetNillableUpdatedAt sets the "updated_at" field if the given value is not nil.
+func (cc *CapacityCreate) SetNillableUpdatedAt(u *uint32) *CapacityCreate {
+	if u != nil {
+		cc.SetUpdatedAt(*u)
+	}
+	return cc
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (cc *CapacityCreate) SetDeletedAt(u uint32) *CapacityCreate {
+	cc.mutation.SetDeletedAt(u)
+	return cc
+}
+
+// SetNillableDeletedAt sets the "deleted_at" field if the given value is not nil.
+func (cc *CapacityCreate) SetNillableDeletedAt(u *uint32) *CapacityCreate {
+	if u != nil {
+		cc.SetDeletedAt(*u)
+	}
+	return cc
+}
+
 // SetAppGoodID sets the "app_good_id" field.
 func (cc *CapacityCreate) SetAppGoodID(u uuid.UUID) *CapacityCreate {
 	cc.mutation.SetAppGoodID(u)
@@ -64,16 +106,30 @@ func (cc *CapacityCreate) SetNillableCapacityKey(s *string) *CapacityCreate {
 	return cc
 }
 
-// SetValue sets the "value" field.
-func (cc *CapacityCreate) SetValue(s string) *CapacityCreate {
-	cc.mutation.SetValue(s)
+// SetCapacityValue sets the "capacity_value" field.
+func (cc *CapacityCreate) SetCapacityValue(s string) *CapacityCreate {
+	cc.mutation.SetCapacityValue(s)
 	return cc
 }
 
-// SetNillableValue sets the "value" field if the given value is not nil.
-func (cc *CapacityCreate) SetNillableValue(s *string) *CapacityCreate {
+// SetNillableCapacityValue sets the "capacity_value" field if the given value is not nil.
+func (cc *CapacityCreate) SetNillableCapacityValue(s *string) *CapacityCreate {
 	if s != nil {
-		cc.SetValue(*s)
+		cc.SetCapacityValue(*s)
+	}
+	return cc
+}
+
+// SetDescription sets the "description" field.
+func (cc *CapacityCreate) SetDescription(s string) *CapacityCreate {
+	cc.mutation.SetDescription(s)
+	return cc
+}
+
+// SetNillableDescription sets the "description" field if the given value is not nil.
+func (cc *CapacityCreate) SetNillableDescription(s *string) *CapacityCreate {
+	if s != nil {
+		cc.SetDescription(*s)
 	}
 	return cc
 }
@@ -123,6 +179,18 @@ func (cc *CapacityCreate) defaults() {
 		v := capacity.DefaultEntID()
 		cc.mutation.SetEntID(v)
 	}
+	if _, ok := cc.mutation.CreatedAt(); !ok {
+		v := capacity.DefaultCreatedAt()
+		cc.mutation.SetCreatedAt(v)
+	}
+	if _, ok := cc.mutation.UpdatedAt(); !ok {
+		v := capacity.DefaultUpdatedAt()
+		cc.mutation.SetUpdatedAt(v)
+	}
+	if _, ok := cc.mutation.DeletedAt(); !ok {
+		v := capacity.DefaultDeletedAt()
+		cc.mutation.SetDeletedAt(v)
+	}
 	if _, ok := cc.mutation.AppGoodID(); !ok {
 		v := capacity.DefaultAppGoodID()
 		cc.mutation.SetAppGoodID(v)
@@ -131,9 +199,13 @@ func (cc *CapacityCreate) defaults() {
 		v := capacity.DefaultCapacityKey
 		cc.mutation.SetCapacityKey(v)
 	}
-	if _, ok := cc.mutation.Value(); !ok {
-		v := capacity.DefaultValue
-		cc.mutation.SetValue(v)
+	if _, ok := cc.mutation.CapacityValue(); !ok {
+		v := capacity.DefaultCapacityValue
+		cc.mutation.SetCapacityValue(v)
+	}
+	if _, ok := cc.mutation.Description(); !ok {
+		v := capacity.DefaultDescription
+		cc.mutation.SetDescription(v)
 	}
 }
 
@@ -141,6 +213,15 @@ func (cc *CapacityCreate) defaults() {
 func (cc *CapacityCreate) check() error {
 	if _, ok := cc.mutation.EntID(); !ok {
 		return &ValidationError{Name: "ent_id", err: errors.New(`generated: missing required field "Capacity.ent_id"`)}
+	}
+	if _, ok := cc.mutation.CreatedAt(); !ok {
+		return &ValidationError{Name: "created_at", err: errors.New(`generated: missing required field "Capacity.created_at"`)}
+	}
+	if _, ok := cc.mutation.UpdatedAt(); !ok {
+		return &ValidationError{Name: "updated_at", err: errors.New(`generated: missing required field "Capacity.updated_at"`)}
+	}
+	if _, ok := cc.mutation.DeletedAt(); !ok {
+		return &ValidationError{Name: "deleted_at", err: errors.New(`generated: missing required field "Capacity.deleted_at"`)}
 	}
 	return nil
 }
@@ -179,6 +260,18 @@ func (cc *CapacityCreate) createSpec() (*Capacity, *sqlgraph.CreateSpec) {
 		_spec.SetField(capacity.FieldEntID, field.TypeUUID, value)
 		_node.EntID = value
 	}
+	if value, ok := cc.mutation.CreatedAt(); ok {
+		_spec.SetField(capacity.FieldCreatedAt, field.TypeUint32, value)
+		_node.CreatedAt = value
+	}
+	if value, ok := cc.mutation.UpdatedAt(); ok {
+		_spec.SetField(capacity.FieldUpdatedAt, field.TypeUint32, value)
+		_node.UpdatedAt = value
+	}
+	if value, ok := cc.mutation.DeletedAt(); ok {
+		_spec.SetField(capacity.FieldDeletedAt, field.TypeUint32, value)
+		_node.DeletedAt = value
+	}
 	if value, ok := cc.mutation.AppGoodID(); ok {
 		_spec.SetField(capacity.FieldAppGoodID, field.TypeUUID, value)
 		_node.AppGoodID = value
@@ -187,9 +280,13 @@ func (cc *CapacityCreate) createSpec() (*Capacity, *sqlgraph.CreateSpec) {
 		_spec.SetField(capacity.FieldCapacityKey, field.TypeString, value)
 		_node.CapacityKey = value
 	}
-	if value, ok := cc.mutation.Value(); ok {
-		_spec.SetField(capacity.FieldValue, field.TypeString, value)
-		_node.Value = value
+	if value, ok := cc.mutation.CapacityValue(); ok {
+		_spec.SetField(capacity.FieldCapacityValue, field.TypeString, value)
+		_node.CapacityValue = value
+	}
+	if value, ok := cc.mutation.Description(); ok {
+		_spec.SetField(capacity.FieldDescription, field.TypeString, value)
+		_node.Description = value
 	}
 	return _node, _spec
 }
@@ -255,6 +352,60 @@ func (u *CapacityUpsert) UpdateEntID() *CapacityUpsert {
 	return u
 }
 
+// SetCreatedAt sets the "created_at" field.
+func (u *CapacityUpsert) SetCreatedAt(v uint32) *CapacityUpsert {
+	u.Set(capacity.FieldCreatedAt, v)
+	return u
+}
+
+// UpdateCreatedAt sets the "created_at" field to the value that was provided on create.
+func (u *CapacityUpsert) UpdateCreatedAt() *CapacityUpsert {
+	u.SetExcluded(capacity.FieldCreatedAt)
+	return u
+}
+
+// AddCreatedAt adds v to the "created_at" field.
+func (u *CapacityUpsert) AddCreatedAt(v uint32) *CapacityUpsert {
+	u.Add(capacity.FieldCreatedAt, v)
+	return u
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (u *CapacityUpsert) SetUpdatedAt(v uint32) *CapacityUpsert {
+	u.Set(capacity.FieldUpdatedAt, v)
+	return u
+}
+
+// UpdateUpdatedAt sets the "updated_at" field to the value that was provided on create.
+func (u *CapacityUpsert) UpdateUpdatedAt() *CapacityUpsert {
+	u.SetExcluded(capacity.FieldUpdatedAt)
+	return u
+}
+
+// AddUpdatedAt adds v to the "updated_at" field.
+func (u *CapacityUpsert) AddUpdatedAt(v uint32) *CapacityUpsert {
+	u.Add(capacity.FieldUpdatedAt, v)
+	return u
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (u *CapacityUpsert) SetDeletedAt(v uint32) *CapacityUpsert {
+	u.Set(capacity.FieldDeletedAt, v)
+	return u
+}
+
+// UpdateDeletedAt sets the "deleted_at" field to the value that was provided on create.
+func (u *CapacityUpsert) UpdateDeletedAt() *CapacityUpsert {
+	u.SetExcluded(capacity.FieldDeletedAt)
+	return u
+}
+
+// AddDeletedAt adds v to the "deleted_at" field.
+func (u *CapacityUpsert) AddDeletedAt(v uint32) *CapacityUpsert {
+	u.Add(capacity.FieldDeletedAt, v)
+	return u
+}
+
 // SetAppGoodID sets the "app_good_id" field.
 func (u *CapacityUpsert) SetAppGoodID(v uuid.UUID) *CapacityUpsert {
 	u.Set(capacity.FieldAppGoodID, v)
@@ -291,21 +442,39 @@ func (u *CapacityUpsert) ClearCapacityKey() *CapacityUpsert {
 	return u
 }
 
-// SetValue sets the "value" field.
-func (u *CapacityUpsert) SetValue(v string) *CapacityUpsert {
-	u.Set(capacity.FieldValue, v)
+// SetCapacityValue sets the "capacity_value" field.
+func (u *CapacityUpsert) SetCapacityValue(v string) *CapacityUpsert {
+	u.Set(capacity.FieldCapacityValue, v)
 	return u
 }
 
-// UpdateValue sets the "value" field to the value that was provided on create.
-func (u *CapacityUpsert) UpdateValue() *CapacityUpsert {
-	u.SetExcluded(capacity.FieldValue)
+// UpdateCapacityValue sets the "capacity_value" field to the value that was provided on create.
+func (u *CapacityUpsert) UpdateCapacityValue() *CapacityUpsert {
+	u.SetExcluded(capacity.FieldCapacityValue)
 	return u
 }
 
-// ClearValue clears the value of the "value" field.
-func (u *CapacityUpsert) ClearValue() *CapacityUpsert {
-	u.SetNull(capacity.FieldValue)
+// ClearCapacityValue clears the value of the "capacity_value" field.
+func (u *CapacityUpsert) ClearCapacityValue() *CapacityUpsert {
+	u.SetNull(capacity.FieldCapacityValue)
+	return u
+}
+
+// SetDescription sets the "description" field.
+func (u *CapacityUpsert) SetDescription(v string) *CapacityUpsert {
+	u.Set(capacity.FieldDescription, v)
+	return u
+}
+
+// UpdateDescription sets the "description" field to the value that was provided on create.
+func (u *CapacityUpsert) UpdateDescription() *CapacityUpsert {
+	u.SetExcluded(capacity.FieldDescription)
+	return u
+}
+
+// ClearDescription clears the value of the "description" field.
+func (u *CapacityUpsert) ClearDescription() *CapacityUpsert {
+	u.SetNull(capacity.FieldDescription)
 	return u
 }
 
@@ -371,6 +540,69 @@ func (u *CapacityUpsertOne) UpdateEntID() *CapacityUpsertOne {
 	})
 }
 
+// SetCreatedAt sets the "created_at" field.
+func (u *CapacityUpsertOne) SetCreatedAt(v uint32) *CapacityUpsertOne {
+	return u.Update(func(s *CapacityUpsert) {
+		s.SetCreatedAt(v)
+	})
+}
+
+// AddCreatedAt adds v to the "created_at" field.
+func (u *CapacityUpsertOne) AddCreatedAt(v uint32) *CapacityUpsertOne {
+	return u.Update(func(s *CapacityUpsert) {
+		s.AddCreatedAt(v)
+	})
+}
+
+// UpdateCreatedAt sets the "created_at" field to the value that was provided on create.
+func (u *CapacityUpsertOne) UpdateCreatedAt() *CapacityUpsertOne {
+	return u.Update(func(s *CapacityUpsert) {
+		s.UpdateCreatedAt()
+	})
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (u *CapacityUpsertOne) SetUpdatedAt(v uint32) *CapacityUpsertOne {
+	return u.Update(func(s *CapacityUpsert) {
+		s.SetUpdatedAt(v)
+	})
+}
+
+// AddUpdatedAt adds v to the "updated_at" field.
+func (u *CapacityUpsertOne) AddUpdatedAt(v uint32) *CapacityUpsertOne {
+	return u.Update(func(s *CapacityUpsert) {
+		s.AddUpdatedAt(v)
+	})
+}
+
+// UpdateUpdatedAt sets the "updated_at" field to the value that was provided on create.
+func (u *CapacityUpsertOne) UpdateUpdatedAt() *CapacityUpsertOne {
+	return u.Update(func(s *CapacityUpsert) {
+		s.UpdateUpdatedAt()
+	})
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (u *CapacityUpsertOne) SetDeletedAt(v uint32) *CapacityUpsertOne {
+	return u.Update(func(s *CapacityUpsert) {
+		s.SetDeletedAt(v)
+	})
+}
+
+// AddDeletedAt adds v to the "deleted_at" field.
+func (u *CapacityUpsertOne) AddDeletedAt(v uint32) *CapacityUpsertOne {
+	return u.Update(func(s *CapacityUpsert) {
+		s.AddDeletedAt(v)
+	})
+}
+
+// UpdateDeletedAt sets the "deleted_at" field to the value that was provided on create.
+func (u *CapacityUpsertOne) UpdateDeletedAt() *CapacityUpsertOne {
+	return u.Update(func(s *CapacityUpsert) {
+		s.UpdateDeletedAt()
+	})
+}
+
 // SetAppGoodID sets the "app_good_id" field.
 func (u *CapacityUpsertOne) SetAppGoodID(v uuid.UUID) *CapacityUpsertOne {
 	return u.Update(func(s *CapacityUpsert) {
@@ -413,24 +645,45 @@ func (u *CapacityUpsertOne) ClearCapacityKey() *CapacityUpsertOne {
 	})
 }
 
-// SetValue sets the "value" field.
-func (u *CapacityUpsertOne) SetValue(v string) *CapacityUpsertOne {
+// SetCapacityValue sets the "capacity_value" field.
+func (u *CapacityUpsertOne) SetCapacityValue(v string) *CapacityUpsertOne {
 	return u.Update(func(s *CapacityUpsert) {
-		s.SetValue(v)
+		s.SetCapacityValue(v)
 	})
 }
 
-// UpdateValue sets the "value" field to the value that was provided on create.
-func (u *CapacityUpsertOne) UpdateValue() *CapacityUpsertOne {
+// UpdateCapacityValue sets the "capacity_value" field to the value that was provided on create.
+func (u *CapacityUpsertOne) UpdateCapacityValue() *CapacityUpsertOne {
 	return u.Update(func(s *CapacityUpsert) {
-		s.UpdateValue()
+		s.UpdateCapacityValue()
 	})
 }
 
-// ClearValue clears the value of the "value" field.
-func (u *CapacityUpsertOne) ClearValue() *CapacityUpsertOne {
+// ClearCapacityValue clears the value of the "capacity_value" field.
+func (u *CapacityUpsertOne) ClearCapacityValue() *CapacityUpsertOne {
 	return u.Update(func(s *CapacityUpsert) {
-		s.ClearValue()
+		s.ClearCapacityValue()
+	})
+}
+
+// SetDescription sets the "description" field.
+func (u *CapacityUpsertOne) SetDescription(v string) *CapacityUpsertOne {
+	return u.Update(func(s *CapacityUpsert) {
+		s.SetDescription(v)
+	})
+}
+
+// UpdateDescription sets the "description" field to the value that was provided on create.
+func (u *CapacityUpsertOne) UpdateDescription() *CapacityUpsertOne {
+	return u.Update(func(s *CapacityUpsert) {
+		s.UpdateDescription()
+	})
+}
+
+// ClearDescription clears the value of the "description" field.
+func (u *CapacityUpsertOne) ClearDescription() *CapacityUpsertOne {
+	return u.Update(func(s *CapacityUpsert) {
+		s.ClearDescription()
 	})
 }
 
@@ -662,6 +915,69 @@ func (u *CapacityUpsertBulk) UpdateEntID() *CapacityUpsertBulk {
 	})
 }
 
+// SetCreatedAt sets the "created_at" field.
+func (u *CapacityUpsertBulk) SetCreatedAt(v uint32) *CapacityUpsertBulk {
+	return u.Update(func(s *CapacityUpsert) {
+		s.SetCreatedAt(v)
+	})
+}
+
+// AddCreatedAt adds v to the "created_at" field.
+func (u *CapacityUpsertBulk) AddCreatedAt(v uint32) *CapacityUpsertBulk {
+	return u.Update(func(s *CapacityUpsert) {
+		s.AddCreatedAt(v)
+	})
+}
+
+// UpdateCreatedAt sets the "created_at" field to the value that was provided on create.
+func (u *CapacityUpsertBulk) UpdateCreatedAt() *CapacityUpsertBulk {
+	return u.Update(func(s *CapacityUpsert) {
+		s.UpdateCreatedAt()
+	})
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (u *CapacityUpsertBulk) SetUpdatedAt(v uint32) *CapacityUpsertBulk {
+	return u.Update(func(s *CapacityUpsert) {
+		s.SetUpdatedAt(v)
+	})
+}
+
+// AddUpdatedAt adds v to the "updated_at" field.
+func (u *CapacityUpsertBulk) AddUpdatedAt(v uint32) *CapacityUpsertBulk {
+	return u.Update(func(s *CapacityUpsert) {
+		s.AddUpdatedAt(v)
+	})
+}
+
+// UpdateUpdatedAt sets the "updated_at" field to the value that was provided on create.
+func (u *CapacityUpsertBulk) UpdateUpdatedAt() *CapacityUpsertBulk {
+	return u.Update(func(s *CapacityUpsert) {
+		s.UpdateUpdatedAt()
+	})
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (u *CapacityUpsertBulk) SetDeletedAt(v uint32) *CapacityUpsertBulk {
+	return u.Update(func(s *CapacityUpsert) {
+		s.SetDeletedAt(v)
+	})
+}
+
+// AddDeletedAt adds v to the "deleted_at" field.
+func (u *CapacityUpsertBulk) AddDeletedAt(v uint32) *CapacityUpsertBulk {
+	return u.Update(func(s *CapacityUpsert) {
+		s.AddDeletedAt(v)
+	})
+}
+
+// UpdateDeletedAt sets the "deleted_at" field to the value that was provided on create.
+func (u *CapacityUpsertBulk) UpdateDeletedAt() *CapacityUpsertBulk {
+	return u.Update(func(s *CapacityUpsert) {
+		s.UpdateDeletedAt()
+	})
+}
+
 // SetAppGoodID sets the "app_good_id" field.
 func (u *CapacityUpsertBulk) SetAppGoodID(v uuid.UUID) *CapacityUpsertBulk {
 	return u.Update(func(s *CapacityUpsert) {
@@ -704,24 +1020,45 @@ func (u *CapacityUpsertBulk) ClearCapacityKey() *CapacityUpsertBulk {
 	})
 }
 
-// SetValue sets the "value" field.
-func (u *CapacityUpsertBulk) SetValue(v string) *CapacityUpsertBulk {
+// SetCapacityValue sets the "capacity_value" field.
+func (u *CapacityUpsertBulk) SetCapacityValue(v string) *CapacityUpsertBulk {
 	return u.Update(func(s *CapacityUpsert) {
-		s.SetValue(v)
+		s.SetCapacityValue(v)
 	})
 }
 
-// UpdateValue sets the "value" field to the value that was provided on create.
-func (u *CapacityUpsertBulk) UpdateValue() *CapacityUpsertBulk {
+// UpdateCapacityValue sets the "capacity_value" field to the value that was provided on create.
+func (u *CapacityUpsertBulk) UpdateCapacityValue() *CapacityUpsertBulk {
 	return u.Update(func(s *CapacityUpsert) {
-		s.UpdateValue()
+		s.UpdateCapacityValue()
 	})
 }
 
-// ClearValue clears the value of the "value" field.
-func (u *CapacityUpsertBulk) ClearValue() *CapacityUpsertBulk {
+// ClearCapacityValue clears the value of the "capacity_value" field.
+func (u *CapacityUpsertBulk) ClearCapacityValue() *CapacityUpsertBulk {
 	return u.Update(func(s *CapacityUpsert) {
-		s.ClearValue()
+		s.ClearCapacityValue()
+	})
+}
+
+// SetDescription sets the "description" field.
+func (u *CapacityUpsertBulk) SetDescription(v string) *CapacityUpsertBulk {
+	return u.Update(func(s *CapacityUpsert) {
+		s.SetDescription(v)
+	})
+}
+
+// UpdateDescription sets the "description" field to the value that was provided on create.
+func (u *CapacityUpsertBulk) UpdateDescription() *CapacityUpsertBulk {
+	return u.Update(func(s *CapacityUpsert) {
+		s.UpdateDescription()
+	})
+}
+
+// ClearDescription clears the value of the "description" field.
+func (u *CapacityUpsertBulk) ClearDescription() *CapacityUpsertBulk {
+	return u.Update(func(s *CapacityUpsert) {
+		s.ClearDescription()
 	})
 }
 

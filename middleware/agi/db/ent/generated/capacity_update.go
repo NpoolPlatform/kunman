@@ -43,6 +43,61 @@ func (cu *CapacityUpdate) SetNillableEntID(u *uuid.UUID) *CapacityUpdate {
 	return cu
 }
 
+// SetCreatedAt sets the "created_at" field.
+func (cu *CapacityUpdate) SetCreatedAt(u uint32) *CapacityUpdate {
+	cu.mutation.ResetCreatedAt()
+	cu.mutation.SetCreatedAt(u)
+	return cu
+}
+
+// SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
+func (cu *CapacityUpdate) SetNillableCreatedAt(u *uint32) *CapacityUpdate {
+	if u != nil {
+		cu.SetCreatedAt(*u)
+	}
+	return cu
+}
+
+// AddCreatedAt adds u to the "created_at" field.
+func (cu *CapacityUpdate) AddCreatedAt(u int32) *CapacityUpdate {
+	cu.mutation.AddCreatedAt(u)
+	return cu
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (cu *CapacityUpdate) SetUpdatedAt(u uint32) *CapacityUpdate {
+	cu.mutation.ResetUpdatedAt()
+	cu.mutation.SetUpdatedAt(u)
+	return cu
+}
+
+// AddUpdatedAt adds u to the "updated_at" field.
+func (cu *CapacityUpdate) AddUpdatedAt(u int32) *CapacityUpdate {
+	cu.mutation.AddUpdatedAt(u)
+	return cu
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (cu *CapacityUpdate) SetDeletedAt(u uint32) *CapacityUpdate {
+	cu.mutation.ResetDeletedAt()
+	cu.mutation.SetDeletedAt(u)
+	return cu
+}
+
+// SetNillableDeletedAt sets the "deleted_at" field if the given value is not nil.
+func (cu *CapacityUpdate) SetNillableDeletedAt(u *uint32) *CapacityUpdate {
+	if u != nil {
+		cu.SetDeletedAt(*u)
+	}
+	return cu
+}
+
+// AddDeletedAt adds u to the "deleted_at" field.
+func (cu *CapacityUpdate) AddDeletedAt(u int32) *CapacityUpdate {
+	cu.mutation.AddDeletedAt(u)
+	return cu
+}
+
 // SetAppGoodID sets the "app_good_id" field.
 func (cu *CapacityUpdate) SetAppGoodID(u uuid.UUID) *CapacityUpdate {
 	cu.mutation.SetAppGoodID(u)
@@ -83,23 +138,43 @@ func (cu *CapacityUpdate) ClearCapacityKey() *CapacityUpdate {
 	return cu
 }
 
-// SetValue sets the "value" field.
-func (cu *CapacityUpdate) SetValue(s string) *CapacityUpdate {
-	cu.mutation.SetValue(s)
+// SetCapacityValue sets the "capacity_value" field.
+func (cu *CapacityUpdate) SetCapacityValue(s string) *CapacityUpdate {
+	cu.mutation.SetCapacityValue(s)
 	return cu
 }
 
-// SetNillableValue sets the "value" field if the given value is not nil.
-func (cu *CapacityUpdate) SetNillableValue(s *string) *CapacityUpdate {
+// SetNillableCapacityValue sets the "capacity_value" field if the given value is not nil.
+func (cu *CapacityUpdate) SetNillableCapacityValue(s *string) *CapacityUpdate {
 	if s != nil {
-		cu.SetValue(*s)
+		cu.SetCapacityValue(*s)
 	}
 	return cu
 }
 
-// ClearValue clears the value of the "value" field.
-func (cu *CapacityUpdate) ClearValue() *CapacityUpdate {
-	cu.mutation.ClearValue()
+// ClearCapacityValue clears the value of the "capacity_value" field.
+func (cu *CapacityUpdate) ClearCapacityValue() *CapacityUpdate {
+	cu.mutation.ClearCapacityValue()
+	return cu
+}
+
+// SetDescription sets the "description" field.
+func (cu *CapacityUpdate) SetDescription(s string) *CapacityUpdate {
+	cu.mutation.SetDescription(s)
+	return cu
+}
+
+// SetNillableDescription sets the "description" field if the given value is not nil.
+func (cu *CapacityUpdate) SetNillableDescription(s *string) *CapacityUpdate {
+	if s != nil {
+		cu.SetDescription(*s)
+	}
+	return cu
+}
+
+// ClearDescription clears the value of the "description" field.
+func (cu *CapacityUpdate) ClearDescription() *CapacityUpdate {
+	cu.mutation.ClearDescription()
 	return cu
 }
 
@@ -110,6 +185,7 @@ func (cu *CapacityUpdate) Mutation() *CapacityMutation {
 
 // Save executes the query and returns the number of nodes affected by the update operation.
 func (cu *CapacityUpdate) Save(ctx context.Context) (int, error) {
+	cu.defaults()
 	return withHooks(ctx, cu.sqlSave, cu.mutation, cu.hooks)
 }
 
@@ -135,6 +211,14 @@ func (cu *CapacityUpdate) ExecX(ctx context.Context) {
 	}
 }
 
+// defaults sets the default values of the builder before save.
+func (cu *CapacityUpdate) defaults() {
+	if _, ok := cu.mutation.UpdatedAt(); !ok {
+		v := capacity.UpdateDefaultUpdatedAt()
+		cu.mutation.SetUpdatedAt(v)
+	}
+}
+
 // Modify adds a statement modifier for attaching custom logic to the UPDATE statement.
 func (cu *CapacityUpdate) Modify(modifiers ...func(u *sql.UpdateBuilder)) *CapacityUpdate {
 	cu.modifiers = append(cu.modifiers, modifiers...)
@@ -153,6 +237,24 @@ func (cu *CapacityUpdate) sqlSave(ctx context.Context) (n int, err error) {
 	if value, ok := cu.mutation.EntID(); ok {
 		_spec.SetField(capacity.FieldEntID, field.TypeUUID, value)
 	}
+	if value, ok := cu.mutation.CreatedAt(); ok {
+		_spec.SetField(capacity.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := cu.mutation.AddedCreatedAt(); ok {
+		_spec.AddField(capacity.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := cu.mutation.UpdatedAt(); ok {
+		_spec.SetField(capacity.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := cu.mutation.AddedUpdatedAt(); ok {
+		_spec.AddField(capacity.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := cu.mutation.DeletedAt(); ok {
+		_spec.SetField(capacity.FieldDeletedAt, field.TypeUint32, value)
+	}
+	if value, ok := cu.mutation.AddedDeletedAt(); ok {
+		_spec.AddField(capacity.FieldDeletedAt, field.TypeUint32, value)
+	}
 	if value, ok := cu.mutation.AppGoodID(); ok {
 		_spec.SetField(capacity.FieldAppGoodID, field.TypeUUID, value)
 	}
@@ -165,11 +267,17 @@ func (cu *CapacityUpdate) sqlSave(ctx context.Context) (n int, err error) {
 	if cu.mutation.CapacityKeyCleared() {
 		_spec.ClearField(capacity.FieldCapacityKey, field.TypeString)
 	}
-	if value, ok := cu.mutation.Value(); ok {
-		_spec.SetField(capacity.FieldValue, field.TypeString, value)
+	if value, ok := cu.mutation.CapacityValue(); ok {
+		_spec.SetField(capacity.FieldCapacityValue, field.TypeString, value)
 	}
-	if cu.mutation.ValueCleared() {
-		_spec.ClearField(capacity.FieldValue, field.TypeString)
+	if cu.mutation.CapacityValueCleared() {
+		_spec.ClearField(capacity.FieldCapacityValue, field.TypeString)
+	}
+	if value, ok := cu.mutation.Description(); ok {
+		_spec.SetField(capacity.FieldDescription, field.TypeString, value)
+	}
+	if cu.mutation.DescriptionCleared() {
+		_spec.ClearField(capacity.FieldDescription, field.TypeString)
 	}
 	_spec.AddModifiers(cu.modifiers...)
 	if n, err = sqlgraph.UpdateNodes(ctx, cu.driver, _spec); err != nil {
@@ -204,6 +312,61 @@ func (cuo *CapacityUpdateOne) SetNillableEntID(u *uuid.UUID) *CapacityUpdateOne 
 	if u != nil {
 		cuo.SetEntID(*u)
 	}
+	return cuo
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (cuo *CapacityUpdateOne) SetCreatedAt(u uint32) *CapacityUpdateOne {
+	cuo.mutation.ResetCreatedAt()
+	cuo.mutation.SetCreatedAt(u)
+	return cuo
+}
+
+// SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
+func (cuo *CapacityUpdateOne) SetNillableCreatedAt(u *uint32) *CapacityUpdateOne {
+	if u != nil {
+		cuo.SetCreatedAt(*u)
+	}
+	return cuo
+}
+
+// AddCreatedAt adds u to the "created_at" field.
+func (cuo *CapacityUpdateOne) AddCreatedAt(u int32) *CapacityUpdateOne {
+	cuo.mutation.AddCreatedAt(u)
+	return cuo
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (cuo *CapacityUpdateOne) SetUpdatedAt(u uint32) *CapacityUpdateOne {
+	cuo.mutation.ResetUpdatedAt()
+	cuo.mutation.SetUpdatedAt(u)
+	return cuo
+}
+
+// AddUpdatedAt adds u to the "updated_at" field.
+func (cuo *CapacityUpdateOne) AddUpdatedAt(u int32) *CapacityUpdateOne {
+	cuo.mutation.AddUpdatedAt(u)
+	return cuo
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (cuo *CapacityUpdateOne) SetDeletedAt(u uint32) *CapacityUpdateOne {
+	cuo.mutation.ResetDeletedAt()
+	cuo.mutation.SetDeletedAt(u)
+	return cuo
+}
+
+// SetNillableDeletedAt sets the "deleted_at" field if the given value is not nil.
+func (cuo *CapacityUpdateOne) SetNillableDeletedAt(u *uint32) *CapacityUpdateOne {
+	if u != nil {
+		cuo.SetDeletedAt(*u)
+	}
+	return cuo
+}
+
+// AddDeletedAt adds u to the "deleted_at" field.
+func (cuo *CapacityUpdateOne) AddDeletedAt(u int32) *CapacityUpdateOne {
+	cuo.mutation.AddDeletedAt(u)
 	return cuo
 }
 
@@ -247,23 +410,43 @@ func (cuo *CapacityUpdateOne) ClearCapacityKey() *CapacityUpdateOne {
 	return cuo
 }
 
-// SetValue sets the "value" field.
-func (cuo *CapacityUpdateOne) SetValue(s string) *CapacityUpdateOne {
-	cuo.mutation.SetValue(s)
+// SetCapacityValue sets the "capacity_value" field.
+func (cuo *CapacityUpdateOne) SetCapacityValue(s string) *CapacityUpdateOne {
+	cuo.mutation.SetCapacityValue(s)
 	return cuo
 }
 
-// SetNillableValue sets the "value" field if the given value is not nil.
-func (cuo *CapacityUpdateOne) SetNillableValue(s *string) *CapacityUpdateOne {
+// SetNillableCapacityValue sets the "capacity_value" field if the given value is not nil.
+func (cuo *CapacityUpdateOne) SetNillableCapacityValue(s *string) *CapacityUpdateOne {
 	if s != nil {
-		cuo.SetValue(*s)
+		cuo.SetCapacityValue(*s)
 	}
 	return cuo
 }
 
-// ClearValue clears the value of the "value" field.
-func (cuo *CapacityUpdateOne) ClearValue() *CapacityUpdateOne {
-	cuo.mutation.ClearValue()
+// ClearCapacityValue clears the value of the "capacity_value" field.
+func (cuo *CapacityUpdateOne) ClearCapacityValue() *CapacityUpdateOne {
+	cuo.mutation.ClearCapacityValue()
+	return cuo
+}
+
+// SetDescription sets the "description" field.
+func (cuo *CapacityUpdateOne) SetDescription(s string) *CapacityUpdateOne {
+	cuo.mutation.SetDescription(s)
+	return cuo
+}
+
+// SetNillableDescription sets the "description" field if the given value is not nil.
+func (cuo *CapacityUpdateOne) SetNillableDescription(s *string) *CapacityUpdateOne {
+	if s != nil {
+		cuo.SetDescription(*s)
+	}
+	return cuo
+}
+
+// ClearDescription clears the value of the "description" field.
+func (cuo *CapacityUpdateOne) ClearDescription() *CapacityUpdateOne {
+	cuo.mutation.ClearDescription()
 	return cuo
 }
 
@@ -287,6 +470,7 @@ func (cuo *CapacityUpdateOne) Select(field string, fields ...string) *CapacityUp
 
 // Save executes the query and returns the updated Capacity entity.
 func (cuo *CapacityUpdateOne) Save(ctx context.Context) (*Capacity, error) {
+	cuo.defaults()
 	return withHooks(ctx, cuo.sqlSave, cuo.mutation, cuo.hooks)
 }
 
@@ -309,6 +493,14 @@ func (cuo *CapacityUpdateOne) Exec(ctx context.Context) error {
 func (cuo *CapacityUpdateOne) ExecX(ctx context.Context) {
 	if err := cuo.Exec(ctx); err != nil {
 		panic(err)
+	}
+}
+
+// defaults sets the default values of the builder before save.
+func (cuo *CapacityUpdateOne) defaults() {
+	if _, ok := cuo.mutation.UpdatedAt(); !ok {
+		v := capacity.UpdateDefaultUpdatedAt()
+		cuo.mutation.SetUpdatedAt(v)
 	}
 }
 
@@ -347,6 +539,24 @@ func (cuo *CapacityUpdateOne) sqlSave(ctx context.Context) (_node *Capacity, err
 	if value, ok := cuo.mutation.EntID(); ok {
 		_spec.SetField(capacity.FieldEntID, field.TypeUUID, value)
 	}
+	if value, ok := cuo.mutation.CreatedAt(); ok {
+		_spec.SetField(capacity.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := cuo.mutation.AddedCreatedAt(); ok {
+		_spec.AddField(capacity.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := cuo.mutation.UpdatedAt(); ok {
+		_spec.SetField(capacity.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := cuo.mutation.AddedUpdatedAt(); ok {
+		_spec.AddField(capacity.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := cuo.mutation.DeletedAt(); ok {
+		_spec.SetField(capacity.FieldDeletedAt, field.TypeUint32, value)
+	}
+	if value, ok := cuo.mutation.AddedDeletedAt(); ok {
+		_spec.AddField(capacity.FieldDeletedAt, field.TypeUint32, value)
+	}
 	if value, ok := cuo.mutation.AppGoodID(); ok {
 		_spec.SetField(capacity.FieldAppGoodID, field.TypeUUID, value)
 	}
@@ -359,11 +569,17 @@ func (cuo *CapacityUpdateOne) sqlSave(ctx context.Context) (_node *Capacity, err
 	if cuo.mutation.CapacityKeyCleared() {
 		_spec.ClearField(capacity.FieldCapacityKey, field.TypeString)
 	}
-	if value, ok := cuo.mutation.Value(); ok {
-		_spec.SetField(capacity.FieldValue, field.TypeString, value)
+	if value, ok := cuo.mutation.CapacityValue(); ok {
+		_spec.SetField(capacity.FieldCapacityValue, field.TypeString, value)
 	}
-	if cuo.mutation.ValueCleared() {
-		_spec.ClearField(capacity.FieldValue, field.TypeString)
+	if cuo.mutation.CapacityValueCleared() {
+		_spec.ClearField(capacity.FieldCapacityValue, field.TypeString)
+	}
+	if value, ok := cuo.mutation.Description(); ok {
+		_spec.SetField(capacity.FieldDescription, field.TypeString, value)
+	}
+	if cuo.mutation.DescriptionCleared() {
+		_spec.ClearField(capacity.FieldDescription, field.TypeString)
 	}
 	_spec.AddModifiers(cuo.modifiers...)
 	_node = &Capacity{config: cuo.config}
