@@ -1,0 +1,85 @@
+package fee
+
+import (
+	"context"
+
+	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
+	feecrud "github.com/NpoolPlatform/kunman/middleware/good/crud/fee"
+	"github.com/NpoolPlatform/kunman/middleware/good/db"
+	"github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated"
+	goodbase1 "github.com/NpoolPlatform/kunman/middleware/good/middleware/good/goodbase"
+	cruder "github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
+)
+
+type updateHandler struct {
+	*feeGoodQueryHandler
+	sqlGoodBase string
+}
+
+func (h *updateHandler) constructGoodBaseSQL(ctx context.Context) (err error) {
+	handler, _ := goodbase1.NewHandler(
+		ctx,
+		goodbase1.WithID(&h.goodBase.ID, true),
+	)
+	handler.Req = *h.GoodBaseReq
+	h.sqlGoodBase, err = handler.ConstructUpdateSQL()
+	if err != nil {
+		if err == cruder.ErrUpdateNothing {
+			return nil
+		}
+		return wlog.WrapError(err)
+	}
+	return nil
+}
+
+func (h *updateHandler) updateGoodBase(ctx context.Context, tx *ent.Tx) error {
+	if h.sqlGoodBase == "" {
+		return nil
+	}
+	rc, err := tx.ExecContext(ctx, h.sqlGoodBase)
+	if err != nil {
+		return wlog.WrapError(err)
+	}
+	n, err := rc.RowsAffected()
+	if err != nil || n != 1 {
+		return wlog.Errorf("fail update fee: %v", err)
+	}
+	return nil
+}
+
+func (h *updateHandler) updateFee(ctx context.Context, tx *ent.Tx) error {
+	if _, err := feecrud.UpdateSet(
+		tx.Fee.UpdateOneID(*h.ID),
+		&feecrud.Req{
+			SettlementType:      h.SettlementType,
+			UnitValue:           h.UnitValue,
+			DurationDisplayType: h.DurationDisplayType,
+		},
+	).Save(ctx); err != nil {
+		return wlog.WrapError(err)
+	}
+	return nil
+}
+
+func (h *Handler) UpdateFee(ctx context.Context) error {
+	handler := &updateHandler{
+		feeGoodQueryHandler: &feeGoodQueryHandler{
+			Handler: h,
+		},
+	}
+
+	if err := handler.requireFeeGood(ctx); err != nil {
+		return wlog.WrapError(err)
+	}
+	h.ID = &handler.fee.ID
+	if err := handler.constructGoodBaseSQL(ctx); err != nil {
+		return wlog.WrapError(err)
+	}
+
+	return db.WithTx(ctx, func(_ctx context.Context, tx *ent.Tx) error {
+		if err := handler.updateGoodBase(_ctx, tx); err != nil {
+			return wlog.WrapError(err)
+		}
+		return handler.updateFee(_ctx, tx)
+	})
+}

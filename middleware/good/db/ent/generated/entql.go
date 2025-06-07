@@ -651,6 +651,9 @@ var schemaGraph = func() *sqlgraph.Schema {
 		Type: "GoodBase",
 		Fields: map[string]*sqlgraph.FieldSpec{
 			goodbase.FieldEntID:                {Type: field.TypeUUID, Column: goodbase.FieldEntID},
+			goodbase.FieldCreatedAt:            {Type: field.TypeUint32, Column: goodbase.FieldCreatedAt},
+			goodbase.FieldUpdatedAt:            {Type: field.TypeUint32, Column: goodbase.FieldUpdatedAt},
+			goodbase.FieldDeletedAt:            {Type: field.TypeUint32, Column: goodbase.FieldDeletedAt},
 			goodbase.FieldGoodType:             {Type: field.TypeString, Column: goodbase.FieldGoodType},
 			goodbase.FieldBenefitType:          {Type: field.TypeString, Column: goodbase.FieldBenefitType},
 			goodbase.FieldName:                 {Type: field.TypeString, Column: goodbase.FieldName},
@@ -3364,6 +3367,21 @@ func (f *GoodBaseFilter) WhereID(p entql.Uint32P) {
 // WhereEntID applies the entql [16]byte predicate on the ent_id field.
 func (f *GoodBaseFilter) WhereEntID(p entql.ValueP) {
 	f.Where(p.Field(goodbase.FieldEntID))
+}
+
+// WhereCreatedAt applies the entql uint32 predicate on the created_at field.
+func (f *GoodBaseFilter) WhereCreatedAt(p entql.Uint32P) {
+	f.Where(p.Field(goodbase.FieldCreatedAt))
+}
+
+// WhereUpdatedAt applies the entql uint32 predicate on the updated_at field.
+func (f *GoodBaseFilter) WhereUpdatedAt(p entql.Uint32P) {
+	f.Where(p.Field(goodbase.FieldUpdatedAt))
+}
+
+// WhereDeletedAt applies the entql uint32 predicate on the deleted_at field.
+func (f *GoodBaseFilter) WhereDeletedAt(p entql.Uint32P) {
+	f.Where(p.Field(goodbase.FieldDeletedAt))
 }
 
 // WhereGoodType applies the entql string predicate on the good_type field.

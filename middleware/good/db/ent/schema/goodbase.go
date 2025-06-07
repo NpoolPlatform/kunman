@@ -15,6 +15,7 @@ type GoodBase struct {
 func (GoodBase) Mixin() []ent.Mixin {
 	return []ent.Mixin{
 		crudermixin.AutoIDMixin{},
+		crudermixin.TimeMixin{},
 	}
 }
 

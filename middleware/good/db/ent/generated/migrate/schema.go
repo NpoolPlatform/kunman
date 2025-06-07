@@ -761,6 +761,9 @@ var (
 	GoodBasesColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeUint32, Increment: true},
 		{Name: "ent_id", Type: field.TypeUUID, Unique: true},
+		{Name: "created_at", Type: field.TypeUint32},
+		{Name: "updated_at", Type: field.TypeUint32},
+		{Name: "deleted_at", Type: field.TypeUint32},
 		{Name: "good_type", Type: field.TypeString, Nullable: true, Default: "DefaultGoodType"},
 		{Name: "benefit_type", Type: field.TypeString, Nullable: true, Default: "BenefitTypeNone"},
 		{Name: "name", Type: field.TypeString, Nullable: true, Default: ""},

@@ -36,6 +36,48 @@ func (gbc *GoodBaseCreate) SetNillableEntID(u *uuid.UUID) *GoodBaseCreate {
 	return gbc
 }
 
+// SetCreatedAt sets the "created_at" field.
+func (gbc *GoodBaseCreate) SetCreatedAt(u uint32) *GoodBaseCreate {
+	gbc.mutation.SetCreatedAt(u)
+	return gbc
+}
+
+// SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
+func (gbc *GoodBaseCreate) SetNillableCreatedAt(u *uint32) *GoodBaseCreate {
+	if u != nil {
+		gbc.SetCreatedAt(*u)
+	}
+	return gbc
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (gbc *GoodBaseCreate) SetUpdatedAt(u uint32) *GoodBaseCreate {
+	gbc.mutation.SetUpdatedAt(u)
+	return gbc
+}
+
+// SetNillableUpdatedAt sets the "updated_at" field if the given value is not nil.
+func (gbc *GoodBaseCreate) SetNillableUpdatedAt(u *uint32) *GoodBaseCreate {
+	if u != nil {
+		gbc.SetUpdatedAt(*u)
+	}
+	return gbc
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (gbc *GoodBaseCreate) SetDeletedAt(u uint32) *GoodBaseCreate {
+	gbc.mutation.SetDeletedAt(u)
+	return gbc
+}
+
+// SetNillableDeletedAt sets the "deleted_at" field if the given value is not nil.
+func (gbc *GoodBaseCreate) SetNillableDeletedAt(u *uint32) *GoodBaseCreate {
+	if u != nil {
+		gbc.SetDeletedAt(*u)
+	}
+	return gbc
+}
+
 // SetGoodType sets the "good_type" field.
 func (gbc *GoodBaseCreate) SetGoodType(s string) *GoodBaseCreate {
 	gbc.mutation.SetGoodType(s)
@@ -221,6 +263,18 @@ func (gbc *GoodBaseCreate) defaults() {
 		v := goodbase.DefaultEntID()
 		gbc.mutation.SetEntID(v)
 	}
+	if _, ok := gbc.mutation.CreatedAt(); !ok {
+		v := goodbase.DefaultCreatedAt()
+		gbc.mutation.SetCreatedAt(v)
+	}
+	if _, ok := gbc.mutation.UpdatedAt(); !ok {
+		v := goodbase.DefaultUpdatedAt()
+		gbc.mutation.SetUpdatedAt(v)
+	}
+	if _, ok := gbc.mutation.DeletedAt(); !ok {
+		v := goodbase.DefaultDeletedAt()
+		gbc.mutation.SetDeletedAt(v)
+	}
 	if _, ok := gbc.mutation.GoodType(); !ok {
 		v := goodbase.DefaultGoodType
 		gbc.mutation.SetGoodType(v)
@@ -268,6 +322,15 @@ func (gbc *GoodBaseCreate) check() error {
 	if _, ok := gbc.mutation.EntID(); !ok {
 		return &ValidationError{Name: "ent_id", err: errors.New(`generated: missing required field "GoodBase.ent_id"`)}
 	}
+	if _, ok := gbc.mutation.CreatedAt(); !ok {
+		return &ValidationError{Name: "created_at", err: errors.New(`generated: missing required field "GoodBase.created_at"`)}
+	}
+	if _, ok := gbc.mutation.UpdatedAt(); !ok {
+		return &ValidationError{Name: "updated_at", err: errors.New(`generated: missing required field "GoodBase.updated_at"`)}
+	}
+	if _, ok := gbc.mutation.DeletedAt(); !ok {
+		return &ValidationError{Name: "deleted_at", err: errors.New(`generated: missing required field "GoodBase.deleted_at"`)}
+	}
 	return nil
 }
 
@@ -304,6 +367,18 @@ func (gbc *GoodBaseCreate) createSpec() (*GoodBase, *sqlgraph.CreateSpec) {
 	if value, ok := gbc.mutation.EntID(); ok {
 		_spec.SetField(goodbase.FieldEntID, field.TypeUUID, value)
 		_node.EntID = value
+	}
+	if value, ok := gbc.mutation.CreatedAt(); ok {
+		_spec.SetField(goodbase.FieldCreatedAt, field.TypeUint32, value)
+		_node.CreatedAt = value
+	}
+	if value, ok := gbc.mutation.UpdatedAt(); ok {
+		_spec.SetField(goodbase.FieldUpdatedAt, field.TypeUint32, value)
+		_node.UpdatedAt = value
+	}
+	if value, ok := gbc.mutation.DeletedAt(); ok {
+		_spec.SetField(goodbase.FieldDeletedAt, field.TypeUint32, value)
+		_node.DeletedAt = value
 	}
 	if value, ok := gbc.mutation.GoodType(); ok {
 		_spec.SetField(goodbase.FieldGoodType, field.TypeString, value)
@@ -406,6 +481,60 @@ func (u *GoodBaseUpsert) SetEntID(v uuid.UUID) *GoodBaseUpsert {
 // UpdateEntID sets the "ent_id" field to the value that was provided on create.
 func (u *GoodBaseUpsert) UpdateEntID() *GoodBaseUpsert {
 	u.SetExcluded(goodbase.FieldEntID)
+	return u
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (u *GoodBaseUpsert) SetCreatedAt(v uint32) *GoodBaseUpsert {
+	u.Set(goodbase.FieldCreatedAt, v)
+	return u
+}
+
+// UpdateCreatedAt sets the "created_at" field to the value that was provided on create.
+func (u *GoodBaseUpsert) UpdateCreatedAt() *GoodBaseUpsert {
+	u.SetExcluded(goodbase.FieldCreatedAt)
+	return u
+}
+
+// AddCreatedAt adds v to the "created_at" field.
+func (u *GoodBaseUpsert) AddCreatedAt(v uint32) *GoodBaseUpsert {
+	u.Add(goodbase.FieldCreatedAt, v)
+	return u
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (u *GoodBaseUpsert) SetUpdatedAt(v uint32) *GoodBaseUpsert {
+	u.Set(goodbase.FieldUpdatedAt, v)
+	return u
+}
+
+// UpdateUpdatedAt sets the "updated_at" field to the value that was provided on create.
+func (u *GoodBaseUpsert) UpdateUpdatedAt() *GoodBaseUpsert {
+	u.SetExcluded(goodbase.FieldUpdatedAt)
+	return u
+}
+
+// AddUpdatedAt adds v to the "updated_at" field.
+func (u *GoodBaseUpsert) AddUpdatedAt(v uint32) *GoodBaseUpsert {
+	u.Add(goodbase.FieldUpdatedAt, v)
+	return u
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (u *GoodBaseUpsert) SetDeletedAt(v uint32) *GoodBaseUpsert {
+	u.Set(goodbase.FieldDeletedAt, v)
+	return u
+}
+
+// UpdateDeletedAt sets the "deleted_at" field to the value that was provided on create.
+func (u *GoodBaseUpsert) UpdateDeletedAt() *GoodBaseUpsert {
+	u.SetExcluded(goodbase.FieldDeletedAt)
+	return u
+}
+
+// AddDeletedAt adds v to the "deleted_at" field.
+func (u *GoodBaseUpsert) AddDeletedAt(v uint32) *GoodBaseUpsert {
+	u.Add(goodbase.FieldDeletedAt, v)
 	return u
 }
 
@@ -660,6 +789,69 @@ func (u *GoodBaseUpsertOne) SetEntID(v uuid.UUID) *GoodBaseUpsertOne {
 func (u *GoodBaseUpsertOne) UpdateEntID() *GoodBaseUpsertOne {
 	return u.Update(func(s *GoodBaseUpsert) {
 		s.UpdateEntID()
+	})
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (u *GoodBaseUpsertOne) SetCreatedAt(v uint32) *GoodBaseUpsertOne {
+	return u.Update(func(s *GoodBaseUpsert) {
+		s.SetCreatedAt(v)
+	})
+}
+
+// AddCreatedAt adds v to the "created_at" field.
+func (u *GoodBaseUpsertOne) AddCreatedAt(v uint32) *GoodBaseUpsertOne {
+	return u.Update(func(s *GoodBaseUpsert) {
+		s.AddCreatedAt(v)
+	})
+}
+
+// UpdateCreatedAt sets the "created_at" field to the value that was provided on create.
+func (u *GoodBaseUpsertOne) UpdateCreatedAt() *GoodBaseUpsertOne {
+	return u.Update(func(s *GoodBaseUpsert) {
+		s.UpdateCreatedAt()
+	})
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (u *GoodBaseUpsertOne) SetUpdatedAt(v uint32) *GoodBaseUpsertOne {
+	return u.Update(func(s *GoodBaseUpsert) {
+		s.SetUpdatedAt(v)
+	})
+}
+
+// AddUpdatedAt adds v to the "updated_at" field.
+func (u *GoodBaseUpsertOne) AddUpdatedAt(v uint32) *GoodBaseUpsertOne {
+	return u.Update(func(s *GoodBaseUpsert) {
+		s.AddUpdatedAt(v)
+	})
+}
+
+// UpdateUpdatedAt sets the "updated_at" field to the value that was provided on create.
+func (u *GoodBaseUpsertOne) UpdateUpdatedAt() *GoodBaseUpsertOne {
+	return u.Update(func(s *GoodBaseUpsert) {
+		s.UpdateUpdatedAt()
+	})
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (u *GoodBaseUpsertOne) SetDeletedAt(v uint32) *GoodBaseUpsertOne {
+	return u.Update(func(s *GoodBaseUpsert) {
+		s.SetDeletedAt(v)
+	})
+}
+
+// AddDeletedAt adds v to the "deleted_at" field.
+func (u *GoodBaseUpsertOne) AddDeletedAt(v uint32) *GoodBaseUpsertOne {
+	return u.Update(func(s *GoodBaseUpsert) {
+		s.AddDeletedAt(v)
+	})
+}
+
+// UpdateDeletedAt sets the "deleted_at" field to the value that was provided on create.
+func (u *GoodBaseUpsertOne) UpdateDeletedAt() *GoodBaseUpsertOne {
+	return u.Update(func(s *GoodBaseUpsert) {
+		s.UpdateDeletedAt()
 	})
 }
 
@@ -1112,6 +1304,69 @@ func (u *GoodBaseUpsertBulk) SetEntID(v uuid.UUID) *GoodBaseUpsertBulk {
 func (u *GoodBaseUpsertBulk) UpdateEntID() *GoodBaseUpsertBulk {
 	return u.Update(func(s *GoodBaseUpsert) {
 		s.UpdateEntID()
+	})
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (u *GoodBaseUpsertBulk) SetCreatedAt(v uint32) *GoodBaseUpsertBulk {
+	return u.Update(func(s *GoodBaseUpsert) {
+		s.SetCreatedAt(v)
+	})
+}
+
+// AddCreatedAt adds v to the "created_at" field.
+func (u *GoodBaseUpsertBulk) AddCreatedAt(v uint32) *GoodBaseUpsertBulk {
+	return u.Update(func(s *GoodBaseUpsert) {
+		s.AddCreatedAt(v)
+	})
+}
+
+// UpdateCreatedAt sets the "created_at" field to the value that was provided on create.
+func (u *GoodBaseUpsertBulk) UpdateCreatedAt() *GoodBaseUpsertBulk {
+	return u.Update(func(s *GoodBaseUpsert) {
+		s.UpdateCreatedAt()
+	})
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (u *GoodBaseUpsertBulk) SetUpdatedAt(v uint32) *GoodBaseUpsertBulk {
+	return u.Update(func(s *GoodBaseUpsert) {
+		s.SetUpdatedAt(v)
+	})
+}
+
+// AddUpdatedAt adds v to the "updated_at" field.
+func (u *GoodBaseUpsertBulk) AddUpdatedAt(v uint32) *GoodBaseUpsertBulk {
+	return u.Update(func(s *GoodBaseUpsert) {
+		s.AddUpdatedAt(v)
+	})
+}
+
+// UpdateUpdatedAt sets the "updated_at" field to the value that was provided on create.
+func (u *GoodBaseUpsertBulk) UpdateUpdatedAt() *GoodBaseUpsertBulk {
+	return u.Update(func(s *GoodBaseUpsert) {
+		s.UpdateUpdatedAt()
+	})
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (u *GoodBaseUpsertBulk) SetDeletedAt(v uint32) *GoodBaseUpsertBulk {
+	return u.Update(func(s *GoodBaseUpsert) {
+		s.SetDeletedAt(v)
+	})
+}
+
+// AddDeletedAt adds v to the "deleted_at" field.
+func (u *GoodBaseUpsertBulk) AddDeletedAt(v uint32) *GoodBaseUpsertBulk {
+	return u.Update(func(s *GoodBaseUpsert) {
+		s.AddDeletedAt(v)
+	})
+}
+
+// UpdateDeletedAt sets the "deleted_at" field to the value that was provided on create.
+func (u *GoodBaseUpsertBulk) UpdateDeletedAt() *GoodBaseUpsertBulk {
+	return u.Update(func(s *GoodBaseUpsert) {
+		s.UpdateDeletedAt()
 	})
 }
 

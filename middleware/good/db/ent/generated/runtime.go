@@ -1071,12 +1071,28 @@ func init() {
 	goodbaseMixin := schema.GoodBase{}.Mixin()
 	goodbaseMixinFields0 := goodbaseMixin[0].Fields()
 	_ = goodbaseMixinFields0
+	goodbaseMixinFields1 := goodbaseMixin[1].Fields()
+	_ = goodbaseMixinFields1
 	goodbaseFields := schema.GoodBase{}.Fields()
 	_ = goodbaseFields
 	// goodbaseDescEntID is the schema descriptor for ent_id field.
 	goodbaseDescEntID := goodbaseMixinFields0[1].Descriptor()
 	// goodbase.DefaultEntID holds the default value on creation for the ent_id field.
 	goodbase.DefaultEntID = goodbaseDescEntID.Default.(func() uuid.UUID)
+	// goodbaseDescCreatedAt is the schema descriptor for created_at field.
+	goodbaseDescCreatedAt := goodbaseMixinFields1[0].Descriptor()
+	// goodbase.DefaultCreatedAt holds the default value on creation for the created_at field.
+	goodbase.DefaultCreatedAt = goodbaseDescCreatedAt.Default.(func() uint32)
+	// goodbaseDescUpdatedAt is the schema descriptor for updated_at field.
+	goodbaseDescUpdatedAt := goodbaseMixinFields1[1].Descriptor()
+	// goodbase.DefaultUpdatedAt holds the default value on creation for the updated_at field.
+	goodbase.DefaultUpdatedAt = goodbaseDescUpdatedAt.Default.(func() uint32)
+	// goodbase.UpdateDefaultUpdatedAt holds the default value on update for the updated_at field.
+	goodbase.UpdateDefaultUpdatedAt = goodbaseDescUpdatedAt.UpdateDefault.(func() uint32)
+	// goodbaseDescDeletedAt is the schema descriptor for deleted_at field.
+	goodbaseDescDeletedAt := goodbaseMixinFields1[2].Descriptor()
+	// goodbase.DefaultDeletedAt holds the default value on creation for the deleted_at field.
+	goodbase.DefaultDeletedAt = goodbaseDescDeletedAt.Default.(func() uint32)
 	// goodbaseDescGoodType is the schema descriptor for good_type field.
 	goodbaseDescGoodType := goodbaseFields[0].Descriptor()
 	// goodbase.DefaultGoodType holds the default value on creation for the good_type field.

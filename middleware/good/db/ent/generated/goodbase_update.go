@@ -43,6 +43,61 @@ func (gbu *GoodBaseUpdate) SetNillableEntID(u *uuid.UUID) *GoodBaseUpdate {
 	return gbu
 }
 
+// SetCreatedAt sets the "created_at" field.
+func (gbu *GoodBaseUpdate) SetCreatedAt(u uint32) *GoodBaseUpdate {
+	gbu.mutation.ResetCreatedAt()
+	gbu.mutation.SetCreatedAt(u)
+	return gbu
+}
+
+// SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
+func (gbu *GoodBaseUpdate) SetNillableCreatedAt(u *uint32) *GoodBaseUpdate {
+	if u != nil {
+		gbu.SetCreatedAt(*u)
+	}
+	return gbu
+}
+
+// AddCreatedAt adds u to the "created_at" field.
+func (gbu *GoodBaseUpdate) AddCreatedAt(u int32) *GoodBaseUpdate {
+	gbu.mutation.AddCreatedAt(u)
+	return gbu
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (gbu *GoodBaseUpdate) SetUpdatedAt(u uint32) *GoodBaseUpdate {
+	gbu.mutation.ResetUpdatedAt()
+	gbu.mutation.SetUpdatedAt(u)
+	return gbu
+}
+
+// AddUpdatedAt adds u to the "updated_at" field.
+func (gbu *GoodBaseUpdate) AddUpdatedAt(u int32) *GoodBaseUpdate {
+	gbu.mutation.AddUpdatedAt(u)
+	return gbu
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (gbu *GoodBaseUpdate) SetDeletedAt(u uint32) *GoodBaseUpdate {
+	gbu.mutation.ResetDeletedAt()
+	gbu.mutation.SetDeletedAt(u)
+	return gbu
+}
+
+// SetNillableDeletedAt sets the "deleted_at" field if the given value is not nil.
+func (gbu *GoodBaseUpdate) SetNillableDeletedAt(u *uint32) *GoodBaseUpdate {
+	if u != nil {
+		gbu.SetDeletedAt(*u)
+	}
+	return gbu
+}
+
+// AddDeletedAt adds u to the "deleted_at" field.
+func (gbu *GoodBaseUpdate) AddDeletedAt(u int32) *GoodBaseUpdate {
+	gbu.mutation.AddDeletedAt(u)
+	return gbu
+}
+
 // SetGoodType sets the "good_type" field.
 func (gbu *GoodBaseUpdate) SetGoodType(s string) *GoodBaseUpdate {
 	gbu.mutation.SetGoodType(s)
@@ -264,6 +319,7 @@ func (gbu *GoodBaseUpdate) Mutation() *GoodBaseMutation {
 
 // Save executes the query and returns the number of nodes affected by the update operation.
 func (gbu *GoodBaseUpdate) Save(ctx context.Context) (int, error) {
+	gbu.defaults()
 	return withHooks(ctx, gbu.sqlSave, gbu.mutation, gbu.hooks)
 }
 
@@ -289,6 +345,14 @@ func (gbu *GoodBaseUpdate) ExecX(ctx context.Context) {
 	}
 }
 
+// defaults sets the default values of the builder before save.
+func (gbu *GoodBaseUpdate) defaults() {
+	if _, ok := gbu.mutation.UpdatedAt(); !ok {
+		v := goodbase.UpdateDefaultUpdatedAt()
+		gbu.mutation.SetUpdatedAt(v)
+	}
+}
+
 // Modify adds a statement modifier for attaching custom logic to the UPDATE statement.
 func (gbu *GoodBaseUpdate) Modify(modifiers ...func(u *sql.UpdateBuilder)) *GoodBaseUpdate {
 	gbu.modifiers = append(gbu.modifiers, modifiers...)
@@ -306,6 +370,24 @@ func (gbu *GoodBaseUpdate) sqlSave(ctx context.Context) (n int, err error) {
 	}
 	if value, ok := gbu.mutation.EntID(); ok {
 		_spec.SetField(goodbase.FieldEntID, field.TypeUUID, value)
+	}
+	if value, ok := gbu.mutation.CreatedAt(); ok {
+		_spec.SetField(goodbase.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := gbu.mutation.AddedCreatedAt(); ok {
+		_spec.AddField(goodbase.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := gbu.mutation.UpdatedAt(); ok {
+		_spec.SetField(goodbase.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := gbu.mutation.AddedUpdatedAt(); ok {
+		_spec.AddField(goodbase.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := gbu.mutation.DeletedAt(); ok {
+		_spec.SetField(goodbase.FieldDeletedAt, field.TypeUint32, value)
+	}
+	if value, ok := gbu.mutation.AddedDeletedAt(); ok {
+		_spec.AddField(goodbase.FieldDeletedAt, field.TypeUint32, value)
 	}
 	if value, ok := gbu.mutation.GoodType(); ok {
 		_spec.SetField(goodbase.FieldGoodType, field.TypeString, value)
@@ -406,6 +488,61 @@ func (gbuo *GoodBaseUpdateOne) SetNillableEntID(u *uuid.UUID) *GoodBaseUpdateOne
 	if u != nil {
 		gbuo.SetEntID(*u)
 	}
+	return gbuo
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (gbuo *GoodBaseUpdateOne) SetCreatedAt(u uint32) *GoodBaseUpdateOne {
+	gbuo.mutation.ResetCreatedAt()
+	gbuo.mutation.SetCreatedAt(u)
+	return gbuo
+}
+
+// SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
+func (gbuo *GoodBaseUpdateOne) SetNillableCreatedAt(u *uint32) *GoodBaseUpdateOne {
+	if u != nil {
+		gbuo.SetCreatedAt(*u)
+	}
+	return gbuo
+}
+
+// AddCreatedAt adds u to the "created_at" field.
+func (gbuo *GoodBaseUpdateOne) AddCreatedAt(u int32) *GoodBaseUpdateOne {
+	gbuo.mutation.AddCreatedAt(u)
+	return gbuo
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (gbuo *GoodBaseUpdateOne) SetUpdatedAt(u uint32) *GoodBaseUpdateOne {
+	gbuo.mutation.ResetUpdatedAt()
+	gbuo.mutation.SetUpdatedAt(u)
+	return gbuo
+}
+
+// AddUpdatedAt adds u to the "updated_at" field.
+func (gbuo *GoodBaseUpdateOne) AddUpdatedAt(u int32) *GoodBaseUpdateOne {
+	gbuo.mutation.AddUpdatedAt(u)
+	return gbuo
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (gbuo *GoodBaseUpdateOne) SetDeletedAt(u uint32) *GoodBaseUpdateOne {
+	gbuo.mutation.ResetDeletedAt()
+	gbuo.mutation.SetDeletedAt(u)
+	return gbuo
+}
+
+// SetNillableDeletedAt sets the "deleted_at" field if the given value is not nil.
+func (gbuo *GoodBaseUpdateOne) SetNillableDeletedAt(u *uint32) *GoodBaseUpdateOne {
+	if u != nil {
+		gbuo.SetDeletedAt(*u)
+	}
+	return gbuo
+}
+
+// AddDeletedAt adds u to the "deleted_at" field.
+func (gbuo *GoodBaseUpdateOne) AddDeletedAt(u int32) *GoodBaseUpdateOne {
+	gbuo.mutation.AddDeletedAt(u)
 	return gbuo
 }
 
@@ -643,6 +780,7 @@ func (gbuo *GoodBaseUpdateOne) Select(field string, fields ...string) *GoodBaseU
 
 // Save executes the query and returns the updated GoodBase entity.
 func (gbuo *GoodBaseUpdateOne) Save(ctx context.Context) (*GoodBase, error) {
+	gbuo.defaults()
 	return withHooks(ctx, gbuo.sqlSave, gbuo.mutation, gbuo.hooks)
 }
 
@@ -665,6 +803,14 @@ func (gbuo *GoodBaseUpdateOne) Exec(ctx context.Context) error {
 func (gbuo *GoodBaseUpdateOne) ExecX(ctx context.Context) {
 	if err := gbuo.Exec(ctx); err != nil {
 		panic(err)
+	}
+}
+
+// defaults sets the default values of the builder before save.
+func (gbuo *GoodBaseUpdateOne) defaults() {
+	if _, ok := gbuo.mutation.UpdatedAt(); !ok {
+		v := goodbase.UpdateDefaultUpdatedAt()
+		gbuo.mutation.SetUpdatedAt(v)
 	}
 }
 
@@ -702,6 +848,24 @@ func (gbuo *GoodBaseUpdateOne) sqlSave(ctx context.Context) (_node *GoodBase, er
 	}
 	if value, ok := gbuo.mutation.EntID(); ok {
 		_spec.SetField(goodbase.FieldEntID, field.TypeUUID, value)
+	}
+	if value, ok := gbuo.mutation.CreatedAt(); ok {
+		_spec.SetField(goodbase.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := gbuo.mutation.AddedCreatedAt(); ok {
+		_spec.AddField(goodbase.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := gbuo.mutation.UpdatedAt(); ok {
+		_spec.SetField(goodbase.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := gbuo.mutation.AddedUpdatedAt(); ok {
+		_spec.AddField(goodbase.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := gbuo.mutation.DeletedAt(); ok {
+		_spec.SetField(goodbase.FieldDeletedAt, field.TypeUint32, value)
+	}
+	if value, ok := gbuo.mutation.AddedDeletedAt(); ok {
+		_spec.AddField(goodbase.FieldDeletedAt, field.TypeUint32, value)
 	}
 	if value, ok := gbuo.mutation.GoodType(); ok {
 		_spec.SetField(goodbase.FieldGoodType, field.TypeString, value)
