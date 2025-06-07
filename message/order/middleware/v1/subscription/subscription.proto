@@ -41,6 +41,7 @@ message SubscriptionOrderReq {
     optional bool AdminSetCanceled = 430;
     optional basetypes.order.v1.PaymentState PaymentState = 440;
 
+    optional string LedgerLockID = 510;
     optional string PaymentID = 520;
 
     // Coupons
@@ -121,6 +122,8 @@ message SubscriptionOrder {
 
     // @inject_tag: sql:"payment_id"
     string PaymentID = 500;
+    // @inject_tag: sql:"ledger_lock_id"
+    string LedgerLockID = 510;
 
     // Coupons
     repeated order.middleware.order1.coupon.v1.OrderCouponInfo Coupons = 600;
