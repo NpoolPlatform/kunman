@@ -2,7 +2,7 @@ package appsimulatepowerrental
 
 import (
 	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
-	"github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated"
+	ent "github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated"
 	entappsimulatepowerrental "github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated/appsimulatepowerrental"
 	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 	"github.com/shopspring/decimal"

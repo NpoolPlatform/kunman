@@ -5,7 +5,7 @@ import (
 
 	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
 	"github.com/NpoolPlatform/kunman/middleware/good/db"
-	"github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated"
+	ent "github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated"
 )
 
 func (h *Handler) ExistPowerRental(ctx context.Context) (exist bool, err error) {
@@ -20,7 +20,8 @@ func (h *Handler) ExistPowerRental(ctx context.Context) (exist bool, err error) 
 			return wlog.WrapError(err)
 		}
 		handler.queryJoin()
-		exist, err = handler.stmSelect.Exist(_ctx)
+		count, err := handler.stmSelect.Limit(1).Count(_ctx)
+		exist = count > 0
 		return wlog.WrapError(err)
 	})
 	if err != nil {
@@ -38,7 +39,8 @@ func (h *Handler) ExistPowerRentalConds(ctx context.Context) (exist bool, err er
 			return wlog.WrapError(err)
 		}
 		handler.queryJoin()
-		exist, err = handler.stmSelect.Exist(_ctx)
+		count, err := handler.stmSelect.Limit(1).Count(_ctx)
+		exist = count > 0
 		return wlog.WrapError(err)
 	}); err != nil {
 		return false, wlog.WrapError(err)

@@ -5,8 +5,9 @@ import (
 
 	logger "github.com/NpoolPlatform/kunman/framework/logger"
 	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
+	types "github.com/NpoolPlatform/kunman/message/basetypes/good/v1"
 	appgoodbasecrud "github.com/NpoolPlatform/kunman/middleware/good/crud/app/good/goodbase"
-	"github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated"
+	ent "github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated"
 	entappgoodbase "github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated/appgoodbase"
 	entapplegacypowerrental "github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated/applegacypowerrental"
 	entapppowerrental "github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated/apppowerrental"
@@ -21,7 +22,6 @@ import (
 	entstock "github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated/stock"
 	entvendorbrand "github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated/vendorbrand"
 	entvendorlocation "github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated/vendorlocation"
-	types "github.com/NpoolPlatform/kunman/message/basetypes/good/v1"
 
 	"github.com/google/uuid"
 )

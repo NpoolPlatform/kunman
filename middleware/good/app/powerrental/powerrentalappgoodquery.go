@@ -5,8 +5,9 @@ import (
 	"context"
 
 	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
+	types "github.com/NpoolPlatform/kunman/message/basetypes/good/v1"
 	"github.com/NpoolPlatform/kunman/middleware/good/db"
-	"github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated"
+	ent "github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated"
 	entappgoodbase "github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated/appgoodbase"
 	entappmininggoodstock "github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated/appmininggoodstock"
 	entapppowerrental "github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated/apppowerrental"
@@ -15,7 +16,6 @@ import (
 	entmininggoodstock "github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated/mininggoodstock"
 	entpowerrental "github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated/powerrental"
 	entstock "github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated/stock"
-	types "github.com/NpoolPlatform/kunman/message/basetypes/good/v1"
 )
 
 type powerRentalAppGoodQueryHandler struct {
