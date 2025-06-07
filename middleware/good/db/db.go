@@ -31,6 +31,16 @@ func client(f func(cli *ent.Client) error) error {
 		if err != nil {
 			return err
 		}
+
+		if err := db.SafeRun(func(db *sql.DB) error {
+			drv := entsql.OpenDB(dialect.MySQL, db)
+			cli := ent.NewClient(ent.Driver(drv))
+
+			cli.Use()
+			return cli.Schema.Create(context.Background())
+		}); err != nil {
+			return err
+		}
 	}
 
 	return db.SafeRun(func(db *sql.DB) error {
