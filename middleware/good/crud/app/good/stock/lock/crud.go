@@ -1,8 +1,8 @@
 package appstocklock
 
 import (
-	"github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated"
 	types "github.com/NpoolPlatform/kunman/message/basetypes/good/v1"
+	ent "github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated"
 
 	"github.com/google/uuid"
 	"github.com/shopspring/decimal"

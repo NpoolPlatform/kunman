@@ -5,7 +5,7 @@ import (
 
 	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
 	"github.com/NpoolPlatform/kunman/middleware/good/db"
-	"github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated"
+	ent "github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated"
 )
 
 type existHandler struct {
@@ -23,7 +23,8 @@ func (h *Handler) ExistPoster(ctx context.Context) (exist bool, err error) {
 			return err
 		}
 		handler.queryJoin()
-		exist, err = handler.stmSelect.Exist(_ctx)
+		count, err := handler.stmSelect.Limit(1).Count(_ctx)
+		exist = count > 0
 		return err
 	})
 	if err != nil {
@@ -43,7 +44,8 @@ func (h *Handler) ExistPosterConds(ctx context.Context) (exist bool, err error) 
 			return err
 		}
 		handler.queryJoin()
-		exist, err = handler.stmSelect.Exist(_ctx)
+		count, err := handler.stmSelect.Limit(1).Count(_ctx)
+		exist = count > 0
 		return err
 	})
 	if err != nil {

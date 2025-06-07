@@ -2,7 +2,7 @@ package manufacturer
 
 import (
 	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
-	"github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated"
+	ent "github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated"
 	entdevicemanufacturer "github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated/devicemanufacturer"
 	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 

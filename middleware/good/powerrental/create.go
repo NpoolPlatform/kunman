@@ -7,13 +7,13 @@ import (
 	"time"
 
 	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
+	types "github.com/NpoolPlatform/kunman/message/basetypes/good/v1"
 	rewardcrud "github.com/NpoolPlatform/kunman/middleware/good/crud/good/reward"
 	"github.com/NpoolPlatform/kunman/middleware/good/db"
-	"github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated"
+	ent "github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated"
 	goodbase1 "github.com/NpoolPlatform/kunman/middleware/good/good/goodbase"
-	stock1 "github.com/NpoolPlatform/kunman/middleware/good/stock"
-	mininggoodstock1 "github.com/NpoolPlatform/kunman/middleware/good/stock/mining"
-	types "github.com/NpoolPlatform/kunman/message/basetypes/good/v1"
+	stock1 "github.com/NpoolPlatform/kunman/middleware/good/good/stock"
+	mininggoodstock1 "github.com/NpoolPlatform/kunman/middleware/good/good/stock/mining"
 
 	"github.com/google/uuid"
 	"github.com/shopspring/decimal"

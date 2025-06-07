@@ -6,7 +6,7 @@ import (
 
 	requiredcrud "github.com/NpoolPlatform/kunman/middleware/good/crud/app/good/required"
 	"github.com/NpoolPlatform/kunman/middleware/good/db"
-	"github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated"
+	ent "github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated"
 )
 
 func (h *Handler) DeleteRequired(ctx context.Context) error {

@@ -5,11 +5,11 @@ import (
 	"context"
 
 	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
-	appstockcrud "github.com/NpoolPlatform/kunman/middleware/good/crud/app/good/stock"
-	appmininggoodstockcrud "github.com/NpoolPlatform/kunman/middleware/good/crud/app/good/stock/mining"
 	types "github.com/NpoolPlatform/kunman/message/basetypes/good/v1"
 	npool "github.com/NpoolPlatform/kunman/message/good/middleware/v1/app/good/stock"
 	appmininggoodstockpwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/app/good/stock/mining"
+	appstockcrud "github.com/NpoolPlatform/kunman/middleware/good/crud/app/good/stock"
+	appmininggoodstockcrud "github.com/NpoolPlatform/kunman/middleware/good/crud/app/good/stock/mining"
 
 	"github.com/google/uuid"
 	"github.com/shopspring/decimal"
@@ -240,7 +240,7 @@ func WithAppGoodID(id *string, must bool) func(context.Context, *Handler) error 
 	}
 }
 
-func WithStocks(stocks []*npool.LocksRequest_XStock, must bool) func(context.Context, *Handler) error {
+func WithStocks(stocks []*npool.LockStock, must bool) func(context.Context, *Handler) error {
 	return func(ctx context.Context, h *Handler) error {
 		for _, stock := range stocks {
 			_stock := &LockStock{}

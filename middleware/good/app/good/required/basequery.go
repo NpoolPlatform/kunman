@@ -5,12 +5,12 @@ import (
 
 	logger "github.com/NpoolPlatform/kunman/framework/logger"
 	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
+	types "github.com/NpoolPlatform/kunman/message/basetypes/good/v1"
 	requiredcrud "github.com/NpoolPlatform/kunman/middleware/good/crud/app/good/required"
-	"github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated"
+	ent "github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated"
 	entappgoodbase "github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated/appgoodbase"
 	entgoodbase "github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated/goodbase"
 	entrequiredappgood "github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated/requiredappgood"
-	types "github.com/NpoolPlatform/kunman/message/basetypes/good/v1"
 
 	"github.com/google/uuid"
 )

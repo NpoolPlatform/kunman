@@ -2,7 +2,7 @@ package like
 
 import (
 	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
-	"github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated"
+	ent "github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated"
 	entlike "github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated/like"
 	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 

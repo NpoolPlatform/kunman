@@ -5,11 +5,11 @@ import (
 
 	logger "github.com/NpoolPlatform/kunman/framework/logger"
 	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
+	types "github.com/NpoolPlatform/kunman/message/basetypes/good/v1"
 	goodbasecrud "github.com/NpoolPlatform/kunman/middleware/good/crud/app/good/goodbase"
-	"github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated"
+	ent "github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated"
 	entappgoodbase "github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated/appgoodbase"
 	entgoodbase "github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated/goodbase"
-	types "github.com/NpoolPlatform/kunman/message/basetypes/good/v1"
 )
 
 type baseQueryHandler struct {

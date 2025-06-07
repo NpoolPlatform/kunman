@@ -11,7 +11,7 @@ import (
 	mininggoodstockcrud "github.com/NpoolPlatform/kunman/middleware/good/crud/good/stock/mining"
 	powerrentalcrud "github.com/NpoolPlatform/kunman/middleware/good/crud/powerrental"
 	"github.com/NpoolPlatform/kunman/middleware/good/db"
-	"github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated"
+	ent "github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated"
 )
 
 type deleteHandler struct {

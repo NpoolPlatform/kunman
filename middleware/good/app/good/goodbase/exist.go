@@ -18,10 +18,13 @@ func (h *Handler) ExistGoodBase(ctx context.Context) (exist bool, err error) {
 		if h.EntID != nil {
 			stm.Where(entappgoodbase.EntID(*h.EntID))
 		}
-		exist, err = stm.Exist(_ctx)
+		count, err := stm.Limit(1).Count(_ctx)
 		if err != nil {
 			return err
 		}
+
+		exist = count > 0
+
 		return nil
 	})
 	if err != nil {

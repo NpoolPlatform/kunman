@@ -7,19 +7,19 @@ import (
 	"time"
 
 	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
+	types "github.com/NpoolPlatform/kunman/message/basetypes/good/v1"
 	goodcoinrewardcrud "github.com/NpoolPlatform/kunman/middleware/good/crud/good/coin/reward"
 	stockcrud "github.com/NpoolPlatform/kunman/middleware/good/crud/good/stock"
 	mininggoodstockcrud "github.com/NpoolPlatform/kunman/middleware/good/crud/good/stock/mining"
 	"github.com/NpoolPlatform/kunman/middleware/good/db"
-	"github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated"
+	ent "github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated"
 	goodcoinreward1 "github.com/NpoolPlatform/kunman/middleware/good/good/coin/reward"
 	rewardhistory1 "github.com/NpoolPlatform/kunman/middleware/good/good/coin/reward/history"
 	goodbase1 "github.com/NpoolPlatform/kunman/middleware/good/good/goodbase"
 	goodreward1 "github.com/NpoolPlatform/kunman/middleware/good/good/reward"
-	mininggoodstock1 "github.com/NpoolPlatform/kunman/middleware/good/stock/mining"
+	mininggoodstock1 "github.com/NpoolPlatform/kunman/middleware/good/good/stock/mining"
 	goodstm "github.com/NpoolPlatform/kunman/middleware/good/stm"
 	cruder "github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
-	types "github.com/NpoolPlatform/kunman/message/basetypes/good/v1"
 
 	"github.com/shopspring/decimal"
 )

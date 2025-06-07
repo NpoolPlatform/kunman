@@ -5,7 +5,7 @@ import (
 
 	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
 	devicecrud "github.com/NpoolPlatform/kunman/middleware/good/crud/device"
-	"github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated"
+	ent "github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated"
 	entdevicetype "github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated/deviceinfo"
 	entmanufacturer "github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated/devicemanufacturer"
 )

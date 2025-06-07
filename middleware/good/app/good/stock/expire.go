@@ -6,9 +6,9 @@ import (
 	"fmt"
 
 	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
-	"github.com/NpoolPlatform/kunman/middleware/good/db"
-	"github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated"
 	types "github.com/NpoolPlatform/kunman/message/basetypes/good/v1"
+	"github.com/NpoolPlatform/kunman/middleware/good/db"
+	ent "github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated"
 )
 
 type expireHandler struct {

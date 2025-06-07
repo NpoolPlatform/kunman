@@ -53,3 +53,9 @@ message Stock {
     uint32 UpdatedAt  = 1010;
 }
 
+message LockStock {
+    string EntID      = 10;
+    string AppGoodID  = 20;
+    string Units      = 30;
+    string AppSpotUnits = 40;  // Locked from app spot quantity
+}

@@ -5,7 +5,7 @@ import (
 
 	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
 	"github.com/NpoolPlatform/kunman/middleware/good/db"
-	"github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated"
+	ent "github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated"
 )
 
 func (h *Handler) ExistLocation(ctx context.Context) (exist bool, err error) {
@@ -17,7 +17,8 @@ func (h *Handler) ExistLocation(ctx context.Context) (exist bool, err error) {
 			return wlog.WrapError(err)
 		}
 		handler.queryJoin()
-		exist, err = handler.stmSelect.Exist(_ctx)
+		count, err := handler.stmSelect.Limit(1).Count(_ctx)
+		exist = count > 0
 		return wlog.WrapError(err)
 	})
 	if err != nil {
@@ -35,7 +36,8 @@ func (h *Handler) ExistLocationConds(ctx context.Context) (exist bool, err error
 			return wlog.WrapError(err)
 		}
 		handler.queryJoin()
-		exist, err = handler.stmSelect.Exist(_ctx)
+		count, err := handler.stmSelect.Limit(1).Count(_ctx)
+		exist = count > 0
 		return wlog.WrapError(err)
 	})
 	if err != nil {

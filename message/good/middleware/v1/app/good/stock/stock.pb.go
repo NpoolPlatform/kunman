@@ -231,6 +231,77 @@ func (x *Stock) GetUpdatedAt() uint32 {
 	return 0
 }
 
+type LockStock struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	EntID        string `protobuf:"bytes,10,opt,name=EntID,proto3" json:"EntID,omitempty"`
+	AppGoodID    string `protobuf:"bytes,20,opt,name=AppGoodID,proto3" json:"AppGoodID,omitempty"`
+	Units        string `protobuf:"bytes,30,opt,name=Units,proto3" json:"Units,omitempty"`
+	AppSpotUnits string `protobuf:"bytes,40,opt,name=AppSpotUnits,proto3" json:"AppSpotUnits,omitempty"` // Locked from app spot quantity
+}
+
+func (x *LockStock) Reset() {
+	*x = LockStock{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_good_middleware_v1_app_good_stock_stock_proto_msgTypes[1]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *LockStock) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*LockStock) ProtoMessage() {}
+
+func (x *LockStock) ProtoReflect() protoreflect.Message {
+	mi := &file_good_middleware_v1_app_good_stock_stock_proto_msgTypes[1]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use LockStock.ProtoReflect.Descriptor instead.
+func (*LockStock) Descriptor() ([]byte, []int) {
+	return file_good_middleware_v1_app_good_stock_stock_proto_rawDescGZIP(), []int{1}
+}
+
+func (x *LockStock) GetEntID() string {
+	if x != nil {
+		return x.EntID
+	}
+	return ""
+}
+
+func (x *LockStock) GetAppGoodID() string {
+	if x != nil {
+		return x.AppGoodID
+	}
+	return ""
+}
+
+func (x *LockStock) GetUnits() string {
+	if x != nil {
+		return x.Units
+	}
+	return ""
+}
+
+func (x *LockStock) GetAppSpotUnits() string {
+	if x != nil {
+		return x.AppSpotUnits
+	}
+	return ""
+}
+
 var File_good_middleware_v1_app_good_stock_stock_proto protoreflect.FileDescriptor
 
 var file_good_middleware_v1_app_good_stock_stock_proto_rawDesc = []byte{
@@ -293,12 +364,20 @@ var file_good_middleware_v1_app_good_stock_stock_proto_rawDesc = []byte{
 	0x73, 0x12, 0x1d, 0x0a, 0x09, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x64, 0x41, 0x74, 0x18, 0xe8,
 	0x07, 0x20, 0x01, 0x28, 0x0d, 0x52, 0x09, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x64, 0x41, 0x74,
 	0x12, 0x1d, 0x0a, 0x09, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x64, 0x41, 0x74, 0x18, 0xf2, 0x07,
-	0x20, 0x01, 0x28, 0x0d, 0x52, 0x09, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x64, 0x41, 0x74, 0x42,
-	0x44, 0x5a, 0x42, 0x67, 0x69, 0x74, 0x68, 0x75, 0x62, 0x2e, 0x63, 0x6f, 0x6d, 0x2f, 0x4e, 0x70,
-	0x6f, 0x6f, 0x6c, 0x50, 0x6c, 0x61, 0x74, 0x66, 0x6f, 0x72, 0x6d, 0x2f, 0x6d, 0x65, 0x73, 0x73,
-	0x61, 0x67, 0x65, 0x2f, 0x67, 0x6f, 0x6f, 0x64, 0x2f, 0x6d, 0x69, 0x64, 0x64, 0x6c, 0x65, 0x77,
-	0x61, 0x72, 0x65, 0x2f, 0x76, 0x31, 0x2f, 0x61, 0x70, 0x70, 0x2f, 0x67, 0x6f, 0x6f, 0x64, 0x2f,
-	0x73, 0x74, 0x6f, 0x63, 0x6b, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x20, 0x01, 0x28, 0x0d, 0x52, 0x09, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x64, 0x41, 0x74, 0x22,
+	0x79, 0x0a, 0x09, 0x4c, 0x6f, 0x63, 0x6b, 0x53, 0x74, 0x6f, 0x63, 0x6b, 0x12, 0x14, 0x0a, 0x05,
+	0x45, 0x6e, 0x74, 0x49, 0x44, 0x18, 0x0a, 0x20, 0x01, 0x28, 0x09, 0x52, 0x05, 0x45, 0x6e, 0x74,
+	0x49, 0x44, 0x12, 0x1c, 0x0a, 0x09, 0x41, 0x70, 0x70, 0x47, 0x6f, 0x6f, 0x64, 0x49, 0x44, 0x18,
+	0x14, 0x20, 0x01, 0x28, 0x09, 0x52, 0x09, 0x41, 0x70, 0x70, 0x47, 0x6f, 0x6f, 0x64, 0x49, 0x44,
+	0x12, 0x14, 0x0a, 0x05, 0x55, 0x6e, 0x69, 0x74, 0x73, 0x18, 0x1e, 0x20, 0x01, 0x28, 0x09, 0x52,
+	0x05, 0x55, 0x6e, 0x69, 0x74, 0x73, 0x12, 0x22, 0x0a, 0x0c, 0x41, 0x70, 0x70, 0x53, 0x70, 0x6f,
+	0x74, 0x55, 0x6e, 0x69, 0x74, 0x73, 0x18, 0x28, 0x20, 0x01, 0x28, 0x09, 0x52, 0x0c, 0x41, 0x70,
+	0x70, 0x53, 0x70, 0x6f, 0x74, 0x55, 0x6e, 0x69, 0x74, 0x73, 0x42, 0x4b, 0x5a, 0x49, 0x67, 0x69,
+	0x74, 0x68, 0x75, 0x62, 0x2e, 0x63, 0x6f, 0x6d, 0x2f, 0x4e, 0x70, 0x6f, 0x6f, 0x6c, 0x50, 0x6c,
+	0x61, 0x74, 0x66, 0x6f, 0x72, 0x6d, 0x2f, 0x6b, 0x75, 0x6e, 0x6d, 0x61, 0x6e, 0x2f, 0x6d, 0x65,
+	0x73, 0x73, 0x61, 0x67, 0x65, 0x2f, 0x67, 0x6f, 0x6f, 0x64, 0x2f, 0x6d, 0x69, 0x64, 0x64, 0x6c,
+	0x65, 0x77, 0x61, 0x72, 0x65, 0x2f, 0x76, 0x31, 0x2f, 0x61, 0x70, 0x70, 0x2f, 0x67, 0x6f, 0x6f,
+	0x64, 0x2f, 0x73, 0x74, 0x6f, 0x63, 0x6b, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (
@@ -313,17 +392,18 @@ func file_good_middleware_v1_app_good_stock_stock_proto_rawDescGZIP() []byte {
 	return file_good_middleware_v1_app_good_stock_stock_proto_rawDescData
 }
 
-var file_good_middleware_v1_app_good_stock_stock_proto_msgTypes = make([]protoimpl.MessageInfo, 1)
+var file_good_middleware_v1_app_good_stock_stock_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
 var file_good_middleware_v1_app_good_stock_stock_proto_goTypes = []interface{}{
 	(*Stock)(nil),                     // 0: good.middleware.app.good1.stock.v1.Stock
-	(v1.GoodStockMode)(0),             // 1: basetypes.good.v1.GoodStockMode
-	(*stock.MiningGoodStockInfo)(nil), // 2: good.middleware.good1.stock.v1.MiningGoodStockInfo
-	(*mining.StockInfo)(nil),          // 3: good.middleware.app.good1.stock.mining.v1.StockInfo
+	(*LockStock)(nil),                 // 1: good.middleware.app.good1.stock.v1.LockStock
+	(v1.GoodStockMode)(0),             // 2: basetypes.good.v1.GoodStockMode
+	(*stock.MiningGoodStockInfo)(nil), // 3: good.middleware.good1.stock.v1.MiningGoodStockInfo
+	(*mining.StockInfo)(nil),          // 4: good.middleware.app.good1.stock.mining.v1.StockInfo
 }
 var file_good_middleware_v1_app_good_stock_stock_proto_depIdxs = []int32{
-	1, // 0: good.middleware.app.good1.stock.v1.Stock.StockMode:type_name -> basetypes.good.v1.GoodStockMode
-	2, // 1: good.middleware.app.good1.stock.v1.Stock.MiningGoodStocks:type_name -> good.middleware.good1.stock.v1.MiningGoodStockInfo
-	3, // 2: good.middleware.app.good1.stock.v1.Stock.AppMiningGoodStocks:type_name -> good.middleware.app.good1.stock.mining.v1.StockInfo
+	2, // 0: good.middleware.app.good1.stock.v1.Stock.StockMode:type_name -> basetypes.good.v1.GoodStockMode
+	3, // 1: good.middleware.app.good1.stock.v1.Stock.MiningGoodStocks:type_name -> good.middleware.good1.stock.v1.MiningGoodStockInfo
+	4, // 2: good.middleware.app.good1.stock.v1.Stock.AppMiningGoodStocks:type_name -> good.middleware.app.good1.stock.mining.v1.StockInfo
 	3, // [3:3] is the sub-list for method output_type
 	3, // [3:3] is the sub-list for method input_type
 	3, // [3:3] is the sub-list for extension type_name
@@ -349,6 +429,18 @@ func file_good_middleware_v1_app_good_stock_stock_proto_init() {
 				return nil
 			}
 		}
+		file_good_middleware_v1_app_good_stock_stock_proto_msgTypes[1].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*LockStock); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
 	}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
@@ -356,7 +448,7 @@ func file_good_middleware_v1_app_good_stock_stock_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_good_middleware_v1_app_good_stock_stock_proto_rawDesc,
 			NumEnums:      0,
-			NumMessages:   1,
+			NumMessages:   2,
 			NumExtensions: 0,
 			NumServices:   0,
 		},

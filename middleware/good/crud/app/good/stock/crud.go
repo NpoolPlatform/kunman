@@ -3,7 +3,7 @@ package appstock
 import (
 	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
 
-	"github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated"
+	ent "github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated"
 	entappstock "github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated/appstock"
 	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 

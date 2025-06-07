@@ -8,7 +8,7 @@ import (
 	extrainfocrud "github.com/NpoolPlatform/kunman/middleware/good/crud/app/good/extrainfo"
 	likecrud "github.com/NpoolPlatform/kunman/middleware/good/crud/app/good/like"
 	"github.com/NpoolPlatform/kunman/middleware/good/db"
-	"github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated"
+	ent "github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated"
 	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 
 	"github.com/google/uuid"
