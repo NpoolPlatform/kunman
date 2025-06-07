@@ -9,15 +9,15 @@ import (
 
 	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 
-	fee1 "github.com/NpoolPlatform/kunman/middleware/good/fee"
 	npool "github.com/NpoolPlatform/kunman/message/good/middleware/v1/app/fee"
+	fee1 "github.com/NpoolPlatform/kunman/middleware/good/fee"
 	"github.com/google/uuid"
 	"github.com/shopspring/decimal"
 	"github.com/stretchr/testify/assert"
 
-	"github.com/NpoolPlatform/kunman/middleware/good/testinit"
 	types "github.com/NpoolPlatform/kunman/message/basetypes/good/v1"
 	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
+	"github.com/NpoolPlatform/kunman/middleware/good/testinit"
 )
 
 func init() {
@@ -133,6 +133,21 @@ func getFee(t *testing.T) {
 	}
 }
 
+func existFee(t *testing.T) {
+	handler, err := NewHandler(
+		context.Background(),
+		WithID(&ret.ID, true),
+		WithEntID(&ret.EntID, true),
+		WithAppGoodID(&ret.AppGoodID, true),
+	)
+	assert.Nil(t, err)
+
+	exist, err := handler.ExistFee(context.Background())
+	if assert.Nil(t, err) {
+		assert.Equal(t, exist, true)
+	}
+}
+
 func getFees(t *testing.T) {
 	conds := &npool.Conds{
 		ID:         &basetypes.Uint32Val{Op: cruder.EQ, Value: ret.ID},
@@ -190,6 +205,7 @@ func TestFee(t *testing.T) {
 	t.Run("createFee", createFee)
 	t.Run("updateFee", updateFee)
 	t.Run("getFee", getFee)
+	t.Run("existFee", existFee)
 	t.Run("getFees", getFees)
 	t.Run("deleteFee", deleteFee)
 }

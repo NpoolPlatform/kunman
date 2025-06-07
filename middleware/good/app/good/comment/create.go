@@ -6,10 +6,10 @@ import (
 	"time"
 
 	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
+	score1 "github.com/NpoolPlatform/kunman/middleware/good/app/good/score"
 	extrainfocrud "github.com/NpoolPlatform/kunman/middleware/good/crud/app/good/extrainfo"
 	"github.com/NpoolPlatform/kunman/middleware/good/db"
-	"github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated"
-	score1 "github.com/NpoolPlatform/kunman/middleware/good/app/good/score"
+	ent "github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated"
 	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 
 	"github.com/google/uuid"

@@ -8,7 +8,7 @@ import (
 	appfeecrud "github.com/NpoolPlatform/kunman/middleware/good/crud/app/fee"
 	appgoodbasecrud "github.com/NpoolPlatform/kunman/middleware/good/crud/app/good/goodbase"
 	"github.com/NpoolPlatform/kunman/middleware/good/db"
-	"github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated"
+	ent "github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated"
 )
 
 type deleteHandler struct {

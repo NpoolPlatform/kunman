@@ -7,7 +7,7 @@ import (
 	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
 	feecrud "github.com/NpoolPlatform/kunman/middleware/good/crud/fee"
 	"github.com/NpoolPlatform/kunman/middleware/good/db"
-	"github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated"
+	ent "github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated"
 	goodbase1 "github.com/NpoolPlatform/kunman/middleware/good/good/goodbase"
 
 	"github.com/google/uuid"

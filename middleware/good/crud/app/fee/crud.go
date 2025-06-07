@@ -3,7 +3,7 @@ package appfee
 import (
 	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
 	types "github.com/NpoolPlatform/kunman/message/basetypes/good/v1"
-	"github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated"
+	ent "github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated"
 	entappfee "github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated/appfee"
 	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 

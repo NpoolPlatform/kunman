@@ -4,13 +4,13 @@ import (
 	"context"
 
 	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
+	types "github.com/NpoolPlatform/kunman/message/basetypes/good/v1"
 	"github.com/NpoolPlatform/kunman/middleware/good/db"
-	"github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated"
+	ent "github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated"
 	entappfee "github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated/appfee"
 	entappgoodbase "github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated/appgoodbase"
 	entfee "github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated/fee"
 	entgoodbase "github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated/goodbase"
-	types "github.com/NpoolPlatform/kunman/message/basetypes/good/v1"
 )
 
 type appFeeGoodQueryHandler struct {
