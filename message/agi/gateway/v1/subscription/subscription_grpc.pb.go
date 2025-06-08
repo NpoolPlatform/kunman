@@ -19,9 +19,11 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	Gateway_GetSubscription_FullMethodName    = "/agi.gateway.subscription.v1.Gateway/GetSubscription"
-	Gateway_GetSubscriptions_FullMethodName   = "/agi.gateway.subscription.v1.Gateway/GetSubscriptions"
-	Gateway_CountSubscriptions_FullMethodName = "/agi.gateway.subscription.v1.Gateway/CountSubscriptions"
+	Gateway_GetSubscription_FullMethodName         = "/agi.gateway.subscription.v1.Gateway/GetSubscription"
+	Gateway_GetSubscriptions_FullMethodName        = "/agi.gateway.subscription.v1.Gateway/GetSubscriptions"
+	Gateway_CountSubscriptions_FullMethodName      = "/agi.gateway.subscription.v1.Gateway/CountSubscriptions"
+	Gateway_AdminGetSubscriptions_FullMethodName   = "/agi.gateway.subscription.v1.Gateway/AdminGetSubscriptions"
+	Gateway_AdminCountSubscriptions_FullMethodName = "/agi.gateway.subscription.v1.Gateway/AdminCountSubscriptions"
 )
 
 // GatewayClient is the client API for Gateway service.
@@ -31,6 +33,8 @@ type GatewayClient interface {
 	GetSubscription(ctx context.Context, in *GetSubscriptionRequest, opts ...grpc.CallOption) (*GetSubscriptionResponse, error)
 	GetSubscriptions(ctx context.Context, in *GetSubscriptionsRequest, opts ...grpc.CallOption) (*GetSubscriptionsResponse, error)
 	CountSubscriptions(ctx context.Context, in *CountSubscriptionsRequest, opts ...grpc.CallOption) (*CountSubscriptionsResponse, error)
+	AdminGetSubscriptions(ctx context.Context, in *AdminGetSubscriptionsRequest, opts ...grpc.CallOption) (*AdminGetSubscriptionsResponse, error)
+	AdminCountSubscriptions(ctx context.Context, in *AdminCountSubscriptionsRequest, opts ...grpc.CallOption) (*AdminCountSubscriptionsResponse, error)
 }
 
 type gatewayClient struct {
@@ -68,6 +72,24 @@ func (c *gatewayClient) CountSubscriptions(ctx context.Context, in *CountSubscri
 	return out, nil
 }
 
+func (c *gatewayClient) AdminGetSubscriptions(ctx context.Context, in *AdminGetSubscriptionsRequest, opts ...grpc.CallOption) (*AdminGetSubscriptionsResponse, error) {
+	out := new(AdminGetSubscriptionsResponse)
+	err := c.cc.Invoke(ctx, Gateway_AdminGetSubscriptions_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *gatewayClient) AdminCountSubscriptions(ctx context.Context, in *AdminCountSubscriptionsRequest, opts ...grpc.CallOption) (*AdminCountSubscriptionsResponse, error) {
+	out := new(AdminCountSubscriptionsResponse)
+	err := c.cc.Invoke(ctx, Gateway_AdminCountSubscriptions_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // GatewayServer is the server API for Gateway service.
 // All implementations must embed UnimplementedGatewayServer
 // for forward compatibility
@@ -75,6 +97,8 @@ type GatewayServer interface {
 	GetSubscription(context.Context, *GetSubscriptionRequest) (*GetSubscriptionResponse, error)
 	GetSubscriptions(context.Context, *GetSubscriptionsRequest) (*GetSubscriptionsResponse, error)
 	CountSubscriptions(context.Context, *CountSubscriptionsRequest) (*CountSubscriptionsResponse, error)
+	AdminGetSubscriptions(context.Context, *AdminGetSubscriptionsRequest) (*AdminGetSubscriptionsResponse, error)
+	AdminCountSubscriptions(context.Context, *AdminCountSubscriptionsRequest) (*AdminCountSubscriptionsResponse, error)
 	mustEmbedUnimplementedGatewayServer()
 }
 
@@ -90,6 +114,12 @@ func (UnimplementedGatewayServer) GetSubscriptions(context.Context, *GetSubscrip
 }
 func (UnimplementedGatewayServer) CountSubscriptions(context.Context, *CountSubscriptionsRequest) (*CountSubscriptionsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CountSubscriptions not implemented")
+}
+func (UnimplementedGatewayServer) AdminGetSubscriptions(context.Context, *AdminGetSubscriptionsRequest) (*AdminGetSubscriptionsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method AdminGetSubscriptions not implemented")
+}
+func (UnimplementedGatewayServer) AdminCountSubscriptions(context.Context, *AdminCountSubscriptionsRequest) (*AdminCountSubscriptionsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method AdminCountSubscriptions not implemented")
 }
 func (UnimplementedGatewayServer) mustEmbedUnimplementedGatewayServer() {}
 
@@ -158,6 +188,42 @@ func _Gateway_CountSubscriptions_Handler(srv interface{}, ctx context.Context, d
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Gateway_AdminGetSubscriptions_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(AdminGetSubscriptionsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(GatewayServer).AdminGetSubscriptions(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Gateway_AdminGetSubscriptions_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(GatewayServer).AdminGetSubscriptions(ctx, req.(*AdminGetSubscriptionsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Gateway_AdminCountSubscriptions_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(AdminCountSubscriptionsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(GatewayServer).AdminCountSubscriptions(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Gateway_AdminCountSubscriptions_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(GatewayServer).AdminCountSubscriptions(ctx, req.(*AdminCountSubscriptionsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Gateway_ServiceDesc is the grpc.ServiceDesc for Gateway service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -176,6 +242,14 @@ var Gateway_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "CountSubscriptions",
 			Handler:    _Gateway_CountSubscriptions_Handler,
+		},
+		{
+			MethodName: "AdminGetSubscriptions",
+			Handler:    _Gateway_AdminGetSubscriptions_Handler,
+		},
+		{
+			MethodName: "AdminCountSubscriptions",
+			Handler:    _Gateway_AdminCountSubscriptions_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

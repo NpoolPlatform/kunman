@@ -28,6 +28,18 @@ service Gateway {
             body: "*"
         };
     }
+    rpc AdminGetSubscriptions(AdminGetSubscriptionsRequest) returns (AdminGetSubscriptionsResponse) {
+        option (google.api.http) = {
+            post: "/v1/admin/get/subscriptions"
+            body: "*"
+        };
+    }
+    rpc AdminCountSubscriptions(AdminCountSubscriptionsRequest) returns (AdminCountSubscriptionsResponse) {
+        option (google.api.http) = {
+            post: "/v1/admin/count/subscriptions"
+            body: "*"
+        };
+    }
 }
 
 message GetSubscriptionRequest {
@@ -41,9 +53,10 @@ message GetSubscriptionResponse {
 }
 
 message GetSubscriptionsRequest {
-    optional string AppGoodID = 10;
-    int32 Offset = 20;
-    int32 Limit = 30;
+    string AppID = 10;
+    optional string AppGoodID = 20;
+    int32 Offset = 30;
+    int32 Limit = 40;
 }
 
 message GetSubscriptionsResponse {
@@ -51,9 +64,28 @@ message GetSubscriptionsResponse {
 }
 
 message CountSubscriptionsRequest {
-    optional string AppGoodID = 10;
+    string AppID = 10;
+    optional string AppGoodID = 20;
 }
 
 message CountSubscriptionsResponse {
+    uint32 Total = 10;
+}
+
+message AdminGetSubscriptionsRequest {
+    optional string TargetAppID = 10;
+    int32 Offset = 20;
+    int32 Limit = 30;
+}
+
+message AdminGetSubscriptionsResponse {
+    repeated middleware.subscription.v1.Subscription Infos = 10;
+}
+
+message AdminCountSubscriptionsRequest {
+    optional string TargetAppID = 10;
+}
+
+message AdminCountSubscriptionsResponse {
     uint32 Total = 10;
 }

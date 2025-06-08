@@ -10,6 +10,12 @@ import "basetypes/agi/v1/enums.proto";
 
 // Service Name
 service Gateway {
+    rpc AdminCreateCapacity(AdminCreateCapacityRequest) returns (AdminCreateCapacityResponse) {
+        option (google.api.http) = {
+            post: "/v1/admin/create/capacity"
+            body: "*"
+        };
+    }
     rpc CreateCapacity(CreateCapacityRequest) returns (CreateCapacityResponse) {
         option (google.api.http) = {
             post: "/v1/create/capacity"
@@ -22,9 +28,21 @@ service Gateway {
             body: "*"
         };
     }
+    rpc AdminGetCapacities(AdminGetCapacitiesRequest) returns (AdminGetCapacitiesResponse) {
+        option (google.api.http) = {
+            post: "/v1/admin/get/capacities"
+            body: "*"
+        };
+    }
     rpc GetCapacities(GetCapacitiesRequest) returns (GetCapacitiesResponse) {
         option (google.api.http) = {
             post: "/v1/get/capacities"
+            body: "*"
+        };
+    }
+    rpc AdminCountCapacities(AdminCountCapacitiesRequest) returns (AdminCountCapacitiesResponse) {
+        option (google.api.http) = {
+            post: "/v1/admin/count/capacities"
             body: "*"
         };
     }
@@ -42,11 +60,24 @@ service Gateway {
     }
 }
 
+message AdminCreateCapacityRequest {
+    string TargetAppID = 10;
+    string AppGoodID = 20;
+    basetypes.agi.v1.CapacityKey CapacityKey = 30;
+    string Value = 40;
+    string Description = 50;
+}
+
+message AdminCreateCapacityResponse {
+    middleware.capacity.v1.Capacity Info = 10;
+}
+
 message CreateCapacityRequest {
-    string AppGoodID = 10;
-    basetypes.agi.v1.CapacityKey CapacityKey = 20;
-    string Value = 30;
-    string Description = 40;
+    string AppID = 10;
+    string AppGoodID = 20;
+    basetypes.agi.v1.CapacityKey CapacityKey = 30;
+    string Value = 40;
+    string Description = 50;
 }
 
 message CreateCapacityResponse {
@@ -72,14 +103,35 @@ message GetCapacityResponse {
     middleware.capacity.v1.Capacity Info = 10;
 }
 
+message AdminGetCapacitiesRequest {
+    optional string TargetAppID = 10;
+    optional string AppGoodID = 20;
+    int32 Offset = 30;
+    int32 Limit = 40;
+}
+
+message AdminGetCapacitiesResponse {
+    repeated middleware.capacity.v1.Capacity Infos = 10;
+}
+
 message GetCapacitiesRequest {
-    optional string AppGoodID = 10;
-    int32 Offset = 20;
-    int32 Limit = 30;
+    string AppID = 10;
+    optional string AppGoodID = 20;
+    int32 Offset = 30;
+    int32 Limit = 40;
 }
 
 message GetCapacitiesResponse {
     repeated middleware.capacity.v1.Capacity Infos = 10;
+}
+
+message AdminCountCapacitiesRequest {
+    optional string TargetAppID = 10;
+    optional string AppGoodID = 20;
+}
+
+message AdminCountCapacitiesResponse {
+    uint32 Total = 10;
 }
 
 message CountCapacitiesRequest {

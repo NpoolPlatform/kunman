@@ -9,6 +9,7 @@ import (
 func (h *Handler) CountSubscriptions(ctx context.Context) (uint32, error) {
 	handler, err := subscriptionmw.NewHandler(
 		ctx,
+		subscriptionmw.WithAppID(h.AppID, false),
 		subscriptionmw.WithAppGoodID(h.AppGoodID, false),
 	)
 	if err != nil {

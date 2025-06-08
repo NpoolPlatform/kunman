@@ -19,20 +19,26 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	Gateway_CreateCapacity_FullMethodName  = "/agi.gateway.capacity.v1.Gateway/CreateCapacity"
-	Gateway_UpdateCapacity_FullMethodName  = "/agi.gateway.capacity.v1.Gateway/UpdateCapacity"
-	Gateway_GetCapacities_FullMethodName   = "/agi.gateway.capacity.v1.Gateway/GetCapacities"
-	Gateway_CountCapacities_FullMethodName = "/agi.gateway.capacity.v1.Gateway/CountCapacities"
-	Gateway_DeleteCapacity_FullMethodName  = "/agi.gateway.capacity.v1.Gateway/DeleteCapacity"
+	Gateway_AdminCreateCapacity_FullMethodName  = "/agi.gateway.capacity.v1.Gateway/AdminCreateCapacity"
+	Gateway_CreateCapacity_FullMethodName       = "/agi.gateway.capacity.v1.Gateway/CreateCapacity"
+	Gateway_UpdateCapacity_FullMethodName       = "/agi.gateway.capacity.v1.Gateway/UpdateCapacity"
+	Gateway_AdminGetCapacities_FullMethodName   = "/agi.gateway.capacity.v1.Gateway/AdminGetCapacities"
+	Gateway_GetCapacities_FullMethodName        = "/agi.gateway.capacity.v1.Gateway/GetCapacities"
+	Gateway_AdminCountCapacities_FullMethodName = "/agi.gateway.capacity.v1.Gateway/AdminCountCapacities"
+	Gateway_CountCapacities_FullMethodName      = "/agi.gateway.capacity.v1.Gateway/CountCapacities"
+	Gateway_DeleteCapacity_FullMethodName       = "/agi.gateway.capacity.v1.Gateway/DeleteCapacity"
 )
 
 // GatewayClient is the client API for Gateway service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type GatewayClient interface {
+	AdminCreateCapacity(ctx context.Context, in *AdminCreateCapacityRequest, opts ...grpc.CallOption) (*AdminCreateCapacityResponse, error)
 	CreateCapacity(ctx context.Context, in *CreateCapacityRequest, opts ...grpc.CallOption) (*CreateCapacityResponse, error)
 	UpdateCapacity(ctx context.Context, in *UpdateCapacityRequest, opts ...grpc.CallOption) (*UpdateCapacityResponse, error)
+	AdminGetCapacities(ctx context.Context, in *AdminGetCapacitiesRequest, opts ...grpc.CallOption) (*AdminGetCapacitiesResponse, error)
 	GetCapacities(ctx context.Context, in *GetCapacitiesRequest, opts ...grpc.CallOption) (*GetCapacitiesResponse, error)
+	AdminCountCapacities(ctx context.Context, in *AdminCountCapacitiesRequest, opts ...grpc.CallOption) (*AdminCountCapacitiesResponse, error)
 	CountCapacities(ctx context.Context, in *CountCapacitiesRequest, opts ...grpc.CallOption) (*CountCapacitiesResponse, error)
 	DeleteCapacity(ctx context.Context, in *DeleteCapacityRequest, opts ...grpc.CallOption) (*DeleteCapacityResponse, error)
 }
@@ -43,6 +49,15 @@ type gatewayClient struct {
 
 func NewGatewayClient(cc grpc.ClientConnInterface) GatewayClient {
 	return &gatewayClient{cc}
+}
+
+func (c *gatewayClient) AdminCreateCapacity(ctx context.Context, in *AdminCreateCapacityRequest, opts ...grpc.CallOption) (*AdminCreateCapacityResponse, error) {
+	out := new(AdminCreateCapacityResponse)
+	err := c.cc.Invoke(ctx, Gateway_AdminCreateCapacity_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
 }
 
 func (c *gatewayClient) CreateCapacity(ctx context.Context, in *CreateCapacityRequest, opts ...grpc.CallOption) (*CreateCapacityResponse, error) {
@@ -63,9 +78,27 @@ func (c *gatewayClient) UpdateCapacity(ctx context.Context, in *UpdateCapacityRe
 	return out, nil
 }
 
+func (c *gatewayClient) AdminGetCapacities(ctx context.Context, in *AdminGetCapacitiesRequest, opts ...grpc.CallOption) (*AdminGetCapacitiesResponse, error) {
+	out := new(AdminGetCapacitiesResponse)
+	err := c.cc.Invoke(ctx, Gateway_AdminGetCapacities_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *gatewayClient) GetCapacities(ctx context.Context, in *GetCapacitiesRequest, opts ...grpc.CallOption) (*GetCapacitiesResponse, error) {
 	out := new(GetCapacitiesResponse)
 	err := c.cc.Invoke(ctx, Gateway_GetCapacities_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *gatewayClient) AdminCountCapacities(ctx context.Context, in *AdminCountCapacitiesRequest, opts ...grpc.CallOption) (*AdminCountCapacitiesResponse, error) {
+	out := new(AdminCountCapacitiesResponse)
+	err := c.cc.Invoke(ctx, Gateway_AdminCountCapacities_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -94,9 +127,12 @@ func (c *gatewayClient) DeleteCapacity(ctx context.Context, in *DeleteCapacityRe
 // All implementations must embed UnimplementedGatewayServer
 // for forward compatibility
 type GatewayServer interface {
+	AdminCreateCapacity(context.Context, *AdminCreateCapacityRequest) (*AdminCreateCapacityResponse, error)
 	CreateCapacity(context.Context, *CreateCapacityRequest) (*CreateCapacityResponse, error)
 	UpdateCapacity(context.Context, *UpdateCapacityRequest) (*UpdateCapacityResponse, error)
+	AdminGetCapacities(context.Context, *AdminGetCapacitiesRequest) (*AdminGetCapacitiesResponse, error)
 	GetCapacities(context.Context, *GetCapacitiesRequest) (*GetCapacitiesResponse, error)
+	AdminCountCapacities(context.Context, *AdminCountCapacitiesRequest) (*AdminCountCapacitiesResponse, error)
 	CountCapacities(context.Context, *CountCapacitiesRequest) (*CountCapacitiesResponse, error)
 	DeleteCapacity(context.Context, *DeleteCapacityRequest) (*DeleteCapacityResponse, error)
 	mustEmbedUnimplementedGatewayServer()
@@ -106,14 +142,23 @@ type GatewayServer interface {
 type UnimplementedGatewayServer struct {
 }
 
+func (UnimplementedGatewayServer) AdminCreateCapacity(context.Context, *AdminCreateCapacityRequest) (*AdminCreateCapacityResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method AdminCreateCapacity not implemented")
+}
 func (UnimplementedGatewayServer) CreateCapacity(context.Context, *CreateCapacityRequest) (*CreateCapacityResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateCapacity not implemented")
 }
 func (UnimplementedGatewayServer) UpdateCapacity(context.Context, *UpdateCapacityRequest) (*UpdateCapacityResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateCapacity not implemented")
 }
+func (UnimplementedGatewayServer) AdminGetCapacities(context.Context, *AdminGetCapacitiesRequest) (*AdminGetCapacitiesResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method AdminGetCapacities not implemented")
+}
 func (UnimplementedGatewayServer) GetCapacities(context.Context, *GetCapacitiesRequest) (*GetCapacitiesResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetCapacities not implemented")
+}
+func (UnimplementedGatewayServer) AdminCountCapacities(context.Context, *AdminCountCapacitiesRequest) (*AdminCountCapacitiesResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method AdminCountCapacities not implemented")
 }
 func (UnimplementedGatewayServer) CountCapacities(context.Context, *CountCapacitiesRequest) (*CountCapacitiesResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CountCapacities not implemented")
@@ -132,6 +177,24 @@ type UnsafeGatewayServer interface {
 
 func RegisterGatewayServer(s grpc.ServiceRegistrar, srv GatewayServer) {
 	s.RegisterService(&Gateway_ServiceDesc, srv)
+}
+
+func _Gateway_AdminCreateCapacity_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(AdminCreateCapacityRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(GatewayServer).AdminCreateCapacity(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Gateway_AdminCreateCapacity_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(GatewayServer).AdminCreateCapacity(ctx, req.(*AdminCreateCapacityRequest))
+	}
+	return interceptor(ctx, in, info, handler)
 }
 
 func _Gateway_CreateCapacity_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
@@ -170,6 +233,24 @@ func _Gateway_UpdateCapacity_Handler(srv interface{}, ctx context.Context, dec f
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Gateway_AdminGetCapacities_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(AdminGetCapacitiesRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(GatewayServer).AdminGetCapacities(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Gateway_AdminGetCapacities_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(GatewayServer).AdminGetCapacities(ctx, req.(*AdminGetCapacitiesRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _Gateway_GetCapacities_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(GetCapacitiesRequest)
 	if err := dec(in); err != nil {
@@ -184,6 +265,24 @@ func _Gateway_GetCapacities_Handler(srv interface{}, ctx context.Context, dec fu
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(GatewayServer).GetCapacities(ctx, req.(*GetCapacitiesRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Gateway_AdminCountCapacities_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(AdminCountCapacitiesRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(GatewayServer).AdminCountCapacities(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Gateway_AdminCountCapacities_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(GatewayServer).AdminCountCapacities(ctx, req.(*AdminCountCapacitiesRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -232,6 +331,10 @@ var Gateway_ServiceDesc = grpc.ServiceDesc{
 	HandlerType: (*GatewayServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
+			MethodName: "AdminCreateCapacity",
+			Handler:    _Gateway_AdminCreateCapacity_Handler,
+		},
+		{
 			MethodName: "CreateCapacity",
 			Handler:    _Gateway_CreateCapacity_Handler,
 		},
@@ -240,8 +343,16 @@ var Gateway_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _Gateway_UpdateCapacity_Handler,
 		},
 		{
+			MethodName: "AdminGetCapacities",
+			Handler:    _Gateway_AdminGetCapacities_Handler,
+		},
+		{
 			MethodName: "GetCapacities",
 			Handler:    _Gateway_GetCapacities_Handler,
+		},
+		{
+			MethodName: "AdminCountCapacities",
+			Handler:    _Gateway_AdminCountCapacities_Handler,
 		},
 		{
 			MethodName: "CountCapacities",

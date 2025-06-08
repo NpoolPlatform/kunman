@@ -34,6 +34,7 @@ func (h *Handler) GetSubscription(ctx context.Context) (*npool.Subscription, err
 func (h *Handler) GetSubscriptions(ctx context.Context) ([]*npool.Subscription, error) {
 	handler, err := subscriptionmw.NewHandler(
 		ctx,
+		subscriptionmw.WithAppID(h.AppID, false),
 		subscriptionmw.WithAppGoodID(h.AppGoodID, false),
 		subscriptionmw.WithOffset(h.Offset),
 		subscriptionmw.WithLimit(h.Limit),
