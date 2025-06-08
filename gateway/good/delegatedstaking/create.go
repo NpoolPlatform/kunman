@@ -5,7 +5,7 @@ import (
 	"fmt"
 
 	contractmwcli "github.com/NpoolPlatform/account-middleware/pkg/client/contract"
-	coinmwcli "github.com/NpoolPlatform/chain-middleware/pkg/client/coin"
+	coinmwcli "github.com/NpoolPlatform/kunman/middleware/chain/coin"
 	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
 	delegatedstakingmwcli "github.com/NpoolPlatform/kunman/middleware/good/delegatedstaking"
 	goodcoinmwcli "github.com/NpoolPlatform/kunman/middleware/good/good/coin"

@@ -3,12 +3,12 @@ package common
 import (
 	"context"
 
-	appmwcli "github.com/NpoolPlatform/kunman/middleware/appuser/app"
-	usermwcli "github.com/NpoolPlatform/kunman/middleware/appuser/user"
+	appmwpb "github.com/NpoolPlatform/kunman/message/appuser/middleware/v1/app"
+	usermwpb "github.com/NpoolPlatform/kunman/message/appuser/middleware/v1/user"
+	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
+	appmw "github.com/NpoolPlatform/kunman/middleware/appuser/app"
+	usermw "github.com/NpoolPlatform/kunman/middleware/appuser/user"
 	cruder "github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
-	appmwpb "github.com/NpoolPlatform/message/npool/appuser/mw/v1/app"
-	usermwpb "github.com/NpoolPlatform/message/npool/appuser/mw/v1/user"
-	basetypes "github.com/NpoolPlatform/message/npool/basetypes/v1"
 
 	"github.com/google/uuid"
 )
@@ -20,9 +20,20 @@ func GetApps(ctx context.Context, appIDs []string) (map[string]*appmwpb.App, err
 		}
 	}
 
-	apps, _, err := appmwcli.GetApps(ctx, &appmwpb.Conds{
+	conds := &appmwpb.Conds{
 		EntIDs: &basetypes.StringSliceVal{Op: cruder.IN, Value: appIDs},
-	}, int32(0), int32(len(appIDs)))
+	}
+	handler, err := appmw.NewHandler(
+		ctx,
+		appmw.WithConds(conds),
+		appmw.WithOffset(0),
+		appmw.WithLimit(int32(len(appIDs))),
+	)
+	if err != nil {
+		return nil, err
+	}
+
+	apps, _, err := handler.GetApps(ctx)
 	if err != nil {
 		return nil, err
 	}
@@ -40,9 +51,20 @@ func GetUsers(ctx context.Context, userIDs []string) (map[string]*usermwpb.User,
 		}
 	}
 
-	users, _, err := usermwcli.GetUsers(ctx, &usermwpb.Conds{
+	conds := &usermwpb.Conds{
 		EntIDs: &basetypes.StringSliceVal{Op: cruder.IN, Value: userIDs},
-	}, 0, int32(len(userIDs)))
+	}
+	handler, err := usermw.NewHandler(
+		ctx,
+		usermw.WithConds(conds),
+		usermw.WithOffset(0),
+		usermw.WithLimit(int32(len(userIDs))),
+	)
+	if err != nil {
+		return nil, err
+	}
+
+	users, _, err := handler.GetUsers(ctx)
 	if err != nil {
 		return nil, err
 	}

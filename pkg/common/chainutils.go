@@ -4,12 +4,12 @@ package common
 import (
 	"context"
 
-	appcoinmwcli "github.com/NpoolPlatform/chain-middleware/pkg/client/app/coin"
-	coinmwcli "github.com/NpoolPlatform/chain-middleware/pkg/client/coin"
+	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
+	appcoinmwpb "github.com/NpoolPlatform/kunman/message/chain/middleware/v1/app/coin"
+	coinmwpb "github.com/NpoolPlatform/kunman/message/chain/middleware/v1/coin"
+	appcoinmwcli "github.com/NpoolPlatform/kunman/middleware/chain/app/coin"
+	coinmwcli "github.com/NpoolPlatform/kunman/middleware/chain/coin"
 	cruder "github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
-	basetypes "github.com/NpoolPlatform/message/npool/basetypes/v1"
-	appcoinmwpb "github.com/NpoolPlatform/message/npool/chain/mw/v1/app/coin"
-	coinmwpb "github.com/NpoolPlatform/message/npool/chain/mw/v1/coin"
 
 	"github.com/google/uuid"
 )

@@ -4,8 +4,8 @@ import (
 	"context"
 
 	cruder "github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
-	basetypes "github.com/NpoolPlatform/message/npool/basetypes/v1"
-	goodusermwpb "github.com/NpoolPlatform/message/npool/miningpool/mw/v1/gooduser"
+	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
+	goodusermwpb "github.com/NpoolPlatform/kunman/message/miningpool/middleware/v1/gooduser"
 	goodusermwcli "github.com/NpoolPlatform/miningpool-middleware/pkg/client/gooduser"
 
 	"github.com/google/uuid"
