@@ -11,6 +11,8 @@ import (
 )
 
 type Handler struct {
+	ID          *uint32
+	EntID       *string
 	AppGoodID   *string
 	CapacityKey *types.CapacityKey
 	Value       *string
@@ -27,6 +29,35 @@ func NewHandler(ctx context.Context, options ...func(context.Context, *Handler) 
 		}
 	}
 	return handler, nil
+}
+
+func WithID(id *uint32, must bool) func(context.Context, *Handler) error {
+	return func(ctx context.Context, h *Handler) error {
+		if id == nil {
+			if must {
+				return wlog.Errorf("invalid id")
+			}
+			return nil
+		}
+		h.ID = id
+		return nil
+	}
+}
+
+func WithEntID(id *string, must bool) func(context.Context, *Handler) error {
+	return func(ctx context.Context, h *Handler) error {
+		if id == nil {
+			if must {
+				return wlog.Errorf("invalid entid")
+			}
+			return nil
+		}
+		if _, err := uuid.Parse(*id); err != nil {
+			return wlog.WrapError(err)
+		}
+		h.EntID = id
+		return nil
+	}
 }
 
 func WithAppGoodID(id *string, must bool) func(context.Context, *Handler) error {
