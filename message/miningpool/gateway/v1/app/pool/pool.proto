@@ -1,0 +1,124 @@
+syntax = "proto3";
+
+package miningpool.gateway.app.pool.v1;
+
+option go_package = "github.com/NpoolPlatform/kunman/message/miningpool/gateway/v1/app/pool";
+
+import "google/api/annotations.proto";
+import "basetypes/v1/cointype.proto";
+import "basetypes/miningpool/v1/enums.proto";
+
+// Service Name
+service Gateway {
+  rpc AdminCreatePool(AdminCreatePoolRequest)
+      returns (AdminCreatePoolResponse) {
+    option (google.api.http) = {
+      post : "/v1/admin/create/appminingpool"
+      body : "*"
+    };
+  }
+  rpc GetPool(GetPoolRequest) returns (GetPoolResponse) {
+    option (google.api.http) = {
+      post : "/v1/get/appminingpool"
+      body : "*"
+    };
+  }
+  rpc GetPools(GetPoolsRequest) returns (GetPoolsResponse) {
+    option (google.api.http) = {
+      post : "/v1/get/appminingpools"
+      body : "*"
+    };
+  }
+  rpc AdminGetPools(AdminGetPoolsRequest) returns (AdminGetPoolsResponse) {
+    option (google.api.http) = {
+      post : "/v1/admin/get/appminingpools"
+      body : "*"
+    };
+  }
+  rpc AdminDeletePool(AdminDeletePoolRequest)
+      returns (AdminDeletePoolResponse) {
+    option (google.api.http) = {
+      post : "/v1/admin/delete/appminingpool"
+      body : "*"
+    };
+  }
+}
+
+message Pool {
+  uint32 ID = 10;
+  string EntID = 20;
+  string AppID = 30;
+  string PoolID = 40;
+  basetypes.miningpool.v1.MiningPoolType MiningPoolType = 50;
+  string Name = 60;
+  string Site = 70;
+  string Logo = 71;
+  string Description = 80;
+  repeated Coin Coins = 90;
+  repeated FractionWithdrawalRule FractionWithdrawalRules = 100;
+}
+
+message Coin {
+  string EntID = 10;
+  string PoolID = 20;
+  string CoinTypeID = 30;
+  basetypes.v1.CoinType CoinType = 31;
+  string FeeRatio = 50;
+  bool FixedRevenueAble = 60;
+  string LeastTransferAmount = 70;
+  uint32 BenefitIntervalSeconds = 80;
+  string Remark = 90;
+}
+
+message FractionWithdrawalRule {
+  string EntID = 10;
+  string PoolCoinTypeID = 20;
+  uint32 WithdrawInterval = 30;
+  string PayoutThreshold = 40;
+  string LeastWithdrawalAmount = 50;
+  string WithdrawFee = 60;
+}
+
+message AdminCreatePoolRequest {
+  string PoolID = 10;
+  string TargetAppID = 20;
+}
+
+message AdminCreatePoolResponse { Pool Info = 10; }
+
+message GetPoolRequest {
+  string EntID = 10;
+  string AppID = 20;
+}
+
+message GetPoolResponse { Pool Info = 10; }
+
+message GetPoolsRequest {
+  string AppID = 10;
+  int32 Offset = 20;
+  int32 Limit = 30;
+}
+
+message GetPoolsResponse {
+  repeated Pool Infos = 10;
+  uint32 Total = 20;
+}
+
+message AdminGetPoolsRequest {
+  string TargetAppID = 10;
+  int32 Offset = 20;
+  int32 Limit = 30;
+}
+
+message AdminGetPoolsResponse {
+  repeated Pool Infos = 10;
+  uint32 Total = 20;
+}
+
+message AdminDeletePoolRequest {
+  uint32 ID = 10;
+  string EntID = 20;
+  string TargetAppID = 30;
+}
+
+message AdminDeletePoolResponse { Pool Info = 10; }

@@ -1,0 +1,58 @@
+syntax = "proto3";
+
+package miningpool.middleware.gooduser.v1;
+
+option go_package = "github.com/NpoolPlatform/kunman/message/miningpool/middleware/v1/gooduser";
+
+import "basetypes/v1/conds.proto";
+import "basetypes/miningpool/v1/enums.proto";
+
+message GoodUserReq {
+  optional uint32 ID = 10;
+  optional string EntID = 20;
+
+  // for check if cointypes is supported in the miningpool
+  // not stored in db
+  repeated string CoinTypeIDs = 30;
+
+  optional string RootUserID = 40;
+  optional string Name = 50;
+  optional string ReadPageLink = 60;
+}
+
+message GoodUser {
+  // @inject_tag: sql:"id"
+  uint32 ID = 10;
+  // @inject_tag: sql:"ent_id"
+  string EntID = 20;
+  // @inject_tag: sql:"root_user_id"
+  string RootUserID = 30;
+  // @inject_tag: sql:"name"
+  string Name = 40;
+  // @inject_tag: sql:"read_page_link"
+  string ReadPageLink = 50;
+  // @inject_tag: sql:"pool_id"
+  string PoolID = 70;
+  // @inject_tag: sql:"mining_pool_type"
+  string MiningPoolTypeStr = 80;
+  basetypes.miningpool.v1.MiningPoolType MiningPoolType = 81;
+  // @inject_tag: sql:"mining_pool_name"
+  string MiningPoolName = 90;
+  // @inject_tag: sql:"mining_pool_site"
+  string MiningPoolSite = 100;
+  // @inject_tag: sql:"mining_pool_logo"
+  string MiningPoolLogo = 110;
+  // @inject_tag: sql:"created_at"
+  uint32 CreatedAt = 130;
+  // @inject_tag: sql:"updated_at"
+  uint32 UpdatedAt = 140;
+}
+
+message Conds {
+  optional basetypes.v1.Uint32Val ID = 9;
+  optional basetypes.v1.StringVal EntID = 10;
+  optional basetypes.v1.StringVal Name = 20;
+  optional basetypes.v1.StringVal RootUserID = 30;
+  optional basetypes.v1.StringSliceVal EntIDs = 40;
+}
+

@@ -1,0 +1,136 @@
+syntax = "proto3";
+
+package inspire.gateway.app.config.v1;
+
+option go_package = "github.com/NpoolPlatform/kunman/message/inspire/gateway/v1/app/config";
+
+import "google/api/annotations.proto";
+import "basetypes/inspire/v1/enums.proto";
+
+// Service Name
+service Gateway {
+  rpc CreateAppConfig(CreateAppConfigRequest)
+      returns (CreateAppConfigResponse) {
+    option (google.api.http) = {
+      post : "/v1/create/appconfig"
+      body : "*"
+    };
+  }
+  rpc AdminCreateAppConfig(AdminCreateAppConfigRequest)
+      returns (AdminCreateAppConfigResponse) {
+    option (google.api.http) = {
+      post : "/v1/admin/create/appconfig"
+      body : "*"
+    };
+  }
+  rpc UpdateAppConfig(UpdateAppConfigRequest)
+      returns (UpdateAppConfigResponse) {
+    option (google.api.http) = {
+      post : "/v1/update/appconfig"
+      body : "*"
+    };
+  }
+  rpc AdminUpdateAppConfig(AdminUpdateAppConfigRequest)
+      returns (AdminUpdateAppConfigResponse) {
+    option (google.api.http) = {
+      post : "/v1/admin/update/appconfig"
+      body : "*"
+    };
+  }
+  rpc GetAppConfigs(GetAppConfigsRequest) returns (GetAppConfigsResponse) {
+    option (google.api.http) = {
+      post : "/v1/get/appconfigs"
+      body : "*"
+    };
+  }
+  rpc AdminGetAppConfigs(AdminGetAppConfigsRequest) returns (AdminGetAppConfigsResponse) {
+    option (google.api.http) = {
+      post : "/v1/admin/get/appconfigs"
+      body : "*"
+    };
+  }
+}
+
+message AppConfig {
+  uint32 ID = 10;
+  string EntID = 20;
+  string AppID = 30;
+  basetypes.inspire.v1.SettleMode SettleMode = 40;
+  basetypes.inspire.v1.SettleAmountType SettleAmountType = 50;
+  basetypes.inspire.v1.SettleInterval SettleInterval = 60;
+  basetypes.inspire.v1.CommissionType CommissionType = 70;
+  bool SettleBenefit = 80;
+  uint32 StartAt = 90;
+  uint32 EndAt = 100;
+  uint32 MaxLevel = 110;
+  uint32 CreatedAt = 1000;
+  uint32 UpdatedAt = 1010;
+}
+
+message CreateAppConfigRequest {
+  string AppID = 10;
+  basetypes.inspire.v1.SettleMode SettleMode = 20;
+  basetypes.inspire.v1.SettleAmountType SettleAmountType = 30;
+  basetypes.inspire.v1.SettleInterval SettleInterval = 40;
+  basetypes.inspire.v1.CommissionType CommissionType = 50;
+  bool SettleBenefit = 60;
+  optional uint32 StartAt = 70;
+  uint32 MaxLevel = 80;
+}
+
+message CreateAppConfigResponse { AppConfig Info = 10; }
+
+message AdminCreateAppConfigRequest {
+  string TargetAppID = 10;
+  basetypes.inspire.v1.SettleMode SettleMode = 20;
+  basetypes.inspire.v1.SettleAmountType SettleAmountType = 30;
+  basetypes.inspire.v1.SettleInterval SettleInterval = 40;
+  basetypes.inspire.v1.CommissionType CommissionType = 50;
+  bool SettleBenefit = 60;
+  optional uint32 StartAt = 70;
+  uint32 MaxLevel = 80;
+}
+
+message AdminCreateAppConfigResponse { AppConfig Info = 10; }
+
+message UpdateAppConfigRequest {
+  uint32 ID = 10;
+  string EntID = 20;
+  string AppID = 30;
+  optional uint32 StartAt = 40;
+}
+
+message UpdateAppConfigResponse { AppConfig Info = 10; }
+
+message AdminUpdateAppConfigRequest {
+  uint32 ID = 10;
+  string EntID = 20;
+  string TargetAppID = 30;
+  optional uint32 StartAt = 40;
+}
+
+message AdminUpdateAppConfigResponse { AppConfig Info = 10; }
+
+message GetAppConfigsRequest {
+  string AppID = 10;
+  optional uint32 EndAt = 20;
+  int32 Offset = 30;
+  int32 Limit = 40;
+}
+
+message GetAppConfigsResponse {
+  repeated AppConfig Infos = 10;
+  uint32 Total = 20;
+}
+
+message AdminGetAppConfigsRequest {
+  string TargetAppID = 10;
+  optional uint32 EndAt = 20;
+  int32 Offset = 30;
+  int32 Limit = 40;
+}
+
+message AdminGetAppConfigsResponse {
+  repeated AppConfig Infos = 10;
+  uint32 Total = 20;
+}

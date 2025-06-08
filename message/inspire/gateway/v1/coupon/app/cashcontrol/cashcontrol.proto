@@ -1,0 +1,101 @@
+syntax = "proto3";
+
+package inspire.gateway.coupon.app.cashcontrol.v1;
+
+option go_package = "github.com/NpoolPlatform/kunman/message/inspire/gateway/v1/coupon/app/cashcontrol";
+
+import "google/api/annotations.proto";
+import "basetypes/inspire/v1/enums.proto";
+import "inspire/middleware/v1/coupon/app/cashcontrol/cashcontrol.proto";
+
+// Service Name
+service Gateway {
+  rpc GetCashControls(GetCashControlsRequest)
+      returns (GetCashControlsResponse) {
+    option (google.api.http) = {
+      post : "/v1/get/cashcontrols"
+      body : "*"
+    };
+  }
+  rpc CreateCashControl(CreateCashControlRequest)
+      returns (CreateCashControlResponse) {
+    option (google.api.http) = {
+      post : "/v1/create/cashcontrol"
+      body : "*"
+    };
+  }
+  rpc UpdateCashControl(UpdateCashControlRequest)
+      returns (UpdateCashControlResponse) {
+    option (google.api.http) = {
+      post : "/v1/update/cashcontrol"
+      body : "*"
+    };
+  }
+  rpc DeleteCashControl(DeleteCashControlRequest)
+      returns (DeleteCashControlResponse) {
+    option (google.api.http) = {
+      post : "/v1/delete/cashcontrol"
+      body : "*"
+    };
+  }
+  rpc GetAppCashControls(GetAppCashControlsRequest)
+      returns (GetAppCashControlsResponse) {
+    option (google.api.http) = {
+      post : "/v1/get/app/cashcontrols"
+      body : "*"
+    };
+  }
+}
+
+message GetCashControlsRequest {
+  string TargetAppID = 10;
+  int32 Offset = 20;
+  int32 Limit = 30;
+}
+
+message GetCashControlsResponse {
+  repeated inspire.middleware.coupon.app.cashcontrol.v1.CashControl Infos = 10;
+  uint32 Total = 20;
+}
+
+message CreateCashControlRequest {
+  string CouponID = 10;
+  basetypes.inspire.v1.ControlType ControlType = 20;
+  optional string Value = 30;
+}
+
+message CreateCashControlResponse {
+  inspire.middleware.coupon.app.cashcontrol.v1.CashControl Info = 10;
+}
+
+message UpdateCashControlRequest {
+  uint32 ID = 10;
+  string EntID = 20;
+  string TargetAppID = 30;
+  optional string Value = 40;
+}
+
+message UpdateCashControlResponse {
+  inspire.middleware.coupon.app.cashcontrol.v1.CashControl Info = 10;
+}
+
+message DeleteCashControlRequest {
+  uint32 ID = 10;
+  string EntID = 20;
+  string TargetAppID = 30;
+}
+
+message DeleteCashControlResponse {
+  inspire.middleware.coupon.app.cashcontrol.v1.CashControl Info = 10;
+}
+
+message GetAppCashControlsRequest {
+  string AppID = 10;
+  int32 Offset = 20;
+  int32 Limit = 30;
+}
+
+message GetAppCashControlsResponse {
+  repeated inspire.middleware.coupon.app.cashcontrol.v1.CashControl Infos = 10;
+  uint32 Total = 20;
+}

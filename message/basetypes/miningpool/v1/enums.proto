@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+package basetypes.miningpool.v1;
+
+option go_package = "github.com/NpoolPlatform/kunman/message/basetypes/miningpool/v1";
+
+enum MiningPoolType {
+  DefaultMiningPoolType = 0;
+
+  F2Pool = 10;
+  AntPool = 20;
+}
+
+enum RevenueType {
+  DefaultRevenueType = 0;
+
+  FPPS = 10;
+  PPLNS = 20;
+}
+
+enum FractionWithdrawState {
+  DefaultFractionWithdrawState = 0;
+
+  FractionWithdrawStateWait = 10;
+  FractionWithdrawStateSuccess = 100;
+  FractionWithdrawStateFailed = 110;
+}

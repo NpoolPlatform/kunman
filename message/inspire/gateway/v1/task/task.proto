@@ -1,0 +1,70 @@
+syntax = "proto3";
+
+package inspire.gateway.task.v1;
+
+option go_package = "github.com/NpoolPlatform/kunman/message/inspire/gateway/v1/task";
+
+import "google/api/annotations.proto";
+import "basetypes/inspire/v1/enums.proto";
+
+// Service Name
+service Gateway {
+  rpc AdminGetTasks(AdminGetTasksRequest) returns (AdminGetTasksResponse) {
+    option (google.api.http) = {
+      post : "/v1/admin/get/tasks"
+      body : "*"
+    };
+  }
+  rpc GetMyTasks(GetMyTasksRequest) returns (GetMyTasksResponse) {
+    option (google.api.http) = {
+      post : "/v1/get/my/tasks"
+      body : "*"
+    };
+  }
+}
+
+message UserTask {
+  uint32 ID = 10;
+  string EntID = 20;
+  string AppID = 30;
+  string EventID = 40;
+  basetypes.inspire.v1.TaskType TaskType = 50;
+  string Name = 60;
+  string TaskDesc = 70;
+  string StepGuide = 80;
+  string RecommendMessage = 90;
+  uint32 Index = 100;
+  string LastTaskID = 110;
+  uint32 MaxRewardCount = 120;
+  uint32 CooldownSecond = 130;
+  uint32 CompletionTimes = 140;
+  uint32 NextStartAt = 150;
+  basetypes.inspire.v1.TaskState TaskState = 160;
+  basetypes.inspire.v1.RewardState RewardState = 170;
+  uint32 CreatedAt = 1000;
+  uint32 UpdatedAt = 1010;
+}
+
+message GetMyTasksRequest {
+  string AppID = 10;
+  string UserID = 20;
+  int32 Offset = 30;
+  int32 Limit = 40;
+}
+
+message GetMyTasksResponse {
+  repeated UserTask Infos = 10;
+  uint32 Total = 20;
+}
+
+message AdminGetTasksRequest {
+  string TargetAppID = 10;
+  string TargetUserID = 20;
+  int32 Offset = 30;
+  int32 Limit = 40;
+}
+
+message AdminGetTasksResponse {
+  repeated UserTask Infos = 10;
+  uint32 Total = 20;
+}

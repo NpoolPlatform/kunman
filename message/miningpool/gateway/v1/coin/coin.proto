@@ -1,0 +1,97 @@
+syntax = "proto3";
+
+package miningpool.gateway.coin.v1;
+
+option go_package = "github.com/NpoolPlatform/kunman/message/miningpool/gateway/v1/coin";
+
+import "google/api/annotations.proto";
+import "basetypes/v1/cointype.proto";
+import "basetypes/miningpool/v1/enums.proto";
+
+// Service Name
+service Gateway {
+  rpc AdminCreateCoin(AdminCreateCoinRequest)
+      returns (AdminCreateCoinResponse) {
+    option (google.api.http) = {
+      post : "/v1/admin/create/miningpoolcoin"
+      body : "*"
+    };
+  }
+  rpc AdminUpdateCoin(AdminUpdateCoinRequest)
+      returns (AdminUpdateCoinResponse) {
+    option (google.api.http) = {
+      post : "/v1/admin/update/miningpoolcoin"
+      body : "*"
+    };
+  }
+  rpc AdminGetCoins(AdminGetCoinsRequest) returns (AdminGetCoinsResponse) {
+    option (google.api.http) = {
+      post : "/v1/admin/get/miningpoolcoins"
+      body : "*"
+    };
+  }
+  rpc AdminDeleteCoin(AdminDeleteCoinRequest)
+      returns (AdminDeleteCoinResponse) {
+    option (google.api.http) = {
+      post : "/v1/admin/delete/miningpoolcoin"
+      body : "*"
+    };
+  }
+}
+message Coin {
+  uint32 ID = 10;
+  string EntID = 20;
+  string PoolID = 30;
+  string CoinTypeID = 31;
+  basetypes.v1.CoinType CoinType = 40;
+  string FeeRatio = 60;
+  bool FixedRevenueAble = 70;
+  string LeastTransferAmount = 80;
+  uint32 BenefitIntervalSeconds = 90;
+  string Remark = 100;
+  basetypes.miningpool.v1.MiningPoolType MiningPoolType = 110;
+  uint32 CreatedAt = 120;
+  uint32 UpdatedAt = 130;
+}
+
+message AdminCreateCoinRequest {
+  string PoolID = 10;
+  string CoinTypeID = 20;
+  basetypes.v1.CoinType CoinType = 30;
+  string FeeRatio = 50;
+  bool FixedRevenueAble = 60;
+  string LeastTransferAmount = 70;
+  uint32 BenefitIntervalSeconds = 80;
+  optional string Remark = 90;
+}
+
+message AdminCreateCoinResponse { Coin Info = 10; }
+
+message AdminUpdateCoinRequest {
+  uint32 ID = 10;
+  string EntID = 20;
+  optional string FeeRatio = 40;
+  optional bool FixedRevenueAble = 50;
+  optional string LeastTransferAmount = 60;
+  optional uint32 BenefitIntervalSeconds = 70;
+  optional string Remark = 80;
+}
+
+message AdminUpdateCoinResponse { Coin Info = 10; }
+
+message AdminGetCoinsRequest {
+  int32 Offset = 10;
+  int32 Limit = 20;
+}
+
+message AdminGetCoinsResponse {
+  repeated Coin Infos = 10;
+  uint32 Total = 20;
+}
+
+message AdminDeleteCoinRequest {
+  uint32 ID = 10;
+  string EntID = 20;
+}
+
+message AdminDeleteCoinResponse { Coin Info = 10; }

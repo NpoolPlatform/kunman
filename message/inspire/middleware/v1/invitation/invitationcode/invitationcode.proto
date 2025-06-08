@@ -1,0 +1,45 @@
+syntax = "proto3";
+
+package inspire.middleware.invitation.invitationcode.v1;
+
+option go_package = "github.com/NpoolPlatform/kunman/message/inspire/middleware/v1/invitation/invitationcode";
+
+import "basetypes/v1/conds.proto";
+
+message InvitationCodeReq {
+  optional uint32 ID = 10;
+  optional string EntID = 11;
+  optional string AppID = 20;
+  optional string UserID = 30;
+  optional string InvitationCode = 40;
+  optional bool Disabled = 50;
+}
+
+message InvitationCode {
+  // @inject_tag: sql:"id"
+  uint32 ID = 10;
+  // @inject_tag: sql:"ent_id"
+  string EntID = 11;
+  // @inject_tag: sql:"app_id"
+  string AppID = 20;
+  // @inject_tag: sql:"user_id"
+  string UserID = 30;
+  // @inject_tag: sql:"invitation_code"
+  string InvitationCode = 40;
+  // @inject_tag: sql:"disabled"
+  bool Disabled = 50;
+  // @inject_tag: sql:"created_at"
+  uint32 CreatedAt = 60;
+  // @inject_tag: sql:"updated_at"
+  uint32 UpdatedAt = 70;
+}
+
+message Conds {
+  optional basetypes.v1.StringVal EntID = 10;
+  optional basetypes.v1.StringVal AppID = 20;
+  optional basetypes.v1.StringVal UserID = 30;
+  optional basetypes.v1.StringVal InvitationCode = 40;
+  optional basetypes.v1.BoolVal Disabled = 50;
+  optional basetypes.v1.StringSliceVal UserIDs = 60;
+}
+

@@ -1,0 +1,49 @@
+syntax = "proto3";
+
+package miningpool.middleware.pool.v1;
+
+option go_package = "github.com/NpoolPlatform/kunman/message/miningpool/middleware/v1/pool";
+
+import "basetypes/v1/conds.proto";
+import "basetypes/miningpool/v1/enums.proto";
+
+message PoolReq {
+  optional uint32 ID = 9;
+  optional string EntID = 10;
+  optional basetypes.miningpool.v1.MiningPoolType MiningPoolType = 20;
+  optional string Name = 30;
+  optional string Site = 40;
+  optional string Logo = 50;
+  optional string Description = 60;
+}
+
+message Pool {
+  // @inject_tag: sql:"id"
+  uint32 ID = 10;
+  // @inject_tag: sql:"ent_id"
+  string EntID = 20;
+  // @inject_tag: sql:"mining_pool_type"
+  string MiningPoolTypeStr = 30;
+  basetypes.miningpool.v1.MiningPoolType MiningPoolType = 31;
+  // @inject_tag: sql:"name"
+  string Name = 40;
+  // @inject_tag: sql:"site"
+  string Site = 50;
+  // @inject_tag: sql:"logo"
+  string Logo = 60;
+  // @inject_tag: sql:"description"
+  string Description = 70;
+  // @inject_tag: sql:"created_at"
+  uint32 CreatedAt = 110;
+  // @inject_tag: sql:"updated_at"
+  uint32 UpdatedAt = 120;
+}
+
+message Conds {
+  optional basetypes.v1.Uint32Val ID = 9;
+  optional basetypes.v1.StringVal EntID = 10;
+  optional basetypes.v1.Uint32Val MiningPoolType = 20;
+  optional basetypes.v1.StringVal Name = 30;
+  optional basetypes.v1.StringSliceVal EntIDs = 70;
+}
+

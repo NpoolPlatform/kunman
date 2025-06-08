@@ -1,0 +1,71 @@
+syntax = "proto3";
+
+package inspire.middleware.app.config.v1;
+
+option go_package = "github.com/NpoolPlatform/kunman/message/inspire/middleware/v1/app/config";
+
+import "basetypes/v1/conds.proto";
+import "basetypes/inspire/v1/enums.proto";
+
+message AppConfigReq {
+  optional uint32 ID = 10;
+  optional string EntID = 20;
+  optional string AppID = 30;
+  optional basetypes.inspire.v1.SettleMode SettleMode = 40;
+  optional basetypes.inspire.v1.SettleAmountType SettleAmountType = 50;
+  optional basetypes.inspire.v1.SettleInterval SettleInterval = 60;
+  optional basetypes.inspire.v1.CommissionType CommissionType = 70;
+  optional bool SettleBenefit = 80;
+  optional uint32 StartAt = 90;
+  optional uint32 MaxLevel = 100;
+}
+
+message AppConfig {
+  // @inject_tag: sql:"id"
+  uint32 ID = 10;
+  // @inject_tag: sql:"ent_id"
+  string EntID = 20;
+  // @inject_tag: sql:"app_id"
+  string AppID = 30;
+  // @inject_tag: sql:"settle_mode"
+  string SettleModeStr = 40;
+  basetypes.inspire.v1.SettleMode SettleMode = 50;
+  // @inject_tag: sql:"settle_amount_type"
+  string SettleAmountTypeStr = 60;
+  basetypes.inspire.v1.SettleAmountType SettleAmountType = 70;
+  // @inject_tag: sql:"settle_interval"
+  string SettleIntervalStr = 80;
+  basetypes.inspire.v1.SettleInterval SettleInterval = 90;
+  // @inject_tag: sql:"commission_type"
+  string CommissionTypeStr = 100;
+  basetypes.inspire.v1.CommissionType CommissionType = 110;
+  // @inject_tag: sql:"settle_benefit"
+  bool SettleBenefit = 120;
+  // @inject_tag: sql:"start_at"
+  uint32 StartAt = 130;
+  // @inject_tag: sql:"end_at"
+  uint32 EndAt = 140;
+  // @inject_tag: sql:"max_level"
+  uint32 MaxLevel = 150;
+
+  // @inject_tag: sql:"created_at"
+  uint32 CreatedAt = 1000;
+  // @inject_tag: sql:"updated_at"
+  uint32 UpdatedAt = 1010;
+}
+
+message Conds {
+  optional basetypes.v1.StringVal EntID = 10;
+  optional basetypes.v1.StringVal AppID = 20;
+  optional basetypes.v1.Uint32Val SettleMode = 30;
+  optional basetypes.v1.Uint32Val SettleAmountType = 40;
+  optional basetypes.v1.Uint32Val SettleInterval = 50;
+  optional basetypes.v1.Uint32Val CommissionType = 60;
+  optional basetypes.v1.BoolVal SettleBenefit = 70;
+  optional basetypes.v1.Uint32Val StartAt = 80;
+  optional basetypes.v1.Uint32Val EndAt = 90;
+  optional basetypes.v1.StringSliceVal EntIDs = 100;
+  optional basetypes.v1.Uint32Val ID = 110;
+  optional basetypes.v1.Uint32Val MaxLevel = 120;
+}
+

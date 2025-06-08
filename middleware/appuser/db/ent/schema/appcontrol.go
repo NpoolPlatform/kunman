@@ -4,8 +4,8 @@ import (
 	"entgo.io/ent"
 	"entgo.io/ent/schema/field"
 	crudermixin "github.com/NpoolPlatform/kunman/pkg/cruder/mixin"
-	appusertypes "github.com/NpoolPlatform/message/npool/basetypes/appuser/v1"
-	basetypes "github.com/NpoolPlatform/message/npool/basetypes/v1"
+	appusertypes "github.com/NpoolPlatform/kunman/message/basetypes/appuser/v1"
+	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	"github.com/google/uuid"
 )
 

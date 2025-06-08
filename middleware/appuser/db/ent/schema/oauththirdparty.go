@@ -4,7 +4,7 @@ import (
 	"entgo.io/ent"
 	"entgo.io/ent/schema/field"
 	crudermixin "github.com/NpoolPlatform/kunman/pkg/cruder/mixin"
-	basetypes "github.com/NpoolPlatform/message/npool/basetypes/v1"
+	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 )
 
 // OAuthThirdParty holds the schema definition for the OAuthThirdParty entity.

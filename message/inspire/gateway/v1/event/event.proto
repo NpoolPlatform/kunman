@@ -1,0 +1,152 @@
+syntax = "proto3";
+
+package inspire.gateway.event.v1;
+
+option go_package = "github.com/NpoolPlatform/kunman/message/inspire/gateway/v1/event";
+
+import "google/api/annotations.proto";
+import "basetypes/v1/usedfor.proto";
+
+// Service Name
+service Gateway {
+  rpc CreateEvent(CreateEventRequest) returns (CreateEventResponse) {
+    option (google.api.http) = {
+      post : "/v1/create/eventinspire"
+      body : "*"
+    };
+  }
+  rpc GetEvents(GetEventsRequest) returns (GetEventsResponse) {
+    option (google.api.http) = {
+      post : "/v1/get/eventinspires"
+      body : "*"
+    };
+  }
+  rpc UpdateEvent(UpdateEventRequest) returns (UpdateEventResponse) {
+    option (google.api.http) = {
+      post : "/v1/update/eventinspire"
+      body : "*"
+    };
+  }
+  rpc AdminGetEvents(AdminGetEventsRequest) returns (AdminGetEventsResponse) {
+    option (google.api.http) = {
+      post : "/v1/admin/get/eventinspires"
+      body : "*"
+    };
+  }
+  rpc AdminCreateEvent(AdminCreateEventRequest) returns (AdminCreateEventResponse) {
+    option (google.api.http) = {
+      post : "/v1/admin/create/eventinspire"
+      body : "*"
+    };
+  }
+  rpc AdminUpdateEvent(AdminUpdateEventRequest) returns (AdminUpdateEventResponse) {
+    option (google.api.http) = {
+      post : "/v1/admin/update/eventinspire"
+      body : "*"
+    };
+  }
+  rpc AdminDeleteEvent(AdminDeleteEventRequest) returns (AdminDeleteEventResponse) {
+    option (google.api.http) = {
+      post : "/v1/admin/delete/eventinspire"
+      body : "*"
+    };
+  }
+}
+
+message Event {
+  uint32 ID = 10;
+  string EntID = 11;
+  string AppID = 20;
+  string AppName = 30;
+  basetypes.v1.UsedFor EventType = 40;
+  string Credits = 60;
+  string CreditsPerUSD = 70;
+  uint32 MaxConsecutive = 80;
+  string GoodID = 90;
+  string GoodName = 100;
+  uint32 InviterLayers = 110;
+  uint32 CreatedAt = 200;
+  uint32 UpdatedAt = 210;
+  uint32 DeletedAt = 220;
+  string AppGoodID = 230;
+  string AppGoodName = 240;
+}
+
+message CreateEventRequest {
+  string AppID = 10;
+  basetypes.v1.UsedFor EventType = 20;
+  optional string Credits = 40;
+  optional string CreditsPerUSD = 50;
+  optional uint32 MaxConsecutive = 60;
+  optional string AppGoodID = 70;
+  optional uint32 InviterLayers = 80;
+}
+
+message CreateEventResponse { Event Info = 10; }
+
+message GetEventsRequest {
+  string AppID = 10;
+  int32 Offset = 20;
+  int32 Limit = 30;
+}
+
+message GetEventsResponse {
+  repeated Event Infos = 10;
+  uint32 Total = 20;
+}
+
+message UpdateEventRequest {
+  uint32 ID = 10;
+  string EntID = 11;
+  string AppID = 20;
+  optional string Credits = 40;
+  optional string CreditsPerUSD = 50;
+  optional uint32 MaxConsecutive = 60;
+  optional uint32 InviterLayers = 80;
+  optional string AppGoodID = 90;
+}
+
+message UpdateEventResponse { Event Info = 10; }
+
+message AdminGetEventsRequest {
+  string TargetAppID = 10;
+  int32 Offset = 20;
+  int32 Limit = 30;
+}
+
+message AdminGetEventsResponse {
+  repeated Event Infos = 10;
+  uint32 Total = 20;
+}
+
+message AdminCreateEventRequest {
+  string TargetAppID = 10;
+  basetypes.v1.UsedFor EventType = 20;
+  optional string Credits = 40;
+  optional string CreditsPerUSD = 50;
+  optional uint32 MaxConsecutive = 60;
+  optional string AppGoodID = 70;
+  optional uint32 InviterLayers = 80;
+}
+
+message AdminCreateEventResponse { Event Info = 10; }
+
+message AdminUpdateEventRequest {
+  uint32 ID = 10;
+  string EntID = 11;
+  string TargetAppID = 20;
+  optional string Credits = 40;
+  optional string CreditsPerUSD = 50;
+  optional uint32 MaxConsecutive = 60;
+  optional uint32 InviterLayers = 80;
+  optional string AppGoodID = 90;
+}
+
+message AdminUpdateEventResponse { Event Info = 10; }
+
+message AdminDeleteEventRequest {
+  uint32 ID = 10;
+  string EntID = 20;
+}
+
+message AdminDeleteEventResponse { Event Info = 10; }

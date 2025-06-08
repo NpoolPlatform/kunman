@@ -1,0 +1,66 @@
+syntax = "proto3";
+
+package miningpool.middleware.coin.v1;
+
+option go_package = "github.com/NpoolPlatform/kunman/message/miningpool/middleware/v1/coin";
+
+import "basetypes/v1/conds.proto";
+import "basetypes/v1/cointype.proto";
+import "basetypes/miningpool/v1/enums.proto";
+
+message CoinReq {
+  optional uint32 ID = 9;
+  optional string EntID = 10;
+  optional string PoolID = 20;
+  optional string CoinTypeID = 30;
+  optional basetypes.v1.CoinType CoinType = 31;
+  optional string FeeRatio = 50;
+  optional bool FixedRevenueAble = 60;
+  optional string LeastTransferAmount = 70;
+  optional uint32 BenefitIntervalSeconds = 80;
+  optional string Remark = 90;
+}
+
+message Coin {
+  // @inject_tag: sql:"id"
+  uint32 ID = 10;
+  // @inject_tag: sql:"ent_id"
+  string EntID = 20;
+  // @inject_tag: sql:"pool_id"
+  string PoolID = 30;
+  // @inject_tag: sql:"coin_type_id"
+  string CoinTypeID = 31;
+  // @inject_tag: sql:"coin_type"
+  string CoinTypeStr = 40;
+  basetypes.v1.CoinType CoinType = 41;
+  // @inject_tag: sql:"fee_ratio"
+  string FeeRatio = 60;
+  // @inject_tag: sql:"fixed_revenue_able"
+  bool FixedRevenueAble = 70;
+  // @inject_tag: sql:"least_transfer_amount"
+  string LeastTransferAmount = 80;
+  // @inject_tag: sql:"benefit_interval_seconds"
+  uint32 BenefitIntervalSeconds = 90;
+  // @inject_tag: sql:"remark"
+  string Remark = 100;
+  // @inject_tag: sql:"mining_pool_type"
+  string MiningPoolTypeStr = 110;
+  basetypes.miningpool.v1.MiningPoolType MiningPoolType = 111;
+  // @inject_tag: sql:"created_at"
+  uint32 CreatedAt = 120;
+  // @inject_tag: sql:"updated_at"
+  uint32 UpdatedAt = 130;
+}
+
+message Conds {
+  optional basetypes.v1.Uint32Val ID = 9;
+  optional basetypes.v1.StringVal EntID = 10;
+  optional basetypes.v1.StringVal PoolID = 20;
+  optional basetypes.v1.StringSliceVal CoinTypeIDs = 21;
+  optional basetypes.v1.StringVal CoinTypeID = 22;
+  optional basetypes.v1.Uint32Val MiningPoolType = 30;
+  optional basetypes.v1.Uint32Val CoinType = 31;
+  optional basetypes.v1.BoolVal FixedRevenueAble = 50;
+  optional basetypes.v1.StringSliceVal EntIDs = 60;
+}
+

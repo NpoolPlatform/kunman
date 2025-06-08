@@ -1,0 +1,103 @@
+syntax = "proto3";
+
+package miningpool.gateway.fractionwithdrawalrule.v1;
+
+option go_package = "github.com/NpoolPlatform/kunman/message/miningpool/gateway/v1/fractionwithdrawalrule";
+
+import "google/api/annotations.proto";
+import "basetypes/v1/cointype.proto";
+import "basetypes/miningpool/v1/enums.proto";
+
+// Service Name
+service Gateway {
+  rpc AdminCreateFractionWithdrawalRule(
+      AdminCreateFractionWithdrawalRuleRequest)
+      returns (AdminCreateFractionWithdrawalRuleResponse) {
+    option (google.api.http) = {
+      post : "/v1/admin/create/miningpoolfractionwithdrawalrule"
+      body : "*"
+    };
+  }
+  rpc AdminUpdateFractionWithdrawalRule(
+      AdminUpdateFractionWithdrawalRuleRequest)
+      returns (AdminUpdateFractionWithdrawalRuleResponse) {
+    option (google.api.http) = {
+      post : "/v1/admin/update/miningpoolfractionwithdrawalrule"
+      body : "*"
+    };
+  }
+  rpc AdminGetFractionWithdrawalRules(AdminGetFractionWithdrawalRulesRequest)
+      returns (AdminGetFractionWithdrawalRulesResponse) {
+    option (google.api.http) = {
+      post : "/v1/admin/get/miningpoolfractionwithdrawalrules"
+      body : "*"
+    };
+  }
+  rpc AdminDeleteFractionWithdrawalRule(
+      AdminDeleteFractionWithdrawalRuleRequest)
+      returns (AdminDeleteFractionWithdrawalRuleResponse) {
+    option (google.api.http) = {
+      post : "/v1/admin/delete/miningpoolfractionwithdrawalrule"
+      body : "*"
+    };
+  }
+}
+message FractionWithdrawalRule {
+  uint32 ID = 10;
+  string EntID = 20;
+  string PoolID = 29;
+  string PoolCoinTypeID = 30;
+  string CoinTypeID = 31;
+  uint32 WithdrawInterval = 40;
+  string PayoutThreshold = 50;
+  string LeastWithdrawalAmount = 60;
+  string WithdrawFee = 70;
+  basetypes.miningpool.v1.MiningPoolType MiningPoolType = 80;
+  basetypes.v1.CoinType CoinType = 90;
+  uint32 CreatedAt = 100;
+  uint32 UpdatedAt = 110;
+}
+
+message AdminCreateFractionWithdrawalRuleRequest {
+  string PoolCoinTypeID = 10;
+  uint32 WithdrawInterval = 20;
+  string PayoutThreshold = 30;
+  string LeastWithdrawalAmount = 40;
+  string WithdrawFee = 50;
+}
+
+message AdminCreateFractionWithdrawalRuleResponse {
+  FractionWithdrawalRule Info = 10;
+}
+
+message AdminUpdateFractionWithdrawalRuleRequest {
+  uint32 ID = 10;
+  string EntID = 20;
+  optional uint32 WithdrawInterval = 30;
+  optional string PayoutThreshold = 40;
+  optional string LeastWithdrawalAmount = 50;
+  optional string WithdrawFee = 60;
+}
+
+message AdminUpdateFractionWithdrawalRuleResponse {
+  FractionWithdrawalRule Info = 10;
+}
+
+message AdminGetFractionWithdrawalRulesRequest {
+  int32 Offset = 10;
+  int32 Limit = 20;
+}
+
+message AdminGetFractionWithdrawalRulesResponse {
+  repeated FractionWithdrawalRule Infos = 10;
+  uint32 Total = 20;
+}
+
+message AdminDeleteFractionWithdrawalRuleRequest {
+  uint32 ID = 10;
+  string EntID = 20;
+}
+
+message AdminDeleteFractionWithdrawalRuleResponse {
+  FractionWithdrawalRule Info = 10;
+}

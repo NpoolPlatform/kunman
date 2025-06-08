@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+package inspire.gateway.reconciliation.v1;
+
+option go_package = "github.com/NpoolPlatform/kunman/message/inspire/gateway/v1/reconciliation";
+
+import "google/api/annotations.proto";
+
+// Service Name
+service Gateway {
+  rpc Reconcile(ReconcileRequest) returns (ReconcileResponse) {
+    option (google.api.http) = {
+      post : "/v1/reconcile"
+      body : "*"
+    };
+  }
+}
+
+message ReconcileRequest {
+  string AppID = 10;
+  string AppGoodID = 20;
+}
+
+message ReconcileResponse {}

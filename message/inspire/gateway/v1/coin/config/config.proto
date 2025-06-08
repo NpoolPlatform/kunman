@@ -1,0 +1,88 @@
+syntax = "proto3";
+
+package inspire.gateway.coin.config.v1;
+
+option go_package = "github.com/NpoolPlatform/kunman/message/inspire/gateway/v1/coin/config";
+
+import "google/api/annotations.proto";
+
+// Service Name
+service Gateway {
+  rpc AdminCreateCoinConfig(AdminCreateCoinConfigRequest)
+      returns (AdminCreateCoinConfigResponse) {
+    option (google.api.http) = {
+      post : "/v1/admin/create/coinconfig"
+      body : "*"
+    };
+  }
+  rpc AdminUpdateCoinConfig(AdminUpdateCoinConfigRequest)
+      returns (AdminUpdateCoinConfigResponse) {
+    option (google.api.http) = {
+      post : "/v1/admin/update/coinconfig"
+      body : "*"
+    };
+  }
+  rpc AdminGetCoinConfigs(AdminGetCoinConfigsRequest) returns (AdminGetCoinConfigsResponse) {
+    option (google.api.http) = {
+      post : "/v1/admin/get/coinconfigs"
+      body : "*"
+    };
+  }
+  rpc AdminDeleteCoinConfig(AdminDeleteCoinConfigRequest)
+      returns (AdminDeleteCoinConfigResponse) {
+    option (google.api.http) = {
+      post : "/v1/admin/delete/coinconfig"
+      body : "*"
+    };
+  }
+}
+
+message CoinConfig {
+  uint32 ID = 10;
+  string EntID = 20;
+  string AppID = 30;
+  string CoinTypeID = 40;
+  string MaxValue = 50;
+  string Allocated = 60;
+  string CoinName = 70;
+  repeated string DisplayNames = 80;
+  string CoinLogo = 90;
+  string CoinUnit = 100;
+  uint32 CreatedAt = 1000;
+  uint32 UpdatedAt = 1010;
+}
+
+message AdminCreateCoinConfigRequest {
+  string TargetAppID = 10;
+  string CoinTypeID = 20;
+  string MaxValue = 30;
+}
+
+message AdminCreateCoinConfigResponse { CoinConfig Info = 10; }
+
+message AdminUpdateCoinConfigRequest {
+  uint32 ID = 10;
+  string EntID = 20;
+  string TargetAppID = 30;
+  optional string MaxValue = 40;
+}
+
+message AdminUpdateCoinConfigResponse { CoinConfig Info = 10; }
+
+message AdminGetCoinConfigsRequest {
+  string TargetAppID = 10;
+  int32 Offset = 20;
+  int32 Limit = 30;
+}
+
+message AdminGetCoinConfigsResponse {
+  repeated CoinConfig Infos = 10;
+  uint32 Total = 20;
+}
+
+message AdminDeleteCoinConfigRequest {
+  uint32 ID = 10;
+  string EntID = 20;
+}
+
+message AdminDeleteCoinConfigResponse { CoinConfig Info = 10; }

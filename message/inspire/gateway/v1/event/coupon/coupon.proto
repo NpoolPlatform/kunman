@@ -1,0 +1,104 @@
+syntax = "proto3";
+
+package inspire.gateway.event.coupon.v1;
+
+option go_package = "github.com/NpoolPlatform/kunman/message/inspire/gateway/v1/event/coupon";
+
+import "google/api/annotations.proto";
+import "basetypes/inspire/v1/enums.proto";
+
+// Service Name
+service Gateway {
+  rpc CreateEventCoupon(CreateEventCouponRequest) returns (CreateEventCouponResponse) {
+    option (google.api.http) = {
+      post : "/v1/create/eventcouponinspire"
+      body : "*"
+    };
+  }
+  rpc GetEventCoupons(GetEventCouponsRequest) returns (GetEventCouponsResponse) {
+    option (google.api.http) = {
+      post : "/v1/get/eventcouponinspires"
+      body : "*"
+    };
+  }
+  rpc AdminGetEventCoupons(AdminGetEventCouponsRequest) returns (AdminGetEventCouponsResponse) {
+    option (google.api.http) = {
+      post : "/v1/admin/get/eventcouponinspires"
+      body : "*"
+    };
+  }
+  rpc AdminCreateEventCoupon(AdminCreateEventCouponRequest) returns (AdminCreateEventCouponResponse) {
+    option (google.api.http) = {
+      post : "/v1/admin/create/eventcouponinspire"
+      body : "*"
+    };
+  }
+  rpc AdminDeleteEventCoupon(AdminDeleteEventCouponRequest) returns (AdminDeleteEventCouponResponse) {
+    option (google.api.http) = {
+      post : "/v1/admin/delete/eventcouponinspire"
+      body : "*"
+    };
+  }
+}
+
+message EventCoupon {
+  uint32 ID = 9;
+  string EntID = 10;
+  string AppID = 20;
+  string EventID = 30;
+  string CouponID = 40;
+  basetypes.inspire.v1.CouponType CouponType = 50;
+  string Denomination = 60;
+  string Circulation = 70;
+  uint32 StartAt = 80;
+  uint32 EndAt = 90;
+  uint32 DurationDays = 100;
+  string Name = 110;
+}
+
+message CreateEventCouponRequest {
+  string AppID = 10;
+  string EventID = 20;
+  string CouponID = 30;
+}
+
+message CreateEventCouponResponse { EventCoupon Info = 10; }
+
+message GetEventCouponsRequest {
+  string AppID = 10;
+  optional string EventID = 20;
+  int32 Offset = 30;
+  int32 Limit = 40;
+}
+
+message GetEventCouponsResponse {
+  repeated EventCoupon Infos = 10;
+  uint32 Total = 20;
+}
+
+message AdminGetEventCouponsRequest {
+  string TargetAppID = 10;
+  optional string EventID = 20;
+  int32 Offset = 30;
+  int32 Limit = 40;
+}
+
+message AdminGetEventCouponsResponse {
+  repeated EventCoupon Infos = 10;
+  uint32 Total = 20;
+}
+
+message AdminCreateEventCouponRequest {
+  string TargetAppID = 10;
+  string EventID = 20;
+  string CouponID = 30;
+}
+
+message AdminCreateEventCouponResponse { EventCoupon Info = 10; }
+
+message AdminDeleteEventCouponRequest {
+  uint32 ID = 10;
+  string EntID = 20;
+}
+
+message AdminDeleteEventCouponResponse { EventCoupon Info = 10; }

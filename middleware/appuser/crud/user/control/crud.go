@@ -6,7 +6,7 @@ import (
 	ent "github.com/NpoolPlatform/kunman/middleware/appuser/db/ent/generated"
 	entappuserctrl "github.com/NpoolPlatform/kunman/middleware/appuser/db/ent/generated/appusercontrol"
 	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
-	basetypes "github.com/NpoolPlatform/message/npool/basetypes/v1"
+	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	"github.com/google/uuid"
 )
 

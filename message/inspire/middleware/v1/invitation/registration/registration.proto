@@ -1,0 +1,42 @@
+syntax = "proto3";
+
+package inspire.middleware.invitation.registration.v1;
+
+option go_package = "github.com/NpoolPlatform/kunman/message/inspire/middleware/v1/invitation/registration";
+
+import "basetypes/v1/conds.proto";
+
+message RegistrationReq {
+  optional uint32 ID = 10;
+  optional string EntID = 11;
+  optional string AppID = 20;
+  optional string InviterID = 30;
+  optional string InviteeID = 40;
+}
+
+message Registration {
+  // @inject_tag: sql:"id"
+  uint32 ID = 10;
+  // @inject_tag: sql:"ent_id"
+  string EntID = 11;
+  // @inject_tag: sql:"app_id"
+  string AppID = 20;
+  // @inject_tag: sql:"inviter_id"
+  string InviterID = 30;
+  // @inject_tag: sql:"invitee_id"
+  string InviteeID = 40;
+  // @inject_tag: sql:"created_at"
+  uint32 CreatedAt = 50;
+  // @inject_tag: sql:"updated_at"
+  uint32 UpdatedAt = 60;
+}
+
+message Conds {
+  optional basetypes.v1.StringVal EntID = 10;
+  optional basetypes.v1.StringVal AppID = 20;
+  optional basetypes.v1.StringVal InviterID = 30;
+  optional basetypes.v1.StringVal InviteeID = 40;
+  optional basetypes.v1.StringSliceVal InviterIDs = 50;
+  optional basetypes.v1.StringSliceVal InviteeIDs = 60;
+}
+

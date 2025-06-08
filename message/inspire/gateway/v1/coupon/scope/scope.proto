@@ -1,0 +1,72 @@
+syntax = "proto3";
+
+package inspire.gateway.coupon.scope.v1;
+
+option go_package = "github.com/NpoolPlatform/kunman/message/inspire/gateway/v1/coupon/scope";
+
+import "google/api/annotations.proto";
+import "basetypes/inspire/v1/enums.proto";
+
+// Service Name
+service Gateway {
+  rpc CreateScope(CreateScopeRequest) returns (CreateScopeResponse) {
+    option (google.api.http) = {
+      post : "/v1/create/scope"
+      body : "*"
+    };
+  }
+
+  rpc DeleteScope(DeleteScopeRequest) returns (DeleteScopeResponse) {
+    option (google.api.http) = {
+      post : "/v1/delete/scope"
+      body : "*"
+    };
+  }
+
+  rpc GetScopes(GetScopesRequest) returns (GetScopesResponse) {
+    option (google.api.http) = {
+      post : "/v1/get/scopes"
+      body : "*"
+    };
+  }
+}
+
+message Scope {
+  uint32 ID = 10;
+  string EntID = 11;
+  string GoodID = 30;
+  string GoodTitle = 40;
+  string CouponID = 50;
+  string CouponName = 60;
+  basetypes.inspire.v1.CouponType CouponType = 70;
+  basetypes.inspire.v1.CouponScope CouponScope = 80;
+  string CouponCirculation = 90;
+  string CouponDenomination = 110;
+  uint32 CreatedAt = 1000;
+  uint32 UpdatedAt = 1010;
+}
+
+message CreateScopeRequest {
+  string GoodID = 10;
+  string CouponID = 20;
+  basetypes.inspire.v1.CouponScope CouponScope = 30;
+}
+
+message CreateScopeResponse { Scope Info = 10; }
+
+message DeleteScopeRequest {
+  uint32 ID = 10;
+  string EntID = 20;
+}
+
+message DeleteScopeResponse { Scope Info = 10; }
+
+message GetScopesRequest {
+  int32 Offset = 30;
+  int32 Limit = 40;
+}
+
+message GetScopesResponse {
+  repeated Scope Infos = 10;
+  uint32 Total = 20;
+}

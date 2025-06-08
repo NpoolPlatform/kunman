@@ -1,0 +1,148 @@
+syntax = "proto3";
+
+package inspire.gateway.app.commission.config.v1;
+
+option go_package = "github.com/NpoolPlatform/kunman/message/inspire/gateway/v1/app/commission/config";
+
+import "google/api/annotations.proto";
+import "basetypes/inspire/v1/enums.proto";
+
+// Service Name
+service Gateway {
+  rpc CreateAppCommissionConfig(CreateAppCommissionConfigRequest)
+      returns (CreateAppCommissionConfigResponse) {
+    option (google.api.http) = {
+      post : "/v1/create/appcommissionconfig"
+      body : "*"
+    };
+  }
+
+  rpc AdminCreateAppCommissionConfig(AdminCreateAppCommissionConfigRequest)
+      returns (AdminCreateAppCommissionConfigResponse) {
+    option (google.api.http) = {
+      post : "/v1/admin/create/appcommissionconfig"
+      body : "*"
+    };
+  }
+
+  rpc UpdateAppCommissionConfig(UpdateAppCommissionConfigRequest)
+      returns (UpdateAppCommissionConfigResponse) {
+    option (google.api.http) = {
+      post : "/v1/update/appcommissionconfig"
+      body : "*"
+    };
+  }
+  rpc AdminUpdateAppCommissionConfig(AdminUpdateAppCommissionConfigRequest)
+      returns (AdminUpdateAppCommissionConfigResponse) {
+    option (google.api.http) = {
+      post : "/v1/admin/update/appcommissionconfig"
+      body : "*"
+    };
+  }
+  rpc GetAppCommissionConfigs(GetAppCommissionConfigsRequest)
+      returns (GetAppCommissionConfigsResponse) {
+    option (google.api.http) = {
+      post : "/v1/get/appcommissionconfigs"
+      body : "*"
+    };
+  }
+  rpc AdminGetAppCommissionConfigs(AdminGetAppCommissionConfigsRequest)
+      returns (AdminGetAppCommissionConfigsResponse) {
+    option (google.api.http) = {
+      post : "/v1/admin/get/appcommissionconfigs"
+      body : "*"
+    };
+  }
+}
+
+message AppCommissionConfig {
+  uint32 ID = 10;
+  string EntID = 20;
+  string AppID = 30;
+  basetypes.inspire.v1.SettleType SettleType = 40;
+  string AmountOrPercent = 100;
+  string ThresholdAmount = 110;
+  uint32 Invites = 120;
+  uint32 StartAt = 130;
+  uint32 EndAt = 140;
+  bool Disabled = 150;
+  uint32 Level = 160;
+  uint32 CreatedAt = 1000;
+  uint32 UpdatedAt = 1010;
+}
+
+message CreateAppCommissionConfigRequest {
+  string AppID = 10;
+  string ThresholdAmount = 20;
+  string AmountOrPercent = 30;
+  optional uint32 StartAt = 40;
+  uint32 Invites = 50;
+  basetypes.inspire.v1.SettleType SettleType = 60;
+  bool Disabled = 70;
+  uint32 Level = 80;
+}
+
+message CreateAppCommissionConfigResponse { AppCommissionConfig Info = 10; }
+
+message AdminCreateAppCommissionConfigRequest {
+  string TargetAppID = 10;
+  string ThresholdAmount = 20;
+  string AmountOrPercent = 30;
+  optional uint32 StartAt = 40;
+  uint32 Invites = 50;
+  basetypes.inspire.v1.SettleType SettleType = 60;
+  bool Disabled = 70;
+  uint32 Level = 80;
+}
+
+message AdminCreateAppCommissionConfigResponse { AppCommissionConfig Info = 10; }
+
+message UpdateAppCommissionConfigRequest {
+  uint32 ID = 10;
+  string EntID = 20;
+  string AppID = 30;
+  optional uint32 StartAt = 40;
+  optional string ThresholdAmount = 50;
+  optional uint32 Invites = 60;
+  optional bool Disabled = 70;
+  optional uint32 Level = 80;
+}
+
+message UpdateAppCommissionConfigResponse { AppCommissionConfig Info = 10; }
+
+message AdminUpdateAppCommissionConfigRequest {
+  uint32 ID = 10;
+  string EntID = 20;
+  string TargetAppID = 30;
+  optional uint32 StartAt = 40;
+  optional string ThresholdAmount = 50;
+  optional uint32 Invites = 60;
+  optional bool Disabled = 70;
+  optional uint32 Level = 80;
+}
+
+message AdminUpdateAppCommissionConfigResponse { AppCommissionConfig Info = 10; }
+
+message GetAppCommissionConfigsRequest {
+  string AppID = 10;
+  optional uint32 EndAt = 20;
+  int32 Offset = 30;
+  int32 Limit = 40;
+}
+
+message GetAppCommissionConfigsResponse {
+  repeated AppCommissionConfig Infos = 10;
+  uint32 Total = 20;
+}
+
+message AdminGetAppCommissionConfigsRequest {
+  string TargetAppID = 10;
+  optional uint32 EndAt = 20;
+  int32 Offset = 30;
+  int32 Limit = 40;
+}
+
+message AdminGetAppCommissionConfigsResponse {
+  repeated AppCommissionConfig Infos = 10;
+  uint32 Total = 20;
+}

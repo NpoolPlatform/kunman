@@ -1,0 +1,40 @@
+syntax = "proto3";
+
+package basetypes.v1;
+
+option go_package = "github.com/NpoolPlatform/kunman/message/basetypes/v1";
+
+enum CoinType {
+  DefaultCoinType = 0;
+  // mainnet
+  CoinTypeFileCoin = 1;
+  CoinTypeBitCoin = 2;
+  CoinTypeEthereum = 3;
+  CoinTypeUSDTerc20 = 4;
+  CoinTypeSpacemesh = 5;
+  CoinTypeSolana = 6;
+  CoinTypeUSDTtrc20 = 7;
+  CoinTypeBinanceCoin = 8;
+  CoinTypeTron = 9;
+  CoinTypeBinanceUSD = 10;
+  CoinTypeUSDCerc20 = 11;
+  CoinTypeAleo = 12;
+  CoinTypeIronFish = 13;
+  CoinTypeUSDTbep20 = 14;
+
+  // testnet
+  CoinTypeTFileCoin = 1001;
+  CoinTypeTBitCoin = 1002;
+  CoinTypeTEthereum = 1003;
+  CoinTypeTUSDTerc20 = 1004;
+  CoinTypeTSpacemesh = 1005;
+  CoinTypeTSolana = 1006;
+  CoinTypeTUSDTtrc20 = 1007;
+  CoinTypeTBinanceCoin = 1008;
+  CoinTypeTTron = 1009;
+  CoinTypeTBinanceUSD = 1010;
+  CoinTypeTUSDCerc20 = 1011;
+  CoinTypeTAleo = 1012;
+  CoinTypeTIronFish = 1013;
+  CoinTypeTUSDTbep20 = 1014;
+}

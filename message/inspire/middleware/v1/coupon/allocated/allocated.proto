@@ -1,0 +1,95 @@
+syntax = "proto3";
+
+package inspire.middleware.coupon.allocated.v1;
+
+option go_package = "github.com/NpoolPlatform/kunman/message/inspire/middleware/v1/coupon/allocated";
+
+import "basetypes/v1/conds.proto";
+import "basetypes/inspire/v1/enums.proto";
+
+message CouponReq {
+  optional uint32 ID = 9;
+  optional string EntID = 10;
+  optional string AppID = 30;
+  optional string CouponID = 40;
+  optional string UserID = 50;
+  optional bool Used = 60;
+  optional string UsedByOrderID = 70;
+  optional bool Cashable = 80;
+  optional string Extra = 90;
+}
+
+message Coupon {
+  // @inject_tag: sql:"id"
+  uint32 ID = 10;
+  // @inject_tag: sql:"ent_id"
+  string EntID = 11;
+  // @inject_tag: sql:"coupon_type"
+  string CouponTypeStr = 20;
+  basetypes.inspire.v1.CouponType CouponType = 30;
+  // @inject_tag: sql:"app_id"
+  string AppID = 40;
+  // @inject_tag: sql:"user_id"
+  string UserID = 50;
+  // @inject_tag: sql:"denomination"
+  string Denomination = 60;
+  // @inject_tag: sql:"circulation"
+  string Circulation = 70;
+  // @inject_tag: sql:"start_at"
+  uint32 StartAt = 80;
+  // @inject_tag: sql:"duration_days"
+  uint32 DurationDays = 90;
+  // @inject_tag: sql:"end_at"
+  uint32 EndAt = 100;
+  // @inject_tag: sql:"coupon_id"
+  string CouponID = 110;
+  // @inject_tag: sql:"coupon_name"
+  string CouponName = 120;
+  // @inject_tag: sql:"coupon_message"
+  string Message = 130;
+  // @inject_tag: sql:"expired"
+  bool Expired = 140;
+  // @inject_tag: sql:"valid"
+  bool Valid = 150;
+  // @inject_tag: sql:"used"
+  bool Used = 160;
+  // @inject_tag: sql:"used_at"
+  uint32 UsedAt = 170;
+  // @inject_tag: sql:"used_by_order_id"
+  string UsedByOrderID = 180;
+  // @inject_tag: sql:"threshold"
+  string Threshold = 200;
+  // @inject_tag: sql:"allocated"
+  string Allocated = 210;
+  // @inject_tag: sql:"coupon_constraint"
+  string CouponConstraintStr = 220;
+  basetypes.inspire.v1.CouponConstraint CouponConstraint = 230;
+  // @inject_tag: sql:"random"
+  bool Random = 240;
+  // @inject_tag: sql:"coupon_scope"
+  string CouponScopeStr = 250;
+  basetypes.inspire.v1.CouponScope CouponScope = 260;
+  // @inject_tag: sql:"cashable"
+  bool Cashable = 270;
+  // @inject_tag: sql:"extra"
+  string Extra = 280;
+  // @inject_tag: sql:"created_at"
+  uint32 CreatedAt = 1000;
+  // @inject_tag: sql:"updated_at"
+  uint32 UpdatedAt = 1010;
+}
+
+message Conds {
+  optional basetypes.v1.StringVal EntID = 10;
+  optional basetypes.v1.StringVal AppID = 20;
+  optional basetypes.v1.StringVal UserID = 30;
+  optional basetypes.v1.Uint32Val CouponType = 40;
+  optional basetypes.v1.StringVal CouponID = 50;
+  optional basetypes.v1.StringSliceVal CouponIDs = 51;
+  optional basetypes.v1.BoolVal Used = 60;
+  optional basetypes.v1.StringVal UsedByOrderID = 70;
+  optional basetypes.v1.StringSliceVal EntIDs = 80;
+  optional basetypes.v1.StringSliceVal UsedByOrderIDs = 90;
+  optional basetypes.v1.StringVal Extra = 100;
+}
+

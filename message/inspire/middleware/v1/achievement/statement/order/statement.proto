@@ -1,0 +1,90 @@
+syntax = "proto3";
+
+package inspire.middleware.achievement.statement.order.v1;
+
+option go_package = "github.com/NpoolPlatform/kunman/message/inspire/middleware/v1/achievement/statement/order";
+
+import "basetypes/v1/conds.proto";
+import "basetypes/inspire/v1/enums.proto";
+import "inspire/middleware/v1/achievement/statement/order/payment/statement.proto";
+
+message StatementReq {
+  optional uint32 ID = 10;
+  optional string EntID = 20;
+  optional string AppID = 30;
+  optional string UserID = 40;
+  optional string GoodID = 50;
+  optional string AppGoodID = 60;
+  optional string OrderID = 70;
+  optional string OrderUserID = 80;
+  optional string DirectContributorID = 81;
+  optional string GoodCoinTypeID = 90;
+  optional string Units = 100;
+  optional string GoodValueUSD = 110;
+  optional string PaymentAmountUSD = 120;
+  optional string CommissionAmountUSD = 130;
+  optional string AppConfigID = 140;
+  optional string CommissionConfigID = 150;
+  optional basetypes.inspire.v1.CommissionConfigType CommissionConfigType = 160;
+  repeated inspire.middleware.achievement.statement.order.payment.v1.StatementReq PaymentStatements = 170;
+}
+
+message Statement {
+  // @inject_tag: sql:"id"
+  uint32 ID = 10;
+  // @inject_tag: sql:"ent_id"
+  string EntID = 20;
+  // @inject_tag: sql:"app_id"
+  string AppID = 30;
+  // @inject_tag: sql:"user_id"
+  string UserID = 40;
+  // @inject_tag: sql:"good_id"
+  string GoodID = 50;
+  // @inject_tag: sql:"app_good_id"
+  string AppGoodID = 60;
+  // @inject_tag: sql:"order_id"
+  string OrderID = 70;
+  // @inject_tag: sql:"order_user_id"
+  string OrderUserID = 80;
+  // @inject_tag: sql:"good_coin_type_id"
+  string GoodCoinTypeID = 90;
+  // @inject_tag: sql:"units"
+  string Units = 100;
+  // @inject_tag: sql:"good_value_usd"
+  string GoodValueUSD = 110;
+  // @inject_tag: sql:"payment_amount_usd"
+  string PaymentAmountUSD = 120;
+  // @inject_tag: sql:"commission_amount_usd"
+  string CommissionAmountUSD = 130;
+  // @inject_tag: sql:"app_config_id"
+  string AppConfigID = 140;
+  // @inject_tag: sql:"commission_config_id"
+  string CommissionConfigID = 150;
+  // @inject_tag: sql:"commission_config_type"
+  string CommissionConfigTypeStr = 160;
+  basetypes.inspire.v1.CommissionConfigType CommissionConfigType = 170;
+  // @inject_tag: sql:"direct_contributor_id"
+  string DirectContributorID = 180;
+
+  // @inject_tag: sql:"created_at"
+  uint32 CreatedAt = 1000;
+  // @inject_tag: sql:"updated_at"
+  uint32 UpdatedAt = 1010;
+}
+
+message Conds {
+  optional basetypes.v1.StringVal EntID = 10;
+  optional basetypes.v1.StringVal AppID = 20;
+  optional basetypes.v1.StringVal UserID = 30;
+  optional basetypes.v1.StringSliceVal UserIDs = 40;
+  optional basetypes.v1.StringVal GoodID = 50;
+  optional basetypes.v1.StringVal AppGoodID = 60;
+  optional basetypes.v1.StringVal OrderID = 70;
+  optional basetypes.v1.StringSliceVal OrderIDs = 71;
+  optional basetypes.v1.StringVal OrderUserID = 80;
+  optional basetypes.v1.StringVal GoodCoinTypeID = 90;
+  optional basetypes.v1.StringVal AppConfigID = 100;
+  optional basetypes.v1.StringVal CommissionConfigID = 110;
+  optional basetypes.v1.Uint32Val CommissionConfigType = 120;
+}
+

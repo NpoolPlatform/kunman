@@ -1,0 +1,173 @@
+syntax = "proto3";
+
+package inspire.gateway.commission.v1;
+
+option go_package = "github.com/NpoolPlatform/kunman/message/inspire/gateway/v1/commission";
+
+import "google/api/annotations.proto";
+import "basetypes/inspire/v1/enums.proto";
+
+// Service Name
+service Gateway {
+  rpc CreateCommission(CreateCommissionRequest)
+      returns (CreateCommissionResponse) {
+    option (google.api.http) = {
+      post : "/v1/create/commission"
+      body : "*"
+    };
+  }
+  rpc CreateUserCommission(CreateUserCommissionRequest)
+      returns (CreateUserCommissionResponse) {
+    option (google.api.http) = {
+      post : "/v1/create/user/commission"
+      body : "*"
+    };
+  }
+  rpc UpdateCommission(UpdateCommissionRequest)
+      returns (UpdateCommissionResponse) {
+    option (google.api.http) = {
+      post : "/v1/update/commission"
+      body : "*"
+    };
+  }
+  rpc GetCommissions(GetCommissionsRequest) returns (GetCommissionsResponse) {
+    option (google.api.http) = {
+      post : "/v1/get/commissionhistories"
+      body : "*"
+    };
+  }
+  rpc GetAppCommissions(GetAppCommissionsRequest)
+      returns (GetAppCommissionsResponse) {
+    option (google.api.http) = {
+      post : "/v1/get/app/commissions"
+      body : "*"
+    };
+  }
+  rpc CloneCommissions(CloneCommissionsRequest)
+      returns (CloneCommissionsResponse) {
+    option (google.api.http) = {
+      post : "/v1/clone/commissions"
+      body : "*"
+    };
+  }
+  rpc CloneAppCommissions(CloneAppCommissionsRequest)
+      returns (CloneAppCommissionsResponse) {
+    option (google.api.http) = {
+      post : "/v1/clone/app/commissions"
+      body : "*"
+    };
+  }
+}
+
+message Commission {
+  uint32 ID = 7;
+  string EntID = 8;
+  string AppID = 9;
+  string UserID = 10;
+  string Username = 20;
+  string EmailAddress = 30;
+  string PhoneNO = 40;
+  string FirstName = 50;
+  string LastName = 60;
+  bool Kol = 70;
+  basetypes.inspire.v1.SettleType SettleType = 80;
+  basetypes.inspire.v1.SettleMode SettleMode = 90;
+  basetypes.inspire.v1.SettleAmountType SettleAmountType = 95;
+  basetypes.inspire.v1.SettleInterval SettleInterval = 100;
+  string GoodID = 110;
+  string GoodName = 120;
+  string CoinTypeID = 130;
+  string CoinName = 140;
+  string CoinLogo = 150;
+  string AmountOrPercent = 160;
+  string Threshold = 180;
+  uint32 StartAt = 190;
+  uint32 EndAt = 200;
+  uint32 CreatedAt = 210;
+  uint32 UpdatedAt = 220;
+  string AppGoodID = 230;
+  string AppGoodName = 240;
+}
+
+message CreateCommissionRequest {
+  string AppID = 10;
+  string UserID = 20;
+  string TargetUserID = 30;
+  string AppGoodID = 40;
+  basetypes.inspire.v1.SettleType SettleType = 50;
+  string AmountOrPercent = 60;
+  uint32 StartAt = 70;
+  basetypes.inspire.v1.SettleMode SettleMode = 80;
+  optional string Threshold = 90;
+  basetypes.inspire.v1.SettleAmountType SettleAmountType = 100;
+  basetypes.inspire.v1.SettleInterval SettleInterval = 110;
+}
+
+message CreateCommissionResponse { Commission Info = 10; }
+
+message CreateUserCommissionRequest {
+  string AppID = 10;
+  string TargetUserID = 20;
+  string AppGoodID = 30;
+  basetypes.inspire.v1.SettleType SettleType = 40;
+  string AmountOrPercent = 50;
+  uint32 StartAt = 60;
+  basetypes.inspire.v1.SettleMode SettleMode = 70;
+  optional string Threshold = 80;
+  basetypes.inspire.v1.SettleAmountType SettleAmountType = 90;
+  basetypes.inspire.v1.SettleInterval SettleInterval = 100;
+}
+
+message CreateUserCommissionResponse { Commission Info = 10; }
+
+message UpdateCommissionRequest {
+  uint32 ID = 10;
+  string EntID = 11;
+  string AppID = 20;
+  optional uint32 StartAt = 50;
+  optional string Threshold = 60;
+}
+
+message UpdateCommissionResponse { Commission Info = 10; }
+
+message GetCommissionsRequest {
+  string AppID = 10;
+  string UserID = 20;
+  int32 Offset = 40;
+  int32 Limit = 50;
+}
+
+message GetCommissionsResponse {
+  repeated Commission Infos = 10;
+  uint32 Total = 20;
+}
+
+message GetAppCommissionsRequest {
+  string AppID = 10;
+  optional uint32 EndAt = 20;
+  int32 Offset = 40;
+  int32 Limit = 50;
+}
+
+message GetAppCommissionsResponse {
+  repeated Commission Infos = 10;
+  uint32 Total = 20;
+}
+
+message CloneCommissionsRequest {
+  string AppID = 10;
+  string FromAppGoodID = 20;
+  string ToAppGoodID = 30;
+  string ScalePercent = 40;
+}
+
+message CloneCommissionsResponse {}
+
+message CloneAppCommissionsRequest {
+  string TargetAppID = 10;
+  string FromAppGoodID = 20;
+  string ToAppGoodID = 30;
+  string ScalePercent = 40;
+}
+
+message CloneAppCommissionsResponse {}

@@ -1,0 +1,75 @@
+syntax = "proto3";
+
+package miningpool.middleware.orderuser.v1;
+
+option go_package = "github.com/NpoolPlatform/kunman/message/miningpool/middleware/v1/orderuser";
+
+import "basetypes/v1/conds.proto";
+import "basetypes/miningpool/v1/enums.proto";
+
+message OrderUserReq {
+  optional uint32 ID = 10;
+  optional string EntID = 20;
+  optional string AppID = 30;
+  optional string UserID = 40;
+  optional string GoodUserID = 60;
+
+  // set to miningpool,not recorded in db
+  optional string CoinTypeID = 99;
+  optional string Proportion = 100;
+  optional string RevenueAddress = 110;
+  optional bool AutoPay = 130;
+}
+
+message OrderUser {
+  // @inject_tag: sql:"id"
+  uint32 ID = 10;
+  // @inject_tag: sql:"ent_id"
+  string EntID = 20;
+  // @inject_tag: sql:"app_id"
+  string AppID = 30;
+  // @inject_tag: sql:"user_id"
+  string UserID = 40;
+  // @inject_tag: sql:"root_user_id"
+  string RootUserID = 50;
+  // @inject_tag: sql:"good_user_id"
+  string GoodUserID = 51;
+  // @inject_tag: sql:"name"
+  string Name = 60;
+  // @inject_tag: sql:"read_page_link"
+  string ReadPageLink = 90;
+  // @inject_tag: sql:"pool_id"
+  string PoolID = 100;
+  // @inject_tag: sql:"mining_pool_type"
+  string MiningPoolTypeStr = 110;
+  basetypes.miningpool.v1.MiningPoolType MiningPoolType = 111;
+  // @inject_tag: sql:"mining_pool_name"
+  string MiningPoolName = 120;
+  // @inject_tag: sql:"mining_pool_site"
+  string MiningPoolSite = 130;
+  // @inject_tag: sql:"mining_pool_logo"
+  string MiningPoolLogo = 140;
+  // @inject_tag: sql:"created_at"
+  uint32 CreatedAt = 300;
+  // @inject_tag: sql:"updated_at"
+  uint32 UpdatedAt = 3100;
+}
+
+message Conds {
+  optional basetypes.v1.Uint32Val ID = 9;
+  optional basetypes.v1.StringVal EntID = 10;
+  optional basetypes.v1.StringVal AppID = 20;
+  optional basetypes.v1.StringVal UserID = 30;
+  optional basetypes.v1.StringVal GoodUserID = 40;
+  optional basetypes.v1.StringVal Name = 50;
+  optional basetypes.v1.StringSliceVal EntIDs = 110;
+}
+
+message BalanceInfo {
+  string Balance = 10;
+  string Paid = 20;
+  string TotalIncome = 30;
+  string YesterdayIncome = 40;
+  string EstimatedTodayIncome = 50;
+}
+

@@ -1,0 +1,75 @@
+syntax = "proto3";
+
+package miningpool.gateway.orderuser.v1;
+
+option go_package = "github.com/NpoolPlatform/kunman/message/miningpool/gateway/v1/orderuser";
+
+import "google/api/annotations.proto";
+import "basetypes/miningpool/v1/enums.proto";
+
+// Service Name
+service Gateway {
+  rpc GetOrderUser(GetOrderUserRequest) returns (GetOrderUserResponse) {
+    option (google.api.http) = {
+      post : "/v1/get/orderminingpooluser"
+      body : "*"
+    };
+  }
+
+  rpc AdminUpdateOrderUser(AdminUpdateOrderUserRequest)
+      returns (AdminUpdateOrderUserResponse) {
+    option (google.api.http) = {
+      post : "/v1/admin/update/orderminingpooluser"
+      body : "*"
+    };
+  }
+
+  rpc AdminGetOrderUserProportion(AdminGetOrderUserProportionRequest)
+      returns (AdminGetOrderUserProportionResponse) {
+    option (google.api.http) = {
+      post : "/v1/admin/get/orderminingpooluserproportion"
+      body : "*"
+    };
+  }
+}
+
+message OrderUser {
+  uint32 ID = 10;
+  string EntID = 20;
+  string AppID = 30;
+  string UserID = 40;
+  string RootUserID = 50;
+  string GoodUserID = 51;
+  string Name = 60;
+  string ReadPageLink = 90;
+  basetypes.miningpool.v1.MiningPoolType MiningPoolType = 110;
+  uint32 CreatedAt = 140;
+  uint32 UpdatedAt = 150;
+}
+
+message GetOrderUserRequest {
+  string EntID = 10;
+  string AppID = 20;
+  string UserID = 30;
+}
+
+message GetOrderUserResponse { OrderUser Info = 10; }
+
+message AdminUpdateOrderUserRequest {
+  string EntID = 10;
+  string TargetAppID = 20;
+  string TargetUserID = 30;
+  string CoinTypeID = 40;
+  string Proportion = 50;
+}
+
+message AdminUpdateOrderUserResponse {}
+
+message AdminGetOrderUserProportionRequest {
+  string EntID = 10;
+  string TargetAppID = 20;
+  string TargetUserID = 30;
+  string CoinTypeID = 40;
+}
+
+message AdminGetOrderUserProportionResponse { string Proportion = 10; }

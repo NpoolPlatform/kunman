@@ -1,0 +1,84 @@
+syntax = "proto3";
+
+package inspire.middleware.coupon.v1;
+
+option go_package = "github.com/NpoolPlatform/kunman/message/inspire/middleware/v1/coupon";
+
+import "google/api/annotations.proto";
+import "basetypes/v1/conds.proto";
+import "basetypes/inspire/v1/enums.proto";
+
+message CouponReq {
+  optional uint32 ID = 9;
+  optional string EntID = 10;
+  optional basetypes.inspire.v1.CouponType CouponType = 20;
+  optional string AppID = 30;
+  optional string Denomination = 40;
+  optional string Circulation = 50;
+  optional string IssuedBy = 60;
+  optional uint32 StartAt = 70;
+  optional uint32 EndAt = 71;
+  optional uint32 DurationDays = 80;
+  optional string Message = 90;
+  optional string Name = 100;
+  // For threshold coupon
+  optional string Threshold = 130;
+  optional basetypes.inspire.v1.CouponConstraint CouponConstraint = 150;
+  optional bool Random = 160;
+  optional basetypes.inspire.v1.CouponScope CouponScope = 170;
+  optional string CashableProbability = 180;
+}
+
+message Coupon {
+  // @inject_tag: sql:"id"
+  uint32 ID = 10;
+  // @inject_tag: sql:"ent_id"
+  string EntID = 11;
+  // @inject_tag: sql:"coupon_type"
+  string CouponTypeStr = 20;
+  basetypes.inspire.v1.CouponType CouponType = 30;
+  // @inject_tag: sql:"app_id"
+  string AppID = 40;
+  // @inject_tag: sql:"denomination"
+  string Denomination = 50;
+  // @inject_tag: sql:"circulation"
+  string Circulation = 60;
+  // @inject_tag: sql:"issued_by"
+  string IssuedBy = 70;
+  // @inject_tag: sql:"start_at"
+  uint32 StartAt = 80;
+  // @inject_tag: sql:"end_at"
+  uint32 EndAt = 81;
+  // @inject_tag: sql:"duration_days"
+  uint32 DurationDays = 90;
+  // @inject_tag: sql:"message"
+  string Message = 100;
+  // @inject_tag: sql:"name"
+  string Name = 110;
+  // @inject_tag: sql:"allocated"
+  string Allocated = 150;
+  // @inject_tag: sql:"threshold"
+  string Threshold = 140;
+  // @inject_tag: sql:"coupon_constraint"
+  string CouponConstraintStr = 160;
+  basetypes.inspire.v1.CouponConstraint CouponConstraint = 170;
+  // @inject_tag: sql:"random"
+  bool Random = 180;
+  // @inject_tag: sql:"coupon_scope"
+  string CouponScopeStr = 190;
+  basetypes.inspire.v1.CouponScope CouponScope = 200;
+  // @inject_tag: sql:"cashable_probability"
+  string CashableProbability = 210;
+  // @inject_tag: sql:"created_at"
+  uint32 CreatedAt = 1000;
+  // @inject_tag: sql:"updated_at"
+  uint32 UpdatedAt = 1010;
+}
+
+message Conds {
+  optional basetypes.v1.StringVal EntID = 10;
+  optional basetypes.v1.Uint32Val CouponType = 20;
+  optional basetypes.v1.StringVal AppID = 30;
+  optional basetypes.v1.StringSliceVal EntIDs = 50;
+}
+

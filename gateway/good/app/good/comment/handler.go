@@ -3,7 +3,7 @@ package comment
 import (
 	"context"
 
-	appmwcli "github.com/NpoolPlatform/kunman/middleware/appuser/client/app"
+	appmwcli "github.com/NpoolPlatform/kunman/middleware/appuser/app"
 	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
 	appgoodcommon "github.com/NpoolPlatform/good-gateway/pkg/app/good/common"
 	constant "github.com/NpoolPlatform/good-middleware/pkg/const"

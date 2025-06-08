@@ -1,0 +1,52 @@
+syntax = "proto3";
+
+package inspire.middleware.coupon.scope.v1;
+
+option go_package = "github.com/NpoolPlatform/kunman/message/inspire/middleware/v1/coupon/scope";
+
+import "basetypes/v1/conds.proto";
+import "basetypes/inspire/v1/enums.proto";
+
+message ScopeReq {
+  optional uint32 ID = 9;
+  optional string EntID = 10;
+  optional string GoodID = 20;
+  optional basetypes.inspire.v1.CouponScope CouponScope = 30;
+  optional string CouponID = 40;
+}
+
+message Scope {
+  // @inject_tag: sql:"id"
+  uint32 ID = 10;
+  // @inject_tag: sql:"ent_id"
+  string EntID = 11;
+  // @inject_tag: sql:"good_id"
+  string GoodID = 30;
+  // @inject_tag: sql:"coupon_id"
+  string CouponID = 40;
+  // @inject_tag: sql:"coupon_name"
+  string CouponName = 50;
+  // @inject_tag: sql:"coupon_type"
+  string CouponTypeStr = 60;
+  basetypes.inspire.v1.CouponType CouponType = 70;
+  // @inject_tag: sql:"coupon_scope"
+  string CouponScopeStr = 80;
+  basetypes.inspire.v1.CouponScope CouponScope = 90;
+  // @inject_tag: sql:"coupon_denomination"
+  string CouponDenomination = 100;
+  // @inject_tag: sql:"coupon_circulation"
+  string CouponCirculation = 110;
+  // @inject_tag: sql:"created_at"
+  uint32 CreatedAt = 1000;
+  // @inject_tag: sql:"updated_at"
+  uint32 UpdatedAt = 1010;
+}
+
+message Conds {
+  optional basetypes.v1.StringVal EntID = 10;
+  optional basetypes.v1.StringVal GoodID = 30;
+  optional basetypes.v1.StringVal CouponID = 40;
+  optional basetypes.v1.StringSliceVal CouponIDs = 41;
+  optional basetypes.v1.Uint32Val CouponScope = 50;
+}
+

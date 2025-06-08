@@ -1,0 +1,139 @@
+syntax = "proto3";
+
+package inspire.gateway.event.coin.v1;
+
+option go_package = "github.com/NpoolPlatform/kunman/message/inspire/gateway/v1/event/coin";
+
+import "google/api/annotations.proto";
+
+// Service Name
+service Gateway {
+  rpc CreateEventCoin(CreateEventCoinRequest) returns (CreateEventCoinResponse) {
+    option (google.api.http) = {
+      post : "/v1/create/eventcoininspire"
+      body : "*"
+    };
+  }
+  rpc GetEventCoins(GetEventCoinsRequest) returns (GetEventCoinsResponse) {
+    option (google.api.http) = {
+      post : "/v1/get/eventcoininspires"
+      body : "*"
+    };
+  }
+  rpc UpdateEventCoin(UpdateEventCoinRequest) returns (UpdateEventCoinResponse) {
+    option (google.api.http) = {
+      post : "/v1/update/eventcoininspire"
+      body : "*"
+    };
+  }
+  rpc AdminGetEventCoins(AdminGetEventCoinsRequest) returns (AdminGetEventCoinsResponse) {
+    option (google.api.http) = {
+      post : "/v1/admin/get/eventcoininspires"
+      body : "*"
+    };
+  }
+  rpc AdminCreateEventCoin(AdminCreateEventCoinRequest) returns (AdminCreateEventCoinResponse) {
+    option (google.api.http) = {
+      post : "/v1/admin/create/eventcoininspire"
+      body : "*"
+    };
+  }
+  rpc AdminUpdateEventCoin(AdminUpdateEventCoinRequest) returns (AdminUpdateEventCoinResponse) {
+    option (google.api.http) = {
+      post : "/v1/admin/update/eventcoininspire"
+      body : "*"
+    };
+  }
+  rpc AdminDeleteEventCoin(AdminDeleteEventCoinRequest) returns (AdminDeleteEventCoinResponse) {
+    option (google.api.http) = {
+      post : "/v1/admin/delete/eventcoininspire"
+      body : "*"
+    };
+  }
+}
+
+message EventCoin {
+  uint32 ID = 9;
+  string EntID = 10;
+  string AppID = 20;
+  string EventID = 30;
+  string CoinConfigID = 40;
+  string CoinTypeID = 50;
+  string CoinValue = 60;
+  string CoinPerUSD = 70;
+  string CoinName = 80;
+  repeated string DisplayNames = 90;
+  string CoinLogo = 100;
+  string CoinUnit = 110;
+}
+
+message CreateEventCoinRequest {
+  string AppID = 10;
+  string EventID = 20;
+  string CoinConfigID = 30;
+  string CoinValue = 40;
+  optional string CoinPerUSD = 50;
+}
+
+message CreateEventCoinResponse { EventCoin Info = 10; }
+
+message GetEventCoinsRequest {
+  string AppID = 10;
+  optional string EventID = 20;
+  int32 Offset = 30;
+  int32 Limit = 40;
+}
+
+message GetEventCoinsResponse {
+  repeated EventCoin Infos = 10;
+  uint32 Total = 20;
+}
+
+message UpdateEventCoinRequest {
+  uint32 ID = 10;
+  string EntID = 20;
+  string AppID = 30;
+  optional string CoinValue = 40;
+  optional string CoinPerUSD = 50;
+}
+
+message UpdateEventCoinResponse { EventCoin Info = 10; }
+
+message AdminGetEventCoinsRequest {
+  string TargetAppID = 10;
+  optional string EventID = 20;
+  int32 Offset = 30;
+  int32 Limit = 40;
+}
+
+message AdminGetEventCoinsResponse {
+  repeated EventCoin Infos = 10;
+  uint32 Total = 20;
+}
+
+message AdminCreateEventCoinRequest {
+  string TargetAppID = 10;
+  string EventID = 20;
+  string CoinConfigID = 30;
+  string CoinValue = 40;
+  optional string CoinPerUSD = 50;
+}
+
+message AdminCreateEventCoinResponse { EventCoin Info = 10; }
+
+message AdminUpdateEventCoinRequest {
+  uint32 ID = 10;
+  string EntID = 20;
+  string TargetAppID = 30;
+  optional string CoinValue = 40;
+  optional string CoinPerUSD = 50;
+}
+
+message AdminUpdateEventCoinResponse { EventCoin Info = 10; }
+
+message AdminDeleteEventCoinRequest {
+  uint32 ID = 10;
+  string EntID = 20;
+}
+
+message AdminDeleteEventCoinResponse { EventCoin Info = 10; }

@@ -1,0 +1,53 @@
+syntax = "proto3";
+
+package inspire.middleware.achievement.good.coin.v1;
+
+option go_package = "github.com/NpoolPlatform/kunman/message/inspire/middleware/v1/achievement/good/coin";
+
+import "basetypes/v1/conds.proto";
+
+message AchievementReq {
+  optional uint32 ID = 10;
+  optional string EntID = 20;
+  optional string GoodCoinTypeID = 50;
+}
+
+message Achievement {
+  // @inject_tag: sql:"id"
+  uint32 ID = 10;
+  // @inject_tag: sql:"ent_id"
+  string EntID = 11;
+  // @inject_tag: sql:"app_id"
+  string AppID = 20;
+  // @inject_tag: sql:"user_id"
+  string UserID = 30;
+  // @inject_tag: sql:"good_coin_type_id"
+  string GoodCoinTypeID = 40;
+  // Payment amount in USD
+  // @inject_tag: sql:"total_amount_usd"
+  string TotalAmountUSD = 60;
+  // @inject_tag: sql:"self_amount_usd"
+  string SelfAmountUSD = 70;
+  // @inject_tag: sql:"total_units"
+  string TotalUnits = 80;
+  // @inject_tag: sql:"self_units"
+  string SelfUnits = 90;
+  // Commission amount in USD
+  // @inject_tag: sql:"total_commission_usd"
+  string TotalCommissionUSD = 100;
+  // @inject_tag: sql:"self_commission_usd"
+  string SelfCommissionUSD = 110;
+  // @inject_tag: sql:"created_at"
+  uint32 CreatedAt = 1000;
+  // @inject_tag: sql:"updated_at"
+  uint32 UpdatedAt = 1010;
+}
+
+message Conds {
+  optional basetypes.v1.StringVal EntID = 10;
+  optional basetypes.v1.StringVal AppID = 20;
+  optional basetypes.v1.StringVal UserID = 30;
+  optional basetypes.v1.StringSliceVal UserIDs = 40;
+  optional basetypes.v1.StringVal GoodCoinTypeID = 50;
+}
+

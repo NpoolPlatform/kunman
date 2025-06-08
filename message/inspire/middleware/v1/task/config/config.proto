@@ -1,0 +1,81 @@
+syntax = "proto3";
+
+package inspire.middleware.task.config.v1;
+
+option go_package = "github.com/NpoolPlatform/kunman/message/inspire/middleware/v1/task/config";
+
+import "basetypes/v1/conds.proto";
+import "basetypes/inspire/v1/enums.proto";
+
+message TaskConfigReq {
+    optional uint32 ID           = 10;
+    optional string EntID        = 20;
+    optional string AppID        = 30;
+    optional string EventID      = 40;
+    optional basetypes.inspire.v1.TaskType TaskType = 50;
+    optional string Name             = 60;
+    optional string TaskDesc         = 70;
+    optional string StepGuide        = 80;
+    optional string RecommendMessage = 90;
+    optional uint32 Index            = 100;
+    optional string LastTaskID       = 110;
+    optional uint32 MaxRewardCount   = 120;
+    optional uint32 CooldownSecond   = 130;
+    optional bool IntervalReset = 140;
+    optional uint32 IntervalResetSecond = 150;
+    optional uint32 MaxIntervalRewardCount = 160;
+}
+
+message TaskConfig {
+    // @inject_tag: sql:"id"
+    uint32          ID               = 10;
+    // @inject_tag: sql:"ent_id"
+    string          EntID            = 20;
+    // @inject_tag: sql:"app_id"
+    string          AppID            = 30;
+    // @inject_tag: sql:"event_id"
+    string          EventID          = 40;
+    // @inject_tag: sql:"task_type"
+    string          TaskTypeStr      = 50;
+    basetypes.inspire.v1.TaskType TaskType = 60;
+    // @inject_tag: sql:"name"
+    string          Name             = 70;
+    // @inject_tag: sql:"task_desc"
+    string          TaskDesc         = 80;
+    // @inject_tag: sql:"step_guide"
+    string          StepGuide        = 90;
+    // @inject_tag: sql:"recommend_message"
+    string          RecommendMessage = 100;
+    // @inject_tag: sql:"index"
+    uint32          Index            = 110;
+    // @inject_tag: sql:"last_task_id"
+    string          LastTaskID       = 120;
+    // @inject_tag: sql:"max_reward_count"
+    uint32          MaxRewardCount   = 130;
+    // @inject_tag: sql:"cooldown_second"
+    uint32          CooldownSecond   = 140;
+    // @inject_tag: sql:"interval_reset"
+    bool IntervalReset = 150;
+    // @inject_tag: sql:"interval_reset_second"
+    uint32 IntervalResetSecond = 160;
+    // @inject_tag: sql:"max_interval_reward_count"
+    uint32 MaxIntervalRewardCount = 170;
+    // @inject_tag: sql:"created_at"
+    uint32          CreatedAt        = 1000;
+    // @inject_tag: sql:"updated_at"
+    uint32          UpdatedAt        = 1010;
+}
+
+message Conds {
+    optional basetypes.v1.StringVal  EntID         = 10;
+    optional basetypes.v1.Uint32Val  TaskType      = 20;
+    optional basetypes.v1.StringVal  AppID         = 30;
+    optional basetypes.v1.StringVal  Name          = 40;
+    optional basetypes.v1.StringSliceVal EntIDs    = 50;
+    optional basetypes.v1.Uint32Val  Index         = 60;
+    optional basetypes.v1.StringVal  LastTaskID    = 70;
+    optional basetypes.v1.StringVal  EventID       = 80;
+    optional basetypes.v1.Uint32Val  ID            = 90;
+    optional basetypes.v1.BoolVal IntervalReset = 100;
+}
+

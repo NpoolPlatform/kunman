@@ -1,0 +1,51 @@
+syntax = "proto3";
+
+package inspire.middleware.achievement.user.v1;
+
+option go_package = "github.com/NpoolPlatform/kunman/message/inspire/middleware/v1/achievement/user";
+
+import "basetypes/v1/conds.proto";
+
+message AchievementUserReq {
+  optional uint32 ID = 10;
+  optional string EntID = 11;
+}
+
+message AchievementUser {
+  // @inject_tag: sql:"id"
+  uint32 ID = 10;
+  // @inject_tag: sql:"ent_id"
+  string EntID = 20;
+  // @inject_tag: sql:"app_id"
+  string AppID = 30;
+  // @inject_tag: sql:"user_id"
+  string UserID = 40;
+  // Commission amount in USD
+  // @inject_tag: sql:"total_commission"
+  string TotalCommission = 50;
+  // @inject_tag: sql:"self_commission"
+  string SelfCommission = 60;
+  // @inject_tag: sql:"direct_invitees"
+  uint32 DirectInvitees = 70;
+  // @inject_tag: sql:"indirect_invitees"
+  uint32 IndirectInvitees = 80;
+  // @inject_tag: sql:"direct_consume_amount"
+  string DirectConsumeAmount = 90;
+  // @inject_tag: sql:"invitee_consume_amount"
+  string InviteeConsumeAmount = 100;
+
+  // @inject_tag: sql:"created_at"
+  uint32 CreatedAt = 1000;
+  // @inject_tag: sql:"updated_at"
+  uint32 UpdatedAt = 1010;
+  // @inject_tag: sql:"deleted_at"
+  uint32 DeletedAt = 1020;
+}
+
+message Conds {
+  optional basetypes.v1.StringVal EntID = 10;
+  optional basetypes.v1.StringVal AppID = 20;
+  optional basetypes.v1.StringVal UserID = 30;
+  optional basetypes.v1.StringSliceVal UserIDs = 40;
+}
+

@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+package inspire.middleware.calculate.v1;
+
+option go_package = "github.com/NpoolPlatform/kunman/message/inspire/middleware/v1/calculate";
+
+message Payment {
+  string CoinTypeID = 10;
+  string Amount = 20;
+}
+

@@ -4,8 +4,8 @@ import (
 	"context"
 	"fmt"
 
-	appmwcli "github.com/NpoolPlatform/kunman/middleware/appuser/client/app"
-	usermwcli "github.com/NpoolPlatform/kunman/middleware/appuser/client/user"
+	appmwcli "github.com/NpoolPlatform/kunman/middleware/appuser/app"
+	usermwcli "github.com/NpoolPlatform/kunman/middleware/appuser/user"
 )
 
 type AppUserCheckHandler struct {
