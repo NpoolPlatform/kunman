@@ -5,11 +5,11 @@ import (
 	"encoding/hex"
 	"fmt"
 
-	"github.com/NpoolPlatform/kunman/middleware/appuser/aes"
 	appoauththirdpartycrud "github.com/NpoolPlatform/kunman/middleware/appuser/crud/oauth/appoauththirdparty"
 	"github.com/NpoolPlatform/kunman/middleware/appuser/db"
-	"github.com/NpoolPlatform/kunman/middleware/appuser/db/ent"
-	entappoauththirdparty "github.com/NpoolPlatform/kunman/middleware/appuser/db/ent/appoauththirdparty"
+	ent "github.com/NpoolPlatform/kunman/middleware/appuser/db/ent/generated"
+	entappoauththirdparty "github.com/NpoolPlatform/kunman/middleware/appuser/db/ent/generated/appoauththirdparty"
+	"github.com/NpoolPlatform/kunman/pkg/aes"
 
 	npool "github.com/NpoolPlatform/kunman/message/appuser/middleware/v1/oauth/appoauththirdparty"
 )

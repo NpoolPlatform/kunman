@@ -4,11 +4,11 @@ import (
 	"context"
 	"fmt"
 
+	npool "github.com/NpoolPlatform/kunman/message/appuser/middleware/v1/user/login/history"
 	historycrud "github.com/NpoolPlatform/kunman/middleware/appuser/crud/user/login/history"
 	"github.com/NpoolPlatform/kunman/middleware/appuser/db"
-	"github.com/NpoolPlatform/kunman/middleware/appuser/db/ent/generated"
+	ent "github.com/NpoolPlatform/kunman/middleware/appuser/db/ent/generated"
 	user1 "github.com/NpoolPlatform/kunman/middleware/appuser/user"
-	npool "github.com/NpoolPlatform/kunman/message/appuser/middleware/v1/user/login/history"
 
 	"github.com/google/uuid"
 )

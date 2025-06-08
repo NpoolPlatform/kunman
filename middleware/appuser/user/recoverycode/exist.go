@@ -4,7 +4,7 @@ import (
 	"context"
 
 	"github.com/NpoolPlatform/kunman/middleware/appuser/db"
-	"github.com/NpoolPlatform/kunman/middleware/appuser/db/ent/generated"
+	ent "github.com/NpoolPlatform/kunman/middleware/appuser/db/ent/generated"
 
 	recoverycodecrud "github.com/NpoolPlatform/kunman/middleware/appuser/crud/user/recoverycode"
 )

@@ -7,12 +7,12 @@ import (
 	"entgo.io/ent/dialect/sql"
 
 	"github.com/NpoolPlatform/kunman/middleware/appuser/db"
-	"github.com/NpoolPlatform/kunman/middleware/appuser/db/ent/generated"
+	ent "github.com/NpoolPlatform/kunman/middleware/appuser/db/ent/generated"
 
+	npool "github.com/NpoolPlatform/kunman/message/appuser/middleware/v1/user/recoverycode"
 	recoverycodecrud "github.com/NpoolPlatform/kunman/middleware/appuser/crud/user/recoverycode"
 	entappuser "github.com/NpoolPlatform/kunman/middleware/appuser/db/ent/generated/appuser"
 	entrecoverycode "github.com/NpoolPlatform/kunman/middleware/appuser/db/ent/generated/recoverycode"
-	npool "github.com/NpoolPlatform/kunman/message/appuser/middleware/v1/user/recoverycode"
 )
 
 type queryHandler struct {

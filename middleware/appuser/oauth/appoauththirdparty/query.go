@@ -7,15 +7,15 @@ import (
 
 	"entgo.io/ent/dialect/sql"
 
-	"github.com/NpoolPlatform/kunman/middleware/appuser/aes"
-	"github.com/NpoolPlatform/kunman/middleware/appuser/db"
-	"github.com/NpoolPlatform/kunman/middleware/appuser/db/ent"
-	entappoauththirdparty "github.com/NpoolPlatform/kunman/middleware/appuser/db/ent/appoauththirdparty"
-	entoauththirdparty "github.com/NpoolPlatform/kunman/middleware/appuser/db/ent/oauththirdparty"
 	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
+	"github.com/NpoolPlatform/kunman/middleware/appuser/db"
+	ent "github.com/NpoolPlatform/kunman/middleware/appuser/db/ent/generated"
+	entappoauththirdparty "github.com/NpoolPlatform/kunman/middleware/appuser/db/ent/generated/appoauththirdparty"
+	entoauththirdparty "github.com/NpoolPlatform/kunman/middleware/appuser/db/ent/generated/oauththirdparty"
+	"github.com/NpoolPlatform/kunman/pkg/aes"
 
-	appoauththirdpartycrud "github.com/NpoolPlatform/kunman/middleware/appuser/crud/oauth/appoauththirdparty"
 	npool "github.com/NpoolPlatform/kunman/message/appuser/middleware/v1/oauth/appoauththirdparty"
+	appoauththirdpartycrud "github.com/NpoolPlatform/kunman/middleware/appuser/crud/oauth/appoauththirdparty"
 )
 
 type queryHandler struct {

@@ -4,7 +4,7 @@ import (
 	"context"
 	"fmt"
 
-	constant "github.com/NpoolPlatform/kunman/middleware/appuser/const"
+	constant "github.com/NpoolPlatform/kunman/pkg/const"
 	usercrud "github.com/NpoolPlatform/kunman/middleware/appuser/crud/role/user"
 	app "github.com/NpoolPlatform/kunman/middleware/appuser/app"
 	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"

@@ -4,13 +4,13 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/NpoolPlatform/kunman/middleware/appuser/db"
-	"github.com/NpoolPlatform/kunman/middleware/appuser/db/ent"
-	entoauththirdparty "github.com/NpoolPlatform/kunman/middleware/appuser/db/ent/oauththirdparty"
 	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
+	"github.com/NpoolPlatform/kunman/middleware/appuser/db"
+	ent "github.com/NpoolPlatform/kunman/middleware/appuser/db/ent/generated"
+	entoauththirdparty "github.com/NpoolPlatform/kunman/middleware/appuser/db/ent/generated/oauththirdparty"
 
-	oauththirdpartycrud "github.com/NpoolPlatform/kunman/middleware/appuser/crud/oauth/oauththirdparty"
 	npool "github.com/NpoolPlatform/kunman/message/appuser/middleware/v1/oauth/oauththirdparty"
+	oauththirdpartycrud "github.com/NpoolPlatform/kunman/middleware/appuser/crud/oauth/oauththirdparty"
 )
 
 type queryHandler struct {

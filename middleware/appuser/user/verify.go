@@ -6,8 +6,8 @@ import (
 	"fmt"
 
 	"github.com/NpoolPlatform/kunman/middleware/appuser/db"
-	"github.com/NpoolPlatform/kunman/middleware/appuser/db/ent/generated"
-	"github.com/NpoolPlatform/kunman/middleware/appuser/encrypt"
+	ent "github.com/NpoolPlatform/kunman/middleware/appuser/db/ent/generated"
+	"github.com/NpoolPlatform/kunman/pkg/encrypt"
 
 	entappuser "github.com/NpoolPlatform/kunman/middleware/appuser/db/ent/generated/appuser"
 	entappusersecret "github.com/NpoolPlatform/kunman/middleware/appuser/db/ent/generated/appusersecret"

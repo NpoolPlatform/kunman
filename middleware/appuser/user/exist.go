@@ -7,7 +7,7 @@ import (
 	"entgo.io/ent/dialect/sql"
 	usercrud "github.com/NpoolPlatform/kunman/middleware/appuser/crud/user"
 	"github.com/NpoolPlatform/kunman/middleware/appuser/db"
-	"github.com/NpoolPlatform/kunman/middleware/appuser/db/ent/generated"
+	ent "github.com/NpoolPlatform/kunman/middleware/appuser/db/ent/generated"
 	entappuser "github.com/NpoolPlatform/kunman/middleware/appuser/db/ent/generated/appuser"
 	entappuserthirdparty "github.com/NpoolPlatform/kunman/middleware/appuser/db/ent/generated/appuserthirdparty"
 
@@ -110,7 +110,8 @@ func (h *Handler) ExistUser(ctx context.Context) (exist bool, err error) {
 		if err := handler.queryJoin(); err != nil {
 			return err
 		}
-		exist, err = handler.stm.Exist(_ctx)
+		count, err := handler.stm.Limit(1).Count(_ctx)
+		exist = count > 0
 		return err
 	})
 	return exist, err
@@ -131,7 +132,8 @@ func (h *Handler) ExistUserConds(ctx context.Context) (exist bool, err error) {
 		if err := handler.queryJoin(); err != nil {
 			return err
 		}
-		exist, err = handler.stm.Exist(_ctx)
+		count, err := handler.stm.Limit(1).Count(_ctx)
+		exist = count > 0
 		return err
 	})
 	return exist, err

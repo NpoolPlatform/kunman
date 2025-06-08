@@ -7,8 +7,8 @@ import (
 	"time"
 
 	"github.com/NpoolPlatform/kunman/middleware/appuser/db"
-	"github.com/NpoolPlatform/kunman/middleware/appuser/db/ent/generated"
-	"github.com/NpoolPlatform/kunman/middleware/appuser/encrypt"
+	ent "github.com/NpoolPlatform/kunman/middleware/appuser/db/ent/generated"
+	"github.com/NpoolPlatform/kunman/pkg/encrypt"
 	"github.com/google/uuid"
 
 	npool "github.com/NpoolPlatform/kunman/message/appuser/middleware/v1/user"

@@ -4,10 +4,10 @@ import (
 	"context"
 
 	"github.com/NpoolPlatform/kunman/middleware/appuser/db"
-	"github.com/NpoolPlatform/kunman/middleware/appuser/db/ent"
+	ent "github.com/NpoolPlatform/kunman/middleware/appuser/db/ent/generated"
 
-	subscribercrud "github.com/NpoolPlatform/kunman/middleware/appuser/crud/subscriber"
 	npool "github.com/NpoolPlatform/kunman/message/appuser/middleware/v1/subscriber"
+	subscribercrud "github.com/NpoolPlatform/kunman/middleware/appuser/crud/subscriber"
 )
 
 func (h *Handler) UpdateSubscriber(ctx context.Context) (*npool.Subscriber, error) {

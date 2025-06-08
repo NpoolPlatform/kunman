@@ -2,16 +2,12 @@ package subscriber
 
 import (
 	"context"
-	"fmt"
 
+	npool "github.com/NpoolPlatform/kunman/message/appuser/middleware/v1/subscriber"
 	subscribercrud "github.com/NpoolPlatform/kunman/middleware/appuser/crud/subscriber"
 	"github.com/NpoolPlatform/kunman/middleware/appuser/db"
-	"github.com/NpoolPlatform/kunman/middleware/appuser/db/ent"
+	ent "github.com/NpoolPlatform/kunman/middleware/appuser/db/ent/generated"
 	cruder "github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
-	npool "github.com/NpoolPlatform/kunman/message/appuser/middleware/v1/subscriber"
-
-	redis2 "github.com/NpoolPlatform/kunman/framework/redis"
-	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 
 	"github.com/google/uuid"
 )
@@ -22,13 +18,7 @@ func (h *Handler) CreateSubscriber(ctx context.Context) (*npool.Subscriber, erro
 		h.EntID = &id
 	}
 
-	key := fmt.Sprintf("%v:%v:%v", basetypes.Prefix_PrefixCreateSubscriber, h.AppID, *h.EmailAddress)
-	if err := redis2.TryLock(key, 0); err != nil {
-		return nil, err
-	}
-	defer func() {
-		_ = redis2.Unlock(key)
-	}()
+	// TODO: deduplicate
 
 	err := db.WithClient(ctx, func(_ctx context.Context, cli *ent.Client) error {
 		stm, err := subscribercrud.SetQueryConds(

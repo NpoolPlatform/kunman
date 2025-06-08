@@ -6,14 +6,14 @@ import (
 
 	"entgo.io/ent/dialect/sql"
 	"github.com/NpoolPlatform/kunman/middleware/appuser/db"
-	"github.com/NpoolPlatform/kunman/middleware/appuser/db/ent/generated"
+	ent "github.com/NpoolPlatform/kunman/middleware/appuser/db/ent/generated"
 
+	npool "github.com/NpoolPlatform/kunman/message/appuser/middleware/v1/authing/history"
 	historycrud "github.com/NpoolPlatform/kunman/middleware/appuser/crud/authing/history"
 	entapp "github.com/NpoolPlatform/kunman/middleware/appuser/db/ent/generated/app"
 	entappuser "github.com/NpoolPlatform/kunman/middleware/appuser/db/ent/generated/appuser"
 	entauth "github.com/NpoolPlatform/kunman/middleware/appuser/db/ent/generated/auth"
 	entauthhistory "github.com/NpoolPlatform/kunman/middleware/appuser/db/ent/generated/authhistory"
-	npool "github.com/NpoolPlatform/kunman/message/appuser/middleware/v1/authing/history"
 )
 
 type queryHistoryHandler struct {

@@ -6,13 +6,13 @@ import (
 
 	"entgo.io/ent/dialect/sql"
 	"github.com/NpoolPlatform/kunman/middleware/appuser/db"
-	"github.com/NpoolPlatform/kunman/middleware/appuser/db/ent/generated"
+	ent "github.com/NpoolPlatform/kunman/middleware/appuser/db/ent/generated"
 
+	npool "github.com/NpoolPlatform/kunman/message/appuser/middleware/v1/role/user"
 	entapp "github.com/NpoolPlatform/kunman/middleware/appuser/db/ent/generated/app"
 	entapprole "github.com/NpoolPlatform/kunman/middleware/appuser/db/ent/generated/approle"
 	entapproleuser "github.com/NpoolPlatform/kunman/middleware/appuser/db/ent/generated/approleuser"
 	entappuser "github.com/NpoolPlatform/kunman/middleware/appuser/db/ent/generated/appuser"
-	npool "github.com/NpoolPlatform/kunman/message/appuser/middleware/v1/role/user"
 
 	roleusercrud "github.com/NpoolPlatform/kunman/middleware/appuser/crud/role/user"
 )

@@ -4,7 +4,7 @@ import (
 	"context"
 	"fmt"
 
-	constant "github.com/NpoolPlatform/kunman/middleware/appuser/const"
+	constant "github.com/NpoolPlatform/kunman/pkg/const"
 	thidpartycrud "github.com/NpoolPlatform/kunman/middleware/appuser/crud/oauth/oauththirdparty"
 	npool "github.com/NpoolPlatform/kunman/message/appuser/middleware/v1/oauth/oauththirdparty"
 	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"

@@ -7,8 +7,8 @@ import (
 
 	appoauththirdpartycrud "github.com/NpoolPlatform/kunman/middleware/appuser/crud/oauth/appoauththirdparty"
 	"github.com/NpoolPlatform/kunman/middleware/appuser/db"
-	"github.com/NpoolPlatform/kunman/middleware/appuser/db/ent"
-	entappoauththirdparty "github.com/NpoolPlatform/kunman/middleware/appuser/db/ent/appoauththirdparty"
+	ent "github.com/NpoolPlatform/kunman/middleware/appuser/db/ent/generated"
+	entappoauththirdparty "github.com/NpoolPlatform/kunman/middleware/appuser/db/ent/generated/appoauththirdparty"
 
 	npool "github.com/NpoolPlatform/kunman/message/appuser/middleware/v1/oauth/appoauththirdparty"
 )

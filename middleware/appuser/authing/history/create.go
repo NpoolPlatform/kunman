@@ -5,14 +5,14 @@ import (
 	"fmt"
 
 	"github.com/NpoolPlatform/kunman/middleware/appuser/db"
-	"github.com/NpoolPlatform/kunman/middleware/appuser/db/ent/generated"
+	ent "github.com/NpoolPlatform/kunman/middleware/appuser/db/ent/generated"
 
-	historycrud "github.com/NpoolPlatform/kunman/middleware/appuser/crud/authing/history"
-	usermw "github.com/NpoolPlatform/kunman/middleware/appuser/user"
-	cruder "github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 	npool "github.com/NpoolPlatform/kunman/message/appuser/middleware/v1/authing/history"
 	usermwpb "github.com/NpoolPlatform/kunman/message/appuser/middleware/v1/user"
 	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
+	historycrud "github.com/NpoolPlatform/kunman/middleware/appuser/crud/authing/history"
+	usermw "github.com/NpoolPlatform/kunman/middleware/appuser/user"
+	cruder "github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 
 	"github.com/google/uuid"
 )

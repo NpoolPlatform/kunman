@@ -5,10 +5,10 @@ import (
 	"time"
 
 	"github.com/NpoolPlatform/kunman/middleware/appuser/db"
-	"github.com/NpoolPlatform/kunman/middleware/appuser/db/ent"
+	ent "github.com/NpoolPlatform/kunman/middleware/appuser/db/ent/generated"
 
-	kyccrud "github.com/NpoolPlatform/kunman/middleware/appuser/crud/kyc"
 	npool "github.com/NpoolPlatform/kunman/message/appuser/middleware/v1/kyc"
+	kyccrud "github.com/NpoolPlatform/kunman/middleware/appuser/crud/kyc"
 )
 
 func (h *Handler) DeleteKyc(ctx context.Context) (*npool.Kyc, error) {

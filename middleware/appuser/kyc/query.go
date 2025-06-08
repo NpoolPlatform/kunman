@@ -7,11 +7,11 @@ import (
 	"entgo.io/ent/dialect/sql"
 	kyccrud "github.com/NpoolPlatform/kunman/middleware/appuser/crud/kyc"
 	"github.com/NpoolPlatform/kunman/middleware/appuser/db"
-	"github.com/NpoolPlatform/kunman/middleware/appuser/db/ent"
+	ent "github.com/NpoolPlatform/kunman/middleware/appuser/db/ent/generated"
 
-	entapp "github.com/NpoolPlatform/kunman/middleware/appuser/db/ent/app"
-	entappuser "github.com/NpoolPlatform/kunman/middleware/appuser/db/ent/appuser"
-	entkyc "github.com/NpoolPlatform/kunman/middleware/appuser/db/ent/kyc"
+	entapp "github.com/NpoolPlatform/kunman/middleware/appuser/db/ent/generated/app"
+	entappuser "github.com/NpoolPlatform/kunman/middleware/appuser/db/ent/generated/appuser"
+	entkyc "github.com/NpoolPlatform/kunman/middleware/appuser/db/ent/generated/kyc"
 
 	npool "github.com/NpoolPlatform/kunman/message/appuser/middleware/v1/kyc"
 	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"

@@ -4,14 +4,12 @@ import (
 	"context"
 	"fmt"
 
+	npool "github.com/NpoolPlatform/kunman/message/appuser/middleware/v1/kyc"
 	kyccrud "github.com/NpoolPlatform/kunman/middleware/appuser/crud/kyc"
 	"github.com/NpoolPlatform/kunman/middleware/appuser/db"
-	"github.com/NpoolPlatform/kunman/middleware/appuser/db/ent"
+	ent "github.com/NpoolPlatform/kunman/middleware/appuser/db/ent/generated"
 	user1 "github.com/NpoolPlatform/kunman/middleware/appuser/user"
-	redis2 "github.com/NpoolPlatform/kunman/framework/redis"
 	cruder "github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
-	npool "github.com/NpoolPlatform/kunman/message/appuser/middleware/v1/kyc"
-	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 
 	"github.com/google/uuid"
 )
@@ -22,13 +20,7 @@ func (h *Handler) CreateKyc(ctx context.Context) (*npool.Kyc, error) {
 		h.EntID = &id
 	}
 
-	key := fmt.Sprintf("%v:%v:%v", basetypes.Prefix_PrefixCreateUser, *h.AppID, *h.UserID)
-	if err := redis2.TryLock(key, 0); err != nil {
-		return nil, err
-	}
-	defer func() {
-		_ = redis2.Unlock(key)
-	}()
+	// TODO: deduplicate
 
 	userID := h.UserID.String()
 	appID := h.AppID.String()

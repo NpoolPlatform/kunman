@@ -8,8 +8,10 @@ import (
 	"entgo.io/ent/dialect/sql"
 
 	"github.com/NpoolPlatform/kunman/middleware/appuser/db"
-	"github.com/NpoolPlatform/kunman/middleware/appuser/db/ent/generated"
+	ent "github.com/NpoolPlatform/kunman/middleware/appuser/db/ent/generated"
 
+	npool "github.com/NpoolPlatform/kunman/message/appuser/middleware/v1/user"
+	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	usercrud "github.com/NpoolPlatform/kunman/middleware/appuser/crud/user"
 	entapp "github.com/NpoolPlatform/kunman/middleware/appuser/db/ent/generated/app"
 	entapprole "github.com/NpoolPlatform/kunman/middleware/appuser/db/ent/generated/approle"
@@ -21,8 +23,6 @@ import (
 	entappuserthirdparty "github.com/NpoolPlatform/kunman/middleware/appuser/db/ent/generated/appuserthirdparty"
 	entbanappuser "github.com/NpoolPlatform/kunman/middleware/appuser/db/ent/generated/banappuser"
 	entkyc "github.com/NpoolPlatform/kunman/middleware/appuser/db/ent/generated/kyc"
-	npool "github.com/NpoolPlatform/kunman/message/appuser/middleware/v1/user"
-	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 
 	"github.com/google/uuid"
 )

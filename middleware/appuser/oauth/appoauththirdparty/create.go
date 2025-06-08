@@ -5,28 +5,20 @@ import (
 	"encoding/hex"
 	"fmt"
 
-	"github.com/NpoolPlatform/kunman/middleware/appuser/aes"
 	"github.com/NpoolPlatform/kunman/middleware/appuser/db"
-	"github.com/NpoolPlatform/kunman/middleware/appuser/db/ent"
+	ent "github.com/NpoolPlatform/kunman/middleware/appuser/db/ent/generated"
+	"github.com/NpoolPlatform/kunman/pkg/aes"
 
-	appoauththirdpartycrud "github.com/NpoolPlatform/kunman/middleware/appuser/crud/oauth/appoauththirdparty"
-	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 	npool "github.com/NpoolPlatform/kunman/message/appuser/middleware/v1/oauth/appoauththirdparty"
 	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
-
-	redis2 "github.com/NpoolPlatform/kunman/framework/redis"
+	appoauththirdpartycrud "github.com/NpoolPlatform/kunman/middleware/appuser/crud/oauth/appoauththirdparty"
+	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 
 	"github.com/google/uuid"
 )
 
 func (h *Handler) CreateOAuthThirdParty(ctx context.Context) (*npool.OAuthThirdParty, error) {
-	key := fmt.Sprintf("%v:%v:%v", basetypes.Prefix_PrefixCreateAppOAuthThirdParty, h.AppID, h.ThirdPartyID)
-	if err := redis2.TryLock(key, 0); err != nil {
-		return nil, err
-	}
-	defer func() {
-		_ = redis2.Unlock(key)
-	}()
+	// TODO: deduplicate
 
 	oauthHandler, err := NewHandler(
 		ctx,

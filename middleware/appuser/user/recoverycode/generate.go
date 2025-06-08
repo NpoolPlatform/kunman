@@ -8,12 +8,10 @@ import (
 	"github.com/AmirSoleimani/VoucherCodeGenerator/vcgen"
 	recoverycodecrud "github.com/NpoolPlatform/kunman/middleware/appuser/crud/user/recoverycode"
 	"github.com/NpoolPlatform/kunman/middleware/appuser/db"
-	"github.com/NpoolPlatform/kunman/middleware/appuser/db/ent/generated"
+	ent "github.com/NpoolPlatform/kunman/middleware/appuser/db/ent/generated"
 	entappuser "github.com/NpoolPlatform/kunman/middleware/appuser/db/ent/generated/appuser"
 	entrecoverycode "github.com/NpoolPlatform/kunman/middleware/appuser/db/ent/generated/recoverycode"
-	redis2 "github.com/NpoolPlatform/kunman/framework/redis"
 	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
-	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	"github.com/google/uuid"
 
 	npool "github.com/NpoolPlatform/kunman/message/appuser/middleware/v1/user/recoverycode"
@@ -68,13 +66,7 @@ func (h *Handler) getUser(ctx context.Context) error {
 }
 
 func (h *generateHandler) createCode(ctx context.Context, tx *ent.Tx, code string) error {
-	key := fmt.Sprintf("%v:%v:%v", basetypes.Prefix_PrefixCreateRecoveryCode, *h.AppID, code)
-	if err := redis2.TryLock(key, 0); err != nil {
-		return err
-	}
-	defer func() {
-		_ = redis2.Unlock(key)
-	}()
+	// TODO: deduplicate
 
 	exist, err := tx.
 		RecoveryCode.
@@ -128,13 +120,7 @@ func (h *Handler) GenerateRecoveryCodes(ctx context.Context) ([]*npool.RecoveryC
 		return nil, err
 	}
 
-	key := fmt.Sprintf("%v:%v:%v", basetypes.Prefix_PrefixCreateRecoveryCode, *h.AppID, *h.UserID)
-	if err := redis2.TryLock(key, 0); err != nil {
-		return nil, err
-	}
-	defer func() {
-		_ = redis2.Unlock(key)
-	}()
+	// TODO: deduplicate
 
 	codes := []string{}
 	for {
@@ -147,17 +133,12 @@ func (h *Handler) GenerateRecoveryCodes(ctx context.Context) ([]*npool.RecoveryC
 			Code:  &cruder.Cond{Op: cruder.EQ, Val: code},
 		}
 
-		key1 := fmt.Sprintf("%v:%v:%v", basetypes.Prefix_PrefixCreateRecoveryCode, *h.AppID, code)
-		if err := redis2.TryLock(key1, 0); err != nil {
-			return nil, err
-		}
+		// TODO: deduplicate
 
 		exist, err := h.ExistRecoveryCodeConds(ctx)
 		if err != nil {
-			_ = redis2.Unlock(key1)
 			return nil, err
 		}
-		_ = redis2.Unlock(key1)
 
 		if exist {
 			continue

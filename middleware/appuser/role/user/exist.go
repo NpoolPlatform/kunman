@@ -5,7 +5,7 @@ import (
 
 	"entgo.io/ent/dialect/sql"
 	"github.com/NpoolPlatform/kunman/middleware/appuser/db"
-	"github.com/NpoolPlatform/kunman/middleware/appuser/db/ent/generated"
+	ent "github.com/NpoolPlatform/kunman/middleware/appuser/db/ent/generated"
 
 	entapprole "github.com/NpoolPlatform/kunman/middleware/appuser/db/ent/generated/approle"
 	entapproleuser "github.com/NpoolPlatform/kunman/middleware/appuser/db/ent/generated/approleuser"
@@ -72,10 +72,13 @@ func (h *Handler) ExistUserConds(ctx context.Context) (bool, error) {
 			return err
 		}
 		handler.queryJoin()
-		exist, err = handler.stm.Exist(ctx)
+		count, err := handler.stm.Limit(1).Count(ctx)
 		if err != nil {
 			return err
 		}
+
+		exist = count > 0
+
 		return nil
 	})
 	if err != nil {

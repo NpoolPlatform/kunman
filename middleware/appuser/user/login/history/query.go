@@ -7,7 +7,7 @@ import (
 	"entgo.io/ent/dialect/sql"
 	historycrud "github.com/NpoolPlatform/kunman/middleware/appuser/crud/user/login/history"
 	"github.com/NpoolPlatform/kunman/middleware/appuser/db"
-	"github.com/NpoolPlatform/kunman/middleware/appuser/db/ent/generated"
+	ent "github.com/NpoolPlatform/kunman/middleware/appuser/db/ent/generated"
 
 	entapp "github.com/NpoolPlatform/kunman/middleware/appuser/db/ent/generated/app"
 	entappuser "github.com/NpoolPlatform/kunman/middleware/appuser/db/ent/generated/appuser"

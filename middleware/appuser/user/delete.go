@@ -7,8 +7,9 @@ import (
 	"time"
 
 	"github.com/NpoolPlatform/kunman/middleware/appuser/db"
-	"github.com/NpoolPlatform/kunman/middleware/appuser/db/ent/generated"
+	ent "github.com/NpoolPlatform/kunman/middleware/appuser/db/ent/generated"
 
+	npool "github.com/NpoolPlatform/kunman/message/appuser/middleware/v1/user"
 	usercrud "github.com/NpoolPlatform/kunman/middleware/appuser/crud/user"
 	entapproleuser "github.com/NpoolPlatform/kunman/middleware/appuser/db/ent/generated/approleuser"
 	entappusercontrol "github.com/NpoolPlatform/kunman/middleware/appuser/db/ent/generated/appusercontrol"
@@ -16,7 +17,6 @@ import (
 	entappusersecret "github.com/NpoolPlatform/kunman/middleware/appuser/db/ent/generated/appusersecret"
 	entappuserthirdparty "github.com/NpoolPlatform/kunman/middleware/appuser/db/ent/generated/appuserthirdparty"
 	cruder "github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
-	npool "github.com/NpoolPlatform/kunman/message/appuser/middleware/v1/user"
 
 	"github.com/google/uuid"
 )

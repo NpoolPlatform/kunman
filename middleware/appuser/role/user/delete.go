@@ -5,10 +5,10 @@ import (
 	"time"
 
 	"github.com/NpoolPlatform/kunman/middleware/appuser/db"
-	"github.com/NpoolPlatform/kunman/middleware/appuser/db/ent/generated"
+	ent "github.com/NpoolPlatform/kunman/middleware/appuser/db/ent/generated"
 
-	usercrud "github.com/NpoolPlatform/kunman/middleware/appuser/crud/role/user"
 	npool "github.com/NpoolPlatform/kunman/message/appuser/middleware/v1/role/user"
+	usercrud "github.com/NpoolPlatform/kunman/middleware/appuser/crud/role/user"
 )
 
 func (h *Handler) DeleteUser(ctx context.Context) (*npool.User, error) {

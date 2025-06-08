@@ -5,10 +5,9 @@ import (
 	"fmt"
 
 	"github.com/NpoolPlatform/kunman/middleware/appuser/db"
-	"github.com/NpoolPlatform/kunman/middleware/appuser/db/ent/generated"
-	"github.com/NpoolPlatform/kunman/middleware/appuser/encrypt"
+	ent "github.com/NpoolPlatform/kunman/middleware/appuser/db/ent/generated"
+	"github.com/NpoolPlatform/kunman/pkg/encrypt"
 
-	redis2 "github.com/NpoolPlatform/kunman/framework/redis"
 	npool "github.com/NpoolPlatform/kunman/message/appuser/middleware/v1/user"
 	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 
@@ -241,18 +240,7 @@ func (h *Handler) CreateUser(ctx context.Context) (info *npool.User, err error) 
 		Handler: h,
 	}
 
-	account, err := handler.account()
-	if err != nil {
-		return nil, err
-	}
-
-	key := fmt.Sprintf("%v:%v:%v", basetypes.Prefix_PrefixCreateUser, *h.AccountType, account)
-	if err := redis2.TryLock(key, 0); err != nil {
-		return nil, err
-	}
-	defer func() {
-		_ = redis2.Unlock(key)
-	}()
+	// TODO: deduplicate
 
 	if err := h.checkAccountExist(ctx); err != nil {
 		return nil, err

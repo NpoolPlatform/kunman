@@ -4,7 +4,7 @@ import (
 	"context"
 	"fmt"
 
-	constant "github.com/NpoolPlatform/kunman/middleware/appuser/const"
+	constant "github.com/NpoolPlatform/kunman/pkg/const"
 	kyccrud "github.com/NpoolPlatform/kunman/middleware/appuser/crud/kyc"
 	app "github.com/NpoolPlatform/kunman/middleware/appuser/app"
 	npool "github.com/NpoolPlatform/kunman/message/appuser/middleware/v1/kyc"

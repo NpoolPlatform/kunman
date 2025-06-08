@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"net"
 
-	constant "github.com/NpoolPlatform/kunman/middleware/appuser/const"
+	constant "github.com/NpoolPlatform/kunman/pkg/const"
 	historycrud "github.com/NpoolPlatform/kunman/middleware/appuser/crud/user/login/history"
 	app "github.com/NpoolPlatform/kunman/middleware/appuser/app"
 	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
