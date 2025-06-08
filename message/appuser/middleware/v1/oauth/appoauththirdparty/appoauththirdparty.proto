@@ -1,0 +1,65 @@
+syntax = "proto3";
+
+package appuser.middleware.oauth.appoauththirdparty.v1;
+
+option go_package = "github.com/NpoolPlatform/kunman/message/appuser/middleware/v1/oauth/appoauththirdparty";
+
+import "basetypes/v1/conds.proto";
+import "basetypes/v1/signmethod.proto";
+
+message OAuthThirdPartyReq {
+  optional uint32 ID = 9;
+  optional string EntID = 10;
+  optional string AppID = 20;
+  optional string ThirdPartyID = 30;
+  optional string ClientID = 40;
+  optional string ClientSecret = 50;
+  optional string CallbackURL = 60;
+}
+
+message OAuthThirdParty {
+  // @inject_tag: sql:"id"
+  uint32 ID = 9;
+  // @inject_tag: sql:"ent_id"
+  string EntID = 10;
+  // @inject_tag: sql:"app_id"
+  string AppID = 20;
+  // @inject_tag: sql:"third_party_id"
+  string ThirdPartyID = 30;
+  // @inject_tag: sql:"client_id"
+  string ClientID = 40;
+  // @inject_tag: sql:"client_secret"
+  string ClientSecret = 50;
+  // @inject_tag: sql:"callback_url"
+  string CallbackURL = 60;
+  // @inject_tag: sql:"client_name"
+  string ClientNameStr = 69;
+  basetypes.v1.SignMethod ClientName = 70;
+  // @inject_tag: sql:"client_tag"
+  string ClientTag = 80;
+  // @inject_tag: sql:"client_logo_url"
+  string ClientLogoURL = 90;
+  // @inject_tag: sql:"client_oauth_url"
+  string ClientOAuthURL = 100;
+  // @inject_tag: sql:"response_type"
+  string ResponseType = 110;
+  // @inject_tag: sql:"scope"
+  string Scope = 120;
+  // @inject_tag: sql:"salt"
+  string Salt = 130;
+  // @inject_tag: sql:"created_at"
+  uint32 CreatedAt = 1000;
+  // @inject_tag: sql:"updated_at"
+  uint32 UpdatedAt = 1010;
+}
+
+message Conds {
+  optional basetypes.v1.Uint32Val ID = 9;
+  optional basetypes.v1.StringVal EntID = 10;
+  optional basetypes.v1.StringVal AppID = 20;
+  optional basetypes.v1.StringVal ThirdPartyID = 30;
+  optional basetypes.v1.StringSliceVal ThirdPartyIDs = 40;
+  optional basetypes.v1.Int32Val ClientName = 50;
+  optional basetypes.v1.BoolVal DecryptSecret = 60;
+}
+

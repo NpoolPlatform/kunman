@@ -4,7 +4,7 @@ import (
 	"context"
 
 	recommendmwcli "github.com/NpoolPlatform/good-middleware/pkg/client/app/good/recommend"
-	npool "github.com/NpoolPlatform/message/npool/good/gw/v1/app/good/recommend"
+	npool "github.com/NpoolPlatform/kunman/message/good/gateway/v1/app/good/recommend"
 )
 
 type deleteHandler struct {

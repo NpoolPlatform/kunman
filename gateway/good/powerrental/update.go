@@ -5,8 +5,8 @@ import (
 
 	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
 	powerrentalmwcli "github.com/NpoolPlatform/good-middleware/pkg/client/powerrental"
-	npool "github.com/NpoolPlatform/message/npool/good/gw/v1/powerrental"
-	powerrentalmwpb "github.com/NpoolPlatform/message/npool/good/mw/v1/powerrental"
+	npool "github.com/NpoolPlatform/kunman/message/good/gateway/v1/powerrental"
+	powerrentalmwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/powerrental"
 )
 
 func (h *Handler) UpdatePowerRental(ctx context.Context) (*npool.PowerRental, error) {

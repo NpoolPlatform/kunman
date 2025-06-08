@@ -1,0 +1,114 @@
+syntax = "proto3";
+
+package appuser.gateway.role.user.v1;
+
+option go_package = "github.com/NpoolPlatform/kunman/message/appuser/gateway/v1/role/user";
+
+import "google/api/annotations.proto";
+import "appuser/middleware/v1/role/user/user.proto";
+
+service Gateway {
+  rpc CreateUser(CreateUserRequest) returns (CreateUserResponse) {
+    option (google.api.http) = {
+      post : "/v1/create/roleuser"
+      body : "*"
+    };
+  }
+
+  rpc GetUsers(GetUsersRequest) returns (GetUsersResponse) {
+    option (google.api.http) = {
+      post : "/v1/get/roleusers"
+      body : "*"
+    };
+  }
+
+  rpc DeleteUser(DeleteUserRequest) returns (DeleteUserResponse) {
+    option (google.api.http) = {
+      post : "/v1/delete/roleuser"
+      body : "*"
+    };
+  }
+
+  rpc DeleteAppUser(DeleteAppUserRequest) returns (DeleteAppUserResponse) {
+    option (google.api.http) = {
+      post : "/v1/delete/app/roleuser"
+      body : "*"
+    };
+  }
+
+  rpc CreateAppUser(CreateAppUserRequest) returns (CreateAppUserResponse) {
+    option (google.api.http) = {
+      post : "/v1/create/app/roleuser"
+      body : "*"
+    };
+  }
+
+  rpc GetAppUsers(GetAppUsersRequest) returns (GetAppUsersResponse) {
+    option (google.api.http) = {
+      post : "/v1/get/app/roleusers"
+      body : "*"
+    };
+  }
+}
+
+message CreateUserRequest {
+  string AppID = 10;
+  string TargetUserID = 20;
+  string RoleID = 30;
+}
+
+message CreateUserResponse { appuser.middleware.role.user.v1.User Info = 10; }
+
+message GetUsersRequest {
+  string AppID = 10;
+  string RoleID = 20;
+  int32 Limit = 30;
+  int32 Offset = 40;
+}
+
+message GetUsersResponse {
+  repeated appuser.middleware.role.user.v1.User Infos = 10;
+  uint32 Total = 20;
+}
+
+message DeleteUserRequest {
+  uint32 ID = 9;
+  string AppID = 10;
+  string TargetUserID = 20;
+  string EntID = 30;
+}
+
+message DeleteUserResponse { appuser.middleware.role.user.v1.User Info = 10; }
+
+message DeleteAppUserRequest {
+  uint32 ID = 9;
+  string TargetAppID = 10;
+  string TargetUserID = 20;
+  string EntID = 30;
+}
+
+message DeleteAppUserResponse {
+  appuser.middleware.role.user.v1.User Info = 10;
+}
+
+message CreateAppUserRequest {
+  string TargetAppID = 10;
+  string TargetUserID = 20;
+  string RoleID = 30;
+}
+
+message CreateAppUserResponse {
+  appuser.middleware.role.user.v1.User Info = 10;
+}
+
+message GetAppUsersRequest {
+  string TargetAppID = 10;
+  string RoleID = 20;
+  int32 Limit = 30;
+  int32 Offset = 40;
+}
+
+message GetAppUsersResponse {
+  repeated appuser.middleware.role.user.v1.User Infos = 10;
+  uint32 Total = 20;
+}

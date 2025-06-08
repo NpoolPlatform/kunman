@@ -4,8 +4,8 @@ import (
 	"context"
 
 	topmostpostermwcli "github.com/NpoolPlatform/good-middleware/pkg/client/app/good/topmost/poster"
-	npool "github.com/NpoolPlatform/message/npool/good/gw/v1/app/good/topmost/poster"
-	topmostpostermwpb "github.com/NpoolPlatform/message/npool/good/mw/v1/app/good/topmost/poster"
+	npool "github.com/NpoolPlatform/kunman/message/good/gateway/v1/app/good/topmost/poster"
+	topmostpostermwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/app/good/topmost/poster"
 )
 
 type updateHandler struct {

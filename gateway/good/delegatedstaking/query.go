@@ -12,10 +12,10 @@ import (
 	accounttypes "github.com/NpoolPlatform/message/npool/basetypes/account/v1"
 	basetypes "github.com/NpoolPlatform/message/npool/basetypes/v1"
 	coinmwpb "github.com/NpoolPlatform/message/npool/chain/mw/v1/coin"
-	npool "github.com/NpoolPlatform/message/npool/good/gw/v1/delegatedstaking"
-	goodcoingwpb "github.com/NpoolPlatform/message/npool/good/gw/v1/good/coin"
-	goodcoinrewardgwpb "github.com/NpoolPlatform/message/npool/good/gw/v1/good/coin/reward"
-	delegatedstakingmwpb "github.com/NpoolPlatform/message/npool/good/mw/v1/delegatedstaking"
+	npool "github.com/NpoolPlatform/kunman/message/good/gateway/v1/delegatedstaking"
+	goodcoingwpb "github.com/NpoolPlatform/kunman/message/good/gateway/v1/good/coin"
+	goodcoinrewardgwpb "github.com/NpoolPlatform/kunman/message/good/gateway/v1/good/coin/reward"
+	delegatedstakingmwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/delegatedstaking"
 	goodusermwpb "github.com/NpoolPlatform/message/npool/miningpool/mw/v1/gooduser"
 )
 

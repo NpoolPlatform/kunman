@@ -8,7 +8,7 @@ import (
 	topmostmwcli "github.com/NpoolPlatform/good-middleware/pkg/client/app/good/topmost"
 	"github.com/NpoolPlatform/libent-cruder/pkg/cruder"
 	basetypes "github.com/NpoolPlatform/message/npool/basetypes/v1"
-	topmostmwpb "github.com/NpoolPlatform/message/npool/good/mw/v1/app/good/topmost"
+	topmostmwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/app/good/topmost"
 )
 
 type CheckHandler struct {

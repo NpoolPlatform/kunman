@@ -4,7 +4,7 @@ import (
 	"context"
 
 	devicetypemwcli "github.com/NpoolPlatform/good-middleware/pkg/client/device"
-	devicetypemwpb "github.com/NpoolPlatform/message/npool/good/mw/v1/device"
+	devicetypemwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/device"
 )
 
 type updateHandler struct {

@@ -4,7 +4,7 @@ import (
 	"context"
 
 	simulatemwcli "github.com/NpoolPlatform/good-middleware/pkg/client/app/powerrental/simulate"
-	npool "github.com/NpoolPlatform/message/npool/good/gw/v1/app/powerrental/simulate"
+	npool "github.com/NpoolPlatform/kunman/message/good/gateway/v1/app/powerrental/simulate"
 )
 
 type deleteHandler struct {

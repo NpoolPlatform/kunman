@@ -7,7 +7,7 @@ import (
 	appgoodlabelmwcli "github.com/NpoolPlatform/good-middleware/pkg/client/app/good/label"
 	"github.com/NpoolPlatform/libent-cruder/pkg/cruder"
 	basetypes "github.com/NpoolPlatform/message/npool/basetypes/v1"
-	appgoodlabelmwpb "github.com/NpoolPlatform/message/npool/good/mw/v1/app/good/label"
+	appgoodlabelmwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/app/good/label"
 )
 
 type checkHandler struct {

@@ -1,0 +1,41 @@
+syntax = "proto3";
+
+package appuser.gateway.oauth.v1;
+
+option go_package = "github.com/NpoolPlatform/kunman/message/appuser/gateway/v1/oauth";
+
+import "google/api/annotations.proto";
+import "appuser/middleware/v1/user/user.proto";
+import "basetypes/v1/signmethod.proto";
+
+service Gateway {
+  rpc GetOAuthLoginURL(GetOAuthLoginURLRequest)
+      returns (GetOAuthLoginURLResponse) {
+    option (google.api.http) = {
+      post : "/v1/get/oauthloginurl"
+      body : "*"
+    };
+  }
+
+  rpc OAuthLogin(OAuthLoginRequest) returns (OAuthLoginResponse) {
+    option (google.api.http) = {
+      post : "/v1/oauthlogin"
+      body : "*"
+    };
+  }
+}
+
+message GetOAuthLoginURLRequest {
+  string AppID = 10;
+  basetypes.v1.SignMethod ClientName = 20;
+}
+
+message GetOAuthLoginURLResponse { string Info = 10; }
+
+message OAuthLoginRequest {
+  string AppID = 10;
+  string Code = 20;
+  string State = 30;
+}
+
+message OAuthLoginResponse { appuser.middleware.user.v1.User Info = 10; }

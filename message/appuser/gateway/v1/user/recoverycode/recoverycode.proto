@@ -1,0 +1,47 @@
+syntax = "proto3";
+
+package appuser.gateway.user.recoverycode.v1;
+
+option go_package = "github.com/NpoolPlatform/kunman/message/appuser/gateway/v1/user/recoverycode";
+
+import "google/api/annotations.proto";
+import "appuser/middleware/v1/user/recoverycode/recoverycode.proto";
+
+service Gateway {
+  rpc GenerateRecoveryCodes(GenerateRecoveryCodesRequest)
+      returns (GenerateRecoveryCodesResponse) {
+    option (google.api.http) = {
+      post : "/v1/generate/recoverycodes"
+      body : "*"
+    };
+  }
+
+  rpc GetRecoveryCodes(GetRecoveryCodesRequest)
+      returns (GetRecoveryCodesResponse) {
+    option (google.api.http) = {
+      post : "/v1/get/recoverycodes"
+      body : "*"
+    };
+  }
+}
+
+message GenerateRecoveryCodesRequest {
+  string AppID = 10;
+  string UserID = 20;
+}
+
+message GenerateRecoveryCodesResponse {
+  repeated appuser.middleware.user.recoverycode.v1.RecoveryCode Infos = 10;
+}
+
+message GetRecoveryCodesRequest {
+  string AppID = 10;
+  string UserID = 20;
+  int32 Offset = 30;
+  int32 Limit = 40;
+}
+
+message GetRecoveryCodesResponse {
+  repeated appuser.middleware.user.recoverycode.v1.RecoveryCode Infos = 10;
+  uint32 Total = 20;
+}

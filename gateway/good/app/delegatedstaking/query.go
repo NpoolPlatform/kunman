@@ -3,17 +3,17 @@ package delegatedstaking
 import (
 	"context"
 
-	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
 	goodgwcommon "github.com/NpoolPlatform/good-gateway/pkg/common"
 	appdelegatedstakingmwcli "github.com/NpoolPlatform/good-middleware/pkg/client/app/delegatedstaking"
+	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
+	npool "github.com/NpoolPlatform/kunman/message/good/gateway/v1/app/delegatedstaking"
+	goodcoingwpb "github.com/NpoolPlatform/kunman/message/good/gateway/v1/good/coin"
+	goodcoinrewardgwpb "github.com/NpoolPlatform/kunman/message/good/gateway/v1/good/coin/reward"
+	appdelegatedstakingmwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/app/delegatedstaking"
 	cruder "github.com/NpoolPlatform/libent-cruder/pkg/cruder"
 	appmwpb "github.com/NpoolPlatform/message/npool/appuser/mw/v1/app"
 	basetypes "github.com/NpoolPlatform/message/npool/basetypes/v1"
 	appcoinmwpb "github.com/NpoolPlatform/message/npool/chain/mw/v1/app/coin"
-	npool "github.com/NpoolPlatform/message/npool/good/gw/v1/app/delegatedstaking"
-	goodcoingwpb "github.com/NpoolPlatform/message/npool/good/gw/v1/good/coin"
-	goodcoinrewardgwpb "github.com/NpoolPlatform/message/npool/good/gw/v1/good/coin/reward"
-	appdelegatedstakingmwpb "github.com/NpoolPlatform/message/npool/good/mw/v1/app/delegatedstaking"
 )
 
 type queryHandler struct {

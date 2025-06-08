@@ -1,0 +1,32 @@
+syntax = "proto3";
+
+package basetypes.v1;
+
+option go_package = "github.com/NpoolPlatform/kunman/message/basetypes/v1";
+
+enum KycDocumentType {
+  DefaultKycDocumentType = 0;
+  IDCard = 10;
+  DriverLicense = 20;
+  Passport = 30;
+}
+
+enum KycEntityType {
+  DefaultKycEntityType = 0;
+  Individual = 10;
+  Organization = 20;
+}
+
+enum KycImageType {
+  DefaultKycImageType = 0;
+  FrontImg = 10;
+  BackImg = 20;
+  SelfieImg = 30;
+}
+
+enum KycState {
+  DefaultState = 0;
+  Approved = 10;
+  Reviewing = 20;
+  Rejected = 30;
+}

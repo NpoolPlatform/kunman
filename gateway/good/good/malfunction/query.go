@@ -8,8 +8,8 @@ import (
 	malfunctionmwcli "github.com/NpoolPlatform/good-middleware/pkg/client/good/malfunction"
 	cruder "github.com/NpoolPlatform/libent-cruder/pkg/cruder"
 	basetypes "github.com/NpoolPlatform/message/npool/basetypes/v1"
-	npool "github.com/NpoolPlatform/message/npool/good/gw/v1/good/malfunction"
-	malfunctionmwpb "github.com/NpoolPlatform/message/npool/good/mw/v1/good/malfunction"
+	npool "github.com/NpoolPlatform/kunman/message/good/gateway/v1/good/malfunction"
+	malfunctionmwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/good/malfunction"
 )
 
 type queryHandler struct {

@@ -4,7 +4,7 @@ import (
 	"context"
 
 	brandmwcli "github.com/NpoolPlatform/good-middleware/pkg/client/vender/brand"
-	brandmwpb "github.com/NpoolPlatform/message/npool/good/mw/v1/vender/brand"
+	brandmwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/vender/brand"
 
 	"github.com/google/uuid"
 )

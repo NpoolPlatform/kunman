@@ -4,7 +4,7 @@ import (
 	"context"
 
 	feemwcli "github.com/NpoolPlatform/good-middleware/pkg/client/fee"
-	feemwpb "github.com/NpoolPlatform/message/npool/good/mw/v1/fee"
+	feemwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/fee"
 )
 
 type deleteHandler struct {

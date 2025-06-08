@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+package appuser.gateway.authing.history.v1;
+
+option go_package = "github.com/NpoolPlatform/kunman/message/appuser/gateway/v1/authing/history";
+
+import "google/api/annotations.proto";
+import "appuser/middleware/v1/authing/history/history.proto";
+
+service Gateway {
+  rpc GetAppAuthHistories(GetAppAuthHistoriesRequest)
+      returns (GetAppAuthHistoriesResponse) {
+    option (google.api.http) = {
+      post : "/v1/get/app/authhistories"
+      body : "*"
+    };
+  }
+}
+
+message GetAppAuthHistoriesRequest {
+  string TargetAppID = 10;
+  int32 Offset = 20;
+  int32 Limit = 30;
+}
+
+message GetAppAuthHistoriesResponse {
+  repeated appuser.middleware.authing.history.v1.History Infos = 10;
+  uint32 Total = 20;
+}

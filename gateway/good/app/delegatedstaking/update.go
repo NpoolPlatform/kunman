@@ -4,8 +4,8 @@ import (
 	"context"
 
 	appdelegatedstakingmwcli "github.com/NpoolPlatform/good-middleware/pkg/client/app/delegatedstaking"
-	npool "github.com/NpoolPlatform/message/npool/good/gw/v1/app/delegatedstaking"
-	appdelegatedstakingmwpb "github.com/NpoolPlatform/message/npool/good/mw/v1/app/delegatedstaking"
+	npool "github.com/NpoolPlatform/kunman/message/good/gateway/v1/app/delegatedstaking"
+	appdelegatedstakingmwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/app/delegatedstaking"
 )
 
 // TODO: check start mode with power rental start mode

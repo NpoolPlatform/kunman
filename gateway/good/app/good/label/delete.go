@@ -5,7 +5,7 @@ import (
 
 	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
 	appgoodlabelmwcli "github.com/NpoolPlatform/good-middleware/pkg/client/app/good/label"
-	npool "github.com/NpoolPlatform/message/npool/good/gw/v1/app/good/label"
+	npool "github.com/NpoolPlatform/kunman/message/good/gateway/v1/app/good/label"
 )
 
 type deleteHandler struct {

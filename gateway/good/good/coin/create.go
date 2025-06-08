@@ -10,8 +10,8 @@ import (
 	cruder "github.com/NpoolPlatform/libent-cruder/pkg/cruder"
 	basetypes "github.com/NpoolPlatform/message/npool/basetypes/v1"
 	coinmwpb "github.com/NpoolPlatform/message/npool/chain/mw/v1/coin"
-	npool "github.com/NpoolPlatform/message/npool/good/gw/v1/good/coin"
-	goodcoinmwpb "github.com/NpoolPlatform/message/npool/good/mw/v1/good/coin"
+	npool "github.com/NpoolPlatform/kunman/message/good/gateway/v1/good/coin"
+	goodcoinmwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/good/coin"
 
 	"github.com/google/uuid"
 )

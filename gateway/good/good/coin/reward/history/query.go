@@ -6,7 +6,7 @@ import (
 	historymwcli "github.com/NpoolPlatform/good-middleware/pkg/client/good/coin/reward/history"
 	cruder "github.com/NpoolPlatform/libent-cruder/pkg/cruder"
 	basetypes "github.com/NpoolPlatform/message/npool/basetypes/v1"
-	historymwpb "github.com/NpoolPlatform/message/npool/good/mw/v1/good/coin/reward/history"
+	historymwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/good/coin/reward/history"
 )
 
 func (h *Handler) GetHistories(ctx context.Context) ([]*historymwpb.History, uint32, error) {

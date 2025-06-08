@@ -7,7 +7,7 @@ import (
 	defaultmwcli "github.com/NpoolPlatform/good-middleware/pkg/client/app/good/default"
 	cruder "github.com/NpoolPlatform/libent-cruder/pkg/cruder"
 	basetypes "github.com/NpoolPlatform/message/npool/basetypes/v1"
-	defaultmwpb "github.com/NpoolPlatform/message/npool/good/mw/v1/app/good/default"
+	defaultmwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/app/good/default"
 )
 
 type checkHandler struct {

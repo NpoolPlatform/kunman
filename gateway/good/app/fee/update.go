@@ -4,8 +4,8 @@ import (
 	"context"
 
 	appfeemwcli "github.com/NpoolPlatform/good-middleware/pkg/client/app/fee"
-	npool "github.com/NpoolPlatform/message/npool/good/gw/v1/app/fee"
-	appfeemwpb "github.com/NpoolPlatform/message/npool/good/mw/v1/app/fee"
+	npool "github.com/NpoolPlatform/kunman/message/good/gateway/v1/app/fee"
+	appfeemwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/app/fee"
 )
 
 type updateHandler struct {

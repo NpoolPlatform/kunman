@@ -4,7 +4,7 @@ import (
 	"context"
 
 	scoremwcli "github.com/NpoolPlatform/good-middleware/pkg/client/app/good/score"
-	npool "github.com/NpoolPlatform/message/npool/good/gw/v1/app/good/score"
+	npool "github.com/NpoolPlatform/kunman/message/good/gateway/v1/app/good/score"
 )
 
 type deleteHandler struct {

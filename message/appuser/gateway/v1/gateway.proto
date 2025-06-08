@@ -1,0 +1,7 @@
+syntax = "proto3";
+
+package appuser.gateway.v1;
+
+option go_package = "github.com/NpoolPlatform/kunman/message/appuser/gateway/v1";
+
+service Gateway {}

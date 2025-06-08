@@ -4,7 +4,7 @@ import (
 	"context"
 
 	locationmwcli "github.com/NpoolPlatform/good-middleware/pkg/client/vender/location"
-	locationmwpb "github.com/NpoolPlatform/message/npool/good/mw/v1/vender/location"
+	locationmwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/vender/location"
 )
 
 type deleteHandler struct {

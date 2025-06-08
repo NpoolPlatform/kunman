@@ -7,7 +7,7 @@ import (
 	appfeemwcli "github.com/NpoolPlatform/good-middleware/pkg/client/app/fee"
 	"github.com/NpoolPlatform/libent-cruder/pkg/cruder"
 	basetypes "github.com/NpoolPlatform/message/npool/basetypes/v1"
-	appfeemwpb "github.com/NpoolPlatform/message/npool/good/mw/v1/app/fee"
+	appfeemwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/app/fee"
 )
 
 type checkHandler struct {

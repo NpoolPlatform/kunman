@@ -5,7 +5,7 @@ import (
 
 	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
 	appdelegatedstakingmwcli "github.com/NpoolPlatform/good-middleware/pkg/client/app/delegatedstaking"
-	npool "github.com/NpoolPlatform/message/npool/good/gw/v1/app/delegatedstaking"
+	npool "github.com/NpoolPlatform/kunman/message/good/gateway/v1/app/delegatedstaking"
 )
 
 type deleteHandler struct {

@@ -1,0 +1,123 @@
+syntax = "proto3";
+
+package appuser.gateway.admin.v1;
+
+option go_package = "github.com/NpoolPlatform/kunman/message/appuser/gateway/v1/admin";
+
+import "google/api/annotations.proto";
+import "appuser/middleware/v1/app/app.proto";
+import "appuser/middleware/v1/role/role.proto";
+import "appuser/middleware/v1/user/user.proto";
+import "appuser/middleware/v1/authing/auth/auth.proto";
+
+service Gateway {
+  // VPN only apis
+  // Create genesis / admin apps
+  rpc CreateAdminApps(CreateAdminAppsRequest)
+      returns (CreateAdminAppsResponse) {
+    option (google.api.http) = {
+      post : "/v1/create/adminapps"
+      body : "*"
+    };
+  }
+
+  // Create genesis / admin role
+  rpc CreateGenesisRoles(CreateGenesisRolesRequest)
+      returns (CreateGenesisRolesResponse) {
+    option (google.api.http) = {
+      post : "/v1/create/genesisroles"
+      body : "*"
+    };
+  }
+
+  // Create genesis / admin user
+  rpc CreateGenesisUser(CreateGenesisUserRequest)
+      returns (CreateGenesisUserResponse) {
+    option (google.api.http) = {
+      post : "/v1/create/genesisuser"
+      body : "*"
+    };
+  }
+
+  rpc GetAdminApps(GetAdminAppsRequest) returns (GetAdminAppsResponse) {
+    option (google.api.http) = {
+      post : "/v1/get/adminapps"
+      body : "*"
+    };
+  }
+
+  rpc GetGenesisRoles(GetGenesisRolesRequest)
+      returns (GetGenesisRolesResponse) {
+    option (google.api.http) = {
+      post : "/v1/get/genesisroles"
+      body : "*"
+    };
+  }
+
+  rpc GetGenesisUsers(GetGenesisUsersRequest)
+      returns (GetGenesisUsersResponse) {
+    option (google.api.http) = {
+      post : "/v1/get/genesisusers"
+      body : "*"
+    };
+  }
+
+  rpc AuthorizeGenesis(AuthorizeGenesisRequest)
+      returns (AuthorizeGenesisResponse) {
+    option (google.api.http) = {
+      post : "/v1/authorize/genesis"
+      body : "*"
+    };
+  }
+}
+
+message CreateAdminAppsRequest {
+  // Permissioned by path (now we don't have any app / user available)
+}
+
+message CreateAdminAppsResponse {
+  repeated appuser.middleware.app.v1.App Infos = 10;
+}
+
+message CreateGenesisRolesRequest {
+  // Permissioned by path (now we only have admin app without any user)
+}
+
+message CreateGenesisRolesResponse {
+  repeated appuser.middleware.role.v1.Role Infos = 10;
+}
+
+message CreateGenesisUserRequest {
+  string TargetAppID = 10;
+  string EmailAddress = 20;
+  string PasswordHash = 30;
+}
+
+message CreateGenesisUserResponse { appuser.middleware.user.v1.User Info = 10; }
+
+message GetAdminAppsRequest {}
+
+message GetAdminAppsResponse {
+  repeated appuser.middleware.app.v1.App Infos = 10;
+}
+
+message AuthorizeGenesisRequest {}
+
+message AuthorizeGenesisResponse {
+  repeated appuser.middleware.authing.auth.v1.Auth Infos = 10;
+  uint32 Total = 20;
+}
+
+message GetGenesisRolesRequest {}
+
+message GetGenesisRolesResponse {
+  repeated appuser.middleware.role.v1.Role Infos = 10;
+  uint32 Total = 20;
+}
+
+message GetGenesisUsersRequest {}
+
+message GetGenesisUsersResponse {
+  repeated appuser.middleware.user.v1.User Infos = 10;
+  uint32 Total = 20;
+}

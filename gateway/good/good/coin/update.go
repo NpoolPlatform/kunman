@@ -4,8 +4,8 @@ import (
 	"context"
 
 	goodcoinmwcli "github.com/NpoolPlatform/good-middleware/pkg/client/good/coin"
-	npool "github.com/NpoolPlatform/message/npool/good/gw/v1/good/coin"
-	goodcoinmwpb "github.com/NpoolPlatform/message/npool/good/mw/v1/good/coin"
+	npool "github.com/NpoolPlatform/kunman/message/good/gateway/v1/good/coin"
+	goodcoinmwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/good/coin"
 )
 
 type updateHandler struct {

@@ -5,7 +5,7 @@ import (
 
 	"github.com/NpoolPlatform/kunman/framework/wlog"
 	postermwcli "github.com/NpoolPlatform/good-middleware/pkg/client/device/poster"
-	postermwpb "github.com/NpoolPlatform/message/npool/good/mw/v1/device/poster"
+	postermwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/device/poster"
 )
 
 type deleteHandler struct {

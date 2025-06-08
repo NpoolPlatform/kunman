@@ -4,8 +4,8 @@ import (
 	"context"
 
 	appgooddisplaynamemwcli "github.com/NpoolPlatform/good-middleware/pkg/client/app/good/display/name"
-	npool "github.com/NpoolPlatform/message/npool/good/gw/v1/app/good/display/name"
-	appgooddisplaynamemwpb "github.com/NpoolPlatform/message/npool/good/mw/v1/app/good/display/name"
+	npool "github.com/NpoolPlatform/kunman/message/good/gateway/v1/app/good/display/name"
+	appgooddisplaynamemwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/app/good/display/name"
 )
 
 type updateHandler struct {

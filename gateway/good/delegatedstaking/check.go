@@ -7,7 +7,7 @@ import (
 	delegatedstakingmwcli "github.com/NpoolPlatform/good-middleware/pkg/client/delegatedstaking"
 	"github.com/NpoolPlatform/libent-cruder/pkg/cruder"
 	basetypes "github.com/NpoolPlatform/message/npool/basetypes/v1"
-	delegatedstakingmwpb "github.com/NpoolPlatform/message/npool/good/mw/v1/delegatedstaking"
+	delegatedstakingmwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/delegatedstaking"
 )
 
 type checkHandler struct {

@@ -5,7 +5,7 @@ import (
 
 	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
 	topmostmwcli "github.com/NpoolPlatform/good-middleware/pkg/client/app/good/topmost"
-	npool "github.com/NpoolPlatform/message/npool/good/gw/v1/app/good/topmost"
+	npool "github.com/NpoolPlatform/kunman/message/good/gateway/v1/app/good/topmost"
 )
 
 type deleteHandler struct {

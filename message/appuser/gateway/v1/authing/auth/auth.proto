@@ -1,0 +1,81 @@
+syntax = "proto3";
+
+package appuser.gateway.authing.auth.v1;
+
+option go_package = "github.com/NpoolPlatform/kunman/message/appuser/gateway/v1/authing/auth";
+
+import "google/api/annotations.proto";
+import "appuser/middleware/v1/authing/auth/auth.proto";
+
+service Gateway {
+  rpc Authenticate(AuthenticateRequest) returns (AuthenticateResponse) {
+    option (google.api.http) = {
+      post : "/v1/authenticate"
+      body : "*"
+    };
+  }
+
+  rpc CreateAppAuth(CreateAppAuthRequest) returns (CreateAppAuthResponse) {
+    option (google.api.http) = {
+      post : "/v1/create/app/auth"
+      body : "*"
+    };
+  }
+
+  rpc DeleteAppAuth(DeleteAppAuthRequest) returns (DeleteAppAuthResponse) {
+    option (google.api.http) = {
+      post : "/v1/delete/app/auth"
+      body : "*"
+    };
+  }
+
+  rpc GetAppAuths(GetAppAuthsRequest) returns (GetAppAuthsResponse) {
+    option (google.api.http) = {
+      post : "/v1/get/app/auths"
+      body : "*"
+    };
+  }
+}
+
+message AuthenticateRequest {
+  string AppID = 10;
+  optional string UserID = 20;
+  optional string Token = 30;
+  string Resource = 40;
+  string Method = 50;
+}
+
+message AuthenticateResponse { bool Info = 10; }
+
+message CreateAppAuthRequest {
+  string TargetAppID = 10;
+  optional string TargetUserID = 20;
+  optional string RoleID = 30;
+  string Resource = 40;
+  string Method = 50;
+}
+
+message CreateAppAuthResponse {
+  appuser.middleware.authing.auth.v1.Auth Info = 10;
+}
+
+message DeleteAppAuthRequest {
+  string TargetAppID = 10;
+  uint32 ID = 20;
+  string EntID = 30;
+}
+
+message DeleteAppAuthResponse {
+  appuser.middleware.authing.auth.v1.Auth Info = 10;
+}
+
+message GetAppAuthsRequest {
+  string TargetAppID = 10;
+  int32 Offset = 20;
+  int32 Limit = 30;
+}
+
+message GetAppAuthsResponse {
+  repeated appuser.middleware.authing.auth.v1.Auth Infos = 10;
+  uint32 Total = 20;
+}

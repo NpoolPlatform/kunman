@@ -11,11 +11,11 @@ import (
 	types "github.com/NpoolPlatform/message/npool/basetypes/good/v1"
 	basetypes "github.com/NpoolPlatform/message/npool/basetypes/v1"
 	appcoinmwpb "github.com/NpoolPlatform/message/npool/chain/mw/v1/app/coin"
-	npool "github.com/NpoolPlatform/message/npool/good/gw/v1/app/powerrental"
-	goodcoingwpb "github.com/NpoolPlatform/message/npool/good/gw/v1/good/coin"
-	goodcoinrewardgwpb "github.com/NpoolPlatform/message/npool/good/gw/v1/good/coin/reward"
-	goodstockgwpb "github.com/NpoolPlatform/message/npool/good/gw/v1/good/stock"
-	apppowerrentalmwpb "github.com/NpoolPlatform/message/npool/good/mw/v1/app/powerrental"
+	npool "github.com/NpoolPlatform/kunman/message/good/gateway/v1/app/powerrental"
+	goodcoingwpb "github.com/NpoolPlatform/kunman/message/good/gateway/v1/good/coin"
+	goodcoinrewardgwpb "github.com/NpoolPlatform/kunman/message/good/gateway/v1/good/coin/reward"
+	goodstockgwpb "github.com/NpoolPlatform/kunman/message/good/gateway/v1/good/stock"
+	apppowerrentalmwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/app/powerrental"
 	goodusermwpb "github.com/NpoolPlatform/message/npool/miningpool/mw/v1/gooduser"
 )
 

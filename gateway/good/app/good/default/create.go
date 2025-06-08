@@ -4,8 +4,8 @@ import (
 	"context"
 
 	defaultmwcli "github.com/NpoolPlatform/good-middleware/pkg/client/app/good/default"
-	npool "github.com/NpoolPlatform/message/npool/good/gw/v1/app/good/default"
-	defaultmwpb "github.com/NpoolPlatform/message/npool/good/mw/v1/app/good/default"
+	npool "github.com/NpoolPlatform/kunman/message/good/gateway/v1/app/good/default"
+	defaultmwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/app/good/default"
 
 	"github.com/google/uuid"
 )

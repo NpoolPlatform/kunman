@@ -5,7 +5,7 @@ import (
 
 	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
 	delegatedstakingmwcli "github.com/NpoolPlatform/good-middleware/pkg/client/delegatedstaking"
-	npool "github.com/NpoolPlatform/message/npool/good/gw/v1/delegatedstaking"
+	npool "github.com/NpoolPlatform/kunman/message/good/gateway/v1/delegatedstaking"
 )
 
 func (h *Handler) DeleteDelegatedStaking(ctx context.Context) (*npool.DelegatedStaking, error) {

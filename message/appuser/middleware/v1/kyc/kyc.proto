@@ -1,0 +1,80 @@
+syntax = "proto3";
+
+package appuser.middleware.kyc.v1;
+
+option go_package = "github.com/NpoolPlatform/kunman/message/appuser/middleware/v1/kyc";
+
+import "google/api/annotations.proto";
+import "basetypes/v1/conds.proto";
+import "basetypes/v1/kycstate.proto";
+
+message KycReq {
+  optional uint32 ID = 9;
+  optional string EntID = 10;
+  optional string AppID = 20;
+  optional string UserID = 30;
+  optional basetypes.v1.KycDocumentType DocumentType = 40;
+  optional string IDNumber = 50;
+  optional string FrontImg = 60;
+  optional string BackImg = 70;
+  optional string SelfieImg = 80;
+  optional basetypes.v1.KycEntityType EntityType = 90;
+  optional string ReviewID = 100;
+  optional basetypes.v1.KycState State = 110;
+}
+
+message Kyc {
+  // @inject_tag: sql:"id"
+  uint32 ID = 9;
+  // @inject_tag: sql:"ent_id"
+  string EntID = 10;
+  // @inject_tag: sql:"app_id"
+  string AppID = 20;
+  // @inject_tag: sql:"app_name"
+  string AppName = 30;
+  // @inject_tag: sql:"app_logo"
+  string AppLogo = 40;
+  // @inject_tag: sql:"user_id"
+  string UserID = 50;
+  // @inject_tag: sql:"email_address"
+  string EmailAddress = 60;
+  // @inject_tag: sql:"phone_no"
+  string PhoneNO = 70;
+  // @inject_tag: sql:"document_type"
+  string DocumentTypeStr = 80;
+  basetypes.v1.KycDocumentType DocumentType = 90;
+  // @inject_tag: sql:"id_number"
+  string IDNumber = 100;
+  // @inject_tag: sql:"front_img"
+  string FrontImg = 110;
+  // @inject_tag: sql:"back_img"
+  string BackImg = 120;
+  // @inject_tag: sql:"selfie_img"
+  string SelfieImg = 130;
+  // @inject_tag: sql:"entity_type"
+  string EntityTypeStr = 140;
+  basetypes.v1.KycEntityType EntityType = 150;
+  // @inject_tag: sql:"review_id"
+  string ReviewID = 160;
+  // @inject_tag: sql:"state"
+  string StateStr = 170;
+  basetypes.v1.KycState State = 180;
+  string ReviewMessage = 181;
+  // @inject_tag: sql:"created_at"
+  uint32 CreatedAt = 190;
+  // @inject_tag: sql:"updated_at"
+  uint32 UpdatedAt = 200;
+}
+
+message Conds {
+  optional basetypes.v1.Uint32Val ID = 9;
+  optional basetypes.v1.StringVal EntID = 10;
+  optional basetypes.v1.StringVal AppID = 20;
+  optional basetypes.v1.StringVal UserID = 30;
+  optional basetypes.v1.StringVal ReviewID = 40;
+  optional basetypes.v1.StringVal IDNumber = 50;
+  optional basetypes.v1.Uint32Val DocumentType = 60;
+  optional basetypes.v1.Uint32Val EntityType = 70;
+  optional basetypes.v1.Uint32Val State = 80;
+}
+

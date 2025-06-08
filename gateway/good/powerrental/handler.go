@@ -10,8 +10,8 @@ import (
 	goodcommon "github.com/NpoolPlatform/good-gateway/pkg/good/common"
 	locationcommon "github.com/NpoolPlatform/good-gateway/pkg/vender/location/common"
 	types "github.com/NpoolPlatform/message/npool/basetypes/good/v1"
-	goodstockgwpb "github.com/NpoolPlatform/message/npool/good/gw/v1/good/stock"
-	goodstockmwpb "github.com/NpoolPlatform/message/npool/good/mw/v1/good/stock"
+	goodstockgwpb "github.com/NpoolPlatform/kunman/message/good/gateway/v1/good/stock"
+	goodstockmwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/good/stock"
 
 	"github.com/google/uuid"
 	"github.com/shopspring/decimal"

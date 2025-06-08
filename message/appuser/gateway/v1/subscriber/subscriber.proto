@@ -1,0 +1,64 @@
+syntax = "proto3";
+
+package appuser.gateway.subscriber.v1;
+
+option go_package = "github.com/NpoolPlatform/kunman/message/appuser/gateway/v1/subscriber";
+
+import "google/api/annotations.proto";
+import "appuser/middleware/v1/subscriber/subscriber.proto";
+
+service Gateway {
+  rpc CreateSubscriber(CreateSubscriberRequest)
+      returns (CreateSubscriberResponse) {
+    option (google.api.http) = {
+      post : "/v1/create/subscriber"
+      body : "*"
+    };
+  }
+
+  rpc GetSubscriberes(GetSubscriberesRequest)
+      returns (GetSubscriberesResponse) {
+    option (google.api.http) = {
+      post : "/v1/get/subscriberes"
+      body : "*"
+    };
+  }
+
+  rpc DeleteSubscriber(DeleteSubscriberRequest)
+      returns (DeleteSubscriberResponse) {
+    option (google.api.http) = {
+      post : "/v1/delete/subscriber"
+      body : "*"
+    };
+  }
+}
+
+message CreateSubscriberRequest {
+  string AppID = 10;
+  string EmailAddress = 20;
+  optional string SubscribeAppID = 30;
+}
+
+message CreateSubscriberResponse {
+  appuser.middleware.subscriber.v1.Subscriber Info = 10;
+}
+
+message GetSubscriberesRequest {
+  string AppID = 10;
+  int32 Offset = 20;
+  int32 Limit = 30;
+}
+
+message GetSubscriberesResponse {
+  repeated appuser.middleware.subscriber.v1.Subscriber Infos = 10;
+  uint32 Total = 20;
+}
+
+message DeleteSubscriberRequest {
+  string AppID = 10;
+  string EmailAddress = 20;
+}
+
+message DeleteSubscriberResponse {
+  optional appuser.middleware.subscriber.v1.Subscriber Info = 10;
+}

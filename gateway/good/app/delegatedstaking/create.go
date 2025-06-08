@@ -6,9 +6,9 @@ import (
 	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
 	appdelegatedstakingmwcli "github.com/NpoolPlatform/good-middleware/pkg/client/app/delegatedstaking"
 	delegatedstakingmwcli "github.com/NpoolPlatform/good-middleware/pkg/client/delegatedstaking"
-	npool "github.com/NpoolPlatform/message/npool/good/gw/v1/app/delegatedstaking"
-	appdelegatedstakingmwpb "github.com/NpoolPlatform/message/npool/good/mw/v1/app/delegatedstaking"
-	delegatedstakingmwpb "github.com/NpoolPlatform/message/npool/good/mw/v1/delegatedstaking"
+	npool "github.com/NpoolPlatform/kunman/message/good/gateway/v1/app/delegatedstaking"
+	appdelegatedstakingmwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/app/delegatedstaking"
+	delegatedstakingmwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/delegatedstaking"
 
 	"github.com/google/uuid"
 )

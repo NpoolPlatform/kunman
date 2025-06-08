@@ -5,7 +5,7 @@ import (
 
 	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
 	powerrentalmwcli "github.com/NpoolPlatform/good-middleware/pkg/client/powerrental"
-	npool "github.com/NpoolPlatform/message/npool/good/gw/v1/powerrental"
+	npool "github.com/NpoolPlatform/kunman/message/good/gateway/v1/powerrental"
 )
 
 func (h *Handler) DeletePowerRental(ctx context.Context) (*npool.PowerRental, error) {

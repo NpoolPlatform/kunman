@@ -7,7 +7,7 @@ import (
 	manufacturermwcli "github.com/NpoolPlatform/good-middleware/pkg/client/device/manufacturer"
 	"github.com/NpoolPlatform/libent-cruder/pkg/cruder"
 	basetypes "github.com/NpoolPlatform/message/npool/basetypes/v1"
-	manufacturermwpb "github.com/NpoolPlatform/message/npool/good/mw/v1/device/manufacturer"
+	manufacturermwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/device/manufacturer"
 )
 
 type ManufacturerCheckHandler struct {

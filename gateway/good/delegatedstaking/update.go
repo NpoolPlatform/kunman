@@ -5,8 +5,8 @@ import (
 
 	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
 	delegatedstakingmwcli "github.com/NpoolPlatform/good-middleware/pkg/client/delegatedstaking"
-	npool "github.com/NpoolPlatform/message/npool/good/gw/v1/delegatedstaking"
-	delegatedstakingmwpb "github.com/NpoolPlatform/message/npool/good/mw/v1/delegatedstaking"
+	npool "github.com/NpoolPlatform/kunman/message/good/gateway/v1/delegatedstaking"
+	delegatedstakingmwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/delegatedstaking"
 )
 
 func (h *Handler) UpdateDelegatedStaking(ctx context.Context) (*npool.DelegatedStaking, error) {

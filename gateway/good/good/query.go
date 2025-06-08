@@ -4,7 +4,7 @@ import (
 	"context"
 
 	goodmwcli "github.com/NpoolPlatform/good-middleware/pkg/client/good"
-	goodmwpb "github.com/NpoolPlatform/message/npool/good/mw/v1/good"
+	goodmwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/good"
 )
 
 func (h *Handler) GetGoods(ctx context.Context) ([]*goodmwpb.Good, uint32, error) {

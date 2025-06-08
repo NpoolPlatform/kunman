@@ -1,0 +1,42 @@
+syntax = "proto3";
+
+package appuser.middleware.subscriber.app.subscribe.v1;
+
+option go_package = "github.com/NpoolPlatform/kunman/message/appuser/middleware/v1/subscriber/app/subscribe";
+
+import "basetypes/v1/conds.proto";
+
+message AppSubscribeReq {
+  optional uint32 ID = 9;
+  optional string EntID = 10;
+  optional string AppID = 20;
+  optional string SubscribeAppID = 30;
+}
+
+message AppSubscribe {
+  // Base info
+  // @inject_tag: sql:"id"
+  uint32 ID = 9;
+  // @inject_tag: sql:"ent_id"
+  string EntID = 10;
+  // @inject_tag: sql:"app_id"
+  string AppID = 20;
+  // @inject_tag: sql:"app_name"
+  string AppName = 30;
+  // @inject_tag: sql:"subscribe_app_id"
+  string SubscribeAppID = 40;
+  // @inject_tag: sql:"subscribe_app_name"
+  string SubscribeAppName = 50;
+  // @inject_tag: sql:"created_at"
+  uint32 CreatedAt = 60;
+  // @inject_tag: sql:"updated_at"
+  uint32 UpdatedAt = 70;
+}
+
+message Conds {
+  optional basetypes.v1.Uint32Val ID = 9;
+  optional basetypes.v1.StringVal EntID = 10;
+  optional basetypes.v1.StringVal AppID = 20;
+  optional basetypes.v1.StringVal SubscribeAppID = 30;
+}
+

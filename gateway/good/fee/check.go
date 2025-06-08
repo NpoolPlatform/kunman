@@ -7,7 +7,7 @@ import (
 	feemwcli "github.com/NpoolPlatform/good-middleware/pkg/client/fee"
 	"github.com/NpoolPlatform/libent-cruder/pkg/cruder"
 	basetypes "github.com/NpoolPlatform/message/npool/basetypes/v1"
-	feemwpb "github.com/NpoolPlatform/message/npool/good/mw/v1/fee"
+	feemwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/fee"
 )
 
 type checkHandler struct {

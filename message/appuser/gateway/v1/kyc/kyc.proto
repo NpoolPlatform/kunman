@@ -1,0 +1,166 @@
+syntax = "proto3";
+
+package appuser.gateway.kyc.v1;
+
+option go_package = "github.com/NpoolPlatform/kunman/message/appuser/gateway/v1/kyc";
+
+import "appuser/middleware/v1/kyc/kyc.proto";
+import "google/api/annotations.proto";
+import "basetypes/v1/kycstate.proto";
+
+service Gateway {
+  rpc CreateKyc(CreateKycRequest) returns (CreateKycResponse) {
+    option (google.api.http) = {
+      post : "/v1/create/kyc"
+      body : "*"
+    };
+  }
+
+  rpc UpdateKyc(UpdateKycRequest) returns (UpdateKycResponse) {
+    option (google.api.http) = {
+      post : "/v1/update/kyc"
+      body : "*"
+    };
+  }
+
+  rpc GetKyc(GetKycRequest) returns (GetKycResponse) {
+    option (google.api.http) = {
+      post : "/v1/get/kyc"
+      body : "*"
+    };
+  }
+
+  rpc GetKycs(GetKycsRequest) returns (GetKycsResponse) {
+    option (google.api.http) = {
+      post : "/v1/get/kycs"
+      body : "*"
+    };
+  }
+
+  rpc GetAppKycs(GetAppKycsRequest) returns (GetAppKycsResponse) {
+    option (google.api.http) = {
+      post : "/v1/get/app/kycs"
+      body : "*"
+    };
+  }
+
+  rpc UploadKycImage(UploadKycImageRequest) returns (UploadKycImageResponse) {
+    option (google.api.http) = {
+      post : "/v1/upload/kycimage"
+      body : "*"
+    };
+  }
+
+  rpc GetKycImage(GetKycImageRequest) returns (GetKycImageResponse) {
+    option (google.api.http) = {
+      post : "/v1/get/kycimage"
+      body : "*"
+    };
+  }
+
+  rpc GetUserKycImage(GetUserKycImageRequest)
+      returns (GetUserKycImageResponse) {
+    option (google.api.http) = {
+      post : "/v1/get/user/kycimage"
+      body : "*"
+    };
+  }
+
+  rpc GetAppUserKycImage(GetAppUserKycImageRequest)
+      returns (GetAppUserKycImageResponse) {
+    option (google.api.http) = {
+      post : "/v1/get/app/user/kycimage"
+      body : "*"
+    };
+  }
+}
+
+message CreateKycRequest {
+  string AppID = 10;
+  string UserID = 20;
+  optional string IDNumber = 30;
+  string FrontImg = 40;
+  optional string BackImg = 50;
+  string SelfieImg = 60;
+  basetypes.v1.KycDocumentType DocumentType = 70;
+  basetypes.v1.KycEntityType EntityType = 80;
+}
+
+message CreateKycResponse { appuser.middleware.kyc.v1.Kyc Info = 10; }
+
+message GetKycRequest {
+  string AppID = 10;
+  string UserID = 20;
+}
+
+message GetKycResponse { appuser.middleware.kyc.v1.Kyc Info = 10; }
+
+message GetKycsRequest {
+  string AppID = 10;
+  int32 Offset = 20;
+  int32 Limit = 30;
+}
+
+message GetKycsResponse {
+  repeated appuser.middleware.kyc.v1.Kyc Infos = 10;
+  uint32 Total = 20;
+}
+
+message GetAppKycsRequest {
+  string TargetAppID = 10;
+  int32 Offset = 20;
+  int32 Limit = 30;
+}
+
+message GetAppKycsResponse {
+  repeated appuser.middleware.kyc.v1.Kyc Infos = 10;
+  uint32 Total = 20;
+}
+
+message UpdateKycRequest {
+  uint32 ID = 9;
+  string AppID = 10;
+  string UserID = 20;
+  string KycID = 30;
+  optional string IDNumber = 40;
+  optional string FrontImg = 50;
+  optional string BackImg = 60;
+  optional string SelfieImg = 70;
+  optional basetypes.v1.KycDocumentType DocumentType = 80;
+  optional basetypes.v1.KycEntityType EntityType = 90;
+}
+
+message UpdateKycResponse { appuser.middleware.kyc.v1.Kyc Info = 10; }
+
+message UploadKycImageRequest {
+  string AppID = 10;
+  string UserID = 20;
+  basetypes.v1.KycImageType ImageType = 30;
+  string ImageBase64 = 40;
+}
+
+message UploadKycImageResponse { string Info = 10; }
+
+message GetKycImageRequest {
+  string AppID = 10;
+  string UserID = 20;
+  basetypes.v1.KycImageType ImageType = 30;
+}
+
+message GetKycImageResponse { string Info = 10; }
+
+message GetUserKycImageRequest {
+  string AppID = 10;
+  string TargetUserID = 20;
+  basetypes.v1.KycImageType ImageType = 30;
+}
+
+message GetUserKycImageResponse { string Info = 10; }
+
+message GetAppUserKycImageRequest {
+  string TargetAppID = 10;
+  string TargetUserID = 20;
+  basetypes.v1.KycImageType ImageType = 30;
+}
+
+message GetAppUserKycImageResponse { string Info = 10; }

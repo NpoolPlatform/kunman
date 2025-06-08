@@ -1,0 +1,146 @@
+syntax = "proto3";
+
+package appuser.gateway.role.v1;
+
+option go_package = "github.com/NpoolPlatform/kunman/message/appuser/gateway/v1/role";
+
+import "google/api/annotations.proto";
+import "appuser/middleware/v1/role/role.proto";
+
+service Gateway {
+  rpc CreateRole(CreateRoleRequest) returns (CreateRoleResponse) {
+    option (google.api.http) = {
+      post : "/v1/create/role"
+      body : "*"
+    };
+  }
+
+  rpc GetRoles(GetRolesRequest) returns (GetRolesResponse) {
+    option (google.api.http) = {
+      post : "/v1/get/roles"
+      body : "*"
+    };
+  }
+
+  rpc UpdateRole(UpdateRoleRequest) returns (UpdateRoleResponse) {
+    option (google.api.http) = {
+      post : "/v1/update/role"
+      body : "*"
+    };
+  }
+
+  rpc DeleteRole(DeleteRoleRequest) returns (DeleteRoleResponse) {
+    option (google.api.http) = {
+      post : "/v1/delete/role"
+      body : "*"
+    };
+  }
+
+  rpc CreateAppRole(CreateAppRoleRequest) returns (CreateAppRoleResponse) {
+    option (google.api.http) = {
+      post : "/v1/create/app/role"
+      body : "*"
+    };
+  }
+
+  rpc UpdateAppRole(UpdateAppRoleRequest) returns (UpdateAppRoleResponse) {
+    option (google.api.http) = {
+      post : "/v1/update/app/role"
+      body : "*"
+    };
+  }
+
+  rpc GetAppRoles(GetAppRolesRequest) returns (GetAppRolesResponse) {
+    option (google.api.http) = {
+      post : "/v1/get/app/roles"
+      body : "*"
+    };
+  }
+
+  rpc DeleteAppRole(DeleteAppRoleRequest) returns (DeleteAppRoleResponse) {
+    option (google.api.http) = {
+      post : "/v1/delete/app/role"
+      body : "*"
+    };
+  }
+}
+
+message CreateRoleRequest {
+  string AppID = 10;
+  string UserID = 20;
+  string RoleName = 30;
+  bool Default = 40;
+  string Description = 50;
+}
+
+message CreateRoleResponse { appuser.middleware.role.v1.Role Info = 10; }
+
+message GetRolesRequest {
+  string AppID = 10;
+  int32 Offset = 20;
+  int32 Limit = 30;
+}
+
+message GetRolesResponse {
+  repeated appuser.middleware.role.v1.Role Infos = 10;
+  uint32 Total = 20;
+}
+
+message UpdateRoleRequest {
+  uint32 ID = 10;
+  string EntID = 11;
+  string AppID = 20;
+  optional string RoleName = 30;
+  optional bool Default = 40;
+  optional string Description = 50;
+}
+
+message UpdateRoleResponse { appuser.middleware.role.v1.Role Info = 10; }
+
+message DeleteRoleRequest {
+  uint32 ID = 10;
+  string AppID = 20;
+  string EntID = 30;
+}
+
+message DeleteRoleResponse { appuser.middleware.role.v1.Role Info = 10; }
+
+message CreateAppRoleRequest {
+  string TargetAppID = 10;
+  string UserID = 20;
+  string RoleName = 30;
+  bool Default = 40;
+  string Description = 50;
+}
+
+message CreateAppRoleResponse { appuser.middleware.role.v1.Role Info = 10; }
+
+message UpdateAppRoleRequest {
+  uint32 ID = 10;
+  string EntID = 11;
+  string TargetAppID = 20;
+  optional string RoleName = 30;
+  optional bool Default = 40;
+  optional string Description = 50;
+}
+
+message UpdateAppRoleResponse { appuser.middleware.role.v1.Role Info = 10; }
+
+message GetAppRolesRequest {
+  string TargetAppID = 10;
+  int32 Offset = 20;
+  int32 Limit = 30;
+}
+
+message GetAppRolesResponse {
+  repeated appuser.middleware.role.v1.Role Infos = 10;
+  uint32 Total = 20;
+}
+
+message DeleteAppRoleRequest {
+  uint32 ID = 10;
+  string TargetAppID = 20;
+  string EntID = 30;
+}
+
+message DeleteAppRoleResponse { appuser.middleware.role.v1.Role Info = 10; }

@@ -1,0 +1,42 @@
+syntax = "proto3";
+
+package appuser.gateway.ga.v1;
+
+option go_package = "github.com/NpoolPlatform/kunman/message/appuser/gateway/v1/ga";
+
+import "google/api/annotations.proto";
+import "appuser/middleware/v1/user/user.proto";
+
+service Gateway {
+  // Admin apis
+  rpc SetupGoogleAuth(SetupGoogleAuthRequest)
+      returns (SetupGoogleAuthResponse) {
+    option (google.api.http) = {
+      post : "/v1/setup/googleauth"
+      body : "*"
+    };
+  }
+
+  rpc VerifyGoogleAuth(VerifyGoogleAuthRequest)
+      returns (VerifyGoogleAuthResponse) {
+    option (google.api.http) = {
+      post : "/v1/verify/googleauth"
+      body : "*"
+    };
+  }
+}
+
+message SetupGoogleAuthRequest {
+  string AppID = 10;
+  string UserID = 20;
+}
+
+message SetupGoogleAuthResponse { appuser.middleware.user.v1.User Info = 10; }
+
+message VerifyGoogleAuthRequest {
+  string AppID = 10;
+  string UserID = 20;
+  string Code = 30;
+}
+
+message VerifyGoogleAuthResponse { appuser.middleware.user.v1.User Info = 10; }

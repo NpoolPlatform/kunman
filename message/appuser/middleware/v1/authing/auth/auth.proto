@@ -1,0 +1,57 @@
+syntax = "proto3";
+
+package appuser.middleware.authing.auth.v1;
+
+option go_package = "github.com/NpoolPlatform/kunman/message/appuser/middleware/v1/authing/auth";
+
+import "basetypes/v1/conds.proto";
+
+message AuthReq {
+  optional uint32 ID = 9;
+  optional string EntID = 10;
+  optional string AppID = 20;
+  optional string RoleID = 30;
+  optional string UserID = 40;
+  optional string Resource = 50;
+  optional string Method = 60;
+}
+
+message Auth {
+  // @inject_tag: sql:"id"
+  uint32 ID = 5;
+  // @inject_tag: sql:"ent_id"
+  string EntID = 9;
+  // @inject_tag: sql:"app_id"
+  string AppID = 10;
+  // @inject_tag: sql:"app_name"
+  string AppName = 20;
+  // @inject_tag: sql:"app_logo"
+  string AppLogo = 30;
+  // @inject_tag: sql:"role_id"
+  string RoleID = 40;
+  // @inject_tag: sql:"role_name"
+  string RoleName = 50;
+  // @inject_tag: sql:"user_id"
+  string UserID = 60;
+  // @inject_tag: sql:"email_address"
+  string EmailAddress = 70;
+  // @inject_tag: sql:"phone_no"
+  string PhoneNO = 80;
+  // @inject_tag: sql:"resource"
+  string Resource = 90;
+  // @inject_tag: sql:"method"
+  string Method = 100;
+  // @inject_tag: sql:"created_at"
+  uint32 CreatedAt = 110;
+}
+
+message Conds {
+  optional basetypes.v1.Uint32Val ID = 9;
+  optional basetypes.v1.StringVal EntID = 10;
+  optional basetypes.v1.StringVal AppID = 20;
+  optional basetypes.v1.StringVal RoleID = 30;
+  optional basetypes.v1.StringVal UserID = 40;
+  optional basetypes.v1.StringVal Resource = 50;
+  optional basetypes.v1.StringVal Method = 60;
+}
+

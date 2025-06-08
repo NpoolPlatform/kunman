@@ -7,7 +7,7 @@ import (
 	commentmwcli "github.com/NpoolPlatform/good-middleware/pkg/client/app/good/comment"
 	"github.com/NpoolPlatform/libent-cruder/pkg/cruder"
 	basetypes "github.com/NpoolPlatform/message/npool/basetypes/v1"
-	commentmwpb "github.com/NpoolPlatform/message/npool/good/mw/v1/app/good/comment"
+	commentmwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/app/good/comment"
 	ordermwpb "github.com/NpoolPlatform/message/npool/order/mw/v1/order"
 	ordermwcli "github.com/NpoolPlatform/order-middleware/pkg/client/order"
 )

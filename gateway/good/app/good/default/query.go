@@ -10,8 +10,8 @@ import (
 	appmwpb "github.com/NpoolPlatform/message/npool/appuser/mw/v1/app"
 	basetypes "github.com/NpoolPlatform/message/npool/basetypes/v1"
 	coinmwpb "github.com/NpoolPlatform/message/npool/chain/mw/v1/coin"
-	npool "github.com/NpoolPlatform/message/npool/good/gw/v1/app/good/default"
-	defaultmwpb "github.com/NpoolPlatform/message/npool/good/mw/v1/app/good/default"
+	npool "github.com/NpoolPlatform/kunman/message/good/gateway/v1/app/good/default"
+	defaultmwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/app/good/default"
 )
 
 type queryHandler struct {

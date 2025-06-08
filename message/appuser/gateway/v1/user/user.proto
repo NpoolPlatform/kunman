@@ -1,0 +1,407 @@
+syntax = "proto3";
+
+package appuser.gateway.user.v1;
+
+option go_package = "github.com/NpoolPlatform/kunman/message/appuser/gateway/v1/user";
+
+import "google/api/annotations.proto";
+import "appuser/middleware/v1/user/login/history/history.proto";
+import "appuser/middleware/v1/user/user.proto";
+import "basetypes/v1/signmethod.proto";
+
+service Gateway {
+  rpc Signup(SignupRequest) returns (SignupResponse) {
+    option (google.api.http) = {
+      post : "/v1/signup"
+      body : "*"
+    };
+  }
+
+  rpc CreateUser(CreateUserRequest) returns (CreateUserResponse) {
+    option (google.api.http) = {
+      post : "/v1/create/user"
+      body : "*"
+    };
+  }
+
+  rpc DeleteUser(DeleteUserRequest) returns (DeleteUserResponse) {
+    option (google.api.http) = {
+      post : "/v1/delete/user"
+      body : "*"
+    };
+  }
+
+  rpc CreateAppUser(CreateAppUserRequest) returns (CreateAppUserResponse) {
+    option (google.api.http) = {
+      post : "/v1/create/app/user"
+      body : "*"
+    };
+  }
+
+  rpc UpdateUser(UpdateUserRequest) returns (UpdateUserResponse) {
+    option (google.api.http) = {
+      post : "/v1/update/user"
+      body : "*"
+    };
+  }
+
+  rpc UpdateUserKol(UpdateUserKolRequest) returns (UpdateUserKolResponse) {
+    option (google.api.http) = {
+      post : "/v1/update/userkol"
+      body : "*"
+    };
+  }
+
+  rpc UpdateAppUser(UpdateAppUserRequest) returns (UpdateAppUserResponse) {
+    option (google.api.http) = {
+      post : "/v1/update/app/user"
+      body : "*"
+    };
+  }
+
+  rpc PreResetUser(PreResetUserRequest) returns (PreResetUserResponse) {
+    option (google.api.http) = {
+      post : "/v1/prereset/user"
+      body : "*"
+    };
+  }
+
+  rpc ResetUser(ResetUserRequest) returns (ResetUserResponse) {
+    option (google.api.http) = {
+      post : "/v1/reset/user"
+      body : "*"
+    };
+  }
+
+  rpc GetUsers(GetUsersRequest) returns (GetUsersResponse) {
+    option (google.api.http) = {
+      post : "/v1/get/users"
+      body : "*"
+    };
+  }
+
+  rpc GetAppUsers(GetAppUsersRequest) returns (GetAppUsersResponse) {
+    option (google.api.http) = {
+      post : "/v1/get/app/users"
+      body : "*"
+    };
+  }
+
+  rpc Login(LoginRequest) returns (LoginResponse) {
+    option (google.api.http) = {
+      post : "/v1/login"
+      body : "*"
+    };
+  }
+
+  rpc LoginVerify(LoginVerifyRequest) returns (LoginVerifyResponse) {
+    option (google.api.http) = {
+      post : "/v1/loginverify"
+      body : "*"
+    };
+  }
+
+  rpc Logined(LoginedRequest) returns (LoginedResponse) {
+    option (google.api.http) = {
+      post : "/v1/logined"
+      body : "*"
+    };
+  }
+
+  rpc Logout(LogoutRequest) returns (LogoutResponse) {
+    option (google.api.http) = {
+      post : "/v1/logout"
+      body : "*"
+    };
+  }
+
+  rpc GetLoginHistories(GetLoginHistoriesRequest)
+      returns (GetLoginHistoriesResponse) {
+    option (google.api.http) = {
+      post : "/v1/get/loginhistories"
+      body : "*"
+    };
+  }
+
+  rpc BanUser(BanUserRequest) returns (BanUserResponse) {
+    option (google.api.http) = {
+      post : "/v1/ban/user"
+      body : "*"
+    };
+  }
+
+  rpc BanAppUser(BanAppUserRequest) returns (BanAppUserResponse) {
+    option (google.api.http) = {
+      post : "/v1/ban/app/user"
+      body : "*"
+    };
+  }
+
+  rpc BindUser(BindUserRequest) returns (BindUserResponse) {
+    option (google.api.http) = {
+      post : "/v1/bind/user"
+      body : "*"
+    };
+  }
+
+  rpc UnbindOAuth(UnbindOAuthRequest) returns (UnbindOAuthResponse) {
+    option (google.api.http) = {
+      post : "/v1/unbind/oauth"
+      body : "*"
+    };
+  }
+}
+
+message SignupRequest {
+  string AppID = 10;
+  string Account = 20;
+  string PasswordHash = 30;
+  basetypes.v1.SignMethod AccountType = 40;
+  string VerificationCode = 50;
+  optional string InvitationCode = 60;
+}
+
+message SignupResponse { appuser.middleware.user.v1.User Info = 10; }
+
+message CreateUserRequest {
+  string AppID = 10;
+  optional string EmailAddress = 20;
+  optional string PhoneNO = 30;
+
+  // Imported
+  optional string ImportedFromAppID = 40;
+
+  // Extra
+  optional string Username = 50;
+  repeated string AddressFields = 60;
+  optional string Gender = 70;
+  optional string PostalCode = 80;
+  optional uint32 Age = 90;
+  optional uint32 Birthday = 100;
+  optional string Avatar = 110;
+  optional string Organization = 120;
+  optional string FirstName = 130;
+  optional string LastName = 140;
+  optional string IDNumber = 150;
+
+  // Secret
+  optional string PasswordHash = 160;
+}
+
+message CreateUserResponse { appuser.middleware.user.v1.User Info = 10; }
+
+message DeleteUserRequest {
+  uint32 ID = 9;
+  string AppID = 10;
+  string TargetUserID = 20;
+}
+
+message DeleteUserResponse { appuser.middleware.user.v1.User Info = 10; }
+
+message CreateAppUserRequest {
+  string TargetAppID = 10;
+  optional string EmailAddress = 20;
+  optional string PhoneNO = 30;
+  string PasswordHash = 40;
+}
+
+message CreateAppUserResponse { appuser.middleware.user.v1.User Info = 10; }
+
+message UpdateUserRequest {
+  uint32 ID = 9;
+  string AppID = 10;
+  string UserID = 20;
+
+  optional string Account = 30;
+  optional basetypes.v1.SignMethod AccountType = 40;
+  optional string VerificationCode = 50;
+
+  optional string NewVerificationCode = 51;
+  optional basetypes.v1.SignMethod NewAccountType = 52;
+
+  // Need verification code
+  optional string NewAccount = 60;
+
+  // Extra
+  optional string Username = 80;
+  repeated string AddressFields = 90;
+  optional string Gender = 100;
+  optional string PostalCode = 110;
+  optional uint32 Age = 120;
+  optional uint32 Birthday = 130;
+  optional string Avatar = 140;
+  optional string Organization = 150;
+  optional string FirstName = 160;
+  optional string LastName = 170;
+  optional string IDNumber = 180;
+
+  // Control
+  optional basetypes.v1.SignMethod SigninVerifyType = 190;
+
+  // Secret
+  // Need verification code
+  optional string PasswordHash = 200;
+  optional string OldPasswordHash = 210;
+
+  optional bool KolConfirmed = 220;
+  optional string SelectedLangID = 230;
+}
+
+message UpdateUserResponse { appuser.middleware.user.v1.User Info = 10; }
+
+message UpdateUserKolRequest {
+  string AppID = 10;
+  string UserID = 20;
+  string TargetUserID = 30;
+  bool Kol = 40;
+}
+
+message UpdateUserKolResponse { appuser.middleware.user.v1.User Info = 10; }
+
+message UpdateAppUserRequest {
+  uint32 ID = 9;
+  string AppID = 10;
+  string TargetUserID = 20;
+  optional bool Kol = 30;
+  optional string EmailAddress = 40;
+  optional basetypes.v1.SignMethod SigninVerifyType = 50;
+}
+
+message UpdateAppUserResponse { appuser.middleware.user.v1.User Info = 10; }
+
+message ResetUserRequest {
+  string AppID = 10;
+  optional string UserID = 20;
+  string Account = 30;
+  basetypes.v1.SignMethod AccountType = 40;
+  optional string VerificationCode = 50;
+  string PasswordHash = 60;
+  optional string RecoveryCode = 70;
+  optional string ResetToken = 80;
+}
+
+message ResetUserResponse {}
+
+message PreResetUserRequest {
+  string AppID = 10;
+  string LangID = 20;
+  string Account = 30;
+  basetypes.v1.SignMethod AccountType = 40;
+}
+
+message PreResetUserResponse {}
+
+message GetUsersRequest {
+  string AppID = 10;
+  int32 Offset = 20;
+  int32 Limit = 30;
+}
+
+message GetUsersResponse {
+  repeated appuser.middleware.user.v1.User Infos = 10;
+  uint32 Total = 40;
+}
+
+message GetAppUsersRequest {
+  string TargetAppID = 10;
+  int32 Offset = 20;
+  int32 Limit = 30;
+}
+
+message GetAppUsersResponse {
+  repeated appuser.middleware.user.v1.User Infos = 10;
+  uint32 Total = 40;
+}
+
+message LoginRequest {
+  string AppID = 10;
+  string Account = 20;
+  string PasswordHash = 30;
+  basetypes.v1.SignMethod AccountType = 40;
+  string ManMachineSpec = 50;
+  string EnvironmentSpec = 60;
+}
+
+message LoginResponse { appuser.middleware.user.v1.User Info = 10; }
+
+message LoginVerifyRequest {
+  string AppID = 10;
+  string UserID = 20;
+  string Token = 30;
+  string Account = 40;
+  basetypes.v1.SignMethod AccountType = 50;
+  string VerificationCode = 60;
+}
+
+message LoginVerifyResponse { appuser.middleware.user.v1.User Info = 10; }
+
+message LoginedRequest {
+  string AppID = 10;
+  string UserID = 20;
+  string Token = 30;
+}
+
+message LoginedResponse { appuser.middleware.user.v1.User Info = 10; }
+
+message LogoutRequest {
+  string AppID = 10;
+  string UserID = 20;
+  string Token = 30;
+}
+
+message LogoutResponse { appuser.middleware.user.v1.User Info = 10; }
+
+message GetLoginHistoriesRequest {
+  string AppID = 10;
+  string UserID = 20;
+  int32 Offset = 30;
+  int32 Limit = 40;
+}
+
+message GetLoginHistoriesResponse {
+  repeated appuser.middleware.user.login.history.v1.History Infos = 10;
+  uint32 Total = 20;
+}
+
+message BanUserRequest {
+  string AppID = 10;
+  string TargetUserID = 20;
+  bool Banned = 30;
+  string BanMessage = 40;
+}
+
+message BanUserResponse { appuser.middleware.user.v1.User Info = 10; }
+
+message BanAppUserRequest {
+  string TargetAppID = 10;
+  string TargetUserID = 20;
+  bool Banned = 30;
+  string BanMessage = 40;
+}
+
+message BanAppUserResponse { appuser.middleware.user.v1.User Info = 10; }
+
+message BindUserRequest {
+  string AppID = 10;
+  string UserID = 20;
+
+  optional string Account = 30;
+  optional basetypes.v1.SignMethod AccountType = 40;
+
+  // Need verification code
+  optional string NewVerificationCode = 50;
+  optional string NewAccount = 60;
+  optional basetypes.v1.SignMethod NewAccountType = 70;
+}
+
+message BindUserResponse { appuser.middleware.user.v1.User Info = 10; }
+
+message UnbindOAuthRequest {
+  string AppID = 10;
+  string UserID = 20;
+
+  string Account = 30;
+  basetypes.v1.SignMethod AccountType = 40;
+}
+
+message UnbindOAuthResponse {}

@@ -7,7 +7,7 @@ import (
 	goodmwcli "github.com/NpoolPlatform/good-middleware/pkg/client/good"
 	"github.com/NpoolPlatform/libent-cruder/pkg/cruder"
 	basetypes "github.com/NpoolPlatform/message/npool/basetypes/v1"
-	goodmwpb "github.com/NpoolPlatform/message/npool/good/mw/v1/good"
+	goodmwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/good"
 )
 
 type GoodCheckHandler struct {

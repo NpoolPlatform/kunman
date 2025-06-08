@@ -7,7 +7,7 @@ import (
 	topmostgoodconstraintmwcli "github.com/NpoolPlatform/good-middleware/pkg/client/app/good/topmost/good/constraint"
 	"github.com/NpoolPlatform/libent-cruder/pkg/cruder"
 	basetypes "github.com/NpoolPlatform/message/npool/basetypes/v1"
-	topmostgoodconstraintmwpb "github.com/NpoolPlatform/message/npool/good/mw/v1/app/good/topmost/good/constraint"
+	topmostgoodconstraintmwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/app/good/topmost/good/constraint"
 )
 
 type checkHandler struct {

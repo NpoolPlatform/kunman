@@ -1,0 +1,131 @@
+syntax = "proto3";
+
+package appuser.gateway.app.v1;
+
+option go_package = "github.com/NpoolPlatform/kunman/message/appuser/gateway/v1/app";
+
+import "google/api/annotations.proto";
+import "appuser/middleware/v1/app/app.proto";
+import "basetypes/v1/signmethod.proto";
+import "basetypes/v1/createinvitationcodewhen.proto";
+import "basetypes/v1/recaptcha.proto";
+import "basetypes/appuser/v1/enums.proto";
+
+service Gateway {
+  rpc CreateApp(CreateAppRequest) returns (CreateAppResponse) {
+    option (google.api.http) = {
+      post : "/v1/create/app"
+      body : "*"
+    };
+  }
+
+  rpc UpdateApp(UpdateAppRequest) returns (UpdateAppResponse) {
+    option (google.api.http) = {
+      post : "/v1/update/app"
+      body : "*"
+    };
+  }
+
+  rpc GetApp(GetAppRequest) returns (GetAppResponse) {
+    option (google.api.http) = {
+      post : "/v1/get/app"
+      body : "*"
+    };
+  }
+
+  // Super admin api
+  rpc GetApps(GetAppsRequest) returns (GetAppsResponse) {
+    option (google.api.http) = {
+      post : "/v1/get/apps"
+      body : "*"
+    };
+  }
+
+  rpc DeleteApp(DeleteAppRequest) returns (DeleteAppResponse) {
+    option (google.api.http) = {
+      post : "/v1/delete/app"
+      body : "*"
+    };
+  }
+
+  rpc BanApp(BanAppRequest) returns (BanAppResponse) {
+    option (google.api.http) = {
+      post : "/v1/ban/app"
+      body : "*"
+    };
+  }
+}
+
+message CreateAppRequest {
+  string CreatedBy = 10;
+  string Name = 20;
+  string Logo = 30;
+  string Description = 40;
+  repeated basetypes.v1.SignMethod SignupMethods = 50;
+  repeated basetypes.v1.SignMethod ExtSigninMethods = 60;
+  optional basetypes.v1.RecaptchaMethod RecaptchaMethod = 70;
+  optional bool KycEnable = 80;
+  optional bool SigninVerifyEnable = 90;
+  optional bool InvitationCodeMust = 100;
+  optional basetypes.v1.CreateInvitationCodeWhen CreateInvitationCodeWhen = 110;
+  optional uint32 MaxTypedCouponsPerOrder = 120;
+  optional bool Maintaining = 160;
+  repeated string CommitButtonTargets = 170;
+  optional bool CouponWithdrawEnable = 180;
+  optional basetypes.appuser.v1.ResetUserMethod ResetUserMethod = 200;
+}
+
+message CreateAppResponse { appuser.middleware.app.v1.App Info = 10; }
+
+message UpdateAppRequest {
+  uint32 ID = 10;
+  string EntID = 11;
+  optional string NewEntID = 12;
+  optional string Name = 20;
+  optional string Logo = 30;
+  optional string Description = 40;
+  repeated basetypes.v1.SignMethod SignupMethods = 50;
+  repeated basetypes.v1.SignMethod ExtSigninMethods = 60;
+  optional basetypes.v1.RecaptchaMethod RecaptchaMethod = 70;
+  optional bool KycEnable = 80;
+  optional bool SigninVerifyEnable = 90;
+  optional bool InvitationCodeMust = 100;
+  optional basetypes.v1.CreateInvitationCodeWhen CreateInvitationCodeWhen = 110;
+  optional uint32 MaxTypedCouponsPerOrder = 120;
+  optional bool Maintaining = 160;
+  repeated string CommitButtonTargets = 170;
+  optional bool CouponWithdrawEnable = 180;
+  optional basetypes.appuser.v1.ResetUserMethod ResetUserMethod = 200;
+}
+
+message UpdateAppResponse { appuser.middleware.app.v1.App Info = 10; }
+
+message GetAppRequest { string AppID = 10; }
+
+message GetAppResponse { appuser.middleware.app.v1.App Info = 10; }
+
+message GetAppsRequest {
+  int32 Offset = 10;
+  int32 Limit = 20;
+}
+
+message GetAppsResponse {
+  repeated appuser.middleware.app.v1.App Infos = 10;
+  uint32 Total = 20;
+}
+
+message DeleteAppRequest {
+  uint32 ID = 10;
+  string EntID = 20;
+}
+
+message DeleteAppResponse { appuser.middleware.app.v1.App Info = 10; }
+
+message BanAppRequest {
+  uint32 ID = 9;
+  string EntID = 10;
+  bool Banned = 20;
+  string BanMessage = 30;
+}
+
+message BanAppResponse { appuser.middleware.app.v1.App Info = 10; }

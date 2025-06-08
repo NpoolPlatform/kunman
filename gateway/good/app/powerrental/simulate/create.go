@@ -4,8 +4,8 @@ import (
 	"context"
 
 	simulatemwcli "github.com/NpoolPlatform/good-middleware/pkg/client/app/powerrental/simulate"
-	npool "github.com/NpoolPlatform/message/npool/good/gw/v1/app/powerrental/simulate"
-	simulatemwpb "github.com/NpoolPlatform/message/npool/good/mw/v1/app/powerrental/simulate"
+	npool "github.com/NpoolPlatform/kunman/message/good/gateway/v1/app/powerrental/simulate"
+	simulatemwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/app/powerrental/simulate"
 
 	"github.com/google/uuid"
 )

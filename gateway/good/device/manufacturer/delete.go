@@ -4,7 +4,7 @@ import (
 	"context"
 
 	manufacturermwcli "github.com/NpoolPlatform/good-middleware/pkg/client/device/manufacturer"
-	manufacturermwpb "github.com/NpoolPlatform/message/npool/good/mw/v1/device/manufacturer"
+	manufacturermwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/device/manufacturer"
 )
 
 type deleteHandler struct {

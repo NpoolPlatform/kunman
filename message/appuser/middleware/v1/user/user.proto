@@ -1,0 +1,197 @@
+syntax = "proto3";
+
+package appuser.middleware.user.v1;
+
+option go_package = "github.com/NpoolPlatform/kunman/message/appuser/middleware/v1/user";
+
+import "basetypes/v1/signmethod.proto";
+import "basetypes/v1/conds.proto";
+import "basetypes/v1/kycstate.proto";
+
+message UserReq {
+  // Base
+  optional uint32 ID = 9;
+  optional string EntID = 10;
+  optional string AppID = 20;
+  optional string EmailAddress = 30;
+  optional string PhoneNO = 40;
+
+  // Imported
+  optional string ImportedFromAppID = 50;
+
+  // Extra
+  optional string Username = 60;
+  repeated string AddressFields = 70;
+  optional string Gender = 80;
+  optional string PostalCode = 90;
+  optional uint32 Age = 100;
+  optional uint32 Birthday = 110;
+  optional string Avatar = 120;
+  optional string Organization = 130;
+  optional string FirstName = 140;
+  optional string LastName = 150;
+  optional string IDNumber = 160;
+
+  // Control
+  optional basetypes.v1.SignMethod SigninVerifyType = 170;
+  optional bool GoogleAuthVerified = 180;
+
+  // Secret
+  optional string PasswordHash = 190;
+  optional string GoogleSecret = 200;
+
+  // ThirdParty
+  optional string ThirdPartyID = 210;
+  optional string ThirdPartyUserID = 220;
+  optional string ThirdPartyUsername = 230;
+  optional string ThirdPartyAvatar = 240;
+
+  // Banned
+  optional bool Banned = 250;
+  optional string BanMessage = 260;
+
+  // RoleUser
+  repeated string RoleIDs = 270;
+
+  optional bool Kol = 280;
+  optional bool KolConfirmed = 290;
+
+  optional string SelectedLangID = 310;
+}
+
+message OAuthThirdParty {
+  // @inject_tag: sql:"third_party_id"
+  string ThirdPartyID = 10;
+  // @inject_tag: sql:"third_party_user_id"
+  string ThirdPartyUserID = 20;
+  // @inject_tag: sql:"third_party_username"
+  string ThirdPartyUsername = 30;
+  // @inject_tag: sql:"third_party_avatar"
+  string ThirdPartyAvatar = 40;
+  // @inject_tag: sql:"user_id"
+  string UserID = 50;
+}
+
+message User {
+  // Base
+  // @inject_tag: sql:"id"
+  uint32 ID = 9;
+  // @inject_tag: sql:"ent_id"
+  string EntID = 10;
+  // @inject_tag: sql:"app_id"
+  string AppID = 20;
+  // @inject_tag: sql:"email_address"
+  string EmailAddress = 30;
+  // @inject_tag: sql:"phone_no"
+  string PhoneNO = 40;
+
+  // Imported
+  // @inject_tag: sql:"import_from_app"
+  string ImportedFromAppID = 50;
+  // @inject_tag: sql:"imported_from_app_name"
+  string ImportedFromAppName = 60;
+  // @inject_tag: sql:"imported_from_app_logo"
+  string ImportedFromAppLogo = 70;
+  // @inject_tag: sql:"imported_from_app_home"
+  string ImportedFromAppHome = 80;
+
+  // Extra
+  // @inject_tag: sql:"username"
+  string Username = 90;
+  // @inject_tag: sql:"address_fields"
+  string AddressFieldsString = 100;
+  repeated string AddressFields = 110;
+  // @inject_tag: sql:"gender"
+  string Gender = 120;
+  // @inject_tag: sql:"postal_code"
+  string PostalCode = 130;
+  // @inject_tag: sql:"age"
+  uint32 Age = 140;
+  // @inject_tag: sql:"birthday"
+  uint32 Birthday = 150;
+  // @inject_tag: sql:"avatar"
+  string Avatar = 160;
+  // @inject_tag: sql:"organization"
+  string Organization = 170;
+  // @inject_tag: sql:"first_name"
+  string FirstName = 180;
+  // @inject_tag: sql:"last_name"
+  string LastName = 190;
+  // @inject_tag: sql:"id_number"
+  string IDNumber = 200;
+
+  // Control flag
+  // @inject_tag: sql:"signin_verify_type"
+  string SigninVerifyTypeStr = 210;
+  basetypes.v1.SignMethod SigninVerifyType = 220;
+  // @inject_tag: sql:"signin_verify_by_google_authentication"
+  bool SigninVerifyByGoogleAuth = 222;
+  // @inject_tag: sql:"google_authentication_verified"
+  bool GoogleAuthVerified = 240;
+  // @inject_tag: sql:"ban_app_user_id"
+  string BanAppUserID = 250;
+  bool Banned = 260;
+  // @inject_tag: sql:"ban_message"
+  string BanMessage = 270;
+  // @inject_tag: sql:"ban_deleted_at"
+  uint32 BanDeletedAt = 271;
+
+  // Secret map
+  // @inject_tag: sql:"google_secret"
+  string GoogleSecret = 280;
+  bool HasGoogleSecret = 290;
+  string GoogleOTPAuth = 291;
+
+  // Role
+  repeated string Roles = 300;
+
+  // Login info
+  bool Logined = 310;
+  string LoginAccount = 320;
+  basetypes.v1.SignMethod LoginAccountType = 330;
+  string LoginToken = 340;
+  string LoginClientIP = 350;
+  string LoginClientUserAgent = 360;
+
+  // @inject_tag: sql:"created_at"
+  uint32 CreatedAt = 370;
+
+  optional string InvitationCode = 380;
+  bool LoginVerified = 390;
+
+  // @inject_tag: sql:"kyc_state"
+  string KycStateStr = 400;
+  basetypes.v1.KycState State = 410;
+
+  // @inject_tag: sql:"kol"
+  bool Kol = 420;
+  // @inject_tag: sql:"kol_confirmed"
+  bool KolConfirmed = 430;
+
+  // @inject_tag: sql:"selected_lang_id"
+  optional string SelectedLangID = 450;
+
+  // Third info
+  // @inject_tag: sql:"third_party_id"
+  optional string ThirdPartyID = 460;
+  // @inject_tag: sql:"third_party_user_id"
+  optional string ThirdPartyUserID = 470;
+  // @inject_tag: sql:"third_party_username"
+  optional string ThirdPartyUsername = 480;
+  // @inject_tag: sql:"third_party_avatar"
+  optional string ThirdPartyAvatar = 490;
+  repeated OAuthThirdParty OAuthThirdParties = 500;
+}
+
+message Conds {
+  optional basetypes.v1.Uint32Val ID = 9;
+  optional basetypes.v1.StringVal EntID = 10;
+  optional basetypes.v1.StringVal AppID = 20;
+  optional basetypes.v1.StringVal PhoneNO = 30;
+  optional basetypes.v1.StringVal EmailAddress = 40;
+  optional basetypes.v1.StringVal ImportFromApp = 50;
+  optional basetypes.v1.StringSliceVal EntIDs = 60;
+  optional basetypes.v1.StringVal ThirdPartyID = 70;
+  optional basetypes.v1.StringVal ThirdPartyUserID = 80;
+}
+

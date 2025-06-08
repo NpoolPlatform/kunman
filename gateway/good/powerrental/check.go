@@ -7,7 +7,7 @@ import (
 	powerrentalmwcli "github.com/NpoolPlatform/good-middleware/pkg/client/powerrental"
 	"github.com/NpoolPlatform/libent-cruder/pkg/cruder"
 	basetypes "github.com/NpoolPlatform/message/npool/basetypes/v1"
-	powerrentalmwpb "github.com/NpoolPlatform/message/npool/good/mw/v1/powerrental"
+	powerrentalmwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/powerrental"
 	"github.com/NpoolPlatform/message/npool/miningpool/mw/v1/rootuser"
 	rootusermwcli "github.com/NpoolPlatform/miningpool-middleware/pkg/client/rootuser"
 )

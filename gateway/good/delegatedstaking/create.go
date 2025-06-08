@@ -11,9 +11,9 @@ import (
 	goodcoinmwcli "github.com/NpoolPlatform/good-middleware/pkg/client/good/coin"
 	contractmwpb "github.com/NpoolPlatform/message/npool/account/mw/v1/contract"
 	accounttypes "github.com/NpoolPlatform/message/npool/basetypes/account/v1"
-	npool "github.com/NpoolPlatform/message/npool/good/gw/v1/delegatedstaking"
-	delegatedstakingmwpb "github.com/NpoolPlatform/message/npool/good/mw/v1/delegatedstaking"
-	goodcoinmwpb "github.com/NpoolPlatform/message/npool/good/mw/v1/good/coin"
+	npool "github.com/NpoolPlatform/kunman/message/good/gateway/v1/delegatedstaking"
+	delegatedstakingmwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/delegatedstaking"
+	goodcoinmwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/good/coin"
 	sphinxproxycli "github.com/NpoolPlatform/sphinx-proxy/pkg/client"
 
 	"github.com/google/uuid"

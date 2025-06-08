@@ -15,18 +15,22 @@ type checkHandler struct {
 }
 
 func (h *checkHandler) checkDelegatedStaking(ctx context.Context) error {
+	conds := &appdelegatedstakingmwpb.Conds{
+		ID:        &basetypes.Uint32Val{Op: cruder.EQ, Value: *h.ID},
+		EntID:     &basetypes.StringVal{Op: cruder.EQ, Value: *h.EntID},
+		AppID:     &basetypes.StringVal{Op: cruder.EQ, Value: *h.AppID},
+		AppGoodID: &basetypes.StringVal{Op: cruder.EQ, Value: *h.AppGoodID},
+	}
+
 	handler, err := appdelegatedstakingmw.NewHandler(
 		ctx,
-		appdelegatedstakingmw.WithID(h.ID, true),
-		appdelegatedstakingmw.WithEntID(h.EntID, true),
-		appdelegatedstakingmw.WithAppID(h.AppID, true),
-		appdelegatedstakingmw.WithAppGoodID(h.AppGoodID, true),
+		appdelegatedstakingmw.WithConds(conds),
 	)
 	if err != nil {
 		return err
 	}
 
-	exist, err := handler.ExistDelegatedStaking(ctx)
+	exist, err := handler.ExistDelegatedStakingConds(ctx)
 	if err != nil {
 		return err
 	}

@@ -7,7 +7,7 @@ import (
 	scoremwcli "github.com/NpoolPlatform/good-middleware/pkg/client/app/good/score"
 	"github.com/NpoolPlatform/libent-cruder/pkg/cruder"
 	basetypes "github.com/NpoolPlatform/message/npool/basetypes/v1"
-	scoremwpb "github.com/NpoolPlatform/message/npool/good/mw/v1/app/good/score"
+	scoremwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/app/good/score"
 
 	"github.com/shopspring/decimal"
 )

@@ -4,7 +4,7 @@ import (
 	"context"
 
 	malfunctionmwcli "github.com/NpoolPlatform/good-middleware/pkg/client/good/malfunction"
-	npool "github.com/NpoolPlatform/message/npool/good/gw/v1/good/malfunction"
+	npool "github.com/NpoolPlatform/kunman/message/good/gateway/v1/good/malfunction"
 )
 
 type deleteHandler struct {

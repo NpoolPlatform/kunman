@@ -6,7 +6,7 @@ import (
 	requiredmwcli "github.com/NpoolPlatform/good-middleware/pkg/client/good/required"
 	cruder "github.com/NpoolPlatform/libent-cruder/pkg/cruder"
 	basetypes "github.com/NpoolPlatform/message/npool/basetypes/v1"
-	requiredmwpb "github.com/NpoolPlatform/message/npool/good/mw/v1/good/required"
+	requiredmwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/good/required"
 )
 
 func (h *Handler) GetRequired(ctx context.Context) (*requiredmwpb.Required, error) {

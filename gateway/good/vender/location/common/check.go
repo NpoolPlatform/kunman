@@ -7,7 +7,7 @@ import (
 	vendorlocationmwcli "github.com/NpoolPlatform/good-middleware/pkg/client/vender/location"
 	"github.com/NpoolPlatform/libent-cruder/pkg/cruder"
 	basetypes "github.com/NpoolPlatform/message/npool/basetypes/v1"
-	vendorlocationmwpb "github.com/NpoolPlatform/message/npool/good/mw/v1/vender/location"
+	vendorlocationmwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/vender/location"
 )
 
 type LocationCheckHandler struct {

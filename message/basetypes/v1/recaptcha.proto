@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+package basetypes.v1;
+
+option go_package = "github.com/NpoolPlatform/kunman/message/basetypes/v1";
+
+enum RecaptchaMethod {
+  DefaultRecaptchaMethod = 0;
+  GoogleRecaptchaV3 = 10;
+  NoRecaptcha = 1000000;
+}

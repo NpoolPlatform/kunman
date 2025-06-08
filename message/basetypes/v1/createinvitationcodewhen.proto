@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+package basetypes.v1;
+
+option go_package = "github.com/NpoolPlatform/kunman/message/basetypes/v1";
+
+enum CreateInvitationCodeWhen {
+  DefaultWhen = 0;
+  Registration = 10;
+  SetToKol = 20;
+  HasPaidOrder = 30;
+}

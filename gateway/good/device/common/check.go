@@ -7,7 +7,7 @@ import (
 	devicetypemwcli "github.com/NpoolPlatform/good-middleware/pkg/client/device"
 	"github.com/NpoolPlatform/libent-cruder/pkg/cruder"
 	basetypes "github.com/NpoolPlatform/message/npool/basetypes/v1"
-	devicetypemwpb "github.com/NpoolPlatform/message/npool/good/mw/v1/device"
+	devicetypemwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/device"
 )
 
 type DeviceTypeCheckHandler struct {

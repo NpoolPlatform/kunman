@@ -5,7 +5,7 @@ import (
 
 	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
 	apppowerrentalmwcli "github.com/NpoolPlatform/good-middleware/pkg/client/app/powerrental"
-	npool "github.com/NpoolPlatform/message/npool/good/gw/v1/app/powerrental"
+	npool "github.com/NpoolPlatform/kunman/message/good/gateway/v1/app/powerrental"
 )
 
 type deleteHandler struct {
