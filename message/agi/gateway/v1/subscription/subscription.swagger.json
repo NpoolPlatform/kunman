@@ -142,7 +142,12 @@
       }
     },
     "v1CountSubscriptionsRequest": {
-      "type": "object"
+      "type": "object",
+      "properties": {
+        "AppGoodID": {
+          "type": "string"
+        }
+      }
     },
     "v1CountSubscriptionsResponse": {
       "type": "object",
@@ -156,6 +161,12 @@
     "v1GetSubscriptionRequest": {
       "type": "object",
       "properties": {
+        "AppID": {
+          "type": "string"
+        },
+        "UserID": {
+          "type": "string"
+        },
         "EntID": {
           "type": "string"
         }
@@ -172,6 +183,9 @@
     "v1GetSubscriptionsRequest": {
       "type": "object",
       "properties": {
+        "AppGoodID": {
+          "type": "string"
+        },
         "Offset": {
           "type": "integer",
           "format": "int32"

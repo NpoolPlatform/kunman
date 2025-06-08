@@ -31,7 +31,9 @@ service Gateway {
 }
 
 message GetSubscriptionRequest {
-    string EntID = 10;
+    optional string AppID = 10;
+    optional string UserID = 20;
+    optional string EntID = 30;
 }
 
 message GetSubscriptionResponse {
@@ -39,15 +41,18 @@ message GetSubscriptionResponse {
 }
 
 message GetSubscriptionsRequest {
-    int32 Offset = 10;
-    int32 Limit = 20;
+    optional string AppGoodID = 10;
+    int32 Offset = 20;
+    int32 Limit = 30;
 }
 
 message GetSubscriptionsResponse {
     repeated middleware.subscription.v1.Subscription Infos = 10;
 }
 
-message CountSubscriptionsRequest {}
+message CountSubscriptionsRequest {
+    optional string AppGoodID = 10;
+}
 
 message CountSubscriptionsResponse {
     uint32 Total = 10;
