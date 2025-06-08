@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package basal.middleware.usercode.v1;
 
-option go_package = "github.com/NpoolPlatform/message/npool/basal/middleware/v1/usercode";
+option go_package = "github.com/NpoolPlatform/kunman/message/basal/middleware/v1/usercode";
 
 import "basetypes/v1/signmethod.proto";
 import "basetypes/v1/usedfor.proto";

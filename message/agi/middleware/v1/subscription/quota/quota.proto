@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package agi.middleware.subscription.quota.v1;
 
-option go_package = "github.com/NpoolPlatform/message/agi/middleware/v1/subscription/quota";
+option go_package = "github.com/NpoolPlatform/kunman/message/agi/middleware/v1/subscription/quota";
 
 import "basetypes/agi/v1/enums.proto";
 import "basetypes/v1/conds.proto";

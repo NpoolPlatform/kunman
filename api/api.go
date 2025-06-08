@@ -3,7 +3,7 @@ package api
 import (
 	agi "github.com/NpoolPlatform/kunman/api/agi"
 
-	npool "github.com/NpoolPlatform/kunman/message/billing/gateway/v1"
+	npool "github.com/NpoolPlatform/kunman/message/version"
 )
 
 type Server struct {

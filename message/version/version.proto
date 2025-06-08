@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package version.v1;
 
-option go_package = "github.com/NpoolPlatform/message/version/v1";
+option go_package = "github.com/NpoolPlatform/kunman/message/version/v1";
 
 import "google/api/annotations.proto";
 import "google/protobuf/empty.proto";

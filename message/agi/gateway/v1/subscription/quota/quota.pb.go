@@ -7,8 +7,8 @@
 package quota
 
 import (
+	quota "github.com/NpoolPlatform/kunman/message/agi/middleware/v1/subscription/quota"
 	_ "github.com/NpoolPlatform/kunman/message/basetypes/agi/v1"
-	quota "github.com/NpoolPlatform/message/agi/middleware/v1/subscription/quota"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"

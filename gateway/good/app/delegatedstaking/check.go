@@ -6,7 +6,7 @@ import (
 
 	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	appdelegatedstakingmwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/app/delegatedstaking"
-	appdelegatedstakingmw "github.com/NpoolPlatform/kunman/middleware/goood/app/delegatedstaking"
+	appdelegatedstakingmw "github.com/NpoolPlatform/kunman/middleware/good/app/delegatedstaking"
 	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 )
 

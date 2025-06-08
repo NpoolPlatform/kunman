@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package basal.gateway.api.v1;
 
-option go_package = "github.com/NpoolPlatform/message/npool/basal/gateway/v1/api";
+option go_package = "github.com/NpoolPlatform/kunman/message/basal/gateway/v1/api";
 
 import "google/api/annotations.proto";
 import "basal/middleware/v1/api/api.proto";

@@ -7,8 +7,8 @@
 package capacity
 
 import (
+	capacity "github.com/NpoolPlatform/kunman/message/agi/middleware/v1/capacity"
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/agi/v1"
-	capacity "github.com/NpoolPlatform/message/agi/middleware/v1/capacity"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"

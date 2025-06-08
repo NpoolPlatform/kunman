@@ -7,8 +7,8 @@
 package subscription
 
 import (
+	subscription "github.com/NpoolPlatform/kunman/message/agi/middleware/v1/subscription"
 	_ "github.com/NpoolPlatform/kunman/message/basetypes/agi/v1"
-	subscription "github.com/NpoolPlatform/message/agi/middleware/v1/subscription"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
