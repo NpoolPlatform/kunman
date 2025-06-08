@@ -3,11 +3,11 @@ package comment
 import (
 	"context"
 
-	appmwcli "github.com/NpoolPlatform/appuser-middleware/pkg/client/app"
+	appmwcli "github.com/NpoolPlatform/kunman/middleware/appuser/client/app"
 	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
 	appgoodcommon "github.com/NpoolPlatform/good-gateway/pkg/app/good/common"
 	constant "github.com/NpoolPlatform/good-middleware/pkg/const"
-	types "github.com/NpoolPlatform/message/npool/basetypes/good/v1"
+	types "github.com/NpoolPlatform/kunman/message/basetypes/good/v1"
 	ordermwcli "github.com/NpoolPlatform/order-middleware/pkg/client/order"
 
 	"github.com/google/uuid"

@@ -9,7 +9,7 @@ import (
 	devicecommon "github.com/NpoolPlatform/good-gateway/pkg/device/common"
 	goodcommon "github.com/NpoolPlatform/good-gateway/pkg/good/common"
 	locationcommon "github.com/NpoolPlatform/good-gateway/pkg/vender/location/common"
-	types "github.com/NpoolPlatform/message/npool/basetypes/good/v1"
+	types "github.com/NpoolPlatform/kunman/message/basetypes/good/v1"
 	goodstockgwpb "github.com/NpoolPlatform/kunman/message/good/gateway/v1/good/stock"
 	goodstockmwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/good/stock"
 

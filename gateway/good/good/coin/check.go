@@ -4,9 +4,9 @@ import (
 	"context"
 	"fmt"
 
-	goodcoinmwcli "github.com/NpoolPlatform/good-middleware/pkg/client/good/coin"
-	"github.com/NpoolPlatform/libent-cruder/pkg/cruder"
-	basetypes "github.com/NpoolPlatform/message/npool/basetypes/v1"
+	goodcoinmwcli "github.com/NpoolPlatform/kunman/middleware/good/good/coin"
+	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
+	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	goodcoinmwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/good/coin"
 )
 

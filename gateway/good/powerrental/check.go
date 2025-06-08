@@ -4,11 +4,11 @@ import (
 	"context"
 
 	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
-	powerrentalmwcli "github.com/NpoolPlatform/good-middleware/pkg/client/powerrental"
-	"github.com/NpoolPlatform/libent-cruder/pkg/cruder"
-	basetypes "github.com/NpoolPlatform/message/npool/basetypes/v1"
+	powerrentalmwcli "github.com/NpoolPlatform/kunman/middleware/good/powerrental"
+	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
+	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	powerrentalmwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/powerrental"
-	"github.com/NpoolPlatform/message/npool/miningpool/mw/v1/rootuser"
+	"github.com/NpoolPlatform/kunman/message/miningpool/middleware/v1/rootuser"
 	rootusermwcli "github.com/NpoolPlatform/miningpool-middleware/pkg/client/rootuser"
 )
 

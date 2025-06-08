@@ -3,7 +3,7 @@ package constraint
 import (
 	"context"
 
-	constraintmwcli "github.com/NpoolPlatform/good-middleware/pkg/client/app/good/topmost/constraint"
+	constraintmwcli "github.com/NpoolPlatform/kunman/middleware/good/app/good/topmost/constraint"
 	npool "github.com/NpoolPlatform/kunman/message/good/gateway/v1/app/good/topmost/constraint"
 	constraintmwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/app/good/topmost/constraint"
 

@@ -3,7 +3,7 @@ package score
 import (
 	"context"
 
-	scoremwcli "github.com/NpoolPlatform/good-middleware/pkg/client/app/good/score"
+	scoremwcli "github.com/NpoolPlatform/kunman/middleware/good/app/good/score"
 	npool "github.com/NpoolPlatform/kunman/message/good/gateway/v1/app/good/score"
 )
 

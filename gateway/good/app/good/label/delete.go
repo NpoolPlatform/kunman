@@ -4,7 +4,7 @@ import (
 	"context"
 
 	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
-	appgoodlabelmwcli "github.com/NpoolPlatform/good-middleware/pkg/client/app/good/label"
+	appgoodlabelmwcli "github.com/NpoolPlatform/kunman/middleware/good/app/good/label"
 	npool "github.com/NpoolPlatform/kunman/message/good/gateway/v1/app/good/label"
 )
 

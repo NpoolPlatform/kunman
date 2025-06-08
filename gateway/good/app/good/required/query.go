@@ -3,9 +3,9 @@ package required
 import (
 	"context"
 
-	requiredappgoodmwcli "github.com/NpoolPlatform/good-middleware/pkg/client/app/good/required"
-	cruder "github.com/NpoolPlatform/libent-cruder/pkg/cruder"
-	basetypes "github.com/NpoolPlatform/message/npool/basetypes/v1"
+	requiredappgoodmwcli "github.com/NpoolPlatform/kunman/middleware/good/app/good/required"
+	cruder "github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
+	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	requiredappgoodmwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/app/good/required"
 )
 

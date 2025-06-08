@@ -4,9 +4,9 @@ import (
 	"context"
 	"fmt"
 
-	devicepostermwcli "github.com/NpoolPlatform/good-middleware/pkg/client/device/poster"
-	"github.com/NpoolPlatform/libent-cruder/pkg/cruder"
-	basetypes "github.com/NpoolPlatform/message/npool/basetypes/v1"
+	devicepostermwcli "github.com/NpoolPlatform/kunman/middleware/good/device/poster"
+	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
+	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	devicepostermwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/device/poster"
 )
 

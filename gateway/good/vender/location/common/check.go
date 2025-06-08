@@ -4,9 +4,9 @@ import (
 	"context"
 	"fmt"
 
-	vendorlocationmwcli "github.com/NpoolPlatform/good-middleware/pkg/client/vender/location"
-	"github.com/NpoolPlatform/libent-cruder/pkg/cruder"
-	basetypes "github.com/NpoolPlatform/message/npool/basetypes/v1"
+	vendorlocationmwcli "github.com/NpoolPlatform/kunman/middleware/good/vender/location"
+	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
+	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	vendorlocationmwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/vender/location"
 )
 

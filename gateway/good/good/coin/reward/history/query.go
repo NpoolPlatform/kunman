@@ -3,9 +3,9 @@ package history
 import (
 	"context"
 
-	historymwcli "github.com/NpoolPlatform/good-middleware/pkg/client/good/coin/reward/history"
-	cruder "github.com/NpoolPlatform/libent-cruder/pkg/cruder"
-	basetypes "github.com/NpoolPlatform/message/npool/basetypes/v1"
+	historymwcli "github.com/NpoolPlatform/kunman/middleware/good/good/coin/reward/history"
+	cruder "github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
+	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	historymwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/good/coin/reward/history"
 )
 

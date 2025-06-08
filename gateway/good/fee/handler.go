@@ -6,7 +6,7 @@ import (
 
 	goodcommon "github.com/NpoolPlatform/good-gateway/pkg/good/common"
 	constant "github.com/NpoolPlatform/good-middleware/pkg/const"
-	types "github.com/NpoolPlatform/message/npool/basetypes/good/v1"
+	types "github.com/NpoolPlatform/kunman/message/basetypes/good/v1"
 
 	"github.com/google/uuid"
 	"github.com/shopspring/decimal"

@@ -5,18 +5,18 @@ import (
 
 	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
 	goodgwcommon "github.com/NpoolPlatform/good-gateway/pkg/common"
-	apppowerrentalmwcli "github.com/NpoolPlatform/good-middleware/pkg/client/app/powerrental"
-	cruder "github.com/NpoolPlatform/libent-cruder/pkg/cruder"
-	appmwpb "github.com/NpoolPlatform/message/npool/appuser/mw/v1/app"
-	types "github.com/NpoolPlatform/message/npool/basetypes/good/v1"
-	basetypes "github.com/NpoolPlatform/message/npool/basetypes/v1"
-	appcoinmwpb "github.com/NpoolPlatform/message/npool/chain/mw/v1/app/coin"
+	apppowerrentalmwcli "github.com/NpoolPlatform/kunman/middleware/good/app/powerrental"
+	cruder "github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
+	appmwpb "github.com/NpoolPlatform/kunman/message/appuser/middleware/v1/app"
+	types "github.com/NpoolPlatform/kunman/message/basetypes/good/v1"
+	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
+	appcoinmwpb "github.com/NpoolPlatform/kunman/message/chain/middleware/v1/app/coin"
 	npool "github.com/NpoolPlatform/kunman/message/good/gateway/v1/app/powerrental"
 	goodcoingwpb "github.com/NpoolPlatform/kunman/message/good/gateway/v1/good/coin"
 	goodcoinrewardgwpb "github.com/NpoolPlatform/kunman/message/good/gateway/v1/good/coin/reward"
 	goodstockgwpb "github.com/NpoolPlatform/kunman/message/good/gateway/v1/good/stock"
 	apppowerrentalmwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/app/powerrental"
-	goodusermwpb "github.com/NpoolPlatform/message/npool/miningpool/mw/v1/gooduser"
+	goodusermwpb "github.com/NpoolPlatform/kunman/message/miningpool/middleware/v1/gooduser"
 )
 
 type queryHandler struct {

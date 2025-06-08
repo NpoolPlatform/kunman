@@ -3,7 +3,7 @@ package poster
 import (
 	"context"
 
-	appgoodpostermwcli "github.com/NpoolPlatform/good-middleware/pkg/client/app/good/poster"
+	appgoodpostermwcli "github.com/NpoolPlatform/kunman/middleware/good/app/good/poster"
 	npool "github.com/NpoolPlatform/kunman/message/good/gateway/v1/app/good/poster"
 	appgoodpostermwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/app/good/poster"
 )

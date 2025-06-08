@@ -4,7 +4,7 @@ import (
 	"context"
 
 	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
-	scoremwcli "github.com/NpoolPlatform/good-middleware/pkg/client/app/good/score"
+	scoremwcli "github.com/NpoolPlatform/kunman/middleware/good/app/good/score"
 	npool "github.com/NpoolPlatform/kunman/message/good/gateway/v1/app/good/score"
 	scoremwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/app/good/score"
 )

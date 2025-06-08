@@ -4,7 +4,7 @@ import (
 	"context"
 
 	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
-	appgooddisplaycolormwcli "github.com/NpoolPlatform/good-middleware/pkg/client/app/good/display/color"
+	appgooddisplaycolormwcli "github.com/NpoolPlatform/kunman/middleware/good/app/good/display/color"
 	npool "github.com/NpoolPlatform/kunman/message/good/gateway/v1/app/good/display/color"
 )
 

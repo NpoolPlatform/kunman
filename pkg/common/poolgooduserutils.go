@@ -3,7 +3,7 @@ package common
 import (
 	"context"
 
-	cruder "github.com/NpoolPlatform/libent-cruder/pkg/cruder"
+	cruder "github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 	basetypes "github.com/NpoolPlatform/message/npool/basetypes/v1"
 	goodusermwpb "github.com/NpoolPlatform/message/npool/miningpool/mw/v1/gooduser"
 	goodusermwcli "github.com/NpoolPlatform/miningpool-middleware/pkg/client/gooduser"

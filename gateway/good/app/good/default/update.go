@@ -3,7 +3,7 @@ package default1
 import (
 	"context"
 
-	defaultmwcli "github.com/NpoolPlatform/good-middleware/pkg/client/app/good/default"
+	defaultmwcli "github.com/NpoolPlatform/kunman/middleware/good/app/good/default"
 	npool "github.com/NpoolPlatform/kunman/message/good/gateway/v1/app/good/default"
 	defaultmwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/app/good/default"
 )

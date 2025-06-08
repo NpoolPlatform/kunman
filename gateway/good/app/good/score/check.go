@@ -4,9 +4,9 @@ import (
 	"context"
 
 	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
-	scoremwcli "github.com/NpoolPlatform/good-middleware/pkg/client/app/good/score"
-	"github.com/NpoolPlatform/libent-cruder/pkg/cruder"
-	basetypes "github.com/NpoolPlatform/message/npool/basetypes/v1"
+	scoremwcli "github.com/NpoolPlatform/kunman/middleware/good/app/good/score"
+	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
+	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	scoremwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/app/good/score"
 
 	"github.com/shopspring/decimal"

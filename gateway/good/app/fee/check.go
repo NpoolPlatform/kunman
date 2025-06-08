@@ -4,9 +4,9 @@ import (
 	"context"
 	"fmt"
 
-	appfeemwcli "github.com/NpoolPlatform/good-middleware/pkg/client/app/fee"
-	"github.com/NpoolPlatform/libent-cruder/pkg/cruder"
-	basetypes "github.com/NpoolPlatform/message/npool/basetypes/v1"
+	appfeemwcli "github.com/NpoolPlatform/kunman/middleware/good/app/fee"
+	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
+	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	appfeemwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/app/fee"
 )
 

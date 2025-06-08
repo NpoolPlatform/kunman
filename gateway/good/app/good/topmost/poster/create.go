@@ -3,7 +3,7 @@ package poster
 import (
 	"context"
 
-	topmostpostermwcli "github.com/NpoolPlatform/good-middleware/pkg/client/app/good/topmost/poster"
+	topmostpostermwcli "github.com/NpoolPlatform/kunman/middleware/good/app/good/topmost/poster"
 	npool "github.com/NpoolPlatform/kunman/message/good/gateway/v1/app/good/topmost/poster"
 	topmostpostermwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/app/good/topmost/poster"
 

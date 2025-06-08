@@ -3,7 +3,7 @@ package manufacturer
 import (
 	"context"
 
-	manufacturermwcli "github.com/NpoolPlatform/good-middleware/pkg/client/device/manufacturer"
+	manufacturermwcli "github.com/NpoolPlatform/kunman/middleware/good/device/manufacturer"
 	manufacturermwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/device/manufacturer"
 )
 

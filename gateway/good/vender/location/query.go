@@ -3,9 +3,9 @@ package location
 import (
 	"context"
 
-	locationmwcli "github.com/NpoolPlatform/good-middleware/pkg/client/vender/location"
-	cruder "github.com/NpoolPlatform/libent-cruder/pkg/cruder"
-	basetypes "github.com/NpoolPlatform/message/npool/basetypes/v1"
+	locationmwcli "github.com/NpoolPlatform/kunman/middleware/good/vender/location"
+	cruder "github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
+	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	locationmwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/vender/location"
 )
 

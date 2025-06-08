@@ -3,7 +3,7 @@ package devicetype
 import (
 	"context"
 
-	devicetypemwcli "github.com/NpoolPlatform/good-middleware/pkg/client/device"
+	devicetypemwcli "github.com/NpoolPlatform/kunman/middleware/good/device"
 	devicetypemwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/device"
 )
 

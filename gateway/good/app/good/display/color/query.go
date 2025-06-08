@@ -5,10 +5,10 @@ import (
 	"fmt"
 
 	goodgwcommon "github.com/NpoolPlatform/good-gateway/pkg/common"
-	appgooddisplaycolormwcli "github.com/NpoolPlatform/good-middleware/pkg/client/app/good/display/color"
-	cruder "github.com/NpoolPlatform/libent-cruder/pkg/cruder"
-	appmwpb "github.com/NpoolPlatform/message/npool/appuser/mw/v1/app"
-	basetypes "github.com/NpoolPlatform/message/npool/basetypes/v1"
+	appgooddisplaycolormwcli "github.com/NpoolPlatform/kunman/middleware/good/app/good/display/color"
+	cruder "github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
+	appmwpb "github.com/NpoolPlatform/kunman/message/appuser/middleware/v1/app"
+	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	npool "github.com/NpoolPlatform/kunman/message/good/gateway/v1/app/good/display/color"
 	appgooddisplaycolormwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/app/good/display/color"
 )

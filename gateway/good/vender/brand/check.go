@@ -4,9 +4,9 @@ import (
 	"context"
 	"fmt"
 
-	brandmwcli "github.com/NpoolPlatform/good-middleware/pkg/client/vender/brand"
-	"github.com/NpoolPlatform/libent-cruder/pkg/cruder"
-	basetypes "github.com/NpoolPlatform/message/npool/basetypes/v1"
+	brandmwcli "github.com/NpoolPlatform/kunman/middleware/good/vender/brand"
+	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
+	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	brandmwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/vender/brand"
 )
 

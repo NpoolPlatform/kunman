@@ -3,7 +3,7 @@ package poster
 import (
 	"context"
 
-	postermwcli "github.com/NpoolPlatform/good-middleware/pkg/client/device/poster"
+	postermwcli "github.com/NpoolPlatform/kunman/middleware/good/device/poster"
 	postermwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/device/poster"
 )
 

@@ -6,11 +6,11 @@ import (
 	"github.com/NpoolPlatform/kunman/framework/logger"
 	"github.com/NpoolPlatform/kunman/framework/pubsub"
 	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
-	scoremwcli "github.com/NpoolPlatform/good-middleware/pkg/client/app/good/score"
-	basetypes "github.com/NpoolPlatform/message/npool/basetypes/v1"
+	scoremwcli "github.com/NpoolPlatform/kunman/middleware/good/app/good/score"
+	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	npool "github.com/NpoolPlatform/kunman/message/good/gateway/v1/app/good/score"
 	scoremwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/app/good/score"
-	eventmwpb "github.com/NpoolPlatform/message/npool/inspire/mw/v1/event"
+	eventmwpb "github.com/NpoolPlatform/kunman/message/inspire/middleware/v1/event"
 
 	"github.com/google/uuid"
 )

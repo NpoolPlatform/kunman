@@ -3,7 +3,7 @@ package good
 import (
 	"context"
 
-	goodmwcli "github.com/NpoolPlatform/good-middleware/pkg/client/good"
+	goodmwcli "github.com/NpoolPlatform/kunman/middleware/good/good"
 	goodmwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/good"
 )
 

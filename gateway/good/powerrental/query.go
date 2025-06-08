@@ -5,14 +5,14 @@ import (
 	"fmt"
 
 	goodgwcommon "github.com/NpoolPlatform/good-gateway/pkg/common"
-	powerrentalmwcli "github.com/NpoolPlatform/good-middleware/pkg/client/powerrental"
-	coinmwpb "github.com/NpoolPlatform/message/npool/chain/mw/v1/coin"
+	powerrentalmwcli "github.com/NpoolPlatform/kunman/middleware/good/powerrental"
+	coinmwpb "github.com/NpoolPlatform/kunman/message/chain/middleware/v1/coin"
 	goodcoingwpb "github.com/NpoolPlatform/kunman/message/good/gateway/v1/good/coin"
 	goodcoinrewardgwpb "github.com/NpoolPlatform/kunman/message/good/gateway/v1/good/coin/reward"
 	goodstockgwpb "github.com/NpoolPlatform/kunman/message/good/gateway/v1/good/stock"
 	npool "github.com/NpoolPlatform/kunman/message/good/gateway/v1/powerrental"
 	powerrentalmwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/powerrental"
-	goodusermwpb "github.com/NpoolPlatform/message/npool/miningpool/mw/v1/gooduser"
+	goodusermwpb "github.com/NpoolPlatform/kunman/message/miningpool/middleware/v1/gooduser"
 )
 
 type queryHandler struct {

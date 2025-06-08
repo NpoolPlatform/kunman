@@ -5,7 +5,7 @@ import (
 
 	topmostcommon "github.com/NpoolPlatform/good-gateway/pkg/app/good/topmost/common"
 	goodgwcommon "github.com/NpoolPlatform/good-gateway/pkg/common"
-	topmostgoodmwcli "github.com/NpoolPlatform/good-middleware/pkg/client/app/good/topmost/good"
+	topmostgoodmwcli "github.com/NpoolPlatform/kunman/middleware/good/app/good/topmost/good"
 	npool "github.com/NpoolPlatform/kunman/message/good/gateway/v1/app/good/topmost/good"
 	topmostgoodmwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/app/good/topmost/good"
 

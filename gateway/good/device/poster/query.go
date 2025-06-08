@@ -3,9 +3,9 @@ package poster
 import (
 	"context"
 
-	postermwcli "github.com/NpoolPlatform/good-middleware/pkg/client/device/poster"
-	cruder "github.com/NpoolPlatform/libent-cruder/pkg/cruder"
-	basetypes "github.com/NpoolPlatform/message/npool/basetypes/v1"
+	postermwcli "github.com/NpoolPlatform/kunman/middleware/good/device/poster"
+	cruder "github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
+	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	postermwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/device/poster"
 )
 

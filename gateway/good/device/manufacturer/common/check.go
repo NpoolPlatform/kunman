@@ -4,9 +4,9 @@ import (
 	"context"
 	"fmt"
 
-	manufacturermwcli "github.com/NpoolPlatform/good-middleware/pkg/client/device/manufacturer"
-	"github.com/NpoolPlatform/libent-cruder/pkg/cruder"
-	basetypes "github.com/NpoolPlatform/message/npool/basetypes/v1"
+	manufacturermwcli "github.com/NpoolPlatform/kunman/middleware/good/device/manufacturer"
+	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
+	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	manufacturermwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/device/manufacturer"
 )
 

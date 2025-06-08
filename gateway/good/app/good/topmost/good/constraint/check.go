@@ -4,9 +4,9 @@ import (
 	"context"
 	"fmt"
 
-	topmostgoodconstraintmwcli "github.com/NpoolPlatform/good-middleware/pkg/client/app/good/topmost/good/constraint"
-	"github.com/NpoolPlatform/libent-cruder/pkg/cruder"
-	basetypes "github.com/NpoolPlatform/message/npool/basetypes/v1"
+	topmostgoodconstraintmwcli "github.com/NpoolPlatform/kunman/middleware/good/app/good/topmost/good/constraint"
+	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
+	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	topmostgoodconstraintmwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/app/good/topmost/good/constraint"
 )
 

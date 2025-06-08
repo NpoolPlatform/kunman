@@ -3,7 +3,7 @@ package appfee
 import (
 	"context"
 
-	appfeemwcli "github.com/NpoolPlatform/good-middleware/pkg/client/app/fee"
+	appfeemwcli "github.com/NpoolPlatform/kunman/middleware/good/app/fee"
 	npool "github.com/NpoolPlatform/kunman/message/good/gateway/v1/app/fee"
 	appfeemwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/app/fee"
 

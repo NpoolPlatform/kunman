@@ -4,7 +4,7 @@ import (
 	"context"
 
 	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
-	appgoodpostermwcli "github.com/NpoolPlatform/good-middleware/pkg/client/app/good/poster"
+	appgoodpostermwcli "github.com/NpoolPlatform/kunman/middleware/good/app/good/poster"
 	npool "github.com/NpoolPlatform/kunman/message/good/gateway/v1/app/good/poster"
 )
 

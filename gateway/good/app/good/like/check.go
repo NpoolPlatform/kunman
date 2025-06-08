@@ -4,9 +4,9 @@ import (
 	"context"
 	"fmt"
 
-	likemwcli "github.com/NpoolPlatform/good-middleware/pkg/client/app/good/like"
-	"github.com/NpoolPlatform/libent-cruder/pkg/cruder"
-	basetypes "github.com/NpoolPlatform/message/npool/basetypes/v1"
+	likemwcli "github.com/NpoolPlatform/kunman/middleware/good/app/good/like"
+	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
+	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	likemwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/app/good/like"
 )
 

@@ -3,7 +3,7 @@ package location
 import (
 	"context"
 
-	locationmwcli "github.com/NpoolPlatform/good-middleware/pkg/client/vender/location"
+	locationmwcli "github.com/NpoolPlatform/kunman/middleware/good/vender/location"
 	locationmwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/vender/location"
 )
 

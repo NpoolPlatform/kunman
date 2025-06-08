@@ -3,7 +3,7 @@ package comment
 import (
 	"context"
 
-	commentmwcli "github.com/NpoolPlatform/good-middleware/pkg/client/app/good/comment"
+	commentmwcli "github.com/NpoolPlatform/kunman/middleware/good/app/good/comment"
 	npool "github.com/NpoolPlatform/kunman/message/good/gateway/v1/app/good/comment"
 )
 

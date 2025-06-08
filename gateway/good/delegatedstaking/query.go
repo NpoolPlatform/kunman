@@ -6,17 +6,17 @@ import (
 
 	contractmwcli "github.com/NpoolPlatform/account-middleware/pkg/client/contract"
 	goodgwcommon "github.com/NpoolPlatform/good-gateway/pkg/common"
-	delegatedstakingmwcli "github.com/NpoolPlatform/good-middleware/pkg/client/delegatedstaking"
-	"github.com/NpoolPlatform/libent-cruder/pkg/cruder"
-	contractmwpb "github.com/NpoolPlatform/message/npool/account/mw/v1/contract"
-	accounttypes "github.com/NpoolPlatform/message/npool/basetypes/account/v1"
-	basetypes "github.com/NpoolPlatform/message/npool/basetypes/v1"
-	coinmwpb "github.com/NpoolPlatform/message/npool/chain/mw/v1/coin"
+	delegatedstakingmwcli "github.com/NpoolPlatform/kunman/middleware/good/delegatedstaking"
+	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
+	contractmwpb "github.com/NpoolPlatform/kunman/message/account/middleware/v1/contract"
+	accounttypes "github.com/NpoolPlatform/kunman/message/basetypes/account/v1"
+	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
+	coinmwpb "github.com/NpoolPlatform/kunman/message/chain/middleware/v1/coin"
 	npool "github.com/NpoolPlatform/kunman/message/good/gateway/v1/delegatedstaking"
 	goodcoingwpb "github.com/NpoolPlatform/kunman/message/good/gateway/v1/good/coin"
 	goodcoinrewardgwpb "github.com/NpoolPlatform/kunman/message/good/gateway/v1/good/coin/reward"
 	delegatedstakingmwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/delegatedstaking"
-	goodusermwpb "github.com/NpoolPlatform/message/npool/miningpool/mw/v1/gooduser"
+	goodusermwpb "github.com/NpoolPlatform/kunman/message/miningpool/middleware/v1/gooduser"
 )
 
 type queryHandler struct {

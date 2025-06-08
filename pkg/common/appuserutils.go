@@ -3,9 +3,9 @@ package common
 import (
 	"context"
 
-	appmwcli "github.com/NpoolPlatform/appuser-middleware/pkg/client/app"
-	usermwcli "github.com/NpoolPlatform/appuser-middleware/pkg/client/user"
-	cruder "github.com/NpoolPlatform/libent-cruder/pkg/cruder"
+	appmwcli "github.com/NpoolPlatform/kunman/middleware/appuser/client/app"
+	usermwcli "github.com/NpoolPlatform/kunman/middleware/appuser/client/user"
+	cruder "github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 	appmwpb "github.com/NpoolPlatform/message/npool/appuser/mw/v1/app"
 	usermwpb "github.com/NpoolPlatform/message/npool/appuser/mw/v1/user"
 	basetypes "github.com/NpoolPlatform/message/npool/basetypes/v1"

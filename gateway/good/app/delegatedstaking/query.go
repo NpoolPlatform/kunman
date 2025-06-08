@@ -4,16 +4,16 @@ import (
 	"context"
 
 	goodgwcommon "github.com/NpoolPlatform/good-gateway/pkg/common"
-	appdelegatedstakingmwcli "github.com/NpoolPlatform/good-middleware/pkg/client/app/delegatedstaking"
 	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
+	appmwpb "github.com/NpoolPlatform/kunman/message/appuser/middleware/v1/app"
+	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
+	appcoinmwpb "github.com/NpoolPlatform/kunman/message/chain/middleware/v1/app/coin"
 	npool "github.com/NpoolPlatform/kunman/message/good/gateway/v1/app/delegatedstaking"
 	goodcoingwpb "github.com/NpoolPlatform/kunman/message/good/gateway/v1/good/coin"
 	goodcoinrewardgwpb "github.com/NpoolPlatform/kunman/message/good/gateway/v1/good/coin/reward"
 	appdelegatedstakingmwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/app/delegatedstaking"
-	cruder "github.com/NpoolPlatform/libent-cruder/pkg/cruder"
-	appmwpb "github.com/NpoolPlatform/message/npool/appuser/mw/v1/app"
-	basetypes "github.com/NpoolPlatform/message/npool/basetypes/v1"
-	appcoinmwpb "github.com/NpoolPlatform/message/npool/chain/mw/v1/app/coin"
+	appdelegatedstakingmwcli "github.com/NpoolPlatform/kunman/middleware/good/app/delegatedstaking"
+	cruder "github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 )
 
 type queryHandler struct {

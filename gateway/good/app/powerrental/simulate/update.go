@@ -3,7 +3,7 @@ package simulate
 import (
 	"context"
 
-	simulatemwcli "github.com/NpoolPlatform/good-middleware/pkg/client/app/powerrental/simulate"
+	simulatemwcli "github.com/NpoolPlatform/kunman/middleware/good/app/powerrental/simulate"
 	npool "github.com/NpoolPlatform/kunman/message/good/gateway/v1/app/powerrental/simulate"
 	simulatemwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/app/powerrental/simulate"
 )

@@ -3,7 +3,7 @@ package brand
 import (
 	"context"
 
-	brandmwcli "github.com/NpoolPlatform/good-middleware/pkg/client/vender/brand"
+	brandmwcli "github.com/NpoolPlatform/kunman/middleware/good/vender/brand"
 	brandmwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/vender/brand"
 
 	"github.com/google/uuid"

@@ -3,7 +3,7 @@ package displayname
 import (
 	"context"
 
-	appgooddisplaynamemwcli "github.com/NpoolPlatform/good-middleware/pkg/client/app/good/display/name"
+	appgooddisplaynamemwcli "github.com/NpoolPlatform/kunman/middleware/good/app/good/display/name"
 	npool "github.com/NpoolPlatform/kunman/message/good/gateway/v1/app/good/display/name"
 	appgooddisplaynamemwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/app/good/display/name"
 )

@@ -3,7 +3,7 @@ package required
 import (
 	"context"
 
-	requiredappgoodmwcli "github.com/NpoolPlatform/good-middleware/pkg/client/app/good/required"
+	requiredappgoodmwcli "github.com/NpoolPlatform/kunman/middleware/good/app/good/required"
 	requiredappgoodmwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/app/good/required"
 )
 

@@ -3,7 +3,7 @@ package like
 import (
 	"context"
 
-	likemwcli "github.com/NpoolPlatform/good-middleware/pkg/client/app/good/like"
+	likemwcli "github.com/NpoolPlatform/kunman/middleware/good/app/good/like"
 	npool "github.com/NpoolPlatform/kunman/message/good/gateway/v1/app/good/like"
 	likemwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/app/good/like"
 

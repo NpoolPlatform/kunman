@@ -3,7 +3,7 @@ package description
 import (
 	"context"
 
-	appgooddescriptionmwcli "github.com/NpoolPlatform/good-middleware/pkg/client/app/good/description"
+	appgooddescriptionmwcli "github.com/NpoolPlatform/kunman/middleware/good/app/good/description"
 	npool "github.com/NpoolPlatform/kunman/message/good/gateway/v1/app/good/description"
 	appgooddescriptionmwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/app/good/description"
 )

@@ -3,7 +3,7 @@ package fee
 import (
 	"context"
 
-	feemwcli "github.com/NpoolPlatform/good-middleware/pkg/client/fee"
+	feemwcli "github.com/NpoolPlatform/kunman/middleware/good/fee"
 	feemwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/fee"
 )
 

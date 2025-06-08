@@ -5,10 +5,10 @@ import (
 
 	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
 	goodgwcommon "github.com/NpoolPlatform/good-gateway/pkg/common"
-	goodcoinmwcli "github.com/NpoolPlatform/good-middleware/pkg/client/good/coin"
-	cruder "github.com/NpoolPlatform/libent-cruder/pkg/cruder"
-	basetypes "github.com/NpoolPlatform/message/npool/basetypes/v1"
-	coinmwpb "github.com/NpoolPlatform/message/npool/chain/mw/v1/coin"
+	goodcoinmwcli "github.com/NpoolPlatform/kunman/middleware/good/good/coin"
+	cruder "github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
+	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
+	coinmwpb "github.com/NpoolPlatform/kunman/message/chain/middleware/v1/coin"
 	npool "github.com/NpoolPlatform/kunman/message/good/gateway/v1/good/coin"
 	goodcoinmwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/good/coin"
 )
