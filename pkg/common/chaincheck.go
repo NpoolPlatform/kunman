@@ -4,7 +4,7 @@ import (
 	"context"
 	"fmt"
 
-	coinmwcli "github.com/NpoolPlatform/kunman/middleware/chain/coin"
+	coinmw "github.com/NpoolPlatform/kunman/middleware/chain/coin"
 )
 
 type CoinCheckHandler struct {
@@ -12,7 +12,15 @@ type CoinCheckHandler struct {
 }
 
 func (h *CoinCheckHandler) CheckCoinWithCoinTypeID(ctx context.Context, coinTypeID string) error {
-	exist, err := coinmwcli.ExistCoin(ctx, coinTypeID)
+	handler, err := coinmw.NewHandler(
+		ctx,
+		coinmw.WithEntID(&coinTypeID, true),
+	)
+	if err != nil {
+		return err
+	}
+
+	exist, err := handler.ExistCoin(ctx)
 	if err != nil {
 		return err
 	}

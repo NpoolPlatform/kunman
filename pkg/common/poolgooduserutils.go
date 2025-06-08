@@ -3,9 +3,9 @@ package common
 import (
 	"context"
 
-	cruder "github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	goodusermwpb "github.com/NpoolPlatform/kunman/message/miningpool/middleware/v1/gooduser"
+	cruder "github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 	goodusermwcli "github.com/NpoolPlatform/miningpool-middleware/pkg/client/gooduser"
 
 	"github.com/google/uuid"
