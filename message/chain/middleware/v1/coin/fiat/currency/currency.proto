@@ -1,0 +1,51 @@
+syntax = "proto3";
+
+package chain.middleware.coin.fiat.currency.v1;
+
+option go_package = "github.com/NpoolPlatform/kunman/message/chain/middleware/v1/coin/fiat/currency";
+
+import "basetypes/v1/currencyfeedtype.proto";
+
+message CurrencyReq {
+  optional string CoinTypeID = 10;
+  optional string FiatID = 20;
+  optional basetypes.v1.CurrencyFeedType FeedType = 30;
+  optional string MarketValueHigh = 40;
+  optional string MarketValueLow = 50;
+}
+
+message Currency {
+  // @inject_tag: sql:"id"
+  uint32 ID = 10;
+  // @inject_tag: sql:"ent_id"
+  string EntID = 11;
+  // @inject_tag: sql:"coin_type_id"
+  string CoinTypeID = 20;
+  // @inject_tag: sql:"coin_name"
+  string CoinName = 30;
+  // @inject_tag: sql:"coin_logo"
+  string CoinLogo = 40;
+  // @inject_tag: sql:"coin_unit"
+  string CoinUnit = 50;
+  // @inject_tag: sql:"coin_env"
+  string CoinENV = 60;
+  // @inject_tag: sql:"fiat_id"
+  string FiatID = 70;
+  // @inject_tag: sql:"fiat_name"
+  string FiatName = 80;
+  // @inject_tag: sql:"fiat_logo"
+  string FiatLogo = 90;
+  // @inject_tag: sql:"fiat_unit"
+  string FiatUnit = 100;
+  // @inject_tag: sql:"market_value_high"
+  string MarketValueHigh = 110;
+  // @inject_tag: sql:"market_value_low"
+  string MarketValueLow = 120;
+  // @inject_tag: sql:"feed_type"
+  string FeedTypeStr = 130;
+  basetypes.v1.CurrencyFeedType FeedType = 140;
+  // @inject_tag: sql:"created_at"
+  uint32 CreatedAt = 1000;
+  // @inject_tag: sql:"updated_at"
+  uint32 UpdatedAt = 1010;
+}

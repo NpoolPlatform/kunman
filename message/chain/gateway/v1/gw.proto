@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+package chain.gateway.v1;
+
+option go_package = "github.com/NpoolPlatform/kunman/message/chain/gateway/v1";
+
+import "google/api/annotations.proto";
+import "google/protobuf/empty.proto";
+import "basetypes/v1/version.proto";
+
+// Service Name
+service Gateway {
+  // Method Version
+  rpc Version(google.protobuf.Empty) returns (basetypes.v1.VersionResponse) {
+    option (google.api.http) = {
+      post : "/v1/version"
+      body : "*"
+    };
+  }
+}

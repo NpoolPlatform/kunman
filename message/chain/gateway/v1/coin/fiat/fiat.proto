@@ -1,0 +1,58 @@
+syntax = "proto3";
+
+package chain.gateway.coin.fiat.v1;
+
+option go_package = "github.com/NpoolPlatform/kunman/message/chain/gateway/v1/coin/fiat";
+
+import "google/api/annotations.proto";
+import "chain/middleware/v1/coin/fiat/fiat.proto";
+import "basetypes/v1/currencyfeedtype.proto";
+
+// Service Name
+service Gateway {
+  rpc CreateCoinFiat(CreateCoinFiatRequest) returns (CreateCoinFiatResponse) {
+    option (google.api.http) = {
+      post : "/v1/create/coinfiat"
+      body : "*"
+    };
+  }
+  rpc GetCoinFiats(GetCoinFiatsRequest) returns (GetCoinFiatsResponse) {
+    option (google.api.http) = {
+      post : "/v1/get/coinfiats"
+      body : "*"
+    };
+  }
+  rpc DeleteCoinFiat(DeleteCoinFiatRequest) returns (DeleteCoinFiatResponse) {
+    option (google.api.http) = {
+      post : "/v1/delete/coinfiat"
+      body : "*"
+    };
+  }
+}
+
+message CreateCoinFiatRequest {
+  string CoinTypeID = 10;
+  string FiatID = 20;
+  basetypes.v1.CurrencyFeedType FeedType = 30;
+}
+
+message CreateCoinFiatResponse {
+  chain.middleware.coin.fiat.v1.CoinFiat Info = 10;
+}
+
+message GetCoinFiatsRequest {
+  repeated string CoinTypeIDs = 10;
+  int32 Offset = 40;
+  int32 Limit = 50;
+}
+
+message GetCoinFiatsResponse {
+  repeated chain.middleware.coin.fiat.v1.CoinFiat Infos = 10;
+  uint32 Total = 20;
+}
+
+message DeleteCoinFiatRequest { uint32 ID = 10; }
+
+message DeleteCoinFiatResponse {
+  chain.middleware.coin.fiat.v1.CoinFiat Info = 10;
+}

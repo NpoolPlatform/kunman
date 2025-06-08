@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+package chain.gateway.coin.fiat.currency.history.v1;
+
+option go_package = "github.com/NpoolPlatform/kunman/message/chain/gateway/v1/coin/fiat/currency/history";
+
+import "google/api/annotations.proto";
+import "chain/middleware/v1/coin/fiat/currency/currency.proto";
+
+// Service Name
+service Gateway {
+  rpc GetCurrencies(GetCurrenciesRequest) returns (GetCurrenciesResponse) {
+    option (google.api.http) = {
+      post : "/v1/get/coinfiatcurrencyhistories"
+      body : "*"
+    };
+  }
+}
+
+message GetCurrenciesRequest {
+  repeated string CoinTypeIDs = 10;
+  optional uint32 StartAt = 20;
+  optional uint32 EndAt = 30;
+  int32 Offset = 40;
+  int32 Limit = 50;
+}
+
+message GetCurrenciesResponse {
+  repeated chain.middleware.coin.fiat.currency.v1.Currency Infos = 10;
+  uint32 Total = 20;
+}

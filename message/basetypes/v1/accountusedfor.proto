@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+package basetypes.v1;
+
+option go_package = "github.com/NpoolPlatform/kunman/message/basetypes/v1";
+
+enum AccountUsedFor {
+  DefaultAccountUsedFor = 0;
+  GoodBenefit = 10; // Daily good benefit receiver              - Platform Hot
+  UserBenefitHot =
+      20; // Limited amount money for withdrawal      - Platform Hot
+  UserBenefitCold =
+      30; // Money of user benefit over limitation    - Platform Cold
+  PlatformBenefitCold =
+      40;            // Money over limitation                    - Platform Cold
+  GasProvider = 50;  // Deposit money for transaction gas        - Platform Hot
+  UserWithdraw = 60; // User set withdraw address                - User Set
+  UserDeposit =
+      70; // Platform created user deposit address    - Platform Create
+  GoodPayment =
+      80; // Platform created for good payment        - Platform Created
+  PaymentCollector =
+      90; // Money for payment over limitation        - Platform Cold
+  UserDirectBenefit =
+      100;            // Benefit address for user set to product  - User set
+  OrderBenefit = 110; // Benefit address for user set to order - Order set
+}

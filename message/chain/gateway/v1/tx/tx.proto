@@ -1,0 +1,73 @@
+syntax = "proto3";
+
+package chain.gateway.tx.v1;
+
+option go_package = "github.com/NpoolPlatform/kunman/message/chain/gateway/v1/tx";
+
+import "google/api/annotations.proto";
+import "basetypes/v1/txtype.proto";
+import "basetypes/v1/txstate.proto";
+import "basetypes/v1/accountusedfor.proto";
+
+// Service Name
+service Gateway {
+  rpc GetTxs(GetTxsRequest) returns (GetTxsResponse) {
+    option (google.api.http) = {
+      post : "/v1/get/txs"
+      body : "*"
+    };
+  }
+
+  rpc UpdateTx(UpdateTxRequest) returns (UpdateTxResponse) {
+    option (google.api.http) = {
+      post: "/v1/update/tx"
+      body: "*"
+    };
+  }
+}
+
+message Tx {
+  uint32 ID = 9;
+  string EntID = 10;
+  string CoinTypeID = 20;
+  string CoinName = 30;
+  string CoinLogo = 40;
+  string CoinUnit = 50;
+  string CoinENV = 60;
+  string AppID = 70;
+  string AppName = 80;
+  string FromAccountID = 90;
+  string FromAddress = 100;
+  basetypes.v1.AccountUsedFor FromUsedFor = 110;
+  string ToAccountID = 120;
+  string ToAddress = 130;
+  basetypes.v1.AccountUsedFor ToUsedFor = 140;
+  string Amount = 150;
+  string FeeAmount = 160;
+  string ChainTxID = 170;
+  basetypes.v1.TxState State = 180;
+  string Extra = 190;
+  basetypes.v1.TxType Type = 200;
+  uint32 CreatedAt = 210;
+  uint32 UpdatedAt = 220;
+}
+
+message GetTxsRequest {
+  int32 Offset = 20;
+  int32 Limit = 30;
+}
+
+message GetTxsResponse {
+  repeated Tx Infos = 10;
+  uint32 Total = 20;
+}
+
+message UpdateTxRequest {
+  uint32 ID = 10;
+  string EntID = 20;
+  optional basetypes.v1.TxState State = 30;
+}
+
+message UpdateTxResponse {
+  Tx Info = 10;
+}

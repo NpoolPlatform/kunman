@@ -1,0 +1,84 @@
+syntax = "proto3";
+
+package chain.gateway.coin.v1;
+
+option go_package = "github.com/NpoolPlatform/kunman/message/chain/gateway/v1/coin";
+
+import "google/api/annotations.proto";
+import "chain/middleware/v1/coin/coin.proto";
+import "basetypes/v1/gastype.proto";
+
+// Service Name
+service Gateway {
+  rpc CreateCoin(CreateCoinRequest) returns (CreateCoinResponse) {
+    option (google.api.http) = {
+      post : "/v1/create/coin"
+      body : "*"
+    };
+  }
+  rpc GetCoins(GetCoinsRequest) returns (GetCoinsResponse) {
+    option (google.api.http) = {
+      post : "/v1/get/coins"
+      body : "*"
+    };
+  }
+  rpc UpdateCoin(UpdateCoinRequest) returns (UpdateCoinResponse) {
+    option (google.api.http) = {
+      post : "/v1/update/coin"
+      body : "*"
+    };
+  }
+}
+
+message CreateCoinRequest {
+  string Name = 10;
+  string Unit = 20;
+  string ENV = 30;
+  string ChainType = 40;
+  string ChainNativeUnit = 50;
+  string ChainAtomicUnit = 60;
+  uint32 ChainUnitExp = 70;
+  basetypes.v1.GasType GasType = 80;
+  string ChainID = 90;
+  string ChainNickname = 100;
+  string ChainNativeCoinName = 110;
+}
+
+message CreateCoinResponse { chain.middleware.coin.v1.Coin Info = 10; }
+
+message GetCoinsRequest {
+  int32 Offset = 10;
+  int32 Limit = 20;
+}
+
+message GetCoinsResponse {
+  repeated chain.middleware.coin.v1.Coin Infos = 10;
+  uint32 Total = 20;
+}
+
+message UpdateCoinRequest {
+  uint32 ID = 10;
+  optional bool Presale = 20;
+  optional string ReservedAmount = 30;
+  optional bool ForPay = 40;
+  optional string HomePage = 50;
+  optional string Specs = 60;
+  optional string FeeCoinTypeID = 70;
+  optional bool WithdrawFeeByStableUSD = 80;
+  optional string WithdrawFeeAmount = 90;
+  optional string CollectFeeAmount = 100;
+  optional string HotWalletFeeAmount = 110;
+  optional string LowFeeAmount = 120;
+  optional string HotLowFeeAmount = 121;
+  optional string HotWalletAccountAmount = 130;
+  optional string PaymentAccountCollectAmount = 140;
+  optional bool StableUSD = 150;
+  optional bool Disabled = 160;
+  optional string LeastTransferAmount = 170;
+  optional bool NeedMemo = 180;
+  optional bool RefreshCurrency = 190;
+  optional string Logo = 200;
+  optional bool CheckNewAddressBalance = 210;
+}
+
+message UpdateCoinResponse { chain.middleware.coin.v1.Coin Info = 10; }

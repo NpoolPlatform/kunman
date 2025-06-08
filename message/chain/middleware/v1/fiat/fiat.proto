@@ -1,0 +1,38 @@
+syntax = "proto3";
+
+package chain.middleware.fiat.v1;
+
+option go_package = "github.com/NpoolPlatform/kunman/message/chain/middleware/v1/fiat";
+
+import "basetypes/v1/conds.proto";
+
+message FiatReq {
+  optional uint32 ID = 10;
+  optional string EntID = 11;
+  optional string Name = 20;
+  optional string Logo = 30;
+  optional string Unit = 40;
+}
+
+message Fiat {
+  // @inject_tag: sql:"id"
+  uint32 ID = 10;
+  // @inject_tag: sql:"ent_id"
+  string EntID = 11;
+  // @inject_tag: sql:"name"
+  string Name = 20;
+  // @inject_tag: sql:"logo"
+  string Logo = 30;
+  // @inject_tag: sql:"unit"
+  string Unit = 40;
+  // @inject_tag: sql:"created_at"
+  uint32 CreatedAt = 1000;
+  // @inject_tag: sql:"updated_at"
+  uint32 UpdatedAt = 1010;
+}
+
+message Conds {
+  optional basetypes.v1.StringVal EntID = 10;
+  optional basetypes.v1.StringVal Name = 20;
+}
+

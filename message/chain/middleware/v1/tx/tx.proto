@@ -1,0 +1,74 @@
+syntax = "proto3";
+
+package chain.middleware.tx.v1;
+
+option go_package = "github.com/NpoolPlatform/kunman/message/chain/middleware/v1/tx";
+
+import "basetypes/v1/conds.proto";
+import "basetypes/v1/txtype.proto";
+import "basetypes/v1/txstate.proto";
+
+message TxReq {
+  optional uint32 ID = 10;
+  optional string EntID = 11;
+  optional string CoinTypeID = 20;
+  optional string FromAccountID = 30;
+  optional string ToAccountID = 40;
+  optional string Amount = 50;
+  optional string FeeAmount = 60;
+  optional string ChainTxID = 70;
+  optional basetypes.v1.TxState State = 80;
+  optional string Extra = 90;
+  optional basetypes.v1.TxType Type = 100;
+}
+
+message Tx {
+  // @inject_tag: sql:"id"
+  uint32 ID = 10;
+  // @inject_tag: sql:"ent_id"
+  string EntID = 11;
+  // @inject_tag: sql:"coin_type_id"
+  string CoinTypeID = 20;
+  // @inject_tag: sql:"coin_name"
+  string CoinName = 30;
+  // @inject_tag: sql:"coin_logo"
+  string CoinLogo = 40;
+  // @inject_tag: sql:"coin_unit"
+  string CoinUnit = 50;
+  // @inject_tag: sql:"coin_env"
+  string CoinENV = 60;
+  // @inject_tag: sql:"from_account_id"
+  string FromAccountID = 70;
+  // @inject_tag: sql:"to_account_id"
+  string ToAccountID = 80;
+  // @inject_tag: sql:"amount"
+  string Amount = 90;
+  // @inject_tag: sql:"fee_amount"
+  string FeeAmount = 100;
+  // @inject_tag: sql:"chain_tx_id"
+  string ChainTxID = 110;
+  basetypes.v1.TxState State = 120;
+  // @inject_tag: sql:"state"
+  string StateStr = 130;
+  // @inject_tag: sql:"extra"
+  string Extra = 140;
+  basetypes.v1.TxType Type = 150;
+  // @inject_tag: sql:"type"
+  string TypeStr = 160;
+  // @inject_tag: sql:"created_at"
+  uint32 CreatedAt = 170;
+  // @inject_tag: sql:"updated_at"
+  uint32 UpdatedAt = 180;
+}
+
+message Conds {
+  optional basetypes.v1.StringVal EntID = 10;
+  optional basetypes.v1.StringVal CoinTypeID = 20;
+  optional basetypes.v1.StringVal AccountID = 30;
+  optional basetypes.v1.StringSliceVal AccountIDs = 40;
+  optional basetypes.v1.Uint32Val State = 50;
+  optional basetypes.v1.Uint32Val Type = 60;
+  optional basetypes.v1.StringSliceVal EntIDs = 70;
+  optional basetypes.v1.Uint32SliceVal States = 80;
+}
+

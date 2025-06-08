@@ -1,0 +1,144 @@
+syntax = "proto3";
+
+package chain.middleware.app.coin.v1;
+
+option go_package = "github.com/NpoolPlatform/kunman/message/chain/middleware/v1/app/coin";
+
+import "basetypes/v1/conds.proto";
+
+message CoinReq {
+  optional uint32 ID = 9;
+  optional string EntID = 10;
+  optional string AppID = 20;
+  optional string CoinTypeID = 30;
+  optional string Name = 40;
+  repeated string DisplayNames = 41;
+  optional string Logo = 50;
+  optional bool ForPay = 60;
+  optional string WithdrawAutoReviewAmount = 70;
+  optional string MarketValue = 80;
+  optional uint32 SettlePercent = 90;
+  repeated string SettleTips = 91;
+  optional string Setter = 100;
+  optional string ProductPage = 110;
+  optional bool Disabled = 120;
+  optional string DailyRewardAmount = 130;
+  optional bool Display = 140;
+  optional uint32 DisplayIndex = 150;
+  optional string MaxAmountPerWithdraw = 160;
+  optional bool CheckNewAddressBalance = 170;
+}
+
+message Coin {
+  // @inject_tag: sql:"id"
+  uint32 ID = 9;
+  // @inject_tag: sql:"ent_id"
+  string EntID = 10;
+  // @inject_tag: sql:"app_id"
+  string AppID = 20;
+  // @inject_tag: sql:"coin_type_id"
+  string CoinTypeID = 30;
+  // @inject_tag: sql:"name"
+  string Name = 40;
+  // @inject_tag: sql:"coin_name"
+  string CoinName = 41;
+  // @inject_tag: sql:"display_names"
+  string DisplayNamesStr = 42;
+  repeated string DisplayNames = 43;
+  // @inject_tag: sql:"logo"
+  string Logo = 50;
+  // @inject_tag: sql:"unit"
+  string Unit = 60;
+  // @inject_tag: sql:"presale"
+  bool Presale = 70;
+  // @inject_tag: sql:"reserved_amount"
+  string ReservedAmount = 80;
+  // @inject_tag: sql:"for_pay"
+  bool ForPay = 90;
+  // @inject_tag: sql:"product_page"
+  string ProductPage = 91;
+  // @inject_tag: sql:"coin_for_pay"
+  bool CoinForPay = 92;
+  // @inject_tag: sql:"env"
+  string ENV = 100;
+  // @inject_tag: sql:"home_page"
+  string HomePage = 110;
+  // @inject_tag: sql:"specs"
+  string Specs = 120;
+  // @inject_tag: sql:"stable_usd"
+  bool StableUSD = 101;
+  // @inject_tag: sql:"fee_coin_type_id"
+  string FeeCoinTypeID = 130;
+  // @inject_tag: sql:"fee_coin_name"
+  string FeeCoinName = 140;
+  // @inject_tag: sql:"fee_coin_logo"
+  string FeeCoinLogo = 150;
+  // @inject_tag: sql:"fee_coin_unit"
+  string FeeCoinUnit = 160;
+  // @inject_tag: sql:"fee_coin_env"
+  string FeeCoinENV = 170;
+  // @inject_tag: sql:"withdraw_fee_by_stable_usd"
+  bool WithdrawFeeByStableUSD = 180;
+  // @inject_tag: sql:"withdraw_fee_amount"
+  string WithdrawFeeAmount = 190;
+  // @inject_tag: sql:"collect_fee_amount"
+  string CollectFeeAmount = 200;
+  // @inject_tag: sql:"hot_wallet_fee_amount"
+  string HotWalletFeeAmount = 210;
+  // @inject_tag: sql:"low_fee_amount"
+  string LowFeeAmount = 220;
+  // @inject_tag: sql:"hot_low_fee_amount"
+  string HotLowFeeAmount = 221;
+  // @inject_tag: sql:"hot_wallet_account_amount"
+  string HotWalletAccountAmount = 230;
+  // @inject_tag: sql:"payment_account_collect_amount"
+  string PaymentAccountCollectAmount = 240;
+  // @inject_tag: sql:"withdraw_auto_review_amount"
+  string WithdrawAutoReviewAmount = 250;
+  // @inject_tag: sql:"market_value"
+  string MarketValue = 260;
+  // @inject_tag: sql:"settle_value"
+  string SettleValue = 270;
+  // @inject_tag: sql:"settle_percent"
+  uint32 SettlePercent = 280;
+  // @inject_tag: sql:"settle_tips"
+  string SettleTipsStr = 281;
+  repeated string SettleTips = 282;
+  // @inject_tag: sql:"setter"
+  string Setter = 290;
+  // @inject_tag: sql:"disabled"
+  bool Disabled = 300;
+  // @inject_tag: sql:"coin_disabled"
+  bool CoinDisabled = 310;
+  // @inject_tag: sql:"created_at"
+  uint32 CreatedAt = 320;
+  // @inject_tag: sql:"updated_at"
+  uint32 UpdatedAt = 330;
+  // @inject_tag: sql:"daily_reward_amount"
+  string DailyRewardAmount = 340;
+  // @inject_tag: sql:"display"
+  bool Display = 350;
+  // @inject_tag: sql:"display_index"
+  uint32 DisplayIndex = 360;
+  // @inject_tag: sql:"max_amount_per_withdraw"
+  string MaxAmountPerWithdraw = 370;
+  // @inject_tag: sql:"least_transfer_amount"
+  string LeastTransferAmount = 380;
+  // @inject_tag: sql:"need_memo"
+  bool NeedMemo = 390;
+  // @inject_tag: sql:"refresh_currency"
+  bool RefreshCurrency = 400;
+  // @inject_tag: sql:"check_new_address_balance"
+  bool CheckNewAddressBalance = 410;
+}
+
+message Conds {
+  optional basetypes.v1.StringVal EntID = 10;
+  optional basetypes.v1.StringVal AppID = 20;
+  optional basetypes.v1.StringVal CoinTypeID = 30;
+  optional basetypes.v1.BoolVal ForPay = 40;
+  optional basetypes.v1.BoolVal Disabled = 50;
+  optional basetypes.v1.StringSliceVal EntIDs = 60;
+  optional basetypes.v1.StringSliceVal CoinTypeIDs = 70;
+}
+

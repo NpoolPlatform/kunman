@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+package basetypes.chain.v1;
+
+option go_package = "github.com/NpoolPlatform/kunman/message/basetypes/chain/v1";
+
+enum CoinUsedFor {
+  DefaultCoinUsedFor = 0;
+
+  CoinUsedForCouponCash = 10;
+  CoinUsedForGoodFee = 20;
+}

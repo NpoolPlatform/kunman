@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package chain.middleware.coin.fiat.currency1.history.v1;
+
+option go_package = "github.com/NpoolPlatform/kunman/message/chain/middleware/v1/coin/fiat/currency/history";
+
+import "basetypes/v1/conds.proto";
+import "chain/middleware/v1/coin/fiat/currency/currency.proto";
+
+message Conds {
+  optional basetypes.v1.StringVal CoinTypeID = 20;
+  optional basetypes.v1.StringSliceVal CoinTypeIDs = 30;
+  optional basetypes.v1.Uint32Val StartAt = 40;
+  optional basetypes.v1.Uint32Val EndAt = 50;
+}
+

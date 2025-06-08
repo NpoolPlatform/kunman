@@ -1,0 +1,60 @@
+syntax = "proto3";
+
+package chain.middleware.chain.v1;
+
+option go_package = "github.com/NpoolPlatform/kunman/message/chain/middleware/v1/chain";
+
+import "basetypes/v1/gastype.proto";
+import "basetypes/v1/conds.proto";
+
+message ChainReq {
+  optional uint32 ID = 9;
+  optional string EntID = 10;
+  optional string ChainType = 20;
+  optional string Logo = 30;
+  optional string ChainID = 40;
+  optional string NativeUnit = 50;
+  optional string AtomicUnit = 60;
+  optional uint32 UnitExp = 70;
+  optional string NickName = 80;
+  optional basetypes.v1.GasType GasType = 90;
+  optional string ENV = 100;
+}
+
+message Chain {
+  // @inject_tag: sql:"id"
+  uint32 ID = 10;
+  // @inject_tag: sql:"ent_id"
+  string EntID = 20;
+  // @inject_tag: sql:"chain_type"
+  string ChainType = 30;
+  // @inject_tag: sql:"logo"
+  string Logo = 40;
+  // @inject_tag: sql:"chain_id"
+  string ChainID = 50;
+  // @inject_tag: sql:"native_unit"
+  string NativeUnit = 60;
+  // @inject_tag: sql:"atomic_unit"
+  string AtomicUnit = 70;
+  // @inject_tag: sql:"unit_exp"
+  uint32 UnitExp = 80;
+  // @inject_tag: sql:"nickname"
+  string Nickname = 90;
+  // @inject_tag: sql:"env"
+  string ENV = 100;
+  // @inject_tag: sql:"gas_type"
+  string GasTypeStr = 110;
+  basetypes.v1.GasType GasType = 120;
+  // @inject_tag: sql:"created_at"
+  uint32 CreatedAt = 1000;
+  // @inject_tag: sql:"updated_at"
+  uint32 UpdatedAt = 1010;
+}
+
+message Conds {
+  optional basetypes.v1.StringVal EntID = 10;
+  optional basetypes.v1.StringVal ChainType = 20;
+  optional basetypes.v1.StringVal ENV = 30;
+  optional basetypes.v1.StringSliceVal EntIDs = 40;
+}
+

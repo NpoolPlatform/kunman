@@ -1,0 +1,61 @@
+syntax = "proto3";
+
+package chain.gateway.fiat.currency.feed.v1;
+
+option go_package = "github.com/NpoolPlatform/kunman/message/chain/gateway/v1/fiat/currency/feed";
+
+import "google/api/annotations.proto";
+import "basetypes/v1/currencyfeedtype.proto";
+import "chain/middleware/v1/fiat/currency/feed/feed.proto";
+
+// Service Name
+service Gateway {
+  rpc CreateFeed(CreateFeedRequest) returns (CreateFeedResponse) {
+    option (google.api.http) = {
+      post : "/v1/create/fiatcurrencyfeed"
+      body : "*"
+    };
+  }
+  rpc UpdateFeed(UpdateFeedRequest) returns (UpdateFeedResponse) {
+    option (google.api.http) = {
+      post : "/v1/update/fiatcurrencyfeed"
+      body : "*"
+    };
+  }
+  rpc GetFeeds(GetFeedsRequest) returns (GetFeedsResponse) {
+    option (google.api.http) = {
+      post : "/v1/get/fiatcurrencyfeeds"
+      body : "*"
+    };
+  }
+}
+
+message CreateFeedRequest {
+  string FiatID = 10;
+  basetypes.v1.CurrencyFeedType FeedType = 20;
+  string FeedFiatName = 30;
+}
+
+message CreateFeedResponse {
+  chain.middleware.fiat.currency1.feed.v1.Feed Info = 10;
+}
+
+message UpdateFeedRequest {
+  uint32 ID = 10;
+  optional string FeedFiatName = 20;
+  optional bool Disabled = 30;
+}
+
+message UpdateFeedResponse {
+  chain.middleware.fiat.currency1.feed.v1.Feed Info = 10;
+}
+
+message GetFeedsRequest {
+  int32 Offset = 10;
+  int32 Limit = 20;
+}
+
+message GetFeedsResponse {
+  repeated chain.middleware.fiat.currency1.feed.v1.Feed Infos = 10;
+  uint32 Total = 20;
+}

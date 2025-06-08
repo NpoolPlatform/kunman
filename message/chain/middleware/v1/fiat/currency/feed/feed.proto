@@ -1,0 +1,52 @@
+syntax = "proto3";
+
+package chain.middleware.fiat.currency1.feed.v1;
+
+option go_package = "github.com/NpoolPlatform/kunman/message/chain/middleware/v1/fiat/currency/feed";
+
+import "basetypes/v1/conds.proto";
+import "basetypes/v1/currencyfeedtype.proto";
+
+message FeedReq {
+  optional uint32 ID = 10;
+  optional string EntID = 11;
+  optional string FiatID = 20;
+  optional basetypes.v1.CurrencyFeedType FeedType = 30;
+  optional string FeedFiatName = 40;
+  optional bool Disabled = 50;
+}
+
+message Feed {
+  // @inject_tag: sql:"id"
+  uint32 ID = 10;
+  // @inject_tag: sql:"ent_id"
+  string EntID = 11;
+  // @inject_tag: sql:"fiat_id"
+  string FiatID = 20;
+  // @inject_tag: sql:"fiat_name"
+  string FiatName = 30;
+  // @inject_tag: sql:"fiat_logo"
+  string FiatLogo = 40;
+  // @inject_tag: sql:"fiat_unit"
+  string FiatUnit = 50;
+  // @inject_tag: sql:"feed_type"
+  string FeedTypeStr = 60;
+  basetypes.v1.CurrencyFeedType FeedType = 70;
+  // @inject_tag: sql:"feed_fiat_name"
+  string FeedFiatName = 80;
+  // @inject_tag: sql:"disabled"
+  bool Disabled = 90;
+  // @inject_tag: sql:"created_at"
+  uint32 CreatedAt = 1000;
+  // @inject_tag: sql:"updated_at"
+  uint32 UpdatedAt = 1010;
+}
+
+message Conds {
+  optional basetypes.v1.StringVal EntID = 10;
+  optional basetypes.v1.StringVal FiatID = 20;
+  optional basetypes.v1.StringSliceVal FiatIDs = 30;
+  optional basetypes.v1.Uint32Val FeedType = 40;
+  optional basetypes.v1.BoolVal Disabled = 50;
+}
+

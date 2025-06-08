@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+package basetypes.v1;
+
+option go_package = "github.com/NpoolPlatform/kunman/message/basetypes/v1";
+
+enum CurrencyFeedType {
+  DefaultFeedType = 0;
+  CoinGecko = 10;
+  CoinBase = 20;
+  StableUSDHardCode = 30;
+}

@@ -1,0 +1,57 @@
+syntax = "proto3";
+
+package chain.gateway.fiat.v1;
+
+option go_package = "github.com/NpoolPlatform/kunman/message/chain/gateway/v1/fiat";
+
+import "google/api/annotations.proto";
+import "chain/middleware/v1/fiat/fiat.proto";
+
+// Service Name
+service Gateway {
+  rpc CreateFiat(CreateFiatRequest) returns (CreateFiatResponse) {
+    option (google.api.http) = {
+      post : "/v1/create/fiat"
+      body : "*"
+    };
+  }
+  rpc GetFiats(GetFiatsRequest) returns (GetFiatsResponse) {
+    option (google.api.http) = {
+      post : "/v1/get/fiats"
+      body : "*"
+    };
+  }
+  rpc UpdateFiat(UpdateFiatRequest) returns (UpdateFiatResponse) {
+    option (google.api.http) = {
+      post : "/v1/update/fiat"
+      body : "*"
+    };
+  }
+}
+
+message CreateFiatRequest {
+  string Name = 10;
+  string Unit = 20;
+  string Logo = 30;
+}
+
+message CreateFiatResponse { chain.middleware.fiat.v1.Fiat Info = 10; }
+
+message GetFiatsRequest {
+  int32 Offset = 10;
+  int32 Limit = 20;
+}
+
+message GetFiatsResponse {
+  repeated chain.middleware.fiat.v1.Fiat Infos = 10;
+  uint32 Total = 20;
+}
+
+message UpdateFiatRequest {
+  uint32 ID = 10;
+  optional string Name = 20;
+  optional string Unit = 30;
+  optional string Logo = 40;
+}
+
+message UpdateFiatResponse { chain.middleware.fiat.v1.Fiat Info = 10; }
