@@ -1,0 +1,9 @@
+syntax = "proto3";
+
+package agi.gateway.v1;
+
+option go_package = "github.com/NpoolPlatform/kunman/message/agi/gateway/v1";
+
+// Service Name
+service Gateway {}
+

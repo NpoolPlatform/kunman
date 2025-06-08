@@ -5,7 +5,6 @@ go 1.24
 require (
 	entgo.io/ent v0.14.4
 	github.com/NpoolPlatform/appuser-middleware v0.0.0-20240926060520-1949246cf711
-	github.com/NpoolPlatform/message v0.0.0-20250604112546-25213bae6bb9
 	github.com/ThreeDotsLabs/watermill v1.2.0
 	github.com/ThreeDotsLabs/watermill-amqp/v2 v2.0.7
 	github.com/aws/aws-sdk-go-v2 v1.16.14
