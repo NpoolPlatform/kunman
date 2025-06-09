@@ -7,8 +7,7 @@
 package goodbenefit
 
 import (
-	v11 "github.com/NpoolPlatform/kunman/message/basetypes/v1"
-	v1 "github.com/NpoolPlatform/message/npool/basetypes/v1"
+	v1 "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
@@ -336,18 +335,18 @@ type Conds struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	ID          *v11.Uint32Val      `protobuf:"bytes,9,opt,name=ID,proto3,oneof" json:"ID,omitempty"`
-	EntID       *v11.StringVal      `protobuf:"bytes,10,opt,name=EntID,proto3,oneof" json:"EntID,omitempty"`
-	GoodID      *v11.StringVal      `protobuf:"bytes,20,opt,name=GoodID,proto3,oneof" json:"GoodID,omitempty"`
-	CoinTypeID  *v11.StringVal      `protobuf:"bytes,30,opt,name=CoinTypeID,proto3,oneof" json:"CoinTypeID,omitempty"`
-	AccountID   *v11.StringVal      `protobuf:"bytes,40,opt,name=AccountID,proto3,oneof" json:"AccountID,omitempty"`
-	Backup      *v11.BoolVal        `protobuf:"bytes,50,opt,name=Backup,proto3,oneof" json:"Backup,omitempty"`
-	Address     *v11.StringVal      `protobuf:"bytes,60,opt,name=Address,proto3,oneof" json:"Address,omitempty"`
-	Active      *v11.BoolVal        `protobuf:"bytes,70,opt,name=Active,proto3,oneof" json:"Active,omitempty"`
-	Locked      *v11.BoolVal        `protobuf:"bytes,80,opt,name=Locked,proto3,oneof" json:"Locked,omitempty"`
-	LockedBy    *v11.Uint32Val      `protobuf:"bytes,90,opt,name=LockedBy,proto3,oneof" json:"LockedBy,omitempty"`
-	Blocked     *v11.BoolVal        `protobuf:"bytes,100,opt,name=Blocked,proto3,oneof" json:"Blocked,omitempty"`
-	CoinTypeIDs *v11.StringSliceVal `protobuf:"bytes,110,opt,name=CoinTypeIDs,proto3,oneof" json:"CoinTypeIDs,omitempty"`
+	ID          *v1.Uint32Val      `protobuf:"bytes,9,opt,name=ID,proto3,oneof" json:"ID,omitempty"`
+	EntID       *v1.StringVal      `protobuf:"bytes,10,opt,name=EntID,proto3,oneof" json:"EntID,omitempty"`
+	GoodID      *v1.StringVal      `protobuf:"bytes,20,opt,name=GoodID,proto3,oneof" json:"GoodID,omitempty"`
+	CoinTypeID  *v1.StringVal      `protobuf:"bytes,30,opt,name=CoinTypeID,proto3,oneof" json:"CoinTypeID,omitempty"`
+	AccountID   *v1.StringVal      `protobuf:"bytes,40,opt,name=AccountID,proto3,oneof" json:"AccountID,omitempty"`
+	Backup      *v1.BoolVal        `protobuf:"bytes,50,opt,name=Backup,proto3,oneof" json:"Backup,omitempty"`
+	Address     *v1.StringVal      `protobuf:"bytes,60,opt,name=Address,proto3,oneof" json:"Address,omitempty"`
+	Active      *v1.BoolVal        `protobuf:"bytes,70,opt,name=Active,proto3,oneof" json:"Active,omitempty"`
+	Locked      *v1.BoolVal        `protobuf:"bytes,80,opt,name=Locked,proto3,oneof" json:"Locked,omitempty"`
+	LockedBy    *v1.Uint32Val      `protobuf:"bytes,90,opt,name=LockedBy,proto3,oneof" json:"LockedBy,omitempty"`
+	Blocked     *v1.BoolVal        `protobuf:"bytes,100,opt,name=Blocked,proto3,oneof" json:"Blocked,omitempty"`
+	CoinTypeIDs *v1.StringSliceVal `protobuf:"bytes,110,opt,name=CoinTypeIDs,proto3,oneof" json:"CoinTypeIDs,omitempty"`
 }
 
 func (x *Conds) Reset() {
@@ -382,84 +381,84 @@ func (*Conds) Descriptor() ([]byte, []int) {
 	return file_account_middleware_v1_goodbenefit_goodbenefit_proto_rawDescGZIP(), []int{2}
 }
 
-func (x *Conds) GetID() *v11.Uint32Val {
+func (x *Conds) GetID() *v1.Uint32Val {
 	if x != nil {
 		return x.ID
 	}
 	return nil
 }
 
-func (x *Conds) GetEntID() *v11.StringVal {
+func (x *Conds) GetEntID() *v1.StringVal {
 	if x != nil {
 		return x.EntID
 	}
 	return nil
 }
 
-func (x *Conds) GetGoodID() *v11.StringVal {
+func (x *Conds) GetGoodID() *v1.StringVal {
 	if x != nil {
 		return x.GoodID
 	}
 	return nil
 }
 
-func (x *Conds) GetCoinTypeID() *v11.StringVal {
+func (x *Conds) GetCoinTypeID() *v1.StringVal {
 	if x != nil {
 		return x.CoinTypeID
 	}
 	return nil
 }
 
-func (x *Conds) GetAccountID() *v11.StringVal {
+func (x *Conds) GetAccountID() *v1.StringVal {
 	if x != nil {
 		return x.AccountID
 	}
 	return nil
 }
 
-func (x *Conds) GetBackup() *v11.BoolVal {
+func (x *Conds) GetBackup() *v1.BoolVal {
 	if x != nil {
 		return x.Backup
 	}
 	return nil
 }
 
-func (x *Conds) GetAddress() *v11.StringVal {
+func (x *Conds) GetAddress() *v1.StringVal {
 	if x != nil {
 		return x.Address
 	}
 	return nil
 }
 
-func (x *Conds) GetActive() *v11.BoolVal {
+func (x *Conds) GetActive() *v1.BoolVal {
 	if x != nil {
 		return x.Active
 	}
 	return nil
 }
 
-func (x *Conds) GetLocked() *v11.BoolVal {
+func (x *Conds) GetLocked() *v1.BoolVal {
 	if x != nil {
 		return x.Locked
 	}
 	return nil
 }
 
-func (x *Conds) GetLockedBy() *v11.Uint32Val {
+func (x *Conds) GetLockedBy() *v1.Uint32Val {
 	if x != nil {
 		return x.LockedBy
 	}
 	return nil
 }
 
-func (x *Conds) GetBlocked() *v11.BoolVal {
+func (x *Conds) GetBlocked() *v1.BoolVal {
 	if x != nil {
 		return x.Blocked
 	}
 	return nil
 }
 
-func (x *Conds) GetCoinTypeIDs() *v11.StringSliceVal {
+func (x *Conds) GetCoinTypeIDs() *v1.StringSliceVal {
 	if x != nil {
 		return x.CoinTypeIDs
 	}
@@ -617,14 +616,14 @@ func file_account_middleware_v1_goodbenefit_goodbenefit_proto_rawDescGZIP() []by
 
 var file_account_middleware_v1_goodbenefit_goodbenefit_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
 var file_account_middleware_v1_goodbenefit_goodbenefit_proto_goTypes = []interface{}{
-	(*AccountReq)(nil),         // 0: account.middleware.goodbenefit.v1.AccountReq
-	(*Account)(nil),            // 1: account.middleware.goodbenefit.v1.Account
-	(*Conds)(nil),              // 2: account.middleware.goodbenefit.v1.Conds
-	(v1.AccountLockedBy)(0),    // 3: basetypes.v1.AccountLockedBy
-	(*v11.Uint32Val)(nil),      // 4: basetypes.v1.Uint32Val
-	(*v11.StringVal)(nil),      // 5: basetypes.v1.StringVal
-	(*v11.BoolVal)(nil),        // 6: basetypes.v1.BoolVal
-	(*v11.StringSliceVal)(nil), // 7: basetypes.v1.StringSliceVal
+	(*AccountReq)(nil),        // 0: account.middleware.goodbenefit.v1.AccountReq
+	(*Account)(nil),           // 1: account.middleware.goodbenefit.v1.Account
+	(*Conds)(nil),             // 2: account.middleware.goodbenefit.v1.Conds
+	(v1.AccountLockedBy)(0),   // 3: basetypes.v1.AccountLockedBy
+	(*v1.Uint32Val)(nil),      // 4: basetypes.v1.Uint32Val
+	(*v1.StringVal)(nil),      // 5: basetypes.v1.StringVal
+	(*v1.BoolVal)(nil),        // 6: basetypes.v1.BoolVal
+	(*v1.StringSliceVal)(nil), // 7: basetypes.v1.StringSliceVal
 }
 var file_account_middleware_v1_goodbenefit_goodbenefit_proto_depIdxs = []int32{
 	3,  // 0: account.middleware.goodbenefit.v1.AccountReq.LockedBy:type_name -> basetypes.v1.AccountLockedBy

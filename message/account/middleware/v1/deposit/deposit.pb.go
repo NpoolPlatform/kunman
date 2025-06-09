@@ -7,8 +7,7 @@
 package deposit
 
 import (
-	v11 "github.com/NpoolPlatform/kunman/message/basetypes/v1"
-	v1 "github.com/NpoolPlatform/message/npool/basetypes/v1"
+	v1 "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	reflect "reflect"
@@ -386,18 +385,18 @@ type Conds struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	ID          *v11.Uint32Val `protobuf:"bytes,9,opt,name=ID,proto3,oneof" json:"ID,omitempty"`
-	EntID       *v11.StringVal `protobuf:"bytes,10,opt,name=EntID,proto3,oneof" json:"EntID,omitempty"`
-	AppID       *v11.StringVal `protobuf:"bytes,20,opt,name=AppID,proto3,oneof" json:"AppID,omitempty"`
-	UserID      *v11.StringVal `protobuf:"bytes,30,opt,name=UserID,proto3,oneof" json:"UserID,omitempty"`
-	CoinTypeID  *v11.StringVal `protobuf:"bytes,40,opt,name=CoinTypeID,proto3,oneof" json:"CoinTypeID,omitempty"`
-	AccountID   *v11.StringVal `protobuf:"bytes,50,opt,name=AccountID,proto3,oneof" json:"AccountID,omitempty"`
-	Address     *v11.StringVal `protobuf:"bytes,60,opt,name=Address,proto3,oneof" json:"Address,omitempty"`
-	Active      *v11.BoolVal   `protobuf:"bytes,70,opt,name=Active,proto3,oneof" json:"Active,omitempty"`
-	Locked      *v11.BoolVal   `protobuf:"bytes,80,opt,name=Locked,proto3,oneof" json:"Locked,omitempty"`
-	LockedBy    *v11.Uint32Val `protobuf:"bytes,90,opt,name=LockedBy,proto3,oneof" json:"LockedBy,omitempty"`
-	Blocked     *v11.BoolVal   `protobuf:"bytes,100,opt,name=Blocked,proto3,oneof" json:"Blocked,omitempty"`
-	ScannableAt *v11.Uint32Val `protobuf:"bytes,110,opt,name=ScannableAt,proto3,oneof" json:"ScannableAt,omitempty"`
+	ID          *v1.Uint32Val `protobuf:"bytes,9,opt,name=ID,proto3,oneof" json:"ID,omitempty"`
+	EntID       *v1.StringVal `protobuf:"bytes,10,opt,name=EntID,proto3,oneof" json:"EntID,omitempty"`
+	AppID       *v1.StringVal `protobuf:"bytes,20,opt,name=AppID,proto3,oneof" json:"AppID,omitempty"`
+	UserID      *v1.StringVal `protobuf:"bytes,30,opt,name=UserID,proto3,oneof" json:"UserID,omitempty"`
+	CoinTypeID  *v1.StringVal `protobuf:"bytes,40,opt,name=CoinTypeID,proto3,oneof" json:"CoinTypeID,omitempty"`
+	AccountID   *v1.StringVal `protobuf:"bytes,50,opt,name=AccountID,proto3,oneof" json:"AccountID,omitempty"`
+	Address     *v1.StringVal `protobuf:"bytes,60,opt,name=Address,proto3,oneof" json:"Address,omitempty"`
+	Active      *v1.BoolVal   `protobuf:"bytes,70,opt,name=Active,proto3,oneof" json:"Active,omitempty"`
+	Locked      *v1.BoolVal   `protobuf:"bytes,80,opt,name=Locked,proto3,oneof" json:"Locked,omitempty"`
+	LockedBy    *v1.Uint32Val `protobuf:"bytes,90,opt,name=LockedBy,proto3,oneof" json:"LockedBy,omitempty"`
+	Blocked     *v1.BoolVal   `protobuf:"bytes,100,opt,name=Blocked,proto3,oneof" json:"Blocked,omitempty"`
+	ScannableAt *v1.Uint32Val `protobuf:"bytes,110,opt,name=ScannableAt,proto3,oneof" json:"ScannableAt,omitempty"`
 }
 
 func (x *Conds) Reset() {
@@ -432,84 +431,84 @@ func (*Conds) Descriptor() ([]byte, []int) {
 	return file_account_middleware_v1_deposit_deposit_proto_rawDescGZIP(), []int{2}
 }
 
-func (x *Conds) GetID() *v11.Uint32Val {
+func (x *Conds) GetID() *v1.Uint32Val {
 	if x != nil {
 		return x.ID
 	}
 	return nil
 }
 
-func (x *Conds) GetEntID() *v11.StringVal {
+func (x *Conds) GetEntID() *v1.StringVal {
 	if x != nil {
 		return x.EntID
 	}
 	return nil
 }
 
-func (x *Conds) GetAppID() *v11.StringVal {
+func (x *Conds) GetAppID() *v1.StringVal {
 	if x != nil {
 		return x.AppID
 	}
 	return nil
 }
 
-func (x *Conds) GetUserID() *v11.StringVal {
+func (x *Conds) GetUserID() *v1.StringVal {
 	if x != nil {
 		return x.UserID
 	}
 	return nil
 }
 
-func (x *Conds) GetCoinTypeID() *v11.StringVal {
+func (x *Conds) GetCoinTypeID() *v1.StringVal {
 	if x != nil {
 		return x.CoinTypeID
 	}
 	return nil
 }
 
-func (x *Conds) GetAccountID() *v11.StringVal {
+func (x *Conds) GetAccountID() *v1.StringVal {
 	if x != nil {
 		return x.AccountID
 	}
 	return nil
 }
 
-func (x *Conds) GetAddress() *v11.StringVal {
+func (x *Conds) GetAddress() *v1.StringVal {
 	if x != nil {
 		return x.Address
 	}
 	return nil
 }
 
-func (x *Conds) GetActive() *v11.BoolVal {
+func (x *Conds) GetActive() *v1.BoolVal {
 	if x != nil {
 		return x.Active
 	}
 	return nil
 }
 
-func (x *Conds) GetLocked() *v11.BoolVal {
+func (x *Conds) GetLocked() *v1.BoolVal {
 	if x != nil {
 		return x.Locked
 	}
 	return nil
 }
 
-func (x *Conds) GetLockedBy() *v11.Uint32Val {
+func (x *Conds) GetLockedBy() *v1.Uint32Val {
 	if x != nil {
 		return x.LockedBy
 	}
 	return nil
 }
 
-func (x *Conds) GetBlocked() *v11.BoolVal {
+func (x *Conds) GetBlocked() *v1.BoolVal {
 	if x != nil {
 		return x.Blocked
 	}
 	return nil
 }
 
-func (x *Conds) GetScannableAt() *v11.Uint32Val {
+func (x *Conds) GetScannableAt() *v1.Uint32Val {
 	if x != nil {
 		return x.ScannableAt
 	}
@@ -683,9 +682,9 @@ var file_account_middleware_v1_deposit_deposit_proto_goTypes = []interface{}{
 	(*Account)(nil),         // 1: account.middleware.deposit.v1.Account
 	(*Conds)(nil),           // 2: account.middleware.deposit.v1.Conds
 	(v1.AccountLockedBy)(0), // 3: basetypes.v1.AccountLockedBy
-	(*v11.Uint32Val)(nil),   // 4: basetypes.v1.Uint32Val
-	(*v11.StringVal)(nil),   // 5: basetypes.v1.StringVal
-	(*v11.BoolVal)(nil),     // 6: basetypes.v1.BoolVal
+	(*v1.Uint32Val)(nil),    // 4: basetypes.v1.Uint32Val
+	(*v1.StringVal)(nil),    // 5: basetypes.v1.StringVal
+	(*v1.BoolVal)(nil),      // 6: basetypes.v1.BoolVal
 }
 var file_account_middleware_v1_deposit_deposit_proto_depIdxs = []int32{
 	3,  // 0: account.middleware.deposit.v1.AccountReq.LockedBy:type_name -> basetypes.v1.AccountLockedBy

@@ -8,7 +8,6 @@ package account
 
 import (
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/v1"
-	v11 "github.com/NpoolPlatform/message/npool/basetypes/v1"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	reflect "reflect"
@@ -45,8 +44,8 @@ type Account struct {
 	// @inject_tag: sql:"locked"
 	Locked bool `protobuf:"varint,70,opt,name=Locked,proto3" json:"Locked,omitempty" sql:"locked"`
 	// @inject_tag: sql:"locked_by"
-	LockedByStr string              `protobuf:"bytes,79,opt,name=LockedByStr,proto3" json:"LockedByStr,omitempty" sql:"locked_by"`
-	LockedBy    v11.AccountLockedBy `protobuf:"varint,80,opt,name=LockedBy,proto3,enum=basetypes.v1.AccountLockedBy" json:"LockedBy,omitempty"`
+	LockedByStr string             `protobuf:"bytes,79,opt,name=LockedByStr,proto3" json:"LockedByStr,omitempty" sql:"locked_by"`
+	LockedBy    v1.AccountLockedBy `protobuf:"varint,80,opt,name=LockedBy,proto3,enum=basetypes.v1.AccountLockedBy" json:"LockedBy,omitempty"`
 	// @inject_tag: sql:"blocked"
 	Blocked bool `protobuf:"varint,90,opt,name=Blocked,proto3" json:"Blocked,omitempty" sql:"blocked"`
 	// @inject_tag: sql:"created_at"
@@ -157,11 +156,11 @@ func (x *Account) GetLockedByStr() string {
 	return ""
 }
 
-func (x *Account) GetLockedBy() v11.AccountLockedBy {
+func (x *Account) GetLockedBy() v1.AccountLockedBy {
 	if x != nil {
 		return x.LockedBy
 	}
-	return v11.AccountLockedBy(0)
+	return v1.AccountLockedBy(0)
 }
 
 func (x *Account) GetBlocked() bool {
@@ -442,7 +441,7 @@ var file_account_middleware_v1_account_account_proto_goTypes = []interface{}{
 	(*Account)(nil),           // 0: account.middleware.account1.v1.Account
 	(*Conds)(nil),             // 1: account.middleware.account1.v1.Conds
 	(v1.AccountUsedFor)(0),    // 2: basetypes.v1.AccountUsedFor
-	(v11.AccountLockedBy)(0),  // 3: basetypes.v1.AccountLockedBy
+	(v1.AccountLockedBy)(0),   // 3: basetypes.v1.AccountLockedBy
 	(*v1.Uint32Val)(nil),      // 4: basetypes.v1.Uint32Val
 	(*v1.StringVal)(nil),      // 5: basetypes.v1.StringVal
 	(*v1.BoolVal)(nil),        // 6: basetypes.v1.BoolVal

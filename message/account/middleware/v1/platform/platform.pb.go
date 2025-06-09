@@ -8,7 +8,6 @@ package platform
 
 import (
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/v1"
-	v11 "github.com/NpoolPlatform/message/npool/basetypes/v1"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
@@ -33,14 +32,14 @@ type AccountReq struct {
 	CoinTypeID *string `protobuf:"bytes,20,opt,name=CoinTypeID,proto3,oneof" json:"CoinTypeID,omitempty"`
 	// Only [UserBenefitHot, UserBenefitCold, PlatformBenefitCold, GasProvider,
 	// PaymentCollector]
-	UsedFor   *v1.AccountUsedFor   `protobuf:"varint,30,opt,name=UsedFor,proto3,enum=basetypes.v1.AccountUsedFor,oneof" json:"UsedFor,omitempty"`
-	AccountID *string              `protobuf:"bytes,40,opt,name=AccountID,proto3,oneof" json:"AccountID,omitempty"`
-	Address   *string              `protobuf:"bytes,50,opt,name=Address,proto3,oneof" json:"Address,omitempty"`
-	Backup    *bool                `protobuf:"varint,60,opt,name=Backup,proto3,oneof" json:"Backup,omitempty"`
-	Active    *bool                `protobuf:"varint,70,opt,name=Active,proto3,oneof" json:"Active,omitempty"`
-	Locked    *bool                `protobuf:"varint,80,opt,name=Locked,proto3,oneof" json:"Locked,omitempty"` // Locked when collecting
-	LockedBy  *v11.AccountLockedBy `protobuf:"varint,90,opt,name=LockedBy,proto3,enum=basetypes.v1.AccountLockedBy,oneof" json:"LockedBy,omitempty"`
-	Blocked   *bool                `protobuf:"varint,100,opt,name=Blocked,proto3,oneof" json:"Blocked,omitempty"`
+	UsedFor   *v1.AccountUsedFor  `protobuf:"varint,30,opt,name=UsedFor,proto3,enum=basetypes.v1.AccountUsedFor,oneof" json:"UsedFor,omitempty"`
+	AccountID *string             `protobuf:"bytes,40,opt,name=AccountID,proto3,oneof" json:"AccountID,omitempty"`
+	Address   *string             `protobuf:"bytes,50,opt,name=Address,proto3,oneof" json:"Address,omitempty"`
+	Backup    *bool               `protobuf:"varint,60,opt,name=Backup,proto3,oneof" json:"Backup,omitempty"`
+	Active    *bool               `protobuf:"varint,70,opt,name=Active,proto3,oneof" json:"Active,omitempty"`
+	Locked    *bool               `protobuf:"varint,80,opt,name=Locked,proto3,oneof" json:"Locked,omitempty"` // Locked when collecting
+	LockedBy  *v1.AccountLockedBy `protobuf:"varint,90,opt,name=LockedBy,proto3,enum=basetypes.v1.AccountLockedBy,oneof" json:"LockedBy,omitempty"`
+	Blocked   *bool               `protobuf:"varint,100,opt,name=Blocked,proto3,oneof" json:"Blocked,omitempty"`
 }
 
 func (x *AccountReq) Reset() {
@@ -138,11 +137,11 @@ func (x *AccountReq) GetLocked() bool {
 	return false
 }
 
-func (x *AccountReq) GetLockedBy() v11.AccountLockedBy {
+func (x *AccountReq) GetLockedBy() v1.AccountLockedBy {
 	if x != nil && x.LockedBy != nil {
 		return *x.LockedBy
 	}
-	return v11.AccountLockedBy(0)
+	return v1.AccountLockedBy(0)
 }
 
 func (x *AccountReq) GetBlocked() bool {
@@ -175,8 +174,8 @@ type Account struct {
 	// @inject_tag: sql:"active"
 	Active bool `protobuf:"varint,80,opt,name=Active,proto3" json:"Active,omitempty" sql:"active"`
 	// @inject_tag: sql:"locked"
-	Locked   bool                `protobuf:"varint,90,opt,name=Locked,proto3" json:"Locked,omitempty" sql:"locked"`
-	LockedBy v11.AccountLockedBy `protobuf:"varint,100,opt,name=LockedBy,proto3,enum=basetypes.v1.AccountLockedBy" json:"LockedBy,omitempty"`
+	Locked   bool               `protobuf:"varint,90,opt,name=Locked,proto3" json:"Locked,omitempty" sql:"locked"`
+	LockedBy v1.AccountLockedBy `protobuf:"varint,100,opt,name=LockedBy,proto3,enum=basetypes.v1.AccountLockedBy" json:"LockedBy,omitempty"`
 	// @inject_tag: sql:"locked_by"
 	LockedByStr string `protobuf:"bytes,110,opt,name=LockedByStr,proto3" json:"LockedByStr,omitempty" sql:"locked_by"`
 	// @inject_tag: sql:"blocked"
@@ -289,11 +288,11 @@ func (x *Account) GetLocked() bool {
 	return false
 }
 
-func (x *Account) GetLockedBy() v11.AccountLockedBy {
+func (x *Account) GetLockedBy() v1.AccountLockedBy {
 	if x != nil {
 		return x.LockedBy
 	}
-	return v11.AccountLockedBy(0)
+	return v1.AccountLockedBy(0)
 }
 
 func (x *Account) GetLockedByStr() string {
@@ -629,7 +628,7 @@ var file_account_middleware_v1_platform_platform_proto_goTypes = []interface{}{
 	(*Account)(nil),           // 1: account.middleware.platform.v1.Account
 	(*Conds)(nil),             // 2: account.middleware.platform.v1.Conds
 	(v1.AccountUsedFor)(0),    // 3: basetypes.v1.AccountUsedFor
-	(v11.AccountLockedBy)(0),  // 4: basetypes.v1.AccountLockedBy
+	(v1.AccountLockedBy)(0),   // 4: basetypes.v1.AccountLockedBy
 	(*v1.Uint32Val)(nil),      // 5: basetypes.v1.Uint32Val
 	(*v1.StringVal)(nil),      // 6: basetypes.v1.StringVal
 	(*v1.BoolVal)(nil),        // 7: basetypes.v1.BoolVal
