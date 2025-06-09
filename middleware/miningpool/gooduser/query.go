@@ -5,21 +5,21 @@ import (
 
 	"entgo.io/ent/dialect/sql"
 	"github.com/NpoolPlatform/kunman/framework/wlog"
-	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 	mpbasetypes "github.com/NpoolPlatform/kunman/message/basetypes/miningpool/v1"
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	coinpb "github.com/NpoolPlatform/kunman/message/miningpool/middleware/v1/coin"
 	npool "github.com/NpoolPlatform/kunman/message/miningpool/middleware/v1/gooduser"
+	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 	"github.com/shopspring/decimal"
 
 	"github.com/NpoolPlatform/kunman/middleware/miningpool/db"
-	"github.com/NpoolPlatform/kunman/middleware/miningpool/db/ent/generated"
-	gooduserent "github.com/NpoolPlatform/kunman/middleware/miningpool/db/ent/generated/gooduser"
+	ent "github.com/NpoolPlatform/kunman/middleware/miningpool/db/ent/generated"
+	entgooduser "github.com/NpoolPlatform/kunman/middleware/miningpool/db/ent/generated/gooduser"
 	rootusermw "github.com/NpoolPlatform/kunman/middleware/miningpool/rootuser"
 
+	"github.com/NpoolPlatform/kunman/middleware/miningpool/coin"
 	"github.com/NpoolPlatform/kunman/middleware/miningpool/db/ent/generated/pool"
 	"github.com/NpoolPlatform/kunman/middleware/miningpool/db/ent/generated/rootuser"
-	"github.com/NpoolPlatform/kunman/middleware/miningpool/coin"
 	"github.com/NpoolPlatform/kunman/middleware/miningpool/pools"
 
 	goodusercrud "github.com/NpoolPlatform/kunman/middleware/miningpool/crud/gooduser"
@@ -34,13 +34,13 @@ type queryHandler struct {
 
 func (h *queryHandler) selectGoodUser(stm *ent.GoodUserQuery) {
 	h.stm = stm.Select(
-		gooduserent.FieldID,
-		gooduserent.FieldCreatedAt,
-		gooduserent.FieldUpdatedAt,
-		gooduserent.FieldEntID,
-		gooduserent.FieldRootUserID,
-		gooduserent.FieldName,
-		gooduserent.FieldReadPageLink,
+		entgooduser.FieldID,
+		entgooduser.FieldCreatedAt,
+		entgooduser.FieldUpdatedAt,
+		entgooduser.FieldEntID,
+		entgooduser.FieldRootUserID,
+		entgooduser.FieldName,
+		entgooduser.FieldReadPageLink,
 	)
 }
 
@@ -48,12 +48,12 @@ func (h *queryHandler) queryGoodUser(cli *ent.Client) error {
 	if h.ID == nil && h.EntID == nil {
 		return wlog.Errorf("invalid id")
 	}
-	stm := cli.GoodUser.Query().Where(gooduserent.DeletedAt(0))
+	stm := cli.GoodUser.Query().Where(entgooduser.DeletedAt(0))
 	if h.ID != nil {
-		stm.Where(gooduserent.ID(*h.ID))
+		stm.Where(entgooduser.ID(*h.ID))
 	}
 	if h.EntID != nil {
-		stm.Where(gooduserent.EntID(*h.EntID))
+		stm.Where(entgooduser.EntID(*h.EntID))
 	}
 	h.selectGoodUser(stm)
 	return nil
@@ -88,7 +88,7 @@ func (h *queryHandler) queryJoinRootUserAndPool(s *sql.Selector) {
 	ruT := sql.Table(rootuser.Table)
 	poolT := sql.Table(pool.Table)
 	s.Join(ruT).On(
-		s.C(gooduserent.FieldRootUserID),
+		s.C(entgooduser.FieldRootUserID),
 		ruT.C(rootuser.FieldEntID),
 	).OnP(
 		sql.EQ(ruT.C(rootuser.FieldDeletedAt), 0),
@@ -157,7 +157,7 @@ func (h *Handler) GetGoodUsers(ctx context.Context) ([]*npool.GoodUser, uint32, 
 		handler.stm.
 			Offset(int(h.Offset)).
 			Limit(int(h.Limit)).
-			Order(ent.Desc(gooduserent.FieldUpdatedAt))
+			Order(ent.Desc(entgooduser.FieldUpdatedAt))
 		return handler.scan(_ctx)
 	})
 	if err != nil {

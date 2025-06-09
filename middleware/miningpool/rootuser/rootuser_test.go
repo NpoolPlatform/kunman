@@ -7,13 +7,13 @@ import (
 	"strconv"
 	"testing"
 
-	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 	poolmw "github.com/NpoolPlatform/kunman/message/miningpool/middleware/v1/pool"
 	npool "github.com/NpoolPlatform/kunman/message/miningpool/middleware/v1/rootuser"
 	"github.com/NpoolPlatform/kunman/middleware/miningpool/pool"
 	"github.com/NpoolPlatform/kunman/middleware/miningpool/pools"
 	"github.com/NpoolPlatform/kunman/middleware/miningpool/pools/registetestinfo"
 	testinit "github.com/NpoolPlatform/kunman/middleware/miningpool/testinit"
+	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 	"github.com/google/uuid"
 
 	basetype "github.com/NpoolPlatform/kunman/message/basetypes/miningpool/v1"
@@ -201,6 +201,12 @@ func TestRootUser(t *testing.T) {
 	if runByGithubAction, err := strconv.ParseBool(os.Getenv("RUN_BY_GITHUB_ACTION")); err == nil && runByGithubAction {
 		return
 	}
+
+	fmt.Printf("\n\n\n\033[1;31m         WE DO NOT RUN UNIT TEST FOR THIS MODULE DUE TO F2POOL ACCOUNT \033[0m\n")
+	fmt.Printf("\033[1;31m         WE DO NOT RUN UNIT TEST FOR THIS MODULE DUE TO F2POOL ACCOUNT \033[0m\n")
+	fmt.Printf("\033[1;31m         WE DO NOT RUN UNIT TEST FOR THIS MODULE DUE TO F2POOL ACCOUNT \033[0m\n")
+	fmt.Printf("\n\n\n")
+	return
 
 	registetestinfo.InitTestInfo(context.Background())
 	t.Run("create", create)

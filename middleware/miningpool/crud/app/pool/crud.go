@@ -3,7 +3,7 @@ package apppool
 import (
 	"github.com/NpoolPlatform/kunman/framework/wlog"
 	ent "github.com/NpoolPlatform/kunman/middleware/miningpool/db/ent/generated"
-	apppoolent "github.com/NpoolPlatform/kunman/middleware/miningpool/db/ent/generated/apppool"
+	entapppool "github.com/NpoolPlatform/kunman/middleware/miningpool/db/ent/generated/apppool"
 	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 
 	"github.com/google/uuid"
@@ -52,6 +52,7 @@ type Conds struct {
 }
 
 func SetQueryConds(q *ent.AppPoolQuery, conds *Conds) (*ent.AppPoolQuery, error) { //nolint
+	q.Where(entapppool.DeletedAt(0))
 	if conds == nil {
 		return nil, wlog.Errorf("have no any conds")
 	}
@@ -62,7 +63,7 @@ func SetQueryConds(q *ent.AppPoolQuery, conds *Conds) (*ent.AppPoolQuery, error)
 		}
 		switch conds.ID.Op {
 		case cruder.EQ:
-			q.Where(apppoolent.ID(id))
+			q.Where(entapppool.ID(id))
 		default:
 			return nil, wlog.Errorf("invalid id field")
 		}
@@ -74,7 +75,7 @@ func SetQueryConds(q *ent.AppPoolQuery, conds *Conds) (*ent.AppPoolQuery, error)
 		}
 		switch conds.EntID.Op {
 		case cruder.EQ:
-			q.Where(apppoolent.EntID(id))
+			q.Where(entapppool.EntID(id))
 		default:
 			return nil, wlog.Errorf("invalid entid field")
 		}
@@ -86,7 +87,7 @@ func SetQueryConds(q *ent.AppPoolQuery, conds *Conds) (*ent.AppPoolQuery, error)
 		}
 		switch conds.EntIDs.Op {
 		case cruder.IN:
-			q.Where(apppoolent.EntIDIn(ids...))
+			q.Where(entapppool.EntIDIn(ids...))
 		default:
 			return nil, wlog.Errorf("invalid entids field")
 		}
@@ -98,7 +99,7 @@ func SetQueryConds(q *ent.AppPoolQuery, conds *Conds) (*ent.AppPoolQuery, error)
 		}
 		switch conds.AppID.Op {
 		case cruder.EQ:
-			q.Where(apppoolent.AppID(id))
+			q.Where(entapppool.AppID(id))
 		default:
 			return nil, wlog.Errorf("invalid appid field")
 		}
@@ -110,7 +111,7 @@ func SetQueryConds(q *ent.AppPoolQuery, conds *Conds) (*ent.AppPoolQuery, error)
 		}
 		switch conds.PoolID.Op {
 		case cruder.EQ:
-			q.Where(apppoolent.PoolID(id))
+			q.Where(entapppool.PoolID(id))
 		default:
 			return nil, wlog.Errorf("invalid poolid field")
 		}

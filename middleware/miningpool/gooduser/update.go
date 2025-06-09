@@ -5,7 +5,7 @@ import (
 
 	"github.com/NpoolPlatform/kunman/framework/wlog"
 	"github.com/NpoolPlatform/kunman/middleware/miningpool/db"
-	"github.com/NpoolPlatform/kunman/middleware/miningpool/db/ent/generated"
+	ent "github.com/NpoolPlatform/kunman/middleware/miningpool/db/ent/generated"
 )
 
 func (h *Handler) UpdateGoodUser(ctx context.Context) error {

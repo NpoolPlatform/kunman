@@ -9,9 +9,9 @@ import (
 	npool "github.com/NpoolPlatform/kunman/message/miningpool/middleware/v1/rootuser"
 
 	"github.com/NpoolPlatform/kunman/middleware/miningpool/db"
-	"github.com/NpoolPlatform/kunman/middleware/miningpool/db/ent/generated"
+	ent "github.com/NpoolPlatform/kunman/middleware/miningpool/db/ent/generated"
 	"github.com/NpoolPlatform/kunman/middleware/miningpool/db/ent/generated/pool"
-	rootuserent "github.com/NpoolPlatform/kunman/middleware/miningpool/db/ent/generated/rootuser"
+	entrootuser "github.com/NpoolPlatform/kunman/middleware/miningpool/db/ent/generated/rootuser"
 
 	rootusercrud "github.com/NpoolPlatform/kunman/middleware/miningpool/crud/rootuser"
 )
@@ -25,16 +25,16 @@ type queryHandler struct {
 
 func (h *queryHandler) selectRootUser(stm *ent.RootUserQuery) {
 	h.stm = stm.Select(
-		rootuserent.FieldID,
-		rootuserent.FieldEntID,
-		rootuserent.FieldName,
-		rootuserent.FieldPoolID,
-		rootuserent.FieldEmail,
-		rootuserent.FieldAuthToken,
-		rootuserent.FieldAuthed,
-		rootuserent.FieldRemark,
-		rootuserent.FieldCreatedAt,
-		rootuserent.FieldUpdatedAt,
+		entrootuser.FieldID,
+		entrootuser.FieldEntID,
+		entrootuser.FieldName,
+		entrootuser.FieldPoolID,
+		entrootuser.FieldEmail,
+		entrootuser.FieldAuthToken,
+		entrootuser.FieldAuthed,
+		entrootuser.FieldRemark,
+		entrootuser.FieldCreatedAt,
+		entrootuser.FieldUpdatedAt,
 	)
 }
 
@@ -42,12 +42,12 @@ func (h *queryHandler) queryRootUser(cli *ent.Client) error {
 	if h.ID == nil && h.EntID == nil {
 		return wlog.Errorf("invalid id")
 	}
-	stm := cli.RootUser.Query().Where(rootuserent.DeletedAt(0))
+	stm := cli.RootUser.Query().Where(entrootuser.DeletedAt(0))
 	if h.ID != nil {
-		stm.Where(rootuserent.ID(*h.ID))
+		stm.Where(entrootuser.ID(*h.ID))
 	}
 	if h.EntID != nil {
-		stm.Where(rootuserent.EntID(*h.EntID))
+		stm.Where(entrootuser.EntID(*h.EntID))
 	}
 	h.selectRootUser(stm)
 	return nil
@@ -83,7 +83,7 @@ func (h *queryHandler) queryJoin() {
 func (h *queryHandler) queryJoinPool(s *sql.Selector) {
 	poolT := sql.Table(pool.Table)
 	s.Join(poolT).On(
-		s.C(rootuserent.FieldPoolID),
+		s.C(entrootuser.FieldPoolID),
 		poolT.C(pool.FieldEntID),
 	).OnP(
 		sql.EQ(poolT.C(pool.FieldDeletedAt), 0),
@@ -143,7 +143,7 @@ func (h *Handler) GetRootUsers(ctx context.Context) ([]*npool.RootUser, uint32, 
 		handler.stm.
 			Offset(int(h.Offset)).
 			Limit(int(h.Limit)).
-			Order(ent.Desc(rootuserent.FieldUpdatedAt))
+			Order(ent.Desc(entrootuser.FieldUpdatedAt))
 		return handler.scan(_ctx)
 	})
 	if err != nil {

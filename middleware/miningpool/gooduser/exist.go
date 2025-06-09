@@ -6,8 +6,8 @@ import (
 	"github.com/NpoolPlatform/kunman/framework/wlog"
 	goodusercrud "github.com/NpoolPlatform/kunman/middleware/miningpool/crud/gooduser"
 	"github.com/NpoolPlatform/kunman/middleware/miningpool/db"
-	"github.com/NpoolPlatform/kunman/middleware/miningpool/db/ent/generated"
-	gooduserent "github.com/NpoolPlatform/kunman/middleware/miningpool/db/ent/generated/gooduser"
+	ent "github.com/NpoolPlatform/kunman/middleware/miningpool/db/ent/generated"
+	entgooduser "github.com/NpoolPlatform/kunman/middleware/miningpool/db/ent/generated/gooduser"
 )
 
 func (h *Handler) ExistGoodUser(ctx context.Context) (bool, error) {
@@ -19,8 +19,8 @@ func (h *Handler) ExistGoodUser(ctx context.Context) (bool, error) {
 			GoodUser.
 			Query().
 			Where(
-				gooduserent.EntID(*h.EntID),
-				gooduserent.DeletedAt(0),
+				entgooduser.EntID(*h.EntID),
+				entgooduser.DeletedAt(0),
 			).
 			Exist(_ctx)
 		if err != nil {

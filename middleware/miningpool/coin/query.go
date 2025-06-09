@@ -10,7 +10,7 @@ import (
 	npool "github.com/NpoolPlatform/kunman/message/miningpool/middleware/v1/coin"
 
 	"github.com/NpoolPlatform/kunman/middleware/miningpool/db"
-	"github.com/NpoolPlatform/kunman/middleware/miningpool/db/ent/generated"
+	ent "github.com/NpoolPlatform/kunman/middleware/miningpool/db/ent/generated"
 	coinent "github.com/NpoolPlatform/kunman/middleware/miningpool/db/ent/generated/coin"
 	"github.com/NpoolPlatform/kunman/middleware/miningpool/db/ent/generated/pool"
 

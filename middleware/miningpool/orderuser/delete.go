@@ -10,7 +10,7 @@ import (
 	crud "github.com/NpoolPlatform/kunman/middleware/miningpool/crud/orderuser"
 
 	"github.com/NpoolPlatform/kunman/middleware/miningpool/db"
-	"github.com/NpoolPlatform/kunman/middleware/miningpool/db/ent/generated"
+	ent "github.com/NpoolPlatform/kunman/middleware/miningpool/db/ent/generated"
 )
 
 type deleteHandler struct {

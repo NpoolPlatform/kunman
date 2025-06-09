@@ -6,8 +6,8 @@ import (
 	"github.com/NpoolPlatform/kunman/framework/wlog"
 	rootusercrud "github.com/NpoolPlatform/kunman/middleware/miningpool/crud/rootuser"
 	"github.com/NpoolPlatform/kunman/middleware/miningpool/db"
-	"github.com/NpoolPlatform/kunman/middleware/miningpool/db/ent/generated"
-	rootuserent "github.com/NpoolPlatform/kunman/middleware/miningpool/db/ent/generated/rootuser"
+	ent "github.com/NpoolPlatform/kunman/middleware/miningpool/db/ent/generated"
+	entrootuser "github.com/NpoolPlatform/kunman/middleware/miningpool/db/ent/generated/rootuser"
 )
 
 func (h *Handler) ExistRootUser(ctx context.Context) (bool, error) {
@@ -22,8 +22,8 @@ func (h *Handler) ExistRootUser(ctx context.Context) (bool, error) {
 			RootUser.
 			Query().
 			Where(
-				rootuserent.EntID(*h.EntID),
-				rootuserent.DeletedAt(0),
+				entrootuser.EntID(*h.EntID),
+				entrootuser.DeletedAt(0),
 			).
 			Exist(_ctx)
 		if err != nil {

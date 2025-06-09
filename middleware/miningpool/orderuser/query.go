@@ -10,9 +10,9 @@ import (
 	"github.com/shopspring/decimal"
 
 	"github.com/NpoolPlatform/kunman/middleware/miningpool/db"
-	"github.com/NpoolPlatform/kunman/middleware/miningpool/db/ent/generated"
-	"github.com/NpoolPlatform/kunman/middleware/miningpool/db/ent/generated/gooduser"
-	orderuserent "github.com/NpoolPlatform/kunman/middleware/miningpool/db/ent/generated/orderuser"
+	ent "github.com/NpoolPlatform/kunman/middleware/miningpool/db/ent/generated"
+	entgooduser "github.com/NpoolPlatform/kunman/middleware/miningpool/db/ent/generated/gooduser"
+	entorderuser "github.com/NpoolPlatform/kunman/middleware/miningpool/db/ent/generated/orderuser"
 	"github.com/NpoolPlatform/kunman/middleware/miningpool/db/ent/generated/pool"
 	"github.com/NpoolPlatform/kunman/middleware/miningpool/db/ent/generated/rootuser"
 	"github.com/NpoolPlatform/kunman/middleware/miningpool/pools"
@@ -29,15 +29,15 @@ type queryHandler struct {
 
 func (h *queryHandler) selectOrderUser(stm *ent.OrderUserQuery) {
 	h.stm = stm.Select(
-		orderuserent.FieldID,
-		orderuserent.FieldEntID,
-		orderuserent.FieldName,
-		orderuserent.FieldGoodUserID,
-		orderuserent.FieldAppID,
-		orderuserent.FieldUserID,
-		orderuserent.FieldReadPageLink,
-		orderuserent.FieldCreatedAt,
-		orderuserent.FieldUpdatedAt,
+		entorderuser.FieldID,
+		entorderuser.FieldEntID,
+		entorderuser.FieldName,
+		entorderuser.FieldGoodUserID,
+		entorderuser.FieldAppID,
+		entorderuser.FieldUserID,
+		entorderuser.FieldReadPageLink,
+		entorderuser.FieldCreatedAt,
+		entorderuser.FieldUpdatedAt,
 	)
 }
 
@@ -45,12 +45,12 @@ func (h *queryHandler) queryOrderUser(cli *ent.Client) error {
 	if h.ID == nil && h.EntID == nil {
 		return wlog.Errorf("invalid id or ent_id")
 	}
-	stm := cli.OrderUser.Query().Where(orderuserent.DeletedAt(0))
+	stm := cli.OrderUser.Query().Where(entorderuser.DeletedAt(0))
 	if h.ID != nil {
-		stm.Where(orderuserent.ID(*h.ID))
+		stm.Where(entorderuser.ID(*h.ID))
 	}
 	if h.EntID != nil {
-		stm.Where(orderuserent.EntID(*h.EntID))
+		stm.Where(entorderuser.EntID(*h.EntID))
 	}
 	h.selectOrderUser(stm)
 	return nil
@@ -82,17 +82,17 @@ func (h *queryHandler) queryJoin() {
 }
 
 func (h *queryHandler) queryJoinCoinAndPool(s *sql.Selector) {
-	guT := sql.Table(gooduser.Table)
+	guT := sql.Table(entgooduser.Table)
 	ruT := sql.Table(rootuser.Table)
 	poolT := sql.Table(pool.Table)
 
 	s.Join(guT).On(
-		s.C(orderuserent.FieldGoodUserID),
-		guT.C(gooduser.FieldEntID),
+		s.C(entorderuser.FieldGoodUserID),
+		guT.C(entgooduser.FieldEntID),
 	).OnP(
-		sql.EQ(guT.C(gooduser.FieldDeletedAt), 0),
+		sql.EQ(guT.C(entgooduser.FieldDeletedAt), 0),
 	).Join(ruT).On(
-		guT.C(gooduser.FieldRootUserID),
+		guT.C(entgooduser.FieldRootUserID),
 		ruT.C(rootuser.FieldEntID),
 	).OnP(
 		sql.EQ(ruT.C(rootuser.FieldDeletedAt), 0),
@@ -107,7 +107,7 @@ func (h *queryHandler) queryJoinCoinAndPool(s *sql.Selector) {
 		sql.As(poolT.C(pool.FieldLogo), "mining_pool_logo"),
 		sql.As(poolT.C(pool.FieldSite), "mining_pool_site"),
 		sql.As(poolT.C(pool.FieldEntID), "pool_id"),
-		gooduser.FieldRootUserID,
+		entgooduser.FieldRootUserID,
 	)
 }
 
@@ -162,7 +162,7 @@ func (h *Handler) GetOrderUsers(ctx context.Context) ([]*npool.OrderUser, uint32
 		handler.stm.
 			Offset(int(h.Offset)).
 			Limit(int(h.Limit)).
-			Order(ent.Desc(orderuserent.FieldUpdatedAt))
+			Order(ent.Desc(entorderuser.FieldUpdatedAt))
 		return handler.scan(_ctx)
 	})
 	if err != nil {

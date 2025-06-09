@@ -8,9 +8,9 @@ import (
 	npool "github.com/NpoolPlatform/kunman/message/miningpool/middleware/v1/app/pool"
 
 	"github.com/NpoolPlatform/kunman/middleware/miningpool/db"
-	"github.com/NpoolPlatform/kunman/middleware/miningpool/db/ent/generated"
-	apppoolent "github.com/NpoolPlatform/kunman/middleware/miningpool/db/ent/generated/apppool"
-	"github.com/NpoolPlatform/kunman/middleware/miningpool/db/ent/generated/pool"
+	ent "github.com/NpoolPlatform/kunman/middleware/miningpool/db/ent/generated"
+	entapppool "github.com/NpoolPlatform/kunman/middleware/miningpool/db/ent/generated/apppool"
+	entpool "github.com/NpoolPlatform/kunman/middleware/miningpool/db/ent/generated/pool"
 
 	apppoolcrud "github.com/NpoolPlatform/kunman/middleware/miningpool/crud/app/pool"
 )
@@ -24,12 +24,12 @@ type queryHandler struct {
 
 func (h *queryHandler) selectPool(stm *ent.AppPoolQuery) {
 	h.stm = stm.Select(
-		apppoolent.FieldID,
-		apppoolent.FieldEntID,
-		apppoolent.FieldAppID,
-		apppoolent.FieldPoolID,
-		apppoolent.FieldCreatedAt,
-		apppoolent.FieldUpdatedAt,
+		entapppool.FieldID,
+		entapppool.FieldEntID,
+		entapppool.FieldAppID,
+		entapppool.FieldPoolID,
+		entapppool.FieldCreatedAt,
+		entapppool.FieldUpdatedAt,
 	)
 }
 
@@ -40,12 +40,12 @@ func (h *queryHandler) queryJoin() {
 }
 
 func (h *queryHandler) queryJoinPool(s *sql.Selector) {
-	poolT := sql.Table(pool.Table)
+	poolT := sql.Table(entpool.Table)
 	s.Join(poolT).On(
-		s.C(apppoolent.FieldPoolID),
-		poolT.C(pool.FieldEntID),
+		s.C(entapppool.FieldPoolID),
+		poolT.C(entpool.FieldEntID),
 	).OnP(
-		sql.EQ(poolT.C(pool.FieldDeletedAt), 0),
+		sql.EQ(poolT.C(entpool.FieldDeletedAt), 0),
 	)
 }
 
@@ -53,12 +53,12 @@ func (h *queryHandler) queryPool(cli *ent.Client) error {
 	if h.ID == nil && h.EntID == nil {
 		return wlog.Errorf("invalid id")
 	}
-	stm := cli.AppPool.Query().Where(apppoolent.DeletedAt(0))
+	stm := cli.AppPool.Query().Where(entapppool.DeletedAt(0))
 	if h.ID != nil {
-		stm.Where(apppoolent.ID(*h.ID))
+		stm.Where(entapppool.ID(*h.ID))
 	}
 	if h.EntID != nil {
-		stm.Where(apppoolent.EntID(*h.EntID))
+		stm.Where(entapppool.EntID(*h.EntID))
 	}
 	h.selectPool(stm)
 	return nil
@@ -135,7 +135,7 @@ func (h *Handler) GetPools(ctx context.Context) ([]*npool.Pool, uint32, error) {
 		handler.stm.
 			Offset(int(h.Offset)).
 			Limit(int(h.Limit)).
-			Order(ent.Desc(apppoolent.FieldUpdatedAt))
+			Order(ent.Desc(entapppool.FieldUpdatedAt))
 		return handler.scan(_ctx)
 	})
 	if err != nil {

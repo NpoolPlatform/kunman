@@ -10,8 +10,8 @@ import (
 	"github.com/NpoolPlatform/kunman/framework/wlog"
 	rootusercrud "github.com/NpoolPlatform/kunman/middleware/miningpool/crud/rootuser"
 	"github.com/NpoolPlatform/kunman/middleware/miningpool/db"
-	"github.com/NpoolPlatform/kunman/middleware/miningpool/db/ent/generated"
-	rootuserent "github.com/NpoolPlatform/kunman/middleware/miningpool/db/ent/generated/rootuser"
+	ent "github.com/NpoolPlatform/kunman/middleware/miningpool/db/ent/generated"
+	entrootuser "github.com/NpoolPlatform/kunman/middleware/miningpool/db/ent/generated/rootuser"
 )
 
 const (
@@ -66,10 +66,10 @@ type tokenHandler struct {
 
 func (h *tokenHandler) selectToken(stm *ent.RootUserQuery) {
 	h.stm = stm.Select(
-		rootuserent.FieldID,
-		rootuserent.FieldEntID,
-		rootuserent.FieldAuthToken,
-		rootuserent.FieldAuthTokenSalt,
+		entrootuser.FieldID,
+		entrootuser.FieldEntID,
+		entrootuser.FieldAuthToken,
+		entrootuser.FieldAuthTokenSalt,
 	)
 }
 
@@ -77,12 +77,12 @@ func (h *tokenHandler) queryToken(cli *ent.Client) error {
 	if h.ID == nil && h.EntID == nil {
 		return wlog.Errorf("invalid id")
 	}
-	stm := cli.RootUser.Query().Where(rootuserent.DeletedAt(0))
+	stm := cli.RootUser.Query().Where(entrootuser.DeletedAt(0))
 	if h.ID != nil {
-		stm.Where(rootuserent.ID(*h.ID))
+		stm.Where(entrootuser.ID(*h.ID))
 	}
 	if h.EntID != nil {
-		stm.Where(rootuserent.EntID(*h.EntID))
+		stm.Where(entrootuser.EntID(*h.EntID))
 	}
 	h.selectToken(stm)
 	return nil
@@ -177,7 +177,7 @@ func (h *Handler) GetAuthTokens(ctx context.Context) ([]*TokenInfo, uint32, erro
 		handler.stm.
 			Offset(int(h.Offset)).
 			Limit(int(h.Limit)).
-			Order(ent.Desc(rootuserent.FieldUpdatedAt))
+			Order(ent.Desc(entrootuser.FieldUpdatedAt))
 		return handler.scan(_ctx)
 	})
 	if err != nil {

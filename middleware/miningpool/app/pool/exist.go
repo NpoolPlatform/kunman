@@ -6,8 +6,8 @@ import (
 	"github.com/NpoolPlatform/kunman/framework/wlog"
 	apppoolcrud "github.com/NpoolPlatform/kunman/middleware/miningpool/crud/app/pool"
 	"github.com/NpoolPlatform/kunman/middleware/miningpool/db"
-	"github.com/NpoolPlatform/kunman/middleware/miningpool/db/ent/generated"
-	apppoolent "github.com/NpoolPlatform/kunman/middleware/miningpool/db/ent/generated/apppool"
+	ent "github.com/NpoolPlatform/kunman/middleware/miningpool/db/ent/generated"
+	entapppool "github.com/NpoolPlatform/kunman/middleware/miningpool/db/ent/generated/apppool"
 )
 
 func (h *Handler) ExistPool(ctx context.Context) (bool, error) {
@@ -15,17 +15,21 @@ func (h *Handler) ExistPool(ctx context.Context) (bool, error) {
 	var err error
 
 	err = db.WithClient(ctx, func(_ctx context.Context, cli *ent.Client) error {
-		exist, err = cli.
+		count, err := cli.
 			AppPool.
 			Query().
 			Where(
-				apppoolent.EntID(*h.EntID),
-				apppoolent.DeletedAt(0),
+				entapppool.EntID(*h.EntID),
+				entapppool.DeletedAt(0),
 			).
-			Exist(_ctx)
+			Limit(1).
+			Count(_ctx)
 		if err != nil {
 			return wlog.WrapError(err)
 		}
+
+		exist = count > 0
+
 		return nil
 	})
 	if err != nil {
@@ -41,10 +45,13 @@ func (h *Handler) ExistPoolConds(ctx context.Context) (bool, error) {
 		if err != nil {
 			return wlog.WrapError(err)
 		}
-		exist, err = stm.Exist(_ctx)
+		count, err := stm.Limit(1).Count(_ctx)
 		if err != nil {
 			return wlog.WrapError(err)
 		}
+
+		exist = count > 0
+
 		return nil
 	})
 	if err != nil {

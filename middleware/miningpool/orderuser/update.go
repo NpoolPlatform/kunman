@@ -6,7 +6,7 @@ import (
 	"github.com/NpoolPlatform/kunman/framework/wlog"
 
 	"github.com/NpoolPlatform/kunman/middleware/miningpool/db"
-	"github.com/NpoolPlatform/kunman/middleware/miningpool/db/ent/generated"
+	ent "github.com/NpoolPlatform/kunman/middleware/miningpool/db/ent/generated"
 	"github.com/NpoolPlatform/kunman/middleware/miningpool/pools"
 	"github.com/google/uuid"
 )

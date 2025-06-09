@@ -6,7 +6,7 @@ import (
 	"github.com/NpoolPlatform/kunman/framework/wlog"
 	fractionwithdrawalrulecrud "github.com/NpoolPlatform/kunman/middleware/miningpool/crud/fractionwithdrawalrule"
 	"github.com/NpoolPlatform/kunman/middleware/miningpool/db"
-	"github.com/NpoolPlatform/kunman/middleware/miningpool/db/ent/generated"
+	ent "github.com/NpoolPlatform/kunman/middleware/miningpool/db/ent/generated"
 	fractionwithdrawalruleent "github.com/NpoolPlatform/kunman/middleware/miningpool/db/ent/generated/fractionwithdrawalrule"
 )
 
@@ -48,7 +48,8 @@ func (h *Handler) ExistFractionWithdrawalRuleConds(ctx context.Context) (bool, e
 		}
 
 		handler.queryJoin(handler.stm)
-		exist, err = handler.stm.Exist(ctx)
+		count, err := handler.stm.Limit(1).Count(ctx)
+		exist = count > 0
 		return wlog.WrapError(err)
 	})
 	if err != nil {

@@ -7,7 +7,7 @@ import (
 	"github.com/NpoolPlatform/kunman/framework/wlog"
 	orderusercrud "github.com/NpoolPlatform/kunman/middleware/miningpool/crud/orderuser"
 	"github.com/NpoolPlatform/kunman/middleware/miningpool/db"
-	"github.com/NpoolPlatform/kunman/middleware/miningpool/db/ent/generated"
+	ent "github.com/NpoolPlatform/kunman/middleware/miningpool/db/ent/generated"
 	orderuserent "github.com/NpoolPlatform/kunman/middleware/miningpool/db/ent/generated/orderuser"
 )
 
