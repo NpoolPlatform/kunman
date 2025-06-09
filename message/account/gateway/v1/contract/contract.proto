@@ -1,0 +1,54 @@
+syntax = "proto3";
+
+package account.gateway.contract.v1;
+
+option go_package = "github.com/NpoolPlatform/kunman/message/account/gateway/v1/contract";
+
+import "google/api/annotations.proto";
+import "basetypes/v1/accountlockedby.proto";
+import "basetypes/good/v1/enums.proto";
+import "basetypes/account/v1/enums.proto";
+
+// Service Name
+service Gateway {
+  rpc AdminGetAccounts(AdminGetAccountsRequest) returns (AdminGetAccountsResponse) {
+    option (google.api.http) = {
+      post : "/v1/admin/get/contractaccounts"
+      body : "*"
+    };
+  }
+}
+
+message Account {
+    uint32 ID            = 9;
+    string EntID         = 10;
+    string GoodID        = 20;
+    string DelegatedStakingID = 21;
+    string GoodName      = 30;
+    basetypes.good.v1.GoodType GoodType = 40;
+    string CoinTypeID    = 50;
+    string CoinName      = 60;
+    string CoinUnit      = 70;
+    string CoinEnv       = 80;
+    string CoinLogo      = 90;
+    string AccountID     = 100;
+    bool   Backup        = 110;
+    string Address       = 120;
+    bool   Active        = 130;
+    bool   Locked        = 140;
+    basetypes.v1.AccountLockedBy LockedBy = 150;
+    bool   Blocked       = 160;
+    basetypes.account.v1.ContractOperatorType ContractOperatorType = 170;
+    uint32 CreatedAt     = 1000;
+    uint32 UpdatedAt     = 1010;
+}
+
+message AdminGetAccountsRequest {
+  int32 Offset = 20;
+  int32 Limit = 30;
+}
+
+message AdminGetAccountsResponse {
+  repeated Account Infos = 10;
+  uint32 Total = 20;
+}

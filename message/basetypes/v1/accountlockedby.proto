@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+package basetypes.v1;
+
+option go_package = "github.com/NpoolPlatform/message/npool/basetypes/v1";
+
+enum AccountLockedBy {
+  DefaultLockedBy = 0;
+  Payment = 10;
+  Collecting = 20;
+}

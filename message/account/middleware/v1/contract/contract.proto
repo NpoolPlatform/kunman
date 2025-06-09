@@ -1,0 +1,80 @@
+syntax = "proto3";
+
+package account.middleware.contract.v1;
+
+option go_package = "github.com/NpoolPlatform/kunman/message/account/middleware/v1/contract";
+
+import "google/api/annotations.proto";
+import "basetypes/v1/conds.proto";
+import "basetypes/v1/accountlockedby.proto";
+import "basetypes/account/v1/enums.proto";
+
+message AccountReq {
+  optional uint32 ID = 9;
+  optional string EntID = 10;
+  optional string GoodID = 20;
+  optional string DelegatedStakingID = 40;
+  optional string CoinTypeID = 50; // CoinTypeID of the good
+  optional string AccountID = 60;
+  optional string Address = 70;
+  optional bool Backup = 80;
+  optional bool Active = 90;
+  optional bool Locked = 100; // Locked when transferring
+  optional basetypes.v1.AccountLockedBy LockedBy = 110;
+  optional bool Blocked = 120;
+  optional basetypes.account.v1.ContractOperatorType ContractOperatorType = 130;
+}
+
+message Account {
+  // @inject_tag: sql:"id"
+  uint32 ID = 9;
+  // @inject_tag: sql:"ent_id"
+  string EntID = 10;
+  // @inject_tag: sql:"good_id"
+  string GoodID = 20;
+  // @inject_tag: sql:"delegated_staking_id"
+  string DelegatedStakingID = 40;
+  // @inject_tag: sql:"coin_type_id"
+  string CoinTypeID = 50;
+  // @inject_tag: sql:"account_id"
+  string AccountID = 60;
+  // @inject_tag: sql:"backup"
+  bool Backup = 70;
+  // @inject_tag: sql:"address"
+  string Address = 80;
+  // @inject_tag: sql:"active"
+  bool Active = 90;
+  // @inject_tag: sql:"locked"
+  bool Locked = 100;
+  // @inject_tag: sql:"locked_by"
+  string LockedByStr = 110;
+  basetypes.v1.AccountLockedBy LockedBy = 120;
+  // @inject_tag: sql:"blocked"
+  bool Blocked = 130;
+  // @inject_tag: sql:"contract_operator_type"
+  string ContractOperatorTypeStr = 150;
+  basetypes.account.v1.ContractOperatorType ContractOperatorType = 160;
+  // @inject_tag: sql:"created_at"
+  uint32 CreatedAt = 1000;
+  // @inject_tag: sql:"updated_at"
+  uint32 UpdatedAt = 1010;
+}
+
+message Conds {
+  optional basetypes.v1.Uint32Val ID = 9;
+  optional basetypes.v1.StringVal EntID = 10;
+  optional basetypes.v1.StringVal GoodID = 20;
+  optional basetypes.v1.StringVal DelegatedStakingID = 40;
+  optional basetypes.v1.StringVal CoinTypeID = 50;
+  optional basetypes.v1.StringVal AccountID = 60;
+  optional basetypes.v1.BoolVal Backup = 70;
+  optional basetypes.v1.StringVal Address = 80;
+  optional basetypes.v1.BoolVal Active = 90;
+  optional basetypes.v1.BoolVal Locked = 100;
+  optional basetypes.v1.Uint32Val LockedBy = 110;
+  optional basetypes.v1.BoolVal Blocked = 120;
+  optional basetypes.v1.StringSliceVal CoinTypeIDs = 130;
+  optional basetypes.v1.Uint32Val ContractOperatorType = 140;
+  optional basetypes.v1.StringSliceVal DelegatedStakingIDs = 150;
+}
+

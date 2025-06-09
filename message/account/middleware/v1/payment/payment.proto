@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package account.middleware.payment.v1;
+
+option go_package = "github.com/NpoolPlatform/kunman/message/account/middleware/v1/payment";
+
+import "google/api/annotations.proto";
+import "basetypes/v1/accountlockedby.proto";
+import "basetypes/v1/conds.proto";
+
+message AccountReq {
+  optional uint32 ID = 9;
+  optional string EntID = 10;
+  optional string CoinTypeID = 20;
+  optional string AccountID = 30;
+  optional string Address = 40;
+  optional bool Active = 50;
+  optional bool Locked = 60;
+  optional basetypes.v1.AccountLockedBy LockedBy = 70;
+  optional bool Blocked = 80;
+  optional string CollectingTID =
+      90; // Used to free the address when transaction done
+  optional uint32 AvailableAt = 100;
+}
+
+message Account {
+  // @inject_tag: sql:"id"
+  uint32 ID = 9;
+  // @inject_tag: sql:"ent_id"
+  string EntID = 10;
+  // @inject_tag: sql:"coin_type_id"
+  string CoinTypeID = 20;
+  // @inject_tag: sql:"account_id"
+  string AccountID = 30;
+  // @inject_tag: sql:"address"
+  string Address = 40;
+  // @inject_tag: sql:"active"
+  bool Active = 50;
+  // @inject_tag: sql:"locked"
+  bool Locked = 60;
+  basetypes.v1.AccountLockedBy LockedBy = 70;
+  // @inject_tag: sql:"locked_by"
+  string LockedByStr = 71;
+  // @inject_tag: sql:"blocked"
+  bool Blocked = 80;
+  // @inject_tag: sql:"collecting_tid"
+  string CollectingTID = 90;
+  // @inject_tag: sql:"available_at"
+  uint32 AvailableAt = 100;
+  // @inject_tag: sql:"created_at"
+  uint32 CreatedAt = 1000;
+  // @inject_tag: sql:"updated_at"
+  uint32 UpdatedAt = 1010;
+}
+
+message Conds {
+  optional basetypes.v1.Uint32Val ID = 9;
+  optional basetypes.v1.StringVal EntID = 10;
+  optional basetypes.v1.StringVal CoinTypeID = 20;
+  optional basetypes.v1.StringVal AccountID = 30;
+  optional basetypes.v1.StringVal Address = 40;
+  optional basetypes.v1.BoolVal Active = 50;
+  optional basetypes.v1.BoolVal Locked = 60;
+  optional basetypes.v1.Uint32Val LockedBy = 70;
+  optional basetypes.v1.BoolVal Blocked = 80;
+  optional basetypes.v1.StringSliceVal AccountIDs = 90;
+  optional basetypes.v1.Uint32Val AvailableAt = 100;
+}
+

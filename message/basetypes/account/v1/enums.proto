@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+package basetypes.account.v1;
+
+option go_package = "github.com/NpoolPlatform/kunman/message/basetypes/account/v1";
+
+enum ContractOperatorType {
+  DefaultContractOperatorType = 0;
+
+  ContractOwner = 10;
+  ContractCalculator = 20;
+}

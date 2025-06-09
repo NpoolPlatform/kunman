@@ -1,0 +1,81 @@
+syntax = "proto3";
+
+package account.middleware.deposit.v1;
+
+option go_package = "github.com/NpoolPlatform/kunman/message/account/middleware/v1/deposit";
+
+import "basetypes/v1/conds.proto";
+import "basetypes/v1/accountlockedby.proto";
+
+message AccountReq {
+  optional uint32 ID = 9;
+  optional string EntID = 10;
+  optional string AppID = 20;
+  optional string UserID = 30;
+  optional string CoinTypeID = 40;
+  optional string AccountID = 50;
+  optional string Address = 60;
+  optional bool Active = 70;
+  optional bool Locked = 80; // Locked when collecting
+  optional basetypes.v1.AccountLockedBy LockedBy = 90;
+  optional bool Blocked = 100;
+  optional string CollectingTID =
+      110; // Used to free the address when transaction done
+  optional string Incoming = 120;
+  optional string Outcoming = 130;
+  optional uint32 ScannableAt = 140;
+}
+
+message Account {
+  // @inject_tag: sql:"id"
+  uint32 ID = 9;
+  // @inject_tag: sql:"ent_id"
+  string EntID = 10;
+  // @inject_tag: sql:"app_id"
+  string AppID = 20;
+  // @inject_tag: sql:"user_id"
+  string UserID = 30;
+  // @inject_tag: sql:"coin_type_id"
+  string CoinTypeID = 40;
+  // @inject_tag: sql:"account_id"
+  string AccountID = 50;
+  // @inject_tag: sql:"address"
+  string Address = 60;
+  // @inject_tag: sql:"active"
+  bool Active = 80;
+  // @inject_tag: sql:"locked"
+  bool Locked = 100;
+  // @inject_tag: sql:"locked_by"
+  string LockedByStr = 110;
+  basetypes.v1.AccountLockedBy LockedBy = 120;
+  // @inject_tag: sql:"blocked"
+  bool Blocked = 140;
+  // @inject_tag: sql:"collecting_tid"
+  string CollectingTID = 170;
+  // @inject_tag: sql:"incoming"
+  string Incoming = 180;
+  // @inject_tag: sql:"outcoming"
+  string Outcoming = 190;
+  // @inject_tag: sql:"scannable_at"
+  uint32 ScannableAt = 200;
+  // @inject_tag: sql:"created_at"
+  uint32 CreatedAt = 1000;
+  // @inject_tag: sql:"updated_at"
+  uint32 UpdatedAt = 1010;
+}
+
+message Conds {
+  optional basetypes.v1.Uint32Val ID = 9;
+  optional basetypes.v1.StringVal EntID = 10;
+  optional basetypes.v1.StringVal AppID = 20;
+  optional basetypes.v1.StringVal UserID = 30;
+  optional basetypes.v1.StringVal CoinTypeID = 40;
+  optional basetypes.v1.StringVal AccountID = 50;
+  optional basetypes.v1.StringVal Address = 60;
+  optional basetypes.v1.BoolVal Active = 70;
+  optional basetypes.v1.BoolVal Locked = 80;
+  optional basetypes.v1.Uint32Val LockedBy = 90;
+  optional basetypes.v1.BoolVal Blocked = 100;
+  optional basetypes.v1.Uint32Val ScannableAt = 110;
+}
+

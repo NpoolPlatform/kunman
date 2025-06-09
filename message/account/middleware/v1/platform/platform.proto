@@ -1,0 +1,74 @@
+syntax = "proto3";
+
+package account.middleware.platform.v1;
+
+option go_package = "github.com/NpoolPlatform/kunman/message/account/middleware/v1/platform";
+
+import "google/api/annotations.proto";
+import "basetypes/v1/conds.proto";
+import "basetypes/v1/accountusedfor.proto";
+import "basetypes/v1/accountlockedby.proto";
+
+message AccountReq {
+  optional uint32 ID = 9;
+  optional string EntID = 10;
+  optional string CoinTypeID = 20;
+  // Only [UserBenefitHot, UserBenefitCold, PlatformBenefitCold, GasProvider,
+  // PaymentCollector]
+  optional basetypes.v1.AccountUsedFor UsedFor = 30;
+  optional string AccountID = 40;
+  optional string Address = 50;
+  optional bool Backup = 60;
+  optional bool Active = 70;
+  optional bool Locked = 80; // Locked when collecting
+  optional basetypes.v1.AccountLockedBy LockedBy = 90;
+  optional bool Blocked = 100;
+}
+
+message Account {
+  // @inject_tag: sql:"id"
+  uint32 ID = 9;
+  // @inject_tag: sql:"ent_id"
+  string EntID = 10;
+  // @inject_tag: sql:"coin_type_id"
+  string CoinTypeID = 20;
+  // @inject_tag: sql:"used_for"
+  string UsedForStr = 40;
+  basetypes.v1.AccountUsedFor UsedFor = 30;
+  // @inject_tag: sql:"account_id"
+  string AccountID = 50;
+  // @inject_tag: sql:"address"
+  string Address = 60;
+  // @inject_tag: sql:"backup"
+  bool Backup = 70;
+  // @inject_tag: sql:"active"
+  bool Active = 80;
+  // @inject_tag: sql:"locked"
+  bool Locked = 90;
+  basetypes.v1.AccountLockedBy LockedBy = 100;
+  // @inject_tag: sql:"locked_by"
+  string LockedByStr = 110;
+  // @inject_tag: sql:"blocked"
+  bool Blocked = 120;
+  // @inject_tag: sql:"created_at"
+  uint32 CreatedAt = 1000;
+  // @inject_tag: sql:"updated_at"
+  uint32 UpdatedAt = 1010;
+}
+
+message Conds {
+  optional basetypes.v1.Uint32Val ID = 9;
+  optional basetypes.v1.StringVal EntID = 10;
+  optional basetypes.v1.StringVal CoinTypeID = 20;
+  optional basetypes.v1.Uint32Val UsedFor = 30;
+  optional basetypes.v1.StringVal AccountID = 40;
+  optional basetypes.v1.BoolVal Backup = 50;
+  optional basetypes.v1.BoolVal Active = 60;
+  optional basetypes.v1.BoolVal Locked = 70;
+  optional basetypes.v1.Uint32Val LockedBy = 80;
+  optional basetypes.v1.BoolVal Blocked = 90;
+  optional basetypes.v1.StringVal Address = 100;
+  optional basetypes.v1.StringSliceVal CoinTypeIDs = 110;
+  optional basetypes.v1.StringSliceVal AccountIDs = 120;
+}
+

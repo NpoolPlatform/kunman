@@ -1,0 +1,117 @@
+syntax = "proto3";
+
+package account.gateway.transfer.v1;
+
+option go_package = "github.com/NpoolPlatform/kunman/message/account/gateway/v1/transfer";
+
+import "basetypes/v1/signmethod.proto";
+import "google/api/annotations.proto";
+
+// Service Name
+service Gateway {
+  rpc CreateTransfer(CreateTransferRequest) returns (CreateTransferResponse) {
+    option (google.api.http) = {
+      post : "/v1/create/transfer"
+      body : "*"
+    };
+  }
+
+  rpc DeleteTransfer(DeleteTransferRequest) returns (DeleteTransferResponse) {
+    option (google.api.http) = {
+      post : "/v1/delete/transfer"
+      body : "*"
+    };
+  }
+
+  rpc GetTransfers(GetTransfersRequest) returns (GetTransfersResponse) {
+    option (google.api.http) = {
+      post : "/v1/get/transfers"
+      body : "*"
+    };
+  }
+
+  rpc GetAppTransfers(GetAppTransfersRequest)
+      returns (GetAppTransfersResponse) {
+    option (google.api.http) = {
+      post : "/v1/get/app/transfers"
+      body : "*"
+    };
+  }
+
+  rpc GetNAppTransfers(GetNAppTransfersRequest)
+      returns (GetNAppTransfersResponse) {
+    option (google.api.http) = {
+      post : "/v1/get/napp/transfers"
+      body : "*"
+    };
+  }
+}
+
+message Transfer {
+  uint32 ID = 9;
+  string EntID = 10;
+  string AppID = 20;
+  string UserID = 30;
+  string TargetUserID = 40;
+  string TargetEmailAddress = 50;
+  string TargetPhoneNO = 60;
+  uint32 CreatedAt = 70;
+  string TargetUsername = 80;
+  string TargetFirstName = 90;
+  string TargetLastName = 100;
+}
+
+message CreateTransferRequest {
+  string AppID = 10;
+  string UserID = 20;
+  optional string Account = 30;
+  basetypes.v1.SignMethod AccountType = 40;
+  string VerificationCode = 50;
+  string TargetAccount = 60;
+  basetypes.v1.SignMethod TargetAccountType = 70;
+}
+
+message CreateTransferResponse { Transfer Info = 10; }
+
+message DeleteTransferRequest {
+  string AppID = 10;
+  string UserID = 20;
+  uint32 TransferID = 30;
+  string EntID = 40;
+}
+
+message DeleteTransferResponse { Transfer Info = 10; }
+
+message GetTransfersRequest {
+  string AppID = 10;
+  string UserID = 20;
+  int32 Offset = 30;
+  int32 Limit = 40;
+}
+
+message GetTransfersResponse {
+  repeated Transfer Infos = 10;
+  uint32 Total = 20;
+}
+
+message GetAppTransfersRequest {
+  string AppID = 10;
+  int32 Offset = 20;
+  int32 Limit = 30;
+}
+
+message GetAppTransfersResponse {
+  repeated Transfer Infos = 10;
+  uint32 Total = 20;
+}
+
+message GetNAppTransfersRequest {
+  string TargetAppID = 10;
+  int32 Offset = 20;
+  int32 Limit = 30;
+}
+
+message GetNAppTransfersResponse {
+  repeated Transfer Infos = 10;
+  uint32 Total = 20;
+}

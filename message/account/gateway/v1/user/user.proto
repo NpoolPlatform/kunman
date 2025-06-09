@@ -1,0 +1,225 @@
+syntax = "proto3";
+
+package account.gateway.user.v1;
+
+option go_package = "github.com/NpoolPlatform/kunman/message/account/middleware/v1/user";
+
+import "basetypes/v1/signmethod.proto";
+import "basetypes/v1/accountusedfor.proto";
+import "google/api/annotations.proto";
+
+// Service Name
+service Gateway {
+  rpc GetDepositAccount(GetDepositAccountRequest)
+      returns (GetDepositAccountResponse) {
+    option (google.api.http) = {
+      post : "/v1/get/depositaccount"
+      body : "*"
+    };
+  }
+
+  rpc GetDepositAccounts(GetDepositAccountsRequest)
+      returns (GetDepositAccountsResponse) {
+    option (google.api.http) = {
+      post : "/v1/get/depositaccounts"
+      body : "*"
+    };
+  }
+
+  rpc GetAppDepositAccounts(GetAppDepositAccountsRequest)
+      returns (GetAppDepositAccountsResponse) {
+    option (google.api.http) = {
+      post : "/v1/get/app/depositaccounts"
+      body : "*"
+    };
+  }
+
+  rpc CreateAccount(CreateAccountRequest) returns (CreateAccountResponse) {
+    option (google.api.http) = {
+      post : "/v1/create/useraccount"
+      body : "*"
+    };
+  }
+
+  rpc UpdateAccount(UpdateAccountRequest) returns (UpdateAccountResponse) {
+    option (google.api.http) = {
+      post : "/v1/update/useraccount"
+      body : "*"
+    };
+  }
+
+  rpc DeleteAccount(DeleteAccountRequest) returns (DeleteAccountResponse) {
+    option (google.api.http) = {
+      post : "/v1/delete/useraccount"
+      body : "*"
+    };
+  }
+
+  rpc UpdateAppUserAccount(UpdateAppUserAccountRequest)
+      returns (UpdateAppUserAccountResponse) {
+    option (google.api.http) = {
+      post : "/v1/update/app/user/useraccount"
+      body : "*"
+    };
+  }
+
+  rpc GetAccounts(GetAccountsRequest) returns (GetAccountsResponse) {
+    option (google.api.http) = {
+      post : "/v1/get/useraccounts"
+      body : "*"
+    };
+  }
+
+  rpc GetAppAccounts(GetAppAccountsRequest) returns (GetAppAccountsResponse) {
+    option (google.api.http) = {
+      post : "/v1/get/app/useraccounts"
+      body : "*"
+    };
+  }
+
+  rpc GetNAppAccounts(GetNAppAccountsRequest)
+      returns (GetNAppAccountsResponse) {
+    option (google.api.http) = {
+      post : "/v1/get/n/app/useraccounts"
+      body : "*"
+    };
+  }
+}
+
+message Account {
+  uint32 ID = 9;
+  string EntID = 10;
+  string AppID = 20;
+  string UserID = 30;
+  string CoinTypeID = 40;
+  string CoinName = 50;
+  repeated string CoinDisplayNames = 51;
+  string CoinUnit = 60;
+  string CoinEnv = 70;
+  string CoinLogo = 80;
+  string AccountID = 90;
+  string Address = 100;
+  // Only [UserWithdraw, UserDirectBenefit, UserDeposit]
+  basetypes.v1.AccountUsedFor UsedFor = 110;
+  repeated string Labels = 120;
+  uint32 CreatedAt = 130;
+  string PhoneNO = 140;
+  string EmailAddress = 150;
+  bool Active = 160;
+  bool Blocked = 170;
+  string Memo = 180;
+}
+
+message CreateAccountRequest {
+  // Only could be withdraw or direct benefit address
+  // Deposit address will be created by platform
+  // Direct benefit address will be set with order
+  string AppID = 10;
+  string UserID = 20;
+  string CoinTypeID = 30;
+  string Address = 40;
+  basetypes.v1.AccountUsedFor UsedFor = 50;
+  repeated string Labels = 60;
+  optional string Account = 70;
+  basetypes.v1.SignMethod AccountType = 80;
+  string VerificationCode = 90;
+  optional string Memo = 100;
+}
+
+message GetDepositAccountRequest {
+  string AppID = 10;
+  string UserID = 20;
+  string CoinTypeID = 30;
+}
+
+message GetDepositAccountResponse { Account Info = 10; }
+
+message GetDepositAccountsRequest {
+  string AppID = 10;
+  int32 Offset = 20;
+  int32 Limit = 30;
+}
+
+message GetDepositAccountsResponse {
+  repeated Account Infos = 10;
+  uint32 Total = 20;
+}
+
+message GetAppDepositAccountsRequest {
+  string TargetAppID = 10;
+  int32 Offset = 20;
+  int32 Limit = 30;
+}
+
+message GetAppDepositAccountsResponse {
+  repeated Account Infos = 10;
+  uint32 Total = 20;
+}
+
+message CreateAccountResponse { Account Info = 10; }
+
+message UpdateAccountRequest {
+  uint32 ID = 10;
+  string EntID = 11;
+  string AppID = 20;
+  string UserID = 30;
+  repeated string Labels = 40;
+  optional string Memo = 50;
+}
+
+message UpdateAccountResponse { Account Info = 10; }
+
+message DeleteAccountRequest {
+  uint32 ID = 10;
+  string EntID = 11;
+  string AppID = 20;
+  string UserID = 30;
+}
+
+message DeleteAccountResponse { Account Info = 10; }
+
+message UpdateAppUserAccountRequest {
+  uint32 ID = 10;
+  string EntID = 11;
+  string TargetAppID = 20;
+  string TargetUserID = 30;
+  optional bool Active = 40;
+  optional bool Blocked = 50;
+}
+
+message UpdateAppUserAccountResponse { Account Info = 10; }
+
+message GetAccountsRequest {
+  string AppID = 10;
+  string UserID = 20;
+  basetypes.v1.AccountUsedFor UsedFor = 30;
+  int32 Offset = 40;
+  int32 Limit = 50;
+}
+
+message GetAccountsResponse {
+  repeated Account Infos = 10;
+  uint32 Total = 20;
+}
+
+message GetAppAccountsRequest {
+  string AppID = 10;
+  int32 Offset = 20;
+  int32 Limit = 30;
+}
+
+message GetAppAccountsResponse {
+  repeated Account Infos = 10;
+  uint32 Total = 20;
+}
+
+message GetNAppAccountsRequest {
+  string TargetAppID = 10;
+  int32 Offset = 20;
+  int32 Limit = 30;
+}
+
+message GetNAppAccountsResponse {
+  repeated Account Infos = 10;
+  uint32 Total = 20;
+}

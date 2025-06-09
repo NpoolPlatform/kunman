@@ -1,0 +1,54 @@
+syntax = "proto3";
+
+package account.middleware.account1.v1;
+
+option go_package = "github.com/NpoolPlatform/kunman/message/account/middleware/v1/account";
+
+import "basetypes/v1/conds.proto";
+import "basetypes/v1/accountusedfor.proto";
+import "basetypes/v1/accountlockedby.proto";
+
+message Account {
+  // @inject_tag: sql:"id"
+  uint32 ID = 9;
+  // @inject_tag: sql:"ent_id"
+  string EntID = 10;
+  // @inject_tag: sql:"coin_type_id"
+  string CoinTypeID = 20;
+  // @inject_tag: sql:"address"
+  string Address = 30;
+  // @inject_tag: sql:"used_for"
+  string UsedForStr = 39;
+  basetypes.v1.AccountUsedFor UsedFor = 40;
+  // @inject_tag: sql:"platform_hold_private_key"
+  bool PlatformHoldPrivateKey = 50;
+  // @inject_tag: sql:"active"
+  bool Active = 60;
+  // @inject_tag: sql:"locked"
+  bool Locked = 70;
+  // @inject_tag: sql:"locked_by"
+  string LockedByStr = 79;
+  basetypes.v1.AccountLockedBy LockedBy = 80;
+  // @inject_tag: sql:"blocked"
+  bool Blocked = 90;
+  // @inject_tag: sql:"created_at"
+  uint32 CreatedAt = 1000;
+  // @inject_tag: sql:"updated_at"
+  uint32 UpdatedAt = 1010;
+}
+
+message Conds {
+  optional basetypes.v1.Uint32Val ID = 9;
+  optional basetypes.v1.StringVal EntID = 10;
+  optional basetypes.v1.StringVal CoinTypeID = 20;
+  optional basetypes.v1.StringVal Address = 30;
+  optional basetypes.v1.Uint32Val UsedFor = 40;
+  optional basetypes.v1.BoolVal PlatformHoldPrivateKey = 50;
+  optional basetypes.v1.BoolVal Active = 60;
+  optional basetypes.v1.BoolVal Locked = 70;
+  optional basetypes.v1.Uint32Val LockedBy = 80;
+  optional basetypes.v1.BoolVal Blocked = 90;
+  optional basetypes.v1.Uint32Val CreatedAt = 100;
+  optional basetypes.v1.StringSliceVal EntIDs = 110;
+}
+
