@@ -4,13 +4,13 @@ import (
 	"context"
 
 	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
-	goodgwcommon "github.com/NpoolPlatform/kunman/pkg/common"
-	appfeemwcli "github.com/NpoolPlatform/kunman/middleware/good/app/fee"
-	cruder "github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 	appmwpb "github.com/NpoolPlatform/kunman/message/appuser/middleware/v1/app"
 	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	npool "github.com/NpoolPlatform/kunman/message/good/gateway/v1/app/fee"
 	appfeemwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/app/fee"
+	appfeemw "github.com/NpoolPlatform/kunman/middleware/good/app/fee"
+	goodgwcommon "github.com/NpoolPlatform/kunman/pkg/common"
+	cruder "github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 )
 
 type queryHandler struct {
@@ -60,7 +60,15 @@ func (h *queryHandler) formalize() {
 }
 
 func (h *Handler) GetAppFee(ctx context.Context) (*npool.AppFee, error) {
-	info, err := appfeemwcli.GetFee(ctx, *h.AppGoodID)
+	feeHandler, err := appfeemw.NewHandler(
+		ctx,
+		appfeemw.WithAppGoodID(h.AppGoodID, true),
+	)
+	if err != nil {
+		return nil, wlog.WrapError(err)
+	}
+
+	info, err := feeHandler.GetFee(ctx)
 	if err != nil {
 		return nil, wlog.WrapError(err)
 	}
@@ -82,9 +90,20 @@ func (h *Handler) GetAppFee(ctx context.Context) (*npool.AppFee, error) {
 }
 
 func (h *Handler) GetAppFees(ctx context.Context) ([]*npool.AppFee, uint32, error) {
-	infos, total, err := appfeemwcli.GetFees(ctx, &appfeemwpb.Conds{
+	conds := &appfeemwpb.Conds{
 		AppID: &basetypes.StringVal{Op: cruder.EQ, Value: *h.AppID},
-	}, h.Offset, h.Limit)
+	}
+	feeHandler, err := appfeemw.NewHandler(
+		ctx,
+		appfeemw.WithConds(conds),
+		appfeemw.WithOffset(h.Offset),
+		appfeemw.WithLimit(h.Limit),
+	)
+	if err != nil {
+		return nil, 0, wlog.WrapError(err)
+	}
+
+	infos, total, err := feeHandler.GetFees(ctx)
 	if err != nil {
 		return nil, 0, wlog.WrapError(err)
 	}

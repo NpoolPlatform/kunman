@@ -3,9 +3,8 @@ package appfee
 import (
 	"context"
 
-	appfeemwcli "github.com/NpoolPlatform/kunman/middleware/good/app/fee"
 	npool "github.com/NpoolPlatform/kunman/message/good/gateway/v1/app/fee"
-	appfeemwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/app/fee"
+	appfeemw "github.com/NpoolPlatform/kunman/middleware/good/app/fee"
 
 	"github.com/google/uuid"
 )
@@ -14,17 +13,24 @@ func (h *Handler) CreateAppFee(ctx context.Context) (*npool.AppFee, error) {
 	if h.AppGoodID == nil {
 		h.AppGoodID = func() *string { s := uuid.NewString(); return &s }()
 	}
-	if err := appfeemwcli.CreateFee(ctx, &appfeemwpb.FeeReq{
-		AppID:                   h.AppID,
-		GoodID:                  h.GoodID,
-		AppGoodID:               h.AppGoodID,
-		ProductPage:             h.ProductPage,
-		Name:                    h.Name,
-		Banner:                  h.Banner,
-		UnitValue:               h.UnitValue,
-		MinOrderDurationSeconds: h.MinOrderDurationSeconds,
-		CancelMode:              h.CancelMode,
-	}); err != nil {
+
+	handler, err := appfeemw.NewHandler(
+		ctx,
+		appfeemw.WithAppID(h.AppID, true),
+		appfeemw.WithGoodID(h.GoodID, true),
+		appfeemw.WithAppGoodID(h.AppGoodID, true),
+		appfeemw.WithProductPage(h.ProductPage, true),
+		appfeemw.WithName(h.Name, true),
+		appfeemw.WithBanner(h.Banner, true),
+		appfeemw.WithUnitValue(h.UnitValue, true),
+		appfeemw.WithMinOrderDurationSeconds(h.MinOrderDurationSeconds, true),
+		appfeemw.WithCancelMode(h.CancelMode, true),
+	)
+	if err != nil {
+		return nil, err
+	}
+
+	if err := handler.CreateFee(ctx); err != nil {
 		return nil, err
 	}
 	return h.GetAppFee(ctx)

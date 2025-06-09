@@ -4,8 +4,8 @@ import (
 	"context"
 
 	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
-	appfeemwcli "github.com/NpoolPlatform/kunman/middleware/good/app/fee"
 	npool "github.com/NpoolPlatform/kunman/message/good/gateway/v1/app/fee"
+	appfeemw "github.com/NpoolPlatform/kunman/middleware/good/app/fee"
 )
 
 type deleteHandler struct {
@@ -28,7 +28,18 @@ func (h *Handler) DeleteAppFee(ctx context.Context) (*npool.AppFee, error) {
 	if info == nil {
 		return nil, wlog.Errorf("invalid fee")
 	}
-	if err := appfeemwcli.DeleteFee(ctx, h.ID, h.EntID, h.AppGoodID); err != nil {
+
+	feeHandler, err := appfeemw.NewHandler(
+		ctx,
+		appfeemw.WithID(h.ID, false),
+		appfeemw.WithEntID(h.EntID, false),
+		appfeemw.WithAppGoodID(h.AppGoodID, false),
+	)
+	if err != nil {
+		return nil, wlog.WrapError(err)
+	}
+
+	if err := feeHandler.DeleteFee(ctx); err != nil {
 		return nil, wlog.WrapError(err)
 	}
 	return info, nil
