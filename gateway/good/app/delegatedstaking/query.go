@@ -3,7 +3,6 @@ package delegatedstaking
 import (
 	"context"
 
-	goodgwcommon "github.com/NpoolPlatform/kunman/pkg/common"
 	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
 	appmwpb "github.com/NpoolPlatform/kunman/message/appuser/middleware/v1/app"
 	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
@@ -12,7 +11,8 @@ import (
 	goodcoingwpb "github.com/NpoolPlatform/kunman/message/good/gateway/v1/good/coin"
 	goodcoinrewardgwpb "github.com/NpoolPlatform/kunman/message/good/gateway/v1/good/coin/reward"
 	appdelegatedstakingmwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/app/delegatedstaking"
-	appdelegatedstakingmwcli "github.com/NpoolPlatform/kunman/middleware/good/app/delegatedstaking"
+	appdelegatedstakingmw "github.com/NpoolPlatform/kunman/middleware/good/app/delegatedstaking"
+	goodgwcommon "github.com/NpoolPlatform/kunman/pkg/common"
 	cruder "github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 )
 
@@ -165,7 +165,15 @@ func (h *queryHandler) formalize() {
 }
 
 func (h *Handler) GetDelegatedStaking(ctx context.Context) (*npool.AppDelegatedStaking, error) {
-	appDelegatedStaking, err := appdelegatedstakingmwcli.GetDelegatedStaking(ctx, *h.AppGoodID)
+	dsHandler, err := appdelegatedstakingmw.NewHandler(
+		ctx,
+		appdelegatedstakingmw.WithAppGoodID(h.AppGoodID, true),
+	)
+	if err != nil {
+		return nil, err
+	}
+
+	appDelegatedStaking, err := dsHandler.GetDelegatedStaking(ctx)
 	if err != nil {
 		return nil, err
 	}
@@ -193,9 +201,20 @@ func (h *Handler) GetDelegatedStaking(ctx context.Context) (*npool.AppDelegatedS
 }
 
 func (h *Handler) GetDelegatedStakings(ctx context.Context) ([]*npool.AppDelegatedStaking, uint32, error) {
-	appDelegatedStakings, total, err := appdelegatedstakingmwcli.GetDelegatedStakings(ctx, &appdelegatedstakingmwpb.Conds{
+	conds := &appdelegatedstakingmwpb.Conds{
 		AppID: &basetypes.StringVal{Op: cruder.EQ, Value: *h.AppID},
-	}, h.Offset, h.Limit)
+	}
+	dsHandler, err := appdelegatedstakingmw.NewHandler(
+		ctx,
+		appdelegatedstakingmw.WithConds(conds),
+		appdelegatedstakingmw.WithOffset(h.Offset),
+		appdelegatedstakingmw.WithLimit(h.Limit),
+	)
+	if err != nil {
+		return nil, 0, err
+	}
+
+	appDelegatedStakings, total, err := dsHandler.GetDelegatedStakings(ctx)
 	if err != nil {
 		return nil, 0, err
 	}

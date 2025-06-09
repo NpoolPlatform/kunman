@@ -4,8 +4,8 @@ import (
 	"context"
 
 	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
-	appdelegatedstakingmwcli "github.com/NpoolPlatform/kunman/middleware/good/app/delegatedstaking"
 	npool "github.com/NpoolPlatform/kunman/message/good/gateway/v1/app/delegatedstaking"
+	appdelegatedstakingmw "github.com/NpoolPlatform/kunman/middleware/good/app/delegatedstaking"
 )
 
 type deleteHandler struct {
@@ -28,7 +28,18 @@ func (h *Handler) DeleteDelegatedStaking(ctx context.Context) (*npool.AppDelegat
 	if info == nil {
 		return nil, wlog.Errorf("invalid delegatedstaking")
 	}
-	if err := appdelegatedstakingmwcli.DeleteDelegatedStaking(ctx, h.ID, h.EntID, h.AppGoodID); err != nil {
+
+	dsHandler, err := appdelegatedstakingmw.NewHandler(
+		ctx,
+		appdelegatedstakingmw.WithID(h.ID, false),
+		appdelegatedstakingmw.WithEntID(h.EntID, false),
+		appdelegatedstakingmw.WithAppGoodID(h.AppGoodID, false),
+	)
+	if err != nil {
+		return nil, wlog.WrapError(err)
+	}
+
+	if err := dsHandler.DeleteDelegatedStaking(ctx); err != nil {
 		return nil, wlog.WrapError(err)
 	}
 	return info, nil

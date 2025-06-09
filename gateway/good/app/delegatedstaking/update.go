@@ -3,9 +3,8 @@ package delegatedstaking
 import (
 	"context"
 
-	appdelegatedstakingmwcli "github.com/NpoolPlatform/kunman/middleware/good/app/delegatedstaking"
 	npool "github.com/NpoolPlatform/kunman/message/good/gateway/v1/app/delegatedstaking"
-	appdelegatedstakingmwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/app/delegatedstaking"
+	appdelegatedstakingmw "github.com/NpoolPlatform/kunman/middleware/good/app/delegatedstaking"
 )
 
 // TODO: check start mode with power rental start mode
@@ -23,22 +22,29 @@ func (h *Handler) UpdateDelegatedStaking(ctx context.Context) (*npool.AppDelegat
 	if err := handler.checkDelegatedStaking(ctx); err != nil {
 		return nil, err
 	}
-	if err := appdelegatedstakingmwcli.UpdateDelegatedStaking(ctx, &appdelegatedstakingmwpb.DelegatedStakingReq{
-		ID:                  h.ID,
-		EntID:               h.EntID,
-		AppGoodID:           h.AppGoodID,
-		Purchasable:         h.Purchasable,
-		EnableProductPage:   h.EnableProductPage,
-		ProductPage:         h.ProductPage,
-		Online:              h.Online,
-		Visible:             h.Visible,
-		Name:                h.Name,
-		DisplayIndex:        h.DisplayIndex,
-		Banner:              h.Banner,
-		ServiceStartAt:      h.ServiceStartAt,
-		EnableSetCommission: h.EnableSetCommission,
-		StartMode:           h.StartMode,
-	}); err != nil {
+
+	dsHandler, err := appdelegatedstakingmw.NewHandler(
+		ctx,
+		appdelegatedstakingmw.WithID(h.ID, true),
+		appdelegatedstakingmw.WithEntID(h.EntID, true),
+		appdelegatedstakingmw.WithAppGoodID(h.AppGoodID, true),
+		appdelegatedstakingmw.WithPurchasable(h.Purchasable, false),
+		appdelegatedstakingmw.WithEnableProductPage(h.EnableProductPage, false),
+		appdelegatedstakingmw.WithProductPage(h.ProductPage, false),
+		appdelegatedstakingmw.WithOnline(h.Online, false),
+		appdelegatedstakingmw.WithVisible(h.Visible, false),
+		appdelegatedstakingmw.WithName(h.Name, false),
+		appdelegatedstakingmw.WithDisplayIndex(h.DisplayIndex, false),
+		appdelegatedstakingmw.WithBanner(h.Banner, false),
+		appdelegatedstakingmw.WithServiceStartAt(h.ServiceStartAt, false),
+		appdelegatedstakingmw.WithEnableSetCommission(h.EnableSetCommission, false),
+		appdelegatedstakingmw.WithStartMode(h.StartMode, false),
+	)
+	if err != nil {
+		return nil, err
+	}
+
+	if err := dsHandler.UpdateDelegatedStaking(ctx); err != nil {
 		return nil, err
 	}
 	return h.GetDelegatedStaking(ctx)
