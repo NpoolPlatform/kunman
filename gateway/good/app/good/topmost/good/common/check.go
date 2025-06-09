@@ -4,7 +4,7 @@ import (
 	"context"
 	"fmt"
 
-	goodgwcommon "github.com/NpoolPlatform/good-gateway/pkg/common"
+	goodgwcommon "github.com/NpoolPlatform/kunman/pkg/common"
 	topmostgoodmwcli "github.com/NpoolPlatform/kunman/middleware/good/app/good/topmost/good"
 	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"

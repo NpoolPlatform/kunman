@@ -4,7 +4,7 @@ import (
 	"context"
 	"fmt"
 
-	goodgwcommon "github.com/NpoolPlatform/good-gateway/pkg/common"
+	goodgwcommon "github.com/NpoolPlatform/kunman/pkg/common"
 	simulatemwcli "github.com/NpoolPlatform/kunman/middleware/good/app/powerrental/simulate"
 	cruder "github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 	appmwpb "github.com/NpoolPlatform/kunman/message/appuser/middleware/v1/app"

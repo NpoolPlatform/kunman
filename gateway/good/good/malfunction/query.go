@@ -4,7 +4,7 @@ import (
 	"context"
 
 	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
-	goodgwcommon "github.com/NpoolPlatform/good-gateway/pkg/common"
+	goodgwcommon "github.com/NpoolPlatform/kunman/pkg/common"
 	malfunctionmwcli "github.com/NpoolPlatform/kunman/middleware/good/good/malfunction"
 	cruder "github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"

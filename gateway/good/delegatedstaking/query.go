@@ -4,10 +4,6 @@ import (
 	"context"
 	"fmt"
 
-	contractmwcli "github.com/NpoolPlatform/account-middleware/pkg/client/contract"
-	goodgwcommon "github.com/NpoolPlatform/good-gateway/pkg/common"
-	delegatedstakingmwcli "github.com/NpoolPlatform/kunman/middleware/good/delegatedstaking"
-	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 	contractmwpb "github.com/NpoolPlatform/kunman/message/account/middleware/v1/contract"
 	accounttypes "github.com/NpoolPlatform/kunman/message/basetypes/account/v1"
 	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
@@ -17,6 +13,10 @@ import (
 	goodcoinrewardgwpb "github.com/NpoolPlatform/kunman/message/good/gateway/v1/good/coin/reward"
 	delegatedstakingmwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/delegatedstaking"
 	goodusermwpb "github.com/NpoolPlatform/kunman/message/miningpool/middleware/v1/gooduser"
+	contractmw "github.com/NpoolPlatform/kunman/middleware/account/contract"
+	delegatedstakingmw "github.com/NpoolPlatform/kunman/middleware/good/delegatedstaking"
+	goodgwcommon "github.com/NpoolPlatform/kunman/pkg/common"
+	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 )
 
 type queryHandler struct {
@@ -46,9 +46,21 @@ func (h *queryHandler) getDelegatedStakingAddress(ctx context.Context) (err erro
 	for _, delegatedstaking := range h.delegatedstakings {
 		delegatedstakingIDs = append(delegatedstakingIDs, delegatedstaking.EntID)
 	}
-	accounts, _, err := contractmwcli.GetAccounts(ctx, &contractmwpb.Conds{
+
+	conds := &contractmwpb.Conds{
 		DelegatedStakingIDs: &basetypes.StringSliceVal{Op: cruder.IN, Value: delegatedstakingIDs},
-	}, int32(0), int32(len(delegatedstakingIDs)*2))
+	}
+	handler, err := contractmw.NewHandler(
+		ctx,
+		contractmw.WithConds(conds),
+		contractmw.WithOffset(0),
+		contractmw.WithLimit(int32(len(delegatedstakingIDs)*2)),
+	)
+	if err != nil {
+		return err
+	}
+
+	accounts, _, err := handler.GetAccounts(ctx)
 	if accounts == nil {
 		return nil
 	}
@@ -149,7 +161,15 @@ func (h *queryHandler) formalize() {
 }
 
 func (h *Handler) GetDelegatedStaking(ctx context.Context) (*npool.DelegatedStaking, error) {
-	delegatedstaking, err := delegatedstakingmwcli.GetDelegatedStaking(ctx, *h.GoodID)
+	dsHandler, err := delegatedstakingmw.NewHandler(
+		ctx,
+		delegatedstakingmw.WithGoodID(h.GoodID, true),
+	)
+	if err != nil {
+		return nil, err
+	}
+
+	delegatedstaking, err := dsHandler.GetDelegatedStaking(ctx)
 	if err != nil {
 		return nil, err
 	}
@@ -182,7 +202,17 @@ func (h *Handler) GetDelegatedStaking(ctx context.Context) (*npool.DelegatedStak
 }
 
 func (h *Handler) GetDelegatedStakings(ctx context.Context) ([]*npool.DelegatedStaking, uint32, error) {
-	delegatedstakings, total, err := delegatedstakingmwcli.GetDelegatedStakings(ctx, &delegatedstakingmwpb.Conds{}, h.Offset, h.Limit)
+	dsHandler, err := delegatedstakingmw.NewHandler(
+		ctx,
+		delegatedstakingmw.WithConds(&delegatedstakingmwpb.Conds{}),
+		delegatedstakingmw.WithOffset(h.Offset),
+		delegatedstakingmw.WithLimit(h.Limit),
+	)
+	if err != nil {
+		return nil, 0, err
+	}
+
+	delegatedstakings, total, err := dsHandler.GetDelegatedStakings(ctx)
 	if err != nil {
 		return nil, 0, err
 	}

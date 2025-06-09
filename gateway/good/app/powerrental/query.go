@@ -4,7 +4,7 @@ import (
 	"context"
 
 	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
-	goodgwcommon "github.com/NpoolPlatform/good-gateway/pkg/common"
+	goodgwcommon "github.com/NpoolPlatform/kunman/pkg/common"
 	apppowerrentalmwcli "github.com/NpoolPlatform/kunman/middleware/good/app/powerrental"
 	cruder "github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 	appmwpb "github.com/NpoolPlatform/kunman/message/appuser/middleware/v1/app"

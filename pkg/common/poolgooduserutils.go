@@ -5,8 +5,8 @@ import (
 
 	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	goodusermwpb "github.com/NpoolPlatform/kunman/message/miningpool/middleware/v1/gooduser"
+	goodusermw "github.com/NpoolPlatform/kunman/middleware/miningpool/gooduser"
 	cruder "github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
-	goodusermwcli "github.com/NpoolPlatform/miningpool-middleware/pkg/client/gooduser"
 
 	"github.com/google/uuid"
 )
@@ -23,9 +23,20 @@ func GetPoolGoodUsers(ctx context.Context, _poolGoodUserIDs []string) (map[strin
 		poolGoodUserIDs = append(poolGoodUserIDs, poolGoodUserID)
 	}
 
-	goodUsers, _, err := goodusermwcli.GetGoodUsers(ctx, &goodusermwpb.Conds{
+	conds := &goodusermwpb.Conds{
 		EntIDs: &basetypes.StringSliceVal{Op: cruder.IN, Value: poolGoodUserIDs},
-	}, int32(0), int32(len(poolGoodUserIDs)))
+	}
+	handler, err := goodusermw.NewHandler(
+		ctx,
+		goodusermw.WithConds(conds),
+		goodusermw.WithOffset(0),
+		goodusermw.WithLimit(int32(len(poolGoodUserIDs))),
+	)
+	if err != nil {
+		return nil, err
+	}
+
+	goodUsers, _, err := handler.GetGoodUsers(ctx)
 	if err != nil {
 		return nil, err
 	}

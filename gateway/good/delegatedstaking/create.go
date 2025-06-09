@@ -4,16 +4,13 @@ import (
 	"context"
 	"fmt"
 
-	contractmwcli "github.com/NpoolPlatform/account-middleware/pkg/client/contract"
-	coinmwcli "github.com/NpoolPlatform/kunman/middleware/chain/coin"
 	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
-	delegatedstakingmwcli "github.com/NpoolPlatform/kunman/middleware/good/delegatedstaking"
-	goodcoinmwcli "github.com/NpoolPlatform/kunman/middleware/good/good/coin"
-	contractmwpb "github.com/NpoolPlatform/kunman/message/account/middleware/v1/contract"
 	accounttypes "github.com/NpoolPlatform/kunman/message/basetypes/account/v1"
 	npool "github.com/NpoolPlatform/kunman/message/good/gateway/v1/delegatedstaking"
-	delegatedstakingmwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/delegatedstaking"
-	goodcoinmwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/good/coin"
+	contractmw "github.com/NpoolPlatform/kunman/middleware/account/contract"
+	coinmw "github.com/NpoolPlatform/kunman/middleware/chain/coin"
+	delegatedstakingmw "github.com/NpoolPlatform/kunman/middleware/good/delegatedstaking"
+	goodcoinmw "github.com/NpoolPlatform/kunman/middleware/good/good/coin"
 	sphinxproxycli "github.com/NpoolPlatform/sphinx-proxy/pkg/client"
 
 	"github.com/google/uuid"
@@ -27,7 +24,15 @@ type createHandler struct {
 }
 
 func (h *createHandler) getCoin(ctx context.Context) error {
-	coin, err := coinmwcli.GetCoin(ctx, *h.CoinTypeID)
+	handler, err := coinmw.NewHandler(
+		ctx,
+		coinmw.WithEntID(h.CoinTypeID, true),
+	)
+	if err != nil {
+		return err
+	}
+
+	coin, err := handler.GetCoin(ctx)
 	if err != nil {
 		return err
 	}
@@ -41,12 +46,17 @@ func (h *createHandler) getCoin(ctx context.Context) error {
 }
 
 func (h *createHandler) createGoodCoin(ctx context.Context) error {
-	main := true
-	if err := goodcoinmwcli.CreateGoodCoin(ctx, &goodcoinmwpb.GoodCoinReq{
-		GoodID:     h.GoodID,
-		CoinTypeID: h.CoinTypeID,
-		Main:       &main,
-	}); err != nil {
+	handler, err := goodcoinmw.NewHandler(
+		ctx,
+		goodcoinmw.WithGoodID(h.GoodID, true),
+		goodcoinmw.WithCoinTypeID(h.CoinTypeID, true),
+		goodcoinmw.WithMain(func() *bool { b := true; return &b }(), true),
+	)
+	if err != nil {
+		return err
+	}
+
+	if err := handler.CreateGoodCoin(ctx); err != nil {
 		return err
 	}
 	return nil
@@ -62,14 +72,20 @@ func (h *createHandler) createDevelopmentAddress(ctx context.Context) error {
 		return fmt.Errorf("fail create address")
 	}
 	h.contractDevelopmentAddress = &acc.Address
-	_, err = contractmwcli.CreateAccount(ctx, &contractmwpb.AccountReq{
-		GoodID:               h.GoodID,
-		DelegatedStakingID:   h.EntID,
-		ContractOperatorType: accounttypes.ContractOperatorType_ContractOwner.Enum(),
-		CoinTypeID:           h.CoinTypeID,
-		Address:              h.contractDevelopmentAddress,
-	})
+
+	handler, err := contractmw.NewHandler(
+		ctx,
+		contractmw.WithGoodID(h.GoodID, true),
+		contractmw.WithDelegatedStakingID(h.EntID, true),
+		contractmw.WithContractOperatorType(accounttypes.ContractOperatorType_ContractOwner.Enum(), true),
+		contractmw.WithCoinTypeID(h.CoinTypeID, true),
+		contractmw.WithAddress(h.contractDevelopmentAddress, true),
+	)
 	if err != nil {
+		return err
+	}
+
+	if err := handler.CreateAccount(ctx); err != nil {
 		return err
 	}
 	return nil
@@ -85,14 +101,20 @@ func (h *createHandler) createCalculateAddress(ctx context.Context) error {
 		return fmt.Errorf("fail create address")
 	}
 	h.contractCalculateAddress = &acc.Address
-	_, err = contractmwcli.CreateAccount(ctx, &contractmwpb.AccountReq{
-		GoodID:               h.GoodID,
-		DelegatedStakingID:   h.EntID,
-		ContractOperatorType: accounttypes.ContractOperatorType_ContractCalculator.Enum(),
-		CoinTypeID:           h.CoinTypeID,
-		Address:              h.contractCalculateAddress,
-	})
+
+	handler, err := contractmw.NewHandler(
+		ctx,
+		contractmw.WithGoodID(h.GoodID, true),
+		contractmw.WithDelegatedStakingID(h.EntID, true),
+		contractmw.WithContractOperatorType(accounttypes.ContractOperatorType_ContractCalculator.Enum(), true),
+		contractmw.WithCoinTypeID(h.CoinTypeID, true),
+		contractmw.WithAddress(h.contractCalculateAddress, true),
+	)
 	if err != nil {
+		return err
+	}
+
+	if err := handler.CreateAccount(ctx); err != nil {
 		return err
 	}
 	return nil
@@ -117,21 +139,28 @@ func (h *Handler) CreateDelegatedStaking(ctx context.Context) (*npool.DelegatedS
 	if err := handler.createCalculateAddress(ctx); err != nil {
 		return nil, err
 	}
-	if err := delegatedstakingmwcli.CreateDelegatedStaking(ctx, &delegatedstakingmwpb.DelegatedStakingReq{
-		EntID:                h.EntID,
-		GoodID:               h.GoodID,
-		GoodType:             h.GoodType,
-		Name:                 h.Name,
-		ServiceStartAt:       h.ServiceStartAt,
-		StartMode:            h.StartMode,
-		TestOnly:             h.TestOnly,
-		BenefitIntervalHours: h.BenefitIntervalHours,
-		Purchasable:          h.Purchasable,
-		Online:               h.Online,
-		ContractCodeURL:      h.ContractCodeURL,
-		ContractCodeBranch:   h.ContractCodeBranch,
-		ContractState:        h.ContractState,
-	}); err != nil {
+
+	dsHandler, err := delegatedstakingmw.NewHandler(
+		ctx,
+		delegatedstakingmw.WithEntID(h.EntID, true),
+		delegatedstakingmw.WithGoodID(h.GoodID, true),
+		delegatedstakingmw.WithGoodType(h.GoodType, true),
+		delegatedstakingmw.WithName(h.Name, true),
+		delegatedstakingmw.WithServiceStartAt(h.ServiceStartAt, true),
+		delegatedstakingmw.WithStartMode(h.StartMode, true),
+		delegatedstakingmw.WithTestOnly(h.TestOnly, true),
+		delegatedstakingmw.WithBenefitIntervalHours(h.BenefitIntervalHours, true),
+		delegatedstakingmw.WithPurchasable(h.Purchasable, true),
+		delegatedstakingmw.WithOnline(h.Online, true),
+		delegatedstakingmw.WithContractCodeURL(h.ContractCodeURL, true),
+		delegatedstakingmw.WithContractCodeBranch(h.ContractCodeBranch, true),
+		delegatedstakingmw.WithContractState(h.ContractState, true),
+	)
+	if err != nil {
+		return nil, err
+	}
+
+	if err := dsHandler.CreateDelegatedStaking(ctx); err != nil {
 		return nil, wlog.WrapError(err)
 	}
 	if err := handler.createGoodCoin(ctx); err != nil {

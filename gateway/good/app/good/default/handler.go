@@ -6,7 +6,7 @@ import (
 
 	appmwcli "github.com/NpoolPlatform/kunman/middleware/appuser/app"
 	appgoodcommon "github.com/NpoolPlatform/good-gateway/pkg/app/good/common"
-	goodgwcommon "github.com/NpoolPlatform/good-gateway/pkg/common"
+	goodgwcommon "github.com/NpoolPlatform/kunman/pkg/common"
 	constant "github.com/NpoolPlatform/good-middleware/pkg/const"
 
 	"github.com/google/uuid"

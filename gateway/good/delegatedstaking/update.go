@@ -4,9 +4,8 @@ import (
 	"context"
 
 	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
-	delegatedstakingmwcli "github.com/NpoolPlatform/kunman/middleware/good/delegatedstaking"
 	npool "github.com/NpoolPlatform/kunman/message/good/gateway/v1/delegatedstaking"
-	delegatedstakingmwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/delegatedstaking"
+	delegatedstakingmw "github.com/NpoolPlatform/kunman/middleware/good/delegatedstaking"
 )
 
 func (h *Handler) UpdateDelegatedStaking(ctx context.Context) (*npool.DelegatedStaking, error) {
@@ -16,20 +15,26 @@ func (h *Handler) UpdateDelegatedStaking(ctx context.Context) (*npool.DelegatedS
 	if err := handler.checkDelegatedStaking(ctx); err != nil {
 		return nil, wlog.WrapError(err)
 	}
-	if err := delegatedstakingmwcli.UpdateDelegatedStaking(ctx, &delegatedstakingmwpb.DelegatedStakingReq{
-		ID:                   h.ID,
-		EntID:                h.EntID,
-		GoodID:               h.GoodID,
-		Name:                 h.Name,
-		ServiceStartAt:       h.ServiceStartAt,
-		StartMode:            h.StartMode,
-		TestOnly:             h.TestOnly,
-		BenefitIntervalHours: h.BenefitIntervalHours,
-		Purchasable:          h.Purchasable,
-		Online:               h.Online,
-		ContractCodeURL:      h.ContractCodeURL,
-		ContractCodeBranch:   h.ContractCodeBranch,
-	}); err != nil {
+
+	dsHandler, err := delegatedstakingmw.NewHandler(
+		ctx,
+		delegatedstakingmw.WithEntID(h.EntID, true),
+		delegatedstakingmw.WithGoodID(h.GoodID, true),
+		delegatedstakingmw.WithName(h.Name, false),
+		delegatedstakingmw.WithServiceStartAt(h.ServiceStartAt, false),
+		delegatedstakingmw.WithStartMode(h.StartMode, false),
+		delegatedstakingmw.WithTestOnly(h.TestOnly, false),
+		delegatedstakingmw.WithBenefitIntervalHours(h.BenefitIntervalHours, false),
+		delegatedstakingmw.WithPurchasable(h.Purchasable, false),
+		delegatedstakingmw.WithOnline(h.Online, false),
+		delegatedstakingmw.WithContractCodeURL(h.ContractCodeURL, false),
+		delegatedstakingmw.WithContractCodeBranch(h.ContractCodeBranch, false),
+	)
+	if err != nil {
+		return nil, err
+	}
+
+	if err := dsHandler.UpdateDelegatedStaking(ctx); err != nil {
 		return nil, wlog.WrapError(err)
 	}
 	return h.GetDelegatedStaking(ctx)

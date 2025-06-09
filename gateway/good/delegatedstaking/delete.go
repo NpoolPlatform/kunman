@@ -4,8 +4,8 @@ import (
 	"context"
 
 	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
-	delegatedstakingmwcli "github.com/NpoolPlatform/kunman/middleware/good/delegatedstaking"
 	npool "github.com/NpoolPlatform/kunman/message/good/gateway/v1/delegatedstaking"
+	delegatedstakingmw "github.com/NpoolPlatform/kunman/middleware/good/delegatedstaking"
 )
 
 func (h *Handler) DeleteDelegatedStaking(ctx context.Context) (*npool.DelegatedStaking, error) {
@@ -19,7 +19,18 @@ func (h *Handler) DeleteDelegatedStaking(ctx context.Context) (*npool.DelegatedS
 	if err != nil {
 		return nil, wlog.WrapError(err)
 	}
-	if err := delegatedstakingmwcli.DeleteDelegatedStaking(ctx, h.ID, h.EntID, h.GoodID); err != nil {
+
+	dsHandler, err := delegatedstakingmw.NewHandler(
+		ctx,
+		delegatedstakingmw.WithID(h.ID, false),
+		delegatedstakingmw.WithEntID(h.EntID, false),
+		delegatedstakingmw.WithGoodID(h.GoodID, false),
+	)
+	if err != nil {
+		return nil, wlog.WrapError(err)
+	}
+
+	if err := dsHandler.DeleteDelegatedStaking(ctx); err != nil {
 		return nil, wlog.WrapError(err)
 	}
 	return info, nil

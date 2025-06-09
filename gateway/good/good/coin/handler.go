@@ -4,7 +4,7 @@ import (
 	"context"
 	"fmt"
 
-	goodgwcommon "github.com/NpoolPlatform/good-gateway/pkg/common"
+	goodgwcommon "github.com/NpoolPlatform/kunman/pkg/common"
 	constant "github.com/NpoolPlatform/good-gateway/pkg/const"
 	goodcommon "github.com/NpoolPlatform/good-gateway/pkg/good/common"
 
