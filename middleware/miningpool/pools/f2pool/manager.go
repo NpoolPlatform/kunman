@@ -8,12 +8,12 @@ import (
 	"math/big"
 	"strings"
 
+	timedef "github.com/NpoolPlatform/kunman/framework/const/time"
 	"github.com/NpoolPlatform/kunman/framework/logger"
 	"github.com/NpoolPlatform/kunman/framework/wlog"
 	miningpoolbase "github.com/NpoolPlatform/kunman/message/basetypes/miningpool/v1"
 	basetype "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	"github.com/NpoolPlatform/kunman/middleware/miningpool/config"
-	"github.com/NpoolPlatform/kunman/pkg/const/time"
 	"github.com/NpoolPlatform/kunman/middleware/miningpool/pools/f2pool/client"
 	"github.com/NpoolPlatform/kunman/middleware/miningpool/pools/f2pool/types"
 	pooltypes "github.com/NpoolPlatform/kunman/middleware/miningpool/pools/types"
@@ -40,7 +40,7 @@ var (
 		basetype.CoinType_CoinTypeBitCoin: "0.04",
 	}
 	CoinType2BenefitIntervalSeconds map[basetype.CoinType]uint32 = map[basetype.CoinType]uint32{
-		basetype.CoinType_CoinTypeBitCoin: time.SecondsPerDay,
+		basetype.CoinType_CoinTypeBitCoin: timedef.SecondsPerDay,
 	}
 	MaxRetries    = 10
 	MaxProportion = decimal.NewFromFloat(100)

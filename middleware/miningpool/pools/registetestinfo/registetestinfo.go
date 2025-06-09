@@ -4,17 +4,17 @@ import (
 	"context"
 
 	"github.com/NpoolPlatform/kunman/framework/logger"
-	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 	mpbasetype "github.com/NpoolPlatform/kunman/message/basetypes/miningpool/v1"
 	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	coinmw "github.com/NpoolPlatform/kunman/message/miningpool/middleware/v1/coin"
 	fractionwithdrawalrulemw "github.com/NpoolPlatform/kunman/message/miningpool/middleware/v1/fractionwithdrawalrule"
 	poolmw "github.com/NpoolPlatform/kunman/message/miningpool/middleware/v1/pool"
+	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 	"github.com/google/uuid"
 
-	"github.com/NpoolPlatform/kunman/middleware/miningpool/config"
-	"github.com/NpoolPlatform/kunman/pkg/const/time"
+	timedef "github.com/NpoolPlatform/kunman/framework/const/time"
 	"github.com/NpoolPlatform/kunman/middleware/miningpool/coin"
+	"github.com/NpoolPlatform/kunman/middleware/miningpool/config"
 	"github.com/NpoolPlatform/kunman/middleware/miningpool/fractionwithdrawalrule"
 	"github.com/NpoolPlatform/kunman/middleware/miningpool/pool"
 	"github.com/NpoolPlatform/kunman/middleware/miningpool/pools/f2pool"
@@ -50,7 +50,7 @@ var (
 			MiningPoolType: mpbasetype.MiningPoolType_F2Pool,
 			CoinType:       basetypes.CoinType_CoinTypeBitCoin,
 			// 30Day
-			WithdrawInterval:      time.SecondsPerDay * 30,
+			WithdrawInterval:      timedef.SecondsPerDay * 30,
 			PayoutThreshold:       "0.005",
 			LeastWithdrawalAmount: "0.0005",
 			WithdrawFee:           "0",

@@ -9,6 +9,7 @@ require (
 	github.com/NpoolPlatform/account-middleware v0.0.0-20250115034541-5f3f60ceee9a
 	github.com/NpoolPlatform/good-gateway v0.0.0-20250303022721-b1e88c6dc0af
 	github.com/NpoolPlatform/good-middleware v0.0.0-20250115034449-9d9d053987a2
+	github.com/NpoolPlatform/message v0.0.0-20250604112546-25213bae6bb9
 	github.com/NpoolPlatform/miningpool-middleware v0.0.0-20241106020300-03d147aeb913
 	github.com/NpoolPlatform/order-middleware v0.0.0-20241106020324-b91339b3d20e
 	github.com/NpoolPlatform/sphinx-proxy v0.0.0-20231020115438-bd66d3d334af
@@ -58,7 +59,6 @@ require (
 	github.com/NpoolPlatform/chain-middleware v0.0.0-20240731030645-1b4ce8fcac22 // indirect
 	github.com/NpoolPlatform/go-service-framework v0.0.0-20250123031703-66a23c81e8e0 // indirect
 	github.com/NpoolPlatform/libent-cruder v0.0.0-20240323085036-7679b4818ce7 // indirect
-	github.com/NpoolPlatform/message v0.0.0-20250604112546-25213bae6bb9 // indirect
 	github.com/Shonminh/apollo-client v0.4.0 // indirect
 	github.com/agext/levenshtein v1.2.1 // indirect
 	github.com/andres-erbsen/clock v0.0.0-20160526145045-9e14626cd129 // indirect
