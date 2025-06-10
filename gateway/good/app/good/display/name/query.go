@@ -4,13 +4,13 @@ import (
 	"context"
 	"fmt"
 
-	goodgwcommon "github.com/NpoolPlatform/kunman/pkg/common"
-	appgooddisplaynamemwcli "github.com/NpoolPlatform/kunman/middleware/good/app/good/display/name"
-	cruder "github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 	appmwpb "github.com/NpoolPlatform/kunman/message/appuser/middleware/v1/app"
 	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	npool "github.com/NpoolPlatform/kunman/message/good/gateway/v1/app/good/display/name"
 	appgooddisplaynamemwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/app/good/display/name"
+	appgooddisplaynamemw "github.com/NpoolPlatform/kunman/middleware/good/app/good/display/name"
+	goodgwcommon "github.com/NpoolPlatform/kunman/pkg/common"
+	cruder "github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 )
 
 type queryHandler struct {
@@ -55,7 +55,15 @@ func (h *queryHandler) formalize() {
 }
 
 func (h *Handler) GetDisplayName(ctx context.Context) (*npool.DisplayName, error) {
-	displayName, err := appgooddisplaynamemwcli.GetDisplayName(ctx, *h.EntID)
+	displayNameHandler, err := appgooddisplaynamemw.NewHandler(
+		ctx,
+		appgooddisplaynamemw.WithEntID(h.EntID, true),
+	)
+	if err != nil {
+		return nil, err
+	}
+
+	displayName, err := displayNameHandler.GetDisplayName(ctx)
 	if err != nil {
 		return nil, err
 	}
@@ -87,7 +95,18 @@ func (h *Handler) GetDisplayNames(ctx context.Context) ([]*npool.DisplayName, ui
 	if h.AppGoodID != nil {
 		conds.AppGoodID = &basetypes.StringVal{Op: cruder.EQ, Value: *h.AppGoodID}
 	}
-	displayNames, total, err := appgooddisplaynamemwcli.GetDisplayNames(ctx, conds, h.Offset, h.Limit)
+
+	displayNameHandler, err := appgooddisplaynamemw.NewHandler(
+		ctx,
+		appgooddisplaynamemw.WithConds(conds),
+		appgooddisplaynamemw.WithOffset(h.Offset),
+		appgooddisplaynamemw.WithLimit(h.Limit),
+	)
+	if err != nil {
+		return nil, 0, err
+	}
+
+	displayNames, total, err := displayNameHandler.GetDisplayNames(ctx)
 	if err != nil {
 		return nil, 0, err
 	}

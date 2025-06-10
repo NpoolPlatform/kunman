@@ -4,8 +4,8 @@ import (
 	"context"
 
 	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
-	appgooddisplaynamemwcli "github.com/NpoolPlatform/kunman/middleware/good/app/good/display/name"
 	npool "github.com/NpoolPlatform/kunman/message/good/gateway/v1/app/good/display/name"
+	appgooddisplaynamemw "github.com/NpoolPlatform/kunman/middleware/good/app/good/display/name"
 )
 
 type deleteHandler struct {
@@ -30,7 +30,16 @@ func (h *Handler) DeleteDisplayName(ctx context.Context) (*npool.DisplayName, er
 		return nil, wlog.Errorf("invalid displayname")
 	}
 
-	if err := appgooddisplaynamemwcli.DeleteDisplayName(ctx, h.ID, h.EntID); err != nil {
+	displayNameHandler, err := appgooddisplaynamemw.NewHandler(
+		ctx,
+		appgooddisplaynamemw.WithID(h.ID, true),
+		appgooddisplaynamemw.WithEntID(h.EntID, true),
+	)
+	if err != nil {
+		return nil, wlog.WrapError(err)
+	}
+
+	if err := displayNameHandler.DeleteDisplayName(ctx); err != nil {
 		return nil, wlog.WrapError(err)
 	}
 	return info, nil
