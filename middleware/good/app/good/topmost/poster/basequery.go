@@ -6,7 +6,7 @@ import (
 	logger "github.com/NpoolPlatform/kunman/framework/logger"
 	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
 	topmostpostercrud "github.com/NpoolPlatform/kunman/middleware/good/crud/app/good/topmost/poster"
-	"github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated"
+	ent "github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated"
 	enttopmost "github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated/topmost"
 	enttopmostposter "github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated/topmostposter"
 
