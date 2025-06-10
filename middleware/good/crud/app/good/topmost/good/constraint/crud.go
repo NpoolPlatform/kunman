@@ -3,10 +3,10 @@ package topmostgoodconstraint
 import (
 	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
 
-	"github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated"
+	types "github.com/NpoolPlatform/kunman/message/basetypes/good/v1"
+	ent "github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated"
 	enttopmostgoodconstraint "github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated/topmostgoodconstraint"
 	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
-	types "github.com/NpoolPlatform/kunman/message/basetypes/good/v1"
 
 	"github.com/google/uuid"
 	"github.com/shopspring/decimal"

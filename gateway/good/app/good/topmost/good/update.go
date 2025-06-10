@@ -3,9 +3,8 @@ package topmostgood
 import (
 	"context"
 
-	topmostgoodmwcli "github.com/NpoolPlatform/kunman/middleware/good/app/good/topmost/good"
 	npool "github.com/NpoolPlatform/kunman/message/good/gateway/v1/app/good/topmost/good"
-	topmostgoodmwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/app/good/topmost/good"
+	topmostgoodmw "github.com/NpoolPlatform/kunman/middleware/good/app/good/topmost/good"
 )
 
 type updateHandler struct {
@@ -22,12 +21,18 @@ func (h *Handler) UpdateTopMostGood(ctx context.Context) (*npool.TopMostGood, er
 		return nil, err
 	}
 
-	if err := topmostgoodmwcli.UpdateTopMostGood(ctx, &topmostgoodmwpb.TopMostGoodReq{
-		ID:           h.ID,
-		EntID:        h.EntID,
-		UnitPrice:    h.UnitPrice,
-		DisplayIndex: h.DisplayIndex,
-	}); err != nil {
+	goodHandler, err := topmostgoodmw.NewHandler(
+		ctx,
+		topmostgoodmw.WithID(h.ID, true),
+		topmostgoodmw.WithEntID(h.EntID, true),
+		topmostgoodmw.WithUnitPrice(h.UnitPrice, false),
+		topmostgoodmw.WithDisplayIndex(h.DisplayIndex, false),
+	)
+	if err != nil {
+		return nil, err
+	}
+
+	if err := goodHandler.UpdateTopMostGood(ctx); err != nil {
 		return nil, err
 	}
 	return h.GetTopMostGood(ctx)

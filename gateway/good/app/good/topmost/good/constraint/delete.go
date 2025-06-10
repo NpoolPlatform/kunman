@@ -4,8 +4,8 @@ import (
 	"context"
 
 	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
-	topmostconstraintmwcli "github.com/NpoolPlatform/kunman/middleware/good/app/good/topmost/good/constraint"
 	npool "github.com/NpoolPlatform/kunman/message/good/gateway/v1/app/good/topmost/good/constraint"
+	topmostconstraintmw "github.com/NpoolPlatform/kunman/middleware/good/app/good/topmost/good/constraint"
 )
 
 type deleteHandler struct {
@@ -29,7 +29,16 @@ func (h *Handler) DeleteConstraint(ctx context.Context) (*npool.TopMostGoodConst
 		return nil, wlog.Errorf("invalid constraint")
 	}
 
-	if err := topmostconstraintmwcli.DeleteTopMostGoodConstraint(ctx, h.ID, h.EntID); err != nil {
+	constraintHandler, err := topmostconstraintmw.NewHandler(
+		ctx,
+		topmostconstraintmw.WithID(h.ID, true),
+		topmostconstraintmw.WithEntID(h.EntID, true),
+	)
+	if err != nil {
+		return nil, wlog.WrapError(err)
+	}
+
+	if err := constraintHandler.DeleteConstraint(ctx); err != nil {
 		return nil, err
 	}
 

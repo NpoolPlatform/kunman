@@ -6,10 +6,10 @@ import (
 	"entgo.io/ent/dialect/sql"
 
 	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
-	"github.com/NpoolPlatform/kunman/middleware/good/db"
-	"github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated"
 	types "github.com/NpoolPlatform/kunman/message/basetypes/good/v1"
 	npool "github.com/NpoolPlatform/kunman/message/good/middleware/v1/app/good/topmost/good/poster"
+	"github.com/NpoolPlatform/kunman/middleware/good/db"
+	ent "github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated"
 )
 
 type queryHandler struct {

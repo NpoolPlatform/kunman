@@ -3,11 +3,10 @@ package topmostgood
 import (
 	"context"
 
-	topmostcommon "github.com/NpoolPlatform/good-gateway/pkg/app/good/topmost/common"
-	goodgwcommon "github.com/NpoolPlatform/kunman/pkg/common"
-	topmostgoodmwcli "github.com/NpoolPlatform/kunman/middleware/good/app/good/topmost/good"
+	topmostcommon "github.com/NpoolPlatform/kunman/gateway/good/app/good/topmost/common"
 	npool "github.com/NpoolPlatform/kunman/message/good/gateway/v1/app/good/topmost/good"
-	topmostgoodmwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/app/good/topmost/good"
+	topmostgoodmw "github.com/NpoolPlatform/kunman/middleware/good/app/good/topmost/good"
+	goodgwcommon "github.com/NpoolPlatform/kunman/pkg/common"
 
 	"github.com/google/uuid"
 )
@@ -33,13 +32,20 @@ func (h *Handler) CreateTopMostGood(ctx context.Context) (*npool.TopMostGood, er
 	if h.EntID == nil {
 		h.EntID = func() *string { s := uuid.NewString(); return &s }()
 	}
-	if err := topmostgoodmwcli.CreateTopMostGood(ctx, &topmostgoodmwpb.TopMostGoodReq{
-		EntID:        h.EntID,
-		AppGoodID:    h.AppGoodID,
-		TopMostID:    h.TopMostID,
-		UnitPrice:    h.UnitPrice,
-		DisplayIndex: h.DisplayIndex,
-	}); err != nil {
+
+	goodHandler, err := topmostgoodmw.NewHandler(
+		ctx,
+		topmostgoodmw.WithEntID(h.EntID, true),
+		topmostgoodmw.WithAppGoodID(h.AppGoodID, true),
+		topmostgoodmw.WithTopMostID(h.TopMostID, true),
+		topmostgoodmw.WithUnitPrice(h.UnitPrice, true),
+		topmostgoodmw.WithDisplayIndex(h.DisplayIndex, true),
+	)
+	if err != nil {
+		return nil, err
+	}
+
+	if err := goodHandler.CreateTopMostGood(ctx); err != nil {
 		return nil, err
 	}
 

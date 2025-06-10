@@ -4,13 +4,13 @@ import (
 	"context"
 	"fmt"
 
-	goodgwcommon "github.com/NpoolPlatform/kunman/pkg/common"
-	topmostgoodmwcli "github.com/NpoolPlatform/kunman/middleware/good/app/good/topmost/good"
-	cruder "github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 	appmwpb "github.com/NpoolPlatform/kunman/message/appuser/middleware/v1/app"
 	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	npool "github.com/NpoolPlatform/kunman/message/good/gateway/v1/app/good/topmost/good"
 	topmostgoodmwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/app/good/topmost/good"
+	topmostgoodmw "github.com/NpoolPlatform/kunman/middleware/good/app/good/topmost/good"
+	goodgwcommon "github.com/NpoolPlatform/kunman/pkg/common"
+	cruder "github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 )
 
 type queryHandler struct {
@@ -59,7 +59,15 @@ func (h *queryHandler) formalize() {
 }
 
 func (h *Handler) GetTopMostGood(ctx context.Context) (*npool.TopMostGood, error) {
-	info, err := topmostgoodmwcli.GetTopMostGood(ctx, *h.EntID)
+	goodHandler, err := topmostgoodmw.NewHandler(
+		ctx,
+		topmostgoodmw.WithEntID(h.EntID, true),
+	)
+	if err != nil {
+		return nil, err
+	}
+
+	info, err := goodHandler.GetTopMostGood(ctx)
 	if err != nil {
 		return nil, err
 	}
@@ -85,14 +93,21 @@ func (h *Handler) GetTopMostGood(ctx context.Context) (*npool.TopMostGood, error
 }
 
 func (h *Handler) GetTopMostGoods(ctx context.Context) ([]*npool.TopMostGood, uint32, error) {
-	infos, total, err := topmostgoodmwcli.GetTopMostGoods(
+	goodHandler, err := topmostgoodmw.NewHandler(
 		ctx,
-		&topmostgoodmwpb.Conds{
-			AppID: &basetypes.StringVal{Op: cruder.EQ, Value: *h.AppID},
-		},
-		h.Offset,
-		h.Limit,
+		topmostgoodmw.WithConds(
+			&topmostgoodmwpb.Conds{
+				AppID: &basetypes.StringVal{Op: cruder.EQ, Value: *h.AppID},
+			},
+		),
+		topmostgoodmw.WithOffset(h.Offset),
+		topmostgoodmw.WithLimit(h.Limit),
 	)
+	if err != nil {
+		return nil, 0, err
+	}
+
+	infos, total, err := goodHandler.GetTopMostGoods(ctx)
 	if err != nil {
 		return nil, 0, err
 	}

@@ -4,13 +4,13 @@ import (
 	"context"
 	"fmt"
 
-	goodgwcommon "github.com/NpoolPlatform/kunman/pkg/common"
-	postermwcli "github.com/NpoolPlatform/kunman/middleware/good/app/good/topmost/good/poster"
-	cruder "github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 	appmwpb "github.com/NpoolPlatform/kunman/message/appuser/middleware/v1/app"
 	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	npool "github.com/NpoolPlatform/kunman/message/good/gateway/v1/app/good/topmost/good/poster"
 	postermwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/app/good/topmost/good/poster"
+	postermw "github.com/NpoolPlatform/kunman/middleware/good/app/good/topmost/good/poster"
+	goodgwcommon "github.com/NpoolPlatform/kunman/pkg/common"
+	cruder "github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 )
 
 type queryHandler struct {
@@ -59,7 +59,15 @@ func (h *queryHandler) formalize() {
 }
 
 func (h *Handler) GetPoster(ctx context.Context) (*npool.Poster, error) {
-	info, err := postermwcli.GetPoster(ctx, *h.EntID)
+	posterHandler, err := postermw.NewHandler(
+		ctx,
+		postermw.WithEntID(h.EntID, true),
+	)
+	if err != nil {
+		return nil, err
+	}
+
+	info, err := posterHandler.GetPoster(ctx)
 	if err != nil {
 		return nil, err
 	}
@@ -85,14 +93,21 @@ func (h *Handler) GetPoster(ctx context.Context) (*npool.Poster, error) {
 }
 
 func (h *Handler) GetPosters(ctx context.Context) ([]*npool.Poster, uint32, error) {
-	infos, total, err := postermwcli.GetPosters(
+	posterHandler, err := postermw.NewHandler(
 		ctx,
-		&postermwpb.Conds{
-			AppID: &basetypes.StringVal{Op: cruder.EQ, Value: *h.AppID},
-		},
-		h.Offset,
-		h.Limit,
+		postermw.WithConds(
+			&postermwpb.Conds{
+				AppID: &basetypes.StringVal{Op: cruder.EQ, Value: *h.AppID},
+			},
+		),
+		postermw.WithOffset(h.Offset),
+		postermw.WithLimit(h.Limit),
 	)
+	if err != nil {
+		return nil, 0, err
+	}
+
+	infos, total, err := posterHandler.GetPosters(ctx)
 	if err != nil {
 		return nil, 0, err
 	}

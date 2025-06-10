@@ -6,7 +6,7 @@ import (
 
 	topmostgoodpostercrud "github.com/NpoolPlatform/kunman/middleware/good/crud/app/good/topmost/good/poster"
 	"github.com/NpoolPlatform/kunman/middleware/good/db"
-	"github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated"
+	ent "github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated"
 )
 
 type deleteHandler struct {

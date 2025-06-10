@@ -3,7 +3,7 @@ package topmostgoodposter
 import (
 	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
 
-	"github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated"
+	ent "github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated"
 	enttopmostgoodposter "github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated/topmostgoodposter"
 	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 

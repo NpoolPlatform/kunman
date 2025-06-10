@@ -3,9 +3,8 @@ package poster
 import (
 	"context"
 
-	postermwcli "github.com/NpoolPlatform/kunman/middleware/good/app/good/topmost/good/poster"
 	npool "github.com/NpoolPlatform/kunman/message/good/gateway/v1/app/good/topmost/good/poster"
-	postermwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/app/good/topmost/good/poster"
+	postermw "github.com/NpoolPlatform/kunman/middleware/good/app/good/topmost/good/poster"
 
 	"github.com/google/uuid"
 )
@@ -17,12 +16,25 @@ func (h *Handler) CreatePoster(ctx context.Context) (*npool.Poster, error) {
 	if h.EntID == nil {
 		h.EntID = func() *string { s := uuid.NewString(); return &s }()
 	}
-	if err := postermwcli.CreatePoster(ctx, &postermwpb.PosterReq{
-		EntID:         h.EntID,
-		TopMostGoodID: h.TopMostGoodID,
-		Poster:        h.Poster,
-		Index:         h.Index,
-	}); err != nil {
+
+	handler, err := postermw.NewHandler(
+		ctx,
+		postermw.WithEntID(h.EntID, true),
+		postermw.WithTopMostGoodID(h.TopMostGoodID, true),
+		postermw.WithPoster(h.Poster, true),
+		postermw.WithIndex(func() *uint8 {
+			if h.Index == nil {
+				return nil
+			}
+			u := uint8(*h.Index)
+			return &u
+		}(), true),
+	)
+	if err != nil {
+		return nil, err
+	}
+
+	if err := handler.CreatePoster(ctx); err != nil {
 		return nil, err
 	}
 
