@@ -4,14 +4,14 @@ import (
 	"context"
 	"fmt"
 
-	goodgwcommon "github.com/NpoolPlatform/kunman/pkg/common"
-	scoremwcli "github.com/NpoolPlatform/kunman/middleware/good/app/good/score"
-	cruder "github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 	appmwpb "github.com/NpoolPlatform/kunman/message/appuser/middleware/v1/app"
 	usermwpb "github.com/NpoolPlatform/kunman/message/appuser/middleware/v1/user"
 	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	npool "github.com/NpoolPlatform/kunman/message/good/gateway/v1/app/good/score"
 	scoremwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/app/good/score"
+	scoremw "github.com/NpoolPlatform/kunman/middleware/good/app/good/score"
+	goodgwcommon "github.com/NpoolPlatform/kunman/pkg/common"
+	cruder "github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 )
 
 type queryHandler struct {
@@ -77,7 +77,15 @@ func (h *queryHandler) formalize() {
 }
 
 func (h *Handler) GetScore(ctx context.Context) (*npool.Score, error) {
-	score, err := scoremwcli.GetScore(ctx, *h.EntID)
+	scoreHandler, err := scoremw.NewHandler(
+		ctx,
+		scoremw.WithEntID(h.EntID, true),
+	)
+	if err != nil {
+		return nil, err
+	}
+
+	score, err := scoreHandler.GetScore(ctx)
 	if err != nil {
 		return nil, err
 	}
@@ -123,7 +131,18 @@ func (h *Handler) GetScores(ctx context.Context) ([]*npool.Score, uint32, error)
 	if h.GoodID != nil {
 		conds.GoodID = &basetypes.StringVal{Op: cruder.EQ, Value: *h.GoodID}
 	}
-	scores, total, err := scoremwcli.GetScores(ctx, conds, h.Offset, h.Limit)
+
+	scoreHandler, err := scoremw.NewHandler(
+		ctx,
+		scoremw.WithConds(conds),
+		scoremw.WithOffset(h.Offset),
+		scoremw.WithLimit(h.Limit),
+	)
+	if err != nil {
+		return nil, 0, err
+	}
+
+	scores, total, err := scoreHandler.GetScores(ctx)
 	if err != nil {
 		return nil, 0, err
 	}

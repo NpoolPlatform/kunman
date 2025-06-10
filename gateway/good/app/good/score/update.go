@@ -4,9 +4,8 @@ import (
 	"context"
 
 	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
-	scoremwcli "github.com/NpoolPlatform/kunman/middleware/good/app/good/score"
 	npool "github.com/NpoolPlatform/kunman/message/good/gateway/v1/app/good/score"
-	scoremwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/app/good/score"
+	scoremw "github.com/NpoolPlatform/kunman/middleware/good/app/good/score"
 )
 
 type updateHandler struct {
@@ -32,10 +31,17 @@ func (h *Handler) UpdateScore(ctx context.Context) (*npool.Score, error) {
 		}
 	}
 
-	if err := scoremwcli.UpdateScore(ctx, &scoremwpb.ScoreReq{
-		ID:    h.ID,
-		Score: h.Score,
-	}); err != nil {
+	scoreHandler, err := scoremw.NewHandler(
+		ctx,
+		scoremw.WithID(h.ID, true),
+		scoremw.WithEntID(h.EntID, true),
+		scoremw.WithScore(h.Score, true),
+	)
+	if err != nil {
+		return nil, wlog.WrapError(err)
+	}
+
+	if err := scoreHandler.UpdateScore(ctx); err != nil {
 		return nil, wlog.WrapError(err)
 	}
 

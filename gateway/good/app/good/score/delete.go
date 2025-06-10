@@ -3,8 +3,8 @@ package score
 import (
 	"context"
 
-	scoremwcli "github.com/NpoolPlatform/kunman/middleware/good/app/good/score"
 	npool "github.com/NpoolPlatform/kunman/message/good/gateway/v1/app/good/score"
+	scoremw "github.com/NpoolPlatform/kunman/middleware/good/app/good/score"
 )
 
 type deleteHandler struct {
@@ -28,7 +28,17 @@ func (h *Handler) DeleteScore(ctx context.Context) (*npool.Score, error) {
 	if err != nil {
 		return nil, err
 	}
-	if err := scoremwcli.DeleteScore(ctx, h.ID, h.EntID); err != nil {
+
+	scoreHandler, err := scoremw.NewHandler(
+		ctx,
+		scoremw.WithID(h.ID, true),
+		scoremw.WithEntID(h.EntID, true),
+	)
+	if err != nil {
+		return nil, err
+	}
+
+	if err := scoreHandler.DeleteScore(ctx); err != nil {
 		return nil, err
 	}
 	return info, nil
