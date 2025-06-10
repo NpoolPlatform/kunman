@@ -3,9 +3,8 @@ package like
 import (
 	"context"
 
-	likemwcli "github.com/NpoolPlatform/kunman/middleware/good/app/good/like"
 	npool "github.com/NpoolPlatform/kunman/message/good/gateway/v1/app/good/like"
-	likemwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/app/good/like"
+	likemw "github.com/NpoolPlatform/kunman/middleware/good/app/good/like"
 
 	"github.com/google/uuid"
 )
@@ -31,12 +30,18 @@ func (h *Handler) CreateLike(ctx context.Context) (*npool.Like, error) {
 		h.EntID = func() *string { s := uuid.NewString(); return &s }()
 	}
 
-	if err := likemwcli.CreateLike(ctx, &likemwpb.LikeReq{
-		EntID:     h.EntID,
-		UserID:    h.UserID,
-		AppGoodID: h.AppGoodID,
-		Like:      h.Like,
-	}); err != nil {
+	likeHandler, err := likemw.NewHandler(
+		ctx,
+		likemw.WithEntID(h.EntID, true),
+		likemw.WithUserID(h.UserID, true),
+		likemw.WithAppGoodID(h.AppGoodID, true),
+		likemw.WithLike(h.Like, true),
+	)
+	if err != nil {
+		return nil, err
+	}
+
+	if err := likeHandler.CreateLike(ctx); err != nil {
 		return nil, err
 	}
 

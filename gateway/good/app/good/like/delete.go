@@ -3,8 +3,8 @@ package like
 import (
 	"context"
 
-	likemwcli "github.com/NpoolPlatform/kunman/middleware/good/app/good/like"
 	npool "github.com/NpoolPlatform/kunman/message/good/gateway/v1/app/good/like"
+	likemw "github.com/NpoolPlatform/kunman/middleware/good/app/good/like"
 )
 
 type deleteHandler struct {
@@ -29,7 +29,16 @@ func (h *Handler) DeleteLike(ctx context.Context) (*npool.Like, error) {
 		return nil, err
 	}
 
-	if err := likemwcli.DeleteLike(ctx, h.ID, h.EntID); err != nil {
+	likeHandler, err := likemw.NewHandler(
+		ctx,
+		likemw.WithID(h.ID, true),
+		likemw.WithEntID(h.EntID, true),
+	)
+	if err != nil {
+		return nil, err
+	}
+
+	if err := likeHandler.DeleteLike(ctx); err != nil {
 		return nil, err
 	}
 

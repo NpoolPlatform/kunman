@@ -4,14 +4,14 @@ import (
 	"context"
 	"fmt"
 
-	goodgwcommon "github.com/NpoolPlatform/kunman/pkg/common"
-	likemwcli "github.com/NpoolPlatform/kunman/middleware/good/app/good/like"
-	cruder "github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 	appmwpb "github.com/NpoolPlatform/kunman/message/appuser/middleware/v1/app"
 	usermwpb "github.com/NpoolPlatform/kunman/message/appuser/middleware/v1/user"
 	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	npool "github.com/NpoolPlatform/kunman/message/good/gateway/v1/app/good/like"
 	likemwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/app/good/like"
+	likemw "github.com/NpoolPlatform/kunman/middleware/good/app/good/like"
+	goodgwcommon "github.com/NpoolPlatform/kunman/pkg/common"
+	cruder "github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 )
 
 type queryHandler struct {
@@ -77,7 +77,15 @@ func (h *queryHandler) formalize() {
 }
 
 func (h *Handler) GetLike(ctx context.Context) (*npool.Like, error) {
-	like, err := likemwcli.GetLike(ctx, *h.EntID)
+	likeHandler, err := likemw.NewHandler(
+		ctx,
+		likemw.WithEntID(h.EntID, true),
+	)
+	if err != nil {
+		return nil, err
+	}
+
+	like, err := likeHandler.GetLike(ctx)
 	if err != nil {
 		return nil, err
 	}
@@ -134,7 +142,18 @@ func (h *Handler) GetLikes(ctx context.Context) ([]*npool.Like, uint32, error) {
 	if h.UserID != nil {
 		conds.UserID = &basetypes.StringVal{Op: cruder.EQ, Value: *h.UserID}
 	}
-	likes, total, err := likemwcli.GetLikes(ctx, conds, h.Offset, h.Limit)
+
+	likeHandler, err := likemw.NewHandler(
+		ctx,
+		likemw.WithConds(conds),
+		likemw.WithOffset(h.Offset),
+		likemw.WithLimit(h.Limit),
+	)
+	if err != nil {
+		return nil, 0, err
+	}
+
+	likes, total, err := likeHandler.GetLikes(ctx)
 	if err != nil {
 		return nil, 0, err
 	}

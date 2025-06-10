@@ -3,9 +3,8 @@ package like
 import (
 	"context"
 
-	likemwcli "github.com/NpoolPlatform/kunman/middleware/good/app/good/like"
 	npool "github.com/NpoolPlatform/kunman/message/good/gateway/v1/app/good/like"
-	likemwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/app/good/like"
+	likemw "github.com/NpoolPlatform/kunman/middleware/good/app/good/like"
 )
 
 type updateHandler struct {
@@ -25,11 +24,17 @@ func (h *Handler) UpdateLike(ctx context.Context) (*npool.Like, error) {
 		return nil, err
 	}
 
-	if err := likemwcli.UpdateLike(ctx, &likemwpb.LikeReq{
-		ID:    h.ID,
-		EntID: h.EntID,
-		Like:  h.Like,
-	}); err != nil {
+	likeHandler, err := likemw.NewHandler(
+		ctx,
+		likemw.WithID(h.ID, true),
+		likemw.WithEntID(h.EntID, true),
+		likemw.WithLike(h.Like, true),
+	)
+	if err != nil {
+		return nil, err
+	}
+
+	if err := likeHandler.UpdateLike(ctx); err != nil {
 		return nil, err
 	}
 
