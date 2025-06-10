@@ -4,13 +4,13 @@ import (
 	"context"
 	"fmt"
 
-	goodgwcommon "github.com/NpoolPlatform/kunman/pkg/common"
-	appgooddisplaycolormwcli "github.com/NpoolPlatform/kunman/middleware/good/app/good/display/color"
-	cruder "github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 	appmwpb "github.com/NpoolPlatform/kunman/message/appuser/middleware/v1/app"
 	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	npool "github.com/NpoolPlatform/kunman/message/good/gateway/v1/app/good/display/color"
 	appgooddisplaycolormwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/app/good/display/color"
+	appgooddisplaycolormw "github.com/NpoolPlatform/kunman/middleware/good/app/good/display/color"
+	goodgwcommon "github.com/NpoolPlatform/kunman/pkg/common"
+	cruder "github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 )
 
 type queryHandler struct {
@@ -55,7 +55,15 @@ func (h *queryHandler) formalize() {
 }
 
 func (h *Handler) GetDisplayColor(ctx context.Context) (*npool.DisplayColor, error) {
-	displayColor, err := appgooddisplaycolormwcli.GetDisplayColor(ctx, *h.EntID)
+	displayColorHandler, err := appgooddisplaycolormw.NewHandler(
+		ctx,
+		appgooddisplaycolormw.WithEntID(h.EntID, true),
+	)
+	if err != nil {
+		return nil, err
+	}
+
+	displayColor, err := displayColorHandler.GetDisplayColor(ctx)
 	if err != nil {
 		return nil, err
 	}
@@ -87,7 +95,18 @@ func (h *Handler) GetDisplayColors(ctx context.Context) ([]*npool.DisplayColor, 
 	if h.AppGoodID != nil {
 		conds.AppGoodID = &basetypes.StringVal{Op: cruder.EQ, Value: *h.AppGoodID}
 	}
-	displayColors, total, err := appgooddisplaycolormwcli.GetDisplayColors(ctx, conds, h.Offset, h.Limit)
+
+	displayColorHandler, err := appgooddisplaycolormw.NewHandler(
+		ctx,
+		appgooddisplaycolormw.WithConds(conds),
+		appgooddisplaycolormw.WithOffset(h.Offset),
+		appgooddisplaycolormw.WithLimit(h.Limit),
+	)
+	if err != nil {
+		return nil, 0, err
+	}
+
+	displayColors, total, err := displayColorHandler.GetDisplayColors(ctx)
 	if err != nil {
 		return nil, 0, err
 	}
