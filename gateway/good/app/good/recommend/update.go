@@ -4,13 +4,16 @@ import (
 	"context"
 
 	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
-	recommendmwcli "github.com/NpoolPlatform/kunman/middleware/good/app/good/recommend"
 	npool "github.com/NpoolPlatform/kunman/message/good/gateway/v1/app/good/recommend"
-	recommendmwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/app/good/recommend"
+	recommendmw "github.com/NpoolPlatform/kunman/middleware/good/app/good/recommend"
 )
 
+type updateHandler struct {
+	*checkHandler
+}
+
 func (h *Handler) UpdateRecommend(ctx context.Context) (*npool.Recommend, error) {
-	handler := &deleteHandler{
+	handler := &updateHandler{
 		checkHandler: &checkHandler{
 			Handler: h,
 		},
@@ -23,13 +26,20 @@ func (h *Handler) UpdateRecommend(ctx context.Context) (*npool.Recommend, error)
 		return nil, wlog.Errorf("invalid hidereason")
 	}
 
-	if err := recommendmwcli.UpdateRecommend(ctx, &recommendmwpb.RecommendReq{
-		ID:             h.ID,
-		RecommendIndex: h.RecommendIndex,
-		Message:        h.Message,
-		Hide:           h.Hide,
-		HideReason:     h.HideReason,
-	}); err != nil {
+	recommendHandler, err := recommendmw.NewHandler(
+		ctx,
+		recommendmw.WithID(h.ID, false),
+		recommendmw.WithEntID(h.EntID, false),
+		recommendmw.WithRecommendIndex(h.RecommendIndex, false),
+		recommendmw.WithMessage(h.Message, false),
+		recommendmw.WithHide(h.Hide, false),
+		recommendmw.WithHideReason(h.HideReason, false),
+	)
+	if err != nil {
+		return nil, err
+	}
+
+	if err := recommendHandler.UpdateRecommend(ctx); err != nil {
 		return nil, wlog.WrapError(err)
 	}
 

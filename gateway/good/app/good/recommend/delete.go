@@ -3,8 +3,8 @@ package recommend
 import (
 	"context"
 
-	recommendmwcli "github.com/NpoolPlatform/kunman/middleware/good/app/good/recommend"
 	npool "github.com/NpoolPlatform/kunman/message/good/gateway/v1/app/good/recommend"
+	recommendmw "github.com/NpoolPlatform/kunman/middleware/good/app/good/recommend"
 )
 
 type deleteHandler struct {
@@ -26,7 +26,16 @@ func (h *Handler) DeleteRecommend(ctx context.Context) (*npool.Recommend, error)
 		return nil, err
 	}
 
-	if err := recommendmwcli.DeleteRecommend(ctx, h.ID, h.EntID); err != nil {
+	recommendHandler, err := recommendmw.NewHandler(
+		ctx,
+		recommendmw.WithID(h.ID, true),
+		recommendmw.WithEntID(h.EntID, true),
+	)
+	if err != nil {
+		return nil, err
+	}
+
+	if err := recommendHandler.DeleteRecommend(ctx); err != nil {
 		return nil, err
 	}
 	return info, nil
