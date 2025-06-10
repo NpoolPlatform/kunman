@@ -4,11 +4,11 @@ import (
 	"context"
 	"fmt"
 
-	goodgwcommon "github.com/NpoolPlatform/kunman/pkg/common"
-	topmostmwcli "github.com/NpoolPlatform/kunman/middleware/good/app/good/topmost"
-	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	topmostmwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/app/good/topmost"
+	topmostmw "github.com/NpoolPlatform/kunman/middleware/good/app/good/topmost"
+	goodgwcommon "github.com/NpoolPlatform/kunman/pkg/common"
+	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 )
 
 type CheckHandler struct {
@@ -17,10 +17,19 @@ type CheckHandler struct {
 }
 
 func (h *CheckHandler) CheckTopMost(ctx context.Context) error {
-	exist, err := topmostmwcli.ExistTopMostConds(ctx, &topmostmwpb.Conds{
+	conds := &topmostmwpb.Conds{
 		EntID: &basetypes.StringVal{Op: cruder.EQ, Value: *h.TopMostID},
 		AppID: &basetypes.StringVal{Op: cruder.EQ, Value: *h.AppID},
-	})
+	}
+	handler, err := topmostmw.NewHandler(
+		ctx,
+		topmostmw.WithConds(conds),
+	)
+	if err != nil {
+		return err
+	}
+
+	exist, err := handler.ExistTopMostConds(ctx)
 	if err != nil {
 		return err
 	}

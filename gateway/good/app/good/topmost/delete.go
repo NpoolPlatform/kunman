@@ -4,8 +4,8 @@ import (
 	"context"
 
 	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
-	topmostmwcli "github.com/NpoolPlatform/kunman/middleware/good/app/good/topmost"
 	npool "github.com/NpoolPlatform/kunman/message/good/gateway/v1/app/good/topmost"
+	topmostmw "github.com/NpoolPlatform/kunman/middleware/good/app/good/topmost"
 )
 
 type deleteHandler struct {
@@ -30,7 +30,16 @@ func (h *Handler) DeleteTopMost(ctx context.Context) (*npool.TopMost, error) {
 		return nil, wlog.Errorf("invalid topmost")
 	}
 
-	if err := topmostmwcli.DeleteTopMost(ctx, h.ID, h.EntID); err != nil {
+	topMostHandler, err := topmostmw.NewHandler(
+		ctx,
+		topmostmw.WithID(h.ID, true),
+		topmostmw.WithEntID(h.EntID, true),
+	)
+	if err != nil {
+		return nil, wlog.WrapError(err)
+	}
+
+	if err := topMostHandler.DeleteTopMost(ctx); err != nil {
 		return nil, wlog.WrapError(err)
 	}
 	return info, nil

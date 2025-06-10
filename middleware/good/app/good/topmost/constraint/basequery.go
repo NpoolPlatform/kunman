@@ -5,11 +5,11 @@ import (
 
 	logger "github.com/NpoolPlatform/kunman/framework/logger"
 	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
+	types "github.com/NpoolPlatform/kunman/message/basetypes/good/v1"
 	constraintcrud "github.com/NpoolPlatform/kunman/middleware/good/crud/app/good/topmost/constraint"
-	"github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated"
+	ent "github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated"
 	enttopmost "github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated/topmost"
 	enttopmostconstraint "github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated/topmostconstraint"
-	types "github.com/NpoolPlatform/kunman/message/basetypes/good/v1"
 
 	"github.com/google/uuid"
 )

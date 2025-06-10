@@ -3,9 +3,8 @@ package topmost
 import (
 	"context"
 
-	topmostmwcli "github.com/NpoolPlatform/kunman/middleware/good/app/good/topmost"
 	npool "github.com/NpoolPlatform/kunman/message/good/gateway/v1/app/good/topmost"
-	topmostmwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/app/good/topmost"
+	topmostmw "github.com/NpoolPlatform/kunman/middleware/good/app/good/topmost"
 )
 
 type updateHandler struct {
@@ -22,15 +21,21 @@ func (h *Handler) UpdateTopMost(ctx context.Context) (*npool.TopMost, error) {
 		return nil, err
 	}
 
-	if err := topmostmwcli.UpdateTopMost(ctx, &topmostmwpb.TopMostReq{
-		ID:        h.ID,
-		EntID:     h.EntID,
-		Title:     h.Title,
-		Message:   h.Message,
-		TargetUrl: h.TargetURL,
-		StartAt:   h.StartAt,
-		EndAt:     h.EndAt,
-	}); err != nil {
+	topMostHandler, err := topmostmw.NewHandler(
+		ctx,
+		topmostmw.WithID(h.ID, true),
+		topmostmw.WithEntID(h.EntID, true),
+		topmostmw.WithTitle(h.Title, true),
+		topmostmw.WithMessage(h.Message, true),
+		topmostmw.WithTargetURL(h.TargetURL, true),
+		topmostmw.WithStartAt(h.StartAt, true),
+		topmostmw.WithEndAt(h.EndAt, true),
+	)
+	if err != nil {
+		return nil, err
+	}
+
+	if err := topMostHandler.UpdateTopMost(ctx); err != nil {
 		return nil, err
 	}
 	return h.GetTopMost(ctx)

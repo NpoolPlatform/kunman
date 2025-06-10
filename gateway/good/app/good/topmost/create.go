@@ -3,9 +3,8 @@ package topmost
 import (
 	"context"
 
-	topmostmwcli "github.com/NpoolPlatform/kunman/middleware/good/app/good/topmost"
 	npool "github.com/NpoolPlatform/kunman/message/good/gateway/v1/app/good/topmost"
-	topmostmwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/app/good/topmost"
+	topmostmw "github.com/NpoolPlatform/kunman/middleware/good/app/good/topmost"
 
 	"github.com/google/uuid"
 )
@@ -14,16 +13,23 @@ func (h *Handler) CreateTopMost(ctx context.Context) (*npool.TopMost, error) {
 	if h.EntID == nil {
 		h.EntID = func() *string { s := uuid.NewString(); return &s }()
 	}
-	if err := topmostmwcli.CreateTopMost(ctx, &topmostmwpb.TopMostReq{
-		EntID:       h.EntID,
-		AppID:       h.AppID,
-		TopMostType: h.TopMostType,
-		Title:       h.Title,
-		Message:     h.Message,
-		TargetUrl:   h.TargetURL,
-		StartAt:     h.StartAt,
-		EndAt:       h.EndAt,
-	}); err != nil {
+
+	handler, err := topmostmw.NewHandler(
+		ctx,
+		topmostmw.WithEntID(h.EntID, true),
+		topmostmw.WithAppID(h.AppID, true),
+		topmostmw.WithTopMostType(h.TopMostType, true),
+		topmostmw.WithTitle(h.Title, true),
+		topmostmw.WithMessage(h.Message, true),
+		topmostmw.WithTargetURL(h.TargetURL, true),
+		topmostmw.WithStartAt(h.StartAt, true),
+		topmostmw.WithEndAt(h.EndAt, true),
+	)
+	if err != nil {
+		return nil, err
+	}
+
+	if err := handler.CreateTopMost(ctx); err != nil {
 		return nil, err
 	}
 	return h.GetTopMost(ctx)

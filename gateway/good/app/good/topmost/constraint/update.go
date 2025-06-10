@@ -3,9 +3,8 @@ package constraint
 import (
 	"context"
 
-	topmostconstraintmwcli "github.com/NpoolPlatform/kunman/middleware/good/app/good/topmost/constraint"
 	npool "github.com/NpoolPlatform/kunman/message/good/gateway/v1/app/good/topmost/constraint"
-	topmostconstraintmwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/app/good/topmost/constraint"
+	topmostconstraintmw "github.com/NpoolPlatform/kunman/middleware/good/app/good/topmost/constraint"
 )
 
 type updateHandler struct {
@@ -22,12 +21,18 @@ func (h *Handler) UpdateConstraint(ctx context.Context) (*npool.TopMostConstrain
 		return nil, err
 	}
 
-	if err := topmostconstraintmwcli.UpdateTopMostConstraint(ctx, &topmostconstraintmwpb.TopMostConstraintReq{
-		ID:          h.ID,
-		EntID:       h.EntID,
-		TargetValue: h.TargetValue,
-		Index:       h.Index,
-	}); err != nil {
+	constraintHandler, err := topmostconstraintmw.NewHandler(
+		ctx,
+		topmostconstraintmw.WithID(h.ID, true),
+		topmostconstraintmw.WithEntID(h.EntID, true),
+		topmostconstraintmw.WithTargetValue(h.TargetValue, true),
+		topmostconstraintmw.WithIndex(h.Index, true),
+	)
+	if err != nil {
+		return nil, err
+	}
+
+	if err := constraintHandler.UpdateConstraint(ctx); err != nil {
 		return nil, err
 	}
 	return h.GetConstraint(ctx)

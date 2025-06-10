@@ -4,13 +4,13 @@ import (
 	"context"
 	"fmt"
 
-	goodgwcommon "github.com/NpoolPlatform/kunman/pkg/common"
-	topmostmwcli "github.com/NpoolPlatform/kunman/middleware/good/app/good/topmost"
-	cruder "github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 	appmwpb "github.com/NpoolPlatform/kunman/message/appuser/middleware/v1/app"
 	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	npool "github.com/NpoolPlatform/kunman/message/good/gateway/v1/app/good/topmost"
 	topmostmwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/app/good/topmost"
+	topmostmw "github.com/NpoolPlatform/kunman/middleware/good/app/good/topmost"
+	goodgwcommon "github.com/NpoolPlatform/kunman/pkg/common"
+	cruder "github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 )
 
 type queryHandler struct {
@@ -56,7 +56,15 @@ func (h *queryHandler) formalize() {
 }
 
 func (h *Handler) GetTopMost(ctx context.Context) (*npool.TopMost, error) {
-	info, err := topmostmwcli.GetTopMost(ctx, *h.EntID)
+	topMostHandler, err := topmostmw.NewHandler(
+		ctx,
+		topmostmw.WithEntID(h.EntID, true),
+	)
+	if err != nil {
+		return nil, err
+	}
+
+	info, err := topMostHandler.GetTopMost(ctx)
 	if err != nil {
 		return nil, err
 	}
@@ -82,9 +90,20 @@ func (h *Handler) GetTopMost(ctx context.Context) (*npool.TopMost, error) {
 }
 
 func (h *Handler) GetTopMosts(ctx context.Context) ([]*npool.TopMost, uint32, error) {
-	infos, total, err := topmostmwcli.GetTopMosts(ctx, &topmostmwpb.Conds{
+	conds := &topmostmwpb.Conds{
 		AppID: &basetypes.StringVal{Op: cruder.EQ, Value: *h.AppID},
-	}, h.Offset, h.Limit)
+	}
+	topMostHandler, err := topmostmw.NewHandler(
+		ctx,
+		topmostmw.WithConds(conds),
+		topmostmw.WithOffset(h.Offset),
+		topmostmw.WithLimit(h.Limit),
+	)
+	if err != nil {
+		return nil, 0, err
+	}
+
+	infos, total, err := topMostHandler.GetTopMosts(ctx)
 	if err != nil {
 		return nil, 0, err
 	}
