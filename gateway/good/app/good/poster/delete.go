@@ -4,8 +4,8 @@ import (
 	"context"
 
 	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
-	appgoodpostermwcli "github.com/NpoolPlatform/kunman/middleware/good/app/good/poster"
 	npool "github.com/NpoolPlatform/kunman/message/good/gateway/v1/app/good/poster"
+	appgoodpostermw "github.com/NpoolPlatform/kunman/middleware/good/app/good/poster"
 )
 
 type deleteHandler struct {
@@ -30,7 +30,16 @@ func (h *Handler) DeletePoster(ctx context.Context) (*npool.Poster, error) {
 		return nil, wlog.Errorf("invalid poster")
 	}
 
-	if err := appgoodpostermwcli.DeletePoster(ctx, h.ID, h.EntID); err != nil {
+	posterHandler, err := appgoodpostermw.NewHandler(
+		ctx,
+		appgoodpostermw.WithID(h.ID, true),
+		appgoodpostermw.WithEntID(h.EntID, true),
+	)
+	if err != nil {
+		return nil, wlog.WrapError(err)
+	}
+
+	if err := posterHandler.DeletePoster(ctx); err != nil {
 		return nil, wlog.WrapError(err)
 	}
 	return info, nil
