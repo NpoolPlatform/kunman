@@ -3,9 +3,8 @@ package label
 import (
 	"context"
 
-	appgoodlabelmwcli "github.com/NpoolPlatform/kunman/middleware/good/app/good/label"
 	npool "github.com/NpoolPlatform/kunman/message/good/gateway/v1/app/good/label"
-	appgoodlabelmwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/app/good/label"
+	appgoodlabelmw "github.com/NpoolPlatform/kunman/middleware/good/app/good/label"
 )
 
 type updateHandler struct {
@@ -22,15 +21,27 @@ func (h *Handler) UpdateLabel(ctx context.Context) (*npool.Label, error) {
 		return nil, err
 	}
 
-	if err := appgoodlabelmwcli.UpdateLabel(ctx, &appgoodlabelmwpb.LabelReq{
-		ID:           h.ID,
-		EntID:        h.EntID,
-		Icon:         h.Icon,
-		IconBgColor:  h.IconBgColor,
-		Label:        h.Label,
-		LabelBgColor: h.LabelBgColor,
-		Index:        h.Index,
-	}); err != nil {
+	labelHandler, err := appgoodlabelmw.NewHandler(
+		ctx,
+		appgoodlabelmw.WithEntID(h.EntID, true),
+		appgoodlabelmw.WithAppGoodID(h.AppGoodID, true),
+		appgoodlabelmw.WithIcon(h.Icon, true),
+		appgoodlabelmw.WithIconBgColor(h.IconBgColor, true),
+		appgoodlabelmw.WithLabel(h.Label, true),
+		appgoodlabelmw.WithLabelBgColor(h.LabelBgColor, true),
+		appgoodlabelmw.WithIndex(func() *uint8 {
+			if h.Index == nil {
+				return nil
+			}
+			index := uint8(*h.Index)
+			return &index
+		}(), true),
+	)
+	if err != nil {
+		return nil, err
+	}
+
+	if err := labelHandler.UpdateLabel(ctx); err != nil {
 		return nil, err
 	}
 	return h.GetLabel(ctx)

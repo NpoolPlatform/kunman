@@ -3,9 +3,8 @@ package label
 import (
 	"context"
 
-	appgoodlabelmwcli "github.com/NpoolPlatform/kunman/middleware/good/app/good/label"
 	npool "github.com/NpoolPlatform/kunman/message/good/gateway/v1/app/good/label"
-	appgoodlabelmwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/app/good/label"
+	appgoodlabelmw "github.com/NpoolPlatform/kunman/middleware/good/app/good/label"
 
 	"github.com/google/uuid"
 )
@@ -19,15 +18,27 @@ func (h *Handler) CreateLabel(ctx context.Context) (*npool.Label, error) {
 		h.EntID = func() *string { s := uuid.NewString(); return &s }()
 	}
 
-	if err := appgoodlabelmwcli.CreateLabel(ctx, &appgoodlabelmwpb.LabelReq{
-		EntID:        h.EntID,
-		AppGoodID:    h.AppGoodID,
-		Icon:         h.Icon,
-		IconBgColor:  h.IconBgColor,
-		Label:        h.Label,
-		LabelBgColor: h.LabelBgColor,
-		Index:        h.Index,
-	}); err != nil {
+	handler, err := appgoodlabelmw.NewHandler(
+		ctx,
+		appgoodlabelmw.WithEntID(h.EntID, true),
+		appgoodlabelmw.WithAppGoodID(h.AppGoodID, true),
+		appgoodlabelmw.WithIcon(h.Icon, true),
+		appgoodlabelmw.WithIconBgColor(h.IconBgColor, true),
+		appgoodlabelmw.WithLabel(h.Label, true),
+		appgoodlabelmw.WithLabelBgColor(h.LabelBgColor, true),
+		appgoodlabelmw.WithIndex(func() *uint8 {
+			if h.Index == nil {
+				return nil
+			}
+			index := uint8(*h.Index)
+			return &index
+		}(), true),
+	)
+	if err != nil {
+		return nil, err
+	}
+
+	if err := handler.CreateLabel(ctx); err != nil {
 		return nil, err
 	}
 	return h.GetLabel(ctx)

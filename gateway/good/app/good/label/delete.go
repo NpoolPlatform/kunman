@@ -4,8 +4,8 @@ import (
 	"context"
 
 	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
-	appgoodlabelmwcli "github.com/NpoolPlatform/kunman/middleware/good/app/good/label"
 	npool "github.com/NpoolPlatform/kunman/message/good/gateway/v1/app/good/label"
+	appgoodlabelmw "github.com/NpoolPlatform/kunman/middleware/good/app/good/label"
 )
 
 type deleteHandler struct {
@@ -30,7 +30,16 @@ func (h *Handler) DeleteLabel(ctx context.Context) (*npool.Label, error) {
 		return nil, wlog.Errorf("invalid label")
 	}
 
-	if err := appgoodlabelmwcli.DeleteLabel(ctx, h.ID, h.EntID); err != nil {
+	labelHandler, err := appgoodlabelmw.NewHandler(
+		ctx,
+		appgoodlabelmw.WithID(h.ID, true),
+		appgoodlabelmw.WithEntID(h.EntID, true),
+	)
+	if err != nil {
+		return nil, wlog.WrapError(err)
+	}
+
+	if err := labelHandler.DeleteLabel(ctx); err != nil {
 		return nil, wlog.WrapError(err)
 	}
 	return info, nil

@@ -4,13 +4,13 @@ import (
 	"context"
 	"fmt"
 
-	goodgwcommon "github.com/NpoolPlatform/kunman/pkg/common"
-	appgoodlabelmwcli "github.com/NpoolPlatform/kunman/middleware/good/app/good/label"
-	cruder "github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 	appmwpb "github.com/NpoolPlatform/kunman/message/appuser/middleware/v1/app"
 	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	npool "github.com/NpoolPlatform/kunman/message/good/gateway/v1/app/good/label"
 	appgoodlabelmwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/app/good/label"
+	appgoodlabelmw "github.com/NpoolPlatform/kunman/middleware/good/app/good/label"
+	goodgwcommon "github.com/NpoolPlatform/kunman/pkg/common"
+	cruder "github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 )
 
 type queryHandler struct {
@@ -58,7 +58,15 @@ func (h *queryHandler) formalize() {
 }
 
 func (h *Handler) GetLabel(ctx context.Context) (*npool.Label, error) {
-	label, err := appgoodlabelmwcli.GetLabel(ctx, *h.EntID)
+	labelHandler, err := appgoodlabelmw.NewHandler(
+		ctx,
+		appgoodlabelmw.WithEntID(h.EntID, true),
+	)
+	if err != nil {
+		return nil, err
+	}
+
+	label, err := labelHandler.GetLabel(ctx)
 	if err != nil {
 		return nil, err
 	}
@@ -90,7 +98,18 @@ func (h *Handler) GetLabels(ctx context.Context) ([]*npool.Label, uint32, error)
 	if h.AppGoodID != nil {
 		conds.AppGoodID = &basetypes.StringVal{Op: cruder.EQ, Value: *h.AppGoodID}
 	}
-	labels, total, err := appgoodlabelmwcli.GetLabels(ctx, conds, h.Offset, h.Limit)
+
+	labelHandler, err := appgoodlabelmw.NewHandler(
+		ctx,
+		appgoodlabelmw.WithConds(conds),
+		appgoodlabelmw.WithOffset(h.Offset),
+		appgoodlabelmw.WithLimit(h.Limit),
+	)
+	if err != nil {
+		return nil, 0, err
+	}
+
+	labels, total, err := labelHandler.GetLabels(ctx)
 	if err != nil {
 		return nil, 0, err
 	}
