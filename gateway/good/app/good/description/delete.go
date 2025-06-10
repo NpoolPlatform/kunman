@@ -4,8 +4,8 @@ import (
 	"context"
 
 	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
-	appgooddescriptionmwcli "github.com/NpoolPlatform/kunman/middleware/good/app/good/description"
 	npool "github.com/NpoolPlatform/kunman/message/good/gateway/v1/app/good/description"
+	appgooddescriptionmw "github.com/NpoolPlatform/kunman/middleware/good/app/good/description"
 )
 
 type deleteHandler struct {
@@ -30,7 +30,16 @@ func (h *Handler) DeleteDescription(ctx context.Context) (*npool.Description, er
 		return nil, wlog.Errorf("invalid description")
 	}
 
-	if err := appgooddescriptionmwcli.DeleteDescription(ctx, h.ID, h.EntID); err != nil {
+	descriptionHandler, err := appgooddescriptionmw.NewHandler(
+		ctx,
+		appgooddescriptionmw.WithID(h.ID, true),
+		appgooddescriptionmw.WithEntID(h.EntID, true),
+	)
+	if err != nil {
+		return nil, wlog.WrapError(err)
+	}
+
+	if err := descriptionHandler.DeleteDescription(ctx); err != nil {
 		return nil, wlog.WrapError(err)
 	}
 	return info, nil

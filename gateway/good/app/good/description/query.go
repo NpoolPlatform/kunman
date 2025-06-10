@@ -4,13 +4,13 @@ import (
 	"context"
 	"fmt"
 
-	goodgwcommon "github.com/NpoolPlatform/kunman/pkg/common"
-	appgooddescriptionmwcli "github.com/NpoolPlatform/kunman/middleware/good/app/good/description"
-	cruder "github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 	appmwpb "github.com/NpoolPlatform/kunman/message/appuser/middleware/v1/app"
 	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	npool "github.com/NpoolPlatform/kunman/message/good/gateway/v1/app/good/description"
 	appgooddescriptionmwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/app/good/description"
+	appgooddescriptionmw "github.com/NpoolPlatform/kunman/middleware/good/app/good/description"
+	goodgwcommon "github.com/NpoolPlatform/kunman/pkg/common"
+	cruder "github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 )
 
 type queryHandler struct {
@@ -55,7 +55,15 @@ func (h *queryHandler) formalize() {
 }
 
 func (h *Handler) GetDescription(ctx context.Context) (*npool.Description, error) {
-	description, err := appgooddescriptionmwcli.GetDescription(ctx, *h.EntID)
+	descriptionHandler, err := appgooddescriptionmw.NewHandler(
+		ctx,
+		appgooddescriptionmw.WithEntID(h.EntID, true),
+	)
+	if err != nil {
+		return nil, err
+	}
+
+	description, err := descriptionHandler.GetDescription(ctx)
 	if err != nil {
 		return nil, err
 	}
@@ -87,7 +95,18 @@ func (h *Handler) GetDescriptions(ctx context.Context) ([]*npool.Description, ui
 	if h.AppGoodID != nil {
 		conds.AppGoodID = &basetypes.StringVal{Op: cruder.EQ, Value: *h.AppGoodID}
 	}
-	descriptions, total, err := appgooddescriptionmwcli.GetDescriptions(ctx, conds, h.Offset, h.Limit)
+
+	descriptionHandler, err := appgooddescriptionmw.NewHandler(
+		ctx,
+		appgooddescriptionmw.WithConds(conds),
+		appgooddescriptionmw.WithOffset(h.Offset),
+		appgooddescriptionmw.WithLimit(h.Limit),
+	)
+	if err != nil {
+		return nil, 0, err
+	}
+
+	descriptions, total, err := descriptionHandler.GetDescriptions(ctx)
 	if err != nil {
 		return nil, 0, err
 	}

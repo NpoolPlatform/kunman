@@ -3,9 +3,8 @@ package description
 import (
 	"context"
 
-	appgooddescriptionmwcli "github.com/NpoolPlatform/kunman/middleware/good/app/good/description"
 	npool "github.com/NpoolPlatform/kunman/message/good/gateway/v1/app/good/description"
-	appgooddescriptionmwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/app/good/description"
+	appgooddescriptionmw "github.com/NpoolPlatform/kunman/middleware/good/app/good/description"
 )
 
 type updateHandler struct {
@@ -22,12 +21,24 @@ func (h *Handler) UpdateDescription(ctx context.Context) (*npool.Description, er
 		return nil, err
 	}
 
-	if err := appgooddescriptionmwcli.UpdateDescription(ctx, &appgooddescriptionmwpb.DescriptionReq{
-		ID:          h.ID,
-		EntID:       h.EntID,
-		Description: h.Description,
-		Index:       h.Index,
-	}); err != nil {
+	descriptionHandler, err := appgooddescriptionmw.NewHandler(
+		ctx,
+		appgooddescriptionmw.WithEntID(h.EntID, true),
+		appgooddescriptionmw.WithAppGoodID(h.AppGoodID, true),
+		appgooddescriptionmw.WithDescription(h.Description, true),
+		appgooddescriptionmw.WithIndex(func() *uint8 {
+			if h.Index == nil {
+				return nil
+			}
+			u := uint8(*h.Index)
+			return &u
+		}(), true),
+	)
+	if err != nil {
+		return nil, err
+	}
+
+	if err := descriptionHandler.UpdateDescription(ctx); err != nil {
 		return nil, err
 	}
 	return h.GetDescription(ctx)
