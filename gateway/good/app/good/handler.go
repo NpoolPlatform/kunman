@@ -4,8 +4,8 @@ import (
 	"context"
 	"fmt"
 
-	appmwcli "github.com/NpoolPlatform/kunman/middleware/appuser/app"
 	constant "github.com/NpoolPlatform/good-gateway/pkg/const"
+	appmw "github.com/NpoolPlatform/kunman/middleware/appuser/app"
 )
 
 type Handler struct {
@@ -32,7 +32,16 @@ func WithAppID(id *string, must bool) func(context.Context, *Handler) error {
 			}
 			return nil
 		}
-		exist, err := appmwcli.ExistApp(ctx, *id)
+
+		handler, err := appmw.NewHandler(
+			ctx,
+			appmw.WithEntID(id, true),
+		)
+		if err != nil {
+			return err
+		}
+
+		exist, err := handler.ExistApp(ctx)
 		if err != nil {
 			return err
 		}

@@ -3,14 +3,9 @@ package comment
 import (
 	"context"
 
-	"github.com/NpoolPlatform/kunman/framework/logger"
-	"github.com/NpoolPlatform/kunman/framework/pubsub"
 	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
-	commentmwcli "github.com/NpoolPlatform/kunman/middleware/good/app/good/comment"
-	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	npool "github.com/NpoolPlatform/kunman/message/good/gateway/v1/app/good/comment"
-	commentmwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/app/good/comment"
-	eventmwpb "github.com/NpoolPlatform/kunman/message/inspire/middleware/v1/event"
+	commentmw "github.com/NpoolPlatform/kunman/middleware/good/app/good/comment"
 
 	"github.com/google/uuid"
 )
@@ -22,28 +17,7 @@ type createHandler struct {
 }
 
 func (h *createHandler) rewardWriteComment() {
-	if err := pubsub.WithPublisher(func(publisher *pubsub.Publisher) error {
-		req := &eventmwpb.CalcluateEventRewardsRequest{
-			AppID:       *h.AppID,
-			UserID:      *h.CommentUserID,
-			EventType:   basetypes.UsedFor_WriteComment,
-			Consecutive: 1,
-		}
-		return publisher.Update(
-			basetypes.MsgID_CalculateEventRewardReq.String(),
-			nil,
-			nil,
-			nil,
-			req,
-		)
-	}); err != nil {
-		logger.Sugar().Errorw(
-			"rewardWriteComment",
-			"AppID", *h.AppID,
-			"UserID", h.UserID,
-			"Error", err,
-		)
-	}
+	// TODO: publish reward event
 }
 
 func (h *Handler) CreateComment(ctx context.Context) (*npool.Comment, error) {
@@ -68,18 +42,24 @@ func (h *Handler) CreateComment(ctx context.Context) (*npool.Comment, error) {
 
 	// TODO: check if trial user
 
-	if err := commentmwcli.CreateComment(ctx, &commentmwpb.CommentReq{
-		EntID:         h.EntID,
-		UserID:        h.CommentUserID,
-		AppGoodID:     h.AppGoodID,
-		OrderID:       h.OrderID,
-		Content:       h.Content,
-		ReplyToID:     h.ReplyToID,
-		Anonymous:     h.Anonymous,
-		PurchasedUser: &handler.purchasedUser,
-		TrialUser:     &handler.trialUser,
-		Score:         h.Score,
-	}); err != nil {
+	commentHandler, err := commentmw.NewHandler(
+		ctx,
+		commentmw.WithEntID(h.EntID, true),
+		commentmw.WithUserID(h.CommentUserID, true),
+		commentmw.WithAppGoodID(h.AppGoodID, true),
+		commentmw.WithOrderID(h.OrderID, true),
+		commentmw.WithContent(h.Content, true),
+		commentmw.WithReplyToID(h.ReplyToID, true),
+		commentmw.WithAnonymous(h.Anonymous, true),
+		commentmw.WithPurchasedUser(&handler.purchasedUser, true),
+		commentmw.WithTrialUser(&handler.trialUser, true),
+		commentmw.WithScore(h.Score, true),
+	)
+	if err != nil {
+		return nil, wlog.WrapError(err)
+	}
+
+	if err := commentHandler.CreateComment(ctx); err != nil {
 		return nil, wlog.WrapError(err)
 	}
 

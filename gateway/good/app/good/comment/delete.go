@@ -3,8 +3,8 @@ package comment
 import (
 	"context"
 
-	commentmwcli "github.com/NpoolPlatform/kunman/middleware/good/app/good/comment"
 	npool "github.com/NpoolPlatform/kunman/message/good/gateway/v1/app/good/comment"
+	commentmw "github.com/NpoolPlatform/kunman/middleware/good/app/good/comment"
 )
 
 type deleteHandler struct {
@@ -28,7 +28,17 @@ func (h *Handler) DeleteComment(ctx context.Context) (*npool.Comment, error) {
 	if err != nil {
 		return nil, err
 	}
-	if err := commentmwcli.DeleteComment(ctx, h.ID, h.EntID); err != nil {
+
+	commentHandler, err := commentmw.NewHandler(
+		ctx,
+		commentmw.WithID(h.ID, true),
+		commentmw.WithEntID(h.EntID, true),
+	)
+	if err != nil {
+		return nil, err
+	}
+
+	if err := commentHandler.DeleteComment(ctx); err != nil {
 		return nil, err
 	}
 	return info, nil

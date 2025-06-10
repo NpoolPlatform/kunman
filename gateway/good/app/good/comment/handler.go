@@ -3,12 +3,12 @@ package comment
 import (
 	"context"
 
-	appmwcli "github.com/NpoolPlatform/kunman/middleware/appuser/app"
-	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
 	appgoodcommon "github.com/NpoolPlatform/good-gateway/pkg/app/good/common"
 	constant "github.com/NpoolPlatform/good-middleware/pkg/const"
+	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
 	types "github.com/NpoolPlatform/kunman/message/basetypes/good/v1"
-	ordermwcli "github.com/NpoolPlatform/order-middleware/pkg/client/order"
+	appmw "github.com/NpoolPlatform/kunman/middleware/appuser/app"
+	ordermw "github.com/NpoolPlatform/kunman/middleware/order/order"
 
 	"github.com/google/uuid"
 	"github.com/shopspring/decimal"
@@ -77,7 +77,16 @@ func WithAppID(id *string, must bool) func(context.Context, *Handler) error {
 			}
 			return nil
 		}
-		exist, err := appmwcli.ExistApp(ctx, *id)
+
+		handler, err := appmw.NewHandler(
+			ctx,
+			appmw.WithEntID(id, true),
+		)
+		if err != nil {
+			return wlog.WrapError(err)
+		}
+
+		exist, err := handler.ExistApp(ctx)
 		if err != nil {
 			return wlog.WrapError(err)
 		}
@@ -129,7 +138,16 @@ func WithOrderID(id *string, must bool) func(context.Context, *Handler) error {
 			}
 			return nil
 		}
-		exist, err := ordermwcli.ExistOrder(ctx, *id)
+
+		handler, err := ordermw.NewHandler(
+			ctx,
+			ordermw.WithEntID(id, true),
+		)
+		if err != nil {
+			return wlog.WrapError(err)
+		}
+
+		exist, err := handler.ExistOrder(ctx)
 		if err != nil {
 			return wlog.WrapError(err)
 		}

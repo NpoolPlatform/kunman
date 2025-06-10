@@ -4,14 +4,14 @@ import (
 	"context"
 
 	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
-	goodgwcommon "github.com/NpoolPlatform/kunman/pkg/common"
-	commentmwcli "github.com/NpoolPlatform/kunman/middleware/good/app/good/comment"
-	cruder "github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 	appmwpb "github.com/NpoolPlatform/kunman/message/appuser/middleware/v1/app"
 	usermwpb "github.com/NpoolPlatform/kunman/message/appuser/middleware/v1/user"
 	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	npool "github.com/NpoolPlatform/kunman/message/good/gateway/v1/app/good/comment"
 	commentmwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/app/good/comment"
+	commentmw "github.com/NpoolPlatform/kunman/middleware/good/app/good/comment"
+	goodgwcommon "github.com/NpoolPlatform/kunman/pkg/common"
+	cruder "github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 
 	"github.com/google/uuid"
 )
@@ -97,7 +97,15 @@ func (h *queryHandler) formalize() {
 }
 
 func (h *Handler) GetComment(ctx context.Context) (*npool.Comment, error) {
-	comment, err := commentmwcli.GetComment(ctx, *h.EntID)
+	commentHandler, err := commentmw.NewHandler(
+		ctx,
+		commentmw.WithEntID(h.EntID, true),
+	)
+	if err != nil {
+		return nil, wlog.WrapError(err)
+	}
+
+	comment, err := commentHandler.GetComment(ctx)
 	if err != nil {
 		return nil, wlog.WrapError(err)
 	}
@@ -151,9 +159,20 @@ func (h *Handler) GetComments(ctx context.Context) ([]*npool.Comment, uint32, er
 	if h.UserID != nil {
 		conds.UserID = &basetypes.StringVal{Op: cruder.EQ, Value: *h.UserID}
 	}
-	comments, total, err := commentmwcli.GetComments(ctx, conds, h.Offset, h.Limit)
+
+	commentHandler, err := commentmw.NewHandler(
+		ctx,
+		commentmw.WithConds(conds),
+		commentmw.WithOffset(h.Offset),
+		commentmw.WithLimit(h.Limit),
+	)
 	if err != nil {
-		return nil, 0, err
+		return nil, 0, wlog.WrapError(err)
+	}
+
+	comments, total, err := commentHandler.GetComments(ctx)
+	if err != nil {
+		return nil, 0, wlog.WrapError(err)
 	}
 	if len(comments) == 0 {
 		return nil, total, nil
@@ -161,10 +180,10 @@ func (h *Handler) GetComments(ctx context.Context) ([]*npool.Comment, uint32, er
 
 	handler.comments = comments
 	if err := handler.getApps(ctx); err != nil {
-		return nil, 0, err
+		return nil, 0, wlog.WrapError(err)
 	}
 	if err := handler.getUsers(ctx); err != nil {
-		return nil, 0, err
+		return nil, 0, wlog.WrapError(err)
 	}
 
 	handler.formalize()

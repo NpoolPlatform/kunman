@@ -3,9 +3,8 @@ package comment
 import (
 	"context"
 
-	commentmwcli "github.com/NpoolPlatform/kunman/middleware/good/app/good/comment"
 	npool "github.com/NpoolPlatform/kunman/message/good/gateway/v1/app/good/comment"
-	commentmwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/app/good/comment"
+	commentmw "github.com/NpoolPlatform/kunman/middleware/good/app/good/comment"
 )
 
 type updateHandler struct {
@@ -29,14 +28,21 @@ func (h *Handler) UpdateComment(ctx context.Context) (*npool.Comment, error) {
 	if err := handler.checkUserComment(ctx); err != nil {
 		return nil, err
 	}
-	if err := commentmwcli.UpdateComment(ctx, &commentmwpb.CommentReq{
-		ID:         h.ID,
-		EntID:      h.EntID,
-		Anonymous:  h.Anonymous,
-		Content:    h.Content,
-		Hide:       h.Hide,
-		HideReason: h.HideReason,
-	}); err != nil {
+
+	commentHandler, err := commentmw.NewHandler(
+		ctx,
+		commentmw.WithID(h.ID, true),
+		commentmw.WithEntID(h.EntID, true),
+		commentmw.WithAnonymous(h.Anonymous, true),
+		commentmw.WithContent(h.Content, true),
+		commentmw.WithHide(h.Hide, true),
+		commentmw.WithHideReason(h.HideReason, true),
+	)
+	if err != nil {
+		return nil, err
+	}
+
+	if err := commentHandler.UpdateComment(ctx); err != nil {
 		return nil, err
 	}
 	return h.GetComment(ctx)

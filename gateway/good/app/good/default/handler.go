@@ -4,10 +4,10 @@ import (
 	"context"
 	"fmt"
 
-	appmwcli "github.com/NpoolPlatform/kunman/middleware/appuser/app"
 	appgoodcommon "github.com/NpoolPlatform/good-gateway/pkg/app/good/common"
-	goodgwcommon "github.com/NpoolPlatform/kunman/pkg/common"
 	constant "github.com/NpoolPlatform/good-middleware/pkg/const"
+	appmw "github.com/NpoolPlatform/kunman/middleware/appuser/app"
+	goodgwcommon "github.com/NpoolPlatform/kunman/pkg/common"
 
 	"github.com/google/uuid"
 )
@@ -68,7 +68,16 @@ func WithAppID(id *string, must bool) func(context.Context, *Handler) error {
 			}
 			return nil
 		}
-		exist, err := appmwcli.ExistApp(ctx, *id)
+
+		handler, err := appmw.NewHandler(
+			ctx,
+			appmw.WithEntID(id, true),
+		)
+		if err != nil {
+			return err
+		}
+
+		exist, err := handler.ExistApp(ctx)
 		if err != nil {
 			return err
 		}

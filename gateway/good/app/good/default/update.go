@@ -3,9 +3,8 @@ package default1
 import (
 	"context"
 
-	defaultmwcli "github.com/NpoolPlatform/kunman/middleware/good/app/good/default"
 	npool "github.com/NpoolPlatform/kunman/message/good/gateway/v1/app/good/default"
-	defaultmwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/app/good/default"
+	defaultmw "github.com/NpoolPlatform/kunman/middleware/good/app/good/default"
 )
 
 type updateHandler struct {
@@ -28,10 +27,16 @@ func (h *Handler) UpdateDefault(ctx context.Context) (*npool.Default, error) {
 		return nil, err
 	}
 
-	if err := defaultmwcli.UpdateDefault(ctx, &defaultmwpb.DefaultReq{
-		ID:        h.ID,
-		AppGoodID: h.AppGoodID,
-	}); err != nil {
+	defaultHandler, err := defaultmw.NewHandler(
+		ctx,
+		defaultmw.WithID(h.ID, true),
+		defaultmw.WithAppGoodID(h.AppGoodID, true),
+	)
+	if err != nil {
+		return nil, err
+	}
+
+	if err := defaultHandler.UpdateDefault(ctx); err != nil {
 		return nil, err
 	}
 	return h.GetDefault(ctx)

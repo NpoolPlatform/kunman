@@ -4,12 +4,12 @@ import (
 	"context"
 	"fmt"
 
-	commentmwcli "github.com/NpoolPlatform/kunman/middleware/good/app/good/comment"
-	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	commentmwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/app/good/comment"
 	ordermwpb "github.com/NpoolPlatform/kunman/message/order/middleware/v1/order"
-	ordermwcli "github.com/NpoolPlatform/order-middleware/pkg/client/order"
+	commentmw "github.com/NpoolPlatform/kunman/middleware/good/app/good/comment"
+	ordermw "github.com/NpoolPlatform/kunman/middleware/order/order"
+	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 )
 
 type checkHandler struct {
@@ -25,7 +25,16 @@ func (h *checkHandler) checkOrder(ctx context.Context) error {
 	if h.OrderID != nil {
 		conds.EntID = &basetypes.StringVal{Op: cruder.EQ, Value: *h.OrderID}
 	}
-	exist, err := ordermwcli.ExistOrderConds(ctx, conds)
+
+	handler, err := ordermw.NewHandler(
+		ctx,
+		ordermw.WithConds(conds),
+	)
+	if err != nil {
+		return err
+	}
+
+	exist, err := handler.ExistOrderConds(ctx)
 	if err != nil {
 		return err
 	}
@@ -42,7 +51,16 @@ func (h *checkHandler) checkUserComment(ctx context.Context) error {
 		AppID:  &basetypes.StringVal{Op: cruder.EQ, Value: *h.AppID},
 		UserID: &basetypes.StringVal{Op: cruder.EQ, Value: *h.CommentUserID},
 	}
-	exist, err := commentmwcli.ExistCommentConds(ctx, conds)
+
+	handler, err := commentmw.NewHandler(
+		ctx,
+		commentmw.WithConds(conds),
+	)
+	if err != nil {
+		return err
+	}
+
+	exist, err := handler.ExistCommentConds(ctx)
 	if err != nil {
 		return err
 	}

@@ -4,14 +4,14 @@ import (
 	"context"
 	"fmt"
 
-	goodgwcommon "github.com/NpoolPlatform/kunman/pkg/common"
-	defaultmwcli "github.com/NpoolPlatform/kunman/middleware/good/app/good/default"
-	cruder "github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 	appmwpb "github.com/NpoolPlatform/kunman/message/appuser/middleware/v1/app"
 	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	coinmwpb "github.com/NpoolPlatform/kunman/message/chain/middleware/v1/coin"
 	npool "github.com/NpoolPlatform/kunman/message/good/gateway/v1/app/good/default"
 	defaultmwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/app/good/default"
+	defaultmw "github.com/NpoolPlatform/kunman/middleware/good/app/good/default"
+	goodgwcommon "github.com/NpoolPlatform/kunman/pkg/common"
+	cruder "github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 )
 
 type queryHandler struct {
@@ -74,7 +74,15 @@ func (h *queryHandler) formalize() {
 }
 
 func (h *Handler) GetDefault(ctx context.Context) (*npool.Default, error) {
-	info, err := defaultmwcli.GetDefault(ctx, *h.EntID)
+	defaultHandler, err := defaultmw.NewHandler(
+		ctx,
+		defaultmw.WithEntID(h.EntID, true),
+	)
+	if err != nil {
+		return nil, err
+	}
+
+	info, err := defaultHandler.GetDefault(ctx)
 	if err != nil {
 		return nil, err
 	}
@@ -104,9 +112,20 @@ func (h *Handler) GetDefault(ctx context.Context) (*npool.Default, error) {
 }
 
 func (h *Handler) GetDefaults(ctx context.Context) ([]*npool.Default, uint32, error) {
-	infos, total, err := defaultmwcli.GetDefaults(ctx, &defaultmwpb.Conds{
+	conds := &defaultmwpb.Conds{
 		AppID: &basetypes.StringVal{Op: cruder.EQ, Value: *h.AppID},
-	}, h.Offset, h.Limit)
+	}
+	defaultHandler, err := defaultmw.NewHandler(
+		ctx,
+		defaultmw.WithConds(conds),
+		defaultmw.WithOffset(h.Offset),
+		defaultmw.WithLimit(h.Limit),
+	)
+	if err != nil {
+		return nil, 0, err
+	}
+
+	infos, total, err := defaultHandler.GetDefaults(ctx)
 	if err != nil {
 		return nil, 0, err
 	}
