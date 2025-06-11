@@ -3,8 +3,8 @@ package brand
 import (
 	"context"
 
-	brandmwcli "github.com/NpoolPlatform/kunman/middleware/good/vender/brand"
 	brandmwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/vender/brand"
+	brandmw "github.com/NpoolPlatform/kunman/middleware/good/vender/brand"
 )
 
 type deleteHandler struct {
@@ -25,7 +25,17 @@ func (h *Handler) DeleteBrand(ctx context.Context) (*brandmwpb.Brand, error) {
 	if err != nil {
 		return nil, err
 	}
-	if err := brandmwcli.DeleteBrand(ctx, h.ID, h.EntID); err != nil {
+
+	brandHandler, err := brandmw.NewHandler(
+		ctx,
+		brandmw.WithID(h.ID, true),
+		brandmw.WithEntID(h.EntID, true),
+	)
+	if err != nil {
+		return nil, err
+	}
+
+	if err := brandHandler.DeleteBrand(ctx); err != nil {
 		return nil, err
 	}
 	return info, nil

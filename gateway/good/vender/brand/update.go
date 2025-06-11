@@ -3,8 +3,8 @@ package brand
 import (
 	"context"
 
-	brandmwcli "github.com/NpoolPlatform/kunman/middleware/good/vender/brand"
 	brandmwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/vender/brand"
+	brandmw "github.com/NpoolPlatform/kunman/middleware/good/vender/brand"
 )
 
 type updateHandler struct {
@@ -21,12 +21,18 @@ func (h *Handler) UpdateBrand(ctx context.Context) (*brandmwpb.Brand, error) {
 		return nil, err
 	}
 
-	if err := brandmwcli.UpdateBrand(ctx, &brandmwpb.BrandReq{
-		ID:    h.ID,
-		EntID: h.EntID,
-		Name:  h.Name,
-		Logo:  h.Logo,
-	}); err != nil {
+	brandHandler, err := brandmw.NewHandler(
+		ctx,
+		brandmw.WithID(h.ID, true),
+		brandmw.WithEntID(h.EntID, true),
+		brandmw.WithName(h.Name, false),
+		brandmw.WithLogo(h.Logo, false),
+	)
+	if err != nil {
+		return nil, err
+	}
+
+	if err := brandHandler.UpdateBrand(ctx); err != nil {
 		return nil, err
 	}
 	return h.GetBrand(ctx)
