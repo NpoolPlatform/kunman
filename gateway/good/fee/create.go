@@ -3,8 +3,8 @@ package fee
 import (
 	"context"
 
-	feemwcli "github.com/NpoolPlatform/kunman/middleware/good/fee"
 	feemwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/fee"
+	feemw "github.com/NpoolPlatform/kunman/middleware/good/fee"
 
 	"github.com/google/uuid"
 )
@@ -16,15 +16,22 @@ func (h *Handler) CreateFee(ctx context.Context) (*feemwpb.Fee, error) {
 	if h.GoodID == nil {
 		h.GoodID = func() *string { s := uuid.NewString(); return &s }()
 	}
-	if err := feemwcli.CreateFee(ctx, &feemwpb.FeeReq{
-		EntID:               h.EntID,
-		GoodID:              h.GoodID,
-		GoodType:            h.GoodType,
-		Name:                h.Name,
-		SettlementType:      h.SettlementType,
-		UnitValue:           h.UnitValue,
-		DurationDisplayType: h.DurationDisplayType,
-	}); err != nil {
+
+	handler, err := feemw.NewHandler(
+		ctx,
+		feemw.WithEntID(h.EntID, true),
+		feemw.WithGoodID(h.GoodID, true),
+		feemw.WithGoodType(h.GoodType, true),
+		feemw.WithName(h.Name, true),
+		feemw.WithSettlementType(h.SettlementType, true),
+		feemw.WithUnitValue(h.UnitValue, true),
+		feemw.WithDurationDisplayType(h.DurationDisplayType, true),
+	)
+	if err != nil {
+		return nil, err
+	}
+
+	if err := handler.CreateFee(ctx); err != nil {
 		return nil, err
 	}
 	return h.GetFee(ctx)

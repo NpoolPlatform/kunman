@@ -3,8 +3,8 @@ package manufacturer
 import (
 	"context"
 
-	manufacturermwcli "github.com/NpoolPlatform/kunman/middleware/good/device/manufacturer"
 	manufacturermwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/device/manufacturer"
+	manufacturermw "github.com/NpoolPlatform/kunman/middleware/good/device/manufacturer"
 )
 
 type deleteHandler struct {
@@ -25,7 +25,17 @@ func (h *Handler) DeleteManufacturer(ctx context.Context) (*manufacturermwpb.Man
 	if err != nil {
 		return nil, err
 	}
-	if err := manufacturermwcli.DeleteManufacturer(ctx, h.ID, h.EntID); err != nil {
+
+	manufacturerHandler, err := manufacturermw.NewHandler(
+		ctx,
+		manufacturermw.WithID(h.ID, true),
+		manufacturermw.WithEntID(h.EntID, true),
+	)
+	if err != nil {
+		return nil, err
+	}
+
+	if err := manufacturerHandler.DeleteManufacturer(ctx); err != nil {
 		return nil, err
 	}
 	return info, nil

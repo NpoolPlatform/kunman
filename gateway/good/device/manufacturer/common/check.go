@@ -4,10 +4,10 @@ import (
 	"context"
 	"fmt"
 
-	manufacturermwcli "github.com/NpoolPlatform/kunman/middleware/good/device/manufacturer"
-	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	manufacturermwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/device/manufacturer"
+	manufacturermw "github.com/NpoolPlatform/kunman/middleware/good/device/manufacturer"
+	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 )
 
 type ManufacturerCheckHandler struct {
@@ -15,9 +15,18 @@ type ManufacturerCheckHandler struct {
 }
 
 func (h *ManufacturerCheckHandler) CheckManufacturerWithManufacturerID(ctx context.Context, manufacturerID string) error {
-	exist, err := manufacturermwcli.ExistManufacturerConds(ctx, &manufacturermwpb.Conds{
+	conds := &manufacturermwpb.Conds{
 		EntID: &basetypes.StringVal{Op: cruder.EQ, Value: manufacturerID},
-	})
+	}
+	handler, err := manufacturermw.NewHandler(
+		ctx,
+		manufacturermw.WithConds(conds),
+	)
+	if err != nil {
+		return err
+	}
+
+	exist, err := handler.ExistManufacturerConds(ctx)
 	if err != nil {
 		return err
 	}

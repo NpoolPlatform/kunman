@@ -3,14 +3,32 @@ package manufacturer
 import (
 	"context"
 
-	manufacturermwcli "github.com/NpoolPlatform/kunman/middleware/good/device/manufacturer"
 	manufacturermwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/device/manufacturer"
+	manufacturermw "github.com/NpoolPlatform/kunman/middleware/good/device/manufacturer"
 )
 
 func (h *Handler) GetManufacturer(ctx context.Context) (*manufacturermwpb.Manufacturer, error) {
-	return manufacturermwcli.GetManufacturer(ctx, *h.EntID)
+	handler, err := manufacturermw.NewHandler(
+		ctx,
+		manufacturermw.WithEntID(h.EntID, true),
+	)
+	if err != nil {
+		return nil, err
+	}
+
+	return handler.GetManufacturer(ctx)
 }
 
 func (h *Handler) GetManufacturers(ctx context.Context) ([]*manufacturermwpb.Manufacturer, uint32, error) {
-	return manufacturermwcli.GetManufacturers(ctx, &manufacturermwpb.Conds{}, h.Offset, h.Limit)
+	handler, err := manufacturermw.NewHandler(
+		ctx,
+		manufacturermw.WithConds(&manufacturermwpb.Conds{}),
+		manufacturermw.WithOffset(h.Offset),
+		manufacturermw.WithLimit(h.Limit),
+	)
+	if err != nil {
+		return nil, 0, err
+	}
+
+	return handler.GetManufacturers(ctx)
 }

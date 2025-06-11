@@ -3,8 +3,8 @@ package manufacturer
 import (
 	"context"
 
-	manufacturermwcli "github.com/NpoolPlatform/kunman/middleware/good/device/manufacturer"
 	manufacturermwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/device/manufacturer"
+	manufacturermw "github.com/NpoolPlatform/kunman/middleware/good/device/manufacturer"
 
 	"github.com/google/uuid"
 )
@@ -13,11 +13,18 @@ func (h *Handler) CreateManufacturer(ctx context.Context) (*manufacturermwpb.Man
 	if h.EntID == nil {
 		h.EntID = func() *string { s := uuid.NewString(); return &s }()
 	}
-	if err := manufacturermwcli.CreateManufacturer(ctx, &manufacturermwpb.ManufacturerReq{
-		EntID: h.EntID,
-		Name:  h.Name,
-		Logo:  h.Logo,
-	}); err != nil {
+
+	handler, err := manufacturermw.NewHandler(
+		ctx,
+		manufacturermw.WithEntID(h.EntID, true),
+		manufacturermw.WithName(h.Name, true),
+		manufacturermw.WithLogo(h.Logo, true),
+	)
+	if err != nil {
+		return nil, err
+	}
+
+	if err := handler.CreateManufacturer(ctx); err != nil {
 		return nil, err
 	}
 	return h.GetManufacturer(ctx)

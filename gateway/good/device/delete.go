@@ -3,8 +3,8 @@ package devicetype
 import (
 	"context"
 
-	devicetypemwcli "github.com/NpoolPlatform/kunman/middleware/good/device"
 	devicetypemwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/device"
+	devicetypemw "github.com/NpoolPlatform/kunman/middleware/good/device"
 )
 
 type deleteHandler struct {
@@ -25,7 +25,17 @@ func (h *Handler) DeleteDeviceType(ctx context.Context) (*devicetypemwpb.DeviceT
 	if err != nil {
 		return nil, err
 	}
-	if err := devicetypemwcli.DeleteDeviceType(ctx, h.ID, h.EntID); err != nil {
+
+	typeHandler, err := devicetypemw.NewHandler(
+		ctx,
+		devicetypemw.WithID(h.ID, true),
+		devicetypemw.WithEntID(h.EntID, true),
+	)
+	if err != nil {
+		return nil, err
+	}
+
+	if err := typeHandler.DeleteDeviceType(ctx); err != nil {
 		return nil, err
 	}
 	return info, nil

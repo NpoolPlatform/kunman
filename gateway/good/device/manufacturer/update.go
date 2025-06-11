@@ -3,8 +3,8 @@ package manufacturer
 import (
 	"context"
 
-	manufacturermwcli "github.com/NpoolPlatform/kunman/middleware/good/device/manufacturer"
 	manufacturermwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/device/manufacturer"
+	manufacturermw "github.com/NpoolPlatform/kunman/middleware/good/device/manufacturer"
 )
 
 type updateHandler struct {
@@ -21,12 +21,18 @@ func (h *Handler) UpdateManufacturer(ctx context.Context) (*manufacturermwpb.Man
 		return nil, err
 	}
 
-	if err := manufacturermwcli.UpdateManufacturer(ctx, &manufacturermwpb.ManufacturerReq{
-		ID:    h.ID,
-		EntID: h.EntID,
-		Name:  h.Name,
-		Logo:  h.Logo,
-	}); err != nil {
+	manufacturerHandler, err := manufacturermw.NewHandler(
+		ctx,
+		manufacturermw.WithID(h.ID, true),
+		manufacturermw.WithEntID(h.EntID, true),
+		manufacturermw.WithName(h.Name, false),
+		manufacturermw.WithLogo(h.Logo, false),
+	)
+	if err != nil {
+		return nil, err
+	}
+
+	if err := manufacturerHandler.UpdateManufacturer(ctx); err != nil {
 		return nil, err
 	}
 	return h.GetManufacturer(ctx)

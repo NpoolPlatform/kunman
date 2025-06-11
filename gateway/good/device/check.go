@@ -4,10 +4,10 @@ import (
 	"context"
 	"fmt"
 
-	devicetypemwcli "github.com/NpoolPlatform/kunman/middleware/good/device"
-	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	devicetypemwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/device"
+	devicetypemw "github.com/NpoolPlatform/kunman/middleware/good/device"
+	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 )
 
 type checkHandler struct {
@@ -15,10 +15,19 @@ type checkHandler struct {
 }
 
 func (h *checkHandler) checkDeviceType(ctx context.Context) error {
-	exist, err := devicetypemwcli.ExistDeviceTypeConds(ctx, &devicetypemwpb.Conds{
+	conds := &devicetypemwpb.Conds{
 		ID:    &basetypes.Uint32Val{Op: cruder.EQ, Value: *h.ID},
 		EntID: &basetypes.StringVal{Op: cruder.EQ, Value: *h.EntID},
-	})
+	}
+	handler, err := devicetypemw.NewHandler(
+		ctx,
+		devicetypemw.WithConds(conds),
+	)
+	if err != nil {
+		return err
+	}
+
+	exist, err := handler.ExistDeviceTypeConds(ctx)
 	if err != nil {
 		return err
 	}

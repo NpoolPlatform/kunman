@@ -3,8 +3,8 @@ package fee
 import (
 	"context"
 
-	feemwcli "github.com/NpoolPlatform/kunman/middleware/good/fee"
 	feemwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/fee"
+	feemw "github.com/NpoolPlatform/kunman/middleware/good/fee"
 )
 
 type updateHandler struct {
@@ -20,16 +20,23 @@ func (h *Handler) UpdateFee(ctx context.Context) (*feemwpb.Fee, error) {
 	if err := handler.checkFee(ctx); err != nil {
 		return nil, err
 	}
-	if err := feemwcli.UpdateFee(ctx, &feemwpb.FeeReq{
-		ID:                  h.ID,
-		EntID:               h.EntID,
-		GoodID:              h.GoodID,
-		GoodType:            h.GoodType,
-		Name:                h.Name,
-		SettlementType:      h.SettlementType,
-		UnitValue:           h.UnitValue,
-		DurationDisplayType: h.DurationDisplayType,
-	}); err != nil {
+
+	feeHandler, err := feemw.NewHandler(
+		ctx,
+		feemw.WithID(h.ID, true),
+		feemw.WithEntID(h.EntID, true),
+		feemw.WithGoodID(h.GoodID, true),
+		feemw.WithGoodType(h.GoodType, true),
+		feemw.WithName(h.Name, true),
+		feemw.WithSettlementType(h.SettlementType, true),
+		feemw.WithUnitValue(h.UnitValue, true),
+		feemw.WithDurationDisplayType(h.DurationDisplayType, true),
+	)
+	if err != nil {
+		return nil, err
+	}
+
+	if err := feeHandler.UpdateFee(ctx); err != nil {
 		return nil, err
 	}
 	return h.GetFee(ctx)
