@@ -4,9 +4,8 @@ import (
 	"context"
 
 	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
-	powerrentalmwcli "github.com/NpoolPlatform/kunman/middleware/good/powerrental"
 	npool "github.com/NpoolPlatform/kunman/message/good/gateway/v1/powerrental"
-	powerrentalmwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/powerrental"
+	powerrentalmw "github.com/NpoolPlatform/kunman/middleware/good/powerrental"
 )
 
 func (h *Handler) UpdatePowerRental(ctx context.Context) (*npool.PowerRental, error) {
@@ -16,31 +15,37 @@ func (h *Handler) UpdatePowerRental(ctx context.Context) (*npool.PowerRental, er
 	if err := handler.checkPowerRental(ctx); err != nil {
 		return nil, wlog.WrapError(err)
 	}
-	if err := powerrentalmwcli.UpdatePowerRental(ctx, &powerrentalmwpb.PowerRentalReq{
-		ID:                   h.ID,
-		EntID:                h.EntID,
-		GoodID:               h.GoodID,
-		DeviceTypeID:         h.DeviceTypeID,
-		VendorLocationID:     h.VendorLocationID,
-		UnitPrice:            h.UnitPrice,
-		QuantityUnit:         h.QuantityUnit,
-		QuantityUnitAmount:   h.QuantityUnitAmount,
-		DeliveryAt:           h.DeliveryAt,
-		UnitLockDeposit:      h.UnitLockDeposit,
-		DurationDisplayType:  h.DurationDisplayType,
-		GoodType:             h.GoodType,
-		Name:                 h.Name,
-		ServiceStartAt:       h.ServiceStartAt,
-		StartMode:            h.StartMode,
-		TestOnly:             h.TestOnly,
-		BenefitIntervalHours: h.BenefitIntervalHours,
-		Purchasable:          h.Purchasable,
-		Online:               h.Online,
-		StockMode:            h.StockMode,
-		State:                h.State,
-		Total:                h.Total,
-		MiningGoodStocks:     h.MiningGoodStocks,
-	}); err != nil {
+
+	prHandler, err := powerrentalmw.NewHandler(
+		ctx,
+		powerrentalmw.WithID(h.ID, true),
+		powerrentalmw.WithEntID(h.EntID, true),
+		powerrentalmw.WithGoodID(h.GoodID, true),
+		powerrentalmw.WithDeviceTypeID(h.DeviceTypeID, false),
+		powerrentalmw.WithVendorLocationID(h.VendorLocationID, false),
+		powerrentalmw.WithUnitPrice(h.UnitPrice, false),
+		powerrentalmw.WithQuantityUnit(h.QuantityUnit, false),
+		powerrentalmw.WithQuantityUnitAmount(h.QuantityUnitAmount, false),
+		powerrentalmw.WithDeliveryAt(h.DeliveryAt, false),
+		powerrentalmw.WithUnitLockDeposit(h.UnitLockDeposit, false),
+		powerrentalmw.WithDurationDisplayType(h.DurationDisplayType, false),
+		powerrentalmw.WithGoodType(h.GoodType, false),
+		powerrentalmw.WithName(h.Name, false),
+		powerrentalmw.WithServiceStartAt(h.ServiceStartAt, false),
+		powerrentalmw.WithStartMode(h.StartMode, false),
+		powerrentalmw.WithTestOnly(h.TestOnly, false),
+		powerrentalmw.WithBenefitIntervalHours(h.BenefitIntervalHours, false),
+		powerrentalmw.WithPurchasable(h.Purchasable, false),
+		powerrentalmw.WithOnline(h.Online, false),
+		powerrentalmw.WithStockMode(h.StockMode, false),
+		powerrentalmw.WithTotal(h.Total, false),
+		powerrentalmw.WithStocks(h.MiningGoodStocks, false),
+	)
+	if err != nil {
+		return nil, err
+	}
+
+	if err := prHandler.UpdatePowerRental(ctx); err != nil {
 		return nil, wlog.WrapError(err)
 	}
 	return h.GetPowerRental(ctx)

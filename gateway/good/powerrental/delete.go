@@ -4,8 +4,8 @@ import (
 	"context"
 
 	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
-	powerrentalmwcli "github.com/NpoolPlatform/kunman/middleware/good/powerrental"
 	npool "github.com/NpoolPlatform/kunman/message/good/gateway/v1/powerrental"
+	powerrentalmw "github.com/NpoolPlatform/kunman/middleware/good/powerrental"
 )
 
 func (h *Handler) DeletePowerRental(ctx context.Context) (*npool.PowerRental, error) {
@@ -19,7 +19,18 @@ func (h *Handler) DeletePowerRental(ctx context.Context) (*npool.PowerRental, er
 	if err != nil {
 		return nil, wlog.WrapError(err)
 	}
-	if err := powerrentalmwcli.DeletePowerRental(ctx, h.ID, h.EntID, h.GoodID); err != nil {
+
+	prHandler, err := powerrentalmw.NewHandler(
+		ctx,
+		powerrentalmw.WithID(h.ID, true),
+		powerrentalmw.WithEntID(h.EntID, true),
+		powerrentalmw.WithGoodID(h.GoodID, true),
+	)
+	if err != nil {
+		return nil, wlog.WrapError(err)
+	}
+
+	if err := prHandler.DeletePowerRental(ctx); err != nil {
 		return nil, wlog.WrapError(err)
 	}
 	return info, nil

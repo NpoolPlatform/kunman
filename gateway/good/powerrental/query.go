@@ -4,8 +4,6 @@ import (
 	"context"
 	"fmt"
 
-	goodgwcommon "github.com/NpoolPlatform/kunman/pkg/common"
-	powerrentalmwcli "github.com/NpoolPlatform/kunman/middleware/good/powerrental"
 	coinmwpb "github.com/NpoolPlatform/kunman/message/chain/middleware/v1/coin"
 	goodcoingwpb "github.com/NpoolPlatform/kunman/message/good/gateway/v1/good/coin"
 	goodcoinrewardgwpb "github.com/NpoolPlatform/kunman/message/good/gateway/v1/good/coin/reward"
@@ -13,6 +11,8 @@ import (
 	npool "github.com/NpoolPlatform/kunman/message/good/gateway/v1/powerrental"
 	powerrentalmwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/powerrental"
 	goodusermwpb "github.com/NpoolPlatform/kunman/message/miningpool/middleware/v1/gooduser"
+	powerrentalmw "github.com/NpoolPlatform/kunman/middleware/good/powerrental"
+	goodgwcommon "github.com/NpoolPlatform/kunman/pkg/common"
 )
 
 type queryHandler struct {
@@ -176,7 +176,15 @@ func (h *queryHandler) formalize() {
 }
 
 func (h *Handler) GetPowerRental(ctx context.Context) (*npool.PowerRental, error) {
-	powerRental, err := powerrentalmwcli.GetPowerRental(ctx, *h.GoodID)
+	prHandler, err := powerrentalmw.NewHandler(
+		ctx,
+		powerrentalmw.WithGoodID(h.GoodID, true),
+	)
+	if err != nil {
+		return nil, err
+	}
+
+	powerRental, err := prHandler.GetPowerRental(ctx)
 	if err != nil {
 		return nil, err
 	}
@@ -205,7 +213,17 @@ func (h *Handler) GetPowerRental(ctx context.Context) (*npool.PowerRental, error
 }
 
 func (h *Handler) GetPowerRentals(ctx context.Context) ([]*npool.PowerRental, uint32, error) {
-	powerRentals, total, err := powerrentalmwcli.GetPowerRentals(ctx, &powerrentalmwpb.Conds{}, h.Offset, h.Limit)
+	prHandler, err := powerrentalmw.NewHandler(
+		ctx,
+		powerrentalmw.WithConds(&powerrentalmwpb.Conds{}),
+		powerrentalmw.WithOffset(h.Offset),
+		powerrentalmw.WithLimit(h.Limit),
+	)
+	if err != nil {
+		return nil, 0, err
+	}
+
+	powerRentals, total, err := prHandler.GetPowerRentals(ctx)
 	if err != nil {
 		return nil, 0, err
 	}
