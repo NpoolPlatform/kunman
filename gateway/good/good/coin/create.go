@@ -3,15 +3,14 @@ package goodcoin
 import (
 	"context"
 
-	coinmwcli "github.com/NpoolPlatform/kunman/middleware/chain/coin"
-	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
 	constant "github.com/NpoolPlatform/good-gateway/pkg/const"
-	goodcoinmwcli "github.com/NpoolPlatform/kunman/middleware/good/good/coin"
-	cruder "github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
+	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
 	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	coinmwpb "github.com/NpoolPlatform/kunman/message/chain/middleware/v1/coin"
 	npool "github.com/NpoolPlatform/kunman/message/good/gateway/v1/good/coin"
-	goodcoinmwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/good/coin"
+	coinmw "github.com/NpoolPlatform/kunman/middleware/chain/coin"
+	goodcoinmw "github.com/NpoolPlatform/kunman/middleware/good/good/coin"
+	cruder "github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 
 	"github.com/google/uuid"
 )
@@ -40,10 +39,20 @@ func (h *createHandler) validateCandidateCoin(ctx context.Context) error {
 	if len(h.goodCoins) == 0 {
 		return nil
 	}
-	exist, err := coinmwcli.ExistCoinConds(ctx, &coinmwpb.Conds{
+
+	conds := &coinmwpb.Conds{
 		EntID: &basetypes.StringVal{Op: cruder.EQ, Value: *h.CoinTypeID},
 		ENV:   &basetypes.StringVal{Op: cruder.EQ, Value: h.goodCoins[0].CoinENV},
-	})
+	}
+	handler, err := coinmw.NewHandler(
+		ctx,
+		coinmw.WithConds(conds),
+	)
+	if err != nil {
+		return err
+	}
+
+	exist, err := handler.ExistCoinConds(ctx)
 	if err != nil {
 		return wlog.WrapError(err)
 	}
@@ -66,13 +75,20 @@ func (h *Handler) CreateGoodCoin(ctx context.Context) (*npool.GoodCoin, error) {
 	if h.EntID == nil {
 		h.EntID = func() *string { s := uuid.NewString(); return &s }()
 	}
-	if err := goodcoinmwcli.CreateGoodCoin(ctx, &goodcoinmwpb.GoodCoinReq{
-		EntID:      h.EntID,
-		GoodID:     h.GoodID,
-		CoinTypeID: h.CoinTypeID,
-		Main:       h.Main,
-		Index:      h.Index,
-	}); err != nil {
+
+	coinHandler, err := goodcoinmw.NewHandler(
+		ctx,
+		goodcoinmw.WithEntID(h.EntID, true),
+		goodcoinmw.WithGoodID(h.GoodID, true),
+		goodcoinmw.WithCoinTypeID(h.CoinTypeID, true),
+		goodcoinmw.WithMain(h.Main, true),
+		goodcoinmw.WithIndex(h.Index, true),
+	)
+	if err != nil {
+		return nil, err
+	}
+
+	if err := coinHandler.CreateGoodCoin(ctx); err != nil {
 		return nil, wlog.WrapError(err)
 	}
 	return h.GetGoodCoin(ctx)

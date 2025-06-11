@@ -3,9 +3,8 @@ package malfunction
 import (
 	"context"
 
-	malfunctionmwcli "github.com/NpoolPlatform/kunman/middleware/good/good/malfunction"
 	npool "github.com/NpoolPlatform/kunman/message/good/gateway/v1/good/malfunction"
-	malfunctionmwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/good/malfunction"
+	malfunctionmw "github.com/NpoolPlatform/kunman/middleware/good/good/malfunction"
 )
 
 type updateHandler struct {
@@ -22,15 +21,21 @@ func (h *Handler) UpdateMalfunction(ctx context.Context) (*npool.Malfunction, er
 		return nil, err
 	}
 
-	if err := malfunctionmwcli.UpdateMalfunction(ctx, &malfunctionmwpb.MalfunctionReq{
-		ID:                h.ID,
-		EntID:             h.EntID,
-		Title:             h.Title,
-		Message:           h.Message,
-		StartAt:           h.StartAt,
-		DurationSeconds:   h.DurationSeconds,
-		CompensateSeconds: h.CompensateSeconds,
-	}); err != nil {
+	malfunctionHandler, err := malfunctionmw.NewHandler(
+		ctx,
+		malfunctionmw.WithID(h.ID, true),
+		malfunctionmw.WithEntID(h.EntID, true),
+		malfunctionmw.WithTitle(h.Title, false),
+		malfunctionmw.WithMessage(h.Message, false),
+		malfunctionmw.WithStartAt(h.StartAt, false),
+		malfunctionmw.WithDurationSeconds(h.DurationSeconds, false),
+		malfunctionmw.WithCompensateSeconds(h.CompensateSeconds, false),
+	)
+	if err != nil {
+		return nil, err
+	}
+
+	if err := malfunctionHandler.UpdateMalfunction(ctx); err != nil {
 		return nil, err
 	}
 	return h.GetMalfunction(ctx)

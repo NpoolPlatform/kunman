@@ -4,12 +4,12 @@ import (
 	"context"
 
 	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
-	goodgwcommon "github.com/NpoolPlatform/kunman/pkg/common"
-	malfunctionmwcli "github.com/NpoolPlatform/kunman/middleware/good/good/malfunction"
-	cruder "github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	npool "github.com/NpoolPlatform/kunman/message/good/gateway/v1/good/malfunction"
 	malfunctionmwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/good/malfunction"
+	malfunctionmw "github.com/NpoolPlatform/kunman/middleware/good/good/malfunction"
+	goodgwcommon "github.com/NpoolPlatform/kunman/pkg/common"
+	cruder "github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 )
 
 type queryHandler struct {
@@ -50,7 +50,15 @@ func (h *queryHandler) formalize() {
 }
 
 func (h *Handler) GetMalfunction(ctx context.Context) (*npool.Malfunction, error) {
-	info, err := malfunctionmwcli.GetMalfunction(ctx, *h.EntID)
+	malfunctionHandler, err := malfunctionmw.NewHandler(
+		ctx,
+		malfunctionmw.WithEntID(h.EntID, true),
+	)
+	if err != nil {
+		return nil, wlog.WrapError(err)
+	}
+
+	info, err := malfunctionHandler.GetMalfunction(ctx)
 	if err != nil {
 		return nil, wlog.WrapError(err)
 	}
@@ -75,7 +83,18 @@ func (h *Handler) GetMalfunctions(ctx context.Context) ([]*npool.Malfunction, ui
 	if h.GoodID != nil {
 		conds.GoodID = &basetypes.StringVal{Op: cruder.EQ, Value: *h.GoodID}
 	}
-	infos, total, err := malfunctionmwcli.GetMalfunctions(ctx, conds, h.Offset, h.Limit)
+
+	malfunctionHandler, err := malfunctionmw.NewHandler(
+		ctx,
+		malfunctionmw.WithConds(conds),
+		malfunctionmw.WithOffset(h.Offset),
+		malfunctionmw.WithLimit(h.Limit),
+	)
+	if err != nil {
+		return nil, 0, wlog.WrapError(err)
+	}
+
+	infos, total, err := malfunctionHandler.GetMalfunctions(ctx)
 	if err != nil {
 		return nil, 0, wlog.WrapError(err)
 	}

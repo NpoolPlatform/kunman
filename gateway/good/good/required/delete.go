@@ -3,8 +3,8 @@ package required
 import (
 	"context"
 
-	requiredmwcli "github.com/NpoolPlatform/kunman/middleware/good/good/required"
 	requiredmwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/good/required"
+	requiredmw "github.com/NpoolPlatform/kunman/middleware/good/good/required"
 )
 
 type deleteHandler struct {
@@ -25,7 +25,17 @@ func (h *Handler) DeleteRequired(ctx context.Context) (*requiredmwpb.Required, e
 	if err != nil {
 		return nil, err
 	}
-	if err := requiredmwcli.DeleteRequired(ctx, h.ID, h.EntID); err != nil {
+
+	requiredHandler, err := requiredmw.NewHandler(
+		ctx,
+		requiredmw.WithID(h.ID, true),
+		requiredmw.WithEntID(h.EntID, true),
+	)
+	if err != nil {
+		return nil, err
+	}
+
+	if err := requiredHandler.DeleteRequired(ctx); err != nil {
 		return nil, err
 	}
 	return info, nil

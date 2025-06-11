@@ -4,13 +4,13 @@ import (
 	"context"
 
 	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
-	goodgwcommon "github.com/NpoolPlatform/kunman/pkg/common"
-	goodcoinmwcli "github.com/NpoolPlatform/kunman/middleware/good/good/coin"
-	cruder "github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	coinmwpb "github.com/NpoolPlatform/kunman/message/chain/middleware/v1/coin"
 	npool "github.com/NpoolPlatform/kunman/message/good/gateway/v1/good/coin"
 	goodcoinmwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/good/coin"
+	goodcoinmw "github.com/NpoolPlatform/kunman/middleware/good/good/coin"
+	goodgwcommon "github.com/NpoolPlatform/kunman/pkg/common"
+	cruder "github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 )
 
 type queryHandler struct {
@@ -56,7 +56,15 @@ func (h *queryHandler) formalize() {
 }
 
 func (h *Handler) GetGoodCoin(ctx context.Context) (*npool.GoodCoin, error) {
-	info, err := goodcoinmwcli.GetGoodCoin(ctx, *h.EntID)
+	coinHandler, err := goodcoinmw.NewHandler(
+		ctx,
+		goodcoinmw.WithEntID(h.EntID, true),
+	)
+	if err != nil {
+		return nil, err
+	}
+
+	info, err := coinHandler.GetGoodCoin(ctx)
 	if err != nil {
 		return nil, wlog.WrapError(err)
 	}
@@ -83,7 +91,17 @@ func (h *Handler) GetGoodCoins(ctx context.Context) ([]*npool.GoodCoin, uint32, 
 		conds.GoodID = &basetypes.StringVal{Op: cruder.EQ, Value: *h.GoodID}
 	}
 
-	infos, total, err := goodcoinmwcli.GetGoodCoins(ctx, conds, h.Offset, h.Limit)
+	coinHandler, err := goodcoinmw.NewHandler(
+		ctx,
+		goodcoinmw.WithConds(conds),
+		goodcoinmw.WithOffset(h.Offset),
+		goodcoinmw.WithLimit(h.Limit),
+	)
+	if err != nil {
+		return nil, 0, err
+	}
+
+	infos, total, err := coinHandler.GetGoodCoins(ctx)
 	if err != nil {
 		return nil, 0, wlog.WrapError(err)
 	}

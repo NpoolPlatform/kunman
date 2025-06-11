@@ -3,8 +3,8 @@ package required
 import (
 	"context"
 
-	requiredmwcli "github.com/NpoolPlatform/kunman/middleware/good/good/required"
 	requiredmwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/good/required"
+	requiredmw "github.com/NpoolPlatform/kunman/middleware/good/good/required"
 )
 
 type updateHandler struct {
@@ -21,10 +21,17 @@ func (h *Handler) UpdateRequired(ctx context.Context) (*requiredmwpb.Required, e
 		return nil, err
 	}
 
-	if err := requiredmwcli.UpdateRequired(ctx, &requiredmwpb.RequiredReq{
-		ID:   h.ID,
-		Must: h.Must,
-	}); err != nil {
+	requiredHandler, err := requiredmw.NewHandler(
+		ctx,
+		requiredmw.WithID(h.ID, true),
+		requiredmw.WithEntID(h.EntID, true),
+		requiredmw.WithMust(h.Must, false),
+	)
+	if err != nil {
+		return nil, err
+	}
+
+	if err := requiredHandler.UpdateRequired(ctx); err != nil {
 		return nil, err
 	}
 	return h.GetRequired(ctx)

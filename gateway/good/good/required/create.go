@@ -3,8 +3,8 @@ package required
 import (
 	"context"
 
-	requiredmwcli "github.com/NpoolPlatform/kunman/middleware/good/good/required"
 	requiredmwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/good/required"
+	requiredmw "github.com/NpoolPlatform/kunman/middleware/good/good/required"
 
 	"github.com/google/uuid"
 )
@@ -13,12 +13,19 @@ func (h *Handler) CreateRequired(ctx context.Context) (*requiredmwpb.Required, e
 	if h.EntID == nil {
 		h.EntID = func() *string { s := uuid.NewString(); return &s }()
 	}
-	if err := requiredmwcli.CreateRequired(ctx, &requiredmwpb.RequiredReq{
-		EntID:          h.EntID,
-		MainGoodID:     h.MainGoodID,
-		RequiredGoodID: h.RequiredGoodID,
-		Must:           h.Must,
-	}); err != nil {
+
+	handler, err := requiredmw.NewHandler(
+		ctx,
+		requiredmw.WithEntID(h.EntID, true),
+		requiredmw.WithMainGoodID(h.MainGoodID, true),
+		requiredmw.WithRequiredGoodID(h.RequiredGoodID, true),
+		requiredmw.WithMust(h.Must, true),
+	)
+	if err != nil {
+		return nil, err
+	}
+
+	if err := handler.CreateRequired(ctx); err != nil {
 		return nil, err
 	}
 	return h.GetRequired(ctx)

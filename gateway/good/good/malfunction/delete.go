@@ -3,8 +3,8 @@ package malfunction
 import (
 	"context"
 
-	malfunctionmwcli "github.com/NpoolPlatform/kunman/middleware/good/good/malfunction"
 	npool "github.com/NpoolPlatform/kunman/message/good/gateway/v1/good/malfunction"
+	malfunctionmw "github.com/NpoolPlatform/kunman/middleware/good/good/malfunction"
 )
 
 type deleteHandler struct {
@@ -25,7 +25,17 @@ func (h *Handler) DeleteMalfunction(ctx context.Context) (*npool.Malfunction, er
 	if err != nil {
 		return nil, err
 	}
-	if err := malfunctionmwcli.DeleteMalfunction(ctx, h.ID, h.EntID); err != nil {
+
+	malfunctionHandler, err := malfunctionmw.NewHandler(
+		ctx,
+		malfunctionmw.WithID(h.ID, true),
+		malfunctionmw.WithEntID(h.EntID, true),
+	)
+	if err != nil {
+		return nil, err
+	}
+
+	if err := malfunctionHandler.DeleteMalfunction(ctx); err != nil {
 		return nil, err
 	}
 	return info, nil

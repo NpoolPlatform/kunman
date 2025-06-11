@@ -3,9 +3,8 @@ package goodcoin
 import (
 	"context"
 
-	goodcoinmwcli "github.com/NpoolPlatform/kunman/middleware/good/good/coin"
 	npool "github.com/NpoolPlatform/kunman/message/good/gateway/v1/good/coin"
-	goodcoinmwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/good/coin"
+	goodcoinmw "github.com/NpoolPlatform/kunman/middleware/good/good/coin"
 )
 
 type updateHandler struct {
@@ -21,12 +20,19 @@ func (h *Handler) UpdateGoodCoin(ctx context.Context) (*npool.GoodCoin, error) {
 	if err := handler.checkGoodCoin(ctx); err != nil {
 		return nil, err
 	}
-	if err := goodcoinmwcli.UpdateGoodCoin(ctx, &goodcoinmwpb.GoodCoinReq{
-		ID:    h.ID,
-		EntID: h.EntID,
-		Main:  h.Main,
-		Index: h.Index,
-	}); err != nil {
+
+	coinHandler, err := goodcoinmw.NewHandler(
+		ctx,
+		goodcoinmw.WithID(h.ID, true),
+		goodcoinmw.WithEntID(h.EntID, true),
+		goodcoinmw.WithMain(h.Main, true),
+		goodcoinmw.WithIndex(h.Index, true),
+	)
+	if err != nil {
+		return nil, err
+	}
+
+	if err := coinHandler.UpdateGoodCoin(ctx); err != nil {
 		return nil, err
 	}
 	return h.GetGoodCoin(ctx)
