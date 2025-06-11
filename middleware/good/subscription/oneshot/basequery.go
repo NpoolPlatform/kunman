@@ -123,7 +123,6 @@ func (h *baseQueryHandler) queryJoinOneShot(s *sql.Selector) error {
 		t1.C(entoneshot.FieldGoodID),
 		t1.C(entoneshot.FieldQuota),
 		t1.C(entoneshot.FieldUsdPrice),
-		t1.C(entoneshot.FieldLifeSeconds),
 	)
 	return nil
 }

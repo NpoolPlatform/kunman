@@ -206,33 +206,6 @@ func (sosu *SubscriptionOneShotUpdate) ClearUsdPrice() *SubscriptionOneShotUpdat
 	return sosu
 }
 
-// SetLifeSeconds sets the "life_seconds" field.
-func (sosu *SubscriptionOneShotUpdate) SetLifeSeconds(u uint32) *SubscriptionOneShotUpdate {
-	sosu.mutation.ResetLifeSeconds()
-	sosu.mutation.SetLifeSeconds(u)
-	return sosu
-}
-
-// SetNillableLifeSeconds sets the "life_seconds" field if the given value is not nil.
-func (sosu *SubscriptionOneShotUpdate) SetNillableLifeSeconds(u *uint32) *SubscriptionOneShotUpdate {
-	if u != nil {
-		sosu.SetLifeSeconds(*u)
-	}
-	return sosu
-}
-
-// AddLifeSeconds adds u to the "life_seconds" field.
-func (sosu *SubscriptionOneShotUpdate) AddLifeSeconds(u int32) *SubscriptionOneShotUpdate {
-	sosu.mutation.AddLifeSeconds(u)
-	return sosu
-}
-
-// ClearLifeSeconds clears the value of the "life_seconds" field.
-func (sosu *SubscriptionOneShotUpdate) ClearLifeSeconds() *SubscriptionOneShotUpdate {
-	sosu.mutation.ClearLifeSeconds()
-	return sosu
-}
-
 // Mutation returns the SubscriptionOneShotMutation object of the builder.
 func (sosu *SubscriptionOneShotUpdate) Mutation() *SubscriptionOneShotMutation {
 	return sosu.mutation
@@ -342,15 +315,6 @@ func (sosu *SubscriptionOneShotUpdate) sqlSave(ctx context.Context) (n int, err 
 	}
 	if sosu.mutation.UsdPriceCleared() {
 		_spec.ClearField(subscriptiononeshot.FieldUsdPrice, field.TypeOther)
-	}
-	if value, ok := sosu.mutation.LifeSeconds(); ok {
-		_spec.SetField(subscriptiononeshot.FieldLifeSeconds, field.TypeUint32, value)
-	}
-	if value, ok := sosu.mutation.AddedLifeSeconds(); ok {
-		_spec.AddField(subscriptiononeshot.FieldLifeSeconds, field.TypeUint32, value)
-	}
-	if sosu.mutation.LifeSecondsCleared() {
-		_spec.ClearField(subscriptiononeshot.FieldLifeSeconds, field.TypeUint32)
 	}
 	_spec.AddModifiers(sosu.modifiers...)
 	if n, err = sqlgraph.UpdateNodes(ctx, sosu.driver, _spec); err != nil {
@@ -550,33 +514,6 @@ func (sosuo *SubscriptionOneShotUpdateOne) ClearUsdPrice() *SubscriptionOneShotU
 	return sosuo
 }
 
-// SetLifeSeconds sets the "life_seconds" field.
-func (sosuo *SubscriptionOneShotUpdateOne) SetLifeSeconds(u uint32) *SubscriptionOneShotUpdateOne {
-	sosuo.mutation.ResetLifeSeconds()
-	sosuo.mutation.SetLifeSeconds(u)
-	return sosuo
-}
-
-// SetNillableLifeSeconds sets the "life_seconds" field if the given value is not nil.
-func (sosuo *SubscriptionOneShotUpdateOne) SetNillableLifeSeconds(u *uint32) *SubscriptionOneShotUpdateOne {
-	if u != nil {
-		sosuo.SetLifeSeconds(*u)
-	}
-	return sosuo
-}
-
-// AddLifeSeconds adds u to the "life_seconds" field.
-func (sosuo *SubscriptionOneShotUpdateOne) AddLifeSeconds(u int32) *SubscriptionOneShotUpdateOne {
-	sosuo.mutation.AddLifeSeconds(u)
-	return sosuo
-}
-
-// ClearLifeSeconds clears the value of the "life_seconds" field.
-func (sosuo *SubscriptionOneShotUpdateOne) ClearLifeSeconds() *SubscriptionOneShotUpdateOne {
-	sosuo.mutation.ClearLifeSeconds()
-	return sosuo
-}
-
 // Mutation returns the SubscriptionOneShotMutation object of the builder.
 func (sosuo *SubscriptionOneShotUpdateOne) Mutation() *SubscriptionOneShotMutation {
 	return sosuo.mutation
@@ -716,15 +653,6 @@ func (sosuo *SubscriptionOneShotUpdateOne) sqlSave(ctx context.Context) (_node *
 	}
 	if sosuo.mutation.UsdPriceCleared() {
 		_spec.ClearField(subscriptiononeshot.FieldUsdPrice, field.TypeOther)
-	}
-	if value, ok := sosuo.mutation.LifeSeconds(); ok {
-		_spec.SetField(subscriptiononeshot.FieldLifeSeconds, field.TypeUint32, value)
-	}
-	if value, ok := sosuo.mutation.AddedLifeSeconds(); ok {
-		_spec.AddField(subscriptiononeshot.FieldLifeSeconds, field.TypeUint32, value)
-	}
-	if sosuo.mutation.LifeSecondsCleared() {
-		_spec.ClearField(subscriptiononeshot.FieldLifeSeconds, field.TypeUint32)
 	}
 	_spec.AddModifiers(sosuo.modifiers...)
 	_node = &SubscriptionOneShot{config: sosuo.config}

@@ -51,10 +51,9 @@ func (h *updateHandler) updateOneShot(ctx context.Context, tx *ent.Tx) error {
 	if _, err := oneshotcrud.UpdateSet(
 		tx.SubscriptionOneShot.UpdateOneID(*h.ID),
 		&oneshotcrud.Req{
-			Name:        h.Name,
-			Quota:       h.Quota,
-			USDPrice:    h.USDPrice,
-			LifeSeconds: h.LifeSeconds,
+			Name:     h.Name,
+			Quota:    h.Quota,
+			USDPrice: h.USDPrice,
 		},
 	).Save(ctx); err != nil {
 		return wlog.WrapError(err)

@@ -1322,7 +1322,6 @@ var (
 		{Name: "name", Type: field.TypeString, Nullable: true, Default: ""},
 		{Name: "quota", Type: field.TypeUint32, Nullable: true, Default: 1080},
 		{Name: "usd_price", Type: field.TypeOther, Nullable: true, SchemaType: map[string]string{"mysql": "decimal(37,18)"}},
-		{Name: "life_seconds", Type: field.TypeUint32, Nullable: true, Default: 0},
 	}
 	// SubscriptionOneShotsTable holds the schema information for the "subscription_one_shots" table.
 	SubscriptionOneShotsTable = &schema.Table{

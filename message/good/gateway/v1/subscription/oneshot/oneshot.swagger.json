@@ -211,18 +211,7 @@
         "Name": {
           "type": "string"
         },
-        "DurationDisplayType": {
-          "$ref": "#/definitions/v1GoodDurationType"
-        },
-        "DurationUints": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "DurationQuota": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "DailyBonusQuota": {
+        "Quota": {
           "type": "integer",
           "format": "int64"
         },
@@ -278,18 +267,7 @@
         "Name": {
           "type": "string"
         },
-        "DurationDisplayType": {
-          "$ref": "#/definitions/v1GoodDurationType"
-        },
-        "DurationUints": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "DurationQuota": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "DailyBonusQuota": {
+        "Quota": {
           "type": "integer",
           "format": "int64"
         },
@@ -345,18 +323,6 @@
           }
         }
       }
-    },
-    "v1GoodDurationType": {
-      "type": "string",
-      "enum": [
-        "DefaultGoodDurationType",
-        "GoodDurationByHour",
-        "GoodDurationByDay",
-        "GoodDurationByMonth",
-        "GoodDurationByYear",
-        "GoodDurationByWeek"
-      ],
-      "default": "DefaultGoodDurationType"
     },
     "v1GoodType": {
       "type": "string",

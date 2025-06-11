@@ -50,10 +50,6 @@ func (SubscriptionOneShot) Fields() []ent.Field {
 			}).
 			Optional().
 			Default(decimal.Decimal{}),
-		field.
-			Uint32("life_seconds").
-			Optional().
-			Default(0),
 	}
 }
 

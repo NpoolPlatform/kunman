@@ -159,19 +159,6 @@ func WithUSDPrice(s *string, must bool) func(context.Context, *Handler) error {
 	}
 }
 
-func WithLifeSeconds(u *uint32, must bool) func(context.Context, *Handler) error {
-	return func(ctx context.Context, h *Handler) error {
-		if u == nil || *u == 0 {
-			if must {
-				return wlog.Errorf("invalid lifeseconds")
-			}
-			return nil
-		}
-		h.LifeSeconds = u
-		return nil
-	}
-}
-
 func (h *Handler) withOneShotConds(conds *npool.Conds) error {
 	if conds.ID != nil {
 		h.OneShotConds.ID = &cruder.Cond{

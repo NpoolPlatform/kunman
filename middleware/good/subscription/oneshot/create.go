@@ -44,12 +44,11 @@ func (h *createHandler) createOneShot(ctx context.Context, tx *ent.Tx) error {
 	if _, err := oneshotcrud.CreateSet(
 		tx.SubscriptionOneShot.Create(),
 		&oneshotcrud.Req{
-			EntID:       h.EntID,
-			GoodID:      h.GoodID,
-			Name:        h.Name,
-			Quota:       h.Quota,
-			USDPrice:    h.USDPrice,
-			LifeSeconds: h.LifeSeconds,
+			EntID:    h.EntID,
+			GoodID:   h.GoodID,
+			Name:     h.Name,
+			Quota:    h.Quota,
+			USDPrice: h.USDPrice,
 		},
 	).Save(ctx); err != nil {
 		return err

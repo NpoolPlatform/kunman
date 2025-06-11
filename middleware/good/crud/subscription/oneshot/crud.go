@@ -12,14 +12,13 @@ import (
 )
 
 type Req struct {
-	EntID       *uuid.UUID
-	GoodID      *uuid.UUID
-	GoodType    *types.GoodType
-	Name        *string
-	Quota       *uint32
-	USDPrice    *decimal.Decimal
-	LifeSeconds *uint32
-	DeletedAt   *uint32
+	EntID     *uuid.UUID
+	GoodID    *uuid.UUID
+	GoodType  *types.GoodType
+	Name      *string
+	Quota     *uint32
+	USDPrice  *decimal.Decimal
+	DeletedAt *uint32
 }
 
 func CreateSet(c *ent.SubscriptionOneShotCreate, req *Req) *ent.SubscriptionOneShotCreate {
@@ -41,9 +40,6 @@ func CreateSet(c *ent.SubscriptionOneShotCreate, req *Req) *ent.SubscriptionOneS
 	if req.USDPrice != nil {
 		c.SetUsdPrice(*req.USDPrice)
 	}
-	if req.LifeSeconds != nil {
-		c.SetLifeSeconds(*req.LifeSeconds)
-	}
 	return c
 }
 
@@ -53,9 +49,6 @@ func UpdateSet(u *ent.SubscriptionOneShotUpdateOne, req *Req) *ent.SubscriptionO
 	}
 	if req.Quota != nil {
 		u.SetQuota(*req.Quota)
-	}
-	if req.LifeSeconds != nil {
-		u.SetLifeSeconds(*req.LifeSeconds)
 	}
 	if req.USDPrice != nil {
 		u.SetUsdPrice(*req.USDPrice)

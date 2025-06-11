@@ -1073,16 +1073,15 @@ var schemaGraph = func() *sqlgraph.Schema {
 		},
 		Type: "SubscriptionOneShot",
 		Fields: map[string]*sqlgraph.FieldSpec{
-			subscriptiononeshot.FieldEntID:       {Type: field.TypeUUID, Column: subscriptiononeshot.FieldEntID},
-			subscriptiononeshot.FieldCreatedAt:   {Type: field.TypeUint32, Column: subscriptiononeshot.FieldCreatedAt},
-			subscriptiononeshot.FieldUpdatedAt:   {Type: field.TypeUint32, Column: subscriptiononeshot.FieldUpdatedAt},
-			subscriptiononeshot.FieldDeletedAt:   {Type: field.TypeUint32, Column: subscriptiononeshot.FieldDeletedAt},
-			subscriptiononeshot.FieldGoodID:      {Type: field.TypeUUID, Column: subscriptiononeshot.FieldGoodID},
-			subscriptiononeshot.FieldGoodType:    {Type: field.TypeString, Column: subscriptiononeshot.FieldGoodType},
-			subscriptiononeshot.FieldName:        {Type: field.TypeString, Column: subscriptiononeshot.FieldName},
-			subscriptiononeshot.FieldQuota:       {Type: field.TypeUint32, Column: subscriptiononeshot.FieldQuota},
-			subscriptiononeshot.FieldUsdPrice:    {Type: field.TypeOther, Column: subscriptiononeshot.FieldUsdPrice},
-			subscriptiononeshot.FieldLifeSeconds: {Type: field.TypeUint32, Column: subscriptiononeshot.FieldLifeSeconds},
+			subscriptiononeshot.FieldEntID:     {Type: field.TypeUUID, Column: subscriptiononeshot.FieldEntID},
+			subscriptiononeshot.FieldCreatedAt: {Type: field.TypeUint32, Column: subscriptiononeshot.FieldCreatedAt},
+			subscriptiononeshot.FieldUpdatedAt: {Type: field.TypeUint32, Column: subscriptiononeshot.FieldUpdatedAt},
+			subscriptiononeshot.FieldDeletedAt: {Type: field.TypeUint32, Column: subscriptiononeshot.FieldDeletedAt},
+			subscriptiononeshot.FieldGoodID:    {Type: field.TypeUUID, Column: subscriptiononeshot.FieldGoodID},
+			subscriptiononeshot.FieldGoodType:  {Type: field.TypeString, Column: subscriptiononeshot.FieldGoodType},
+			subscriptiononeshot.FieldName:      {Type: field.TypeString, Column: subscriptiononeshot.FieldName},
+			subscriptiononeshot.FieldQuota:     {Type: field.TypeUint32, Column: subscriptiononeshot.FieldQuota},
+			subscriptiononeshot.FieldUsdPrice:  {Type: field.TypeOther, Column: subscriptiononeshot.FieldUsdPrice},
 		},
 	}
 	graph.Nodes[43] = &sqlgraph.Node{
@@ -5285,11 +5284,6 @@ func (f *SubscriptionOneShotFilter) WhereQuota(p entql.Uint32P) {
 // WhereUsdPrice applies the entql other predicate on the usd_price field.
 func (f *SubscriptionOneShotFilter) WhereUsdPrice(p entql.OtherP) {
 	f.Where(p.Field(subscriptiononeshot.FieldUsdPrice))
-}
-
-// WhereLifeSeconds applies the entql uint32 predicate on the life_seconds field.
-func (f *SubscriptionOneShotFilter) WhereLifeSeconds(p entql.Uint32P) {
-	f.Where(p.Field(subscriptiononeshot.FieldLifeSeconds))
 }
 
 // addPredicate implements the predicateAdder interface.

@@ -149,20 +149,6 @@ func (sosc *SubscriptionOneShotCreate) SetNillableUsdPrice(d *decimal.Decimal) *
 	return sosc
 }
 
-// SetLifeSeconds sets the "life_seconds" field.
-func (sosc *SubscriptionOneShotCreate) SetLifeSeconds(u uint32) *SubscriptionOneShotCreate {
-	sosc.mutation.SetLifeSeconds(u)
-	return sosc
-}
-
-// SetNillableLifeSeconds sets the "life_seconds" field if the given value is not nil.
-func (sosc *SubscriptionOneShotCreate) SetNillableLifeSeconds(u *uint32) *SubscriptionOneShotCreate {
-	if u != nil {
-		sosc.SetLifeSeconds(*u)
-	}
-	return sosc
-}
-
 // SetID sets the "id" field.
 func (sosc *SubscriptionOneShotCreate) SetID(u uint32) *SubscriptionOneShotCreate {
 	sosc.mutation.SetID(u)
@@ -239,10 +225,6 @@ func (sosc *SubscriptionOneShotCreate) defaults() {
 	if _, ok := sosc.mutation.UsdPrice(); !ok {
 		v := subscriptiononeshot.DefaultUsdPrice
 		sosc.mutation.SetUsdPrice(v)
-	}
-	if _, ok := sosc.mutation.LifeSeconds(); !ok {
-		v := subscriptiononeshot.DefaultLifeSeconds
-		sosc.mutation.SetLifeSeconds(v)
 	}
 }
 
@@ -328,10 +310,6 @@ func (sosc *SubscriptionOneShotCreate) createSpec() (*SubscriptionOneShot, *sqlg
 	if value, ok := sosc.mutation.UsdPrice(); ok {
 		_spec.SetField(subscriptiononeshot.FieldUsdPrice, field.TypeOther, value)
 		_node.UsdPrice = value
-	}
-	if value, ok := sosc.mutation.LifeSeconds(); ok {
-		_spec.SetField(subscriptiononeshot.FieldLifeSeconds, field.TypeUint32, value)
-		_node.LifeSeconds = value
 	}
 	return _node, _spec
 }
@@ -544,30 +522,6 @@ func (u *SubscriptionOneShotUpsert) UpdateUsdPrice() *SubscriptionOneShotUpsert 
 // ClearUsdPrice clears the value of the "usd_price" field.
 func (u *SubscriptionOneShotUpsert) ClearUsdPrice() *SubscriptionOneShotUpsert {
 	u.SetNull(subscriptiononeshot.FieldUsdPrice)
-	return u
-}
-
-// SetLifeSeconds sets the "life_seconds" field.
-func (u *SubscriptionOneShotUpsert) SetLifeSeconds(v uint32) *SubscriptionOneShotUpsert {
-	u.Set(subscriptiononeshot.FieldLifeSeconds, v)
-	return u
-}
-
-// UpdateLifeSeconds sets the "life_seconds" field to the value that was provided on create.
-func (u *SubscriptionOneShotUpsert) UpdateLifeSeconds() *SubscriptionOneShotUpsert {
-	u.SetExcluded(subscriptiononeshot.FieldLifeSeconds)
-	return u
-}
-
-// AddLifeSeconds adds v to the "life_seconds" field.
-func (u *SubscriptionOneShotUpsert) AddLifeSeconds(v uint32) *SubscriptionOneShotUpsert {
-	u.Add(subscriptiononeshot.FieldLifeSeconds, v)
-	return u
-}
-
-// ClearLifeSeconds clears the value of the "life_seconds" field.
-func (u *SubscriptionOneShotUpsert) ClearLifeSeconds() *SubscriptionOneShotUpsert {
-	u.SetNull(subscriptiononeshot.FieldLifeSeconds)
 	return u
 }
 
@@ -805,34 +759,6 @@ func (u *SubscriptionOneShotUpsertOne) UpdateUsdPrice() *SubscriptionOneShotUpse
 func (u *SubscriptionOneShotUpsertOne) ClearUsdPrice() *SubscriptionOneShotUpsertOne {
 	return u.Update(func(s *SubscriptionOneShotUpsert) {
 		s.ClearUsdPrice()
-	})
-}
-
-// SetLifeSeconds sets the "life_seconds" field.
-func (u *SubscriptionOneShotUpsertOne) SetLifeSeconds(v uint32) *SubscriptionOneShotUpsertOne {
-	return u.Update(func(s *SubscriptionOneShotUpsert) {
-		s.SetLifeSeconds(v)
-	})
-}
-
-// AddLifeSeconds adds v to the "life_seconds" field.
-func (u *SubscriptionOneShotUpsertOne) AddLifeSeconds(v uint32) *SubscriptionOneShotUpsertOne {
-	return u.Update(func(s *SubscriptionOneShotUpsert) {
-		s.AddLifeSeconds(v)
-	})
-}
-
-// UpdateLifeSeconds sets the "life_seconds" field to the value that was provided on create.
-func (u *SubscriptionOneShotUpsertOne) UpdateLifeSeconds() *SubscriptionOneShotUpsertOne {
-	return u.Update(func(s *SubscriptionOneShotUpsert) {
-		s.UpdateLifeSeconds()
-	})
-}
-
-// ClearLifeSeconds clears the value of the "life_seconds" field.
-func (u *SubscriptionOneShotUpsertOne) ClearLifeSeconds() *SubscriptionOneShotUpsertOne {
-	return u.Update(func(s *SubscriptionOneShotUpsert) {
-		s.ClearLifeSeconds()
 	})
 }
 
@@ -1236,34 +1162,6 @@ func (u *SubscriptionOneShotUpsertBulk) UpdateUsdPrice() *SubscriptionOneShotUps
 func (u *SubscriptionOneShotUpsertBulk) ClearUsdPrice() *SubscriptionOneShotUpsertBulk {
 	return u.Update(func(s *SubscriptionOneShotUpsert) {
 		s.ClearUsdPrice()
-	})
-}
-
-// SetLifeSeconds sets the "life_seconds" field.
-func (u *SubscriptionOneShotUpsertBulk) SetLifeSeconds(v uint32) *SubscriptionOneShotUpsertBulk {
-	return u.Update(func(s *SubscriptionOneShotUpsert) {
-		s.SetLifeSeconds(v)
-	})
-}
-
-// AddLifeSeconds adds v to the "life_seconds" field.
-func (u *SubscriptionOneShotUpsertBulk) AddLifeSeconds(v uint32) *SubscriptionOneShotUpsertBulk {
-	return u.Update(func(s *SubscriptionOneShotUpsert) {
-		s.AddLifeSeconds(v)
-	})
-}
-
-// UpdateLifeSeconds sets the "life_seconds" field to the value that was provided on create.
-func (u *SubscriptionOneShotUpsertBulk) UpdateLifeSeconds() *SubscriptionOneShotUpsertBulk {
-	return u.Update(func(s *SubscriptionOneShotUpsert) {
-		s.UpdateLifeSeconds()
-	})
-}
-
-// ClearLifeSeconds clears the value of the "life_seconds" field.
-func (u *SubscriptionOneShotUpsertBulk) ClearLifeSeconds() *SubscriptionOneShotUpsertBulk {
-	return u.Update(func(s *SubscriptionOneShotUpsert) {
-		s.ClearLifeSeconds()
 	})
 }
 

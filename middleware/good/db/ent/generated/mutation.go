@@ -47591,28 +47591,26 @@ func (m *SubscriptionMutation) ResetEdge(name string) error {
 // SubscriptionOneShotMutation represents an operation that mutates the SubscriptionOneShot nodes in the graph.
 type SubscriptionOneShotMutation struct {
 	config
-	op              Op
-	typ             string
-	id              *uint32
-	ent_id          *uuid.UUID
-	created_at      *uint32
-	addcreated_at   *int32
-	updated_at      *uint32
-	addupdated_at   *int32
-	deleted_at      *uint32
-	adddeleted_at   *int32
-	good_id         *uuid.UUID
-	good_type       *string
-	name            *string
-	quota           *uint32
-	addquota        *int32
-	usd_price       *decimal.Decimal
-	life_seconds    *uint32
-	addlife_seconds *int32
-	clearedFields   map[string]struct{}
-	done            bool
-	oldValue        func(context.Context) (*SubscriptionOneShot, error)
-	predicates      []predicate.SubscriptionOneShot
+	op            Op
+	typ           string
+	id            *uint32
+	ent_id        *uuid.UUID
+	created_at    *uint32
+	addcreated_at *int32
+	updated_at    *uint32
+	addupdated_at *int32
+	deleted_at    *uint32
+	adddeleted_at *int32
+	good_id       *uuid.UUID
+	good_type     *string
+	name          *string
+	quota         *uint32
+	addquota      *int32
+	usd_price     *decimal.Decimal
+	clearedFields map[string]struct{}
+	done          bool
+	oldValue      func(context.Context) (*SubscriptionOneShot, error)
+	predicates    []predicate.SubscriptionOneShot
 }
 
 var _ ent.Mutation = (*SubscriptionOneShotMutation)(nil)
@@ -48189,76 +48187,6 @@ func (m *SubscriptionOneShotMutation) ResetUsdPrice() {
 	delete(m.clearedFields, subscriptiononeshot.FieldUsdPrice)
 }
 
-// SetLifeSeconds sets the "life_seconds" field.
-func (m *SubscriptionOneShotMutation) SetLifeSeconds(u uint32) {
-	m.life_seconds = &u
-	m.addlife_seconds = nil
-}
-
-// LifeSeconds returns the value of the "life_seconds" field in the mutation.
-func (m *SubscriptionOneShotMutation) LifeSeconds() (r uint32, exists bool) {
-	v := m.life_seconds
-	if v == nil {
-		return
-	}
-	return *v, true
-}
-
-// OldLifeSeconds returns the old "life_seconds" field's value of the SubscriptionOneShot entity.
-// If the SubscriptionOneShot object wasn't provided to the builder, the object is fetched from the database.
-// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
-func (m *SubscriptionOneShotMutation) OldLifeSeconds(ctx context.Context) (v uint32, err error) {
-	if !m.op.Is(OpUpdateOne) {
-		return v, errors.New("OldLifeSeconds is only allowed on UpdateOne operations")
-	}
-	if m.id == nil || m.oldValue == nil {
-		return v, errors.New("OldLifeSeconds requires an ID field in the mutation")
-	}
-	oldValue, err := m.oldValue(ctx)
-	if err != nil {
-		return v, fmt.Errorf("querying old value for OldLifeSeconds: %w", err)
-	}
-	return oldValue.LifeSeconds, nil
-}
-
-// AddLifeSeconds adds u to the "life_seconds" field.
-func (m *SubscriptionOneShotMutation) AddLifeSeconds(u int32) {
-	if m.addlife_seconds != nil {
-		*m.addlife_seconds += u
-	} else {
-		m.addlife_seconds = &u
-	}
-}
-
-// AddedLifeSeconds returns the value that was added to the "life_seconds" field in this mutation.
-func (m *SubscriptionOneShotMutation) AddedLifeSeconds() (r int32, exists bool) {
-	v := m.addlife_seconds
-	if v == nil {
-		return
-	}
-	return *v, true
-}
-
-// ClearLifeSeconds clears the value of the "life_seconds" field.
-func (m *SubscriptionOneShotMutation) ClearLifeSeconds() {
-	m.life_seconds = nil
-	m.addlife_seconds = nil
-	m.clearedFields[subscriptiononeshot.FieldLifeSeconds] = struct{}{}
-}
-
-// LifeSecondsCleared returns if the "life_seconds" field was cleared in this mutation.
-func (m *SubscriptionOneShotMutation) LifeSecondsCleared() bool {
-	_, ok := m.clearedFields[subscriptiononeshot.FieldLifeSeconds]
-	return ok
-}
-
-// ResetLifeSeconds resets all changes to the "life_seconds" field.
-func (m *SubscriptionOneShotMutation) ResetLifeSeconds() {
-	m.life_seconds = nil
-	m.addlife_seconds = nil
-	delete(m.clearedFields, subscriptiononeshot.FieldLifeSeconds)
-}
-
 // Where appends a list predicates to the SubscriptionOneShotMutation builder.
 func (m *SubscriptionOneShotMutation) Where(ps ...predicate.SubscriptionOneShot) {
 	m.predicates = append(m.predicates, ps...)
@@ -48293,7 +48221,7 @@ func (m *SubscriptionOneShotMutation) Type() string {
 // order to get all numeric fields that were incremented/decremented, call
 // AddedFields().
 func (m *SubscriptionOneShotMutation) Fields() []string {
-	fields := make([]string, 0, 10)
+	fields := make([]string, 0, 9)
 	if m.ent_id != nil {
 		fields = append(fields, subscriptiononeshot.FieldEntID)
 	}
@@ -48321,9 +48249,6 @@ func (m *SubscriptionOneShotMutation) Fields() []string {
 	if m.usd_price != nil {
 		fields = append(fields, subscriptiononeshot.FieldUsdPrice)
 	}
-	if m.life_seconds != nil {
-		fields = append(fields, subscriptiononeshot.FieldLifeSeconds)
-	}
 	return fields
 }
 
@@ -48350,8 +48275,6 @@ func (m *SubscriptionOneShotMutation) Field(name string) (ent.Value, bool) {
 		return m.Quota()
 	case subscriptiononeshot.FieldUsdPrice:
 		return m.UsdPrice()
-	case subscriptiononeshot.FieldLifeSeconds:
-		return m.LifeSeconds()
 	}
 	return nil, false
 }
@@ -48379,8 +48302,6 @@ func (m *SubscriptionOneShotMutation) OldField(ctx context.Context, name string)
 		return m.OldQuota(ctx)
 	case subscriptiononeshot.FieldUsdPrice:
 		return m.OldUsdPrice(ctx)
-	case subscriptiononeshot.FieldLifeSeconds:
-		return m.OldLifeSeconds(ctx)
 	}
 	return nil, fmt.Errorf("unknown SubscriptionOneShot field %s", name)
 }
@@ -48453,13 +48374,6 @@ func (m *SubscriptionOneShotMutation) SetField(name string, value ent.Value) err
 		}
 		m.SetUsdPrice(v)
 		return nil
-	case subscriptiononeshot.FieldLifeSeconds:
-		v, ok := value.(uint32)
-		if !ok {
-			return fmt.Errorf("unexpected type %T for field %s", value, name)
-		}
-		m.SetLifeSeconds(v)
-		return nil
 	}
 	return fmt.Errorf("unknown SubscriptionOneShot field %s", name)
 }
@@ -48480,9 +48394,6 @@ func (m *SubscriptionOneShotMutation) AddedFields() []string {
 	if m.addquota != nil {
 		fields = append(fields, subscriptiononeshot.FieldQuota)
 	}
-	if m.addlife_seconds != nil {
-		fields = append(fields, subscriptiononeshot.FieldLifeSeconds)
-	}
 	return fields
 }
 
@@ -48499,8 +48410,6 @@ func (m *SubscriptionOneShotMutation) AddedField(name string) (ent.Value, bool) 
 		return m.AddedDeletedAt()
 	case subscriptiononeshot.FieldQuota:
 		return m.AddedQuota()
-	case subscriptiononeshot.FieldLifeSeconds:
-		return m.AddedLifeSeconds()
 	}
 	return nil, false
 }
@@ -48538,13 +48447,6 @@ func (m *SubscriptionOneShotMutation) AddField(name string, value ent.Value) err
 		}
 		m.AddQuota(v)
 		return nil
-	case subscriptiononeshot.FieldLifeSeconds:
-		v, ok := value.(int32)
-		if !ok {
-			return fmt.Errorf("unexpected type %T for field %s", value, name)
-		}
-		m.AddLifeSeconds(v)
-		return nil
 	}
 	return fmt.Errorf("unknown SubscriptionOneShot numeric field %s", name)
 }
@@ -48567,9 +48469,6 @@ func (m *SubscriptionOneShotMutation) ClearedFields() []string {
 	}
 	if m.FieldCleared(subscriptiononeshot.FieldUsdPrice) {
 		fields = append(fields, subscriptiononeshot.FieldUsdPrice)
-	}
-	if m.FieldCleared(subscriptiononeshot.FieldLifeSeconds) {
-		fields = append(fields, subscriptiononeshot.FieldLifeSeconds)
 	}
 	return fields
 }
@@ -48599,9 +48498,6 @@ func (m *SubscriptionOneShotMutation) ClearField(name string) error {
 		return nil
 	case subscriptiononeshot.FieldUsdPrice:
 		m.ClearUsdPrice()
-		return nil
-	case subscriptiononeshot.FieldLifeSeconds:
-		m.ClearLifeSeconds()
 		return nil
 	}
 	return fmt.Errorf("unknown SubscriptionOneShot nullable field %s", name)
@@ -48637,9 +48533,6 @@ func (m *SubscriptionOneShotMutation) ResetField(name string) error {
 		return nil
 	case subscriptiononeshot.FieldUsdPrice:
 		m.ResetUsdPrice()
-		return nil
-	case subscriptiononeshot.FieldLifeSeconds:
-		m.ResetLifeSeconds()
 		return nil
 	}
 	return fmt.Errorf("unknown SubscriptionOneShot field %s", name)

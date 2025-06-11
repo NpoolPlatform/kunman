@@ -35,9 +35,7 @@ type SubscriptionOneShot struct {
 	// Quota holds the value of the "quota" field.
 	Quota uint32 `json:"quota,omitempty"`
 	// UsdPrice holds the value of the "usd_price" field.
-	UsdPrice decimal.Decimal `json:"usd_price,omitempty"`
-	// LifeSeconds holds the value of the "life_seconds" field.
-	LifeSeconds  uint32 `json:"life_seconds,omitempty"`
+	UsdPrice     decimal.Decimal `json:"usd_price,omitempty"`
 	selectValues sql.SelectValues
 }
 
@@ -48,7 +46,7 @@ func (*SubscriptionOneShot) scanValues(columns []string) ([]any, error) {
 		switch columns[i] {
 		case subscriptiononeshot.FieldUsdPrice:
 			values[i] = new(decimal.Decimal)
-		case subscriptiononeshot.FieldID, subscriptiononeshot.FieldCreatedAt, subscriptiononeshot.FieldUpdatedAt, subscriptiononeshot.FieldDeletedAt, subscriptiononeshot.FieldQuota, subscriptiononeshot.FieldLifeSeconds:
+		case subscriptiononeshot.FieldID, subscriptiononeshot.FieldCreatedAt, subscriptiononeshot.FieldUpdatedAt, subscriptiononeshot.FieldDeletedAt, subscriptiononeshot.FieldQuota:
 			values[i] = new(sql.NullInt64)
 		case subscriptiononeshot.FieldGoodType, subscriptiononeshot.FieldName:
 			values[i] = new(sql.NullString)
@@ -129,12 +127,6 @@ func (sos *SubscriptionOneShot) assignValues(columns []string, values []any) err
 			} else if value != nil {
 				sos.UsdPrice = *value
 			}
-		case subscriptiononeshot.FieldLifeSeconds:
-			if value, ok := values[i].(*sql.NullInt64); !ok {
-				return fmt.Errorf("unexpected type %T for field life_seconds", values[i])
-			} else if value.Valid {
-				sos.LifeSeconds = uint32(value.Int64)
-			}
 		default:
 			sos.selectValues.Set(columns[i], values[i])
 		}
@@ -197,9 +189,6 @@ func (sos *SubscriptionOneShot) String() string {
 	builder.WriteString(", ")
 	builder.WriteString("usd_price=")
 	builder.WriteString(fmt.Sprintf("%v", sos.UsdPrice))
-	builder.WriteString(", ")
-	builder.WriteString("life_seconds=")
-	builder.WriteString(fmt.Sprintf("%v", sos.LifeSeconds))
 	builder.WriteByte(')')
 	return builder.String()
 }

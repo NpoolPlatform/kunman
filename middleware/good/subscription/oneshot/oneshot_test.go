@@ -29,13 +29,12 @@ func init() {
 }
 
 var ret = npool.OneShot{
-	EntID:       uuid.NewString(),
-	GoodID:      uuid.NewString(),
-	GoodType:    types.GoodType_OneShot,
-	Name:        uuid.NewString(),
-	Quota:       10,
-	USDPrice:    decimal.NewFromInt(20).String(),
-	LifeSeconds: 10,
+	EntID:    uuid.NewString(),
+	GoodID:   uuid.NewString(),
+	GoodType: types.GoodType_OneShot,
+	Name:     uuid.NewString(),
+	Quota:    10,
+	USDPrice: decimal.NewFromInt(20).String(),
 }
 
 //nolint:unparam
@@ -52,7 +51,6 @@ func createOneShot(t *testing.T) {
 		WithGoodType(&ret.GoodType, true),
 		WithName(&ret.Name, true),
 		WithQuota(&ret.Quota, true),
-		WithLifeSeconds(&ret.LifeSeconds, true),
 		WithUSDPrice(&ret.USDPrice, true),
 	)
 	assert.Nil(t, err)
@@ -78,7 +76,6 @@ func updateOneShot(t *testing.T) {
 		WithGoodType(&ret.GoodType, true),
 		WithName(&ret.Name, true),
 		WithQuota(&ret.Quota, true),
-		WithLifeSeconds(&ret.LifeSeconds, true),
 		WithUSDPrice(&ret.USDPrice, true),
 	)
 	assert.Nil(t, err)

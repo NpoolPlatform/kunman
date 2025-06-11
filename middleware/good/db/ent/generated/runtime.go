@@ -2240,10 +2240,6 @@ func init() {
 	subscriptiononeshotDescUsdPrice := subscriptiononeshotFields[4].Descriptor()
 	// subscriptiononeshot.DefaultUsdPrice holds the default value on creation for the usd_price field.
 	subscriptiononeshot.DefaultUsdPrice = subscriptiononeshotDescUsdPrice.Default.(decimal.Decimal)
-	// subscriptiononeshotDescLifeSeconds is the schema descriptor for life_seconds field.
-	subscriptiononeshotDescLifeSeconds := subscriptiononeshotFields[5].Descriptor()
-	// subscriptiononeshot.DefaultLifeSeconds holds the default value on creation for the life_seconds field.
-	subscriptiononeshot.DefaultLifeSeconds = subscriptiononeshotDescLifeSeconds.Default.(uint32)
 	topmostMixin := schema.TopMost{}.Mixin()
 	topmostMixinFields0 := topmostMixin[0].Fields()
 	_ = topmostMixinFields0

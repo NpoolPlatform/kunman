@@ -99,11 +99,6 @@ func UsdPrice(v decimal.Decimal) predicate.SubscriptionOneShot {
 	return predicate.SubscriptionOneShot(sql.FieldEQ(FieldUsdPrice, v))
 }
 
-// LifeSeconds applies equality check predicate on the "life_seconds" field. It's identical to LifeSecondsEQ.
-func LifeSeconds(v uint32) predicate.SubscriptionOneShot {
-	return predicate.SubscriptionOneShot(sql.FieldEQ(FieldLifeSeconds, v))
-}
-
 // EntIDEQ applies the EQ predicate on the "ent_id" field.
 func EntIDEQ(v uuid.UUID) predicate.SubscriptionOneShot {
 	return predicate.SubscriptionOneShot(sql.FieldEQ(FieldEntID, v))
@@ -562,56 +557,6 @@ func UsdPriceIsNil() predicate.SubscriptionOneShot {
 // UsdPriceNotNil applies the NotNil predicate on the "usd_price" field.
 func UsdPriceNotNil() predicate.SubscriptionOneShot {
 	return predicate.SubscriptionOneShot(sql.FieldNotNull(FieldUsdPrice))
-}
-
-// LifeSecondsEQ applies the EQ predicate on the "life_seconds" field.
-func LifeSecondsEQ(v uint32) predicate.SubscriptionOneShot {
-	return predicate.SubscriptionOneShot(sql.FieldEQ(FieldLifeSeconds, v))
-}
-
-// LifeSecondsNEQ applies the NEQ predicate on the "life_seconds" field.
-func LifeSecondsNEQ(v uint32) predicate.SubscriptionOneShot {
-	return predicate.SubscriptionOneShot(sql.FieldNEQ(FieldLifeSeconds, v))
-}
-
-// LifeSecondsIn applies the In predicate on the "life_seconds" field.
-func LifeSecondsIn(vs ...uint32) predicate.SubscriptionOneShot {
-	return predicate.SubscriptionOneShot(sql.FieldIn(FieldLifeSeconds, vs...))
-}
-
-// LifeSecondsNotIn applies the NotIn predicate on the "life_seconds" field.
-func LifeSecondsNotIn(vs ...uint32) predicate.SubscriptionOneShot {
-	return predicate.SubscriptionOneShot(sql.FieldNotIn(FieldLifeSeconds, vs...))
-}
-
-// LifeSecondsGT applies the GT predicate on the "life_seconds" field.
-func LifeSecondsGT(v uint32) predicate.SubscriptionOneShot {
-	return predicate.SubscriptionOneShot(sql.FieldGT(FieldLifeSeconds, v))
-}
-
-// LifeSecondsGTE applies the GTE predicate on the "life_seconds" field.
-func LifeSecondsGTE(v uint32) predicate.SubscriptionOneShot {
-	return predicate.SubscriptionOneShot(sql.FieldGTE(FieldLifeSeconds, v))
-}
-
-// LifeSecondsLT applies the LT predicate on the "life_seconds" field.
-func LifeSecondsLT(v uint32) predicate.SubscriptionOneShot {
-	return predicate.SubscriptionOneShot(sql.FieldLT(FieldLifeSeconds, v))
-}
-
-// LifeSecondsLTE applies the LTE predicate on the "life_seconds" field.
-func LifeSecondsLTE(v uint32) predicate.SubscriptionOneShot {
-	return predicate.SubscriptionOneShot(sql.FieldLTE(FieldLifeSeconds, v))
-}
-
-// LifeSecondsIsNil applies the IsNil predicate on the "life_seconds" field.
-func LifeSecondsIsNil() predicate.SubscriptionOneShot {
-	return predicate.SubscriptionOneShot(sql.FieldIsNull(FieldLifeSeconds))
-}
-
-// LifeSecondsNotNil applies the NotNil predicate on the "life_seconds" field.
-func LifeSecondsNotNil() predicate.SubscriptionOneShot {
-	return predicate.SubscriptionOneShot(sql.FieldNotNull(FieldLifeSeconds))
 }
 
 // And groups predicates with the AND operator between them.

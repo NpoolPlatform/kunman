@@ -31,8 +31,6 @@ const (
 	FieldQuota = "quota"
 	// FieldUsdPrice holds the string denoting the usd_price field in the database.
 	FieldUsdPrice = "usd_price"
-	// FieldLifeSeconds holds the string denoting the life_seconds field in the database.
-	FieldLifeSeconds = "life_seconds"
 	// Table holds the table name of the subscriptiononeshot in the database.
 	Table = "subscription_one_shots"
 )
@@ -49,7 +47,6 @@ var Columns = []string{
 	FieldName,
 	FieldQuota,
 	FieldUsdPrice,
-	FieldLifeSeconds,
 }
 
 // ValidColumn reports if the column name is valid (part of the table columns).
@@ -83,8 +80,6 @@ var (
 	DefaultQuota uint32
 	// DefaultUsdPrice holds the default value on creation for the "usd_price" field.
 	DefaultUsdPrice decimal.Decimal
-	// DefaultLifeSeconds holds the default value on creation for the "life_seconds" field.
-	DefaultLifeSeconds uint32
 )
 
 // OrderOption defines the ordering options for the SubscriptionOneShot queries.
@@ -138,9 +133,4 @@ func ByQuota(opts ...sql.OrderTermOption) OrderOption {
 // ByUsdPrice orders the results by the usd_price field.
 func ByUsdPrice(opts ...sql.OrderTermOption) OrderOption {
 	return sql.OrderByField(FieldUsdPrice, opts...).ToFunc()
-}
-
-// ByLifeSeconds orders the results by the life_seconds field.
-func ByLifeSeconds(opts ...sql.OrderTermOption) OrderOption {
-	return sql.OrderByField(FieldLifeSeconds, opts...).ToFunc()
 }
