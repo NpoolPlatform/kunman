@@ -44,11 +44,12 @@ func UpdateSet(u *ent.AppPoolUpdateOne, req *Req) (*ent.AppPoolUpdateOne, error)
 }
 
 type Conds struct {
-	ID     *cruder.Cond
-	EntID  *cruder.Cond
-	AppID  *cruder.Cond
-	PoolID *cruder.Cond
-	EntIDs *cruder.Cond
+	ID      *cruder.Cond
+	EntID   *cruder.Cond
+	AppID   *cruder.Cond
+	PoolID  *cruder.Cond
+	EntIDs  *cruder.Cond
+	PoolIDs *cruder.Cond
 }
 
 func SetQueryConds(q *ent.AppPoolQuery, conds *Conds) (*ent.AppPoolQuery, error) { //nolint
@@ -114,6 +115,20 @@ func SetQueryConds(q *ent.AppPoolQuery, conds *Conds) (*ent.AppPoolQuery, error)
 			q.Where(entapppool.PoolID(id))
 		default:
 			return nil, wlog.Errorf("invalid poolid field")
+		}
+	}
+	if conds.PoolIDs != nil {
+		ids, ok := conds.PoolIDs.Val.([]uuid.UUID)
+		if !ok {
+			return nil, wlog.Errorf("invalid poolids")
+		}
+		if len(ids) > 0 {
+			switch conds.PoolIDs.Op {
+			case cruder.IN:
+				q.Where(entapppool.PoolIDIn(ids...))
+			default:
+				return nil, wlog.Errorf("invalid compensate field")
+			}
 		}
 	}
 	return q, nil

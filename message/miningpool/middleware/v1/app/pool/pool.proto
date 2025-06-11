@@ -34,5 +34,6 @@ message Conds {
   optional basetypes.v1.StringVal AppID = 20;
   optional basetypes.v1.StringVal PoolID = 30;
   optional basetypes.v1.StringSliceVal EntIDs = 40;
+  optional basetypes.v1.StringSliceVal PoolIDs = 50;
 }
 

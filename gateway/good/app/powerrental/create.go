@@ -4,18 +4,17 @@ import (
 	"context"
 
 	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
-	apppowerrentalmwcli "github.com/NpoolPlatform/kunman/middleware/good/app/powerrental"
-	powerrentalmwcli "github.com/NpoolPlatform/kunman/middleware/good/powerrental"
-	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 	goodtypes "github.com/NpoolPlatform/kunman/message/basetypes/good/v1"
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	npool "github.com/NpoolPlatform/kunman/message/good/gateway/v1/app/powerrental"
-	apppowerrentalmwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/app/powerrental"
 	powerrentalmwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/powerrental"
 	apppoolmwpb "github.com/NpoolPlatform/kunman/message/miningpool/middleware/v1/app/pool"
 	rootusermwpb "github.com/NpoolPlatform/kunman/message/miningpool/middleware/v1/rootuser"
-	apppoolmwcli "github.com/NpoolPlatform/miningpool-middleware/pkg/client/app/pool"
-	rootusermwcli "github.com/NpoolPlatform/miningpool-middleware/pkg/client/rootuser"
+	apppowerrentalmw "github.com/NpoolPlatform/kunman/middleware/good/app/powerrental"
+	powerrentalmw "github.com/NpoolPlatform/kunman/middleware/good/powerrental"
+	apppoolmw "github.com/NpoolPlatform/kunman/middleware/miningpool/app/pool"
+	rootusermw "github.com/NpoolPlatform/kunman/middleware/miningpool/rootuser"
+	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 
 	"github.com/google/uuid"
 )
@@ -30,7 +29,15 @@ func (h *CreateHander) getPowerRental(ctx context.Context) (err error) {
 		return wlog.Errorf("invalid goodid")
 	}
 
-	h.powerRental, err = powerrentalmwcli.GetPowerRental(ctx, *h.GoodID)
+	handler, err := powerrentalmw.NewHandler(
+		ctx,
+		powerrentalmw.WithGoodID(h.GoodID, true),
+	)
+	if err != nil {
+		return err
+	}
+
+	h.powerRental, err = handler.GetPowerRental(ctx)
 	if err != nil {
 		return wlog.WrapError(err)
 	}
@@ -55,41 +62,54 @@ func (h *CreateHander) checkAppPoolAuth(ctx context.Context) error {
 		return nil
 	}
 
-	rootuserIDs := []string{}
+	rootUserIDs := []string{}
 	for _, miningGoodStock := range h.powerRental.MiningGoodStocks {
-		rootuserIDs = append(rootuserIDs, miningGoodStock.PoolRootUserID)
+		rootUserIDs = append(rootUserIDs, miningGoodStock.PoolRootUserID)
 	}
 
-	rUsers, _, err := rootusermwcli.GetRootUsers(ctx,
-		&rootusermwpb.Conds{
-			EntIDs: &v1.StringSliceVal{
-				Op:    cruder.IN,
-				Value: rootuserIDs,
+	handler, err := rootusermw.NewHandler(
+		ctx,
+		rootusermw.WithConds(
+			&rootusermwpb.Conds{
+				EntIDs: &v1.StringSliceVal{
+					Op:    cruder.IN,
+					Value: rootUserIDs,
+				},
 			},
-		},
-		0,
-		int32(len(rootuserIDs)))
+		),
+		rootusermw.WithOffset(0),
+		rootusermw.WithLimit(int32(len(rootUserIDs))),
+	)
+	if err != nil {
+		return err
+	}
+	rootUsers, _, err := handler.GetRootUsers(ctx)
 	if err != nil {
 		return wlog.WrapError(err)
 	}
 
 	poolIDs := []string{}
-	for _, rUser := range rUsers {
-		poolIDs = append(poolIDs, rUser.PoolID)
+	for _, rootUser := range rootUsers {
+		poolIDs = append(poolIDs, rootUser.PoolID)
 	}
 
-	for _, poolID := range poolIDs {
-		appPools, _, err := apppoolmwcli.GetPools(ctx,
-			&apppoolmwpb.Conds{
-				AppID:  &v1.StringVal{Op: cruder.EQ, Value: *h.AppID},
-				PoolID: &v1.StringVal{Op: cruder.EQ, Value: poolID},
-			}, 0, 1)
-		if err != nil {
-			return wlog.WrapError(err)
-		}
-		if len(appPools) == 0 {
-			return wlog.Errorf("have no permission for poolid: %v,appid: %v", poolID, *h.AppID)
-		}
+	conds := &apppoolmwpb.Conds{
+		AppID:   &v1.StringVal{Op: cruder.EQ, Value: *h.AppID},
+		PoolIDs: &v1.StringSliceVal{Op: cruder.EQ, Value: poolIDs},
+	}
+	poolHandler, err := apppoolmw.NewHandler(
+		ctx,
+		apppoolmw.WithConds(conds),
+		apppoolmw.WithOffset(0),
+		apppoolmw.WithLimit(int32(len(poolIDs))),
+	)
+	if err != nil {
+		return wlog.WrapError(err)
+	}
+
+	appPools, _, err := poolHandler.GetPools(ctx)
+	if len(appPools) == 0 {
+		return wlog.Errorf("Permission denied")
 	}
 
 	return nil
@@ -120,36 +140,42 @@ func (h *Handler) CreatePowerRental(ctx context.Context) (*npool.AppPowerRental,
 		return nil, wlog.WrapError(err)
 	}
 
-	if err := apppowerrentalmwcli.CreatePowerRental(ctx, &apppowerrentalmwpb.PowerRentalReq{
-		EntID:                        h.EntID,
-		AppID:                        h.AppID,
-		GoodID:                       h.GoodID,
-		AppGoodID:                    h.AppGoodID,
-		Purchasable:                  h.Purchasable,
-		EnableProductPage:            h.EnableProductPage,
-		ProductPage:                  h.ProductPage,
-		Online:                       h.Online,
-		Visible:                      h.Visible,
-		Name:                         h.Name,
-		DisplayIndex:                 h.DisplayIndex,
-		Banner:                       h.Banner,
-		ServiceStartAt:               h.ServiceStartAt,
-		CancelMode:                   h.CancelMode,
-		CancelableBeforeStartSeconds: h.CancelableBeforeStartSeconds,
-		EnableSetCommission:          h.EnableSetCommission,
-		MinOrderAmount:               h.MinOrderAmount,
-		MaxOrderAmount:               h.MaxOrderAmount,
-		MaxUserAmount:                h.MaxUserAmount,
-		MinOrderDurationSeconds:      h.MinOrderDurationSeconds,
-		MaxOrderDurationSeconds:      h.MaxOrderDurationSeconds,
-		UnitPrice:                    h.UnitPrice,
-		SaleStartAt:                  h.SaleStartAt,
-		SaleEndAt:                    h.SaleEndAt,
-		SaleMode:                     h.SaleMode,
-		FixedDuration:                h.FixedDuration,
-		PackageWithRequireds:         h.PackageWithRequireds,
-		StartMode:                    h.StartMode,
-	}); err != nil {
+	handler, err := apppowerrentalmw.NewHandler(
+		ctx,
+		apppowerrentalmw.WithEntID(h.EntID, true),
+		apppowerrentalmw.WithAppID(h.AppID, true),
+		apppowerrentalmw.WithGoodID(h.GoodID, true),
+		apppowerrentalmw.WithAppGoodID(h.AppGoodID, true),
+		apppowerrentalmw.WithPurchasable(h.Purchasable, true),
+		apppowerrentalmw.WithEnableProductPage(h.EnableProductPage, true),
+		apppowerrentalmw.WithProductPage(h.ProductPage, true),
+		apppowerrentalmw.WithOnline(h.Online, true),
+		apppowerrentalmw.WithVisible(h.Visible, true),
+		apppowerrentalmw.WithName(h.Name, true),
+		apppowerrentalmw.WithDisplayIndex(h.DisplayIndex, true),
+		apppowerrentalmw.WithBanner(h.Banner, true),
+		apppowerrentalmw.WithServiceStartAt(h.ServiceStartAt, true),
+		apppowerrentalmw.WithCancelMode(h.CancelMode, true),
+		apppowerrentalmw.WithCancelableBeforeStartSeconds(h.CancelableBeforeStartSeconds, true),
+		apppowerrentalmw.WithEnableSetCommission(h.EnableSetCommission, true),
+		apppowerrentalmw.WithMinOrderAmount(h.MinOrderAmount, true),
+		apppowerrentalmw.WithMaxOrderAmount(h.MaxOrderAmount, true),
+		apppowerrentalmw.WithMaxUserAmount(h.MaxUserAmount, true),
+		apppowerrentalmw.WithMinOrderDurationSeconds(h.MinOrderDurationSeconds, true),
+		apppowerrentalmw.WithMaxOrderDurationSeconds(h.MaxOrderDurationSeconds, true),
+		apppowerrentalmw.WithUnitPrice(h.UnitPrice, true),
+		apppowerrentalmw.WithSaleStartAt(h.SaleStartAt, true),
+		apppowerrentalmw.WithSaleEndAt(h.SaleEndAt, true),
+		apppowerrentalmw.WithSaleMode(h.SaleMode, true),
+		apppowerrentalmw.WithFixedDuration(h.FixedDuration, true),
+		apppowerrentalmw.WithPackageWithRequireds(h.PackageWithRequireds, true),
+		apppowerrentalmw.WithStartMode(h.StartMode, true),
+	)
+	if err != nil {
+		return nil, err
+	}
+
+	if err := handler.CreatePowerRental(ctx); err != nil {
 		return nil, err
 	}
 	return h.GetPowerRental(ctx)

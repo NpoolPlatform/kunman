@@ -4,9 +4,6 @@ import (
 	"context"
 
 	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
-	goodgwcommon "github.com/NpoolPlatform/kunman/pkg/common"
-	apppowerrentalmwcli "github.com/NpoolPlatform/kunman/middleware/good/app/powerrental"
-	cruder "github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 	appmwpb "github.com/NpoolPlatform/kunman/message/appuser/middleware/v1/app"
 	types "github.com/NpoolPlatform/kunman/message/basetypes/good/v1"
 	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
@@ -17,6 +14,9 @@ import (
 	goodstockgwpb "github.com/NpoolPlatform/kunman/message/good/gateway/v1/good/stock"
 	apppowerrentalmwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/app/powerrental"
 	goodusermwpb "github.com/NpoolPlatform/kunman/message/miningpool/middleware/v1/gooduser"
+	apppowerrentalmw "github.com/NpoolPlatform/kunman/middleware/good/app/powerrental"
+	goodgwcommon "github.com/NpoolPlatform/kunman/pkg/common"
+	cruder "github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 )
 
 type queryHandler struct {
@@ -253,7 +253,15 @@ func (h *queryHandler) formalize() {
 }
 
 func (h *Handler) GetPowerRental(ctx context.Context) (*npool.AppPowerRental, error) {
-	appPowerRental, err := apppowerrentalmwcli.GetPowerRental(ctx, *h.AppGoodID)
+	prHandler, err := apppowerrentalmw.NewHandler(
+		ctx,
+		apppowerrentalmw.WithAppGoodID(h.AppGoodID, true),
+	)
+	if err != nil {
+		return nil, err
+	}
+
+	appPowerRental, err := prHandler.GetPowerRental(ctx)
 	if err != nil {
 		return nil, err
 	}
@@ -284,9 +292,20 @@ func (h *Handler) GetPowerRental(ctx context.Context) (*npool.AppPowerRental, er
 }
 
 func (h *Handler) GetPowerRentals(ctx context.Context) ([]*npool.AppPowerRental, uint32, error) {
-	appPowerRentals, total, err := apppowerrentalmwcli.GetPowerRentals(ctx, &apppowerrentalmwpb.Conds{
+	conds := &apppowerrentalmwpb.Conds{
 		AppID: &basetypes.StringVal{Op: cruder.EQ, Value: *h.AppID},
-	}, h.Offset, h.Limit)
+	}
+	prHandler, err := apppowerrentalmw.NewHandler(
+		ctx,
+		apppowerrentalmw.WithConds(conds),
+		apppowerrentalmw.WithOffset(h.Offset),
+		apppowerrentalmw.WithLimit(h.Limit),
+	)
+	if err != nil {
+		return nil, 0, err
+	}
+
+	appPowerRentals, total, err := prHandler.GetPowerRentals(ctx)
 	if err != nil {
 		return nil, 0, err
 	}

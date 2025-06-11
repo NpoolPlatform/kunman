@@ -3,9 +3,8 @@ package simulate
 import (
 	"context"
 
-	simulatemwcli "github.com/NpoolPlatform/kunman/middleware/good/app/powerrental/simulate"
 	npool "github.com/NpoolPlatform/kunman/message/good/gateway/v1/app/powerrental/simulate"
-	simulatemwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/app/powerrental/simulate"
+	simulatemw "github.com/NpoolPlatform/kunman/middleware/good/app/powerrental/simulate"
 )
 
 type updateHandler struct {
@@ -22,13 +21,18 @@ func (h *Handler) UpdateSimulate(ctx context.Context) (*npool.Simulate, error) {
 		return nil, err
 	}
 
-	if err := simulatemwcli.UpdateSimulate(ctx, &simulatemwpb.SimulateReq{
-		ID:                   h.ID,
-		EntID:                h.EntID,
-		AppGoodID:            h.AppGoodID,
-		OrderUnits:           h.OrderUnits,
-		OrderDurationSeconds: h.OrderDurationSeconds,
-	}); err != nil {
+	simulateHandler, err := simulatemw.NewHandler(
+		ctx,
+		simulatemw.WithEntID(h.EntID, true),
+		simulatemw.WithAppGoodID(h.AppGoodID, true),
+		simulatemw.WithOrderUnits(h.OrderUnits, true),
+		simulatemw.WithOrderDurationSeconds(h.OrderDurationSeconds, true),
+	)
+	if err != nil {
+		return nil, err
+	}
+
+	if err := simulateHandler.UpdateSimulate(ctx); err != nil {
 		return nil, err
 	}
 	return h.GetSimulate(ctx)

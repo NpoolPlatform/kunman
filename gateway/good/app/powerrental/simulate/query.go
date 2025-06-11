@@ -4,13 +4,13 @@ import (
 	"context"
 	"fmt"
 
-	goodgwcommon "github.com/NpoolPlatform/kunman/pkg/common"
-	simulatemwcli "github.com/NpoolPlatform/kunman/middleware/good/app/powerrental/simulate"
-	cruder "github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 	appmwpb "github.com/NpoolPlatform/kunman/message/appuser/middleware/v1/app"
 	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	npool "github.com/NpoolPlatform/kunman/message/good/gateway/v1/app/powerrental/simulate"
 	simulatemwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/app/powerrental/simulate"
+	simulatemw "github.com/NpoolPlatform/kunman/middleware/good/app/powerrental/simulate"
+	goodgwcommon "github.com/NpoolPlatform/kunman/pkg/common"
+	cruder "github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 )
 
 type queryHandler struct {
@@ -56,7 +56,15 @@ func (h *queryHandler) formalize() {
 }
 
 func (h *Handler) GetSimulate(ctx context.Context) (*npool.Simulate, error) {
-	info, err := simulatemwcli.GetSimulate(ctx, *h.AppGoodID)
+	simulateHandler, err := simulatemw.NewHandler(
+		ctx,
+		simulatemw.WithAppGoodID(h.AppGoodID, true),
+	)
+	if err != nil {
+		return nil, err
+	}
+
+	info, err := simulateHandler.GetSimulate(ctx)
 	if err != nil {
 		return nil, err
 	}
@@ -82,9 +90,20 @@ func (h *Handler) GetSimulate(ctx context.Context) (*npool.Simulate, error) {
 }
 
 func (h *Handler) GetSimulates(ctx context.Context) ([]*npool.Simulate, uint32, error) {
-	infos, total, err := simulatemwcli.GetSimulates(ctx, &simulatemwpb.Conds{
+	conds := &simulatemwpb.Conds{
 		AppID: &basetypes.StringVal{Op: cruder.EQ, Value: *h.AppID},
-	}, h.Offset, h.Limit)
+	}
+	simulateHandler, err := simulatemw.NewHandler(
+		ctx,
+		simulatemw.WithConds(conds),
+		simulatemw.WithOffset(h.Offset),
+		simulatemw.WithLimit(h.Limit),
+	)
+	if err != nil {
+		return nil, 0, err
+	}
+
+	infos, total, err := simulateHandler.GetSimulates(ctx)
 	if err != nil {
 		return nil, 0, err
 	}

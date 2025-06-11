@@ -5,9 +5,9 @@ import (
 
 	"github.com/NpoolPlatform/kunman/framework/wlog"
 	npool "github.com/NpoolPlatform/kunman/message/miningpool/middleware/v1/app/pool"
-	constant "github.com/NpoolPlatform/kunman/pkg/const"
 	apppoolcrud "github.com/NpoolPlatform/kunman/middleware/miningpool/crud/app/pool"
 	"github.com/NpoolPlatform/kunman/middleware/miningpool/pool"
+	constant "github.com/NpoolPlatform/kunman/pkg/const"
 
 	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 
@@ -161,6 +161,20 @@ func WithConds(conds *npool.Conds) func(context.Context, *Handler) error {
 			h.Conds.PoolID = &cruder.Cond{
 				Op:  conds.GetPoolID().GetOp(),
 				Val: id,
+			}
+		}
+		if conds.PoolIDs != nil {
+			ids := []uuid.UUID{}
+			for _, id := range conds.GetPoolIDs().GetValue() {
+				_id, err := uuid.Parse(id)
+				if err != nil {
+					return wlog.WrapError(err)
+				}
+				ids = append(ids, _id)
+			}
+			h.Conds.PoolIDs = &cruder.Cond{
+				Op:  conds.GetPoolIDs().GetOp(),
+				Val: ids,
 			}
 		}
 		return nil

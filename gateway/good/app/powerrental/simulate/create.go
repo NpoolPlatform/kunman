@@ -3,9 +3,8 @@ package simulate
 import (
 	"context"
 
-	simulatemwcli "github.com/NpoolPlatform/kunman/middleware/good/app/powerrental/simulate"
 	npool "github.com/NpoolPlatform/kunman/message/good/gateway/v1/app/powerrental/simulate"
-	simulatemwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/app/powerrental/simulate"
+	simulatemw "github.com/NpoolPlatform/kunman/middleware/good/app/powerrental/simulate"
 
 	"github.com/google/uuid"
 )
@@ -15,12 +14,18 @@ func (h *Handler) CreateSimulate(ctx context.Context) (*npool.Simulate, error) {
 		h.EntID = func() *string { s := uuid.NewString(); return &s }()
 	}
 
-	if err := simulatemwcli.CreateSimulate(ctx, &simulatemwpb.SimulateReq{
-		EntID:                h.EntID,
-		AppGoodID:            h.AppGoodID,
-		OrderUnits:           h.OrderUnits,
-		OrderDurationSeconds: h.OrderDurationSeconds,
-	}); err != nil {
+	handler, err := simulatemw.NewHandler(
+		ctx,
+		simulatemw.WithEntID(h.EntID, true),
+		simulatemw.WithAppGoodID(h.AppGoodID, true),
+		simulatemw.WithOrderUnits(h.OrderUnits, true),
+		simulatemw.WithOrderDurationSeconds(h.OrderDurationSeconds, true),
+	)
+	if err != nil {
+		return nil, err
+	}
+
+	if err := handler.CreateSimulate(ctx); err != nil {
 		return nil, err
 	}
 
