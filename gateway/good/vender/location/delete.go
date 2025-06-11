@@ -3,8 +3,8 @@ package location
 import (
 	"context"
 
-	locationmwcli "github.com/NpoolPlatform/kunman/middleware/good/vender/location"
 	locationmwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/vender/location"
+	locationmw "github.com/NpoolPlatform/kunman/middleware/good/vender/location"
 )
 
 type deleteHandler struct {
@@ -25,7 +25,17 @@ func (h *Handler) DeleteLocation(ctx context.Context) (*locationmwpb.Location, e
 	if err != nil {
 		return nil, err
 	}
-	if err := locationmwcli.DeleteLocation(ctx, h.ID, h.EntID); err != nil {
+
+	locationHandler, err := locationmw.NewHandler(
+		ctx,
+		locationmw.WithID(h.ID, true),
+		locationmw.WithEntID(h.EntID, true),
+	)
+	if err != nil {
+		return nil, err
+	}
+
+	if err := locationHandler.DeleteLocation(ctx); err != nil {
 		return nil, err
 	}
 	return info, nil
