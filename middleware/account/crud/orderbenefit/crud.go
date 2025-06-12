@@ -60,9 +60,15 @@ type Conds struct {
 	OrderID    *cruder.Cond
 	EntIDs     *cruder.Cond
 	AccountIDs *cruder.Cond
+	OrderIDs   *cruder.Cond
 }
 
 func SetQueryConds(q *ent.OrderBenefitQuery, conds *Conds) (*ent.OrderBenefitQuery, error) { //nolint
+	q.Where(entorderbenefit.DeletedAt(0))
+	if conds == nil {
+		return q, nil
+	}
+
 	if conds.EntID != nil {
 		id, ok := conds.EntID.Val.(uuid.UUID)
 		if !ok {
@@ -171,6 +177,17 @@ func SetQueryConds(q *ent.OrderBenefitQuery, conds *Conds) (*ent.OrderBenefitQue
 			return nil, fmt.Errorf("invalid orderbenefit accountids")
 		}
 	}
-	q.Where(entorderbenefit.DeletedAt(0))
+	if conds.OrderIDs != nil {
+		ids, ok := conds.OrderIDs.Val.([]uuid.UUID)
+		if !ok {
+			return nil, fmt.Errorf("invalid orderbenefit orderids")
+		}
+		switch conds.OrderIDs.Op {
+		case cruder.IN:
+			q.Where(entorderbenefit.OrderIDIn(ids...))
+		default:
+			return nil, fmt.Errorf("invalid orderbenefit orderids")
+		}
+	}
 	return q, nil
 }

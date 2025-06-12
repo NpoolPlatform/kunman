@@ -67,5 +67,6 @@ message Conds {
   optional basetypes.v1.BoolVal Blocked = 90;
   optional basetypes.v1.StringSliceVal EntIDs = 120;
   optional basetypes.v1.StringSliceVal AccountIDs = 130;
+  optional basetypes.v1.StringSliceVal OrderIDs = 140;
 }
 

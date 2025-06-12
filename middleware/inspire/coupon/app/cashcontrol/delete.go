@@ -1,0 +1,41 @@
+package cashcontrol
+
+import (
+	"context"
+	"time"
+
+	"github.com/NpoolPlatform/kunman/framework/wlog"
+	"github.com/NpoolPlatform/kunman/middleware/inspire/db"
+	"github.com/NpoolPlatform/kunman/middleware/inspire/db/ent/generated"
+
+	cashcontrolcrud "github.com/NpoolPlatform/kunman/middleware/inspire/crud/coupon/app/cashcontrol"
+	npool "github.com/NpoolPlatform/kunman/message/inspire/middleware/v1/coupon/app/cashcontrol"
+)
+
+func (h *Handler) DeleteCashControl(ctx context.Context) (*npool.CashControl, error) {
+	info, err := h.GetCashControl(ctx)
+	if err != nil {
+		return nil, wlog.WrapError(err)
+	}
+	if info == nil {
+		return nil, nil
+	}
+
+	now := uint32(time.Now().Unix())
+	err = db.WithClient(ctx, func(_ctx context.Context, cli *ent.Client) error {
+		if _, err := cashcontrolcrud.UpdateSet(
+			cli.CashControl.UpdateOneID(*h.ID),
+			&cashcontrolcrud.Req{
+				DeletedAt: &now,
+			},
+		).Save(_ctx); err != nil {
+			return wlog.WrapError(err)
+		}
+		return nil
+	})
+	if err != nil {
+		return nil, wlog.WrapError(err)
+	}
+
+	return info, nil
+}

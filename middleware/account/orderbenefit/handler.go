@@ -4,11 +4,11 @@ import (
 	"context"
 	"fmt"
 
-	constant "github.com/NpoolPlatform/kunman/pkg/const"
+	"github.com/NpoolPlatform/kunman/message/account/middleware/v1/orderbenefit"
 	accountcrud "github.com/NpoolPlatform/kunman/middleware/account/crud/account"
 	orderbenefitcrud "github.com/NpoolPlatform/kunman/middleware/account/crud/orderbenefit"
+	constant "github.com/NpoolPlatform/kunman/pkg/const"
 	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
-	"github.com/NpoolPlatform/kunman/message/account/middleware/v1/orderbenefit"
 
 	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	"github.com/google/uuid"
@@ -258,6 +258,17 @@ func (h *Handler) withBaseConds(conds *orderbenefit.Conds) error {
 			accountIDs = append(accountIDs, _accountID)
 		}
 		h.Conds.AccountIDs = &cruder.Cond{Op: conds.GetAccountIDs().GetOp(), Val: accountIDs}
+	}
+	if conds.OrderIDs != nil {
+		orderIDs := []uuid.UUID{}
+		for _, orderID := range conds.GetOrderIDs().GetValue() {
+			_orderID, err := uuid.Parse(orderID)
+			if err != nil {
+				return err
+			}
+			orderIDs = append(orderIDs, _orderID)
+		}
+		h.Conds.OrderIDs = &cruder.Cond{Op: conds.GetOrderIDs().GetOp(), Val: orderIDs}
 	}
 	if conds.Active != nil {
 		h.Conds.Active = &cruder.Cond{
