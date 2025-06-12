@@ -4,11 +4,11 @@ package common
 import (
 	"context"
 
-	wlog "github.com/NpoolPlatform/go-service-framework/pkg/wlog"
-	apppowerrentalmwcli "github.com/NpoolPlatform/good-middleware/pkg/client/app/powerrental"
-	cruder "github.com/NpoolPlatform/libent-cruder/pkg/cruder"
-	basetypes "github.com/NpoolPlatform/message/npool/basetypes/v1"
-	apppowerrentalmwpb "github.com/NpoolPlatform/message/npool/good/mw/v1/app/powerrental"
+	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
+	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
+	apppowerrentalmwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/app/powerrental"
+	apppowerrentalmw "github.com/NpoolPlatform/kunman/middleware/good/app/powerrental"
+	cruder "github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 
 	"github.com/google/uuid"
 )
@@ -20,9 +20,20 @@ func GetAppPowerRentals(ctx context.Context, appGoodIDs []string) (map[string]*a
 		}
 	}
 
-	appPowerRentals, _, err := apppowerrentalmwcli.GetPowerRentals(ctx, &apppowerrentalmwpb.Conds{
+	conds := &apppowerrentalmwpb.Conds{
 		AppGoodIDs: &basetypes.StringSliceVal{Op: cruder.IN, Value: appGoodIDs},
-	}, int32(0), int32(len(appGoodIDs)))
+	}
+	handler, err := apppowerrentalmw.NewHandler(
+		ctx,
+		apppowerrentalmw.WithConds(conds),
+		apppowerrentalmw.WithOffset(0),
+		apppowerrentalmw.WithLimit(int32(len(appGoodIDs))),
+	)
+	if err != nil {
+		return nil, wlog.WrapError(err)
+	}
+
+	appPowerRentals, _, err := handler.GetPowerRentals(ctx)
 	if err != nil {
 		return nil, wlog.WrapError(err)
 	}

@@ -4,13 +4,13 @@ package common
 import (
 	"context"
 
-	wlog "github.com/NpoolPlatform/go-service-framework/pkg/wlog"
+	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
+	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	goodusermwpb "github.com/NpoolPlatform/kunman/message/miningpool/middleware/v1/gooduser"
+	orderusermwpb "github.com/NpoolPlatform/kunman/message/miningpool/middleware/v1/orderuser"
 	goodusermw "github.com/NpoolPlatform/kunman/middleware/miningpool/gooduser"
-	cruder "github.com/NpoolPlatform/libent-cruder/pkg/cruder"
-	basetypes "github.com/NpoolPlatform/message/npool/basetypes/v1"
-	orderusermwpb "github.com/NpoolPlatform/message/npool/miningpool/mw/v1/orderuser"
-	orderusermwcli "github.com/NpoolPlatform/miningpool-middleware/pkg/client/orderuser"
+	orderusermw "github.com/NpoolPlatform/kunman/middleware/miningpool/orderuser"
+	cruder "github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 	"github.com/google/uuid"
 )
 
@@ -21,9 +21,20 @@ func GetMiningPoolOrderUsers(ctx context.Context, orderuserIDs []string) (map[st
 		}
 	}
 
-	coins, _, err := orderusermwcli.GetOrderUsers(ctx, &orderusermwpb.Conds{
+	conds := &orderusermwpb.Conds{
 		EntIDs: &basetypes.StringSliceVal{Op: cruder.IN, Value: orderuserIDs},
-	}, int32(0), int32(len(orderuserIDs)))
+	}
+	handler, err := orderusermw.NewHandler(
+		ctx,
+		orderusermw.WithConds(conds),
+		orderusermw.WithOffset(0),
+		orderusermw.WithLimit(int32(len(orderuserIDs))),
+	)
+	if err != nil {
+		return nil, wlog.WrapError(err)
+	}
+
+	coins, _, err := handler.GetOrderUsers(ctx)
 	if err != nil {
 		return nil, wlog.WrapError(err)
 	}

@@ -4,11 +4,11 @@ package common
 import (
 	"context"
 
-	wlog "github.com/NpoolPlatform/go-service-framework/pkg/wlog"
-	topmostmwcli "github.com/NpoolPlatform/good-middleware/pkg/client/app/good/topmost"
-	cruder "github.com/NpoolPlatform/libent-cruder/pkg/cruder"
-	basetypes "github.com/NpoolPlatform/message/npool/basetypes/v1"
-	topmostmwpb "github.com/NpoolPlatform/message/npool/good/mw/v1/app/good/topmost"
+	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
+	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
+	topmostmwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/app/good/topmost"
+	topmostmw "github.com/NpoolPlatform/kunman/middleware/good/app/good/topmost"
+	cruder "github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 
 	"github.com/google/uuid"
 )
@@ -20,9 +20,20 @@ func GetTopMosts(ctx context.Context, topMostIDs []string) (map[string]*topmostm
 		}
 	}
 
-	topMosts, _, err := topmostmwcli.GetTopMosts(ctx, &topmostmwpb.Conds{
+	conds := &topmostmwpb.Conds{
 		EntIDs: &basetypes.StringSliceVal{Op: cruder.IN, Value: topMostIDs},
-	}, int32(0), int32(len(topMostIDs)))
+	}
+	handler, err := topmostmw.NewHandler(
+		ctx,
+		topmostmw.WithConds(conds),
+		topmostmw.WithOffset(0),
+		topmostmw.WithLimit(int32(len(topMostIDs))),
+	)
+	if err != nil {
+		return nil, wlog.WrapError(err)
+	}
+
+	topMosts, _, err := handler.GetTopMosts(ctx)
 	if err != nil {
 		return nil, wlog.WrapError(err)
 	}

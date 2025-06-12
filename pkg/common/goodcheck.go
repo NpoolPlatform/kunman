@@ -3,11 +3,11 @@ package common
 import (
 	"context"
 
-	wlog "github.com/NpoolPlatform/go-service-framework/pkg/wlog"
-	goodmwcli "github.com/NpoolPlatform/good-middleware/pkg/client/good"
-	"github.com/NpoolPlatform/libent-cruder/pkg/cruder"
-	basetypes "github.com/NpoolPlatform/message/npool/basetypes/v1"
-	goodmwpb "github.com/NpoolPlatform/message/npool/good/mw/v1/good"
+	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
+	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
+	goodmwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/good"
+	goodmw "github.com/NpoolPlatform/kunman/middleware/good/good"
+	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 )
 
 type GoodCheckHandler struct {
@@ -15,9 +15,18 @@ type GoodCheckHandler struct {
 }
 
 func (h *GoodCheckHandler) CheckGoodWithGoodID(ctx context.Context, goodID string) error {
-	exist, err := goodmwcli.ExistGoodConds(ctx, &goodmwpb.Conds{
+	conds := &goodmwpb.Conds{
 		EntID: &basetypes.StringVal{Op: cruder.EQ, Value: goodID},
-	})
+	}
+	handler, err := goodmw.NewHandler(
+		ctx,
+		goodmw.WithConds(conds),
+	)
+	if err != nil {
+		return wlog.WrapError(err)
+	}
+
+	exist, err := handler.ExistGoodConds(ctx)
 	if err != nil {
 		return wlog.WrapError(err)
 	}

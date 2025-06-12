@@ -3,13 +3,13 @@ package common
 import (
 	"context"
 
-	timedef "github.com/NpoolPlatform/go-service-framework/pkg/const/time"
-	wlog "github.com/NpoolPlatform/go-service-framework/pkg/wlog"
-	goodmwcli "github.com/NpoolPlatform/good-middleware/pkg/client/good"
-	cruder "github.com/NpoolPlatform/libent-cruder/pkg/cruder"
-	goodtypes "github.com/NpoolPlatform/message/npool/basetypes/good/v1"
-	basetypes "github.com/NpoolPlatform/message/npool/basetypes/v1"
-	goodmwpb "github.com/NpoolPlatform/message/npool/good/mw/v1/good"
+	timedef "github.com/NpoolPlatform/kunman/framework/const/time"
+	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
+	goodtypes "github.com/NpoolPlatform/kunman/message/basetypes/good/v1"
+	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
+	goodmwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/good"
+	goodmw "github.com/NpoolPlatform/kunman/middleware/good/good"
+	cruder "github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 
 	"github.com/google/uuid"
 )
@@ -21,9 +21,20 @@ func GetGoods(ctx context.Context, goodIDs []string) (map[string]*goodmwpb.Good,
 		}
 	}
 
-	goods, _, err := goodmwcli.GetGoods(ctx, &goodmwpb.Conds{
+	conds := &goodmwpb.Conds{
 		EntIDs: &basetypes.StringSliceVal{Op: cruder.IN, Value: goodIDs},
-	}, int32(0), int32(len(goodIDs)))
+	}
+	handler, err := goodmw.NewHandler(
+		ctx,
+		goodmw.WithConds(conds),
+		goodmw.WithOffset(0),
+		goodmw.WithLimit(int32(len(goodIDs))),
+	)
+	if err != nil {
+		return nil, wlog.WrapError(err)
+	}
+
+	goods, _, err := handler.GetGoods(ctx)
 	if err != nil {
 		return nil, wlog.WrapError(err)
 	}
@@ -42,6 +53,9 @@ func GoodDurationDisplayType2Unit(_type goodtypes.GoodDurationType, seconds uint
 	case goodtypes.GoodDurationType_GoodDurationByDay:
 		units = seconds / timedef.SecondsPerDay
 		unit = "MSG_DAY"
+	case goodtypes.GoodDurationType_GoodDurationByWeek:
+		units = seconds / timedef.SecondsPerWeek
+		unit = "MSG_WEEK"
 	case goodtypes.GoodDurationType_GoodDurationByMonth:
 		units = seconds / timedef.SecondsPerMonth
 		unit = "MSG_MONTH"
@@ -53,18 +67,4 @@ func GoodDurationDisplayType2Unit(_type goodtypes.GoodDurationType, seconds uint
 		unit += "S"
 	}
 	return units, unit
-}
-
-func GoodDurationDisplayType2Seconds(_type goodtypes.GoodDurationType) (units uint32) {
-	switch _type {
-	case goodtypes.GoodDurationType_GoodDurationByHour:
-		return timedef.SecondsPerHour
-	case goodtypes.GoodDurationType_GoodDurationByDay:
-		return timedef.SecondsPerDay
-	case goodtypes.GoodDurationType_GoodDurationByMonth:
-		return timedef.SecondsPerMonth
-	case goodtypes.GoodDurationType_GoodDurationByYear:
-		return timedef.SecondsPerYear
-	}
-	return timedef.SecondsPerHour
 }

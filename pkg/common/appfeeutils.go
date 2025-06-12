@@ -4,11 +4,11 @@ package common
 import (
 	"context"
 
-	wlog "github.com/NpoolPlatform/go-service-framework/pkg/wlog"
-	appfeemwcli "github.com/NpoolPlatform/good-middleware/pkg/client/app/fee"
-	cruder "github.com/NpoolPlatform/libent-cruder/pkg/cruder"
-	basetypes "github.com/NpoolPlatform/message/npool/basetypes/v1"
-	appfeemwpb "github.com/NpoolPlatform/message/npool/good/mw/v1/app/fee"
+	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
+	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
+	appfeemwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/app/fee"
+	appfeemw "github.com/NpoolPlatform/kunman/middleware/good/app/fee"
+	cruder "github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 
 	"github.com/google/uuid"
 )
@@ -20,9 +20,20 @@ func GetAppFees(ctx context.Context, appGoodIDs []string) (map[string]*appfeemwp
 		}
 	}
 
-	appFees, _, err := appfeemwcli.GetFees(ctx, &appfeemwpb.Conds{
+	conds := &appfeemwpb.Conds{
 		AppGoodIDs: &basetypes.StringSliceVal{Op: cruder.IN, Value: appGoodIDs},
-	}, int32(0), int32(len(appGoodIDs)))
+	}
+	handler, err := appfeemw.NewHandler(
+		ctx,
+		appfeemw.WithConds(conds),
+		appfeemw.WithOffset(0),
+		appfeemw.WithLimit(int32(len(appGoodIDs))),
+	)
+	if err != nil {
+		return nil, wlog.WrapError(err)
+	}
+
+	appFees, _, err := handler.GetFees(ctx)
 	if err != nil {
 		return nil, wlog.WrapError(err)
 	}

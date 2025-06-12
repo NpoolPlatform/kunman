@@ -11,7 +11,7 @@ import (
 )
 
 type AllocatedCouponCheckHandler struct {
-	UserCheckHandler
+	AppUserCheckHandler
 	AllocatedCouponID *string
 }
 
@@ -24,19 +24,16 @@ func (h *AllocatedCouponCheckHandler) CheckAllocatedCouponWithAllocatedCouponID(
 	handler, err := allocatedcouponmw.NewHandler(
 		ctx,
 		allocatedcouponmw.WithConds(conds),
-		allocatedcouponmw.WithOffset(0),
-		allocatedcouponmw.WithLimit(1),
 	)
 	if err != nil {
 		return wlog.WrapError(err)
 	}
 
-	// TODO: should be replaced with exist api
-	info, err := handler.GetCouponOnly(ctx)
+	exist, err := handler.ExistCouponConds(ctx)
 	if err != nil {
 		return wlog.WrapError(err)
 	}
-	if info == nil {
+	if !exist {
 		return wlog.Errorf("invalid allocatedcoupon")
 	}
 	return nil

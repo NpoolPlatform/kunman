@@ -3,24 +3,33 @@ package common
 import (
 	"context"
 
-	wlog "github.com/NpoolPlatform/go-service-framework/pkg/wlog"
-	appgoodmwcli "github.com/NpoolPlatform/good-middleware/pkg/client/app/good"
-	"github.com/NpoolPlatform/libent-cruder/pkg/cruder"
-	basetypes "github.com/NpoolPlatform/message/npool/basetypes/v1"
-	appgoodmwpb "github.com/NpoolPlatform/message/npool/good/mw/v1/app/good"
+	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
+	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
+	appgoodmwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/app/good"
+	appgoodmw "github.com/NpoolPlatform/kunman/middleware/good/app/good"
+	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 )
 
 type AppGoodCheckHandler struct {
-	UserCheckHandler
+	AppUserCheckHandler
 	GoodCheckHandler
 	AppGoodID *string
 }
 
 func (h *AppGoodCheckHandler) CheckAppGoodWithAppGoodID(ctx context.Context, appGoodID string) error {
-	exist, err := appgoodmwcli.ExistGoodConds(ctx, &appgoodmwpb.Conds{
+	conds := &appgoodmwpb.Conds{
 		EntID: &basetypes.StringVal{Op: cruder.EQ, Value: appGoodID},
 		AppID: &basetypes.StringVal{Op: cruder.EQ, Value: *h.AppID},
-	})
+	}
+	handler, err := appgoodmw.NewHandler(
+		ctx,
+		appgoodmw.WithConds(conds),
+	)
+	if err != nil {
+		return wlog.WrapError(err)
+	}
+
+	exist, err := handler.ExistGoodConds(ctx)
 	if err != nil {
 		return wlog.WrapError(err)
 	}

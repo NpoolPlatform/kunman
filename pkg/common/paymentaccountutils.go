@@ -4,11 +4,11 @@ package common
 import (
 	"context"
 
-	paymentaccountmwcli "github.com/NpoolPlatform/account-middleware/pkg/client/payment"
-	wlog "github.com/NpoolPlatform/go-service-framework/pkg/wlog"
-	cruder "github.com/NpoolPlatform/libent-cruder/pkg/cruder"
-	paymentaccountmwpb "github.com/NpoolPlatform/message/npool/account/mw/v1/payment"
-	basetypes "github.com/NpoolPlatform/message/npool/basetypes/v1"
+	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
+	paymentaccountmwpb "github.com/NpoolPlatform/kunman/message/account/middleware/v1/payment"
+	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
+	paymentaccountmw "github.com/NpoolPlatform/kunman/middleware/account/payment"
+	cruder "github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 
 	"github.com/google/uuid"
 )
@@ -20,9 +20,20 @@ func GetPaymentAccounts(ctx context.Context, paymentAccountIDs []string) (map[st
 		}
 	}
 
-	paymentAccounts, _, err := paymentaccountmwcli.GetAccounts(ctx, &paymentaccountmwpb.Conds{
+	conds := &paymentaccountmwpb.Conds{
 		AccountIDs: &basetypes.StringSliceVal{Op: cruder.IN, Value: paymentAccountIDs},
-	}, int32(0), int32(len(paymentAccountIDs)))
+	}
+	handler, err := paymentaccountmw.NewHandler(
+		ctx,
+		paymentaccountmw.WithConds(conds),
+		paymentaccountmw.WithOffset(0),
+		paymentaccountmw.WithLimit(int32(len(paymentAccountIDs))),
+	)
+	if err != nil {
+		return nil, wlog.WrapError(err)
+	}
+
+	paymentAccounts, _, err := handler.GetAccounts(ctx)
 	if err != nil {
 		return nil, wlog.WrapError(err)
 	}
