@@ -6,7 +6,7 @@ import (
 	"github.com/NpoolPlatform/kunman/framework/wlog"
 	allocatedcrud "github.com/NpoolPlatform/kunman/middleware/inspire/crud/credit/allocated"
 	"github.com/NpoolPlatform/kunman/middleware/inspire/db"
-	"github.com/NpoolPlatform/kunman/middleware/inspire/db/ent/generated"
+	ent "github.com/NpoolPlatform/kunman/middleware/inspire/db/ent/generated"
 )
 
 func (h *Handler) ExistCreditAllocatedConds(ctx context.Context) (bool, error) {

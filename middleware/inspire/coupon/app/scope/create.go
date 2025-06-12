@@ -4,11 +4,11 @@ import (
 	"context"
 
 	"github.com/NpoolPlatform/kunman/framework/wlog"
+	npool "github.com/NpoolPlatform/kunman/message/inspire/middleware/v1/coupon/app/scope"
 	appgoodscopecrud "github.com/NpoolPlatform/kunman/middleware/inspire/crud/coupon/app/scope"
 	"github.com/NpoolPlatform/kunman/middleware/inspire/db"
-	"github.com/NpoolPlatform/kunman/middleware/inspire/db/ent/generated"
+	ent "github.com/NpoolPlatform/kunman/middleware/inspire/db/ent/generated"
 	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
-	npool "github.com/NpoolPlatform/kunman/message/inspire/middleware/v1/coupon/app/scope"
 
 	"github.com/google/uuid"
 )

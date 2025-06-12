@@ -6,11 +6,11 @@ import (
 	"entgo.io/ent/dialect/sql"
 
 	"github.com/NpoolPlatform/kunman/framework/wlog"
+	npool "github.com/NpoolPlatform/kunman/message/inspire/middleware/v1/event/coupon"
 	devicecrud "github.com/NpoolPlatform/kunman/middleware/inspire/crud/event/coupon"
 	"github.com/NpoolPlatform/kunman/middleware/inspire/db"
-	"github.com/NpoolPlatform/kunman/middleware/inspire/db/ent/generated"
+	ent "github.com/NpoolPlatform/kunman/middleware/inspire/db/ent/generated"
 	enteventcoupon "github.com/NpoolPlatform/kunman/middleware/inspire/db/ent/generated/eventcoupon"
-	npool "github.com/NpoolPlatform/kunman/message/inspire/middleware/v1/event/coupon"
 )
 
 type queryHandler struct {

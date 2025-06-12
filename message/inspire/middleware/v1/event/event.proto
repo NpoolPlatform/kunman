@@ -63,3 +63,32 @@ message Conds {
   optional basetypes.v1.StringSliceVal EntIDs = 50;
 }
 
+message Credit {
+  string AppID = 10;
+  string UserID = 20;
+  string Credits = 30;
+}
+
+message CoinReward {
+  string AppID = 10;
+  string UserID = 20;
+  string CoinTypeID = 30;
+  string CoinConfigID = 40;
+  string CoinRewards = 50;
+}
+
+message CouponReward {
+  string AppID = 10;
+  string UserID = 20;
+  string CouponID = 30;
+  string Denomination = 40;
+  bool Cashable = 50;
+}
+
+message Reward {
+  string TaskID = 10;
+  string UserID = 20;
+  string Credits = 30;
+  repeated CoinReward CoinRewards = 40;
+  repeated CouponReward CouponRewards = 50;
+}

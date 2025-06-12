@@ -8,24 +8,24 @@ import (
 	"testing"
 	"time"
 
-	coinconfig1 "github.com/NpoolPlatform/kunman/middleware/inspire/coin/config"
-	coupon1 "github.com/NpoolPlatform/kunman/middleware/inspire/coupon"
-	eventcoin1 "github.com/NpoolPlatform/kunman/middleware/inspire/event/coin"
-	eventcoupon1 "github.com/NpoolPlatform/kunman/middleware/inspire/event/coupon"
-	taskconfig1 "github.com/NpoolPlatform/kunman/middleware/inspire/task/config"
 	coinconfigmwpb "github.com/NpoolPlatform/kunman/message/inspire/middleware/v1/coin/config"
 	couponmwpb "github.com/NpoolPlatform/kunman/message/inspire/middleware/v1/coupon"
 	npool "github.com/NpoolPlatform/kunman/message/inspire/middleware/v1/event"
 	eventcoinmwpb "github.com/NpoolPlatform/kunman/message/inspire/middleware/v1/event/coin"
 	eventcouponmwpb "github.com/NpoolPlatform/kunman/message/inspire/middleware/v1/event/coupon"
 	taskconfigmwpb "github.com/NpoolPlatform/kunman/message/inspire/middleware/v1/task/config"
+	coinconfig1 "github.com/NpoolPlatform/kunman/middleware/inspire/coin/config"
+	coupon1 "github.com/NpoolPlatform/kunman/middleware/inspire/coupon"
+	eventcoin1 "github.com/NpoolPlatform/kunman/middleware/inspire/event/coin"
+	eventcoupon1 "github.com/NpoolPlatform/kunman/middleware/inspire/event/coupon"
+	taskconfig1 "github.com/NpoolPlatform/kunman/middleware/inspire/task/config"
 	"github.com/google/uuid"
 	"github.com/shopspring/decimal"
 	"github.com/stretchr/testify/assert"
 
-	"github.com/NpoolPlatform/kunman/middleware/inspire/testinit"
 	types "github.com/NpoolPlatform/kunman/message/basetypes/inspire/v1"
 	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
+	"github.com/NpoolPlatform/kunman/middleware/inspire/testinit"
 )
 
 func init() {
@@ -446,10 +446,8 @@ func rewardEvent(t *testing.T) {
 	)
 	assert.Nil(t, err)
 
-	reward, err := handler.CalcluateEventRewards(context.Background())
-	if assert.Nil(t, err) {
-		fmt.Println("reward: ", reward)
-	}
+	_, err = handler.CalcluateEventRewards(context.Background())
+	assert.Nil(t, err)
 }
 
 //nolint:dupl
@@ -467,10 +465,8 @@ func rewardEvent2(t *testing.T) {
 	)
 	assert.Nil(t, err)
 
-	reward, err := handler.CalcluateEventRewards(context.Background())
-	if assert.Nil(t, err) {
-		fmt.Println("reward: ", reward)
-	}
+	_, err = handler.CalcluateEventRewards(context.Background())
+	assert.Nil(t, err)
 }
 
 func TestReward(t *testing.T) {

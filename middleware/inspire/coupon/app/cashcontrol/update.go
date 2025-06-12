@@ -4,10 +4,10 @@ import (
 	"context"
 
 	"github.com/NpoolPlatform/kunman/framework/wlog"
+	npool "github.com/NpoolPlatform/kunman/message/inspire/middleware/v1/coupon/app/cashcontrol"
 	cashcontrolcrud "github.com/NpoolPlatform/kunman/middleware/inspire/crud/coupon/app/cashcontrol"
 	"github.com/NpoolPlatform/kunman/middleware/inspire/db"
-	"github.com/NpoolPlatform/kunman/middleware/inspire/db/ent/generated"
-	npool "github.com/NpoolPlatform/kunman/message/inspire/middleware/v1/coupon/app/cashcontrol"
+	ent "github.com/NpoolPlatform/kunman/middleware/inspire/db/ent/generated"
 )
 
 func (h *Handler) UpdateCashControl(ctx context.Context) (*npool.CashControl, error) {

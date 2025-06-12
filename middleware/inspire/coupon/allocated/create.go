@@ -7,12 +7,12 @@ import (
 
 	"github.com/NpoolPlatform/kunman/framework/wlog"
 	"github.com/NpoolPlatform/kunman/middleware/inspire/db"
-	"github.com/NpoolPlatform/kunman/middleware/inspire/db/ent/generated"
+	ent "github.com/NpoolPlatform/kunman/middleware/inspire/db/ent/generated"
 	entcoupon "github.com/NpoolPlatform/kunman/middleware/inspire/db/ent/generated/coupon"
 
-	allocatedcrud "github.com/NpoolPlatform/kunman/middleware/inspire/crud/coupon/allocated"
 	inspiretypes "github.com/NpoolPlatform/kunman/message/basetypes/inspire/v1"
 	npool "github.com/NpoolPlatform/kunman/message/inspire/middleware/v1/coupon/allocated"
+	allocatedcrud "github.com/NpoolPlatform/kunman/middleware/inspire/crud/coupon/allocated"
 
 	"github.com/google/uuid"
 	"github.com/shopspring/decimal"

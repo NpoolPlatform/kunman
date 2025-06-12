@@ -6,11 +6,11 @@ import (
 	"entgo.io/ent/dialect/sql"
 
 	"github.com/NpoolPlatform/kunman/framework/wlog"
+	npool "github.com/NpoolPlatform/kunman/message/inspire/middleware/v1/user/reward"
 	devicecrud "github.com/NpoolPlatform/kunman/middleware/inspire/crud/user/reward"
 	"github.com/NpoolPlatform/kunman/middleware/inspire/db"
-	"github.com/NpoolPlatform/kunman/middleware/inspire/db/ent/generated"
+	ent "github.com/NpoolPlatform/kunman/middleware/inspire/db/ent/generated"
 	entuserreward "github.com/NpoolPlatform/kunman/middleware/inspire/db/ent/generated/userreward"
-	npool "github.com/NpoolPlatform/kunman/message/inspire/middleware/v1/user/reward"
 	"github.com/shopspring/decimal"
 )
 

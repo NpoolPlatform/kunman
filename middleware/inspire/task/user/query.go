@@ -6,12 +6,12 @@ import (
 	"entgo.io/ent/dialect/sql"
 
 	"github.com/NpoolPlatform/kunman/framework/wlog"
-	devicecrud "github.com/NpoolPlatform/kunman/middleware/inspire/crud/task/user"
-	"github.com/NpoolPlatform/kunman/middleware/inspire/db"
-	"github.com/NpoolPlatform/kunman/middleware/inspire/db/ent/generated"
-	enttaskuser "github.com/NpoolPlatform/kunman/middleware/inspire/db/ent/generated/taskuser"
 	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/inspire/v1"
 	npool "github.com/NpoolPlatform/kunman/message/inspire/middleware/v1/task/user"
+	devicecrud "github.com/NpoolPlatform/kunman/middleware/inspire/crud/task/user"
+	"github.com/NpoolPlatform/kunman/middleware/inspire/db"
+	ent "github.com/NpoolPlatform/kunman/middleware/inspire/db/ent/generated"
+	enttaskuser "github.com/NpoolPlatform/kunman/middleware/inspire/db/ent/generated/taskuser"
 )
 
 type queryHandler struct {

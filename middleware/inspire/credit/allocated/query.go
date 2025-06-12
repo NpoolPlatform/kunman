@@ -6,11 +6,11 @@ import (
 	"entgo.io/ent/dialect/sql"
 
 	"github.com/NpoolPlatform/kunman/framework/wlog"
+	npool "github.com/NpoolPlatform/kunman/message/inspire/middleware/v1/credit/allocated"
 	allocatedcrud "github.com/NpoolPlatform/kunman/middleware/inspire/crud/credit/allocated"
 	"github.com/NpoolPlatform/kunman/middleware/inspire/db"
-	"github.com/NpoolPlatform/kunman/middleware/inspire/db/ent/generated"
+	ent "github.com/NpoolPlatform/kunman/middleware/inspire/db/ent/generated"
 	entcreditallocated "github.com/NpoolPlatform/kunman/middleware/inspire/db/ent/generated/creditallocated"
-	npool "github.com/NpoolPlatform/kunman/message/inspire/middleware/v1/credit/allocated"
 	"github.com/shopspring/decimal"
 )
 

@@ -5,10 +5,10 @@ import (
 	"time"
 
 	"github.com/NpoolPlatform/kunman/framework/wlog"
+	npool "github.com/NpoolPlatform/kunman/message/inspire/middleware/v1/coupon"
 	couponcrud "github.com/NpoolPlatform/kunman/middleware/inspire/crud/coupon"
 	"github.com/NpoolPlatform/kunman/middleware/inspire/db"
-	"github.com/NpoolPlatform/kunman/middleware/inspire/db/ent/generated"
-	npool "github.com/NpoolPlatform/kunman/message/inspire/middleware/v1/coupon"
+	ent "github.com/NpoolPlatform/kunman/middleware/inspire/db/ent/generated"
 )
 
 func (h *Handler) DeleteCoupon(ctx context.Context) (*npool.Coupon, error) {

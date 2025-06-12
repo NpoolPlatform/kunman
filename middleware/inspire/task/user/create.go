@@ -6,9 +6,9 @@ import (
 	"time"
 
 	"github.com/NpoolPlatform/kunman/framework/wlog"
-	"github.com/NpoolPlatform/kunman/middleware/inspire/db"
-	"github.com/NpoolPlatform/kunman/middleware/inspire/db/ent/generated"
 	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
+	"github.com/NpoolPlatform/kunman/middleware/inspire/db"
+	ent "github.com/NpoolPlatform/kunman/middleware/inspire/db/ent/generated"
 
 	"github.com/google/uuid"
 )

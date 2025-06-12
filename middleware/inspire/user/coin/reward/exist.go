@@ -6,7 +6,7 @@ import (
 	"github.com/NpoolPlatform/kunman/framework/wlog"
 	rewardcrud "github.com/NpoolPlatform/kunman/middleware/inspire/crud/user/coin/reward"
 	"github.com/NpoolPlatform/kunman/middleware/inspire/db"
-	"github.com/NpoolPlatform/kunman/middleware/inspire/db/ent/generated"
+	ent "github.com/NpoolPlatform/kunman/middleware/inspire/db/ent/generated"
 )
 
 func (h *Handler) ExistUserCoinRewardConds(ctx context.Context) (bool, error) {

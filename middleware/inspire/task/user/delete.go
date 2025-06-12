@@ -7,7 +7,7 @@ import (
 	"github.com/NpoolPlatform/kunman/framework/wlog"
 	usercrud "github.com/NpoolPlatform/kunman/middleware/inspire/crud/task/user"
 	"github.com/NpoolPlatform/kunman/middleware/inspire/db"
-	"github.com/NpoolPlatform/kunman/middleware/inspire/db/ent/generated"
+	ent "github.com/NpoolPlatform/kunman/middleware/inspire/db/ent/generated"
 )
 
 type deleteHandler struct {

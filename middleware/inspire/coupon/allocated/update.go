@@ -5,12 +5,12 @@ import (
 
 	"github.com/NpoolPlatform/kunman/framework/wlog"
 	"github.com/NpoolPlatform/kunman/middleware/inspire/db"
-	"github.com/NpoolPlatform/kunman/middleware/inspire/db/ent/generated"
+	ent "github.com/NpoolPlatform/kunman/middleware/inspire/db/ent/generated"
 	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 	"github.com/google/uuid"
 
-	allocatedcrud "github.com/NpoolPlatform/kunman/middleware/inspire/crud/coupon/allocated"
 	npool "github.com/NpoolPlatform/kunman/message/inspire/middleware/v1/coupon/allocated"
+	allocatedcrud "github.com/NpoolPlatform/kunman/middleware/inspire/crud/coupon/allocated"
 )
 
 type updateHandler struct {

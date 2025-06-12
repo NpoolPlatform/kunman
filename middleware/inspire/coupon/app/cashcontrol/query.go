@@ -6,13 +6,13 @@ import (
 	"entgo.io/ent/dialect/sql"
 
 	"github.com/NpoolPlatform/kunman/framework/wlog"
-	cashcontrolcrud "github.com/NpoolPlatform/kunman/middleware/inspire/crud/coupon/app/cashcontrol"
-	"github.com/NpoolPlatform/kunman/middleware/inspire/db"
-	"github.com/NpoolPlatform/kunman/middleware/inspire/db/ent/generated"
-	entcashcontrol "github.com/NpoolPlatform/kunman/middleware/inspire/db/ent/generated/cashcontrol"
-	entcoupon "github.com/NpoolPlatform/kunman/middleware/inspire/db/ent/generated/coupon"
 	types "github.com/NpoolPlatform/kunman/message/basetypes/inspire/v1"
 	npool "github.com/NpoolPlatform/kunman/message/inspire/middleware/v1/coupon/app/cashcontrol"
+	cashcontrolcrud "github.com/NpoolPlatform/kunman/middleware/inspire/crud/coupon/app/cashcontrol"
+	"github.com/NpoolPlatform/kunman/middleware/inspire/db"
+	ent "github.com/NpoolPlatform/kunman/middleware/inspire/db/ent/generated"
+	entcashcontrol "github.com/NpoolPlatform/kunman/middleware/inspire/db/ent/generated/cashcontrol"
+	entcoupon "github.com/NpoolPlatform/kunman/middleware/inspire/db/ent/generated/coupon"
 
 	"github.com/shopspring/decimal"
 )

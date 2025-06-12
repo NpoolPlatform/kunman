@@ -416,6 +416,306 @@ func (x *Conds) GetEntIDs() *v1.StringSliceVal {
 	return nil
 }
 
+type Credit struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	AppID   string `protobuf:"bytes,10,opt,name=AppID,proto3" json:"AppID,omitempty"`
+	UserID  string `protobuf:"bytes,20,opt,name=UserID,proto3" json:"UserID,omitempty"`
+	Credits string `protobuf:"bytes,30,opt,name=Credits,proto3" json:"Credits,omitempty"`
+}
+
+func (x *Credit) Reset() {
+	*x = Credit{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_inspire_middleware_v1_event_event_proto_msgTypes[3]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *Credit) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*Credit) ProtoMessage() {}
+
+func (x *Credit) ProtoReflect() protoreflect.Message {
+	mi := &file_inspire_middleware_v1_event_event_proto_msgTypes[3]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use Credit.ProtoReflect.Descriptor instead.
+func (*Credit) Descriptor() ([]byte, []int) {
+	return file_inspire_middleware_v1_event_event_proto_rawDescGZIP(), []int{3}
+}
+
+func (x *Credit) GetAppID() string {
+	if x != nil {
+		return x.AppID
+	}
+	return ""
+}
+
+func (x *Credit) GetUserID() string {
+	if x != nil {
+		return x.UserID
+	}
+	return ""
+}
+
+func (x *Credit) GetCredits() string {
+	if x != nil {
+		return x.Credits
+	}
+	return ""
+}
+
+type CoinReward struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	AppID        string `protobuf:"bytes,10,opt,name=AppID,proto3" json:"AppID,omitempty"`
+	UserID       string `protobuf:"bytes,20,opt,name=UserID,proto3" json:"UserID,omitempty"`
+	CoinTypeID   string `protobuf:"bytes,30,opt,name=CoinTypeID,proto3" json:"CoinTypeID,omitempty"`
+	CoinConfigID string `protobuf:"bytes,40,opt,name=CoinConfigID,proto3" json:"CoinConfigID,omitempty"`
+	CoinRewards  string `protobuf:"bytes,50,opt,name=CoinRewards,proto3" json:"CoinRewards,omitempty"`
+}
+
+func (x *CoinReward) Reset() {
+	*x = CoinReward{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_inspire_middleware_v1_event_event_proto_msgTypes[4]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *CoinReward) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CoinReward) ProtoMessage() {}
+
+func (x *CoinReward) ProtoReflect() protoreflect.Message {
+	mi := &file_inspire_middleware_v1_event_event_proto_msgTypes[4]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CoinReward.ProtoReflect.Descriptor instead.
+func (*CoinReward) Descriptor() ([]byte, []int) {
+	return file_inspire_middleware_v1_event_event_proto_rawDescGZIP(), []int{4}
+}
+
+func (x *CoinReward) GetAppID() string {
+	if x != nil {
+		return x.AppID
+	}
+	return ""
+}
+
+func (x *CoinReward) GetUserID() string {
+	if x != nil {
+		return x.UserID
+	}
+	return ""
+}
+
+func (x *CoinReward) GetCoinTypeID() string {
+	if x != nil {
+		return x.CoinTypeID
+	}
+	return ""
+}
+
+func (x *CoinReward) GetCoinConfigID() string {
+	if x != nil {
+		return x.CoinConfigID
+	}
+	return ""
+}
+
+func (x *CoinReward) GetCoinRewards() string {
+	if x != nil {
+		return x.CoinRewards
+	}
+	return ""
+}
+
+type CouponReward struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	AppID        string `protobuf:"bytes,10,opt,name=AppID,proto3" json:"AppID,omitempty"`
+	UserID       string `protobuf:"bytes,20,opt,name=UserID,proto3" json:"UserID,omitempty"`
+	CouponID     string `protobuf:"bytes,30,opt,name=CouponID,proto3" json:"CouponID,omitempty"`
+	Denomination string `protobuf:"bytes,40,opt,name=Denomination,proto3" json:"Denomination,omitempty"`
+	Cashable     bool   `protobuf:"varint,50,opt,name=Cashable,proto3" json:"Cashable,omitempty"`
+}
+
+func (x *CouponReward) Reset() {
+	*x = CouponReward{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_inspire_middleware_v1_event_event_proto_msgTypes[5]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *CouponReward) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CouponReward) ProtoMessage() {}
+
+func (x *CouponReward) ProtoReflect() protoreflect.Message {
+	mi := &file_inspire_middleware_v1_event_event_proto_msgTypes[5]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CouponReward.ProtoReflect.Descriptor instead.
+func (*CouponReward) Descriptor() ([]byte, []int) {
+	return file_inspire_middleware_v1_event_event_proto_rawDescGZIP(), []int{5}
+}
+
+func (x *CouponReward) GetAppID() string {
+	if x != nil {
+		return x.AppID
+	}
+	return ""
+}
+
+func (x *CouponReward) GetUserID() string {
+	if x != nil {
+		return x.UserID
+	}
+	return ""
+}
+
+func (x *CouponReward) GetCouponID() string {
+	if x != nil {
+		return x.CouponID
+	}
+	return ""
+}
+
+func (x *CouponReward) GetDenomination() string {
+	if x != nil {
+		return x.Denomination
+	}
+	return ""
+}
+
+func (x *CouponReward) GetCashable() bool {
+	if x != nil {
+		return x.Cashable
+	}
+	return false
+}
+
+type Reward struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	TaskID        string          `protobuf:"bytes,10,opt,name=TaskID,proto3" json:"TaskID,omitempty"`
+	UserID        string          `protobuf:"bytes,20,opt,name=UserID,proto3" json:"UserID,omitempty"`
+	Credits       string          `protobuf:"bytes,30,opt,name=Credits,proto3" json:"Credits,omitempty"`
+	CoinRewards   []*CoinReward   `protobuf:"bytes,40,rep,name=CoinRewards,proto3" json:"CoinRewards,omitempty"`
+	CouponRewards []*CouponReward `protobuf:"bytes,50,rep,name=CouponRewards,proto3" json:"CouponRewards,omitempty"`
+}
+
+func (x *Reward) Reset() {
+	*x = Reward{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_inspire_middleware_v1_event_event_proto_msgTypes[6]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *Reward) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*Reward) ProtoMessage() {}
+
+func (x *Reward) ProtoReflect() protoreflect.Message {
+	mi := &file_inspire_middleware_v1_event_event_proto_msgTypes[6]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use Reward.ProtoReflect.Descriptor instead.
+func (*Reward) Descriptor() ([]byte, []int) {
+	return file_inspire_middleware_v1_event_event_proto_rawDescGZIP(), []int{6}
+}
+
+func (x *Reward) GetTaskID() string {
+	if x != nil {
+		return x.TaskID
+	}
+	return ""
+}
+
+func (x *Reward) GetUserID() string {
+	if x != nil {
+		return x.UserID
+	}
+	return ""
+}
+
+func (x *Reward) GetCredits() string {
+	if x != nil {
+		return x.Credits
+	}
+	return ""
+}
+
+func (x *Reward) GetCoinRewards() []*CoinReward {
+	if x != nil {
+		return x.CoinRewards
+	}
+	return nil
+}
+
+func (x *Reward) GetCouponRewards() []*CouponReward {
+	if x != nil {
+		return x.CouponRewards
+	}
+	return nil
+}
+
 var File_inspire_middleware_v1_event_event_proto protoreflect.FileDescriptor
 
 var file_inspire_middleware_v1_event_event_proto_rawDesc = []byte{
@@ -527,11 +827,52 @@ var file_inspire_middleware_v1_event_event_proto_rawDesc = []byte{
 	0x0c, 0x0a, 0x0a, 0x5f, 0x45, 0x76, 0x65, 0x6e, 0x74, 0x54, 0x79, 0x70, 0x65, 0x42, 0x09, 0x0a,
 	0x07, 0x5f, 0x47, 0x6f, 0x6f, 0x64, 0x49, 0x44, 0x42, 0x0c, 0x0a, 0x0a, 0x5f, 0x41, 0x70, 0x70,
 	0x47, 0x6f, 0x6f, 0x64, 0x49, 0x44, 0x42, 0x09, 0x0a, 0x07, 0x5f, 0x45, 0x6e, 0x74, 0x49, 0x44,
-	0x73, 0x42, 0x45, 0x5a, 0x43, 0x67, 0x69, 0x74, 0x68, 0x75, 0x62, 0x2e, 0x63, 0x6f, 0x6d, 0x2f,
-	0x4e, 0x70, 0x6f, 0x6f, 0x6c, 0x50, 0x6c, 0x61, 0x74, 0x66, 0x6f, 0x72, 0x6d, 0x2f, 0x6b, 0x75,
-	0x6e, 0x6d, 0x61, 0x6e, 0x2f, 0x6d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x2f, 0x69, 0x6e, 0x73,
-	0x70, 0x69, 0x72, 0x65, 0x2f, 0x6d, 0x69, 0x64, 0x64, 0x6c, 0x65, 0x77, 0x61, 0x72, 0x65, 0x2f,
-	0x76, 0x31, 0x2f, 0x65, 0x76, 0x65, 0x6e, 0x74, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x73, 0x22, 0x50, 0x0a, 0x06, 0x43, 0x72, 0x65, 0x64, 0x69, 0x74, 0x12, 0x14, 0x0a, 0x05, 0x41,
+	0x70, 0x70, 0x49, 0x44, 0x18, 0x0a, 0x20, 0x01, 0x28, 0x09, 0x52, 0x05, 0x41, 0x70, 0x70, 0x49,
+	0x44, 0x12, 0x16, 0x0a, 0x06, 0x55, 0x73, 0x65, 0x72, 0x49, 0x44, 0x18, 0x14, 0x20, 0x01, 0x28,
+	0x09, 0x52, 0x06, 0x55, 0x73, 0x65, 0x72, 0x49, 0x44, 0x12, 0x18, 0x0a, 0x07, 0x43, 0x72, 0x65,
+	0x64, 0x69, 0x74, 0x73, 0x18, 0x1e, 0x20, 0x01, 0x28, 0x09, 0x52, 0x07, 0x43, 0x72, 0x65, 0x64,
+	0x69, 0x74, 0x73, 0x22, 0xa0, 0x01, 0x0a, 0x0a, 0x43, 0x6f, 0x69, 0x6e, 0x52, 0x65, 0x77, 0x61,
+	0x72, 0x64, 0x12, 0x14, 0x0a, 0x05, 0x41, 0x70, 0x70, 0x49, 0x44, 0x18, 0x0a, 0x20, 0x01, 0x28,
+	0x09, 0x52, 0x05, 0x41, 0x70, 0x70, 0x49, 0x44, 0x12, 0x16, 0x0a, 0x06, 0x55, 0x73, 0x65, 0x72,
+	0x49, 0x44, 0x18, 0x14, 0x20, 0x01, 0x28, 0x09, 0x52, 0x06, 0x55, 0x73, 0x65, 0x72, 0x49, 0x44,
+	0x12, 0x1e, 0x0a, 0x0a, 0x43, 0x6f, 0x69, 0x6e, 0x54, 0x79, 0x70, 0x65, 0x49, 0x44, 0x18, 0x1e,
+	0x20, 0x01, 0x28, 0x09, 0x52, 0x0a, 0x43, 0x6f, 0x69, 0x6e, 0x54, 0x79, 0x70, 0x65, 0x49, 0x44,
+	0x12, 0x22, 0x0a, 0x0c, 0x43, 0x6f, 0x69, 0x6e, 0x43, 0x6f, 0x6e, 0x66, 0x69, 0x67, 0x49, 0x44,
+	0x18, 0x28, 0x20, 0x01, 0x28, 0x09, 0x52, 0x0c, 0x43, 0x6f, 0x69, 0x6e, 0x43, 0x6f, 0x6e, 0x66,
+	0x69, 0x67, 0x49, 0x44, 0x12, 0x20, 0x0a, 0x0b, 0x43, 0x6f, 0x69, 0x6e, 0x52, 0x65, 0x77, 0x61,
+	0x72, 0x64, 0x73, 0x18, 0x32, 0x20, 0x01, 0x28, 0x09, 0x52, 0x0b, 0x43, 0x6f, 0x69, 0x6e, 0x52,
+	0x65, 0x77, 0x61, 0x72, 0x64, 0x73, 0x22, 0x98, 0x01, 0x0a, 0x0c, 0x43, 0x6f, 0x75, 0x70, 0x6f,
+	0x6e, 0x52, 0x65, 0x77, 0x61, 0x72, 0x64, 0x12, 0x14, 0x0a, 0x05, 0x41, 0x70, 0x70, 0x49, 0x44,
+	0x18, 0x0a, 0x20, 0x01, 0x28, 0x09, 0x52, 0x05, 0x41, 0x70, 0x70, 0x49, 0x44, 0x12, 0x16, 0x0a,
+	0x06, 0x55, 0x73, 0x65, 0x72, 0x49, 0x44, 0x18, 0x14, 0x20, 0x01, 0x28, 0x09, 0x52, 0x06, 0x55,
+	0x73, 0x65, 0x72, 0x49, 0x44, 0x12, 0x1a, 0x0a, 0x08, 0x43, 0x6f, 0x75, 0x70, 0x6f, 0x6e, 0x49,
+	0x44, 0x18, 0x1e, 0x20, 0x01, 0x28, 0x09, 0x52, 0x08, 0x43, 0x6f, 0x75, 0x70, 0x6f, 0x6e, 0x49,
+	0x44, 0x12, 0x22, 0x0a, 0x0c, 0x44, 0x65, 0x6e, 0x6f, 0x6d, 0x69, 0x6e, 0x61, 0x74, 0x69, 0x6f,
+	0x6e, 0x18, 0x28, 0x20, 0x01, 0x28, 0x09, 0x52, 0x0c, 0x44, 0x65, 0x6e, 0x6f, 0x6d, 0x69, 0x6e,
+	0x61, 0x74, 0x69, 0x6f, 0x6e, 0x12, 0x1a, 0x0a, 0x08, 0x43, 0x61, 0x73, 0x68, 0x61, 0x62, 0x6c,
+	0x65, 0x18, 0x32, 0x20, 0x01, 0x28, 0x08, 0x52, 0x08, 0x43, 0x61, 0x73, 0x68, 0x61, 0x62, 0x6c,
+	0x65, 0x22, 0xee, 0x01, 0x0a, 0x06, 0x52, 0x65, 0x77, 0x61, 0x72, 0x64, 0x12, 0x16, 0x0a, 0x06,
+	0x54, 0x61, 0x73, 0x6b, 0x49, 0x44, 0x18, 0x0a, 0x20, 0x01, 0x28, 0x09, 0x52, 0x06, 0x54, 0x61,
+	0x73, 0x6b, 0x49, 0x44, 0x12, 0x16, 0x0a, 0x06, 0x55, 0x73, 0x65, 0x72, 0x49, 0x44, 0x18, 0x14,
+	0x20, 0x01, 0x28, 0x09, 0x52, 0x06, 0x55, 0x73, 0x65, 0x72, 0x49, 0x44, 0x12, 0x18, 0x0a, 0x07,
+	0x43, 0x72, 0x65, 0x64, 0x69, 0x74, 0x73, 0x18, 0x1e, 0x20, 0x01, 0x28, 0x09, 0x52, 0x07, 0x43,
+	0x72, 0x65, 0x64, 0x69, 0x74, 0x73, 0x12, 0x49, 0x0a, 0x0b, 0x43, 0x6f, 0x69, 0x6e, 0x52, 0x65,
+	0x77, 0x61, 0x72, 0x64, 0x73, 0x18, 0x28, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x27, 0x2e, 0x69, 0x6e,
+	0x73, 0x70, 0x69, 0x72, 0x65, 0x2e, 0x6d, 0x69, 0x64, 0x64, 0x6c, 0x65, 0x77, 0x61, 0x72, 0x65,
+	0x2e, 0x65, 0x76, 0x65, 0x6e, 0x74, 0x2e, 0x76, 0x31, 0x2e, 0x43, 0x6f, 0x69, 0x6e, 0x52, 0x65,
+	0x77, 0x61, 0x72, 0x64, 0x52, 0x0b, 0x43, 0x6f, 0x69, 0x6e, 0x52, 0x65, 0x77, 0x61, 0x72, 0x64,
+	0x73, 0x12, 0x4f, 0x0a, 0x0d, 0x43, 0x6f, 0x75, 0x70, 0x6f, 0x6e, 0x52, 0x65, 0x77, 0x61, 0x72,
+	0x64, 0x73, 0x18, 0x32, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x29, 0x2e, 0x69, 0x6e, 0x73, 0x70, 0x69,
+	0x72, 0x65, 0x2e, 0x6d, 0x69, 0x64, 0x64, 0x6c, 0x65, 0x77, 0x61, 0x72, 0x65, 0x2e, 0x65, 0x76,
+	0x65, 0x6e, 0x74, 0x2e, 0x76, 0x31, 0x2e, 0x43, 0x6f, 0x75, 0x70, 0x6f, 0x6e, 0x52, 0x65, 0x77,
+	0x61, 0x72, 0x64, 0x52, 0x0d, 0x43, 0x6f, 0x75, 0x70, 0x6f, 0x6e, 0x52, 0x65, 0x77, 0x61, 0x72,
+	0x64, 0x73, 0x42, 0x45, 0x5a, 0x43, 0x67, 0x69, 0x74, 0x68, 0x75, 0x62, 0x2e, 0x63, 0x6f, 0x6d,
+	0x2f, 0x4e, 0x70, 0x6f, 0x6f, 0x6c, 0x50, 0x6c, 0x61, 0x74, 0x66, 0x6f, 0x72, 0x6d, 0x2f, 0x6b,
+	0x75, 0x6e, 0x6d, 0x61, 0x6e, 0x2f, 0x6d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x2f, 0x69, 0x6e,
+	0x73, 0x70, 0x69, 0x72, 0x65, 0x2f, 0x6d, 0x69, 0x64, 0x64, 0x6c, 0x65, 0x77, 0x61, 0x72, 0x65,
+	0x2f, 0x76, 0x31, 0x2f, 0x65, 0x76, 0x65, 0x6e, 0x74, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f,
+	0x33,
 }
 
 var (
@@ -546,33 +887,39 @@ func file_inspire_middleware_v1_event_event_proto_rawDescGZIP() []byte {
 	return file_inspire_middleware_v1_event_event_proto_rawDescData
 }
 
-var file_inspire_middleware_v1_event_event_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
+var file_inspire_middleware_v1_event_event_proto_msgTypes = make([]protoimpl.MessageInfo, 7)
 var file_inspire_middleware_v1_event_event_proto_goTypes = []interface{}{
 	(*EventReq)(nil),          // 0: inspire.middleware.event.v1.EventReq
 	(*Event)(nil),             // 1: inspire.middleware.event.v1.Event
 	(*Conds)(nil),             // 2: inspire.middleware.event.v1.Conds
-	(v1.UsedFor)(0),           // 3: basetypes.v1.UsedFor
-	(*coin.EventCoin)(nil),    // 4: inspire.middleware.event.coin.v1.EventCoin
-	(*v1.Uint32Val)(nil),      // 5: basetypes.v1.Uint32Val
-	(*v1.StringVal)(nil),      // 6: basetypes.v1.StringVal
-	(*v1.StringSliceVal)(nil), // 7: basetypes.v1.StringSliceVal
+	(*Credit)(nil),            // 3: inspire.middleware.event.v1.Credit
+	(*CoinReward)(nil),        // 4: inspire.middleware.event.v1.CoinReward
+	(*CouponReward)(nil),      // 5: inspire.middleware.event.v1.CouponReward
+	(*Reward)(nil),            // 6: inspire.middleware.event.v1.Reward
+	(v1.UsedFor)(0),           // 7: basetypes.v1.UsedFor
+	(*coin.EventCoin)(nil),    // 8: inspire.middleware.event.coin.v1.EventCoin
+	(*v1.Uint32Val)(nil),      // 9: basetypes.v1.Uint32Val
+	(*v1.StringVal)(nil),      // 10: basetypes.v1.StringVal
+	(*v1.StringSliceVal)(nil), // 11: basetypes.v1.StringSliceVal
 }
 var file_inspire_middleware_v1_event_event_proto_depIdxs = []int32{
-	3,  // 0: inspire.middleware.event.v1.EventReq.EventType:type_name -> basetypes.v1.UsedFor
-	3,  // 1: inspire.middleware.event.v1.Event.EventType:type_name -> basetypes.v1.UsedFor
-	4,  // 2: inspire.middleware.event.v1.Event.Coins:type_name -> inspire.middleware.event.coin.v1.EventCoin
-	5,  // 3: inspire.middleware.event.v1.Conds.ID:type_name -> basetypes.v1.Uint32Val
-	6,  // 4: inspire.middleware.event.v1.Conds.EntID:type_name -> basetypes.v1.StringVal
-	6,  // 5: inspire.middleware.event.v1.Conds.AppID:type_name -> basetypes.v1.StringVal
-	5,  // 6: inspire.middleware.event.v1.Conds.EventType:type_name -> basetypes.v1.Uint32Val
-	6,  // 7: inspire.middleware.event.v1.Conds.GoodID:type_name -> basetypes.v1.StringVal
-	6,  // 8: inspire.middleware.event.v1.Conds.AppGoodID:type_name -> basetypes.v1.StringVal
-	7,  // 9: inspire.middleware.event.v1.Conds.EntIDs:type_name -> basetypes.v1.StringSliceVal
-	10, // [10:10] is the sub-list for method output_type
-	10, // [10:10] is the sub-list for method input_type
-	10, // [10:10] is the sub-list for extension type_name
-	10, // [10:10] is the sub-list for extension extendee
-	0,  // [0:10] is the sub-list for field type_name
+	7,  // 0: inspire.middleware.event.v1.EventReq.EventType:type_name -> basetypes.v1.UsedFor
+	7,  // 1: inspire.middleware.event.v1.Event.EventType:type_name -> basetypes.v1.UsedFor
+	8,  // 2: inspire.middleware.event.v1.Event.Coins:type_name -> inspire.middleware.event.coin.v1.EventCoin
+	9,  // 3: inspire.middleware.event.v1.Conds.ID:type_name -> basetypes.v1.Uint32Val
+	10, // 4: inspire.middleware.event.v1.Conds.EntID:type_name -> basetypes.v1.StringVal
+	10, // 5: inspire.middleware.event.v1.Conds.AppID:type_name -> basetypes.v1.StringVal
+	9,  // 6: inspire.middleware.event.v1.Conds.EventType:type_name -> basetypes.v1.Uint32Val
+	10, // 7: inspire.middleware.event.v1.Conds.GoodID:type_name -> basetypes.v1.StringVal
+	10, // 8: inspire.middleware.event.v1.Conds.AppGoodID:type_name -> basetypes.v1.StringVal
+	11, // 9: inspire.middleware.event.v1.Conds.EntIDs:type_name -> basetypes.v1.StringSliceVal
+	4,  // 10: inspire.middleware.event.v1.Reward.CoinRewards:type_name -> inspire.middleware.event.v1.CoinReward
+	5,  // 11: inspire.middleware.event.v1.Reward.CouponRewards:type_name -> inspire.middleware.event.v1.CouponReward
+	12, // [12:12] is the sub-list for method output_type
+	12, // [12:12] is the sub-list for method input_type
+	12, // [12:12] is the sub-list for extension type_name
+	12, // [12:12] is the sub-list for extension extendee
+	0,  // [0:12] is the sub-list for field type_name
 }
 
 func init() { file_inspire_middleware_v1_event_event_proto_init() }
@@ -617,6 +964,54 @@ func file_inspire_middleware_v1_event_event_proto_init() {
 				return nil
 			}
 		}
+		file_inspire_middleware_v1_event_event_proto_msgTypes[3].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*Credit); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_inspire_middleware_v1_event_event_proto_msgTypes[4].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*CoinReward); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_inspire_middleware_v1_event_event_proto_msgTypes[5].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*CouponReward); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_inspire_middleware_v1_event_event_proto_msgTypes[6].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*Reward); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
 	}
 	file_inspire_middleware_v1_event_event_proto_msgTypes[0].OneofWrappers = []interface{}{}
 	file_inspire_middleware_v1_event_event_proto_msgTypes[1].OneofWrappers = []interface{}{}
@@ -627,7 +1022,7 @@ func file_inspire_middleware_v1_event_event_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_inspire_middleware_v1_event_event_proto_rawDesc,
 			NumEnums:      0,
-			NumMessages:   3,
+			NumMessages:   7,
 			NumExtensions: 0,
 			NumServices:   0,
 		},

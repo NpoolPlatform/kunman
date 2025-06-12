@@ -6,7 +6,7 @@ import (
 	"github.com/NpoolPlatform/kunman/framework/wlog"
 	eventcrud "github.com/NpoolPlatform/kunman/middleware/inspire/crud/event"
 	"github.com/NpoolPlatform/kunman/middleware/inspire/db"
-	"github.com/NpoolPlatform/kunman/middleware/inspire/db/ent/generated"
+	ent "github.com/NpoolPlatform/kunman/middleware/inspire/db/ent/generated"
 	entevent "github.com/NpoolPlatform/kunman/middleware/inspire/db/ent/generated/event"
 )
 

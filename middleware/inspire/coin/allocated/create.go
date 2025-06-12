@@ -9,7 +9,7 @@ import (
 	coinconfigcrud "github.com/NpoolPlatform/kunman/middleware/inspire/crud/coin/config"
 	usercoinrewardcrud "github.com/NpoolPlatform/kunman/middleware/inspire/crud/user/coin/reward"
 	"github.com/NpoolPlatform/kunman/middleware/inspire/db"
-	"github.com/NpoolPlatform/kunman/middleware/inspire/db/ent/generated"
+	ent "github.com/NpoolPlatform/kunman/middleware/inspire/db/ent/generated"
 	entcoinconfig "github.com/NpoolPlatform/kunman/middleware/inspire/db/ent/generated/coinconfig"
 	entusercoinreward "github.com/NpoolPlatform/kunman/middleware/inspire/db/ent/generated/usercoinreward"
 	"github.com/shopspring/decimal"

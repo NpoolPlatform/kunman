@@ -9,7 +9,7 @@ import (
 	eventcoincrud "github.com/NpoolPlatform/kunman/middleware/inspire/crud/event/coin"
 	eventcouponcrud "github.com/NpoolPlatform/kunman/middleware/inspire/crud/event/coupon"
 	"github.com/NpoolPlatform/kunman/middleware/inspire/db"
-	"github.com/NpoolPlatform/kunman/middleware/inspire/db/ent/generated"
+	ent "github.com/NpoolPlatform/kunman/middleware/inspire/db/ent/generated"
 	enteventcoin "github.com/NpoolPlatform/kunman/middleware/inspire/db/ent/generated/eventcoin"
 	enteventcoupon "github.com/NpoolPlatform/kunman/middleware/inspire/db/ent/generated/eventcoupon"
 	"github.com/google/uuid"

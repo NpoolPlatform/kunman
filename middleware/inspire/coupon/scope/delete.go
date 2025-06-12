@@ -6,10 +6,10 @@ import (
 
 	"github.com/NpoolPlatform/kunman/framework/wlog"
 	"github.com/NpoolPlatform/kunman/middleware/inspire/db"
-	"github.com/NpoolPlatform/kunman/middleware/inspire/db/ent/generated"
+	ent "github.com/NpoolPlatform/kunman/middleware/inspire/db/ent/generated"
 
-	scopecrud "github.com/NpoolPlatform/kunman/middleware/inspire/crud/coupon/scope"
 	npool "github.com/NpoolPlatform/kunman/message/inspire/middleware/v1/coupon/scope"
+	scopecrud "github.com/NpoolPlatform/kunman/middleware/inspire/crud/coupon/scope"
 )
 
 func (h *Handler) DeleteScope(ctx context.Context) (*npool.Scope, error) {

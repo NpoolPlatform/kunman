@@ -6,11 +6,11 @@ import (
 	"entgo.io/ent/dialect/sql"
 	"github.com/NpoolPlatform/kunman/framework/wlog"
 
+	npool "github.com/NpoolPlatform/kunman/message/inspire/middleware/v1/coin/allocated"
 	devicecrud "github.com/NpoolPlatform/kunman/middleware/inspire/crud/coin/allocated"
 	"github.com/NpoolPlatform/kunman/middleware/inspire/db"
-	"github.com/NpoolPlatform/kunman/middleware/inspire/db/ent/generated"
+	ent "github.com/NpoolPlatform/kunman/middleware/inspire/db/ent/generated"
 	entcoinallocated "github.com/NpoolPlatform/kunman/middleware/inspire/db/ent/generated/coinallocated"
-	npool "github.com/NpoolPlatform/kunman/message/inspire/middleware/v1/coin/allocated"
 	"github.com/shopspring/decimal"
 )
 

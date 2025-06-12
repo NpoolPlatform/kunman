@@ -6,13 +6,13 @@ import (
 	"entgo.io/ent/dialect/sql"
 
 	"github.com/NpoolPlatform/kunman/framework/wlog"
-	appgoodscopecrud "github.com/NpoolPlatform/kunman/middleware/inspire/crud/coupon/app/scope"
-	"github.com/NpoolPlatform/kunman/middleware/inspire/db"
-	"github.com/NpoolPlatform/kunman/middleware/inspire/db/ent/generated"
-	entappgoodscope "github.com/NpoolPlatform/kunman/middleware/inspire/db/ent/generated/appgoodscope"
-	entcoupon "github.com/NpoolPlatform/kunman/middleware/inspire/db/ent/generated/coupon"
 	types "github.com/NpoolPlatform/kunman/message/basetypes/inspire/v1"
 	npool "github.com/NpoolPlatform/kunman/message/inspire/middleware/v1/coupon/app/scope"
+	appgoodscopecrud "github.com/NpoolPlatform/kunman/middleware/inspire/crud/coupon/app/scope"
+	"github.com/NpoolPlatform/kunman/middleware/inspire/db"
+	ent "github.com/NpoolPlatform/kunman/middleware/inspire/db/ent/generated"
+	entappgoodscope "github.com/NpoolPlatform/kunman/middleware/inspire/db/ent/generated/appgoodscope"
+	entcoupon "github.com/NpoolPlatform/kunman/middleware/inspire/db/ent/generated/coupon"
 
 	"github.com/shopspring/decimal"
 )

@@ -7,7 +7,7 @@ import (
 
 	"github.com/NpoolPlatform/kunman/framework/wlog"
 	"github.com/NpoolPlatform/kunman/middleware/inspire/db"
-	"github.com/NpoolPlatform/kunman/middleware/inspire/db/ent/generated"
+	ent "github.com/NpoolPlatform/kunman/middleware/inspire/db/ent/generated"
 	cruder "github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 	"github.com/google/uuid"
 )

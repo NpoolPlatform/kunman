@@ -6,7 +6,7 @@ import (
 	"github.com/NpoolPlatform/kunman/framework/wlog"
 	scopecrud "github.com/NpoolPlatform/kunman/middleware/inspire/crud/coupon/scope"
 	"github.com/NpoolPlatform/kunman/middleware/inspire/db"
-	"github.com/NpoolPlatform/kunman/middleware/inspire/db/ent/generated"
+	ent "github.com/NpoolPlatform/kunman/middleware/inspire/db/ent/generated"
 )
 
 func (h *Handler) ExistScopeConds(ctx context.Context) (bool, error) {

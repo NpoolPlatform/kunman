@@ -5,10 +5,10 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/NpoolPlatform/kunman/middleware/inspire/db"
-	"github.com/NpoolPlatform/kunman/middleware/inspire/db/ent/generated"
-	entcoupon "github.com/NpoolPlatform/kunman/middleware/inspire/db/ent/generated/coupon"
 	inspiretypes "github.com/NpoolPlatform/kunman/message/basetypes/inspire/v1"
+	"github.com/NpoolPlatform/kunman/middleware/inspire/db"
+	ent "github.com/NpoolPlatform/kunman/middleware/inspire/db/ent/generated"
+	entcoupon "github.com/NpoolPlatform/kunman/middleware/inspire/db/ent/generated/coupon"
 	"github.com/google/uuid"
 
 	"github.com/NpoolPlatform/kunman/framework/wlog"

@@ -6,7 +6,7 @@ import (
 	"github.com/NpoolPlatform/kunman/framework/wlog"
 	cashcontrolcrud "github.com/NpoolPlatform/kunman/middleware/inspire/crud/coupon/app/cashcontrol"
 	"github.com/NpoolPlatform/kunman/middleware/inspire/db"
-	"github.com/NpoolPlatform/kunman/middleware/inspire/db/ent/generated"
+	ent "github.com/NpoolPlatform/kunman/middleware/inspire/db/ent/generated"
 )
 
 func (h *Handler) ExistCashControlConds(ctx context.Context) (bool, error) {

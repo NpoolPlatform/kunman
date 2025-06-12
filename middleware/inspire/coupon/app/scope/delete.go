@@ -6,10 +6,10 @@ import (
 
 	"github.com/NpoolPlatform/kunman/framework/wlog"
 	"github.com/NpoolPlatform/kunman/middleware/inspire/db"
-	"github.com/NpoolPlatform/kunman/middleware/inspire/db/ent/generated"
+	ent "github.com/NpoolPlatform/kunman/middleware/inspire/db/ent/generated"
 
-	appgoodscopecrud "github.com/NpoolPlatform/kunman/middleware/inspire/crud/coupon/app/scope"
 	npool "github.com/NpoolPlatform/kunman/message/inspire/middleware/v1/coupon/app/scope"
+	appgoodscopecrud "github.com/NpoolPlatform/kunman/middleware/inspire/crud/coupon/app/scope"
 )
 
 func (h *Handler) DeleteAppGoodScope(ctx context.Context) (*npool.Scope, error) {
