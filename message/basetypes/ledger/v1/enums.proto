@@ -1,0 +1,70 @@
+syntax = "proto3";
+
+package basetypes.ledger.v1;
+
+option go_package = "github.com/NpoolPlatform/kunman/message/basetypes/ledger/v1";
+
+enum IOType {
+  DefaultType = 0;
+  Incoming = 10;
+  Outcoming = 20;
+}
+
+enum IOSubType {
+  DefaultSubType = 0;
+  // I/O
+  // I: record tids in extra
+  // O: record order id in extra
+  Payment = 100;
+  // I: record good id in extra
+  MiningBenefit = 110;
+  // I: record user id, order id in extra
+  Commission = 120;
+  // I: record good id in extra
+  TechniqueFeeCommission = 130;
+  // I: record address in extra
+  Deposit = 140;
+  // I: record from user in extra
+  // O: record target user in extra
+  Transfer = 150;
+  // O
+  Withdrawal = 160;
+  // I: record user id, order id in extra
+  OrderRevoke = 170;
+  // I: record user id,order id, archivement details id in extra
+  CommissionRevoke = 180;
+  // I
+  RandomCouponCash = 190;
+  // I
+  SimulateMiningBenefit = 200;
+  // I
+  ObseletePayment = 210;
+  // I
+  EventReward = 220;
+}
+
+enum WithdrawState {
+  DefaultWithdrawState = 0;
+  Created = 10;
+  Reviewing = 20;
+  Approved = 30;
+  Transferring = 40;
+  PreRejected = 50;
+  ReturnRejectedBalance = 60; // -> Rejected
+  Rejected = 70;              // ReturnRejectedBalance <- (rollback)
+  PreFail = 80;
+  ReturnFailBalance = 90; // -> TransactionFail
+  TransactionFail = 100;  // ReturnFailBalance <-
+  PreSuccessful = 110;
+  SpendSuccessfulBalance = 120; // -> Successful
+  Successful = 130;             // SpendSuccessfulBalance <-
+}
+
+enum LedgerLockState {
+  DefaultLedgerLockState = 0;
+
+  LedgerLockLocked = 10;
+  LedgerLockSettle = 20;
+  LedgerLockRollback = 30;
+  LedgerLockCanceled = 40;
+}

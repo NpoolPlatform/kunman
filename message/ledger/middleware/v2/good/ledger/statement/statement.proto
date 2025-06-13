@@ -1,0 +1,54 @@
+syntax = "proto3";
+
+package ledger.middleware.good.ledger.statement.v2;
+
+option go_package = "github.com/NpoolPlatform/kunman/message/ledger/middleware/v2/good/ledger/statement";
+
+import "basetypes/v1/conds.proto";
+
+message GoodStatementReq {
+  optional uint32 ID = 9;
+  optional string EntID = 10;
+  optional string GoodID = 20;
+  optional string CoinTypeID = 30;
+  optional uint32 BenefitDate = 50;
+  optional uint32 CreatedAt = 60;
+  optional string TotalAmount = 70;
+  optional string UnsoldAmount = 80;
+  optional string TechniqueServiceFeeAmount = 90;
+  optional bool Rollback = 1000;
+}
+
+message GoodStatement {
+  // @inject_tag: sql:"id"
+  uint32 ID = 9;
+  // @inject_tag: sql:"ent_id"
+  string EntID = 10;
+  // @inject_tag: sql:"good_id"
+  string GoodID = 20;
+  // @inject_tag: sql:"coin_type_id"
+  string CoinTypeID = 30;
+  // @inject_tag: sql:"amount"
+  string Amount = 40;
+  // @inject_tag: sql:"technique_service_fee_amount"
+  string TechniqueServiceFeeAmount = 50;
+  // @inject_tag: sql:"to_platform"
+  string ToPlatform = 60;
+  // @inject_tag: sql:"to_user"
+  string ToUser = 70;
+  // @inject_tag: sql:"benefit_date"
+  uint32 BenefitDate = 80;
+  // @inject_tag: sql:"created_at"
+  uint32 CreatedAt = 90;
+  // @inject_tag: sql:"updated_at"
+  uint32 UpdatedAt = 100;
+}
+
+message Conds {
+  optional basetypes.v1.StringVal EntID = 10;
+  optional basetypes.v1.StringVal GoodID = 20;
+  optional basetypes.v1.StringVal CoinTypeID = 30;
+  optional basetypes.v1.StringVal Amount = 40;
+  optional basetypes.v1.Uint32Val BenefitDate = 50;
+}
+

@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+package ledger.middleware.good.ledger.v2;
+
+option go_package = "github.com/NpoolPlatform/kunman/message/ledger/middleware/v2/good/ledger";
+
+// Service Name
+service Middleware {}
+
+message GoodLedger {
+  // @inject_tag: sql:"id"
+  uint32 ID = 9;
+  // @inject_tag: sql:"ent_id"
+  string EntID = 10;
+  // @inject_tag: sql:"good_id"
+  string GoodID = 20;
+  // @inject_tag: sql:"coin_type_id"
+  string CoinTypeID = 30;
+  // @inject_tag: sql:"amount"
+  string Amount = 40;
+  // @inject_tag: sql:"to_platform"
+  string ToPlatform = 50;
+  // @inject_tag: sql:"to_user"
+  string ToUser = 60;
+  // @inject_tag: sql:"created_at"
+  uint32 CreatedAt = 70;
+  // @inject_tag: sql:"updated_at"
+  uint32 UpdatedAt = 80;
+}

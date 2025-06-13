@@ -1,0 +1,65 @@
+syntax = "proto3";
+
+package ledger.middleware.ledger.statement.v2;
+
+option go_package = "github.com/NpoolPlatform/kunman/message/ledger/middleware/v2/ledger/statement";
+
+import "basetypes/v1/conds.proto";
+import "basetypes/ledger/v1/enums.proto";
+
+message StatementReq {
+  optional uint32 ID = 9;
+  optional string EntID = 10;
+  optional string AppID = 20;
+  optional string UserID = 30;
+  optional string CoinTypeID = 40;
+  optional basetypes.ledger.v1.IOType IOType = 50;
+  optional basetypes.ledger.v1.IOSubType IOSubType = 60;
+  optional string Amount = 70;
+  optional string IOExtra = 100;
+  optional uint32 CreatedAt = 110;
+  optional bool Rollback = 1000;
+}
+
+message Statement {
+  // @inject_tag: sql:"id"
+  uint32 ID = 9;
+  // @inject_tag: sql:"ent_id"
+  string EntID = 10;
+  // @inject_tag: sql:"app_id"
+  string AppID = 20;
+  // @inject_tag: sql:"user_id"
+  string UserID = 30;
+  // @inject_tag: sql:"coin_type_id"
+  string CoinTypeID = 40;
+  // @inject_tag: sql:"io_type"
+  string IOTypeStr = 41;
+  basetypes.ledger.v1.IOType IOType = 50;
+  // @inject_tag: sql:"io_sub_type"
+  string IOSubTypeStr = 51;
+  basetypes.ledger.v1.IOSubType IOSubType = 60;
+  // @inject_tag: sql:"amount"
+  string Amount = 70;
+  // @inject_tag: sql:"io_extra_v1"
+  string IOExtra = 100;
+  // @inject_tag: sql:"created_at"
+  uint32 CreatedAt = 110;
+  // @inject_tag: sql:"updated_at"
+  uint32 UpdatedAt = 120;
+}
+
+message Conds {
+  optional basetypes.v1.StringVal EntID = 10;
+  optional basetypes.v1.StringVal AppID = 20;
+  optional basetypes.v1.StringVal UserID = 30;
+  optional basetypes.v1.StringVal CoinTypeID = 40;
+  optional basetypes.v1.Uint32Val IOType = 50;
+  optional basetypes.v1.Uint32Val IOSubType = 60;
+  optional basetypes.v1.StringVal IOExtra = 100;
+  optional basetypes.v1.Uint32Val StartAt = 110;
+  optional basetypes.v1.Uint32Val EndAt = 120;
+  optional basetypes.v1.Uint32SliceVal IOSubTypes = 130;
+  optional basetypes.v1.StringSliceVal CoinTypeIDs = 140;
+  optional basetypes.v1.StringSliceVal UserIDs = 150;
+}
+

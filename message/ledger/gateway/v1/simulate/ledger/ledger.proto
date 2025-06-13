@@ -1,0 +1,65 @@
+syntax = "proto3";
+
+package ledger.gateway.simulate.ledger.v1;
+
+option go_package = "github.com/NpoolPlatform/kunman/message/ledger/gateway/v1/simulate/ledger";
+
+import "google/api/annotations.proto";
+
+// Service Name
+service Gateway {
+  rpc GetLedgers(GetLedgersRequest) returns (GetLedgersResponse) {
+    option (google.api.http) = {
+      post : "/v1/get/simulate/generals"
+      body : "*"
+    };
+  }
+
+  rpc GetAppLedgers(GetAppLedgersRequest) returns (GetAppLedgersResponse) {
+    option (google.api.http) = {
+      post : "/v1/get/app/simulate/generals"
+      body : "*"
+    };
+  }
+}
+
+message Ledger {
+  string CoinTypeID = 10;
+  string CoinName = 20;
+  repeated string DisplayNames = 21;
+  string CoinLogo = 30;
+  string CoinUnit = 40;
+  bool CoinDisabled = 41;
+  bool CoinDisplay = 42;
+  string Incoming = 50;
+  string Outcoming = 70;
+  string UserID = 90;
+  string PhoneNO = 100;
+  string EmailAddress = 110;
+  string AppID = 120;
+  uint32 ID = 130;
+  string EntID = 140;
+}
+
+message GetLedgersRequest {
+  string AppID = 10;
+  string UserID = 20;
+  int32 Offset = 30;
+  int32 Limit = 40;
+}
+
+message GetLedgersResponse {
+  repeated Ledger Infos = 10;
+  uint32 Total = 20;
+}
+
+message GetAppLedgersRequest {
+  string TargetAppID = 10;
+  int32 Offset = 20;
+  int32 Limit = 30;
+}
+
+message GetAppLedgersResponse {
+  repeated Ledger Infos = 10;
+  uint32 Total = 20;
+}

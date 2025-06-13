@@ -1,0 +1,46 @@
+syntax = "proto3";
+
+package ledger.gateway.ledger.transfer.v1;
+
+option go_package = "github.com/NpoolPlatform/kunman/message/ledger/gateway/v1/ledger/transfer";
+
+import "basetypes/v1/signmethod.proto";
+import "google/api/annotations.proto";
+
+// Service Name
+service Gateway {
+  rpc CreateTransfer(CreateTransferRequest) returns (CreateTransferResponse) {
+    option (google.api.http) = {
+      post : "/v1/create/transfer"
+      body : "*"
+    };
+  }
+}
+
+message Transfer {
+  string CoinTypeID = 10;
+  string CoinName = 20;
+  repeated string DisplayNames = 21;
+  string CoinLogo = 30;
+  string CoinUnit = 40;
+  string Amount = 50;
+  uint32 CreatedAt = 60;
+  string TargetUserID = 70;
+  string TargetEmailAddress = 80;
+  string TargetPhoneNO = 90;
+  string TargetUsername = 100;
+  string TargetFirstName = 110;
+  string TargetLastName = 120;
+}
+
+message CreateTransferRequest {
+  string AppID = 10;
+  string UserID = 20;
+  basetypes.v1.SignMethod AccountType = 40;
+  string VerificationCode = 50;
+  string TargetUserID = 60;
+  string Amount = 70;
+  string CoinTypeID = 80;
+}
+
+message CreateTransferResponse { Transfer Info = 10; }

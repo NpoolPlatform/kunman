@@ -5,10 +5,10 @@ import (
 
 	"entgo.io/ent/dialect/sql"
 	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
+	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/order/v1"
 	"github.com/NpoolPlatform/kunman/middleware/order/db"
 	ent "github.com/NpoolPlatform/kunman/middleware/order/db/ent/generated"
 	entappconfig "github.com/NpoolPlatform/kunman/middleware/order/db/ent/generated/appconfig"
-	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/order/v1"
 	"github.com/shopspring/decimal"
 
 	npool "github.com/NpoolPlatform/kunman/message/order/middleware/v1/app/config"
@@ -159,4 +159,45 @@ func (h *Handler) GetAppConfigs(ctx context.Context) (infos []*npool.AppConfig, 
 	handler.formalize()
 
 	return handler.infos, handler.total, nil
+}
+
+func (h *Handler) GetAppConfigOnly(ctx context.Context) (*npool.AppConfig, error) {
+	handler := &queryHandler{
+		Handler: h,
+	}
+
+	var err error
+
+	err = db.WithClient(ctx, func(_ctx context.Context, cli *ent.Client) error {
+		if handler.stmSelect, err = handler.queryAppConfigs(cli); err != nil {
+			return wlog.WrapError(err)
+		}
+		if handler.stmCount, err = handler.queryAppConfigs(cli); err != nil {
+			return wlog.WrapError(err)
+		}
+
+		handler.queryJoin()
+		_total, err := handler.stmCount.Count(_ctx)
+		if err != nil {
+			return wlog.WrapError(err)
+		}
+		handler.total = uint32(_total)
+
+		handler.stmSelect.Offset(0).Limit(2)
+
+		return handler.scan(_ctx)
+	})
+	if err != nil {
+		return nil, wlog.WrapError(err)
+	}
+	if len(handler.infos) == 0 {
+		return nil, nil
+	}
+	if len(handler.infos) > 1 {
+		return nil, wlog.Errorf("Invalid appconfig")
+	}
+
+	handler.formalize()
+
+	return handler.infos[0], nil
 }

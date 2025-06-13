@@ -1,0 +1,32 @@
+syntax = "proto3";
+
+package ledger.gateway.ledger.deposit.v1;
+
+option go_package = "github.com/NpoolPlatform/kunman/message/ledger/gateway/v1/ledger/deposit";
+
+import "google/api/annotations.proto";
+import "ledger/gateway/v1/ledger/statement/statement.proto";
+
+// Service Name
+service Gateway {
+  rpc CreateAppUserDeposit(CreateAppUserDepositRequest)
+      returns (CreateAppUserDepositResponse) {
+    option (google.api.http) = {
+      post : "/v1/create/app/user/deposit"
+      body : "*"
+    };
+  }
+}
+
+message CreateAppUserDepositRequest {
+  string AppID = 10;
+  string UserID = 20;
+  string CoinTypeID = 30;
+  string Amount = 40;
+  string TargetAppID = 50;
+  string TargetUserID = 60;
+}
+
+message CreateAppUserDepositResponse {
+  .ledger.gateway.ledger.statement.v1.Statement Info = 10;
+}

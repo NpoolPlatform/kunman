@@ -1,0 +1,44 @@
+syntax = "proto3";
+
+package ledger.middleware.simulate.ledger.profit.v2;
+
+option go_package = "github.com/NpoolPlatform/kunman/message/ledger/middleware/v2/simulate/ledger/profit";
+
+import "basetypes/v1/conds.proto";
+
+message ProfitReq {
+  optional uint32 ID = 9;
+  optional string EntID = 10;
+  optional string AppID = 20;
+  optional string UserID = 30;
+  optional string CoinTypeID = 40;
+  optional string Incoming = 50;
+}
+
+message Profit {
+  // @inject_tag: sql:"id"
+  uint32 ID = 9;
+  // @inject_tag: sql:"ent_id"
+  string EntID = 10;
+  // @inject_tag: sql:"app_id"
+  string AppID = 20;
+  // @inject_tag: sql:"user_id"
+  string UserID = 30;
+  // @inject_tag: sql:"coin_type_id"
+  string CoinTypeID = 40;
+  // @inject_tag: sql:"incoming"
+  string Incoming = 50;
+  // @inject_tag: sql:"created_at"
+  uint32 CreatedAt = 1000;
+  // @inject_tag: sql:"updated_at"
+  uint32 UpdatedAt = 1010;
+}
+
+message Conds {
+  optional basetypes.v1.StringVal EntID = 10;
+  optional basetypes.v1.StringVal AppID = 20;
+  optional basetypes.v1.StringVal UserID = 30;
+  optional basetypes.v1.StringVal CoinTypeID = 40;
+  optional basetypes.v1.StringVal Incoming = 50;
+}
+

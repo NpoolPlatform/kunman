@@ -1,0 +1,132 @@
+syntax = "proto3";
+
+package ledger.gateway.ledger.profit.v1;
+
+option go_package = "github.com/NpoolPlatform/kunman/message/ledger/gateway/v1/ledger/profit";
+
+import "google/api/annotations.proto";
+import "basetypes/ledger/v1/enums.proto";
+import "basetypes/good/v1/enums.proto";
+import "basetypes/good/v1/types.proto";
+
+// Service Name
+service Gateway {
+    rpc GetMiningRewards (GetMiningRewardsRequest) returns (GetMiningRewardsResponse) {
+        option (google.api.http) = {
+            post: "/v1/get/miningrewards"
+            body: "*"
+        };
+    }
+
+    rpc GetCoinProfits (GetCoinProfitsRequest) returns (GetCoinProfitsResponse) {
+        option (google.api.http) = {
+            post: "/v1/get/coinprofits"
+            body: "*"
+        };
+    }
+
+    rpc GetGoodProfits (GetGoodProfitsRequest) returns (GetGoodProfitsResponse) {
+        option (google.api.http) = {
+            post: "/v1/get/goodprofits"
+            body: "*"
+        };
+    }
+}
+
+message MiningReward {
+    uint32 ID = 10;
+    string EntID = 20;
+    string UserID = 30;
+    string AppID = 40;
+    string CoinTypeID = 50;
+    string CoinName = 60;
+    string CoinLogo = 70;
+    string CoinUnit = 80;
+    basetypes.ledger.v1.IOType IOType = 90;
+    basetypes.ledger.v1.IOSubType IOSubType = 100;
+    string RewardAmount = 110;
+    string RewardAmountPerUnit = 120;
+    string Units = 130;
+    string Extra = 140;
+    string AppGoodID = 150;
+    string AppGoodName = 160;
+    basetypes.good.v1.GoodType GoodType = 170;
+    string OrderID = 180;
+
+    uint32 CreatedAt = 1000;
+}
+
+message GetMiningRewardsRequest {
+    string AppID = 10;
+    string UserID = 20;
+    optional uint32 StartAt = 30;
+    optional uint32 EndAt = 40;
+    optional bool SimulateOnly   = 50;
+    int32  Offset = 60;
+    int32  Limit = 70;
+}
+
+message GetMiningRewardsResponse {
+  repeated MiningReward Infos = 10;
+  uint32 Total = 20;
+}
+
+message CoinProfit {
+    string AppID = 10;
+    string UserID = 20;
+    string CoinTypeID = 30;
+    string CoinName = 40;
+    repeated string DisplayNames = 50;
+    string CoinLogo = 60;
+    string CoinUnit = 70;
+    string Incoming = 80;
+}
+
+message GetCoinProfitsRequest {
+    string AppID = 10;
+    string UserID = 20;
+    optional uint32 StartAt = 30;
+    optional uint32 EndAt = 40;
+    int32  Offset = 50;
+    int32  Limit = 60;
+}
+
+message GetCoinProfitsResponse {
+    repeated CoinProfit Infos = 10;
+    uint32 Total = 20;
+}
+
+message GoodProfit {
+    string AppID = 10;
+    string UserID = 20;
+    string AppGoodID = 30;
+    string AppGoodName = 40;
+    basetypes.good.v1.GoodType GoodType = 50;
+    string GoodQuantityUnit = 51;
+
+    // Good is multiple coins
+    string CoinTypeID = 60;
+    string CoinName = 70;
+    repeated string DisplayNames = 80;
+    string CoinLogo = 90;
+    string CoinUnit = 100;
+    bool GoodMainCoin = 110;
+
+    string Units = 120;
+    string Incoming = 130;
+}
+
+message GetGoodProfitsRequest {
+    string AppID = 10;
+    string UserID = 20;
+    optional uint32 StartAt = 30;
+    optional uint32 EndAt = 40;
+    int32  Offset = 50;
+    int32  Limit = 60;
+}
+
+message GetGoodProfitsResponse {
+    repeated GoodProfit Infos = 10;
+    uint32 Total = 20;
+}
+

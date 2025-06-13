@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+package ledger.middleware.good.ledger.unsold.v2;
+
+option go_package = "github.com/NpoolPlatform/kunman/message/ledger/middleware/v2/good/ledger/unsold";
+
+// Service Name
+service Middleware {}
+
+message UnsoldStatementReq {}
+
+message UnsoldStatement {
+  // @inject_tag: sql:"id"
+  uint32 ID = 9;
+  // @inject_tag: sql:"ent_id"
+  string EntID = 10;
+  // @inject_tag: sql:"good_id"
+  string GoodID = 20;
+  // @inject_tag: sql:"coin_type_id"
+  string CoinTypeID = 30;
+  // @inject_tag: sql:"amount"
+  string Amount = 40;
+  // @inject_tag: sql:"benefit_date"
+  uint32 BenefitDate = 50;
+  // @inject_tag: sql:"created_at"
+  uint32 CreatedAt = 60;
+  // @inject_tag: sql:"updated_at"
+  uint32 UpdatedAt = 70;
+  // @inject_tag: sql:"statement_id"
+  string StatementID = 80;
+}
+
+message Conds {}
