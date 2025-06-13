@@ -4,11 +4,11 @@ import (
 	"context"
 
 	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
-	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	ordermwpb "github.com/NpoolPlatform/kunman/message/order/middleware/v1/order"
+	ordermw "github.com/NpoolPlatform/kunman/middleware/order/order"
 	ordercommon "github.com/NpoolPlatform/kunman/pkg/common"
-	ordermwcli "github.com/NpoolPlatform/kunman/middleware/order/order"
+	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 )
 
 type OrderCheckHandler struct {
@@ -32,7 +32,16 @@ func (h *OrderCheckHandler) CheckOrderWithOrderID(ctx context.Context, orderID s
 	if h.AppGoodID != nil {
 		conds.AppGoodID = &basetypes.StringVal{Op: cruder.EQ, Value: *h.AppGoodID}
 	}
-	exist, err := ordermwcli.ExistOrderConds(ctx, conds)
+
+	handler, err := ordermw.NewHandler(
+		ctx,
+		ordermw.WithConds(conds),
+	)
+	if err != nil {
+		return wlog.WrapError(err)
+	}
+
+	exist, err := handler.ExistOrderConds(ctx)
 	if err != nil {
 		return wlog.WrapError(err)
 	}

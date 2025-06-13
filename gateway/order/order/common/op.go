@@ -25,10 +25,8 @@ import (
 	ledgerstatementmwpb "github.com/NpoolPlatform/kunman/message/ledger/middleware/v2/ledger/statement"
 	orderappconfigmwpb "github.com/NpoolPlatform/kunman/message/order/middleware/v1/app/config"
 	feeordermwpb "github.com/NpoolPlatform/kunman/message/order/middleware/v1/fee"
-	orderlockmwpb "github.com/NpoolPlatform/kunman/message/order/middleware/v1/order/lock"
 	paymentmwpb "github.com/NpoolPlatform/kunman/message/order/middleware/v1/payment"
 	powerrentalmwpb "github.com/NpoolPlatform/kunman/message/order/middleware/v1/powerrental"
-	sphinxproxypb "github.com/NpoolPlatform/kunman/message/sphinxproxy"
 	paymentaccountmw "github.com/NpoolPlatform/kunman/middleware/account/payment"
 	appmw "github.com/NpoolPlatform/kunman/middleware/appuser/app"
 	usermw "github.com/NpoolPlatform/kunman/middleware/appuser/user"
@@ -39,13 +37,16 @@ import (
 	topmostgoodmw "github.com/NpoolPlatform/kunman/middleware/good/app/good/topmost/good"
 	allocatedcouponmw "github.com/NpoolPlatform/kunman/middleware/inspire/coupon/allocated"
 	appgoodscopemw "github.com/NpoolPlatform/kunman/middleware/inspire/coupon/app/scope"
+	ledgermw "github.com/NpoolPlatform/kunman/middleware/ledger/ledger"
 	ledgerstatementmw "github.com/NpoolPlatform/kunman/middleware/ledger/ledger/statement"
 	orderappconfigmw "github.com/NpoolPlatform/kunman/middleware/order/app/config"
 	feeordermw "github.com/NpoolPlatform/kunman/middleware/order/fee"
+	orderlockmw "github.com/NpoolPlatform/kunman/middleware/order/order/lock"
 	powerrentalmw "github.com/NpoolPlatform/kunman/middleware/order/powerrental"
 	ordergwcommon "github.com/NpoolPlatform/kunman/pkg/common"
 	constant "github.com/NpoolPlatform/kunman/pkg/const"
 	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
+	sphinxproxypb "github.com/NpoolPlatform/message/npool/sphinxproxy"
 	sphinxproxycli "github.com/NpoolPlatform/sphinx-proxy/pkg/client"
 
 	"github.com/google/uuid"
@@ -96,7 +97,7 @@ type OrderOpHandler struct {
 }
 
 func (h *OrderOpHandler) GetAppConfig(ctx context.Context) (err error) {
-	handerl, err := orderappconfigmw.NewHandler(
+	handler, err := orderappconfigmw.NewHandler(
 		ctx,
 		orderappconfigmw.WithAppID(h.AllocatedCouponCheckHandler.AppID, true),
 	)
@@ -364,7 +365,7 @@ func (h *OrderOpHandler) ValidateMaxUnpaidOrders(ctx context.Context) error {
 		return wlog.WrapError(err)
 	}
 
-	powerRentals, err := handler.CountPowerRentalOrders(ctx)
+	powerRentals, err := prHandler.CountPowerRentals(ctx)
 	if err != nil {
 		return wlog.WrapError(err)
 	}
@@ -708,21 +709,18 @@ func (h *OrderOpHandler) peekExistPaymentAccount(ctx context.Context) (*paymenta
 		return nil, wlog.WrapError(err)
 	}
 
+	// TODO: add new api to lock one account directly
+
 	accounts, _, err := handler.GetAccounts(ctx)
 	if err != nil {
 		return nil, wlog.WrapError(err)
 	}
 	for _, account := range accounts {
-		if err := accountlock.Lock(account.AccountID); err != nil {
-			continue
-		}
 		usable, err := h.recheckPaymentAccount(ctx, account.EntID)
 		if err != nil {
-			_ = accountlock.Unlock(account.AccountID)
 			return nil, wlog.WrapError(err)
 		}
 		if !usable {
-			_ = accountlock.Unlock(account.AccountID)
 			continue
 		}
 		return account, nil
@@ -777,10 +775,6 @@ func (h *OrderOpHandler) AcquirePaymentTransferAccount(ctx context.Context) erro
 }
 
 func (h *OrderOpHandler) ReleasePaymentTransferAccount() {
-	if h.PaymentTransferAccount == nil {
-		return
-	}
-	_ = accountlock.Unlock(h.PaymentTransferAccount.AccountID)
 }
 
 func (h *OrderOpHandler) GetPaymentTransferStartAmount(ctx context.Context) error {
@@ -819,44 +813,49 @@ func (h *OrderOpHandler) PreparePaymentID() {
 	h.PaymentID = func() *string { s := uuid.NewString(); return &s }()
 }
 
-func (h *OrderOpHandler) WithLockBalances(dispose *dtmcli.SagaDispose) {
+func (h *OrderOpHandler) WithLockBalances(ctx context.Context) error {
 	if len(h.PaymentBalanceReqs) == 0 {
-		return
+		return nil
 	}
-	balances := []*ledgermwpb.LockBalancesRequest_XBalance{}
+	balances := []*ledgermwpb.LockBalance{}
 	for _, req := range h.PaymentBalanceReqs {
-		balances = append(balances, &ledgermwpb.LockBalancesRequest_XBalance{
+		balances = append(balances, &ledgermwpb.LockBalance{
 			CoinTypeID: *req.CoinTypeID,
 			Amount:     *req.Amount,
 		})
 	}
-	dispose.Add(
-		ledgermwsvcname.ServiceDomain,
-		"ledger.middleware.ledger.v2.Middleware/LockBalances",
-		"ledger.middleware.ledger.v2.Middleware/UnlockBalances",
-		&ledgermwpb.LockBalancesRequest{
-			AppID:    *h.AllocatedCouponCheckHandler.AppID,
-			UserID:   *h.AllocatedCouponCheckHandler.UserID,
-			LockID:   *h.BalanceLockID,
-			Rollback: true,
-			Balances: balances,
-		},
+
+	handler, err := ledgermw.NewHandler(
+		ctx,
+		ledgermw.WithAppID(h.AllocatedCouponCheckHandler.AppID, true),
+		ledgermw.WithUserID(h.AllocatedCouponCheckHandler.UserID, true),
+		ledgermw.WithLockID(h.BalanceLockID, true),
+		ledgermw.WithBalances(balances, true),
 	)
+	if err != nil {
+		return wlog.WrapError(err)
+	}
+
+	_, err = handler.LockBalances(ctx)
+	return wlog.WrapError(err)
 }
 
-func (h *OrderOpHandler) WithLockPaymentTransferAccount(dispose *dtmcli.SagaDispose) {
+func (h *OrderOpHandler) WithLockPaymentTransferAccount(ctx context.Context) error {
 	if h.PaymentTransferAccount == nil {
-		return
+		return nil
 	}
-	dispose.Add(
-		accountmwsvcname.ServiceDomain,
-		"account.middleware.payment.v1.Middleware/LockAccount",
-		"account.middleware.payment.v1.Middleware/UnlockAccount",
-		&paymentaccountmwpb.LockAccountRequest{
-			ID:       h.PaymentTransferAccount.ID,
-			LockedBy: basetypes.AccountLockedBy_Payment,
-		},
+
+	handler, err := paymentaccountmw.NewHandler(
+		ctx,
+		paymentaccountmw.WithID(&h.PaymentTransferAccount.ID, true),
+		paymentaccountmw.WithLockedBy(basetypes.AccountLockedBy_Payment.Enum(), false),
 	)
+	if err != nil {
+		return wlog.WrapError(err)
+	}
+
+	_, err = handler.LockAccount(ctx)
+	return wlog.WrapError(err)
 }
 
 func (h *OrderOpHandler) PaymentUpdatable() error {
@@ -979,50 +978,59 @@ func (h *OrderOpHandler) PrepareCommissionLockIDs() {
 	}
 }
 
-func (h *OrderOpHandler) WithCreateOrderCommissionLocks(dispose *dtmcli.SagaDispose) {
-	reqs := func() (_reqs []*orderlockmwpb.OrderLockReq) {
-		for userID, commissionLockID := range h.CommissionLockIDs {
-			_userID := userID
-			_commissionLockID := commissionLockID
-			_reqs = append(_reqs, &orderlockmwpb.OrderLockReq{
-				EntID:    &_commissionLockID,
-				UserID:   &_userID,
-				OrderID:  h.OrderID,
-				LockType: types.OrderLockType_LockCommission.Enum(),
-			})
+func (h *OrderOpHandler) WithCreateOrderCommissionLocks(ctx context.Context) error {
+	multiHandler := &orderlockmw.MultiHandler{}
+
+	for userID, commissionLockID := range h.CommissionLockIDs {
+		_userID := userID
+		_commissionLockID := commissionLockID
+
+		handler, err := orderlockmw.NewHandler(
+			ctx,
+			orderlockmw.WithEntID(&_commissionLockID, false),
+			orderlockmw.WithUserID(&_userID, true),
+			orderlockmw.WithOrderID(h.OrderID, true),
+			orderlockmw.WithLockType(types.OrderLockType_LockCommission.Enum(), true),
+		)
+		if err != nil {
+			return wlog.WrapError(err)
 		}
-		return
-	}()
-	dispose.Add(
-		ordermwsvcname.ServiceDomain,
-		"order.middleware.order1.lock.v1.Middleware/CreateOrderLocks",
-		"order.middleware.order1.lock.v1.Middleware/DeleteOrderLocks",
-		&orderlockmwpb.CreateOrderLocksRequest{
-			Infos: reqs,
-		},
-	)
+
+		multiHandler.AppendHandler(handler)
+	}
+
+	return wlog.WrapError(multiHandler.CreateOrderLocks(ctx))
 }
 
-func (h *OrderOpHandler) WithLockCommissions(dispose *dtmcli.SagaDispose) {
-	balances := map[string][]*ledgermwpb.LockBalancesRequest_XBalance{}
+func (h *OrderOpHandler) WithLockCommissions(ctx context.Context) error {
+	balances := map[string][]*ledgermwpb.LockBalance{}
 	for _, statement := range h.CommissionLedgerStatements {
-		balances[statement.UserID] = append(balances[statement.UserID], &ledgermwpb.LockBalancesRequest_XBalance{
+		balances[statement.UserID] = append(balances[statement.UserID], &ledgermwpb.LockBalance{
 			CoinTypeID: statement.CoinTypeID,
 			Amount:     statement.Amount,
 		})
 	}
+
+	multiHandler := ledgermw.MultiHandler{}
+
 	for userID, userBalances := range balances {
-		dispose.Add(
-			ledgermwsvcname.ServiceDomain,
-			"ledger.middleware.ledger.v2.Middleware/LockBalances",
-			"ledger.middleware.ledger.v2.Middleware/UnlockBalances",
-			&ledgermwpb.LockBalancesRequest{
-				AppID:    *h.AllocatedCouponCheckHandler.AppID,
-				UserID:   userID,
-				LockID:   h.CommissionLockIDs[userID],
-				Rollback: true,
-				Balances: userBalances,
-			},
+		_userID := userID
+		_userBalances := userBalances
+		commisionLockID := h.CommissionLockIDs[_userID]
+
+		handler, err := ledgermw.NewHandler(
+			ctx,
+			ledgermw.WithAppID(h.AllocatedCouponCheckHandler.AppID, true),
+			ledgermw.WithUserID(&_userID, true),
+			ledgermw.WithLockID(&commisionLockID, true),
+			ledgermw.WithBalances(_userBalances, true),
 		)
+		if err != nil {
+			return wlog.WrapError(err)
+		}
+
+		multiHandler.AppendHandler(handler)
 	}
+
+	return multiHandler.LockBalances(ctx)
 }

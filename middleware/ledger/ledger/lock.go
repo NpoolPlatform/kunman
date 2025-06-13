@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 
+	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
 	ledgermwpb "github.com/NpoolPlatform/kunman/message/ledger/middleware/v2/ledger"
 	ledgercrud "github.com/NpoolPlatform/kunman/middleware/ledger/crud/ledger"
 	"github.com/NpoolPlatform/kunman/middleware/ledger/db"
@@ -97,7 +98,7 @@ func (h *lockHandler) lockBalances(ctx context.Context) error {
 	return nil
 }
 
-func (h *Handler) LockBalances(ctx context.Context) ([]*ledgermwpb.Ledger, error) {
+func (h *Handler) LockBalancesWithTx(ctx context.Context, tx *ent.Tx) ([]*ledgermwpb.Ledger, error) {
 	handler := &lockHandler{
 		lockopHandler: &lockopHandler{
 			Handler: h,
@@ -114,26 +115,20 @@ func (h *Handler) LockBalances(ctx context.Context) ([]*ledgermwpb.Ledger, error
 		return nil, fmt.Errorf("invalid lockid")
 	}
 
-	err := db.WithTx(ctx, func(ctx context.Context, tx *ent.Tx) error {
-		if err := handler.lop.getLedgers(ctx, tx); err != nil {
-			return err
+	if err := handler.lop.getLedgers(ctx, tx); err != nil {
+		return nil, err
+	}
+	for _, balance := range h.Balances {
+		ledger := handler.lop.coinLedger(balance.CoinTypeID)
+		if ledger == nil {
+			return nil, fmt.Errorf("invalid ledger")
 		}
-		for _, balance := range h.Balances {
-			ledger := handler.lop.coinLedger(balance.CoinTypeID)
-			if ledger == nil {
-				return fmt.Errorf("invalid ledger")
-			}
-			balance.LedgerID = ledger.EntID
-		}
-		if err := handler.lockBalances(ctx); err != nil {
-			return err
-		}
-		if err := handler.createLocks(ctx, tx); err != nil {
-			return err
-		}
-		return nil
-	})
-	if err != nil {
+		balance.LedgerID = ledger.EntID
+	}
+	if err := handler.lockBalances(ctx); err != nil {
+		return nil, err
+	}
+	if err := handler.createLocks(ctx, tx); err != nil {
 		return nil, err
 	}
 
@@ -148,4 +143,12 @@ func (h *Handler) LockBalances(ctx context.Context) ([]*ledgermwpb.Ledger, error
 	}
 
 	return infos, nil
+}
+
+func (h *Handler) LockBalances(ctx context.Context) (infos []*ledgermwpb.Ledger, err error) {
+	err = db.WithTx(ctx, func(_ctx context.Context, tx *ent.Tx) error {
+		infos, err = h.LockBalancesWithTx(_ctx, tx)
+		return err
+	})
+	return infos, wlog.WrapError(err)
 }
