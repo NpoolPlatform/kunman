@@ -4,8 +4,8 @@ import (
 	"context"
 
 	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
-	npool "github.com/NpoolPlatform/kunman/message/order/gateway/v1/fee"
 	ordercommon "github.com/NpoolPlatform/kunman/gateway/order/order/common"
+	npool "github.com/NpoolPlatform/kunman/message/order/gateway/v1/fee"
 
 	"github.com/shopspring/decimal"
 )
@@ -25,17 +25,15 @@ func (h *Handler) UpdateFeeOrder(ctx context.Context) (*npool.FeeOrder, error) {
 			checkHandler: &checkHandler{
 				Handler: h,
 			},
-			DtmHandler: &ordercommon.DtmHandler{
-				OrderOpHandler: &ordercommon.OrderOpHandler{
-					AppGoodCheckHandler:         h.AppGoodCheckHandler,
-					CoinCheckHandler:            h.CoinCheckHandler,
-					AllocatedCouponCheckHandler: h.AllocatedCouponCheckHandler,
-					PaymentTransferCoinTypeID:   h.PaymentTransferCoinTypeID,
-					PaymentBalanceReqs:          h.Balances,
-					OrderID:                     h.OrderID,
-					AdminSetCanceled:            h.AdminSetCanceled,
-					UserSetCanceled:             h.UserSetCanceled,
-				},
+			OrderOpHandler: &ordercommon.OrderOpHandler{
+				AppGoodCheckHandler:         h.AppGoodCheckHandler,
+				CoinCheckHandler:            h.CoinCheckHandler,
+				AllocatedCouponCheckHandler: h.AllocatedCouponCheckHandler,
+				PaymentTransferCoinTypeID:   h.PaymentTransferCoinTypeID,
+				PaymentBalanceReqs:          h.Balances,
+				OrderID:                     h.OrderID,
+				AdminSetCanceled:            h.AdminSetCanceled,
+				UserSetCanceled:             h.UserSetCanceled,
 			},
 		},
 	}

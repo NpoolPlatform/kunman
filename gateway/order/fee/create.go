@@ -4,9 +4,9 @@ import (
 	"context"
 
 	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
+	ordercommon "github.com/NpoolPlatform/kunman/gateway/order/order/common"
 	types "github.com/NpoolPlatform/kunman/message/basetypes/order/v1"
 	npool "github.com/NpoolPlatform/kunman/message/order/gateway/v1/fee"
-	ordercommon "github.com/NpoolPlatform/kunman/gateway/order/order/common"
 )
 
 type createHandler struct {
@@ -18,17 +18,15 @@ func (h *Handler) CreateFeeOrder(ctx context.Context) (*npool.FeeOrder, error) {
 	handler := &createHandler{
 		baseCreateHandler: &baseCreateHandler{
 			Handler: h,
-			DtmHandler: &ordercommon.DtmHandler{
-				OrderOpHandler: &ordercommon.OrderOpHandler{
-					OrderType:                   *h.OrderType,
-					AppGoodCheckHandler:         h.AppGoodCheckHandler,
-					CoinCheckHandler:            h.CoinCheckHandler,
-					AllocatedCouponCheckHandler: h.AllocatedCouponCheckHandler,
-					AppGoodIDs:                  h.AppGoodIDs,
-					PaymentTransferCoinTypeID:   h.PaymentTransferCoinTypeID,
-					PaymentBalanceReqs:          h.Balances,
-					AllocatedCouponIDs:          h.CouponIDs,
-				},
+			OrderOpHandler: &ordercommon.OrderOpHandler{
+				OrderType:                   *h.OrderType,
+				AppGoodCheckHandler:         h.AppGoodCheckHandler,
+				CoinCheckHandler:            h.CoinCheckHandler,
+				AllocatedCouponCheckHandler: h.AllocatedCouponCheckHandler,
+				AppGoodIDs:                  h.AppGoodIDs,
+				PaymentTransferCoinTypeID:   h.PaymentTransferCoinTypeID,
+				PaymentBalanceReqs:          h.Balances,
+				AllocatedCouponIDs:          h.CouponIDs,
 			},
 		},
 	}

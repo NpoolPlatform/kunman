@@ -4,21 +4,18 @@ import (
 	"context"
 
 	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
-	appfeemwcli "github.com/NpoolPlatform/good-middleware/pkg/client/app/fee"
+	ordercommon "github.com/NpoolPlatform/kunman/gateway/order/order/common"
 	appfeemwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/app/fee"
 	npool "github.com/NpoolPlatform/kunman/message/order/gateway/v1/fee"
 	feeordermwpb "github.com/NpoolPlatform/kunman/message/order/middleware/v1/fee"
 	paymentmwpb "github.com/NpoolPlatform/kunman/message/order/middleware/v1/payment"
-	ordercommon "github.com/NpoolPlatform/kunman/gateway/order/order/common"
-	ordermwsvcname "github.com/NpoolPlatform/order-middleware/pkg/servicename"
-
-	dtmcli "github.com/NpoolPlatform/dtm-cluster/pkg/dtm"
-	"github.com/dtm-labs/dtm/client/dtmcli/dtmimp"
+	appfeemw "github.com/NpoolPlatform/kunman/middleware/good/app/fee"
+	feeordermw "github.com/NpoolPlatform/kunman/middleware/order/fee"
 )
 
 type baseUpdateHandler struct {
 	*checkHandler
-	*ordercommon.DtmHandler
+	*ordercommon.OrderOpHandler
 	feeOrder    *npool.FeeOrder
 	feeOrderReq *feeordermwpb.FeeOrderReq
 	appFee      *appfeemwpb.Fee
@@ -36,7 +33,15 @@ func (h *baseUpdateHandler) getFeeOrder(ctx context.Context) (err error) {
 }
 
 func (h *baseUpdateHandler) getAppFee(ctx context.Context) (err error) {
-	h.appFee, err = appfeemwcli.GetFee(ctx, h.feeOrder.AppGoodID)
+	handler, err := appfeemw.NewHandler(
+		ctx,
+		appfeemw.WithAppGoodID(&h.feeOrder.AppGoodID, true),
+	)
+	if err != nil {
+		return wlog.WrapError(err)
+	}
+
+	h.appFee, err = handler.GetFee(ctx)
 	if err != nil {
 		return wlog.WrapError(err)
 	}
@@ -76,15 +81,32 @@ func (h *baseUpdateHandler) constructFeeOrderReq() {
 	h.feeOrderReq = req
 }
 
-func (h *baseUpdateHandler) withUpdateFeeOrder(dispose *dtmcli.SagaDispose) {
-	dispose.Add(
-		ordermwsvcname.ServiceDomain,
-		"order.middleware.fee.v1.Middleware/UpdateFeeOrder",
-		"",
-		&feeordermwpb.UpdateFeeOrderRequest{
-			Info: h.feeOrderReq,
-		},
+func (h *baseUpdateHandler) withUpdateFeeOrder(ctx context.Context) error {
+	handler, err := feeordermw.NewHandler(
+		ctx,
+		feeordermw.WithID(h.feeOrderReq.ID, false),
+		feeordermw.WithEntID(h.feeOrderReq.EntID, false),
+		feeordermw.WithOrderID(h.feeOrderReq.OrderID, false),
+		feeordermw.WithPaymentType(h.feeOrderReq.PaymentType, false),
+
+		feeordermw.WithOrderState(h.feeOrderReq.OrderState, false),
+		feeordermw.WithUserSetPaid(h.feeOrderReq.UserSetPaid, false),
+		feeordermw.WithUserSetCanceled(h.feeOrderReq.UserSetCanceled, false),
+		feeordermw.WithAdminSetCanceled(h.feeOrderReq.AdminSetCanceled, false),
+		feeordermw.WithPaymentState(h.feeOrderReq.PaymentState, false),
+		feeordermw.WithRollback(h.feeOrderReq.Rollback, false),
+		feeordermw.WithLedgerLockID(h.feeOrderReq.LedgerLockID, false),
+		feeordermw.WithPaymentID(h.feeOrderReq.PaymentID, false),
+		feeordermw.WithPaymentBalances(h.feeOrderReq.PaymentBalances, false),
+		feeordermw.WithPaymentTransfers(h.feeOrderReq.PaymentTransfers, false),
+
+		feeordermw.WithMainOrder(func() *bool { b := true; return &b }(), true),
 	)
+	if err != nil {
+		return wlog.WrapError(err)
+	}
+
+	return wlog.WrapError(handler.UpdateFeeOrder(ctx))
 }
 
 func (h *baseUpdateHandler) formalizePayment() {
@@ -98,18 +120,19 @@ func (h *baseUpdateHandler) formalizePayment() {
 }
 
 func (h *baseUpdateHandler) updateFeeOrder(ctx context.Context) error {
-	sagaDispose := dtmcli.NewSagaDispose(dtmimp.TransOptions{
-		WaitResult:     true,
-		RequestTimeout: 10,
-		TimeoutToFail:  10,
-	})
-
 	if len(h.CommissionLockIDs) > 0 {
-		h.WithCreateOrderCommissionLocks(sagaDispose)
-		h.WithLockCommissions(sagaDispose)
+		if err := h.WithCreateOrderCommissionLocks(ctx); err != nil {
+			return wlog.WrapError(err)
+		}
+		if err := h.WithLockCommissions(ctx); err != nil {
+			return wlog.WrapError(err)
+		}
 	}
-	h.WithLockBalances(sagaDispose)
-	h.WithLockPaymentTransferAccount(sagaDispose)
-	h.withUpdateFeeOrder(sagaDispose)
-	return h.DtmDo(ctx, sagaDispose)
+	if err := h.WithLockBalances(ctx); err != nil {
+		return wlog.WrapError(err)
+	}
+	if err := h.WithLockPaymentTransferAccount(ctx); err != nil {
+		return wlog.WrapError(err)
+	}
+	return wlog.WrapError(h.withUpdateFeeOrder(ctx))
 }

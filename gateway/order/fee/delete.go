@@ -5,7 +5,7 @@ import (
 
 	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
 	npool "github.com/NpoolPlatform/kunman/message/order/gateway/v1/fee"
-	feeordermwcli "github.com/NpoolPlatform/kunman/middleware/order/fee"
+	feeordermw "github.com/NpoolPlatform/kunman/middleware/order/fee"
 )
 
 func (h *Handler) DeleteFeeOrder(ctx context.Context) (*npool.FeeOrder, error) {
@@ -22,7 +22,18 @@ func (h *Handler) DeleteFeeOrder(ctx context.Context) (*npool.FeeOrder, error) {
 	if info == nil {
 		return nil, wlog.Errorf("invalid feeorder")
 	}
-	if err := feeordermwcli.DeleteFeeOrder(ctx, h.ID, h.EntID, h.OrderID); err != nil {
+
+	feeHandler, err := feeordermw.NewHandler(
+		ctx,
+		feeordermw.WithID(h.ID, true),
+		feeordermw.WithEntID(h.EntID, true),
+		feeordermw.WithOrderID(h.OrderID, true),
+	)
+	if err != nil {
+		return nil, wlog.WrapError(err)
+	}
+
+	if err := feeHandler.DeleteFeeOrder(ctx); err != nil {
 		return nil, wlog.WrapError(err)
 	}
 	return info, nil

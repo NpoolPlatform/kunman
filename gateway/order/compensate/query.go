@@ -4,15 +4,15 @@ import (
 	"context"
 
 	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
-	cruder "github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 	appmwpb "github.com/NpoolPlatform/kunman/message/appuser/middleware/v1/app"
 	usermwpb "github.com/NpoolPlatform/kunman/message/appuser/middleware/v1/user"
 	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	appgoodmwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/app/good"
 	npool "github.com/NpoolPlatform/kunman/message/order/gateway/v1/compensate"
 	compensatemwpb "github.com/NpoolPlatform/kunman/message/order/middleware/v1/compensate"
+	compensatemw "github.com/NpoolPlatform/kunman/middleware/order/compensate"
 	ordergwcommon "github.com/NpoolPlatform/kunman/pkg/common"
-	compensatemwcli "github.com/NpoolPlatform/kunman/middleware/order/compensate"
+	cruder "github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 )
 
 type queryHandler struct {
@@ -93,7 +93,15 @@ func (h *queryHandler) formalize() {
 }
 
 func (h *Handler) GetCompensate(ctx context.Context) (*npool.Compensate, error) {
-	info, err := compensatemwcli.GetCompensate(ctx, *h.EntID)
+	compensateHandler, err := compensatemw.NewHandler(
+		ctx,
+		compensatemw.WithEntID(h.EntID, true),
+	)
+	if err != nil {
+		return nil, wlog.WrapError(err)
+	}
+
+	info, err := compensateHandler.GetCompensate(ctx)
 	if err != nil {
 		return nil, wlog.WrapError(err)
 	}
@@ -143,7 +151,17 @@ func (h *Handler) GetCompensates(ctx context.Context) ([]*npool.Compensate, uint
 		conds.OrderID = &basetypes.StringVal{Op: cruder.EQ, Value: *h.OrderID}
 	}
 
-	infos, total, err := compensatemwcli.GetCompensates(ctx, conds, h.Offset, h.Limit)
+	compensateHandler, err := compensatemw.NewHandler(
+		ctx,
+		compensatemw.WithConds(conds),
+		compensatemw.WithOffset(h.Offset),
+		compensatemw.WithLimit(h.Limit),
+	)
+	if err != nil {
+		return nil, 0, wlog.WrapError(err)
+	}
+
+	infos, total, err := compensateHandler.GetCompensates(ctx)
 	if err != nil {
 		return nil, 0, wlog.WrapError(err)
 	}

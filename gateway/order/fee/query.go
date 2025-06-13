@@ -4,7 +4,6 @@ import (
 	"context"
 
 	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
-	cruder "github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 	paymentaccountmwpb "github.com/NpoolPlatform/kunman/message/account/middleware/v1/payment"
 	appmwpb "github.com/NpoolPlatform/kunman/message/appuser/middleware/v1/app"
 	usermwpb "github.com/NpoolPlatform/kunman/message/appuser/middleware/v1/user"
@@ -18,8 +17,9 @@ import (
 	ordercoupongwpb "github.com/NpoolPlatform/kunman/message/order/gateway/v1/order/coupon"
 	paymentgwpb "github.com/NpoolPlatform/kunman/message/order/gateway/v1/payment"
 	feeordermwpb "github.com/NpoolPlatform/kunman/message/order/middleware/v1/fee"
+	feeordermw "github.com/NpoolPlatform/kunman/middleware/order/fee"
 	ordergwcommon "github.com/NpoolPlatform/kunman/pkg/common"
-	feeordermwcli "github.com/NpoolPlatform/kunman/middleware/order/fee"
+	cruder "github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 
 	"github.com/google/uuid"
 )
@@ -249,7 +249,16 @@ func (h *Handler) GetFeeOrder(ctx context.Context) (*npool.FeeOrder, error) {
 	if err := h.CheckOrder(ctx); err != nil {
 		return nil, wlog.WrapError(err)
 	}
-	info, err := feeordermwcli.GetFeeOrder(ctx, *h.OrderID)
+
+	feeHandler, err := feeordermw.NewHandler(
+		ctx,
+		feeordermw.WithOrderID(h.OrderID, true),
+	)
+	if err != nil {
+		return nil, wlog.WrapError(err)
+	}
+
+	info, err := feeHandler.GetFeeOrder(ctx)
 	if err != nil {
 		return nil, wlog.WrapError(err)
 	}
@@ -312,7 +321,18 @@ func (h *Handler) GetFeeOrders(ctx context.Context) ([]*npool.FeeOrder, uint32, 
 	if len(h.OrderIDs) > 0 {
 		conds.OrderIDs = &basetypes.StringSliceVal{Op: cruder.IN, Value: h.OrderIDs}
 	}
-	infos, total, err := feeordermwcli.GetFeeOrders(ctx, conds, h.Offset, h.Limit)
+
+	feeHandler, err := feeordermw.NewHandler(
+		ctx,
+		feeordermw.WithConds(conds),
+		feeordermw.WithOffset(h.Offset),
+		feeordermw.WithLimit(h.Limit),
+	)
+	if err != nil {
+		return nil, 0, wlog.WrapError(err)
+	}
+
+	infos, total, err := feeHandler.GetFeeOrders(ctx)
 	if err != nil {
 		return nil, 0, wlog.WrapError(err)
 	}

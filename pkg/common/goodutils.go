@@ -68,3 +68,17 @@ func GoodDurationDisplayType2Unit(_type goodtypes.GoodDurationType, seconds uint
 	}
 	return units, unit
 }
+
+func GoodDurationDisplayType2Seconds(_type goodtypes.GoodDurationType) (units uint32) {
+	switch _type {
+	case goodtypes.GoodDurationType_GoodDurationByHour:
+		return timedef.SecondsPerHour
+	case goodtypes.GoodDurationType_GoodDurationByDay:
+		return timedef.SecondsPerDay
+	case goodtypes.GoodDurationType_GoodDurationByMonth:
+		return timedef.SecondsPerMonth
+	case goodtypes.GoodDurationType_GoodDurationByYear:
+		return timedef.SecondsPerYear
+	}
+	return timedef.SecondsPerHour
+}

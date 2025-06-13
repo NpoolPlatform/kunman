@@ -5,9 +5,7 @@ import (
 	"time"
 
 	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
-	apppowerrentalmwcli "github.com/NpoolPlatform/good-middleware/pkg/client/app/powerrental"
-	goodcoinmwcli "github.com/NpoolPlatform/good-middleware/pkg/client/good/coin"
-	cruder "github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
+	ordercommon "github.com/NpoolPlatform/kunman/gateway/order/order/common"
 	goodtypes "github.com/NpoolPlatform/kunman/message/basetypes/good/v1"
 	ordertypes "github.com/NpoolPlatform/kunman/message/basetypes/order/v1"
 	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
@@ -18,14 +16,13 @@ import (
 	feeordermwpb "github.com/NpoolPlatform/kunman/message/order/middleware/v1/fee"
 	paymentmwpb "github.com/NpoolPlatform/kunman/message/order/middleware/v1/payment"
 	powerrentalordermwpb "github.com/NpoolPlatform/kunman/message/order/middleware/v1/powerrental"
+	apppowerrentalmw "github.com/NpoolPlatform/kunman/middleware/good/app/powerrental"
+	goodcoinmw "github.com/NpoolPlatform/kunman/middleware/good/good/coin"
+	feeordermw "github.com/NpoolPlatform/kunman/middleware/order/fee"
+	powerrentalordermw "github.com/NpoolPlatform/kunman/middleware/order/powerrental"
 	ordergwcommon "github.com/NpoolPlatform/kunman/pkg/common"
 	constant "github.com/NpoolPlatform/kunman/pkg/const"
-	ordercommon "github.com/NpoolPlatform/kunman/gateway/order/order/common"
-	powerrentalordermwcli "github.com/NpoolPlatform/kunman/middleware/order/powerrental"
-	ordermwsvcname "github.com/NpoolPlatform/order-middleware/pkg/servicename"
-
-	dtmcli "github.com/NpoolPlatform/dtm-cluster/pkg/dtm"
-	"github.com/dtm-labs/dtm/client/dtmcli/dtmimp"
+	cruder "github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 
 	"github.com/google/uuid"
 	"github.com/shopspring/decimal"
@@ -33,7 +30,7 @@ import (
 
 type baseCreateHandler struct {
 	*Handler
-	*ordercommon.DtmHandler
+	*ordercommon.OrderOpHandler
 	parentOrder          *powerrentalordermwpb.PowerRentalOrder
 	parentAppGood        *appgoodmwpb.Good
 	parentAppPowerRental *apppowerrentalmwpb.PowerRental
@@ -43,7 +40,15 @@ type baseCreateHandler struct {
 }
 
 func (h *baseCreateHandler) getParentOrder(ctx context.Context) error {
-	info, err := powerrentalordermwcli.GetPowerRentalOrder(ctx, *h.ParentOrderID)
+	handler, err := powerrentalordermw.NewHandler(
+		ctx,
+		powerrentalordermw.WithOrderID(h.ParentOrderID, true),
+	)
+	if err != nil {
+		return wlog.WrapError(err)
+	}
+
+	info, err := handler.GetPowerRental(ctx)
 	if err != nil {
 		return wlog.WrapError(err)
 	}
@@ -85,7 +90,15 @@ func (h *baseCreateHandler) getParentTypedGood(ctx context.Context) (err error) 
 	case goodtypes.GoodType_PowerRental:
 		fallthrough //nolint
 	case goodtypes.GoodType_LegacyPowerRental:
-		h.parentAppPowerRental, err = apppowerrentalmwcli.GetPowerRental(ctx, h.parentAppGood.EntID)
+		handler, err := apppowerrentalmw.NewHandler(
+			ctx,
+			apppowerrentalmw.WithEntID(&h.parentAppGood.EntID, true),
+		)
+		if err != nil {
+			return wlog.WrapError(err)
+		}
+
+		h.parentAppPowerRental, err = handler.GetPowerRental(ctx)
 		if err != nil {
 			return wlog.WrapError(err)
 		}
@@ -117,9 +130,20 @@ func (h *baseCreateHandler) getParentGoodCoins(ctx context.Context) error {
 	limit := constant.DefaultRowLimit
 
 	for {
-		goodCoins, _, err := goodcoinmwcli.GetGoodCoins(ctx, &goodcoinmwpb.Conds{
+		conds := &goodcoinmwpb.Conds{
 			GoodID: &basetypes.StringVal{Op: cruder.EQ, Value: h.parentAppGood.GoodID},
-		}, offset, limit)
+		}
+		handler, err := goodcoinmw.NewHandler(
+			ctx,
+			goodcoinmw.WithConds(conds),
+			goodcoinmw.WithOffset(offset),
+			goodcoinmw.WithLimit(limit),
+		)
+		if err != nil {
+			return wlog.WrapError(err)
+		}
+
+		goodCoins, _, err := handler.GetGoodCoins(ctx)
 		if err != nil {
 			return wlog.WrapError(err)
 		}
@@ -255,7 +279,6 @@ func (h *baseCreateHandler) constructFeeOrderReq(appGoodID string) error {
 			req.PaymentTransfers = []*paymentmwpb.PaymentTransferReq{h.PaymentTransferReq}
 		}
 		h.Handler.OrderID = req.OrderID
-		h.DtmHandler.OrderID = req.OrderID
 	}
 	h.OrderIDs = append(h.OrderIDs, *req.OrderID)
 	h.feeOrderReqs = append(h.feeOrderReqs, req)
@@ -286,26 +309,55 @@ func (h *baseCreateHandler) notifyCouponUsed() {
 
 }
 
-func (h *baseCreateHandler) withCreateFeeOrders(dispose *dtmcli.SagaDispose) {
-	dispose.Add(
-		ordermwsvcname.ServiceDomain,
-		"order.middleware.fee.v1.Middleware/CreateFeeOrders",
-		"order.middleware.fee.v1.Middleware/DeleteFeeOrders",
-		&feeordermwpb.CreateFeeOrdersRequest{
-			Infos: h.feeOrderReqs,
-		},
-	)
+func (h *baseCreateHandler) withCreateFeeOrders(ctx context.Context) error {
+	multiHandler := feeordermw.MultiHandler{}
+
+	for _, req := range h.feeOrderReqs {
+		handler, err := feeordermw.NewHandler(
+			ctx,
+			feeordermw.WithEntID(req.EntID, false),
+			feeordermw.WithAppID(req.AppID, true),
+			feeordermw.WithUserID(req.UserID, true),
+			feeordermw.WithGoodID(req.GoodID, true),
+			feeordermw.WithGoodType(req.GoodType, true),
+			feeordermw.WithAppGoodID(req.AppGoodID, true),
+			feeordermw.WithOrderID(req.OrderID, false),
+			feeordermw.WithParentOrderID(req.ParentOrderID, true),
+			feeordermw.WithOrderType(req.OrderType, true),
+			feeordermw.WithPaymentType(req.PaymentType, false),
+			feeordermw.WithCreateMethod(req.CreateMethod, true),
+
+			feeordermw.WithGoodValueUSD(req.GoodValueUSD, true),
+			feeordermw.WithPaymentAmountUSD(req.PaymentAmountUSD, false),
+			feeordermw.WithDiscountAmountUSD(req.DiscountAmountUSD, false),
+			feeordermw.WithPromotionID(req.PromotionID, false),
+			feeordermw.WithDurationSeconds(req.DurationSeconds, true),
+			feeordermw.WithLedgerLockID(req.LedgerLockID, false),
+			feeordermw.WithPaymentID(req.PaymentID, false),
+			feeordermw.WithCouponIDs(req.CouponIDs, false),
+			feeordermw.WithPaymentBalances(req.PaymentBalances, false),
+			feeordermw.WithPaymentTransfers(req.PaymentTransfers, false),
+		)
+		if err != nil {
+			return wlog.WrapError(err)
+		}
+
+		multiHandler.AppendHandler(handler)
+	}
+
+	return wlog.WrapError(multiHandler.CreateFeeOrders(ctx))
 }
 
 func (h *baseCreateHandler) createFeeOrders(ctx context.Context) error {
-	sagaDispose := dtmcli.NewSagaDispose(dtmimp.TransOptions{
-		WaitResult:     true,
-		RequestTimeout: 10,
-		TimeoutToFail:  10,
-	})
-	h.WithLockBalances(sagaDispose)
-	h.WithLockPaymentTransferAccount(sagaDispose)
-	h.withCreateFeeOrders(sagaDispose)
-	defer h.notifyCouponUsed()
-	return h.DtmDo(ctx, sagaDispose)
+	if err := h.WithLockBalances(ctx); err != nil {
+		return wlog.WrapError(err)
+	}
+	if err := h.WithLockPaymentTransferAccount(ctx); err != nil {
+		return wlog.WrapError(err)
+	}
+	if err := h.withCreateFeeOrders(ctx); err != nil {
+		return wlog.WrapError(err)
+	}
+	h.notifyCouponUsed()
+	return nil
 }
