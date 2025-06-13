@@ -9,7 +9,7 @@ import (
 )
 
 type Handler struct {
-	ordergwcommon.UserCheckHandler
+	ordergwcommon.AppUserCheckHandler
 	Offset int32
 	Limit  int32
 }

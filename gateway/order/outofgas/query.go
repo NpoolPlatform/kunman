@@ -4,15 +4,15 @@ import (
 	"context"
 
 	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
-	cruder "github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 	appmwpb "github.com/NpoolPlatform/kunman/message/appuser/middleware/v1/app"
 	usermwpb "github.com/NpoolPlatform/kunman/message/appuser/middleware/v1/user"
 	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	appgoodmwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/app/good"
 	npool "github.com/NpoolPlatform/kunman/message/order/gateway/v1/outofgas"
 	outofgasmwpb "github.com/NpoolPlatform/kunman/message/order/middleware/v1/outofgas"
+	outofgasmw "github.com/NpoolPlatform/kunman/middleware/order/outofgas"
 	ordergwcommon "github.com/NpoolPlatform/kunman/pkg/common"
-	outofgasmwcli "github.com/NpoolPlatform/kunman/middleware/order/outofgas"
+	cruder "github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 )
 
 type queryHandler struct {
@@ -91,7 +91,15 @@ func (h *queryHandler) formalize() {
 }
 
 func (h *Handler) GetOutOfGas(ctx context.Context) (*npool.OutOfGas, error) {
-	info, err := outofgasmwcli.GetOutOfGas(ctx, *h.EntID)
+	outOfGasHandler, err := outofgasmw.NewHandler(
+		ctx,
+		outofgasmw.WithEntID(h.EntID, true),
+	)
+	if err != nil {
+		return nil, wlog.WrapError(err)
+	}
+
+	info, err := outOfGasHandler.GetOutOfGas(ctx)
 	if err != nil {
 		return nil, wlog.WrapError(err)
 	}
@@ -138,7 +146,17 @@ func (h *Handler) GetOutOfGases(ctx context.Context) ([]*npool.OutOfGas, uint32,
 		conds.OrderID = &basetypes.StringVal{Op: cruder.EQ, Value: *h.OrderID}
 	}
 
-	infos, total, err := outofgasmwcli.GetOutOfGases(ctx, conds, h.Offset, h.Limit)
+	outOfGasHandler, err := outofgasmw.NewHandler(
+		ctx,
+		outofgasmw.WithConds(conds),
+		outofgasmw.WithOffset(h.Offset),
+		outofgasmw.WithLimit(h.Limit),
+	)
+	if err != nil {
+		return nil, 0, wlog.WrapError(err)
+	}
+
+	infos, total, err := outOfGasHandler.GetOutOfGases(ctx)
 	if err != nil {
 		return nil, 0, wlog.WrapError(err)
 	}

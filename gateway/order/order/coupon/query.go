@@ -4,7 +4,6 @@ import (
 	"context"
 
 	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
-	cruder "github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 	appmwpb "github.com/NpoolPlatform/kunman/message/appuser/middleware/v1/app"
 	usermwpb "github.com/NpoolPlatform/kunman/message/appuser/middleware/v1/user"
 	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
@@ -12,8 +11,9 @@ import (
 	allocatedcouponmwpb "github.com/NpoolPlatform/kunman/message/inspire/middleware/v1/coupon/allocated"
 	npool "github.com/NpoolPlatform/kunman/message/order/gateway/v1/order/coupon"
 	ordercouponmwpb "github.com/NpoolPlatform/kunman/message/order/middleware/v1/order/coupon"
+	ordercouponmw "github.com/NpoolPlatform/kunman/middleware/order/order/coupon"
 	ordergwcommon "github.com/NpoolPlatform/kunman/pkg/common"
-	ordercouponcli "github.com/NpoolPlatform/kunman/middleware/order/order/coupon"
+	cruder "github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 )
 
 type queryHandler struct {
@@ -110,7 +110,18 @@ func (h *Handler) GetOrderCoupons(ctx context.Context) ([]*npool.OrderCoupon, ui
 	if h.UserID != nil {
 		conds.UserID = &basetypes.StringVal{Op: cruder.EQ, Value: *h.UserID}
 	}
-	orderCoupons, total, err := ordercouponcli.GetOrderCoupons(ctx, conds, h.Offset, h.Limit)
+
+	couponHandler, err := ordercouponmw.NewHandler(
+		ctx,
+		ordercouponmw.WithConds(conds),
+		ordercouponmw.WithOffset(h.Offset),
+		ordercouponmw.WithLimit(h.Limit),
+	)
+	if err != nil {
+		return nil, 0, wlog.WrapError(err)
+	}
+
+	orderCoupons, total, err := couponHandler.GetOrderCoupons(ctx)
 	if err != nil {
 		return nil, 0, wlog.WrapError(err)
 	}

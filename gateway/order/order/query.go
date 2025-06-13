@@ -4,14 +4,14 @@ import (
 	"context"
 
 	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
-	cruder "github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 	usermwpb "github.com/NpoolPlatform/kunman/message/appuser/middleware/v1/user"
 	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	appgoodmwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/app/good"
 	npool "github.com/NpoolPlatform/kunman/message/order/gateway/v1/order"
 	ordermwpb "github.com/NpoolPlatform/kunman/message/order/middleware/v1/order"
+	ordermw "github.com/NpoolPlatform/kunman/middleware/order/order"
 	ordergwcommon "github.com/NpoolPlatform/kunman/pkg/common"
-	ordercli "github.com/NpoolPlatform/kunman/middleware/order/order"
+	cruder "github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 )
 
 type queryHandler struct {
@@ -86,7 +86,18 @@ func (h *Handler) GetOrders(ctx context.Context) ([]*npool.Order, uint32, error)
 	if h.UserID != nil {
 		conds.UserID = &basetypes.StringVal{Op: cruder.EQ, Value: *h.UserID}
 	}
-	orders, total, err := ordercli.GetOrders(ctx, conds, h.Offset, h.Limit)
+
+	orderHandler, err := ordermw.NewHandler(
+		ctx,
+		ordermw.WithConds(conds),
+		ordermw.WithOffset(h.Offset),
+		ordermw.WithLimit(h.Limit),
+	)
+	if err != nil {
+		return nil, 0, wlog.WrapError(err)
+	}
+
+	orders, total, err := orderHandler.GetOrders(ctx)
 	if err != nil {
 		return nil, 0, wlog.WrapError(err)
 	}
