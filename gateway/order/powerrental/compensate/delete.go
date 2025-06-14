@@ -4,9 +4,9 @@ import (
 	"context"
 
 	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
+	compensate1 "github.com/NpoolPlatform/kunman/gateway/order/compensate"
 	compensategwpb "github.com/NpoolPlatform/kunman/message/order/gateway/v1/compensate"
-	compensate1 "github.com/NpoolPlatform/order-gateway/pkg/compensate"
-	powerrentalcompensatemwcli "github.com/NpoolPlatform/kunman/middleware/order/powerrental/compensate"
+	powerrentalcompensatemw "github.com/NpoolPlatform/kunman/middleware/order/powerrental/compensate"
 )
 
 func (h *Handler) DeleteCompensate(ctx context.Context) (*compensategwpb.Compensate, error) {
@@ -31,7 +31,17 @@ func (h *Handler) DeleteCompensate(ctx context.Context) (*compensategwpb.Compens
 	if info == nil {
 		return nil, wlog.Errorf("invalid compensate")
 	}
-	if err := powerrentalcompensatemwcli.DeleteCompensate(ctx, &info.ID, &info.EntID); err != nil {
+
+	compensateHandler, err := powerrentalcompensatemw.NewHandler(
+		ctx,
+		powerrentalcompensatemw.WithID(&info.ID, true),
+		powerrentalcompensatemw.WithEntID(&info.EntID, true),
+	)
+	if err != nil {
+		return nil, wlog.WrapError(err)
+	}
+
+	if err := compensateHandler.DeleteCompensate(ctx); err != nil {
 		return nil, wlog.WrapError(err)
 	}
 	return info, nil

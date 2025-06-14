@@ -4,15 +4,14 @@ import (
 	"context"
 
 	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
-	malfunctionmwcli "github.com/NpoolPlatform/good-middleware/pkg/client/good/malfunction"
-	cruder "github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 	types "github.com/NpoolPlatform/kunman/message/basetypes/order/v1"
 	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	malfunctionmwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/good/malfunction"
 	ordermwpb "github.com/NpoolPlatform/kunman/message/order/middleware/v1/order"
-	powerrentalcompensatemwpb "github.com/NpoolPlatform/kunman/message/order/middleware/v1/powerrental/compensate"
-	ordermwcli "github.com/NpoolPlatform/kunman/middleware/order/order"
-	powerrentalcompensatemwcli "github.com/NpoolPlatform/kunman/middleware/order/powerrental/compensate"
+	malfunctionmw "github.com/NpoolPlatform/kunman/middleware/good/good/malfunction"
+	ordermw "github.com/NpoolPlatform/kunman/middleware/order/order"
+	powerrentalcompensatemw "github.com/NpoolPlatform/kunman/middleware/order/powerrental/compensate"
+	cruder "github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 
 	"github.com/google/uuid"
 )
@@ -25,7 +24,15 @@ type createHandler struct {
 }
 
 func (h *createHandler) getOrder(ctx context.Context) (err error) {
-	h.order, err = ordermwcli.GetOrder(ctx, *h.OrderID)
+	handler, err := ordermw.NewHandler(
+		ctx,
+		ordermw.WithEntID(h.OrderID, true),
+	)
+	if err != nil {
+		return wlog.WrapError(err)
+	}
+
+	h.order, err = handler.GetOrder(ctx)
 	return wlog.WrapError(err)
 }
 
@@ -38,7 +45,16 @@ func (h *createHandler) getGoodMalfunction(ctx context.Context) (err error) {
 	} else {
 		conds.GoodID = &basetypes.StringVal{Op: cruder.EQ, Value: h.order.GoodID}
 	}
-	h.goodMalfunction, err = malfunctionmwcli.GetMalfunctionOnly(ctx, conds)
+
+	handler, err := malfunctionmw.NewHandler(
+		ctx,
+		malfunctionmw.WithConds(conds),
+	)
+	if err != nil {
+		return wlog.WrapError(err)
+	}
+
+	h.goodMalfunction, err = handler.GetMalfunctionOnly(ctx)
 	if err != nil {
 		return err
 	}
@@ -80,12 +96,19 @@ func (h *Handler) CreateCompensate(ctx context.Context) error {
 	if h.EntID == nil {
 		h.EntID = func() *string { s := uuid.NewString(); return &s }()
 	}
-	return powerrentalcompensatemwcli.CreateCompensate(ctx, &powerrentalcompensatemwpb.CompensateReq{
-		EntID:             h.EntID,
-		GoodID:            h.GoodID,
-		OrderID:           h.OrderID,
-		CompensateFromID:  h.CompensateFromID,
-		CompensateType:    h.CompensateType,
-		CompensateSeconds: &handler.compensateSeconds,
-	})
+
+	compensateHandler, err := powerrentalcompensatemw.NewHandler(
+		ctx,
+		powerrentalcompensatemw.WithEntID(h.EntID, true),
+		powerrentalcompensatemw.WithGoodID(h.GoodID, true),
+		powerrentalcompensatemw.WithOrderID(h.OrderID, true),
+		powerrentalcompensatemw.WithCompensateFromID(h.CompensateFromID, true),
+		powerrentalcompensatemw.WithCompensateType(h.CompensateType, true),
+		powerrentalcompensatemw.WithCompensateSeconds(&handler.compensateSeconds, true),
+	)
+	if err != nil {
+		return wlog.WrapError(err)
+	}
+
+	return compensateHandler.CreateCompensate(ctx)
 }

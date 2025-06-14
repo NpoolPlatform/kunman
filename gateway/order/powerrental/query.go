@@ -22,7 +22,7 @@ import (
 
 	npool "github.com/NpoolPlatform/kunman/message/order/gateway/v1/powerrental"
 	powerrentalordermwpb "github.com/NpoolPlatform/kunman/message/order/middleware/v1/powerrental"
-	powerrentalordermwcli "github.com/NpoolPlatform/kunman/middleware/order/powerrental"
+	powerrentalordermw "github.com/NpoolPlatform/kunman/middleware/order/powerrental"
 	ordergwcommon "github.com/NpoolPlatform/kunman/pkg/common"
 
 	"github.com/google/uuid"
@@ -325,7 +325,16 @@ func (h *Handler) GetPowerRentalOrder(ctx context.Context) (*npool.PowerRentalOr
 	if err := h.CheckOrder(ctx); err != nil {
 		return nil, wlog.WrapError(err)
 	}
-	info, err := powerrentalordermwcli.GetPowerRentalOrder(ctx, *h.OrderID)
+
+	prHandler, err := powerrentalordermw.NewHandler(
+		ctx,
+		powerrentalordermw.WithOrderID(h.OrderID, true),
+	)
+	if err != nil {
+		return nil, wlog.WrapError(err)
+	}
+
+	info, err := prHandler.GetPowerRental(ctx)
 	if err != nil {
 		return nil, wlog.WrapError(err)
 	}
@@ -394,7 +403,18 @@ func (h *Handler) GetPowerRentalOrders(ctx context.Context) ([]*npool.PowerRenta
 	if len(h.OrderIDs) > 0 {
 		conds.OrderIDs = &basetypes.StringSliceVal{Op: cruder.IN, Value: h.OrderIDs}
 	}
-	infos, total, err := powerrentalordermwcli.GetPowerRentalOrders(ctx, conds, h.Offset, h.Limit)
+
+	prHandler, err := powerrentalordermw.NewHandler(
+		ctx,
+		powerrentalordermw.WithConds(conds),
+		powerrentalordermw.WithOffset(h.Offset),
+		powerrentalordermw.WithLimit(h.Limit),
+	)
+	if err != nil {
+		return nil, 0, wlog.WrapError(err)
+	}
+
+	infos, total, err := prHandler.GetPowerRentals(ctx)
 	if err != nil {
 		return nil, 0, wlog.WrapError(err)
 	}

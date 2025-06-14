@@ -5,9 +5,7 @@ import (
 	"time"
 
 	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
-	apppowerrentalmwcli "github.com/NpoolPlatform/good-middleware/pkg/client/app/powerrental"
-	goodledgerstatementcli "github.com/NpoolPlatform/ledger-middleware/pkg/client/good/ledger/statement"
-	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
+	ordercommon "github.com/NpoolPlatform/kunman/gateway/order/order/common"
 	goodtypes "github.com/NpoolPlatform/kunman/message/basetypes/good/v1"
 	ordertypes "github.com/NpoolPlatform/kunman/message/basetypes/order/v1"
 	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
@@ -16,15 +14,14 @@ import (
 	npool "github.com/NpoolPlatform/kunman/message/order/gateway/v1/powerrental"
 	paymentmwpb "github.com/NpoolPlatform/kunman/message/order/middleware/v1/payment"
 	powerrentalordermwpb "github.com/NpoolPlatform/kunman/message/order/middleware/v1/powerrental"
-	ordercommon "github.com/NpoolPlatform/kunman/gateway/order/order/common"
-	ordermwsvcname "github.com/NpoolPlatform/order-middleware/pkg/servicename"
-
-	dtmcli "github.com/NpoolPlatform/dtm-cluster/pkg/dtm"
-	"github.com/dtm-labs/dtm/client/dtmcli/dtmimp"
+	apppowerrentalmw "github.com/NpoolPlatform/kunman/middleware/good/app/powerrental"
+	goodledgerstatementmw "github.com/NpoolPlatform/kunman/middleware/ledger/good/ledger/statement"
+	powerrentalordermw "github.com/NpoolPlatform/kunman/middleware/order/powerrental"
+	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 )
 
 type baseUpdateHandler struct {
-	*dtmHandler
+	*checkHandler
 	*ordercommon.OrderOpHandler
 	powerRentalOrder    *npool.PowerRentalOrder
 	powerRentalOrderReq *powerrentalordermwpb.PowerRentalOrderReq
@@ -56,9 +53,20 @@ func (h *baseUpdateHandler) validateCancelParam() error {
 }
 
 func (h *baseUpdateHandler) getGoodBenefitTime(ctx context.Context) error {
-	statements, _, err := goodledgerstatementcli.GetGoodStatements(ctx, &goodledgerstatementpb.Conds{
+	conds := &goodledgerstatementpb.Conds{
 		GoodID: &basetypes.StringVal{Op: cruder.EQ, Value: h.powerRentalOrder.GoodID},
-	}, 0, 1)
+	}
+	handler, err := goodledgerstatementmw.NewHandler(
+		ctx,
+		goodledgerstatementmw.WithConds(conds),
+		goodledgerstatementmw.WithOffset(0),
+		goodledgerstatementmw.WithLimit(1),
+	)
+	if err != nil {
+		return wlog.WrapError(err)
+	}
+
+	statements, _, err := handler.GetGoodStatements(ctx)
 	if err != nil {
 		return wlog.WrapError(err)
 	}
@@ -69,7 +77,15 @@ func (h *baseUpdateHandler) getGoodBenefitTime(ctx context.Context) error {
 }
 
 func (h *baseUpdateHandler) getAppPowerRental(ctx context.Context) (err error) {
-	h.appPowerRental, err = apppowerrentalmwcli.GetPowerRental(ctx, h.powerRentalOrder.AppGoodID)
+	handler, err := apppowerrentalmw.NewHandler(
+		ctx,
+		apppowerrentalmw.WithAppGoodID(&h.powerRentalOrder.AppGoodID, true),
+	)
+	if err != nil {
+		return wlog.WrapError(err)
+	}
+
+	h.appPowerRental, err = handler.GetPowerRental(ctx)
 	return wlog.WrapError(err)
 }
 
@@ -124,15 +140,39 @@ func (h *baseUpdateHandler) constructPowerRentalOrderReq() {
 	h.powerRentalOrderReq = req
 }
 
-func (h *baseUpdateHandler) withUpdatePowerRentalOrder(dispose *dtmcli.SagaDispose) {
-	dispose.Add(
-		ordermwsvcname.ServiceDomain,
-		"order.middleware.powerrental.v1.Middleware/UpdatePowerRentalOrder",
-		"",
-		&powerrentalordermwpb.UpdatePowerRentalOrderRequest{
-			Info: h.powerRentalOrderReq,
-		},
+func (h *baseUpdateHandler) withUpdatePowerRentalOrder(ctx context.Context) error {
+	handler, err := powerrentalordermw.NewHandler(
+		ctx,
+		powerrentalordermw.WithID(h.powerRentalOrderReq.ID, false),
+		powerrentalordermw.WithEntID(h.powerRentalOrderReq.EntID, false),
+		powerrentalordermw.WithOrderID(h.powerRentalOrderReq.OrderID, false),
+		powerrentalordermw.WithPaymentType(h.powerRentalOrderReq.PaymentType, false),
+
+		powerrentalordermw.WithOrderState(h.powerRentalOrderReq.OrderState, false),
+		powerrentalordermw.WithStartMode(h.powerRentalOrderReq.StartMode, false),
+		powerrentalordermw.WithStartAt(h.powerRentalOrderReq.StartAt, false),
+		powerrentalordermw.WithLastBenefitAt(h.powerRentalOrderReq.LastBenefitAt, false),
+		powerrentalordermw.WithBenefitState(h.powerRentalOrderReq.BenefitState, false),
+		powerrentalordermw.WithUserSetPaid(h.powerRentalOrderReq.UserSetPaid, false),
+		powerrentalordermw.WithUserSetCanceled(h.powerRentalOrderReq.UserSetCanceled, false),
+		powerrentalordermw.WithAdminSetCanceled(h.powerRentalOrderReq.AdminSetCanceled, false),
+		powerrentalordermw.WithPaymentState(h.powerRentalOrderReq.PaymentState, false),
+		powerrentalordermw.WithRenewState(h.powerRentalOrderReq.RenewState, false),
+		powerrentalordermw.WithRenewNotifyAt(h.powerRentalOrderReq.RenewNotifyAt, false),
+
+		powerrentalordermw.WithLedgerLockID(h.powerRentalOrderReq.LedgerLockID, false),
+		powerrentalordermw.WithPaymentID(h.powerRentalOrderReq.PaymentID, false),
+		powerrentalordermw.WithCouponIDs(h.powerRentalOrderReq.CouponIDs, false),
+		powerrentalordermw.WithPaymentBalances(h.powerRentalOrderReq.PaymentBalances, false),
+		powerrentalordermw.WithPaymentTransfers(h.powerRentalOrderReq.PaymentTransfers, false),
+
+		powerrentalordermw.WithRollback(h.powerRentalOrderReq.Rollback, false),
+		powerrentalordermw.WithPoolOrderUserID(h.powerRentalOrderReq.PoolOrderUserID, false),
 	)
+	if err != nil {
+		return wlog.WrapError(err)
+	}
+	return handler.UpdatePowerRental(ctx)
 }
 
 func (h *baseUpdateHandler) formalizePayment() {
@@ -146,20 +186,21 @@ func (h *baseUpdateHandler) formalizePayment() {
 }
 
 func (h *baseUpdateHandler) updatePowerRentalOrder(ctx context.Context) error {
-	sagaDispose := dtmcli.NewSagaDispose(dtmimp.TransOptions{
-		WaitResult:     true,
-		RequestTimeout: 10,
-		TimeoutToFail:  10,
-	})
-
 	if !h.OrderOpHandler.Simulate {
 		if len(h.CommissionLockIDs) > 0 {
-			h.WithCreateOrderCommissionLocks(sagaDispose)
-			h.WithLockCommissions(sagaDispose)
+			if err := h.WithCreateOrderCommissionLocks(ctx); err != nil {
+				return wlog.WrapError(err)
+			}
+			if err := h.WithLockCommissions(ctx); err != nil {
+				return wlog.WrapError(err)
+			}
 		}
-		h.WithLockBalances(sagaDispose)
-		h.WithLockPaymentTransferAccount(sagaDispose)
+		if err := h.WithLockBalances(ctx); err != nil {
+			return wlog.WrapError(err)
+		}
+		if err := h.WithLockPaymentTransferAccount(ctx); err != nil {
+			return wlog.WrapError(err)
+		}
 	}
-	h.withUpdatePowerRentalOrder(sagaDispose)
-	return h.dtmDo(ctx, sagaDispose)
+	return h.withUpdatePowerRentalOrder(ctx)
 }

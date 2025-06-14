@@ -4,25 +4,14 @@ import (
 	"context"
 	"time"
 
-	orderbenefitmwcli "github.com/NpoolPlatform/account-middleware/pkg/client/orderbenefit"
-	accountmwsvcname "github.com/NpoolPlatform/account-middleware/pkg/servicename"
-	dtmcli "github.com/NpoolPlatform/dtm-cluster/pkg/dtm"
 	timedef "github.com/NpoolPlatform/kunman/framework/const/time"
-	"github.com/NpoolPlatform/kunman/framework/logger"
-	"github.com/NpoolPlatform/kunman/framework/pubsub"
 	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
-	apppowerrentalmwcli "github.com/NpoolPlatform/good-middleware/pkg/client/app/powerrental"
-	apppowerrentalsimulatemwcli "github.com/NpoolPlatform/good-middleware/pkg/client/app/powerrental/simulate"
-	goodcoinmwcli "github.com/NpoolPlatform/good-middleware/pkg/client/good/coin"
-	goodmwsvcname "github.com/NpoolPlatform/good-middleware/pkg/servicename"
-	eventmwli "github.com/NpoolPlatform/inspire-middleware/pkg/client/event"
-	cruder "github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
+	ordercommon "github.com/NpoolPlatform/kunman/gateway/order/order/common"
 	orderbenefitmwpb "github.com/NpoolPlatform/kunman/message/account/middleware/v1/orderbenefit"
 	goodtypes "github.com/NpoolPlatform/kunman/message/basetypes/good/v1"
 	types "github.com/NpoolPlatform/kunman/message/basetypes/order/v1"
 	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	appfeemwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/app/fee"
-	appgoodstockmwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/app/good/stock"
 	apppowerrentalmwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/app/powerrental"
 	apppowerrentalsimulatemwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/app/powerrental/simulate"
 	goodcoinmwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/good/coin"
@@ -31,19 +20,23 @@ import (
 	feeordermwpb "github.com/NpoolPlatform/kunman/message/order/middleware/v1/fee"
 	paymentmwpb "github.com/NpoolPlatform/kunman/message/order/middleware/v1/payment"
 	powerrentalordermwpb "github.com/NpoolPlatform/kunman/message/order/middleware/v1/powerrental"
+	orderbenefitmw "github.com/NpoolPlatform/kunman/middleware/account/orderbenefit"
+	appgoodstockmw "github.com/NpoolPlatform/kunman/middleware/good/app/good/stock"
+	apppowerrentalmw "github.com/NpoolPlatform/kunman/middleware/good/app/powerrental"
+	apppowerrentalsimulatemw "github.com/NpoolPlatform/kunman/middleware/good/app/powerrental/simulate"
+	goodcoinmw "github.com/NpoolPlatform/kunman/middleware/good/good/coin"
+	eventmw "github.com/NpoolPlatform/kunman/middleware/inspire/event"
+	powerrentalmw "github.com/NpoolPlatform/kunman/middleware/order/powerrental"
 	ordergwcommon "github.com/NpoolPlatform/kunman/pkg/common"
 	constant "github.com/NpoolPlatform/kunman/pkg/const"
-	ordercommon "github.com/NpoolPlatform/kunman/gateway/order/order/common"
-	powerrentalmwcli "github.com/NpoolPlatform/kunman/middleware/order/powerrental"
-	ordermwsvcname "github.com/NpoolPlatform/order-middleware/pkg/servicename"
-	"github.com/dtm-labs/dtm/client/dtmcli/dtmimp"
+	cruder "github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 
 	"github.com/google/uuid"
 	"github.com/shopspring/decimal"
 )
 
 type baseCreateHandler struct {
-	*dtmHandler
+	*checkHandler
 	*ordercommon.OrderOpHandler
 	appPowerRental         *apppowerrentalmwpb.PowerRental
 	appPowerRentalSimulate *apppowerrentalsimulatemwpb.Simulate
@@ -58,10 +51,19 @@ type baseCreateHandler struct {
 }
 
 func (h *baseCreateHandler) checkExistEventGood(ctx context.Context) (bool, error) {
-	ev, err := eventmwli.GetEventOnly(ctx, &eventmwpb.Conds{
-		AppID:     &basetypes.StringVal{Op: cruder.EQ, Value: *h.OrderCheckHandler.AppCheckHandler.AppID},
+	conds := &eventmwpb.Conds{
+		AppID:     &basetypes.StringVal{Op: cruder.EQ, Value: *h.OrderCheckHandler.AppUserCheckHandler.AppID},
 		EventType: &basetypes.Uint32Val{Op: cruder.EQ, Value: uint32(basetypes.UsedFor_Purchase)},
-	})
+	}
+	handler, err := eventmw.NewHandler(
+		ctx,
+		eventmw.WithConds(conds),
+	)
+	if err != nil {
+		return false, wlog.WrapError(err)
+	}
+
+	ev, err := handler.GetEventOnly(ctx)
 	if err != nil {
 		return false, wlog.Errorf("invalid event")
 	}
@@ -79,72 +81,12 @@ func (h *baseCreateHandler) checkExistEventGood(ctx context.Context) (bool, erro
 
 //nolint:dupl
 func (h *baseCreateHandler) rewardPurchase(existGoodID bool) {
-	if err := pubsub.WithPublisher(func(publisher *pubsub.Publisher) error {
-		goodID := uuid.Nil.String()
-		req := &eventmwpb.CalcluateEventRewardsRequest{
-			AppID:       *h.OrderCheckHandler.AppCheckHandler.AppID,
-			UserID:      *h.OrderCheckHandler.UserID,
-			EventType:   basetypes.UsedFor_Purchase,
-			Consecutive: 1,
-			Amount:      h.powerRentalOrderReq.PaymentAmountUSD,
-			AppGoodID:   &goodID,
-			GoodID:      &goodID,
-		}
-		if existGoodID {
-			req.GoodID = &h.appPowerRental.GoodID
-			req.AppGoodID = &h.appPowerRental.AppGoodID
-		}
-		return publisher.Update(
-			basetypes.MsgID_CalculateEventRewardReq.String(),
-			nil,
-			nil,
-			nil,
-			req,
-		)
-	}); err != nil {
-		logger.Sugar().Errorw(
-			"rewardPurchase",
-			"AppID", *h.OrderCheckHandler.AppCheckHandler.AppID,
-			"UserID", *h.OrderCheckHandler.UserID,
-			"Amount", h.powerRentalOrderReq.PaymentAmountUSD,
-			"Error", err,
-		)
-	}
+	// TODO:
 }
 
 //nolint:dupl
 func (h *baseCreateHandler) rewardAffiliatePurchase(existGoodID bool) {
-	if err := pubsub.WithPublisher(func(publisher *pubsub.Publisher) error {
-		goodID := uuid.Nil.String()
-		req := &eventmwpb.CalcluateEventRewardsRequest{
-			AppID:       *h.OrderCheckHandler.AppCheckHandler.AppID,
-			UserID:      *h.OrderCheckHandler.UserID,
-			EventType:   basetypes.UsedFor_AffiliatePurchase,
-			Consecutive: 1,
-			Amount:      h.powerRentalOrderReq.PaymentAmountUSD,
-			AppGoodID:   &goodID,
-			GoodID:      &goodID,
-		}
-		if existGoodID {
-			req.GoodID = &h.appPowerRental.GoodID
-			req.AppGoodID = &h.appPowerRental.AppGoodID
-		}
-		return publisher.Update(
-			basetypes.MsgID_CalculateEventRewardReq.String(),
-			nil,
-			nil,
-			nil,
-			req,
-		)
-	}); err != nil {
-		logger.Sugar().Errorw(
-			"rewardAffiliatePurchase",
-			"AppID", *h.OrderCheckHandler.AppCheckHandler.AppID,
-			"UserID", *h.OrderCheckHandler.UserID,
-			"Amount", h.powerRentalOrderReq.PaymentAmountUSD,
-			"Error", err,
-		)
-	}
+	// TODO:
 }
 
 func (h *baseCreateHandler) getAppGoods(ctx context.Context) error {
@@ -159,9 +101,20 @@ func (h *baseCreateHandler) getGoodCoins(ctx context.Context) error {
 	limit := constant.DefaultRowLimit
 
 	for {
-		goodCoins, _, err := goodcoinmwcli.GetGoodCoins(ctx, &goodcoinmwpb.Conds{
+		conds := &goodcoinmwpb.Conds{
 			GoodID: &basetypes.StringVal{Op: cruder.EQ, Value: h.appPowerRental.GoodID},
-		}, offset, limit)
+		}
+		handler, err := goodcoinmw.NewHandler(
+			ctx,
+			goodcoinmw.WithConds(conds),
+			goodcoinmw.WithOffset(offset),
+			goodcoinmw.WithLimit(limit),
+		)
+		if err != nil {
+			return wlog.WrapError(err)
+		}
+
+		goodCoins, _, err := handler.GetGoodCoins(ctx)
 		if err != nil {
 			return wlog.WrapError(err)
 		}
@@ -225,7 +178,15 @@ func (h *baseCreateHandler) getAppFees(ctx context.Context) (err error) {
 }
 
 func (h *baseCreateHandler) getAppPowerRental(ctx context.Context) (err error) {
-	h.appPowerRental, err = apppowerrentalmwcli.GetPowerRental(ctx, *h.Handler.AppGoodID)
+	handler, err := apppowerrentalmw.NewHandler(
+		ctx,
+		apppowerrentalmw.WithAppGoodID(h.Handler.AppGoodID, true),
+	)
+	if err != nil {
+		return wlog.WrapError(err)
+	}
+
+	h.appPowerRental, err = handler.GetPowerRental(ctx)
 	if err != nil {
 		return wlog.WrapError(err)
 	}
@@ -242,7 +203,15 @@ func (h *baseCreateHandler) getAppPowerRental(ctx context.Context) (err error) {
 }
 
 func (h *baseCreateHandler) getAppPowerRentalSimulate(ctx context.Context) (err error) {
-	h.appPowerRentalSimulate, err = apppowerrentalsimulatemwcli.GetSimulate(ctx, *h.Handler.AppGoodID)
+	handler, err := apppowerrentalsimulatemw.NewHandler(
+		ctx,
+		apppowerrentalsimulatemw.WithAppGoodID(h.Handler.AppGoodID, true),
+	)
+	if err != nil {
+		return wlog.WrapError(err)
+	}
+
+	h.appPowerRentalSimulate, err = handler.GetSimulate(ctx)
 	if err != nil {
 		return wlog.WrapError(err)
 	}
@@ -299,14 +268,24 @@ func (h *baseCreateHandler) validateOrderUnits(ctx context.Context) error {
 	if err != nil {
 		return wlog.WrapError(err)
 	}
-	purchasedUnits, err := powerrentalmwcli.SumPowerRentalOrderUnits(ctx, &powerrentalordermwpb.Conds{
+
+	conds := &powerrentalordermwpb.Conds{
 		AppID:      &basetypes.StringVal{Op: cruder.EQ, Value: *h.AppGoodCheckHandler.AppID},
 		UserID:     &basetypes.StringVal{Op: cruder.EQ, Value: *h.AppGoodCheckHandler.UserID},
 		AppGoodID:  &basetypes.StringVal{Op: cruder.EQ, Value: *h.AppGoodCheckHandler.AppGoodID},
 		OrderType:  &basetypes.Uint32Val{Op: cruder.EQ, Value: uint32(types.OrderType_Normal)},
 		OrderState: &basetypes.Uint32Val{Op: cruder.NEQ, Value: uint32(types.OrderState_OrderStateCanceled)},
 		Simulate:   &basetypes.BoolVal{Op: cruder.EQ, Value: false},
-	})
+	}
+	handler, err := powerrentalmw.NewHandler(
+		ctx,
+		powerrentalmw.WithConds(conds),
+	)
+	if err != nil {
+		return wlog.WrapError(err)
+	}
+
+	purchasedUnits, err := handler.SumPowerRentalUnits(ctx)
 	if err != nil {
 		return wlog.WrapError(err)
 	}
@@ -541,7 +520,6 @@ func (h *baseCreateHandler) constructPowerRentalOrderReq() error {
 		req.PaymentTransfers = []*paymentmwpb.PaymentTransferReq{h.PaymentTransferReq}
 	}
 	h.OrderID = req.OrderID
-	h.dtmHandler.OrderID = req.OrderID
 	h.OrderIDs = append(h.OrderIDs, *req.OrderID)
 	h.powerRentalOrderReq = req
 	return nil
@@ -576,21 +554,22 @@ func (h *baseCreateHandler) formalizeOrderBenefitReqs(ctx context.Context) error
 
 func (h *baseCreateHandler) formalizeOrderBenefitReq(ctx context.Context, req *powerrentalpb.OrderBenefitAccountReq) (err error) {
 	if req.AccountID != nil {
-		historyAccounts, _, err := orderbenefitmwcli.GetAccounts(ctx, &orderbenefitmwpb.Conds{
-			AppID: &basetypes.StringVal{
-				Op:    cruder.EQ,
-				Value: *h.Handler.OrderCheckHandler.AppID,
-			},
-			UserID: &basetypes.StringVal{
-				Op:    cruder.EQ,
-				Value: *h.Handler.OrderCheckHandler.UserID,
-			},
-			AccountID: &basetypes.StringVal{
-				Op:    cruder.EQ,
-				Value: *req.AccountID,
-			},
-		}, 0, 1)
+		conds := &orderbenefitmwpb.Conds{
+			AppID:     &basetypes.StringVal{Op: cruder.EQ, Value: *h.Handler.OrderCheckHandler.AppID},
+			UserID:    &basetypes.StringVal{Op: cruder.EQ, Value: *h.Handler.OrderCheckHandler.UserID},
+			AccountID: &basetypes.StringVal{Op: cruder.EQ, Value: *req.AccountID},
+		}
+		handler, err := orderbenefitmw.NewHandler(
+			ctx,
+			orderbenefitmw.WithConds(conds),
+			orderbenefitmw.WithOffset(0),
+			orderbenefitmw.WithLimit(1),
+		)
+		if err != nil {
+			return wlog.WrapError(err)
+		}
 
+		historyAccounts, _, err := handler.GetAccounts(ctx)
 		if err != nil {
 			return err
 		}
@@ -618,24 +597,20 @@ func (h *baseCreateHandler) formalizeOrderBenefitReq(ctx context.Context, req *p
 		return wlog.Errorf("invalid cointypeid or address")
 	}
 
-	historyAccounts, _, err := orderbenefitmwcli.GetAccounts(ctx, &orderbenefitmwpb.Conds{
-		CoinTypeID: &basetypes.StringVal{
-			Op:    cruder.EQ,
-			Value: *req.CoinTypeID,
-		},
-		AppID: &basetypes.StringVal{
-			Op:    cruder.EQ,
-			Value: *h.Handler.OrderCheckHandler.AppID,
-		},
-		UserID: &basetypes.StringVal{
-			Op:    cruder.EQ,
-			Value: *h.Handler.OrderCheckHandler.UserID,
-		},
-		Address: &basetypes.StringVal{
-			Op:    cruder.EQ,
-			Value: *req.Address,
-		},
-	}, 0, 1)
+	conds := &orderbenefitmwpb.Conds{
+		CoinTypeID: &basetypes.StringVal{Op: cruder.EQ, Value: *req.CoinTypeID},
+		AppID:      &basetypes.StringVal{Op: cruder.EQ, Value: *h.Handler.OrderCheckHandler.AppID},
+		UserID:     &basetypes.StringVal{Op: cruder.EQ, Value: *h.Handler.OrderCheckHandler.UserID},
+		Address:    &basetypes.StringVal{Op: cruder.EQ, Value: *req.Address},
+	}
+	handler, err := orderbenefitmw.NewHandler(
+		ctx,
+		orderbenefitmw.WithConds(conds),
+		orderbenefitmw.WithOffset(0),
+		orderbenefitmw.WithLimit(1),
+	)
+
+	historyAccounts, _, err := handler.GetAccounts(ctx)
 	if err != nil {
 		return err
 	}
@@ -702,73 +677,109 @@ func (h *baseCreateHandler) constructOrderBenefitReqs() {
 	}
 }
 
-func (h *baseCreateHandler) withCreateOrderBenefits(dispose *dtmcli.SagaDispose) {
+func (h *baseCreateHandler) withCreateOrderBenefits(ctx context.Context) error {
 	if len(h.orderBenefitReqs) == 0 {
-		return
+		return nil
 	}
-	dispose.Add(
-		accountmwsvcname.ServiceDomain,
-		"account.middleware.orderbenefit.v1.Middleware/CreateAccounts",
-		"account.middleware.orderbenefit.v1.Middleware/DeleteAccounts",
-		&orderbenefitmwpb.CreateAccountsRequest{
-			Infos: h.orderBenefitReqs,
-		},
-	)
+
+	handler, err := orderbenefitmw.NewMultiCreateHandler(ctx, h.orderBenefitReqs, true)
+	if err != nil {
+		return wlog.WrapError(err)
+	}
+
+	return wlog.WrapError(handler.CreateAccounts(ctx))
 }
 
 func (h *baseCreateHandler) notifyCouponUsed() {
 
 }
 
-func (h *baseCreateHandler) withCreatePowerRentalOrderWithFees(dispose *dtmcli.SagaDispose) {
-	dispose.Add(
-		ordermwsvcname.ServiceDomain,
-		"order.middleware.powerrental.v1.Middleware/CreatePowerRentalOrderWithFees",
-		"",
-		&powerrentalordermwpb.CreatePowerRentalOrderWithFeesRequest{
-			PowerRentalOrder: h.powerRentalOrderReq,
-			FeeOrders:        h.feeOrderReqs,
-		},
+func (h *baseCreateHandler) withCreatePowerRentalOrderWithFees(ctx context.Context) error {
+	handler, err := powerrentalmw.NewHandler(
+		ctx,
+		powerrentalmw.WithEntID(h.powerRentalOrderReq.EntID, false),
+		powerrentalmw.WithAppID(h.powerRentalOrderReq.AppID, true),
+		powerrentalmw.WithUserID(h.powerRentalOrderReq.UserID, true),
+		powerrentalmw.WithGoodID(h.powerRentalOrderReq.GoodID, true),
+		powerrentalmw.WithGoodType(h.powerRentalOrderReq.GoodType, true),
+		powerrentalmw.WithAppGoodID(h.powerRentalOrderReq.AppGoodID, true),
+		powerrentalmw.WithOrderID(h.powerRentalOrderReq.OrderID, false),
+		powerrentalmw.WithOrderType(h.powerRentalOrderReq.OrderType, true),
+		powerrentalmw.WithPaymentType(h.powerRentalOrderReq.PaymentType, false),
+		powerrentalmw.WithSimulate(h.powerRentalOrderReq.Simulate, false),
+		powerrentalmw.WithCreateMethod(h.powerRentalOrderReq.CreateMethod, true),
+
+		powerrentalmw.WithAppGoodStockID(h.powerRentalOrderReq.AppGoodStockID, false),
+		powerrentalmw.WithUnits(h.powerRentalOrderReq.Units, true),
+		powerrentalmw.WithGoodValueUSD(h.powerRentalOrderReq.GoodValueUSD, true),
+		powerrentalmw.WithPaymentAmountUSD(h.powerRentalOrderReq.PaymentAmountUSD, false),
+		powerrentalmw.WithDiscountAmountUSD(h.powerRentalOrderReq.DiscountAmountUSD, false),
+		powerrentalmw.WithPromotionID(h.powerRentalOrderReq.PromotionID, false),
+		powerrentalmw.WithDurationSeconds(h.powerRentalOrderReq.DurationSeconds, true),
+		powerrentalmw.WithInvestmentType(h.powerRentalOrderReq.InvestmentType, false),
+		powerrentalmw.WithGoodStockMode(h.powerRentalOrderReq.GoodStockMode, true),
+
+		powerrentalmw.WithStartMode(h.powerRentalOrderReq.StartMode, true),
+		powerrentalmw.WithStartAt(h.powerRentalOrderReq.StartAt, true),
+		powerrentalmw.WithAppGoodStockLockID(h.powerRentalOrderReq.AppGoodStockLockID, false),
+		powerrentalmw.WithLedgerLockID(h.powerRentalOrderReq.LedgerLockID, false),
+		powerrentalmw.WithPaymentID(h.powerRentalOrderReq.PaymentID, false),
+		powerrentalmw.WithCouponIDs(h.powerRentalOrderReq.CouponIDs, false),
+		powerrentalmw.WithPaymentBalances(h.powerRentalOrderReq.PaymentBalances, false),
+		powerrentalmw.WithPaymentTransfers(h.powerRentalOrderReq.PaymentTransfers, false),
+
+		powerrentalmw.WithFeeOrders(h.feeOrderReqs, true),
 	)
+	if err != nil {
+		return wlog.WrapError(err)
+	}
+
+	return wlog.WrapError(handler.CreatePowerRental(ctx))
 }
 
-func (h *baseCreateHandler) withLockStock(dispose *dtmcli.SagaDispose) {
-	dispose.Add(
-		goodmwsvcname.ServiceDomain,
-		"good.middleware.app.good1.stock.v1.Middleware/Lock",
-		"good.middleware.app.good1.stock.v1.Middleware/Unlock",
-		&appgoodstockmwpb.LockRequest{
-			EntID:     *h.AppGoodStockID,
-			AppGoodID: *h.Handler.AppGoodID,
-			Units:     h.Units.String(),
-			AppSpotUnits: func() string {
-				if h.AppSpotUnits != nil {
-					return h.AppSpotUnits.String()
-				}
-				return decimal.NewFromInt(0).String()
-			}(),
-			LockID:   *h.appGoodStockLockID,
-			Rollback: true,
-		},
+func (h *baseCreateHandler) withLockStock(ctx context.Context) error {
+	handler, err := appgoodstockmw.NewHandler(
+		ctx,
+		appgoodstockmw.WithEntID(h.AppGoodStockID, true),
+		appgoodstockmw.WithAppGoodID(h.Handler.AppGoodID, true),
+		appgoodstockmw.WithLocked(func() *string { s := h.Units.String(); return &s }(), true),
+		appgoodstockmw.WithAppSpotLocked(func() *string {
+			units := decimal.NewFromInt(0).String()
+			if h.AppSpotUnits != nil {
+				units = h.AppSpotUnits.String()
+			}
+			return &units
+		}(), true),
+		appgoodstockmw.WithLockID(h.appGoodStockLockID, true),
 	)
+	if err != nil {
+		return wlog.WrapError(err)
+	}
+
+	return wlog.WrapError(handler.LockStock(ctx))
 }
 
 func (h *baseCreateHandler) createPowerRentalOrder(ctx context.Context) error {
-	sagaDispose := dtmcli.NewSagaDispose(dtmimp.TransOptions{
-		WaitResult:     true,
-		RequestTimeout: 10,
-		TimeoutToFail:  10,
-	})
 	if !h.OrderOpHandler.Simulate {
 		if h.AppGoodStockID == nil {
 			return wlog.Errorf("invalid appgoodstockid")
 		}
-		h.withLockStock(sagaDispose)
-		h.WithLockBalances(sagaDispose)
-		h.WithLockPaymentTransferAccount(sagaDispose)
+		if err := h.withLockStock(ctx); err != nil {
+			return wlog.WrapError(err)
+		}
+		if err := h.WithLockBalances(ctx); err != nil {
+			return wlog.WrapError(err)
+		}
+		if err := h.WithLockPaymentTransferAccount(ctx); err != nil {
+			return wlog.WrapError(err)
+		}
 	}
-	h.withCreateOrderBenefits(sagaDispose)
-	h.withCreatePowerRentalOrderWithFees(sagaDispose)
-	defer h.notifyCouponUsed()
-	return h.dtmDo(ctx, sagaDispose)
+	if err := h.withCreateOrderBenefits(ctx); err != nil {
+		return wlog.WrapError(err)
+	}
+	if err := h.withCreatePowerRentalOrderWithFees(ctx); err != nil {
+		return wlog.WrapError(err)
+	}
+	h.notifyCouponUsed()
+	return nil
 }

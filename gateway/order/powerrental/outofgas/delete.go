@@ -4,9 +4,9 @@ import (
 	"context"
 
 	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
+	outofgas1 "github.com/NpoolPlatform/kunman/gateway/order/outofgas"
 	outofgasgwpb "github.com/NpoolPlatform/kunman/message/order/gateway/v1/outofgas"
-	outofgas1 "github.com/NpoolPlatform/order-gateway/pkg/outofgas"
-	powerrentaloutofgasmwcli "github.com/NpoolPlatform/kunman/middleware/order/powerrental/outofgas"
+	powerrentaloutofgasmw "github.com/NpoolPlatform/kunman/middleware/order/powerrental/outofgas"
 )
 
 func (h *Handler) DeleteOutOfGas(ctx context.Context) (*outofgasgwpb.OutOfGas, error) {
@@ -25,7 +25,17 @@ func (h *Handler) DeleteOutOfGas(ctx context.Context) (*outofgasgwpb.OutOfGas, e
 	if info == nil {
 		return nil, wlog.Errorf("invalid outofgas")
 	}
-	if err := powerrentaloutofgasmwcli.DeleteOutOfGas(ctx, &info.ID, &info.EntID); err != nil {
+
+	outOfGasHandler, err := powerrentaloutofgasmw.NewHandler(
+		ctx,
+		powerrentaloutofgasmw.WithID(&info.ID, true),
+		powerrentaloutofgasmw.WithEntID(&info.EntID, true),
+	)
+	if err != nil {
+		return nil, wlog.WrapError(err)
+	}
+
+	if err := outOfGasHandler.DeleteOutOfGas(ctx); err != nil {
 		return nil, wlog.WrapError(err)
 	}
 	return info, nil

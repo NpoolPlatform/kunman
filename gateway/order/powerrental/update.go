@@ -4,8 +4,8 @@ import (
 	"context"
 
 	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
-	npool "github.com/NpoolPlatform/kunman/message/order/gateway/v1/powerrental"
 	ordercommon "github.com/NpoolPlatform/kunman/gateway/order/order/common"
+	npool "github.com/NpoolPlatform/kunman/message/order/gateway/v1/powerrental"
 
 	"github.com/shopspring/decimal"
 )
@@ -22,10 +22,8 @@ func (h *Handler) UpdatePowerRentalOrder(ctx context.Context) (*npool.PowerRenta
 
 	handler := &updateHandler{
 		baseUpdateHandler: &baseUpdateHandler{
-			dtmHandler: &dtmHandler{
-				checkHandler: &checkHandler{
-					Handler: h,
-				},
+			checkHandler: &checkHandler{
+				Handler: h,
 			},
 			OrderOpHandler: &ordercommon.OrderOpHandler{
 				AppGoodCheckHandler:         h.AppGoodCheckHandler,
