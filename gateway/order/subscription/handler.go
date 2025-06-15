@@ -27,6 +27,7 @@ type Handler struct {
 	PaymentTransferCoinTypeID *string
 	PaymentFiatID             *string
 	CouponIDs                 []string
+	OrderIDs                  []string
 	UserSetCanceled           *bool
 	AdminSetCanceled          *bool
 	CreateMethod              *types.OrderCreateMethod

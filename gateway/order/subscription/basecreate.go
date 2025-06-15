@@ -6,9 +6,13 @@ import (
 	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
 	ordercommon "github.com/NpoolPlatform/kunman/gateway/order/order/common"
 	appsubscriptionmwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/app/subscription"
+	paymentmwpb "github.com/NpoolPlatform/kunman/message/order/middleware/v1/payment"
 	subscriptionordermwpb "github.com/NpoolPlatform/kunman/message/order/middleware/v1/subscription"
 	appsubscriptionmw "github.com/NpoolPlatform/kunman/middleware/good/app/subscription"
 	subscriptionordermw "github.com/NpoolPlatform/kunman/middleware/order/subscription"
+
+	"github.com/google/uuid"
+	"github.com/shopspring/decimal"
 )
 
 type baseCreateHandler struct {
@@ -31,15 +35,10 @@ func (h *baseCreateHandler) getAppSubscription(ctx context.Context) error {
 	if err != nil {
 		return wlog.WrapError(err)
 	}
-	if h.appSubscription == nil || !h.appSubscription.AppGoodOnline || !h.appSubscription.GoodOnline {
+	if h.appSubscription == nil {
 		return wlog.Errorf("invalid appsubscription")
 	}
 
-	if !h.appSubscription.AppGoodPurchasable || !h.appSubscription.GoodPurchasable {
-		if *h.CreateMethod != types.OrderCreateMethod_OrderCreatedByAdmin {
-			return wlog.Errorf("invalid appsubscription")
-		}
-	}
 	return nil
 }
 
@@ -83,7 +82,9 @@ func (h *baseCreateHandler) constructSubscriptionOrderReq() error {
 	if h.PaymentTransferReq != nil {
 		req.PaymentTransfers = []*paymentmwpb.PaymentTransferReq{h.PaymentTransferReq}
 	}
-	req.PaymentFiatReq = h.PaymentFiatReq
+	if h.PaymentFiatReq != nil {
+		req.PaymentFiats = []*paymentmwpb.PaymentFiatReq{h.PaymentFiatReq}
+	}
 	h.OrderID = req.OrderID
 
 	h.subscriptionOrderReq = req
@@ -117,7 +118,6 @@ func (h *baseCreateHandler) withCreateSubscriptionOrder(ctx context.Context) err
 		subscriptionordermw.WithPaymentType(h.subscriptionOrderReq.PaymentType, false),
 		subscriptionordermw.WithCreateMethod(h.subscriptionOrderReq.CreateMethod, true),
 
-		subscriptionordermw.WithUnits(h.subscriptionOrderReq.Units, true),
 		subscriptionordermw.WithGoodValueUSD(h.subscriptionOrderReq.GoodValueUSD, true),
 		subscriptionordermw.WithPaymentAmountUSD(h.subscriptionOrderReq.PaymentAmountUSD, false),
 		subscriptionordermw.WithDiscountAmountUSD(h.subscriptionOrderReq.DiscountAmountUSD, false),
@@ -135,7 +135,7 @@ func (h *baseCreateHandler) withCreateSubscriptionOrder(ctx context.Context) err
 		return wlog.WrapError(err)
 	}
 
-	return wlog.WrapError(handler.CreatePowerRental(ctx))
+	return wlog.WrapError(handler.CreateSubscriptionOrder(ctx))
 }
 
 func (h *baseCreateHandler) createSubscriptionOrder(ctx context.Context) error {
