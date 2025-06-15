@@ -1,0 +1,147 @@
+syntax = "proto3";
+
+package sphinx.plugin.v1;
+
+option go_package = "github.com/NpoolPlatform/kunman/message/sphinx/plugin";
+
+enum CoinType {
+  CoinTypeUnKnow = 0;
+  // mainnet
+  CoinTypefilecoin = 1;
+  CoinTypebitcoin = 2;
+  CoinTypeethereum = 3;
+  CoinTypeusdterc20 = 4;
+  CoinTypespacemesh = 5;
+  CoinTypesolana = 6;
+  CoinTypeusdttrc20 = 7;
+  CoinTypebinancecoin = 8;
+  CoinTypetron = 9;
+  CoinTypebinanceusd = 10;
+  CoinTypeusdcerc20 = 11;
+  CoinTypealeo = 12;
+  CoinTypeironfish = 13;
+  CoinTypeusdtbep20 = 14;
+  CoinTypedepinc = 15;
+  CoinTypechia = 16;
+
+  // testnet
+  CoinTypetfilecoin = 100;
+  CoinTypetbitcoin = 101;
+  CoinTypetethereum = 102;
+  CoinTypetusdterc20 = 103;
+  CoinTypetspacemesh = 104;
+  CoinTypetsolana = 105;
+  CoinTypetusdttrc20 = 106;
+  CoinTypetbinancecoin = 107;
+  CoinTypettron = 108;
+  CoinTypetbinanceusd = 109;
+  CoinTypetusdcerc20 = 110;
+  CoinTypetaleo = 111;
+  CoinTypetironfish = 112;
+  CoinTypetusdtbep20 = 113;
+  CoinTypetdepinc = 114;
+  CoinTypetchia = 115;
+}
+
+enum ChainType {
+  UnKnow = 0;
+  // mainnet
+  Filecoin = 1;
+  Bitcoin = 2;
+  Ethereum = 3;
+  Spacemesh = 4;
+  Solana = 5;
+  Binancecoin = 6;
+  Tron = 7;
+  Aleo = 8;
+  Ironfish = 9;
+  Depinc = 10;
+  Chia = 11;
+
+  // testnet
+  TFilecoin = 101;
+  TBitcoin = 102;
+  TEthereum = 103;
+  TSpacemesh = 104;
+  TSolana = 105;
+  TBinancecoin = 106;
+  TTron = 107;
+  TAleo = 108;
+  TIronfish = 109;
+  TDepinc = 110;
+  TChia = 111;
+}
+
+// fil
+message UnsignedMessage {
+  uint64 Version = 100;
+  string To = 110;
+  string From = 120;
+  double Value = 130;
+
+  // fil/eth/erc20/bsc
+  uint64 Nonce = 140;
+  int64 GasLimit = 150;
+
+  // eth/erc20/bsc
+  int64 GasPrice = 151;
+  int64 ChainID = 152;
+  string ContractID = 153;
+
+  // fil
+  uint64 GasFeeCap = 160;
+  uint64 GasPremium = 170;
+  uint64 Method = 180;
+  bytes Params = 190;
+
+  // btc
+  repeated Unspent Unspent = 200;
+
+  // sol
+  string RecentBhash = 210;
+  // trc20
+  bytes TxData = 220;
+}
+
+message Signature {
+  string SignType = 100; // secp256k1
+  bytes Data = 110;
+}
+
+// ============================= btc
+message Unspent {
+  string TxID = 100;
+  uint32 Vout = 110;
+  string Address = 120;
+  string Account = 130;
+  string ScriptPubKey = 140;
+  string RedeemScript = 150;
+  double Amount = 160;
+  int64 Confirmations = 170;
+  bool Spendable = 180;
+}
+
+message MsgTx {
+  int32 Version = 100;
+  repeated TxIn TxIn = 110;
+  repeated TxOut TxOut = 120;
+  uint32 LockTime = 130;
+}
+
+message TxIn {
+  OutPoint PreviousOutPoint = 100;
+  bytes SignatureScript = 110;
+  repeated bytes Witness = 120;
+  uint32 Sequence = 130;
+}
+
+message OutPoint {
+  // byte len 32
+  bytes Hash = 100;
+  uint32 Index = 110;
+}
+
+message TxOut {
+  int64 Value = 100;
+  bytes PkScript = 110;
+}

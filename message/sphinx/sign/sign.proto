@@ -1,0 +1,10 @@
+syntax = "proto3";
+
+package sphinx.sign.v1;
+
+option go_package = "github.com/NpoolPlatform/kunman/message/sphinx/sign";
+
+message AccountInfo {
+  string SigType = 100; // secp256k1
+  string Address = 110;
+}
