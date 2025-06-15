@@ -6,11 +6,10 @@ require (
 	bou.ke/monkey v1.0.2
 	entgo.io/ent v0.14.4
 	github.com/AmirSoleimani/VoucherCodeGenerator/vcgen v0.0.0-20220706103434-bcb25b5bff9c
-	github.com/NpoolPlatform/account-middleware v0.0.0-20250115034541-5f3f60ceee9a
+	github.com/NpoolPlatform/go-service-framework v0.0.0-20250123031703-66a23c81e8e0
 	github.com/NpoolPlatform/good-gateway v0.0.0-20250303022721-b1e88c6dc0af
 	github.com/NpoolPlatform/good-middleware v0.0.0-20250115034449-9d9d053987a2
-	github.com/NpoolPlatform/message v0.0.0-20250604112546-25213bae6bb9
-	github.com/NpoolPlatform/miningpool-middleware v0.0.0-20241106020300-03d147aeb913
+	github.com/NpoolPlatform/message v0.0.0-20250115023515-4bc3d3d37f89
 	github.com/NpoolPlatform/order-middleware v0.0.0-20241106020324-b91339b3d20e
 	github.com/NpoolPlatform/sphinx-proxy v0.0.0-20231020115438-bd66d3d334af
 	github.com/ThreeDotsLabs/watermill v1.2.0
@@ -55,11 +54,10 @@ require (
 
 require (
 	ariga.io/atlas v0.31.1-0.20250212144724-069be8033e83 // indirect
-	entgo.io/contrib v0.6.1-0.20250319063240-8a7f182943cb // indirect
 	github.com/NpoolPlatform/appuser-middleware v0.0.0-20240926060520-1949246cf711 // indirect
 	github.com/NpoolPlatform/chain-middleware v0.0.0-20240731030645-1b4ce8fcac22 // indirect
-	github.com/NpoolPlatform/go-service-framework v0.0.0-20250123031703-66a23c81e8e0 // indirect
 	github.com/NpoolPlatform/libent-cruder v0.0.0-20240323085036-7679b4818ce7 // indirect
+	github.com/NpoolPlatform/miningpool-middleware v0.0.0-20241106020300-03d147aeb913 // indirect
 	github.com/Shonminh/apollo-client v0.4.0 // indirect
 	github.com/agext/levenshtein v1.2.1 // indirect
 	github.com/andres-erbsen/clock v0.0.0-20160526145045-9e14626cd129 // indirect
@@ -82,7 +80,6 @@ require (
 	github.com/aws/smithy-go v1.13.2 // indirect
 	github.com/beorn7/perks v1.0.1 // indirect
 	github.com/bmatcuk/doublestar v1.3.4 // indirect
-	github.com/bmatcuk/doublestar/v4 v4.0.2 // indirect
 	github.com/bytedance/sonic/loader v0.1.1 // indirect
 	github.com/cenkalti/backoff/v3 v3.2.2 // indirect
 	github.com/cespare/xxhash v1.1.0 // indirect
@@ -99,8 +96,7 @@ require (
 	github.com/go-logr/stdr v1.2.2 // indirect
 	github.com/go-openapi/inflect v0.19.0 // indirect
 	github.com/golang/protobuf v1.5.4 // indirect
-	github.com/google/addlicense v1.1.1 // indirect
-	github.com/google/go-cmp v0.6.0 // indirect
+	github.com/google/go-cmp v0.7.0 // indirect
 	github.com/hashicorp/errwrap v1.1.0 // indirect
 	github.com/hashicorp/go-cleanhttp v0.5.2 // indirect
 	github.com/hashicorp/go-hclog v1.2.0 // indirect
@@ -136,7 +132,7 @@ require (
 	github.com/spf13/pflag v1.0.5 // indirect
 	github.com/subosito/gotenv v1.3.0 // indirect
 	github.com/twitchyliquid64/golang-asm v0.15.1 // indirect
-	github.com/ugorji/go/codec v1.2.14 // indirect
+	github.com/ugorji/go/codec v1.3.0 // indirect
 	github.com/xrash/smetrics v0.0.0-20201216005158-039620a65673 // indirect
 	github.com/zclconf/go-cty v1.14.4 // indirect
 	github.com/zclconf/go-cty-yaml v1.1.0 // indirect
@@ -147,7 +143,6 @@ require (
 	golang.org/x/arch v0.0.0-20210923205945-b76863e36670 // indirect
 	golang.org/x/mod v0.24.0 // indirect
 	golang.org/x/net v0.37.0 // indirect
-	golang.org/x/sync v0.12.0 // indirect
 	golang.org/x/sys v0.31.0 // indirect
 	golang.org/x/text v0.23.0 // indirect
 	golang.org/x/tools v0.31.0 // indirect
