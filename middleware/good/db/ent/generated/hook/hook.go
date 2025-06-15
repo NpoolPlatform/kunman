@@ -45,18 +45,6 @@ func (f AppFeeFunc) Mutate(ctx context.Context, m generated.Mutation) (generated
 	return nil, fmt.Errorf("unexpected mutation type %T. expect *generated.AppFeeMutation", m)
 }
 
-// The AppGoodFunc type is an adapter to allow the use of ordinary
-// function as AppGood mutator.
-type AppGoodFunc func(context.Context, *generated.AppGoodMutation) (generated.Value, error)
-
-// Mutate calls f(ctx, m).
-func (f AppGoodFunc) Mutate(ctx context.Context, m generated.Mutation) (generated.Value, error) {
-	if mv, ok := m.(*generated.AppGoodMutation); ok {
-		return f(ctx, mv)
-	}
-	return nil, fmt.Errorf("unexpected mutation type %T. expect *generated.AppGoodMutation", m)
-}
-
 // The AppGoodBaseFunc type is an adapter to allow the use of ordinary
 // function as AppGoodBase mutator.
 type AppGoodBaseFunc func(context.Context, *generated.AppGoodBaseMutation) (generated.Value, error)

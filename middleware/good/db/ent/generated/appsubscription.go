@@ -26,16 +26,8 @@ type AppSubscription struct {
 	UpdatedAt uint32 `json:"updated_at,omitempty"`
 	// DeletedAt holds the value of the "deleted_at" field.
 	DeletedAt uint32 `json:"deleted_at,omitempty"`
-	// AppID holds the value of the "app_id" field.
-	AppID uuid.UUID `json:"app_id,omitempty"`
-	// GoodID holds the value of the "good_id" field.
-	GoodID uuid.UUID `json:"good_id,omitempty"`
 	// AppGoodID holds the value of the "app_good_id" field.
 	AppGoodID uuid.UUID `json:"app_good_id,omitempty"`
-	// Name holds the value of the "name" field.
-	Name string `json:"name,omitempty"`
-	// Banner holds the value of the "banner" field.
-	Banner string `json:"banner,omitempty"`
 	// UsdPrice holds the value of the "usd_price" field.
 	UsdPrice     decimal.Decimal `json:"usd_price,omitempty"`
 	selectValues sql.SelectValues
@@ -50,9 +42,7 @@ func (*AppSubscription) scanValues(columns []string) ([]any, error) {
 			values[i] = new(decimal.Decimal)
 		case appsubscription.FieldID, appsubscription.FieldCreatedAt, appsubscription.FieldUpdatedAt, appsubscription.FieldDeletedAt:
 			values[i] = new(sql.NullInt64)
-		case appsubscription.FieldName, appsubscription.FieldBanner:
-			values[i] = new(sql.NullString)
-		case appsubscription.FieldEntID, appsubscription.FieldAppID, appsubscription.FieldGoodID, appsubscription.FieldAppGoodID:
+		case appsubscription.FieldEntID, appsubscription.FieldAppGoodID:
 			values[i] = new(uuid.UUID)
 		default:
 			values[i] = new(sql.UnknownType)
@@ -99,35 +89,11 @@ func (as *AppSubscription) assignValues(columns []string, values []any) error {
 			} else if value.Valid {
 				as.DeletedAt = uint32(value.Int64)
 			}
-		case appsubscription.FieldAppID:
-			if value, ok := values[i].(*uuid.UUID); !ok {
-				return fmt.Errorf("unexpected type %T for field app_id", values[i])
-			} else if value != nil {
-				as.AppID = *value
-			}
-		case appsubscription.FieldGoodID:
-			if value, ok := values[i].(*uuid.UUID); !ok {
-				return fmt.Errorf("unexpected type %T for field good_id", values[i])
-			} else if value != nil {
-				as.GoodID = *value
-			}
 		case appsubscription.FieldAppGoodID:
 			if value, ok := values[i].(*uuid.UUID); !ok {
 				return fmt.Errorf("unexpected type %T for field app_good_id", values[i])
 			} else if value != nil {
 				as.AppGoodID = *value
-			}
-		case appsubscription.FieldName:
-			if value, ok := values[i].(*sql.NullString); !ok {
-				return fmt.Errorf("unexpected type %T for field name", values[i])
-			} else if value.Valid {
-				as.Name = value.String
-			}
-		case appsubscription.FieldBanner:
-			if value, ok := values[i].(*sql.NullString); !ok {
-				return fmt.Errorf("unexpected type %T for field banner", values[i])
-			} else if value.Valid {
-				as.Banner = value.String
 			}
 		case appsubscription.FieldUsdPrice:
 			if value, ok := values[i].(*decimal.Decimal); !ok {
@@ -183,20 +149,8 @@ func (as *AppSubscription) String() string {
 	builder.WriteString("deleted_at=")
 	builder.WriteString(fmt.Sprintf("%v", as.DeletedAt))
 	builder.WriteString(", ")
-	builder.WriteString("app_id=")
-	builder.WriteString(fmt.Sprintf("%v", as.AppID))
-	builder.WriteString(", ")
-	builder.WriteString("good_id=")
-	builder.WriteString(fmt.Sprintf("%v", as.GoodID))
-	builder.WriteString(", ")
 	builder.WriteString("app_good_id=")
 	builder.WriteString(fmt.Sprintf("%v", as.AppGoodID))
-	builder.WriteString(", ")
-	builder.WriteString("name=")
-	builder.WriteString(as.Name)
-	builder.WriteString(", ")
-	builder.WriteString("banner=")
-	builder.WriteString(as.Banner)
 	builder.WriteString(", ")
 	builder.WriteString("usd_price=")
 	builder.WriteString(fmt.Sprintf("%v", as.UsdPrice))

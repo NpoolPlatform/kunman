@@ -555,7 +555,7 @@
         "PaymentTransferCoinTypeID": {
           "type": "string"
         },
-        "PaymentFiatId": {
+        "PaymentFiatID": {
           "type": "string"
         },
         "CouponIDs": {

@@ -15,7 +15,6 @@ import (
 	"github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated/appdefaultgood"
 	"github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated/appdelegatedstaking"
 	"github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated/appfee"
-	"github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated/appgood"
 	"github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated/appgoodbase"
 	"github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated/appgooddescription"
 	"github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated/appgooddisplaycolor"
@@ -126,7 +125,6 @@ func checkColumn(table, column string) error {
 			appdefaultgood.Table:         appdefaultgood.ValidColumn,
 			appdelegatedstaking.Table:    appdelegatedstaking.ValidColumn,
 			appfee.Table:                 appfee.ValidColumn,
-			appgood.Table:                appgood.ValidColumn,
 			appgoodbase.Table:            appgoodbase.ValidColumn,
 			appgooddescription.Table:     appgooddescription.ValidColumn,
 			appgooddisplaycolor.Table:    appgooddisplaycolor.ValidColumn,

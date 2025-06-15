@@ -25,31 +25,11 @@ func (AppSubscriptionOneShot) Mixin() []ent.Mixin {
 func (AppSubscriptionOneShot) Fields() []ent.Field {
 	return []ent.Field{
 		field.
-			UUID("app_id", uuid.UUID{}).
-			Optional().
-			Default(func() uuid.UUID {
-				return uuid.UUID{}
-			}),
-		field.
-			UUID("good_id", uuid.UUID{}).
-			Optional().
-			Default(func() uuid.UUID {
-				return uuid.UUID{}
-			}),
-		field.
 			UUID("app_good_id", uuid.UUID{}).
 			Optional().
 			Default(func() uuid.UUID {
 				return uuid.UUID{}
 			}),
-		field.
-			String("name").
-			Optional().
-			Default(""),
-		field.
-			String("banner").
-			Optional().
-			Default(""),
 		field.
 			Other("usd_price", decimal.Decimal{}).
 			SchemaType(map[string]string{

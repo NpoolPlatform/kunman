@@ -93,34 +93,6 @@ func (sosc *SubscriptionOneShotCreate) SetNillableGoodID(u *uuid.UUID) *Subscrip
 	return sosc
 }
 
-// SetGoodType sets the "good_type" field.
-func (sosc *SubscriptionOneShotCreate) SetGoodType(s string) *SubscriptionOneShotCreate {
-	sosc.mutation.SetGoodType(s)
-	return sosc
-}
-
-// SetNillableGoodType sets the "good_type" field if the given value is not nil.
-func (sosc *SubscriptionOneShotCreate) SetNillableGoodType(s *string) *SubscriptionOneShotCreate {
-	if s != nil {
-		sosc.SetGoodType(*s)
-	}
-	return sosc
-}
-
-// SetName sets the "name" field.
-func (sosc *SubscriptionOneShotCreate) SetName(s string) *SubscriptionOneShotCreate {
-	sosc.mutation.SetName(s)
-	return sosc
-}
-
-// SetNillableName sets the "name" field if the given value is not nil.
-func (sosc *SubscriptionOneShotCreate) SetNillableName(s *string) *SubscriptionOneShotCreate {
-	if s != nil {
-		sosc.SetName(*s)
-	}
-	return sosc
-}
-
 // SetQuota sets the "quota" field.
 func (sosc *SubscriptionOneShotCreate) SetQuota(u uint32) *SubscriptionOneShotCreate {
 	sosc.mutation.SetQuota(u)
@@ -210,14 +182,6 @@ func (sosc *SubscriptionOneShotCreate) defaults() {
 		v := subscriptiononeshot.DefaultGoodID()
 		sosc.mutation.SetGoodID(v)
 	}
-	if _, ok := sosc.mutation.GoodType(); !ok {
-		v := subscriptiononeshot.DefaultGoodType
-		sosc.mutation.SetGoodType(v)
-	}
-	if _, ok := sosc.mutation.Name(); !ok {
-		v := subscriptiononeshot.DefaultName
-		sosc.mutation.SetName(v)
-	}
 	if _, ok := sosc.mutation.Quota(); !ok {
 		v := subscriptiononeshot.DefaultQuota
 		sosc.mutation.SetQuota(v)
@@ -294,14 +258,6 @@ func (sosc *SubscriptionOneShotCreate) createSpec() (*SubscriptionOneShot, *sqlg
 	if value, ok := sosc.mutation.GoodID(); ok {
 		_spec.SetField(subscriptiononeshot.FieldGoodID, field.TypeUUID, value)
 		_node.GoodID = value
-	}
-	if value, ok := sosc.mutation.GoodType(); ok {
-		_spec.SetField(subscriptiononeshot.FieldGoodType, field.TypeString, value)
-		_node.GoodType = value
-	}
-	if value, ok := sosc.mutation.Name(); ok {
-		_spec.SetField(subscriptiononeshot.FieldName, field.TypeString, value)
-		_node.Name = value
 	}
 	if value, ok := sosc.mutation.Quota(); ok {
 		_spec.SetField(subscriptiononeshot.FieldQuota, field.TypeUint32, value)
@@ -444,42 +400,6 @@ func (u *SubscriptionOneShotUpsert) UpdateGoodID() *SubscriptionOneShotUpsert {
 // ClearGoodID clears the value of the "good_id" field.
 func (u *SubscriptionOneShotUpsert) ClearGoodID() *SubscriptionOneShotUpsert {
 	u.SetNull(subscriptiononeshot.FieldGoodID)
-	return u
-}
-
-// SetGoodType sets the "good_type" field.
-func (u *SubscriptionOneShotUpsert) SetGoodType(v string) *SubscriptionOneShotUpsert {
-	u.Set(subscriptiononeshot.FieldGoodType, v)
-	return u
-}
-
-// UpdateGoodType sets the "good_type" field to the value that was provided on create.
-func (u *SubscriptionOneShotUpsert) UpdateGoodType() *SubscriptionOneShotUpsert {
-	u.SetExcluded(subscriptiononeshot.FieldGoodType)
-	return u
-}
-
-// ClearGoodType clears the value of the "good_type" field.
-func (u *SubscriptionOneShotUpsert) ClearGoodType() *SubscriptionOneShotUpsert {
-	u.SetNull(subscriptiononeshot.FieldGoodType)
-	return u
-}
-
-// SetName sets the "name" field.
-func (u *SubscriptionOneShotUpsert) SetName(v string) *SubscriptionOneShotUpsert {
-	u.Set(subscriptiononeshot.FieldName, v)
-	return u
-}
-
-// UpdateName sets the "name" field to the value that was provided on create.
-func (u *SubscriptionOneShotUpsert) UpdateName() *SubscriptionOneShotUpsert {
-	u.SetExcluded(subscriptiononeshot.FieldName)
-	return u
-}
-
-// ClearName clears the value of the "name" field.
-func (u *SubscriptionOneShotUpsert) ClearName() *SubscriptionOneShotUpsert {
-	u.SetNull(subscriptiononeshot.FieldName)
 	return u
 }
 
@@ -668,48 +588,6 @@ func (u *SubscriptionOneShotUpsertOne) UpdateGoodID() *SubscriptionOneShotUpsert
 func (u *SubscriptionOneShotUpsertOne) ClearGoodID() *SubscriptionOneShotUpsertOne {
 	return u.Update(func(s *SubscriptionOneShotUpsert) {
 		s.ClearGoodID()
-	})
-}
-
-// SetGoodType sets the "good_type" field.
-func (u *SubscriptionOneShotUpsertOne) SetGoodType(v string) *SubscriptionOneShotUpsertOne {
-	return u.Update(func(s *SubscriptionOneShotUpsert) {
-		s.SetGoodType(v)
-	})
-}
-
-// UpdateGoodType sets the "good_type" field to the value that was provided on create.
-func (u *SubscriptionOneShotUpsertOne) UpdateGoodType() *SubscriptionOneShotUpsertOne {
-	return u.Update(func(s *SubscriptionOneShotUpsert) {
-		s.UpdateGoodType()
-	})
-}
-
-// ClearGoodType clears the value of the "good_type" field.
-func (u *SubscriptionOneShotUpsertOne) ClearGoodType() *SubscriptionOneShotUpsertOne {
-	return u.Update(func(s *SubscriptionOneShotUpsert) {
-		s.ClearGoodType()
-	})
-}
-
-// SetName sets the "name" field.
-func (u *SubscriptionOneShotUpsertOne) SetName(v string) *SubscriptionOneShotUpsertOne {
-	return u.Update(func(s *SubscriptionOneShotUpsert) {
-		s.SetName(v)
-	})
-}
-
-// UpdateName sets the "name" field to the value that was provided on create.
-func (u *SubscriptionOneShotUpsertOne) UpdateName() *SubscriptionOneShotUpsertOne {
-	return u.Update(func(s *SubscriptionOneShotUpsert) {
-		s.UpdateName()
-	})
-}
-
-// ClearName clears the value of the "name" field.
-func (u *SubscriptionOneShotUpsertOne) ClearName() *SubscriptionOneShotUpsertOne {
-	return u.Update(func(s *SubscriptionOneShotUpsert) {
-		s.ClearName()
 	})
 }
 
@@ -1071,48 +949,6 @@ func (u *SubscriptionOneShotUpsertBulk) UpdateGoodID() *SubscriptionOneShotUpser
 func (u *SubscriptionOneShotUpsertBulk) ClearGoodID() *SubscriptionOneShotUpsertBulk {
 	return u.Update(func(s *SubscriptionOneShotUpsert) {
 		s.ClearGoodID()
-	})
-}
-
-// SetGoodType sets the "good_type" field.
-func (u *SubscriptionOneShotUpsertBulk) SetGoodType(v string) *SubscriptionOneShotUpsertBulk {
-	return u.Update(func(s *SubscriptionOneShotUpsert) {
-		s.SetGoodType(v)
-	})
-}
-
-// UpdateGoodType sets the "good_type" field to the value that was provided on create.
-func (u *SubscriptionOneShotUpsertBulk) UpdateGoodType() *SubscriptionOneShotUpsertBulk {
-	return u.Update(func(s *SubscriptionOneShotUpsert) {
-		s.UpdateGoodType()
-	})
-}
-
-// ClearGoodType clears the value of the "good_type" field.
-func (u *SubscriptionOneShotUpsertBulk) ClearGoodType() *SubscriptionOneShotUpsertBulk {
-	return u.Update(func(s *SubscriptionOneShotUpsert) {
-		s.ClearGoodType()
-	})
-}
-
-// SetName sets the "name" field.
-func (u *SubscriptionOneShotUpsertBulk) SetName(v string) *SubscriptionOneShotUpsertBulk {
-	return u.Update(func(s *SubscriptionOneShotUpsert) {
-		s.SetName(v)
-	})
-}
-
-// UpdateName sets the "name" field to the value that was provided on create.
-func (u *SubscriptionOneShotUpsertBulk) UpdateName() *SubscriptionOneShotUpsertBulk {
-	return u.Update(func(s *SubscriptionOneShotUpsert) {
-		s.UpdateName()
-	})
-}
-
-// ClearName clears the value of the "name" field.
-func (u *SubscriptionOneShotUpsertBulk) ClearName() *SubscriptionOneShotUpsertBulk {
-	return u.Update(func(s *SubscriptionOneShotUpsert) {
-		s.ClearName()
 	})
 }
 

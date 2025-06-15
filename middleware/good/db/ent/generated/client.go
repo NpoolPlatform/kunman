@@ -17,7 +17,6 @@ import (
 	"github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated/appdefaultgood"
 	"github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated/appdelegatedstaking"
 	"github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated/appfee"
-	"github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated/appgood"
 	"github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated/appgoodbase"
 	"github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated/appgooddescription"
 	"github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated/appgooddisplaycolor"
@@ -80,8 +79,6 @@ type Client struct {
 	AppDelegatedStaking *AppDelegatedStakingClient
 	// AppFee is the client for interacting with the AppFee builders.
 	AppFee *AppFeeClient
-	// AppGood is the client for interacting with the AppGood builders.
-	AppGood *AppGoodClient
 	// AppGoodBase is the client for interacting with the AppGoodBase builders.
 	AppGoodBase *AppGoodBaseClient
 	// AppGoodDescription is the client for interacting with the AppGoodDescription builders.
@@ -190,7 +187,6 @@ func (c *Client) init() {
 	c.AppDefaultGood = NewAppDefaultGoodClient(c.config)
 	c.AppDelegatedStaking = NewAppDelegatedStakingClient(c.config)
 	c.AppFee = NewAppFeeClient(c.config)
-	c.AppGood = NewAppGoodClient(c.config)
 	c.AppGoodBase = NewAppGoodBaseClient(c.config)
 	c.AppGoodDescription = NewAppGoodDescriptionClient(c.config)
 	c.AppGoodDisplayColor = NewAppGoodDisplayColorClient(c.config)
@@ -333,7 +329,6 @@ func (c *Client) Tx(ctx context.Context) (*Tx, error) {
 		AppDefaultGood:         NewAppDefaultGoodClient(cfg),
 		AppDelegatedStaking:    NewAppDelegatedStakingClient(cfg),
 		AppFee:                 NewAppFeeClient(cfg),
-		AppGood:                NewAppGoodClient(cfg),
 		AppGoodBase:            NewAppGoodBaseClient(cfg),
 		AppGoodDescription:     NewAppGoodDescriptionClient(cfg),
 		AppGoodDisplayColor:    NewAppGoodDisplayColorClient(cfg),
@@ -403,7 +398,6 @@ func (c *Client) BeginTx(ctx context.Context, opts *sql.TxOptions) (*Tx, error) 
 		AppDefaultGood:         NewAppDefaultGoodClient(cfg),
 		AppDelegatedStaking:    NewAppDelegatedStakingClient(cfg),
 		AppFee:                 NewAppFeeClient(cfg),
-		AppGood:                NewAppGoodClient(cfg),
 		AppGoodBase:            NewAppGoodBaseClient(cfg),
 		AppGoodDescription:     NewAppGoodDescriptionClient(cfg),
 		AppGoodDisplayColor:    NewAppGoodDisplayColorClient(cfg),
@@ -480,7 +474,7 @@ func (c *Client) Close() error {
 // In order to add hooks to a specific client, call: `client.Node.Use(...)`.
 func (c *Client) Use(hooks ...Hook) {
 	for _, n := range []interface{ Use(...Hook) }{
-		c.AppDefaultGood, c.AppDelegatedStaking, c.AppFee, c.AppGood, c.AppGoodBase,
+		c.AppDefaultGood, c.AppDelegatedStaking, c.AppFee, c.AppGoodBase,
 		c.AppGoodDescription, c.AppGoodDisplayColor, c.AppGoodDisplayName,
 		c.AppGoodLabel, c.AppGoodPoster, c.AppLegacyPowerRental, c.AppMiningGoodStock,
 		c.AppPowerRental, c.AppSimulatePowerRental, c.AppStock, c.AppStockLock,
@@ -501,7 +495,7 @@ func (c *Client) Use(hooks ...Hook) {
 // In order to add interceptors to a specific client, call: `client.Node.Intercept(...)`.
 func (c *Client) Intercept(interceptors ...Interceptor) {
 	for _, n := range []interface{ Intercept(...Interceptor) }{
-		c.AppDefaultGood, c.AppDelegatedStaking, c.AppFee, c.AppGood, c.AppGoodBase,
+		c.AppDefaultGood, c.AppDelegatedStaking, c.AppFee, c.AppGoodBase,
 		c.AppGoodDescription, c.AppGoodDisplayColor, c.AppGoodDisplayName,
 		c.AppGoodLabel, c.AppGoodPoster, c.AppLegacyPowerRental, c.AppMiningGoodStock,
 		c.AppPowerRental, c.AppSimulatePowerRental, c.AppStock, c.AppStockLock,
@@ -527,8 +521,6 @@ func (c *Client) Mutate(ctx context.Context, m Mutation) (Value, error) {
 		return c.AppDelegatedStaking.mutate(ctx, m)
 	case *AppFeeMutation:
 		return c.AppFee.mutate(ctx, m)
-	case *AppGoodMutation:
-		return c.AppGood.mutate(ctx, m)
 	case *AppGoodBaseMutation:
 		return c.AppGoodBase.mutate(ctx, m)
 	case *AppGoodDescriptionMutation:
@@ -1024,139 +1016,6 @@ func (c *AppFeeClient) mutate(ctx context.Context, m *AppFeeMutation) (Value, er
 		return (&AppFeeDelete{config: c.config, hooks: c.Hooks(), mutation: m}).Exec(ctx)
 	default:
 		return nil, fmt.Errorf("generated: unknown AppFee mutation op: %q", m.Op())
-	}
-}
-
-// AppGoodClient is a client for the AppGood schema.
-type AppGoodClient struct {
-	config
-}
-
-// NewAppGoodClient returns a client for the AppGood from the given config.
-func NewAppGoodClient(c config) *AppGoodClient {
-	return &AppGoodClient{config: c}
-}
-
-// Use adds a list of mutation hooks to the hooks stack.
-// A call to `Use(f, g, h)` equals to `appgood.Hooks(f(g(h())))`.
-func (c *AppGoodClient) Use(hooks ...Hook) {
-	c.hooks.AppGood = append(c.hooks.AppGood, hooks...)
-}
-
-// Intercept adds a list of query interceptors to the interceptors stack.
-// A call to `Intercept(f, g, h)` equals to `appgood.Intercept(f(g(h())))`.
-func (c *AppGoodClient) Intercept(interceptors ...Interceptor) {
-	c.inters.AppGood = append(c.inters.AppGood, interceptors...)
-}
-
-// Create returns a builder for creating a AppGood entity.
-func (c *AppGoodClient) Create() *AppGoodCreate {
-	mutation := newAppGoodMutation(c.config, OpCreate)
-	return &AppGoodCreate{config: c.config, hooks: c.Hooks(), mutation: mutation}
-}
-
-// CreateBulk returns a builder for creating a bulk of AppGood entities.
-func (c *AppGoodClient) CreateBulk(builders ...*AppGoodCreate) *AppGoodCreateBulk {
-	return &AppGoodCreateBulk{config: c.config, builders: builders}
-}
-
-// MapCreateBulk creates a bulk creation builder from the given slice. For each item in the slice, the function creates
-// a builder and applies setFunc on it.
-func (c *AppGoodClient) MapCreateBulk(slice any, setFunc func(*AppGoodCreate, int)) *AppGoodCreateBulk {
-	rv := reflect.ValueOf(slice)
-	if rv.Kind() != reflect.Slice {
-		return &AppGoodCreateBulk{err: fmt.Errorf("calling to AppGoodClient.MapCreateBulk with wrong type %T, need slice", slice)}
-	}
-	builders := make([]*AppGoodCreate, rv.Len())
-	for i := 0; i < rv.Len(); i++ {
-		builders[i] = c.Create()
-		setFunc(builders[i], i)
-	}
-	return &AppGoodCreateBulk{config: c.config, builders: builders}
-}
-
-// Update returns an update builder for AppGood.
-func (c *AppGoodClient) Update() *AppGoodUpdate {
-	mutation := newAppGoodMutation(c.config, OpUpdate)
-	return &AppGoodUpdate{config: c.config, hooks: c.Hooks(), mutation: mutation}
-}
-
-// UpdateOne returns an update builder for the given entity.
-func (c *AppGoodClient) UpdateOne(ag *AppGood) *AppGoodUpdateOne {
-	mutation := newAppGoodMutation(c.config, OpUpdateOne, withAppGood(ag))
-	return &AppGoodUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
-}
-
-// UpdateOneID returns an update builder for the given id.
-func (c *AppGoodClient) UpdateOneID(id uint32) *AppGoodUpdateOne {
-	mutation := newAppGoodMutation(c.config, OpUpdateOne, withAppGoodID(id))
-	return &AppGoodUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
-}
-
-// Delete returns a delete builder for AppGood.
-func (c *AppGoodClient) Delete() *AppGoodDelete {
-	mutation := newAppGoodMutation(c.config, OpDelete)
-	return &AppGoodDelete{config: c.config, hooks: c.Hooks(), mutation: mutation}
-}
-
-// DeleteOne returns a builder for deleting the given entity.
-func (c *AppGoodClient) DeleteOne(ag *AppGood) *AppGoodDeleteOne {
-	return c.DeleteOneID(ag.ID)
-}
-
-// DeleteOneID returns a builder for deleting the given entity by its id.
-func (c *AppGoodClient) DeleteOneID(id uint32) *AppGoodDeleteOne {
-	builder := c.Delete().Where(appgood.ID(id))
-	builder.mutation.id = &id
-	builder.mutation.op = OpDeleteOne
-	return &AppGoodDeleteOne{builder}
-}
-
-// Query returns a query builder for AppGood.
-func (c *AppGoodClient) Query() *AppGoodQuery {
-	return &AppGoodQuery{
-		config: c.config,
-		ctx:    &QueryContext{Type: TypeAppGood},
-		inters: c.Interceptors(),
-	}
-}
-
-// Get returns a AppGood entity by its id.
-func (c *AppGoodClient) Get(ctx context.Context, id uint32) (*AppGood, error) {
-	return c.Query().Where(appgood.ID(id)).Only(ctx)
-}
-
-// GetX is like Get, but panics if an error occurs.
-func (c *AppGoodClient) GetX(ctx context.Context, id uint32) *AppGood {
-	obj, err := c.Get(ctx, id)
-	if err != nil {
-		panic(err)
-	}
-	return obj
-}
-
-// Hooks returns the client hooks.
-func (c *AppGoodClient) Hooks() []Hook {
-	return c.hooks.AppGood
-}
-
-// Interceptors returns the client interceptors.
-func (c *AppGoodClient) Interceptors() []Interceptor {
-	return c.inters.AppGood
-}
-
-func (c *AppGoodClient) mutate(ctx context.Context, m *AppGoodMutation) (Value, error) {
-	switch m.Op() {
-	case OpCreate:
-		return (&AppGoodCreate{config: c.config, hooks: c.Hooks(), mutation: m}).Save(ctx)
-	case OpUpdate:
-		return (&AppGoodUpdate{config: c.config, hooks: c.Hooks(), mutation: m}).Save(ctx)
-	case OpUpdateOne:
-		return (&AppGoodUpdateOne{config: c.config, hooks: c.Hooks(), mutation: m}).Save(ctx)
-	case OpDelete, OpDeleteOne:
-		return (&AppGoodDelete{config: c.config, hooks: c.Hooks(), mutation: m}).Exec(ctx)
-	default:
-		return nil, fmt.Errorf("generated: unknown AppGood mutation op: %q", m.Op())
 	}
 }
 
@@ -7414,9 +7273,9 @@ func (c *VendorLocationClient) mutate(ctx context.Context, m *VendorLocationMuta
 // hooks and interceptors per client, for fast access.
 type (
 	hooks struct {
-		AppDefaultGood, AppDelegatedStaking, AppFee, AppGood, AppGoodBase,
-		AppGoodDescription, AppGoodDisplayColor, AppGoodDisplayName, AppGoodLabel,
-		AppGoodPoster, AppLegacyPowerRental, AppMiningGoodStock, AppPowerRental,
+		AppDefaultGood, AppDelegatedStaking, AppFee, AppGoodBase, AppGoodDescription,
+		AppGoodDisplayColor, AppGoodDisplayName, AppGoodLabel, AppGoodPoster,
+		AppLegacyPowerRental, AppMiningGoodStock, AppPowerRental,
 		AppSimulatePowerRental, AppStock, AppStockLock, AppSubscription,
 		AppSubscriptionOneShot, Comment, DelegatedStaking, DeviceInfo,
 		DeviceManufacturer, DevicePoster, ExtraInfo, FbmCrowdFunding, Fee, Good,
@@ -7427,9 +7286,9 @@ type (
 		TopMostGoodPoster, TopMostPoster, VendorBrand, VendorLocation []ent.Hook
 	}
 	inters struct {
-		AppDefaultGood, AppDelegatedStaking, AppFee, AppGood, AppGoodBase,
-		AppGoodDescription, AppGoodDisplayColor, AppGoodDisplayName, AppGoodLabel,
-		AppGoodPoster, AppLegacyPowerRental, AppMiningGoodStock, AppPowerRental,
+		AppDefaultGood, AppDelegatedStaking, AppFee, AppGoodBase, AppGoodDescription,
+		AppGoodDisplayColor, AppGoodDisplayName, AppGoodLabel, AppGoodPoster,
+		AppLegacyPowerRental, AppMiningGoodStock, AppPowerRental,
 		AppSimulatePowerRental, AppStock, AppStockLock, AppSubscription,
 		AppSubscriptionOneShot, Comment, DelegatedStaking, DeviceInfo,
 		DeviceManufacturer, DevicePoster, ExtraInfo, FbmCrowdFunding, Fee, Good,

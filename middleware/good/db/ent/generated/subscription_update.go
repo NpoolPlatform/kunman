@@ -119,46 +119,6 @@ func (su *SubscriptionUpdate) ClearGoodID() *SubscriptionUpdate {
 	return su
 }
 
-// SetGoodType sets the "good_type" field.
-func (su *SubscriptionUpdate) SetGoodType(s string) *SubscriptionUpdate {
-	su.mutation.SetGoodType(s)
-	return su
-}
-
-// SetNillableGoodType sets the "good_type" field if the given value is not nil.
-func (su *SubscriptionUpdate) SetNillableGoodType(s *string) *SubscriptionUpdate {
-	if s != nil {
-		su.SetGoodType(*s)
-	}
-	return su
-}
-
-// ClearGoodType clears the value of the "good_type" field.
-func (su *SubscriptionUpdate) ClearGoodType() *SubscriptionUpdate {
-	su.mutation.ClearGoodType()
-	return su
-}
-
-// SetName sets the "name" field.
-func (su *SubscriptionUpdate) SetName(s string) *SubscriptionUpdate {
-	su.mutation.SetName(s)
-	return su
-}
-
-// SetNillableName sets the "name" field if the given value is not nil.
-func (su *SubscriptionUpdate) SetNillableName(s *string) *SubscriptionUpdate {
-	if s != nil {
-		su.SetName(*s)
-	}
-	return su
-}
-
-// ClearName clears the value of the "name" field.
-func (su *SubscriptionUpdate) ClearName() *SubscriptionUpdate {
-	su.mutation.ClearName()
-	return su
-}
-
 // SetDurationDisplayType sets the "duration_display_type" field.
 func (su *SubscriptionUpdate) SetDurationDisplayType(s string) *SubscriptionUpdate {
 	su.mutation.SetDurationDisplayType(s)
@@ -363,18 +323,6 @@ func (su *SubscriptionUpdate) sqlSave(ctx context.Context) (n int, err error) {
 	if su.mutation.GoodIDCleared() {
 		_spec.ClearField(subscription.FieldGoodID, field.TypeUUID)
 	}
-	if value, ok := su.mutation.GoodType(); ok {
-		_spec.SetField(subscription.FieldGoodType, field.TypeString, value)
-	}
-	if su.mutation.GoodTypeCleared() {
-		_spec.ClearField(subscription.FieldGoodType, field.TypeString)
-	}
-	if value, ok := su.mutation.Name(); ok {
-		_spec.SetField(subscription.FieldName, field.TypeString, value)
-	}
-	if su.mutation.NameCleared() {
-		_spec.ClearField(subscription.FieldName, field.TypeString)
-	}
 	if value, ok := su.mutation.DurationDisplayType(); ok {
 		_spec.SetField(subscription.FieldDurationDisplayType, field.TypeString, value)
 	}
@@ -522,46 +470,6 @@ func (suo *SubscriptionUpdateOne) SetNillableGoodID(u *uuid.UUID) *SubscriptionU
 // ClearGoodID clears the value of the "good_id" field.
 func (suo *SubscriptionUpdateOne) ClearGoodID() *SubscriptionUpdateOne {
 	suo.mutation.ClearGoodID()
-	return suo
-}
-
-// SetGoodType sets the "good_type" field.
-func (suo *SubscriptionUpdateOne) SetGoodType(s string) *SubscriptionUpdateOne {
-	suo.mutation.SetGoodType(s)
-	return suo
-}
-
-// SetNillableGoodType sets the "good_type" field if the given value is not nil.
-func (suo *SubscriptionUpdateOne) SetNillableGoodType(s *string) *SubscriptionUpdateOne {
-	if s != nil {
-		suo.SetGoodType(*s)
-	}
-	return suo
-}
-
-// ClearGoodType clears the value of the "good_type" field.
-func (suo *SubscriptionUpdateOne) ClearGoodType() *SubscriptionUpdateOne {
-	suo.mutation.ClearGoodType()
-	return suo
-}
-
-// SetName sets the "name" field.
-func (suo *SubscriptionUpdateOne) SetName(s string) *SubscriptionUpdateOne {
-	suo.mutation.SetName(s)
-	return suo
-}
-
-// SetNillableName sets the "name" field if the given value is not nil.
-func (suo *SubscriptionUpdateOne) SetNillableName(s *string) *SubscriptionUpdateOne {
-	if s != nil {
-		suo.SetName(*s)
-	}
-	return suo
-}
-
-// ClearName clears the value of the "name" field.
-func (suo *SubscriptionUpdateOne) ClearName() *SubscriptionUpdateOne {
-	suo.mutation.ClearName()
 	return suo
 }
 
@@ -798,18 +706,6 @@ func (suo *SubscriptionUpdateOne) sqlSave(ctx context.Context) (_node *Subscript
 	}
 	if suo.mutation.GoodIDCleared() {
 		_spec.ClearField(subscription.FieldGoodID, field.TypeUUID)
-	}
-	if value, ok := suo.mutation.GoodType(); ok {
-		_spec.SetField(subscription.FieldGoodType, field.TypeString, value)
-	}
-	if suo.mutation.GoodTypeCleared() {
-		_spec.ClearField(subscription.FieldGoodType, field.TypeString)
-	}
-	if value, ok := suo.mutation.Name(); ok {
-		_spec.SetField(subscription.FieldName, field.TypeString, value)
-	}
-	if suo.mutation.NameCleared() {
-		_spec.ClearField(subscription.FieldName, field.TypeString)
 	}
 	if value, ok := suo.mutation.DurationDisplayType(); ok {
 		_spec.SetField(subscription.FieldDurationDisplayType, field.TypeString, value)

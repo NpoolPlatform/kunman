@@ -99,46 +99,6 @@ func (asosu *AppSubscriptionOneShotUpdate) AddDeletedAt(u int32) *AppSubscriptio
 	return asosu
 }
 
-// SetAppID sets the "app_id" field.
-func (asosu *AppSubscriptionOneShotUpdate) SetAppID(u uuid.UUID) *AppSubscriptionOneShotUpdate {
-	asosu.mutation.SetAppID(u)
-	return asosu
-}
-
-// SetNillableAppID sets the "app_id" field if the given value is not nil.
-func (asosu *AppSubscriptionOneShotUpdate) SetNillableAppID(u *uuid.UUID) *AppSubscriptionOneShotUpdate {
-	if u != nil {
-		asosu.SetAppID(*u)
-	}
-	return asosu
-}
-
-// ClearAppID clears the value of the "app_id" field.
-func (asosu *AppSubscriptionOneShotUpdate) ClearAppID() *AppSubscriptionOneShotUpdate {
-	asosu.mutation.ClearAppID()
-	return asosu
-}
-
-// SetGoodID sets the "good_id" field.
-func (asosu *AppSubscriptionOneShotUpdate) SetGoodID(u uuid.UUID) *AppSubscriptionOneShotUpdate {
-	asosu.mutation.SetGoodID(u)
-	return asosu
-}
-
-// SetNillableGoodID sets the "good_id" field if the given value is not nil.
-func (asosu *AppSubscriptionOneShotUpdate) SetNillableGoodID(u *uuid.UUID) *AppSubscriptionOneShotUpdate {
-	if u != nil {
-		asosu.SetGoodID(*u)
-	}
-	return asosu
-}
-
-// ClearGoodID clears the value of the "good_id" field.
-func (asosu *AppSubscriptionOneShotUpdate) ClearGoodID() *AppSubscriptionOneShotUpdate {
-	asosu.mutation.ClearGoodID()
-	return asosu
-}
-
 // SetAppGoodID sets the "app_good_id" field.
 func (asosu *AppSubscriptionOneShotUpdate) SetAppGoodID(u uuid.UUID) *AppSubscriptionOneShotUpdate {
 	asosu.mutation.SetAppGoodID(u)
@@ -156,46 +116,6 @@ func (asosu *AppSubscriptionOneShotUpdate) SetNillableAppGoodID(u *uuid.UUID) *A
 // ClearAppGoodID clears the value of the "app_good_id" field.
 func (asosu *AppSubscriptionOneShotUpdate) ClearAppGoodID() *AppSubscriptionOneShotUpdate {
 	asosu.mutation.ClearAppGoodID()
-	return asosu
-}
-
-// SetName sets the "name" field.
-func (asosu *AppSubscriptionOneShotUpdate) SetName(s string) *AppSubscriptionOneShotUpdate {
-	asosu.mutation.SetName(s)
-	return asosu
-}
-
-// SetNillableName sets the "name" field if the given value is not nil.
-func (asosu *AppSubscriptionOneShotUpdate) SetNillableName(s *string) *AppSubscriptionOneShotUpdate {
-	if s != nil {
-		asosu.SetName(*s)
-	}
-	return asosu
-}
-
-// ClearName clears the value of the "name" field.
-func (asosu *AppSubscriptionOneShotUpdate) ClearName() *AppSubscriptionOneShotUpdate {
-	asosu.mutation.ClearName()
-	return asosu
-}
-
-// SetBanner sets the "banner" field.
-func (asosu *AppSubscriptionOneShotUpdate) SetBanner(s string) *AppSubscriptionOneShotUpdate {
-	asosu.mutation.SetBanner(s)
-	return asosu
-}
-
-// SetNillableBanner sets the "banner" field if the given value is not nil.
-func (asosu *AppSubscriptionOneShotUpdate) SetNillableBanner(s *string) *AppSubscriptionOneShotUpdate {
-	if s != nil {
-		asosu.SetBanner(*s)
-	}
-	return asosu
-}
-
-// ClearBanner clears the value of the "banner" field.
-func (asosu *AppSubscriptionOneShotUpdate) ClearBanner() *AppSubscriptionOneShotUpdate {
-	asosu.mutation.ClearBanner()
 	return asosu
 }
 
@@ -296,35 +216,11 @@ func (asosu *AppSubscriptionOneShotUpdate) sqlSave(ctx context.Context) (n int, 
 	if value, ok := asosu.mutation.AddedDeletedAt(); ok {
 		_spec.AddField(appsubscriptiononeshot.FieldDeletedAt, field.TypeUint32, value)
 	}
-	if value, ok := asosu.mutation.AppID(); ok {
-		_spec.SetField(appsubscriptiononeshot.FieldAppID, field.TypeUUID, value)
-	}
-	if asosu.mutation.AppIDCleared() {
-		_spec.ClearField(appsubscriptiononeshot.FieldAppID, field.TypeUUID)
-	}
-	if value, ok := asosu.mutation.GoodID(); ok {
-		_spec.SetField(appsubscriptiononeshot.FieldGoodID, field.TypeUUID, value)
-	}
-	if asosu.mutation.GoodIDCleared() {
-		_spec.ClearField(appsubscriptiononeshot.FieldGoodID, field.TypeUUID)
-	}
 	if value, ok := asosu.mutation.AppGoodID(); ok {
 		_spec.SetField(appsubscriptiononeshot.FieldAppGoodID, field.TypeUUID, value)
 	}
 	if asosu.mutation.AppGoodIDCleared() {
 		_spec.ClearField(appsubscriptiononeshot.FieldAppGoodID, field.TypeUUID)
-	}
-	if value, ok := asosu.mutation.Name(); ok {
-		_spec.SetField(appsubscriptiononeshot.FieldName, field.TypeString, value)
-	}
-	if asosu.mutation.NameCleared() {
-		_spec.ClearField(appsubscriptiononeshot.FieldName, field.TypeString)
-	}
-	if value, ok := asosu.mutation.Banner(); ok {
-		_spec.SetField(appsubscriptiononeshot.FieldBanner, field.TypeString, value)
-	}
-	if asosu.mutation.BannerCleared() {
-		_spec.ClearField(appsubscriptiononeshot.FieldBanner, field.TypeString)
 	}
 	if value, ok := asosu.mutation.UsdPrice(); ok {
 		_spec.SetField(appsubscriptiononeshot.FieldUsdPrice, field.TypeOther, value)
@@ -423,46 +319,6 @@ func (asosuo *AppSubscriptionOneShotUpdateOne) AddDeletedAt(u int32) *AppSubscri
 	return asosuo
 }
 
-// SetAppID sets the "app_id" field.
-func (asosuo *AppSubscriptionOneShotUpdateOne) SetAppID(u uuid.UUID) *AppSubscriptionOneShotUpdateOne {
-	asosuo.mutation.SetAppID(u)
-	return asosuo
-}
-
-// SetNillableAppID sets the "app_id" field if the given value is not nil.
-func (asosuo *AppSubscriptionOneShotUpdateOne) SetNillableAppID(u *uuid.UUID) *AppSubscriptionOneShotUpdateOne {
-	if u != nil {
-		asosuo.SetAppID(*u)
-	}
-	return asosuo
-}
-
-// ClearAppID clears the value of the "app_id" field.
-func (asosuo *AppSubscriptionOneShotUpdateOne) ClearAppID() *AppSubscriptionOneShotUpdateOne {
-	asosuo.mutation.ClearAppID()
-	return asosuo
-}
-
-// SetGoodID sets the "good_id" field.
-func (asosuo *AppSubscriptionOneShotUpdateOne) SetGoodID(u uuid.UUID) *AppSubscriptionOneShotUpdateOne {
-	asosuo.mutation.SetGoodID(u)
-	return asosuo
-}
-
-// SetNillableGoodID sets the "good_id" field if the given value is not nil.
-func (asosuo *AppSubscriptionOneShotUpdateOne) SetNillableGoodID(u *uuid.UUID) *AppSubscriptionOneShotUpdateOne {
-	if u != nil {
-		asosuo.SetGoodID(*u)
-	}
-	return asosuo
-}
-
-// ClearGoodID clears the value of the "good_id" field.
-func (asosuo *AppSubscriptionOneShotUpdateOne) ClearGoodID() *AppSubscriptionOneShotUpdateOne {
-	asosuo.mutation.ClearGoodID()
-	return asosuo
-}
-
 // SetAppGoodID sets the "app_good_id" field.
 func (asosuo *AppSubscriptionOneShotUpdateOne) SetAppGoodID(u uuid.UUID) *AppSubscriptionOneShotUpdateOne {
 	asosuo.mutation.SetAppGoodID(u)
@@ -480,46 +336,6 @@ func (asosuo *AppSubscriptionOneShotUpdateOne) SetNillableAppGoodID(u *uuid.UUID
 // ClearAppGoodID clears the value of the "app_good_id" field.
 func (asosuo *AppSubscriptionOneShotUpdateOne) ClearAppGoodID() *AppSubscriptionOneShotUpdateOne {
 	asosuo.mutation.ClearAppGoodID()
-	return asosuo
-}
-
-// SetName sets the "name" field.
-func (asosuo *AppSubscriptionOneShotUpdateOne) SetName(s string) *AppSubscriptionOneShotUpdateOne {
-	asosuo.mutation.SetName(s)
-	return asosuo
-}
-
-// SetNillableName sets the "name" field if the given value is not nil.
-func (asosuo *AppSubscriptionOneShotUpdateOne) SetNillableName(s *string) *AppSubscriptionOneShotUpdateOne {
-	if s != nil {
-		asosuo.SetName(*s)
-	}
-	return asosuo
-}
-
-// ClearName clears the value of the "name" field.
-func (asosuo *AppSubscriptionOneShotUpdateOne) ClearName() *AppSubscriptionOneShotUpdateOne {
-	asosuo.mutation.ClearName()
-	return asosuo
-}
-
-// SetBanner sets the "banner" field.
-func (asosuo *AppSubscriptionOneShotUpdateOne) SetBanner(s string) *AppSubscriptionOneShotUpdateOne {
-	asosuo.mutation.SetBanner(s)
-	return asosuo
-}
-
-// SetNillableBanner sets the "banner" field if the given value is not nil.
-func (asosuo *AppSubscriptionOneShotUpdateOne) SetNillableBanner(s *string) *AppSubscriptionOneShotUpdateOne {
-	if s != nil {
-		asosuo.SetBanner(*s)
-	}
-	return asosuo
-}
-
-// ClearBanner clears the value of the "banner" field.
-func (asosuo *AppSubscriptionOneShotUpdateOne) ClearBanner() *AppSubscriptionOneShotUpdateOne {
-	asosuo.mutation.ClearBanner()
 	return asosuo
 }
 
@@ -650,35 +466,11 @@ func (asosuo *AppSubscriptionOneShotUpdateOne) sqlSave(ctx context.Context) (_no
 	if value, ok := asosuo.mutation.AddedDeletedAt(); ok {
 		_spec.AddField(appsubscriptiononeshot.FieldDeletedAt, field.TypeUint32, value)
 	}
-	if value, ok := asosuo.mutation.AppID(); ok {
-		_spec.SetField(appsubscriptiononeshot.FieldAppID, field.TypeUUID, value)
-	}
-	if asosuo.mutation.AppIDCleared() {
-		_spec.ClearField(appsubscriptiononeshot.FieldAppID, field.TypeUUID)
-	}
-	if value, ok := asosuo.mutation.GoodID(); ok {
-		_spec.SetField(appsubscriptiononeshot.FieldGoodID, field.TypeUUID, value)
-	}
-	if asosuo.mutation.GoodIDCleared() {
-		_spec.ClearField(appsubscriptiononeshot.FieldGoodID, field.TypeUUID)
-	}
 	if value, ok := asosuo.mutation.AppGoodID(); ok {
 		_spec.SetField(appsubscriptiononeshot.FieldAppGoodID, field.TypeUUID, value)
 	}
 	if asosuo.mutation.AppGoodIDCleared() {
 		_spec.ClearField(appsubscriptiononeshot.FieldAppGoodID, field.TypeUUID)
-	}
-	if value, ok := asosuo.mutation.Name(); ok {
-		_spec.SetField(appsubscriptiononeshot.FieldName, field.TypeString, value)
-	}
-	if asosuo.mutation.NameCleared() {
-		_spec.ClearField(appsubscriptiononeshot.FieldName, field.TypeString)
-	}
-	if value, ok := asosuo.mutation.Banner(); ok {
-		_spec.SetField(appsubscriptiononeshot.FieldBanner, field.TypeString, value)
-	}
-	if asosuo.mutation.BannerCleared() {
-		_spec.ClearField(appsubscriptiononeshot.FieldBanner, field.TypeString)
 	}
 	if value, ok := asosuo.mutation.UsdPrice(); ok {
 		_spec.SetField(appsubscriptiononeshot.FieldUsdPrice, field.TypeOther, value)

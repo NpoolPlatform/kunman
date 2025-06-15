@@ -4,7 +4,6 @@ import (
 	"entgo.io/ent"
 	"entgo.io/ent/dialect"
 	"entgo.io/ent/schema/field"
-	types "github.com/NpoolPlatform/kunman/message/basetypes/good/v1"
 	crudermixin "github.com/NpoolPlatform/kunman/pkg/cruder/mixin"
 	"github.com/google/uuid"
 	"github.com/shopspring/decimal"
@@ -31,14 +30,6 @@ func (SubscriptionOneShot) Fields() []ent.Field {
 			Default(func() uuid.UUID {
 				return uuid.UUID{}
 			}),
-		field.
-			String("good_type").
-			Optional().
-			Default(types.GoodType_Subscription.String()),
-		field.
-			String("name").
-			Optional().
-			Default(""),
 		field.
 			Uint32("quota").
 			Optional().

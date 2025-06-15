@@ -46,7 +46,6 @@ func (h *createHandler) createSubscription(ctx context.Context, tx *ent.Tx) erro
 		&subscriptioncrud.Req{
 			EntID:               h.EntID,
 			GoodID:              h.GoodID,
-			Name:                h.Name,
 			DurationDisplayType: h.DurationDisplayType,
 			DurationUnits:       h.DurationUnits,
 			DurationQuota:       h.DurationQuota,

@@ -2,7 +2,6 @@ package oneshot
 
 import (
 	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
-	types "github.com/NpoolPlatform/kunman/message/basetypes/good/v1"
 	ent "github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated"
 	entoneshot "github.com/NpoolPlatform/kunman/middleware/good/db/ent/generated/subscriptiononeshot"
 	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
@@ -14,8 +13,6 @@ import (
 type Req struct {
 	EntID     *uuid.UUID
 	GoodID    *uuid.UUID
-	GoodType  *types.GoodType
-	Name      *string
 	Quota     *uint32
 	USDPrice  *decimal.Decimal
 	DeletedAt *uint32
@@ -28,12 +25,6 @@ func CreateSet(c *ent.SubscriptionOneShotCreate, req *Req) *ent.SubscriptionOneS
 	if req.GoodID != nil {
 		c.SetGoodID(*req.GoodID)
 	}
-	if req.GoodType != nil {
-		c.SetGoodType(req.GoodType.String())
-	}
-	if req.Name != nil {
-		c.SetName(*req.Name)
-	}
 	if req.Quota != nil {
 		c.SetQuota(*req.Quota)
 	}
@@ -44,9 +35,6 @@ func CreateSet(c *ent.SubscriptionOneShotCreate, req *Req) *ent.SubscriptionOneS
 }
 
 func UpdateSet(u *ent.SubscriptionOneShotUpdateOne, req *Req) *ent.SubscriptionOneShotUpdateOne {
-	if req.Name != nil {
-		u.SetName(*req.Name)
-	}
 	if req.Quota != nil {
 		u.SetQuota(*req.Quota)
 	}

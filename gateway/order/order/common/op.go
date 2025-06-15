@@ -59,6 +59,7 @@ type OrderOpHandler struct {
 	ordergwcommon.AllocatedCouponCheckHandler
 	DurationSeconds           *uint32
 	PaymentTransferCoinTypeID *string
+	PaymentFiatID             *string
 	AllocatedCouponIDs        []string
 	AppGoodIDs                []string
 	OrderType                 types.OrderType
@@ -70,6 +71,7 @@ type OrderOpHandler struct {
 
 	PaymentBalanceReqs         []*paymentmwpb.PaymentBalanceReq
 	PaymentTransferReq         *paymentmwpb.PaymentTransferReq
+	PaymentFiatReq             *paymentmwpb.PaymentFiatReq
 	PaymentType                *types.PaymentType
 	PaymentTransferAccount     *paymentaccountmwpb.Account
 	PaymentTransferStartAmount decimal.Decimal

@@ -28,10 +28,6 @@ type SubscriptionOneShot struct {
 	DeletedAt uint32 `json:"deleted_at,omitempty"`
 	// GoodID holds the value of the "good_id" field.
 	GoodID uuid.UUID `json:"good_id,omitempty"`
-	// GoodType holds the value of the "good_type" field.
-	GoodType string `json:"good_type,omitempty"`
-	// Name holds the value of the "name" field.
-	Name string `json:"name,omitempty"`
 	// Quota holds the value of the "quota" field.
 	Quota uint32 `json:"quota,omitempty"`
 	// UsdPrice holds the value of the "usd_price" field.
@@ -48,8 +44,6 @@ func (*SubscriptionOneShot) scanValues(columns []string) ([]any, error) {
 			values[i] = new(decimal.Decimal)
 		case subscriptiononeshot.FieldID, subscriptiononeshot.FieldCreatedAt, subscriptiononeshot.FieldUpdatedAt, subscriptiononeshot.FieldDeletedAt, subscriptiononeshot.FieldQuota:
 			values[i] = new(sql.NullInt64)
-		case subscriptiononeshot.FieldGoodType, subscriptiononeshot.FieldName:
-			values[i] = new(sql.NullString)
 		case subscriptiononeshot.FieldEntID, subscriptiononeshot.FieldGoodID:
 			values[i] = new(uuid.UUID)
 		default:
@@ -102,18 +96,6 @@ func (sos *SubscriptionOneShot) assignValues(columns []string, values []any) err
 				return fmt.Errorf("unexpected type %T for field good_id", values[i])
 			} else if value != nil {
 				sos.GoodID = *value
-			}
-		case subscriptiononeshot.FieldGoodType:
-			if value, ok := values[i].(*sql.NullString); !ok {
-				return fmt.Errorf("unexpected type %T for field good_type", values[i])
-			} else if value.Valid {
-				sos.GoodType = value.String
-			}
-		case subscriptiononeshot.FieldName:
-			if value, ok := values[i].(*sql.NullString); !ok {
-				return fmt.Errorf("unexpected type %T for field name", values[i])
-			} else if value.Valid {
-				sos.Name = value.String
 			}
 		case subscriptiononeshot.FieldQuota:
 			if value, ok := values[i].(*sql.NullInt64); !ok {
@@ -177,12 +159,6 @@ func (sos *SubscriptionOneShot) String() string {
 	builder.WriteString(", ")
 	builder.WriteString("good_id=")
 	builder.WriteString(fmt.Sprintf("%v", sos.GoodID))
-	builder.WriteString(", ")
-	builder.WriteString("good_type=")
-	builder.WriteString(sos.GoodType)
-	builder.WriteString(", ")
-	builder.WriteString("name=")
-	builder.WriteString(sos.Name)
 	builder.WriteString(", ")
 	builder.WriteString("quota=")
 	builder.WriteString(fmt.Sprintf("%v", sos.Quota))

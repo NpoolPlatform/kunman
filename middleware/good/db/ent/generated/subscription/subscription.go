@@ -23,10 +23,6 @@ const (
 	FieldDeletedAt = "deleted_at"
 	// FieldGoodID holds the string denoting the good_id field in the database.
 	FieldGoodID = "good_id"
-	// FieldGoodType holds the string denoting the good_type field in the database.
-	FieldGoodType = "good_type"
-	// FieldName holds the string denoting the name field in the database.
-	FieldName = "name"
 	// FieldDurationDisplayType holds the string denoting the duration_display_type field in the database.
 	FieldDurationDisplayType = "duration_display_type"
 	// FieldDurationUnits holds the string denoting the duration_units field in the database.
@@ -49,8 +45,6 @@ var Columns = []string{
 	FieldUpdatedAt,
 	FieldDeletedAt,
 	FieldGoodID,
-	FieldGoodType,
-	FieldName,
 	FieldDurationDisplayType,
 	FieldDurationUnits,
 	FieldDurationQuota,
@@ -81,10 +75,6 @@ var (
 	DefaultDeletedAt func() uint32
 	// DefaultGoodID holds the default value on creation for the "good_id" field.
 	DefaultGoodID func() uuid.UUID
-	// DefaultGoodType holds the default value on creation for the "good_type" field.
-	DefaultGoodType string
-	// DefaultName holds the default value on creation for the "name" field.
-	DefaultName string
 	// DefaultDurationDisplayType holds the default value on creation for the "duration_display_type" field.
 	DefaultDurationDisplayType string
 	// DefaultDurationUnits holds the default value on creation for the "duration_units" field.
@@ -128,16 +118,6 @@ func ByDeletedAt(opts ...sql.OrderTermOption) OrderOption {
 // ByGoodID orders the results by the good_id field.
 func ByGoodID(opts ...sql.OrderTermOption) OrderOption {
 	return sql.OrderByField(FieldGoodID, opts...).ToFunc()
-}
-
-// ByGoodType orders the results by the good_type field.
-func ByGoodType(opts ...sql.OrderTermOption) OrderOption {
-	return sql.OrderByField(FieldGoodType, opts...).ToFunc()
-}
-
-// ByName orders the results by the name field.
-func ByName(opts ...sql.OrderTermOption) OrderOption {
-	return sql.OrderByField(FieldName, opts...).ToFunc()
 }
 
 // ByDurationDisplayType orders the results by the duration_display_type field.

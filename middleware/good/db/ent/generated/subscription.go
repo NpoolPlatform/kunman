@@ -28,10 +28,6 @@ type Subscription struct {
 	DeletedAt uint32 `json:"deleted_at,omitempty"`
 	// GoodID holds the value of the "good_id" field.
 	GoodID uuid.UUID `json:"good_id,omitempty"`
-	// GoodType holds the value of the "good_type" field.
-	GoodType string `json:"good_type,omitempty"`
-	// Name holds the value of the "name" field.
-	Name string `json:"name,omitempty"`
 	// DurationDisplayType holds the value of the "duration_display_type" field.
 	DurationDisplayType string `json:"duration_display_type,omitempty"`
 	// DurationUnits holds the value of the "duration_units" field.
@@ -54,7 +50,7 @@ func (*Subscription) scanValues(columns []string) ([]any, error) {
 			values[i] = new(decimal.Decimal)
 		case subscription.FieldID, subscription.FieldCreatedAt, subscription.FieldUpdatedAt, subscription.FieldDeletedAt, subscription.FieldDurationUnits, subscription.FieldDurationQuota, subscription.FieldDailyBonusQuota:
 			values[i] = new(sql.NullInt64)
-		case subscription.FieldGoodType, subscription.FieldName, subscription.FieldDurationDisplayType:
+		case subscription.FieldDurationDisplayType:
 			values[i] = new(sql.NullString)
 		case subscription.FieldEntID, subscription.FieldGoodID:
 			values[i] = new(uuid.UUID)
@@ -108,18 +104,6 @@ func (s *Subscription) assignValues(columns []string, values []any) error {
 				return fmt.Errorf("unexpected type %T for field good_id", values[i])
 			} else if value != nil {
 				s.GoodID = *value
-			}
-		case subscription.FieldGoodType:
-			if value, ok := values[i].(*sql.NullString); !ok {
-				return fmt.Errorf("unexpected type %T for field good_type", values[i])
-			} else if value.Valid {
-				s.GoodType = value.String
-			}
-		case subscription.FieldName:
-			if value, ok := values[i].(*sql.NullString); !ok {
-				return fmt.Errorf("unexpected type %T for field name", values[i])
-			} else if value.Valid {
-				s.Name = value.String
 			}
 		case subscription.FieldDurationDisplayType:
 			if value, ok := values[i].(*sql.NullString); !ok {
@@ -201,12 +185,6 @@ func (s *Subscription) String() string {
 	builder.WriteString(", ")
 	builder.WriteString("good_id=")
 	builder.WriteString(fmt.Sprintf("%v", s.GoodID))
-	builder.WriteString(", ")
-	builder.WriteString("good_type=")
-	builder.WriteString(s.GoodType)
-	builder.WriteString(", ")
-	builder.WriteString("name=")
-	builder.WriteString(s.Name)
 	builder.WriteString(", ")
 	builder.WriteString("duration_display_type=")
 	builder.WriteString(s.DurationDisplayType)

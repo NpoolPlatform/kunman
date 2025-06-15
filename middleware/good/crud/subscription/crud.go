@@ -14,8 +14,6 @@ import (
 type Req struct {
 	EntID               *uuid.UUID
 	GoodID              *uuid.UUID
-	GoodType            *types.GoodType
-	Name                *string
 	DurationDisplayType *types.GoodDurationType
 	DurationUnits       *uint32
 	DurationQuota       *uint32
@@ -30,12 +28,6 @@ func CreateSet(c *ent.SubscriptionCreate, req *Req) *ent.SubscriptionCreate {
 	}
 	if req.GoodID != nil {
 		c.SetGoodID(*req.GoodID)
-	}
-	if req.GoodType != nil {
-		c.SetGoodType(req.GoodType.String())
-	}
-	if req.Name != nil {
-		c.SetName(*req.Name)
 	}
 	if req.DurationDisplayType != nil {
 		c.SetDurationDisplayType(req.DurationDisplayType.String())
@@ -56,9 +48,6 @@ func CreateSet(c *ent.SubscriptionCreate, req *Req) *ent.SubscriptionCreate {
 }
 
 func UpdateSet(u *ent.SubscriptionUpdateOne, req *Req) *ent.SubscriptionUpdateOne {
-	if req.Name != nil {
-		u.SetName(*req.Name)
-	}
 	if req.DurationDisplayType != nil {
 		u.SetDurationDisplayType(req.DurationDisplayType.String())
 	}

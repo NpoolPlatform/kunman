@@ -79,34 +79,6 @@ func (asosc *AppSubscriptionOneShotCreate) SetNillableDeletedAt(u *uint32) *AppS
 	return asosc
 }
 
-// SetAppID sets the "app_id" field.
-func (asosc *AppSubscriptionOneShotCreate) SetAppID(u uuid.UUID) *AppSubscriptionOneShotCreate {
-	asosc.mutation.SetAppID(u)
-	return asosc
-}
-
-// SetNillableAppID sets the "app_id" field if the given value is not nil.
-func (asosc *AppSubscriptionOneShotCreate) SetNillableAppID(u *uuid.UUID) *AppSubscriptionOneShotCreate {
-	if u != nil {
-		asosc.SetAppID(*u)
-	}
-	return asosc
-}
-
-// SetGoodID sets the "good_id" field.
-func (asosc *AppSubscriptionOneShotCreate) SetGoodID(u uuid.UUID) *AppSubscriptionOneShotCreate {
-	asosc.mutation.SetGoodID(u)
-	return asosc
-}
-
-// SetNillableGoodID sets the "good_id" field if the given value is not nil.
-func (asosc *AppSubscriptionOneShotCreate) SetNillableGoodID(u *uuid.UUID) *AppSubscriptionOneShotCreate {
-	if u != nil {
-		asosc.SetGoodID(*u)
-	}
-	return asosc
-}
-
 // SetAppGoodID sets the "app_good_id" field.
 func (asosc *AppSubscriptionOneShotCreate) SetAppGoodID(u uuid.UUID) *AppSubscriptionOneShotCreate {
 	asosc.mutation.SetAppGoodID(u)
@@ -117,34 +89,6 @@ func (asosc *AppSubscriptionOneShotCreate) SetAppGoodID(u uuid.UUID) *AppSubscri
 func (asosc *AppSubscriptionOneShotCreate) SetNillableAppGoodID(u *uuid.UUID) *AppSubscriptionOneShotCreate {
 	if u != nil {
 		asosc.SetAppGoodID(*u)
-	}
-	return asosc
-}
-
-// SetName sets the "name" field.
-func (asosc *AppSubscriptionOneShotCreate) SetName(s string) *AppSubscriptionOneShotCreate {
-	asosc.mutation.SetName(s)
-	return asosc
-}
-
-// SetNillableName sets the "name" field if the given value is not nil.
-func (asosc *AppSubscriptionOneShotCreate) SetNillableName(s *string) *AppSubscriptionOneShotCreate {
-	if s != nil {
-		asosc.SetName(*s)
-	}
-	return asosc
-}
-
-// SetBanner sets the "banner" field.
-func (asosc *AppSubscriptionOneShotCreate) SetBanner(s string) *AppSubscriptionOneShotCreate {
-	asosc.mutation.SetBanner(s)
-	return asosc
-}
-
-// SetNillableBanner sets the "banner" field if the given value is not nil.
-func (asosc *AppSubscriptionOneShotCreate) SetNillableBanner(s *string) *AppSubscriptionOneShotCreate {
-	if s != nil {
-		asosc.SetBanner(*s)
 	}
 	return asosc
 }
@@ -220,25 +164,9 @@ func (asosc *AppSubscriptionOneShotCreate) defaults() {
 		v := appsubscriptiononeshot.DefaultDeletedAt()
 		asosc.mutation.SetDeletedAt(v)
 	}
-	if _, ok := asosc.mutation.AppID(); !ok {
-		v := appsubscriptiononeshot.DefaultAppID()
-		asosc.mutation.SetAppID(v)
-	}
-	if _, ok := asosc.mutation.GoodID(); !ok {
-		v := appsubscriptiononeshot.DefaultGoodID()
-		asosc.mutation.SetGoodID(v)
-	}
 	if _, ok := asosc.mutation.AppGoodID(); !ok {
 		v := appsubscriptiononeshot.DefaultAppGoodID()
 		asosc.mutation.SetAppGoodID(v)
-	}
-	if _, ok := asosc.mutation.Name(); !ok {
-		v := appsubscriptiononeshot.DefaultName
-		asosc.mutation.SetName(v)
-	}
-	if _, ok := asosc.mutation.Banner(); !ok {
-		v := appsubscriptiononeshot.DefaultBanner
-		asosc.mutation.SetBanner(v)
 	}
 	if _, ok := asosc.mutation.UsdPrice(); !ok {
 		v := appsubscriptiononeshot.DefaultUsdPrice
@@ -309,25 +237,9 @@ func (asosc *AppSubscriptionOneShotCreate) createSpec() (*AppSubscriptionOneShot
 		_spec.SetField(appsubscriptiononeshot.FieldDeletedAt, field.TypeUint32, value)
 		_node.DeletedAt = value
 	}
-	if value, ok := asosc.mutation.AppID(); ok {
-		_spec.SetField(appsubscriptiononeshot.FieldAppID, field.TypeUUID, value)
-		_node.AppID = value
-	}
-	if value, ok := asosc.mutation.GoodID(); ok {
-		_spec.SetField(appsubscriptiononeshot.FieldGoodID, field.TypeUUID, value)
-		_node.GoodID = value
-	}
 	if value, ok := asosc.mutation.AppGoodID(); ok {
 		_spec.SetField(appsubscriptiononeshot.FieldAppGoodID, field.TypeUUID, value)
 		_node.AppGoodID = value
-	}
-	if value, ok := asosc.mutation.Name(); ok {
-		_spec.SetField(appsubscriptiononeshot.FieldName, field.TypeString, value)
-		_node.Name = value
-	}
-	if value, ok := asosc.mutation.Banner(); ok {
-		_spec.SetField(appsubscriptiononeshot.FieldBanner, field.TypeString, value)
-		_node.Banner = value
 	}
 	if value, ok := asosc.mutation.UsdPrice(); ok {
 		_spec.SetField(appsubscriptiononeshot.FieldUsdPrice, field.TypeOther, value)
@@ -451,42 +363,6 @@ func (u *AppSubscriptionOneShotUpsert) AddDeletedAt(v uint32) *AppSubscriptionOn
 	return u
 }
 
-// SetAppID sets the "app_id" field.
-func (u *AppSubscriptionOneShotUpsert) SetAppID(v uuid.UUID) *AppSubscriptionOneShotUpsert {
-	u.Set(appsubscriptiononeshot.FieldAppID, v)
-	return u
-}
-
-// UpdateAppID sets the "app_id" field to the value that was provided on create.
-func (u *AppSubscriptionOneShotUpsert) UpdateAppID() *AppSubscriptionOneShotUpsert {
-	u.SetExcluded(appsubscriptiononeshot.FieldAppID)
-	return u
-}
-
-// ClearAppID clears the value of the "app_id" field.
-func (u *AppSubscriptionOneShotUpsert) ClearAppID() *AppSubscriptionOneShotUpsert {
-	u.SetNull(appsubscriptiononeshot.FieldAppID)
-	return u
-}
-
-// SetGoodID sets the "good_id" field.
-func (u *AppSubscriptionOneShotUpsert) SetGoodID(v uuid.UUID) *AppSubscriptionOneShotUpsert {
-	u.Set(appsubscriptiononeshot.FieldGoodID, v)
-	return u
-}
-
-// UpdateGoodID sets the "good_id" field to the value that was provided on create.
-func (u *AppSubscriptionOneShotUpsert) UpdateGoodID() *AppSubscriptionOneShotUpsert {
-	u.SetExcluded(appsubscriptiononeshot.FieldGoodID)
-	return u
-}
-
-// ClearGoodID clears the value of the "good_id" field.
-func (u *AppSubscriptionOneShotUpsert) ClearGoodID() *AppSubscriptionOneShotUpsert {
-	u.SetNull(appsubscriptiononeshot.FieldGoodID)
-	return u
-}
-
 // SetAppGoodID sets the "app_good_id" field.
 func (u *AppSubscriptionOneShotUpsert) SetAppGoodID(v uuid.UUID) *AppSubscriptionOneShotUpsert {
 	u.Set(appsubscriptiononeshot.FieldAppGoodID, v)
@@ -502,42 +378,6 @@ func (u *AppSubscriptionOneShotUpsert) UpdateAppGoodID() *AppSubscriptionOneShot
 // ClearAppGoodID clears the value of the "app_good_id" field.
 func (u *AppSubscriptionOneShotUpsert) ClearAppGoodID() *AppSubscriptionOneShotUpsert {
 	u.SetNull(appsubscriptiononeshot.FieldAppGoodID)
-	return u
-}
-
-// SetName sets the "name" field.
-func (u *AppSubscriptionOneShotUpsert) SetName(v string) *AppSubscriptionOneShotUpsert {
-	u.Set(appsubscriptiononeshot.FieldName, v)
-	return u
-}
-
-// UpdateName sets the "name" field to the value that was provided on create.
-func (u *AppSubscriptionOneShotUpsert) UpdateName() *AppSubscriptionOneShotUpsert {
-	u.SetExcluded(appsubscriptiononeshot.FieldName)
-	return u
-}
-
-// ClearName clears the value of the "name" field.
-func (u *AppSubscriptionOneShotUpsert) ClearName() *AppSubscriptionOneShotUpsert {
-	u.SetNull(appsubscriptiononeshot.FieldName)
-	return u
-}
-
-// SetBanner sets the "banner" field.
-func (u *AppSubscriptionOneShotUpsert) SetBanner(v string) *AppSubscriptionOneShotUpsert {
-	u.Set(appsubscriptiononeshot.FieldBanner, v)
-	return u
-}
-
-// UpdateBanner sets the "banner" field to the value that was provided on create.
-func (u *AppSubscriptionOneShotUpsert) UpdateBanner() *AppSubscriptionOneShotUpsert {
-	u.SetExcluded(appsubscriptiononeshot.FieldBanner)
-	return u
-}
-
-// ClearBanner clears the value of the "banner" field.
-func (u *AppSubscriptionOneShotUpsert) ClearBanner() *AppSubscriptionOneShotUpsert {
-	u.SetNull(appsubscriptiononeshot.FieldBanner)
 	return u
 }
 
@@ -684,48 +524,6 @@ func (u *AppSubscriptionOneShotUpsertOne) UpdateDeletedAt() *AppSubscriptionOneS
 	})
 }
 
-// SetAppID sets the "app_id" field.
-func (u *AppSubscriptionOneShotUpsertOne) SetAppID(v uuid.UUID) *AppSubscriptionOneShotUpsertOne {
-	return u.Update(func(s *AppSubscriptionOneShotUpsert) {
-		s.SetAppID(v)
-	})
-}
-
-// UpdateAppID sets the "app_id" field to the value that was provided on create.
-func (u *AppSubscriptionOneShotUpsertOne) UpdateAppID() *AppSubscriptionOneShotUpsertOne {
-	return u.Update(func(s *AppSubscriptionOneShotUpsert) {
-		s.UpdateAppID()
-	})
-}
-
-// ClearAppID clears the value of the "app_id" field.
-func (u *AppSubscriptionOneShotUpsertOne) ClearAppID() *AppSubscriptionOneShotUpsertOne {
-	return u.Update(func(s *AppSubscriptionOneShotUpsert) {
-		s.ClearAppID()
-	})
-}
-
-// SetGoodID sets the "good_id" field.
-func (u *AppSubscriptionOneShotUpsertOne) SetGoodID(v uuid.UUID) *AppSubscriptionOneShotUpsertOne {
-	return u.Update(func(s *AppSubscriptionOneShotUpsert) {
-		s.SetGoodID(v)
-	})
-}
-
-// UpdateGoodID sets the "good_id" field to the value that was provided on create.
-func (u *AppSubscriptionOneShotUpsertOne) UpdateGoodID() *AppSubscriptionOneShotUpsertOne {
-	return u.Update(func(s *AppSubscriptionOneShotUpsert) {
-		s.UpdateGoodID()
-	})
-}
-
-// ClearGoodID clears the value of the "good_id" field.
-func (u *AppSubscriptionOneShotUpsertOne) ClearGoodID() *AppSubscriptionOneShotUpsertOne {
-	return u.Update(func(s *AppSubscriptionOneShotUpsert) {
-		s.ClearGoodID()
-	})
-}
-
 // SetAppGoodID sets the "app_good_id" field.
 func (u *AppSubscriptionOneShotUpsertOne) SetAppGoodID(v uuid.UUID) *AppSubscriptionOneShotUpsertOne {
 	return u.Update(func(s *AppSubscriptionOneShotUpsert) {
@@ -744,48 +542,6 @@ func (u *AppSubscriptionOneShotUpsertOne) UpdateAppGoodID() *AppSubscriptionOneS
 func (u *AppSubscriptionOneShotUpsertOne) ClearAppGoodID() *AppSubscriptionOneShotUpsertOne {
 	return u.Update(func(s *AppSubscriptionOneShotUpsert) {
 		s.ClearAppGoodID()
-	})
-}
-
-// SetName sets the "name" field.
-func (u *AppSubscriptionOneShotUpsertOne) SetName(v string) *AppSubscriptionOneShotUpsertOne {
-	return u.Update(func(s *AppSubscriptionOneShotUpsert) {
-		s.SetName(v)
-	})
-}
-
-// UpdateName sets the "name" field to the value that was provided on create.
-func (u *AppSubscriptionOneShotUpsertOne) UpdateName() *AppSubscriptionOneShotUpsertOne {
-	return u.Update(func(s *AppSubscriptionOneShotUpsert) {
-		s.UpdateName()
-	})
-}
-
-// ClearName clears the value of the "name" field.
-func (u *AppSubscriptionOneShotUpsertOne) ClearName() *AppSubscriptionOneShotUpsertOne {
-	return u.Update(func(s *AppSubscriptionOneShotUpsert) {
-		s.ClearName()
-	})
-}
-
-// SetBanner sets the "banner" field.
-func (u *AppSubscriptionOneShotUpsertOne) SetBanner(v string) *AppSubscriptionOneShotUpsertOne {
-	return u.Update(func(s *AppSubscriptionOneShotUpsert) {
-		s.SetBanner(v)
-	})
-}
-
-// UpdateBanner sets the "banner" field to the value that was provided on create.
-func (u *AppSubscriptionOneShotUpsertOne) UpdateBanner() *AppSubscriptionOneShotUpsertOne {
-	return u.Update(func(s *AppSubscriptionOneShotUpsert) {
-		s.UpdateBanner()
-	})
-}
-
-// ClearBanner clears the value of the "banner" field.
-func (u *AppSubscriptionOneShotUpsertOne) ClearBanner() *AppSubscriptionOneShotUpsertOne {
-	return u.Update(func(s *AppSubscriptionOneShotUpsert) {
-		s.ClearBanner()
 	})
 }
 
@@ -1101,48 +857,6 @@ func (u *AppSubscriptionOneShotUpsertBulk) UpdateDeletedAt() *AppSubscriptionOne
 	})
 }
 
-// SetAppID sets the "app_id" field.
-func (u *AppSubscriptionOneShotUpsertBulk) SetAppID(v uuid.UUID) *AppSubscriptionOneShotUpsertBulk {
-	return u.Update(func(s *AppSubscriptionOneShotUpsert) {
-		s.SetAppID(v)
-	})
-}
-
-// UpdateAppID sets the "app_id" field to the value that was provided on create.
-func (u *AppSubscriptionOneShotUpsertBulk) UpdateAppID() *AppSubscriptionOneShotUpsertBulk {
-	return u.Update(func(s *AppSubscriptionOneShotUpsert) {
-		s.UpdateAppID()
-	})
-}
-
-// ClearAppID clears the value of the "app_id" field.
-func (u *AppSubscriptionOneShotUpsertBulk) ClearAppID() *AppSubscriptionOneShotUpsertBulk {
-	return u.Update(func(s *AppSubscriptionOneShotUpsert) {
-		s.ClearAppID()
-	})
-}
-
-// SetGoodID sets the "good_id" field.
-func (u *AppSubscriptionOneShotUpsertBulk) SetGoodID(v uuid.UUID) *AppSubscriptionOneShotUpsertBulk {
-	return u.Update(func(s *AppSubscriptionOneShotUpsert) {
-		s.SetGoodID(v)
-	})
-}
-
-// UpdateGoodID sets the "good_id" field to the value that was provided on create.
-func (u *AppSubscriptionOneShotUpsertBulk) UpdateGoodID() *AppSubscriptionOneShotUpsertBulk {
-	return u.Update(func(s *AppSubscriptionOneShotUpsert) {
-		s.UpdateGoodID()
-	})
-}
-
-// ClearGoodID clears the value of the "good_id" field.
-func (u *AppSubscriptionOneShotUpsertBulk) ClearGoodID() *AppSubscriptionOneShotUpsertBulk {
-	return u.Update(func(s *AppSubscriptionOneShotUpsert) {
-		s.ClearGoodID()
-	})
-}
-
 // SetAppGoodID sets the "app_good_id" field.
 func (u *AppSubscriptionOneShotUpsertBulk) SetAppGoodID(v uuid.UUID) *AppSubscriptionOneShotUpsertBulk {
 	return u.Update(func(s *AppSubscriptionOneShotUpsert) {
@@ -1161,48 +875,6 @@ func (u *AppSubscriptionOneShotUpsertBulk) UpdateAppGoodID() *AppSubscriptionOne
 func (u *AppSubscriptionOneShotUpsertBulk) ClearAppGoodID() *AppSubscriptionOneShotUpsertBulk {
 	return u.Update(func(s *AppSubscriptionOneShotUpsert) {
 		s.ClearAppGoodID()
-	})
-}
-
-// SetName sets the "name" field.
-func (u *AppSubscriptionOneShotUpsertBulk) SetName(v string) *AppSubscriptionOneShotUpsertBulk {
-	return u.Update(func(s *AppSubscriptionOneShotUpsert) {
-		s.SetName(v)
-	})
-}
-
-// UpdateName sets the "name" field to the value that was provided on create.
-func (u *AppSubscriptionOneShotUpsertBulk) UpdateName() *AppSubscriptionOneShotUpsertBulk {
-	return u.Update(func(s *AppSubscriptionOneShotUpsert) {
-		s.UpdateName()
-	})
-}
-
-// ClearName clears the value of the "name" field.
-func (u *AppSubscriptionOneShotUpsertBulk) ClearName() *AppSubscriptionOneShotUpsertBulk {
-	return u.Update(func(s *AppSubscriptionOneShotUpsert) {
-		s.ClearName()
-	})
-}
-
-// SetBanner sets the "banner" field.
-func (u *AppSubscriptionOneShotUpsertBulk) SetBanner(v string) *AppSubscriptionOneShotUpsertBulk {
-	return u.Update(func(s *AppSubscriptionOneShotUpsert) {
-		s.SetBanner(v)
-	})
-}
-
-// UpdateBanner sets the "banner" field to the value that was provided on create.
-func (u *AppSubscriptionOneShotUpsertBulk) UpdateBanner() *AppSubscriptionOneShotUpsertBulk {
-	return u.Update(func(s *AppSubscriptionOneShotUpsert) {
-		s.UpdateBanner()
-	})
-}
-
-// ClearBanner clears the value of the "banner" field.
-func (u *AppSubscriptionOneShotUpsertBulk) ClearBanner() *AppSubscriptionOneShotUpsertBulk {
-	return u.Update(func(s *AppSubscriptionOneShotUpsert) {
-		s.ClearBanner()
 	})
 }
 

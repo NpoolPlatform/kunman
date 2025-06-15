@@ -46,7 +46,6 @@ func (h *createHandler) createOneShot(ctx context.Context, tx *ent.Tx) error {
 		&oneshotcrud.Req{
 			EntID:    h.EntID,
 			GoodID:   h.GoodID,
-			Name:     h.Name,
 			Quota:    h.Quota,
 			USDPrice: h.USDPrice,
 		},

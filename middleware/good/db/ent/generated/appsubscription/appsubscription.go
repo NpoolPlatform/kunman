@@ -21,16 +21,8 @@ const (
 	FieldUpdatedAt = "updated_at"
 	// FieldDeletedAt holds the string denoting the deleted_at field in the database.
 	FieldDeletedAt = "deleted_at"
-	// FieldAppID holds the string denoting the app_id field in the database.
-	FieldAppID = "app_id"
-	// FieldGoodID holds the string denoting the good_id field in the database.
-	FieldGoodID = "good_id"
 	// FieldAppGoodID holds the string denoting the app_good_id field in the database.
 	FieldAppGoodID = "app_good_id"
-	// FieldName holds the string denoting the name field in the database.
-	FieldName = "name"
-	// FieldBanner holds the string denoting the banner field in the database.
-	FieldBanner = "banner"
 	// FieldUsdPrice holds the string denoting the usd_price field in the database.
 	FieldUsdPrice = "usd_price"
 	// Table holds the table name of the appsubscription in the database.
@@ -44,11 +36,7 @@ var Columns = []string{
 	FieldCreatedAt,
 	FieldUpdatedAt,
 	FieldDeletedAt,
-	FieldAppID,
-	FieldGoodID,
 	FieldAppGoodID,
-	FieldName,
-	FieldBanner,
 	FieldUsdPrice,
 }
 
@@ -73,16 +61,8 @@ var (
 	UpdateDefaultUpdatedAt func() uint32
 	// DefaultDeletedAt holds the default value on creation for the "deleted_at" field.
 	DefaultDeletedAt func() uint32
-	// DefaultAppID holds the default value on creation for the "app_id" field.
-	DefaultAppID func() uuid.UUID
-	// DefaultGoodID holds the default value on creation for the "good_id" field.
-	DefaultGoodID func() uuid.UUID
 	// DefaultAppGoodID holds the default value on creation for the "app_good_id" field.
 	DefaultAppGoodID func() uuid.UUID
-	// DefaultName holds the default value on creation for the "name" field.
-	DefaultName string
-	// DefaultBanner holds the default value on creation for the "banner" field.
-	DefaultBanner string
 	// DefaultUsdPrice holds the default value on creation for the "usd_price" field.
 	DefaultUsdPrice decimal.Decimal
 )
@@ -115,29 +95,9 @@ func ByDeletedAt(opts ...sql.OrderTermOption) OrderOption {
 	return sql.OrderByField(FieldDeletedAt, opts...).ToFunc()
 }
 
-// ByAppID orders the results by the app_id field.
-func ByAppID(opts ...sql.OrderTermOption) OrderOption {
-	return sql.OrderByField(FieldAppID, opts...).ToFunc()
-}
-
-// ByGoodID orders the results by the good_id field.
-func ByGoodID(opts ...sql.OrderTermOption) OrderOption {
-	return sql.OrderByField(FieldGoodID, opts...).ToFunc()
-}
-
 // ByAppGoodID orders the results by the app_good_id field.
 func ByAppGoodID(opts ...sql.OrderTermOption) OrderOption {
 	return sql.OrderByField(FieldAppGoodID, opts...).ToFunc()
-}
-
-// ByName orders the results by the name field.
-func ByName(opts ...sql.OrderTermOption) OrderOption {
-	return sql.OrderByField(FieldName, opts...).ToFunc()
-}
-
-// ByBanner orders the results by the banner field.
-func ByBanner(opts ...sql.OrderTermOption) OrderOption {
-	return sql.OrderByField(FieldBanner, opts...).ToFunc()
 }
 
 // ByUsdPrice orders the results by the usd_price field.

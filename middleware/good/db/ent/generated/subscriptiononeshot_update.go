@@ -119,46 +119,6 @@ func (sosu *SubscriptionOneShotUpdate) ClearGoodID() *SubscriptionOneShotUpdate 
 	return sosu
 }
 
-// SetGoodType sets the "good_type" field.
-func (sosu *SubscriptionOneShotUpdate) SetGoodType(s string) *SubscriptionOneShotUpdate {
-	sosu.mutation.SetGoodType(s)
-	return sosu
-}
-
-// SetNillableGoodType sets the "good_type" field if the given value is not nil.
-func (sosu *SubscriptionOneShotUpdate) SetNillableGoodType(s *string) *SubscriptionOneShotUpdate {
-	if s != nil {
-		sosu.SetGoodType(*s)
-	}
-	return sosu
-}
-
-// ClearGoodType clears the value of the "good_type" field.
-func (sosu *SubscriptionOneShotUpdate) ClearGoodType() *SubscriptionOneShotUpdate {
-	sosu.mutation.ClearGoodType()
-	return sosu
-}
-
-// SetName sets the "name" field.
-func (sosu *SubscriptionOneShotUpdate) SetName(s string) *SubscriptionOneShotUpdate {
-	sosu.mutation.SetName(s)
-	return sosu
-}
-
-// SetNillableName sets the "name" field if the given value is not nil.
-func (sosu *SubscriptionOneShotUpdate) SetNillableName(s *string) *SubscriptionOneShotUpdate {
-	if s != nil {
-		sosu.SetName(*s)
-	}
-	return sosu
-}
-
-// ClearName clears the value of the "name" field.
-func (sosu *SubscriptionOneShotUpdate) ClearName() *SubscriptionOneShotUpdate {
-	sosu.mutation.ClearName()
-	return sosu
-}
-
 // SetQuota sets the "quota" field.
 func (sosu *SubscriptionOneShotUpdate) SetQuota(u uint32) *SubscriptionOneShotUpdate {
 	sosu.mutation.ResetQuota()
@@ -289,18 +249,6 @@ func (sosu *SubscriptionOneShotUpdate) sqlSave(ctx context.Context) (n int, err 
 	if sosu.mutation.GoodIDCleared() {
 		_spec.ClearField(subscriptiononeshot.FieldGoodID, field.TypeUUID)
 	}
-	if value, ok := sosu.mutation.GoodType(); ok {
-		_spec.SetField(subscriptiononeshot.FieldGoodType, field.TypeString, value)
-	}
-	if sosu.mutation.GoodTypeCleared() {
-		_spec.ClearField(subscriptiononeshot.FieldGoodType, field.TypeString)
-	}
-	if value, ok := sosu.mutation.Name(); ok {
-		_spec.SetField(subscriptiononeshot.FieldName, field.TypeString, value)
-	}
-	if sosu.mutation.NameCleared() {
-		_spec.ClearField(subscriptiononeshot.FieldName, field.TypeString)
-	}
 	if value, ok := sosu.mutation.Quota(); ok {
 		_spec.SetField(subscriptiononeshot.FieldQuota, field.TypeUint32, value)
 	}
@@ -424,46 +372,6 @@ func (sosuo *SubscriptionOneShotUpdateOne) SetNillableGoodID(u *uuid.UUID) *Subs
 // ClearGoodID clears the value of the "good_id" field.
 func (sosuo *SubscriptionOneShotUpdateOne) ClearGoodID() *SubscriptionOneShotUpdateOne {
 	sosuo.mutation.ClearGoodID()
-	return sosuo
-}
-
-// SetGoodType sets the "good_type" field.
-func (sosuo *SubscriptionOneShotUpdateOne) SetGoodType(s string) *SubscriptionOneShotUpdateOne {
-	sosuo.mutation.SetGoodType(s)
-	return sosuo
-}
-
-// SetNillableGoodType sets the "good_type" field if the given value is not nil.
-func (sosuo *SubscriptionOneShotUpdateOne) SetNillableGoodType(s *string) *SubscriptionOneShotUpdateOne {
-	if s != nil {
-		sosuo.SetGoodType(*s)
-	}
-	return sosuo
-}
-
-// ClearGoodType clears the value of the "good_type" field.
-func (sosuo *SubscriptionOneShotUpdateOne) ClearGoodType() *SubscriptionOneShotUpdateOne {
-	sosuo.mutation.ClearGoodType()
-	return sosuo
-}
-
-// SetName sets the "name" field.
-func (sosuo *SubscriptionOneShotUpdateOne) SetName(s string) *SubscriptionOneShotUpdateOne {
-	sosuo.mutation.SetName(s)
-	return sosuo
-}
-
-// SetNillableName sets the "name" field if the given value is not nil.
-func (sosuo *SubscriptionOneShotUpdateOne) SetNillableName(s *string) *SubscriptionOneShotUpdateOne {
-	if s != nil {
-		sosuo.SetName(*s)
-	}
-	return sosuo
-}
-
-// ClearName clears the value of the "name" field.
-func (sosuo *SubscriptionOneShotUpdateOne) ClearName() *SubscriptionOneShotUpdateOne {
-	sosuo.mutation.ClearName()
 	return sosuo
 }
 
@@ -626,18 +534,6 @@ func (sosuo *SubscriptionOneShotUpdateOne) sqlSave(ctx context.Context) (_node *
 	}
 	if sosuo.mutation.GoodIDCleared() {
 		_spec.ClearField(subscriptiononeshot.FieldGoodID, field.TypeUUID)
-	}
-	if value, ok := sosuo.mutation.GoodType(); ok {
-		_spec.SetField(subscriptiononeshot.FieldGoodType, field.TypeString, value)
-	}
-	if sosuo.mutation.GoodTypeCleared() {
-		_spec.ClearField(subscriptiononeshot.FieldGoodType, field.TypeString)
-	}
-	if value, ok := sosuo.mutation.Name(); ok {
-		_spec.SetField(subscriptiononeshot.FieldName, field.TypeString, value)
-	}
-	if sosuo.mutation.NameCleared() {
-		_spec.ClearField(subscriptiononeshot.FieldName, field.TypeString)
 	}
 	if value, ok := sosuo.mutation.Quota(); ok {
 		_spec.SetField(subscriptiononeshot.FieldQuota, field.TypeUint32, value)

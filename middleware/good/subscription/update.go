@@ -51,7 +51,6 @@ func (h *updateHandler) updateSubscription(ctx context.Context, tx *ent.Tx) erro
 	if _, err := subscriptioncrud.UpdateSet(
 		tx.Subscription.UpdateOneID(*h.ID),
 		&subscriptioncrud.Req{
-			Name:                h.Name,
 			DurationDisplayType: h.DurationDisplayType,
 			DurationUnits:       h.DurationUnits,
 			DurationQuota:       h.DurationQuota,

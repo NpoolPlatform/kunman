@@ -23,10 +23,6 @@ const (
 	FieldDeletedAt = "deleted_at"
 	// FieldGoodID holds the string denoting the good_id field in the database.
 	FieldGoodID = "good_id"
-	// FieldGoodType holds the string denoting the good_type field in the database.
-	FieldGoodType = "good_type"
-	// FieldName holds the string denoting the name field in the database.
-	FieldName = "name"
 	// FieldQuota holds the string denoting the quota field in the database.
 	FieldQuota = "quota"
 	// FieldUsdPrice holds the string denoting the usd_price field in the database.
@@ -43,8 +39,6 @@ var Columns = []string{
 	FieldUpdatedAt,
 	FieldDeletedAt,
 	FieldGoodID,
-	FieldGoodType,
-	FieldName,
 	FieldQuota,
 	FieldUsdPrice,
 }
@@ -72,10 +66,6 @@ var (
 	DefaultDeletedAt func() uint32
 	// DefaultGoodID holds the default value on creation for the "good_id" field.
 	DefaultGoodID func() uuid.UUID
-	// DefaultGoodType holds the default value on creation for the "good_type" field.
-	DefaultGoodType string
-	// DefaultName holds the default value on creation for the "name" field.
-	DefaultName string
 	// DefaultQuota holds the default value on creation for the "quota" field.
 	DefaultQuota uint32
 	// DefaultUsdPrice holds the default value on creation for the "usd_price" field.
@@ -113,16 +103,6 @@ func ByDeletedAt(opts ...sql.OrderTermOption) OrderOption {
 // ByGoodID orders the results by the good_id field.
 func ByGoodID(opts ...sql.OrderTermOption) OrderOption {
 	return sql.OrderByField(FieldGoodID, opts...).ToFunc()
-}
-
-// ByGoodType orders the results by the good_type field.
-func ByGoodType(opts ...sql.OrderTermOption) OrderOption {
-	return sql.OrderByField(FieldGoodType, opts...).ToFunc()
-}
-
-// ByName orders the results by the name field.
-func ByName(opts ...sql.OrderTermOption) OrderOption {
-	return sql.OrderByField(FieldName, opts...).ToFunc()
 }
 
 // ByQuota orders the results by the quota field.

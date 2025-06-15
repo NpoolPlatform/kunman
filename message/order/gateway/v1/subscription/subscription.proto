@@ -146,7 +146,7 @@ message CreateSubscriptionOrderRequest {
     string AppGoodID = 30;
     repeated order.gateway.payment.v1.PaymentBalance Balances = 40;
     optional string PaymentTransferCoinTypeID = 50;
-    optional string PaymentFiatId = 60;
+    optional string PaymentFiatID = 60;
     repeated string CouponIDs = 70;
 }
 

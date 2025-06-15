@@ -87,62 +87,6 @@ var (
 			},
 		},
 	}
-	// AppGoodsColumns holds the columns for the "app_goods" table.
-	AppGoodsColumns = []*schema.Column{
-		{Name: "id", Type: field.TypeUint32, Increment: true},
-		{Name: "ent_id", Type: field.TypeUUID, Unique: true},
-		{Name: "created_at", Type: field.TypeUint32},
-		{Name: "updated_at", Type: field.TypeUint32},
-		{Name: "deleted_at", Type: field.TypeUint32},
-		{Name: "app_id", Type: field.TypeUUID},
-		{Name: "good_id", Type: field.TypeUUID},
-		{Name: "online", Type: field.TypeBool, Nullable: true, Default: false},
-		{Name: "visible", Type: field.TypeBool, Nullable: true, Default: false},
-		{Name: "good_name", Type: field.TypeString, Nullable: true, Default: ""},
-		{Name: "unit_price", Type: field.TypeOther, Nullable: true, SchemaType: map[string]string{"mysql": "decimal(37,18)"}},
-		{Name: "package_price", Type: field.TypeOther, Nullable: true, SchemaType: map[string]string{"mysql": "decimal(37,18)"}},
-		{Name: "display_index", Type: field.TypeInt32, Nullable: true, Default: 0},
-		{Name: "sale_start_at", Type: field.TypeUint32, Nullable: true, Default: 0},
-		{Name: "sale_end_at", Type: field.TypeUint32, Nullable: true, Default: 0},
-		{Name: "service_start_at", Type: field.TypeUint32, Nullable: true, Default: 0},
-		{Name: "technical_fee_ratio", Type: field.TypeOther, Nullable: true, SchemaType: map[string]string{"mysql": "decimal(37,18)"}},
-		{Name: "electricity_fee_ratio", Type: field.TypeOther, Nullable: true, SchemaType: map[string]string{"mysql": "decimal(37,18)"}},
-		{Name: "descriptions", Type: field.TypeJSON, Nullable: true},
-		{Name: "good_banner", Type: field.TypeString, Nullable: true, Default: ""},
-		{Name: "display_names", Type: field.TypeJSON, Nullable: true},
-		{Name: "enable_purchase", Type: field.TypeBool, Nullable: true, Default: true},
-		{Name: "enable_product_page", Type: field.TypeBool, Nullable: true, Default: true},
-		{Name: "cancel_mode", Type: field.TypeString, Nullable: true, Default: "Uncancellable"},
-		{Name: "display_colors", Type: field.TypeJSON, Nullable: true},
-		{Name: "cancellable_before_start", Type: field.TypeUint32, Nullable: true, Default: 0},
-		{Name: "product_page", Type: field.TypeString, Nullable: true, Default: ""},
-		{Name: "enable_set_commission", Type: field.TypeBool, Nullable: true, Default: true},
-		{Name: "posters", Type: field.TypeJSON, Nullable: true},
-		{Name: "min_order_amount", Type: field.TypeOther, Nullable: true, SchemaType: map[string]string{"mysql": "decimal(37,18)"}},
-		{Name: "max_order_amount", Type: field.TypeOther, Nullable: true, SchemaType: map[string]string{"mysql": "decimal(37,18)"}},
-		{Name: "max_user_amount", Type: field.TypeOther, Nullable: true, SchemaType: map[string]string{"mysql": "decimal(37,18)"}},
-		{Name: "min_order_duration", Type: field.TypeUint32, Nullable: true, Default: 0},
-		{Name: "max_order_duration", Type: field.TypeUint32, Nullable: true, Default: 0},
-		{Name: "package_with_requireds", Type: field.TypeBool, Nullable: true, Default: true},
-	}
-	// AppGoodsTable holds the schema information for the "app_goods" table.
-	AppGoodsTable = &schema.Table{
-		Name:       "app_goods",
-		Columns:    AppGoodsColumns,
-		PrimaryKey: []*schema.Column{AppGoodsColumns[0]},
-		Indexes: []*schema.Index{
-			{
-				Name:    "appgood_ent_id",
-				Unique:  true,
-				Columns: []*schema.Column{AppGoodsColumns[1]},
-			},
-			{
-				Name:    "appgood_good_id_app_id_online",
-				Unique:  false,
-				Columns: []*schema.Column{AppGoodsColumns[6], AppGoodsColumns[5], AppGoodsColumns[7]},
-			},
-		},
-	}
 	// AppGoodBasesColumns holds the columns for the "app_good_bases" table.
 	AppGoodBasesColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeUint32, Increment: true},
@@ -515,11 +459,7 @@ var (
 		{Name: "created_at", Type: field.TypeUint32},
 		{Name: "updated_at", Type: field.TypeUint32},
 		{Name: "deleted_at", Type: field.TypeUint32},
-		{Name: "app_id", Type: field.TypeUUID, Nullable: true},
-		{Name: "good_id", Type: field.TypeUUID, Nullable: true},
 		{Name: "app_good_id", Type: field.TypeUUID, Nullable: true},
-		{Name: "name", Type: field.TypeString, Nullable: true, Default: ""},
-		{Name: "banner", Type: field.TypeString, Nullable: true, Default: ""},
 		{Name: "usd_price", Type: field.TypeOther, Nullable: true, SchemaType: map[string]string{"mysql": "decimal(37,18)"}},
 	}
 	// AppSubscriptionsTable holds the schema information for the "app_subscriptions" table.
@@ -542,11 +482,7 @@ var (
 		{Name: "created_at", Type: field.TypeUint32},
 		{Name: "updated_at", Type: field.TypeUint32},
 		{Name: "deleted_at", Type: field.TypeUint32},
-		{Name: "app_id", Type: field.TypeUUID, Nullable: true},
-		{Name: "good_id", Type: field.TypeUUID, Nullable: true},
 		{Name: "app_good_id", Type: field.TypeUUID, Nullable: true},
-		{Name: "name", Type: field.TypeString, Nullable: true, Default: ""},
-		{Name: "banner", Type: field.TypeString, Nullable: true, Default: ""},
 		{Name: "usd_price", Type: field.TypeOther, Nullable: true, SchemaType: map[string]string{"mysql": "decimal(37,18)"}},
 	}
 	// AppSubscriptionOneShotsTable holds the schema information for the "app_subscription_one_shots" table.
@@ -1289,8 +1225,6 @@ var (
 		{Name: "updated_at", Type: field.TypeUint32},
 		{Name: "deleted_at", Type: field.TypeUint32},
 		{Name: "good_id", Type: field.TypeUUID, Nullable: true},
-		{Name: "good_type", Type: field.TypeString, Nullable: true, Default: "Subscription"},
-		{Name: "name", Type: field.TypeString, Nullable: true, Default: ""},
 		{Name: "duration_display_type", Type: field.TypeString, Nullable: true, Default: "GoodDurationByMonth"},
 		{Name: "duration_units", Type: field.TypeUint32, Nullable: true, Default: 1},
 		{Name: "duration_quota", Type: field.TypeUint32, Nullable: true, Default: 1080},
@@ -1318,8 +1252,6 @@ var (
 		{Name: "updated_at", Type: field.TypeUint32},
 		{Name: "deleted_at", Type: field.TypeUint32},
 		{Name: "good_id", Type: field.TypeUUID, Nullable: true},
-		{Name: "good_type", Type: field.TypeString, Nullable: true, Default: "Subscription"},
-		{Name: "name", Type: field.TypeString, Nullable: true, Default: ""},
 		{Name: "quota", Type: field.TypeUint32, Nullable: true, Default: 1080},
 		{Name: "usd_price", Type: field.TypeOther, Nullable: true, SchemaType: map[string]string{"mysql": "decimal(37,18)"}},
 	}
@@ -1561,7 +1493,6 @@ var (
 		AppDefaultGoodsTable,
 		AppDelegatedStakingsTable,
 		AppFeesTable,
-		AppGoodsTable,
 		AppGoodBasesTable,
 		AppGoodDescriptionsTable,
 		AppGoodDisplayColorsTable,

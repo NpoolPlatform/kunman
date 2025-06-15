@@ -32,14 +32,6 @@ func (Subscription) Fields() []ent.Field {
 				return uuid.UUID{}
 			}),
 		field.
-			String("good_type").
-			Optional().
-			Default(types.GoodType_Subscription.String()),
-		field.
-			String("name").
-			Optional().
-			Default(""),
-		field.
 			String("duration_display_type").
 			Optional().
 			Default(types.GoodDurationType_GoodDurationByMonth.String()),

@@ -15,9 +15,6 @@ type AppDelegatedStaking func(*sql.Selector)
 // AppFee is the predicate function for appfee builders.
 type AppFee func(*sql.Selector)
 
-// AppGood is the predicate function for appgood builders.
-type AppGood func(*sql.Selector)
-
 // AppGoodBase is the predicate function for appgoodbase builders.
 type AppGoodBase func(*sql.Selector)
 

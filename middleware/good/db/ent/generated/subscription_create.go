@@ -93,34 +93,6 @@ func (sc *SubscriptionCreate) SetNillableGoodID(u *uuid.UUID) *SubscriptionCreat
 	return sc
 }
 
-// SetGoodType sets the "good_type" field.
-func (sc *SubscriptionCreate) SetGoodType(s string) *SubscriptionCreate {
-	sc.mutation.SetGoodType(s)
-	return sc
-}
-
-// SetNillableGoodType sets the "good_type" field if the given value is not nil.
-func (sc *SubscriptionCreate) SetNillableGoodType(s *string) *SubscriptionCreate {
-	if s != nil {
-		sc.SetGoodType(*s)
-	}
-	return sc
-}
-
-// SetName sets the "name" field.
-func (sc *SubscriptionCreate) SetName(s string) *SubscriptionCreate {
-	sc.mutation.SetName(s)
-	return sc
-}
-
-// SetNillableName sets the "name" field if the given value is not nil.
-func (sc *SubscriptionCreate) SetNillableName(s *string) *SubscriptionCreate {
-	if s != nil {
-		sc.SetName(*s)
-	}
-	return sc
-}
-
 // SetDurationDisplayType sets the "duration_display_type" field.
 func (sc *SubscriptionCreate) SetDurationDisplayType(s string) *SubscriptionCreate {
 	sc.mutation.SetDurationDisplayType(s)
@@ -252,14 +224,6 @@ func (sc *SubscriptionCreate) defaults() {
 		v := subscription.DefaultGoodID()
 		sc.mutation.SetGoodID(v)
 	}
-	if _, ok := sc.mutation.GoodType(); !ok {
-		v := subscription.DefaultGoodType
-		sc.mutation.SetGoodType(v)
-	}
-	if _, ok := sc.mutation.Name(); !ok {
-		v := subscription.DefaultName
-		sc.mutation.SetName(v)
-	}
 	if _, ok := sc.mutation.DurationDisplayType(); !ok {
 		v := subscription.DefaultDurationDisplayType
 		sc.mutation.SetDurationDisplayType(v)
@@ -348,14 +312,6 @@ func (sc *SubscriptionCreate) createSpec() (*Subscription, *sqlgraph.CreateSpec)
 	if value, ok := sc.mutation.GoodID(); ok {
 		_spec.SetField(subscription.FieldGoodID, field.TypeUUID, value)
 		_node.GoodID = value
-	}
-	if value, ok := sc.mutation.GoodType(); ok {
-		_spec.SetField(subscription.FieldGoodType, field.TypeString, value)
-		_node.GoodType = value
-	}
-	if value, ok := sc.mutation.Name(); ok {
-		_spec.SetField(subscription.FieldName, field.TypeString, value)
-		_node.Name = value
 	}
 	if value, ok := sc.mutation.DurationDisplayType(); ok {
 		_spec.SetField(subscription.FieldDurationDisplayType, field.TypeString, value)
@@ -510,42 +466,6 @@ func (u *SubscriptionUpsert) UpdateGoodID() *SubscriptionUpsert {
 // ClearGoodID clears the value of the "good_id" field.
 func (u *SubscriptionUpsert) ClearGoodID() *SubscriptionUpsert {
 	u.SetNull(subscription.FieldGoodID)
-	return u
-}
-
-// SetGoodType sets the "good_type" field.
-func (u *SubscriptionUpsert) SetGoodType(v string) *SubscriptionUpsert {
-	u.Set(subscription.FieldGoodType, v)
-	return u
-}
-
-// UpdateGoodType sets the "good_type" field to the value that was provided on create.
-func (u *SubscriptionUpsert) UpdateGoodType() *SubscriptionUpsert {
-	u.SetExcluded(subscription.FieldGoodType)
-	return u
-}
-
-// ClearGoodType clears the value of the "good_type" field.
-func (u *SubscriptionUpsert) ClearGoodType() *SubscriptionUpsert {
-	u.SetNull(subscription.FieldGoodType)
-	return u
-}
-
-// SetName sets the "name" field.
-func (u *SubscriptionUpsert) SetName(v string) *SubscriptionUpsert {
-	u.Set(subscription.FieldName, v)
-	return u
-}
-
-// UpdateName sets the "name" field to the value that was provided on create.
-func (u *SubscriptionUpsert) UpdateName() *SubscriptionUpsert {
-	u.SetExcluded(subscription.FieldName)
-	return u
-}
-
-// ClearName clears the value of the "name" field.
-func (u *SubscriptionUpsert) ClearName() *SubscriptionUpsert {
-	u.SetNull(subscription.FieldName)
 	return u
 }
 
@@ -800,48 +720,6 @@ func (u *SubscriptionUpsertOne) UpdateGoodID() *SubscriptionUpsertOne {
 func (u *SubscriptionUpsertOne) ClearGoodID() *SubscriptionUpsertOne {
 	return u.Update(func(s *SubscriptionUpsert) {
 		s.ClearGoodID()
-	})
-}
-
-// SetGoodType sets the "good_type" field.
-func (u *SubscriptionUpsertOne) SetGoodType(v string) *SubscriptionUpsertOne {
-	return u.Update(func(s *SubscriptionUpsert) {
-		s.SetGoodType(v)
-	})
-}
-
-// UpdateGoodType sets the "good_type" field to the value that was provided on create.
-func (u *SubscriptionUpsertOne) UpdateGoodType() *SubscriptionUpsertOne {
-	return u.Update(func(s *SubscriptionUpsert) {
-		s.UpdateGoodType()
-	})
-}
-
-// ClearGoodType clears the value of the "good_type" field.
-func (u *SubscriptionUpsertOne) ClearGoodType() *SubscriptionUpsertOne {
-	return u.Update(func(s *SubscriptionUpsert) {
-		s.ClearGoodType()
-	})
-}
-
-// SetName sets the "name" field.
-func (u *SubscriptionUpsertOne) SetName(v string) *SubscriptionUpsertOne {
-	return u.Update(func(s *SubscriptionUpsert) {
-		s.SetName(v)
-	})
-}
-
-// UpdateName sets the "name" field to the value that was provided on create.
-func (u *SubscriptionUpsertOne) UpdateName() *SubscriptionUpsertOne {
-	return u.Update(func(s *SubscriptionUpsert) {
-		s.UpdateName()
-	})
-}
-
-// ClearName clears the value of the "name" field.
-func (u *SubscriptionUpsertOne) ClearName() *SubscriptionUpsertOne {
-	return u.Update(func(s *SubscriptionUpsert) {
-		s.ClearName()
 	})
 }
 
@@ -1280,48 +1158,6 @@ func (u *SubscriptionUpsertBulk) UpdateGoodID() *SubscriptionUpsertBulk {
 func (u *SubscriptionUpsertBulk) ClearGoodID() *SubscriptionUpsertBulk {
 	return u.Update(func(s *SubscriptionUpsert) {
 		s.ClearGoodID()
-	})
-}
-
-// SetGoodType sets the "good_type" field.
-func (u *SubscriptionUpsertBulk) SetGoodType(v string) *SubscriptionUpsertBulk {
-	return u.Update(func(s *SubscriptionUpsert) {
-		s.SetGoodType(v)
-	})
-}
-
-// UpdateGoodType sets the "good_type" field to the value that was provided on create.
-func (u *SubscriptionUpsertBulk) UpdateGoodType() *SubscriptionUpsertBulk {
-	return u.Update(func(s *SubscriptionUpsert) {
-		s.UpdateGoodType()
-	})
-}
-
-// ClearGoodType clears the value of the "good_type" field.
-func (u *SubscriptionUpsertBulk) ClearGoodType() *SubscriptionUpsertBulk {
-	return u.Update(func(s *SubscriptionUpsert) {
-		s.ClearGoodType()
-	})
-}
-
-// SetName sets the "name" field.
-func (u *SubscriptionUpsertBulk) SetName(v string) *SubscriptionUpsertBulk {
-	return u.Update(func(s *SubscriptionUpsert) {
-		s.SetName(v)
-	})
-}
-
-// UpdateName sets the "name" field to the value that was provided on create.
-func (u *SubscriptionUpsertBulk) UpdateName() *SubscriptionUpsertBulk {
-	return u.Update(func(s *SubscriptionUpsert) {
-		s.UpdateName()
-	})
-}
-
-// ClearName clears the value of the "name" field.
-func (u *SubscriptionUpsertBulk) ClearName() *SubscriptionUpsertBulk {
-	return u.Update(func(s *SubscriptionUpsert) {
-		s.ClearName()
 	})
 }
 
