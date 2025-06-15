@@ -12,7 +12,7 @@ SERVICEIMAGES=$(SERVICES:%=%-image)
 SERVICEIMAGERELEASES=$(SERVICES:%=%-release)
 SERVICEK8SDEPLOYS=$(SERVICES:%=%-k8s-deploy)
 
-SCHEMAS:=$(wildcard ./middleware/*/db/ent)
+SCHEMAS:=$(wildcard ./middleware/*/db/ent ./middleware/sphinx/*/db/ent)
 
 RED    := \033[31m
 GREEN  := \033[32m
