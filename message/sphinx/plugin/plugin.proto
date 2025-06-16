@@ -145,3 +145,17 @@ message TxOut {
   int64 Value = 100;
   bytes PkScript = 110;
 }
+
+message EstimateGasRequest {}
+
+message GasInfo {
+  string Fee = 10;
+  string GasLimit = 20;
+  string GasPrice = 30;
+  string TipsPrice = 40;
+  uint64 BlockNum = 50;
+}
+
+message EstimateGasResponse {
+  GasInfo Info = 10;
+}

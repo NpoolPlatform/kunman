@@ -14,8 +14,7 @@ import (
 	"github.com/NpoolPlatform/kunman/mal/sphinx/plugin/coins/register"
 	"github.com/NpoolPlatform/kunman/mal/sphinx/plugin/env"
 	ct "github.com/NpoolPlatform/kunman/mal/sphinx/plugin/types"
-	"github.com/NpoolPlatform/kunman/message/sphinx/plugin"
-	"github.com/NpoolPlatform/kunman/message/sphinx/proxy"
+	pluginpb "github.com/NpoolPlatform/kunman/message/sphinx/plugin"
 	ethereum "github.com/ethereum/go-ethereum"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/core/types"
@@ -52,12 +51,12 @@ func init() {
 		SyncTxState,
 	)
 
-	err := register.RegisteAbortFuncErr(plugin.CoinType_CoinTypeethereum, eth.TxFailErr)
+	err := register.RegisteAbortFuncErr(pluginpb.CoinType_CoinTypeethereum, eth.TxFailErr)
 	if err != nil {
 		panic(err)
 	}
 
-	err = register.RegisteAbortFuncErr(plugin.CoinType_CoinTypetethereum, eth.TxFailErr)
+	err = register.RegisteAbortFuncErr(pluginpb.CoinType_CoinTypetethereum, eth.TxFailErr)
 	if err != nil {
 		panic(err)
 	}
@@ -103,7 +102,7 @@ func walletBalance(ctx context.Context, in []byte, tokenInfo *coins.TokenInfo) (
 }
 
 func estimateGas(ctx context.Context, in []byte, tokenInfo *coins.TokenInfo) (out []byte, err error) {
-	esGasReq := &proxy.GetEstimateGasRequest{}
+	esGasReq := &pluginpb.EstimateGasRequest{}
 	err = json.Unmarshal(in, esGasReq)
 	if err != nil {
 		return nil, err
@@ -154,12 +153,16 @@ func estimateGas(ctx context.Context, in []byte, tokenInfo *coins.TokenInfo) (ou
 	gasLimitBig := big.NewInt(int64(gasLimit))
 	estimateFee := big.NewInt(0).Mul(gasPrice, gasLimitBig)
 
-	wbResp := &proxy.GetEstimateGasResponse{
+	gasInfo := &pluginpb.GasInfo{
 		GasLimit:  fmt.Sprint(gasLimit),
 		GasPrice:  gasPrice.String(),
 		Fee:       eth.ToEth(estimateFee).String(),
 		TipsPrice: gasTips.String(),
 		BlockNum:  blockHeight,
+	}
+
+	wbResp := &pluginpb.EstimateGasResponse{
+		Info: gasInfo,
 	}
 	return json.Marshal(wbResp)
 }
