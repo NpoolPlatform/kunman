@@ -9,6 +9,7 @@ import (
 	inspiremwsvcname "github.com/NpoolPlatform/kunman/middleware/inspire/servicename"
 	ordermwsvcname "github.com/NpoolPlatform/kunman/middleware/order/servicename"
 	testinit "github.com/NpoolPlatform/kunman/pkg/testinit"
+	sphinxproxysvcname "github.com/NpoolPlatform/sphinx-proxy/pkg/servicename"
 )
 
 func Init() error {
@@ -20,5 +21,6 @@ func Init() error {
 		accountmwsvcname.ServiceDomain,
 		appusermwsvcname.ServiceDomain,
 		chainmwsvcname.ServiceDomain,
+		sphinxproxysvcname.ServiceDomain,
 	)
 }
