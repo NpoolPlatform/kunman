@@ -56,7 +56,8 @@ git_revision=`git rev-parse HEAD 2>/dev/null || echo unknow`
 go test -ldflags "-s -w -X $pkg.buildDate=${compile_date} \
         -X $pkg.gitCommit=${git_revision} \
         -X $pkg.gitVersion=${version}     \
-        -X $pkg.gitBranch=${git_branch}"  \
+        -X $pkg.gitBranch=${git_branch}   \
+        -X google.golang.org/protobuf/reflect/protoregistry.conflictPolicy=warn"  \
         ./... -coverprofile ${ARTIFACTS}/coverage.out
 
 go tool cover -html "${ARTIFACTS}/coverage.out" -o "${ARTIFACTS}/coverage.html"

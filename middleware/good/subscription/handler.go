@@ -103,6 +103,7 @@ func WithDurationDisplayType(e *types.GoodDurationType, must bool) func(context.
 		switch *e {
 		case types.GoodDurationType_GoodDurationByHour:
 		case types.GoodDurationType_GoodDurationByDay:
+		case types.GoodDurationType_GoodDurationByWeek:
 		case types.GoodDurationType_GoodDurationByMonth:
 		case types.GoodDurationType_GoodDurationByYear:
 		default:

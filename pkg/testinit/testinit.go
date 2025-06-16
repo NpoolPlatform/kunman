@@ -14,13 +14,19 @@ import (
 	redisconst "github.com/NpoolPlatform/kunman/framework/redis/const"
 )
 
-func Initialize(serviceName string) error {
+func Initialize(serviceNames ...string) error {
 	_, myPath, _, ok := runtime.Caller(0)
 	if !ok {
 		return fmt.Errorf("cannot get source file path")
 	}
 
 	configPath := fmt.Sprintf("%s/../../cmd/kunman", path.Dir(myPath))
+	serviceNames = append(
+		serviceNames,
+		mysqlconst.MysqlServiceName,
+		rabbitmqconst.RabbitMQServiceName,
+		redisconst.RedisServiceName,
+	)
 
 	err := app.Initialize(
 		servicename.ServiceName,
@@ -30,10 +36,7 @@ func Initialize(serviceName string) error {
 		configPath,
 		nil,
 		nil,
-		serviceName,
-		mysqlconst.MysqlServiceName,
-		rabbitmqconst.RabbitMQServiceName,
-		redisconst.RedisServiceName,
+		serviceNames...,
 	)
 	if err != nil {
 		return fmt.Errorf("cannot init app stub: %v", err)

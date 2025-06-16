@@ -105,6 +105,10 @@ func mysqlConfig(domain string) (string, error) {
 	password := config.GetStringValueWithNameSpace(constant.MysqlServiceName, keyPassword)
 
 	dbname := config.GetStringValueWithNameSpace(domain, keyDBName)
+	if dbname == "" {
+		logger.Sugar().Warnw("Invalid database", "Domain", domain)
+		return "", fmt.Errorf("Invalid database")
+	}
 
 	svc, err := apolloConfig()
 	if err != nil {

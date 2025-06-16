@@ -18,9 +18,9 @@ import (
 	"github.com/shopspring/decimal"
 	"github.com/stretchr/testify/assert"
 
+	"github.com/NpoolPlatform/kunman/gateway/order/testinit"
 	goodtypes "github.com/NpoolPlatform/kunman/message/basetypes/good/v1"
 	types "github.com/NpoolPlatform/kunman/message/basetypes/order/v1"
-	"github.com/NpoolPlatform/kunman/middleware/good/testinit"
 )
 
 func init() {
