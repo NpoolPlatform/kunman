@@ -2,6 +2,7 @@ package testinit
 
 import (
 	myservicename "github.com/NpoolPlatform/kunman/gateway/order/servicename"
+	accountmwsvcname "github.com/NpoolPlatform/kunman/middleware/account/servicename"
 	appusermwsvcname "github.com/NpoolPlatform/kunman/middleware/appuser/servicename"
 	chainmwsvcname "github.com/NpoolPlatform/kunman/middleware/chain/servicename"
 	goodmwsvcname "github.com/NpoolPlatform/kunman/middleware/good/servicename"
@@ -16,6 +17,7 @@ func Init() error {
 		goodmwsvcname.ServiceDomain,
 		inspiremwsvcname.ServiceDomain,
 		ordermwsvcname.ServiceDomain,
+		accountmwsvcname.ServiceDomain,
 		appusermwsvcname.ServiceDomain,
 		chainmwsvcname.ServiceDomain,
 	)

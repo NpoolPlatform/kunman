@@ -2,6 +2,7 @@ package testinit
 
 import (
 	"fmt"
+	"os"
 	"path"
 	"runtime"
 
@@ -15,6 +16,8 @@ import (
 )
 
 func Initialize(serviceNames ...string) error {
+	os.Setenv("RUN_IN_UNIT_TEST", "true")
+
 	_, myPath, _, ok := runtime.Caller(0)
 	if !ok {
 		return fmt.Errorf("cannot get source file path")

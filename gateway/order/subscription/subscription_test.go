@@ -15,6 +15,7 @@ import (
 	npool "github.com/NpoolPlatform/kunman/message/order/middleware/v1/subscription"
 	appmw "github.com/NpoolPlatform/kunman/middleware/appuser/app"
 	usermw "github.com/NpoolPlatform/kunman/middleware/appuser/user"
+	appcoinmw "github.com/NpoolPlatform/kunman/middleware/chain/app/coin"
 	coinmw "github.com/NpoolPlatform/kunman/middleware/chain/coin"
 	fiatmw "github.com/NpoolPlatform/kunman/middleware/chain/fiat"
 	appsubscription1 "github.com/NpoolPlatform/kunman/middleware/good/app/subscription"
@@ -162,6 +163,7 @@ func setup(t *testing.T) func(*testing.T) {
 	assert.Nil(t, err)
 
 	h5s := []*coinmw.Handler{}
+	h51s := []*appcoinmw.Handler{}
 
 	for _, balance := range ret.PaymentBalances {
 		h5, err := coinmw.NewHandler(
@@ -177,6 +179,18 @@ func setup(t *testing.T) func(*testing.T) {
 		assert.Nil(t, err)
 
 		h5s = append(h5s, h5)
+
+		h51, err := appcoinmw.NewHandler(
+			context.Background(),
+			appcoinmw.WithAppID(&ret.AppID, true),
+			appcoinmw.WithCoinTypeID(&balance.CoinTypeID, true),
+		)
+		assert.Nil(t, err)
+
+		_, err = h51.CreateCoin(context.Background())
+		assert.Nil(t, err)
+
+		h51s = append(h51s, h51)
 	}
 
 	for _, balance := range ret.PaymentTransfers {
@@ -193,6 +207,18 @@ func setup(t *testing.T) func(*testing.T) {
 		assert.Nil(t, err)
 
 		h5s = append(h5s, h5)
+
+		h51, err := appcoinmw.NewHandler(
+			context.Background(),
+			appcoinmw.WithAppID(&ret.AppID, true),
+			appcoinmw.WithCoinTypeID(&balance.CoinTypeID, true),
+		)
+		assert.Nil(t, err)
+
+		_, err = h51.CreateCoin(context.Background())
+		assert.Nil(t, err)
+
+		h51s = append(h51s, h51)
 	}
 
 	h6s := []*fiatmw.Handler{}
@@ -227,6 +253,7 @@ func setup(t *testing.T) func(*testing.T) {
 		couponmw.WithEndAt(&endAt, true),
 		couponmw.WithDenomination(&denomination, true),
 		couponmw.WithCirculation(&circulation, true),
+		couponmw.WithCouponScope(inspiretypes.CouponScope_AllGood.Enum(), true),
 	)
 	assert.Nil(t, err)
 
@@ -255,6 +282,9 @@ func setup(t *testing.T) func(*testing.T) {
 		}
 		_, _ = h7.DeleteCoupon(context.Background())
 
+		for _, h51 := range h51s {
+			_, _ = h51.DeleteCoin(context.Background())
+		}
 		for _, h5 := range h5s {
 			_, _ = h5.DeleteCoin(context.Background())
 		}
