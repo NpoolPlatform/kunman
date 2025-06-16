@@ -153,9 +153,6 @@ func WithOrderID(id *string, must bool) func(context.Context, *Handler) error {
 			}
 			return nil
 		}
-		if err := h.CheckOrderWithOrderID(ctx, *id); err != nil {
-			return wlog.WrapError(err)
-		}
 		h.OrderID = id
 		return nil
 	}

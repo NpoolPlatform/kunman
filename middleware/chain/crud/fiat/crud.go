@@ -11,10 +11,11 @@ import (
 )
 
 type Req struct {
-	EntID *uuid.UUID
-	Name  *string
-	Logo  *string
-	Unit  *string
+	EntID     *uuid.UUID
+	Name      *string
+	Logo      *string
+	Unit      *string
+	DeletedAt *uint32
 }
 
 func CreateSet(c *ent.FiatCreate, req *Req) *ent.FiatCreate {
@@ -42,6 +43,9 @@ func UpdateSet(u *ent.FiatUpdateOne, req *Req) *ent.FiatUpdateOne {
 	}
 	if req.Unit != nil {
 		u.SetUnit(*req.Unit)
+	}
+	if req.DeletedAt != nil {
+		u.SetDeletedAt(*req.DeletedAt)
 	}
 	return u
 }

@@ -3,16 +3,24 @@ package subscription
 import (
 	"context"
 	"fmt"
+	"math/rand"
 	"os"
 	"strconv"
 	"testing"
+	"time"
 
 	paymentgwpb "github.com/NpoolPlatform/kunman/message/order/gateway/v1/payment"
 	ordercouponmwpb "github.com/NpoolPlatform/kunman/message/order/middleware/v1/order/coupon"
 	paymentmwpb "github.com/NpoolPlatform/kunman/message/order/middleware/v1/payment"
 	npool "github.com/NpoolPlatform/kunman/message/order/middleware/v1/subscription"
+	appmw "github.com/NpoolPlatform/kunman/middleware/appuser/app"
+	usermw "github.com/NpoolPlatform/kunman/middleware/appuser/user"
+	coinmw "github.com/NpoolPlatform/kunman/middleware/chain/coin"
+	fiatmw "github.com/NpoolPlatform/kunman/middleware/chain/fiat"
 	appsubscription1 "github.com/NpoolPlatform/kunman/middleware/good/app/subscription"
 	subscription1 "github.com/NpoolPlatform/kunman/middleware/good/subscription"
+	couponmw "github.com/NpoolPlatform/kunman/middleware/inspire/coupon"
+	allocatedcouponmw "github.com/NpoolPlatform/kunman/middleware/inspire/coupon/allocated"
 
 	"github.com/google/uuid"
 	"github.com/shopspring/decimal"
@@ -20,6 +28,7 @@ import (
 
 	"github.com/NpoolPlatform/kunman/gateway/order/testinit"
 	goodtypes "github.com/NpoolPlatform/kunman/message/basetypes/good/v1"
+	inspiretypes "github.com/NpoolPlatform/kunman/message/basetypes/inspire/v1"
 	types "github.com/NpoolPlatform/kunman/message/basetypes/order/v1"
 )
 
@@ -63,6 +72,22 @@ var ret = npool.SubscriptionOrder{
 			CoinUSDCurrency:      decimal.NewFromInt(1).String(),
 			LocalCoinUSDCurrency: decimal.NewFromInt(1).String(),
 			LiveCoinUSDCurrency:  decimal.NewFromInt(1).String(),
+		},
+	},
+	PaymentTransfers: []*paymentmwpb.PaymentTransferInfo{
+		{
+			CoinTypeID:           uuid.NewString(),
+			Amount:               decimal.NewFromInt(110).String(),
+			CoinUSDCurrency:      decimal.NewFromInt(1).String(),
+			LocalCoinUSDCurrency: decimal.NewFromInt(1).String(),
+			LiveCoinUSDCurrency:  decimal.NewFromInt(1).String(),
+		},
+	},
+	PaymentFiats: []*paymentmwpb.PaymentFiatInfo{
+		{
+			FiatID:      uuid.NewString(),
+			Amount:      decimal.NewFromInt(110).String(),
+			USDCurrency: decimal.NewFromInt(1).String(),
 		},
 	},
 	OrderState:   types.OrderState_OrderStateCreated,
@@ -110,16 +135,141 @@ func setup(t *testing.T) func(*testing.T) {
 	err = h2.CreateSubscription(context.Background())
 	assert.Nil(t, err)
 
+	h3, err := appmw.NewHandler(
+		context.Background(),
+		appmw.WithEntID(&ret.AppID, true),
+		appmw.WithName(&ret.AppID, true),
+	)
+	assert.Nil(t, err)
+
+	_, err = h3.CreateApp(context.Background())
+	assert.Nil(t, err)
+
+	phoneNO := fmt.Sprintf("+86%v", rand.Intn(100000000)+rand.Intn(1000000))           //nolint
+	emailAddress := fmt.Sprintf("%v@hhh.ccc", rand.Intn(100000000)+rand.Intn(4000000)) //nolint
+
+	h4, err := usermw.NewHandler(
+		context.Background(),
+		usermw.WithEntID(&ret.UserID, true),
+		usermw.WithAppID(&ret.AppID, true),
+		usermw.WithPhoneNO(&phoneNO, true),
+		usermw.WithEmailAddress(&emailAddress, true),
+		usermw.WithPasswordHash(&ret.AppID, true),
+	)
+	assert.Nil(t, err)
+
+	_, err = h4.CreateUser(context.Background())
+	assert.Nil(t, err)
+
+	h5s := []*coinmw.Handler{}
+
+	for _, balance := range ret.PaymentBalances {
+		h5, err := coinmw.NewHandler(
+			context.Background(),
+			coinmw.WithEntID(&balance.CoinTypeID, true),
+			coinmw.WithName(&balance.CoinTypeID, true),
+			coinmw.WithUnit(&balance.CoinTypeID, true),
+			coinmw.WithENV(func() *string { s := "test"; return &s }(), true),
+		)
+		assert.Nil(t, err)
+
+		_, err = h5.CreateCoin(context.Background())
+		assert.Nil(t, err)
+
+		h5s = append(h5s, h5)
+	}
+
+	for _, balance := range ret.PaymentTransfers {
+		h5, err := coinmw.NewHandler(
+			context.Background(),
+			coinmw.WithEntID(&balance.CoinTypeID, true),
+			coinmw.WithName(&balance.CoinTypeID, true),
+			coinmw.WithUnit(&balance.CoinTypeID, true),
+			coinmw.WithENV(func() *string { s := "test"; return &s }(), true),
+		)
+		assert.Nil(t, err)
+
+		_, err = h5.CreateCoin(context.Background())
+		assert.Nil(t, err)
+
+		h5s = append(h5s, h5)
+	}
+
+	h6s := []*fiatmw.Handler{}
+
+	for _, balance := range ret.PaymentFiats {
+		h6, err := fiatmw.NewHandler(
+			context.Background(),
+			fiatmw.WithEntID(&balance.FiatID, true),
+			fiatmw.WithName(&balance.FiatID, true),
+			fiatmw.WithUnit(&balance.FiatID, true),
+		)
+		assert.Nil(t, err)
+
+		_, err = h6.CreateFiat(context.Background())
+		assert.Nil(t, err)
+
+		h6s = append(h6s, h6)
+	}
+
+	couponID := uuid.NewString()
+	startAt := uint32(time.Now().Unix())
+	endAt := uint32(time.Now().Unix()) + 1000
+	denomination := "12.2"
+	circulation := "9999"
+
+	h7, err := couponmw.NewHandler(
+		context.Background(),
+		couponmw.WithEntID(&couponID, true),
+		couponmw.WithAppID(&ret.AppID, true),
+		couponmw.WithCouponType(inspiretypes.CouponType_FixAmount.Enum(), true),
+		couponmw.WithStartAt(&startAt, true),
+		couponmw.WithEndAt(&endAt, true),
+		couponmw.WithDenomination(&denomination, true),
+		couponmw.WithCirculation(&circulation, true),
+	)
+	assert.Nil(t, err)
+
+	_, err = h7.CreateCoupon(context.Background())
+	assert.Nil(t, err)
+
+	h8s := []*allocatedcouponmw.Handler{}
+
+	for _, coupon := range ret.Coupons {
+		h8, err := allocatedcouponmw.NewHandler(
+			context.Background(),
+			allocatedcouponmw.WithEntID(&coupon.CouponID, true),
+			allocatedcouponmw.WithAppID(&ret.AppID, true),
+			allocatedcouponmw.WithUserID(&ret.UserID, true),
+			allocatedcouponmw.WithCouponID(&couponID, true),
+		)
+		assert.Nil(t, err)
+
+		err = h8.CreateCoupon(context.Background())
+		assert.Nil(t, err)
+	}
+
 	return func(*testing.T) {
+		for _, h8 := range h8s {
+			_ = h8.DeleteCoupon(context.Background())
+		}
+		_, _ = h7.DeleteCoupon(context.Background())
+
+		for _, h5 := range h5s {
+			_, _ = h5.DeleteCoin(context.Background())
+		}
+		for _, h6 := range h6s {
+			_, _ = h6.DeleteFiat(context.Background())
+		}
+
+		_, _ = h4.DeleteUser(context.Background())
+		_, _ = h3.DeleteApp(context.Background())
 		_ = h2.DeleteSubscription(context.Background())
 		_ = h1.DeleteSubscription(context.Background())
 	}
 }
 
 func createSubscription(t *testing.T) {
-	paymentTransferCoinTypeID := uuid.NewString()
-	paymentFiatID := uuid.NewString()
-
 	handler, err := NewHandler(
 		context.Background(),
 		WithEntID(&ret.EntID, true),
@@ -137,8 +287,8 @@ func createSubscription(t *testing.T) {
 			}
 			return
 		}(), true),
-		WithPaymentTransferCoinTypeID(&paymentTransferCoinTypeID, true),
-		WithPaymentFiatID(&paymentFiatID, true),
+		WithPaymentTransferCoinTypeID(&ret.PaymentTransfers[0].CoinTypeID, true),
+		WithPaymentFiatID(&ret.PaymentFiats[0].FiatID, true),
 		WithCouponIDs(func() (couponIDs []string) {
 			for _, coupon := range ret.Coupons {
 				couponIDs = append(couponIDs, coupon.CouponID)
