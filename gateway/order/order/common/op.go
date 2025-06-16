@@ -100,6 +100,12 @@ type OrderOpHandler struct {
 	TopMostAppGoods  map[string]*topmostgoodmwpb.TopMostGood
 }
 
+var runInUnitTest = false
+
+func init() {
+	runInUnitTest, _ = strconv.ParseBool(os.Getenv("RUN_IN_UNIT_TEST"))
+}
+
 func (h *OrderOpHandler) GetAppConfig(ctx context.Context) (err error) {
 	handler, err := orderappconfigmw.NewHandler(
 		ctx,
@@ -216,8 +222,6 @@ func (h *OrderOpHandler) GetCoinUSDCurrencies(ctx context.Context) error {
 	h.coinUSDCurrencies = map[string]*currencymwpb.Currency{}
 	now := uint32(time.Now().Unix())
 	for _, info := range infos {
-		runInUnitTest, _ := strconv.ParseBool(os.Getenv("RUN_IN_UNIT_TEST"))
-
 		if info.UpdatedAt+timedef.SecondsPerMinute*10 < now && !runInUnitTest {
 			return wlog.Errorf("stale coincurrency")
 		}
@@ -675,7 +679,7 @@ func (h *OrderOpHandler) ResolvePaymentType() error {
 func (h *OrderOpHandler) recheckPaymentAccount(ctx context.Context, paymentAccountID string) (bool, error) {
 	handler, err := paymentaccountmw.NewHandler(
 		ctx,
-		paymentaccountmw.WithAccountID(&paymentAccountID, true),
+		paymentaccountmw.WithEntID(&paymentAccountID, true),
 	)
 	if err != nil {
 		return false, wlog.WrapError(err)
@@ -739,6 +743,11 @@ func (h *OrderOpHandler) peekNewPaymentAccount(ctx context.Context) (*paymentacc
 	if !ok {
 		return nil, wlog.Errorf("invalid paymenttransfercoin")
 	}
+
+	if runInUnitTest {
+		paymentTransferCoin.CoinName = "usdttrc20"
+	}
+
 	for i := 0; i < 5; i++ {
 		address, err := sphinxproxycli.CreateAddress(ctx, paymentTransferCoin.CoinName)
 		if err != nil {
@@ -791,6 +800,11 @@ func (h *OrderOpHandler) GetPaymentTransferStartAmount(ctx context.Context) erro
 	if !ok {
 		return wlog.Errorf("invalid paymenttransfercoin")
 	}
+
+	if runInUnitTest {
+		paymentTransferCoin.CoinName = "usdttrc20"
+	}
+
 	balance, err := sphinxproxycli.GetBalance(ctx, &sphinxproxypb.GetBalanceRequest{
 		Name:    paymentTransferCoin.CoinName,
 		Address: h.PaymentTransferAccount.Address,

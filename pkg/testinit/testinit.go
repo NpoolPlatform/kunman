@@ -16,9 +16,11 @@ import (
 	redisconst "github.com/NpoolPlatform/kunman/framework/redis/const"
 )
 
-func Initialize(serviceNames ...string) error {
+func init() {
 	os.Setenv("RUN_IN_UNIT_TEST", "true")
+}
 
+func Initialize(serviceNames ...string) error {
 	_, myPath, _, ok := runtime.Caller(0)
 	if !ok {
 		return fmt.Errorf("cannot get source file path")
