@@ -8,31 +8,31 @@ import (
 	plugin_types "github.com/NpoolPlatform/kunman/mal/sphinx/plugin/types"
 
 	"github.com/NpoolPlatform/kunman/framework/logger"
-	"github.com/NpoolPlatform/kunman/message/sphinx/proxy"
+	proxypb "github.com/NpoolPlatform/kunman/message/sphinx/proxy"
 )
 
 type mSign struct {
-	signServer sphinxproxy.SphinxProxy_ProxySignServer
+	signServer proxypb.SphinxProxy_ProxySignServer
 	exitChan   chan struct{}
 	// conn error
 	connCloseChan chan struct{}
 	once          sync.Once
 	closeChan     chan struct{}
-	walletNew     chan *sphinxproxy.ProxySignRequest
-	preBalance    chan *sphinxproxy.ProxySignRequest
+	walletNew     chan *proxypb.ProxySignRequest
+	preBalance    chan *proxypb.ProxySignRequest
 
 	// aleo
 	ctype string
 }
 
-func newSignStream(name string, stream sphinxproxy.SphinxProxy_ProxySignServer) {
+func newSignStream(name string, stream proxypb.SphinxProxy_ProxySignServer) {
 	lc := &mSign{
 		signServer:    stream,
 		exitChan:      make(chan struct{}),
 		closeChan:     make(chan struct{}),
 		connCloseChan: make(chan struct{}),
-		walletNew:     make(chan *sphinxproxy.ProxySignRequest, channelBufSize),
-		preBalance:    make(chan *sphinxproxy.ProxySignRequest, channelBufSize),
+		walletNew:     make(chan *proxypb.ProxySignRequest, channelBufSize),
+		preBalance:    make(chan *proxypb.ProxySignRequest, channelBufSize),
 		ctype:         name,
 	}
 	slk.Lock()
@@ -141,7 +141,7 @@ func (s *mSign) signStreamRecv(wg *sync.WaitGroup) {
 			)
 
 			switch ssResponse.GetTransactionType() {
-			case sphinxproxy.TransactionType_PreBalance:
+			case proxypb.TransactionType_PreBalance:
 				ch, ok := balanceDoneChannel.Load(ssResponse.GetTransactionID())
 				if !ok {
 					logger.Sugar().Warnf("TransactionID: %v create wallet maybe timeout", ssResponse.GetTransactionID())
@@ -159,7 +159,7 @@ func (s *mSign) signStreamRecv(wg *sync.WaitGroup) {
 					success: true,
 					payload: ssResponse.Payload,
 				}
-			case sphinxproxy.TransactionType_WalletNew:
+			case proxypb.TransactionType_WalletNew:
 				ch, ok := walletDoneChannel.Load(ssResponse.GetTransactionID())
 				if !ok {
 					logger.Sugar().Warnf("TransactionID: %v create wallet maybe timeout", ssResponse.GetTransactionID())

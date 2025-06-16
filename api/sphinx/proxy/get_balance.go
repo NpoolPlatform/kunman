@@ -7,11 +7,11 @@ import (
 	"time"
 
 	"github.com/NpoolPlatform/kunman/framework/logger"
-	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	coinpb "github.com/NpoolPlatform/kunman/message/chain/middleware/v1/coin"
-	"github.com/NpoolPlatform/kunman/message/sphinx/plugin"
-	"github.com/NpoolPlatform/kunman/message/sphinx/proxy"
+	pluginpb "github.com/NpoolPlatform/kunman/message/sphinx/plugin"
+	proxypb "github.com/NpoolPlatform/kunman/message/sphinx/proxy"
+	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 
 	coincli "github.com/NpoolPlatform/chain-middleware/pkg/client/coin"
 	"github.com/NpoolPlatform/kunman/mal/sphinx/plugin/coins/getter"
@@ -31,7 +31,7 @@ type balanceDoneInfo struct {
 
 var balanceDoneChannel = sync.Map{}
 
-func (s *Server) GetBalance(ctx context.Context, in *sphinxproxy.GetBalanceRequest) (out *sphinxproxy.GetBalanceResponse, err error) {
+func (s *Server) GetBalance(ctx context.Context, in *proxypb.GetBalanceRequest) (out *proxypb.GetBalanceResponse, err error) {
 	logger.Sugar().Infof("get balance info coinType: %v address: %v", in.GetName(), in.GetAddress())
 	if in.GetAddress() == "" {
 		logger.Sugar().Errorf("GetBalance Address: %v invalid", in.GetAddress())
@@ -86,7 +86,7 @@ func (s *Server) GetBalance(ctx context.Context, in *sphinxproxy.GetBalanceReque
 	withPreBalance := false
 
 	switch coinType {
-	case sphinxplugin.CoinType_CoinTypeironfish, sphinxplugin.CoinType_CoinTypetironfish:
+	case pluginpb.CoinType_CoinTypeironfish, pluginpb.CoinType_CoinTypetironfish:
 		name = "ironfish"
 		withPreBalance = true
 	default:
@@ -110,10 +110,10 @@ func (s *Server) GetBalance(ctx context.Context, in *sphinxproxy.GetBalanceReque
 			return out, status.Error(codes.Internal, "internal server error")
 		}
 
-		signProxy.preBalance <- &sphinxproxy.ProxySignRequest{
+		signProxy.preBalance <- &proxypb.ProxySignRequest{
 			Name:            in.GetName(),
 			CoinType:        coinType,
-			TransactionType: sphinxproxy.TransactionType_PreBalance,
+			TransactionType: proxypb.TransactionType_PreBalance,
 			TransactionID:   puid,
 			Payload:         fromByte,
 		}
@@ -143,10 +143,10 @@ func (s *Server) GetBalance(ctx context.Context, in *sphinxproxy.GetBalanceReque
 	}
 
 	balanceDoneChannel.Store(uid, done)
-	pluginProxy.pluginReq <- &sphinxproxy.ProxyPluginRequest{
+	pluginProxy.pluginReq <- &proxypb.ProxyPluginRequest{
 		Name:            in.GetName(),
 		CoinType:        coinType,
-		TransactionType: sphinxproxy.TransactionType_Balance,
+		TransactionType: proxypb.TransactionType_Balance,
 		TransactionID:   uid,
 		Payload:         payload,
 		Address:         in.GetAddress(),
@@ -171,8 +171,8 @@ func (s *Server) GetBalance(ctx context.Context, in *sphinxproxy.GetBalanceReque
 			logger.Sugar().Errorf("Unmarshal balance info Addr: %v error: %v", in.GetAddress(), err)
 			return out, status.Error(codes.Internal, "internal server error")
 		}
-		out = &sphinxproxy.GetBalanceResponse{
-			Info: &sphinxproxy.BalanceInfo{
+		out = &proxypb.GetBalanceResponse{
+			Info: &proxypb.BalanceInfo{
 				Balance:    balance.Balance,
 				BalanceStr: balance.BalanceStr,
 			},

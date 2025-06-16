@@ -12,7 +12,7 @@ import (
 
 	"github.com/NpoolPlatform/kunman/framework/logger"
 	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
-	"github.com/NpoolPlatform/kunman/message/sphinx/plugin"
+	pluginpb "github.com/NpoolPlatform/kunman/message/sphinx/plugin"
 
 	coincli "github.com/NpoolPlatform/chain-middleware/pkg/client/coin"
 	coinpb "github.com/NpoolPlatform/kunman/message/chain/middleware/v1/coin"
@@ -25,7 +25,7 @@ next we can record the connect in db or other service(eg: redis), then
 we can start multi pod
 */
 
-type lmPluginType map[sphinxplugin.CoinType][]*mPlugin
+type lmPluginType map[pluginpb.CoinType][]*mPlugin
 
 var (
 	ErrNoSignServiceFound   = errors.New("no sign service conn found")
@@ -81,7 +81,7 @@ func getProxySign(name string) (*mSign, error) {
 	return lSigns[rnd.Intn(len(lSigns))], nil
 }
 
-func getProxyPlugin(coinType sphinxplugin.CoinType) (*mPlugin, error) {
+func getProxyPlugin(coinType pluginpb.CoinType) (*mPlugin, error) {
 	plk.RLock()
 	defer plk.RUnlock()
 	logger.Sugar().Infof("get coin %v proxy plugin length: %v", coinType, len(lmPlugin[coinType]))

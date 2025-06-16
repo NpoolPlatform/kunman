@@ -5,32 +5,32 @@ import (
 	"sync"
 
 	"github.com/NpoolPlatform/kunman/framework/logger"
-	coinpb "github.com/NpoolPlatform/kunman/message/chain/middleware/v1/coin"
-	"github.com/NpoolPlatform/kunman/message/sphinx/plugin"
-	"github.com/NpoolPlatform/kunman/message/sphinx/proxy"
 	putils "github.com/NpoolPlatform/kunman/mal/sphinx/plugin/rpc"
+	coinpb "github.com/NpoolPlatform/kunman/message/chain/middleware/v1/coin"
+	pluginpb "github.com/NpoolPlatform/kunman/message/sphinx/plugin"
+	proxypb "github.com/NpoolPlatform/kunman/message/sphinx/proxy"
 )
 
 type mPlugin struct {
-	pluginServer  sphinxproxy.SphinxProxy_ProxyPluginServer
-	coinType      sphinxplugin.CoinType
+	pluginServer  proxypb.SphinxProxy_ProxyPluginServer
+	coinType      pluginpb.CoinType
 	pluginInfo    string
 	exitChan      chan struct{}
 	connCloseChan chan struct{}
 	once          sync.Once
 	closeChan     chan struct{}
-	pluginReq     chan *sphinxproxy.ProxyPluginRequest
-	registerCoin  chan *sphinxproxy.ProxyPluginResponse
+	pluginReq     chan *proxypb.ProxyPluginRequest
+	registerCoin  chan *proxypb.ProxyPluginResponse
 }
 
-func newPluginStream(stream sphinxproxy.SphinxProxy_ProxyPluginServer) {
+func newPluginStream(stream proxypb.SphinxProxy_ProxyPluginServer) {
 	lp := &mPlugin{
 		pluginServer:  stream,
 		exitChan:      make(chan struct{}),
 		connCloseChan: make(chan struct{}),
 		closeChan:     make(chan struct{}),
-		pluginReq:     make(chan *sphinxproxy.ProxyPluginRequest, channelBufSize),
-		registerCoin:  make(chan *sphinxproxy.ProxyPluginResponse),
+		pluginReq:     make(chan *proxypb.ProxyPluginRequest, channelBufSize),
+		registerCoin:  make(chan *proxypb.ProxyPluginResponse),
 	}
 	wg := &sync.WaitGroup{}
 	wg.Add(3)
@@ -42,7 +42,7 @@ func newPluginStream(stream sphinxproxy.SphinxProxy_ProxyPluginServer) {
 }
 
 // add new coin type
-func (lp lmPluginType) append(coinType sphinxplugin.CoinType, pluginInfo string, lmp *mPlugin) (exist bool) {
+func (lp lmPluginType) append(coinType pluginpb.CoinType, pluginInfo string, lmp *mPlugin) (exist bool) {
 	plk.Lock()
 	defer plk.Unlock()
 	lmp.coinType = coinType
@@ -83,7 +83,7 @@ func (p *mPlugin) pluginStreamSend(wg *sync.WaitGroup) {
 				)
 
 				switch info.GetTransactionType() {
-				case sphinxproxy.TransactionType_Balance:
+				case proxypb.TransactionType_Balance:
 					ch, ok := balanceDoneChannel.Load(info.GetTransactionID())
 					if !ok {
 						logger.Sugar().Warnf(
@@ -99,7 +99,7 @@ func (p *mPlugin) pluginStreamSend(wg *sync.WaitGroup) {
 						success: false,
 						message: "send request to plugin error",
 					}
-				case sphinxproxy.TransactionType_EstimateGas:
+				case proxypb.TransactionType_EstimateGas:
 					ch, ok := esGasDoneChannel.Load(info.GetTransactionID())
 					if !ok {
 						logger.Sugar().Warnf(
@@ -160,7 +160,7 @@ func (p *mPlugin) pluginStreamRecv(wg *sync.WaitGroup) {
 			}
 
 			switch psResponse.GetTransactionType() {
-			case sphinxproxy.TransactionType_RegisterCoin:
+			case proxypb.TransactionType_RegisterCoin:
 				pluginInfo := fmt.Sprintf("%v-%v", psResponse.PluginPosition, psResponse.PluginWanIP)
 				exist := lmPlugin.append(psResponse.GetCoinType(), pluginInfo, p)
 				registered, err := haveCoin(psResponse.Name)
@@ -192,7 +192,7 @@ func (p *mPlugin) pluginStreamRecv(wg *sync.WaitGroup) {
 					continue
 				}
 				logger.Sugar().Infof("plugin: %v ,register new coin: %v ok,", pluginInfo, psResponse.GetName())
-			case sphinxproxy.TransactionType_Balance:
+			case proxypb.TransactionType_Balance:
 				ch, ok := balanceDoneChannel.Load(psResponse.GetTransactionID())
 				if !ok {
 					logger.Sugar().Warnf("%v %v :TransactionID: %v get balance maybe timeout", p.pluginInfo, psResponse.GetCoinType(), psResponse.GetTransactionID())
@@ -219,7 +219,7 @@ func (p *mPlugin) pluginStreamRecv(wg *sync.WaitGroup) {
 				}
 				logger.Sugar().Infof("%v %v : TransactionID: %v get balance ok", p.pluginInfo, psResponse.GetCoinType(), psResponse.GetTransactionID())
 
-			case sphinxproxy.TransactionType_EstimateGas:
+			case proxypb.TransactionType_EstimateGas:
 				ch, ok := esGasDoneChannel.Load(psResponse.GetTransactionID())
 				if !ok {
 					logger.Sugar().Warnf("%v %v :TransactionID: %v estimate gas maybe timeout", p.pluginInfo, psResponse.GetCoinType(), psResponse.GetTransactionID())

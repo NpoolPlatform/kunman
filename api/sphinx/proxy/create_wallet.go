@@ -9,10 +9,10 @@ import (
 	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 
 	"github.com/NpoolPlatform/kunman/framework/logger"
-	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
-	"github.com/NpoolPlatform/kunman/message/sphinx/plugin"
-	"github.com/NpoolPlatform/kunman/message/sphinx/proxy"
 	ct "github.com/NpoolPlatform/kunman/mal/sphinx/plugin/types"
+	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
+	pluginpb "github.com/NpoolPlatform/kunman/message/sphinx/plugin"
+	proxypb "github.com/NpoolPlatform/kunman/message/sphinx/proxy"
 	constant "github.com/NpoolPlatform/sphinx-proxy/pkg/const"
 	"github.com/NpoolPlatform/sphinx-proxy/pkg/utils"
 	"github.com/google/uuid"
@@ -33,7 +33,7 @@ type walletDoneInfo struct {
 
 var walletDoneChannel = sync.Map{}
 
-func (s *Server) CreateWallet(ctx context.Context, in *sphinxproxy.CreateWalletRequest) (out *sphinxproxy.CreateWalletResponse, err error) {
+func (s *Server) CreateWallet(ctx context.Context, in *proxypb.CreateWalletRequest) (out *proxypb.CreateWalletResponse, err error) {
 	if in.GetName() == "" {
 		logger.Sugar().Errorf("CreateWallet Name: %v empty", in.GetName())
 		return out, status.Error(codes.InvalidArgument, "Name empty")
@@ -58,18 +58,18 @@ func (s *Server) CreateWallet(ctx context.Context, in *sphinxproxy.CreateWalletR
 
 	coinType := utils.CoinName2Type(in.GetName())
 	pcoinInfo := getter.GetTokenInfo(in.GetName())
-	if pcoinInfo != nil && coinType == sphinxplugin.CoinType_CoinTypeUnKnow {
+	if pcoinInfo != nil && coinType == pluginpb.CoinType_CoinTypeUnKnow {
 		coinType = pcoinInfo.CoinType
 	}
 
 	name := ""
 
 	switch coinType {
-	case sphinxplugin.CoinType_CoinTypealeo, sphinxplugin.CoinType_CoinTypetaleo:
+	case pluginpb.CoinType_CoinTypealeo, pluginpb.CoinType_CoinTypetaleo:
 		name = "aleo"
-	case sphinxplugin.CoinType_CoinTypeironfish, sphinxplugin.CoinType_CoinTypetironfish:
+	case pluginpb.CoinType_CoinTypeironfish, pluginpb.CoinType_CoinTypetironfish:
 		name = "ironfish"
-	case sphinxplugin.CoinType_CoinTypespacemesh, sphinxplugin.CoinType_CoinTypetspacemesh:
+	case pluginpb.CoinType_CoinTypespacemesh, pluginpb.CoinType_CoinTypetspacemesh:
 		name = "spacemesh"
 	default:
 		name = in.GetName()
@@ -95,10 +95,10 @@ func (s *Server) CreateWallet(ctx context.Context, in *sphinxproxy.CreateWalletR
 	)
 
 	walletDoneChannel.Store(uid, done)
-	signProxy.walletNew <- &sphinxproxy.ProxySignRequest{
+	signProxy.walletNew <- &proxypb.ProxySignRequest{
 		Name:            in.GetName(),
 		CoinType:        coinType,
-		TransactionType: sphinxproxy.TransactionType_WalletNew,
+		TransactionType: proxypb.TransactionType_WalletNew,
 		TransactionID:   uid,
 		Payload:         payload,
 	}
@@ -115,8 +115,8 @@ func (s *Server) CreateWallet(ctx context.Context, in *sphinxproxy.CreateWalletR
 			logger.Sugar().Errorf("wait create wallet done error: %v", info.message)
 			return out, status.Error(codes.Internal, "internal server error")
 		}
-		out = &sphinxproxy.CreateWalletResponse{
-			Info: &sphinxproxy.WalletInfo{
+		out = &proxypb.CreateWalletResponse{
+			Info: &proxypb.WalletInfo{
 				Address: info.address,
 			},
 		}

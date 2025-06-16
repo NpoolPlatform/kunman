@@ -7,11 +7,11 @@ import (
 	"time"
 
 	"github.com/NpoolPlatform/kunman/framework/logger"
-	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	coinpb "github.com/NpoolPlatform/kunman/message/chain/middleware/v1/coin"
-	"github.com/NpoolPlatform/kunman/message/sphinx/plugin"
-	"github.com/NpoolPlatform/kunman/message/sphinx/proxy"
+	pluginpb "github.com/NpoolPlatform/kunman/message/sphinx/plugin"
+	proxypb "github.com/NpoolPlatform/kunman/message/sphinx/proxy"
+	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 
 	coincli "github.com/NpoolPlatform/chain-middleware/pkg/client/coin"
 	"github.com/NpoolPlatform/kunman/mal/sphinx/plugin/coins/getter"
@@ -30,7 +30,7 @@ type esGasDoneInfo struct {
 
 var esGasDoneChannel = sync.Map{}
 
-func (s *Server) GetEstimateGas(ctx context.Context, in *sphinxproxy.GetEstimateGasRequest) (out *sphinxproxy.GetEstimateGasResponse, err error) {
+func (s *Server) GetEstimateGas(ctx context.Context, in *proxypb.GetEstimateGasRequest) (out *proxypb.GetEstimateGasResponse, err error) {
 	logger.Sugar().Infof("get estimate gas info coin name: %v", in.GetName())
 
 	if in.GetName() == "" {
@@ -57,7 +57,7 @@ func (s *Server) GetEstimateGas(ctx context.Context, in *sphinxproxy.GetEstimate
 
 	coinType := utils.CoinName2Type(in.GetName())
 	pcoinInfo := getter.GetTokenInfo(in.GetName())
-	if pcoinInfo != nil || coinType == sphinxplugin.CoinType_CoinTypeUnKnow {
+	if pcoinInfo != nil || coinType == pluginpb.CoinType_CoinTypeUnKnow {
 		coinType = pcoinInfo.CoinType
 	}
 
@@ -73,7 +73,7 @@ func (s *Server) GetEstimateGas(ctx context.Context, in *sphinxproxy.GetEstimate
 	)
 
 	now := time.Now()
-	payload, err := json.Marshal(sphinxproxy.GetEstimateGasRequest{
+	payload, err := json.Marshal(proxypb.GetEstimateGasRequest{
 		Name: in.GetName(),
 	})
 	if err != nil {
@@ -82,10 +82,10 @@ func (s *Server) GetEstimateGas(ctx context.Context, in *sphinxproxy.GetEstimate
 	}
 
 	esGasDoneChannel.Store(uid, done)
-	pluginProxy.pluginReq <- &sphinxproxy.ProxyPluginRequest{
+	pluginProxy.pluginReq <- &proxypb.ProxyPluginRequest{
 		Name:            in.GetName(),
 		CoinType:        coinType,
-		TransactionType: sphinxproxy.TransactionType_EstimateGas,
+		TransactionType: proxypb.TransactionType_EstimateGas,
 		TransactionID:   uid,
 		Payload:         payload,
 	}
@@ -105,7 +105,7 @@ func (s *Server) GetEstimateGas(ctx context.Context, in *sphinxproxy.GetEstimate
 			return out, status.Error(codes.Internal, "internal server error")
 		}
 
-		esGas := sphinxproxy.GetEstimateGasResponse{}
+		esGas := proxypb.GetEstimateGasResponse{}
 		if err := json.Unmarshal(info.payload, &esGas); err != nil {
 			logger.Sugar().Errorf("Unmarshal estimate info coin name: %v error: %v", in.GetName(), err)
 			return out, status.Error(codes.Internal, "internal server error")

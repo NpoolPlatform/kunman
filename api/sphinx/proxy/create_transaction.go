@@ -5,20 +5,20 @@ import (
 
 	coincli "github.com/NpoolPlatform/chain-middleware/pkg/client/coin"
 	"github.com/NpoolPlatform/kunman/framework/logger"
+	"github.com/NpoolPlatform/kunman/mal/sphinx/plugin/coins/getter"
 	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	coinpb "github.com/NpoolPlatform/kunman/message/chain/middleware/v1/coin"
-	"github.com/NpoolPlatform/kunman/message/sphinx/plugin"
-	"github.com/NpoolPlatform/kunman/message/sphinx/proxy"
+	pluginpb "github.com/NpoolPlatform/kunman/message/sphinx/plugin"
+	proxypb "github.com/NpoolPlatform/kunman/message/sphinx/proxy"
 	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
-	"github.com/NpoolPlatform/kunman/mal/sphinx/plugin/coins/getter"
 	"github.com/NpoolPlatform/sphinx-proxy/pkg/crud"
 	"github.com/NpoolPlatform/sphinx-proxy/pkg/utils"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 )
 
-func (s *Server) CreateTransaction(ctx context.Context, in *sphinxproxy.CreateTransactionRequest) (out *sphinxproxy.CreateTransactionResponse, err error) {
-	out = &sphinxproxy.CreateTransactionResponse{}
+func (s *Server) CreateTransaction(ctx context.Context, in *proxypb.CreateTransactionRequest) (out *proxypb.CreateTransactionResponse, err error) {
+	out = &proxypb.CreateTransactionResponse{}
 
 	// args check
 	if in.GetName() == "" {
@@ -80,9 +80,9 @@ func (s *Server) CreateTransaction(ctx context.Context, in *sphinxproxy.CreateTr
 		coinType = pcoinInfo.CoinType
 	}
 
-	tstate := sphinxproxy.TransactionState_TransactionStateWait
+	tstate := proxypb.TransactionState_TransactionStateWait
 	if coinType == sphinxplugin.CoinType_CoinTypealeo || coinType == sphinxplugin.CoinType_CoinTypetaleo {
-		tstate = sphinxproxy.TransactionState_TransactionStatePrepare
+		tstate = proxypb.TransactionState_TransactionStatePrepare
 	}
 	// store to db
 	if err := crud.CreateTransaction(ctx, &crud.CreateTransactionParam{
