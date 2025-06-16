@@ -10,7 +10,7 @@ import (
 	"github.com/NpoolPlatform/kunman/message/sphinx/plugin"
 	"github.com/NpoolPlatform/kunman/message/sphinx/proxy"
 	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
-	"github.com/NpoolPlatform/sphinx-plugin/pkg/coins/getter"
+	"github.com/NpoolPlatform/kunman/mal/sphinx/plugin/coins/getter"
 	"github.com/NpoolPlatform/sphinx-proxy/pkg/crud"
 	"github.com/NpoolPlatform/sphinx-proxy/pkg/utils"
 	"google.golang.org/grpc/codes"

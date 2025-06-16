@@ -14,8 +14,8 @@ import (
 	"github.com/NpoolPlatform/kunman/message/sphinx/proxy"
 
 	coincli "github.com/NpoolPlatform/chain-middleware/pkg/client/coin"
-	"github.com/NpoolPlatform/sphinx-plugin/pkg/coins/getter"
-	ct "github.com/NpoolPlatform/sphinx-plugin/pkg/types"
+	"github.com/NpoolPlatform/kunman/mal/sphinx/plugin/coins/getter"
+	ct "github.com/NpoolPlatform/kunman/mal/sphinx/plugin/types"
 	constant "github.com/NpoolPlatform/sphinx-proxy/pkg/const"
 	"github.com/NpoolPlatform/sphinx-proxy/pkg/utils"
 	"github.com/google/uuid"

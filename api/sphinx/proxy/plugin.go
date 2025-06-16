@@ -8,7 +8,7 @@ import (
 	coinpb "github.com/NpoolPlatform/kunman/message/chain/middleware/v1/coin"
 	"github.com/NpoolPlatform/kunman/message/sphinx/plugin"
 	"github.com/NpoolPlatform/kunman/message/sphinx/proxy"
-	putils "github.com/NpoolPlatform/sphinx-plugin/pkg/rpc"
+	putils "github.com/NpoolPlatform/kunman/mal/sphinx/plugin/rpc"
 )
 
 type mPlugin struct {

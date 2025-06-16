@@ -4,8 +4,8 @@ import (
 	"encoding/json"
 	"sync"
 
-	putils "github.com/NpoolPlatform/sphinx-plugin/pkg/rpc"
-	plugin_types "github.com/NpoolPlatform/sphinx-plugin/pkg/types"
+	putils "github.com/NpoolPlatform/kunman/mal/sphinx/plugin/rpc"
+	plugin_types "github.com/NpoolPlatform/kunman/mal/sphinx/plugin/types"
 
 	"github.com/NpoolPlatform/kunman/framework/logger"
 	"github.com/NpoolPlatform/kunman/message/sphinx/proxy"

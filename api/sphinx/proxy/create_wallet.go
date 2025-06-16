@@ -12,7 +12,7 @@ import (
 	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	"github.com/NpoolPlatform/kunman/message/sphinx/plugin"
 	"github.com/NpoolPlatform/kunman/message/sphinx/proxy"
-	ct "github.com/NpoolPlatform/sphinx-plugin/pkg/types"
+	ct "github.com/NpoolPlatform/kunman/mal/sphinx/plugin/types"
 	constant "github.com/NpoolPlatform/sphinx-proxy/pkg/const"
 	"github.com/NpoolPlatform/sphinx-proxy/pkg/utils"
 	"github.com/google/uuid"
@@ -22,7 +22,7 @@ import (
 	coincli "github.com/NpoolPlatform/chain-middleware/pkg/client/coin"
 	coinpb "github.com/NpoolPlatform/kunman/message/chain/middleware/v1/coin"
 
-	"github.com/NpoolPlatform/sphinx-plugin/pkg/coins/getter"
+	"github.com/NpoolPlatform/kunman/mal/sphinx/plugin/coins/getter"
 )
 
 type walletDoneInfo struct {

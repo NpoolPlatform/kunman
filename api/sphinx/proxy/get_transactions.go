@@ -7,7 +7,7 @@ import (
 	"github.com/NpoolPlatform/kunman/framework/price"
 	"github.com/NpoolPlatform/kunman/message/sphinx/plugin"
 	"github.com/NpoolPlatform/kunman/message/sphinx/proxy"
-	pconst "github.com/NpoolPlatform/sphinx-plugin/pkg/message/const"
+	pconst "github.com/NpoolPlatform/kunman/mal/sphinx/plugin/message/const"
 	constant "github.com/NpoolPlatform/sphinx-proxy/pkg/const"
 	"github.com/NpoolPlatform/sphinx-proxy/pkg/crud"
 	"github.com/NpoolPlatform/sphinx-proxy/pkg/db/ent"
