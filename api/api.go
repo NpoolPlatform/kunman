@@ -1,26 +1,30 @@
 package api
 
 import (
-	agi "github.com/NpoolPlatform/kunman/api/agi"
-	sphinxproxy "github.com/NpoolPlatform/kunman/api/sphinx/proxy"
+	"context"
 
-	npool "github.com/NpoolPlatform/kunman/message/version"
+	agi "github.com/NpoolPlatform/kunman/api/agi"
+
+	kunman "github.com/NpoolPlatform/kunman/message/version"
+
+	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
+	"google.golang.org/grpc"
 )
 
 type Server struct {
-	npool.UnimplementedGatewayServer
+	kunman.UnimplementedKunmanServer
 }
 
 func Register(server grpc.ServiceRegistrar) {
-	agi.RegisterGatewayServer(server, &Server{})
-	sphinxproxy.RegisterGatewayServer(server, &Server{})
+	kunman.RegisterKunmanServer(server, &Server{})
+	agi.Register(server)
 }
 
 func RegisterGateway(mux *runtime.ServeMux, endpoint string, opts []grpc.DialOption) error {
-	if err := agi.RegisterGatewayHandlerFromEndpoint(context.Background(), mux, endpoint, opts); err != nil {
+	if err := kunman.RegisterKunmanHandlerFromEndpoint(context.Background(), mux, endpoint, opts); err != nil {
 		return err
 	}
-	if err := sphinxproxy.RegisterGatewayHandlerFromEndpoint(context.Background(), mux, endpoint, opts); err != nil {
+	if err := agi.RegisterGateway(mux, endpoint, opts); err != nil {
 		return err
 	}
 
