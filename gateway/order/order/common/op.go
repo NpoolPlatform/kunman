@@ -102,6 +102,8 @@ type OrderOpHandler struct {
 
 var runInUnitTest = false
 
+const testCoinName = "tusdttrc20"
+
 func init() {
 	runInUnitTest, _ = strconv.ParseBool(os.Getenv("RUN_IN_UNIT_TEST"))
 }
@@ -745,7 +747,7 @@ func (h *OrderOpHandler) peekNewPaymentAccount(ctx context.Context) (*paymentacc
 	}
 
 	if runInUnitTest {
-		paymentTransferCoin.CoinName = "usdttrc20"
+		paymentTransferCoin.CoinName = testCoinName
 	}
 
 	for i := 0; i < 5; i++ {
@@ -802,7 +804,7 @@ func (h *OrderOpHandler) GetPaymentTransferStartAmount(ctx context.Context) erro
 	}
 
 	if runInUnitTest {
-		paymentTransferCoin.CoinName = "usdttrc20"
+		paymentTransferCoin.CoinName = testCoinName
 	}
 
 	balance, err := sphinxproxycli.GetBalance(ctx, &sphinxproxypb.GetBalanceRequest{
