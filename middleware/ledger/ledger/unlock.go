@@ -55,21 +55,21 @@ func (h *Handler) UnlockBalance(ctx context.Context) (*ledgermwpb.Ledger, error)
 		},
 	}
 
-	if err := handler.getLocks(ctx); err != nil {
-		if ent.IsNotFound(err) && h.Rollback != nil && *h.Rollback {
-			return nil, nil
-		}
-		return nil, err
-	}
-	if len(handler.locks) == 0 {
-		return nil, nil
-	}
-	if h.Rollback != nil && *h.Rollback {
-		handler.state = types.LedgerLockState_LedgerLockRollback.Enum()
-	}
-	handler.lop.ledgerIDs = []uuid.UUID{handler.locks[0].LedgerID}
-
 	err := db.WithTx(ctx, func(ctx context.Context, tx *ent.Tx) error {
+		if err := handler.getLocks(ctx, tx.LedgerLock); err != nil {
+			if ent.IsNotFound(err) && h.Rollback != nil && *h.Rollback {
+				return nil
+			}
+			return err
+		}
+		if len(handler.locks) == 0 {
+			return nil
+		}
+		if h.Rollback != nil && *h.Rollback {
+			handler.state = types.LedgerLockState_LedgerLockRollback.Enum()
+		}
+		handler.lop.ledgerIDs = []uuid.UUID{handler.locks[0].LedgerID}
+
 		if err := handler.lop.getLedgers(ctx, tx); err != nil {
 			return err
 		}
@@ -110,23 +110,23 @@ func (h *Handler) UnlockBalances(ctx context.Context) ([]*ledgermwpb.Ledger, err
 		},
 	}
 
-	if err := handler.getLocks(ctx); err != nil {
-		if ent.IsNotFound(err) && h.Rollback != nil && *h.Rollback {
-			return nil, nil
-		}
-		return nil, err
-	}
-	if len(handler.locks) == 0 {
-		return nil, nil
-	}
-	if h.Rollback != nil && *h.Rollback {
-		handler.state = types.LedgerLockState_LedgerLockRollback.Enum()
-	}
-	for _, lock := range handler.locks {
-		handler.lop.ledgerIDs = append(handler.lop.ledgerIDs, lock.LedgerID)
-	}
-
 	err := db.WithTx(ctx, func(ctx context.Context, tx *ent.Tx) error {
+		if err := handler.getLocks(ctx, tx.LedgerLock); err != nil {
+			if ent.IsNotFound(err) && h.Rollback != nil && *h.Rollback {
+				return nil
+			}
+			return err
+		}
+		if len(handler.locks) == 0 {
+			return nil
+		}
+		if h.Rollback != nil && *h.Rollback {
+			handler.state = types.LedgerLockState_LedgerLockRollback.Enum()
+		}
+		for _, lock := range handler.locks {
+			handler.lop.ledgerIDs = append(handler.lop.ledgerIDs, lock.LedgerID)
+		}
+
 		if err := handler.lop.getLedgers(ctx, tx); err != nil {
 			return err
 		}

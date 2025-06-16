@@ -7,6 +7,7 @@ import (
 	chainmwsvcname "github.com/NpoolPlatform/kunman/middleware/chain/servicename"
 	goodmwsvcname "github.com/NpoolPlatform/kunman/middleware/good/servicename"
 	inspiremwsvcname "github.com/NpoolPlatform/kunman/middleware/inspire/servicename"
+	ledgermwsvcname "github.com/NpoolPlatform/kunman/middleware/ledger/servicename"
 	ordermwsvcname "github.com/NpoolPlatform/kunman/middleware/order/servicename"
 	testinit "github.com/NpoolPlatform/kunman/pkg/testinit"
 	sphinxproxysvcname "github.com/NpoolPlatform/sphinx-proxy/pkg/servicename"
@@ -16,6 +17,7 @@ func Init() error {
 	return testinit.Initialize(
 		myservicename.ServiceDomain,
 		goodmwsvcname.ServiceDomain,
+		ledgermwsvcname.ServiceDomain,
 		inspiremwsvcname.ServiceDomain,
 		ordermwsvcname.ServiceDomain,
 		accountmwsvcname.ServiceDomain,

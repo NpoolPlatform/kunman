@@ -47,14 +47,14 @@ func (h *Handler) LockBalance(ctx context.Context) (*ledgermwpb.Ledger, error) {
 		},
 	}
 
-	if err := handler.getLocks(ctx); err != nil {
-		return nil, err
-	}
-	if len(handler.locks) > 0 {
-		return nil, fmt.Errorf("invalid lockid")
-	}
-
 	err := db.WithTx(ctx, func(ctx context.Context, tx *ent.Tx) error {
+		if err := handler.getLocks(ctx, tx.LedgerLock); err != nil {
+			return err
+		}
+		if len(handler.locks) > 0 {
+			return fmt.Errorf("invalid lockid")
+		}
+
 		if err := handler.lop.getLedgers(ctx, tx); err != nil {
 			return err
 		}
@@ -108,7 +108,7 @@ func (h *Handler) LockBalancesWithTx(ctx context.Context, tx *ent.Tx) ([]*ledger
 		},
 	}
 
-	if err := handler.getLocks(ctx); err != nil {
+	if err := handler.getLocks(ctx, tx.LedgerLock); err != nil {
 		return nil, err
 	}
 	if len(handler.locks) > 0 {
@@ -137,7 +137,7 @@ func (h *Handler) LockBalancesWithTx(ctx context.Context, tx *ent.Tx) ([]*ledger
 	}
 	h.Offset = 0
 	h.Limit = int32(len(handler.lop.ledgerIDs))
-	infos, _, err := h.GetLedgers(ctx)
+	infos, _, err := h.GetLedgersWithTx(ctx, tx)
 	if err != nil {
 		return nil, err
 	}

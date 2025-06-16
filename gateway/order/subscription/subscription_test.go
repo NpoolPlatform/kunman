@@ -9,6 +9,7 @@ import (
 	"testing"
 	"time"
 
+	ledgerstatementmwpb "github.com/NpoolPlatform/kunman/message/ledger/middleware/v2/ledger/statement"
 	paymentgwpb "github.com/NpoolPlatform/kunman/message/order/gateway/v1/payment"
 	ordercouponmwpb "github.com/NpoolPlatform/kunman/message/order/middleware/v1/order/coupon"
 	paymentmwpb "github.com/NpoolPlatform/kunman/message/order/middleware/v1/payment"
@@ -22,6 +23,7 @@ import (
 	subscription1 "github.com/NpoolPlatform/kunman/middleware/good/subscription"
 	couponmw "github.com/NpoolPlatform/kunman/middleware/inspire/coupon"
 	allocatedcouponmw "github.com/NpoolPlatform/kunman/middleware/inspire/coupon/allocated"
+	ledgerstatementmw "github.com/NpoolPlatform/kunman/middleware/ledger/ledger/statement"
 
 	"github.com/google/uuid"
 	"github.com/shopspring/decimal"
@@ -30,6 +32,7 @@ import (
 	"github.com/NpoolPlatform/kunman/gateway/order/testinit"
 	goodtypes "github.com/NpoolPlatform/kunman/message/basetypes/good/v1"
 	inspiretypes "github.com/NpoolPlatform/kunman/message/basetypes/inspire/v1"
+	ledgertypes "github.com/NpoolPlatform/kunman/message/basetypes/ledger/v1"
 	types "github.com/NpoolPlatform/kunman/message/basetypes/order/v1"
 )
 
@@ -275,6 +278,30 @@ func setup(t *testing.T) func(*testing.T) {
 		err = h8.CreateCoupon(context.Background())
 		assert.Nil(t, err)
 	}
+
+	ledgerStatementReqs := []*ledgerstatementmwpb.StatementReq{}
+	userExtra := fmt.Sprintf(`{"AccountID": "%v", "UserID": "%v"}`, uuid.NewString(), uuid.NewString())
+
+	for _, balance := range ret.PaymentBalances {
+		ledgerStatementReqs = append(ledgerStatementReqs, &ledgerstatementmwpb.StatementReq{
+			AppID:      &ret.AppID,
+			UserID:     &ret.UserID,
+			CoinTypeID: &balance.CoinTypeID,
+			Amount:     &circulation,
+			IOType:     ledgertypes.IOType_Incoming.Enum(),
+			IOSubType:  ledgertypes.IOSubType_Deposit.Enum(),
+			IOExtra:    &userExtra,
+		})
+	}
+
+	h9, err := ledgerstatementmw.NewHandler(
+		context.Background(),
+		ledgerstatementmw.WithReqs(ledgerStatementReqs, true),
+	)
+	assert.Nil(t, err)
+
+	_, err = h9.CreateStatements(context.Background())
+	assert.Nil(t, err)
 
 	return func(*testing.T) {
 		for _, h8 := range h8s {

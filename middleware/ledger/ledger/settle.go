@@ -112,17 +112,17 @@ func (h *Handler) SettleBalance(ctx context.Context) (*ledgermwpb.Ledger, error)
 		},
 	}
 
-	if err := handler.getLocks(ctx); err != nil {
-		return nil, err
-	}
-
-	handler.lop.ledgerIDs = []uuid.UUID{handler.locks[0].LedgerID}
-	h.StatementIDs = []uuid.UUID{*h.StatementID}
-	if len(h.StatementIDs) != len(handler.locks) {
-		return nil, wlog.Errorf("mismatched statementids")
-	}
-
 	err := db.WithTx(ctx, func(ctx context.Context, tx *ent.Tx) error { //nolint:dupl
+		if err := handler.getLocks(ctx, tx.LedgerLock); err != nil {
+			return err
+		}
+
+		handler.lop.ledgerIDs = []uuid.UUID{handler.locks[0].LedgerID}
+		h.StatementIDs = []uuid.UUID{*h.StatementID}
+		if len(h.StatementIDs) != len(handler.locks) {
+			return wlog.Errorf("mismatched statementids")
+		}
+
 		if err := handler.lop.getLedgers(ctx, tx); err != nil {
 			return wlog.WrapError(err)
 		}
@@ -156,17 +156,17 @@ func (h *Handler) SettleBalances(ctx context.Context) ([]*ledgermwpb.Ledger, err
 		},
 	}
 
-	if err := handler.getLocks(ctx); err != nil {
-		return nil, err
-	}
-	for _, lock := range handler.locks {
-		handler.lop.ledgerIDs = append(handler.lop.ledgerIDs, lock.LedgerID)
-	}
-	if len(h.StatementIDs) != len(handler.locks) {
-		return nil, wlog.Errorf("mismatched statementids")
-	}
-
 	err := db.WithTx(ctx, func(ctx context.Context, tx *ent.Tx) error { //nolint:dupl
+		if err := handler.getLocks(ctx, tx.LedgerLock); err != nil {
+			return err
+		}
+		for _, lock := range handler.locks {
+			handler.lop.ledgerIDs = append(handler.lop.ledgerIDs, lock.LedgerID)
+		}
+		if len(h.StatementIDs) != len(handler.locks) {
+			return wlog.Errorf("mismatched statementids")
+		}
+
 		if err := handler.lop.getLedgers(ctx, tx); err != nil {
 			return wlog.WrapError(err)
 		}

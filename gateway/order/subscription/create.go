@@ -63,11 +63,17 @@ func (h *Handler) CreateSubscriptionOrder(ctx context.Context) (*npool.Subscript
 	if err := handler.GetAppCoins(ctx, nil); err != nil {
 		return nil, wlog.WrapError(err)
 	}
+	if err := handler.getAppSubscription(ctx); err != nil {
+		return nil, wlog.WrapError(err)
+	}
 	if err := handler.AcquirePaymentTransferAccount(ctx); err != nil {
 		return nil, wlog.WrapError(err)
 	}
 	defer handler.ReleasePaymentTransferAccount()
 	if err := handler.GetPaymentTransferStartAmount(ctx); err != nil {
+		return nil, wlog.WrapError(err)
+	}
+	if err := handler.constructSubscriptionOrderReq(); err != nil {
 		return nil, wlog.WrapError(err)
 	}
 	if err := handler.calculateTotalGoodValueUSD(); err != nil {

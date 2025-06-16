@@ -6,7 +6,6 @@ import (
 
 	types "github.com/NpoolPlatform/kunman/message/basetypes/ledger/v1"
 	ledgerlockcrud "github.com/NpoolPlatform/kunman/middleware/ledger/crud/ledger/lock"
-	"github.com/NpoolPlatform/kunman/middleware/ledger/db"
 	ent "github.com/NpoolPlatform/kunman/middleware/ledger/db/ent/generated"
 	entledgerlock "github.com/NpoolPlatform/kunman/middleware/ledger/db/ent/generated/ledgerlock"
 
@@ -26,22 +25,19 @@ type lockopHandler struct {
 	state *types.LedgerLockState
 }
 
-func (h *lockopHandler) getLocks(ctx context.Context) error {
-	return db.WithClient(ctx, func(_ctx context.Context, cli *ent.Client) error {
-		locks, err := cli.
-			LedgerLock.
-			Query().
-			Where(
-				entledgerlock.ExLockID(*h.LockID),
-				entledgerlock.DeletedAt(0),
-			).
-			All(_ctx)
-		if err != nil {
-			return err
-		}
-		h.locks = locks
-		return nil
-	})
+func (h *lockopHandler) getLocks(ctx context.Context, cli *ent.LedgerLockClient) error {
+	locks, err := cli.
+		Query().
+		Where(
+			entledgerlock.ExLockID(*h.LockID),
+			entledgerlock.DeletedAt(0),
+		).
+		All(ctx)
+	if err != nil {
+		return err
+	}
+	h.locks = locks
+	return nil
 }
 
 func (h *lockopHandler) createLocks(ctx context.Context, tx *ent.Tx) error {

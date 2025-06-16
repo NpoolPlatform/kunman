@@ -50,8 +50,8 @@ func (h *queryHandler) queryLedger(cli *ent.Client) error {
 	return nil
 }
 
-func (h *queryHandler) queryLedgers(ctx context.Context, cli *ent.Client) error {
-	stm, err := crud.SetQueryConds(cli.Ledger.Query(), h.Conds)
+func (h *queryHandler) queryLedgers(ctx context.Context, cli *ent.LedgerClient) error {
+	stm, err := crud.SetQueryConds(cli.Query(), h.Conds)
 	if err != nil {
 		return err
 	}
@@ -125,6 +125,26 @@ func (h *Handler) GetLedger(ctx context.Context) (*npool.Ledger, error) {
 	return handler.infos[0], nil
 }
 
+func (h *Handler) GetLedgersWithTx(ctx context.Context, tx *ent.Tx) ([]*npool.Ledger, uint32, error) {
+	handler := &queryHandler{
+		Handler: h,
+		infos:   []*npool.Ledger{},
+	}
+
+	if err := handler.queryLedgers(ctx, tx.Ledger); err != nil {
+		return nil, 0, err
+	}
+	handler.stmSelect.
+		Offset(int(handler.Offset)).
+		Limit(int(handler.Limit))
+
+	if err := handler.scan(ctx); err != nil {
+		return nil, 0, err
+	}
+	handler.formalize()
+	return handler.infos, handler.total, nil
+}
+
 func (h *Handler) GetLedgers(ctx context.Context) ([]*npool.Ledger, uint32, error) {
 	handler := &queryHandler{
 		Handler: h,
@@ -132,7 +152,7 @@ func (h *Handler) GetLedgers(ctx context.Context) ([]*npool.Ledger, uint32, erro
 	}
 
 	err := db.WithClient(ctx, func(_ctx context.Context, cli *ent.Client) error {
-		if err := handler.queryLedgers(ctx, cli); err != nil {
+		if err := handler.queryLedgers(ctx, cli.Ledger); err != nil {
 			return err
 		}
 		handler.stmSelect.
@@ -153,7 +173,7 @@ func (h *Handler) GetLedgerOnly(ctx context.Context) (*npool.Ledger, error) {
 	}
 
 	err := db.WithClient(ctx, func(_ctx context.Context, cli *ent.Client) error {
-		if err := handler.queryLedgers(_ctx, cli); err != nil {
+		if err := handler.queryLedgers(_ctx, cli.Ledger); err != nil {
 			return err
 		}
 		_, err := handler.stmSelect.Only(_ctx)

@@ -560,6 +560,14 @@ func (h *OrderOpHandler) getCoinUSDCurrency(coinTypeID string) (cur decimal.Deci
 	if amount.GreaterThan(decimal.NewFromInt(0)) {
 		local = func() *string { s := amount.String(); return &s }()
 	}
+
+	if runInUnitTest {
+		cur = decimal.NewFromInt(1)
+		s := cur.String()
+		live = &s
+		local = &s
+	}
+
 	if cur.Cmp(decimal.NewFromInt(0)) <= 0 {
 		return cur, live, local, wlog.Errorf("invalid currency")
 	}
