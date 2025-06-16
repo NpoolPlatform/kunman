@@ -3,7 +3,7 @@ package ledger
 import (
 	"errors"
 
-	wlog "github.com/NpoolPlatform/go-service-framework/pkg/wlog"
+	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
 	ent "github.com/NpoolPlatform/kunman/middleware/ledger/db/ent/generated"
 	entledger "github.com/NpoolPlatform/kunman/middleware/ledger/db/ent/generated/ledger"
 	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"

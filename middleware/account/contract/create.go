@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"time"
 
-	wlog "github.com/NpoolPlatform/go-service-framework/pkg/wlog"
+	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
 	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	"github.com/NpoolPlatform/kunman/middleware/account/db"
 	ent "github.com/NpoolPlatform/kunman/middleware/account/db/ent/generated"

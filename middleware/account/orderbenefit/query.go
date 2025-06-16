@@ -6,7 +6,7 @@ import (
 
 	"entgo.io/ent/dialect/sql"
 
-	"github.com/NpoolPlatform/go-service-framework/pkg/logger"
+	"github.com/NpoolPlatform/kunman/framework/logger"
 	"github.com/NpoolPlatform/kunman/middleware/account/db"
 	ent "github.com/NpoolPlatform/kunman/middleware/account/db/ent/generated"
 	entaccount "github.com/NpoolPlatform/kunman/middleware/account/db/ent/generated/account"

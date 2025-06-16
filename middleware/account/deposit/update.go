@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"time"
 
-	timedef "github.com/NpoolPlatform/go-service-framework/pkg/const/time"
+	timedef "github.com/NpoolPlatform/kunman/framework/const/time"
 	accountcrud "github.com/NpoolPlatform/kunman/middleware/account/crud/account"
 	depositcrud "github.com/NpoolPlatform/kunman/middleware/account/crud/deposit"
 	"github.com/NpoolPlatform/kunman/middleware/account/db"

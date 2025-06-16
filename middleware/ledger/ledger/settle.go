@@ -3,7 +3,7 @@ package ledger
 import (
 	"context"
 
-	wlog "github.com/NpoolPlatform/go-service-framework/pkg/wlog"
+	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
 	types "github.com/NpoolPlatform/kunman/message/basetypes/ledger/v1"
 	ledgermwpb "github.com/NpoolPlatform/kunman/message/ledger/middleware/v2/ledger"
 	ledgercrud "github.com/NpoolPlatform/kunman/middleware/ledger/crud/ledger"
