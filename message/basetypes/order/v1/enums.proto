@@ -226,7 +226,8 @@ enum PaymentType {
   PayWithOtherOrder         = 50;
   PayWithContract           = 60;
 
-  PayWithFiat               = 70;
+  PayWithFiatOnly           = 70;
+  PayWithFiatAndBalance     = 80;
 
   PayWithOffline = 1000;
   PayWithNoPayment = 1010;

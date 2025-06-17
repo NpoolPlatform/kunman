@@ -59,7 +59,6 @@ var ret = npool.SubscriptionOrder{
 	AppGoodName:         uuid.NewString(),
 	OrderID:             uuid.NewString(),
 	OrderType:           types.OrderType_Normal,
-	PaymentType:         types.PaymentType_PayWithBalanceOnly,
 	CreateMethod:        types.OrderCreateMethod_OrderCreatedByPurchase,
 	GoodValueUSD:        decimal.NewFromInt(120).String(),
 	PaymentGoodValueUSD: decimal.NewFromInt(120).String(),
@@ -71,26 +70,22 @@ var ret = npool.SubscriptionOrder{
 	Coupons: []*ordercoupongwpb.OrderCouponInfo{
 		{
 			AllocatedCouponID: uuid.NewString(),
+			CouponType:        inspiretypes.CouponType_FixAmount,
+			Denomination:      "12.2",
 		},
 	},
 	PaymentBalances: []*paymentgwpb.PaymentBalanceInfo{
 		{
 			CoinTypeID:      uuid.NewString(),
-			Amount:          decimal.NewFromInt(110).String(),
+			Amount:          decimal.RequireFromString("103.8").String(),
 			CoinUSDCurrency: decimal.NewFromInt(1).String(),
 		},
 	},
-	PaymentTransfers: []*paymentgwpb.PaymentTransferInfo{
-		{
-			CoinTypeID:      uuid.NewString(),
-			Amount:          decimal.NewFromInt(110).String(),
-			CoinUSDCurrency: decimal.NewFromInt(1).String(),
-		},
-	},
+	PaymentTransfers: []*paymentgwpb.PaymentTransferInfo{},
 	PaymentFiats: []*paymentgwpb.PaymentFiatInfo{
 		{
 			FiatID:      uuid.NewString(),
-			Amount:      decimal.NewFromInt(110).String(),
+			Amount:      decimal.NewFromInt(4).String(),
 			USDCurrency: decimal.NewFromInt(1).String(),
 		},
 	},
@@ -100,6 +95,7 @@ var ret = npool.SubscriptionOrder{
 	DurationUnit:        "MSG_WEEK",
 	Durations:           1,
 	DurationSeconds:     timedef.SecondsPerWeek,
+	PaymentType:         types.PaymentType_PayWithFiatAndBalance,
 }
 
 func setup(t *testing.T) func(*testing.T) {
@@ -240,17 +236,16 @@ func setup(t *testing.T) func(*testing.T) {
 	couponID := uuid.NewString()
 	startAt := uint32(time.Now().Unix())
 	endAt := uint32(time.Now().Unix()) + 1000
-	denomination := "12.2"
 	circulation := "9999"
 
 	h7, err := couponmw.NewHandler(
 		context.Background(),
 		couponmw.WithEntID(&couponID, true),
 		couponmw.WithAppID(&ret.AppID, true),
-		couponmw.WithCouponType(inspiretypes.CouponType_FixAmount.Enum(), true),
+		couponmw.WithCouponType(&ret.Coupons[0].CouponType, true),
 		couponmw.WithStartAt(&startAt, true),
 		couponmw.WithEndAt(&endAt, true),
-		couponmw.WithDenomination(&denomination, true),
+		couponmw.WithDenomination(&ret.Coupons[0].Denomination, true),
 		couponmw.WithCirculation(&circulation, true),
 		couponmw.WithCouponScope(inspiretypes.CouponScope_AllGood.Enum(), true),
 	)
@@ -362,6 +357,11 @@ func createSubscription(t *testing.T) {
 		ret.LedgerLockID = info.LedgerLockID
 		ret.PaymentID = info.PaymentID
 		ret.ID = info.ID
+
+		for i, coupon := range info.Coupons {
+			ret.Coupons[i].CreatedAt = coupon.CreatedAt
+		}
+
 		assert.Equal(t, info, &ret)
 	}
 }

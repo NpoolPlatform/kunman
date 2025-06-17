@@ -17,7 +17,8 @@ import (
 	types "github.com/NpoolPlatform/kunman/message/basetypes/order/v1"
 	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	appcoinmwpb "github.com/NpoolPlatform/kunman/message/chain/middleware/v1/app/coin"
-	currencymwpb "github.com/NpoolPlatform/kunman/message/chain/middleware/v1/coin/currency"
+	coincurrencymwpb "github.com/NpoolPlatform/kunman/message/chain/middleware/v1/coin/currency"
+	fiatcurrencymwpb "github.com/NpoolPlatform/kunman/message/chain/middleware/v1/fiat/currency"
 	appgoodmwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/app/good"
 	requiredappgoodmwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/app/good/required"
 	topmostgoodmwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/app/good/topmost/good"
@@ -33,7 +34,8 @@ import (
 	appmw "github.com/NpoolPlatform/kunman/middleware/appuser/app"
 	usermw "github.com/NpoolPlatform/kunman/middleware/appuser/user"
 	appcoinmw "github.com/NpoolPlatform/kunman/middleware/chain/app/coin"
-	currencymw "github.com/NpoolPlatform/kunman/middleware/chain/coin/currency"
+	coincurrencymw "github.com/NpoolPlatform/kunman/middleware/chain/coin/currency"
+	fiatcurrencymw "github.com/NpoolPlatform/kunman/middleware/chain/fiat/currency"
 	appgoodmw "github.com/NpoolPlatform/kunman/middleware/good/app/good"
 	requiredappgoodmw "github.com/NpoolPlatform/kunman/middleware/good/app/good/required"
 	topmostgoodmw "github.com/NpoolPlatform/kunman/middleware/good/app/good/topmost/good"
@@ -68,7 +70,8 @@ type OrderOpHandler struct {
 	Simulate                  bool
 
 	allocatedCoupons  map[string]*allocatedcouponmwpb.Coupon
-	coinUSDCurrencies map[string]*currencymwpb.Currency
+	coinUSDCurrencies map[string]*coincurrencymwpb.Currency
+	fiatUSDCurrencies map[string]*fiatcurrencymwpb.Currency
 	AppGoods          map[string]*appgoodmwpb.Good
 
 	PaymentBalanceReqs         []*paymentmwpb.PaymentBalanceReq
@@ -204,14 +207,14 @@ func (h *OrderOpHandler) GetCoinUSDCurrencies(ctx context.Context) error {
 		coinTypeIDs = append(coinTypeIDs, *h.PaymentTransferCoinTypeID)
 	}
 
-	conds := &currencymwpb.Conds{
+	conds := &coincurrencymwpb.Conds{
 		CoinTypeIDs: &basetypes.StringSliceVal{Op: cruder.IN, Value: coinTypeIDs},
 	}
-	handler, err := currencymw.NewHandler(
+	handler, err := coincurrencymw.NewHandler(
 		ctx,
-		currencymw.WithConds(conds),
-		currencymw.WithOffset(0),
-		currencymw.WithLimit(int32(len(coinTypeIDs)*2)), // Work around for multi currency channel
+		coincurrencymw.WithConds(conds),
+		coincurrencymw.WithOffset(0),
+		coincurrencymw.WithLimit(int32(len(coinTypeIDs)*2)), // Work around for multi currency channel
 	)
 	if err != nil {
 		return wlog.WrapError(err)
@@ -221,13 +224,46 @@ func (h *OrderOpHandler) GetCoinUSDCurrencies(ctx context.Context) error {
 	if err != nil {
 		return wlog.WrapError(err)
 	}
-	h.coinUSDCurrencies = map[string]*currencymwpb.Currency{}
+	h.coinUSDCurrencies = map[string]*coincurrencymwpb.Currency{}
 	now := uint32(time.Now().Unix())
 	for _, info := range infos {
 		if info.UpdatedAt+timedef.SecondsPerMinute*10 < now && !runInUnitTest {
 			return wlog.Errorf("stale coincurrency")
 		}
 		h.coinUSDCurrencies[info.CoinTypeID] = info
+	}
+	return nil
+}
+
+func (h *OrderOpHandler) GetFiatUSDCurrencies(ctx context.Context) error {
+	if h.PaymentFiatID == nil {
+		return nil
+	}
+
+	conds := &fiatcurrencymwpb.Conds{
+		FiatIDs: &basetypes.StringSliceVal{Op: cruder.IN, Value: []string{*h.PaymentFiatID}},
+	}
+	handler, err := fiatcurrencymw.NewHandler(
+		ctx,
+		fiatcurrencymw.WithConds(conds),
+		fiatcurrencymw.WithOffset(0),
+		fiatcurrencymw.WithLimit(2), // Work around for multi currency channel
+	)
+	if err != nil {
+		return wlog.WrapError(err)
+	}
+
+	infos, _, err := handler.GetCurrencies(ctx)
+	if err != nil {
+		return wlog.WrapError(err)
+	}
+	h.fiatUSDCurrencies = map[string]*fiatcurrencymwpb.Currency{}
+	now := uint32(time.Now().Unix())
+	for _, info := range infos {
+		if info.UpdatedAt+timedef.SecondsPerMinute*10 < now && !runInUnitTest {
+			return wlog.Errorf("stale fiatcurrency")
+		}
+		h.fiatUSDCurrencies[info.FiatID] = info
 	}
 	return nil
 }
@@ -575,6 +611,29 @@ func (h *OrderOpHandler) getCoinUSDCurrency(coinTypeID string) (cur decimal.Deci
 	return cur, live, local, nil
 }
 
+func (h *OrderOpHandler) getFiatUSDCurrency(fiatID string) (cur decimal.Decimal, err error) {
+	currency, ok := h.fiatUSDCurrencies[fiatID]
+	if !ok {
+		return cur, wlog.Errorf("invalid currency")
+	}
+	amount, err := decimal.NewFromString(currency.MarketValueLow)
+	if err != nil {
+		return cur, wlog.WrapError(err)
+	}
+
+	cur = amount
+
+	if runInUnitTest {
+		cur = decimal.NewFromInt(1)
+	}
+
+	if cur.Cmp(decimal.NewFromInt(0)) <= 0 {
+		return cur, wlog.Errorf("invalid currency")
+	}
+
+	return cur, nil
+}
+
 func (h *OrderOpHandler) ConstructOrderPayment() error {
 	switch h.OrderType {
 	case types.OrderType_Offline:
@@ -620,27 +679,44 @@ func (h *OrderOpHandler) ConstructOrderPayment() error {
 			return nil
 		}
 	}
-	if h.PaymentTransferCoinTypeID == nil {
-		return wlog.Errorf("invalid paymenttransfercointypeid")
+
+	if h.PaymentTransferCoinTypeID != nil {
+		if h.PaymentTransferAccount == nil {
+			return wlog.Errorf("invalid paymenttransferaccount")
+		}
+		cur, live, local, err := h.getCoinUSDCurrency(*h.PaymentTransferCoinTypeID)
+		if err != nil {
+			return wlog.WrapError(err)
+		}
+
+		remainAmountCoin := remainAmountUSD.Div(cur)
+		h.PaymentTransferReq = &paymentmwpb.PaymentTransferReq{
+			CoinTypeID:           h.PaymentTransferCoinTypeID,
+			Amount:               func() *string { s := remainAmountCoin.String(); return &s }(),
+			AccountID:            &h.PaymentTransferAccount.AccountID,
+			StartAmount:          func() *string { s := h.PaymentTransferStartAmount.String(); return &s }(),
+			CoinUSDCurrency:      func() *string { s := cur.String(); return &s }(),
+			LiveCoinUSDCurrency:  live,
+			LocalCoinUSDCurrency: local,
+		}
+		return nil
+	} else if h.PaymentFiatID != nil {
+		cur, err := h.getFiatUSDCurrency(*h.PaymentFiatID)
+		if err != nil {
+			return wlog.WrapError(err)
+		}
+
+		remainAmountFiat := remainAmountUSD.Div(cur)
+		h.PaymentFiatReq = &paymentmwpb.PaymentFiatReq{
+			FiatID: h.PaymentFiatID,
+			// PaymentChannel:
+			Amount: func() *string { s := remainAmountFiat.String(); return &s }(),
+			// ChannelPaymentID:
+			USDCurrency: func() *string { s := cur.String(); return &s }(),
+		}
 	}
-	if h.PaymentTransferAccount == nil {
-		return wlog.Errorf("invalid paymenttransferaccount")
-	}
-	cur, live, local, err := h.getCoinUSDCurrency(*h.PaymentTransferCoinTypeID)
-	if err != nil {
-		return wlog.WrapError(err)
-	}
-	remainAmountCoin := remainAmountUSD.Div(cur)
-	h.PaymentTransferReq = &paymentmwpb.PaymentTransferReq{
-		CoinTypeID:           h.PaymentTransferCoinTypeID,
-		Amount:               func() *string { s := remainAmountCoin.String(); return &s }(),
-		AccountID:            &h.PaymentTransferAccount.AccountID,
-		StartAmount:          func() *string { s := h.PaymentTransferStartAmount.String(); return &s }(),
-		CoinUSDCurrency:      func() *string { s := cur.String(); return &s }(),
-		LiveCoinUSDCurrency:  live,
-		LocalCoinUSDCurrency: local,
-	}
-	return nil
+
+	return wlog.Errorf("invalid payment")
 }
 
 func (h *OrderOpHandler) ValidateCouponConstraint() error {
@@ -660,26 +736,41 @@ func (h *OrderOpHandler) ValidateCouponConstraint() error {
 }
 
 func (h *OrderOpHandler) ResolvePaymentType() error {
-	if h.PaymentTransferReq == nil && len(h.PaymentBalanceReqs) == 0 {
+	hasFiat := h.PaymentFiatReq != nil
+	hasBalance := len(h.PaymentBalanceReqs) > 0
+	hasTransfer := h.PaymentTransferReq != nil
+
+	if !hasFiat && !hasBalance && !hasTransfer {
 		if !h.Simulate {
 			switch h.OrderType {
-			case types.OrderType_Offline:
-			case types.OrderType_Airdrop:
+			case types.OrderType_Offline, types.OrderType_Airdrop:
 			default:
-				return wlog.Errorf("invalid paymenttype")
+				return wlog.Errorf("invalid paymenttype: no payment method provided")
 			}
 		}
 		h.PaymentType = types.PaymentType_PayWithNoPayment.Enum()
+		return nil
 	}
-	if h.PaymentTransferReq == nil {
+
+	switch {
+	case hasFiat && !hasBalance && !hasTransfer:
+		h.PaymentType = types.PaymentType_PayWithFiatOnly.Enum()
+	case !hasFiat && hasBalance && !hasTransfer:
 		h.PaymentType = types.PaymentType_PayWithBalanceOnly.Enum()
-		return nil
-	}
-	if len(h.PaymentBalanceReqs) == 0 {
+	case !hasFiat && !hasBalance && hasTransfer:
 		h.PaymentType = types.PaymentType_PayWithTransferOnly.Enum()
-		return nil
+	case hasFiat && hasBalance && !hasTransfer:
+		h.PaymentType = types.PaymentType_PayWithFiatAndBalance.Enum()
+	case !hasFiat && hasBalance && hasTransfer:
+		h.PaymentType = types.PaymentType_PayWithTransferAndBalance.Enum()
+	case hasFiat && !hasBalance && hasTransfer:
+		fallthrough
+	case hasFiat && hasBalance && hasTransfer:
+		fallthrough
+	default:
+		return wlog.Errorf("invalid paymenttype combination")
 	}
-	h.PaymentType = types.PaymentType_PayWithTransferAndBalance.Enum()
+
 	return nil
 }
 
@@ -837,7 +928,7 @@ func (h *OrderOpHandler) PrepareLedgerLockID() {
 }
 
 func (h *OrderOpHandler) PreparePaymentID() {
-	if h.PaymentTransferReq == nil && len(h.PaymentBalanceReqs) == 0 {
+	if h.PaymentTransferReq == nil && len(h.PaymentBalanceReqs) == 0 && h.PaymentFiatReq == nil {
 		return
 	}
 	h.PaymentID = func() *string { s := uuid.NewString(); return &s }()

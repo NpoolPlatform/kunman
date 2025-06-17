@@ -246,7 +246,8 @@ func WithPaymentType(paymentType *types.PaymentType, must bool) func(context.Con
 		case types.PaymentType_PayWithTransferAndBalance:
 		case types.PaymentType_PayWithOffline:
 		case types.PaymentType_PayWithNoPayment:
-		case types.PaymentType_PayWithFiat:
+		case types.PaymentType_PayWithFiatOnly:
+		case types.PaymentType_PayWithFiatAndBalance:
 		default:
 			return wlog.Errorf("invalid paymentType")
 		}

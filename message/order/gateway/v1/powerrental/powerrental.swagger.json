@@ -1072,7 +1072,8 @@
         "PayWithParentOrder",
         "PayWithOtherOrder",
         "PayWithContract",
-        "PayWithFiat",
+        "PayWithFiatOnly",
+        "PayWithFiatAndBalance",
         "PayWithOffline",
         "PayWithNoPayment"
       ],
