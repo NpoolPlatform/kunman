@@ -1008,6 +1008,9 @@
         "TopMostTargetUrl": {
           "type": "string"
         },
+        "PaymentGoodValueUSD": {
+          "type": "string"
+        },
         "DurationDisplayType": {
           "$ref": "#/definitions/v1GoodDurationType"
         },
@@ -1044,6 +1047,12 @@
         },
         "PaymentState": {
           "$ref": "#/definitions/v1PaymentState"
+        },
+        "LedgerLockID": {
+          "type": "string"
+        },
+        "PaymentID": {
+          "type": "string"
         },
         "Coupons": {
           "type": "array",

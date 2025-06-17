@@ -10,10 +10,9 @@ import (
 	"time"
 
 	ledgerstatementmwpb "github.com/NpoolPlatform/kunman/message/ledger/middleware/v2/ledger/statement"
+	ordercoupongwpb "github.com/NpoolPlatform/kunman/message/order/gateway/v1/order/coupon"
 	paymentgwpb "github.com/NpoolPlatform/kunman/message/order/gateway/v1/payment"
-	ordercouponmwpb "github.com/NpoolPlatform/kunman/message/order/middleware/v1/order/coupon"
-	paymentmwpb "github.com/NpoolPlatform/kunman/message/order/middleware/v1/payment"
-	npool "github.com/NpoolPlatform/kunman/message/order/middleware/v1/subscription"
+	npool "github.com/NpoolPlatform/kunman/message/order/gateway/v1/subscription"
 	appmw "github.com/NpoolPlatform/kunman/middleware/appuser/app"
 	usermw "github.com/NpoolPlatform/kunman/middleware/appuser/user"
 	appcoinmw "github.com/NpoolPlatform/kunman/middleware/chain/app/coin"
@@ -48,7 +47,10 @@ func init() {
 var ret = npool.SubscriptionOrder{
 	EntID:               uuid.NewString(),
 	AppID:               uuid.NewString(),
+	AppName:             uuid.NewString(),
 	UserID:              uuid.NewString(),
+	PhoneNO:             fmt.Sprintf("+86%v", rand.Intn(100000000)+rand.Intn(1000000)),
+	EmailAddress:        fmt.Sprintf("%v@hhh.ccc", rand.Intn(100000000)+rand.Intn(4000000)),
 	GoodID:              uuid.NewString(),
 	GoodType:            goodtypes.GoodType_Subscription,
 	AppGoodID:           uuid.NewString(),
@@ -64,30 +66,26 @@ var ret = npool.SubscriptionOrder{
 	DurationSeconds:     100000,
 	LedgerLockID:        uuid.NewString(),
 	PaymentID:           uuid.NewString(),
-	Coupons: []*ordercouponmwpb.OrderCouponInfo{
+	Coupons: []*ordercoupongwpb.OrderCouponInfo{
 		{
-			CouponID: uuid.NewString(),
+			AllocatedCouponID: uuid.NewString(),
 		},
 	},
-	PaymentBalances: []*paymentmwpb.PaymentBalanceInfo{
+	PaymentBalances: []*paymentgwpb.PaymentBalanceInfo{
 		{
-			CoinTypeID:           uuid.NewString(),
-			Amount:               decimal.NewFromInt(110).String(),
-			CoinUSDCurrency:      decimal.NewFromInt(1).String(),
-			LocalCoinUSDCurrency: decimal.NewFromInt(1).String(),
-			LiveCoinUSDCurrency:  decimal.NewFromInt(1).String(),
+			CoinTypeID:      uuid.NewString(),
+			Amount:          decimal.NewFromInt(110).String(),
+			CoinUSDCurrency: decimal.NewFromInt(1).String(),
 		},
 	},
-	PaymentTransfers: []*paymentmwpb.PaymentTransferInfo{
+	PaymentTransfers: []*paymentgwpb.PaymentTransferInfo{
 		{
-			CoinTypeID:           uuid.NewString(),
-			Amount:               decimal.NewFromInt(110).String(),
-			CoinUSDCurrency:      decimal.NewFromInt(1).String(),
-			LocalCoinUSDCurrency: decimal.NewFromInt(1).String(),
-			LiveCoinUSDCurrency:  decimal.NewFromInt(1).String(),
+			CoinTypeID:      uuid.NewString(),
+			Amount:          decimal.NewFromInt(110).String(),
+			CoinUSDCurrency: decimal.NewFromInt(1).String(),
 		},
 	},
-	PaymentFiats: []*paymentmwpb.PaymentFiatInfo{
+	PaymentFiats: []*paymentgwpb.PaymentFiatInfo{
 		{
 			FiatID:      uuid.NewString(),
 			Amount:      decimal.NewFromInt(110).String(),
@@ -99,8 +97,6 @@ var ret = npool.SubscriptionOrder{
 }
 
 func setup(t *testing.T) func(*testing.T) {
-	ret.GoodTypeStr = ret.GoodType.String()
-
 	goodName := uuid.NewString()
 	appGoodName := uuid.NewString()
 	usdPrice := "12.99"
@@ -142,22 +138,19 @@ func setup(t *testing.T) func(*testing.T) {
 	h3, err := appmw.NewHandler(
 		context.Background(),
 		appmw.WithEntID(&ret.AppID, true),
-		appmw.WithName(&ret.AppID, true),
+		appmw.WithName(&ret.AppName, true),
 	)
 	assert.Nil(t, err)
 
 	_, err = h3.CreateApp(context.Background())
 	assert.Nil(t, err)
 
-	phoneNO := fmt.Sprintf("+86%v", rand.Intn(100000000)+rand.Intn(1000000))           //nolint
-	emailAddress := fmt.Sprintf("%v@hhh.ccc", rand.Intn(100000000)+rand.Intn(4000000)) //nolint
-
 	h4, err := usermw.NewHandler(
 		context.Background(),
 		usermw.WithEntID(&ret.UserID, true),
 		usermw.WithAppID(&ret.AppID, true),
-		usermw.WithPhoneNO(&phoneNO, true),
-		usermw.WithEmailAddress(&emailAddress, true),
+		usermw.WithPhoneNO(&ret.PhoneNO, true),
+		usermw.WithEmailAddress(&ret.EmailAddress, true),
 		usermw.WithPasswordHash(&ret.AppID, true),
 	)
 	assert.Nil(t, err)
@@ -268,7 +261,7 @@ func setup(t *testing.T) func(*testing.T) {
 	for _, coupon := range ret.Coupons {
 		h8, err := allocatedcouponmw.NewHandler(
 			context.Background(),
-			allocatedcouponmw.WithEntID(&coupon.CouponID, true),
+			allocatedcouponmw.WithEntID(&coupon.AllocatedCouponID, true),
 			allocatedcouponmw.WithAppID(&ret.AppID, true),
 			allocatedcouponmw.WithUserID(&ret.UserID, true),
 			allocatedcouponmw.WithCouponID(&couponID, true),
@@ -348,7 +341,7 @@ func createSubscription(t *testing.T) {
 		WithPaymentFiatID(&ret.PaymentFiats[0].FiatID, true),
 		WithCouponIDs(func() (couponIDs []string) {
 			for _, coupon := range ret.Coupons {
-				couponIDs = append(couponIDs, coupon.CouponID)
+				couponIDs = append(couponIDs, coupon.AllocatedCouponID)
 			}
 			return
 		}(), true),

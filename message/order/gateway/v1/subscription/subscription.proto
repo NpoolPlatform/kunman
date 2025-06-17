@@ -118,6 +118,7 @@ message SubscriptionOrder {
     string PromotionID = 330;
     string TopMostTitle = 340;
     string TopMostTargetUrl = 350;
+    string PaymentGoodValueUSD = 360;
 
     basetypes.good.v1.GoodDurationType DurationDisplayType = 400;
     string DurationUnit = 410;
@@ -130,6 +131,9 @@ message SubscriptionOrder {
     bool UserSetCanceled = 480;
     bool AdminSetCanceled = 490;
     basetypes.order.v1.PaymentState PaymentState = 500;
+
+    string LedgerLockID = 510;
+    string PaymentID = 520;
 
     repeated order.gateway.order1.coupon.v1.OrderCouponInfo Coupons = 600;
     repeated order.gateway.payment.v1.PaymentBalanceInfo PaymentBalances = 610;

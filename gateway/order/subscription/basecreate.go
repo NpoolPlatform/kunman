@@ -63,14 +63,21 @@ func (h *baseCreateHandler) constructSubscriptionOrderReq() error {
 		return wlog.WrapError(err)
 	}
 
+	if h.EntID == nil {
+		h.EntID = func() *string { s := uuid.NewString(); return &s }()
+	}
+	if h.OrderID == nil {
+		h.OrderID = func() *string { s := uuid.NewString(); return &s }()
+	}
+
 	req := &subscriptionordermwpb.SubscriptionOrderReq{
-		EntID:        func() *string { s := uuid.NewString(); return &s }(),
+		EntID:        h.EntID,
 		AppID:        h.Handler.OrderCheckHandler.AppID,
 		UserID:       h.Handler.OrderCheckHandler.UserID,
 		GoodID:       &h.appSubscription.GoodID,
 		GoodType:     &h.appSubscription.GoodType,
 		AppGoodID:    &h.appSubscription.AppGoodID,
-		OrderID:      func() *string { s := uuid.NewString(); return &s }(),
+		OrderID:      h.OrderID,
 		OrderType:    h.Handler.OrderType,
 		CreateMethod: h.CreateMethod, // Admin or Purchase
 
