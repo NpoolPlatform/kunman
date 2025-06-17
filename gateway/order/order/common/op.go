@@ -680,6 +680,10 @@ func (h *OrderOpHandler) ConstructOrderPayment() error {
 		}
 	}
 
+	if h.PaymentTransferCoinTypeID != nil && h.PaymentFiatID != nil {
+		return wlog.Errorf("invalid payment")
+	}
+
 	if h.PaymentTransferCoinTypeID != nil {
 		if h.PaymentTransferAccount == nil {
 			return wlog.Errorf("invalid paymenttransferaccount")
@@ -714,6 +718,7 @@ func (h *OrderOpHandler) ConstructOrderPayment() error {
 			// ChannelPaymentID:
 			USDCurrency: func() *string { s := cur.String(); return &s }(),
 		}
+		return nil
 	}
 
 	return wlog.Errorf("invalid payment")
@@ -752,6 +757,10 @@ func (h *OrderOpHandler) ResolvePaymentType() error {
 		return nil
 	}
 
+	if hasFiat && hasTransfer {
+		return wlog.Errorf("invalid paymenttype combination: fiat and transfer cannot coexist")
+	}
+
 	switch {
 	case hasFiat && !hasBalance && !hasTransfer:
 		h.PaymentType = types.PaymentType_PayWithFiatOnly.Enum()
@@ -763,10 +772,6 @@ func (h *OrderOpHandler) ResolvePaymentType() error {
 		h.PaymentType = types.PaymentType_PayWithFiatAndBalance.Enum()
 	case !hasFiat && hasBalance && hasTransfer:
 		h.PaymentType = types.PaymentType_PayWithTransferAndBalance.Enum()
-	case hasFiat && !hasBalance && hasTransfer:
-		fallthrough
-	case hasFiat && hasBalance && hasTransfer:
-		fallthrough
 	default:
 		return wlog.Errorf("invalid paymenttype combination")
 	}

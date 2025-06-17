@@ -15,6 +15,7 @@ import (
 	paymentbalance1 "github.com/NpoolPlatform/kunman/middleware/order/payment/balance"
 	paymentbalancelock1 "github.com/NpoolPlatform/kunman/middleware/order/payment/balance/lock"
 	paymentcommon "github.com/NpoolPlatform/kunman/middleware/order/payment/common"
+	paymentfiat1 "github.com/NpoolPlatform/kunman/middleware/order/payment/fiat"
 	paymenttransfer1 "github.com/NpoolPlatform/kunman/middleware/order/payment/transfer"
 	subscriptionorderstate1 "github.com/NpoolPlatform/kunman/middleware/order/subscription/state"
 
@@ -35,6 +36,7 @@ type createHandler struct {
 	sqlPaymentBase            string
 	sqlPaymentBalances        []string
 	sqlPaymentTransfers       []string
+	sqlPaymentFiats           []string
 }
 
 func (h *createHandler) constructSQL() {
@@ -91,6 +93,8 @@ func (h *createHandler) constructPaymentBaseSQL(ctx context.Context) {
 	case types.PaymentType_PayWithBalanceOnly:
 	case types.PaymentType_PayWithTransferOnly:
 	case types.PaymentType_PayWithTransferAndBalance:
+	case types.PaymentType_PayWithFiatOnly:
+	case types.PaymentType_PayWithFiatAndBalance:
 	default:
 		return
 	}
@@ -112,6 +116,14 @@ func (h *createHandler) constructPaymentTransferSQLs(ctx context.Context) {
 		handler, _ := paymenttransfer1.NewHandler(ctx)
 		handler.Req = *req
 		h.sqlPaymentTransfers = append(h.sqlPaymentTransfers, handler.ConstructCreateSQL())
+	}
+}
+
+func (h *createHandler) constructPaymentFiatSQLs(ctx context.Context) {
+	for _, req := range h.PaymentFiatReqs {
+		handler, _ := paymentfiat1.NewHandler(ctx)
+		handler.Req = *req
+		h.sqlPaymentFiats = append(h.sqlPaymentFiats, handler.ConstructCreateSQL())
 	}
 }
 
@@ -187,6 +199,15 @@ func (h *createHandler) createPaymentTransfers(ctx context.Context, tx *ent.Tx) 
 	return nil
 }
 
+func (h *createHandler) createPaymentFiats(ctx context.Context, tx *ent.Tx) error {
+	for _, sql := range h.sqlPaymentFiats {
+		if err := h.execSQL(ctx, tx, sql); err != nil {
+			return wlog.WrapError(err)
+		}
+	}
+	return nil
+}
+
 func (h *createHandler) createSubscriptionOrder(ctx context.Context, tx *ent.Tx) error {
 	return h.execSQL(ctx, tx, h.sql)
 }
@@ -243,6 +264,15 @@ func (h *createHandler) formalizePaymentTransfers() {
 	}
 }
 
+func (h *createHandler) formalizePaymentFiats() {
+	for _, req := range h.PaymentFiatReqs {
+		req.PaymentID = h.PaymentBaseReq.EntID
+		if req.EntID == nil {
+			req.EntID = func() *uuid.UUID { uid := uuid.New(); return &uid }()
+		}
+	}
+}
+
 func (h *createHandler) formalizePaymentType() error {
 	if *h.OrderBaseReq.OrderType == types.OrderType_Offline {
 		h.OrderStateBaseReq.PaymentType = func() *types.PaymentType { e := types.PaymentType_PayWithOffline; return &e }()
@@ -252,21 +282,34 @@ func (h *createHandler) formalizePaymentType() error {
 		h.OrderStateBaseReq.PaymentType = func() *types.PaymentType { e := types.PaymentType_PayWithNoPayment; return &e }()
 		return nil
 	}
-	if len(h.PaymentBalanceReqs) > 0 && len(h.PaymentTransferReqs) > 0 {
-		h.OrderStateBaseReq.PaymentType = func() *types.PaymentType { e := types.PaymentType_PayWithTransferAndBalance; return &e }()
-		return nil
+
+	hasTransfer := len(h.PaymentTransferReqs) > 0
+	hasBalance := len(h.PaymentBalanceReqs) > 0
+	hasFiat := len(h.PaymentFiatReqs) > 0
+
+	newPaymentType := func(ptypes types.PaymentType) *types.PaymentType {
+		return &ptypes
 	}
-	if len(h.PaymentBalanceReqs) > 0 {
-		h.OrderStateBaseReq.PaymentType = func() *types.PaymentType { e := types.PaymentType_PayWithBalanceOnly; return &e }()
-		return nil
+
+	if hasFiat && hasTransfer {
+		return wlog.Errorf("invalid payment type: fiat and transfer cannot coexist")
 	}
-	if len(h.PaymentTransferReqs) > 0 {
-		h.OrderStateBaseReq.PaymentType = func() *types.PaymentType { e := types.PaymentType_PayWithTransferOnly; return &e }()
-		return nil
+
+	switch {
+	case hasTransfer && hasBalance:
+		h.OrderStateBaseReq.PaymentType = newPaymentType(types.PaymentType_PayWithTransferAndBalance)
+	case hasFiat && hasBalance:
+		h.OrderStateBaseReq.PaymentType = newPaymentType(types.PaymentType_PayWithFiatAndBalance)
+	case hasTransfer:
+		h.OrderStateBaseReq.PaymentType = newPaymentType(types.PaymentType_PayWithTransferOnly)
+	case hasBalance:
+		h.OrderStateBaseReq.PaymentType = newPaymentType(types.PaymentType_PayWithBalanceOnly)
+	case hasFiat:
+		h.OrderStateBaseReq.PaymentType = newPaymentType(types.PaymentType_PayWithFiatOnly)
+	default:
+		return wlog.Errorf("invalid payment type: no payment method provided")
 	}
-	if h.OrderStateBaseReq.PaymentType == nil {
-		return wlog.Errorf("invalid paymenttype")
-	}
+
 	return nil
 }
 
@@ -324,7 +367,7 @@ func (h *createHandler) validatePaymentType() error {
 
 func (h *createHandler) validatePayment() error {
 	if !h.paymentChecker.Payable() {
-		if len(h.PaymentBalanceReqs) > 0 || len(h.PaymentTransferReqs) > 0 {
+		if len(h.PaymentBalanceReqs) > 0 || len(h.PaymentTransferReqs) > 0 || len(h.PaymentFiatReqs) > 0 {
 			return wlog.Errorf("invalid payment")
 		}
 		return nil
@@ -365,6 +408,7 @@ func (h *Handler) CreateSubscriptionOrderWithTx(ctx context.Context, tx *ent.Tx)
 			PaymentType:         h.OrderStateBaseReq.PaymentType,
 			PaymentBalanceReqs:  h.PaymentBalanceReqs,
 			PaymentTransferReqs: h.PaymentTransferReqs,
+			PaymentFiatReqs:     h.PaymentFiatReqs,
 			PaymentAmountUSD:    h.PaymentAmountUSD,
 			DiscountAmountUSD:   h.DiscountAmountUSD,
 		},
@@ -396,6 +440,7 @@ func (h *Handler) CreateSubscriptionOrderWithTx(ctx context.Context, tx *ent.Tx)
 	}
 	handler.formalizePaymentBalances()
 	handler.formalizePaymentTransfers()
+	handler.formalizePaymentFiats()
 
 	handler.constructOrderBaseSQL(ctx)
 	handler.constructOrderStateBaseSQL(ctx)
@@ -406,6 +451,7 @@ func (h *Handler) CreateSubscriptionOrderWithTx(ctx context.Context, tx *ent.Tx)
 	handler.constructPaymentBaseSQL(ctx)
 	handler.constructPaymentBalanceSQLs(ctx)
 	handler.constructPaymentTransferSQLs(ctx)
+	handler.constructPaymentFiatSQLs(ctx)
 	handler.constructSQL()
 
 	if err := handler.createOrderBase(ctx, tx); err != nil {
@@ -433,6 +479,9 @@ func (h *Handler) CreateSubscriptionOrderWithTx(ctx context.Context, tx *ent.Tx)
 		return wlog.WrapError(err)
 	}
 	if err := handler.createPaymentTransfers(ctx, tx); err != nil {
+		return wlog.WrapError(err)
+	}
+	if err := handler.createPaymentFiats(ctx, tx); err != nil {
 		return wlog.WrapError(err)
 	}
 	return handler.createSubscriptionOrder(ctx, tx)

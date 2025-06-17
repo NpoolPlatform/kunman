@@ -4,6 +4,7 @@ import (
 	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
 	types "github.com/NpoolPlatform/kunman/message/basetypes/order/v1"
 	paymentbalancecrud "github.com/NpoolPlatform/kunman/middleware/order/crud/payment/balance"
+	paymentfiatcrud "github.com/NpoolPlatform/kunman/middleware/order/crud/payment/fiat"
 	paymenttransfercrud "github.com/NpoolPlatform/kunman/middleware/order/crud/payment/transfer"
 
 	"github.com/shopspring/decimal"
@@ -13,6 +14,7 @@ type PaymentCheckHandler struct {
 	PaymentType         *types.PaymentType
 	PaymentBalanceReqs  []*paymentbalancecrud.Req
 	PaymentTransferReqs []*paymenttransfercrud.Req
+	PaymentFiatReqs     []*paymentfiatcrud.Req
 	PaymentAmountUSD    *decimal.Decimal
 	DiscountAmountUSD   *decimal.Decimal
 	Simulate            *bool
@@ -34,6 +36,9 @@ func (h *PaymentCheckHandler) ValidatePayment() error {
 			LiveCoinUSDCurrency:  transfer.LiveCoinUSDCurrency,
 		}
 		totalAmount = totalAmount.Add(transfer.Amount.Mul(*handler.FormalizeCoinUSDCurrency()))
+	}
+	for _, fiat := range h.PaymentFiatReqs {
+		totalAmount = totalAmount.Add(fiat.USDCurrency.Mul(*fiat.Amount))
 	}
 	if h.PaymentAmountUSD != nil && h.PaymentAmountUSD.Sub(totalAmount).Abs().GreaterThan(decimal.RequireFromString("0.00000001")) {
 		return wlog.Errorf("invalid paymentamount")

@@ -335,7 +335,7 @@ func createSubscription(t *testing.T) {
 			}
 			return
 		}(), true),
-		WithPaymentTransferCoinTypeID(&ret.PaymentTransfers[0].CoinTypeID, true),
+		// WithPaymentTransferCoinTypeID(&ret.PaymentTransfers[0].CoinTypeID, true),
 		WithPaymentFiatID(&ret.PaymentFiats[0].FiatID, true),
 		WithCouponIDs(func() (couponIDs []string) {
 			for _, coupon := range ret.Coupons {

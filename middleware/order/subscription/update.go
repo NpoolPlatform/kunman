@@ -570,6 +570,7 @@ func (h *Handler) UpdateSubscriptionOrderWithTx(ctx context.Context, tx *ent.Tx)
 			PaymentType:         h.OrderStateBaseReq.PaymentType,
 			PaymentBalanceReqs:  h.PaymentBalanceReqs,
 			PaymentTransferReqs: h.PaymentTransferReqs,
+			PaymentFiatReqs:     h.PaymentFiatReqs,
 			PaymentAmountUSD:    h.PaymentAmountUSD,
 			DiscountAmountUSD:   h.DiscountAmountUSD,
 		},

@@ -111,6 +111,9 @@ func (h *baseCreateHandler) formalizePayment() {
 	if h.PaymentTransferReq != nil {
 		h.subscriptionOrderReq.PaymentTransfers = []*paymentmwpb.PaymentTransferReq{h.PaymentTransferReq}
 	}
+	if h.PaymentFiatReq != nil {
+		h.subscriptionOrderReq.PaymentFiats = []*paymentmwpb.PaymentFiatReq{h.PaymentFiatReq}
+	}
 	h.subscriptionOrderReq.PaymentAmountUSD = func() *string { s := h.PaymentAmountUSD.String(); return &s }()
 	h.subscriptionOrderReq.DiscountAmountUSD = func() *string { s := h.DeductAmountUSD.String(); return &s }()
 	h.subscriptionOrderReq.LedgerLockID = h.BalanceLockID
