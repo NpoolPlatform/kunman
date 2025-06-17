@@ -99,7 +99,6 @@ func (h *baseCreateHandler) constructSubscriptionOrderReq() error {
 		req.PaymentFiats = []*paymentmwpb.PaymentFiatReq{h.PaymentFiatReq}
 	}
 
-	h.OrderID = req.OrderID
 	h.OrderCheckHandler.OrderID = req.OrderID
 	h.subscriptionOrderReq = req
 

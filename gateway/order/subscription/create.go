@@ -18,6 +18,7 @@ func (h *Handler) CreateSubscriptionOrder(ctx context.Context) (*npool.Subscript
 		baseCreateHandler: &baseCreateHandler{
 			Handler: h,
 			OrderOpHandler: &ordercommon.OrderOpHandler{
+				OrderID:                     h.OrderID,
 				OrderType:                   *h.OrderType,
 				AppGoodCheckHandler:         h.AppGoodCheckHandler,
 				CoinCheckHandler:            h.CoinCheckHandler,

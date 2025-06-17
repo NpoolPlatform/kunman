@@ -153,7 +153,12 @@ func WithOrderID(id *string, must bool) func(context.Context, *Handler) error {
 			}
 			return nil
 		}
+		_, err := uuid.Parse(*id)
+		if err != nil {
+			return wlog.WrapError(err)
+		}
 		h.OrderID = id
+		h.OrderCheckHandler.OrderID = id
 		return nil
 	}
 }
