@@ -9,6 +9,7 @@ import (
 	"testing"
 	"time"
 
+	timedef "github.com/NpoolPlatform/kunman/framework/const/time"
 	ledgerstatementmwpb "github.com/NpoolPlatform/kunman/message/ledger/middleware/v2/ledger/statement"
 	ordercoupongwpb "github.com/NpoolPlatform/kunman/message/order/gateway/v1/order/coupon"
 	paymentgwpb "github.com/NpoolPlatform/kunman/message/order/gateway/v1/payment"
@@ -52,18 +53,19 @@ var ret = npool.SubscriptionOrder{
 	PhoneNO:             fmt.Sprintf("+86%v", rand.Intn(100000000)+rand.Intn(1000000)),
 	EmailAddress:        fmt.Sprintf("%v@hhh.ccc", rand.Intn(100000000)+rand.Intn(4000000)),
 	GoodID:              uuid.NewString(),
+	GoodName:            uuid.NewString(),
 	GoodType:            goodtypes.GoodType_Subscription,
 	AppGoodID:           uuid.NewString(),
+	AppGoodName:         uuid.NewString(),
 	OrderID:             uuid.NewString(),
 	OrderType:           types.OrderType_Normal,
 	PaymentType:         types.PaymentType_PayWithBalanceOnly,
 	CreateMethod:        types.OrderCreateMethod_OrderCreatedByPurchase,
 	GoodValueUSD:        decimal.NewFromInt(120).String(),
 	PaymentGoodValueUSD: decimal.NewFromInt(120).String(),
-	PaymentAmountUSD:    decimal.NewFromInt(110).String(),
-	DiscountAmountUSD:   decimal.NewFromInt(10).String(),
-	PromotionID:         uuid.NewString(),
-	DurationSeconds:     100000,
+	PaymentAmountUSD:    decimal.RequireFromString("107.8").String(),
+	DiscountAmountUSD:   decimal.RequireFromString("12.2").String(),
+	PromotionID:         "",
 	LedgerLockID:        uuid.NewString(),
 	PaymentID:           uuid.NewString(),
 	Coupons: []*ordercoupongwpb.OrderCouponInfo{
@@ -92,14 +94,15 @@ var ret = npool.SubscriptionOrder{
 			USDCurrency: decimal.NewFromInt(1).String(),
 		},
 	},
-	OrderState:   types.OrderState_OrderStateCreated,
-	PaymentState: types.PaymentState_PaymentStateWait,
+	OrderState:          types.OrderState_OrderStateCreated,
+	PaymentState:        types.PaymentState_PaymentStateWait,
+	DurationDisplayType: goodtypes.GoodDurationType_GoodDurationByWeek,
+	DurationUnit:        "MSG_WEEK",
+	Durations:           1,
+	DurationSeconds:     timedef.SecondsPerWeek,
 }
 
 func setup(t *testing.T) func(*testing.T) {
-	goodName := uuid.NewString()
-	appGoodName := uuid.NewString()
-	usdPrice := "12.99"
 	durationUnits := uint32(1)
 	durationQuota := uint32(2000)
 
@@ -109,9 +112,9 @@ func setup(t *testing.T) func(*testing.T) {
 		subscription1.WithEntID(&subscriptionEntID, true),
 		subscription1.WithGoodID(&ret.GoodID, true),
 		subscription1.WithGoodType(&ret.GoodType, true),
-		subscription1.WithName(&goodName, true),
-		subscription1.WithUSDPrice(&usdPrice, true),
-		subscription1.WithDurationDisplayType(goodtypes.GoodDurationType_GoodDurationByWeek.Enum(), true),
+		subscription1.WithName(&ret.GoodName, true),
+		subscription1.WithUSDPrice(&ret.GoodValueUSD, true),
+		subscription1.WithDurationDisplayType(ret.DurationDisplayType.Enum(), true),
 		subscription1.WithDurationUnits(&durationUnits, true),
 		subscription1.WithDurationQuota(&durationQuota, true),
 	)
@@ -127,8 +130,8 @@ func setup(t *testing.T) func(*testing.T) {
 		appsubscription1.WithAppID(&ret.AppID, true),
 		appsubscription1.WithGoodID(&ret.GoodID, true),
 		appsubscription1.WithAppGoodID(&ret.AppGoodID, true),
-		appsubscription1.WithName(&appGoodName, true),
-		appsubscription1.WithUSDPrice(&usdPrice, true),
+		appsubscription1.WithName(&ret.AppGoodName, true),
+		appsubscription1.WithUSDPrice(&ret.GoodValueUSD, true),
 	)
 	assert.Nil(t, err)
 
@@ -356,6 +359,8 @@ func createSubscription(t *testing.T) {
 	if assert.Nil(t, err) {
 		ret.CreatedAt = info.CreatedAt
 		ret.UpdatedAt = info.UpdatedAt
+		ret.LedgerLockID = info.LedgerLockID
+		ret.PaymentID = info.PaymentID
 		ret.ID = info.ID
 		assert.Equal(t, info, &ret)
 	}
