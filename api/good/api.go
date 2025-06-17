@@ -34,6 +34,8 @@ import (
 	malfunction "github.com/NpoolPlatform/kunman/api/good/good/malfunction"
 	"github.com/NpoolPlatform/kunman/api/good/good/required"
 	powerrental "github.com/NpoolPlatform/kunman/api/good/powerrental"
+	subscription "github.com/NpoolPlatform/kunman/api/good/subscription"
+	oneshot "github.com/NpoolPlatform/kunman/api/good/subscription/oneshot"
 	"github.com/NpoolPlatform/kunman/api/good/vender/brand"
 	"github.com/NpoolPlatform/kunman/api/good/vender/location"
 
@@ -70,6 +72,8 @@ func Register(server grpc.ServiceRegistrar) {
 	appfee.Register(server)
 	fee.Register(server)
 	powerrental.Register(server)
+	subscription.Register(server)
+	oneshot.Register(server)
 	default1.Register(server)
 	topmost.Register(server)
 	topmostconstraint.Register(server)
@@ -148,6 +152,12 @@ func RegisterGateway(mux *runtime.ServeMux, endpoint string, opts []grpc.DialOpt
 		return err
 	}
 	if err := powerrental.RegisterGateway(mux, endpoint, opts); err != nil {
+		return err
+	}
+	if err := subscription.RegisterGateway(mux, endpoint, opts); err != nil {
+		return err
+	}
+	if err := oneshot.RegisterGateway(mux, endpoint, opts); err != nil {
 		return err
 	}
 	if err := appfee.RegisterGateway(mux, endpoint, opts); err != nil {

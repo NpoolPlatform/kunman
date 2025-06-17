@@ -10,7 +10,7 @@ import (
 	"github.com/google/uuid"
 )
 
-func (h *Handler) AdminCreateSubscrption(ctx context.Context) (*oneshotmwpb.OneShot, error) {
+func (h *Handler) CreateOneShot(ctx context.Context) (*oneshotmwpb.OneShot, error) {
 	if h.EntID == nil {
 		h.EntID = func() *string { s := uuid.NewString(); return &s }()
 	}

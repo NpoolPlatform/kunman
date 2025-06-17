@@ -45,7 +45,7 @@ service Gateway {
 message AdminCreateSubscriptionRequest {
     string Name = 10;
     basetypes.good.v1.GoodDurationType DurationDisplayType = 20;
-    optional uint32 DurationUints = 30;
+    optional uint32 DurationUnits = 30;
     uint32 DurationQuota = 40;
     optional uint32 DailyBonusQuota = 50;
     string USDPrice = 60;
@@ -61,7 +61,7 @@ message AdminUpdateSubscriptionRequest {
     string GoodID = 30;
     optional string Name = 40;
     optional basetypes.good.v1.GoodDurationType DurationDisplayType = 50;
-    optional uint32 DurationUints = 60;
+    optional uint32 DurationUnits = 60;
     optional uint32 DurationQuota = 70;
     optional uint32 DailyBonusQuota = 80;
     optional string USDPrice = 90;

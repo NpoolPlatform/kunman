@@ -8,23 +8,25 @@ import (
 	oneshotmw "github.com/NpoolPlatform/kunman/middleware/good/subscription/oneshot"
 )
 
-func (h *Handler) AdminUpdateSubscrption(ctx context.Context) (*oneshotmwpb.OneShot, error) {
+func (h *Handler) DeleteOneShot(ctx context.Context) (*oneshotmwpb.OneShot, error) {
+	info, err := h.GetOneShot(ctx)
+	if err != nil {
+		return nil, wlog.WrapError(err)
+	}
+
 	handler, err := oneshotmw.NewHandler(
 		ctx,
 		oneshotmw.WithID(h.ID, true),
 		oneshotmw.WithEntID(h.EntID, true),
 		oneshotmw.WithGoodID(h.GoodID, true),
-		oneshotmw.WithName(h.Name, false),
-		oneshotmw.WithQuota(h.Quota, false),
-		oneshotmw.WithUSDPrice(h.USDPrice, false),
 	)
 	if err != nil {
 		return nil, wlog.WrapError(err)
 	}
 
-	if err := handler.UpdateOneShot(ctx); err != nil {
+	if err := handler.DeleteOneShot(ctx); err != nil {
 		return nil, wlog.WrapError(err)
 	}
 
-	return h.GetOneShot(ctx)
+	return info, nil
 }

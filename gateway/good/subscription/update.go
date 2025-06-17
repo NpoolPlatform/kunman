@@ -8,25 +8,26 @@ import (
 	subscriptionmw "github.com/NpoolPlatform/kunman/middleware/good/subscription"
 )
 
-func (h *Handler) AdminDeleteSubscrption(ctx context.Context) (*subscriptionmwpb.Subscription, error) {
-	info, err := h.GetSubscription(ctx)
-	if err != nil {
-		return nil, wlog.WrapError(err)
-	}
-
+func (h *Handler) UpdateSubscription(ctx context.Context) (*subscriptionmwpb.Subscription, error) {
 	handler, err := subscriptionmw.NewHandler(
 		ctx,
 		subscriptionmw.WithID(h.ID, true),
 		subscriptionmw.WithEntID(h.EntID, true),
 		subscriptionmw.WithGoodID(h.GoodID, true),
+		subscriptionmw.WithName(h.Name, false),
+		subscriptionmw.WithDurationDisplayType(h.DurationDisplayType, false),
+		subscriptionmw.WithDurationUnits(h.DurationUnits, false),
+		subscriptionmw.WithDurationQuota(h.DurationQuota, false),
+		subscriptionmw.WithDailyBonusQuota(h.DailyBonusQuota, false),
+		subscriptionmw.WithUSDPrice(h.USDPrice, false),
 	)
 	if err != nil {
 		return nil, wlog.WrapError(err)
 	}
 
-	if err := handler.DeleteSubscription(ctx); err != nil {
+	if err := handler.UpdateSubscription(ctx); err != nil {
 		return nil, wlog.WrapError(err)
 	}
 
-	return info, nil
+	return h.GetSubscription(ctx)
 }

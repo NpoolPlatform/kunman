@@ -214,7 +214,7 @@
         "DurationDisplayType": {
           "$ref": "#/definitions/v1GoodDurationType"
         },
-        "DurationUints": {
+        "DurationUnits": {
           "type": "integer",
           "format": "int64"
         },
@@ -281,7 +281,7 @@
         "DurationDisplayType": {
           "$ref": "#/definitions/v1GoodDurationType"
         },
-        "DurationUints": {
+        "DurationUnits": {
           "type": "integer",
           "format": "int64"
         },
