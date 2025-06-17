@@ -17,7 +17,7 @@ import (
 )
 
 type baseCreateHandler struct {
-	*Handler
+	*checkHandler
 	*ordercommon.OrderOpHandler
 	appSubscription      *appsubscriptionmwpb.Subscription
 	subscriptionOrderReq *subscriptionordermwpb.SubscriptionOrderReq

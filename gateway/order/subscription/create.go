@@ -16,7 +16,9 @@ type createHandler struct {
 func (h *Handler) CreateSubscriptionOrder(ctx context.Context) (*npool.SubscriptionOrder, error) {
 	handler := &createHandler{
 		baseCreateHandler: &baseCreateHandler{
-			Handler: h,
+			checkHandler: &checkHandler{
+				Handler: h,
+			},
 			OrderOpHandler: &ordercommon.OrderOpHandler{
 				OrderID:                     h.OrderID,
 				OrderType:                   *h.OrderType,
