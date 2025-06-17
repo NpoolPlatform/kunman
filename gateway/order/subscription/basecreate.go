@@ -5,6 +5,7 @@ import (
 
 	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
 	ordercommon "github.com/NpoolPlatform/kunman/gateway/order/order/common"
+	goodtypes "github.com/NpoolPlatform/kunman/message/basetypes/good/v1"
 	appsubscriptionmwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/app/subscription"
 	paymentmwpb "github.com/NpoolPlatform/kunman/message/order/middleware/v1/payment"
 	subscriptionordermwpb "github.com/NpoolPlatform/kunman/message/order/middleware/v1/subscription"
@@ -48,8 +49,10 @@ func (h *baseCreateHandler) calculateSubscriptionOrderValueUSD() (value decimal.
 }
 
 func (h *baseCreateHandler) calculateSubscriptionLifeSeconds() {
-	durationSeconds := common.GoodDurationDisplayType2Seconds(h.appSubscription.DurationDisplayType) * h.appSubscription.DurationUnits
-	h.LifeSeconds = &durationSeconds
+	if h.LifeSeconds == nil || h.appSubscription.GoodType == goodtypes.GoodType_Subscription {
+		durationSeconds := common.GoodDurationDisplayType2Seconds(h.appSubscription.DurationDisplayType) * h.appSubscription.DurationUnits
+		h.LifeSeconds = &durationSeconds
+	}
 }
 
 func (h *baseCreateHandler) calculateTotalGoodValueUSD() (err error) {
