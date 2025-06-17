@@ -47,9 +47,9 @@ func (h *baseCreateHandler) calculateSubscriptionOrderValueUSD() (value decimal.
 	return decimal.NewFromString(h.appSubscription.USDPrice)
 }
 
-func (h *baseCreateHandler) calculateSubscriptionDurationSeconds() {
+func (h *baseCreateHandler) calculateSubscriptionLifeSeconds() {
 	durationSeconds := common.GoodDurationDisplayType2Seconds(h.appSubscription.DurationDisplayType) * h.appSubscription.DurationUnits
-	h.DurationSeconds = &durationSeconds
+	h.LifeSeconds = &durationSeconds
 }
 
 func (h *baseCreateHandler) calculateTotalGoodValueUSD() (err error) {
@@ -85,7 +85,7 @@ func (h *baseCreateHandler) constructSubscriptionOrderReq() error {
 		PaymentAmountUSD:  func() *string { s := h.PaymentAmountUSD.String(); return &s }(),
 		DiscountAmountUSD: func() *string { s := h.DeductAmountUSD.String(); return &s }(),
 		PromotionID:       nil,
-		DurationSeconds:   h.DurationSeconds,
+		LifeSeconds:       h.LifeSeconds,
 
 		LedgerLockID: h.BalanceLockID,
 		CouponIDs:    h.CouponIDs,
@@ -138,7 +138,7 @@ func (h *baseCreateHandler) withCreateSubscriptionOrder(ctx context.Context) err
 		subscriptionordermw.WithPaymentAmountUSD(h.subscriptionOrderReq.PaymentAmountUSD, false),
 		subscriptionordermw.WithDiscountAmountUSD(h.subscriptionOrderReq.DiscountAmountUSD, false),
 		subscriptionordermw.WithPromotionID(h.subscriptionOrderReq.PromotionID, false),
-		subscriptionordermw.WithDurationSeconds(h.subscriptionOrderReq.DurationSeconds, true),
+		subscriptionordermw.WithLifeSeconds(h.subscriptionOrderReq.LifeSeconds, true),
 
 		subscriptionordermw.WithLedgerLockID(h.subscriptionOrderReq.LedgerLockID, false),
 		subscriptionordermw.WithPaymentID(h.subscriptionOrderReq.PaymentID, false),

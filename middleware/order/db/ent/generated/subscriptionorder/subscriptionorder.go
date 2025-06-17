@@ -31,8 +31,8 @@ const (
 	FieldDiscountAmountUsd = "discount_amount_usd"
 	// FieldPromotionID holds the string denoting the promotion_id field in the database.
 	FieldPromotionID = "promotion_id"
-	// FieldDurationSeconds holds the string denoting the duration_seconds field in the database.
-	FieldDurationSeconds = "duration_seconds"
+	// FieldLifeSeconds holds the string denoting the life_seconds field in the database.
+	FieldLifeSeconds = "life_seconds"
 	// Table holds the table name of the subscriptionorder in the database.
 	Table = "subscription_orders"
 )
@@ -49,7 +49,7 @@ var Columns = []string{
 	FieldPaymentAmountUsd,
 	FieldDiscountAmountUsd,
 	FieldPromotionID,
-	FieldDurationSeconds,
+	FieldLifeSeconds,
 }
 
 // ValidColumn reports if the column name is valid (part of the table columns).
@@ -83,8 +83,8 @@ var (
 	DefaultDiscountAmountUsd decimal.Decimal
 	// DefaultPromotionID holds the default value on creation for the "promotion_id" field.
 	DefaultPromotionID func() uuid.UUID
-	// DefaultDurationSeconds holds the default value on creation for the "duration_seconds" field.
-	DefaultDurationSeconds uint32
+	// DefaultLifeSeconds holds the default value on creation for the "life_seconds" field.
+	DefaultLifeSeconds uint32
 )
 
 // OrderOption defines the ordering options for the SubscriptionOrder queries.
@@ -140,7 +140,7 @@ func ByPromotionID(opts ...sql.OrderTermOption) OrderOption {
 	return sql.OrderByField(FieldPromotionID, opts...).ToFunc()
 }
 
-// ByDurationSeconds orders the results by the duration_seconds field.
-func ByDurationSeconds(opts ...sql.OrderTermOption) OrderOption {
-	return sql.OrderByField(FieldDurationSeconds, opts...).ToFunc()
+// ByLifeSeconds orders the results by the life_seconds field.
+func ByLifeSeconds(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldLifeSeconds, opts...).ToFunc()
 }

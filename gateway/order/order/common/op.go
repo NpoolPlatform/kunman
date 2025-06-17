@@ -62,6 +62,7 @@ type OrderOpHandler struct {
 	ordergwcommon.CoinCheckHandler
 	ordergwcommon.AllocatedCouponCheckHandler
 	DurationSeconds           *uint32
+	LifeSeconds               *uint32
 	PaymentTransferCoinTypeID *string
 	PaymentFiatID             *string
 	FiatPaymentChannel        *types.FiatPaymentChannel

@@ -149,16 +149,16 @@ func (soc *SubscriptionOrderCreate) SetNillablePromotionID(u *uuid.UUID) *Subscr
 	return soc
 }
 
-// SetDurationSeconds sets the "duration_seconds" field.
-func (soc *SubscriptionOrderCreate) SetDurationSeconds(u uint32) *SubscriptionOrderCreate {
-	soc.mutation.SetDurationSeconds(u)
+// SetLifeSeconds sets the "life_seconds" field.
+func (soc *SubscriptionOrderCreate) SetLifeSeconds(u uint32) *SubscriptionOrderCreate {
+	soc.mutation.SetLifeSeconds(u)
 	return soc
 }
 
-// SetNillableDurationSeconds sets the "duration_seconds" field if the given value is not nil.
-func (soc *SubscriptionOrderCreate) SetNillableDurationSeconds(u *uint32) *SubscriptionOrderCreate {
+// SetNillableLifeSeconds sets the "life_seconds" field if the given value is not nil.
+func (soc *SubscriptionOrderCreate) SetNillableLifeSeconds(u *uint32) *SubscriptionOrderCreate {
 	if u != nil {
-		soc.SetDurationSeconds(*u)
+		soc.SetLifeSeconds(*u)
 	}
 	return soc
 }
@@ -240,9 +240,9 @@ func (soc *SubscriptionOrderCreate) defaults() {
 		v := subscriptionorder.DefaultPromotionID()
 		soc.mutation.SetPromotionID(v)
 	}
-	if _, ok := soc.mutation.DurationSeconds(); !ok {
-		v := subscriptionorder.DefaultDurationSeconds
-		soc.mutation.SetDurationSeconds(v)
+	if _, ok := soc.mutation.LifeSeconds(); !ok {
+		v := subscriptionorder.DefaultLifeSeconds
+		soc.mutation.SetLifeSeconds(v)
 	}
 }
 
@@ -329,9 +329,9 @@ func (soc *SubscriptionOrderCreate) createSpec() (*SubscriptionOrder, *sqlgraph.
 		_spec.SetField(subscriptionorder.FieldPromotionID, field.TypeUUID, value)
 		_node.PromotionID = value
 	}
-	if value, ok := soc.mutation.DurationSeconds(); ok {
-		_spec.SetField(subscriptionorder.FieldDurationSeconds, field.TypeUint32, value)
-		_node.DurationSeconds = value
+	if value, ok := soc.mutation.LifeSeconds(); ok {
+		_spec.SetField(subscriptionorder.FieldLifeSeconds, field.TypeUint32, value)
+		_node.LifeSeconds = value
 	}
 	return _node, _spec
 }
@@ -541,27 +541,27 @@ func (u *SubscriptionOrderUpsert) ClearPromotionID() *SubscriptionOrderUpsert {
 	return u
 }
 
-// SetDurationSeconds sets the "duration_seconds" field.
-func (u *SubscriptionOrderUpsert) SetDurationSeconds(v uint32) *SubscriptionOrderUpsert {
-	u.Set(subscriptionorder.FieldDurationSeconds, v)
+// SetLifeSeconds sets the "life_seconds" field.
+func (u *SubscriptionOrderUpsert) SetLifeSeconds(v uint32) *SubscriptionOrderUpsert {
+	u.Set(subscriptionorder.FieldLifeSeconds, v)
 	return u
 }
 
-// UpdateDurationSeconds sets the "duration_seconds" field to the value that was provided on create.
-func (u *SubscriptionOrderUpsert) UpdateDurationSeconds() *SubscriptionOrderUpsert {
-	u.SetExcluded(subscriptionorder.FieldDurationSeconds)
+// UpdateLifeSeconds sets the "life_seconds" field to the value that was provided on create.
+func (u *SubscriptionOrderUpsert) UpdateLifeSeconds() *SubscriptionOrderUpsert {
+	u.SetExcluded(subscriptionorder.FieldLifeSeconds)
 	return u
 }
 
-// AddDurationSeconds adds v to the "duration_seconds" field.
-func (u *SubscriptionOrderUpsert) AddDurationSeconds(v uint32) *SubscriptionOrderUpsert {
-	u.Add(subscriptionorder.FieldDurationSeconds, v)
+// AddLifeSeconds adds v to the "life_seconds" field.
+func (u *SubscriptionOrderUpsert) AddLifeSeconds(v uint32) *SubscriptionOrderUpsert {
+	u.Add(subscriptionorder.FieldLifeSeconds, v)
 	return u
 }
 
-// ClearDurationSeconds clears the value of the "duration_seconds" field.
-func (u *SubscriptionOrderUpsert) ClearDurationSeconds() *SubscriptionOrderUpsert {
-	u.SetNull(subscriptionorder.FieldDurationSeconds)
+// ClearLifeSeconds clears the value of the "life_seconds" field.
+func (u *SubscriptionOrderUpsert) ClearLifeSeconds() *SubscriptionOrderUpsert {
+	u.SetNull(subscriptionorder.FieldLifeSeconds)
 	return u
 }
 
@@ -795,31 +795,31 @@ func (u *SubscriptionOrderUpsertOne) ClearPromotionID() *SubscriptionOrderUpsert
 	})
 }
 
-// SetDurationSeconds sets the "duration_seconds" field.
-func (u *SubscriptionOrderUpsertOne) SetDurationSeconds(v uint32) *SubscriptionOrderUpsertOne {
+// SetLifeSeconds sets the "life_seconds" field.
+func (u *SubscriptionOrderUpsertOne) SetLifeSeconds(v uint32) *SubscriptionOrderUpsertOne {
 	return u.Update(func(s *SubscriptionOrderUpsert) {
-		s.SetDurationSeconds(v)
+		s.SetLifeSeconds(v)
 	})
 }
 
-// AddDurationSeconds adds v to the "duration_seconds" field.
-func (u *SubscriptionOrderUpsertOne) AddDurationSeconds(v uint32) *SubscriptionOrderUpsertOne {
+// AddLifeSeconds adds v to the "life_seconds" field.
+func (u *SubscriptionOrderUpsertOne) AddLifeSeconds(v uint32) *SubscriptionOrderUpsertOne {
 	return u.Update(func(s *SubscriptionOrderUpsert) {
-		s.AddDurationSeconds(v)
+		s.AddLifeSeconds(v)
 	})
 }
 
-// UpdateDurationSeconds sets the "duration_seconds" field to the value that was provided on create.
-func (u *SubscriptionOrderUpsertOne) UpdateDurationSeconds() *SubscriptionOrderUpsertOne {
+// UpdateLifeSeconds sets the "life_seconds" field to the value that was provided on create.
+func (u *SubscriptionOrderUpsertOne) UpdateLifeSeconds() *SubscriptionOrderUpsertOne {
 	return u.Update(func(s *SubscriptionOrderUpsert) {
-		s.UpdateDurationSeconds()
+		s.UpdateLifeSeconds()
 	})
 }
 
-// ClearDurationSeconds clears the value of the "duration_seconds" field.
-func (u *SubscriptionOrderUpsertOne) ClearDurationSeconds() *SubscriptionOrderUpsertOne {
+// ClearLifeSeconds clears the value of the "life_seconds" field.
+func (u *SubscriptionOrderUpsertOne) ClearLifeSeconds() *SubscriptionOrderUpsertOne {
 	return u.Update(func(s *SubscriptionOrderUpsert) {
-		s.ClearDurationSeconds()
+		s.ClearLifeSeconds()
 	})
 }
 
@@ -1219,31 +1219,31 @@ func (u *SubscriptionOrderUpsertBulk) ClearPromotionID() *SubscriptionOrderUpser
 	})
 }
 
-// SetDurationSeconds sets the "duration_seconds" field.
-func (u *SubscriptionOrderUpsertBulk) SetDurationSeconds(v uint32) *SubscriptionOrderUpsertBulk {
+// SetLifeSeconds sets the "life_seconds" field.
+func (u *SubscriptionOrderUpsertBulk) SetLifeSeconds(v uint32) *SubscriptionOrderUpsertBulk {
 	return u.Update(func(s *SubscriptionOrderUpsert) {
-		s.SetDurationSeconds(v)
+		s.SetLifeSeconds(v)
 	})
 }
 
-// AddDurationSeconds adds v to the "duration_seconds" field.
-func (u *SubscriptionOrderUpsertBulk) AddDurationSeconds(v uint32) *SubscriptionOrderUpsertBulk {
+// AddLifeSeconds adds v to the "life_seconds" field.
+func (u *SubscriptionOrderUpsertBulk) AddLifeSeconds(v uint32) *SubscriptionOrderUpsertBulk {
 	return u.Update(func(s *SubscriptionOrderUpsert) {
-		s.AddDurationSeconds(v)
+		s.AddLifeSeconds(v)
 	})
 }
 
-// UpdateDurationSeconds sets the "duration_seconds" field to the value that was provided on create.
-func (u *SubscriptionOrderUpsertBulk) UpdateDurationSeconds() *SubscriptionOrderUpsertBulk {
+// UpdateLifeSeconds sets the "life_seconds" field to the value that was provided on create.
+func (u *SubscriptionOrderUpsertBulk) UpdateLifeSeconds() *SubscriptionOrderUpsertBulk {
 	return u.Update(func(s *SubscriptionOrderUpsert) {
-		s.UpdateDurationSeconds()
+		s.UpdateLifeSeconds()
 	})
 }
 
-// ClearDurationSeconds clears the value of the "duration_seconds" field.
-func (u *SubscriptionOrderUpsertBulk) ClearDurationSeconds() *SubscriptionOrderUpsertBulk {
+// ClearLifeSeconds clears the value of the "life_seconds" field.
+func (u *SubscriptionOrderUpsertBulk) ClearLifeSeconds() *SubscriptionOrderUpsertBulk {
 	return u.Update(func(s *SubscriptionOrderUpsert) {
-		s.ClearDurationSeconds()
+		s.ClearLifeSeconds()
 	})
 }
 

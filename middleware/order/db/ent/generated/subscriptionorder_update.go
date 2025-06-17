@@ -199,30 +199,30 @@ func (sou *SubscriptionOrderUpdate) ClearPromotionID() *SubscriptionOrderUpdate 
 	return sou
 }
 
-// SetDurationSeconds sets the "duration_seconds" field.
-func (sou *SubscriptionOrderUpdate) SetDurationSeconds(u uint32) *SubscriptionOrderUpdate {
-	sou.mutation.ResetDurationSeconds()
-	sou.mutation.SetDurationSeconds(u)
+// SetLifeSeconds sets the "life_seconds" field.
+func (sou *SubscriptionOrderUpdate) SetLifeSeconds(u uint32) *SubscriptionOrderUpdate {
+	sou.mutation.ResetLifeSeconds()
+	sou.mutation.SetLifeSeconds(u)
 	return sou
 }
 
-// SetNillableDurationSeconds sets the "duration_seconds" field if the given value is not nil.
-func (sou *SubscriptionOrderUpdate) SetNillableDurationSeconds(u *uint32) *SubscriptionOrderUpdate {
+// SetNillableLifeSeconds sets the "life_seconds" field if the given value is not nil.
+func (sou *SubscriptionOrderUpdate) SetNillableLifeSeconds(u *uint32) *SubscriptionOrderUpdate {
 	if u != nil {
-		sou.SetDurationSeconds(*u)
+		sou.SetLifeSeconds(*u)
 	}
 	return sou
 }
 
-// AddDurationSeconds adds u to the "duration_seconds" field.
-func (sou *SubscriptionOrderUpdate) AddDurationSeconds(u int32) *SubscriptionOrderUpdate {
-	sou.mutation.AddDurationSeconds(u)
+// AddLifeSeconds adds u to the "life_seconds" field.
+func (sou *SubscriptionOrderUpdate) AddLifeSeconds(u int32) *SubscriptionOrderUpdate {
+	sou.mutation.AddLifeSeconds(u)
 	return sou
 }
 
-// ClearDurationSeconds clears the value of the "duration_seconds" field.
-func (sou *SubscriptionOrderUpdate) ClearDurationSeconds() *SubscriptionOrderUpdate {
-	sou.mutation.ClearDurationSeconds()
+// ClearLifeSeconds clears the value of the "life_seconds" field.
+func (sou *SubscriptionOrderUpdate) ClearLifeSeconds() *SubscriptionOrderUpdate {
+	sou.mutation.ClearLifeSeconds()
 	return sou
 }
 
@@ -333,14 +333,14 @@ func (sou *SubscriptionOrderUpdate) sqlSave(ctx context.Context) (n int, err err
 	if sou.mutation.PromotionIDCleared() {
 		_spec.ClearField(subscriptionorder.FieldPromotionID, field.TypeUUID)
 	}
-	if value, ok := sou.mutation.DurationSeconds(); ok {
-		_spec.SetField(subscriptionorder.FieldDurationSeconds, field.TypeUint32, value)
+	if value, ok := sou.mutation.LifeSeconds(); ok {
+		_spec.SetField(subscriptionorder.FieldLifeSeconds, field.TypeUint32, value)
 	}
-	if value, ok := sou.mutation.AddedDurationSeconds(); ok {
-		_spec.AddField(subscriptionorder.FieldDurationSeconds, field.TypeUint32, value)
+	if value, ok := sou.mutation.AddedLifeSeconds(); ok {
+		_spec.AddField(subscriptionorder.FieldLifeSeconds, field.TypeUint32, value)
 	}
-	if sou.mutation.DurationSecondsCleared() {
-		_spec.ClearField(subscriptionorder.FieldDurationSeconds, field.TypeUint32)
+	if sou.mutation.LifeSecondsCleared() {
+		_spec.ClearField(subscriptionorder.FieldLifeSeconds, field.TypeUint32)
 	}
 	_spec.AddModifiers(sou.modifiers...)
 	if n, err = sqlgraph.UpdateNodes(ctx, sou.driver, _spec); err != nil {
@@ -533,30 +533,30 @@ func (souo *SubscriptionOrderUpdateOne) ClearPromotionID() *SubscriptionOrderUpd
 	return souo
 }
 
-// SetDurationSeconds sets the "duration_seconds" field.
-func (souo *SubscriptionOrderUpdateOne) SetDurationSeconds(u uint32) *SubscriptionOrderUpdateOne {
-	souo.mutation.ResetDurationSeconds()
-	souo.mutation.SetDurationSeconds(u)
+// SetLifeSeconds sets the "life_seconds" field.
+func (souo *SubscriptionOrderUpdateOne) SetLifeSeconds(u uint32) *SubscriptionOrderUpdateOne {
+	souo.mutation.ResetLifeSeconds()
+	souo.mutation.SetLifeSeconds(u)
 	return souo
 }
 
-// SetNillableDurationSeconds sets the "duration_seconds" field if the given value is not nil.
-func (souo *SubscriptionOrderUpdateOne) SetNillableDurationSeconds(u *uint32) *SubscriptionOrderUpdateOne {
+// SetNillableLifeSeconds sets the "life_seconds" field if the given value is not nil.
+func (souo *SubscriptionOrderUpdateOne) SetNillableLifeSeconds(u *uint32) *SubscriptionOrderUpdateOne {
 	if u != nil {
-		souo.SetDurationSeconds(*u)
+		souo.SetLifeSeconds(*u)
 	}
 	return souo
 }
 
-// AddDurationSeconds adds u to the "duration_seconds" field.
-func (souo *SubscriptionOrderUpdateOne) AddDurationSeconds(u int32) *SubscriptionOrderUpdateOne {
-	souo.mutation.AddDurationSeconds(u)
+// AddLifeSeconds adds u to the "life_seconds" field.
+func (souo *SubscriptionOrderUpdateOne) AddLifeSeconds(u int32) *SubscriptionOrderUpdateOne {
+	souo.mutation.AddLifeSeconds(u)
 	return souo
 }
 
-// ClearDurationSeconds clears the value of the "duration_seconds" field.
-func (souo *SubscriptionOrderUpdateOne) ClearDurationSeconds() *SubscriptionOrderUpdateOne {
-	souo.mutation.ClearDurationSeconds()
+// ClearLifeSeconds clears the value of the "life_seconds" field.
+func (souo *SubscriptionOrderUpdateOne) ClearLifeSeconds() *SubscriptionOrderUpdateOne {
+	souo.mutation.ClearLifeSeconds()
 	return souo
 }
 
@@ -697,14 +697,14 @@ func (souo *SubscriptionOrderUpdateOne) sqlSave(ctx context.Context) (_node *Sub
 	if souo.mutation.PromotionIDCleared() {
 		_spec.ClearField(subscriptionorder.FieldPromotionID, field.TypeUUID)
 	}
-	if value, ok := souo.mutation.DurationSeconds(); ok {
-		_spec.SetField(subscriptionorder.FieldDurationSeconds, field.TypeUint32, value)
+	if value, ok := souo.mutation.LifeSeconds(); ok {
+		_spec.SetField(subscriptionorder.FieldLifeSeconds, field.TypeUint32, value)
 	}
-	if value, ok := souo.mutation.AddedDurationSeconds(); ok {
-		_spec.AddField(subscriptionorder.FieldDurationSeconds, field.TypeUint32, value)
+	if value, ok := souo.mutation.AddedLifeSeconds(); ok {
+		_spec.AddField(subscriptionorder.FieldLifeSeconds, field.TypeUint32, value)
 	}
-	if souo.mutation.DurationSecondsCleared() {
-		_spec.ClearField(subscriptionorder.FieldDurationSeconds, field.TypeUint32)
+	if souo.mutation.LifeSecondsCleared() {
+		_spec.ClearField(subscriptionorder.FieldLifeSeconds, field.TypeUint32)
 	}
 	_spec.AddModifiers(souo.modifiers...)
 	_node = &SubscriptionOrder{config: souo.config}

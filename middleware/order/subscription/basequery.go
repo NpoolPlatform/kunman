@@ -152,7 +152,7 @@ func (h *baseQueryHandler) queryJoinSubscriptionOrder(s *sql.Selector) error {
 		t.C(entsubscriptionorder.FieldPaymentAmountUsd),
 		t.C(entsubscriptionorder.FieldDiscountAmountUsd),
 		t.C(entsubscriptionorder.FieldPromotionID),
-		t.C(entsubscriptionorder.FieldDurationSeconds),
+		t.C(entsubscriptionorder.FieldLifeSeconds),
 	)
 	return nil
 }

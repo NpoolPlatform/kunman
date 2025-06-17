@@ -1173,10 +1173,10 @@ func init() {
 	subscriptionorderDescPromotionID := subscriptionorderFields[4].Descriptor()
 	// subscriptionorder.DefaultPromotionID holds the default value on creation for the promotion_id field.
 	subscriptionorder.DefaultPromotionID = subscriptionorderDescPromotionID.Default.(func() uuid.UUID)
-	// subscriptionorderDescDurationSeconds is the schema descriptor for duration_seconds field.
-	subscriptionorderDescDurationSeconds := subscriptionorderFields[5].Descriptor()
-	// subscriptionorder.DefaultDurationSeconds holds the default value on creation for the duration_seconds field.
-	subscriptionorder.DefaultDurationSeconds = subscriptionorderDescDurationSeconds.Default.(uint32)
+	// subscriptionorderDescLifeSeconds is the schema descriptor for life_seconds field.
+	subscriptionorderDescLifeSeconds := subscriptionorderFields[5].Descriptor()
+	// subscriptionorder.DefaultLifeSeconds holds the default value on creation for the life_seconds field.
+	subscriptionorder.DefaultLifeSeconds = subscriptionorderDescLifeSeconds.Default.(uint32)
 	subscriptionorderstateMixin := schema.SubscriptionOrderState{}.Mixin()
 	subscriptionorderstateMixinFields0 := subscriptionorderstateMixin[0].Fields()
 	_ = subscriptionorderstateMixinFields0

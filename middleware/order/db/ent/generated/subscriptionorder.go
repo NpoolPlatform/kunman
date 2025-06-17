@@ -36,9 +36,9 @@ type SubscriptionOrder struct {
 	DiscountAmountUsd decimal.Decimal `json:"discount_amount_usd,omitempty"`
 	// PromotionID holds the value of the "promotion_id" field.
 	PromotionID uuid.UUID `json:"promotion_id,omitempty"`
-	// DurationSeconds holds the value of the "duration_seconds" field.
-	DurationSeconds uint32 `json:"duration_seconds,omitempty"`
-	selectValues    sql.SelectValues
+	// LifeSeconds holds the value of the "life_seconds" field.
+	LifeSeconds  uint32 `json:"life_seconds,omitempty"`
+	selectValues sql.SelectValues
 }
 
 // scanValues returns the types for scanning values from sql.Rows.
@@ -48,7 +48,7 @@ func (*SubscriptionOrder) scanValues(columns []string) ([]any, error) {
 		switch columns[i] {
 		case subscriptionorder.FieldGoodValueUsd, subscriptionorder.FieldPaymentAmountUsd, subscriptionorder.FieldDiscountAmountUsd:
 			values[i] = new(decimal.Decimal)
-		case subscriptionorder.FieldID, subscriptionorder.FieldCreatedAt, subscriptionorder.FieldUpdatedAt, subscriptionorder.FieldDeletedAt, subscriptionorder.FieldDurationSeconds:
+		case subscriptionorder.FieldID, subscriptionorder.FieldCreatedAt, subscriptionorder.FieldUpdatedAt, subscriptionorder.FieldDeletedAt, subscriptionorder.FieldLifeSeconds:
 			values[i] = new(sql.NullInt64)
 		case subscriptionorder.FieldEntID, subscriptionorder.FieldOrderID, subscriptionorder.FieldPromotionID:
 			values[i] = new(uuid.UUID)
@@ -127,11 +127,11 @@ func (so *SubscriptionOrder) assignValues(columns []string, values []any) error 
 			} else if value != nil {
 				so.PromotionID = *value
 			}
-		case subscriptionorder.FieldDurationSeconds:
+		case subscriptionorder.FieldLifeSeconds:
 			if value, ok := values[i].(*sql.NullInt64); !ok {
-				return fmt.Errorf("unexpected type %T for field duration_seconds", values[i])
+				return fmt.Errorf("unexpected type %T for field life_seconds", values[i])
 			} else if value.Valid {
-				so.DurationSeconds = uint32(value.Int64)
+				so.LifeSeconds = uint32(value.Int64)
 			}
 		default:
 			so.selectValues.Set(columns[i], values[i])
@@ -196,8 +196,8 @@ func (so *SubscriptionOrder) String() string {
 	builder.WriteString("promotion_id=")
 	builder.WriteString(fmt.Sprintf("%v", so.PromotionID))
 	builder.WriteString(", ")
-	builder.WriteString("duration_seconds=")
-	builder.WriteString(fmt.Sprintf("%v", so.DurationSeconds))
+	builder.WriteString("life_seconds=")
+	builder.WriteString(fmt.Sprintf("%v", so.LifeSeconds))
 	builder.WriteByte(')')
 	return builder.String()
 }

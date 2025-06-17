@@ -413,7 +413,7 @@
         "ParentOrderID": {
           "type": "string"
         },
-        "DurationSeconds": {
+        "LifeSeconds": {
           "type": "integer",
           "format": "int64"
         },
@@ -563,6 +563,10 @@
           "items": {
             "type": "string"
           }
+        },
+        "LifeSeconds": {
+          "type": "integer",
+          "format": "int64"
         }
       }
     },
@@ -1033,7 +1037,7 @@
         "DurationUnit": {
           "type": "string"
         },
-        "DurationSeconds": {
+        "LifeSeconds": {
           "type": "integer",
           "format": "int64"
         },

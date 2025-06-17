@@ -152,7 +152,7 @@ func (h *queryHandler) formalize() {
 			PaymentAmountUSD:    subscriptionOrder.PaymentAmountUSD,
 			DiscountAmountUSD:   subscriptionOrder.DiscountAmountUSD,
 			PromotionID:         subscriptionOrder.PromotionID,
-			DurationSeconds:     subscriptionOrder.DurationSeconds,
+			LifeSeconds:         subscriptionOrder.LifeSeconds,
 			CancelState:         subscriptionOrder.CancelState,
 			CanceledAt:          subscriptionOrder.CanceledAt,
 			PaidAt:              subscriptionOrder.PaidAt,
@@ -179,7 +179,7 @@ func (h *queryHandler) formalize() {
 			info.AppGoodName = appSubscription.AppGoodName
 			info.DurationDisplayType = appSubscription.DurationDisplayType
 			info.Durations, info.DurationUnit = common.GoodDurationDisplayType2Unit(
-				appSubscription.DurationDisplayType, info.DurationSeconds,
+				appSubscription.DurationDisplayType, info.LifeSeconds,
 			)
 		}
 		topMost, ok := h.topMosts[subscriptionOrder.PromotionID]

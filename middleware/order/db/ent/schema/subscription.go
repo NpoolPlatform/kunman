@@ -59,7 +59,7 @@ func (SubscriptionOrder) Fields() []ent.Field {
 				return uuid.UUID{}
 			}),
 		field.
-			Uint32("duration_seconds").
+			Uint32("life_seconds").
 			Optional().
 			Default(0),
 	}

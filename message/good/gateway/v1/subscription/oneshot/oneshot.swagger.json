@@ -376,11 +376,6 @@
           "type": "string",
           "title": "@inject_tag: sql:\"usd_price\""
         },
-        "LifeSeconds": {
-          "type": "integer",
-          "format": "int64",
-          "title": "@inject_tag: sql:\"life_seconds\""
-        },
         "CreatedAt": {
           "type": "integer",
           "format": "int64",

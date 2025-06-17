@@ -96,7 +96,7 @@ var ret = npool.SubscriptionOrder{
 	DurationDisplayType: goodtypes.GoodDurationType_GoodDurationByWeek,
 	DurationUnit:        "MSG_WEEK",
 	Durations:           1,
-	DurationSeconds:     timedef.SecondsPerWeek,
+	LifeSeconds:         timedef.SecondsPerWeek,
 	PaymentType:         types.PaymentType_PayWithFiatAndBalance,
 }
 

@@ -333,18 +333,18 @@ func WithPromotionID(id *string, must bool) func(context.Context, *Handler) erro
 	}
 }
 
-func WithDurationSeconds(duration *uint32, must bool) func(context.Context, *Handler) error {
+func WithLifeSeconds(duration *uint32, must bool) func(context.Context, *Handler) error {
 	return func(ctx context.Context, h *Handler) error {
 		if duration == nil {
 			if must {
-				return wlog.Errorf("invalid durationseconds")
+				return wlog.Errorf("invalid lifeseconds")
 			}
 			return nil
 		}
 		if *duration <= 0 {
-			return wlog.Errorf("invalid durationseconds")
+			return wlog.Errorf("invalid lifeseconds")
 		}
-		h.DurationSeconds = duration
+		h.LifeSeconds = duration
 		return nil
 	}
 }

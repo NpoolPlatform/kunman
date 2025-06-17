@@ -51,7 +51,7 @@ func (h *Handler) ConstructCreateSQL() string {
 	if h.PromotionID != nil {
 		_sql += fmt.Sprintf("%v'%v' as promotion_id", comma, *h.PromotionID)
 	}
-	_sql += fmt.Sprintf("%v'%v' as duration_seconds", comma, *h.DurationSeconds)
+	_sql += fmt.Sprintf("%v'%v' as life_seconds", comma, *h.LifeSeconds)
 	_sql += fmt.Sprintf("%v%v as created_at", comma, now)
 	_sql += fmt.Sprintf("%v%v as updated_at", comma, now)
 	_sql += fmt.Sprintf("%v0 as deleted_at", comma)

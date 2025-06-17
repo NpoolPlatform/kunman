@@ -718,7 +718,7 @@ var (
 		{Name: "payment_amount_usd", Type: field.TypeOther, Nullable: true, SchemaType: map[string]string{"mysql": "decimal(37,18)"}},
 		{Name: "discount_amount_usd", Type: field.TypeOther, Nullable: true, SchemaType: map[string]string{"mysql": "decimal(37,18)"}},
 		{Name: "promotion_id", Type: field.TypeUUID, Nullable: true},
-		{Name: "duration_seconds", Type: field.TypeUint32, Nullable: true, Default: 0},
+		{Name: "life_seconds", Type: field.TypeUint32, Nullable: true, Default: 0},
 	}
 	// SubscriptionOrdersTable holds the schema information for the "subscription_orders" table.
 	SubscriptionOrdersTable = &schema.Table{

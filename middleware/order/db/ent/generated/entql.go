@@ -570,7 +570,7 @@ var schemaGraph = func() *sqlgraph.Schema {
 			subscriptionorder.FieldPaymentAmountUsd:  {Type: field.TypeOther, Column: subscriptionorder.FieldPaymentAmountUsd},
 			subscriptionorder.FieldDiscountAmountUsd: {Type: field.TypeOther, Column: subscriptionorder.FieldDiscountAmountUsd},
 			subscriptionorder.FieldPromotionID:       {Type: field.TypeUUID, Column: subscriptionorder.FieldPromotionID},
-			subscriptionorder.FieldDurationSeconds:   {Type: field.TypeUint32, Column: subscriptionorder.FieldDurationSeconds},
+			subscriptionorder.FieldLifeSeconds:       {Type: field.TypeUint32, Column: subscriptionorder.FieldLifeSeconds},
 		},
 	}
 	graph.Nodes[22] = &sqlgraph.Node{
@@ -2738,9 +2738,9 @@ func (f *SubscriptionOrderFilter) WherePromotionID(p entql.ValueP) {
 	f.Where(p.Field(subscriptionorder.FieldPromotionID))
 }
 
-// WhereDurationSeconds applies the entql uint32 predicate on the duration_seconds field.
-func (f *SubscriptionOrderFilter) WhereDurationSeconds(p entql.Uint32P) {
-	f.Where(p.Field(subscriptionorder.FieldDurationSeconds))
+// WhereLifeSeconds applies the entql uint32 predicate on the life_seconds field.
+func (f *SubscriptionOrderFilter) WhereLifeSeconds(p entql.Uint32P) {
+	f.Where(p.Field(subscriptionorder.FieldLifeSeconds))
 }
 
 // addPredicate implements the predicateAdder interface.

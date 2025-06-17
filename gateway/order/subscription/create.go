@@ -81,7 +81,7 @@ func (h *Handler) CreateSubscriptionOrder(ctx context.Context) (*npool.Subscript
 	if err := handler.GetPaymentTransferStartAmount(ctx); err != nil {
 		return nil, wlog.WrapError(err)
 	}
-	handler.calculateSubscriptionDurationSeconds()
+	handler.calculateSubscriptionLifeSeconds()
 	if err := handler.constructSubscriptionOrderReq(); err != nil {
 		return nil, wlog.WrapError(err)
 	}

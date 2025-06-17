@@ -47,7 +47,7 @@ var ret = npool.SubscriptionOrder{
 	PaymentAmountUSD:    decimal.NewFromInt(110).String(),
 	DiscountAmountUSD:   decimal.NewFromInt(10).String(),
 	PromotionID:         uuid.NewString(),
-	DurationSeconds:     100000,
+	LifeSeconds:         100000,
 	LedgerLockID:        uuid.NewString(),
 	PaymentID:           uuid.NewString(),
 	Coupons: []*ordercouponmiddlewarepb.OrderCouponInfo{
@@ -104,7 +104,7 @@ func createSubscriptionOrder(t *testing.T) {
 		WithPaymentAmountUSD(&ret.PaymentAmountUSD, true),
 		WithDiscountAmountUSD(&ret.DiscountAmountUSD, true),
 		WithPromotionID(&ret.PromotionID, true),
-		WithDurationSeconds(&ret.DurationSeconds, true),
+		WithLifeSeconds(&ret.LifeSeconds, true),
 		WithLedgerLockID(&ret.LedgerLockID, true),
 		WithPaymentID(&ret.PaymentID, true),
 		WithCouponIDs(func() (_couponIDs []string) {
@@ -160,7 +160,7 @@ func updateSubscriptionOrder(t *testing.T) {
 		WithPaymentAmountUSD(&ret.PaymentAmountUSD, true),
 		WithDiscountAmountUSD(&ret.DiscountAmountUSD, true),
 		WithPromotionID(&ret.PromotionID, true),
-		WithDurationSeconds(&ret.DurationSeconds, true),
+		WithLifeSeconds(&ret.LifeSeconds, true),
 		WithLedgerLockID(&ret.LedgerLockID, true),
 		WithPaymentID(&ret.PaymentID, true),
 		WithCouponIDs(func() (_couponIDs []string) {

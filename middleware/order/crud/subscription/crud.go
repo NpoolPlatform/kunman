@@ -18,7 +18,7 @@ type Req struct {
 	PaymentAmountUSD  *decimal.Decimal
 	DiscountAmountUSD *decimal.Decimal
 	PromotionID       *uuid.UUID
-	DurationSeconds   *uint32
+	LifeSeconds       *uint32
 	DeletedAt         *uint32
 }
 
@@ -41,8 +41,8 @@ func CreateSet(c *ent.SubscriptionOrderCreate, req *Req) *ent.SubscriptionOrderC
 	if req.PromotionID != nil {
 		c.SetPromotionID(*req.PromotionID)
 	}
-	if req.DurationSeconds != nil {
-		c.SetDurationSeconds(*req.DurationSeconds)
+	if req.LifeSeconds != nil {
+		c.SetLifeSeconds(*req.LifeSeconds)
 	}
 	return c
 }

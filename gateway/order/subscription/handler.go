@@ -30,6 +30,7 @@ type Handler struct {
 	FiatChannelPaymentID      *string
 	CouponIDs                 []string
 	OrderIDs                  []string
+	LifeSeconds               *uint32
 	UserSetCanceled           *bool
 	AdminSetCanceled          *bool
 	CreateMethod              *types.OrderCreateMethod
@@ -300,6 +301,13 @@ func WithOrderType(orderType *types.OrderType, must bool) func(context.Context, 
 			return wlog.Errorf("invalid ordertype")
 		}
 		h.OrderType = orderType
+		return nil
+	}
+}
+
+func WithLifeSeconds(u *uint32, must bool) func(context.Context, *Handler) error {
+	return func(ctx context.Context, h *Handler) error {
+		h.LifeSeconds = u
 		return nil
 	}
 }

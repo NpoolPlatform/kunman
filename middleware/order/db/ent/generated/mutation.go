@@ -24713,8 +24713,8 @@ type SubscriptionOrderMutation struct {
 	payment_amount_usd  *decimal.Decimal
 	discount_amount_usd *decimal.Decimal
 	promotion_id        *uuid.UUID
-	duration_seconds    *uint32
-	addduration_seconds *int32
+	life_seconds        *uint32
+	addlife_seconds     *int32
 	clearedFields       map[string]struct{}
 	done                bool
 	oldValue            func(context.Context) (*SubscriptionOrder, error)
@@ -25274,74 +25274,74 @@ func (m *SubscriptionOrderMutation) ResetPromotionID() {
 	delete(m.clearedFields, subscriptionorder.FieldPromotionID)
 }
 
-// SetDurationSeconds sets the "duration_seconds" field.
-func (m *SubscriptionOrderMutation) SetDurationSeconds(u uint32) {
-	m.duration_seconds = &u
-	m.addduration_seconds = nil
+// SetLifeSeconds sets the "life_seconds" field.
+func (m *SubscriptionOrderMutation) SetLifeSeconds(u uint32) {
+	m.life_seconds = &u
+	m.addlife_seconds = nil
 }
 
-// DurationSeconds returns the value of the "duration_seconds" field in the mutation.
-func (m *SubscriptionOrderMutation) DurationSeconds() (r uint32, exists bool) {
-	v := m.duration_seconds
+// LifeSeconds returns the value of the "life_seconds" field in the mutation.
+func (m *SubscriptionOrderMutation) LifeSeconds() (r uint32, exists bool) {
+	v := m.life_seconds
 	if v == nil {
 		return
 	}
 	return *v, true
 }
 
-// OldDurationSeconds returns the old "duration_seconds" field's value of the SubscriptionOrder entity.
+// OldLifeSeconds returns the old "life_seconds" field's value of the SubscriptionOrder entity.
 // If the SubscriptionOrder object wasn't provided to the builder, the object is fetched from the database.
 // An error is returned if the mutation operation is not UpdateOne, or the database query fails.
-func (m *SubscriptionOrderMutation) OldDurationSeconds(ctx context.Context) (v uint32, err error) {
+func (m *SubscriptionOrderMutation) OldLifeSeconds(ctx context.Context) (v uint32, err error) {
 	if !m.op.Is(OpUpdateOne) {
-		return v, errors.New("OldDurationSeconds is only allowed on UpdateOne operations")
+		return v, errors.New("OldLifeSeconds is only allowed on UpdateOne operations")
 	}
 	if m.id == nil || m.oldValue == nil {
-		return v, errors.New("OldDurationSeconds requires an ID field in the mutation")
+		return v, errors.New("OldLifeSeconds requires an ID field in the mutation")
 	}
 	oldValue, err := m.oldValue(ctx)
 	if err != nil {
-		return v, fmt.Errorf("querying old value for OldDurationSeconds: %w", err)
+		return v, fmt.Errorf("querying old value for OldLifeSeconds: %w", err)
 	}
-	return oldValue.DurationSeconds, nil
+	return oldValue.LifeSeconds, nil
 }
 
-// AddDurationSeconds adds u to the "duration_seconds" field.
-func (m *SubscriptionOrderMutation) AddDurationSeconds(u int32) {
-	if m.addduration_seconds != nil {
-		*m.addduration_seconds += u
+// AddLifeSeconds adds u to the "life_seconds" field.
+func (m *SubscriptionOrderMutation) AddLifeSeconds(u int32) {
+	if m.addlife_seconds != nil {
+		*m.addlife_seconds += u
 	} else {
-		m.addduration_seconds = &u
+		m.addlife_seconds = &u
 	}
 }
 
-// AddedDurationSeconds returns the value that was added to the "duration_seconds" field in this mutation.
-func (m *SubscriptionOrderMutation) AddedDurationSeconds() (r int32, exists bool) {
-	v := m.addduration_seconds
+// AddedLifeSeconds returns the value that was added to the "life_seconds" field in this mutation.
+func (m *SubscriptionOrderMutation) AddedLifeSeconds() (r int32, exists bool) {
+	v := m.addlife_seconds
 	if v == nil {
 		return
 	}
 	return *v, true
 }
 
-// ClearDurationSeconds clears the value of the "duration_seconds" field.
-func (m *SubscriptionOrderMutation) ClearDurationSeconds() {
-	m.duration_seconds = nil
-	m.addduration_seconds = nil
-	m.clearedFields[subscriptionorder.FieldDurationSeconds] = struct{}{}
+// ClearLifeSeconds clears the value of the "life_seconds" field.
+func (m *SubscriptionOrderMutation) ClearLifeSeconds() {
+	m.life_seconds = nil
+	m.addlife_seconds = nil
+	m.clearedFields[subscriptionorder.FieldLifeSeconds] = struct{}{}
 }
 
-// DurationSecondsCleared returns if the "duration_seconds" field was cleared in this mutation.
-func (m *SubscriptionOrderMutation) DurationSecondsCleared() bool {
-	_, ok := m.clearedFields[subscriptionorder.FieldDurationSeconds]
+// LifeSecondsCleared returns if the "life_seconds" field was cleared in this mutation.
+func (m *SubscriptionOrderMutation) LifeSecondsCleared() bool {
+	_, ok := m.clearedFields[subscriptionorder.FieldLifeSeconds]
 	return ok
 }
 
-// ResetDurationSeconds resets all changes to the "duration_seconds" field.
-func (m *SubscriptionOrderMutation) ResetDurationSeconds() {
-	m.duration_seconds = nil
-	m.addduration_seconds = nil
-	delete(m.clearedFields, subscriptionorder.FieldDurationSeconds)
+// ResetLifeSeconds resets all changes to the "life_seconds" field.
+func (m *SubscriptionOrderMutation) ResetLifeSeconds() {
+	m.life_seconds = nil
+	m.addlife_seconds = nil
+	delete(m.clearedFields, subscriptionorder.FieldLifeSeconds)
 }
 
 // Where appends a list predicates to the SubscriptionOrderMutation builder.
@@ -25406,8 +25406,8 @@ func (m *SubscriptionOrderMutation) Fields() []string {
 	if m.promotion_id != nil {
 		fields = append(fields, subscriptionorder.FieldPromotionID)
 	}
-	if m.duration_seconds != nil {
-		fields = append(fields, subscriptionorder.FieldDurationSeconds)
+	if m.life_seconds != nil {
+		fields = append(fields, subscriptionorder.FieldLifeSeconds)
 	}
 	return fields
 }
@@ -25435,8 +25435,8 @@ func (m *SubscriptionOrderMutation) Field(name string) (ent.Value, bool) {
 		return m.DiscountAmountUsd()
 	case subscriptionorder.FieldPromotionID:
 		return m.PromotionID()
-	case subscriptionorder.FieldDurationSeconds:
-		return m.DurationSeconds()
+	case subscriptionorder.FieldLifeSeconds:
+		return m.LifeSeconds()
 	}
 	return nil, false
 }
@@ -25464,8 +25464,8 @@ func (m *SubscriptionOrderMutation) OldField(ctx context.Context, name string) (
 		return m.OldDiscountAmountUsd(ctx)
 	case subscriptionorder.FieldPromotionID:
 		return m.OldPromotionID(ctx)
-	case subscriptionorder.FieldDurationSeconds:
-		return m.OldDurationSeconds(ctx)
+	case subscriptionorder.FieldLifeSeconds:
+		return m.OldLifeSeconds(ctx)
 	}
 	return nil, fmt.Errorf("unknown SubscriptionOrder field %s", name)
 }
@@ -25538,12 +25538,12 @@ func (m *SubscriptionOrderMutation) SetField(name string, value ent.Value) error
 		}
 		m.SetPromotionID(v)
 		return nil
-	case subscriptionorder.FieldDurationSeconds:
+	case subscriptionorder.FieldLifeSeconds:
 		v, ok := value.(uint32)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
-		m.SetDurationSeconds(v)
+		m.SetLifeSeconds(v)
 		return nil
 	}
 	return fmt.Errorf("unknown SubscriptionOrder field %s", name)
@@ -25562,8 +25562,8 @@ func (m *SubscriptionOrderMutation) AddedFields() []string {
 	if m.adddeleted_at != nil {
 		fields = append(fields, subscriptionorder.FieldDeletedAt)
 	}
-	if m.addduration_seconds != nil {
-		fields = append(fields, subscriptionorder.FieldDurationSeconds)
+	if m.addlife_seconds != nil {
+		fields = append(fields, subscriptionorder.FieldLifeSeconds)
 	}
 	return fields
 }
@@ -25579,8 +25579,8 @@ func (m *SubscriptionOrderMutation) AddedField(name string) (ent.Value, bool) {
 		return m.AddedUpdatedAt()
 	case subscriptionorder.FieldDeletedAt:
 		return m.AddedDeletedAt()
-	case subscriptionorder.FieldDurationSeconds:
-		return m.AddedDurationSeconds()
+	case subscriptionorder.FieldLifeSeconds:
+		return m.AddedLifeSeconds()
 	}
 	return nil, false
 }
@@ -25611,12 +25611,12 @@ func (m *SubscriptionOrderMutation) AddField(name string, value ent.Value) error
 		}
 		m.AddDeletedAt(v)
 		return nil
-	case subscriptionorder.FieldDurationSeconds:
+	case subscriptionorder.FieldLifeSeconds:
 		v, ok := value.(int32)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
-		m.AddDurationSeconds(v)
+		m.AddLifeSeconds(v)
 		return nil
 	}
 	return fmt.Errorf("unknown SubscriptionOrder numeric field %s", name)
@@ -25641,8 +25641,8 @@ func (m *SubscriptionOrderMutation) ClearedFields() []string {
 	if m.FieldCleared(subscriptionorder.FieldPromotionID) {
 		fields = append(fields, subscriptionorder.FieldPromotionID)
 	}
-	if m.FieldCleared(subscriptionorder.FieldDurationSeconds) {
-		fields = append(fields, subscriptionorder.FieldDurationSeconds)
+	if m.FieldCleared(subscriptionorder.FieldLifeSeconds) {
+		fields = append(fields, subscriptionorder.FieldLifeSeconds)
 	}
 	return fields
 }
@@ -25673,8 +25673,8 @@ func (m *SubscriptionOrderMutation) ClearField(name string) error {
 	case subscriptionorder.FieldPromotionID:
 		m.ClearPromotionID()
 		return nil
-	case subscriptionorder.FieldDurationSeconds:
-		m.ClearDurationSeconds()
+	case subscriptionorder.FieldLifeSeconds:
+		m.ClearLifeSeconds()
 		return nil
 	}
 	return fmt.Errorf("unknown SubscriptionOrder nullable field %s", name)
@@ -25711,8 +25711,8 @@ func (m *SubscriptionOrderMutation) ResetField(name string) error {
 	case subscriptionorder.FieldPromotionID:
 		m.ResetPromotionID()
 		return nil
-	case subscriptionorder.FieldDurationSeconds:
-		m.ResetDurationSeconds()
+	case subscriptionorder.FieldLifeSeconds:
+		m.ResetLifeSeconds()
 		return nil
 	}
 	return fmt.Errorf("unknown SubscriptionOrder field %s", name)

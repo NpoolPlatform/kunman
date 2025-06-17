@@ -122,7 +122,7 @@ message SubscriptionOrder {
 
     basetypes.good.v1.GoodDurationType DurationDisplayType = 400;
     string DurationUnit = 410;
-    uint32 DurationSeconds = 420;
+    uint32 LifeSeconds = 420;
     uint32 Durations = 430;
     basetypes.order.v1.OrderState CancelState = 440;
     uint32 CanceledAt = 450;
@@ -152,6 +152,7 @@ message CreateSubscriptionOrderRequest {
     optional string PaymentTransferCoinTypeID = 50;
     optional string PaymentFiatID = 60;
     repeated string CouponIDs = 70;
+    optional uint32 LifeSeconds = 80;
 }
 
 message CreateSubscriptionOrderResponse {
@@ -240,7 +241,7 @@ message AdminCreateSubscriptionOrderRequest {
     string TargetUserID = 20;
     string AppGoodID = 30;
     string ParentOrderID = 40;
-    uint32 DurationSeconds = 50;
+    uint32 LifeSeconds = 50;
     basetypes.order.v1.OrderType OrderType = 60;
 }
 

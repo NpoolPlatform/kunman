@@ -99,9 +99,9 @@ func PromotionID(v uuid.UUID) predicate.SubscriptionOrder {
 	return predicate.SubscriptionOrder(sql.FieldEQ(FieldPromotionID, v))
 }
 
-// DurationSeconds applies equality check predicate on the "duration_seconds" field. It's identical to DurationSecondsEQ.
-func DurationSeconds(v uint32) predicate.SubscriptionOrder {
-	return predicate.SubscriptionOrder(sql.FieldEQ(FieldDurationSeconds, v))
+// LifeSeconds applies equality check predicate on the "life_seconds" field. It's identical to LifeSecondsEQ.
+func LifeSeconds(v uint32) predicate.SubscriptionOrder {
+	return predicate.SubscriptionOrder(sql.FieldEQ(FieldLifeSeconds, v))
 }
 
 // EntIDEQ applies the EQ predicate on the "ent_id" field.
@@ -514,54 +514,54 @@ func PromotionIDNotNil() predicate.SubscriptionOrder {
 	return predicate.SubscriptionOrder(sql.FieldNotNull(FieldPromotionID))
 }
 
-// DurationSecondsEQ applies the EQ predicate on the "duration_seconds" field.
-func DurationSecondsEQ(v uint32) predicate.SubscriptionOrder {
-	return predicate.SubscriptionOrder(sql.FieldEQ(FieldDurationSeconds, v))
+// LifeSecondsEQ applies the EQ predicate on the "life_seconds" field.
+func LifeSecondsEQ(v uint32) predicate.SubscriptionOrder {
+	return predicate.SubscriptionOrder(sql.FieldEQ(FieldLifeSeconds, v))
 }
 
-// DurationSecondsNEQ applies the NEQ predicate on the "duration_seconds" field.
-func DurationSecondsNEQ(v uint32) predicate.SubscriptionOrder {
-	return predicate.SubscriptionOrder(sql.FieldNEQ(FieldDurationSeconds, v))
+// LifeSecondsNEQ applies the NEQ predicate on the "life_seconds" field.
+func LifeSecondsNEQ(v uint32) predicate.SubscriptionOrder {
+	return predicate.SubscriptionOrder(sql.FieldNEQ(FieldLifeSeconds, v))
 }
 
-// DurationSecondsIn applies the In predicate on the "duration_seconds" field.
-func DurationSecondsIn(vs ...uint32) predicate.SubscriptionOrder {
-	return predicate.SubscriptionOrder(sql.FieldIn(FieldDurationSeconds, vs...))
+// LifeSecondsIn applies the In predicate on the "life_seconds" field.
+func LifeSecondsIn(vs ...uint32) predicate.SubscriptionOrder {
+	return predicate.SubscriptionOrder(sql.FieldIn(FieldLifeSeconds, vs...))
 }
 
-// DurationSecondsNotIn applies the NotIn predicate on the "duration_seconds" field.
-func DurationSecondsNotIn(vs ...uint32) predicate.SubscriptionOrder {
-	return predicate.SubscriptionOrder(sql.FieldNotIn(FieldDurationSeconds, vs...))
+// LifeSecondsNotIn applies the NotIn predicate on the "life_seconds" field.
+func LifeSecondsNotIn(vs ...uint32) predicate.SubscriptionOrder {
+	return predicate.SubscriptionOrder(sql.FieldNotIn(FieldLifeSeconds, vs...))
 }
 
-// DurationSecondsGT applies the GT predicate on the "duration_seconds" field.
-func DurationSecondsGT(v uint32) predicate.SubscriptionOrder {
-	return predicate.SubscriptionOrder(sql.FieldGT(FieldDurationSeconds, v))
+// LifeSecondsGT applies the GT predicate on the "life_seconds" field.
+func LifeSecondsGT(v uint32) predicate.SubscriptionOrder {
+	return predicate.SubscriptionOrder(sql.FieldGT(FieldLifeSeconds, v))
 }
 
-// DurationSecondsGTE applies the GTE predicate on the "duration_seconds" field.
-func DurationSecondsGTE(v uint32) predicate.SubscriptionOrder {
-	return predicate.SubscriptionOrder(sql.FieldGTE(FieldDurationSeconds, v))
+// LifeSecondsGTE applies the GTE predicate on the "life_seconds" field.
+func LifeSecondsGTE(v uint32) predicate.SubscriptionOrder {
+	return predicate.SubscriptionOrder(sql.FieldGTE(FieldLifeSeconds, v))
 }
 
-// DurationSecondsLT applies the LT predicate on the "duration_seconds" field.
-func DurationSecondsLT(v uint32) predicate.SubscriptionOrder {
-	return predicate.SubscriptionOrder(sql.FieldLT(FieldDurationSeconds, v))
+// LifeSecondsLT applies the LT predicate on the "life_seconds" field.
+func LifeSecondsLT(v uint32) predicate.SubscriptionOrder {
+	return predicate.SubscriptionOrder(sql.FieldLT(FieldLifeSeconds, v))
 }
 
-// DurationSecondsLTE applies the LTE predicate on the "duration_seconds" field.
-func DurationSecondsLTE(v uint32) predicate.SubscriptionOrder {
-	return predicate.SubscriptionOrder(sql.FieldLTE(FieldDurationSeconds, v))
+// LifeSecondsLTE applies the LTE predicate on the "life_seconds" field.
+func LifeSecondsLTE(v uint32) predicate.SubscriptionOrder {
+	return predicate.SubscriptionOrder(sql.FieldLTE(FieldLifeSeconds, v))
 }
 
-// DurationSecondsIsNil applies the IsNil predicate on the "duration_seconds" field.
-func DurationSecondsIsNil() predicate.SubscriptionOrder {
-	return predicate.SubscriptionOrder(sql.FieldIsNull(FieldDurationSeconds))
+// LifeSecondsIsNil applies the IsNil predicate on the "life_seconds" field.
+func LifeSecondsIsNil() predicate.SubscriptionOrder {
+	return predicate.SubscriptionOrder(sql.FieldIsNull(FieldLifeSeconds))
 }
 
-// DurationSecondsNotNil applies the NotNil predicate on the "duration_seconds" field.
-func DurationSecondsNotNil() predicate.SubscriptionOrder {
-	return predicate.SubscriptionOrder(sql.FieldNotNull(FieldDurationSeconds))
+// LifeSecondsNotNil applies the NotNil predicate on the "life_seconds" field.
+func LifeSecondsNotNil() predicate.SubscriptionOrder {
+	return predicate.SubscriptionOrder(sql.FieldNotNull(FieldLifeSeconds))
 }
 
 // And groups predicates with the AND operator between them.

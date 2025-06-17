@@ -30,7 +30,6 @@ message SubscriptionOrderReq {
     optional string PaymentAmountUSD = 230;
     optional string DiscountAmountUSD = 240;
     optional string PromotionID = 250;
-    optional uint32 DurationSeconds = 260;
 
     // Order state base
     optional basetypes.order.v1.OrderState OrderState = 300;
@@ -52,6 +51,8 @@ message SubscriptionOrderReq {
     repeated order.middleware.payment.v1.PaymentTransferReq PaymentTransfers = 620;
     // Payment fiats
     repeated order.middleware.payment.v1.PaymentFiatReq PaymentFiats = 630;
+
+    optional uint32 LifeSeconds = 640;
 }
 
 message SubscriptionOrder {
@@ -99,8 +100,8 @@ message SubscriptionOrder {
     string DiscountAmountUSD = 330;
     // @inject_tag: sql:"promotion_id"
     string PromotionID = 340;
-    // @inject_tag: sql:"duration_seconds"
-    uint32 DurationSeconds = 350;
+    // @inject_tag: sql:"life_seconds"
+    uint32 LifeSeconds = 350;
 
     // Power rental state information
     // @inject_tag: sql:"cancel_state"
