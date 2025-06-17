@@ -1,0 +1,198 @@
+syntax = "proto3";
+
+package good.gateway.app.subscription.oneshot.v1;
+
+option go_package = "github.com/NpoolPlatform/kunman/message/good/gateway/v1/app/subscription/oneshot";
+
+import "google/api/annotations.proto";
+import "basetypes/good/v1/enums.proto";
+import "good/gateway/v1/good/coin/coin.proto";
+import "good/middleware/v1/app/good/description/description.proto";
+import "good/middleware/v1/app/good/poster/poster.proto";
+import "good/middleware/v1/app/good/label/label.proto";
+import "good/middleware/v1/app/good/display/name/name.proto";
+import "good/middleware/v1/app/good/display/color/color.proto";
+import "good/middleware/v1/app/good/required/required.proto";
+import "good/middleware/v1/app/good/stock/mining/mining.proto";
+import "good/gateway/v1/good/stock/stock.proto";
+import "good/gateway/v1/good/coin/reward/reward.proto";
+
+service Gateway {
+  rpc UpdateAppOneShot(UpdateAppOneShotRequest)
+      returns (UpdateAppOneShotResponse) {
+    option (google.api.http) = {
+      post : "/v1/update/appsubscriptiononeshot"
+      body : "*"
+    };
+  }
+
+  rpc GetAppOneShot(GetAppOneShotRequest)
+      returns (GetAppOneShotResponse) {
+    option (google.api.http) = {
+      post : "/v1/get/appsubscriptiononeshot"
+      body : "*"
+    };
+  }
+
+  rpc GetAppOneShots(GetAppOneShotsRequest)
+      returns (GetAppOneShotsResponse) {
+    option (google.api.http) = {
+      post : "/v1/get/appsubscriptiononeshots"
+      body : "*"
+    };
+  }
+
+  // Run by church admin
+  rpc AdminCreateAppOneShot(AdminCreateAppOneShotRequest)
+      returns (AdminCreateAppOneShotResponse) {
+    option (google.api.http) = {
+      post : "/v1/admin/create/appsubscriptiononeshot"
+      body : "*"
+    };
+  }
+
+  rpc AdminUpdateAppOneShot(AdminUpdateAppOneShotRequest)
+      returns (AdminUpdateAppOneShotResponse) {
+    option (google.api.http) = {
+      post : "/v1/admin/update/appsubscriptiononeshot"
+      body : "*"
+    };
+  }
+
+  rpc AdminGetAppOneShots(AdminGetAppOneShotsRequest)
+      returns (AdminGetAppOneShotsResponse) {
+    option (google.api.http) = {
+      post : "/v1/admin/get/appsubscriptiononeshots"
+      body : "*"
+    };
+  }
+
+  rpc AdminDeleteAppOneShot(AdminDeleteAppOneShotRequest)
+      returns (AdminDeleteAppOneShotResponse) {
+    option (google.api.http) = {
+      post : "/v1/admin/delete/appsubscriptiononeshot"
+      body : "*"
+    };
+  }
+}
+
+message AppOneShot {
+  uint32 ID = 10;
+  string EntID = 20;
+  string AppID = 30;
+  string AppName = 40;
+  string GoodID = 50;
+  string AppGoodID = 60;
+
+  string USDPrice = 180;
+
+  basetypes.good.v1.GoodType GoodType = 240;
+  string GoodName = 260;
+
+  uint32 Quota = 280;
+
+  string AppGoodName = 390;
+  string Banner = 410;
+  bool EnableSetCommission = 440;
+  uint32 LifeSeconds = 450;
+
+  repeated good.middleware.app.good1.description.v1.DescriptionInfo
+      Descriptions = 910;
+  repeated good.middleware.app.good1.poster.v1.PosterInfo Posters = 920;
+  repeated good.middleware.app.good1.display.name.v1.DisplayNameInfo
+      DisplayNames = 930;
+  repeated good.middleware.app.good1.display.color.v1.DisplayColorInfo
+      DisplayColors = 940;
+
+  repeated good.middleware.app.good1.label.v1.LabelInfo Labels = 970;
+
+  uint32 CreatedAt = 1000;
+  uint32 UpdatedAt = 1010;
+}
+
+message UpdateAppOneShotRequest {
+  uint32 ID = 10;
+  string EntID = 20;
+  string AppID = 30;
+  string AppGoodID = 40;
+
+  optional string Name = 100;
+  optional string Banner = 120;
+
+  optional bool EnableSetCommission = 160;
+  optional string USDPrice = 220;
+
+  optional uint32 Quota = 230;
+  optional uint32 LifeSeconds = 240;
+}
+
+message UpdateAppOneShotResponse { AppOneShot Info = 10; }
+
+message GetAppOneShotRequest { string AppGoodID = 10; }
+
+message GetAppOneShotResponse { AppOneShot Info = 10; }
+
+message GetAppOneShotsRequest {
+  string AppID = 10;
+  int32 Offset = 20;
+  int32 Limit = 30;
+}
+
+message GetAppOneShotsResponse {
+  repeated AppOneShot Infos = 10;
+  uint32 Total = 20;
+}
+
+message AdminCreateAppOneShotRequest {
+  string TargetAppID = 10;
+  string GoodID = 20;
+
+  string Name = 80;
+  optional string Banner = 100;
+
+  optional bool EnableSetCommission = 140;
+  string UnitPrice = 200;
+
+  uint32 Quota = 230;
+  optional uint32 LifeSeconds = 240;
+}
+
+message AdminCreateAppOneShotResponse { AppOneShot Info = 10; }
+
+message AdminUpdateAppOneShotRequest {
+  uint32 ID = 10;
+  string EntID = 20;
+  string TargetAppID = 30;
+  string AppGoodID = 40;
+
+  optional string Name = 100;
+  optional string Banner = 120;
+
+  optional bool EnableSetCommission = 160;
+  optional string UnitPrice = 220;
+
+  optional uint32 Quota = 230;
+  optional uint32 LifeSeconds = 240;
+}
+
+message AdminUpdateAppOneShotResponse { AppOneShot Info = 10; }
+
+message AdminGetAppOneShotsRequest {
+  string TargetAppID = 10;
+  int32 Offset = 20;
+  int32 Limit = 30;
+}
+
+message AdminGetAppOneShotsResponse {
+  repeated AppOneShot Infos = 10;
+  uint32 Total = 20;
+}
+
+message AdminDeleteAppOneShotRequest {
+  uint32 ID = 10;
+  string EntID = 20;
+  string TargetAppID = 30;
+  string AppGoodID = 40;
+}
+
+message AdminDeleteAppOneShotResponse { AppOneShot Info = 10; }

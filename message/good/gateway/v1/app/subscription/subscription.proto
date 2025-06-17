@@ -1,0 +1,205 @@
+syntax = "proto3";
+
+package good.gateway.app.subscription.v1;
+
+option go_package = "github.com/NpoolPlatform/kunman/message/good/gateway/v1/app/subscription";
+
+import "google/api/annotations.proto";
+import "basetypes/good/v1/enums.proto";
+import "good/gateway/v1/good/coin/coin.proto";
+import "good/middleware/v1/app/good/description/description.proto";
+import "good/middleware/v1/app/good/poster/poster.proto";
+import "good/middleware/v1/app/good/label/label.proto";
+import "good/middleware/v1/app/good/display/name/name.proto";
+import "good/middleware/v1/app/good/display/color/color.proto";
+import "good/middleware/v1/app/good/required/required.proto";
+import "good/middleware/v1/app/good/stock/mining/mining.proto";
+import "good/gateway/v1/good/stock/stock.proto";
+import "good/gateway/v1/good/coin/reward/reward.proto";
+
+service Gateway {
+  rpc UpdateAppSubscription(UpdateAppSubscriptionRequest)
+      returns (UpdateAppSubscriptionResponse) {
+    option (google.api.http) = {
+      post : "/v1/update/appsubscription"
+      body : "*"
+    };
+  }
+
+  rpc GetAppSubscription(GetAppSubscriptionRequest)
+      returns (GetAppSubscriptionResponse) {
+    option (google.api.http) = {
+      post : "/v1/get/appsubscription"
+      body : "*"
+    };
+  }
+
+  rpc GetAppSubscriptions(GetAppSubscriptionsRequest)
+      returns (GetAppSubscriptionsResponse) {
+    option (google.api.http) = {
+      post : "/v1/get/appsubscriptions"
+      body : "*"
+    };
+  }
+
+  // Run by church admin
+  rpc AdminCreateAppSubscription(AdminCreateAppSubscriptionRequest)
+      returns (AdminCreateAppSubscriptionResponse) {
+    option (google.api.http) = {
+      post : "/v1/admin/create/appsubscription"
+      body : "*"
+    };
+  }
+
+  rpc AdminUpdateAppSubscription(AdminUpdateAppSubscriptionRequest)
+      returns (AdminUpdateAppSubscriptionResponse) {
+    option (google.api.http) = {
+      post : "/v1/admin/update/appsubscription"
+      body : "*"
+    };
+  }
+
+  rpc AdminGetAppSubscriptions(AdminGetAppSubscriptionsRequest)
+      returns (AdminGetAppSubscriptionsResponse) {
+    option (google.api.http) = {
+      post : "/v1/admin/get/appsubscriptions"
+      body : "*"
+    };
+  }
+
+  rpc AdminDeleteAppSubscription(AdminDeleteAppSubscriptionRequest)
+      returns (AdminDeleteAppSubscriptionResponse) {
+    option (google.api.http) = {
+      post : "/v1/admin/delete/appsubscription"
+      body : "*"
+    };
+  }
+}
+
+message AppSubscription {
+  uint32 ID = 10;
+  string EntID = 20;
+  string AppID = 30;
+  string AppName = 40;
+  string GoodID = 50;
+  string AppGoodID = 60;
+
+  string USDPrice = 180;
+  basetypes.good.v1.GoodDurationType DurationDisplayType = 230;
+
+  basetypes.good.v1.GoodType GoodType = 240;
+  string GoodName = 260;
+
+  uint32 DurationUnits = 270;
+  uint32 DurationQuota = 280;
+  uint32 DailyBonusQuota = 290;
+
+  string AppGoodName = 390;
+  string Banner = 410;
+  bool EnableSetCommission = 440;
+
+  repeated good.middleware.app.good1.description.v1.DescriptionInfo
+      Descriptions = 910;
+  repeated good.middleware.app.good1.poster.v1.PosterInfo Posters = 920;
+  repeated good.middleware.app.good1.display.name.v1.DisplayNameInfo
+      DisplayNames = 930;
+  repeated good.middleware.app.good1.display.color.v1.DisplayColorInfo
+      DisplayColors = 940;
+  repeated good.middleware.app.good1.label.v1.LabelInfo Labels = 970;
+
+  uint32 CreatedAt = 1000;
+  uint32 UpdatedAt = 1010;
+}
+
+message UpdateAppSubscriptionRequest {
+  uint32 ID = 10;
+  string EntID = 20;
+  string AppID = 30;
+  string AppGoodID = 40;
+
+  optional basetypes.good.v1.GoodDurationType DurationDisplayType = 90;
+  optional string Name = 100;
+  optional string Banner = 120;
+
+  optional bool EnableSetCommission = 160;
+  optional string USDPrice = 220;
+
+  optional uint32 DurationQuota = 230;
+  optional uint32 DailyBonusQuota = 240;
+  optional uint32 DurationUnits = 250;
+}
+
+message UpdateAppSubscriptionResponse { AppSubscription Info = 10; }
+
+message GetAppSubscriptionRequest { string AppGoodID = 10; }
+
+message GetAppSubscriptionResponse { AppSubscription Info = 10; }
+
+message GetAppSubscriptionsRequest {
+  string AppID = 10;
+  int32 Offset = 20;
+  int32 Limit = 30;
+}
+
+message GetAppSubscriptionsResponse {
+  repeated AppSubscription Infos = 10;
+  uint32 Total = 20;
+}
+
+message AdminCreateAppSubscriptionRequest {
+  string TargetAppID = 10;
+  string GoodID = 20;
+
+  basetypes.good.v1.GoodDurationType DurationDisplayType = 70;
+  string Name = 80;
+  optional string Banner = 100;
+
+  optional bool EnableSetCommission = 140;
+  string UnitPrice = 200;
+
+  uint32 DurationQuota = 230;
+  optional uint32 DailyBonusQuota = 240;
+  optional uint32 DurationUnits = 250;
+}
+
+message AdminCreateAppSubscriptionResponse { AppSubscription Info = 10; }
+
+message AdminUpdateAppSubscriptionRequest {
+  uint32 ID = 10;
+  string EntID = 20;
+  string TargetAppID = 30;
+  string AppGoodID = 40;
+
+  optional basetypes.good.v1.GoodDurationType DurationDisplayType = 90;
+  optional string Name = 100;
+  optional string Banner = 120;
+
+  optional bool EnableSetCommission = 160;
+  optional string UnitPrice = 220;
+
+  optional uint32 DurationQuota = 230;
+  optional uint32 DailyBonusQuota = 240;
+  optional uint32 DurationUnits = 250;
+}
+
+message AdminUpdateAppSubscriptionResponse { AppSubscription Info = 10; }
+
+message AdminGetAppSubscriptionsRequest {
+  string TargetAppID = 10;
+  int32 Offset = 20;
+  int32 Limit = 30;
+}
+
+message AdminGetAppSubscriptionsResponse {
+  repeated AppSubscription Infos = 10;
+  uint32 Total = 20;
+}
+
+message AdminDeleteAppSubscriptionRequest {
+  uint32 ID = 10;
+  string EntID = 20;
+  string TargetAppID = 30;
+  string AppGoodID = 40;
+}
+
+message AdminDeleteAppSubscriptionResponse { AppSubscription Info = 10; }
