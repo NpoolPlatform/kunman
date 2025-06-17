@@ -10,6 +10,7 @@ import (
 	powerrentalorder1 "github.com/NpoolPlatform/kunman/api/order/powerrental"
 	powerrentalcompensate1 "github.com/NpoolPlatform/kunman/api/order/powerrental/compensate"
 	powerrentaloutofgas1 "github.com/NpoolPlatform/kunman/api/order/powerrental/outofgas"
+	subscriptionorder1 "github.com/NpoolPlatform/kunman/api/order/subscription"
 	order "github.com/NpoolPlatform/kunman/message/order/gateway/v1"
 
 	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
@@ -30,6 +31,7 @@ func Register(server grpc.ServiceRegistrar) {
 	powerrentaloutofgas1.Register(server)
 	outofgas1.Register(server)
 	powerrentalorder1.Register(server)
+	subscriptionorder1.Register(server)
 	appconfig1.Register(server)
 }
 
@@ -56,6 +58,9 @@ func RegisterGateway(mux *runtime.ServeMux, endpoint string, opts []grpc.DialOpt
 		return err
 	}
 	if err := powerrentalorder1.RegisterGateway(mux, endpoint, opts); err != nil {
+		return err
+	}
+	if err := subscriptionorder1.RegisterGateway(mux, endpoint, opts); err != nil {
 		return err
 	}
 	if err := appconfig1.RegisterGateway(mux, endpoint, opts); err != nil {
