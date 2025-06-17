@@ -20,6 +20,12 @@ type FbmCrowdFunding struct {
 	ID uint32 `json:"id,omitempty"`
 	// EntID holds the value of the "ent_id" field.
 	EntID uuid.UUID `json:"ent_id,omitempty"`
+	// CreatedAt holds the value of the "created_at" field.
+	CreatedAt uint32 `json:"created_at,omitempty"`
+	// UpdatedAt holds the value of the "updated_at" field.
+	UpdatedAt uint32 `json:"updated_at,omitempty"`
+	// DeletedAt holds the value of the "deleted_at" field.
+	DeletedAt uint32 `json:"deleted_at,omitempty"`
 	// GoodID holds the value of the "good_id" field.
 	GoodID uuid.UUID `json:"good_id,omitempty"`
 	// MinDepositAmount holds the value of the "min_deposit_amount" field.
@@ -56,7 +62,7 @@ func (*FbmCrowdFunding) scanValues(columns []string) ([]any, error) {
 			values[i] = new(decimal.Decimal)
 		case fbmcrowdfunding.FieldRedeemable:
 			values[i] = new(sql.NullBool)
-		case fbmcrowdfunding.FieldID, fbmcrowdfunding.FieldDeliveryAt, fbmcrowdfunding.FieldDepositStartAt, fbmcrowdfunding.FieldDepositEndAt, fbmcrowdfunding.FieldRedeemDelayHours, fbmcrowdfunding.FieldDurationSeconds:
+		case fbmcrowdfunding.FieldID, fbmcrowdfunding.FieldCreatedAt, fbmcrowdfunding.FieldUpdatedAt, fbmcrowdfunding.FieldDeletedAt, fbmcrowdfunding.FieldDeliveryAt, fbmcrowdfunding.FieldDepositStartAt, fbmcrowdfunding.FieldDepositEndAt, fbmcrowdfunding.FieldRedeemDelayHours, fbmcrowdfunding.FieldDurationSeconds:
 			values[i] = new(sql.NullInt64)
 		case fbmcrowdfunding.FieldContractAddress, fbmcrowdfunding.FieldDurationDisplayType:
 			values[i] = new(sql.NullString)
@@ -88,6 +94,24 @@ func (fcf *FbmCrowdFunding) assignValues(columns []string, values []any) error {
 				return fmt.Errorf("unexpected type %T for field ent_id", values[i])
 			} else if value != nil {
 				fcf.EntID = *value
+			}
+		case fbmcrowdfunding.FieldCreatedAt:
+			if value, ok := values[i].(*sql.NullInt64); !ok {
+				return fmt.Errorf("unexpected type %T for field created_at", values[i])
+			} else if value.Valid {
+				fcf.CreatedAt = uint32(value.Int64)
+			}
+		case fbmcrowdfunding.FieldUpdatedAt:
+			if value, ok := values[i].(*sql.NullInt64); !ok {
+				return fmt.Errorf("unexpected type %T for field updated_at", values[i])
+			} else if value.Valid {
+				fcf.UpdatedAt = uint32(value.Int64)
+			}
+		case fbmcrowdfunding.FieldDeletedAt:
+			if value, ok := values[i].(*sql.NullInt64); !ok {
+				return fmt.Errorf("unexpected type %T for field deleted_at", values[i])
+			} else if value.Valid {
+				fcf.DeletedAt = uint32(value.Int64)
 			}
 		case fbmcrowdfunding.FieldGoodID:
 			if value, ok := values[i].(*uuid.UUID); !ok {
@@ -199,6 +223,15 @@ func (fcf *FbmCrowdFunding) String() string {
 	builder.WriteString(fmt.Sprintf("id=%v, ", fcf.ID))
 	builder.WriteString("ent_id=")
 	builder.WriteString(fmt.Sprintf("%v", fcf.EntID))
+	builder.WriteString(", ")
+	builder.WriteString("created_at=")
+	builder.WriteString(fmt.Sprintf("%v", fcf.CreatedAt))
+	builder.WriteString(", ")
+	builder.WriteString("updated_at=")
+	builder.WriteString(fmt.Sprintf("%v", fcf.UpdatedAt))
+	builder.WriteString(", ")
+	builder.WriteString("deleted_at=")
+	builder.WriteString(fmt.Sprintf("%v", fcf.DeletedAt))
 	builder.WriteString(", ")
 	builder.WriteString("good_id=")
 	builder.WriteString(fmt.Sprintf("%v", fcf.GoodID))

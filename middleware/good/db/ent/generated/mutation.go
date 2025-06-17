@@ -23233,6 +23233,12 @@ type FbmCrowdFundingMutation struct {
 	typ                   string
 	id                    *uint32
 	ent_id                *uuid.UUID
+	created_at            *uint32
+	addcreated_at         *int32
+	updated_at            *uint32
+	addupdated_at         *int32
+	deleted_at            *uint32
+	adddeleted_at         *int32
 	good_id               *uuid.UUID
 	min_deposit_amount    *decimal.Decimal
 	delivery_at           *uint32
@@ -23394,6 +23400,174 @@ func (m *FbmCrowdFundingMutation) OldEntID(ctx context.Context) (v uuid.UUID, er
 // ResetEntID resets all changes to the "ent_id" field.
 func (m *FbmCrowdFundingMutation) ResetEntID() {
 	m.ent_id = nil
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (m *FbmCrowdFundingMutation) SetCreatedAt(u uint32) {
+	m.created_at = &u
+	m.addcreated_at = nil
+}
+
+// CreatedAt returns the value of the "created_at" field in the mutation.
+func (m *FbmCrowdFundingMutation) CreatedAt() (r uint32, exists bool) {
+	v := m.created_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldCreatedAt returns the old "created_at" field's value of the FbmCrowdFunding entity.
+// If the FbmCrowdFunding object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *FbmCrowdFundingMutation) OldCreatedAt(ctx context.Context) (v uint32, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldCreatedAt is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldCreatedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldCreatedAt: %w", err)
+	}
+	return oldValue.CreatedAt, nil
+}
+
+// AddCreatedAt adds u to the "created_at" field.
+func (m *FbmCrowdFundingMutation) AddCreatedAt(u int32) {
+	if m.addcreated_at != nil {
+		*m.addcreated_at += u
+	} else {
+		m.addcreated_at = &u
+	}
+}
+
+// AddedCreatedAt returns the value that was added to the "created_at" field in this mutation.
+func (m *FbmCrowdFundingMutation) AddedCreatedAt() (r int32, exists bool) {
+	v := m.addcreated_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetCreatedAt resets all changes to the "created_at" field.
+func (m *FbmCrowdFundingMutation) ResetCreatedAt() {
+	m.created_at = nil
+	m.addcreated_at = nil
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (m *FbmCrowdFundingMutation) SetUpdatedAt(u uint32) {
+	m.updated_at = &u
+	m.addupdated_at = nil
+}
+
+// UpdatedAt returns the value of the "updated_at" field in the mutation.
+func (m *FbmCrowdFundingMutation) UpdatedAt() (r uint32, exists bool) {
+	v := m.updated_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldUpdatedAt returns the old "updated_at" field's value of the FbmCrowdFunding entity.
+// If the FbmCrowdFunding object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *FbmCrowdFundingMutation) OldUpdatedAt(ctx context.Context) (v uint32, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldUpdatedAt is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldUpdatedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldUpdatedAt: %w", err)
+	}
+	return oldValue.UpdatedAt, nil
+}
+
+// AddUpdatedAt adds u to the "updated_at" field.
+func (m *FbmCrowdFundingMutation) AddUpdatedAt(u int32) {
+	if m.addupdated_at != nil {
+		*m.addupdated_at += u
+	} else {
+		m.addupdated_at = &u
+	}
+}
+
+// AddedUpdatedAt returns the value that was added to the "updated_at" field in this mutation.
+func (m *FbmCrowdFundingMutation) AddedUpdatedAt() (r int32, exists bool) {
+	v := m.addupdated_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetUpdatedAt resets all changes to the "updated_at" field.
+func (m *FbmCrowdFundingMutation) ResetUpdatedAt() {
+	m.updated_at = nil
+	m.addupdated_at = nil
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (m *FbmCrowdFundingMutation) SetDeletedAt(u uint32) {
+	m.deleted_at = &u
+	m.adddeleted_at = nil
+}
+
+// DeletedAt returns the value of the "deleted_at" field in the mutation.
+func (m *FbmCrowdFundingMutation) DeletedAt() (r uint32, exists bool) {
+	v := m.deleted_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldDeletedAt returns the old "deleted_at" field's value of the FbmCrowdFunding entity.
+// If the FbmCrowdFunding object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *FbmCrowdFundingMutation) OldDeletedAt(ctx context.Context) (v uint32, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldDeletedAt is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldDeletedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldDeletedAt: %w", err)
+	}
+	return oldValue.DeletedAt, nil
+}
+
+// AddDeletedAt adds u to the "deleted_at" field.
+func (m *FbmCrowdFundingMutation) AddDeletedAt(u int32) {
+	if m.adddeleted_at != nil {
+		*m.adddeleted_at += u
+	} else {
+		m.adddeleted_at = &u
+	}
+}
+
+// AddedDeletedAt returns the value that was added to the "deleted_at" field in this mutation.
+func (m *FbmCrowdFundingMutation) AddedDeletedAt() (r int32, exists bool) {
+	v := m.adddeleted_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetDeletedAt resets all changes to the "deleted_at" field.
+func (m *FbmCrowdFundingMutation) ResetDeletedAt() {
+	m.deleted_at = nil
+	m.adddeleted_at = nil
 }
 
 // SetGoodID sets the "good_id" field.
@@ -24123,9 +24297,18 @@ func (m *FbmCrowdFundingMutation) Type() string {
 // order to get all numeric fields that were incremented/decremented, call
 // AddedFields().
 func (m *FbmCrowdFundingMutation) Fields() []string {
-	fields := make([]string, 0, 13)
+	fields := make([]string, 0, 16)
 	if m.ent_id != nil {
 		fields = append(fields, fbmcrowdfunding.FieldEntID)
+	}
+	if m.created_at != nil {
+		fields = append(fields, fbmcrowdfunding.FieldCreatedAt)
+	}
+	if m.updated_at != nil {
+		fields = append(fields, fbmcrowdfunding.FieldUpdatedAt)
+	}
+	if m.deleted_at != nil {
+		fields = append(fields, fbmcrowdfunding.FieldDeletedAt)
 	}
 	if m.good_id != nil {
 		fields = append(fields, fbmcrowdfunding.FieldGoodID)
@@ -24173,6 +24356,12 @@ func (m *FbmCrowdFundingMutation) Field(name string) (ent.Value, bool) {
 	switch name {
 	case fbmcrowdfunding.FieldEntID:
 		return m.EntID()
+	case fbmcrowdfunding.FieldCreatedAt:
+		return m.CreatedAt()
+	case fbmcrowdfunding.FieldUpdatedAt:
+		return m.UpdatedAt()
+	case fbmcrowdfunding.FieldDeletedAt:
+		return m.DeletedAt()
 	case fbmcrowdfunding.FieldGoodID:
 		return m.GoodID()
 	case fbmcrowdfunding.FieldMinDepositAmount:
@@ -24208,6 +24397,12 @@ func (m *FbmCrowdFundingMutation) OldField(ctx context.Context, name string) (en
 	switch name {
 	case fbmcrowdfunding.FieldEntID:
 		return m.OldEntID(ctx)
+	case fbmcrowdfunding.FieldCreatedAt:
+		return m.OldCreatedAt(ctx)
+	case fbmcrowdfunding.FieldUpdatedAt:
+		return m.OldUpdatedAt(ctx)
+	case fbmcrowdfunding.FieldDeletedAt:
+		return m.OldDeletedAt(ctx)
 	case fbmcrowdfunding.FieldGoodID:
 		return m.OldGoodID(ctx)
 	case fbmcrowdfunding.FieldMinDepositAmount:
@@ -24247,6 +24442,27 @@ func (m *FbmCrowdFundingMutation) SetField(name string, value ent.Value) error {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetEntID(v)
+		return nil
+	case fbmcrowdfunding.FieldCreatedAt:
+		v, ok := value.(uint32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetCreatedAt(v)
+		return nil
+	case fbmcrowdfunding.FieldUpdatedAt:
+		v, ok := value.(uint32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetUpdatedAt(v)
+		return nil
+	case fbmcrowdfunding.FieldDeletedAt:
+		v, ok := value.(uint32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetDeletedAt(v)
 		return nil
 	case fbmcrowdfunding.FieldGoodID:
 		v, ok := value.(uuid.UUID)
@@ -24340,6 +24556,15 @@ func (m *FbmCrowdFundingMutation) SetField(name string, value ent.Value) error {
 // this mutation.
 func (m *FbmCrowdFundingMutation) AddedFields() []string {
 	var fields []string
+	if m.addcreated_at != nil {
+		fields = append(fields, fbmcrowdfunding.FieldCreatedAt)
+	}
+	if m.addupdated_at != nil {
+		fields = append(fields, fbmcrowdfunding.FieldUpdatedAt)
+	}
+	if m.adddeleted_at != nil {
+		fields = append(fields, fbmcrowdfunding.FieldDeletedAt)
+	}
 	if m.adddelivery_at != nil {
 		fields = append(fields, fbmcrowdfunding.FieldDeliveryAt)
 	}
@@ -24363,6 +24588,12 @@ func (m *FbmCrowdFundingMutation) AddedFields() []string {
 // was not set, or was not defined in the schema.
 func (m *FbmCrowdFundingMutation) AddedField(name string) (ent.Value, bool) {
 	switch name {
+	case fbmcrowdfunding.FieldCreatedAt:
+		return m.AddedCreatedAt()
+	case fbmcrowdfunding.FieldUpdatedAt:
+		return m.AddedUpdatedAt()
+	case fbmcrowdfunding.FieldDeletedAt:
+		return m.AddedDeletedAt()
 	case fbmcrowdfunding.FieldDeliveryAt:
 		return m.AddedDeliveryAt()
 	case fbmcrowdfunding.FieldDepositStartAt:
@@ -24382,6 +24613,27 @@ func (m *FbmCrowdFundingMutation) AddedField(name string) (ent.Value, bool) {
 // type.
 func (m *FbmCrowdFundingMutation) AddField(name string, value ent.Value) error {
 	switch name {
+	case fbmcrowdfunding.FieldCreatedAt:
+		v, ok := value.(int32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddCreatedAt(v)
+		return nil
+	case fbmcrowdfunding.FieldUpdatedAt:
+		v, ok := value.(int32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddUpdatedAt(v)
+		return nil
+	case fbmcrowdfunding.FieldDeletedAt:
+		v, ok := value.(int32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddDeletedAt(v)
+		return nil
 	case fbmcrowdfunding.FieldDeliveryAt:
 		v, ok := value.(int32)
 		if !ok {
@@ -24521,6 +24773,15 @@ func (m *FbmCrowdFundingMutation) ResetField(name string) error {
 	switch name {
 	case fbmcrowdfunding.FieldEntID:
 		m.ResetEntID()
+		return nil
+	case fbmcrowdfunding.FieldCreatedAt:
+		m.ResetCreatedAt()
+		return nil
+	case fbmcrowdfunding.FieldUpdatedAt:
+		m.ResetUpdatedAt()
+		return nil
+	case fbmcrowdfunding.FieldDeletedAt:
+		m.ResetDeletedAt()
 		return nil
 	case fbmcrowdfunding.FieldGoodID:
 		m.ResetGoodID()

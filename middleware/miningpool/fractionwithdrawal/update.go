@@ -8,7 +8,7 @@ import (
 	fractionwithdrawalcrud "github.com/NpoolPlatform/kunman/middleware/miningpool/crud/fractionwithdrawal"
 
 	"github.com/NpoolPlatform/kunman/middleware/miningpool/db"
-	"github.com/NpoolPlatform/kunman/middleware/miningpool/db/ent/generated"
+	ent "github.com/NpoolPlatform/kunman/middleware/miningpool/db/ent/generated"
 	fractionwithdrawalent "github.com/NpoolPlatform/kunman/middleware/miningpool/db/ent/generated/fractionwithdrawal"
 )
 

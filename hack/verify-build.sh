@@ -39,7 +39,8 @@ for PLATFORM in "${PLATFORMS[@]}"; do
         -X $pkg.buildDate=${compile_date} \
         -X $pkg.gitCommit=${git_revision} \
         -X $pkg.gitVersion=${version}     \
-        -X $pkg.gitBranch=${git_branch}"  \
+        -X $pkg.gitBranch=${git_branch}  \
+        -X google.golang.org/protobuf/reflect/protoregistry.conflictPolicy=warn" \
         -o "${OUTPUT}/${OS}/${ARCH}/" "$(pwd)/cmd/$service_name" \
         || exit 1
 done

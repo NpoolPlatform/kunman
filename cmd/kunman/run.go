@@ -52,7 +52,8 @@ func watch(ctx context.Context, cancel context.CancelFunc) error {
 func rpcRegister(server grpc.ServiceRegistrar) error {
 	api.Register(server)
 
-	return basalapi.RegisterGRPC(server)
+	_ = basalapi.RegisterGRPC(server)
+	return nil
 }
 
 func rpcGatewayRegister(mux *runtime.ServeMux, endpoint string, opts []grpc.DialOption) error {
@@ -61,5 +62,6 @@ func rpcGatewayRegister(mux *runtime.ServeMux, endpoint string, opts []grpc.Dial
 		return wlog.WrapError(err)
 	}
 
-	return basalapi.Register(mux)
+	_ = basalapi.Register(mux)
+	return nil
 }

@@ -583,6 +583,9 @@ var schemaGraph = func() *sqlgraph.Schema {
 		Type: "FbmCrowdFunding",
 		Fields: map[string]*sqlgraph.FieldSpec{
 			fbmcrowdfunding.FieldEntID:               {Type: field.TypeUUID, Column: fbmcrowdfunding.FieldEntID},
+			fbmcrowdfunding.FieldCreatedAt:           {Type: field.TypeUint32, Column: fbmcrowdfunding.FieldCreatedAt},
+			fbmcrowdfunding.FieldUpdatedAt:           {Type: field.TypeUint32, Column: fbmcrowdfunding.FieldUpdatedAt},
+			fbmcrowdfunding.FieldDeletedAt:           {Type: field.TypeUint32, Column: fbmcrowdfunding.FieldDeletedAt},
 			fbmcrowdfunding.FieldGoodID:              {Type: field.TypeUUID, Column: fbmcrowdfunding.FieldGoodID},
 			fbmcrowdfunding.FieldMinDepositAmount:    {Type: field.TypeOther, Column: fbmcrowdfunding.FieldMinDepositAmount},
 			fbmcrowdfunding.FieldDeliveryAt:          {Type: field.TypeUint32, Column: fbmcrowdfunding.FieldDeliveryAt},
@@ -3209,6 +3212,21 @@ func (f *FbmCrowdFundingFilter) WhereID(p entql.Uint32P) {
 // WhereEntID applies the entql [16]byte predicate on the ent_id field.
 func (f *FbmCrowdFundingFilter) WhereEntID(p entql.ValueP) {
 	f.Where(p.Field(fbmcrowdfunding.FieldEntID))
+}
+
+// WhereCreatedAt applies the entql uint32 predicate on the created_at field.
+func (f *FbmCrowdFundingFilter) WhereCreatedAt(p entql.Uint32P) {
+	f.Where(p.Field(fbmcrowdfunding.FieldCreatedAt))
+}
+
+// WhereUpdatedAt applies the entql uint32 predicate on the updated_at field.
+func (f *FbmCrowdFundingFilter) WhereUpdatedAt(p entql.Uint32P) {
+	f.Where(p.Field(fbmcrowdfunding.FieldUpdatedAt))
+}
+
+// WhereDeletedAt applies the entql uint32 predicate on the deleted_at field.
+func (f *FbmCrowdFundingFilter) WhereDeletedAt(p entql.Uint32P) {
+	f.Where(p.Field(fbmcrowdfunding.FieldDeletedAt))
 }
 
 // WhereGoodID applies the entql [16]byte predicate on the good_id field.

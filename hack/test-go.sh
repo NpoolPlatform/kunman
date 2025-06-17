@@ -53,11 +53,19 @@ set -e
 compile_date=`date -u +'%Y-%m-%dT%H:%M:%SZ'`
 git_revision=`git rev-parse HEAD 2>/dev/null || echo unknow`
 
-go test -ldflags "-s -w -X $pkg.buildDate=${compile_date} \
-        -X $pkg.gitCommit=${git_revision} \
-        -X $pkg.gitVersion=${version}     \
-        -X $pkg.gitBranch=${git_branch}   \
-        -X google.golang.org/protobuf/reflect/protoregistry.conflictPolicy=warn"  \
-        ./... -coverprofile ${ARTIFACTS}/coverage.out
+# packages=`go list -f '{{if or .TestGoFiles .XTestGoFiles}}{{.ImportPath}}{{end}}' ./...`
+packages=`go list ./...`
 
-go tool cover -html "${ARTIFACTS}/coverage.out" -o "${ARTIFACTS}/coverage.html"
+for package in $packages; do
+    go test -ldflags "-s -w -X $pkg.buildDate=${compile_date} \
+            -X $pkg.gitCommit=${git_revision} \
+            -X $pkg.gitVersion=${version}     \
+            -X $pkg.gitBranch=${git_branch}   \
+            -X google.golang.org/protobuf/reflect/protoregistry.conflictPolicy=warn"  \
+            -parallel=1 \
+            -count=1 \
+            $package -cover
+            # ./... -coverprofile ${ARTIFACTS}/coverage.out
+done
+
+# go tool cover -html "${ARTIFACTS}/coverage.out" -o "${ARTIFACTS}/coverage.html"

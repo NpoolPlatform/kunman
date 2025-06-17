@@ -37,6 +37,48 @@ func (fcfc *FbmCrowdFundingCreate) SetNillableEntID(u *uuid.UUID) *FbmCrowdFundi
 	return fcfc
 }
 
+// SetCreatedAt sets the "created_at" field.
+func (fcfc *FbmCrowdFundingCreate) SetCreatedAt(u uint32) *FbmCrowdFundingCreate {
+	fcfc.mutation.SetCreatedAt(u)
+	return fcfc
+}
+
+// SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
+func (fcfc *FbmCrowdFundingCreate) SetNillableCreatedAt(u *uint32) *FbmCrowdFundingCreate {
+	if u != nil {
+		fcfc.SetCreatedAt(*u)
+	}
+	return fcfc
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (fcfc *FbmCrowdFundingCreate) SetUpdatedAt(u uint32) *FbmCrowdFundingCreate {
+	fcfc.mutation.SetUpdatedAt(u)
+	return fcfc
+}
+
+// SetNillableUpdatedAt sets the "updated_at" field if the given value is not nil.
+func (fcfc *FbmCrowdFundingCreate) SetNillableUpdatedAt(u *uint32) *FbmCrowdFundingCreate {
+	if u != nil {
+		fcfc.SetUpdatedAt(*u)
+	}
+	return fcfc
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (fcfc *FbmCrowdFundingCreate) SetDeletedAt(u uint32) *FbmCrowdFundingCreate {
+	fcfc.mutation.SetDeletedAt(u)
+	return fcfc
+}
+
+// SetNillableDeletedAt sets the "deleted_at" field if the given value is not nil.
+func (fcfc *FbmCrowdFundingCreate) SetNillableDeletedAt(u *uint32) *FbmCrowdFundingCreate {
+	if u != nil {
+		fcfc.SetDeletedAt(*u)
+	}
+	return fcfc
+}
+
 // SetGoodID sets the "good_id" field.
 func (fcfc *FbmCrowdFundingCreate) SetGoodID(u uuid.UUID) *FbmCrowdFundingCreate {
 	fcfc.mutation.SetGoodID(u)
@@ -250,6 +292,18 @@ func (fcfc *FbmCrowdFundingCreate) defaults() {
 		v := fbmcrowdfunding.DefaultEntID()
 		fcfc.mutation.SetEntID(v)
 	}
+	if _, ok := fcfc.mutation.CreatedAt(); !ok {
+		v := fbmcrowdfunding.DefaultCreatedAt()
+		fcfc.mutation.SetCreatedAt(v)
+	}
+	if _, ok := fcfc.mutation.UpdatedAt(); !ok {
+		v := fbmcrowdfunding.DefaultUpdatedAt()
+		fcfc.mutation.SetUpdatedAt(v)
+	}
+	if _, ok := fcfc.mutation.DeletedAt(); !ok {
+		v := fbmcrowdfunding.DefaultDeletedAt()
+		fcfc.mutation.SetDeletedAt(v)
+	}
 	if _, ok := fcfc.mutation.GoodID(); !ok {
 		v := fbmcrowdfunding.DefaultGoodID()
 		fcfc.mutation.SetGoodID(v)
@@ -305,6 +359,15 @@ func (fcfc *FbmCrowdFundingCreate) check() error {
 	if _, ok := fcfc.mutation.EntID(); !ok {
 		return &ValidationError{Name: "ent_id", err: errors.New(`generated: missing required field "FbmCrowdFunding.ent_id"`)}
 	}
+	if _, ok := fcfc.mutation.CreatedAt(); !ok {
+		return &ValidationError{Name: "created_at", err: errors.New(`generated: missing required field "FbmCrowdFunding.created_at"`)}
+	}
+	if _, ok := fcfc.mutation.UpdatedAt(); !ok {
+		return &ValidationError{Name: "updated_at", err: errors.New(`generated: missing required field "FbmCrowdFunding.updated_at"`)}
+	}
+	if _, ok := fcfc.mutation.DeletedAt(); !ok {
+		return &ValidationError{Name: "deleted_at", err: errors.New(`generated: missing required field "FbmCrowdFunding.deleted_at"`)}
+	}
 	return nil
 }
 
@@ -341,6 +404,18 @@ func (fcfc *FbmCrowdFundingCreate) createSpec() (*FbmCrowdFunding, *sqlgraph.Cre
 	if value, ok := fcfc.mutation.EntID(); ok {
 		_spec.SetField(fbmcrowdfunding.FieldEntID, field.TypeUUID, value)
 		_node.EntID = value
+	}
+	if value, ok := fcfc.mutation.CreatedAt(); ok {
+		_spec.SetField(fbmcrowdfunding.FieldCreatedAt, field.TypeUint32, value)
+		_node.CreatedAt = value
+	}
+	if value, ok := fcfc.mutation.UpdatedAt(); ok {
+		_spec.SetField(fbmcrowdfunding.FieldUpdatedAt, field.TypeUint32, value)
+		_node.UpdatedAt = value
+	}
+	if value, ok := fcfc.mutation.DeletedAt(); ok {
+		_spec.SetField(fbmcrowdfunding.FieldDeletedAt, field.TypeUint32, value)
+		_node.DeletedAt = value
 	}
 	if value, ok := fcfc.mutation.GoodID(); ok {
 		_spec.SetField(fbmcrowdfunding.FieldGoodID, field.TypeUUID, value)
@@ -451,6 +526,60 @@ func (u *FbmCrowdFundingUpsert) SetEntID(v uuid.UUID) *FbmCrowdFundingUpsert {
 // UpdateEntID sets the "ent_id" field to the value that was provided on create.
 func (u *FbmCrowdFundingUpsert) UpdateEntID() *FbmCrowdFundingUpsert {
 	u.SetExcluded(fbmcrowdfunding.FieldEntID)
+	return u
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (u *FbmCrowdFundingUpsert) SetCreatedAt(v uint32) *FbmCrowdFundingUpsert {
+	u.Set(fbmcrowdfunding.FieldCreatedAt, v)
+	return u
+}
+
+// UpdateCreatedAt sets the "created_at" field to the value that was provided on create.
+func (u *FbmCrowdFundingUpsert) UpdateCreatedAt() *FbmCrowdFundingUpsert {
+	u.SetExcluded(fbmcrowdfunding.FieldCreatedAt)
+	return u
+}
+
+// AddCreatedAt adds v to the "created_at" field.
+func (u *FbmCrowdFundingUpsert) AddCreatedAt(v uint32) *FbmCrowdFundingUpsert {
+	u.Add(fbmcrowdfunding.FieldCreatedAt, v)
+	return u
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (u *FbmCrowdFundingUpsert) SetUpdatedAt(v uint32) *FbmCrowdFundingUpsert {
+	u.Set(fbmcrowdfunding.FieldUpdatedAt, v)
+	return u
+}
+
+// UpdateUpdatedAt sets the "updated_at" field to the value that was provided on create.
+func (u *FbmCrowdFundingUpsert) UpdateUpdatedAt() *FbmCrowdFundingUpsert {
+	u.SetExcluded(fbmcrowdfunding.FieldUpdatedAt)
+	return u
+}
+
+// AddUpdatedAt adds v to the "updated_at" field.
+func (u *FbmCrowdFundingUpsert) AddUpdatedAt(v uint32) *FbmCrowdFundingUpsert {
+	u.Add(fbmcrowdfunding.FieldUpdatedAt, v)
+	return u
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (u *FbmCrowdFundingUpsert) SetDeletedAt(v uint32) *FbmCrowdFundingUpsert {
+	u.Set(fbmcrowdfunding.FieldDeletedAt, v)
+	return u
+}
+
+// UpdateDeletedAt sets the "deleted_at" field to the value that was provided on create.
+func (u *FbmCrowdFundingUpsert) UpdateDeletedAt() *FbmCrowdFundingUpsert {
+	u.SetExcluded(fbmcrowdfunding.FieldDeletedAt)
+	return u
+}
+
+// AddDeletedAt adds v to the "deleted_at" field.
+func (u *FbmCrowdFundingUpsert) AddDeletedAt(v uint32) *FbmCrowdFundingUpsert {
+	u.Add(fbmcrowdfunding.FieldDeletedAt, v)
 	return u
 }
 
@@ -759,6 +888,69 @@ func (u *FbmCrowdFundingUpsertOne) SetEntID(v uuid.UUID) *FbmCrowdFundingUpsertO
 func (u *FbmCrowdFundingUpsertOne) UpdateEntID() *FbmCrowdFundingUpsertOne {
 	return u.Update(func(s *FbmCrowdFundingUpsert) {
 		s.UpdateEntID()
+	})
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (u *FbmCrowdFundingUpsertOne) SetCreatedAt(v uint32) *FbmCrowdFundingUpsertOne {
+	return u.Update(func(s *FbmCrowdFundingUpsert) {
+		s.SetCreatedAt(v)
+	})
+}
+
+// AddCreatedAt adds v to the "created_at" field.
+func (u *FbmCrowdFundingUpsertOne) AddCreatedAt(v uint32) *FbmCrowdFundingUpsertOne {
+	return u.Update(func(s *FbmCrowdFundingUpsert) {
+		s.AddCreatedAt(v)
+	})
+}
+
+// UpdateCreatedAt sets the "created_at" field to the value that was provided on create.
+func (u *FbmCrowdFundingUpsertOne) UpdateCreatedAt() *FbmCrowdFundingUpsertOne {
+	return u.Update(func(s *FbmCrowdFundingUpsert) {
+		s.UpdateCreatedAt()
+	})
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (u *FbmCrowdFundingUpsertOne) SetUpdatedAt(v uint32) *FbmCrowdFundingUpsertOne {
+	return u.Update(func(s *FbmCrowdFundingUpsert) {
+		s.SetUpdatedAt(v)
+	})
+}
+
+// AddUpdatedAt adds v to the "updated_at" field.
+func (u *FbmCrowdFundingUpsertOne) AddUpdatedAt(v uint32) *FbmCrowdFundingUpsertOne {
+	return u.Update(func(s *FbmCrowdFundingUpsert) {
+		s.AddUpdatedAt(v)
+	})
+}
+
+// UpdateUpdatedAt sets the "updated_at" field to the value that was provided on create.
+func (u *FbmCrowdFundingUpsertOne) UpdateUpdatedAt() *FbmCrowdFundingUpsertOne {
+	return u.Update(func(s *FbmCrowdFundingUpsert) {
+		s.UpdateUpdatedAt()
+	})
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (u *FbmCrowdFundingUpsertOne) SetDeletedAt(v uint32) *FbmCrowdFundingUpsertOne {
+	return u.Update(func(s *FbmCrowdFundingUpsert) {
+		s.SetDeletedAt(v)
+	})
+}
+
+// AddDeletedAt adds v to the "deleted_at" field.
+func (u *FbmCrowdFundingUpsertOne) AddDeletedAt(v uint32) *FbmCrowdFundingUpsertOne {
+	return u.Update(func(s *FbmCrowdFundingUpsert) {
+		s.AddDeletedAt(v)
+	})
+}
+
+// UpdateDeletedAt sets the "deleted_at" field to the value that was provided on create.
+func (u *FbmCrowdFundingUpsertOne) UpdateDeletedAt() *FbmCrowdFundingUpsertOne {
+	return u.Update(func(s *FbmCrowdFundingUpsert) {
+		s.UpdateDeletedAt()
 	})
 }
 
@@ -1274,6 +1466,69 @@ func (u *FbmCrowdFundingUpsertBulk) SetEntID(v uuid.UUID) *FbmCrowdFundingUpsert
 func (u *FbmCrowdFundingUpsertBulk) UpdateEntID() *FbmCrowdFundingUpsertBulk {
 	return u.Update(func(s *FbmCrowdFundingUpsert) {
 		s.UpdateEntID()
+	})
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (u *FbmCrowdFundingUpsertBulk) SetCreatedAt(v uint32) *FbmCrowdFundingUpsertBulk {
+	return u.Update(func(s *FbmCrowdFundingUpsert) {
+		s.SetCreatedAt(v)
+	})
+}
+
+// AddCreatedAt adds v to the "created_at" field.
+func (u *FbmCrowdFundingUpsertBulk) AddCreatedAt(v uint32) *FbmCrowdFundingUpsertBulk {
+	return u.Update(func(s *FbmCrowdFundingUpsert) {
+		s.AddCreatedAt(v)
+	})
+}
+
+// UpdateCreatedAt sets the "created_at" field to the value that was provided on create.
+func (u *FbmCrowdFundingUpsertBulk) UpdateCreatedAt() *FbmCrowdFundingUpsertBulk {
+	return u.Update(func(s *FbmCrowdFundingUpsert) {
+		s.UpdateCreatedAt()
+	})
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (u *FbmCrowdFundingUpsertBulk) SetUpdatedAt(v uint32) *FbmCrowdFundingUpsertBulk {
+	return u.Update(func(s *FbmCrowdFundingUpsert) {
+		s.SetUpdatedAt(v)
+	})
+}
+
+// AddUpdatedAt adds v to the "updated_at" field.
+func (u *FbmCrowdFundingUpsertBulk) AddUpdatedAt(v uint32) *FbmCrowdFundingUpsertBulk {
+	return u.Update(func(s *FbmCrowdFundingUpsert) {
+		s.AddUpdatedAt(v)
+	})
+}
+
+// UpdateUpdatedAt sets the "updated_at" field to the value that was provided on create.
+func (u *FbmCrowdFundingUpsertBulk) UpdateUpdatedAt() *FbmCrowdFundingUpsertBulk {
+	return u.Update(func(s *FbmCrowdFundingUpsert) {
+		s.UpdateUpdatedAt()
+	})
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (u *FbmCrowdFundingUpsertBulk) SetDeletedAt(v uint32) *FbmCrowdFundingUpsertBulk {
+	return u.Update(func(s *FbmCrowdFundingUpsert) {
+		s.SetDeletedAt(v)
+	})
+}
+
+// AddDeletedAt adds v to the "deleted_at" field.
+func (u *FbmCrowdFundingUpsertBulk) AddDeletedAt(v uint32) *FbmCrowdFundingUpsertBulk {
+	return u.Update(func(s *FbmCrowdFundingUpsert) {
+		s.AddDeletedAt(v)
+	})
+}
+
+// UpdateDeletedAt sets the "deleted_at" field to the value that was provided on create.
+func (u *FbmCrowdFundingUpsertBulk) UpdateDeletedAt() *FbmCrowdFundingUpsertBulk {
+	return u.Update(func(s *FbmCrowdFundingUpsert) {
+		s.UpdateDeletedAt()
 	})
 }
 

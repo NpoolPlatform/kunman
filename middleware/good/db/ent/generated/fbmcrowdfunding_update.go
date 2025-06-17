@@ -44,6 +44,61 @@ func (fcfu *FbmCrowdFundingUpdate) SetNillableEntID(u *uuid.UUID) *FbmCrowdFundi
 	return fcfu
 }
 
+// SetCreatedAt sets the "created_at" field.
+func (fcfu *FbmCrowdFundingUpdate) SetCreatedAt(u uint32) *FbmCrowdFundingUpdate {
+	fcfu.mutation.ResetCreatedAt()
+	fcfu.mutation.SetCreatedAt(u)
+	return fcfu
+}
+
+// SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
+func (fcfu *FbmCrowdFundingUpdate) SetNillableCreatedAt(u *uint32) *FbmCrowdFundingUpdate {
+	if u != nil {
+		fcfu.SetCreatedAt(*u)
+	}
+	return fcfu
+}
+
+// AddCreatedAt adds u to the "created_at" field.
+func (fcfu *FbmCrowdFundingUpdate) AddCreatedAt(u int32) *FbmCrowdFundingUpdate {
+	fcfu.mutation.AddCreatedAt(u)
+	return fcfu
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (fcfu *FbmCrowdFundingUpdate) SetUpdatedAt(u uint32) *FbmCrowdFundingUpdate {
+	fcfu.mutation.ResetUpdatedAt()
+	fcfu.mutation.SetUpdatedAt(u)
+	return fcfu
+}
+
+// AddUpdatedAt adds u to the "updated_at" field.
+func (fcfu *FbmCrowdFundingUpdate) AddUpdatedAt(u int32) *FbmCrowdFundingUpdate {
+	fcfu.mutation.AddUpdatedAt(u)
+	return fcfu
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (fcfu *FbmCrowdFundingUpdate) SetDeletedAt(u uint32) *FbmCrowdFundingUpdate {
+	fcfu.mutation.ResetDeletedAt()
+	fcfu.mutation.SetDeletedAt(u)
+	return fcfu
+}
+
+// SetNillableDeletedAt sets the "deleted_at" field if the given value is not nil.
+func (fcfu *FbmCrowdFundingUpdate) SetNillableDeletedAt(u *uint32) *FbmCrowdFundingUpdate {
+	if u != nil {
+		fcfu.SetDeletedAt(*u)
+	}
+	return fcfu
+}
+
+// AddDeletedAt adds u to the "deleted_at" field.
+func (fcfu *FbmCrowdFundingUpdate) AddDeletedAt(u int32) *FbmCrowdFundingUpdate {
+	fcfu.mutation.AddDeletedAt(u)
+	return fcfu
+}
+
 // SetGoodID sets the "good_id" field.
 func (fcfu *FbmCrowdFundingUpdate) SetGoodID(u uuid.UUID) *FbmCrowdFundingUpdate {
 	fcfu.mutation.SetGoodID(u)
@@ -326,6 +381,7 @@ func (fcfu *FbmCrowdFundingUpdate) Mutation() *FbmCrowdFundingMutation {
 
 // Save executes the query and returns the number of nodes affected by the update operation.
 func (fcfu *FbmCrowdFundingUpdate) Save(ctx context.Context) (int, error) {
+	fcfu.defaults()
 	return withHooks(ctx, fcfu.sqlSave, fcfu.mutation, fcfu.hooks)
 }
 
@@ -351,6 +407,14 @@ func (fcfu *FbmCrowdFundingUpdate) ExecX(ctx context.Context) {
 	}
 }
 
+// defaults sets the default values of the builder before save.
+func (fcfu *FbmCrowdFundingUpdate) defaults() {
+	if _, ok := fcfu.mutation.UpdatedAt(); !ok {
+		v := fbmcrowdfunding.UpdateDefaultUpdatedAt()
+		fcfu.mutation.SetUpdatedAt(v)
+	}
+}
+
 // Modify adds a statement modifier for attaching custom logic to the UPDATE statement.
 func (fcfu *FbmCrowdFundingUpdate) Modify(modifiers ...func(u *sql.UpdateBuilder)) *FbmCrowdFundingUpdate {
 	fcfu.modifiers = append(fcfu.modifiers, modifiers...)
@@ -368,6 +432,24 @@ func (fcfu *FbmCrowdFundingUpdate) sqlSave(ctx context.Context) (n int, err erro
 	}
 	if value, ok := fcfu.mutation.EntID(); ok {
 		_spec.SetField(fbmcrowdfunding.FieldEntID, field.TypeUUID, value)
+	}
+	if value, ok := fcfu.mutation.CreatedAt(); ok {
+		_spec.SetField(fbmcrowdfunding.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := fcfu.mutation.AddedCreatedAt(); ok {
+		_spec.AddField(fbmcrowdfunding.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := fcfu.mutation.UpdatedAt(); ok {
+		_spec.SetField(fbmcrowdfunding.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := fcfu.mutation.AddedUpdatedAt(); ok {
+		_spec.AddField(fbmcrowdfunding.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := fcfu.mutation.DeletedAt(); ok {
+		_spec.SetField(fbmcrowdfunding.FieldDeletedAt, field.TypeUint32, value)
+	}
+	if value, ok := fcfu.mutation.AddedDeletedAt(); ok {
+		_spec.AddField(fbmcrowdfunding.FieldDeletedAt, field.TypeUint32, value)
 	}
 	if value, ok := fcfu.mutation.GoodID(); ok {
 		_spec.SetField(fbmcrowdfunding.FieldGoodID, field.TypeUUID, value)
@@ -489,6 +571,61 @@ func (fcfuo *FbmCrowdFundingUpdateOne) SetNillableEntID(u *uuid.UUID) *FbmCrowdF
 	if u != nil {
 		fcfuo.SetEntID(*u)
 	}
+	return fcfuo
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (fcfuo *FbmCrowdFundingUpdateOne) SetCreatedAt(u uint32) *FbmCrowdFundingUpdateOne {
+	fcfuo.mutation.ResetCreatedAt()
+	fcfuo.mutation.SetCreatedAt(u)
+	return fcfuo
+}
+
+// SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
+func (fcfuo *FbmCrowdFundingUpdateOne) SetNillableCreatedAt(u *uint32) *FbmCrowdFundingUpdateOne {
+	if u != nil {
+		fcfuo.SetCreatedAt(*u)
+	}
+	return fcfuo
+}
+
+// AddCreatedAt adds u to the "created_at" field.
+func (fcfuo *FbmCrowdFundingUpdateOne) AddCreatedAt(u int32) *FbmCrowdFundingUpdateOne {
+	fcfuo.mutation.AddCreatedAt(u)
+	return fcfuo
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (fcfuo *FbmCrowdFundingUpdateOne) SetUpdatedAt(u uint32) *FbmCrowdFundingUpdateOne {
+	fcfuo.mutation.ResetUpdatedAt()
+	fcfuo.mutation.SetUpdatedAt(u)
+	return fcfuo
+}
+
+// AddUpdatedAt adds u to the "updated_at" field.
+func (fcfuo *FbmCrowdFundingUpdateOne) AddUpdatedAt(u int32) *FbmCrowdFundingUpdateOne {
+	fcfuo.mutation.AddUpdatedAt(u)
+	return fcfuo
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (fcfuo *FbmCrowdFundingUpdateOne) SetDeletedAt(u uint32) *FbmCrowdFundingUpdateOne {
+	fcfuo.mutation.ResetDeletedAt()
+	fcfuo.mutation.SetDeletedAt(u)
+	return fcfuo
+}
+
+// SetNillableDeletedAt sets the "deleted_at" field if the given value is not nil.
+func (fcfuo *FbmCrowdFundingUpdateOne) SetNillableDeletedAt(u *uint32) *FbmCrowdFundingUpdateOne {
+	if u != nil {
+		fcfuo.SetDeletedAt(*u)
+	}
+	return fcfuo
+}
+
+// AddDeletedAt adds u to the "deleted_at" field.
+func (fcfuo *FbmCrowdFundingUpdateOne) AddDeletedAt(u int32) *FbmCrowdFundingUpdateOne {
+	fcfuo.mutation.AddDeletedAt(u)
 	return fcfuo
 }
 
@@ -787,6 +924,7 @@ func (fcfuo *FbmCrowdFundingUpdateOne) Select(field string, fields ...string) *F
 
 // Save executes the query and returns the updated FbmCrowdFunding entity.
 func (fcfuo *FbmCrowdFundingUpdateOne) Save(ctx context.Context) (*FbmCrowdFunding, error) {
+	fcfuo.defaults()
 	return withHooks(ctx, fcfuo.sqlSave, fcfuo.mutation, fcfuo.hooks)
 }
 
@@ -809,6 +947,14 @@ func (fcfuo *FbmCrowdFundingUpdateOne) Exec(ctx context.Context) error {
 func (fcfuo *FbmCrowdFundingUpdateOne) ExecX(ctx context.Context) {
 	if err := fcfuo.Exec(ctx); err != nil {
 		panic(err)
+	}
+}
+
+// defaults sets the default values of the builder before save.
+func (fcfuo *FbmCrowdFundingUpdateOne) defaults() {
+	if _, ok := fcfuo.mutation.UpdatedAt(); !ok {
+		v := fbmcrowdfunding.UpdateDefaultUpdatedAt()
+		fcfuo.mutation.SetUpdatedAt(v)
 	}
 }
 
@@ -846,6 +992,24 @@ func (fcfuo *FbmCrowdFundingUpdateOne) sqlSave(ctx context.Context) (_node *FbmC
 	}
 	if value, ok := fcfuo.mutation.EntID(); ok {
 		_spec.SetField(fbmcrowdfunding.FieldEntID, field.TypeUUID, value)
+	}
+	if value, ok := fcfuo.mutation.CreatedAt(); ok {
+		_spec.SetField(fbmcrowdfunding.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := fcfuo.mutation.AddedCreatedAt(); ok {
+		_spec.AddField(fbmcrowdfunding.FieldCreatedAt, field.TypeUint32, value)
+	}
+	if value, ok := fcfuo.mutation.UpdatedAt(); ok {
+		_spec.SetField(fbmcrowdfunding.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := fcfuo.mutation.AddedUpdatedAt(); ok {
+		_spec.AddField(fbmcrowdfunding.FieldUpdatedAt, field.TypeUint32, value)
+	}
+	if value, ok := fcfuo.mutation.DeletedAt(); ok {
+		_spec.SetField(fbmcrowdfunding.FieldDeletedAt, field.TypeUint32, value)
+	}
+	if value, ok := fcfuo.mutation.AddedDeletedAt(); ok {
+		_spec.AddField(fbmcrowdfunding.FieldDeletedAt, field.TypeUint32, value)
 	}
 	if value, ok := fcfuo.mutation.GoodID(); ok {
 		_spec.SetField(fbmcrowdfunding.FieldGoodID, field.TypeUUID, value)

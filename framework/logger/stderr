@@ -1,2 +1,30 @@
 {"level":"info","ts":"2025-06-17T10:29:06.894Z","caller":"logger/logger_test.go:21","msg":"test for logger infow","file":"stderr"}
 {"level":"info","ts":"2025-06-17T10:29:06.895Z","caller":"logger/logger_test.go:23","msg":"test for logger infof stderr"}
+{"level":"info","ts":"2025-06-17T10:33:41.751Z","caller":"logger/logger_test.go:21","msg":"test for logger infow","file":"stderr"}
+{"level":"info","ts":"2025-06-17T10:33:41.752Z","caller":"logger/logger_test.go:23","msg":"test for logger infof stderr"}
+{"level":"info","ts":"2025-06-17T10:36:22.498Z","caller":"logger/logger_test.go:21","msg":"test for logger infow","file":"stderr"}
+{"level":"info","ts":"2025-06-17T10:36:22.499Z","caller":"logger/logger_test.go:23","msg":"test for logger infof stderr"}
+{"level":"info","ts":"2025-06-17T10:42:33.357Z","caller":"logger/logger_test.go:21","msg":"test for logger infow","file":"stderr"}
+{"level":"info","ts":"2025-06-17T10:42:33.358Z","caller":"logger/logger_test.go:23","msg":"test for logger infof stderr"}
+{"level":"info","ts":"2025-06-17T10:43:53.208Z","caller":"logger/logger_test.go:21","msg":"test for logger infow","file":"stderr"}
+{"level":"info","ts":"2025-06-17T10:43:53.209Z","caller":"logger/logger_test.go:23","msg":"test for logger infof stderr"}
+{"level":"info","ts":"2025-06-17T10:46:14.332Z","caller":"logger/logger_test.go:21","msg":"test for logger infow","file":"stderr"}
+{"level":"info","ts":"2025-06-17T10:46:14.333Z","caller":"logger/logger_test.go:23","msg":"test for logger infof stderr"}
+{"level":"info","ts":"2025-06-17T10:52:28.807Z","caller":"logger/logger_test.go:21","msg":"test for logger infow","file":"stderr"}
+{"level":"info","ts":"2025-06-17T10:52:28.807Z","caller":"logger/logger_test.go:23","msg":"test for logger infof stderr"}
+{"level":"info","ts":"2025-06-17T10:55:23.541Z","caller":"logger/logger_test.go:21","msg":"test for logger infow","file":"stderr"}
+{"level":"info","ts":"2025-06-17T10:55:23.542Z","caller":"logger/logger_test.go:23","msg":"test for logger infof stderr"}
+{"level":"info","ts":"2025-06-17T10:57:51.347Z","caller":"logger/logger_test.go:21","msg":"test for logger infow","file":"stderr"}
+{"level":"info","ts":"2025-06-17T10:57:51.348Z","caller":"logger/logger_test.go:23","msg":"test for logger infof stderr"}
+{"level":"info","ts":"2025-06-17T11:03:24.917Z","caller":"logger/logger_test.go:21","msg":"test for logger infow","file":"stderr"}
+{"level":"info","ts":"2025-06-17T11:03:24.918Z","caller":"logger/logger_test.go:23","msg":"test for logger infof stderr"}
+{"level":"info","ts":"2025-06-17T11:07:29.218Z","caller":"logger/logger_test.go:21","msg":"test for logger infow","file":"stderr"}
+{"level":"info","ts":"2025-06-17T11:07:29.219Z","caller":"logger/logger_test.go:23","msg":"test for logger infof stderr"}
+{"level":"info","ts":"2025-06-17T11:10:37.591Z","caller":"logger/logger_test.go:21","msg":"test for logger infow","file":"stderr"}
+{"level":"info","ts":"2025-06-17T11:10:37.592Z","caller":"logger/logger_test.go:23","msg":"test for logger infof stderr"}
+{"level":"info","ts":"2025-06-17T11:26:17.915Z","caller":"logger/logger_test.go:21","msg":"test for logger infow","file":"stderr"}
+{"level":"info","ts":"2025-06-17T11:26:17.916Z","caller":"logger/logger_test.go:23","msg":"test for logger infof stderr"}
+{"level":"info","ts":"2025-06-17T11:28:46.470Z","caller":"logger/logger_test.go:21","msg":"test for logger infow","file":"stderr"}
+{"level":"info","ts":"2025-06-17T11:28:46.471Z","caller":"logger/logger_test.go:23","msg":"test for logger infof stderr"}
+{"level":"info","ts":"2025-06-17T11:32:16.350Z","caller":"logger/logger_test.go:21","msg":"test for logger infow","file":"stderr"}
+{"level":"info","ts":"2025-06-17T11:32:16.351Z","caller":"logger/logger_test.go:23","msg":"test for logger infof stderr"}

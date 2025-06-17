@@ -23,7 +23,8 @@ func (h *Handler) ExistPoster(ctx context.Context) (exist bool, err error) {
 			return err
 		}
 		handler.queryJoin()
-		exist, err = handler.stmSelect.Exist(ctx)
+		count, err := handler.stmSelect.Limit(1).Count(ctx)
+		exist = count > 0
 		return err
 	})
 	if err != nil {
@@ -43,7 +44,8 @@ func (h *Handler) ExistPosterConds(ctx context.Context) (exist bool, err error) 
 			return err
 		}
 		handler.queryJoin()
-		exist, err = handler.stmSelect.Exist(ctx)
+		count, err := handler.stmSelect.Limit(1).Count(ctx)
+		exist = count > 0
 		return err
 	})
 	if err != nil {

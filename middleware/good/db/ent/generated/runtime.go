@@ -1098,12 +1098,28 @@ func init() {
 	fbmcrowdfundingMixin := schema.FbmCrowdFunding{}.Mixin()
 	fbmcrowdfundingMixinFields0 := fbmcrowdfundingMixin[0].Fields()
 	_ = fbmcrowdfundingMixinFields0
+	fbmcrowdfundingMixinFields1 := fbmcrowdfundingMixin[1].Fields()
+	_ = fbmcrowdfundingMixinFields1
 	fbmcrowdfundingFields := schema.FbmCrowdFunding{}.Fields()
 	_ = fbmcrowdfundingFields
 	// fbmcrowdfundingDescEntID is the schema descriptor for ent_id field.
 	fbmcrowdfundingDescEntID := fbmcrowdfundingMixinFields0[1].Descriptor()
 	// fbmcrowdfunding.DefaultEntID holds the default value on creation for the ent_id field.
 	fbmcrowdfunding.DefaultEntID = fbmcrowdfundingDescEntID.Default.(func() uuid.UUID)
+	// fbmcrowdfundingDescCreatedAt is the schema descriptor for created_at field.
+	fbmcrowdfundingDescCreatedAt := fbmcrowdfundingMixinFields1[0].Descriptor()
+	// fbmcrowdfunding.DefaultCreatedAt holds the default value on creation for the created_at field.
+	fbmcrowdfunding.DefaultCreatedAt = fbmcrowdfundingDescCreatedAt.Default.(func() uint32)
+	// fbmcrowdfundingDescUpdatedAt is the schema descriptor for updated_at field.
+	fbmcrowdfundingDescUpdatedAt := fbmcrowdfundingMixinFields1[1].Descriptor()
+	// fbmcrowdfunding.DefaultUpdatedAt holds the default value on creation for the updated_at field.
+	fbmcrowdfunding.DefaultUpdatedAt = fbmcrowdfundingDescUpdatedAt.Default.(func() uint32)
+	// fbmcrowdfunding.UpdateDefaultUpdatedAt holds the default value on update for the updated_at field.
+	fbmcrowdfunding.UpdateDefaultUpdatedAt = fbmcrowdfundingDescUpdatedAt.UpdateDefault.(func() uint32)
+	// fbmcrowdfundingDescDeletedAt is the schema descriptor for deleted_at field.
+	fbmcrowdfundingDescDeletedAt := fbmcrowdfundingMixinFields1[2].Descriptor()
+	// fbmcrowdfunding.DefaultDeletedAt holds the default value on creation for the deleted_at field.
+	fbmcrowdfunding.DefaultDeletedAt = fbmcrowdfundingDescDeletedAt.Default.(func() uint32)
 	// fbmcrowdfundingDescGoodID is the schema descriptor for good_id field.
 	fbmcrowdfundingDescGoodID := fbmcrowdfundingFields[0].Descriptor()
 	// fbmcrowdfunding.DefaultGoodID holds the default value on creation for the good_id field.
