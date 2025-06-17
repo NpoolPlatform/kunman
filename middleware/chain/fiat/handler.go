@@ -4,9 +4,9 @@ import (
 	"context"
 	"fmt"
 
-	constant "github.com/NpoolPlatform/kunman/pkg/const"
-	fiatcrud "github.com/NpoolPlatform/kunman/middleware/chain/crud/fiat"
 	npool "github.com/NpoolPlatform/kunman/message/chain/middleware/v1/fiat"
+	fiatcrud "github.com/NpoolPlatform/kunman/middleware/chain/crud/fiat"
+	constant "github.com/NpoolPlatform/kunman/pkg/const"
 
 	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 	"github.com/google/uuid"
@@ -122,6 +122,20 @@ func WithConds(conds *npool.Conds) func(context.Context, *Handler) error {
 			h.Conds.Name = &cruder.Cond{
 				Op:  conds.GetName().GetOp(),
 				Val: conds.GetName().GetValue(),
+			}
+		}
+		if conds.EntIDs != nil {
+			ids := []uuid.UUID{}
+			for _, id := range conds.GetEntIDs().GetValue() {
+				_id, err := uuid.Parse(id)
+				if err != nil {
+					return err
+				}
+				ids = append(ids, _id)
+			}
+			h.Conds.EntIDs = &cruder.Cond{
+				Op:  conds.GetEntIDs().GetOp(),
+				Val: ids,
 			}
 		}
 		return nil

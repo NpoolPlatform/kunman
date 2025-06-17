@@ -64,6 +64,8 @@ type OrderOpHandler struct {
 	DurationSeconds           *uint32
 	PaymentTransferCoinTypeID *string
 	PaymentFiatID             *string
+	FiatPaymentChannel        *types.FiatPaymentChannel
+	FiatChannelPaymentID      *string
 	AllocatedCouponIDs        []string
 	AppGoodIDs                []string
 	OrderType                 types.OrderType
@@ -712,11 +714,11 @@ func (h *OrderOpHandler) ConstructOrderPayment() error {
 
 		remainAmountFiat := remainAmountUSD.Div(cur)
 		h.PaymentFiatReq = &paymentmwpb.PaymentFiatReq{
-			FiatID: h.PaymentFiatID,
-			// PaymentChannel:
-			Amount: func() *string { s := remainAmountFiat.String(); return &s }(),
-			// ChannelPaymentID:
-			USDCurrency: func() *string { s := cur.String(); return &s }(),
+			FiatID:           h.PaymentFiatID,
+			PaymentChannel:   h.FiatPaymentChannel,
+			Amount:           func() *string { s := remainAmountFiat.String(); return &s }(),
+			ChannelPaymentID: h.FiatChannelPaymentID,
+			USDCurrency:      func() *string { s := cur.String(); return &s }(),
 		}
 		return nil
 	}

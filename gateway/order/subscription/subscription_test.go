@@ -81,12 +81,14 @@ var ret = npool.SubscriptionOrder{
 			CoinUSDCurrency: decimal.NewFromInt(1).String(),
 		},
 	},
-	PaymentTransfers: []*paymentgwpb.PaymentTransferInfo{},
+	PaymentTransfers: nil,
 	PaymentFiats: []*paymentgwpb.PaymentFiatInfo{
 		{
-			FiatID:      uuid.NewString(),
-			Amount:      decimal.NewFromInt(4).String(),
-			USDCurrency: decimal.NewFromInt(1).String(),
+			FiatID:           uuid.NewString(),
+			PaymentChannel:   types.FiatPaymentChannel_PaymentChannelWechat,
+			Amount:           decimal.NewFromInt(4).String(),
+			USDCurrency:      decimal.NewFromInt(1).String(),
+			ChannelPaymentID: uuid.NewString(),
 		},
 	},
 	OrderState:          types.OrderState_OrderStateCreated,
@@ -337,6 +339,8 @@ func createSubscription(t *testing.T) {
 		}(), true),
 		// WithPaymentTransferCoinTypeID(&ret.PaymentTransfers[0].CoinTypeID, true),
 		WithPaymentFiatID(&ret.PaymentFiats[0].FiatID, true),
+		WithFiatPaymentChannel(&ret.PaymentFiats[0].PaymentChannel, true),
+		WithFiatChannelPaymentID(&ret.PaymentFiats[0].ChannelPaymentID, true),
 		WithCouponIDs(func() (couponIDs []string) {
 			for _, coupon := range ret.Coupons {
 				couponIDs = append(couponIDs, coupon.AllocatedCouponID)
@@ -361,6 +365,9 @@ func createSubscription(t *testing.T) {
 		for i, coupon := range info.Coupons {
 			ret.Coupons[i].CreatedAt = coupon.CreatedAt
 		}
+		for i, balance := range info.PaymentBalances {
+			ret.PaymentBalances[i].CreatedAt = balance.CreatedAt
+		}
 
 		assert.Equal(t, info, &ret)
 	}
@@ -374,6 +381,8 @@ func getSubscription(t *testing.T) {
 		context.Background(),
 		WithID(&ret.ID, true),
 		WithEntID(&ret.EntID, true),
+		WithOrderID(&ret.OrderID, true),
+		WithAppID(&ret.AppID, true),
 		WithAppGoodID(&ret.AppGoodID, true),
 	)
 	assert.Nil(t, err)

@@ -26,6 +26,8 @@ type Handler struct {
 	Balances                  []*paymentmwpb.PaymentBalanceReq
 	PaymentTransferCoinTypeID *string
 	PaymentFiatID             *string
+	FiatPaymentChannel        *types.FiatPaymentChannel
+	FiatChannelPaymentID      *string
 	CouponIDs                 []string
 	OrderIDs                  []string
 	UserSetCanceled           *bool
@@ -208,6 +210,32 @@ func WithPaymentFiatID(s *string, must bool) func(context.Context, *Handler) err
 			return wlog.WrapError(err)
 		}
 		h.PaymentFiatID = s
+		return nil
+	}
+}
+
+func WithFiatPaymentChannel(e *types.FiatPaymentChannel, must bool) func(context.Context, *Handler) error {
+	return func(ctx context.Context, h *Handler) error {
+		if e == nil {
+			if must {
+				return wlog.Errorf("invalid paymentchannel")
+			}
+			return nil
+		}
+		h.FiatPaymentChannel = e
+		return nil
+	}
+}
+
+func WithFiatChannelPaymentID(s *string, must bool) func(context.Context, *Handler) error {
+	return func(ctx context.Context, h *Handler) error {
+		if s == nil {
+			if must {
+				return wlog.Errorf("invalid channelpaymentid")
+			}
+			return nil
+		}
+		h.FiatChannelPaymentID = s
 		return nil
 	}
 }

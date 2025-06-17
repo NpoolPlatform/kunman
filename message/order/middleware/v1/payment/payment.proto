@@ -142,7 +142,8 @@ message PaymentFiatInfo {
     // @inject_tag: sql:"fiat_id"
     string FiatID = 30;
     // @inject_tag: sql:"payment_channel"
-    basetypes.order.v1.FiatPaymentChannel PaymentChannel = 40;
+    string PaymentChannelStr = 40;
+    basetypes.order.v1.FiatPaymentChannel PaymentChannel = 41;
     // @inject_tag: sql:"amount"
     string Amount = 50;
     // @inject_tag: sql:"usd_currency"

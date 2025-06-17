@@ -34,5 +34,6 @@ message Fiat {
 message Conds {
   optional basetypes.v1.StringVal EntID = 10;
   optional basetypes.v1.StringVal Name = 20;
+  optional basetypes.v1.StringSliceVal EntIDs = 30;
 }
 

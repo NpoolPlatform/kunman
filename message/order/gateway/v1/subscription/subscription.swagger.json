@@ -599,6 +599,15 @@
         }
       }
     },
+    "v1FiatPaymentChannel": {
+      "type": "string",
+      "enum": [
+        "DefaultPaymentChannel",
+        "PaymentChannelStripe",
+        "PaymentChannelWechat"
+      ],
+      "default": "DefaultPaymentChannel"
+    },
     "v1GetMySubscriptionOrdersRequest": {
       "type": "object",
       "properties": {
@@ -859,10 +868,16 @@
         "FiatLogo": {
           "type": "string"
         },
+        "PaymentChannel": {
+          "$ref": "#/definitions/v1FiatPaymentChannel"
+        },
         "Amount": {
           "type": "string"
         },
         "USDCurrency": {
+          "type": "string"
+        },
+        "ChannelPaymentID": {
           "type": "string"
         },
         "CreatedAt": {

@@ -113,6 +113,8 @@ func (h *Handler) DeleteCoin(ctx context.Context) (*npool.Coin, error) {
 		Handler: h,
 	}
 
+	h.ID = &info.ID
+
 	err = db.WithTx(ctx, func(_ctx context.Context, tx *ent.Tx) error {
 		if err := handler.deleteAppCoin(_ctx, tx); err != nil {
 			return err

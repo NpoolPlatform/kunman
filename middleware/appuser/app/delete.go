@@ -63,6 +63,7 @@ func (h *Handler) DeleteApp(ctx context.Context) (info *npool.App, err error) {
 		return nil, nil
 	}
 
+	h.ID = &info.ID
 	handler := &deleteHandler{
 		Handler: h,
 	}

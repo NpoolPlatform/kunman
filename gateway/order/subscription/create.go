@@ -26,6 +26,8 @@ func (h *Handler) CreateSubscriptionOrder(ctx context.Context) (*npool.Subscript
 				AppGoodIDs:                  []string{*h.AppGoodID},
 				PaymentTransferCoinTypeID:   h.PaymentTransferCoinTypeID,
 				PaymentFiatID:               h.PaymentFiatID,
+				FiatPaymentChannel:          h.FiatPaymentChannel,
+				FiatChannelPaymentID:        h.FiatChannelPaymentID,
 				PaymentBalanceReqs:          h.Balances,
 				AllocatedCouponIDs:          h.CouponIDs,
 			},

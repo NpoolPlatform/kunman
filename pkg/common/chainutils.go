@@ -7,8 +7,10 @@ import (
 	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	appcoinmwpb "github.com/NpoolPlatform/kunman/message/chain/middleware/v1/app/coin"
 	coinmwpb "github.com/NpoolPlatform/kunman/message/chain/middleware/v1/coin"
+	fiatmwpb "github.com/NpoolPlatform/kunman/message/chain/middleware/v1/fiat"
 	appcoinmw "github.com/NpoolPlatform/kunman/middleware/chain/app/coin"
 	coinmw "github.com/NpoolPlatform/kunman/middleware/chain/coin"
+	fiatmw "github.com/NpoolPlatform/kunman/middleware/chain/fiat"
 	cruder "github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 
 	"github.com/google/uuid"
@@ -71,4 +73,33 @@ func GetCoins(ctx context.Context, coinTypeIDs []string) (map[string]*coinmwpb.C
 		coinMap[coin.EntID] = coin
 	}
 	return coinMap, nil
+}
+
+func GetFiats(ctx context.Context, fiatIDs []string) (map[string]*fiatmwpb.Fiat, error) {
+	for _, fiatID := range fiatIDs {
+		if _, err := uuid.Parse(fiatID); err != nil {
+			return nil, err
+		}
+	}
+
+	conds := &fiatmwpb.Conds{
+		EntIDs: &basetypes.StringSliceVal{Op: cruder.IN, Value: fiatIDs},
+	}
+	handler, err := fiatmw.NewHandler(
+		ctx,
+		fiatmw.WithConds(conds),
+	)
+	if err != nil {
+		return nil, err
+	}
+
+	fiats, _, err := handler.GetFiats(ctx)
+	if err != nil {
+		return nil, err
+	}
+	fiatMap := map[string]*fiatmwpb.Fiat{}
+	for _, fiat := range fiats {
+		fiatMap[fiat.EntID] = fiat
+	}
+	return fiatMap, nil
 }

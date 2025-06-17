@@ -4,6 +4,8 @@ package order.gateway.payment.v1;
 
 option go_package = "github.com/NpoolPlatform/kunman/message/order/gateway/v1/payment";
 
+import "basetypes/order/v1/enums.proto";
+
 message PaymentBalance {
     string CoinTypeID = 10;
     string Amount = 20;
@@ -48,7 +50,9 @@ message PaymentFiatInfo {
     string FiatName = 20;
     string FiatUnit = 30;
     string FiatLogo = 40;
-    string Amount = 50;
-    string USDCurrency = 60;
-    uint32 CreatedAt = 70;
+    basetypes.order.v1.FiatPaymentChannel PaymentChannel = 50;
+    string Amount = 60;
+    string USDCurrency = 70;
+    string ChannelPaymentID = 80;
+    uint32 CreatedAt = 90;
 }

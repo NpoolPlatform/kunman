@@ -9,6 +9,7 @@ import (
 	usermwpb "github.com/NpoolPlatform/kunman/message/appuser/middleware/v1/user"
 	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	coinmwpb "github.com/NpoolPlatform/kunman/message/chain/middleware/v1/coin"
+	fiatmwpb "github.com/NpoolPlatform/kunman/message/chain/middleware/v1/fiat"
 	appfeemwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/app/fee"
 	topmostmwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/app/good/topmost"
 	appsubscriptionmwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/app/subscription"
@@ -35,6 +36,7 @@ type queryHandler struct {
 	topMosts           map[string]*topmostmwpb.TopMost
 	allocatedCoupons   map[string]*allocatedcouponmwpb.Coupon
 	coins              map[string]*coinmwpb.Coin
+	fiats              map[string]*fiatmwpb.Fiat
 	paymentAccounts    map[string]*paymentaccountmwpb.Account
 	appSubscriptions   map[string]*appsubscriptionmwpb.Subscription
 }
@@ -107,6 +109,14 @@ func (h *queryHandler) getCoins(ctx context.Context) (err error) {
 		return
 	}())
 	return err
+}
+
+func (h *queryHandler) getFiats(ctx context.Context) (err error) {
+	if h.PaymentFiatID == nil {
+		return nil
+	}
+	h.fiats, err = common.GetFiats(ctx, []string{*h.PaymentFiatID})
+	return nil
 }
 
 func (h *queryHandler) getPaymentAccounts(ctx context.Context) (err error) {
@@ -228,6 +238,22 @@ func (h *queryHandler) formalize() {
 			}
 			info.PaymentTransfers = append(info.PaymentTransfers, paymentTransfer)
 		}
+		for _, fiat := range subscriptionOrder.PaymentFiats {
+			paymentFiat := &paymentgwpb.PaymentFiatInfo{
+				FiatID:           fiat.FiatID,
+				PaymentChannel:   fiat.PaymentChannel,
+				Amount:           fiat.Amount,
+				USDCurrency:      fiat.USDCurrency,
+				ChannelPaymentID: fiat.ChannelPaymentID,
+			}
+			_fiat, ok := h.fiats[fiat.FiatID]
+			if ok {
+				paymentFiat.FiatName = _fiat.Name
+				paymentFiat.FiatUnit = _fiat.Unit
+				paymentFiat.FiatLogo = _fiat.Logo
+			}
+			info.PaymentFiats = append(info.PaymentFiats, paymentFiat)
+		}
 		h.infos = append(h.infos, info)
 	}
 }
@@ -271,6 +297,9 @@ func (h *Handler) GetSubscriptionOrder(ctx context.Context) (*npool.Subscription
 		return nil, wlog.WrapError(err)
 	}
 	if err := handler.getCoins(ctx); err != nil {
+		return nil, wlog.WrapError(err)
+	}
+	if err := handler.getFiats(ctx); err != nil {
 		return nil, wlog.WrapError(err)
 	}
 	if err := handler.getPaymentAccounts(ctx); err != nil {
@@ -342,6 +371,9 @@ func (h *Handler) GetSubscriptionOrders(ctx context.Context) ([]*npool.Subscript
 		return nil, 0, wlog.WrapError(err)
 	}
 	if err := handler.getCoins(ctx); err != nil {
+		return nil, 0, wlog.WrapError(err)
+	}
+	if err := handler.getFiats(ctx); err != nil {
 		return nil, 0, wlog.WrapError(err)
 	}
 	if err := handler.getPaymentAccounts(ctx); err != nil {

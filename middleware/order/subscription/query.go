@@ -10,21 +10,19 @@ import (
 	goodtypes "github.com/NpoolPlatform/kunman/message/basetypes/good/v1"
 	types "github.com/NpoolPlatform/kunman/message/basetypes/order/v1"
 	ordercouponmiddlewarepb "github.com/NpoolPlatform/kunman/message/order/middleware/v1/order/coupon"
-	paymentmiddlewarepb "github.com/NpoolPlatform/kunman/message/order/middleware/v1/payment"
+	paymentmwpb "github.com/NpoolPlatform/kunman/message/order/middleware/v1/payment"
 	npool "github.com/NpoolPlatform/kunman/message/order/middleware/v1/subscription"
 	ordercouponcrud "github.com/NpoolPlatform/kunman/middleware/order/crud/order/coupon"
-	orderbasecrud "github.com/NpoolPlatform/kunman/middleware/order/crud/order/orderbase"
 	paymentbalancecrud "github.com/NpoolPlatform/kunman/middleware/order/crud/payment/balance"
+	paymentfiatcrud "github.com/NpoolPlatform/kunman/middleware/order/crud/payment/fiat"
 	paymenttransfercrud "github.com/NpoolPlatform/kunman/middleware/order/crud/payment/transfer"
 	"github.com/NpoolPlatform/kunman/middleware/order/db"
 	ent "github.com/NpoolPlatform/kunman/middleware/order/db/ent/generated"
-	entorderbase "github.com/NpoolPlatform/kunman/middleware/order/db/ent/generated/orderbase"
 	entordercoupon "github.com/NpoolPlatform/kunman/middleware/order/db/ent/generated/ordercoupon"
-	entorderstatebase "github.com/NpoolPlatform/kunman/middleware/order/db/ent/generated/orderstatebase"
 	entpaymentbalance "github.com/NpoolPlatform/kunman/middleware/order/db/ent/generated/paymentbalance"
+	entpaymentfiat "github.com/NpoolPlatform/kunman/middleware/order/db/ent/generated/paymentfiat"
 	entpaymenttransfer "github.com/NpoolPlatform/kunman/middleware/order/db/ent/generated/paymenttransfer"
 	entsubscriptionorder "github.com/NpoolPlatform/kunman/middleware/order/db/ent/generated/subscriptionorder"
-	entsubscriptionorderstate "github.com/NpoolPlatform/kunman/middleware/order/db/ent/generated/subscriptionorderstate"
 	cruder "github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 
 	"github.com/google/uuid"
@@ -36,8 +34,9 @@ type queryHandler struct {
 	stmCount         *ent.OrderBaseSelect
 	infos            []*npool.SubscriptionOrder
 	orderCoupons     []*ordercouponmiddlewarepb.OrderCouponInfo
-	paymentBalances  []*paymentmiddlewarepb.PaymentBalanceInfo
-	paymentTransfers []*paymentmiddlewarepb.PaymentTransferInfo
+	paymentBalances  []*paymentmwpb.PaymentBalanceInfo
+	paymentTransfers []*paymentmwpb.PaymentTransferInfo
+	paymentFiats     []*paymentmwpb.PaymentFiatInfo
 	total            uint32
 }
 
@@ -161,90 +160,44 @@ func (h *queryHandler) queryPaymentTransfers(ctx context.Context, cli *ent.Clien
 	).Scan(ctx, &h.paymentTransfers)
 }
 
-func (h *queryHandler) queryOrdersPaymentGoodValueUSD(ctx context.Context, cli *ent.Client) error {
-	orderIDs := func() (uids []uuid.UUID) {
+func (h *queryHandler) queryPaymentFiats(ctx context.Context, cli *ent.Client) error {
+	paymentIDs := func() (uids []uuid.UUID) {
 		for _, info := range h.infos {
-			uids = append(uids, uuid.MustParse(info.OrderID))
+			if _, err := uuid.Parse(info.PaymentID); err != nil {
+				continue
+			}
+			uids = append(uids, uuid.MustParse(info.PaymentID))
 		}
 		return
 	}()
-	stm, err := orderbasecrud.SetQueryConds(
-		cli.OrderBase.Query(),
-		&orderbasecrud.Conds{
-			EntIDs: &cruder.Cond{Op: cruder.IN, Val: orderIDs},
+
+	stm, err := paymentfiatcrud.SetQueryConds(
+		cli.PaymentFiat.Query(),
+		&paymentfiatcrud.Conds{
+			PaymentIDs: &cruder.Cond{Op: cruder.IN, Val: paymentIDs},
 		},
 	)
 	if err != nil {
 		return wlog.WrapError(err)
 	}
-	goodValueUSDs := []struct {
-		OrderID             string          `json:"ent_id"`
-		PaymentGoodValueUSD decimal.Decimal `json:"payment_good_value_usd"`
-	}{}
-	if err := stm.GroupBy(
-		entorderbase.FieldEntID,
-	).Aggregate(func(s *sql.Selector) string {
-		t0 := sql.Table(entorderstatebase.Table)
-		t1 := sql.Table(entsubscriptionorderstate.Table)
-		t2 := sql.Table(entsubscriptionorderstate.Table)
-		t3 := sql.Table(entsubscriptionorder.Table)
-		s.Join(t0).
-			On(
-				s.C(entorderbase.FieldEntID),
-				t0.C(entorderstatebase.FieldOrderID),
-			).
-			OnP(
-				sql.Or(
-					sql.EQ(t0.C(entorderstatebase.FieldPaymentType), types.PaymentType_PayWithBalanceOnly.String()),
-					sql.EQ(t0.C(entorderstatebase.FieldPaymentType), types.PaymentType_PayWithTransferOnly.String()),
-					sql.EQ(t0.C(entorderstatebase.FieldPaymentType), types.PaymentType_PayWithTransferAndBalance.String()),
-					sql.EQ(t0.C(entorderstatebase.FieldPaymentType), types.PaymentType_PayWithOffline.String()),
-					sql.EQ(t0.C(entorderstatebase.FieldPaymentType), types.PaymentType_PayWithNoPayment.String()),
-				),
-			).
-			LeftJoin(t1).
-			On(
-				s.C(entorderbase.FieldEntID),
-				t1.C(entsubscriptionorderstate.FieldOrderID),
-			).
-			LeftJoin(t2).
-			On(
-				t1.C(entsubscriptionorderstate.FieldPaymentID),
-				t2.C(entsubscriptionorderstate.FieldPaymentID),
-			).
-			LeftJoin(t3).
-			On(
-				t2.C(entsubscriptionorderstate.FieldOrderID),
-				t3.C(entsubscriptionorder.FieldOrderID),
-			)
-		return sql.As(
-			sql.Sum(
-				"ifnull("+t3.C(entsubscriptionorder.FieldGoodValueUsd)+", 0)",
-			),
-			"payment_good_value_usd",
-		)
-	}).Scan(ctx, &goodValueUSDs); err != nil {
-		return wlog.WrapError(err)
-	}
-	for _, info := range h.infos {
-		for _, goodValueUSD := range goodValueUSDs {
-			if info.OrderID == goodValueUSD.OrderID {
-				if goodValueUSD.PaymentGoodValueUSD.GreaterThan(decimal.NewFromInt(0)) {
-					info.PaymentGoodValueUSD = goodValueUSD.PaymentGoodValueUSD.String()
-				} else {
-					info.PaymentGoodValueUSD = info.GoodValueUSD
-				}
-				break
-			}
-		}
-	}
-	return nil
+
+	return stm.Select(
+		entpaymentfiat.FieldEntID,
+		entpaymentfiat.FieldPaymentID,
+		entpaymentfiat.FieldFiatID,
+		entpaymentfiat.FieldPaymentChannel,
+		entpaymentfiat.FieldAmount,
+		entpaymentfiat.FieldChannelPaymentID,
+		entpaymentfiat.FieldUsdCurrency,
+		entpaymentfiat.FieldCreatedAt,
+	).Scan(ctx, &h.paymentFiats)
 }
 
 func (h *queryHandler) formalize() {
 	orderCoupons := map[string][]*ordercouponmiddlewarepb.OrderCouponInfo{}
-	paymentBalances := map[string][]*paymentmiddlewarepb.PaymentBalanceInfo{}
-	paymentTransfers := map[string][]*paymentmiddlewarepb.PaymentTransferInfo{}
+	paymentBalances := map[string][]*paymentmwpb.PaymentBalanceInfo{}
+	paymentTransfers := map[string][]*paymentmwpb.PaymentTransferInfo{}
+	paymentFiats := map[string][]*paymentmwpb.PaymentFiatInfo{}
 
 	for _, orderCoupon := range h.orderCoupons {
 		orderCoupons[orderCoupon.OrderID] = append(orderCoupons[orderCoupon.OrderID], orderCoupon)
@@ -286,10 +239,19 @@ func (h *queryHandler) formalize() {
 			return amount.String()
 		}()
 	}
+	for _, paymentFiat := range h.paymentFiats {
+		paymentFiats[paymentFiat.PaymentID] = append(paymentFiats[paymentFiat.PaymentID], paymentFiat)
+		paymentFiat.Amount = func() string { amount, _ := decimal.NewFromString(paymentFiat.Amount); return amount.String() }()
+		paymentFiat.PaymentChannel = types.FiatPaymentChannel(types.FiatPaymentChannel_value[paymentFiat.PaymentChannelStr])
+		paymentFiat.USDCurrency = func() string {
+			amount, _ := decimal.NewFromString(paymentFiat.USDCurrency)
+			return amount.String()
+		}()
+	}
 
 	for _, info := range h.infos {
 		info.GoodValueUSD = func() string { amount, _ := decimal.NewFromString(info.GoodValueUSD); return amount.String() }()
-		info.PaymentGoodValueUSD = func() string { amount, _ := decimal.NewFromString(info.PaymentGoodValueUSD); return amount.String() }()
+		info.PaymentGoodValueUSD = func() string { amount, _ := decimal.NewFromString(info.GoodValueUSD); return amount.String() }()
 		info.PaymentAmountUSD = func() string { amount, _ := decimal.NewFromString(info.PaymentAmountUSD); return amount.String() }()
 		info.DiscountAmountUSD = func() string { amount, _ := decimal.NewFromString(info.DiscountAmountUSD); return amount.String() }()
 		info.GoodType = goodtypes.GoodType(goodtypes.GoodType_value[info.GoodTypeStr])
@@ -302,6 +264,7 @@ func (h *queryHandler) formalize() {
 		info.Coupons = orderCoupons[info.OrderID]
 		info.PaymentBalances = paymentBalances[info.PaymentID]
 		info.PaymentTransfers = paymentTransfers[info.PaymentID]
+		info.PaymentFiats = paymentFiats[info.PaymentID]
 	}
 }
 
@@ -326,7 +289,7 @@ func (h *Handler) GetSubscriptionOrder(ctx context.Context) (*npool.Subscription
 		if err := handler.queryPaymentTransfers(_ctx, cli); err != nil {
 			return wlog.WrapError(err)
 		}
-		if err := handler.queryOrdersPaymentGoodValueUSD(_ctx, cli); err != nil {
+		if err := handler.queryPaymentFiats(_ctx, cli); err != nil {
 			return wlog.WrapError(err)
 		}
 		return handler.queryOrderCoupons(_ctx, cli)
@@ -385,7 +348,7 @@ func (h *Handler) GetSubscriptionOrders(ctx context.Context) ([]*npool.Subscript
 		if err := handler.queryPaymentTransfers(_ctx, cli); err != nil {
 			return wlog.WrapError(err)
 		}
-		if err := handler.queryOrdersPaymentGoodValueUSD(_ctx, cli); err != nil {
+		if err := handler.queryPaymentFiats(_ctx, cli); err != nil {
 			return wlog.WrapError(err)
 		}
 		return handler.queryOrderCoupons(_ctx, cli)
