@@ -121,9 +121,6 @@ message UpdateAppOneShotRequest {
 
   optional bool EnableSetCommission = 160;
   optional string USDPrice = 220;
-
-  optional uint32 Quota = 230;
-  optional uint32 LifeSeconds = 240;
 }
 
 message UpdateAppOneShotResponse { AppOneShot Info = 10; }
@@ -151,10 +148,7 @@ message AdminCreateAppOneShotRequest {
   optional string Banner = 100;
 
   optional bool EnableSetCommission = 140;
-  string UnitPrice = 200;
-
-  uint32 Quota = 230;
-  optional uint32 LifeSeconds = 240;
+  string USDPrice = 200;
 }
 
 message AdminCreateAppOneShotResponse { AppOneShot Info = 10; }
@@ -169,10 +163,7 @@ message AdminUpdateAppOneShotRequest {
   optional string Banner = 120;
 
   optional bool EnableSetCommission = 160;
-  optional string UnitPrice = 220;
-
-  optional uint32 Quota = 230;
-  optional uint32 LifeSeconds = 240;
+  optional string USDPrice = 220;
 }
 
 message AdminUpdateAppOneShotResponse { AppOneShot Info = 10; }

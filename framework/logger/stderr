@@ -1,0 +1,2 @@
+{"level":"info","ts":"2025-06-17T10:29:06.894Z","caller":"logger/logger_test.go:21","msg":"test for logger infow","file":"stderr"}
+{"level":"info","ts":"2025-06-17T10:29:06.895Z","caller":"logger/logger_test.go:23","msg":"test for logger infof stderr"}

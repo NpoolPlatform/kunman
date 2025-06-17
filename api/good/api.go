@@ -23,6 +23,8 @@ import (
 	topmostposter "github.com/NpoolPlatform/kunman/api/good/app/good/topmost/poster"
 	apppowerrental "github.com/NpoolPlatform/kunman/api/good/app/powerrental"
 	apppowerrentalsimulate "github.com/NpoolPlatform/kunman/api/good/app/powerrental/simulate"
+	appsubscription "github.com/NpoolPlatform/kunman/api/good/app/subscription"
+	apponeshot "github.com/NpoolPlatform/kunman/api/good/app/subscription/oneshot"
 	delegatedstaking "github.com/NpoolPlatform/kunman/api/good/delegatedstaking"
 	devicetype "github.com/NpoolPlatform/kunman/api/good/device"
 	manufacturer "github.com/NpoolPlatform/kunman/api/good/device/manufacturer"
@@ -73,7 +75,9 @@ func Register(server grpc.ServiceRegistrar) {
 	fee.Register(server)
 	powerrental.Register(server)
 	subscription.Register(server)
+	appsubscription.Register(server)
 	oneshot.Register(server)
+	apponeshot.Register(server)
 	default1.Register(server)
 	topmost.Register(server)
 	topmostconstraint.Register(server)
@@ -157,7 +161,13 @@ func RegisterGateway(mux *runtime.ServeMux, endpoint string, opts []grpc.DialOpt
 	if err := subscription.RegisterGateway(mux, endpoint, opts); err != nil {
 		return err
 	}
+	if err := appsubscription.RegisterGateway(mux, endpoint, opts); err != nil {
+		return err
+	}
 	if err := oneshot.RegisterGateway(mux, endpoint, opts); err != nil {
+		return err
+	}
+	if err := apponeshot.RegisterGateway(mux, endpoint, opts); err != nil {
 		return err
 	}
 	if err := appfee.RegisterGateway(mux, endpoint, opts); err != nil {

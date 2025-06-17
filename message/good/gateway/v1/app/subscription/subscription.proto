@@ -123,10 +123,6 @@ message UpdateAppSubscriptionRequest {
 
   optional bool EnableSetCommission = 160;
   optional string USDPrice = 220;
-
-  optional uint32 DurationQuota = 230;
-  optional uint32 DailyBonusQuota = 240;
-  optional uint32 DurationUnits = 250;
 }
 
 message UpdateAppSubscriptionResponse { AppSubscription Info = 10; }
@@ -155,11 +151,7 @@ message AdminCreateAppSubscriptionRequest {
   optional string Banner = 100;
 
   optional bool EnableSetCommission = 140;
-  string UnitPrice = 200;
-
-  uint32 DurationQuota = 230;
-  optional uint32 DailyBonusQuota = 240;
-  optional uint32 DurationUnits = 250;
+  string USDPrice = 200;
 }
 
 message AdminCreateAppSubscriptionResponse { AppSubscription Info = 10; }
@@ -175,11 +167,7 @@ message AdminUpdateAppSubscriptionRequest {
   optional string Banner = 120;
 
   optional bool EnableSetCommission = 160;
-  optional string UnitPrice = 220;
-
-  optional uint32 DurationQuota = 230;
-  optional uint32 DailyBonusQuota = 240;
-  optional uint32 DurationUnits = 250;
+  optional string USDPrice = 220;
 }
 
 message AdminUpdateAppSubscriptionResponse { AppSubscription Info = 10; }

@@ -98,7 +98,7 @@ func TestInit(t *testing.T) {
 		t.Errorf("fail to register apollo service: %v", err)
 	}
 
-	err = Init(cfgDir, cfgName)
+	err = Initialize(cfgDir, cfgName)
 	if err != nil {
 		t.Errorf("cannot init config: %v", err)
 	}
