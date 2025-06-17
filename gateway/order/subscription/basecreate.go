@@ -10,6 +10,7 @@ import (
 	subscriptionordermwpb "github.com/NpoolPlatform/kunman/message/order/middleware/v1/subscription"
 	appsubscriptionmw "github.com/NpoolPlatform/kunman/middleware/good/app/subscription"
 	subscriptionordermw "github.com/NpoolPlatform/kunman/middleware/order/subscription"
+	common "github.com/NpoolPlatform/kunman/pkg/common"
 
 	"github.com/google/uuid"
 	"github.com/shopspring/decimal"
@@ -46,6 +47,11 @@ func (h *baseCreateHandler) calculateSubscriptionOrderValueUSD() (value decimal.
 	return decimal.NewFromString(h.appSubscription.USDPrice)
 }
 
+func (h *baseCreateHandler) calculateSubscriptionDurationSeconds() {
+	durationSeconds := common.GoodDurationDisplayType2Seconds(h.appSubscription.DurationDisplayType) * h.appSubscription.DurationUnits
+	h.DurationSeconds = &durationSeconds
+}
+
 func (h *baseCreateHandler) calculateTotalGoodValueUSD() (err error) {
 	h.TotalGoodValueUSD, err = h.calculateSubscriptionOrderValueUSD()
 	return wlog.WrapError(err)
@@ -72,7 +78,7 @@ func (h *baseCreateHandler) constructSubscriptionOrderReq() error {
 		PaymentAmountUSD:  func() *string { s := h.PaymentAmountUSD.String(); return &s }(),
 		DiscountAmountUSD: func() *string { s := h.DeductAmountUSD.String(); return &s }(),
 		PromotionID:       nil,
-		// TODO: duration seconds of the subscription good to decide next extend time
+		DurationSeconds:   h.DurationSeconds,
 
 		LedgerLockID: h.BalanceLockID,
 		CouponIDs:    h.CouponIDs,
@@ -85,8 +91,8 @@ func (h *baseCreateHandler) constructSubscriptionOrderReq() error {
 	if h.PaymentFiatReq != nil {
 		req.PaymentFiats = []*paymentmwpb.PaymentFiatReq{h.PaymentFiatReq}
 	}
-	h.OrderID = req.OrderID
 
+	h.OrderID = req.OrderID
 	h.subscriptionOrderReq = req
 
 	return nil

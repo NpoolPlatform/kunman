@@ -75,6 +75,8 @@ func GoodDurationDisplayType2Seconds(_type goodtypes.GoodDurationType) (units ui
 		return timedef.SecondsPerHour
 	case goodtypes.GoodDurationType_GoodDurationByDay:
 		return timedef.SecondsPerDay
+	case goodtypes.GoodDurationType_GoodDurationByWeek:
+		return timedef.SecondsPerWeek
 	case goodtypes.GoodDurationType_GoodDurationByMonth:
 		return timedef.SecondsPerMonth
 	case goodtypes.GoodDurationType_GoodDurationByYear:
