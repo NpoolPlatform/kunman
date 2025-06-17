@@ -93,6 +93,7 @@ func (h *baseCreateHandler) constructSubscriptionOrderReq() error {
 	}
 
 	h.OrderID = req.OrderID
+	h.OrderCheckHandler.OrderID = req.OrderID
 	h.subscriptionOrderReq = req
 
 	return nil
