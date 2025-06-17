@@ -60,7 +60,21 @@ func (h *PaymentCheckHandler) ValidatePayment() error {
 		if len(h.PaymentTransferReqs) == 0 {
 			return wlog.Errorf("invalid paymenttransfers")
 		}
+	case types.PaymentType_PayWithFiatOnly:
+		if len(h.PaymentFiatReqs) == 0 {
+			return wlog.Errorf("invalid paymentfiats")
+		}
+	case types.PaymentType_PayWithFiatAndBalance:
+		if len(h.PaymentBalanceReqs) == 0 {
+			return wlog.Errorf("invalid paymentbalances")
+		}
+		if len(h.PaymentFiatReqs) == 0 {
+			return wlog.Errorf("invalid paymentfiats")
+		}
 	default:
+		if len(h.PaymentFiatReqs) > 0 {
+			return wlog.Errorf("invalid paymentfiats")
+		}
 		if len(h.PaymentBalanceReqs) > 0 {
 			return wlog.Errorf("invalid paymentbalances")
 		}
@@ -73,6 +87,10 @@ func (h *PaymentCheckHandler) ValidatePayment() error {
 	case types.PaymentType_PayWithBalanceOnly:
 		fallthrough // nolint
 	case types.PaymentType_PayWithTransferOnly:
+		fallthrough // nolint
+	case types.PaymentType_PayWithFiatOnly:
+		fallthrough // nolint
+	case types.PaymentType_PayWithFiatAndBalance:
 		fallthrough // nolint
 	case types.PaymentType_PayWithTransferAndBalance:
 		if h.PaymentAmountUSD == nil || h.PaymentAmountUSD.Equal(decimal.NewFromInt(0)) {
