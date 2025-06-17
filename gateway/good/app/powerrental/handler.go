@@ -5,8 +5,8 @@ import (
 	"context"
 
 	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
-	appgoodcommon "github.com/NpoolPlatform/good-gateway/pkg/app/good/common"
-	constant "github.com/NpoolPlatform/good-gateway/pkg/const"
+	appgoodcommon "github.com/NpoolPlatform/kunman/gateway/good/app/good/common"
+	constant "github.com/NpoolPlatform/kunman/pkg/const"
 	types "github.com/NpoolPlatform/kunman/message/basetypes/good/v1"
 
 	"github.com/google/uuid"

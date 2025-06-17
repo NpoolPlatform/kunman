@@ -4,8 +4,8 @@ import (
 	"context"
 	"fmt"
 
-	devicetypecommon "github.com/NpoolPlatform/good-gateway/pkg/device/common"
-	constant "github.com/NpoolPlatform/good-middleware/pkg/const"
+	devicetypecommon "github.com/NpoolPlatform/kunman/gateway/good/device/common"
+	constant "github.com/NpoolPlatform/kunman/pkg/const"
 
 	"github.com/google/uuid"
 )

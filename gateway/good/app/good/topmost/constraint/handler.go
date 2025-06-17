@@ -4,8 +4,8 @@ import (
 	"context"
 	"fmt"
 
-	topmostcommon "github.com/NpoolPlatform/good-gateway/pkg/app/good/topmost/common"
-	constant "github.com/NpoolPlatform/good-middleware/pkg/const"
+	topmostcommon "github.com/NpoolPlatform/kunman/gateway/good/app/good/topmost/common"
+	constant "github.com/NpoolPlatform/kunman/pkg/const"
 	types "github.com/NpoolPlatform/kunman/message/basetypes/good/v1"
 
 	"github.com/google/uuid"

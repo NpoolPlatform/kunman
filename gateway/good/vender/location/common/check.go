@@ -4,10 +4,10 @@ import (
 	"context"
 	"fmt"
 
-	vendorlocationmwcli "github.com/NpoolPlatform/kunman/middleware/good/vender/location"
-	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	vendorlocationmwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/vender/location"
+	vendorlocationmw "github.com/NpoolPlatform/kunman/middleware/good/vender/location"
+	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 )
 
 type LocationCheckHandler struct {
@@ -15,9 +15,18 @@ type LocationCheckHandler struct {
 }
 
 func (h *LocationCheckHandler) CheckLocationWithLocationID(ctx context.Context, vendorLocationID string) error {
-	exist, err := vendorlocationmwcli.ExistLocationConds(ctx, &vendorlocationmwpb.Conds{
+	conds := &vendorlocationmwpb.Conds{
 		EntID: &basetypes.StringVal{Op: cruder.EQ, Value: vendorLocationID},
-	})
+	}
+	handler, err := vendorlocationmw.NewHandler(
+		ctx,
+		vendorlocationmw.WithConds(conds),
+	)
+	if err != nil {
+		return err
+	}
+
+	exist, err := handler.ExistLocationConds(ctx)
 	if err != nil {
 		return err
 	}

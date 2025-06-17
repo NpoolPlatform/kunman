@@ -3,7 +3,7 @@ package common
 import (
 	"context"
 
-	compensatemwcli "github.com/NpoolPlatform/order-middleware/pkg/client/compensate"
+	compensatemw "github.com/NpoolPlatform/kunman/middleware/order/compensate"
 
 	"github.com/google/uuid"
 )
@@ -15,7 +15,15 @@ func GetCompensateOrderNumbers(ctx context.Context, compensateFromIDs []string) 
 		}
 	}
 
-	orderNumbers, err := compensatemwcli.CountCompensateOrders(ctx, compensateFromIDs)
+	handler, err := compensatemw.NewHandler(
+		ctx,
+		compensatemw.WithCompensateFromIDs(compensateFromIDs, true),
+	)
+	if err != nil {
+		return nil, err
+	}
+
+	orderNumbers, err := handler.CountCompensateOrders(ctx)
 	if err != nil {
 		return nil, err
 	}

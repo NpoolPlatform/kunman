@@ -3,7 +3,7 @@ package good
 import (
 	"context"
 
-	constant "github.com/NpoolPlatform/good-gateway/pkg/const"
+	constant "github.com/NpoolPlatform/kunman/pkg/const"
 )
 
 type Handler struct {

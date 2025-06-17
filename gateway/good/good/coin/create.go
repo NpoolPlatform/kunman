@@ -3,7 +3,7 @@ package goodcoin
 import (
 	"context"
 
-	constant "github.com/NpoolPlatform/good-gateway/pkg/const"
+	constant "github.com/NpoolPlatform/kunman/pkg/const"
 	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
 	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	coinmwpb "github.com/NpoolPlatform/kunman/message/chain/middleware/v1/coin"

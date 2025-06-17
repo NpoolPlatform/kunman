@@ -7,7 +7,7 @@ import (
 	"entgo.io/ent"
 	"entgo.io/ent/schema/field"
 	"entgo.io/ent/schema/index"
-	crudermixin "github.com/NpoolPlatform/libent-cruder/pkg/mixin"
+	crudermixin "github.com/NpoolPlatform/kunman/pkg/cruder/mixin"
 	"github.com/NpoolPlatform/message/npool/sphinxplugin"
 	"github.com/NpoolPlatform/sphinx-proxy/pkg/db/ent/transaction"
 )

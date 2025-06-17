@@ -4,7 +4,7 @@ import (
 	"context"
 	"fmt"
 
-	constant "github.com/NpoolPlatform/good-gateway/pkg/const"
+	constant "github.com/NpoolPlatform/kunman/pkg/const"
 	appmw "github.com/NpoolPlatform/kunman/middleware/appuser/app"
 )
 

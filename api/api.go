@@ -5,6 +5,7 @@ import (
 
 	agi "github.com/NpoolPlatform/kunman/api/agi"
 	good "github.com/NpoolPlatform/kunman/api/good"
+	order "github.com/NpoolPlatform/kunman/api/order"
 
 	kunman "github.com/NpoolPlatform/kunman/message/version"
 
@@ -20,6 +21,7 @@ func Register(server grpc.ServiceRegistrar) {
 	kunman.RegisterKunmanServer(server, &Server{})
 	agi.Register(server)
 	good.Register(server)
+	order.Register(server)
 }
 
 func RegisterGateway(mux *runtime.ServeMux, endpoint string, opts []grpc.DialOption) error {
@@ -30,6 +32,9 @@ func RegisterGateway(mux *runtime.ServeMux, endpoint string, opts []grpc.DialOpt
 		return err
 	}
 	if err := good.RegisterGateway(mux, endpoint, opts); err != nil {
+		return err
+	}
+	if err := order.RegisterGateway(mux, endpoint, opts); err != nil {
 		return err
 	}
 

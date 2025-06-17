@@ -8,7 +8,7 @@ import (
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 
-	"github.com/NpoolPlatform/go-service-framework/pkg/logger"
+	"github.com/NpoolPlatform/kunman/framework/logger"
 	npool "github.com/NpoolPlatform/kunman/message/good/gateway/v1/good/required"
 )
 
