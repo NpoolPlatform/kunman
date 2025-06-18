@@ -3,20 +3,19 @@ package persistent
 import (
 	"context"
 
-	txmwcli "github.com/NpoolPlatform/kunman/middleware/chain/tx"
+	asyncfeed "github.com/NpoolPlatform/kunman/cron/scheduler/base/asyncfeed"
+	basepersistent "github.com/NpoolPlatform/kunman/cron/scheduler/base/persistent"
+	types "github.com/NpoolPlatform/kunman/cron/scheduler/benefit/powerrental/wait/types"
 	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
-	powerrentalmwcli "github.com/NpoolPlatform/kunman/middleware/good/powerrental"
 	goodtypes "github.com/NpoolPlatform/kunman/message/basetypes/good/v1"
 	ordertypes "github.com/NpoolPlatform/kunman/message/basetypes/order/v1"
 	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	txmwpb "github.com/NpoolPlatform/kunman/message/chain/middleware/v1/tx"
 	goodcoinrewardmwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/good/coin/reward"
-	powerrentalmwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/powerrental"
 	powerrentalordermwpb "github.com/NpoolPlatform/kunman/message/order/middleware/v1/powerrental"
-	asyncfeed "github.com/NpoolPlatform/kunman/cron/scheduler/base/asyncfeed"
-	basepersistent "github.com/NpoolPlatform/kunman/cron/scheduler/base/persistent"
-	types "github.com/NpoolPlatform/kunman/cron/scheduler/benefit/powerrental/wait/types"
-	powerrentalordermwcli "github.com/NpoolPlatform/kunman/middleware/order/powerrental"
+	txmw "github.com/NpoolPlatform/kunman/middleware/chain/tx"
+	powerrentalmw "github.com/NpoolPlatform/kunman/middleware/good/powerrental"
+	powerrentalordermw "github.com/NpoolPlatform/kunman/middleware/order/powerrental"
 
 	"github.com/google/uuid"
 	"github.com/shopspring/decimal"
@@ -39,7 +38,23 @@ func (p *handler) updateOrders(ctx context.Context, good *types.PersistentPowerR
 			BenefitState:  &state,
 		})
 	}
-	return powerrentalordermwcli.UpdatePowerRentalOrders(ctx, reqs)
+
+	multiHandler := &powerrentalordermw.MultiHandler{}
+	for _, req := range reqs {
+		handler, err := powerrentalordermw.NewHandler(
+			ctx,
+			powerrentalordermw.WithID(req.ID, true),
+			powerrentalordermw.WithLastBenefitAt(req.LastBenefitAt, true),
+			powerrentalordermw.WithBenefitState(req.BenefitState, true),
+		)
+		if err != nil {
+			return wlog.WrapError(err)
+		}
+
+		multiHandler.AppendHandler(handler)
+	}
+
+	return multiHandler.UpdatePowerRentals(ctx)
 }
 
 func (p *handler) Update(ctx context.Context, good interface{}, reward, notif, done chan interface{}) error {
@@ -73,12 +88,18 @@ func (p *handler) Update(ctx context.Context, good interface{}, reward, notif, d
 		})
 	}
 
-	if err := powerrentalmwcli.UpdatePowerRental(ctx, &powerrentalmwpb.PowerRentalReq{
-		ID:          &_good.ID,
-		RewardState: func() *goodtypes.BenefitState { e := goodtypes.BenefitState_BenefitTransferring; return &e }(),
-		RewardAt:    &_good.BenefitTimestamp,
-		Rewards:     rewardReqs,
-	}); err != nil {
+	prHandler, err := powerrentalmw.NewHandler(
+		ctx,
+		powerrentalmw.WithID(&_good.ID, true),
+		powerrentalmw.WithRewardState(goodtypes.BenefitState_BenefitTransferring.Enum(), true),
+		powerrentalmw.WithRewardAt(&_good.BenefitTimestamp, true),
+		powerrentalmw.WithRewards(rewardReqs, true),
+	)
+	if err != nil {
+		return wlog.WrapError(err)
+	}
+
+	if err := prHandler.UpdatePowerRental(ctx); err != nil {
 		return wlog.WrapError(err)
 	}
 
@@ -103,7 +124,15 @@ func (p *handler) Update(ctx context.Context, good interface{}, reward, notif, d
 		})
 	}
 
-	if _, err := txmwcli.CreateTxs(ctx, txReqs); err != nil {
+	txHandler, err := txmw.NewHandler(
+		ctx,
+		txmw.WithReqs(txReqs, true),
+	)
+	if err != nil {
+		return wlog.WrapError(err)
+	}
+
+	if _, err := txHandler.CreateTxs(ctx); err != nil {
 		return wlog.WrapError(err)
 	}
 

@@ -5,14 +5,12 @@ import (
 	"fmt"
 	"time"
 
+	asyncfeed "github.com/NpoolPlatform/kunman/cron/scheduler/base/asyncfeed"
+	common "github.com/NpoolPlatform/kunman/cron/scheduler/benefit/powerrental/wait/common"
+	types "github.com/NpoolPlatform/kunman/cron/scheduler/benefit/powerrental/wait/types"
 	timedef "github.com/NpoolPlatform/kunman/framework/const/time"
 	"github.com/NpoolPlatform/kunman/framework/logger"
 	"github.com/NpoolPlatform/kunman/framework/wlog"
-	appfeemwcli "github.com/NpoolPlatform/kunman/middleware/good/app/fee"
-	requiredappgoodmwcli "github.com/NpoolPlatform/kunman/middleware/good/app/good/required"
-	apppowerrentalmwcli "github.com/NpoolPlatform/kunman/middleware/good/app/powerrental"
-	goodstatementmwcli "github.com/NpoolPlatform/kunman/middleware/ledger/good/ledger/statement"
-	cruder "github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 	goodbenefitmwpb "github.com/NpoolPlatform/kunman/message/account/middleware/v1/goodbenefit"
 	platformaccountmwpb "github.com/NpoolPlatform/kunman/message/account/middleware/v1/platform"
 	goodtypes "github.com/NpoolPlatform/kunman/message/basetypes/good/v1"
@@ -25,14 +23,16 @@ import (
 	goodstatementmwpb "github.com/NpoolPlatform/kunman/message/ledger/middleware/v2/good/ledger/statement"
 	outofgasmwpb "github.com/NpoolPlatform/kunman/message/order/middleware/v1/outofgas"
 	powerrentalordermwpb "github.com/NpoolPlatform/kunman/message/order/middleware/v1/powerrental"
-	sphinxproxypb "github.com/NpoolPlatform/message/npool/sphinxproxy"
-	asyncfeed "github.com/NpoolPlatform/kunman/cron/scheduler/base/asyncfeed"
-	common "github.com/NpoolPlatform/kunman/cron/scheduler/benefit/powerrental/wait/common"
-	types "github.com/NpoolPlatform/kunman/cron/scheduler/benefit/powerrental/wait/types"
+	appfeemw "github.com/NpoolPlatform/kunman/middleware/good/app/fee"
+	requiredappgoodmw "github.com/NpoolPlatform/kunman/middleware/good/app/good/required"
+	apppowerrentalmw "github.com/NpoolPlatform/kunman/middleware/good/app/powerrental"
+	goodstatementmw "github.com/NpoolPlatform/kunman/middleware/ledger/good/ledger/statement"
+	outofgasmw "github.com/NpoolPlatform/kunman/middleware/order/outofgas"
+	powerrentalordermw "github.com/NpoolPlatform/kunman/middleware/order/powerrental"
 	schedcommon "github.com/NpoolPlatform/kunman/pkg/common"
 	constant "github.com/NpoolPlatform/kunman/pkg/const"
-	outofgasmwcli "github.com/NpoolPlatform/kunman/middleware/order/outofgas"
-	powerrentalordermwcli "github.com/NpoolPlatform/kunman/middleware/order/powerrental"
+	cruder "github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
+	sphinxproxypb "github.com/NpoolPlatform/message/npool/sphinxproxy"
 	sphinxproxycli "github.com/NpoolPlatform/sphinx-proxy/pkg/client"
 
 	"github.com/shopspring/decimal"
@@ -179,10 +179,22 @@ func (h *goodHandler) orderBenefitable(order *powerrentalordermwpb.PowerRentalOr
 
 func (h *goodHandler) getOutOfGasesWithOrderIDs(ctx context.Context, orderIDs []string) error {
 	h.orderOutOfGases = map[string]*outofgasmwpb.OutOfGas{}
-	infos, _, err := outofgasmwcli.GetOutOfGases(ctx, &outofgasmwpb.Conds{
+
+	conds := &outofgasmwpb.Conds{
 		OrderIDs: &basetypes.StringSliceVal{Op: cruder.IN, Value: orderIDs},
 		EndAt:    &basetypes.Uint32Val{Op: cruder.EQ, Value: 0},
-	}, 0, int32(len(orderIDs)))
+	}
+	handler, err := outofgasmw.NewHandler(
+		ctx,
+		outofgasmw.WithConds(conds),
+		outofgasmw.WithOffset(0),
+		outofgasmw.WithLimit(int32(len(orderIDs))),
+	)
+	if err != nil {
+		return wlog.WrapError(err)
+	}
+
+	infos, _, err := handler.GetOutOfGases(ctx)
 	if err != nil {
 		return wlog.WrapError(err)
 	}
@@ -199,14 +211,26 @@ func (h *goodHandler) getOrderUnits(ctx context.Context) error {
 	h.appOrderUnits = map[string]map[string]decimal.Decimal{}
 	now := uint32(time.Now().Unix())
 
+	conds := &powerrentalordermwpb.Conds{
+		GoodID:       &basetypes.StringVal{Op: cruder.EQ, Value: h.GoodID},
+		OrderState:   &basetypes.Uint32Val{Op: cruder.EQ, Value: uint32(ordertypes.OrderState_OrderStateInService)},
+		BenefitState: &basetypes.Uint32Val{Op: cruder.EQ, Value: uint32(ordertypes.BenefitState_BenefitWait)},
+		CreatedAt:    &basetypes.Uint32Val{Op: cruder.LT, Value: now - timedef.SecondsPerDay},
+		StartAt:      &basetypes.Uint32Val{Op: cruder.LT, Value: now - timedef.SecondsPerDay},
+	}
+
 	for {
-		orders, _, err := powerrentalordermwcli.GetPowerRentalOrders(ctx, &powerrentalordermwpb.Conds{
-			GoodID:       &basetypes.StringVal{Op: cruder.EQ, Value: h.GoodID},
-			OrderState:   &basetypes.Uint32Val{Op: cruder.EQ, Value: uint32(ordertypes.OrderState_OrderStateInService)},
-			BenefitState: &basetypes.Uint32Val{Op: cruder.EQ, Value: uint32(ordertypes.BenefitState_BenefitWait)},
-			CreatedAt:    &basetypes.Uint32Val{Op: cruder.LT, Value: now - timedef.SecondsPerDay},
-			StartAt:      &basetypes.Uint32Val{Op: cruder.LT, Value: now - timedef.SecondsPerDay},
-		}, offset, limit)
+		handler, err := powerrentalordermw.NewHandler(
+			ctx,
+			powerrentalordermw.WithConds(conds),
+			powerrentalordermw.WithOffset(offset),
+			powerrentalordermw.WithLimit(limit),
+		)
+		if err != nil {
+			return wlog.WrapError(err)
+		}
+
+		orders, _, err := handler.GetPowerRentals(ctx)
 		if err != nil {
 			return wlog.WrapError(err)
 		}
@@ -332,10 +356,22 @@ func (h *goodHandler) getAppPowerRentals(ctx context.Context) error {
 	limit := constant.DefaultRowLimit
 	h.appPowerRentals = map[string]map[string]*apppowerrentalmwpb.PowerRental{}
 
+	conds := &apppowerrentalmwpb.Conds{
+		GoodID: &basetypes.StringVal{Op: cruder.EQ, Value: h.GoodID},
+	}
+
 	for {
-		goods, _, err := apppowerrentalmwcli.GetPowerRentals(ctx, &apppowerrentalmwpb.Conds{
-			GoodID: &basetypes.StringVal{Op: cruder.EQ, Value: h.GoodID},
-		}, offset, limit)
+		handler, err := apppowerrentalmw.NewHandler(
+			ctx,
+			apppowerrentalmw.WithConds(conds),
+			apppowerrentalmw.WithOffset(offset),
+			apppowerrentalmw.WithLimit(limit),
+		)
+		if err != nil {
+			return wlog.WrapError(err)
+		}
+
+		goods, _, err := handler.GetPowerRentals(ctx)
 		if err != nil {
 			return wlog.WrapError(err)
 		}
@@ -414,20 +450,32 @@ func (h *goodHandler) getRequiredTechniqueFees(ctx context.Context) error {
 	offset := int32(0)
 	limit := constant.DefaultRowLimit
 
-	for {
-		requireds, _, err := requiredappgoodmwcli.GetRequireds(ctx, &requiredappgoodmwpb.Conds{
-			MainAppGoodIDs: &basetypes.StringSliceVal{
-				Op: cruder.IN, Value: func() (appGoodIDs []string) {
-					for _, appPowerRentals := range h.appPowerRentals {
-						for _, appPowerRental := range appPowerRentals {
-							appGoodIDs = append(appGoodIDs, appPowerRental.AppGoodID)
-						}
+	conds := &requiredappgoodmwpb.Conds{
+		MainAppGoodIDs: &basetypes.StringSliceVal{
+			Op: cruder.IN, Value: func() (appGoodIDs []string) {
+				for _, appPowerRentals := range h.appPowerRentals {
+					for _, appPowerRental := range appPowerRentals {
+						appGoodIDs = append(appGoodIDs, appPowerRental.AppGoodID)
 					}
-					return
-				}(),
-			},
-			RequiredGoodType: &basetypes.Uint32Val{Op: cruder.EQ, Value: uint32(goodtypes.GoodType_TechniqueServiceFee)},
-		}, offset, limit)
+				}
+				return
+			}(),
+		},
+		RequiredGoodType: &basetypes.Uint32Val{Op: cruder.EQ, Value: uint32(goodtypes.GoodType_TechniqueServiceFee)},
+	}
+
+	for {
+		handler, err := requiredappgoodmw.NewHandler(
+			ctx,
+			requiredappgoodmw.WithConds(conds),
+			requiredappgoodmw.WithOffset(offset),
+			requiredappgoodmw.WithLimit(limit),
+		)
+		if err != nil {
+			return wlog.WrapError(err)
+		}
+
+		requireds, _, err := handler.GetRequireds(ctx)
 		if err != nil {
 			return wlog.WrapError(err)
 		}
@@ -453,18 +501,30 @@ func (h *goodHandler) getAppTechniqueFees(ctx context.Context) error {
 	limit := constant.DefaultRowLimit
 	h.techniqueFees = map[string]map[string]*appfeemwpb.Fee{}
 
+	conds := &appfeemwpb.Conds{
+		AppGoodIDs: &basetypes.StringSliceVal{
+			Op: cruder.IN, Value: func() (appGoodIDs []string) {
+				for _, requiredAppFee := range h.requiredAppFees {
+					appGoodIDs = append(appGoodIDs, requiredAppFee.RequiredAppGoodID)
+				}
+				return
+			}(),
+		},
+		GoodType: &basetypes.Uint32Val{Op: cruder.EQ, Value: uint32(goodtypes.GoodType_TechniqueServiceFee)},
+	}
+
 	for {
-		goods, _, err := appfeemwcli.GetFees(ctx, &appfeemwpb.Conds{
-			AppGoodIDs: &basetypes.StringSliceVal{
-				Op: cruder.IN, Value: func() (appGoodIDs []string) {
-					for _, requiredAppFee := range h.requiredAppFees {
-						appGoodIDs = append(appGoodIDs, requiredAppFee.RequiredAppGoodID)
-					}
-					return
-				}(),
-			},
-			GoodType: &basetypes.Uint32Val{Op: cruder.EQ, Value: uint32(goodtypes.GoodType_TechniqueServiceFee)},
-		}, offset, limit)
+		handler, err := appfeemw.NewHandler(
+			ctx,
+			appfeemw.WithConds(conds),
+			appfeemw.WithOffset(offset),
+			appfeemw.WithLimit(limit),
+		)
+		if err != nil {
+			return wlog.WrapError(err)
+		}
+
+		goods, _, err := handler.GetFees(ctx)
 		if err != nil {
 			return wlog.WrapError(err)
 		}
@@ -605,12 +665,21 @@ func (h *goodHandler) resolveBenefitTimestamp() {
 }
 
 func (h *goodHandler) checkGoodStatement(ctx context.Context) (bool, error) {
-	exist, err := goodstatementmwcli.ExistGoodStatementConds(ctx, &goodstatementmwpb.Conds{
+	conds := &goodstatementmwpb.Conds{
 		GoodID:      &basetypes.StringVal{Op: cruder.EQ, Value: h.GoodID},
 		BenefitDate: &basetypes.Uint32Val{Op: cruder.EQ, Value: h.benefitTimestamp},
-	})
+	}
+	handler, err := goodstatementmw.NewHandler(
+		ctx,
+		goodstatementmw.WithConds(conds),
+	)
 	if err != nil {
-		return false, err
+		return false, wlog.WrapError(err)
+	}
+
+	exist, err := handler.ExistGoodStatementConds(ctx)
+	if err != nil {
+		return false, wlog.WrapError(err)
 	}
 	if !exist {
 		return false, nil

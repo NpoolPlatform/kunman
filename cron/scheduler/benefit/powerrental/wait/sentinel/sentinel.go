@@ -5,17 +5,18 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/NpoolPlatform/kunman/framework/logger"
-	powerrentalmwcli "github.com/NpoolPlatform/kunman/middleware/good/powerrental"
-	cruder "github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
-	goodtypes "github.com/NpoolPlatform/kunman/message/basetypes/good/v1"
-	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
-	powerrentalmwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/powerrental"
 	cancelablefeed "github.com/NpoolPlatform/kunman/cron/scheduler/base/cancelablefeed"
 	basesentinel "github.com/NpoolPlatform/kunman/cron/scheduler/base/sentinel"
 	common "github.com/NpoolPlatform/kunman/cron/scheduler/benefit/powerrental/wait/common"
 	types "github.com/NpoolPlatform/kunman/cron/scheduler/benefit/powerrental/wait/types"
+	"github.com/NpoolPlatform/kunman/framework/logger"
+	"github.com/NpoolPlatform/kunman/framework/wlog"
+	goodtypes "github.com/NpoolPlatform/kunman/message/basetypes/good/v1"
+	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
+	powerrentalmwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/powerrental"
+	powerrentalmw "github.com/NpoolPlatform/kunman/middleware/good/powerrental"
 	constant "github.com/NpoolPlatform/kunman/pkg/const"
+	cruder "github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 )
 
 type handler struct {
@@ -41,7 +42,18 @@ func (h *handler) scanGoods(ctx context.Context, state goodtypes.BenefitState, c
 		if cond != nil {
 			conds.GoodIDs = &basetypes.StringSliceVal{Op: cruder.IN, Value: cond.GoodIDs}
 		}
-		goods, _, err := powerrentalmwcli.GetPowerRentals(ctx, conds, offset, limit)
+
+		handler, err := powerrentalmw.NewHandler(
+			ctx,
+			powerrentalmw.WithConds(conds),
+			powerrentalmw.WithOffset(offset),
+			powerrentalmw.WithLimit(limit),
+		)
+		if err != nil {
+			return wlog.WrapError(err)
+		}
+
+		goods, _, err := handler.GetPowerRentals(ctx)
 		if err != nil {
 			return err
 		}
