@@ -13,7 +13,7 @@ import (
 	asyncfeed "github.com/NpoolPlatform/kunman/cron/scheduler/base/asyncfeed"
 	basepersistent "github.com/NpoolPlatform/kunman/cron/scheduler/base/persistent"
 	types "github.com/NpoolPlatform/kunman/cron/scheduler/withdraw/created/types"
-	reviewsvcname "github.com/NpoolPlatform/review-middleware/pkg/servicename"
+	reviewsvcname "github.com/NpoolPlatform/kunman/middleware/review/servicename"
 
 	dtmcli "github.com/NpoolPlatform/dtm-cluster/pkg/dtm"
 	"github.com/dtm-labs/dtm/client/dtmcli/dtmimp"

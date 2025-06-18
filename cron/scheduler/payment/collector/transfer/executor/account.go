@@ -7,7 +7,7 @@ import (
 
 	payaccmwcli "github.com/NpoolPlatform/kunman/middleware/account/payment"
 	pltfaccmwcli "github.com/NpoolPlatform/kunman/middleware/account/platform"
-	accountlock "github.com/NpoolPlatform/account-middleware/pkg/lock"
+	accountlock "github.com/NpoolPlatform/kunman/middleware/account/lock"
 	coinmwcli "github.com/NpoolPlatform/kunman/middleware/chain/coin"
 	txmwcli "github.com/NpoolPlatform/kunman/middleware/chain/tx"
 	timedef "github.com/NpoolPlatform/kunman/framework/const/time"

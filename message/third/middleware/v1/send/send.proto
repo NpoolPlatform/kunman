@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package third.middleware.send.v1;
+
+option go_package = "github.com/NpoolPlatform/kunman/message/third/middleware/v1/send";
+
+import "basetypes/v1/signmethod.proto";
+
+message SendMessageInput {
+  string Subject = 10;
+  string Content = 20;
+  string From = 30;
+  string To = 40;
+  repeated string ToCCs = 50;
+  repeated string ReplyTos = 60;
+  basetypes.v1.SignMethod AccountType = 70;
+}

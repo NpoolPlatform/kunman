@@ -5,7 +5,7 @@ import (
 	"fmt"
 
 	paymentaccountmwcli "github.com/NpoolPlatform/kunman/middleware/account/payment"
-	accountlock "github.com/NpoolPlatform/account-middleware/pkg/lock"
+	accountlock "github.com/NpoolPlatform/kunman/middleware/account/lock"
 	paymentaccountmwpb "github.com/NpoolPlatform/kunman/message/account/middleware/v1/payment"
 	asyncfeed "github.com/NpoolPlatform/kunman/cron/scheduler/base/asyncfeed"
 	basepersistent "github.com/NpoolPlatform/kunman/cron/scheduler/base/persistent"

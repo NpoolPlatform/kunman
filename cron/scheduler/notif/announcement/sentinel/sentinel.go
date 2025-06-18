@@ -7,7 +7,7 @@ import (
 	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	ancmwpb "github.com/NpoolPlatform/kunman/message/notif/middleware/v1/announcement"
-	ancmwcli "github.com/NpoolPlatform/notif-middleware/pkg/client/announcement"
+	ancmwcli "github.com/NpoolPlatform/kunman/middleware/notif/announcement"
 	cancelablefeed "github.com/NpoolPlatform/kunman/cron/scheduler/base/cancelablefeed"
 	basesentinel "github.com/NpoolPlatform/kunman/cron/scheduler/base/sentinel"
 	constant "github.com/NpoolPlatform/kunman/pkg/const"

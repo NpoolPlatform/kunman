@@ -4,7 +4,7 @@ import (
 	"context"
 
 	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
-	achievementmwcli "github.com/NpoolPlatform/inspire-middleware/pkg/client/achievement"
+	achievementmwcli "github.com/NpoolPlatform/kunman/middleware/inspire/achievement"
 	ordertypes "github.com/NpoolPlatform/kunman/message/basetypes/order/v1"
 	powerrentalordermwpb "github.com/NpoolPlatform/kunman/message/order/middleware/v1/powerrental"
 	asyncfeed "github.com/NpoolPlatform/kunman/cron/scheduler/base/asyncfeed"

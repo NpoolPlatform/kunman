@@ -5,7 +5,7 @@ import (
 	"fmt"
 
 	payaccmwcli "github.com/NpoolPlatform/kunman/middleware/account/payment"
-	accountlock "github.com/NpoolPlatform/account-middleware/pkg/lock"
+	accountlock "github.com/NpoolPlatform/kunman/middleware/account/lock"
 	txmwcli "github.com/NpoolPlatform/kunman/middleware/chain/tx"
 	payaccmwpb "github.com/NpoolPlatform/kunman/message/account/middleware/v1/payment"
 	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"

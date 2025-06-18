@@ -12,7 +12,7 @@ import (
 	goodtypes "github.com/NpoolPlatform/kunman/message/basetypes/good/v1"
 	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	notifbenefitmwpb "github.com/NpoolPlatform/kunman/message/notif/middleware/v1/notif/goodbenefit"
-	notifbenefitmwcli "github.com/NpoolPlatform/notif-middleware/pkg/client/notif/goodbenefit"
+	notifbenefitmwcli "github.com/NpoolPlatform/kunman/middleware/notif/notif/goodbenefit"
 	cancelablefeed "github.com/NpoolPlatform/kunman/cron/scheduler/base/cancelablefeed"
 	basesentinel "github.com/NpoolPlatform/kunman/cron/scheduler/base/sentinel"
 	constant "github.com/NpoolPlatform/kunman/pkg/const"

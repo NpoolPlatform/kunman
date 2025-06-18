@@ -86,3 +86,10 @@ message Conds {
   optional basetypes.v1.Uint32SliceVal IDs = 140;
 }
 
+message XNotifReq {
+  optional string UserID = 10;
+  basetypes.v1.UsedFor EventType = 20;
+  optional .notif.middleware.template.v1.TemplateVars Vars = 30;
+  optional string Extra = 40;
+  basetypes.v1.NotifType NotifType = 50;
+}

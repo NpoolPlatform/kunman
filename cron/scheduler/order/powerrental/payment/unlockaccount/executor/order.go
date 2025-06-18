@@ -5,9 +5,9 @@ import (
 
 	"github.com/NpoolPlatform/kunman/framework/logger"
 	"github.com/NpoolPlatform/kunman/framework/wlog"
-	eventmwcli "github.com/NpoolPlatform/inspire-middleware/pkg/client/event"
-	taskconfigmwcli "github.com/NpoolPlatform/inspire-middleware/pkg/client/task/config"
-	taskusermwcli "github.com/NpoolPlatform/inspire-middleware/pkg/client/task/user"
+	eventmwcli "github.com/NpoolPlatform/kunman/middleware/inspire/event"
+	taskconfigmwcli "github.com/NpoolPlatform/kunman/middleware/inspire/task/config"
+	taskusermwcli "github.com/NpoolPlatform/kunman/middleware/inspire/task/user"
 	cruder "github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 	paymentaccountmwpb "github.com/NpoolPlatform/kunman/message/account/middleware/v1/payment"
 	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"

@@ -4,8 +4,8 @@ import (
 	"context"
 	"fmt"
 
-	accountlock "github.com/NpoolPlatform/account-middleware/pkg/lock"
-	accountsvcname "github.com/NpoolPlatform/account-middleware/pkg/servicename"
+	accountlock "github.com/NpoolPlatform/kunman/middleware/account/lock"
+	accountsvcname "github.com/NpoolPlatform/kunman/middleware/account/servicename"
 	"github.com/NpoolPlatform/kunman/framework/wlog"
 	payaccmwpb "github.com/NpoolPlatform/kunman/message/account/middleware/v1/payment"
 	ordertypes "github.com/NpoolPlatform/kunman/message/basetypes/order/v1"

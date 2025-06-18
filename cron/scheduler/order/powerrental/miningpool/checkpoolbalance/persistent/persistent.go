@@ -7,7 +7,7 @@ import (
 	"github.com/NpoolPlatform/kunman/framework/wlog"
 	fractionwithdrawalmwpb "github.com/NpoolPlatform/kunman/message/miningpool/middleware/v1/fractionwithdrawal"
 	powerrentalordermwpb "github.com/NpoolPlatform/kunman/message/order/middleware/v1/powerrental"
-	orderusersvcname "github.com/NpoolPlatform/miningpool-middleware/pkg/servicename"
+	orderusersvcname "github.com/NpoolPlatform/kunman/middleware/miningpool/servicename"
 	asyncfeed "github.com/NpoolPlatform/kunman/cron/scheduler/base/asyncfeed"
 	basepersistent "github.com/NpoolPlatform/kunman/cron/scheduler/base/persistent"
 	types "github.com/NpoolPlatform/kunman/cron/scheduler/order/powerrental/miningpool/checkpoolbalance/types"

@@ -6,7 +6,7 @@ import (
 
 	"github.com/NpoolPlatform/kunman/framework/logger"
 	"github.com/NpoolPlatform/kunman/framework/wlog"
-	achievementorderpaymentstatementmwcli "github.com/NpoolPlatform/inspire-middleware/pkg/client/achievement/statement/order/payment"
+	achievementorderpaymentstatementmwcli "github.com/NpoolPlatform/kunman/middleware/inspire/achievement/statement/order/payment"
 	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 	ordertypes "github.com/NpoolPlatform/kunman/message/basetypes/order/v1"
 	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"

@@ -4,7 +4,7 @@ import (
 	"context"
 	"fmt"
 
-	orderstatementmwcli "github.com/NpoolPlatform/inspire-middleware/pkg/client/achievement/statement/order"
+	orderstatementmwcli "github.com/NpoolPlatform/kunman/middleware/inspire/achievement/statement/order"
 	ordertypes "github.com/NpoolPlatform/kunman/message/basetypes/order/v1"
 	powerrentalordermwpb "github.com/NpoolPlatform/kunman/message/order/middleware/v1/powerrental"
 	asyncfeed "github.com/NpoolPlatform/kunman/cron/scheduler/base/asyncfeed"

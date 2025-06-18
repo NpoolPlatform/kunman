@@ -7,11 +7,11 @@ import (
 
 	"github.com/NpoolPlatform/kunman/framework/logger"
 	notifmwpb "github.com/NpoolPlatform/kunman/message/notif/middleware/v1/notif"
-	notifmwcli "github.com/NpoolPlatform/notif-middleware/pkg/client/notif"
+	notifmwcli "github.com/NpoolPlatform/kunman/middleware/notif/notif"
 	asyncfeed "github.com/NpoolPlatform/kunman/cron/scheduler/base/asyncfeed"
 	basepersistent "github.com/NpoolPlatform/kunman/cron/scheduler/base/persistent"
 	types "github.com/NpoolPlatform/kunman/cron/scheduler/notif/notification/types"
-	sendmwcli "github.com/NpoolPlatform/third-middleware/pkg/client/send"
+	sendmwcli "github.com/NpoolPlatform/kunman/mal/third/client/send"
 )
 
 type handler struct{}

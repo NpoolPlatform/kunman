@@ -8,7 +8,7 @@ package notif
 
 import (
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/v1"
-	_ "github.com/NpoolPlatform/kunman/message/notif/middleware/v1/template"
+	template "github.com/NpoolPlatform/kunman/message/notif/middleware/v1/template"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
@@ -556,6 +556,85 @@ func (x *Conds) GetIDs() *v1.Uint32SliceVal {
 	return nil
 }
 
+type XNotifReq struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	UserID    *string                `protobuf:"bytes,10,opt,name=UserID,proto3,oneof" json:"UserID,omitempty"`
+	EventType v1.UsedFor             `protobuf:"varint,20,opt,name=EventType,proto3,enum=basetypes.v1.UsedFor" json:"EventType,omitempty"`
+	Vars      *template.TemplateVars `protobuf:"bytes,30,opt,name=Vars,proto3,oneof" json:"Vars,omitempty"`
+	Extra     *string                `protobuf:"bytes,40,opt,name=Extra,proto3,oneof" json:"Extra,omitempty"`
+	NotifType v1.NotifType           `protobuf:"varint,50,opt,name=NotifType,proto3,enum=basetypes.v1.NotifType" json:"NotifType,omitempty"`
+}
+
+func (x *XNotifReq) Reset() {
+	*x = XNotifReq{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_notif_middleware_v1_notif_notif_proto_msgTypes[3]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *XNotifReq) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*XNotifReq) ProtoMessage() {}
+
+func (x *XNotifReq) ProtoReflect() protoreflect.Message {
+	mi := &file_notif_middleware_v1_notif_notif_proto_msgTypes[3]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use XNotifReq.ProtoReflect.Descriptor instead.
+func (*XNotifReq) Descriptor() ([]byte, []int) {
+	return file_notif_middleware_v1_notif_notif_proto_rawDescGZIP(), []int{3}
+}
+
+func (x *XNotifReq) GetUserID() string {
+	if x != nil && x.UserID != nil {
+		return *x.UserID
+	}
+	return ""
+}
+
+func (x *XNotifReq) GetEventType() v1.UsedFor {
+	if x != nil {
+		return x.EventType
+	}
+	return v1.UsedFor(0)
+}
+
+func (x *XNotifReq) GetVars() *template.TemplateVars {
+	if x != nil {
+		return x.Vars
+	}
+	return nil
+}
+
+func (x *XNotifReq) GetExtra() string {
+	if x != nil && x.Extra != nil {
+		return *x.Extra
+	}
+	return ""
+}
+
+func (x *XNotifReq) GetNotifType() v1.NotifType {
+	if x != nil {
+		return x.NotifType
+	}
+	return v1.NotifType(0)
+}
+
 var File_notif_middleware_v1_notif_notif_proto protoreflect.FileDescriptor
 
 var file_notif_middleware_v1_notif_notif_proto_rawDesc = []byte{
@@ -728,12 +807,29 @@ var file_notif_middleware_v1_notif_notif_proto_rawDesc = []byte{
 	0x06, 0x5f, 0x45, 0x78, 0x74, 0x72, 0x61, 0x42, 0x0a, 0x0a, 0x08, 0x5f, 0x45, 0x76, 0x65, 0x6e,
 	0x74, 0x49, 0x44, 0x42, 0x0b, 0x0a, 0x09, 0x5f, 0x45, 0x76, 0x65, 0x6e, 0x74, 0x49, 0x44, 0x73,
 	0x42, 0x0c, 0x0a, 0x0a, 0x5f, 0x4e, 0x6f, 0x74, 0x69, 0x66, 0x54, 0x79, 0x70, 0x65, 0x42, 0x06,
-	0x0a, 0x04, 0x5f, 0x49, 0x44, 0x73, 0x42, 0x43, 0x5a, 0x41, 0x67, 0x69, 0x74, 0x68, 0x75, 0x62,
-	0x2e, 0x63, 0x6f, 0x6d, 0x2f, 0x4e, 0x70, 0x6f, 0x6f, 0x6c, 0x50, 0x6c, 0x61, 0x74, 0x66, 0x6f,
-	0x72, 0x6d, 0x2f, 0x6b, 0x75, 0x6e, 0x6d, 0x61, 0x6e, 0x2f, 0x6d, 0x65, 0x73, 0x73, 0x61, 0x67,
-	0x65, 0x2f, 0x6e, 0x6f, 0x74, 0x69, 0x66, 0x2f, 0x6d, 0x69, 0x64, 0x64, 0x6c, 0x65, 0x77, 0x61,
-	0x72, 0x65, 0x2f, 0x76, 0x31, 0x2f, 0x6e, 0x6f, 0x74, 0x69, 0x66, 0x62, 0x06, 0x70, 0x72, 0x6f,
-	0x74, 0x6f, 0x33,
+	0x0a, 0x04, 0x5f, 0x49, 0x44, 0x73, 0x22, 0x92, 0x02, 0x0a, 0x09, 0x58, 0x4e, 0x6f, 0x74, 0x69,
+	0x66, 0x52, 0x65, 0x71, 0x12, 0x1b, 0x0a, 0x06, 0x55, 0x73, 0x65, 0x72, 0x49, 0x44, 0x18, 0x0a,
+	0x20, 0x01, 0x28, 0x09, 0x48, 0x00, 0x52, 0x06, 0x55, 0x73, 0x65, 0x72, 0x49, 0x44, 0x88, 0x01,
+	0x01, 0x12, 0x33, 0x0a, 0x09, 0x45, 0x76, 0x65, 0x6e, 0x74, 0x54, 0x79, 0x70, 0x65, 0x18, 0x14,
+	0x20, 0x01, 0x28, 0x0e, 0x32, 0x15, 0x2e, 0x62, 0x61, 0x73, 0x65, 0x74, 0x79, 0x70, 0x65, 0x73,
+	0x2e, 0x76, 0x31, 0x2e, 0x55, 0x73, 0x65, 0x64, 0x46, 0x6f, 0x72, 0x52, 0x09, 0x45, 0x76, 0x65,
+	0x6e, 0x74, 0x54, 0x79, 0x70, 0x65, 0x12, 0x43, 0x0a, 0x04, 0x56, 0x61, 0x72, 0x73, 0x18, 0x1e,
+	0x20, 0x01, 0x28, 0x0b, 0x32, 0x2a, 0x2e, 0x6e, 0x6f, 0x74, 0x69, 0x66, 0x2e, 0x6d, 0x69, 0x64,
+	0x64, 0x6c, 0x65, 0x77, 0x61, 0x72, 0x65, 0x2e, 0x74, 0x65, 0x6d, 0x70, 0x6c, 0x61, 0x74, 0x65,
+	0x2e, 0x76, 0x31, 0x2e, 0x54, 0x65, 0x6d, 0x70, 0x6c, 0x61, 0x74, 0x65, 0x56, 0x61, 0x72, 0x73,
+	0x48, 0x01, 0x52, 0x04, 0x56, 0x61, 0x72, 0x73, 0x88, 0x01, 0x01, 0x12, 0x19, 0x0a, 0x05, 0x45,
+	0x78, 0x74, 0x72, 0x61, 0x18, 0x28, 0x20, 0x01, 0x28, 0x09, 0x48, 0x02, 0x52, 0x05, 0x45, 0x78,
+	0x74, 0x72, 0x61, 0x88, 0x01, 0x01, 0x12, 0x35, 0x0a, 0x09, 0x4e, 0x6f, 0x74, 0x69, 0x66, 0x54,
+	0x79, 0x70, 0x65, 0x18, 0x32, 0x20, 0x01, 0x28, 0x0e, 0x32, 0x17, 0x2e, 0x62, 0x61, 0x73, 0x65,
+	0x74, 0x79, 0x70, 0x65, 0x73, 0x2e, 0x76, 0x31, 0x2e, 0x4e, 0x6f, 0x74, 0x69, 0x66, 0x54, 0x79,
+	0x70, 0x65, 0x52, 0x09, 0x4e, 0x6f, 0x74, 0x69, 0x66, 0x54, 0x79, 0x70, 0x65, 0x42, 0x09, 0x0a,
+	0x07, 0x5f, 0x55, 0x73, 0x65, 0x72, 0x49, 0x44, 0x42, 0x07, 0x0a, 0x05, 0x5f, 0x56, 0x61, 0x72,
+	0x73, 0x42, 0x08, 0x0a, 0x06, 0x5f, 0x45, 0x78, 0x74, 0x72, 0x61, 0x42, 0x43, 0x5a, 0x41, 0x67,
+	0x69, 0x74, 0x68, 0x75, 0x62, 0x2e, 0x63, 0x6f, 0x6d, 0x2f, 0x4e, 0x70, 0x6f, 0x6f, 0x6c, 0x50,
+	0x6c, 0x61, 0x74, 0x66, 0x6f, 0x72, 0x6d, 0x2f, 0x6b, 0x75, 0x6e, 0x6d, 0x61, 0x6e, 0x2f, 0x6d,
+	0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x2f, 0x6e, 0x6f, 0x74, 0x69, 0x66, 0x2f, 0x6d, 0x69, 0x64,
+	0x64, 0x6c, 0x65, 0x77, 0x61, 0x72, 0x65, 0x2f, 0x76, 0x31, 0x2f, 0x6e, 0x6f, 0x74, 0x69, 0x66,
+	0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (
@@ -748,49 +844,54 @@ func file_notif_middleware_v1_notif_notif_proto_rawDescGZIP() []byte {
 	return file_notif_middleware_v1_notif_notif_proto_rawDescData
 }
 
-var file_notif_middleware_v1_notif_notif_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
+var file_notif_middleware_v1_notif_notif_proto_msgTypes = make([]protoimpl.MessageInfo, 4)
 var file_notif_middleware_v1_notif_notif_proto_goTypes = []interface{}{
-	(*Notif)(nil),             // 0: notif.middleware.notif.v1.Notif
-	(*NotifReq)(nil),          // 1: notif.middleware.notif.v1.NotifReq
-	(*Conds)(nil),             // 2: notif.middleware.notif.v1.Conds
-	(v1.UsedFor)(0),           // 3: basetypes.v1.UsedFor
-	(v1.NotifChannel)(0),      // 4: basetypes.v1.NotifChannel
-	(v1.NotifType)(0),         // 5: basetypes.v1.NotifType
-	(*v1.Uint32Val)(nil),      // 6: basetypes.v1.Uint32Val
-	(*v1.StringVal)(nil),      // 7: basetypes.v1.StringVal
-	(*v1.StringSliceVal)(nil), // 8: basetypes.v1.StringSliceVal
-	(*v1.BoolVal)(nil),        // 9: basetypes.v1.BoolVal
-	(*v1.Uint32SliceVal)(nil), // 10: basetypes.v1.Uint32SliceVal
+	(*Notif)(nil),                 // 0: notif.middleware.notif.v1.Notif
+	(*NotifReq)(nil),              // 1: notif.middleware.notif.v1.NotifReq
+	(*Conds)(nil),                 // 2: notif.middleware.notif.v1.Conds
+	(*XNotifReq)(nil),             // 3: notif.middleware.notif.v1.XNotifReq
+	(v1.UsedFor)(0),               // 4: basetypes.v1.UsedFor
+	(v1.NotifChannel)(0),          // 5: basetypes.v1.NotifChannel
+	(v1.NotifType)(0),             // 6: basetypes.v1.NotifType
+	(*v1.Uint32Val)(nil),          // 7: basetypes.v1.Uint32Val
+	(*v1.StringVal)(nil),          // 8: basetypes.v1.StringVal
+	(*v1.StringSliceVal)(nil),     // 9: basetypes.v1.StringSliceVal
+	(*v1.BoolVal)(nil),            // 10: basetypes.v1.BoolVal
+	(*v1.Uint32SliceVal)(nil),     // 11: basetypes.v1.Uint32SliceVal
+	(*template.TemplateVars)(nil), // 12: notif.middleware.template.v1.TemplateVars
 }
 var file_notif_middleware_v1_notif_notif_proto_depIdxs = []int32{
-	3,  // 0: notif.middleware.notif.v1.Notif.EventType:type_name -> basetypes.v1.UsedFor
-	4,  // 1: notif.middleware.notif.v1.Notif.Channel:type_name -> basetypes.v1.NotifChannel
-	5,  // 2: notif.middleware.notif.v1.Notif.NotifType:type_name -> basetypes.v1.NotifType
-	3,  // 3: notif.middleware.notif.v1.NotifReq.EventType:type_name -> basetypes.v1.UsedFor
-	4,  // 4: notif.middleware.notif.v1.NotifReq.Channel:type_name -> basetypes.v1.NotifChannel
-	5,  // 5: notif.middleware.notif.v1.NotifReq.NotifType:type_name -> basetypes.v1.NotifType
-	6,  // 6: notif.middleware.notif.v1.Conds.ID:type_name -> basetypes.v1.Uint32Val
-	7,  // 7: notif.middleware.notif.v1.Conds.EntID:type_name -> basetypes.v1.StringVal
-	8,  // 8: notif.middleware.notif.v1.Conds.EntIDs:type_name -> basetypes.v1.StringSliceVal
-	7,  // 9: notif.middleware.notif.v1.Conds.AppID:type_name -> basetypes.v1.StringVal
-	7,  // 10: notif.middleware.notif.v1.Conds.UserID:type_name -> basetypes.v1.StringVal
-	9,  // 11: notif.middleware.notif.v1.Conds.Notified:type_name -> basetypes.v1.BoolVal
-	7,  // 12: notif.middleware.notif.v1.Conds.LangID:type_name -> basetypes.v1.StringVal
-	6,  // 13: notif.middleware.notif.v1.Conds.EventType:type_name -> basetypes.v1.Uint32Val
-	9,  // 14: notif.middleware.notif.v1.Conds.UseTemplate:type_name -> basetypes.v1.BoolVal
-	10, // 15: notif.middleware.notif.v1.Conds.Channels:type_name -> basetypes.v1.Uint32SliceVal
-	6,  // 16: notif.middleware.notif.v1.Conds.Channel:type_name -> basetypes.v1.Uint32Val
-	10, // 17: notif.middleware.notif.v1.Conds.EventTypes:type_name -> basetypes.v1.Uint32SliceVal
-	7,  // 18: notif.middleware.notif.v1.Conds.Extra:type_name -> basetypes.v1.StringVal
-	7,  // 19: notif.middleware.notif.v1.Conds.EventID:type_name -> basetypes.v1.StringVal
-	8,  // 20: notif.middleware.notif.v1.Conds.EventIDs:type_name -> basetypes.v1.StringSliceVal
-	6,  // 21: notif.middleware.notif.v1.Conds.NotifType:type_name -> basetypes.v1.Uint32Val
-	10, // 22: notif.middleware.notif.v1.Conds.IDs:type_name -> basetypes.v1.Uint32SliceVal
-	23, // [23:23] is the sub-list for method output_type
-	23, // [23:23] is the sub-list for method input_type
-	23, // [23:23] is the sub-list for extension type_name
-	23, // [23:23] is the sub-list for extension extendee
-	0,  // [0:23] is the sub-list for field type_name
+	4,  // 0: notif.middleware.notif.v1.Notif.EventType:type_name -> basetypes.v1.UsedFor
+	5,  // 1: notif.middleware.notif.v1.Notif.Channel:type_name -> basetypes.v1.NotifChannel
+	6,  // 2: notif.middleware.notif.v1.Notif.NotifType:type_name -> basetypes.v1.NotifType
+	4,  // 3: notif.middleware.notif.v1.NotifReq.EventType:type_name -> basetypes.v1.UsedFor
+	5,  // 4: notif.middleware.notif.v1.NotifReq.Channel:type_name -> basetypes.v1.NotifChannel
+	6,  // 5: notif.middleware.notif.v1.NotifReq.NotifType:type_name -> basetypes.v1.NotifType
+	7,  // 6: notif.middleware.notif.v1.Conds.ID:type_name -> basetypes.v1.Uint32Val
+	8,  // 7: notif.middleware.notif.v1.Conds.EntID:type_name -> basetypes.v1.StringVal
+	9,  // 8: notif.middleware.notif.v1.Conds.EntIDs:type_name -> basetypes.v1.StringSliceVal
+	8,  // 9: notif.middleware.notif.v1.Conds.AppID:type_name -> basetypes.v1.StringVal
+	8,  // 10: notif.middleware.notif.v1.Conds.UserID:type_name -> basetypes.v1.StringVal
+	10, // 11: notif.middleware.notif.v1.Conds.Notified:type_name -> basetypes.v1.BoolVal
+	8,  // 12: notif.middleware.notif.v1.Conds.LangID:type_name -> basetypes.v1.StringVal
+	7,  // 13: notif.middleware.notif.v1.Conds.EventType:type_name -> basetypes.v1.Uint32Val
+	10, // 14: notif.middleware.notif.v1.Conds.UseTemplate:type_name -> basetypes.v1.BoolVal
+	11, // 15: notif.middleware.notif.v1.Conds.Channels:type_name -> basetypes.v1.Uint32SliceVal
+	7,  // 16: notif.middleware.notif.v1.Conds.Channel:type_name -> basetypes.v1.Uint32Val
+	11, // 17: notif.middleware.notif.v1.Conds.EventTypes:type_name -> basetypes.v1.Uint32SliceVal
+	8,  // 18: notif.middleware.notif.v1.Conds.Extra:type_name -> basetypes.v1.StringVal
+	8,  // 19: notif.middleware.notif.v1.Conds.EventID:type_name -> basetypes.v1.StringVal
+	9,  // 20: notif.middleware.notif.v1.Conds.EventIDs:type_name -> basetypes.v1.StringSliceVal
+	7,  // 21: notif.middleware.notif.v1.Conds.NotifType:type_name -> basetypes.v1.Uint32Val
+	11, // 22: notif.middleware.notif.v1.Conds.IDs:type_name -> basetypes.v1.Uint32SliceVal
+	4,  // 23: notif.middleware.notif.v1.XNotifReq.EventType:type_name -> basetypes.v1.UsedFor
+	12, // 24: notif.middleware.notif.v1.XNotifReq.Vars:type_name -> notif.middleware.template.v1.TemplateVars
+	6,  // 25: notif.middleware.notif.v1.XNotifReq.NotifType:type_name -> basetypes.v1.NotifType
+	26, // [26:26] is the sub-list for method output_type
+	26, // [26:26] is the sub-list for method input_type
+	26, // [26:26] is the sub-list for extension type_name
+	26, // [26:26] is the sub-list for extension extendee
+	0,  // [0:26] is the sub-list for field type_name
 }
 
 func init() { file_notif_middleware_v1_notif_notif_proto_init() }
@@ -835,16 +936,29 @@ func file_notif_middleware_v1_notif_notif_proto_init() {
 				return nil
 			}
 		}
+		file_notif_middleware_v1_notif_notif_proto_msgTypes[3].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*XNotifReq); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
 	}
 	file_notif_middleware_v1_notif_notif_proto_msgTypes[1].OneofWrappers = []interface{}{}
 	file_notif_middleware_v1_notif_notif_proto_msgTypes[2].OneofWrappers = []interface{}{}
+	file_notif_middleware_v1_notif_notif_proto_msgTypes[3].OneofWrappers = []interface{}{}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_notif_middleware_v1_notif_notif_proto_rawDesc,
 			NumEnums:      0,
-			NumMessages:   3,
+			NumMessages:   4,
 			NumExtensions: 0,
 			NumServices:   0,
 		},
