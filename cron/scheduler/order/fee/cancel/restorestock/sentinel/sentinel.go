@@ -3,15 +3,15 @@ package sentinel
 import (
 	"context"
 
-	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
+	cancelablefeed "github.com/NpoolPlatform/kunman/cron/scheduler/base/cancelablefeed"
+	basesentinel "github.com/NpoolPlatform/kunman/cron/scheduler/base/sentinel"
+	types "github.com/NpoolPlatform/kunman/cron/scheduler/order/fee/cancel/restorestock/types"
 	ordertypes "github.com/NpoolPlatform/kunman/message/basetypes/order/v1"
 	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	feeordermwpb "github.com/NpoolPlatform/kunman/message/order/middleware/v1/fee"
-	cancelablefeed "github.com/NpoolPlatform/kunman/cron/scheduler/base/cancelablefeed"
-	basesentinel "github.com/NpoolPlatform/kunman/cron/scheduler/base/sentinel"
+	feeordermw "github.com/NpoolPlatform/kunman/middleware/order/fee"
 	constant "github.com/NpoolPlatform/kunman/pkg/const"
-	types "github.com/NpoolPlatform/kunman/cron/scheduler/order/fee/cancel/restorestock/types"
-	feeordermwcli "github.com/NpoolPlatform/kunman/middleware/order/fee"
+	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 )
 
 type handler struct{}
@@ -24,7 +24,23 @@ func (h *handler) scanOrders(ctx context.Context, state ordertypes.OrderState, e
 	offset := int32(0)
 	limit := constant.DefaultRowLimit
 
+	conds := &feeordermwpb.Conds{
+		OrderState: &basetypes.Uint32Val{Op: cruder.EQ, Value: uint32(state)},
+		PaymentTypes: &basetypes.Uint32SliceVal{
+			Op: cruder.IN,
+			Value: []uint32{
+				uint32(ordertypes.PaymentType_PayWithBalanceOnly),
+				uint32(ordertypes.PaymentType_PayWithTransferOnly),
+				uint32(ordertypes.PaymentType_PayWithTransferAndBalance),
+				uint32(ordertypes.PaymentType_PayWithOffline),
+				uint32(ordertypes.PaymentType_PayWithNoPayment),
+			},
+		},
+	}
+
 	for {
+		handler, err := feeordermw.NewHandler()
+
 		orders, _, err := feeordermwcli.GetFeeOrders(ctx, &feeordermwpb.Conds{
 			OrderState: &basetypes.Uint32Val{Op: cruder.EQ, Value: uint32(state)},
 			PaymentTypes: &basetypes.Uint32SliceVal{

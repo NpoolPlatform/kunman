@@ -5,16 +5,16 @@ import (
 	"fmt"
 	"time"
 
+	cancelablefeed "github.com/NpoolPlatform/kunman/cron/scheduler/base/cancelablefeed"
+	basesentinel "github.com/NpoolPlatform/kunman/cron/scheduler/base/sentinel"
+	types "github.com/NpoolPlatform/kunman/cron/scheduler/order/fee/cancel/check/types"
 	timedef "github.com/NpoolPlatform/kunman/framework/const/time"
-	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 	ordertypes "github.com/NpoolPlatform/kunman/message/basetypes/order/v1"
 	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	feeordermwpb "github.com/NpoolPlatform/kunman/message/order/middleware/v1/fee"
-	cancelablefeed "github.com/NpoolPlatform/kunman/cron/scheduler/base/cancelablefeed"
-	basesentinel "github.com/NpoolPlatform/kunman/cron/scheduler/base/sentinel"
+	feeordermw "github.com/NpoolPlatform/kunman/middleware/order/fee"
 	constant "github.com/NpoolPlatform/kunman/pkg/const"
-	types "github.com/NpoolPlatform/kunman/cron/scheduler/order/fee/cancel/check/types"
-	feeordermwcli "github.com/NpoolPlatform/kunman/middleware/order/fee"
+	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 )
 
 type handler struct{}
@@ -52,7 +52,18 @@ func (h *handler) scanFeeOrders(ctx context.Context, admin bool, exec chan inter
 		} else {
 			conds.UserSetCanceled = &basetypes.BoolVal{Op: cruder.EQ, Value: true}
 		}
-		orders, _, err := feeordermwcli.GetFeeOrders(ctx, conds, offset, limit)
+
+		handler, err := feeordermw.NewHandler(
+			ctx,
+			feeordermw.WithConds(conds),
+			feeordermw.WithOffset(offset),
+			feeordermw.WithLimit(limit),
+		)
+		if err != nil {
+			return err
+		}
+
+		orders, _, err := handler.GetFeeOrders(ctx)
 		if err != nil {
 			return err
 		}

@@ -3,14 +3,13 @@ package persistent
 import (
 	"context"
 
-	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
-	achievementmwcli "github.com/NpoolPlatform/kunman/middleware/inspire/achievement"
-	ordertypes "github.com/NpoolPlatform/kunman/message/basetypes/order/v1"
-	feeordermwpb "github.com/NpoolPlatform/kunman/message/order/middleware/v1/fee"
 	asyncfeed "github.com/NpoolPlatform/kunman/cron/scheduler/base/asyncfeed"
 	basepersistent "github.com/NpoolPlatform/kunman/cron/scheduler/base/persistent"
 	types "github.com/NpoolPlatform/kunman/cron/scheduler/order/fee/cancel/achievement/types"
-	feeordermwcli "github.com/NpoolPlatform/kunman/middleware/order/fee"
+	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
+	ordertypes "github.com/NpoolPlatform/kunman/message/basetypes/order/v1"
+	achievementmw "github.com/NpoolPlatform/kunman/middleware/inspire/achievement"
+	feeordermw "github.com/NpoolPlatform/kunman/middleware/order/fee"
 )
 
 type handler struct{}
@@ -27,14 +26,26 @@ func (p *handler) Update(ctx context.Context, order interface{}, reward, notif, 
 
 	defer asyncfeed.AsyncFeed(ctx, _order, done)
 
-	if err := achievementmwcli.ExpropriateAchievement(ctx, _order.OrderID); err != nil {
+	achievementHandler, err := achievementmw.NewHandler(
+		ctx,
+		achievementmw.WithOrderID(&_order.OrderID, true),
+	)
+	if err != nil {
+		return err
+	}
+
+	if err := achievementHandler.ExpropriateAchievement(ctx); err != nil {
 		return wlog.WrapError(err)
 	}
 
-	return wlog.WrapError(
-		feeordermwcli.UpdateFeeOrder(ctx, &feeordermwpb.FeeOrderReq{
-			ID:         &_order.ID,
-			OrderState: ordertypes.OrderState_OrderStateReturnCanceledBalance.Enum(),
-		}),
+	feeHandler, err := feeordermw.NewHandler(
+		ctx,
+		feeordermw.WithID(&_order.ID, true),
+		feeordermw.WithOrderState(ordertypes.OrderState_OrderStateReturnCanceledBalance.Enum(), true),
 	)
+	if err != nil {
+		return wlog.WrapError(err)
+	}
+
+	return wlog.WrapError(feeHandler.UpdateFeeOrder(ctx))
 }
