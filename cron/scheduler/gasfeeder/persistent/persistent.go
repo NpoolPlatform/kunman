@@ -4,12 +4,11 @@ import (
 	"context"
 	"fmt"
 
-	txmwcli "github.com/NpoolPlatform/kunman/middleware/chain/tx"
-	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
-	txmwpb "github.com/NpoolPlatform/kunman/message/chain/middleware/v1/tx"
 	asyncfeed "github.com/NpoolPlatform/kunman/cron/scheduler/base/asyncfeed"
 	basepersistent "github.com/NpoolPlatform/kunman/cron/scheduler/base/persistent"
 	types "github.com/NpoolPlatform/kunman/cron/scheduler/gasfeeder/types"
+	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
+	txmw "github.com/NpoolPlatform/kunman/middleware/chain/tx"
 )
 
 type handler struct{}
@@ -27,15 +26,22 @@ func (p *handler) Update(ctx context.Context, coin interface{}, reward, notif, d
 	defer asyncfeed.AsyncFeed(ctx, _coin, done)
 
 	txType := basetypes.TxType_TxFeedGas
-	if _, err := txmwcli.CreateTx(ctx, &txmwpb.TxReq{
-		CoinTypeID:    &_coin.FeeCoinTypeID,
-		FromAccountID: &_coin.FromAccountID,
-		ToAccountID:   &_coin.ToAccountID,
-		Amount:        &_coin.Amount,
-		FeeAmount:     &_coin.FeeAmount,
-		Extra:         &_coin.Extra,
-		Type:          &txType,
-	}); err != nil {
+
+	handler, err := txmw.NewHandler(
+		ctx,
+		txmw.WithCoinTypeID(&_coin.FeeCoinTypeID, true),
+		txmw.WithFromAccountID(&_coin.FromAccountID, true),
+		txmw.WithToAccountID(&_coin.ToAccountID, true),
+		txmw.WithAmount(&_coin.Amount, true),
+		txmw.WithFeeAmount(&_coin.FeeAmount, true),
+		txmw.WithExtra(&_coin.Extra, true),
+		txmw.WithType(&txType, true),
+	)
+	if err != nil {
+		return err
+	}
+
+	if _, err := handler.CreateTx(ctx); err != nil {
 		return err
 	}
 

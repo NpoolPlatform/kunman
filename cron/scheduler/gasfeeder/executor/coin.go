@@ -6,14 +6,10 @@ import (
 	"fmt"
 	"time"
 
-	accountmwcli "github.com/NpoolPlatform/kunman/middleware/account/account"
-	depositaccmwcli "github.com/NpoolPlatform/kunman/middleware/account/deposit"
-	payaccmwcli "github.com/NpoolPlatform/kunman/middleware/account/payment"
-	pltfaccmwcli "github.com/NpoolPlatform/kunman/middleware/account/platform"
-	txmwcli "github.com/NpoolPlatform/kunman/middleware/chain/tx"
+	asyncfeed "github.com/NpoolPlatform/kunman/cron/scheduler/base/asyncfeed"
+	types "github.com/NpoolPlatform/kunman/cron/scheduler/gasfeeder/types"
 	timedef "github.com/NpoolPlatform/kunman/framework/const/time"
 	"github.com/NpoolPlatform/kunman/framework/logger"
-	cruder "github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 	accountmwpb "github.com/NpoolPlatform/kunman/message/account/middleware/v1/account"
 	depositaccmwpb "github.com/NpoolPlatform/kunman/message/account/middleware/v1/deposit"
 	payaccmwpb "github.com/NpoolPlatform/kunman/message/account/middleware/v1/payment"
@@ -21,10 +17,14 @@ import (
 	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	coinmwpb "github.com/NpoolPlatform/kunman/message/chain/middleware/v1/coin"
 	txmwpb "github.com/NpoolPlatform/kunman/message/chain/middleware/v1/tx"
-	sphinxproxypb "github.com/NpoolPlatform/message/npool/sphinxproxy"
-	asyncfeed "github.com/NpoolPlatform/kunman/cron/scheduler/base/asyncfeed"
+	accountmw "github.com/NpoolPlatform/kunman/middleware/account/account"
+	depositaccmw "github.com/NpoolPlatform/kunman/middleware/account/deposit"
+	payaccmw "github.com/NpoolPlatform/kunman/middleware/account/payment"
+	pltfaccmw "github.com/NpoolPlatform/kunman/middleware/account/platform"
+	txmw "github.com/NpoolPlatform/kunman/middleware/chain/tx"
 	constant "github.com/NpoolPlatform/kunman/pkg/const"
-	types "github.com/NpoolPlatform/kunman/cron/scheduler/gasfeeder/types"
+	cruder "github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
+	sphinxproxypb "github.com/NpoolPlatform/message/npool/sphinxproxy"
 	sphinxproxycli "github.com/NpoolPlatform/sphinx-proxy/pkg/client"
 
 	"github.com/shopspring/decimal"
@@ -39,14 +39,23 @@ type coinHandler struct {
 }
 
 func (h *coinHandler) getPlatformAccount(ctx context.Context, coinTypeID string, usedFor basetypes.AccountUsedFor) (*pltfaccmwpb.Account, error) {
-	account, err := pltfaccmwcli.GetAccountOnly(ctx, &pltfaccmwpb.Conds{
+	conds := &pltfaccmwpb.Conds{
 		CoinTypeID: &basetypes.StringVal{Op: cruder.EQ, Value: coinTypeID},
 		UsedFor:    &basetypes.Uint32Val{Op: cruder.EQ, Value: uint32(usedFor)},
 		Backup:     &basetypes.BoolVal{Op: cruder.EQ, Value: false},
 		Active:     &basetypes.BoolVal{Op: cruder.EQ, Value: true},
 		Locked:     &basetypes.BoolVal{Op: cruder.EQ, Value: false},
 		Blocked:    &basetypes.BoolVal{Op: cruder.EQ, Value: false},
-	})
+	}
+	handler, err := pltfaccmw.NewHandler(
+		ctx,
+		pltfaccmw.WithConds(conds),
+	)
+	if err != nil {
+		return nil, err
+	}
+
+	account, err := handler.GetAccountOnly(ctx)
 	if err != nil {
 		return nil, err
 	}
@@ -65,7 +74,15 @@ func (h *coinHandler) getGasProvider(ctx context.Context) error {
 		return fmt.Errorf("invalid gasprovider")
 	}
 
-	_account, err := accountmwcli.GetAccount(ctx, account.AccountID)
+	handler, err := accountmw.NewHandler(
+		ctx,
+		accountmw.WithEntID(&account.AccountID, true),
+	)
+	if err != nil {
+		return err
+	}
+
+	_account, err := handler.GetAccount(ctx)
 	if err != nil {
 		return err
 	}
@@ -78,7 +95,7 @@ func (h *coinHandler) getGasProvider(ctx context.Context) error {
 }
 
 func (h *coinHandler) feeding(ctx context.Context, account *accountmwpb.Account) (bool, error) {
-	txs, _, err := txmwcli.GetTxs(ctx, &txmwpb.Conds{
+	conds := &txmwpb.Conds{
 		AccountID: &basetypes.StringVal{Op: cruder.EQ, Value: account.EntID},
 		Type:      &basetypes.Uint32Val{Op: cruder.EQ, Value: uint32(basetypes.TxType_TxFeedGas)},
 		States: &basetypes.Uint32SliceVal{Op: cruder.IN, Value: []uint32{
@@ -89,7 +106,18 @@ func (h *coinHandler) feeding(ctx context.Context, account *accountmwpb.Account)
 			uint32(basetypes.TxState_TxStateTransferring),
 			uint32(basetypes.TxState_TxStateSuccessful),
 		}},
-	}, int32(0), int32(1))
+	}
+	handler, err := txmw.NewHandler(
+		ctx,
+		txmw.WithConds(conds),
+		txmw.WithOffset(0),
+		txmw.WithLimit(1),
+	)
+	if err != nil {
+		return false, err
+	}
+
+	txs, _, err := handler.GetTxs(ctx)
 	if err != nil {
 		return false, err
 	}
@@ -221,7 +249,15 @@ func (h *coinHandler) checkUserBenefitHot(ctx context.Context) (bool, *accountmw
 		return false, nil, decimal.NewFromInt(0), fmt.Errorf("invalid account")
 	}
 
-	_account, err := accountmwcli.GetAccount(ctx, account.AccountID)
+	handler, err := accountmw.NewHandler(
+		ctx,
+		accountmw.WithEntID(&account.AccountID, true),
+	)
+	if err != nil {
+		return false, nil, decimal.NewFromInt(0), err
+	}
+
+	_account, err := handler.GetAccount(ctx)
 	if err != nil {
 		return false, nil, decimal.NewFromInt(0), err
 	}
@@ -258,13 +294,25 @@ func (h *coinHandler) checkPaymentAccount(ctx context.Context) (bool, *accountmw
 		return false, nil, decimal.NewFromInt(0), err
 	}
 
+	conds := &payaccmwpb.Conds{
+		CoinTypeID: &basetypes.StringVal{Op: cruder.EQ, Value: h.EntID},
+		Active:     &basetypes.BoolVal{Op: cruder.EQ, Value: true},
+		Locked:     &basetypes.BoolVal{Op: cruder.EQ, Value: false},
+		Blocked:    &basetypes.BoolVal{Op: cruder.EQ, Value: false},
+	}
+
 	for {
-		accounts, _, err := payaccmwcli.GetAccounts(ctx, &payaccmwpb.Conds{
-			CoinTypeID: &basetypes.StringVal{Op: cruder.EQ, Value: h.EntID},
-			Active:     &basetypes.BoolVal{Op: cruder.EQ, Value: true},
-			Locked:     &basetypes.BoolVal{Op: cruder.EQ, Value: false},
-			Blocked:    &basetypes.BoolVal{Op: cruder.EQ, Value: false},
-		}, offset, limit)
+		paymentHandler, err := payaccmw.NewHandler(
+			ctx,
+			payaccmw.WithConds(conds),
+			payaccmw.WithOffset(offset),
+			payaccmw.WithLimit(limit),
+		)
+		if err != nil {
+			return false, nil, decimal.NewFromInt(0), err
+		}
+
+		accounts, _, err := paymentHandler.GetAccounts(ctx)
 		if err != nil {
 			return false, nil, decimal.NewFromInt(0), err
 		}
@@ -276,9 +324,21 @@ func (h *coinHandler) checkPaymentAccount(ctx context.Context) (bool, *accountmw
 		for _, account := range accounts {
 			ids = append(ids, account.AccountID)
 		}
-		_accounts, _, err := accountmwcli.GetAccounts(ctx, &accountmwpb.Conds{
+
+		_conds := &accountmwpb.Conds{
 			EntIDs: &basetypes.StringSliceVal{Op: cruder.IN, Value: ids},
-		}, int32(0), int32(len(ids)))
+		}
+		accountHandler, err := accountmw.NewHandler(
+			ctx,
+			accountmw.WithConds(_conds),
+			accountmw.WithOffset(0),
+			accountmw.WithLimit(int32(len(ids))),
+		)
+		if err != nil {
+			return false, nil, decimal.NewFromInt(0), err
+		}
+
+		_accounts, _, err := accountHandler.GetAccounts(ctx)
 		if err != nil {
 			return false, nil, decimal.NewFromInt(0), err
 		}
@@ -306,13 +366,25 @@ func (h *coinHandler) checkDepositAccount(ctx context.Context) (bool, *accountmw
 		return false, nil, decimal.NewFromInt(0), err
 	}
 
+	conds := &depositaccmwpb.Conds{
+		CoinTypeID: &basetypes.StringVal{Op: cruder.EQ, Value: h.EntID},
+		Active:     &basetypes.BoolVal{Op: cruder.EQ, Value: true},
+		Locked:     &basetypes.BoolVal{Op: cruder.EQ, Value: false},
+		Blocked:    &basetypes.BoolVal{Op: cruder.EQ, Value: false},
+	}
+
 	for {
-		accounts, _, err := depositaccmwcli.GetAccounts(ctx, &depositaccmwpb.Conds{
-			CoinTypeID: &basetypes.StringVal{Op: cruder.EQ, Value: h.EntID},
-			Active:     &basetypes.BoolVal{Op: cruder.EQ, Value: true},
-			Locked:     &basetypes.BoolVal{Op: cruder.EQ, Value: false},
-			Blocked:    &basetypes.BoolVal{Op: cruder.EQ, Value: false},
-		}, offset, limit)
+		depositHandler, err := depositaccmw.NewHandler(
+			ctx,
+			depositaccmw.WithConds(conds),
+			depositaccmw.WithOffset(offset),
+			depositaccmw.WithLimit(limit),
+		)
+		if err != nil {
+			return false, nil, decimal.NewFromInt(0), err
+		}
+
+		accounts, _, err := depositHandler.GetAccounts(ctx)
 		if err != nil {
 			return false, nil, decimal.NewFromInt(0), err
 		}
@@ -324,9 +396,21 @@ func (h *coinHandler) checkDepositAccount(ctx context.Context) (bool, *accountmw
 		for _, account := range accounts {
 			ids = append(ids, account.AccountID)
 		}
-		_accounts, _, err := accountmwcli.GetAccounts(ctx, &accountmwpb.Conds{
+
+		_conds := &accountmwpb.Conds{
 			EntIDs: &basetypes.StringSliceVal{Op: cruder.IN, Value: ids},
-		}, int32(0), int32(len(ids)))
+		}
+		accountHandler, err := accountmw.NewHandler(
+			ctx,
+			accountmw.WithConds(_conds),
+			accountmw.WithOffset(0),
+			accountmw.WithLimit(int32(len(ids))),
+		)
+		if err != nil {
+			return false, nil, decimal.NewFromInt(0), err
+		}
+
+		_accounts, _, err := accountHandler.GetAccounts(ctx)
 		if err != nil {
 			return false, nil, decimal.NewFromInt(0), err
 		}
