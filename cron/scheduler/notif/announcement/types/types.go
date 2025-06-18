@@ -9,5 +9,5 @@ type PersistentAnnouncement struct {
 	*ancmwpb.Announcement
 	SendAppID      string
 	SendUserID     string
-	MessageRequest *sendmwpb.SendMessageRequest
+	MessageRequest *sendmwpb.SendMessageInput
 }

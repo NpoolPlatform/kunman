@@ -6,10 +6,9 @@ import (
 	"net/mail"
 	"regexp"
 
-	usermwcli "github.com/NpoolPlatform/kunman/middleware/appuser/user"
-	applangmwcli "github.com/NpoolPlatform/kunman/middleware/g11n/applang"
+	asyncfeed "github.com/NpoolPlatform/kunman/cron/scheduler/base/asyncfeed"
+	types "github.com/NpoolPlatform/kunman/cron/scheduler/notif/notification/types"
 	"github.com/NpoolPlatform/kunman/framework/logger"
-	cruder "github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 	usermwpb "github.com/NpoolPlatform/kunman/message/appuser/middleware/v1/user"
 	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	applangmwpb "github.com/NpoolPlatform/kunman/message/g11n/middleware/v1/applang"
@@ -17,12 +16,13 @@ import (
 	emailtmplmwpb "github.com/NpoolPlatform/kunman/message/notif/middleware/v1/template/email"
 	smstmplmgrpb "github.com/NpoolPlatform/kunman/message/notif/middleware/v1/template/sms"
 	sendmwpb "github.com/NpoolPlatform/kunman/message/third/middleware/v1/send"
-	notifmwcli "github.com/NpoolPlatform/kunman/middleware/notif/notif"
-	emailtmplmwcli "github.com/NpoolPlatform/kunman/middleware/notif/template/email"
-	smstmplmwcli "github.com/NpoolPlatform/kunman/middleware/notif/template/sms"
-	asyncfeed "github.com/NpoolPlatform/kunman/cron/scheduler/base/asyncfeed"
+	usermw "github.com/NpoolPlatform/kunman/middleware/appuser/user"
+	applangmw "github.com/NpoolPlatform/kunman/middleware/g11n/applang"
+	notifmw "github.com/NpoolPlatform/kunman/middleware/notif/notif"
+	emailtmplmw "github.com/NpoolPlatform/kunman/middleware/notif/template/email"
+	smstmplmw "github.com/NpoolPlatform/kunman/middleware/notif/template/sms"
 	constant "github.com/NpoolPlatform/kunman/pkg/const"
-	types "github.com/NpoolPlatform/kunman/cron/scheduler/notif/notification/types"
+	cruder "github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 )
 
 type notifHandler struct {
@@ -33,11 +33,20 @@ type notifHandler struct {
 	eventNotifs    []*notifmwpb.Notif
 	user           *usermwpb.User
 	lang           *applangmwpb.Lang
-	messageRequest *sendmwpb.SendMessageRequest
+	messageRequest *sendmwpb.SendMessageInput
 }
 
 func (h *notifHandler) getUser(ctx context.Context) error {
-	user, err := usermwcli.GetUser(ctx, h.AppID, h.UserID)
+	handler, err := usermw.NewHandler(
+		ctx,
+		usermw.WithEntID(&h.UserID, true),
+		usermw.WithAppID(&h.AppID, true),
+	)
+	if err != nil {
+		return err
+	}
+
+	user, err := handler.GetUser(ctx)
 	if err != nil {
 		return err
 	}
@@ -57,7 +66,16 @@ func (h *notifHandler) getLang(ctx context.Context) error {
 	} else {
 		conds.Main = &basetypes.BoolVal{Op: cruder.EQ, Value: true}
 	}
-	lang, err := applangmwcli.GetLangOnly(ctx, conds)
+
+	handler, err := applangmw.NewHandler(
+		ctx,
+		applangmw.WithConds(conds),
+	)
+	if err != nil {
+		return err
+	}
+
+	lang, err := handler.GetLangOnly(ctx)
 	if err != nil {
 		return err
 	}
@@ -67,7 +85,16 @@ func (h *notifHandler) getLang(ctx context.Context) error {
 	}
 
 	conds.Main = &basetypes.BoolVal{Op: cruder.EQ, Value: true}
-	lang, err = applangmwcli.GetLangOnly(ctx, conds)
+
+	handler, err = applangmw.NewHandler(
+		ctx,
+		applangmw.WithConds(conds),
+	)
+	if err != nil {
+		return err
+	}
+
+	lang, err = handler.GetLangOnly(ctx)
 	if err != nil {
 		return err
 	}
@@ -79,11 +106,20 @@ func (h *notifHandler) getLang(ctx context.Context) error {
 }
 
 func (h *notifHandler) generateEmailMessage(ctx context.Context) error {
-	tmpl, err := emailtmplmwcli.GetEmailTemplateOnly(ctx, &emailtmplmwpb.Conds{
+	conds := &emailtmplmwpb.Conds{
 		AppID:   &basetypes.StringVal{Op: cruder.EQ, Value: h.AppID},
 		LangID:  &basetypes.StringVal{Op: cruder.EQ, Value: h.LangID},
 		UsedFor: &basetypes.Uint32Val{Op: cruder.EQ, Value: uint32(h.EventType)},
-	})
+	}
+	handler, err := emailtmplmw.NewHandler(
+		ctx,
+		emailtmplmw.WithConds(conds),
+	)
+	if err != nil {
+		return err
+	}
+
+	tmpl, err := handler.GetEmailTemplateOnly(ctx)
 	if err != nil {
 		return err
 	}
@@ -105,11 +141,20 @@ func (h *notifHandler) generateEmailMessage(ctx context.Context) error {
 }
 
 func (h *notifHandler) generateSMSMessage(ctx context.Context) error {
-	tmpl, err := smstmplmwcli.GetSMSTemplateOnly(ctx, &smstmplmgrpb.Conds{
+	conds := &smstmplmgrpb.Conds{
 		AppID:   &basetypes.StringVal{Op: cruder.EQ, Value: h.AppID},
 		LangID:  &basetypes.StringVal{Op: cruder.EQ, Value: h.LangID},
 		UsedFor: &basetypes.Uint32Val{Op: cruder.EQ, Value: uint32(h.EventType)},
-	})
+	}
+	handler, err := smstmplmw.NewHandler(
+		ctx,
+		smstmplmw.WithConds(conds),
+	)
+	if err != nil {
+		return err
+	}
+
+	tmpl, err := handler.GetSMSTemplateOnly(ctx)
 	if err != nil {
 		return err
 	}
@@ -134,7 +179,7 @@ func (h *notifHandler) generateSMSMessage(ctx context.Context) error {
 }
 
 func (h *notifHandler) generateMessageRequest(ctx context.Context) error {
-	h.messageRequest = &sendmwpb.SendMessageRequest{
+	h.messageRequest = &sendmwpb.SendMessageInput{
 		Subject: h.Title,
 		Content: h.Content,
 	}
@@ -152,13 +197,25 @@ func (h *notifHandler) getEventNotifs(ctx context.Context) error {
 	offset := int32(0)
 	limit := constant.DefaultRowLimit
 
+	conds := &notifmwpb.Conds{
+		Channel: &basetypes.Uint32Val{Op: cruder.EQ, Value: uint32(h.Channel)},
+		EventID: &basetypes.StringVal{Op: cruder.EQ, Value: h.EventID},
+		UserID:  &basetypes.StringVal{Op: cruder.EQ, Value: h.UserID},
+		AppID:   &basetypes.StringVal{Op: cruder.EQ, Value: h.AppID},
+	}
+
 	for {
-		notifs, _, err := notifmwcli.GetNotifs(ctx, &notifmwpb.Conds{
-			Channel: &basetypes.Uint32Val{Op: cruder.EQ, Value: uint32(h.Channel)},
-			EventID: &basetypes.StringVal{Op: cruder.EQ, Value: h.EventID},
-			UserID:  &basetypes.StringVal{Op: cruder.EQ, Value: h.UserID},
-			AppID:   &basetypes.StringVal{Op: cruder.EQ, Value: h.AppID},
-		}, offset, limit)
+		handler, err := notifmw.NewHandler(
+			ctx,
+			notifmw.WithConds(conds),
+			notifmw.WithOffset(offset),
+			notifmw.WithLimit(limit),
+		)
+		if err != nil {
+			return err
+		}
+
+		notifs, _, err := handler.GetNotifs(ctx)
 		if err != nil {
 			return err
 		}

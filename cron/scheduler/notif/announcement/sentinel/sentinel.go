@@ -4,14 +4,14 @@ import (
 	"context"
 	"time"
 
-	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
-	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
-	ancmwpb "github.com/NpoolPlatform/kunman/message/notif/middleware/v1/announcement"
-	ancmwcli "github.com/NpoolPlatform/kunman/middleware/notif/announcement"
 	cancelablefeed "github.com/NpoolPlatform/kunman/cron/scheduler/base/cancelablefeed"
 	basesentinel "github.com/NpoolPlatform/kunman/cron/scheduler/base/sentinel"
-	constant "github.com/NpoolPlatform/kunman/pkg/const"
 	types "github.com/NpoolPlatform/kunman/cron/scheduler/notif/announcement/types"
+	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
+	ancmwpb "github.com/NpoolPlatform/kunman/message/notif/middleware/v1/announcement"
+	ancmw "github.com/NpoolPlatform/kunman/middleware/notif/announcement"
+	constant "github.com/NpoolPlatform/kunman/pkg/const"
+	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 )
 
 type handler struct{}
@@ -25,12 +25,24 @@ func (h *handler) scanAnnouncement(ctx context.Context, channel basetypes.NotifC
 	limit := constant.DefaultRowLimit
 	now := uint32(time.Now().Unix())
 
+	conds := &ancmwpb.Conds{
+		StartAt: &basetypes.Uint32Val{Op: cruder.LTE, Value: now},
+		EndAt:   &basetypes.Uint32Val{Op: cruder.GTE, Value: now},
+		Channel: &basetypes.Uint32Val{Op: cruder.EQ, Value: uint32(channel)},
+	}
+
 	for {
-		ancs, _, err := ancmwcli.GetAnnouncements(ctx, &ancmwpb.Conds{
-			StartAt: &basetypes.Uint32Val{Op: cruder.LTE, Value: now},
-			EndAt:   &basetypes.Uint32Val{Op: cruder.GTE, Value: now},
-			Channel: &basetypes.Uint32Val{Op: cruder.EQ, Value: uint32(channel)},
-		}, offset, limit)
+		handler, err := ancmw.NewHandler(
+			ctx,
+			ancmw.WithConds(conds),
+			ancmw.WithOffset(offset),
+			ancmw.WithLimit(limit),
+		)
+		if err != nil {
+			return err
+		}
+
+		ancs, _, err := handler.GetAnnouncements(ctx)
 		if err != nil {
 			return err
 		}

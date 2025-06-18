@@ -8,5 +8,5 @@ import (
 type PersistentNotif struct {
 	*notifmwpb.Notif
 	EventNotifs    []*notifmwpb.Notif
-	MessageRequest *sendmwpb.SendMessageRequest
+	MessageRequest *sendmwpb.SendMessageInput
 }

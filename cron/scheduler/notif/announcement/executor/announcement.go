@@ -7,10 +7,9 @@ import (
 	"regexp"
 	"time"
 
-	usermwcli "github.com/NpoolPlatform/kunman/middleware/appuser/user"
-	applangmwcli "github.com/NpoolPlatform/kunman/middleware/g11n/applang"
+	asyncfeed "github.com/NpoolPlatform/kunman/cron/scheduler/base/asyncfeed"
+	types "github.com/NpoolPlatform/kunman/cron/scheduler/notif/announcement/types"
 	"github.com/NpoolPlatform/kunman/framework/logger"
-	cruder "github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 	usermwpb "github.com/NpoolPlatform/kunman/message/appuser/middleware/v1/user"
 	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	applangmwpb "github.com/NpoolPlatform/kunman/message/g11n/middleware/v1/applang"
@@ -20,13 +19,15 @@ import (
 	emailtmplmwpb "github.com/NpoolPlatform/kunman/message/notif/middleware/v1/template/email"
 	smstmplmwpb "github.com/NpoolPlatform/kunman/message/notif/middleware/v1/template/sms"
 	sendmwpb "github.com/NpoolPlatform/kunman/message/third/middleware/v1/send"
-	ancsendmwcli "github.com/NpoolPlatform/kunman/middleware/notif/announcement/sendstate"
-	ancusermwcli "github.com/NpoolPlatform/kunman/middleware/notif/announcement/user"
-	emailtmplmwcli "github.com/NpoolPlatform/kunman/middleware/notif/template/email"
-	smstmplmwcli "github.com/NpoolPlatform/kunman/middleware/notif/template/sms"
-	asyncfeed "github.com/NpoolPlatform/kunman/cron/scheduler/base/asyncfeed"
+	usermw "github.com/NpoolPlatform/kunman/middleware/appuser/user"
+	applangmw "github.com/NpoolPlatform/kunman/middleware/g11n/applang"
+	anchandler "github.com/NpoolPlatform/kunman/middleware/notif/announcement/handler"
+	ancsendmw "github.com/NpoolPlatform/kunman/middleware/notif/announcement/sendstate"
+	ancusermw "github.com/NpoolPlatform/kunman/middleware/notif/announcement/user"
+	emailtmplmw "github.com/NpoolPlatform/kunman/middleware/notif/template/email"
+	smstmplmw "github.com/NpoolPlatform/kunman/middleware/notif/template/sms"
 	constant "github.com/NpoolPlatform/kunman/pkg/const"
-	types "github.com/NpoolPlatform/kunman/cron/scheduler/notif/announcement/types"
+	cruder "github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 )
 
 type announcementHandler struct {
@@ -41,12 +42,24 @@ func (h *announcementHandler) getSendStats(ctx context.Context, users []*usermwp
 	for _, user := range users {
 		uids = append(uids, user.EntID)
 	}
-	stats, _, err := ancsendmwcli.GetSendStates(ctx, &ancsendmwpb.Conds{
+
+	conds := &ancsendmwpb.Conds{
 		AppID:          &basetypes.StringVal{Op: cruder.EQ, Value: h.AppID},
 		AnnouncementID: &basetypes.StringVal{Op: cruder.EQ, Value: h.EntID},
 		Channel:        &basetypes.Uint32Val{Op: cruder.EQ, Value: uint32(h.Channel)},
 		UserIDs:        &basetypes.StringSliceVal{Op: cruder.IN, Value: uids},
-	}, 0, int32(len(uids)))
+	}
+	handler, err := ancsendmw.NewHandler(
+		ctx,
+		ancsendmw.WithConds(conds),
+		anchandler.WithOffset(0),
+		anchandler.WithLimit(int32(len(uids))),
+	)
+	if err != nil {
+		return err
+	}
+
+	stats, _, err := handler.GetSendStates(ctx)
 	if err != nil {
 		return err
 	}
@@ -65,7 +78,16 @@ func (h *announcementHandler) getLang(ctx context.Context, user *usermwpb.User) 
 	} else {
 		conds.Main = &basetypes.BoolVal{Op: cruder.EQ, Value: true}
 	}
-	lang, err := applangmwcli.GetLangOnly(ctx, conds)
+
+	handler, err := applangmw.NewHandler(
+		ctx,
+		applangmw.WithConds(conds),
+	)
+	if err != nil {
+		return nil, err
+	}
+
+	lang, err := handler.GetLangOnly(ctx)
 	if err != nil {
 		return nil, err
 	}
@@ -77,7 +99,16 @@ func (h *announcementHandler) getLang(ctx context.Context, user *usermwpb.User) 
 	}
 	conds.LangID = nil
 	conds.Main = &basetypes.BoolVal{Op: cruder.EQ, Value: true}
-	lang, err = applangmwcli.GetLangOnly(ctx, conds)
+
+	handler, err = applangmw.NewHandler(
+		ctx,
+		applangmw.WithConds(conds),
+	)
+	if err != nil {
+		return nil, err
+	}
+
+	lang, err = handler.GetLangOnly(ctx)
 	if err != nil {
 		return nil, err
 	}
@@ -87,17 +118,26 @@ func (h *announcementHandler) getLang(ctx context.Context, user *usermwpb.User) 
 	return lang, nil
 }
 
-func (h *announcementHandler) emailRequest(ctx context.Context, user *usermwpb.User) (*sendmwpb.SendMessageRequest, error) {
-	req := &sendmwpb.SendMessageRequest{
+func (h *announcementHandler) emailRequest(ctx context.Context, user *usermwpb.User) (*sendmwpb.SendMessageInput, error) {
+	req := &sendmwpb.SendMessageInput{
 		Subject: h.Title,
 		Content: h.Content,
 	}
 
-	tmpl, err := emailtmplmwcli.GetEmailTemplateOnly(ctx, &emailtmplmwpb.Conds{
+	conds := &emailtmplmwpb.Conds{
 		AppID:   &basetypes.StringVal{Op: cruder.EQ, Value: h.AppID},
 		LangID:  &basetypes.StringVal{Op: cruder.EQ, Value: h.LangID},
 		UsedFor: &basetypes.Uint32Val{Op: cruder.EQ, Value: uint32(basetypes.UsedFor_Announcement)},
-	})
+	}
+	handler, err := emailtmplmw.NewHandler(
+		ctx,
+		emailtmplmw.WithConds(conds),
+	)
+	if err != nil {
+		return nil, err
+	}
+
+	tmpl, err := handler.GetEmailTemplateOnly(ctx)
 	if err != nil {
 		return nil, err
 	}
@@ -114,17 +154,26 @@ func (h *announcementHandler) emailRequest(ctx context.Context, user *usermwpb.U
 	return req, nil
 }
 
-func (h *announcementHandler) smsRequest(ctx context.Context, user *usermwpb.User) (*sendmwpb.SendMessageRequest, error) {
-	req := &sendmwpb.SendMessageRequest{
+func (h *announcementHandler) smsRequest(ctx context.Context, user *usermwpb.User) (*sendmwpb.SendMessageInput, error) {
+	req := &sendmwpb.SendMessageInput{
 		Subject: h.Title,
 		Content: h.Content,
 	}
 
-	tmpl, err := smstmplmwcli.GetSMSTemplateOnly(ctx, &smstmplmwpb.Conds{
+	conds := &smstmplmwpb.Conds{
 		AppID:   &basetypes.StringVal{Op: cruder.EQ, Value: h.AppID},
 		LangID:  &basetypes.StringVal{Op: cruder.EQ, Value: h.LangID},
 		UsedFor: &basetypes.Uint32Val{Op: cruder.EQ, Value: uint32(basetypes.UsedFor_Announcement)},
-	})
+	}
+	handler, err := smstmplmw.NewHandler(
+		ctx,
+		smstmplmw.WithConds(conds),
+	)
+	if err != nil {
+		return nil, err
+	}
+
+	tmpl, err := handler.GetSMSTemplateOnly(ctx)
 	if err != nil {
 		return nil, err
 	}
@@ -169,7 +218,7 @@ func (h *announcementHandler) unicast(ctx context.Context, user *usermwpb.User) 
 		return nil
 	}
 
-	var req *sendmwpb.SendMessageRequest
+	var req *sendmwpb.SendMessageInput
 	switch h.Channel {
 	case basetypes.NotifChannel_ChannelEmail:
 		if req, err = h.emailRequest(ctx, user); err != nil {
@@ -214,10 +263,22 @@ func (h *announcementHandler) broadcast(ctx context.Context) error {
 	offset := int32(0)
 	limit := constant.DefaultRowLimit
 
+	conds := &usermwpb.Conds{
+		AppID: &basetypes.StringVal{Op: cruder.EQ, Value: h.AppID},
+	}
+
 	for {
-		users, _, err := usermwcli.GetUsers(ctx, &usermwpb.Conds{
-			AppID: &basetypes.StringVal{Op: cruder.EQ, Value: h.AppID},
-		}, offset, limit)
+		handler, err := usermw.NewHandler(
+			ctx,
+			usermw.WithConds(conds),
+			usermw.WithOffset(offset),
+			usermw.WithLimit(limit),
+		)
+		if err != nil {
+			return err
+		}
+
+		users, _, err := handler.GetUsers(ctx)
 		if err != nil {
 			return err
 		}
@@ -243,11 +304,23 @@ func (h *announcementHandler) multicast(ctx context.Context) error {
 	offset := int32(0)
 	limit := constant.DefaultRowLimit
 
+	conds := &ancusermwpb.Conds{
+		AppID:          &basetypes.StringVal{Op: cruder.EQ, Value: h.AppID},
+		AnnouncementID: &basetypes.StringVal{Op: cruder.EQ, Value: h.EntID},
+	}
+
 	for {
-		ancUsers, _, err := ancusermwcli.GetAnnouncementUsers(ctx, &ancusermwpb.Conds{
-			AppID:          &basetypes.StringVal{Op: cruder.EQ, Value: h.AppID},
-			AnnouncementID: &basetypes.StringVal{Op: cruder.EQ, Value: h.EntID},
-		}, offset, limit)
+		ancHandler, err := ancusermw.NewHandler(
+			ctx,
+			ancusermw.WithConds(conds),
+			anchandler.WithOffset(offset),
+			anchandler.WithLimit(limit),
+		)
+		if err != nil {
+			return err
+		}
+
+		ancUsers, _, err := ancHandler.GetAnnouncementUsers(ctx)
 		if err != nil {
 			return err
 		}
@@ -262,9 +335,20 @@ func (h *announcementHandler) multicast(ctx context.Context) error {
 			uids = append(uids, user.UserID)
 		}
 
-		users, _, err := usermwcli.GetUsers(ctx, &usermwpb.Conds{
+		_conds := &usermwpb.Conds{
 			EntIDs: &basetypes.StringSliceVal{Op: cruder.IN, Value: uids},
-		}, 0, int32(len(uids)))
+		}
+		userHandler, err := usermw.NewHandler(
+			ctx,
+			usermw.WithConds(_conds),
+			usermw.WithOffset(0),
+			usermw.WithLimit(int32(len(uids))),
+		)
+		if err != nil {
+			return err
+		}
+
+		users, _, err := userHandler.GetUsers(ctx)
 		if err != nil {
 			return err
 		}

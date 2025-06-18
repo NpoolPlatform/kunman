@@ -5,17 +5,17 @@ import (
 	"fmt"
 	"time"
 
+	asyncfeed "github.com/NpoolPlatform/kunman/cron/scheduler/base/asyncfeed"
+	types "github.com/NpoolPlatform/kunman/cron/scheduler/notif/benefit/powerrental/types"
 	"github.com/NpoolPlatform/kunman/framework/logger"
-	apppowerrentalmwcli "github.com/NpoolPlatform/kunman/middleware/good/app/powerrental"
-	powerrentalmwcli "github.com/NpoolPlatform/kunman/middleware/good/powerrental"
-	cruder "github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	apppowerrentalmwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/app/powerrental"
 	powerrentalmwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/powerrental"
 	notifbenefitmwpb "github.com/NpoolPlatform/kunman/message/notif/middleware/v1/notif/goodbenefit"
-	asyncfeed "github.com/NpoolPlatform/kunman/cron/scheduler/base/asyncfeed"
+	apppowerrentalmw "github.com/NpoolPlatform/kunman/middleware/good/app/powerrental"
+	powerrentalmw "github.com/NpoolPlatform/kunman/middleware/good/powerrental"
 	constant "github.com/NpoolPlatform/kunman/pkg/const"
-	types "github.com/NpoolPlatform/kunman/cron/scheduler/notif/benefit/powerrental/types"
+	cruder "github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 
 	"github.com/shopspring/decimal"
 )
@@ -36,9 +36,21 @@ func (h *benefitHandler) getPowerRentals(ctx context.Context) error {
 	for _, benefit := range h.benefits {
 		goodIDs = append(goodIDs, benefit.GoodID)
 	}
-	goods, _, err := powerrentalmwcli.GetPowerRentals(ctx, &powerrentalmwpb.Conds{
+
+	conds := &powerrentalmwpb.Conds{
 		GoodIDs: &basetypes.StringSliceVal{Op: cruder.IN, Value: goodIDs},
-	}, int32(0), int32(len(goodIDs)))
+	}
+	handler, err := powerrentalmw.NewHandler(
+		ctx,
+		powerrentalmw.WithConds(conds),
+		powerrentalmw.WithOffset(0),
+		powerrentalmw.WithLimit(int32(len(goodIDs))),
+	)
+	if err != nil {
+		return err
+	}
+
+	goods, _, err := handler.GetPowerRentals(ctx)
 	if err != nil {
 		return err
 	}
@@ -56,10 +68,22 @@ func (h *benefitHandler) getAppPowerRentals(ctx context.Context) error {
 	offset := int32(0)
 	limit := constant.DefaultRowLimit
 
+	conds := &apppowerrentalmwpb.Conds{
+		GoodIDs: &basetypes.StringSliceVal{Op: cruder.IN, Value: goodIDs},
+	}
+
 	for {
-		goods, _, err := apppowerrentalmwcli.GetPowerRentals(ctx, &apppowerrentalmwpb.Conds{
-			GoodIDs: &basetypes.StringSliceVal{Op: cruder.IN, Value: goodIDs},
-		}, offset, limit)
+		handler, err := apppowerrentalmw.NewHandler(
+			ctx,
+			apppowerrentalmw.WithConds(conds),
+			apppowerrentalmw.WithOffset(offset),
+			apppowerrentalmw.WithLimit(limit),
+		)
+		if err != nil {
+			return err
+		}
+
+		goods, _, err := handler.GetPowerRentals(ctx)
 		if err != nil {
 			return err
 		}

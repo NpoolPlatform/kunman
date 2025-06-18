@@ -4,14 +4,14 @@ import (
 	"context"
 	"time"
 
-	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
-	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
-	notifmwpb "github.com/NpoolPlatform/kunman/message/notif/middleware/v1/notif"
-	notifmwcli "github.com/NpoolPlatform/kunman/middleware/notif/notif"
 	cancelablefeed "github.com/NpoolPlatform/kunman/cron/scheduler/base/cancelablefeed"
 	basesentinel "github.com/NpoolPlatform/kunman/cron/scheduler/base/sentinel"
-	constant "github.com/NpoolPlatform/kunman/pkg/const"
 	types "github.com/NpoolPlatform/kunman/cron/scheduler/notif/notification/types"
+	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
+	notifmwpb "github.com/NpoolPlatform/kunman/message/notif/middleware/v1/notif"
+	notifmw "github.com/NpoolPlatform/kunman/middleware/notif/notif"
+	constant "github.com/NpoolPlatform/kunman/pkg/const"
+	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 )
 
 type handler struct{}
@@ -24,11 +24,23 @@ func (h *handler) scanNotification(ctx context.Context, channel basetypes.NotifC
 	offset := int32(0)
 	limit := constant.DefaultRowLimit
 
+	conds := &notifmwpb.Conds{
+		Notified: &basetypes.BoolVal{Op: cruder.EQ, Value: false},
+		Channel:  &basetypes.Uint32Val{Op: cruder.EQ, Value: uint32(channel)},
+	}
+
 	for {
-		notifs, _, err := notifmwcli.GetNotifs(ctx, &notifmwpb.Conds{
-			Notified: &basetypes.BoolVal{Op: cruder.EQ, Value: false},
-			Channel:  &basetypes.Uint32Val{Op: cruder.EQ, Value: uint32(channel)},
-		}, offset, limit)
+		handler, err := notifmw.NewHandler(
+			ctx,
+			notifmw.WithConds(conds),
+			notifmw.WithOffset(offset),
+			notifmw.WithLimit(limit),
+		)
+		if err != nil {
+			return err
+		}
+
+		notifs, _, err := handler.GetNotifs(ctx)
 		if err != nil {
 			return err
 		}

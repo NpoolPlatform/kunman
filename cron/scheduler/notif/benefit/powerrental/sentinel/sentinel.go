@@ -7,15 +7,15 @@ import (
 	"os"
 	"time"
 
+	cancelablefeed "github.com/NpoolPlatform/kunman/cron/scheduler/base/cancelablefeed"
+	basesentinel "github.com/NpoolPlatform/kunman/cron/scheduler/base/sentinel"
 	timedef "github.com/NpoolPlatform/kunman/framework/const/time"
-	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 	goodtypes "github.com/NpoolPlatform/kunman/message/basetypes/good/v1"
 	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	notifbenefitmwpb "github.com/NpoolPlatform/kunman/message/notif/middleware/v1/notif/goodbenefit"
-	notifbenefitmwcli "github.com/NpoolPlatform/kunman/middleware/notif/notif/goodbenefit"
-	cancelablefeed "github.com/NpoolPlatform/kunman/cron/scheduler/base/cancelablefeed"
-	basesentinel "github.com/NpoolPlatform/kunman/cron/scheduler/base/sentinel"
+	notifbenefitmw "github.com/NpoolPlatform/kunman/middleware/notif/notif/goodbenefit"
 	constant "github.com/NpoolPlatform/kunman/pkg/const"
+	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 
 	"github.com/google/uuid"
 )
@@ -44,17 +44,29 @@ func (h *handler) scanGoodBenefits(ctx context.Context, exec chan interface{}) e
 	limit := constant.DefaultRowLimit
 	benefits := []*notifbenefitmwpb.GoodBenefit{}
 
-	for {
-		_benefits, _, err := notifbenefitmwcli.GetGoodBenefits(ctx, &notifbenefitmwpb.Conds{
-			Generated: &basetypes.BoolVal{Op: cruder.EQ, Value: false},
-			GoodTypes: &basetypes.Uint32SliceVal{
-				Op: cruder.IN,
-				Value: []uint32{
-					uint32(goodtypes.GoodType_PowerRental),
-					uint32(goodtypes.GoodType_LegacyPowerRental),
-				},
+	conds := &notifbenefitmwpb.Conds{
+		Generated: &basetypes.BoolVal{Op: cruder.EQ, Value: false},
+		GoodTypes: &basetypes.Uint32SliceVal{
+			Op: cruder.IN,
+			Value: []uint32{
+				uint32(goodtypes.GoodType_PowerRental),
+				uint32(goodtypes.GoodType_LegacyPowerRental),
 			},
-		}, offset, limit)
+		},
+	}
+
+	for {
+		handler, err := notifbenefitmw.NewHandler(
+			ctx,
+			notifbenefitmw.WithConds(conds),
+			notifbenefitmw.WithOffset(offset),
+			notifbenefitmw.WithLimit(limit),
+		)
+		if err != nil {
+			return err
+		}
+
+		_benefits, _, err := handler.GetGoodBenefits(ctx)
 		if err != nil {
 			return err
 		}

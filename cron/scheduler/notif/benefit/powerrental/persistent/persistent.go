@@ -4,15 +4,13 @@ import (
 	"context"
 	"fmt"
 
-	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
-	notifmwpb "github.com/NpoolPlatform/kunman/message/notif/middleware/v1/notif"
-	notifbenefitmwpb "github.com/NpoolPlatform/kunman/message/notif/middleware/v1/notif/goodbenefit"
-	tmplmwpb "github.com/NpoolPlatform/kunman/message/notif/middleware/v1/template"
-	notifmwcli "github.com/NpoolPlatform/kunman/middleware/notif/notif"
-	notifbenefitmwcli "github.com/NpoolPlatform/kunman/middleware/notif/notif/goodbenefit"
 	asyncfeed "github.com/NpoolPlatform/kunman/cron/scheduler/base/asyncfeed"
 	basepersistent "github.com/NpoolPlatform/kunman/cron/scheduler/base/persistent"
 	types "github.com/NpoolPlatform/kunman/cron/scheduler/notif/benefit/powerrental/types"
+	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
+	tmplmwpb "github.com/NpoolPlatform/kunman/message/notif/middleware/v1/template"
+	notifmw "github.com/NpoolPlatform/kunman/middleware/notif/notif"
+	notifbenefitmw "github.com/NpoolPlatform/kunman/middleware/notif/notif/goodbenefit"
 )
 
 type handler struct{}
@@ -30,24 +28,36 @@ func (p *handler) Update(ctx context.Context, benefit interface{}, reward, notif
 	defer asyncfeed.AsyncFeed(ctx, _benefit, done)
 
 	for _, content := range _benefit.NotifContents {
-		if _, err := notifmwcli.GenerateNotifs(ctx, &notifmwpb.GenerateNotifsRequest{
-			AppID:     content.AppID,
-			EventType: basetypes.UsedFor_GoodBenefit1,
-			NotifType: basetypes.NotifType_NotifMulticast,
-			Vars: &tmplmwpb.TemplateVars{
+		handler, err := notifmw.NewHandler(
+			ctx,
+			notifmw.WithAppID(&content.AppID, true),
+			notifmw.WithEventType(basetypes.UsedFor_GoodBenefit1.Enum(), true),
+			notifmw.WithNotifType(basetypes.NotifType_NotifMulticast.Enum(), true),
+			notifmw.WithVars(&tmplmwpb.TemplateVars{
 				Message: &content.Content,
-			},
-		}); err != nil {
+			}, true),
+		)
+		if err != nil {
+			return err
+		}
+
+		if _, err := handler.GenerateNotifs(ctx); err != nil {
 			continue
 		}
 	}
 
 	generated := true
 	for _, benefit := range _benefit.Benefits {
-		if _, err := notifbenefitmwcli.UpdateGoodBenefit(ctx, &notifbenefitmwpb.GoodBenefitReq{
-			ID:        &benefit.ID,
-			Generated: &generated,
-		}); err != nil {
+		handler, err := notifbenefitmw.NewHandler(
+			ctx,
+			notifbenefitmw.WithID(&benefit.ID, true),
+			notifbenefitmw.WithGenerated(&generated, true),
+		)
+		if err != nil {
+			return err
+		}
+
+		if _, err := handler.UpdateGoodBenefit(ctx); err != nil {
 			return err
 		}
 	}
