@@ -1,0 +1,86 @@
+syntax = "proto3";
+
+package g11n.gateway.appcountry.v1;
+
+option go_package = "github.com/NpoolPlatform/kunman/message/g11n/gateway/v1/appcountry";
+
+import "google/api/annotations.proto";
+
+// Service Name
+service Gateway {
+  rpc CreateCountry(CreateCountryRequest) returns (CreateCountryResponse) {
+    option (google.api.http) = {
+      post : "/v1/create/appcountry"
+      body : "*"
+    };
+  }
+  rpc GetCountries(GetCountriesRequest) returns (GetCountriesResponse) {
+    option (google.api.http) = {
+      post : "/v1/get/appcountries"
+      body : "*"
+    };
+  }
+  rpc GetAppCountries(GetAppCountriesRequest)
+      returns (GetAppCountriesResponse) {
+    option (google.api.http) = {
+      post : "/v1/get/app/appcountries"
+      body : "*"
+    };
+  }
+  rpc DeleteCountry(DeleteCountryRequest) returns (DeleteCountryResponse) {
+    option (google.api.http) = {
+      post : "/v1/delete/appcountry"
+      body : "*"
+    };
+  }
+}
+
+message Country {
+  uint32 ID = 9;
+  string EntID = 10;
+  string AppID = 20;
+  string AppName = 30;
+  string CountryID = 40;
+  string Country = 50;
+  string Flag = 60;
+  string Code = 70;
+  string Short = 80;
+  uint32 CreatedAt = 90;
+  uint32 UpdatedAt = 100;
+}
+
+message CreateCountryRequest {
+  string TargetAppID = 10;
+  string CountryID = 20;
+}
+
+message CreateCountryResponse { Country Info = 10; }
+
+message GetCountriesRequest {
+  string AppID = 10;
+  int32 Offset = 20;
+  int32 Limit = 30;
+}
+
+message GetCountriesResponse {
+  repeated Country Infos = 10;
+  uint32 Total = 20;
+}
+
+message GetAppCountriesRequest {
+  string TargetAppID = 10;
+  int32 Offset = 20;
+  int32 Limit = 30;
+}
+
+message GetAppCountriesResponse {
+  repeated Country Infos = 10;
+  uint32 Total = 20;
+}
+
+message DeleteCountryRequest {
+  uint32 ID = 10;
+  string TargetAppID = 20;
+}
+
+message DeleteCountryResponse { Country Info = 10; }

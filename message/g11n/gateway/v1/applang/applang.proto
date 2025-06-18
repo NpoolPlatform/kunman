@@ -1,0 +1,101 @@
+syntax = "proto3";
+
+package g11n.gateway.applang.v1;
+
+option go_package = "github.com/NpoolPlatform/kunman/message/g11n/gateway/v1/applang";
+
+import "google/api/annotations.proto";
+
+// Service Name
+service Gateway {
+  rpc CreateLang(CreateLangRequest) returns (CreateLangResponse) {
+    option (google.api.http) = {
+      post : "/v1/create/applang"
+      body : "*"
+    };
+  }
+  rpc UpdateLang(UpdateLangRequest) returns (UpdateLangResponse) {
+    option (google.api.http) = {
+      post : "/v1/update/applang"
+      body : "*"
+    };
+  }
+  rpc GetLangs(GetLangsRequest) returns (GetLangsResponse) {
+    option (google.api.http) = {
+      post : "/v1/get/applangs"
+      body : "*"
+    };
+  }
+  rpc GetAppLangs(GetAppLangsRequest) returns (GetAppLangsResponse) {
+    option (google.api.http) = {
+      post : "/v1/get/app/applangs"
+      body : "*"
+    };
+  }
+  rpc DeleteLang(DeleteLangRequest) returns (DeleteLangResponse) {
+    option (google.api.http) = {
+      post : "/v1/delete/applang"
+      body : "*"
+    };
+  }
+}
+
+message Lang {
+  uint32 ID = 9;
+  string EntID = 10;
+  string AppID = 20;
+  string AppName = 30;
+  string LangID = 40;
+  string Lang = 50;
+  string Logo = 60;
+  string Name = 70;
+  string Short = 80;
+  bool Main = 90;
+  uint32 CreatedAt = 100;
+  uint32 UpdatedAt = 110;
+}
+
+message CreateLangRequest {
+  string TargetAppID = 10;
+  string TargetLangID = 20;
+  optional bool Main = 30;
+}
+
+message CreateLangResponse { Lang Info = 10; }
+
+message UpdateLangRequest {
+  uint32 ID = 10;
+  string AppID = 20;
+  optional bool Main = 30;
+}
+
+message UpdateLangResponse { Lang Info = 10; }
+
+message GetLangsRequest {
+  string AppID = 10;
+  int32 Offset = 20;
+  int32 Limit = 30;
+}
+
+message GetLangsResponse {
+  repeated Lang Infos = 10;
+  uint32 Total = 20;
+}
+
+message GetAppLangsRequest {
+  string TargetAppID = 10;
+  int32 Offset = 20;
+  int32 Limit = 30;
+}
+
+message GetAppLangsResponse {
+  repeated Lang Infos = 10;
+  uint32 Total = 20;
+}
+
+message DeleteLangRequest {
+  uint32 ID = 10;
+  string TargetAppID = 20;
+}
+
+message DeleteLangResponse { Lang Info = 10; }

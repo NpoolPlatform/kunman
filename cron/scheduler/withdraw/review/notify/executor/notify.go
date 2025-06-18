@@ -4,8 +4,8 @@ import (
 	"context"
 
 	accountmwcli "github.com/NpoolPlatform/kunman/middleware/account/account"
-	appmwcli "github.com/NpoolPlatform/appuser-middleware/pkg/client/app"
-	usermwcli "github.com/NpoolPlatform/appuser-middleware/pkg/client/user"
+	appmwcli "github.com/NpoolPlatform/kunman/middleware/appuser/app"
+	usermwcli "github.com/NpoolPlatform/kunman/middleware/appuser/user"
 	coinmwcli "github.com/NpoolPlatform/kunman/middleware/chain/coin"
 	"github.com/NpoolPlatform/kunman/framework/logger"
 	cruder "github.com/NpoolPlatform/kunman/pkg/cruder/cruder"

@@ -1,0 +1,193 @@
+syntax = "proto3";
+
+package g11n.gateway.message1.v1;
+
+option go_package = "github.com/NpoolPlatform/kunman/message/g11n/gateway/v1/message";
+
+import "google/api/annotations.proto";
+import "g11n/middleware/v1/message/message.proto";
+
+// Service Name
+service Gateway {
+  rpc CreateMessage(CreateMessageRequest) returns (CreateMessageResponse) {
+    option (google.api.http) = {
+      post : "/v1/create/message"
+      body : "*"
+    };
+  }
+  rpc CreateAppMessage(CreateAppMessageRequest)
+      returns (CreateAppMessageResponse) {
+    option (google.api.http) = {
+      post : "/v1/create/app/message"
+      body : "*"
+    };
+  }
+  rpc CreateMessages(CreateMessagesRequest) returns (CreateMessagesResponse) {
+    option (google.api.http) = {
+      post : "/v1/create/messages"
+      body : "*"
+    };
+  }
+  rpc CreateAppMessages(CreateAppMessagesRequest)
+      returns (CreateAppMessagesResponse) {
+    option (google.api.http) = {
+      post : "/v1/create/app/messages"
+      body : "*"
+    };
+  }
+  rpc UpdateMessage(UpdateMessageRequest) returns (UpdateMessageResponse) {
+    option (google.api.http) = {
+      post : "/v1/update/message"
+      body : "*"
+    };
+  }
+  rpc UpdateAppMessage(UpdateAppMessageRequest)
+      returns (UpdateAppMessageResponse) {
+    option (google.api.http) = {
+      post : "/v1/update/app/message"
+      body : "*"
+    };
+  }
+  rpc GetMessages(GetMessagesRequest) returns (GetMessagesResponse) {
+    option (google.api.http) = {
+      post : "/v1/get/messages"
+      body : "*"
+    };
+  }
+  rpc GetAppMessages(GetAppMessagesRequest) returns (GetAppMessagesResponse) {
+    option (google.api.http) = {
+      post : "/v1/get/app/messages"
+      body : "*"
+    };
+  }
+  rpc DeleteMessage(DeleteMessageRequest) returns (DeleteMessageResponse) {
+    option (google.api.http) = {
+      post : "/v1/delete/message"
+      body : "*"
+    };
+  }
+  rpc DeleteAppMessage(DeleteAppMessageRequest)
+      returns (DeleteAppMessageResponse) {
+    option (google.api.http) = {
+      post : "/v1/delete/app/message"
+      body : "*"
+    };
+  }
+}
+
+message Message {
+  uint32 ID = 9;
+  string EntID = 10;
+  string AppID = 19;
+  string AppName = 20;
+  string LangID = 30;
+  string Lang = 40;
+  string MessageID = 50;
+  string Message = 60;
+  uint32 GetIndex = 70;
+  bool Disabled = 80;
+  uint32 CreatedAt = 90;
+  uint32 UpdatedAt = 100;
+}
+
+message CreateMessageRequest {
+  string AppID = 10;
+  string TargetLangID = 20;
+  string MessageID = 30;
+  string Message = 40;
+  optional uint32 GetIndex = 50;
+}
+
+message CreateMessageResponse { Message Info = 10; }
+
+message CreateAppMessageRequest {
+  string AppID = 10;
+  string TargetAppID = 20;
+  string TargetLangID = 30;
+  string MessageID = 40;
+  string Message = 50;
+  optional uint32 GetIndex = 60;
+}
+
+message CreateAppMessageResponse { Message Info = 10; }
+
+message CreateMessagesRequest {
+  string AppID = 10;
+  string TargetLangID = 20;
+  repeated g11n.middleware.message1.v1.MessageReq Infos = 30;
+}
+
+message CreateMessagesResponse { repeated Message Infos = 10; }
+
+message CreateAppMessagesRequest {
+  string TargetAppID = 10;
+  string TargetLangID = 20;
+  repeated g11n.middleware.message1.v1.MessageReq Infos = 30;
+}
+
+message CreateAppMessagesResponse { repeated Message Infos = 10; }
+
+message UpdateMessageRequest {
+  uint32 ID = 10;
+  string AppID = 20;
+  optional string TargetLangID = 30;
+  optional string MessageID = 40;
+  optional string Message = 50;
+  optional uint32 GetIndex = 60;
+  optional bool Disabled = 70;
+}
+
+message UpdateMessageResponse { Message Info = 10; }
+
+message UpdateAppMessageRequest {
+  uint32 ID = 10;
+  string AppID = 20;
+  string TargetAppID = 30;
+  optional string TargetLangID = 40;
+  optional string MessageID = 50;
+  optional string Message = 60;
+  optional uint32 GetIndex = 70;
+  optional bool Disabled = 80;
+}
+
+message UpdateAppMessageResponse { Message Info = 10; }
+
+message GetMessagesRequest {
+  string AppID = 10;
+  optional string LangID = 11;
+  optional bool Disabled = 20;
+  int32 Offset = 30;
+  int32 Limit = 40;
+}
+
+message GetMessagesResponse {
+  repeated Message Infos = 10;
+  uint32 Total = 20;
+}
+
+message GetAppMessagesRequest {
+  string AppID = 10;
+  string TargetAppID = 20;
+  optional bool Disabled = 30;
+  int32 Offset = 40;
+  int32 Limit = 50;
+}
+
+message GetAppMessagesResponse {
+  repeated Message Infos = 10;
+  uint32 Total = 20;
+}
+
+message DeleteMessageRequest {
+  uint32 ID = 10;
+  string AppID = 20;
+}
+
+message DeleteMessageResponse { Message Info = 10; }
+
+message DeleteAppMessageRequest {
+  uint32 ID = 10;
+  string TargetAppID = 20;
+}
+
+message DeleteAppMessageResponse { Message Info = 10; }

@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+package third.middleware.oauth.v1;
+
+option go_package = "github.com/NpoolPlatform/kunman/message/third/middleware/v1/oauth";
+
+import "basetypes/v1/signmethod.proto";
+
+message ThirdUserInfo {
+  string ID = 10;
+  string Name = 20;
+  string Login = 30;
+  string AvatarURL = 40;
+  string Message = 50;
+}
+
+message AccessTokenInfo {
+  string AccessToken = 10;
+  string RefreshAccessToken = 20;
+  string TokenType = 30;
+  string Scope = 40;
+}

@@ -7,8 +7,8 @@ import (
 	"regexp"
 	"time"
 
-	usermwcli "github.com/NpoolPlatform/appuser-middleware/pkg/client/user"
-	applangmwcli "github.com/NpoolPlatform/g11n-middleware/pkg/client/applang"
+	usermwcli "github.com/NpoolPlatform/kunman/middleware/appuser/user"
+	applangmwcli "github.com/NpoolPlatform/kunman/middleware/g11n/client/applang"
 	"github.com/NpoolPlatform/kunman/framework/logger"
 	cruder "github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 	usermwpb "github.com/NpoolPlatform/kunman/message/appuser/middleware/v1/user"

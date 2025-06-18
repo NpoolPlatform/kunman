@@ -1,0 +1,45 @@
+syntax = "proto3";
+
+package g11n.middleware.lang.v1;
+
+option go_package = "github.com/NpoolPlatform/kunman/message/g11n/middleware/v1/lang";
+
+import "basetypes/v1/conds.proto";
+
+message LangReq {
+  optional uint32 ID = 9;
+  optional string EntID = 10;
+  optional string Lang = 20;
+  optional string Logo = 30;
+  optional string Name = 40;
+  optional string Short = 50;
+}
+
+message Lang {
+  // @inject_tag: sql:"id"
+  uint32 ID = 9;
+  // @inject_tag: sql:"ent_id"
+  string EntID = 10;
+  // @inject_tag: sql:"lang"
+  string Lang = 20;
+  // @inject_tag: sql:"logo"
+  string Logo = 30;
+  // @inject_tag: sql:"name"
+  string Name = 40;
+  // @inject_tag: sql:"short"
+  string Short = 50;
+  // @inject_tag: sql:"created_at"
+  uint32 CreatedAt = 60;
+  // @inject_tag: sql:"updated_at"
+  uint32 UpdatedAt = 70;
+}
+
+message Conds {
+  basetypes.v1.Uint32Val ID = 9;
+  basetypes.v1.StringVal EntID = 10;
+  basetypes.v1.StringVal Lang = 20;
+  basetypes.v1.StringVal Name = 30;
+  basetypes.v1.StringVal Short = 40;
+  basetypes.v1.StringSliceVal Langs = 50;
+}
+
