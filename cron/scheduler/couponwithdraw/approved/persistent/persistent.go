@@ -4,12 +4,10 @@ import (
 	"context"
 	"fmt"
 
-	allocatedmwpb "github.com/NpoolPlatform/kunman/message/inspire/middleware/v1/coupon/allocated"
-
-	allocatedmwcli "github.com/NpoolPlatform/kunman/middleware/inspire/coupon/allocated"
 	"github.com/NpoolPlatform/kunman/cron/scheduler/base/asyncfeed"
 	basepersistent "github.com/NpoolPlatform/kunman/cron/scheduler/base/persistent"
 	"github.com/NpoolPlatform/kunman/cron/scheduler/couponwithdraw/approved/types"
+	allocatedmw "github.com/NpoolPlatform/kunman/middleware/inspire/coupon/allocated"
 )
 
 type handler struct{}
@@ -26,7 +24,15 @@ func (p *handler) Update(ctx context.Context, couponwithdraw interface{}, reward
 
 	defer asyncfeed.AsyncFeed(ctx, _couponwithdraw, done)
 
-	coupon, err := allocatedmwcli.GetCoupon(ctx, _couponwithdraw.AllocatedID)
+	handler, err := allocatedmw.NewHandler(
+		ctx,
+		allocatedmw.WithEntID(&_couponwithdraw.AllocatedID, true),
+	)
+	if err != nil {
+		return err
+	}
+
+	coupon, err := handler.GetCoupon(ctx)
 	if err != nil {
 		return err
 	}
@@ -37,11 +43,18 @@ func (p *handler) Update(ctx context.Context, couponwithdraw interface{}, reward
 		return nil
 	}
 	used := true
-	if _, err := allocatedmwcli.UpdateCoupon(ctx, &allocatedmwpb.CouponReq{
-		ID:            &coupon.ID,
-		Used:          &used,
-		UsedByOrderID: &_couponwithdraw.EntID,
-	}); err != nil {
+
+	handler, err = allocatedmw.NewHandler(
+		ctx,
+		allocatedmw.WithID(&coupon.ID, true),
+		allocatedmw.WithUsed(&used, true),
+		allocatedmw.WithUsedByOrderID(&_couponwithdraw.EntID, true),
+	)
+	if err != nil {
+		return err
+	}
+
+	if err := handler.UpdateCoupon(ctx); err != nil {
 		return err
 	}
 	return nil
