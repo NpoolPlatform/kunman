@@ -3,18 +3,18 @@ package executor
 import (
 	"context"
 
+	asyncfeed "github.com/NpoolPlatform/kunman/cron/scheduler/base/asyncfeed"
+	types "github.com/NpoolPlatform/kunman/cron/scheduler/benefit/powerrental/fail/types"
 	"github.com/NpoolPlatform/kunman/framework/logger"
 	"github.com/NpoolPlatform/kunman/framework/wlog"
-	cruder "github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	txmwpb "github.com/NpoolPlatform/kunman/message/chain/middleware/v1/tx"
 	powerrentalmwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/powerrental"
 	powerrentalordermwpb "github.com/NpoolPlatform/kunman/message/order/middleware/v1/powerrental"
-	asyncfeed "github.com/NpoolPlatform/kunman/cron/scheduler/base/asyncfeed"
-	types "github.com/NpoolPlatform/kunman/cron/scheduler/benefit/powerrental/fail/types"
+	powerrentalordermw "github.com/NpoolPlatform/kunman/middleware/order/powerrental"
 	schedcommon "github.com/NpoolPlatform/kunman/pkg/common"
 	constant "github.com/NpoolPlatform/kunman/pkg/const"
-	powerrentalordermwcli "github.com/NpoolPlatform/kunman/middleware/order/powerrental"
+	cruder "github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 
 	"github.com/shopspring/decimal"
 )
@@ -70,11 +70,23 @@ func (h *goodHandler) getBenefitOrders(ctx context.Context) error {
 	offset := int32(0)
 	limit := constant.DefaultRowLimit
 
+	conds := &powerrentalordermwpb.Conds{
+		GoodID:        &basetypes.StringVal{Op: cruder.EQ, Value: h.GoodID},
+		LastBenefitAt: &basetypes.Uint32Val{Op: cruder.EQ, Value: h.LastRewardAt},
+	}
+
 	for {
-		orders, _, err := powerrentalordermwcli.GetPowerRentalOrders(ctx, &powerrentalordermwpb.Conds{
-			GoodID:        &basetypes.StringVal{Op: cruder.EQ, Value: h.GoodID},
-			LastBenefitAt: &basetypes.Uint32Val{Op: cruder.EQ, Value: h.LastRewardAt},
-		}, offset, limit)
+		handler, err := powerrentalordermw.NewHandler(
+			ctx,
+			powerrentalordermw.WithConds(conds),
+			powerrentalordermw.WithOffset(offset),
+			powerrentalordermw.WithLimit(limit),
+		)
+		if err != nil {
+			return err
+		}
+
+		orders, _, err := handler.GetPowerRentals(ctx)
 		if err != nil {
 			return err
 		}
