@@ -4,20 +4,15 @@ import (
 	"context"
 	"fmt"
 
-	ledgersvcname "github.com/NpoolPlatform/kunman/middleware/ledger/servicename"
-	ledgertypes "github.com/NpoolPlatform/kunman/message/basetypes/ledger/v1"
-	ordertypes "github.com/NpoolPlatform/kunman/message/basetypes/order/v1"
-	ledgermwpb "github.com/NpoolPlatform/kunman/message/ledger/middleware/v2/ledger"
-	statementmwpb "github.com/NpoolPlatform/kunman/message/ledger/middleware/v2/ledger/statement"
-	feeordermwpb "github.com/NpoolPlatform/kunman/message/order/middleware/v1/fee"
 	asyncfeed "github.com/NpoolPlatform/kunman/cron/scheduler/base/asyncfeed"
 	basepersistent "github.com/NpoolPlatform/kunman/cron/scheduler/base/persistent"
-	dtm1 "github.com/NpoolPlatform/kunman/cron/scheduler/dtm"
 	types "github.com/NpoolPlatform/kunman/cron/scheduler/order/fee/cancel/returnbalance/types"
-	ordersvcname "github.com/NpoolPlatform/kunman/middleware/order/servicename"
-
-	dtmcli "github.com/NpoolPlatform/dtm-cluster/pkg/dtm"
-	"github.com/dtm-labs/dtm/client/dtmcli/dtmimp"
+	ledgertypes "github.com/NpoolPlatform/kunman/message/basetypes/ledger/v1"
+	ordertypes "github.com/NpoolPlatform/kunman/message/basetypes/order/v1"
+	statementmwpb "github.com/NpoolPlatform/kunman/message/ledger/middleware/v2/ledger/statement"
+	ledgermw "github.com/NpoolPlatform/kunman/middleware/ledger/ledger"
+	ledgerstatementmw "github.com/NpoolPlatform/kunman/middleware/ledger/ledger/statement"
+	feeordermw "github.com/NpoolPlatform/kunman/middleware/order/fee"
 )
 
 type handler struct{}
@@ -26,41 +21,41 @@ func NewPersistent() basepersistent.Persistenter {
 	return &handler{}
 }
 
-func (p *handler) withUpdateOrderState(dispose *dtmcli.SagaDispose, order *types.PersistentOrder) {
+func (p *handler) withUpdateOrderState(ctx context.Context, order *types.PersistentOrder) error {
 	state := ordertypes.OrderState_OrderStateCanceledTransferBookKeeping
-	rollback := true
-	req := &feeordermwpb.FeeOrderReq{
-		ID:         &order.ID,
-		OrderState: &state,
-		Rollback:   &rollback,
-	}
-	dispose.Add(
-		ordersvcname.ServiceDomain,
-		"order.middleware.fee.v1.Middleware/UpdateFeeOrder",
-		"order.middleware.fee.v1.Middleware/UpdateFeeOrder",
-		&feeordermwpb.UpdateFeeOrderRequest{
-			Info: req,
-		},
+
+	handler, err := feeordermw.NewHandler(
+		ctx,
+		feeordermw.WithID(&order.ID, true),
+		feeordermw.WithOrderState(&state, true),
 	)
+	if err != nil {
+		return err
+	}
+
+	return handler.UpdateFeeOrder(ctx)
 }
 
-func (p *handler) withReturnLockedBalance(dispose *dtmcli.SagaDispose, order *types.PersistentOrder) {
+func (p *handler) withReturnLockedBalance(ctx context.Context, order *types.PersistentOrder) error {
 	if order.PaymentOp != types.Unlock {
-		return
+		return nil
 	}
-	dispose.Add(
-		ledgersvcname.ServiceDomain,
-		"ledger.middleware.ledger.v2.Middleware/UnlockBalances",
-		"",
-		&ledgermwpb.UnlockBalancesRequest{
-			LockID: order.LedgerLockID,
-		},
+
+	handler, err := ledgermw.NewHandler(
+		ctx,
+		ledgermw.WithLockID(&order.LedgerLockID, true),
 	)
+	if err != nil {
+		return err
+	}
+
+	_, err = handler.UnlockBalances(ctx)
+	return err
 }
 
-func (p *handler) withReturnSpent(dispose *dtmcli.SagaDispose, order *types.PersistentOrder) {
+func (p *handler) withReturnSpent(ctx context.Context, order *types.PersistentOrder) error {
 	if order.PaymentOp != types.Unspend {
-		return
+		return nil
 	}
 
 	ioType := ledgertypes.IOType_Incoming
@@ -79,14 +74,16 @@ func (p *handler) withReturnSpent(dispose *dtmcli.SagaDispose, order *types.Pers
 		})
 	}
 
-	dispose.Add(
-		ledgersvcname.ServiceDomain,
-		"ledger.middleware.ledger.statement.v2.Middleware/CreateStatements",
-		"",
-		&statementmwpb.CreateStatementsRequest{
-			Infos: reqs,
-		},
+	handler, err := ledgerstatementmw.NewHandler(
+		ctx,
+		ledgerstatementmw.WithReqs(reqs, true),
 	)
+	if err != nil {
+		return err
+	}
+
+	_, err = handler.CreateStatements(ctx)
+	return err
 }
 
 func (p *handler) Update(ctx context.Context, order interface{}, reward, notif, done chan interface{}) error {
@@ -97,17 +94,13 @@ func (p *handler) Update(ctx context.Context, order interface{}, reward, notif, 
 
 	defer asyncfeed.AsyncFeed(ctx, _order, done)
 
-	const timeoutSeconds = 10
-	sagaDispose := dtmcli.NewSagaDispose(dtmimp.TransOptions{
-		WaitResult:     true,
-		RequestTimeout: timeoutSeconds,
-		TimeoutToFail:  timeoutSeconds,
-		RetryInterval:  timeoutSeconds,
-	})
-	p.withUpdateOrderState(sagaDispose, _order)
-	p.withReturnLockedBalance(sagaDispose, _order)
-	p.withReturnSpent(sagaDispose, _order)
-	if err := dtm1.Do(ctx, sagaDispose); err != nil {
+	if err := p.withUpdateOrderState(ctx, _order); err != nil {
+		return err
+	}
+	if err := p.withReturnLockedBalance(ctx, _order); err != nil {
+		return err
+	}
+	if err := p.withReturnSpent(ctx, _order); err != nil {
 		return err
 	}
 

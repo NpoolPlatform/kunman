@@ -39,21 +39,17 @@ func (h *handler) scanOrders(ctx context.Context, state ordertypes.OrderState, e
 	}
 
 	for {
-		handler, err := feeordermw.NewHandler()
+		handler, err := feeordermw.NewHandler(
+			ctx,
+			feeordermw.WithConds(conds),
+			feeordermw.WithOffset(offset),
+			feeordermw.WithLimit(limit),
+		)
+		if err != nil {
+			return err
+		}
 
-		orders, _, err := feeordermwcli.GetFeeOrders(ctx, &feeordermwpb.Conds{
-			OrderState: &basetypes.Uint32Val{Op: cruder.EQ, Value: uint32(state)},
-			PaymentTypes: &basetypes.Uint32SliceVal{
-				Op: cruder.IN,
-				Value: []uint32{
-					uint32(ordertypes.PaymentType_PayWithBalanceOnly),
-					uint32(ordertypes.PaymentType_PayWithTransferOnly),
-					uint32(ordertypes.PaymentType_PayWithTransferAndBalance),
-					uint32(ordertypes.PaymentType_PayWithOffline),
-					uint32(ordertypes.PaymentType_PayWithNoPayment),
-				},
-			},
-		}, offset, limit)
+		orders, _, err := handler.GetFeeOrders(ctx)
 		if err != nil {
 			return err
 		}

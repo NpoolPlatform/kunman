@@ -4,20 +4,12 @@ import (
 	"context"
 	"fmt"
 
-	accountlock "github.com/NpoolPlatform/kunman/middleware/account/lock"
-	accountsvcname "github.com/NpoolPlatform/kunman/middleware/account/servicename"
-	"github.com/NpoolPlatform/kunman/framework/wlog"
-	payaccmwpb "github.com/NpoolPlatform/kunman/message/account/middleware/v1/payment"
-	ordertypes "github.com/NpoolPlatform/kunman/message/basetypes/order/v1"
-	feeordermwpb "github.com/NpoolPlatform/kunman/message/order/middleware/v1/fee"
 	asyncfeed "github.com/NpoolPlatform/kunman/cron/scheduler/base/asyncfeed"
 	basepersistent "github.com/NpoolPlatform/kunman/cron/scheduler/base/persistent"
-	dtm1 "github.com/NpoolPlatform/kunman/cron/scheduler/dtm"
 	types "github.com/NpoolPlatform/kunman/cron/scheduler/order/fee/cancel/unlockaccount/types"
-	ordersvcname "github.com/NpoolPlatform/kunman/middleware/order/servicename"
-
-	dtmcli "github.com/NpoolPlatform/dtm-cluster/pkg/dtm"
-	"github.com/dtm-labs/dtm/client/dtmcli/dtmimp"
+	ordertypes "github.com/NpoolPlatform/kunman/message/basetypes/order/v1"
+	paymentaccmw "github.com/NpoolPlatform/kunman/middleware/account/payment"
+	feeordermw "github.com/NpoolPlatform/kunman/middleware/order/fee"
 )
 
 type handler struct{}
@@ -26,56 +18,40 @@ func NewPersistent() basepersistent.Persistenter {
 	return &handler{}
 }
 
-func (p *handler) withUpdateOrderState(dispose *dtmcli.SagaDispose, order *types.PersistentOrder) {
+func (p *handler) withUpdateOrderState(ctx context.Context, order *types.PersistentOrder) error {
 	state := ordertypes.OrderState_OrderStateCanceled
-	rollback := true
-	req := &feeordermwpb.FeeOrderReq{
-		ID:         &order.ID,
-		OrderState: &state,
-		Rollback:   &rollback,
-	}
-	dispose.Add(
-		ordersvcname.ServiceDomain,
-		"order.middleware.fee.v1.Middleware/UpdateFeeOrder",
-		"order.middleware.fee.v1.Middleware/UpdateFeeOrder",
-		&feeordermwpb.UpdateFeeOrderRequest{
-			Info: req,
-		},
+
+	handler, err := feeordermw.NewHandler(
+		ctx,
+		feeordermw.WithID(&order.ID, true),
+		feeordermw.WithOrderState(&state, true),
 	)
+	if err != nil {
+		return err
+	}
+
+	return handler.UpdateFeeOrder(ctx)
 }
 
-func (p *handler) withUnlockPaymentAccount(dispose *dtmcli.SagaDispose, order *types.PersistentOrder) {
+func (p *handler) withUnlockPaymentAccount(ctx context.Context, order *types.PersistentOrder) error {
 	// TODO: use UpdateAccounts in future
 	for _, paymentAccountID := range order.PaymentAccountIDs {
 		locked := false
-		req := &payaccmwpb.AccountReq{
-			ID:     &paymentAccountID,
-			Locked: &locked,
-		}
-		dispose.Add(
-			accountsvcname.ServiceDomain,
-			"account.middleware.payment.v1.Middleware/UpdateAccount",
-			"",
-			&payaccmwpb.UpdateAccountRequest{
-				Info: req,
-			},
+		handler, err := paymentaccmw.NewHandler(
+			ctx,
+			paymentaccmw.WithID(&paymentAccountID, true),
+			paymentaccmw.WithLocked(&locked, true),
 		)
-	}
-}
+		if err != nil {
+			return err
+		}
 
-func (p *handler) lockPaymentTransferAccounts(order *types.PersistentOrder) error {
-	for _, paymentTransfer := range order.PaymentTransfers {
-		if err := accountlock.Lock(paymentTransfer.AccountID); err != nil {
-			return wlog.WrapError(err)
+		if _, err := handler.UpdateAccount(ctx); err != nil {
+			return err
 		}
 	}
-	return nil
-}
 
-func (p *handler) unlockPaymentTransferAccounts(order *types.PersistentOrder) {
-	for _, paymentTransfer := range order.PaymentTransfers {
-		_ = accountlock.Unlock(paymentTransfer.AccountID) //nolint
-	}
+	return nil
 }
 
 func (p *handler) Update(ctx context.Context, order interface{}, reward, notif, done chan interface{}) error {
@@ -86,21 +62,10 @@ func (p *handler) Update(ctx context.Context, order interface{}, reward, notif, 
 
 	defer asyncfeed.AsyncFeed(ctx, _order, done)
 
-	if err := p.lockPaymentTransferAccounts(_order); err != nil {
+	if err := p.withUpdateOrderState(ctx, _order); err != nil {
 		return err
 	}
-	defer p.unlockPaymentTransferAccounts(_order)
-
-	const timeoutSeconds = 10
-	sagaDispose := dtmcli.NewSagaDispose(dtmimp.TransOptions{
-		WaitResult:     true,
-		RequestTimeout: timeoutSeconds,
-		TimeoutToFail:  timeoutSeconds,
-		RetryInterval:  timeoutSeconds,
-	})
-	p.withUpdateOrderState(sagaDispose, _order)
-	p.withUnlockPaymentAccount(sagaDispose, _order)
-	if err := dtm1.Do(ctx, sagaDispose); err != nil {
+	if err := p.withUnlockPaymentAccount(ctx, _order); err != nil {
 		return err
 	}
 
