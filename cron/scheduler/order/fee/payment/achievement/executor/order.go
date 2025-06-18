@@ -3,12 +3,10 @@ package executor
 import (
 	"context"
 
+	asyncfeed "github.com/NpoolPlatform/kunman/cron/scheduler/base/asyncfeed"
+	types "github.com/NpoolPlatform/kunman/cron/scheduler/order/fee/payment/achievement/types"
 	"github.com/NpoolPlatform/kunman/framework/logger"
 	"github.com/NpoolPlatform/kunman/framework/wlog"
-	goodcoinmwcli "github.com/NpoolPlatform/kunman/middleware/good/good/coin"
-	orderstatementmwcli "github.com/NpoolPlatform/kunman/middleware/inspire/achievement/statement/order"
-	calculatemwcli "github.com/NpoolPlatform/kunman/middleware/inspire/calculate"
-	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 	inspiretypes "github.com/NpoolPlatform/kunman/message/basetypes/inspire/v1"
 	ordertypes "github.com/NpoolPlatform/kunman/message/basetypes/order/v1"
 	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
@@ -16,8 +14,10 @@ import (
 	orderstatementmwpb "github.com/NpoolPlatform/kunman/message/inspire/middleware/v1/achievement/statement/order"
 	calculatemwpb "github.com/NpoolPlatform/kunman/message/inspire/middleware/v1/calculate"
 	feeordermwpb "github.com/NpoolPlatform/kunman/message/order/middleware/v1/fee"
-	asyncfeed "github.com/NpoolPlatform/kunman/cron/scheduler/base/asyncfeed"
-	types "github.com/NpoolPlatform/kunman/cron/scheduler/order/fee/payment/achievement/types"
+	goodcoinmw "github.com/NpoolPlatform/kunman/middleware/good/good/coin"
+	orderstatementmw "github.com/NpoolPlatform/kunman/middleware/inspire/achievement/statement/order"
+	calculatemw "github.com/NpoolPlatform/kunman/middleware/inspire/calculate"
+	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 
 	"github.com/shopspring/decimal"
 )
@@ -32,16 +32,33 @@ type orderHandler struct {
 }
 
 func (h *orderHandler) checkAchievementExist(ctx context.Context) (bool, error) {
-	return orderstatementmwcli.ExistStatementConds(ctx, &orderstatementmwpb.Conds{
+	conds := &orderstatementmwpb.Conds{
 		OrderID: &basetypes.StringVal{Op: cruder.EQ, Value: h.OrderID},
-	})
+	}
+	handler, err := orderstatementmw.NewHandler(
+		ctx,
+		orderstatementmw.WithConds(conds),
+	)
+	if err != nil {
+		return false, err
+	}
+
+	return handler.ExistStatementConds(ctx)
 }
 
 func (h *orderHandler) getGoodMainCoin(ctx context.Context) (err error) {
-	h.goodMainCoin, err = goodcoinmwcli.GetGoodCoinOnly(ctx, &goodcoinmwpb.Conds{
+	conds := &goodcoinmwpb.Conds{
 		GoodID: &basetypes.StringVal{Op: cruder.EQ, Value: h.ParentGoodID},
 		Main:   &basetypes.BoolVal{Op: cruder.EQ, Value: true},
-	})
+	}
+	handler, err := goodcoinmw.NewHandler(
+		ctx,
+		goodcoinmw.WithConds(conds),
+	)
+	if err != nil {
+		return err
+	}
+	h.goodMainCoin, err = handler.GetGoodCoinOnly(ctx)
 	return wlog.WrapError(err)
 }
 
@@ -54,20 +71,22 @@ func (h *orderHandler) calculateOrderStatements(ctx context.Context) (err error)
 	case ordertypes.OrderType_Airdrop:
 		return nil
 	}
-	h.orderStatements, err = calculatemwcli.Calculate(ctx, &calculatemwpb.CalculateRequest{
-		AppID:            h.AppID,
-		UserID:           h.UserID,
-		GoodID:           h.GoodID,
-		AppGoodID:        h.AppGoodID,
-		OrderID:          h.OrderID,
-		GoodCoinTypeID:   h.goodMainCoin.CoinTypeID,
-		Units:            decimal.NewFromInt(0).String(),
-		PaymentAmountUSD: h.PaymentAmountUSD,
-		GoodValueUSD:     h.PaymentGoodValueUSD,
-		SettleType:       inspiretypes.SettleType_GoodOrderPayment,
-		HasCommission:    hasCommission,
-		OrderCreatedAt:   h.CreatedAt,
-		Payments: func() (payments []*calculatemwpb.Payment) {
+
+	handler, err := calculatemw.NewHandler(
+		ctx,
+		calculatemw.WithAppID(h.AppID),
+		calculatemw.WithUserID(h.UserID),
+		calculatemw.WithGoodID(h.GoodID),
+		calculatemw.WithAppGoodID(h.AppGoodID),
+		calculatemw.WithOrderID(h.OrderID),
+		calculatemw.WithGoodCoinTypeID(h.goodMainCoin.CoinTypeID),
+		calculatemw.WithUnits(decimal.NewFromInt(0).String()),
+		calculatemw.WithPaymentAmountUSD(h.PaymentAmountUSD),
+		calculatemw.WithGoodValueUSD(h.PaymentGoodValueUSD),
+		calculatemw.WithSettleType(inspiretypes.SettleType_GoodOrderPayment),
+		calculatemw.WithHasCommission(hasCommission),
+		calculatemw.WithOrderCreatedAt(h.CreatedAt),
+		calculatemw.WithPayments(func() (payments []*calculatemwpb.Payment) {
 			for _, _payment := range h.PaymentBalances {
 				payments = append(payments, &calculatemwpb.Payment{
 					CoinTypeID: _payment.CoinTypeID,
@@ -81,8 +100,13 @@ func (h *orderHandler) calculateOrderStatements(ctx context.Context) (err error)
 				})
 			}
 			return
-		}(),
-	})
+		}()),
+	)
+	if err != nil {
+		return err
+	}
+
+	h.orderStatements, err = handler.Calculate(ctx)
 	return wlog.WrapError(err)
 }
 

@@ -3,20 +3,14 @@ package persistent
 import (
 	"context"
 
-	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
-	ledgersvcname "github.com/NpoolPlatform/kunman/middleware/ledger/servicename"
-	ledgertypes "github.com/NpoolPlatform/kunman/message/basetypes/ledger/v1"
-	ordertypes "github.com/NpoolPlatform/kunman/message/basetypes/order/v1"
-	ledgermwpb "github.com/NpoolPlatform/kunman/message/ledger/middleware/v2/ledger"
-	feeordermwpb "github.com/NpoolPlatform/kunman/message/order/middleware/v1/fee"
 	asyncfeed "github.com/NpoolPlatform/kunman/cron/scheduler/base/asyncfeed"
 	basepersistent "github.com/NpoolPlatform/kunman/cron/scheduler/base/persistent"
 	types "github.com/NpoolPlatform/kunman/cron/scheduler/order/fee/payment/spend/types"
-	feeordermwcli "github.com/NpoolPlatform/kunman/middleware/order/fee"
-	ordersvcname "github.com/NpoolPlatform/kunman/middleware/order/servicename"
-
-	dtmcli "github.com/NpoolPlatform/dtm-cluster/pkg/dtm"
-	"github.com/dtm-labs/dtm/client/dtmcli/dtmimp"
+	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
+	ledgertypes "github.com/NpoolPlatform/kunman/message/basetypes/ledger/v1"
+	ordertypes "github.com/NpoolPlatform/kunman/message/basetypes/order/v1"
+	ledgermw "github.com/NpoolPlatform/kunman/middleware/ledger/ledger"
+	feeordermw "github.com/NpoolPlatform/kunman/middleware/order/fee"
 
 	"github.com/google/uuid"
 )
@@ -28,47 +22,41 @@ func NewPersistent() basepersistent.Persistenter {
 }
 
 func (p *handler) updateOrderState(ctx context.Context, order *types.PersistentOrder) error {
-	return feeordermwcli.UpdateFeeOrder(ctx, &feeordermwpb.FeeOrderReq{
-		ID:         &order.ID,
-		OrderState: ordertypes.OrderState_OrderStateTransferGoodStockLocked.Enum(),
-	})
-}
-
-func (p *handler) withUpdateOrderState(dispose *dtmcli.SagaDispose, order *types.PersistentOrder) {
-	state := ordertypes.OrderState_OrderStateTransferGoodStockLocked
-	rollback := true
-	req := &feeordermwpb.FeeOrderReq{
-		ID:         &order.ID,
-		OrderState: &state,
-		Rollback:   &rollback,
+	handler, err := feeordermw.NewHandler(
+		ctx,
+		feeordermw.WithID(&order.ID, true),
+		feeordermw.WithOrderState(ordertypes.OrderState_OrderStateTransferGoodStockLocked.Enum(), true),
+	)
+	if err != nil {
+		return err
 	}
-	dispose.Add(
-		ordersvcname.ServiceDomain,
-		"order.middleware.fee.v1.Middleware/UpdateFeeOrder",
-		"order.middleware.fee.v1.Middleware/UpdateFeeOrder",
-		&feeordermwpb.UpdateFeeOrderRequest{
-			Info: req,
-		},
-	)
+
+	return handler.UpdateFeeOrder(ctx)
 }
 
-func (p *handler) withSpendLockedBalance(dispose *dtmcli.SagaDispose, order *types.PersistentOrder) {
-	dispose.Add(
-		ledgersvcname.ServiceDomain,
-		"ledger.middleware.ledger.v2.Middleware/SettleBalances",
-		"",
-		&ledgermwpb.SettleBalancesRequest{
-			LockID: order.LedgerLockID,
-			StatementIDs: func() (statementIDs []string) {
-				for range order.PaymentBalances {
-					statementIDs = append(statementIDs, uuid.NewString())
-				}
-				return
-			}(),
-			IOExtra:   order.BalanceOutcomingExtra,
-			IOSubType: ledgertypes.IOSubType_Payment,
-		},
+func (p *handler) withUpdateOrderState(ctx context.Context, order *types.PersistentOrder) error {
+	return p.updateOrderState(ctx, order)
+}
+
+func (p *handler) withSpendLockedBalance(ctx context.Context, order *types.PersistentOrder) error {
+	handler, err := ledgermw.NewHandler(
+		ctx,
+		ledgermw.WithLockID(&order.LedgerLockID, true),
+		ledgermw.WithStatementIDs(func() (statementIDs []string) {
+			for range order.PaymentBalances {
+				statementIDs = append(statementIDs, uuid.NewString())
+			}
+			return
+		}(), true),
+		ledgermw.WithIOExtra(&order.BalanceOutcomingExtra, true),
+		ledgermw.WithIOSubType(ledgertypes.IOSubType_Payment.Enum(), true),
 	)
+	if err != nil {
+		return err
+	}
+
+	_, err = handler.SettleBalances(ctx)
+	return err
 }
 
 func (p *handler) Update(ctx context.Context, order interface{}, reward, notif, done chan interface{}) error {
@@ -83,15 +71,11 @@ func (p *handler) Update(ctx context.Context, order interface{}, reward, notif, 
 		return wlog.WrapError(p.updateOrderState(ctx, _order))
 	}
 
-	const timeoutSeconds = 10
-	sagaDispose := dtmcli.NewSagaDispose(dtmimp.TransOptions{
-		WaitResult:     true,
-		RequestTimeout: timeoutSeconds,
-	})
-	p.withUpdateOrderState(sagaDispose, _order)
-	p.withSpendLockedBalance(sagaDispose, _order)
-	if err := dtmcli.WithSaga(ctx, sagaDispose); err != nil {
-		return wlog.WrapError(err)
+	if err := p.withUpdateOrderState(ctx, _order); err != nil {
+		return err
+	}
+	if err := p.withSpendLockedBalance(ctx, _order); err != nil {
+		return err
 	}
 
 	return nil

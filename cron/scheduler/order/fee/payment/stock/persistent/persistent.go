@@ -4,12 +4,11 @@ import (
 	"context"
 	"fmt"
 
-	ordertypes "github.com/NpoolPlatform/kunman/message/basetypes/order/v1"
-	feeordermwpb "github.com/NpoolPlatform/kunman/message/order/middleware/v1/fee"
 	asyncfeed "github.com/NpoolPlatform/kunman/cron/scheduler/base/asyncfeed"
 	basepersistent "github.com/NpoolPlatform/kunman/cron/scheduler/base/persistent"
 	types "github.com/NpoolPlatform/kunman/cron/scheduler/order/fee/payment/stock/types"
-	feeordermwcli "github.com/NpoolPlatform/kunman/middleware/order/fee"
+	ordertypes "github.com/NpoolPlatform/kunman/message/basetypes/order/v1"
+	feeordermw "github.com/NpoolPlatform/kunman/middleware/order/fee"
 )
 
 type handler struct{}
@@ -26,8 +25,16 @@ func (p *handler) Update(ctx context.Context, order interface{}, reward, notif, 
 
 	defer asyncfeed.AsyncFeed(ctx, _order, done)
 
-	return feeordermwcli.UpdateFeeOrder(ctx, &feeordermwpb.FeeOrderReq{
-		ID:         &_order.ID,
-		OrderState: ordertypes.OrderState_OrderStateAchievementBookKeeping.Enum(),
-	})
+	state := ordertypes.OrderState_OrderStateAchievementBookKeeping
+
+	handler, err := feeordermw.NewHandler(
+		ctx,
+		feeordermw.WithID(&_order.ID, true),
+		feeordermw.WithOrderState(&state, true),
+	)
+	if err != nil {
+		return err
+	}
+
+	return handler.UpdateFeeOrder(ctx)
 }

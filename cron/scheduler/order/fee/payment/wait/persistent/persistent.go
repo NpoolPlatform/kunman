@@ -4,11 +4,10 @@ import (
 	"context"
 	"fmt"
 
-	feeordermwpb "github.com/NpoolPlatform/kunman/message/order/middleware/v1/fee"
 	asyncfeed "github.com/NpoolPlatform/kunman/cron/scheduler/base/asyncfeed"
 	basepersistent "github.com/NpoolPlatform/kunman/cron/scheduler/base/persistent"
 	types "github.com/NpoolPlatform/kunman/cron/scheduler/order/fee/payment/wait/types"
-	feeordermwcli "github.com/NpoolPlatform/kunman/middleware/order/fee"
+	feeordermw "github.com/NpoolPlatform/kunman/middleware/order/fee"
 )
 
 type handler struct{}
@@ -25,10 +24,15 @@ func (p *handler) Update(ctx context.Context, order interface{}, reward, notif, 
 
 	defer asyncfeed.AsyncFeed(ctx, _order, done)
 
-	req := &feeordermwpb.FeeOrderReq{
-		ID:           &_order.ID,
-		OrderState:   &_order.NewOrderState,
-		PaymentState: _order.NewPaymentState,
+	handler, err := feeordermw.NewHandler(
+		ctx,
+		feeordermw.WithID(&_order.ID, true),
+		feeordermw.WithOrderState(&_order.NewOrderState, true),
+		feeordermw.WithPaymentState(_order.NewPaymentState, false),
+	)
+	if err != nil {
+		return err
 	}
-	return feeordermwcli.UpdateFeeOrder(ctx, req)
+
+	return handler.UpdateFeeOrder(ctx)
 }
