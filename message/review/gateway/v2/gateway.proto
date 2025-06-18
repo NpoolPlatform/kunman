@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+package review.gateway.v2;
+
+option go_package = "github.com/NpoolPlatform/kunman/message/review/gateway/v2";
+
+import "google/api/annotations.proto";
+import "google/protobuf/empty.proto";
+import "basetypes/v1/version.proto";
+
+// Service Name
+service Gateway {}

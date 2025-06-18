@@ -1,0 +1,119 @@
+syntax = "proto3";
+
+package review.gateway.withdraw.coupon.v2;
+
+option go_package = "github.com/NpoolPlatform/kunman/message/review/gateway/v2/withdraw/coupon";
+
+import "basetypes/ledger/v1/enums.proto";
+import "basetypes/review/v1/enums.proto";
+import "google/api/annotations.proto";
+import "basetypes/v1/kycstate.proto";
+
+// Service Name
+service Gateway {
+  rpc GetCouponWithdrawReviews(GetCouponWithdrawReviewsRequest)
+      returns (GetCouponWithdrawReviewsResponse) {
+    option (google.api.http) = {
+      post : "/v2/get/couponwithdrawreviews"
+      body : "*"
+    };
+  }
+
+  rpc GetAppCouponWithdrawReviews(GetAppCouponWithdrawReviewsRequest)
+      returns (GetAppCouponWithdrawReviewsResponse) {
+    option (google.api.http) = {
+      post : "/v2/get/app/couponwithdrawreviews"
+      body : "*"
+    };
+  }
+
+  rpc UpdateCouponWithdrawReview(UpdateCouponWithdrawReviewRequest)
+      returns (UpdateCouponWithdrawReviewResponse) {
+    option (google.api.http) = {
+      post : "/v2/update/couponwithdrawreview"
+      body : "*"
+    };
+  }
+
+  rpc UpdateAppCouponWithdrawReview(UpdateAppCouponWithdrawReviewRequest)
+      returns (UpdateAppCouponWithdrawReviewResponse) {
+    option (google.api.http) = {
+      post : "/v2/update/app/couponwithdrawreview"
+      body : "*"
+    };
+  }
+}
+
+message CouponWithdrawReview {
+  uint32 ID = 10;
+  string EntID = 20;
+  string AppID = 30;
+  string UserID = 40;
+  basetypes.v1.KycState KycState = 50;
+  string EmailAddress = 60;
+  string PhoneNO = 70;
+  string Reviewer = 80;
+  basetypes.review.v1.ReviewObjectType ObjectType = 90;
+  string Domain = 100;
+  uint32 CreatedAt = 110;
+  uint32 UpdatedAt = 120;
+  string Message = 130;
+  basetypes.review.v1.ReviewState State = 140;
+  basetypes.review.v1.ReviewTriggerType Trigger = 150;
+  string Amount = 160;
+  string CoinTypeID = 180;
+  string CoinName = 190;
+  string CoinLogo = 200;
+  string CoinUnit = 210;
+  string AllocatedID = 230;
+  string CouponName = 240;
+  string CouponWithdrawID = 250;
+  basetypes.ledger.v1.WithdrawState CouponWithdrawState = 260;
+}
+
+message GetCouponWithdrawReviewsRequest {
+  string AppID = 10;
+  int32 Offset = 20;
+  int32 Limit = 30;
+}
+
+message GetCouponWithdrawReviewsResponse {
+  repeated CouponWithdrawReview Infos = 10;
+  uint32 Total = 20;
+}
+
+message GetAppCouponWithdrawReviewsRequest {
+  string TargetAppID = 10;
+  int32 Offset = 20;
+  int32 Limit = 30;
+}
+
+message GetAppCouponWithdrawReviewsResponse {
+  repeated CouponWithdrawReview Infos = 10;
+  uint32 Total = 20;
+}
+
+message UpdateCouponWithdrawReviewRequest {
+  uint32 ID = 9;
+  string EntID = 10;
+  string AppID = 20;
+  string UserID = 30;
+  basetypes.review.v1.ReviewState State = 50;
+  optional string Message = 60;
+}
+
+message UpdateCouponWithdrawReviewResponse { CouponWithdrawReview Info = 10; }
+
+message UpdateAppCouponWithdrawReviewRequest {
+  uint32 ID = 9;
+  string EntID = 10;
+  string AppID = 20;
+  string TargetAppID = 30;
+  string UserID = 40;
+  basetypes.review.v1.ReviewState State = 60;
+  optional string Message = 70;
+}
+
+message UpdateAppCouponWithdrawReviewResponse {
+  CouponWithdrawReview Info = 10;
+}

@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+package basetypes.review.v1;
+
+option go_package = "github.com/NpoolPlatform/kunman/message/basetypes/review/v1";
+
+enum ReviewObjectType {
+  DefaultObjectType = 0;
+  ObjectKyc = 10;
+  ObjectWithdrawal = 20;
+  ObjectRandomCouponCash = 30;
+}
+
+enum ReviewState {
+  DefaultReviewState = 0;
+  Approved = 10;
+  Wait = 20;
+  Rejected = 30;
+}
+
+enum ReviewTriggerType {
+  DefaultTriggerType = 0;
+  // Withdrawal triggers
+  AutoReviewed = 10;
+  LargeAmount = 20;
+  InsufficientFunds = 30;
+  InsufficientGas = 40;
+  InsufficientFundsGas = 50;
+}

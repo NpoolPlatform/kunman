@@ -1,0 +1,65 @@
+syntax = "proto3";
+
+package review.middleware.review.v2;
+
+option go_package = "github.com/NpoolPlatform/kunman/message/review/middleware/v2/review";
+
+import "google/api/annotations.proto";
+import "basetypes/v1/conds.proto";
+import "basetypes/review/v1/enums.proto";
+
+message ReviewReq {
+  optional uint32 ID = 9;
+  optional string EntID = 10;
+  optional string AppID = 20;
+  optional string ReviewerID = 30;
+  optional string Domain = 40;
+  optional string ObjectID = 50;
+  optional basetypes.review.v1.ReviewTriggerType Trigger = 60;
+  optional basetypes.review.v1.ReviewObjectType ObjectType = 70;
+  optional basetypes.review.v1.ReviewState State = 80;
+  optional string Message = 90;
+}
+
+message Review {
+  // @inject_tag: sql:"id"
+  uint32 ID = 9;
+  // @inject_tag: sql:"ent_id"
+  string EntID = 10;
+  // @inject_tag: sql:"app_id"
+  string AppID = 20;
+  // @inject_tag: sql:"reviewer_id"
+  string ReviewerID = 30;
+  // @inject_tag: sql:"domain"
+  string Domain = 40;
+  // @inject_tag: sql:"object_id"
+  string ObjectID = 50;
+  // @inject_tag: sql:"trigger"
+  string TriggerStr = 51;
+  basetypes.review.v1.ReviewTriggerType Trigger = 60;
+  // @inject_tag: sql:"object_type"
+  string ObjectTypeStr = 61;
+  basetypes.review.v1.ReviewObjectType ObjectType = 70;
+  // @inject_tag: sql:"state"
+  string StateStr = 71;
+  basetypes.review.v1.ReviewState State = 80;
+  // @inject_tag: sql:"message"
+  string Message = 90;
+  // @inject_tag: sql:"created_at"
+  uint32 CreatedAt = 1000;
+  // @inject_tag: sql:"updated_at"
+  uint32 UpdatedAt = 1100;
+}
+
+message Conds {
+  optional basetypes.v1.StringVal EntID = 10;
+  optional basetypes.v1.StringVal AppID = 20;
+  optional basetypes.v1.StringVal ReviewerID = 30;
+  optional basetypes.v1.StringVal Domain = 40;
+  optional basetypes.v1.StringVal ObjectID = 50;
+  optional basetypes.v1.Uint32Val Trigger = 60;
+  optional basetypes.v1.Uint32Val ObjectType = 70;
+  optional basetypes.v1.Uint32Val State = 80;
+  optional basetypes.v1.StringSliceVal EntIDs = 90;
+}
+

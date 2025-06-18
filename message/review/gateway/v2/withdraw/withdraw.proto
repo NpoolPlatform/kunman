@@ -1,0 +1,115 @@
+syntax = "proto3";
+
+package review.gateway.withdraw.v2;
+
+option go_package = "github.com/NpoolPlatform/kunman/message/review/gateway/v2/withdraw";
+
+import "basetypes/ledger/v1/enums.proto";
+import "basetypes/review/v1/enums.proto";
+import "google/api/annotations.proto";
+import "basetypes/v1/kycstate.proto";
+
+// Service Name
+service Gateway {
+  rpc GetWithdrawReviews(GetWithdrawReviewsRequest)
+      returns (GetWithdrawReviewsResponse) {
+    option (google.api.http) = {
+      post : "/v2/get/withdrawreviews"
+      body : "*"
+    };
+  }
+
+  rpc GetAppWithdrawReviews(GetAppWithdrawReviewsRequest)
+      returns (GetAppWithdrawReviewsResponse) {
+    option (google.api.http) = {
+      post : "/v2/get/app/withdrawreviews"
+      body : "*"
+    };
+  }
+
+  rpc UpdateWithdrawReview(UpdateWithdrawReviewRequest)
+      returns (UpdateWithdrawReviewResponse) {
+    option (google.api.http) = {
+      post : "/v2/update/withdrawreview"
+      body : "*"
+    };
+  }
+
+  rpc UpdateAppWithdrawReview(UpdateAppWithdrawReviewRequest)
+      returns (UpdateAppWithdrawReviewResponse) {
+    option (google.api.http) = {
+      post : "/v2/update/app/withdrawreview"
+      body : "*"
+    };
+  }
+}
+
+message WithdrawReview {
+  string WithdrawID = 10;
+  basetypes.ledger.v1.WithdrawState WithdrawState = 20;
+  string ReviewID = 30;
+  string UserID = 40;
+  basetypes.v1.KycState KycState = 50;
+  string EmailAddress = 60;
+  string PhoneNO = 70;
+  string Reviewer = 80;
+  basetypes.review.v1.ReviewObjectType ObjectType = 90;
+  string Domain = 100;
+  uint32 CreatedAt = 110;
+  uint32 UpdatedAt = 120;
+  string Message = 130;
+  basetypes.review.v1.ReviewState State = 140;
+  basetypes.review.v1.ReviewTriggerType Trigger = 150;
+  string Amount = 160;
+  string FeeAmount = 170;
+  string CoinTypeID = 180;
+  string CoinName = 190;
+  string CoinLogo = 200;
+  string CoinUnit = 210;
+  string Address = 220;
+  string PlatformTransactionID = 230;
+  string ChainTransactionID = 240;
+}
+
+message GetWithdrawReviewsRequest {
+  string AppID = 10;
+  int32 Offset = 20;
+  int32 Limit = 30;
+}
+
+message GetWithdrawReviewsResponse {
+  repeated WithdrawReview Infos = 10;
+  uint32 Total = 20;
+}
+
+message GetAppWithdrawReviewsRequest {
+  string TargetAppID = 10;
+  int32 Offset = 20;
+  int32 Limit = 30;
+}
+
+message GetAppWithdrawReviewsResponse {
+  repeated WithdrawReview Infos = 10;
+  uint32 Total = 20;
+}
+
+message UpdateWithdrawReviewRequest {
+  string ReviewID = 10;
+  string AppID = 20;
+  string UserID = 30; // Reviewer
+  basetypes.review.v1.ReviewState State = 50;
+  optional string Message = 60;
+}
+
+message UpdateWithdrawReviewResponse { WithdrawReview Info = 10; }
+
+message UpdateAppWithdrawReviewRequest {
+  string ReviewID = 10;
+  string AppID = 20;
+  string TargetAppID = 30;
+  string UserID = 40; // Reviewer
+  basetypes.review.v1.ReviewState State = 60;
+  optional string Message = 70;
+}
+
+message UpdateAppWithdrawReviewResponse { WithdrawReview Info = 10; }
