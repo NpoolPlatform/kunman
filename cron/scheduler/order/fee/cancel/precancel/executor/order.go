@@ -1,0 +1,26 @@
+package executor
+
+import (
+	"context"
+
+	feeordermwpb "github.com/NpoolPlatform/kunman/message/order/middleware/v1/fee"
+	asyncfeed "github.com/NpoolPlatform/kunman/cron/scheduler/base/asyncfeed"
+	types "github.com/NpoolPlatform/kunman/cron/scheduler/order/fee/cancel/precancel/types"
+)
+
+type orderHandler struct {
+	*feeordermwpb.FeeOrder
+	persistent chan interface{}
+}
+
+func (h *orderHandler) final(ctx context.Context) {
+	persistentOrder := &types.PersistentOrder{
+		FeeOrder: h.FeeOrder,
+	}
+	asyncfeed.AsyncFeed(ctx, persistentOrder, h.persistent)
+}
+
+func (h *orderHandler) exec(ctx context.Context) error {
+	h.final(ctx)
+	return nil
+}
