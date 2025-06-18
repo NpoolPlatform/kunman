@@ -4,10 +4,6 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/NpoolPlatform/kunman/framework/logger"
-	"github.com/NpoolPlatform/kunman/framework/pubsub"
-	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
-	eventmwpb "github.com/NpoolPlatform/kunman/message/inspire/middleware/v1/event"
 	asyncfeed "github.com/NpoolPlatform/kunman/cron/scheduler/base/asyncfeed"
 	basereward "github.com/NpoolPlatform/kunman/cron/scheduler/base/reward"
 	types "github.com/NpoolPlatform/kunman/cron/scheduler/benefit/powerrental/bookkeeping/simulate/types"
@@ -20,40 +16,7 @@ func NewReward() basereward.Rewarder {
 }
 
 func (p *handler) rewardProfit(good *types.PersistentGood) {
-	for _, reward := range good.OrderRewards {
-		if !func() bool {
-			for _, coinReward := range reward.CoinRewards {
-				if coinReward.SendCoupon {
-					return true
-				}
-			}
-			return false
-		}() {
-			continue
-		}
-		if err := pubsub.WithPublisher(func(publisher *pubsub.Publisher) error {
-			req := &eventmwpb.CalcluateEventRewardsRequest{
-				AppID:       reward.AppID,
-				UserID:      reward.UserID,
-				EventType:   basetypes.UsedFor_SimulateOrderProfit,
-				Consecutive: 1,
-			}
-			return publisher.Update(
-				basetypes.MsgID_CalculateEventRewardReq.String(),
-				nil,
-				nil,
-				nil,
-				req,
-			)
-		}); err != nil {
-			logger.Sugar().Errorw(
-				"rewardSimulateOrderProfit",
-				"AppID", reward.AppID,
-				"UserID", reward.UserID,
-				"Error", err,
-			)
-		}
-	}
+	// TODO
 }
 
 func (p *handler) Update(ctx context.Context, good interface{}, notif, done chan interface{}) error {

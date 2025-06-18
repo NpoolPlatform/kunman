@@ -4,14 +4,14 @@ import (
 	"context"
 	"fmt"
 
-	powerrentalmwcli "github.com/NpoolPlatform/kunman/middleware/good/powerrental"
-	goodstatementmwcli "github.com/NpoolPlatform/kunman/middleware/ledger/good/ledger/statement"
-	goodtypes "github.com/NpoolPlatform/kunman/message/basetypes/good/v1"
-	powerrentalmwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/powerrental"
-	goodstatementmwpb "github.com/NpoolPlatform/kunman/message/ledger/middleware/v2/good/ledger/statement"
 	asyncfeed "github.com/NpoolPlatform/kunman/cron/scheduler/base/asyncfeed"
 	basepersistent "github.com/NpoolPlatform/kunman/cron/scheduler/base/persistent"
 	types "github.com/NpoolPlatform/kunman/cron/scheduler/benefit/powerrental/bookkeeping/good/types"
+	"github.com/NpoolPlatform/kunman/framework/wlog"
+	goodtypes "github.com/NpoolPlatform/kunman/message/basetypes/good/v1"
+	goodstatementmwpb "github.com/NpoolPlatform/kunman/message/ledger/middleware/v2/good/ledger/statement"
+	powerrentalmw "github.com/NpoolPlatform/kunman/middleware/good/powerrental"
+	goodstatementmw "github.com/NpoolPlatform/kunman/middleware/ledger/good/ledger/statement"
 )
 
 type handler struct{}
@@ -21,10 +21,16 @@ func NewPersistent() basepersistent.Persistenter {
 }
 
 func (p *handler) updateGood(ctx context.Context, good *types.PersistentGood) error {
-	return powerrentalmwcli.UpdatePowerRental(ctx, &powerrentalmwpb.PowerRentalReq{
-		ID:          &good.ID,
-		RewardState: func() *goodtypes.BenefitState { e := goodtypes.BenefitState_BenefitUserBookKeeping; return &e }(),
-	})
+	handler, err := powerrentalmw.NewHandler(
+		ctx,
+		powerrentalmw.WithID(&good.ID, true),
+		powerrentalmw.WithRewardState(goodtypes.BenefitState_BenefitUserBookKeeping.Enum(), true),
+	)
+	if err != nil {
+		return wlog.WrapError(err)
+	}
+
+	return handler.UpdatePowerRental(ctx)
 }
 
 func (p *handler) createGoodStatements(ctx context.Context, good *types.PersistentGood) error {
@@ -39,8 +45,17 @@ func (p *handler) createGoodStatements(ctx context.Context, good *types.Persiste
 			BenefitDate:               &good.LastRewardAt,
 		})
 	}
-	if _, err := goodstatementmwcli.CreateGoodStatements(ctx, stReqs); err != nil {
-		return err
+
+	handler, err := goodstatementmw.NewHandler(
+		ctx,
+		goodstatementmw.WithReqs(stReqs, true),
+	)
+	if err != nil {
+		return wlog.WrapError(err)
+	}
+
+	if _, err := handler.CreateGoodStatements(ctx); err != nil {
+		return wlog.WrapError(err)
 	}
 	return nil
 }

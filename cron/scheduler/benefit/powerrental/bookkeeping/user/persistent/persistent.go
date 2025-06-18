@@ -4,22 +4,18 @@ import (
 	"context"
 	"fmt"
 
-	powerrentalmwcli "github.com/NpoolPlatform/kunman/middleware/good/powerrental"
-	ledgersvcname "github.com/NpoolPlatform/ledger-middleware/pkg/servicename"
-	goodtypes "github.com/NpoolPlatform/kunman/message/basetypes/good/v1"
-	ledgertypes "github.com/NpoolPlatform/kunman/message/basetypes/ledger/v1"
-	ordertypes "github.com/NpoolPlatform/kunman/message/basetypes/order/v1"
-	powerrentalmwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/powerrental"
-	statementmwpb "github.com/NpoolPlatform/kunman/message/ledger/middleware/v2/ledger/statement"
-	powerrentalordermwpb "github.com/NpoolPlatform/kunman/message/order/middleware/v1/powerrental"
 	asyncfeed "github.com/NpoolPlatform/kunman/cron/scheduler/base/asyncfeed"
 	basepersistent "github.com/NpoolPlatform/kunman/cron/scheduler/base/persistent"
 	types "github.com/NpoolPlatform/kunman/cron/scheduler/benefit/powerrental/bookkeeping/user/types"
-	dtm1 "github.com/NpoolPlatform/kunman/cron/scheduler/dtm"
-	ordersvcname "github.com/NpoolPlatform/order-middleware/pkg/servicename"
-
-	dtmcli "github.com/NpoolPlatform/dtm-cluster/pkg/dtm"
-	"github.com/dtm-labs/dtm/client/dtmcli/dtmimp"
+	"github.com/NpoolPlatform/kunman/framework/wlog"
+	goodtypes "github.com/NpoolPlatform/kunman/message/basetypes/good/v1"
+	ledgertypes "github.com/NpoolPlatform/kunman/message/basetypes/ledger/v1"
+	ordertypes "github.com/NpoolPlatform/kunman/message/basetypes/order/v1"
+	statementmwpb "github.com/NpoolPlatform/kunman/message/ledger/middleware/v2/ledger/statement"
+	powerrentalordermwpb "github.com/NpoolPlatform/kunman/message/order/middleware/v1/powerrental"
+	powerrentalmw "github.com/NpoolPlatform/kunman/middleware/good/powerrental"
+	ledgerstatementmw "github.com/NpoolPlatform/kunman/middleware/ledger/ledger/statement"
+	powerrentalordermw "github.com/NpoolPlatform/kunman/middleware/order/powerrental"
 
 	"github.com/google/uuid"
 )
@@ -30,7 +26,7 @@ func NewPersistent() basepersistent.Persistenter {
 	return &handler{}
 }
 
-func (p *handler) withUpdateOrderBenefitState(dispose *dtmcli.SagaDispose, good *types.PersistentGood) {
+func (p *handler) withUpdateOrderBenefitState(ctx context.Context, good *types.PersistentGood) error {
 	reqs := []*powerrentalordermwpb.PowerRentalOrderReq{}
 	state := ordertypes.BenefitState_BenefitBookKept
 	for _, order := range good.OrderRewards {
@@ -39,17 +35,25 @@ func (p *handler) withUpdateOrderBenefitState(dispose *dtmcli.SagaDispose, good 
 			BenefitState: &state,
 		})
 	}
-	dispose.Add(
-		ordersvcname.ServiceDomain,
-		"order.middleware.powerrental.v1.Middleware/UpdatePowerRentalOrders",
-		"",
-		&powerrentalordermwpb.UpdatePowerRentalOrdersRequest{
-			Infos: reqs,
-		},
-	)
+
+	multiHandler := &powerrentalordermw.MultiHandler{}
+	for _, req := range reqs {
+		handler, err := powerrentalordermw.NewHandler(
+			ctx,
+			powerrentalordermw.WithOrderID(req.OrderID, true),
+			powerrentalordermw.WithBenefitState(req.BenefitState, true),
+		)
+		if err != nil {
+			return wlog.WrapError(err)
+		}
+
+		multiHandler.AppendHandler(handler)
+	}
+
+	return multiHandler.UpdatePowerRentals(ctx)
 }
 
-func (p *handler) withCreateLedgerStatements(dispose *dtmcli.SagaDispose, good *types.PersistentGood) {
+func (p *handler) withCreateLedgerStatements(ctx context.Context, good *types.PersistentGood) error {
 	reqs := []*statementmwpb.StatementReq{}
 
 	rollback := true
@@ -74,26 +78,38 @@ func (p *handler) withCreateLedgerStatements(dispose *dtmcli.SagaDispose, good *
 	}
 
 	if len(reqs) == 0 {
-		return
+		return nil
 	}
 
-	dispose.Add(
-		ledgersvcname.ServiceDomain,
-		"ledger.middleware.ledger.statement.v2.Middleware/CreateStatements",
-		"ledger.middleware.ledger.statement.v2.Middleware/DeleteStatements",
-		&statementmwpb.CreateStatementsRequest{
-			Infos: reqs,
-		},
+	ledgerHandler, err := ledgerstatementmw.NewHandler(
+		ctx,
+		ledgerstatementmw.WithReqs(reqs, true),
 	)
+	if err != nil {
+		return err
+	}
+
+	if _, err := ledgerHandler.CreateStatements(ctx); err != nil {
+		return err
+	}
+
+	return nil
 }
 
 func (p *handler) updateGood(ctx context.Context, good *types.PersistentGood) error {
 	state := goodtypes.BenefitState_BenefitSimulateBookKeeping
-	return powerrentalmwcli.UpdatePowerRental(ctx, &powerrentalmwpb.PowerRentalReq{
-		ID:          &good.ID,
-		RewardState: &state,
-		RewardAt:    &good.LastRewardAt,
-	})
+
+	handler, err := powerrentalmw.NewHandler(
+		ctx,
+		powerrentalmw.WithID(&good.ID, true),
+		powerrentalmw.WithRewardState(&state, true),
+		powerrentalmw.WithRewardAt(&good.LastRewardAt, true),
+	)
+	if err != nil {
+		return wlog.WrapError(err)
+	}
+
+	return handler.UpdatePowerRental(ctx)
 }
 
 func (p *handler) Update(ctx context.Context, good interface{}, reward, notif, done chan interface{}) error {
@@ -111,14 +127,10 @@ func (p *handler) Update(ctx context.Context, good interface{}, reward, notif, d
 		return nil
 	}
 
-	const timeoutSeconds = 60
-	sagaDispose := dtmcli.NewSagaDispose(dtmimp.TransOptions{
-		WaitResult:     true,
-		RequestTimeout: timeoutSeconds,
-	})
-	p.withCreateLedgerStatements(sagaDispose, _good)
-	p.withUpdateOrderBenefitState(sagaDispose, _good)
-	if err := dtm1.Do(ctx, sagaDispose); err != nil {
+	if err := p.withCreateLedgerStatements(ctx, _good); err != nil {
+		return err
+	}
+	if err := p.withUpdateOrderBenefitState(ctx, _good); err != nil {
 		return err
 	}
 

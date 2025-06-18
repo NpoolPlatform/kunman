@@ -4,7 +4,7 @@ import (
 	"context"
 
 	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
-	ledgersvcname "github.com/NpoolPlatform/ledger-middleware/pkg/servicename"
+	ledgersvcname "github.com/NpoolPlatform/kunman/middleware/ledger/servicename"
 	ledgertypes "github.com/NpoolPlatform/kunman/message/basetypes/ledger/v1"
 	ordertypes "github.com/NpoolPlatform/kunman/message/basetypes/order/v1"
 	ledgermwpb "github.com/NpoolPlatform/kunman/message/ledger/middleware/v2/ledger"
@@ -13,7 +13,7 @@ import (
 	basepersistent "github.com/NpoolPlatform/kunman/cron/scheduler/base/persistent"
 	types "github.com/NpoolPlatform/kunman/cron/scheduler/order/fee/payment/spend/types"
 	feeordermwcli "github.com/NpoolPlatform/kunman/middleware/order/fee"
-	ordersvcname "github.com/NpoolPlatform/order-middleware/pkg/servicename"
+	ordersvcname "github.com/NpoolPlatform/kunman/middleware/order/servicename"
 
 	dtmcli "github.com/NpoolPlatform/dtm-cluster/pkg/dtm"
 	"github.com/dtm-labs/dtm/client/dtmcli/dtmimp"

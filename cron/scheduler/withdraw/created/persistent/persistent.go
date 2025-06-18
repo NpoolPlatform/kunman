@@ -5,7 +5,7 @@ import (
 	"fmt"
 
 	ledgergwname "github.com/NpoolPlatform/ledger-gateway/pkg/servicename"
-	ledgersvcname "github.com/NpoolPlatform/ledger-middleware/pkg/servicename"
+	ledgersvcname "github.com/NpoolPlatform/kunman/middleware/ledger/servicename"
 	ledgertypes "github.com/NpoolPlatform/kunman/message/basetypes/ledger/v1"
 	reviewtypes "github.com/NpoolPlatform/kunman/message/basetypes/review/v1"
 	withdrawmwpb "github.com/NpoolPlatform/kunman/message/ledger/middleware/v2/withdraw"

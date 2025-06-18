@@ -4,14 +4,14 @@ import (
 	"context"
 	"fmt"
 
-	txmwcli "github.com/NpoolPlatform/kunman/middleware/chain/tx"
-	powerrentalmwcli "github.com/NpoolPlatform/kunman/middleware/good/powerrental"
-	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
-	txmwpb "github.com/NpoolPlatform/kunman/message/chain/middleware/v1/tx"
-	powerrentalmwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/powerrental"
 	asyncfeed "github.com/NpoolPlatform/kunman/cron/scheduler/base/asyncfeed"
 	basepersistent "github.com/NpoolPlatform/kunman/cron/scheduler/base/persistent"
 	types "github.com/NpoolPlatform/kunman/cron/scheduler/benefit/powerrental/transferring/types"
+	"github.com/NpoolPlatform/kunman/framework/wlog"
+	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
+	txmwpb "github.com/NpoolPlatform/kunman/message/chain/middleware/v1/tx"
+	txmw "github.com/NpoolPlatform/kunman/middleware/chain/tx"
+	powerrentalmw "github.com/NpoolPlatform/kunman/middleware/good/powerrental"
 
 	"github.com/shopspring/decimal"
 )
@@ -30,10 +30,16 @@ func (p *handler) Update(ctx context.Context, good interface{}, reward, notif, d
 
 	defer asyncfeed.AsyncFeed(ctx, _good, done)
 
-	if err := powerrentalmwcli.UpdatePowerRental(ctx, &powerrentalmwpb.PowerRentalReq{
-		ID:          &_good.ID,
-		RewardState: &_good.NewBenefitState,
-	}); err != nil {
+	prHandler, err := powerrentalmw.NewHandler(
+		ctx,
+		powerrentalmw.WithID(&_good.ID, true),
+		powerrentalmw.WithRewardState(&_good.NewBenefitState, true),
+	)
+	if err != nil {
+		return wlog.WrapError(err)
+	}
+
+	if err := prHandler.UpdatePowerRental(ctx); err != nil {
 		return err
 	}
 
@@ -60,7 +66,15 @@ func (p *handler) Update(ctx context.Context, good interface{}, reward, notif, d
 		return nil
 	}
 
-	if _, err := txmwcli.CreateTxs(ctx, txReqs); err != nil {
+	txHandler, err := txmw.NewHandler(
+		ctx,
+		txmw.WithReqs(txReqs, true),
+	)
+	if err != nil {
+		return wlog.WrapError(err)
+	}
+
+	if _, err := txHandler.CreateTxs(ctx); err != nil {
 		return err
 	}
 

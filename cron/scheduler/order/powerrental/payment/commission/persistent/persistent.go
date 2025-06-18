@@ -4,14 +4,14 @@ import (
 	"context"
 	"fmt"
 
-	ledgersvcname "github.com/NpoolPlatform/ledger-middleware/pkg/servicename"
+	ledgersvcname "github.com/NpoolPlatform/kunman/middleware/ledger/servicename"
 	ordertypes "github.com/NpoolPlatform/kunman/message/basetypes/order/v1"
 	statementmwpb "github.com/NpoolPlatform/kunman/message/ledger/middleware/v2/ledger/statement"
 	powerrentalordermwpb "github.com/NpoolPlatform/kunman/message/order/middleware/v1/powerrental"
 	asyncfeed "github.com/NpoolPlatform/kunman/cron/scheduler/base/asyncfeed"
 	basepersistent "github.com/NpoolPlatform/kunman/cron/scheduler/base/persistent"
 	types "github.com/NpoolPlatform/kunman/cron/scheduler/order/powerrental/payment/commission/types"
-	ordersvcname "github.com/NpoolPlatform/order-middleware/pkg/servicename"
+	ordersvcname "github.com/NpoolPlatform/kunman/middleware/order/servicename"
 
 	dtmcli "github.com/NpoolPlatform/dtm-cluster/pkg/dtm"
 	"github.com/dtm-labs/dtm/client/dtmcli/dtmimp"

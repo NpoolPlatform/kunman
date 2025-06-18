@@ -5,7 +5,7 @@ import (
 	"fmt"
 
 	accountsvcname "github.com/NpoolPlatform/account-middleware/pkg/servicename"
-	ledgersvcname "github.com/NpoolPlatform/ledger-middleware/pkg/servicename"
+	ledgersvcname "github.com/NpoolPlatform/kunman/middleware/ledger/servicename"
 	depositaccmwpb "github.com/NpoolPlatform/kunman/message/account/middleware/v1/deposit"
 	ledgertypes "github.com/NpoolPlatform/kunman/message/basetypes/ledger/v1"
 	statementmwpb "github.com/NpoolPlatform/kunman/message/ledger/middleware/v2/ledger/statement"
