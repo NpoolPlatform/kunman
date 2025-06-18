@@ -3,12 +3,12 @@ package sentinel
 import (
 	"context"
 
-	coinmwcli "github.com/NpoolPlatform/kunman/middleware/chain/coin"
-	coinmwpb "github.com/NpoolPlatform/kunman/message/chain/middleware/v1/coin"
 	cancelablefeed "github.com/NpoolPlatform/kunman/cron/scheduler/base/cancelablefeed"
 	basesentinel "github.com/NpoolPlatform/kunman/cron/scheduler/base/sentinel"
-	constant "github.com/NpoolPlatform/kunman/pkg/const"
 	types "github.com/NpoolPlatform/kunman/cron/scheduler/limitation/types"
+	coinmwpb "github.com/NpoolPlatform/kunman/message/chain/middleware/v1/coin"
+	coinmw "github.com/NpoolPlatform/kunman/middleware/chain/coin"
+	constant "github.com/NpoolPlatform/kunman/pkg/const"
 )
 
 type handler struct{}
@@ -22,7 +22,17 @@ func (h *handler) Scan(ctx context.Context, exec chan interface{}) error {
 	limit := constant.DefaultRowLimit
 
 	for {
-		coins, _, err := coinmwcli.GetCoins(ctx, &coinmwpb.Conds{}, offset, limit)
+		handler, err := coinmw.NewHandler(
+			ctx,
+			coinmw.WithConds(&coinmwpb.Conds{}),
+			coinmw.WithOffset(offset),
+			coinmw.WithLimit(limit),
+		)
+		if err != nil {
+			return err
+		}
+
+		coins, _, err := handler.GetCoins(ctx)
 		if err != nil {
 			return err
 		}

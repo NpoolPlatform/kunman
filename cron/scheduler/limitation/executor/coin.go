@@ -5,18 +5,18 @@ import (
 	"fmt"
 	"time"
 
-	pltfaccmwcli "github.com/NpoolPlatform/kunman/middleware/account/platform"
-	txmwcli "github.com/NpoolPlatform/kunman/middleware/chain/tx"
+	asyncfeed "github.com/NpoolPlatform/kunman/cron/scheduler/base/asyncfeed"
+	types "github.com/NpoolPlatform/kunman/cron/scheduler/limitation/types"
 	timedef "github.com/NpoolPlatform/kunman/framework/const/time"
 	"github.com/NpoolPlatform/kunman/framework/logger"
-	cruder "github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 	pltfaccmwpb "github.com/NpoolPlatform/kunman/message/account/middleware/v1/platform"
 	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	coinmwpb "github.com/NpoolPlatform/kunman/message/chain/middleware/v1/coin"
 	txmwpb "github.com/NpoolPlatform/kunman/message/chain/middleware/v1/tx"
+	pltfaccmw "github.com/NpoolPlatform/kunman/middleware/account/platform"
+	txmw "github.com/NpoolPlatform/kunman/middleware/chain/tx"
+	cruder "github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 	sphinxproxypb "github.com/NpoolPlatform/message/npool/sphinxproxy"
-	asyncfeed "github.com/NpoolPlatform/kunman/cron/scheduler/base/asyncfeed"
-	types "github.com/NpoolPlatform/kunman/cron/scheduler/limitation/types"
 	sphinxproxycli "github.com/NpoolPlatform/sphinx-proxy/pkg/client"
 
 	"github.com/shopspring/decimal"
@@ -33,14 +33,23 @@ type coinHandler struct {
 }
 
 func (h *coinHandler) getPlatformAccount(ctx context.Context, usedFor basetypes.AccountUsedFor) (*pltfaccmwpb.Account, error) {
-	account, err := pltfaccmwcli.GetAccountOnly(ctx, &pltfaccmwpb.Conds{
+	conds := &pltfaccmwpb.Conds{
 		CoinTypeID: &basetypes.StringVal{Op: cruder.EQ, Value: h.EntID},
 		UsedFor:    &basetypes.Uint32Val{Op: cruder.EQ, Value: uint32(usedFor)},
 		Backup:     &basetypes.BoolVal{Op: cruder.EQ, Value: false},
 		Locked:     &basetypes.BoolVal{Op: cruder.EQ, Value: false},
 		Active:     &basetypes.BoolVal{Op: cruder.EQ, Value: true},
 		Blocked:    &basetypes.BoolVal{Op: cruder.EQ, Value: false},
-	})
+	}
+	handler, err := pltfaccmw.NewHandler(
+		ctx,
+		pltfaccmw.WithConds(conds),
+	)
+	if err != nil {
+		return nil, err
+	}
+
+	account, err := handler.GetAccountOnly(ctx)
 	if err != nil {
 		return nil, err
 	}
@@ -81,7 +90,7 @@ func (h *coinHandler) checkBalanceLimitation(ctx context.Context) (bool, error) 
 }
 
 func (h *coinHandler) checkTransferring(ctx context.Context) (bool, error) {
-	txs, _, err := txmwcli.GetTxs(ctx, &txmwpb.Conds{
+	conds := &txmwpb.Conds{
 		CoinTypeID: &basetypes.StringVal{Op: cruder.EQ, Value: h.EntID},
 		AccountIDs: &basetypes.StringSliceVal{Op: cruder.IN, Value: []string{
 			h.userBenefitHotAccount.AccountID,
@@ -96,7 +105,18 @@ func (h *coinHandler) checkTransferring(ctx context.Context) (bool, error) {
 			uint32(basetypes.TxState_TxStateSuccessful),
 		}},
 		Type: &basetypes.Uint32Val{Op: cruder.EQ, Value: uint32(basetypes.TxType_TxLimitation)},
-	}, int32(0), int32(1))
+	}
+	handler, err := txmw.NewHandler(
+		ctx,
+		txmw.WithConds(conds),
+		txmw.WithOffset(0),
+		txmw.WithLimit(1),
+	)
+	if err != nil {
+		return false, err
+	}
+
+	txs, _, err := handler.GetTxs(ctx)
 	if err != nil {
 		return false, err
 	}
