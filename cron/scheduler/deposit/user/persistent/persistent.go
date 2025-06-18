@@ -4,17 +4,12 @@ import (
 	"context"
 	"fmt"
 
-	accountsvcname "github.com/NpoolPlatform/account-middleware/pkg/servicename"
-	ledgersvcname "github.com/NpoolPlatform/kunman/middleware/ledger/servicename"
-	depositaccmwpb "github.com/NpoolPlatform/kunman/message/account/middleware/v1/deposit"
-	ledgertypes "github.com/NpoolPlatform/kunman/message/basetypes/ledger/v1"
-	statementmwpb "github.com/NpoolPlatform/kunman/message/ledger/middleware/v2/ledger/statement"
 	asyncfeed "github.com/NpoolPlatform/kunman/cron/scheduler/base/asyncfeed"
 	basepersistent "github.com/NpoolPlatform/kunman/cron/scheduler/base/persistent"
 	types "github.com/NpoolPlatform/kunman/cron/scheduler/deposit/user/types"
-
-	dtmcli "github.com/NpoolPlatform/dtm-cluster/pkg/dtm"
-	"github.com/dtm-labs/dtm/client/dtmcli/dtmimp"
+	ledgertypes "github.com/NpoolPlatform/kunman/message/basetypes/ledger/v1"
+	depositaccmw "github.com/NpoolPlatform/kunman/middleware/account/deposit"
+	ledgerstatementmw "github.com/NpoolPlatform/kunman/middleware/ledger/ledger/statement"
 
 	"github.com/google/uuid"
 )
@@ -25,48 +20,42 @@ func NewPersistent() basepersistent.Persistenter {
 	return &handler{}
 }
 
-func (p *handler) withUpdateAccount(dispose *dtmcli.SagaDispose, account *types.PersistentAccount) {
-	req := &depositaccmwpb.AccountReq{
-		ID:       &account.ID,
-		Incoming: &account.DepositAmount,
-	}
-	dispose.Add(
-		accountsvcname.ServiceDomain,
-		"account.middleware.deposit.v1.Middleware/AddBalance",
-		"account.middleware.deposit.v1.Middleware/SubBalance",
-		&depositaccmwpb.AddBalanceRequest{
-			Info: req,
-		},
+func (p *handler) withUpdateAccount(ctx context.Context, account *types.PersistentAccount) error {
+	handler, err := depositaccmw.NewHandler(
+		ctx,
+		depositaccmw.WithID(&account.ID, true),
+		depositaccmw.WithIncoming(&account.DepositAmount, true),
 	)
+	if err != nil {
+		return err
+	}
+
+	_, err = handler.AddBalance(ctx)
+	return err
 }
 
-func (p *handler) statement(account *types.PersistentAccount) *statementmwpb.StatementReq {
+func (p *handler) withCreateStatement(ctx context.Context, account *types.PersistentAccount) error {
 	id := uuid.NewString()
 	ioType := ledgertypes.IOType_Incoming
 	ioSubType := ledgertypes.IOSubType_Deposit
 
-	return &statementmwpb.StatementReq{
-		EntID:      &id,
-		AppID:      &account.AppID,
-		UserID:     &account.UserID,
-		CoinTypeID: &account.CoinTypeID,
-		IOType:     &ioType,
-		IOSubType:  &ioSubType,
-		Amount:     &account.DepositAmount,
-		IOExtra:    &account.Extra,
-	}
-}
-
-func (p *handler) withCreateStatement(dispose *dtmcli.SagaDispose, account *types.PersistentAccount) {
-	req := p.statement(account)
-	dispose.Add(
-		ledgersvcname.ServiceDomain,
-		"ledger.middleware.ledger.statement.v2.Middleware/CreateStatement",
-		"",
-		&statementmwpb.CreateStatementRequest{
-			Info: req,
-		},
+	handler, err := ledgerstatementmw.NewHandler(
+		ctx,
+		ledgerstatementmw.WithEntID(&id, true),
+		ledgerstatementmw.WithAppID(&account.AppID, true),
+		ledgerstatementmw.WithUserID(&account.UserID, true),
+		ledgerstatementmw.WithCoinTypeID(&account.CoinTypeID, true),
+		ledgerstatementmw.WithIOType(&ioType, true),
+		ledgerstatementmw.WithIOSubType(&ioSubType, true),
+		ledgerstatementmw.WithAmount(&account.DepositAmount, true),
+		ledgerstatementmw.WithIOExtra(&account.Extra, true),
 	)
+	if err != nil {
+		return err
+	}
+
+	_, err = handler.CreateStatement(ctx)
+	return err
 }
 
 func (p *handler) Update(ctx context.Context, account interface{}, reward, notif, done chan interface{}) error {
@@ -77,14 +66,10 @@ func (p *handler) Update(ctx context.Context, account interface{}, reward, notif
 
 	defer asyncfeed.AsyncFeed(ctx, _account, reward)
 
-	const timeoutSeconds = 10
-	sagaDispose := dtmcli.NewSagaDispose(dtmimp.TransOptions{
-		WaitResult:     true,
-		RequestTimeout: timeoutSeconds,
-	})
-	p.withUpdateAccount(sagaDispose, _account)
-	p.withCreateStatement(sagaDispose, _account)
-	if err := dtmcli.WithSaga(ctx, sagaDispose); err != nil {
+	if err := p.withUpdateAccount(ctx, _account); err != nil {
+		return err
+	}
+	if err := p.withCreateStatement(ctx, _account); err != nil {
 		return err
 	}
 

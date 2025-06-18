@@ -4,14 +4,14 @@ import (
 	"context"
 	"time"
 
-	depositaccmwcli "github.com/NpoolPlatform/kunman/middleware/account/deposit"
-	cruder "github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
-	depositaccmwpb "github.com/NpoolPlatform/kunman/message/account/middleware/v1/deposit"
-	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	cancelablefeed "github.com/NpoolPlatform/kunman/cron/scheduler/base/cancelablefeed"
 	basesentinel "github.com/NpoolPlatform/kunman/cron/scheduler/base/sentinel"
-	constant "github.com/NpoolPlatform/kunman/pkg/const"
 	types "github.com/NpoolPlatform/kunman/cron/scheduler/deposit/user/types"
+	depositaccmwpb "github.com/NpoolPlatform/kunman/message/account/middleware/v1/deposit"
+	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
+	depositaccmw "github.com/NpoolPlatform/kunman/middleware/account/deposit"
+	constant "github.com/NpoolPlatform/kunman/pkg/const"
+	cruder "github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 )
 
 type handler struct{}
@@ -26,11 +26,23 @@ func (h *handler) Scan(ctx context.Context, exec chan interface{}) error {
 	offset := int32(0)
 	limit := constant.DefaultRowLimit
 
+	conds := &depositaccmwpb.Conds{
+		Locked:      &basetypes.BoolVal{Op: cruder.EQ, Value: false},
+		ScannableAt: &basetypes.Uint32Val{Op: cruder.LT, Value: uint32(time.Now().Unix())},
+	}
+
 	for {
-		accounts, _, err := depositaccmwcli.GetAccounts(ctx, &depositaccmwpb.Conds{
-			Locked:      &basetypes.BoolVal{Op: cruder.EQ, Value: false},
-			ScannableAt: &basetypes.Uint32Val{Op: cruder.LT, Value: uint32(time.Now().Unix())},
-		}, offset, limit)
+		handler, err := depositaccmw.NewHandler(
+			ctx,
+			depositaccmw.WithConds(conds),
+			depositaccmw.WithOffset(offset),
+			depositaccmw.WithLimit(limit),
+		)
+		if err != nil {
+			return err
+		}
+
+		accounts, _, err := handler.GetAccounts(ctx)
 		if err != nil {
 			return err
 		}

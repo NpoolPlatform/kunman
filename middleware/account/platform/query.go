@@ -6,14 +6,14 @@ import (
 
 	"entgo.io/ent/dialect/sql"
 
+	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
+	npool "github.com/NpoolPlatform/kunman/message/account/middleware/v1/platform"
+	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
+	platformcrud "github.com/NpoolPlatform/kunman/middleware/account/crud/platform"
 	"github.com/NpoolPlatform/kunman/middleware/account/db"
 	ent "github.com/NpoolPlatform/kunman/middleware/account/db/ent/generated"
 	entaccount "github.com/NpoolPlatform/kunman/middleware/account/db/ent/generated/account"
 	entplatform "github.com/NpoolPlatform/kunman/middleware/account/db/ent/generated/platform"
-
-	npool "github.com/NpoolPlatform/kunman/message/account/middleware/v1/platform"
-	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
-	platformcrud "github.com/NpoolPlatform/kunman/middleware/account/crud/platform"
 
 	"github.com/google/uuid"
 )
@@ -267,4 +267,42 @@ func (h *Handler) GetAccounts(ctx context.Context) ([]*npool.Account, uint32, er
 	handler.formalize()
 
 	return handler.infos, handler.total, nil
+}
+
+func (h *Handler) GetAccountOnly(ctx context.Context) (*npool.Account, error) {
+	handler := &queryHandler{
+		Handler: h,
+	}
+
+	var err error
+	err = db.WithClient(ctx, func(_ctx context.Context, cli *ent.Client) error {
+		handler.stmSelect, err = handler.queryAccounts(cli)
+		if err != nil {
+			return err
+		}
+
+		if err := handler.queryJoin(); err != nil {
+			return err
+		}
+
+		handler.stmSelect.
+			Offset(0).
+			Limit(2).
+			Order(ent.Desc(entplatform.FieldCreatedAt))
+
+		return handler.scan(_ctx)
+	})
+	if err != nil {
+		return nil, err
+	}
+	if len(handler.infos) > 1 {
+		return nil, wlog.Errorf("invalid account")
+	}
+	if len(handler.infos) == 0 {
+		return nil, nil
+	}
+
+	handler.formalize()
+
+	return handler.infos[0], nil
 }

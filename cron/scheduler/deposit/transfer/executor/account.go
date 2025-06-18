@@ -4,19 +4,18 @@ import (
 	"context"
 	"fmt"
 
-	depositaccmwcli "github.com/NpoolPlatform/kunman/middleware/account/deposit"
-	pltfaccmwcli "github.com/NpoolPlatform/kunman/middleware/account/platform"
-	accountlock "github.com/NpoolPlatform/account-middleware/pkg/lock"
-	coinmwcli "github.com/NpoolPlatform/kunman/middleware/chain/coin"
+	asyncfeed "github.com/NpoolPlatform/kunman/cron/scheduler/base/asyncfeed"
+	types "github.com/NpoolPlatform/kunman/cron/scheduler/deposit/transfer/types"
 	"github.com/NpoolPlatform/kunman/framework/logger"
-	cruder "github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 	depositaccmwpb "github.com/NpoolPlatform/kunman/message/account/middleware/v1/deposit"
 	pltfaccmwpb "github.com/NpoolPlatform/kunman/message/account/middleware/v1/platform"
 	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	coinmwpb "github.com/NpoolPlatform/kunman/message/chain/middleware/v1/coin"
+	depositaccmw "github.com/NpoolPlatform/kunman/middleware/account/deposit"
+	pltfaccmw "github.com/NpoolPlatform/kunman/middleware/account/platform"
+	coinmw "github.com/NpoolPlatform/kunman/middleware/chain/coin"
+	cruder "github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 	sphinxproxypb "github.com/NpoolPlatform/message/npool/sphinxproxy"
-	asyncfeed "github.com/NpoolPlatform/kunman/cron/scheduler/base/asyncfeed"
-	types "github.com/NpoolPlatform/kunman/cron/scheduler/deposit/transfer/types"
 	sphinxproxycli "github.com/NpoolPlatform/sphinx-proxy/pkg/client"
 
 	"github.com/shopspring/decimal"
@@ -35,7 +34,15 @@ type accountHandler struct {
 }
 
 func (h *accountHandler) getCoin(ctx context.Context) error {
-	coin, err := coinmwcli.GetCoin(ctx, h.CoinTypeID)
+	handler, err := coinmw.NewHandler(
+		ctx,
+		coinmw.WithEntID(&h.CoinTypeID, true),
+	)
+	if err != nil {
+		return err
+	}
+
+	coin, err := handler.GetCoin(ctx)
 	if err != nil {
 		return err
 	}
@@ -47,7 +54,15 @@ func (h *accountHandler) getCoin(ctx context.Context) error {
 }
 
 func (h *accountHandler) recheckAccountLock(ctx context.Context) (bool, error) {
-	account, err := depositaccmwcli.GetAccount(ctx, h.EntID)
+	handler, err := depositaccmw.NewHandler(
+		ctx,
+		depositaccmw.WithEntID(&h.EntID, true),
+	)
+	if err != nil {
+		return false, err
+	}
+
+	account, err := handler.GetAccount(ctx)
 	if err != nil {
 		return false, err
 	}
@@ -92,14 +107,23 @@ func (h *accountHandler) checkBalance(ctx context.Context) error {
 }
 
 func (h *accountHandler) getCollectAccount(ctx context.Context) error {
-	account, err := pltfaccmwcli.GetAccountOnly(ctx, &pltfaccmwpb.Conds{
+	conds := &pltfaccmwpb.Conds{
 		CoinTypeID: &basetypes.StringVal{Op: cruder.EQ, Value: h.coin.EntID},
 		UsedFor:    &basetypes.Uint32Val{Op: cruder.EQ, Value: uint32(basetypes.AccountUsedFor_PaymentCollector)},
 		Backup:     &basetypes.BoolVal{Op: cruder.EQ, Value: false},
 		Active:     &basetypes.BoolVal{Op: cruder.EQ, Value: true},
 		Locked:     &basetypes.BoolVal{Op: cruder.EQ, Value: false},
 		Blocked:    &basetypes.BoolVal{Op: cruder.EQ, Value: false},
-	})
+	}
+	handler, err := pltfaccmw.NewHandler(
+		ctx,
+		pltfaccmw.WithConds(conds),
+	)
+	if err != nil {
+		return err
+	}
+
+	account, err := handler.GetAccountOnly(ctx)
 	if err != nil {
 		return err
 	}
@@ -218,12 +242,6 @@ func (h *accountHandler) exec(ctx context.Context) error {
 	if err = h.checkAccountCoin(); err != nil {
 		return err
 	}
-	if err = accountlock.Lock(h.AccountID); err != nil {
-		return err
-	}
-	defer func() {
-		_ = accountlock.Unlock(h.AccountID) //nolint
-	}()
 	if locked, err = h.recheckAccountLock(ctx); err != nil || locked {
 		return err
 	}

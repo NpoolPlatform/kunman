@@ -4,15 +4,12 @@ import (
 	"context"
 	"fmt"
 
-	depositaccmwcli "github.com/NpoolPlatform/kunman/middleware/account/deposit"
-	accountlock "github.com/NpoolPlatform/account-middleware/pkg/lock"
-	txmwcli "github.com/NpoolPlatform/kunman/middleware/chain/tx"
-	depositaccmwpb "github.com/NpoolPlatform/kunman/message/account/middleware/v1/deposit"
-	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
-	txmwpb "github.com/NpoolPlatform/kunman/message/chain/middleware/v1/tx"
 	asyncfeed "github.com/NpoolPlatform/kunman/cron/scheduler/base/asyncfeed"
 	basepersistent "github.com/NpoolPlatform/kunman/cron/scheduler/base/persistent"
 	types "github.com/NpoolPlatform/kunman/cron/scheduler/deposit/transfer/types"
+	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
+	depositaccmw "github.com/NpoolPlatform/kunman/middleware/account/deposit"
+	txmw "github.com/NpoolPlatform/kunman/middleware/chain/tx"
 
 	"github.com/google/uuid"
 )
@@ -37,41 +34,50 @@ func (p *handler) Update(ctx context.Context, account interface{}, reward, notif
 		_account.CollectingTIDCandidate = &collectingTID
 	}
 
-	if err := accountlock.Lock(_account.DepositAccountID); err != nil {
-		return err
-	}
-	defer func() {
-		_ = accountlock.Unlock(_account.DepositAccountID) //nolint
-	}()
-
 	locked := true
 	lockedBy := basetypes.AccountLockedBy_Collecting
 
-	if _, err := depositaccmwcli.UpdateAccount(ctx, &depositaccmwpb.AccountReq{
-		ID:            &_account.ID,
-		AppID:         &_account.AppID,
-		UserID:        &_account.UserID,
-		CoinTypeID:    &_account.CoinTypeID,
-		AccountID:     &_account.DepositAccountID,
-		Locked:        &locked,
-		LockedBy:      &lockedBy,
-		CollectingTID: _account.CollectingTIDCandidate,
-	}); err != nil {
+	depositHandler, err := depositaccmw.NewHandler(
+		ctx,
+		depositaccmw.WithID(&_account.ID, true),
+		depositaccmw.WithAppID(&_account.AppID, true),
+		depositaccmw.WithUserID(&_account.UserID, true),
+		depositaccmw.WithCoinTypeID(&_account.CoinTypeID, true),
+		depositaccmw.WithAccountID(&_account.DepositAccountID, true),
+		depositaccmw.WithLocked(&locked, true),
+		depositaccmw.WithLockedBy(&lockedBy, true),
+		depositaccmw.WithCollectingTID(_account.CollectingTIDCandidate, true),
+	)
+	if err != nil {
 		return err
 	}
 
-	extra := fmt.Sprintf(`{"AppID":"%v","UserID":"%v","FromAddress":"%v","ToAddress":"%v"}`, _account.AppID, _account.UserID, _account.DepositAddress, _account.CollectAddress)
+	if _, err := depositHandler.UpdateAccount(ctx); err != nil {
+		return err
+	}
+
+	extra := fmt.Sprintf(
+		`{"AppID":"%v","UserID":"%v","FromAddress":"%v","ToAddress":"%v"}`,
+		_account.AppID,
+		_account.UserID,
+		_account.DepositAddress,
+		_account.CollectAddress,
+	)
 	txType := basetypes.TxType_TxPaymentCollect
-	if _, err := txmwcli.CreateTx(ctx, &txmwpb.TxReq{
-		EntID:         _account.CollectingTIDCandidate,
-		CoinTypeID:    &_account.CoinTypeID,
-		FromAccountID: &_account.DepositAccountID,
-		ToAccountID:   &_account.CollectAccountID,
-		Amount:        &_account.CollectAmount,
-		FeeAmount:     &_account.FeeAmount,
-		Extra:         &extra,
-		Type:          &txType,
-	}); err != nil {
+
+	txHandler, err := txmw.NewHandler(
+		ctx,
+		txmw.WithEntID(_account.CollectingTIDCandidate, true),
+		txmw.WithCoinTypeID(&_account.CoinTypeID, true),
+		txmw.WithFromAccountID(&_account.DepositAccountID, true),
+		txmw.WithToAccountID(&_account.CollectAccountID, true),
+		txmw.WithAmount(&_account.CollectAmount, true),
+		txmw.WithFeeAmount(&_account.FeeAmount, true),
+		txmw.WithExtra(&extra, true),
+		txmw.WithType(&txType, true),
+	)
+
+	if _, err := txHandler.CreateTx(ctx); err != nil {
 		return err
 	}
 
