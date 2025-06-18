@@ -272,3 +272,33 @@ func (h *Handler) GetCoins(ctx context.Context) ([]*npool.Coin, uint32, error) {
 	handler.formalize()
 	return handler.infos, handler.total, nil
 }
+
+func (h *Handler) GetCoinOnly(ctx context.Context) (*npool.Coin, error) {
+	handler := &queryHandler{
+		Handler: h,
+	}
+
+	err := db.WithClient(ctx, func(_ctx context.Context, cli *ent.Client) error {
+		if err := handler.queryAppCoins(_ctx, cli); err != nil {
+			return err
+		}
+		handler.queryJoin()
+		handler.stm.
+			Order(ent.Asc(entappcoin.FieldDisplayIndex)).
+			Offset(0).
+			Limit(2)
+		return handler.scan(ctx)
+	})
+	if err != nil {
+		return nil, err
+	}
+	if len(handler.infos) > 1 {
+		return nil, fmt.Errorf("invalid coin")
+	}
+	if len(handler.infos) == 0 {
+		return nil, nil
+	}
+
+	handler.formalize()
+	return handler.infos[0], nil
+}

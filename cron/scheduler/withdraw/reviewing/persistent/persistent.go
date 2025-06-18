@@ -10,7 +10,7 @@ import (
 	asyncfeed "github.com/NpoolPlatform/kunman/cron/scheduler/base/asyncfeed"
 	basepersistent "github.com/NpoolPlatform/kunman/cron/scheduler/base/persistent"
 	types "github.com/NpoolPlatform/kunman/cron/scheduler/withdraw/reviewing/types"
-	reviewmwcli "github.com/NpoolPlatform/review-middleware/pkg/client/review"
+	reviewmwcli "github.com/NpoolPlatform/kunman/middleware/review/review"
 )
 
 type handler struct{}

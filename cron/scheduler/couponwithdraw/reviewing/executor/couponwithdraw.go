@@ -4,16 +4,16 @@ import (
 	"context"
 	"fmt"
 
-	appcoinmwcli "github.com/NpoolPlatform/kunman/middleware/chain/app/coin"
-	"github.com/NpoolPlatform/kunman/framework/logger"
-	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
-	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
-	appcoinmwpb "github.com/NpoolPlatform/kunman/message/chain/middleware/v1/app/coin"
 	"github.com/NpoolPlatform/kunman/cron/scheduler/base/asyncfeed"
 	types "github.com/NpoolPlatform/kunman/cron/scheduler/couponwithdraw/reviewing/types"
+	"github.com/NpoolPlatform/kunman/framework/logger"
+	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
+	appcoinmwpb "github.com/NpoolPlatform/kunman/message/chain/middleware/v1/app/coin"
+	appcoinmw "github.com/NpoolPlatform/kunman/middleware/chain/app/coin"
+	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 
 	couponwithdrawmwpb "github.com/NpoolPlatform/kunman/message/ledger/middleware/v2/withdraw/coupon"
-	reviewmwcli "github.com/NpoolPlatform/review-middleware/pkg/client/review"
+	reviewmw "github.com/NpoolPlatform/kunman/middleware/review/review"
 	"github.com/google/uuid"
 )
 
@@ -28,7 +28,16 @@ func (h *couponwithdrawHandler) checkCouponWithdrawReview(ctx context.Context) e
 	if _, err := uuid.Parse(h.ReviewID); err != nil {
 		return err
 	}
-	review, err := reviewmwcli.GetReview(ctx, h.ReviewID)
+
+	handler, err := reviewmw.NewHandler(
+		ctx,
+		reviewmw.WithEntID(&h.ReviewID, true),
+	)
+	if err != nil {
+		return err
+	}
+
+	review, err := handler.GetReview(ctx)
 	if err != nil {
 		return err
 	}
@@ -45,10 +54,19 @@ func (h *couponwithdrawHandler) checkCouponWithdrawReview(ctx context.Context) e
 }
 
 func (h *couponwithdrawHandler) checkAppCoin(ctx context.Context) error {
-	coin, err := appcoinmwcli.GetCoinOnly(ctx, &appcoinmwpb.Conds{
+	conds := &appcoinmwpb.Conds{
 		AppID:      &basetypes.StringVal{Op: cruder.EQ, Value: h.AppID},
 		CoinTypeID: &basetypes.StringVal{Op: cruder.EQ, Value: h.CoinTypeID},
-	})
+	}
+	handler, err := appcoinmw.NewHandler(
+		ctx,
+		appcoinmw.WithConds(conds),
+	)
+	if err != nil {
+		return err
+	}
+
+	coin, err := handler.GetCoinOnly(ctx)
 	if err != nil {
 		return err
 	}

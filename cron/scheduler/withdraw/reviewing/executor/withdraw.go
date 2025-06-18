@@ -21,7 +21,7 @@ import (
 	sphinxproxypb "github.com/NpoolPlatform/message/npool/sphinxproxy"
 	asyncfeed "github.com/NpoolPlatform/kunman/cron/scheduler/base/asyncfeed"
 	types "github.com/NpoolPlatform/kunman/cron/scheduler/withdraw/reviewing/types"
-	reviewmwcli "github.com/NpoolPlatform/review-middleware/pkg/client/review"
+	reviewmwcli "github.com/NpoolPlatform/kunman/middleware/review/review"
 	sphinxproxycli "github.com/NpoolPlatform/sphinx-proxy/pkg/client"
 
 	"github.com/google/uuid"

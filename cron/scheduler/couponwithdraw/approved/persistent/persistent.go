@@ -6,7 +6,7 @@ import (
 
 	allocatedmwpb "github.com/NpoolPlatform/kunman/message/inspire/middleware/v1/coupon/allocated"
 
-	allocatedmwcli "github.com/NpoolPlatform/inspire-middleware/pkg/client/coupon/allocated"
+	allocatedmwcli "github.com/NpoolPlatform/kunman/middleware/inspire/coupon/allocated"
 	"github.com/NpoolPlatform/kunman/cron/scheduler/base/asyncfeed"
 	basepersistent "github.com/NpoolPlatform/kunman/cron/scheduler/base/persistent"
 	"github.com/NpoolPlatform/kunman/cron/scheduler/couponwithdraw/approved/types"

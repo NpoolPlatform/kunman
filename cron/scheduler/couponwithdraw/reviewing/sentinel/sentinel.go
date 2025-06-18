@@ -3,15 +3,15 @@ package sentinel
 import (
 	"context"
 
-	couponwithdrawmwcli "github.com/NpoolPlatform/kunman/middleware/ledger/withdraw/coupon"
-	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
+	"github.com/NpoolPlatform/kunman/cron/scheduler/base/cancelablefeed"
+	basesentinel "github.com/NpoolPlatform/kunman/cron/scheduler/base/sentinel"
+	types "github.com/NpoolPlatform/kunman/cron/scheduler/couponwithdraw/reviewing/types"
 	ledgertypes "github.com/NpoolPlatform/kunman/message/basetypes/ledger/v1"
 	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	couponwithdrawmwpb "github.com/NpoolPlatform/kunman/message/ledger/middleware/v2/withdraw/coupon"
-	"github.com/NpoolPlatform/kunman/cron/scheduler/base/cancelablefeed"
-	basesentinel "github.com/NpoolPlatform/kunman/cron/scheduler/base/sentinel"
+	couponwithdrawmw "github.com/NpoolPlatform/kunman/middleware/ledger/withdraw/coupon"
 	constant "github.com/NpoolPlatform/kunman/pkg/const"
-	types "github.com/NpoolPlatform/kunman/cron/scheduler/couponwithdraw/reviewing/types"
+	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 )
 
 type handler struct{}
@@ -23,10 +23,23 @@ func NewSentinel() basesentinel.Scanner {
 func (h *handler) Scan(ctx context.Context, exec chan interface{}) error {
 	offset := int32(0)
 	limit := constant.DefaultRowLimit
+
+	conds := &couponwithdrawmwpb.Conds{
+		State: &basetypes.Uint32Val{Op: cruder.EQ, Value: uint32(ledgertypes.WithdrawState_Reviewing)},
+	}
+
 	for {
-		couponwithdraws, _, err := couponwithdrawmwcli.GetCouponWithdraws(ctx, &couponwithdrawmwpb.Conds{
-			State: &basetypes.Uint32Val{Op: cruder.EQ, Value: uint32(ledgertypes.WithdrawState_Reviewing)},
-		}, offset, limit)
+		handler, err := couponwithdrawmw.NewHandler(
+			ctx,
+			couponwithdrawmw.WithConds(conds),
+			couponwithdrawmw.WithOffset(offset),
+			couponwithdrawmw.WithLimit(limit),
+		)
+		if err != nil {
+			return err
+		}
+
+		couponwithdraws, _, err := handler.GetCouponWithdraws(ctx)
 		if err != nil {
 			return err
 		}

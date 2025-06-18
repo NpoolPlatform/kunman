@@ -6,15 +6,13 @@ import (
 
 	ledgertypes "github.com/NpoolPlatform/kunman/message/basetypes/ledger/v1"
 	reviewtypes "github.com/NpoolPlatform/kunman/message/basetypes/review/v1"
-	allocatedmwpb "github.com/NpoolPlatform/kunman/message/inspire/middleware/v1/coupon/allocated"
-	reviewmwcli "github.com/NpoolPlatform/review-middleware/pkg/client/review"
+	reviewmw "github.com/NpoolPlatform/kunman/middleware/review/review"
 
-	allocatedmwcli "github.com/NpoolPlatform/inspire-middleware/pkg/client/coupon/allocated"
-	couponwithdrawmwcli "github.com/NpoolPlatform/kunman/middleware/ledger/withdraw/coupon"
-	couponwithdrawmwpb "github.com/NpoolPlatform/kunman/message/ledger/middleware/v2/withdraw/coupon"
 	"github.com/NpoolPlatform/kunman/cron/scheduler/base/asyncfeed"
 	basepersistent "github.com/NpoolPlatform/kunman/cron/scheduler/base/persistent"
 	"github.com/NpoolPlatform/kunman/cron/scheduler/couponwithdraw/reviewing/types"
+	allocatedmw "github.com/NpoolPlatform/kunman/middleware/inspire/coupon/allocated"
+	couponwithdrawmw "github.com/NpoolPlatform/kunman/middleware/ledger/withdraw/coupon"
 )
 
 type handler struct{}
@@ -31,7 +29,15 @@ func (p *handler) Update(ctx context.Context, couponwithdraw interface{}, reward
 
 	defer asyncfeed.AsyncFeed(ctx, _couponwithdraw, done)
 
-	review, err := reviewmwcli.GetReview(ctx, _couponwithdraw.ReviewID)
+	reviewHandler, err := reviewmw.NewHandler(
+		ctx,
+		reviewmw.WithEntID(&_couponwithdraw.ReviewID, true),
+	)
+	if err != nil {
+		return err
+	}
+
+	review, err := reviewHandler.GetReview(ctx)
 	if err != nil {
 		return err
 	}
@@ -48,17 +54,33 @@ func (p *handler) Update(ctx context.Context, couponwithdraw interface{}, reward
 	default:
 		return nil
 	}
-	if _, err := couponwithdrawmwcli.UpdateCouponWithdraw(ctx, &couponwithdrawmwpb.CouponWithdrawReq{
-		ID:    &_couponwithdraw.ID,
-		State: &state,
-	}); err != nil {
+
+	couponHandler, err := couponwithdrawmw.NewHandler(
+		ctx,
+		couponwithdrawmw.WithID(&_couponwithdraw.ID, true),
+		couponwithdrawmw.WithState(&state, true),
+	)
+	if err != nil {
+		return err
+	}
+
+	if _, err := couponHandler.UpdateCouponWithdraw(ctx); err != nil {
 		return err
 	}
 
 	if state != ledgertypes.WithdrawState_Approved {
 		return nil
 	}
-	coupon, err := allocatedmwcli.GetCoupon(ctx, _couponwithdraw.AllocatedID)
+
+	allocatedHandler, err := allocatedmw.NewHandler(
+		ctx,
+		allocatedmw.WithEntID(&_couponwithdraw.AllocatedID, true),
+	)
+	if err != nil {
+		return err
+	}
+
+	coupon, err := allocatedHandler.GetCoupon(ctx)
 	if err != nil {
 		return err
 	}
@@ -69,11 +91,18 @@ func (p *handler) Update(ctx context.Context, couponwithdraw interface{}, reward
 		return fmt.Errorf("coupon already used")
 	}
 	used := true
-	if _, err := allocatedmwcli.UpdateCoupon(ctx, &allocatedmwpb.CouponReq{
-		ID:            &coupon.ID,
-		Used:          &used,
-		UsedByOrderID: &_couponwithdraw.EntID,
-	}); err != nil {
+
+	allocatedHandler, err = allocatedmw.NewHandler(
+		ctx,
+		allocatedmw.WithID(&coupon.ID, true),
+		allocatedmw.WithUsed(&used, true),
+		allocatedmw.WithUsedByOrderID(&_couponwithdraw.EntID, true),
+	)
+	if err != nil {
+		return err
+	}
+
+	if err := allocatedHandler.UpdateCoupon(ctx); err != nil {
 		return err
 	}
 	return nil

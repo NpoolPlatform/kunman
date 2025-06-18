@@ -13,7 +13,7 @@ import (
 	types "github.com/NpoolPlatform/kunman/cron/scheduler/couponwithdraw/approved/types"
 
 	couponwithdrawmwpb "github.com/NpoolPlatform/kunman/message/ledger/middleware/v2/withdraw/coupon"
-	reviewmwcli "github.com/NpoolPlatform/review-middleware/pkg/client/review"
+	reviewmwcli "github.com/NpoolPlatform/kunman/middleware/review/review"
 	"github.com/google/uuid"
 )
 
