@@ -4,16 +4,16 @@ import (
 	"context"
 	"time"
 
+	cancelablefeed "github.com/NpoolPlatform/kunman/cron/scheduler/base/cancelablefeed"
+	basesentinel "github.com/NpoolPlatform/kunman/cron/scheduler/base/sentinel"
+	types "github.com/NpoolPlatform/kunman/cron/scheduler/order/fee/created/types"
 	timedef "github.com/NpoolPlatform/kunman/framework/const/time"
-	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 	ordertypes "github.com/NpoolPlatform/kunman/message/basetypes/order/v1"
 	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	feeordermwpb "github.com/NpoolPlatform/kunman/message/order/middleware/v1/fee"
-	cancelablefeed "github.com/NpoolPlatform/kunman/cron/scheduler/base/cancelablefeed"
-	basesentinel "github.com/NpoolPlatform/kunman/cron/scheduler/base/sentinel"
+	feeordermw "github.com/NpoolPlatform/kunman/middleware/order/fee"
 	constant "github.com/NpoolPlatform/kunman/pkg/const"
-	types "github.com/NpoolPlatform/kunman/cron/scheduler/order/fee/created/types"
-	feeordermwcli "github.com/NpoolPlatform/kunman/middleware/order/fee"
+	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 )
 
 type handler struct{}
@@ -26,22 +26,34 @@ func (h *handler) scanFeeOrders(ctx context.Context, state ordertypes.OrderState
 	offset := int32(0)
 	limit := constant.DefaultRowLimit
 
-	for {
-		createdAt := uint32(time.Now().Unix()) - timedef.SecondsPerMinute
-		orders, _, err := feeordermwcli.GetFeeOrders(ctx, &feeordermwpb.Conds{
-			OrderState: &basetypes.Uint32Val{Op: cruder.EQ, Value: uint32(state)},
-			CreatedAt:  &basetypes.Uint32Val{Op: cruder.LT, Value: createdAt},
-			PaymentTypes: &basetypes.Uint32SliceVal{
-				Op: cruder.IN,
-				Value: []uint32{
-					uint32(ordertypes.PaymentType_PayWithBalanceOnly),
-					uint32(ordertypes.PaymentType_PayWithTransferOnly),
-					uint32(ordertypes.PaymentType_PayWithTransferAndBalance),
-					uint32(ordertypes.PaymentType_PayWithOffline),
-					uint32(ordertypes.PaymentType_PayWithNoPayment),
-				},
+	createdAt := uint32(time.Now().Unix()) - timedef.SecondsPerMinute
+	conds := &feeordermwpb.Conds{
+		OrderState: &basetypes.Uint32Val{Op: cruder.EQ, Value: uint32(state)},
+		CreatedAt:  &basetypes.Uint32Val{Op: cruder.LT, Value: createdAt},
+		PaymentTypes: &basetypes.Uint32SliceVal{
+			Op: cruder.IN,
+			Value: []uint32{
+				uint32(ordertypes.PaymentType_PayWithBalanceOnly),
+				uint32(ordertypes.PaymentType_PayWithTransferOnly),
+				uint32(ordertypes.PaymentType_PayWithTransferAndBalance),
+				uint32(ordertypes.PaymentType_PayWithOffline),
+				uint32(ordertypes.PaymentType_PayWithNoPayment),
 			},
-		}, offset, limit)
+		},
+	}
+
+	for {
+		handler, err := feeordermw.NewHandler(
+			ctx,
+			feeordermw.WithConds(conds),
+			feeordermw.WithOffset(offset),
+			feeordermw.WithLimit(limit),
+		)
+		if err != nil {
+			return err
+		}
+
+		orders, _, err := handler.GetFeeOrders(ctx)
 		if err != nil {
 			return err
 		}
