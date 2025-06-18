@@ -7,11 +7,11 @@ import (
 
 	depositaccmwcli "github.com/NpoolPlatform/account-middleware/pkg/client/deposit"
 	accountlock "github.com/NpoolPlatform/account-middleware/pkg/lock"
-	coinmwcli "github.com/NpoolPlatform/chain-middleware/pkg/client/coin"
+	coinmwcli "github.com/NpoolPlatform/kunman/middleware/chain/coin"
 	"github.com/NpoolPlatform/kunman/framework/logger"
 	depositaccmwpb "github.com/NpoolPlatform/kunman/message/account/middleware/v1/deposit"
 	coinmwpb "github.com/NpoolPlatform/kunman/message/chain/middleware/v1/coin"
-	sphinxproxypb "github.com/NpoolPlatform/kunman/message/sphinxproxy"
+	sphinxproxypb "github.com/NpoolPlatform/message/npool/sphinxproxy"
 	asyncfeed "github.com/NpoolPlatform/kunman/cron/scheduler/base/asyncfeed"
 	types "github.com/NpoolPlatform/kunman/cron/scheduler/deposit/user/types"
 	sphinxproxycli "github.com/NpoolPlatform/sphinx-proxy/pkg/client"

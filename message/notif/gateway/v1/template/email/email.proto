@@ -1,0 +1,159 @@
+syntax = "proto3";
+
+package notif.gateway.template.email.v1;
+
+option go_package = "github.com/NpoolPlatform/kunman/message/notif/gateway/v1/template/email";
+
+import "google/api/annotations.proto";
+import "notif/middleware/v1/template/email/email.proto";
+import "basetypes/v1/usedfor.proto";
+
+service Gateway {
+  rpc CreateEmailTemplate(CreateEmailTemplateRequest)
+      returns (CreateEmailTemplateResponse) {
+    option (google.api.http) = {
+      post : "/v1/create/emailtemplate"
+      body : "*"
+    };
+  }
+
+  rpc CreateAppEmailTemplate(CreateAppEmailTemplateRequest)
+      returns (CreateAppEmailTemplateResponse) {
+    option (google.api.http) = {
+      post : "/v1/create/app/emailtemplate"
+      body : "*"
+    };
+  }
+
+  rpc GetEmailTemplate(GetEmailTemplateRequest)
+      returns (GetEmailTemplateResponse) {
+    option (google.api.http) = {
+      post : "/v1/get/emailtemplate"
+      body : "*"
+    };
+  }
+
+  rpc GetEmailTemplates(GetEmailTemplatesRequest)
+      returns (GetEmailTemplatesResponse) {
+    option (google.api.http) = {
+      post : "/v1/get/emailtemplates"
+      body : "*"
+    };
+  }
+
+  rpc GetAppEmailTemplates(GetAppEmailTemplatesRequest)
+      returns (GetAppEmailTemplatesResponse) {
+    option (google.api.http) = {
+      post : "/v1/get/app/emailtemplates"
+      body : "*"
+    };
+  }
+
+  rpc UpdateEmailTemplate(UpdateEmailTemplateRequest)
+      returns (UpdateEmailTemplateResponse) {
+    option (google.api.http) = {
+      post : "/v1/update/emailtemplate"
+      body : "*"
+    };
+  }
+
+  rpc UpdateAppEmailTemplate(UpdateAppEmailTemplateRequest)
+      returns (UpdateAppEmailTemplateResponse) {
+    option (google.api.http) = {
+      post : "/v1/update/app/emailtemplate"
+      body : "*"
+    };
+  }
+}
+
+message CreateEmailTemplateRequest {
+  string AppID = 10;
+  string TargetLangID = 20;
+  basetypes.v1.UsedFor UsedFor = 30;
+  string Sender = 40;
+  repeated string ReplyTos = 50;
+  repeated string CCTos = 60;
+  string Subject = 70;
+  string Body = 80;
+  string DefaultToUsername = 90;
+}
+
+message CreateEmailTemplateResponse {
+  notif.middleware.template.email.v1.EmailTemplate Info = 10;
+}
+
+message CreateAppEmailTemplateRequest {
+  string TargetAppID = 10;
+  string TargetLangID = 20;
+  basetypes.v1.UsedFor UsedFor = 30;
+  string Sender = 40;
+  repeated string ReplyTos = 50;
+  repeated string CCTos = 60;
+  string Subject = 70;
+  string Body = 80;
+  string DefaultToUsername = 90;
+}
+
+message CreateAppEmailTemplateResponse {
+  notif.middleware.template.email.v1.EmailTemplate Info = 10;
+}
+
+message GetEmailTemplateRequest { string EntID = 10; }
+
+message GetEmailTemplateResponse {
+  notif.middleware.template.email.v1.EmailTemplate Info = 10;
+}
+
+message GetEmailTemplatesRequest {
+  string AppID = 10;
+  int32 Offset = 20;
+  int32 Limit = 30;
+}
+
+message GetEmailTemplatesResponse {
+  repeated notif.middleware.template.email.v1.EmailTemplate Infos = 10;
+  uint32 Total = 20;
+}
+
+message GetAppEmailTemplatesRequest {
+  string TargetAppID = 10;
+  int32 Offset = 20;
+  int32 Limit = 30;
+}
+
+message GetAppEmailTemplatesResponse {
+  repeated notif.middleware.template.email.v1.EmailTemplate Infos = 10;
+  uint32 Total = 20;
+}
+
+message UpdateEmailTemplateRequest {
+  uint32 ID = 10;
+  string EntID = 11;
+  string AppID = 20;
+  optional string Sender = 30;
+  repeated string ReplyTos = 40;
+  repeated string CCTos = 50;
+  optional string Subject = 60;
+  optional string Body = 70;
+  optional string DefaultToUsername = 80;
+}
+
+message UpdateEmailTemplateResponse {
+  notif.middleware.template.email.v1.EmailTemplate Info = 10;
+}
+
+message UpdateAppEmailTemplateRequest {
+  uint32 ID = 10;
+  string EntID = 11;
+  string TargetAppID = 20;
+  optional string Sender = 30;
+  repeated string ReplyTos = 40;
+  repeated string CCTos = 50;
+  optional string Subject = 60;
+  optional string Body = 70;
+  optional string DefaultToUsername = 80;
+}
+
+message UpdateAppEmailTemplateResponse {
+  notif.middleware.template.email.v1.EmailTemplate Info = 10;
+}

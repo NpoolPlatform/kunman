@@ -9,8 +9,8 @@ import (
 	timedef "github.com/NpoolPlatform/kunman/framework/const/time"
 	"github.com/NpoolPlatform/kunman/framework/logger"
 	"github.com/NpoolPlatform/kunman/framework/wlog"
-	apppowerrentalmwcli "github.com/NpoolPlatform/good-middleware/pkg/client/app/powerrental"
-	simprofitmwcli "github.com/NpoolPlatform/ledger-middleware/pkg/client/simulate/ledger/profit"
+	apppowerrentalmwcli "github.com/NpoolPlatform/kunman/middleware/good/app/powerrental"
+	simprofitmwcli "github.com/NpoolPlatform/kunman/middleware/ledger/simulate/ledger/profit"
 	cruder "github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 	ordertypes "github.com/NpoolPlatform/kunman/message/basetypes/order/v1"
 	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
@@ -21,9 +21,9 @@ import (
 	powerrentalordermwpb "github.com/NpoolPlatform/kunman/message/order/middleware/v1/powerrental"
 	asyncfeed "github.com/NpoolPlatform/kunman/cron/scheduler/base/asyncfeed"
 	types "github.com/NpoolPlatform/kunman/cron/scheduler/benefit/powerrental/bookkeeping/simulate/types"
-	constant "github.com/NpoolPlatform/kunman/cron/scheduler/const"
-	orderappconfigmwcli "github.com/NpoolPlatform/order-middleware/pkg/client/app/config"
-	powerrentalordermwcli "github.com/NpoolPlatform/order-middleware/pkg/client/powerrental"
+	constant "github.com/NpoolPlatform/kunman/pkg/const"
+	orderappconfigmwcli "github.com/NpoolPlatform/kunman/middleware/order/app/config"
+	powerrentalordermwcli "github.com/NpoolPlatform/kunman/middleware/order/powerrental"
 
 	"github.com/shopspring/decimal"
 )

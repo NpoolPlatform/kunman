@@ -4,7 +4,7 @@ import (
 	"context"
 	"fmt"
 
-	appcoinmwcli "github.com/NpoolPlatform/chain-middleware/pkg/client/app/coin"
+	appcoinmwcli "github.com/NpoolPlatform/kunman/middleware/chain/app/coin"
 	"github.com/NpoolPlatform/kunman/framework/logger"
 	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"

@@ -14,7 +14,7 @@ import (
 	ledgerstatementmwpb "github.com/NpoolPlatform/kunman/message/ledger/middleware/v2/ledger/statement"
 	powerrentalordermwpb "github.com/NpoolPlatform/kunman/message/order/middleware/v1/powerrental"
 	asyncfeed "github.com/NpoolPlatform/kunman/cron/scheduler/base/asyncfeed"
-	constant "github.com/NpoolPlatform/kunman/cron/scheduler/const"
+	constant "github.com/NpoolPlatform/kunman/pkg/const"
 	types "github.com/NpoolPlatform/kunman/cron/scheduler/order/powerrental/payment/commission/types"
 
 	"github.com/shopspring/decimal"

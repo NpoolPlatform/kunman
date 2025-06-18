@@ -9,9 +9,9 @@ import (
 	paymentmwpb "github.com/NpoolPlatform/kunman/message/order/middleware/v1/payment"
 	cancelablefeed "github.com/NpoolPlatform/kunman/cron/scheduler/base/cancelablefeed"
 	basesentinel "github.com/NpoolPlatform/kunman/cron/scheduler/base/sentinel"
-	constant "github.com/NpoolPlatform/kunman/cron/scheduler/const"
+	constant "github.com/NpoolPlatform/kunman/pkg/const"
 	types "github.com/NpoolPlatform/kunman/cron/scheduler/payment/obselete/transfer/unlockaccount/types"
-	paymentmwcli "github.com/NpoolPlatform/order-middleware/pkg/client/payment"
+	paymentmwcli "github.com/NpoolPlatform/kunman/middleware/order/payment"
 )
 
 type handler struct{}

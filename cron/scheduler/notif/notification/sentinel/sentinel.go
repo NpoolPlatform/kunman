@@ -10,7 +10,7 @@ import (
 	notifmwcli "github.com/NpoolPlatform/notif-middleware/pkg/client/notif"
 	cancelablefeed "github.com/NpoolPlatform/kunman/cron/scheduler/base/cancelablefeed"
 	basesentinel "github.com/NpoolPlatform/kunman/cron/scheduler/base/sentinel"
-	constant "github.com/NpoolPlatform/kunman/cron/scheduler/const"
+	constant "github.com/NpoolPlatform/kunman/pkg/const"
 	types "github.com/NpoolPlatform/kunman/cron/scheduler/notif/notification/types"
 )
 

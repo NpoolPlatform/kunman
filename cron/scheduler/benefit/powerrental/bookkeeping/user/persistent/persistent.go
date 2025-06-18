@@ -4,7 +4,7 @@ import (
 	"context"
 	"fmt"
 
-	powerrentalmwcli "github.com/NpoolPlatform/good-middleware/pkg/client/powerrental"
+	powerrentalmwcli "github.com/NpoolPlatform/kunman/middleware/good/powerrental"
 	ledgersvcname "github.com/NpoolPlatform/ledger-middleware/pkg/servicename"
 	goodtypes "github.com/NpoolPlatform/kunman/message/basetypes/good/v1"
 	ledgertypes "github.com/NpoolPlatform/kunman/message/basetypes/ledger/v1"

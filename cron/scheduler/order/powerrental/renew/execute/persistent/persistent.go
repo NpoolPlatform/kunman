@@ -11,7 +11,7 @@ import (
 	asyncfeed "github.com/NpoolPlatform/kunman/cron/scheduler/base/asyncfeed"
 	basepersistent "github.com/NpoolPlatform/kunman/cron/scheduler/base/persistent"
 	types "github.com/NpoolPlatform/kunman/cron/scheduler/order/powerrental/renew/execute/types"
-	powerrentalordermwcli "github.com/NpoolPlatform/order-middleware/pkg/client/powerrental"
+	powerrentalordermwcli "github.com/NpoolPlatform/kunman/middleware/order/powerrental"
 	ordermwsvcname "github.com/NpoolPlatform/order-middleware/pkg/servicename"
 
 	dtmcli "github.com/NpoolPlatform/dtm-cluster/pkg/dtm"

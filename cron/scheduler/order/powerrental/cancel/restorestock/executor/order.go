@@ -5,7 +5,7 @@ import (
 	"fmt"
 
 	"github.com/NpoolPlatform/kunman/framework/logger"
-	apppowerrentalmwcli "github.com/NpoolPlatform/good-middleware/pkg/client/app/powerrental"
+	apppowerrentalmwcli "github.com/NpoolPlatform/kunman/middleware/good/app/powerrental"
 	apppowerrentalmwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/app/powerrental"
 	powerrentalordermwpb "github.com/NpoolPlatform/kunman/message/order/middleware/v1/powerrental"
 	asyncfeed "github.com/NpoolPlatform/kunman/cron/scheduler/base/asyncfeed"

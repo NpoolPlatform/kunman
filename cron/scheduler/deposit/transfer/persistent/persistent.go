@@ -6,7 +6,7 @@ import (
 
 	depositaccmwcli "github.com/NpoolPlatform/account-middleware/pkg/client/deposit"
 	accountlock "github.com/NpoolPlatform/account-middleware/pkg/lock"
-	txmwcli "github.com/NpoolPlatform/chain-middleware/pkg/client/tx"
+	txmwcli "github.com/NpoolPlatform/kunman/middleware/chain/tx"
 	depositaccmwpb "github.com/NpoolPlatform/kunman/message/account/middleware/v1/deposit"
 	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	txmwpb "github.com/NpoolPlatform/kunman/message/chain/middleware/v1/tx"

@@ -3,9 +3,9 @@ package persistent
 import (
 	"context"
 
-	txmwcli "github.com/NpoolPlatform/chain-middleware/pkg/client/tx"
+	txmwcli "github.com/NpoolPlatform/kunman/middleware/chain/tx"
 	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
-	powerrentalmwcli "github.com/NpoolPlatform/good-middleware/pkg/client/powerrental"
+	powerrentalmwcli "github.com/NpoolPlatform/kunman/middleware/good/powerrental"
 	goodtypes "github.com/NpoolPlatform/kunman/message/basetypes/good/v1"
 	ordertypes "github.com/NpoolPlatform/kunman/message/basetypes/order/v1"
 	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
@@ -16,7 +16,7 @@ import (
 	asyncfeed "github.com/NpoolPlatform/kunman/cron/scheduler/base/asyncfeed"
 	basepersistent "github.com/NpoolPlatform/kunman/cron/scheduler/base/persistent"
 	types "github.com/NpoolPlatform/kunman/cron/scheduler/benefit/powerrental/wait/types"
-	powerrentalordermwcli "github.com/NpoolPlatform/order-middleware/pkg/client/powerrental"
+	powerrentalordermwcli "github.com/NpoolPlatform/kunman/middleware/order/powerrental"
 
 	"github.com/google/uuid"
 	"github.com/shopspring/decimal"

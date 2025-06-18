@@ -3,7 +3,7 @@ package executor
 import (
 	"context"
 
-	txmwcli "github.com/NpoolPlatform/chain-middleware/pkg/client/tx"
+	txmwcli "github.com/NpoolPlatform/kunman/middleware/chain/tx"
 	logger "github.com/NpoolPlatform/kunman/framework/logger"
 	cruder "github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"

@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+package notif.gateway.usercode.v1;
+
+option go_package = "github.com/NpoolPlatform/kunman/message/notif/gateway/v1/usercode";
+
+import "google/api/annotations.proto";
+import "basetypes/v1/signmethod.proto";
+import "basetypes/v1/usedfor.proto";
+
+service Gateway {
+  rpc SendCode(SendCodeRequest) returns (SendCodeResponse) {
+    option (google.api.http) = {
+      post : "/v1/send/usercode"
+      body : "*"
+    };
+  }
+}
+
+message SendCodeRequest {
+  string AppID = 10;
+  string LangID = 20;
+  optional string UserID = 30;
+  optional string Account = 40;
+  basetypes.v1.SignMethod AccountType = 50;
+  basetypes.v1.UsedFor UsedFor = 60;
+  optional string ToUsername = 70;
+}
+
+message SendCodeResponse {}

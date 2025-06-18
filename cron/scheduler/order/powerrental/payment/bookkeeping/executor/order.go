@@ -9,9 +9,9 @@ import (
 	paymentaccountmwpb "github.com/NpoolPlatform/kunman/message/account/middleware/v1/payment"
 	coinmwpb "github.com/NpoolPlatform/kunman/message/chain/middleware/v1/coin"
 	powerrentalordermwpb "github.com/NpoolPlatform/kunman/message/order/middleware/v1/powerrental"
-	sphinxproxypb "github.com/NpoolPlatform/kunman/message/sphinxproxy"
+	sphinxproxypb "github.com/NpoolPlatform/message/npool/sphinxproxy"
 	asyncfeed "github.com/NpoolPlatform/kunman/cron/scheduler/base/asyncfeed"
-	schedcommon "github.com/NpoolPlatform/kunman/cron/scheduler/common"
+	schedcommon "github.com/NpoolPlatform/kunman/pkg/common"
 	types "github.com/NpoolPlatform/kunman/cron/scheduler/order/powerrental/payment/bookkeeping/types"
 	sphinxproxycli "github.com/NpoolPlatform/sphinx-proxy/pkg/client"
 

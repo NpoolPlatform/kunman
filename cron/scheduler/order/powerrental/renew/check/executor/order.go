@@ -14,11 +14,11 @@ import (
 	feeordermwpb "github.com/NpoolPlatform/kunman/message/order/middleware/v1/fee"
 	outofgasmwpb "github.com/NpoolPlatform/kunman/message/order/middleware/v1/outofgas"
 	asyncfeed "github.com/NpoolPlatform/kunman/cron/scheduler/base/asyncfeed"
-	constant "github.com/NpoolPlatform/kunman/cron/scheduler/const"
+	constant "github.com/NpoolPlatform/kunman/pkg/const"
 	types "github.com/NpoolPlatform/kunman/cron/scheduler/order/powerrental/renew/check/types"
 	renewcommon "github.com/NpoolPlatform/kunman/cron/scheduler/order/powerrental/renew/common"
-	feeordermwcli "github.com/NpoolPlatform/order-middleware/pkg/client/fee"
-	outofgasmwcli "github.com/NpoolPlatform/order-middleware/pkg/client/outofgas"
+	feeordermwcli "github.com/NpoolPlatform/kunman/middleware/order/fee"
+	outofgasmwcli "github.com/NpoolPlatform/kunman/middleware/order/outofgas"
 )
 
 type orderHandler struct {

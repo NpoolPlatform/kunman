@@ -9,7 +9,7 @@ import (
 	ordertypes "github.com/NpoolPlatform/kunman/message/basetypes/order/v1"
 	powerrentalordermwpb "github.com/NpoolPlatform/kunman/message/order/middleware/v1/powerrental"
 	asyncfeed "github.com/NpoolPlatform/kunman/cron/scheduler/base/asyncfeed"
-	schedcommon "github.com/NpoolPlatform/kunman/cron/scheduler/common"
+	schedcommon "github.com/NpoolPlatform/kunman/pkg/common"
 	types "github.com/NpoolPlatform/kunman/cron/scheduler/order/powerrental/cancel/unlockaccount/types"
 )
 

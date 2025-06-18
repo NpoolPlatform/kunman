@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+package basetypes.v1;
+
+option go_package = "github.com/NpoolPlatform/kunman/message/basetypes/v1";
+
+enum NotifChannel {
+  DefaultChannel = 0;
+
+  ChannelEmail = 10;
+  ChannelSMS = 20;
+  ChannelFrontend = 30;
+}

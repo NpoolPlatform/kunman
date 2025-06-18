@@ -4,14 +4,14 @@ import (
 	"context"
 	"fmt"
 
-	ledgermwcli "github.com/NpoolPlatform/ledger-middleware/pkg/client/ledger"
+	ledgermwcli "github.com/NpoolPlatform/kunman/middleware/ledger/ledger"
 	ordertypes "github.com/NpoolPlatform/kunman/message/basetypes/order/v1"
 	ledgermwpb "github.com/NpoolPlatform/kunman/message/ledger/middleware/v2/ledger"
 	paymentmwpb "github.com/NpoolPlatform/kunman/message/order/middleware/v1/payment"
 	asyncfeed "github.com/NpoolPlatform/kunman/cron/scheduler/base/asyncfeed"
 	basepersistent "github.com/NpoolPlatform/kunman/cron/scheduler/base/persistent"
 	types "github.com/NpoolPlatform/kunman/cron/scheduler/payment/obselete/unlockbalance/types"
-	paymentmwcli "github.com/NpoolPlatform/order-middleware/pkg/client/payment"
+	paymentmwcli "github.com/NpoolPlatform/kunman/middleware/order/payment"
 )
 
 type handler struct{}

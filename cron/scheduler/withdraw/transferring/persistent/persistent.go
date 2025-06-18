@@ -4,7 +4,7 @@ import (
 	"context"
 	"fmt"
 
-	withdrawmwcli "github.com/NpoolPlatform/ledger-middleware/pkg/client/withdraw"
+	withdrawmwcli "github.com/NpoolPlatform/kunman/middleware/ledger/withdraw"
 	withdrawmwpb "github.com/NpoolPlatform/kunman/message/ledger/middleware/v2/withdraw"
 	asyncfeed "github.com/NpoolPlatform/kunman/cron/scheduler/base/asyncfeed"
 	basepersistent "github.com/NpoolPlatform/kunman/cron/scheduler/base/persistent"

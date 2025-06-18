@@ -4,8 +4,8 @@ import (
 	"context"
 	"fmt"
 
-	txmwcli "github.com/NpoolPlatform/chain-middleware/pkg/client/tx"
-	withdrawmwcli "github.com/NpoolPlatform/ledger-middleware/pkg/client/withdraw"
+	txmwcli "github.com/NpoolPlatform/kunman/middleware/chain/tx"
+	withdrawmwcli "github.com/NpoolPlatform/kunman/middleware/ledger/withdraw"
 	ledgertypes "github.com/NpoolPlatform/kunman/message/basetypes/ledger/v1"
 	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	txmwpb "github.com/NpoolPlatform/kunman/message/chain/middleware/v1/tx"

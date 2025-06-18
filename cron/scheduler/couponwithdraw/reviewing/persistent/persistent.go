@@ -10,7 +10,7 @@ import (
 	reviewmwcli "github.com/NpoolPlatform/review-middleware/pkg/client/review"
 
 	allocatedmwcli "github.com/NpoolPlatform/inspire-middleware/pkg/client/coupon/allocated"
-	couponwithdrawmwcli "github.com/NpoolPlatform/ledger-middleware/pkg/client/withdraw/coupon"
+	couponwithdrawmwcli "github.com/NpoolPlatform/kunman/middleware/ledger/withdraw/coupon"
 	couponwithdrawmwpb "github.com/NpoolPlatform/kunman/message/ledger/middleware/v2/withdraw/coupon"
 	"github.com/NpoolPlatform/kunman/cron/scheduler/base/asyncfeed"
 	basepersistent "github.com/NpoolPlatform/kunman/cron/scheduler/base/persistent"

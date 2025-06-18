@@ -6,7 +6,7 @@ import (
 
 	accountmwcli "github.com/NpoolPlatform/account-middleware/pkg/client/account"
 	useraccmwcli "github.com/NpoolPlatform/account-middleware/pkg/client/user"
-	coinmwcli "github.com/NpoolPlatform/chain-middleware/pkg/client/coin"
+	coinmwcli "github.com/NpoolPlatform/kunman/middleware/chain/coin"
 	logger "github.com/NpoolPlatform/kunman/framework/logger"
 	cruder "github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 	accountmwpb "github.com/NpoolPlatform/kunman/message/account/middleware/v1/account"
@@ -14,7 +14,7 @@ import (
 	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	coinmwpb "github.com/NpoolPlatform/kunman/message/chain/middleware/v1/coin"
 	txmwpb "github.com/NpoolPlatform/kunman/message/chain/middleware/v1/tx"
-	sphinxproxypb "github.com/NpoolPlatform/kunman/message/sphinxproxy"
+	sphinxproxypb "github.com/NpoolPlatform/message/npool/sphinxproxy"
 	asyncfeed "github.com/NpoolPlatform/kunman/cron/scheduler/base/asyncfeed"
 	types "github.com/NpoolPlatform/kunman/cron/scheduler/txqueue/wait/types"
 	sphinxproxycli "github.com/NpoolPlatform/sphinx-proxy/pkg/client"

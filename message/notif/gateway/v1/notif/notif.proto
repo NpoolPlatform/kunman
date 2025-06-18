@@ -1,0 +1,90 @@
+syntax = "proto3";
+
+package notif.gateway.notif3.v1;
+
+option go_package = "github.com/NpoolPlatform/kunman/message/notif/gateway/v1/notif";
+
+import "google/api/annotations.proto";
+import "basetypes/v1/channel.proto";
+import "basetypes/v1/usedfor.proto";
+import "basetypes/v1/notiftype.proto";
+import "notif/middleware/v1/notif/notif.proto";
+
+// Service Name
+service Gateway {
+  rpc UpdateNotifs(UpdateNotifsRequest) returns (UpdateNotifsResponse) {
+    option (google.api.http) = {
+      post : "/v1/update/notifs"
+      body : "*"
+    };
+  }
+
+  rpc GetNotifs(GetNotifsRequest) returns (GetNotifsResponse) {
+    option (google.api.http) = {
+      post : "/v1/get/notifs"
+      body : "*"
+    };
+  }
+
+  rpc GetAppNotifs(GetAppNotifsRequest) returns (GetAppNotifsResponse) {
+    option (google.api.http) = {
+      post : "/v1/get/app/notifs"
+      body : "*"
+    };
+  }
+}
+
+message Notif {
+  uint32 ID = 9;
+  string EntID = 10;
+  string AppID = 20;
+  string AppName = 30;
+  string UserID = 40;
+  string EmailAddress = 50;
+  string PhoneNO = 60;
+  string Username = 70;
+  basetypes.v1.UsedFor EventType = 80;
+  bool UseTemplate = 90;
+  string Title = 100;
+  string Content = 110;
+  basetypes.v1.NotifChannel Channel = 120;
+  bool Notified = 130;
+  uint32 CreatedAt = 140;
+  uint32 UpdatedAt = 150;
+  string LangID = 160;
+  string Lang = 170;
+  string EventID = 180;
+  basetypes.v1.NotifType NotifType = 190;
+}
+
+message UpdateNotifsRequest {
+  string AppID = 10;
+  string UserID = 20;
+  repeated notif.middleware.notif.v1.NotifReq Infos = 30;
+}
+
+message UpdateNotifsResponse { repeated Notif Infos = 10; }
+
+message GetNotifsRequest {
+  string AppID = 10;
+  string UserID = 20;
+  string LangID = 30;
+  int32 Offset = 40;
+  int32 Limit = 50;
+}
+
+message GetNotifsResponse {
+  repeated Notif Infos = 10;
+  uint32 Total = 20;
+}
+
+message GetAppNotifsRequest {
+  string AppID = 10;
+  int32 Offset = 20;
+  int32 Limit = 30;
+}
+
+message GetAppNotifsResponse {
+  repeated Notif Infos = 10;
+  uint32 Total = 20;
+}

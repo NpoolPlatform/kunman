@@ -1,0 +1,83 @@
+syntax = "proto3";
+
+package notif.gateway.notif2.channel.v1;
+
+option go_package = "github.com/NpoolPlatform/kunman/message/notif/gateway/v1/notif/channel";
+
+import "google/api/annotations.proto";
+import "basetypes/v1/channel.proto";
+import "basetypes/v1/usedfor.proto";
+import "notif/middleware/v1/notif/channel/channel.proto";
+
+// Service Name
+service Gateway {
+  rpc CreateChannel(CreateChannelRequest) returns (CreateChannelResponse) {
+    option (google.api.http) = {
+      post : "/v1/create/notifchannel"
+      body : "*"
+    };
+  }
+  rpc DeleteChannel(DeleteChannelRequest) returns (DeleteChannelResponse) {
+    option (google.api.http) = {
+      post : "/v1/delete/notifchannel"
+      body : "*"
+    };
+  }
+
+  rpc GetAppChannels(GetAppChannelsRequest) returns (GetAppChannelsResponse) {
+    option (google.api.http) = {
+      post : "/v1/get/app/notifchannels"
+      body : "*"
+    };
+  }
+
+  rpc GetNAppChannels(GetNAppChannelsRequest)
+      returns (GetNAppChannelsResponse) {
+    option (google.api.http) = {
+      post : "/v1/get/n/app/notifchannels"
+      body : "*"
+    };
+  }
+}
+
+message CreateChannelRequest {
+  string AppID = 10;
+  basetypes.v1.UsedFor EventType = 20;
+  basetypes.v1.NotifChannel Channel = 30;
+}
+
+message CreateChannelResponse {
+  notif.middleware.notif.channel.v1.Channel Info = 10;
+}
+
+message DeleteChannelRequest {
+  uint32 ID = 10;
+  string EntID = 11;
+  string AppID = 20;
+}
+
+message DeleteChannelResponse {
+  notif.middleware.notif.channel.v1.Channel Info = 10;
+}
+
+message GetAppChannelsRequest {
+  string AppID = 10;
+  int32 Offset = 30;
+  int32 Limit = 40;
+}
+
+message GetAppChannelsResponse {
+  repeated notif.middleware.notif.channel.v1.Channel Infos = 10;
+  uint32 Total = 20;
+}
+
+message GetNAppChannelsRequest {
+  string TargetAppID = 10;
+  int32 Offset = 20;
+  int32 Limit = 30;
+}
+
+message GetNAppChannelsResponse {
+  repeated notif.middleware.notif.channel.v1.Channel Infos = 10;
+  uint32 Total = 20;
+}

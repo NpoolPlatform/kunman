@@ -10,7 +10,7 @@ import (
 	asyncfeed "github.com/NpoolPlatform/kunman/cron/scheduler/base/asyncfeed"
 	basepersistent "github.com/NpoolPlatform/kunman/cron/scheduler/base/persistent"
 	types "github.com/NpoolPlatform/kunman/cron/scheduler/payment/obselete/transfer/unlockaccount/types"
-	paymentmwcli "github.com/NpoolPlatform/order-middleware/pkg/client/payment"
+	paymentmwcli "github.com/NpoolPlatform/kunman/middleware/order/payment"
 )
 
 type handler struct{}

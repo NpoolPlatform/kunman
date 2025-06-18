@@ -9,7 +9,7 @@ import (
 	asyncfeed "github.com/NpoolPlatform/kunman/cron/scheduler/base/asyncfeed"
 	basepersistent "github.com/NpoolPlatform/kunman/cron/scheduler/base/persistent"
 	types "github.com/NpoolPlatform/kunman/cron/scheduler/order/fee/cancel/precancel/types"
-	feeordermwcli "github.com/NpoolPlatform/order-middleware/pkg/client/fee"
+	feeordermwcli "github.com/NpoolPlatform/kunman/middleware/order/fee"
 )
 
 type handler struct{}

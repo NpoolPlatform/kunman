@@ -3,11 +3,11 @@ package sentinel
 import (
 	"context"
 
-	coinmwcli "github.com/NpoolPlatform/chain-middleware/pkg/client/coin"
+	coinmwcli "github.com/NpoolPlatform/kunman/middleware/chain/coin"
 	coinmwpb "github.com/NpoolPlatform/kunman/message/chain/middleware/v1/coin"
 	cancelablefeed "github.com/NpoolPlatform/kunman/cron/scheduler/base/cancelablefeed"
 	basesentinel "github.com/NpoolPlatform/kunman/cron/scheduler/base/sentinel"
-	constant "github.com/NpoolPlatform/kunman/cron/scheduler/const"
+	constant "github.com/NpoolPlatform/kunman/pkg/const"
 	types "github.com/NpoolPlatform/kunman/cron/scheduler/gasfeeder/types"
 
 	"github.com/google/uuid"

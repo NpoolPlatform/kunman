@@ -6,15 +6,15 @@ import (
 	"time"
 
 	"github.com/NpoolPlatform/kunman/framework/logger"
-	apppowerrentalmwcli "github.com/NpoolPlatform/good-middleware/pkg/client/app/powerrental"
-	powerrentalmwcli "github.com/NpoolPlatform/good-middleware/pkg/client/powerrental"
+	apppowerrentalmwcli "github.com/NpoolPlatform/kunman/middleware/good/app/powerrental"
+	powerrentalmwcli "github.com/NpoolPlatform/kunman/middleware/good/powerrental"
 	cruder "github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	apppowerrentalmwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/app/powerrental"
 	powerrentalmwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/powerrental"
 	notifbenefitmwpb "github.com/NpoolPlatform/kunman/message/notif/middleware/v1/notif/goodbenefit"
 	asyncfeed "github.com/NpoolPlatform/kunman/cron/scheduler/base/asyncfeed"
-	constant "github.com/NpoolPlatform/kunman/cron/scheduler/const"
+	constant "github.com/NpoolPlatform/kunman/pkg/const"
 	types "github.com/NpoolPlatform/kunman/cron/scheduler/notif/benefit/powerrental/types"
 
 	"github.com/shopspring/decimal"

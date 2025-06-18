@@ -6,7 +6,7 @@ import (
 	orderbenefitmwcli "github.com/NpoolPlatform/account-middleware/pkg/client/orderbenefit"
 	"github.com/NpoolPlatform/kunman/framework/logger"
 	"github.com/NpoolPlatform/kunman/framework/wlog"
-	apppowerrentalmwcli "github.com/NpoolPlatform/good-middleware/pkg/client/app/powerrental"
+	apppowerrentalmwcli "github.com/NpoolPlatform/kunman/middleware/good/app/powerrental"
 	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 	"github.com/NpoolPlatform/kunman/message/account/middleware/v1/orderbenefit"
 	goodtypes "github.com/NpoolPlatform/kunman/message/basetypes/good/v1"

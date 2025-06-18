@@ -6,7 +6,7 @@ import (
 	accountmwcli "github.com/NpoolPlatform/account-middleware/pkg/client/account"
 	appmwcli "github.com/NpoolPlatform/appuser-middleware/pkg/client/app"
 	usermwcli "github.com/NpoolPlatform/appuser-middleware/pkg/client/user"
-	coinmwcli "github.com/NpoolPlatform/chain-middleware/pkg/client/coin"
+	coinmwcli "github.com/NpoolPlatform/kunman/middleware/chain/coin"
 	"github.com/NpoolPlatform/kunman/framework/logger"
 	cruder "github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 	accountmwpb "github.com/NpoolPlatform/kunman/message/account/middleware/v1/account"

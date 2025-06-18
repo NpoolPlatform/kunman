@@ -6,7 +6,7 @@ import (
 	"time"
 
 	pltfaccmwcli "github.com/NpoolPlatform/account-middleware/pkg/client/platform"
-	txmwcli "github.com/NpoolPlatform/chain-middleware/pkg/client/tx"
+	txmwcli "github.com/NpoolPlatform/kunman/middleware/chain/tx"
 	timedef "github.com/NpoolPlatform/kunman/framework/const/time"
 	"github.com/NpoolPlatform/kunman/framework/logger"
 	cruder "github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
@@ -14,7 +14,7 @@ import (
 	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	coinmwpb "github.com/NpoolPlatform/kunman/message/chain/middleware/v1/coin"
 	txmwpb "github.com/NpoolPlatform/kunman/message/chain/middleware/v1/tx"
-	sphinxproxypb "github.com/NpoolPlatform/kunman/message/sphinxproxy"
+	sphinxproxypb "github.com/NpoolPlatform/message/npool/sphinxproxy"
 	asyncfeed "github.com/NpoolPlatform/kunman/cron/scheduler/base/asyncfeed"
 	types "github.com/NpoolPlatform/kunman/cron/scheduler/limitation/types"
 	sphinxproxycli "github.com/NpoolPlatform/sphinx-proxy/pkg/client"

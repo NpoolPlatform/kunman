@@ -1,0 +1,71 @@
+syntax = "proto3";
+
+package notif.middleware.notif.goodbenefit.v1;
+
+option go_package = "github.com/NpoolPlatform/kunman/message/notif/middleware/v1/notif/goodbenefit";
+
+import "basetypes/v1/conds.proto";
+import "basetypes/v1/result.proto";
+import "basetypes/good/v1/enums.proto";
+
+message GoodBenefitReq {
+  optional uint32 ID = 9;
+  optional string EntID = 10;
+  optional string GoodID = 20;
+  optional basetypes.good.v1.GoodType GoodType = 30;
+  optional string GoodName = 40;
+  optional string CoinTypeID = 50;
+  optional string Amount = 60;
+  optional basetypes.v1.Result State = 70;
+  optional string Message = 80;
+  optional uint32 BenefitDate = 90;
+  optional string TxID = 100;
+  optional bool Generated = 110;
+}
+
+message GoodBenefit {
+  // @inject_tag: sql:"id"
+  uint32 ID = 10;
+  // @inject_tag: sql:"ent_id"
+  string EntID = 20;
+  // @inject_tag: sql:"good_id"
+  string GoodID = 30;
+  // @inject_tag: sql:"good_type"
+  string GoodTypeStr = 40;
+  basetypes.good.v1.GoodType GoodType = 50;
+  // @inject_tag: sql:"good_name"
+  string GoodName = 60;
+  // @inject_tag: sql:"coin_type_id"
+  string CoinTypeID = 70;
+  // @inject_tag: sql:"amount"
+  string Amount = 80;
+  // @inject_tag: sql:"state"
+  string StateStr = 90;
+  basetypes.v1.Result State = 100;
+  // @inject_tag: sql:"message"
+  string Message = 110;
+  // @inject_tag: sql:"benefit_date"
+  uint32 BenefitDate = 120;
+  // @inject_tag: sql:"tx_id"
+  string TxID = 130;
+  // @inject_tag: sql:"generated"
+  bool Generated = 140;
+
+  // @inject_tag: sql:"created_at"
+  uint32 CreatedAt = 1000;
+  // @inject_tag: sql:"updated_at"
+  uint32 UpdatedAt = 1010;
+}
+
+message Conds {
+  optional basetypes.v1.Uint32Val ID = 10;
+  optional basetypes.v1.StringVal EntID = 20;
+  optional basetypes.v1.StringVal GoodID = 30;
+  optional basetypes.v1.Uint32Val GoodType = 40;
+  optional basetypes.v1.Uint32SliceVal GoodTypes = 50;
+  optional basetypes.v1.BoolVal Generated = 60;
+  optional basetypes.v1.Uint32Val BenefitDateStart = 70;
+  optional basetypes.v1.Uint32Val BenefitDateEnd = 80;
+  optional basetypes.v1.StringVal CoinTypeID = 90;
+}
+

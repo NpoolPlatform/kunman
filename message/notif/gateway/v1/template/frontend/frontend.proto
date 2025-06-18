@@ -1,0 +1,143 @@
+syntax = "proto3";
+
+package notif.gateway.template.frontend.v1;
+
+option go_package = "github.com/NpoolPlatform/kunman/message/notif/gateway/v1/template/frontend";
+
+import "google/api/annotations.proto";
+import "notif/middleware/v1/template/frontend/frontend.proto";
+import "basetypes/v1/usedfor.proto";
+
+service Gateway {
+  rpc CreateFrontendTemplate(CreateFrontendTemplateRequest)
+      returns (CreateFrontendTemplateResponse) {
+    option (google.api.http) = {
+      post : "/v1/create/frontendtemplate"
+      body : "*"
+    };
+  }
+
+  rpc CreateAppFrontendTemplate(CreateAppFrontendTemplateRequest)
+      returns (CreateAppFrontendTemplateResponse) {
+    option (google.api.http) = {
+      post : "/v1/create/app/frontendtemplate"
+      body : "*"
+    };
+  }
+
+  rpc GetFrontendTemplate(GetFrontendTemplateRequest)
+      returns (GetFrontendTemplateResponse) {
+    option (google.api.http) = {
+      post : "/v1/get/frontendtemplate"
+      body : "*"
+    };
+  }
+
+  rpc GetFrontendTemplates(GetFrontendTemplatesRequest)
+      returns (GetFrontendTemplatesResponse) {
+    option (google.api.http) = {
+      post : "/v1/get/frontendtemplates"
+      body : "*"
+    };
+  }
+
+  rpc GetAppFrontendTemplates(GetAppFrontendTemplatesRequest)
+      returns (GetAppFrontendTemplatesResponse) {
+    option (google.api.http) = {
+      post : "/v1/get/app/frontendtemplates"
+      body : "*"
+    };
+  }
+
+  rpc UpdateFrontendTemplate(UpdateFrontendTemplateRequest)
+      returns (UpdateFrontendTemplateResponse) {
+    option (google.api.http) = {
+      post : "/v1/update/frontendtemplate"
+      body : "*"
+    };
+  }
+
+  rpc UpdateAppFrontendTemplate(UpdateAppFrontendTemplateRequest)
+      returns (UpdateAppFrontendTemplateResponse) {
+    option (google.api.http) = {
+      post : "/v1/update/app/frontendtemplate"
+      body : "*"
+    };
+  }
+}
+
+message CreateFrontendTemplateRequest {
+  string AppID = 10;
+  string TargetLangID = 20;
+  basetypes.v1.UsedFor UsedFor = 30;
+  string Title = 40;
+  string Content = 50;
+}
+
+message CreateFrontendTemplateResponse {
+  notif.middleware.template.frontend.v1.FrontendTemplate Info = 10;
+}
+
+message CreateAppFrontendTemplateRequest {
+  string TargetAppID = 10;
+  string TargetLangID = 20;
+  basetypes.v1.UsedFor UsedFor = 30;
+  string Title = 40;
+  string Content = 50;
+}
+
+message CreateAppFrontendTemplateResponse {
+  notif.middleware.template.frontend.v1.FrontendTemplate Info = 10;
+}
+
+message GetFrontendTemplateRequest { string EntID = 10; }
+
+message GetFrontendTemplateResponse {
+  notif.middleware.template.frontend.v1.FrontendTemplate Info = 10;
+}
+
+message GetFrontendTemplatesRequest {
+  string AppID = 10;
+  int32 Offset = 20;
+  int32 Limit = 30;
+}
+
+message GetFrontendTemplatesResponse {
+  repeated notif.middleware.template.frontend.v1.FrontendTemplate Infos = 10;
+  uint32 Total = 20;
+}
+
+message GetAppFrontendTemplatesRequest {
+  string TargetAppID = 10;
+  int32 Offset = 20;
+  int32 Limit = 30;
+}
+
+message GetAppFrontendTemplatesResponse {
+  repeated notif.middleware.template.frontend.v1.FrontendTemplate Infos = 10;
+  uint32 Total = 20;
+}
+
+message UpdateFrontendTemplateRequest {
+  uint32 ID = 10;
+  string EntID = 11;
+  string AppID = 20;
+  optional string Title = 30;
+  optional string Content = 40;
+}
+
+message UpdateFrontendTemplateResponse {
+  notif.middleware.template.frontend.v1.FrontendTemplate Info = 10;
+}
+
+message UpdateAppFrontendTemplateRequest {
+  uint32 ID = 10;
+  string EntID = 11;
+  string TargetAppID = 20;
+  optional string Title = 30;
+  optional string Content = 40;
+}
+
+message UpdateAppFrontendTemplateResponse {
+  notif.middleware.template.frontend.v1.FrontendTemplate Info = 10;
+}

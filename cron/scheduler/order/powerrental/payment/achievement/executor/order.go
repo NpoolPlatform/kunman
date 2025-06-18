@@ -5,7 +5,7 @@ import (
 
 	"github.com/NpoolPlatform/kunman/framework/logger"
 	"github.com/NpoolPlatform/kunman/framework/wlog"
-	goodcoinmwcli "github.com/NpoolPlatform/good-middleware/pkg/client/good/coin"
+	goodcoinmwcli "github.com/NpoolPlatform/kunman/middleware/good/good/coin"
 	orderstatementmwcli "github.com/NpoolPlatform/inspire-middleware/pkg/client/achievement/statement/order"
 	calculatemwcli "github.com/NpoolPlatform/inspire-middleware/pkg/client/calculate"
 	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"

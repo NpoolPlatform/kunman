@@ -4,8 +4,8 @@ import (
 	"context"
 	"fmt"
 
-	powerrentalmwcli "github.com/NpoolPlatform/good-middleware/pkg/client/powerrental"
-	goodstatementmwcli "github.com/NpoolPlatform/ledger-middleware/pkg/client/good/ledger/statement"
+	powerrentalmwcli "github.com/NpoolPlatform/kunman/middleware/good/powerrental"
+	goodstatementmwcli "github.com/NpoolPlatform/kunman/middleware/ledger/good/ledger/statement"
 	goodtypes "github.com/NpoolPlatform/kunman/message/basetypes/good/v1"
 	powerrentalmwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/powerrental"
 	goodstatementmwpb "github.com/NpoolPlatform/kunman/message/ledger/middleware/v2/good/ledger/statement"

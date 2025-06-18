@@ -1,0 +1,68 @@
+syntax = "proto3";
+
+package notif.middleware.template.email.v1;
+
+option go_package = "github.com/NpoolPlatform/kunman/message/notif/middleware/v1/template/email";
+
+import "google/api/annotations.proto";
+import "basetypes/v1/usedfor.proto";
+import "basetypes/v1/conds.proto";
+
+message EmailTemplate {
+  // @inject_tag: sql:"id"
+  uint32 ID = 9;
+  // @inject_tag: sql:"ent_id"
+  string EntID = 10;
+  // @inject_tag: sql:"app_id"
+  string AppID = 20;
+  // @inject_tag: sql:"lang_id"
+  string LangID = 30;
+  // @inject_tag: sql:"used_for"
+  string UsedForStr = 40;
+  basetypes.v1.UsedFor UsedFor = 50;
+  // @inject_tag: sql:"sender"
+  string Sender = 60;
+  // @inject_tag: sql:"reply_tos"
+  string ReplyTosStr = 69;
+  repeated string ReplyTos = 70;
+  // @inject_tag: sql:"cc_tos"
+  string CCTosStr = 79;
+  repeated string CCTos = 80;
+  // @inject_tag: sql:"subject"
+  string Subject = 90;
+  // @inject_tag: sql:"body"
+  string Body = 100;
+  // @inject_tag: sql:"default_to_username"
+  string DefaultToUsername = 110;
+  // @inject_tag: sql:"created_at"
+  uint32 CreatedAt = 1000;
+  // @inject_tag: sql:"updated_at"
+  uint32 UpdatedAt = 1010;
+}
+
+message EmailTemplateReq {
+  optional uint32 ID = 9;
+  optional string EntID = 10;
+  optional string AppID = 20;
+  optional string LangID = 30;
+  optional basetypes.v1.UsedFor UsedFor = 40;
+  optional string Sender = 50;
+  repeated string ReplyTos = 60;
+  repeated string CCTos = 70;
+  optional string Subject = 80;
+  optional string Body = 90;
+  optional string DefaultToUsername = 100;
+}
+
+message Conds {
+  basetypes.v1.Uint32Val ID = 9;
+  basetypes.v1.StringVal EntID = 10;
+  basetypes.v1.StringVal AppID = 30;
+  basetypes.v1.StringVal LangID = 40;
+  basetypes.v1.Uint32Val UsedFor = 50;
+  basetypes.v1.StringVal Sender = 60;
+  basetypes.v1.StringSliceVal AppIDs = 70;
+  basetypes.v1.StringSliceVal LangIDs = 80;
+  basetypes.v1.Uint32SliceVal UsedFors = 90;
+}
+

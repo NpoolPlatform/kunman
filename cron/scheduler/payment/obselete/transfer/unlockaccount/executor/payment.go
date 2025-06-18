@@ -8,7 +8,7 @@ import (
 	paymentaccountmwpb "github.com/NpoolPlatform/kunman/message/account/middleware/v1/payment"
 	paymentmwpb "github.com/NpoolPlatform/kunman/message/order/middleware/v1/payment"
 	asyncfeed "github.com/NpoolPlatform/kunman/cron/scheduler/base/asyncfeed"
-	schedcommon "github.com/NpoolPlatform/kunman/cron/scheduler/common"
+	schedcommon "github.com/NpoolPlatform/kunman/pkg/common"
 	types "github.com/NpoolPlatform/kunman/cron/scheduler/payment/obselete/transfer/unlockaccount/types"
 )
 

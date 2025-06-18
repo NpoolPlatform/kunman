@@ -4,8 +4,8 @@ import (
 	"context"
 	"fmt"
 
-	coinmwcli "github.com/NpoolPlatform/chain-middleware/pkg/client/coin"
-	txmwcli "github.com/NpoolPlatform/chain-middleware/pkg/client/tx"
+	coinmwcli "github.com/NpoolPlatform/kunman/middleware/chain/coin"
+	txmwcli "github.com/NpoolPlatform/kunman/middleware/chain/tx"
 	"github.com/NpoolPlatform/kunman/framework/logger"
 	depositaccmwpb "github.com/NpoolPlatform/kunman/message/account/middleware/v1/deposit"
 	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"

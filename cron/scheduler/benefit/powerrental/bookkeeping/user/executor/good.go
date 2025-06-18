@@ -6,10 +6,10 @@ import (
 
 	"github.com/NpoolPlatform/kunman/framework/logger"
 	"github.com/NpoolPlatform/kunman/framework/wlog"
-	appfeemwcli "github.com/NpoolPlatform/good-middleware/pkg/client/app/fee"
-	requiredappgoodmwcli "github.com/NpoolPlatform/good-middleware/pkg/client/app/good/required"
-	apppowerrentalmwcli "github.com/NpoolPlatform/good-middleware/pkg/client/app/powerrental"
-	statementmwcli "github.com/NpoolPlatform/ledger-middleware/pkg/client/ledger/statement"
+	appfeemwcli "github.com/NpoolPlatform/kunman/middleware/good/app/fee"
+	requiredappgoodmwcli "github.com/NpoolPlatform/kunman/middleware/good/app/good/required"
+	apppowerrentalmwcli "github.com/NpoolPlatform/kunman/middleware/good/app/powerrental"
+	statementmwcli "github.com/NpoolPlatform/kunman/middleware/ledger/ledger/statement"
 	cruder "github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 	goodtypes "github.com/NpoolPlatform/kunman/message/basetypes/good/v1"
 	ledgertypes "github.com/NpoolPlatform/kunman/message/basetypes/ledger/v1"
@@ -23,8 +23,8 @@ import (
 	powerrentalordermwpb "github.com/NpoolPlatform/kunman/message/order/middleware/v1/powerrental"
 	asyncfeed "github.com/NpoolPlatform/kunman/cron/scheduler/base/asyncfeed"
 	types "github.com/NpoolPlatform/kunman/cron/scheduler/benefit/powerrental/bookkeeping/user/types"
-	constant "github.com/NpoolPlatform/kunman/cron/scheduler/const"
-	powerrentalordermwcli "github.com/NpoolPlatform/order-middleware/pkg/client/powerrental"
+	constant "github.com/NpoolPlatform/kunman/pkg/const"
+	powerrentalordermwcli "github.com/NpoolPlatform/kunman/middleware/order/powerrental"
 
 	"github.com/shopspring/decimal"
 )

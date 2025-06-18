@@ -4,7 +4,7 @@ import (
 	"context"
 
 	"github.com/NpoolPlatform/build-chain/pkg/constant"
-	goodpowerrentalmwcli "github.com/NpoolPlatform/good-middleware/pkg/client/powerrental"
+	goodpowerrentalmwcli "github.com/NpoolPlatform/kunman/middleware/good/powerrental"
 	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 	goodbasepb "github.com/NpoolPlatform/kunman/message/basetypes/good/v1"
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/v1"

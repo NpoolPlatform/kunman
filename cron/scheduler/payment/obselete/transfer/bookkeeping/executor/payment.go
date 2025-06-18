@@ -6,7 +6,7 @@ import (
 
 	logger "github.com/NpoolPlatform/kunman/framework/logger"
 	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
-	ledgerstatementmwcli "github.com/NpoolPlatform/ledger-middleware/pkg/client/ledger/statement"
+	ledgerstatementmwcli "github.com/NpoolPlatform/kunman/middleware/ledger/ledger/statement"
 	cruder "github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 	paymentaccountmwpb "github.com/NpoolPlatform/kunman/message/account/middleware/v1/payment"
 	ledgertypes "github.com/NpoolPlatform/kunman/message/basetypes/ledger/v1"
@@ -14,9 +14,9 @@ import (
 	coinmwpb "github.com/NpoolPlatform/kunman/message/chain/middleware/v1/coin"
 	ledgerstatementmwpb "github.com/NpoolPlatform/kunman/message/ledger/middleware/v2/ledger/statement"
 	paymentmwpb "github.com/NpoolPlatform/kunman/message/order/middleware/v1/payment"
-	sphinxproxypb "github.com/NpoolPlatform/kunman/message/sphinxproxy"
+	sphinxproxypb "github.com/NpoolPlatform/message/npool/sphinxproxy"
 	asyncfeed "github.com/NpoolPlatform/kunman/cron/scheduler/base/asyncfeed"
-	schedcommon "github.com/NpoolPlatform/kunman/cron/scheduler/common"
+	schedcommon "github.com/NpoolPlatform/kunman/pkg/common"
 	types "github.com/NpoolPlatform/kunman/cron/scheduler/payment/obselete/transfer/bookkeeping/types"
 	sphinxproxycli "github.com/NpoolPlatform/sphinx-proxy/pkg/client"
 

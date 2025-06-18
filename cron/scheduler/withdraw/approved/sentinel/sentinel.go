@@ -3,14 +3,14 @@ package sentinel
 import (
 	"context"
 
-	withdrawmwcli "github.com/NpoolPlatform/ledger-middleware/pkg/client/withdraw"
+	withdrawmwcli "github.com/NpoolPlatform/kunman/middleware/ledger/withdraw"
 	cruder "github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 	ledgertypes "github.com/NpoolPlatform/kunman/message/basetypes/ledger/v1"
 	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	withdrawmwpb "github.com/NpoolPlatform/kunman/message/ledger/middleware/v2/withdraw"
 	cancelablefeed "github.com/NpoolPlatform/kunman/cron/scheduler/base/cancelablefeed"
 	basesentinel "github.com/NpoolPlatform/kunman/cron/scheduler/base/sentinel"
-	constant "github.com/NpoolPlatform/kunman/cron/scheduler/const"
+	constant "github.com/NpoolPlatform/kunman/pkg/const"
 	types "github.com/NpoolPlatform/kunman/cron/scheduler/withdraw/approved/types"
 )
 

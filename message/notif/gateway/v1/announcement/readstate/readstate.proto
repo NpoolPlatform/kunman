@@ -1,0 +1,138 @@
+syntax = "proto3";
+
+package notif.gateway.announcement.readstate.v1;
+
+option go_package = "github.com/NpoolPlatform/kunman/message/notif/gateway/v1/announcement/readstate";
+
+import "google/api/annotations.proto";
+import "basetypes/v1/notiftype.proto";
+import "basetypes/v1/channel.proto";
+
+// Service Name
+service Gateway {
+  rpc CreateReadState(CreateReadStateRequest)
+      returns (CreateReadStateResponse) {
+    option (google.api.http) = {
+      post : "/v1/create/readstate"
+      body : "*"
+    };
+  }
+
+  rpc GetReadState(GetReadStateRequest) returns (GetReadStateResponse) {
+    option (google.api.http) = {
+      post : "/v1/get/readstate"
+      body : "*"
+    };
+  }
+
+  rpc GetReadStates(GetReadStatesRequest) returns (GetReadStatesResponse) {
+    option (google.api.http) = {
+      post : "/v1/get/readstates"
+      body : "*"
+    };
+  }
+
+  rpc GetAppUserReadStates(GetAppUserReadStatesRequest)
+      returns (GetAppUserReadStatesResponse) {
+    option (google.api.http) = {
+      post : "/v1/get/app/user/readstates"
+      body : "*"
+    };
+  }
+
+  rpc GetAppReadStates(GetAppReadStatesRequest)
+      returns (GetAppReadStatesResponse) {
+    option (google.api.http) = {
+      post : "/v1/get/app/readstates"
+      body : "*"
+    };
+  }
+
+  rpc GetNAppReadStates(GetNAppReadStatesRequest)
+      returns (GetNAppReadStatesResponse) {
+    option (google.api.http) = {
+      post : "/v1/get/n/app/readstates"
+      body : "*"
+    };
+  }
+}
+
+message ReadState {
+  uint32 ID = 9;
+  string EntID = 10;
+  string AnnouncementID = 20;
+  string AppID = 30;
+  string AppName = 40;
+  string UserID = 50;
+  string EmailAddress = 60;
+  string PhoneNO = 70;
+  string Username = 80;
+  string Title = 90;
+  string Content = 100;
+  basetypes.v1.NotifType AnnouncementType = 110;
+  basetypes.v1.NotifChannel Channel = 120;
+  uint32 CreatedAt = 1000;
+  uint32 UpdatedAt = 1010;
+}
+
+message CreateReadStateRequest {
+  string AppID = 10;
+  string UserID = 20;
+  string AnnouncementID = 30;
+}
+
+message CreateReadStateResponse { ReadState Info = 10; }
+
+message GetReadStateRequest {
+  string AppID = 10;
+  string UserID = 20;
+  string AnnouncementID = 30;
+}
+
+message GetReadStateResponse { ReadState Info = 10; }
+
+message GetReadStatesRequest {
+  string AppID = 10;
+  string UserID = 20;
+  int32 Offset = 30;
+  int32 Limit = 40;
+}
+
+message GetReadStatesResponse {
+  repeated ReadState Infos = 10;
+  uint32 Total = 20;
+}
+
+message GetAppUserReadStatesRequest {
+  string TargetAppID = 10;
+  string TargetUserID = 20;
+  int32 Offset = 30;
+  int32 Limit = 40;
+}
+
+message GetAppUserReadStatesResponse {
+  repeated ReadState Infos = 10;
+  uint32 Total = 20;
+}
+
+message GetAppReadStatesRequest {
+  string AppID = 10;
+  int32 Offset = 30;
+  int32 Limit = 40;
+}
+
+message GetAppReadStatesResponse {
+  repeated ReadState Infos = 10;
+  uint32 Total = 20;
+}
+
+message GetNAppReadStatesRequest {
+  string TargetAppID = 10;
+  int32 Offset = 20;
+  int32 Limit = 30;
+}
+
+message GetNAppReadStatesResponse {
+  repeated ReadState Infos = 10;
+  uint32 Total = 20;
+}

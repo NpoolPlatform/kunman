@@ -3,13 +3,13 @@ package sentinel
 import (
 	"context"
 
-	txmwcli "github.com/NpoolPlatform/chain-middleware/pkg/client/tx"
+	txmwcli "github.com/NpoolPlatform/kunman/middleware/chain/tx"
 	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	txmwpb "github.com/NpoolPlatform/kunman/message/chain/middleware/v1/tx"
 	cancelablefeed "github.com/NpoolPlatform/kunman/cron/scheduler/base/cancelablefeed"
 	basesentinel "github.com/NpoolPlatform/kunman/cron/scheduler/base/sentinel"
-	constant "github.com/NpoolPlatform/kunman/cron/scheduler/const"
+	constant "github.com/NpoolPlatform/kunman/pkg/const"
 	types "github.com/NpoolPlatform/kunman/cron/scheduler/txqueue/transferring/types"
 )
 

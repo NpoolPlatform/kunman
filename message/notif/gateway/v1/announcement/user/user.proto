@@ -1,0 +1,128 @@
+syntax = "proto3";
+
+package notif.gateway.announcement.user.v1;
+
+option go_package = "github.com/NpoolPlatform/kunman/message/notif/gateway/v1/announcement/user";
+
+import "google/api/annotations.proto";
+import "basetypes/v1/notiftype.proto";
+import "basetypes/v1/channel.proto";
+
+// Service Name
+service Gateway {
+  rpc CreateAnnouncementUser(CreateAnnouncementUserRequest)
+      returns (CreateAnnouncementUserResponse) {
+    option (google.api.http) = {
+      post : "/v1/create/announcementuser"
+      body : "*"
+    };
+  }
+  rpc CreateAppAnnouncementUser(CreateAppAnnouncementUserRequest)
+      returns (CreateAppAnnouncementUserResponse) {
+    option (google.api.http) = {
+      post : "/v1/create/app/announcementuser"
+      body : "*"
+    };
+  }
+  rpc DeleteAnnouncementUser(DeleteAnnouncementUserRequest)
+      returns (DeleteAnnouncementUserResponse) {
+    option (google.api.http) = {
+      post : "/v1/delete/announcementuser"
+      body : "*"
+    };
+  }
+  rpc DeleteAppAnnouncementUser(DeleteAppAnnouncementUserRequest)
+      returns (DeleteAppAnnouncementUserResponse) {
+    option (google.api.http) = {
+      post : "/v1/delete/app/announcementuser"
+      body : "*"
+    };
+  }
+
+  rpc GetAnnouncementUsers(GetAnnouncementUsersRequest)
+      returns (GetAnnouncementUsersResponse) {
+    option (google.api.http) = {
+      post : "/v1/get/announcementusers"
+      body : "*"
+    };
+  }
+
+  rpc GetAppAnnouncementUsers(GetAppAnnouncementUsersRequest)
+      returns (GetAppAnnouncementUsersResponse) {
+    option (google.api.http) = {
+      post : "/v1/get/app/announcementusers"
+      body : "*"
+    };
+  }
+}
+
+message AnnouncementUser {
+  uint32 ID = 9;
+  string EntID = 10;
+  string AnnouncementID = 20;
+  string AppID = 30;
+  string UserID = 50;
+  string EmailAddress = 60;
+  string PhoneNO = 70;
+  string Username = 80;
+  string Title = 90;
+  string Content = 100;
+  basetypes.v1.NotifType AnnouncementType = 110;
+  basetypes.v1.NotifChannel Channel = 120;
+  uint32 CreatedAt = 130;
+  uint32 UpdatedAt = 140;
+}
+
+message CreateAnnouncementUserRequest {
+  string AppID = 10;
+  string TargetUserID = 20;
+  string AnnouncementID = 30;
+}
+
+message CreateAnnouncementUserResponse { AnnouncementUser Info = 10; }
+
+message CreateAppAnnouncementUserRequest {
+  string TargetAppID = 10;
+  string TargetUserID = 20;
+  string AnnouncementID = 30;
+}
+
+message CreateAppAnnouncementUserResponse { AnnouncementUser Info = 10; }
+
+message DeleteAnnouncementUserRequest {
+  uint32 ID = 10;
+  string EntID = 11;
+  string AppID = 20;
+}
+
+message DeleteAnnouncementUserResponse { AnnouncementUser Info = 10; }
+
+message DeleteAppAnnouncementUserRequest {
+  uint32 ID = 10;
+  string EntID = 11;
+  string TargetAppID = 20;
+}
+
+message DeleteAppAnnouncementUserResponse { AnnouncementUser Info = 10; }
+
+message GetAnnouncementUsersRequest {
+  string AppID = 10;
+  int32 Offset = 30;
+  int32 Limit = 40;
+}
+
+message GetAnnouncementUsersResponse {
+  repeated AnnouncementUser Infos = 10;
+  uint32 Total = 20;
+}
+
+message GetAppAnnouncementUsersRequest {
+  string TargetAppID = 10;
+  int32 Offset = 20;
+  int32 Limit = 30;
+}
+
+message GetAppAnnouncementUsersResponse {
+  repeated AnnouncementUser Infos = 10;
+  uint32 Total = 20;
+}

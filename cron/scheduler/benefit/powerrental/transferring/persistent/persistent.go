@@ -4,8 +4,8 @@ import (
 	"context"
 	"fmt"
 
-	txmwcli "github.com/NpoolPlatform/chain-middleware/pkg/client/tx"
-	powerrentalmwcli "github.com/NpoolPlatform/good-middleware/pkg/client/powerrental"
+	txmwcli "github.com/NpoolPlatform/kunman/middleware/chain/tx"
+	powerrentalmwcli "github.com/NpoolPlatform/kunman/middleware/good/powerrental"
 	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	txmwpb "github.com/NpoolPlatform/kunman/message/chain/middleware/v1/tx"
 	powerrentalmwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/powerrental"

@@ -1,0 +1,142 @@
+syntax = "proto3";
+
+package notif.gateway.template.sms.v1;
+
+option go_package = "github.com/NpoolPlatform/kunman/message/notif/gateway/v1/template/sms";
+
+import "google/api/annotations.proto";
+import "notif/middleware/v1/template/sms/sms.proto";
+import "basetypes/v1/usedfor.proto";
+
+service Gateway {
+  rpc CreateSMSTemplate(CreateSMSTemplateRequest)
+      returns (CreateSMSTemplateResponse) {
+    option (google.api.http) = {
+      post : "/v1/create/smstemplate"
+      body : "*"
+    };
+  }
+
+  rpc CreateAppSMSTemplate(CreateAppSMSTemplateRequest)
+      returns (CreateAppSMSTemplateResponse) {
+    option (google.api.http) = {
+      post : "/v1/create/app/smstemplate"
+      body : "*"
+    };
+  }
+
+  rpc GetSMSTemplate(GetSMSTemplateRequest) returns (GetSMSTemplateResponse) {
+    option (google.api.http) = {
+      post : "/v1/get/smstemplate"
+      body : "*"
+    };
+  }
+
+  rpc GetSMSTemplates(GetSMSTemplatesRequest)
+      returns (GetSMSTemplatesResponse) {
+    option (google.api.http) = {
+      post : "/v1/get/smstemplates"
+      body : "*"
+    };
+  }
+
+  rpc GetAppSMSTemplates(GetAppSMSTemplatesRequest)
+      returns (GetAppSMSTemplatesResponse) {
+    option (google.api.http) = {
+      post : "/v1/get/app/smstemplates"
+      body : "*"
+    };
+  }
+
+  rpc UpdateSMSTemplate(UpdateSMSTemplateRequest)
+      returns (UpdateSMSTemplateResponse) {
+    option (google.api.http) = {
+      post : "/v1/update/smstemplate"
+      body : "*"
+    };
+  }
+
+  rpc UpdateAppSMSTemplate(UpdateAppSMSTemplateRequest)
+      returns (UpdateAppSMSTemplateResponse) {
+    option (google.api.http) = {
+      post : "/v1/update/app/smstemplate"
+      body : "*"
+    };
+  }
+}
+
+message CreateSMSTemplateRequest {
+  string AppID = 10;
+  string TargetLangID = 20;
+  basetypes.v1.UsedFor UsedFor = 30;
+  string Subject = 40;
+  string Message = 50;
+}
+
+message CreateSMSTemplateResponse {
+  notif.middleware.template.sms.v1.SMSTemplate Info = 10;
+}
+
+message CreateAppSMSTemplateRequest {
+  string TargetAppID = 10;
+  string TargetLangID = 20;
+  basetypes.v1.UsedFor UsedFor = 30;
+  string Subject = 40;
+  string Message = 50;
+}
+
+message CreateAppSMSTemplateResponse {
+  notif.middleware.template.sms.v1.SMSTemplate Info = 10;
+}
+
+message GetSMSTemplateRequest { string EntID = 10; }
+
+message GetSMSTemplateResponse {
+  notif.middleware.template.sms.v1.SMSTemplate Info = 10;
+}
+
+message GetSMSTemplatesRequest {
+  string AppID = 10;
+  int32 Offset = 20;
+  int32 Limit = 30;
+}
+
+message GetSMSTemplatesResponse {
+  repeated notif.middleware.template.sms.v1.SMSTemplate Infos = 10;
+  uint32 Total = 20;
+}
+
+message GetAppSMSTemplatesRequest {
+  string TargetAppID = 10;
+  int32 Offset = 20;
+  int32 Limit = 30;
+}
+
+message GetAppSMSTemplatesResponse {
+  repeated notif.middleware.template.sms.v1.SMSTemplate Infos = 10;
+  uint32 Total = 20;
+}
+
+message UpdateSMSTemplateRequest {
+  uint32 ID = 10;
+  string EntID = 11;
+  string AppID = 20;
+  optional string Subject = 30;
+  optional string Message = 40;
+}
+
+message UpdateSMSTemplateResponse {
+  notif.middleware.template.sms.v1.SMSTemplate Info = 10;
+}
+
+message UpdateAppSMSTemplateRequest {
+  uint32 ID = 10;
+  string EntID = 11;
+  string TargetAppID = 20;
+  optional string Subject = 40;
+  optional string Message = 50;
+}
+
+message UpdateAppSMSTemplateResponse {
+  notif.middleware.template.sms.v1.SMSTemplate Info = 10;
+}

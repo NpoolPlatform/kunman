@@ -6,7 +6,7 @@ import (
 	"time"
 
 	"github.com/NpoolPlatform/kunman/framework/logger"
-	powerrentalmwcli "github.com/NpoolPlatform/good-middleware/pkg/client/powerrental"
+	powerrentalmwcli "github.com/NpoolPlatform/kunman/middleware/good/powerrental"
 	cruder "github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 	goodtypes "github.com/NpoolPlatform/kunman/message/basetypes/good/v1"
 	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
@@ -15,7 +15,7 @@ import (
 	basesentinel "github.com/NpoolPlatform/kunman/cron/scheduler/base/sentinel"
 	common "github.com/NpoolPlatform/kunman/cron/scheduler/benefit/powerrental/wait/common"
 	types "github.com/NpoolPlatform/kunman/cron/scheduler/benefit/powerrental/wait/types"
-	constant "github.com/NpoolPlatform/kunman/cron/scheduler/const"
+	constant "github.com/NpoolPlatform/kunman/pkg/const"
 )
 
 type handler struct {

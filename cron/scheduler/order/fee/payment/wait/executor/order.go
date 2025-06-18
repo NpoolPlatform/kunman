@@ -12,9 +12,9 @@ import (
 	ordertypes "github.com/NpoolPlatform/kunman/message/basetypes/order/v1"
 	coinmwpb "github.com/NpoolPlatform/kunman/message/chain/middleware/v1/coin"
 	feeordermwpb "github.com/NpoolPlatform/kunman/message/order/middleware/v1/fee"
-	sphinxproxypb "github.com/NpoolPlatform/kunman/message/sphinxproxy"
+	sphinxproxypb "github.com/NpoolPlatform/message/npool/sphinxproxy"
 	asyncfeed "github.com/NpoolPlatform/kunman/cron/scheduler/base/asyncfeed"
-	schedcommon "github.com/NpoolPlatform/kunman/cron/scheduler/common"
+	schedcommon "github.com/NpoolPlatform/kunman/pkg/common"
 	types "github.com/NpoolPlatform/kunman/cron/scheduler/order/fee/payment/wait/types"
 	sphinxproxycli "github.com/NpoolPlatform/sphinx-proxy/pkg/client"
 

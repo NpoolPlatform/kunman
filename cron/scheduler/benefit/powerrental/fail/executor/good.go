@@ -12,9 +12,9 @@ import (
 	powerrentalordermwpb "github.com/NpoolPlatform/kunman/message/order/middleware/v1/powerrental"
 	asyncfeed "github.com/NpoolPlatform/kunman/cron/scheduler/base/asyncfeed"
 	types "github.com/NpoolPlatform/kunman/cron/scheduler/benefit/powerrental/fail/types"
-	schedcommon "github.com/NpoolPlatform/kunman/cron/scheduler/common"
-	constant "github.com/NpoolPlatform/kunman/cron/scheduler/const"
-	powerrentalordermwcli "github.com/NpoolPlatform/order-middleware/pkg/client/powerrental"
+	schedcommon "github.com/NpoolPlatform/kunman/pkg/common"
+	constant "github.com/NpoolPlatform/kunman/pkg/const"
+	powerrentalordermwcli "github.com/NpoolPlatform/kunman/middleware/order/powerrental"
 
 	"github.com/shopspring/decimal"
 )

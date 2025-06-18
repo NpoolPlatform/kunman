@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+package basetypes.v1;
+
+option go_package = "github.com/NpoolPlatform/kunman/message/basetypes/v1";
+
+enum NotifType {
+  DefaultNotifType = 0;
+  NotifMulticast = 10;
+  NotifBroadcast = 20;
+  NotifUnicast = 30;
+}

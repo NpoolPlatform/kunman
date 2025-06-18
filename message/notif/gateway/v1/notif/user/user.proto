@@ -1,0 +1,97 @@
+syntax = "proto3";
+
+package notif.gateway.notif.user.v1;
+
+option go_package = "github.com/NpoolPlatform/kunman/message/notif/gateway/v1/notif/user";
+
+import "google/api/annotations.proto";
+import "basetypes/v1/usedfor.proto";
+import "basetypes/v1/notiftype.proto";
+
+// Service Name
+service Gateway {
+  rpc CreateNotifUser(CreateNotifUserRequest)
+      returns (CreateNotifUserResponse) {
+    option (google.api.http) = {
+      post : "/v1/create/notifuser"
+      body : "*"
+    };
+  }
+  rpc DeleteNotifUser(DeleteNotifUserRequest)
+      returns (DeleteNotifUserResponse) {
+    option (google.api.http) = {
+      post : "/v1/delete/notifuser"
+      body : "*"
+    };
+  }
+
+  rpc GetNotifUsers(GetNotifUsersRequest) returns (GetNotifUsersResponse) {
+    option (google.api.http) = {
+      post : "/v1/get/notifusers"
+      body : "*"
+    };
+  }
+
+  rpc GetAppNotifUsers(GetAppNotifUsersRequest)
+      returns (GetAppNotifUsersResponse) {
+    option (google.api.http) = {
+      post : "/v1/get/app/notifusers"
+      body : "*"
+    };
+  }
+}
+
+message NotifUser {
+  uint32 ID = 9;
+  string EntID = 10;
+  basetypes.v1.UsedFor EventType = 20;
+  string AppID = 30;
+  string UserID = 50;
+  string EmailAddress = 60;
+  string PhoneNO = 70;
+  string Username = 80;
+  string Title = 90;
+  string Content = 100;
+  basetypes.v1.NotifType NotifType = 110;
+  uint32 CreatedAt = 120;
+  uint32 UpdatedAt = 130;
+}
+
+message CreateNotifUserRequest {
+  string AppID = 10;
+  string TargetUserID = 20;
+  basetypes.v1.UsedFor EventType = 30;
+}
+
+message CreateNotifUserResponse { NotifUser Info = 10; }
+
+message DeleteNotifUserRequest {
+  uint32 ID = 10;
+  string EntID = 11;
+  string AppID = 20;
+}
+
+message DeleteNotifUserResponse { NotifUser Info = 10; }
+
+message GetNotifUsersRequest {
+  string AppID = 10;
+  optional basetypes.v1.UsedFor EventType = 20;
+  int32 Offset = 30;
+  int32 Limit = 40;
+}
+
+message GetNotifUsersResponse {
+  repeated NotifUser Infos = 10;
+  uint32 Total = 20;
+}
+
+message GetAppNotifUsersRequest {
+  string TargetAppID = 10;
+  int32 Offset = 20;
+  int32 Limit = 30;
+}
+
+message GetAppNotifUsersResponse {
+  repeated NotifUser Infos = 10;
+  uint32 Total = 20;
+}

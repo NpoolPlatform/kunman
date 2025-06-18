@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+package notif.middleware.template.v1;
+
+option go_package = "github.com/NpoolPlatform/kunman/message/notif/middleware/v1/template";
+
+import "basetypes/v1/channel.proto";
+import "basetypes/v1/usedfor.proto";
+
+message TemplateVars {
+  optional string Username = 10;
+  optional string Message = 20;
+  optional string Amount = 30;
+  optional string CoinUnit = 40;
+  optional uint32 Timestamp = 50;
+  optional string Address = 60;
+  optional string Code = 70;
+  optional string IP = 80;
+  optional string Location = 90;
+  optional string UserAgent = 100;
+}
+
+message TextInfo {
+  string Subject = 10;
+  string Content = 20;
+  string From = 30;
+  repeated string ToCCs = 40;
+  repeated string ReplyTos = 50;
+}
+

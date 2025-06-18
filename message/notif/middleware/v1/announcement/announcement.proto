@@ -1,0 +1,68 @@
+syntax = "proto3";
+
+package notif.middleware.announcement.v1;
+
+option go_package = "github.com/NpoolPlatform/kunman/message/notif/middleware/v1/announcement";
+
+import "basetypes/v1/conds.proto";
+import "basetypes/v1/channel.proto";
+import "basetypes/v1/notiftype.proto";
+
+message AnnouncementReq {
+  optional uint32 ID = 9;
+  optional string EntID = 10;
+  optional string AppID = 20;
+  optional string LangID = 30;
+  optional string Title = 40;
+  optional string Content = 50;
+  optional basetypes.v1.NotifChannel Channel = 60;
+  optional uint32 StartAt = 69;
+  optional uint32 EndAt = 70;
+  optional basetypes.v1.NotifType AnnouncementType = 80;
+}
+
+message Announcement {
+  // @inject_tag: sql:"id"
+  uint32 ID = 9;
+  // @inject_tag: sql:"ent_id"
+  string EntID = 10;
+  // @inject_tag: sql:"app_id"
+  string AppID = 20;
+  // @inject_tag: sql:"lang_id"
+  string LangID = 30;
+  // @inject_tag: sql:"title"
+  string Title = 40;
+  // @inject_tag: sql:"content"
+  string Content = 50;
+  // @inject_tag: sql:"channel"
+  string ChannelStr = 59;
+  basetypes.v1.NotifChannel Channel = 60;
+  // @inject_tag: sql:"start_at"
+  uint32 StartAt = 70;
+  // @inject_tag: sql:"end_at"
+  uint32 EndAt = 80;
+  // @inject_tag: sql:"type"
+  string AnnouncementTypeStr = 90;
+  basetypes.v1.NotifType AnnouncementType = 100;
+  // @inject_tag: sql:"created_at"
+  uint32 CreatedAt = 110;
+  // @inject_tag: sql:"updated_at"
+  uint32 UpdatedAt = 120;
+  // @inject_tag: sql:"user_id"
+  string UserID = 130;
+  // @inject_tag: sql:"notified"
+  bool Notified = 140;
+}
+
+message Conds {
+  optional basetypes.v1.Uint32Val ID = 9;
+  optional basetypes.v1.StringVal EntID = 10;
+  optional basetypes.v1.StringVal AppID = 20;
+  optional basetypes.v1.StringVal UserID = 30;
+  optional basetypes.v1.StringVal LangID = 40;
+  optional basetypes.v1.Uint32Val AnnouncementType = 50;
+  optional basetypes.v1.Uint32Val StartAt = 60;
+  optional basetypes.v1.Uint32Val EndAt = 70;
+  optional basetypes.v1.Uint32Val Channel = 100;
+}
+

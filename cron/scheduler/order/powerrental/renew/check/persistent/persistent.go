@@ -9,8 +9,8 @@ import (
 	asyncfeed "github.com/NpoolPlatform/kunman/cron/scheduler/base/asyncfeed"
 	basepersistent "github.com/NpoolPlatform/kunman/cron/scheduler/base/persistent"
 	types "github.com/NpoolPlatform/kunman/cron/scheduler/order/powerrental/renew/check/types"
-	powerrentalordermwcli "github.com/NpoolPlatform/order-middleware/pkg/client/powerrental"
-	powerrentaloutofgasmwcli "github.com/NpoolPlatform/order-middleware/pkg/client/powerrental/outofgas"
+	powerrentalordermwcli "github.com/NpoolPlatform/kunman/middleware/order/powerrental"
+	powerrentaloutofgasmwcli "github.com/NpoolPlatform/kunman/middleware/order/powerrental/outofgas"
 )
 
 type handler struct{}

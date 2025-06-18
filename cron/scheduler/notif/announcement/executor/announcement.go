@@ -25,7 +25,7 @@ import (
 	emailtmplmwcli "github.com/NpoolPlatform/notif-middleware/pkg/client/template/email"
 	smstmplmwcli "github.com/NpoolPlatform/notif-middleware/pkg/client/template/sms"
 	asyncfeed "github.com/NpoolPlatform/kunman/cron/scheduler/base/asyncfeed"
-	constant "github.com/NpoolPlatform/kunman/cron/scheduler/const"
+	constant "github.com/NpoolPlatform/kunman/pkg/const"
 	types "github.com/NpoolPlatform/kunman/cron/scheduler/notif/announcement/types"
 )
 

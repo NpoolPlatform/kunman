@@ -14,9 +14,9 @@ import (
 	feeordermwpb "github.com/NpoolPlatform/kunman/message/order/middleware/v1/fee"
 	orderlockmwpb "github.com/NpoolPlatform/kunman/message/order/middleware/v1/order/lock"
 	asyncfeed "github.com/NpoolPlatform/kunman/cron/scheduler/base/asyncfeed"
-	constant "github.com/NpoolPlatform/kunman/cron/scheduler/const"
+	constant "github.com/NpoolPlatform/kunman/pkg/const"
 	types "github.com/NpoolPlatform/kunman/cron/scheduler/order/fee/cancel/commission/types"
-	orderlockmwcli "github.com/NpoolPlatform/order-middleware/pkg/client/order/lock"
+	orderlockmwcli "github.com/NpoolPlatform/kunman/middleware/order/order/lock"
 
 	"github.com/google/uuid"
 	"github.com/shopspring/decimal"
