@@ -4,7 +4,7 @@ import (
 	"context"
 	"time"
 
-	depositaccmwcli "github.com/NpoolPlatform/account-middleware/pkg/client/deposit"
+	depositaccmwcli "github.com/NpoolPlatform/kunman/middleware/account/deposit"
 	cruder "github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 	depositaccmwpb "github.com/NpoolPlatform/kunman/message/account/middleware/v1/deposit"
 	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"

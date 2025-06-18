@@ -3,7 +3,7 @@ package executor
 import (
 	"context"
 
-	accountmwcli "github.com/NpoolPlatform/account-middleware/pkg/client/account"
+	accountmwcli "github.com/NpoolPlatform/kunman/middleware/account/account"
 	appmwcli "github.com/NpoolPlatform/appuser-middleware/pkg/client/app"
 	usermwcli "github.com/NpoolPlatform/appuser-middleware/pkg/client/user"
 	coinmwcli "github.com/NpoolPlatform/kunman/middleware/chain/coin"

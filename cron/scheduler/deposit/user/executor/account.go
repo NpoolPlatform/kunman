@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"time"
 
-	depositaccmwcli "github.com/NpoolPlatform/account-middleware/pkg/client/deposit"
+	depositaccmwcli "github.com/NpoolPlatform/kunman/middleware/account/deposit"
 	accountlock "github.com/NpoolPlatform/account-middleware/pkg/lock"
 	coinmwcli "github.com/NpoolPlatform/kunman/middleware/chain/coin"
 	"github.com/NpoolPlatform/kunman/framework/logger"

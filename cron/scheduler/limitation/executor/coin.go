@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"time"
 
-	pltfaccmwcli "github.com/NpoolPlatform/account-middleware/pkg/client/platform"
+	pltfaccmwcli "github.com/NpoolPlatform/kunman/middleware/account/platform"
 	txmwcli "github.com/NpoolPlatform/kunman/middleware/chain/tx"
 	timedef "github.com/NpoolPlatform/kunman/framework/const/time"
 	"github.com/NpoolPlatform/kunman/framework/logger"

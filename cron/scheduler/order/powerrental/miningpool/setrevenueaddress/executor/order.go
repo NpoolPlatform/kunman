@@ -3,7 +3,7 @@ package executor
 import (
 	"context"
 
-	orderbenefitmwcli "github.com/NpoolPlatform/account-middleware/pkg/client/orderbenefit"
+	orderbenefitmwcli "github.com/NpoolPlatform/kunman/middleware/account/orderbenefit"
 	"github.com/NpoolPlatform/kunman/framework/logger"
 	"github.com/NpoolPlatform/kunman/framework/wlog"
 	apppowerrentalmwcli "github.com/NpoolPlatform/kunman/middleware/good/app/powerrental"

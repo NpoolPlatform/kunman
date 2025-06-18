@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"time"
 
-	payaccmwcli "github.com/NpoolPlatform/account-middleware/pkg/client/payment"
-	pltfaccmwcli "github.com/NpoolPlatform/account-middleware/pkg/client/platform"
+	payaccmwcli "github.com/NpoolPlatform/kunman/middleware/account/payment"
+	pltfaccmwcli "github.com/NpoolPlatform/kunman/middleware/account/platform"
 	accountlock "github.com/NpoolPlatform/account-middleware/pkg/lock"
 	coinmwcli "github.com/NpoolPlatform/kunman/middleware/chain/coin"
 	txmwcli "github.com/NpoolPlatform/kunman/middleware/chain/tx"

@@ -4,8 +4,8 @@ import (
 	"context"
 	"fmt"
 
-	depositaccmwcli "github.com/NpoolPlatform/account-middleware/pkg/client/deposit"
-	pltfaccmwcli "github.com/NpoolPlatform/account-middleware/pkg/client/platform"
+	depositaccmwcli "github.com/NpoolPlatform/kunman/middleware/account/deposit"
+	pltfaccmwcli "github.com/NpoolPlatform/kunman/middleware/account/platform"
 	accountlock "github.com/NpoolPlatform/account-middleware/pkg/lock"
 	coinmwcli "github.com/NpoolPlatform/kunman/middleware/chain/coin"
 	"github.com/NpoolPlatform/kunman/framework/logger"

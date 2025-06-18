@@ -4,7 +4,7 @@ import (
 	"context"
 	"time"
 
-	payaccmwcli "github.com/NpoolPlatform/account-middleware/pkg/client/payment"
+	payaccmwcli "github.com/NpoolPlatform/kunman/middleware/account/payment"
 	cruder "github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 	payaccmwpb "github.com/NpoolPlatform/kunman/message/account/middleware/v1/payment"
 	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"

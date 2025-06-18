@@ -4,7 +4,7 @@ import (
 	"context"
 	"fmt"
 
-	paymentaccountmwcli "github.com/NpoolPlatform/account-middleware/pkg/client/payment"
+	paymentaccountmwcli "github.com/NpoolPlatform/kunman/middleware/account/payment"
 	ordertypes "github.com/NpoolPlatform/kunman/message/basetypes/order/v1"
 	paymentmwpb "github.com/NpoolPlatform/kunman/message/order/middleware/v1/payment"
 	asyncfeed "github.com/NpoolPlatform/kunman/cron/scheduler/base/asyncfeed"

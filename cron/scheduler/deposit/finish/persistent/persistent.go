@@ -3,15 +3,11 @@ package persistent
 import (
 	"context"
 	"fmt"
-	"time"
 
-	depositaccmwcli "github.com/NpoolPlatform/account-middleware/pkg/client/deposit"
-	accountlock "github.com/NpoolPlatform/account-middleware/pkg/lock"
-	timedef "github.com/NpoolPlatform/kunman/framework/const/time"
-	depositaccmwpb "github.com/NpoolPlatform/kunman/message/account/middleware/v1/deposit"
 	asyncfeed "github.com/NpoolPlatform/kunman/cron/scheduler/base/asyncfeed"
 	basepersistent "github.com/NpoolPlatform/kunman/cron/scheduler/base/persistent"
 	types "github.com/NpoolPlatform/kunman/cron/scheduler/deposit/finish/types"
+	depositaccmw "github.com/NpoolPlatform/kunman/middleware/account/deposit"
 
 	"github.com/google/uuid"
 )
@@ -30,27 +26,25 @@ func (p *handler) Update(ctx context.Context, account interface{}, reward, notif
 
 	defer asyncfeed.AsyncFeed(ctx, _account, done)
 
-	if err := accountlock.Lock(_account.AccountID); err != nil {
-		return err
-	}
-	defer func() {
-		_ = accountlock.Unlock(_account.AccountID) //nolint
-	}()
-
-	scannableAt := uint32(time.Now().Unix() + timedef.SecondsPerHour)
 	locked := false
 	collectingID := uuid.Nil.String()
-	if _, err := depositaccmwcli.UpdateAccount(ctx, &depositaccmwpb.AccountReq{
-		ID:            &_account.ID,
-		AppID:         &_account.AppID,
-		UserID:        &_account.UserID,
-		CoinTypeID:    &_account.CoinTypeID,
-		AccountID:     &_account.AccountID,
-		Locked:        &locked,
-		CollectingTID: &collectingID,
-		ScannableAt:   &scannableAt,
-		Outcoming:     _account.CollectOutcoming,
-	}); err != nil {
+
+	handler, err := depositaccmw.NewHandler(
+		ctx,
+		depositaccmw.WithID(&_account.ID, true),
+		depositaccmw.WithAppID(&_account.AppID, true),
+		depositaccmw.WithUserID(&_account.UserID, true),
+		depositaccmw.WithCoinTypeID(&_account.CoinTypeID, true),
+		depositaccmw.WithAccountID(&_account.AccountID, true),
+		depositaccmw.WithLocked(&locked, true),
+		depositaccmw.WithCollectingTID(&collectingID, true),
+		depositaccmw.WithOutcoming(_account.CollectOutcoming, true),
+	)
+	if err != nil {
+		return err
+	}
+
+	if _, err := handler.UpdateAccount(ctx); err != nil {
 		return err
 	}
 
