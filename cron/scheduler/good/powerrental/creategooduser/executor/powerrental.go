@@ -5,9 +5,9 @@ import (
 
 	"github.com/NpoolPlatform/kunman/framework/logger"
 	"github.com/NpoolPlatform/kunman/framework/wlog"
-	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/good/v1"
 	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
+	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 	"github.com/google/uuid"
 
 	miningstockmwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/good/stock"
@@ -15,8 +15,8 @@ import (
 	poolcoinmwpb "github.com/NpoolPlatform/kunman/message/miningpool/middleware/v1/coin"
 	goodusermwpb "github.com/NpoolPlatform/kunman/message/miningpool/middleware/v1/gooduser"
 	rootusermwpb "github.com/NpoolPlatform/kunman/message/miningpool/middleware/v1/rootuser"
-	poolcoinmwcli "github.com/NpoolPlatform/miningpool-middleware/pkg/client/coin"
-	rootusermwcli "github.com/NpoolPlatform/miningpool-middleware/pkg/client/rootuser"
+	poolcoinmw "github.com/NpoolPlatform/kunman/middleware/miningpool/coin"
+	rootusermw "github.com/NpoolPlatform/kunman/middleware/miningpool/rootuser"
 
 	"github.com/NpoolPlatform/kunman/cron/scheduler/base/asyncfeed"
 	"github.com/NpoolPlatform/kunman/cron/scheduler/good/powerrental/creategooduser/types"
@@ -97,33 +97,42 @@ func (h *powerRentalHandler) getPoolInfos(ctx context.Context) error {
 		poolRootUserIDs = append(poolRootUserIDs, miningGoodStock.PoolRootUserID)
 	}
 
-	h.rootUsers, _, err = rootusermwcli.GetRootUsers(ctx, &rootusermwpb.Conds{
-		EntIDs: &basetypes.StringSliceVal{
-			Op:    cruder.IN,
-			Value: poolRootUserIDs,
-		},
-		Authed: &basetypes.BoolVal{
-			Op:    cruder.EQ,
-			Value: true,
-		},
-	}, 0, int32(len(poolRootUserIDs)))
+	conds := &rootusermwpb.Conds{
+		EntIDs: &basetypes.StringSliceVal{Op: cruder.IN, Value: poolRootUserIDs},
+		Authed: &basetypes.BoolVal{Op: cruder.EQ, Value: true},
+	}
+	handler, err := rootusermw.NewHandler(
+		ctx,
+		rootusermw.WithConds(conds),
+		rootusermw.WithOffset(0),
+		rootusermw.WithLimit(int32(len(poolRootUserIDs))),
+	)
+	if err != nil {
+		return err
+	}
 
+	h.rootUsers, _, err = handler.GetRootUsers(ctx)
 	if err != nil {
 		return wlog.WrapError(err)
 	}
 
 	h.rootUserCoinTypeIDs = make(map[string][]string)
 	for _, rootUser := range h.rootUsers {
-		coinInfos, _, err := poolcoinmwcli.GetCoins(ctx, &poolcoinmwpb.Conds{
-			CoinTypeIDs: &basetypes.StringSliceVal{
-				Op:    cruder.IN,
-				Value: h.goodCoinTypeIDs,
-			},
-			PoolID: &basetypes.StringVal{
-				Op:    cruder.EQ,
-				Value: rootUser.PoolID,
-			},
-		}, 0, int32(len(h.goodCoinTypeIDs)))
+		conds := &poolcoinmwpb.Conds{
+			CoinTypeIDs: &basetypes.StringSliceVal{Op: cruder.IN, Value: h.goodCoinTypeIDs},
+			PoolID:      &basetypes.StringVal{Op: cruder.EQ, Value: rootUser.PoolID},
+		}
+		handler, err := poolcoinmw.NewHandler(
+			ctx,
+			poolcoinmw.WithConds(conds),
+			poolcoinmw.WithOffset(0),
+			poolcoinmw.WithLimit(int32(len(h.goodCoinTypeIDs))),
+		)
+		if err != nil {
+			return err
+		}
+
+		coinInfos, _, err := handler.GetCoins(ctx)
 		if err != nil {
 			return wlog.WrapError(err)
 		}

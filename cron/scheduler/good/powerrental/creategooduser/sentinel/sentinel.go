@@ -3,15 +3,15 @@ package sentinel
 import (
 	"context"
 
-	"github.com/NpoolPlatform/build-chain/pkg/constant"
-	goodpowerrentalmwcli "github.com/NpoolPlatform/kunman/middleware/good/powerrental"
-	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
-	goodbasepb "github.com/NpoolPlatform/kunman/message/basetypes/good/v1"
-	v1 "github.com/NpoolPlatform/kunman/message/basetypes/v1"
-	goodpowerrentalmwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/powerrental"
 	"github.com/NpoolPlatform/kunman/cron/scheduler/base/cancelablefeed"
 	basesentinel "github.com/NpoolPlatform/kunman/cron/scheduler/base/sentinel"
 	"github.com/NpoolPlatform/kunman/cron/scheduler/good/powerrental/creategooduser/types"
+	goodbasepb "github.com/NpoolPlatform/kunman/message/basetypes/good/v1"
+	v1 "github.com/NpoolPlatform/kunman/message/basetypes/v1"
+	powerrentalmwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/powerrental"
+	powerrentalmw "github.com/NpoolPlatform/kunman/middleware/good/powerrental"
+	"github.com/NpoolPlatform/kunman/pkg/const"
+	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 )
 
 type handler struct{}
@@ -24,21 +24,24 @@ func (h *handler) scanPowerRentals(ctx context.Context, state goodbasepb.GoodSta
 	offset := int32(0)
 	limit := constant.DefaultRowLimit
 
+	conds := &powerrentalmwpb.Conds{
+		State:     &v1.Uint32Val{Op: cruder.EQ, Value: uint32(state)},
+		GoodType:  &v1.Uint32Val{Op: cruder.EQ, Value: uint32(goodType)},
+		StockMode: &v1.Uint32Val{Op: cruder.EQ, Value: uint32(stockMode)},
+	}
+
 	for {
-		goods, _, err := goodpowerrentalmwcli.GetPowerRentals(ctx, &goodpowerrentalmwpb.Conds{
-			State: &v1.Uint32Val{
-				Op:    cruder.EQ,
-				Value: uint32(state),
-			},
-			GoodType: &v1.Uint32Val{
-				Op:    cruder.EQ,
-				Value: uint32(goodType),
-			},
-			StockMode: &v1.Uint32Val{
-				Op:    cruder.EQ,
-				Value: uint32(stockMode),
-			},
-		}, offset, limit)
+		handler, err := powerrentalmw.NewHandler(
+			ctx,
+			powerrentalmw.WithConds(conds),
+			powerrentalmw.WithOffset(offset),
+			powerrentalmw.WithLimit(limit),
+		)
+		if err != nil {
+			return err
+		}
+
+		goods, _, err := handler.GetPowerRentals(ctx)
 		if err != nil {
 			return err
 		}
@@ -72,5 +75,5 @@ func (h *handler) ObjectID(ent interface{}) string {
 	if tx, ok := ent.(*types.PersistentGoodPowerRental); ok {
 		return tx.EntID
 	}
-	return ent.(*goodpowerrentalmwpb.PowerRental).EntID
+	return ent.(*powerrentalmwpb.PowerRental).EntID
 }

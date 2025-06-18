@@ -4,9 +4,8 @@ import (
 	"context"
 	"fmt"
 
-	powerrentalmwcli "github.com/NpoolPlatform/kunman/middleware/good/powerrental"
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/good/v1"
-	goodpowerrentalmwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/powerrental"
+	powerrentalmw "github.com/NpoolPlatform/kunman/middleware/good/powerrental"
 
 	"github.com/NpoolPlatform/kunman/cron/scheduler/base/asyncfeed"
 	basepersistent "github.com/NpoolPlatform/kunman/cron/scheduler/base/persistent"
@@ -27,12 +26,17 @@ func (p *handler) Update(ctx context.Context, good interface{}, reward, notif, d
 
 	defer asyncfeed.AsyncFeed(ctx, _good, done)
 
-	return powerrentalmwcli.UpdatePowerRental(ctx, &goodpowerrentalmwpb.PowerRentalReq{
-		ID:               &_good.ID,
-		EntID:            &_good.EntID,
-		GoodID:           &_good.GoodID,
-		State:            v1.GoodState_GoodStateCreateGoodUser.Enum(),
-		MiningGoodStocks: _good.MiningGoodStockReqs,
-		Rollback:         func() *bool { rollback := true; return &rollback }(),
-	})
+	handler, err := powerrentalmw.NewHandler(
+		ctx,
+		powerrentalmw.WithID(&_good.ID, true),
+		powerrentalmw.WithEntID(&_good.EntID, true),
+		powerrentalmw.WithGoodID(&_good.GoodID, true),
+		powerrentalmw.WithState(v1.GoodState_GoodStateCreateGoodUser.Enum(), true),
+		powerrentalmw.WithStocks(_good.MiningGoodStockReqs, true),
+	)
+	if err != nil {
+		return err
+	}
+
+	return handler.UpdatePowerRental(ctx)
 }

@@ -4,17 +4,12 @@ import (
 	"context"
 	"fmt"
 
-	dtmcli "github.com/NpoolPlatform/dtm-cluster/pkg/dtm"
-	goodsvcname "github.com/NpoolPlatform/good-middleware/pkg/servicename"
-	v1 "github.com/NpoolPlatform/kunman/message/basetypes/good/v1"
-	goodpowerrentalmwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/powerrental"
-	goodusermwpb "github.com/NpoolPlatform/kunman/message/miningpool/middleware/v1/gooduser"
-	miningpoolsvcname "github.com/NpoolPlatform/miningpool-middleware/pkg/servicename"
 	"github.com/NpoolPlatform/kunman/cron/scheduler/base/asyncfeed"
 	basepersistent "github.com/NpoolPlatform/kunman/cron/scheduler/base/persistent"
-	dtm1 "github.com/NpoolPlatform/kunman/cron/scheduler/dtm"
 	"github.com/NpoolPlatform/kunman/cron/scheduler/good/powerrental/creategooduser/types"
-	"github.com/dtm-labs/dtm/client/dtmcli/dtmimp"
+	v1 "github.com/NpoolPlatform/kunman/message/basetypes/good/v1"
+	powerrentalmw "github.com/NpoolPlatform/kunman/middleware/good/powerrental"
+	goodusermw "github.com/NpoolPlatform/kunman/middleware/miningpool/gooduser"
 )
 
 type handler struct{}
@@ -23,37 +18,40 @@ func NewPersistent() basepersistent.Persistenter {
 	return &handler{}
 }
 
-func (p *handler) withUpdatePowerrentalState(dispose *dtmcli.SagaDispose, good *types.PersistentGoodPowerRental) {
-	req := &goodpowerrentalmwpb.PowerRentalReq{
-		ID:               &good.ID,
-		EntID:            &good.EntID,
-		GoodID:           &good.GoodID,
-		State:            v1.GoodState_GoodStateCheckHashRate.Enum(),
-		MiningGoodStocks: good.MiningGoodStockReqs,
-		Rollback:         func() *bool { rollback := true; return &rollback }(),
+func (p *handler) withUpdatePowerrentalState(ctx context.Context, good *types.PersistentGoodPowerRental) error {
+	handler, err := powerrentalmw.NewHandler(
+		ctx,
+		powerrentalmw.WithID(&good.ID, true),
+		powerrentalmw.WithEntID(&good.EntID, true),
+		powerrentalmw.WithGoodID(&good.GoodID, true),
+		powerrentalmw.WithState(v1.GoodState_GoodStateCheckHashRate.Enum(), true),
+		powerrentalmw.WithStocks(good.MiningGoodStockReqs, true),
+	)
+	if err != nil {
+		return err
 	}
 
-	dispose.Add(
-		goodsvcname.ServiceDomain,
-		"good.middleware.powerrental.v1.Middleware/UpdatePowerRental",
-		"good.middleware.powerrental.v1.Middleware/UpdatePowerRental",
-		&goodpowerrentalmwpb.UpdatePowerRentalRequest{
-			Info: req,
-		},
-	)
+	return handler.UpdatePowerRental(ctx)
 }
 
-func (p *handler) withCreatePoolGoodUser(dispose *dtmcli.SagaDispose, good *types.PersistentGoodPowerRental) {
+func (p *handler) withCreatePoolGoodUser(ctx context.Context, good *types.PersistentGoodPowerRental) error {
 	for _, req := range good.GoodUserReqs {
-		dispose.Add(
-			miningpoolsvcname.ServiceDomain,
-			"miningpool.middleware.gooduser.v1.Middleware/CreateGoodUser",
-			"miningpool.middleware.gooduser.v1.Middleware/CreateGoodUser",
-			&goodusermwpb.CreateGoodUserRequest{
-				Info: req,
-			},
+		handler, err := goodusermw.NewHandler(
+			ctx,
+			goodusermw.WithEntID(req.EntID, false),
+			goodusermw.WithRootUserID(req.RootUserID, true),
+			goodusermw.WithCoinTypeIDs(req.CoinTypeIDs, true),
 		)
+		if err != nil {
+			return err
+		}
+
+		if err := handler.CreateGoodUser(ctx); err != nil {
+			return err
+		}
 	}
+
+	return nil
 }
 
 func (p *handler) Update(ctx context.Context, good interface{}, reward, notif, done chan interface{}) error {
@@ -64,19 +62,12 @@ func (p *handler) Update(ctx context.Context, good interface{}, reward, notif, d
 
 	defer asyncfeed.AsyncFeed(ctx, _good, done)
 
-	timeoutSeconds := int64(10 + len(_good.GoodUserReqs)*2)
-
-	sagaDispose := dtmcli.NewSagaDispose(dtmimp.TransOptions{
-		WaitResult:     true,
-		RequestTimeout: timeoutSeconds,
-		TimeoutToFail:  timeoutSeconds,
-		RetryInterval:  timeoutSeconds,
-	})
-
-	p.withCreatePoolGoodUser(sagaDispose, _good)
-	p.withUpdatePowerrentalState(sagaDispose, _good)
-	if err := dtm1.Do(ctx, sagaDispose); err != nil {
+	if err := p.withCreatePoolGoodUser(ctx, _good); err != nil {
 		return err
 	}
+	if err := p.withUpdatePowerrentalState(ctx, _good); err != nil {
+		return err
+	}
+
 	return nil
 }

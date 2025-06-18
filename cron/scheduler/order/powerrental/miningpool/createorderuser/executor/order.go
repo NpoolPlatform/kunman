@@ -11,7 +11,7 @@ import (
 	powerrentalgoodmwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/app/powerrental"
 	orderusermwpb "github.com/NpoolPlatform/kunman/message/miningpool/middleware/v1/orderuser"
 	powerrentalordermwpb "github.com/NpoolPlatform/kunman/message/order/middleware/v1/powerrental"
-	goodusermwcli "github.com/NpoolPlatform/miningpool-middleware/pkg/client/gooduser"
+	goodusermwcli "github.com/NpoolPlatform/kunman/middleware/miningpool/gooduser"
 	asyncfeed "github.com/NpoolPlatform/kunman/cron/scheduler/base/asyncfeed"
 	types "github.com/NpoolPlatform/kunman/cron/scheduler/order/powerrental/miningpool/createorderuser/types"
 	"github.com/google/uuid"

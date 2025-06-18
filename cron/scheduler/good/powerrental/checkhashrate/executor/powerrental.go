@@ -11,7 +11,7 @@ import (
 
 	miningstockmwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/good/stock"
 	goodpowerrentalmwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/powerrental"
-	goodusermwcli "github.com/NpoolPlatform/miningpool-middleware/pkg/client/gooduser"
+	goodusermw "github.com/NpoolPlatform/kunman/middleware/miningpool/gooduser"
 
 	"github.com/NpoolPlatform/kunman/cron/scheduler/base/asyncfeed"
 	"github.com/NpoolPlatform/kunman/cron/scheduler/good/powerrental/checkhashrate/types"
@@ -79,7 +79,16 @@ func _removeRepeatedElement(arr []string) []string {
 
 func (h *powerRentalHandler) checkHashRate(ctx context.Context) error {
 	for _, miningGoodStock := range h.PowerRental.MiningGoodStocks {
-		hRate, err := goodusermwcli.GetGoodUserHashRate(ctx, miningGoodStock.PoolGoodUserID, h.goodCoinTypeIDs)
+		handler, err := goodusermw.NewHandler(
+			ctx,
+			goodusermw.WithEntID(&miningGoodStock.PoolGoodUserID, true),
+			goodusermw.WithCoinTypeIDs(h.goodCoinTypeIDs, true),
+		)
+		if err != nil {
+			return wlog.WrapError(err)
+		}
+
+		hRate, err := handler.GetGoodUserHashRate(ctx)
 		if err != nil {
 			return wlog.WrapError(err)
 		}
