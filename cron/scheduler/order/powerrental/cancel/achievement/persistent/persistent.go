@@ -3,14 +3,13 @@ package persistent
 import (
 	"context"
 
-	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
-	achievementmwcli "github.com/NpoolPlatform/kunman/middleware/inspire/achievement"
-	ordertypes "github.com/NpoolPlatform/kunman/message/basetypes/order/v1"
-	powerrentalordermwpb "github.com/NpoolPlatform/kunman/message/order/middleware/v1/powerrental"
 	asyncfeed "github.com/NpoolPlatform/kunman/cron/scheduler/base/asyncfeed"
 	basepersistent "github.com/NpoolPlatform/kunman/cron/scheduler/base/persistent"
 	types "github.com/NpoolPlatform/kunman/cron/scheduler/order/powerrental/cancel/achievement/types"
-	powerrentalordermwcli "github.com/NpoolPlatform/kunman/middleware/order/powerrental"
+	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
+	ordertypes "github.com/NpoolPlatform/kunman/message/basetypes/order/v1"
+	achievementmw "github.com/NpoolPlatform/kunman/middleware/inspire/achievement"
+	powerrentalordermw "github.com/NpoolPlatform/kunman/middleware/order/powerrental"
 )
 
 type handler struct{}
@@ -27,14 +26,26 @@ func (p *handler) Update(ctx context.Context, order interface{}, reward, notif, 
 
 	defer asyncfeed.AsyncFeed(ctx, _order, done)
 
-	if err := achievementmwcli.ExpropriateAchievement(ctx, _order.OrderID); err != nil {
+	achievementHandler, err := achievementmw.NewHandler(
+		ctx,
+		achievementmw.WithOrderID(&_order.OrderID, true),
+	)
+	if err != nil {
 		return wlog.WrapError(err)
 	}
 
-	return wlog.WrapError(
-		powerrentalordermwcli.UpdatePowerRentalOrder(ctx, &powerrentalordermwpb.PowerRentalOrderReq{
-			ID:         &_order.ID,
-			OrderState: ordertypes.OrderState_OrderStateReturnCanceledBalance.Enum(),
-		}),
+	if err := achievementHandler.ExpropriateAchievement(ctx); err != nil {
+		return wlog.WrapError(err)
+	}
+
+	prHandler, err := powerrentalordermw.NewHandler(
+		ctx,
+		powerrentalordermw.WithID(&_order.ID, true),
+		powerrentalordermw.WithOrderState(ordertypes.OrderState_OrderStateReturnCanceledBalance.Enum(), true),
 	)
+	if err != nil {
+		return wlog.WrapError(err)
+	}
+
+	return wlog.WrapError(prHandler.UpdatePowerRental(ctx))
 }
