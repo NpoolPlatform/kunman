@@ -4,7 +4,6 @@ import (
 	"context"
 	"sync"
 
-	"github.com/NpoolPlatform/kunman/framework/logger"
 	"github.com/NpoolPlatform/kunman/cron/scheduler/config"
 	cancelachievement "github.com/NpoolPlatform/kunman/cron/scheduler/order/powerrental/cancel/achievement"
 	cancelbookkeeping "github.com/NpoolPlatform/kunman/cron/scheduler/order/powerrental/cancel/bookkeeping"
@@ -18,12 +17,6 @@ import (
 	expirycheck "github.com/NpoolPlatform/kunman/cron/scheduler/order/powerrental/expiry/check"
 	"github.com/NpoolPlatform/kunman/cron/scheduler/order/powerrental/expiry/preexpired"
 	expiryrestorestock "github.com/NpoolPlatform/kunman/cron/scheduler/order/powerrental/expiry/restorestock"
-	"github.com/NpoolPlatform/kunman/cron/scheduler/order/powerrental/miningpool/checkpoolbalance"
-	"github.com/NpoolPlatform/kunman/cron/scheduler/order/powerrental/miningpool/checkproportion"
-	"github.com/NpoolPlatform/kunman/cron/scheduler/order/powerrental/miningpool/createorderuser"
-	"github.com/NpoolPlatform/kunman/cron/scheduler/order/powerrental/miningpool/deleteproportion"
-	"github.com/NpoolPlatform/kunman/cron/scheduler/order/powerrental/miningpool/setproportion"
-	"github.com/NpoolPlatform/kunman/cron/scheduler/order/powerrental/miningpool/setrevenueaddress"
 	paidcheck "github.com/NpoolPlatform/kunman/cron/scheduler/order/powerrental/paid/check"
 	paidstock "github.com/NpoolPlatform/kunman/cron/scheduler/order/powerrental/paid/stock"
 	paymentachievement "github.com/NpoolPlatform/kunman/cron/scheduler/order/powerrental/payment/achievement"
@@ -39,6 +32,7 @@ import (
 	renewexecute "github.com/NpoolPlatform/kunman/cron/scheduler/order/powerrental/renew/execute"
 	renewnotify "github.com/NpoolPlatform/kunman/cron/scheduler/order/powerrental/renew/notify"
 	renewwait "github.com/NpoolPlatform/kunman/cron/scheduler/order/powerrental/renew/wait"
+	"github.com/NpoolPlatform/kunman/framework/logger"
 )
 
 const subsystem = "orderpowerrental"
@@ -81,14 +75,6 @@ func Initialize(ctx context.Context, cancel context.CancelFunc) {
 	renewcheck.Initialize(ctx, cancel, &running)
 	renewnotify.Initialize(ctx, cancel, &running)
 	renewexecute.Initialize(ctx, cancel, &running)
-
-	// for miningpool
-	createorderuser.Initialize(ctx, cancel, &running)
-	checkproportion.Initialize(ctx, cancel, &running)
-	setproportion.Initialize(ctx, cancel, &running)
-	setrevenueaddress.Initialize(ctx, cancel, &running)
-	deleteproportion.Initialize(ctx, cancel, &running)
-	checkpoolbalance.Initialize(ctx, cancel, &running)
 }
 
 func Finalize(ctx context.Context) {
@@ -122,12 +108,4 @@ func Finalize(ctx context.Context) {
 	bookkeeping.Finalize(ctx)
 	paymentachievement.Finalize(ctx)
 	paymentunlockaccount.Finalize(ctx)
-
-	// for miningpool
-	createorderuser.Finalize(ctx)
-	checkproportion.Finalize(ctx)
-	setproportion.Finalize(ctx)
-	setrevenueaddress.Finalize(ctx)
-	deleteproportion.Finalize(ctx)
-	checkpoolbalance.Finalize(ctx)
 }
