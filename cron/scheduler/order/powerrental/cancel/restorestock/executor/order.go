@@ -4,12 +4,12 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/NpoolPlatform/kunman/framework/logger"
-	apppowerrentalmwcli "github.com/NpoolPlatform/kunman/middleware/good/app/powerrental"
-	apppowerrentalmwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/app/powerrental"
-	powerrentalordermwpb "github.com/NpoolPlatform/kunman/message/order/middleware/v1/powerrental"
 	asyncfeed "github.com/NpoolPlatform/kunman/cron/scheduler/base/asyncfeed"
 	types "github.com/NpoolPlatform/kunman/cron/scheduler/order/powerrental/cancel/restorestock/types"
+	"github.com/NpoolPlatform/kunman/framework/logger"
+	apppowerrentalmwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/app/powerrental"
+	powerrentalordermwpb "github.com/NpoolPlatform/kunman/message/order/middleware/v1/powerrental"
+	apppowerrentalmw "github.com/NpoolPlatform/kunman/middleware/good/app/powerrental"
 )
 
 type orderHandler struct {
@@ -21,7 +21,15 @@ type orderHandler struct {
 }
 
 func (h *orderHandler) getAppPowerRental(ctx context.Context) error {
-	good, err := apppowerrentalmwcli.GetPowerRental(ctx, h.AppGoodID)
+	handler, err := apppowerrentalmw.NewHandler(
+		ctx,
+		apppowerrentalmw.WithAppGoodID(&h.AppGoodID, true),
+	)
+	if err != nil {
+		return err
+	}
+
+	good, err := handler.GetPowerRental(ctx)
 	if err != nil {
 		return err
 	}

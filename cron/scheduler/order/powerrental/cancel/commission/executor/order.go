@@ -4,19 +4,19 @@ import (
 	"context"
 	"encoding/json"
 
+	asyncfeed "github.com/NpoolPlatform/kunman/cron/scheduler/base/asyncfeed"
+	types "github.com/NpoolPlatform/kunman/cron/scheduler/order/powerrental/cancel/commission/types"
 	"github.com/NpoolPlatform/kunman/framework/logger"
 	"github.com/NpoolPlatform/kunman/framework/wlog"
-	achievementorderpaymentstatementmwcli "github.com/NpoolPlatform/kunman/middleware/inspire/achievement/statement/order/payment"
-	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 	ordertypes "github.com/NpoolPlatform/kunman/message/basetypes/order/v1"
 	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	achievementorderpaymentstatementmwpb "github.com/NpoolPlatform/kunman/message/inspire/middleware/v1/achievement/statement/order/payment"
 	orderlockmwpb "github.com/NpoolPlatform/kunman/message/order/middleware/v1/order/lock"
 	powerrentalordermwpb "github.com/NpoolPlatform/kunman/message/order/middleware/v1/powerrental"
-	asyncfeed "github.com/NpoolPlatform/kunman/cron/scheduler/base/asyncfeed"
+	achievementorderpaymentstatementmw "github.com/NpoolPlatform/kunman/middleware/inspire/achievement/statement/order/payment"
+	orderlockmw "github.com/NpoolPlatform/kunman/middleware/order/order/lock"
 	constant "github.com/NpoolPlatform/kunman/pkg/const"
-	types "github.com/NpoolPlatform/kunman/cron/scheduler/order/powerrental/cancel/commission/types"
-	orderlockmwcli "github.com/NpoolPlatform/kunman/middleware/order/order/lock"
+	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 
 	"github.com/google/uuid"
 	"github.com/shopspring/decimal"
@@ -37,11 +37,23 @@ func (h *orderHandler) getOrderCommissionLock(ctx context.Context) error {
 	limit := constant.DefaultRowLimit
 	h.commissionLocks = map[string]*orderlockmwpb.OrderLock{}
 
+	conds := &orderlockmwpb.Conds{
+		OrderID:  &basetypes.StringVal{Op: cruder.EQ, Value: h.OrderID},
+		LockType: &basetypes.Uint32Val{Op: cruder.EQ, Value: uint32(ordertypes.OrderLockType_LockCommission)},
+	}
+
 	for {
-		locks, _, err := orderlockmwcli.GetOrderLocks(ctx, &orderlockmwpb.Conds{
-			OrderID:  &basetypes.StringVal{Op: cruder.EQ, Value: h.OrderID},
-			LockType: &basetypes.Uint32Val{Op: cruder.EQ, Value: uint32(ordertypes.OrderLockType_LockCommission)},
-		}, offset, limit)
+		handler, err := orderlockmw.NewHandler(
+			ctx,
+			orderlockmw.WithConds(conds),
+			orderlockmw.WithOffset(offset),
+			orderlockmw.WithLimit(limit),
+		)
+		if err != nil {
+			return err
+		}
+
+		locks, _, err := handler.GetOrderLocks(ctx)
 		if err != nil {
 			return wlog.WrapError(err)
 		}
@@ -60,10 +72,22 @@ func (h *orderHandler) getOrderAchievement(ctx context.Context) error {
 	offset := int32(0)
 	limit := constant.DefaultRowLimit
 
+	conds := &achievementorderpaymentstatementmwpb.Conds{
+		OrderID: &basetypes.StringVal{Op: cruder.EQ, Value: h.OrderID},
+	}
+
 	for {
-		statements, _, err := achievementorderpaymentstatementmwcli.GetStatements(ctx, &achievementorderpaymentstatementmwpb.Conds{
-			OrderID: &basetypes.StringVal{Op: cruder.EQ, Value: h.OrderID},
-		}, offset, limit)
+		handler, err := achievementorderpaymentstatementmw.NewHandler(
+			ctx,
+			achievementorderpaymentstatementmw.WithConds(conds),
+			achievementorderpaymentstatementmw.WithOffset(offset),
+			achievementorderpaymentstatementmw.WithLimit(limit),
+		)
+		if err != nil {
+			return err
+		}
+
+		statements, _, err := handler.GetStatements(ctx)
 		if err != nil {
 			return wlog.WrapError(err)
 		}
