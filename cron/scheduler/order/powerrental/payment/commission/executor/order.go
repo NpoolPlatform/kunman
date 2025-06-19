@@ -4,18 +4,18 @@ import (
 	"context"
 	"fmt"
 
+	asyncfeed "github.com/NpoolPlatform/kunman/cron/scheduler/base/asyncfeed"
+	types "github.com/NpoolPlatform/kunman/cron/scheduler/order/powerrental/payment/commission/types"
 	"github.com/NpoolPlatform/kunman/framework/logger"
 	"github.com/NpoolPlatform/kunman/framework/wlog"
-	orderpaymentstatementmwcli "github.com/NpoolPlatform/kunman/middleware/inspire/achievement/statement/order/payment"
-	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 	ledgertypes "github.com/NpoolPlatform/kunman/message/basetypes/ledger/v1"
 	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	orderpaymentstatementmwpb "github.com/NpoolPlatform/kunman/message/inspire/middleware/v1/achievement/statement/order/payment"
 	ledgerstatementmwpb "github.com/NpoolPlatform/kunman/message/ledger/middleware/v2/ledger/statement"
 	powerrentalordermwpb "github.com/NpoolPlatform/kunman/message/order/middleware/v1/powerrental"
-	asyncfeed "github.com/NpoolPlatform/kunman/cron/scheduler/base/asyncfeed"
+	orderpaymentstatementmw "github.com/NpoolPlatform/kunman/middleware/inspire/achievement/statement/order/payment"
 	constant "github.com/NpoolPlatform/kunman/pkg/const"
-	types "github.com/NpoolPlatform/kunman/cron/scheduler/order/powerrental/payment/commission/types"
+	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 
 	"github.com/shopspring/decimal"
 )
@@ -33,10 +33,22 @@ func (h *orderHandler) getOrderPaymentStatements(ctx context.Context) error {
 	offset := int32(0)
 	limit := constant.DefaultRowLimit
 
+	conds := &orderpaymentstatementmwpb.Conds{
+		OrderID: &basetypes.StringVal{Op: cruder.EQ, Value: h.OrderID},
+	}
+
 	for {
-		statements, _, err := orderpaymentstatementmwcli.GetStatements(ctx, &orderpaymentstatementmwpb.Conds{
-			OrderID: &basetypes.StringVal{Op: cruder.EQ, Value: h.OrderID},
-		}, offset, limit)
+		handler, err := orderpaymentstatementmw.NewHandler(
+			ctx,
+			orderpaymentstatementmw.WithConds(conds),
+			orderpaymentstatementmw.WithOffset(offset),
+			orderpaymentstatementmw.WithLimit(limit),
+		)
+		if err != nil {
+			return err
+		}
+
+		statements, _, err := handler.GetStatements(ctx)
 		if err != nil {
 			return wlog.WrapError(err)
 		}

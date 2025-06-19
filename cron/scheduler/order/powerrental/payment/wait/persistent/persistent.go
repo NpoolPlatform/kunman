@@ -4,11 +4,10 @@ import (
 	"context"
 	"fmt"
 
-	powerrentalordermwpb "github.com/NpoolPlatform/kunman/message/order/middleware/v1/powerrental"
 	asyncfeed "github.com/NpoolPlatform/kunman/cron/scheduler/base/asyncfeed"
 	basepersistent "github.com/NpoolPlatform/kunman/cron/scheduler/base/persistent"
 	types "github.com/NpoolPlatform/kunman/cron/scheduler/order/powerrental/payment/wait/types"
-	powerrentalordermwcli "github.com/NpoolPlatform/kunman/middleware/order/powerrental"
+	powerrentalordermw "github.com/NpoolPlatform/kunman/middleware/order/powerrental"
 )
 
 type handler struct{}
@@ -25,10 +24,15 @@ func (p *handler) Update(ctx context.Context, order interface{}, reward, notif, 
 
 	defer asyncfeed.AsyncFeed(ctx, _order, done)
 
-	req := &powerrentalordermwpb.PowerRentalOrderReq{
-		ID:           &_order.ID,
-		OrderState:   &_order.NewOrderState,
-		PaymentState: _order.NewPaymentState,
+	handler, err := powerrentalordermw.NewHandler(
+		ctx,
+		powerrentalordermw.WithID(&_order.ID, true),
+		powerrentalordermw.WithOrderState(&_order.NewOrderState, true),
+		powerrentalordermw.WithPaymentState(_order.NewPaymentState, true),
+	)
+	if err != nil {
+		return err
 	}
-	return powerrentalordermwcli.UpdatePowerRentalOrder(ctx, req)
+
+	return handler.UpdatePowerRental(ctx)
 }

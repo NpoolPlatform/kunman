@@ -1,0 +1,39 @@
+syntax = "proto3";
+
+package scheduler.middleware.order2.renew.v1;
+
+option go_package = "github.com/NpoolPlatform/message/scheduler/middleware/v1/order/renew";
+
+import "order/middleware/v1/order/order.proto";
+import "chain/middleware/v1/app/coin/coin.proto";
+import "basetypes/good/v1/enums.proto";
+import "scheduler/middleware/v1/order/order.proto";
+
+message AppGoodInfo {
+    string AppGoodID = 10;
+    basetypes.good.v1.GoodType GoodType = 20;
+    string GoodName = 30;
+    string UnitValue = 40;
+    basetypes.good.v1.GoodSettlementType SettlementType = 50;
+}
+
+message Deduction {
+    chain.middleware.app.coin.v1.Coin AppCoin = 20;
+    string USDCurrency = 30;
+    string Amount = 40;
+}
+
+message RenewInfo {
+    AppGoodInfo AppGoodInfo = 10;
+    uint32 EndAt = 20;
+    string RenewDurations = 30;
+}
+
+message MsgOrderChildsRenewReq {
+  scheduler.middleware.order.v1.OrderInfo ParentOrder = 10;
+  repeated Deduction Deductions = 30;
+  bool InsufficientBalance = 40;
+  bool WillCreateOrder = 50;
+  repeated RenewInfo RenewInfos = 60;
+  optional string Error = 70;
+}

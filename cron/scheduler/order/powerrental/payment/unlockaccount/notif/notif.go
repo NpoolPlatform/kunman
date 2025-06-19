@@ -4,9 +4,6 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/NpoolPlatform/kunman/framework/pubsub"
-	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
-	schedorderpb "github.com/NpoolPlatform/kunman/message/scheduler/middleware/v1/order"
 	basenotif "github.com/NpoolPlatform/kunman/cron/scheduler/base/notif"
 	retry1 "github.com/NpoolPlatform/kunman/cron/scheduler/base/retry"
 	types "github.com/NpoolPlatform/kunman/cron/scheduler/order/powerrental/payment/unlockaccount/types"
@@ -19,39 +16,8 @@ func NewNotif() basenotif.Notify {
 }
 
 func (p *handler) notifyPaid(order *types.PersistentOrder) error {
-	return pubsub.WithPublisher(func(publisher *pubsub.Publisher) error {
-		return publisher.Update(
-			basetypes.MsgID_OrderPaidReq.String(),
-			nil,
-			nil,
-			nil,
-			&schedorderpb.OrderInfo{
-				AppID:            order.AppID,
-				UserID:           order.UserID,
-				OrderID:          order.OrderID,
-				GoodType:         order.GoodType,
-				Units:            order.Units,
-				PaymentAmountUSD: order.PaymentAmountUSD,
-				Payments: func() (payments []*schedorderpb.PaymentInfo) {
-					for _, _payment := range order.PaymentBalances {
-						payments = append(payments, &schedorderpb.PaymentInfo{
-							CoinTypeID:  _payment.CoinTypeID,
-							Amount:      _payment.Amount,
-							PaymentType: schedorderpb.PaymentType_PayWithBalance,
-						})
-					}
-					for _, _payment := range order.PaymentTransfers {
-						payments = append(payments, &schedorderpb.PaymentInfo{
-							CoinTypeID:  _payment.CoinTypeID,
-							Amount:      _payment.Amount,
-							PaymentType: schedorderpb.PaymentType_PayWithTransfer,
-						})
-					}
-					return
-				}(),
-			},
-		)
-	})
+	// TODO
+	return nil
 }
 
 func (p *handler) Notify(ctx context.Context, order interface{}, retry chan interface{}) error {

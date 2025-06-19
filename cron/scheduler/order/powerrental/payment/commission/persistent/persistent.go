@@ -4,17 +4,12 @@ import (
 	"context"
 	"fmt"
 
-	ledgersvcname "github.com/NpoolPlatform/kunman/middleware/ledger/servicename"
-	ordertypes "github.com/NpoolPlatform/kunman/message/basetypes/order/v1"
-	statementmwpb "github.com/NpoolPlatform/kunman/message/ledger/middleware/v2/ledger/statement"
-	powerrentalordermwpb "github.com/NpoolPlatform/kunman/message/order/middleware/v1/powerrental"
 	asyncfeed "github.com/NpoolPlatform/kunman/cron/scheduler/base/asyncfeed"
 	basepersistent "github.com/NpoolPlatform/kunman/cron/scheduler/base/persistent"
 	types "github.com/NpoolPlatform/kunman/cron/scheduler/order/powerrental/payment/commission/types"
-	ordersvcname "github.com/NpoolPlatform/kunman/middleware/order/servicename"
-
-	dtmcli "github.com/NpoolPlatform/dtm-cluster/pkg/dtm"
-	"github.com/dtm-labs/dtm/client/dtmcli/dtmimp"
+	ordertypes "github.com/NpoolPlatform/kunman/message/basetypes/order/v1"
+	ledgerstatementmw "github.com/NpoolPlatform/kunman/middleware/ledger/ledger/statement"
+	powerrentalordermw "github.com/NpoolPlatform/kunman/middleware/order/powerrental"
 )
 
 type handler struct{}
@@ -23,33 +18,32 @@ func NewPersistent() basepersistent.Persistenter {
 	return &handler{}
 }
 
-func (p *handler) withUpdateOrderState(dispose *dtmcli.SagaDispose, order *types.PersistentOrder) {
+func (p *handler) withUpdateOrderState(ctx context.Context, order *types.PersistentOrder) error {
 	state := ordertypes.OrderState_OrderStatePaymentUnlockAccount
-	rollback := true
-	req := &powerrentalordermwpb.PowerRentalOrderReq{
-		ID:         &order.ID,
-		OrderState: &state,
-		Rollback:   &rollback,
-	}
-	dispose.Add(
-		ordersvcname.ServiceDomain,
-		"order.middleware.powerrental.v1.Middleware/UpdatePowerRentalOrder",
-		"order.middleware.powerrental.v1.Middleware/UpdatePowerRentalOrder",
-		&powerrentalordermwpb.UpdatePowerRentalOrderRequest{
-			Info: req,
-		},
+
+	handler, err := powerrentalordermw.NewHandler(
+		ctx,
+		powerrentalordermw.WithID(&order.ID, true),
+		powerrentalordermw.WithOrderState(&state, true),
 	)
+	if err != nil {
+		return err
+	}
+
+	return handler.UpdatePowerRental(ctx)
 }
 
-func (p *handler) withCreateCommission(dispose *dtmcli.SagaDispose, order *types.PersistentOrder) {
-	dispose.Add(
-		ledgersvcname.ServiceDomain,
-		"ledger.middleware.ledger.statement.v2.Middleware/CreateStatements",
-		"",
-		&statementmwpb.CreateStatementsRequest{
-			Infos: order.LedgerStatements,
-		},
+func (p *handler) withCreateCommission(ctx context.Context, order *types.PersistentOrder) error {
+	handler, err := ledgerstatementmw.NewHandler(
+		ctx,
+		ledgerstatementmw.WithReqs(order.LedgerStatements, true),
 	)
+	if err != nil {
+		return err
+	}
+
+	_, err = handler.CreateStatements(ctx)
+	return err
 }
 
 func (p *handler) Update(ctx context.Context, order interface{}, reward, notif, done chan interface{}) error {
@@ -60,14 +54,10 @@ func (p *handler) Update(ctx context.Context, order interface{}, reward, notif, 
 
 	defer asyncfeed.AsyncFeed(ctx, _order, done)
 
-	const timeoutSeconds = 10
-	sagaDispose := dtmcli.NewSagaDispose(dtmimp.TransOptions{
-		WaitResult:     true,
-		RequestTimeout: timeoutSeconds,
-	})
-	p.withUpdateOrderState(sagaDispose, _order)
-	p.withCreateCommission(sagaDispose, _order)
-	if err := dtmcli.WithSaga(ctx, sagaDispose); err != nil {
+	if err := p.withUpdateOrderState(ctx, _order); err != nil {
+		return err
+	}
+	if err := p.withCreateCommission(ctx, _order); err != nil {
 		return err
 	}
 

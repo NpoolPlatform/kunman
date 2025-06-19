@@ -3,21 +3,21 @@ package executor
 import (
 	"context"
 
+	asyncfeed "github.com/NpoolPlatform/kunman/cron/scheduler/base/asyncfeed"
+	types "github.com/NpoolPlatform/kunman/cron/scheduler/order/powerrental/payment/unlockaccount/types"
 	"github.com/NpoolPlatform/kunman/framework/logger"
 	"github.com/NpoolPlatform/kunman/framework/wlog"
-	eventmwcli "github.com/NpoolPlatform/kunman/middleware/inspire/event"
-	taskconfigmwcli "github.com/NpoolPlatform/kunman/middleware/inspire/task/config"
-	taskusermwcli "github.com/NpoolPlatform/kunman/middleware/inspire/task/user"
-	cruder "github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 	paymentaccountmwpb "github.com/NpoolPlatform/kunman/message/account/middleware/v1/payment"
 	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	eventmwpb "github.com/NpoolPlatform/kunman/message/inspire/middleware/v1/event"
 	taskconfigmwpb "github.com/NpoolPlatform/kunman/message/inspire/middleware/v1/task/config"
 	taskusermwpb "github.com/NpoolPlatform/kunman/message/inspire/middleware/v1/task/user"
 	powerrentalordermwpb "github.com/NpoolPlatform/kunman/message/order/middleware/v1/powerrental"
-	asyncfeed "github.com/NpoolPlatform/kunman/cron/scheduler/base/asyncfeed"
+	eventmw "github.com/NpoolPlatform/kunman/middleware/inspire/event"
+	taskconfigmw "github.com/NpoolPlatform/kunman/middleware/inspire/task/config"
+	taskusermw "github.com/NpoolPlatform/kunman/middleware/inspire/task/user"
 	schedcommon "github.com/NpoolPlatform/kunman/pkg/common"
-	types "github.com/NpoolPlatform/kunman/cron/scheduler/order/powerrental/payment/unlockaccount/types"
+	cruder "github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 )
 
 type orderHandler struct {
@@ -59,32 +59,61 @@ func (h *orderHandler) getPaymentAccounts(ctx context.Context) (err error) {
 //nolint:dupl
 func (h *orderHandler) checkFirstOrderComplatedHistory(ctx context.Context) error {
 	eventType := basetypes.UsedFor_FirstOrderCompleted
-	ev, err := eventmwcli.GetEventOnly(ctx, &eventmwpb.Conds{
+	eventConds := &eventmwpb.Conds{
 		AppID:     &basetypes.StringVal{Op: cruder.EQ, Value: h.PowerRentalOrder.AppID},
 		EventType: &basetypes.Uint32Val{Op: cruder.EQ, Value: uint32(eventType)},
-	})
+	}
+	eventHandler, err := eventmw.NewHandler(
+		ctx,
+		eventmw.WithConds(eventConds),
+	)
+	if err != nil {
+		return err
+	}
+
+	ev, err := eventHandler.GetEventOnly(ctx)
 	if err != nil {
 		return err
 	}
 	if ev == nil {
 		return nil
 	}
-	taskConfig, err := taskconfigmwcli.GetTaskConfigOnly(ctx, &taskconfigmwpb.Conds{
+
+	tcConds := &taskconfigmwpb.Conds{
 		AppID:   &basetypes.StringVal{Op: cruder.EQ, Value: h.PowerRentalOrder.AppID},
 		EventID: &basetypes.StringVal{Op: cruder.EQ, Value: ev.EntID},
-	})
+	}
+	tcHandler, err := taskconfigmw.NewHandler(
+		ctx,
+		taskconfigmw.WithConds(tcConds),
+	)
+	if err != nil {
+		return err
+	}
+
+	taskConfig, err := tcHandler.GetTaskConfigOnly(ctx)
 	if err != nil {
 		return err
 	}
 	if taskConfig == nil {
 		return nil
 	}
-	existTaskUser, err := taskusermwcli.ExistTaskUserConds(ctx, &taskusermwpb.Conds{
+
+	tuConds := &taskusermwpb.Conds{
 		AppID:   &basetypes.StringVal{Op: cruder.EQ, Value: h.PowerRentalOrder.AppID},
 		EventID: &basetypes.StringVal{Op: cruder.EQ, Value: ev.EntID},
 		TaskID:  &basetypes.StringVal{Op: cruder.EQ, Value: taskConfig.EntID},
 		UserID:  &basetypes.StringVal{Op: cruder.EQ, Value: h.UserID},
-	})
+	}
+	tuHandler, err := taskusermw.NewHandler(
+		ctx,
+		taskusermw.WithConds(tuConds),
+	)
+	if err != nil {
+		return err
+	}
+
+	existTaskUser, err := tuHandler.ExistTaskUserConds(ctx)
 	if err != nil {
 		return err
 	}
@@ -98,32 +127,61 @@ func (h *orderHandler) checkFirstOrderComplatedHistory(ctx context.Context) erro
 //nolint:dupl
 func (h *orderHandler) checkOrderComplatedHistory(ctx context.Context) error {
 	eventType := basetypes.UsedFor_OrderCompleted
-	ev, err := eventmwcli.GetEventOnly(ctx, &eventmwpb.Conds{
+	eventConds := &eventmwpb.Conds{
 		AppID:     &basetypes.StringVal{Op: cruder.EQ, Value: h.PowerRentalOrder.AppID},
 		EventType: &basetypes.Uint32Val{Op: cruder.EQ, Value: uint32(eventType)},
-	})
+	}
+	eventHandler, err := eventmw.NewHandler(
+		ctx,
+		eventmw.WithConds(eventConds),
+	)
+	if err != nil {
+		return err
+	}
+
+	ev, err := eventHandler.GetEventOnly(ctx)
 	if err != nil {
 		return err
 	}
 	if ev == nil {
 		return nil
 	}
-	taskConfig, err := taskconfigmwcli.GetTaskConfigOnly(ctx, &taskconfigmwpb.Conds{
+
+	tcConds := &taskconfigmwpb.Conds{
 		AppID:   &basetypes.StringVal{Op: cruder.EQ, Value: h.PowerRentalOrder.AppID},
 		EventID: &basetypes.StringVal{Op: cruder.EQ, Value: ev.EntID},
-	})
+	}
+	tcHandler, err := taskconfigmw.NewHandler(
+		ctx,
+		taskconfigmw.WithConds(tcConds),
+	)
+	if err != nil {
+		return err
+	}
+
+	taskConfig, err := tcHandler.GetTaskConfigOnly(ctx)
 	if err != nil {
 		return err
 	}
 	if taskConfig == nil {
 		return nil
 	}
-	existTaskUser, err := taskusermwcli.ExistTaskUserConds(ctx, &taskusermwpb.Conds{
+
+	tuConds := &taskusermwpb.Conds{
 		AppID:   &basetypes.StringVal{Op: cruder.EQ, Value: h.PowerRentalOrder.AppID},
 		EventID: &basetypes.StringVal{Op: cruder.EQ, Value: ev.EntID},
 		TaskID:  &basetypes.StringVal{Op: cruder.EQ, Value: taskConfig.EntID},
 		UserID:  &basetypes.StringVal{Op: cruder.EQ, Value: h.UserID},
-	})
+	}
+	tuHandler, err := taskusermw.NewHandler(
+		ctx,
+		taskusermw.WithConds(tuConds),
+	)
+	if err != nil {
+		return err
+	}
+
+	existTaskUser, err := tuHandler.ExistTaskUserConds(ctx)
 	if err != nil {
 		return err
 	}

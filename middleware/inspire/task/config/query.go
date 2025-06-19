@@ -151,3 +151,30 @@ func (h *Handler) GetTaskConfigs(ctx context.Context) ([]*npool.TaskConfig, uint
 	handler.formalize()
 	return handler.infos, handler.total, nil
 }
+
+func (h *Handler) GetTaskConfigOnly(ctx context.Context) (*npool.TaskConfig, error) {
+	handler := &queryHandler{
+		Handler: h,
+	}
+	err := db.WithClient(ctx, func(_ctx context.Context, cli *ent.Client) error {
+		if err := handler.queryTaskConfigs(_ctx, cli); err != nil {
+			return wlog.WrapError(err)
+		}
+		handler.queryJoin()
+		handler.stmSelect.
+			Offset(0).
+			Limit(2)
+		return handler.scan(_ctx)
+	})
+	if err != nil {
+		return nil, wlog.WrapError(err)
+	}
+	if len(handler.infos) > 1 {
+		return nil, wlog.Errorf("invalid taskconfig")
+	}
+	if len(handler.infos) == 0 {
+		return nil, nil
+	}
+	handler.formalize()
+	return handler.infos[0], nil
+}
