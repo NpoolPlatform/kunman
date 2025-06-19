@@ -4,17 +4,12 @@ import (
 	"context"
 	"fmt"
 
-	goodsvcname "github.com/NpoolPlatform/good-middleware/pkg/servicename"
-	ordertypes "github.com/NpoolPlatform/kunman/message/basetypes/order/v1"
-	appstockmwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/app/good/stock"
-	powerrentalordermwpb "github.com/NpoolPlatform/kunman/message/order/middleware/v1/powerrental"
 	asyncfeed "github.com/NpoolPlatform/kunman/cron/scheduler/base/asyncfeed"
 	basepersistent "github.com/NpoolPlatform/kunman/cron/scheduler/base/persistent"
 	types "github.com/NpoolPlatform/kunman/cron/scheduler/order/powerrental/expiry/restorestock/types"
-	ordersvcname "github.com/NpoolPlatform/kunman/middleware/order/servicename"
-
-	dtmcli "github.com/NpoolPlatform/dtm-cluster/pkg/dtm"
-	"github.com/dtm-labs/dtm/client/dtmcli/dtmimp"
+	ordertypes "github.com/NpoolPlatform/kunman/message/basetypes/order/v1"
+	appgoodstockmw "github.com/NpoolPlatform/kunman/middleware/good/app/good/stock"
+	powerrentalordermw "github.com/NpoolPlatform/kunman/middleware/order/powerrental"
 )
 
 type handler struct{}
@@ -23,33 +18,31 @@ func NewPersistent() basepersistent.Persistenter {
 	return &handler{}
 }
 
-func (p *handler) withUpdateOrderState(dispose *dtmcli.SagaDispose, order *types.PersistentOrder) {
+func (p *handler) withUpdateOrderState(ctx context.Context, order *types.PersistentOrder) error {
 	state := ordertypes.OrderState_OrderStateCheckPoolBalance
-	rollback := true
-	req := &powerrentalordermwpb.PowerRentalOrderReq{
-		ID:         &order.ID,
-		OrderState: &state,
-		Rollback:   &rollback,
-	}
-	dispose.Add(
-		ordersvcname.ServiceDomain,
-		"order.middleware.powerrental.v1.Middleware/UpdatePowerRentalOrder",
-		"order.middleware.powerrental.v1.Middleware/UpdatePowerRentalOrder",
-		&powerrentalordermwpb.UpdatePowerRentalOrderRequest{
-			Info: req,
-		},
+
+	handler, err := powerrentalordermw.NewHandler(
+		ctx,
+		powerrentalordermw.WithID(&order.ID, true),
+		powerrentalordermw.WithOrderState(&state, true),
 	)
+	if err != nil {
+		return err
+	}
+
+	return handler.UpdatePowerRental(ctx)
 }
 
-func (p *handler) withUpdateStock(dispose *dtmcli.SagaDispose, order *types.PersistentOrder) {
-	dispose.Add(
-		goodsvcname.ServiceDomain,
-		"good.middleware.app.good1.stock.v1.Middleware/Expire",
-		"",
-		&appstockmwpb.ExpireRequest{
-			LockID: order.AppGoodStockLockID,
-		},
+func (p *handler) withUpdateStock(ctx context.Context, order *types.PersistentOrder) error {
+	handler, err := appgoodstockmw.NewHandler(
+		ctx,
+		appgoodstockmw.WithLockID(&order.AppGoodStockLockID, true),
 	)
+	if err != nil {
+		return err
+	}
+
+	return handler.ExpireStock(ctx)
 }
 
 func (p *handler) Update(ctx context.Context, order interface{}, reward, notif, done chan interface{}) error {
@@ -60,14 +53,10 @@ func (p *handler) Update(ctx context.Context, order interface{}, reward, notif, 
 
 	defer asyncfeed.AsyncFeed(ctx, _order, done)
 
-	const timeoutSeconds = 10
-	sagaDispose := dtmcli.NewSagaDispose(dtmimp.TransOptions{
-		WaitResult:     true,
-		RequestTimeout: timeoutSeconds,
-	})
-	p.withUpdateOrderState(sagaDispose, _order)
-	p.withUpdateStock(sagaDispose, _order)
-	if err := dtmcli.WithSaga(ctx, sagaDispose); err != nil {
+	if err := p.withUpdateOrderState(ctx, _order); err != nil {
+		return err
+	}
+	if err := p.withUpdateStock(ctx, _order); err != nil {
 		return err
 	}
 
