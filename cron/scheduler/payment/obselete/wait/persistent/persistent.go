@@ -4,12 +4,11 @@ import (
 	"context"
 	"fmt"
 
-	ordertypes "github.com/NpoolPlatform/kunman/message/basetypes/order/v1"
-	paymentmwpb "github.com/NpoolPlatform/kunman/message/order/middleware/v1/payment"
 	asyncfeed "github.com/NpoolPlatform/kunman/cron/scheduler/base/asyncfeed"
 	basepersistent "github.com/NpoolPlatform/kunman/cron/scheduler/base/persistent"
 	types "github.com/NpoolPlatform/kunman/cron/scheduler/payment/obselete/wait/types"
-	paymentmwcli "github.com/NpoolPlatform/kunman/middleware/order/payment"
+	ordertypes "github.com/NpoolPlatform/kunman/message/basetypes/order/v1"
+	paymentmw "github.com/NpoolPlatform/kunman/middleware/order/payment"
 )
 
 type handler struct{}
@@ -26,8 +25,14 @@ func (p *handler) Update(ctx context.Context, payment interface{}, reward, notif
 
 	defer asyncfeed.AsyncFeed(ctx, _payment, done)
 
-	return paymentmwcli.UpdatePayment(ctx, &paymentmwpb.PaymentReq{
-		ID:            &_payment.ID,
-		ObseleteState: ordertypes.PaymentObseleteState_PaymentObseleteUnlockBalance.Enum(),
-	})
+	handler, err := paymentmw.NewHandler(
+		ctx,
+		paymentmw.WithID(&_payment.ID, true),
+		paymentmw.WithObseleteState(ordertypes.PaymentObseleteState_PaymentObseleteUnlockBalance.Enum(), true),
+	)
+	if err != nil {
+		return err
+	}
+
+	return handler.UpdatePayment(ctx)
 }

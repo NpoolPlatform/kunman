@@ -4,12 +4,10 @@ import (
 	"context"
 	"fmt"
 
-	paymentaccountmwcli "github.com/NpoolPlatform/kunman/middleware/account/payment"
-	accountlock "github.com/NpoolPlatform/kunman/middleware/account/lock"
-	paymentaccountmwpb "github.com/NpoolPlatform/kunman/message/account/middleware/v1/payment"
 	asyncfeed "github.com/NpoolPlatform/kunman/cron/scheduler/base/asyncfeed"
 	basepersistent "github.com/NpoolPlatform/kunman/cron/scheduler/base/persistent"
 	types "github.com/NpoolPlatform/kunman/cron/scheduler/payment/collector/finish/types"
+	paymentaccountmw "github.com/NpoolPlatform/kunman/middleware/account/payment"
 
 	"github.com/google/uuid"
 )
@@ -28,22 +26,22 @@ func (p *handler) Update(ctx context.Context, account interface{}, reward, notif
 
 	defer asyncfeed.AsyncFeed(ctx, _account, done)
 
-	if err := accountlock.Lock(_account.AccountID); err != nil {
-		return err
-	}
-	defer func() {
-		_ = accountlock.Unlock(_account.AccountID) //nolint
-	}()
-
 	locked := false
 	collectingID := uuid.Nil.String()
-	if _, err := paymentaccountmwcli.UpdateAccount(ctx, &paymentaccountmwpb.AccountReq{
-		ID:            &_account.ID,
-		CoinTypeID:    &_account.CoinTypeID,
-		AccountID:     &_account.AccountID,
-		Locked:        &locked,
-		CollectingTID: &collectingID,
-	}); err != nil {
+
+	handler, err := paymentaccountmw.NewHandler(
+		ctx,
+		paymentaccountmw.WithID(&_account.ID, true),
+		paymentaccountmw.WithCoinTypeID(&_account.CoinTypeID, true),
+		paymentaccountmw.WithAccountID(&_account.AccountID, true),
+		paymentaccountmw.WithLocked(&locked, true),
+		paymentaccountmw.WithCollectingTID(&collectingID, true),
+	)
+	if err != nil {
+		return err
+	}
+
+	if _, err := handler.UpdateAccount(ctx); err != nil {
 		return err
 	}
 

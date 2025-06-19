@@ -4,13 +4,13 @@ import (
 	"context"
 	"fmt"
 
-	coinmwcli "github.com/NpoolPlatform/kunman/middleware/chain/coin"
-	txmwcli "github.com/NpoolPlatform/kunman/middleware/chain/tx"
+	asyncfeed "github.com/NpoolPlatform/kunman/cron/scheduler/base/asyncfeed"
+	types "github.com/NpoolPlatform/kunman/cron/scheduler/payment/collector/finish/types"
 	paymentaccountmwpb "github.com/NpoolPlatform/kunman/message/account/middleware/v1/payment"
 	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	coinmwpb "github.com/NpoolPlatform/kunman/message/chain/middleware/v1/coin"
-	asyncfeed "github.com/NpoolPlatform/kunman/cron/scheduler/base/asyncfeed"
-	types "github.com/NpoolPlatform/kunman/cron/scheduler/payment/collector/finish/types"
+	coinmw "github.com/NpoolPlatform/kunman/middleware/chain/coin"
+	txmw "github.com/NpoolPlatform/kunman/middleware/chain/tx"
 
 	"github.com/google/uuid"
 )
@@ -24,7 +24,15 @@ type accountHandler struct {
 }
 
 func (h *accountHandler) getCoin(ctx context.Context) error {
-	coin, err := coinmwcli.GetCoin(ctx, h.CoinTypeID)
+	handler, err := coinmw.NewHandler(
+		ctx,
+		coinmw.WithEntID(&h.CoinTypeID, true),
+	)
+	if err != nil {
+		return err
+	}
+
+	coin, err := handler.GetCoin(ctx)
 	if err != nil {
 		return err
 	}
@@ -43,7 +51,15 @@ func (h *accountHandler) checkTransfer(ctx context.Context) error {
 		return nil
 	}
 
-	tx, err := txmwcli.GetTx(ctx, h.CollectingTID)
+	handler, err := txmw.NewHandler(
+		ctx,
+		txmw.WithEntID(&h.CollectingTID, true),
+	)
+	if err != nil {
+		return err
+	}
+
+	tx, err := handler.GetTx(ctx)
 	if err != nil {
 		return err
 	}

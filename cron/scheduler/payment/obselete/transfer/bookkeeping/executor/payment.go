@@ -4,20 +4,20 @@ import (
 	"context"
 	"fmt"
 
+	asyncfeed "github.com/NpoolPlatform/kunman/cron/scheduler/base/asyncfeed"
+	types "github.com/NpoolPlatform/kunman/cron/scheduler/payment/obselete/transfer/bookkeeping/types"
 	logger "github.com/NpoolPlatform/kunman/framework/logger"
 	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
-	ledgerstatementmwcli "github.com/NpoolPlatform/kunman/middleware/ledger/ledger/statement"
-	cruder "github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 	paymentaccountmwpb "github.com/NpoolPlatform/kunman/message/account/middleware/v1/payment"
 	ledgertypes "github.com/NpoolPlatform/kunman/message/basetypes/ledger/v1"
 	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	coinmwpb "github.com/NpoolPlatform/kunman/message/chain/middleware/v1/coin"
 	ledgerstatementmwpb "github.com/NpoolPlatform/kunman/message/ledger/middleware/v2/ledger/statement"
 	paymentmwpb "github.com/NpoolPlatform/kunman/message/order/middleware/v1/payment"
-	sphinxproxypb "github.com/NpoolPlatform/message/npool/sphinxproxy"
-	asyncfeed "github.com/NpoolPlatform/kunman/cron/scheduler/base/asyncfeed"
+	ledgerstatementmw "github.com/NpoolPlatform/kunman/middleware/ledger/ledger/statement"
 	schedcommon "github.com/NpoolPlatform/kunman/pkg/common"
-	types "github.com/NpoolPlatform/kunman/cron/scheduler/payment/obselete/transfer/bookkeeping/types"
+	cruder "github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
+	sphinxproxypb "github.com/NpoolPlatform/message/npool/sphinxproxy"
 	sphinxproxycli "github.com/NpoolPlatform/sphinx-proxy/pkg/client"
 
 	"github.com/google/uuid"
@@ -35,12 +35,21 @@ type paymentHandler struct {
 }
 
 func (h *paymentHandler) checkPaymentStatement(ctx context.Context) (bool, error) {
-	return ledgerstatementmwcli.ExistStatementConds(ctx, &ledgerstatementmwpb.Conds{
+	conds := &ledgerstatementmwpb.Conds{
 		AppID:     &basetypes.StringVal{Op: cruder.EQ, Value: h.AppID},
 		UserID:    &basetypes.StringVal{Op: cruder.EQ, Value: h.UserID},
 		IOSubType: &basetypes.Uint32Val{Op: cruder.EQ, Value: uint32(ledgertypes.IOSubType_ObseletePayment)},
 		IOExtra:   &basetypes.StringVal{Op: cruder.LIKE, Value: h.EntID},
-	})
+	}
+	handler, err := ledgerstatementmw.NewHandler(
+		ctx,
+		ledgerstatementmw.WithConds(conds),
+	)
+	if err != nil {
+		return false, err
+	}
+
+	return handler.ExistStatementConds(ctx)
 }
 
 func (h *paymentHandler) getPaymentCoins(ctx context.Context) (err error) {

@@ -5,22 +5,21 @@ import (
 	"fmt"
 	"time"
 
-	payaccmwcli "github.com/NpoolPlatform/kunman/middleware/account/payment"
-	pltfaccmwcli "github.com/NpoolPlatform/kunman/middleware/account/platform"
-	accountlock "github.com/NpoolPlatform/kunman/middleware/account/lock"
-	coinmwcli "github.com/NpoolPlatform/kunman/middleware/chain/coin"
-	txmwcli "github.com/NpoolPlatform/kunman/middleware/chain/tx"
+	asyncfeed "github.com/NpoolPlatform/kunman/cron/scheduler/base/asyncfeed"
+	types "github.com/NpoolPlatform/kunman/cron/scheduler/payment/collector/transfer/types"
 	timedef "github.com/NpoolPlatform/kunman/framework/const/time"
 	"github.com/NpoolPlatform/kunman/framework/logger"
-	cruder "github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 	payaccmwpb "github.com/NpoolPlatform/kunman/message/account/middleware/v1/payment"
 	pltfaccmwpb "github.com/NpoolPlatform/kunman/message/account/middleware/v1/platform"
 	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	coinmwpb "github.com/NpoolPlatform/kunman/message/chain/middleware/v1/coin"
 	txmwpb "github.com/NpoolPlatform/kunman/message/chain/middleware/v1/tx"
+	payaccmw "github.com/NpoolPlatform/kunman/middleware/account/payment"
+	pltfaccmw "github.com/NpoolPlatform/kunman/middleware/account/platform"
+	coinmw "github.com/NpoolPlatform/kunman/middleware/chain/coin"
+	txmw "github.com/NpoolPlatform/kunman/middleware/chain/tx"
+	cruder "github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 	sphinxproxypb "github.com/NpoolPlatform/message/npool/sphinxproxy"
-	asyncfeed "github.com/NpoolPlatform/kunman/cron/scheduler/base/asyncfeed"
-	types "github.com/NpoolPlatform/kunman/cron/scheduler/payment/collector/transfer/types"
 	sphinxproxycli "github.com/NpoolPlatform/sphinx-proxy/pkg/client"
 
 	"github.com/shopspring/decimal"
@@ -37,7 +36,15 @@ type accountHandler struct {
 }
 
 func (h *accountHandler) getCoin(ctx context.Context, coinTypeID string) (*coinmwpb.Coin, error) {
-	coin, err := coinmwcli.GetCoin(ctx, coinTypeID)
+	handler, err := coinmw.NewHandler(
+		ctx,
+		coinmw.WithEntID(&coinTypeID, true),
+	)
+	if err != nil {
+		return nil, err
+	}
+
+	coin, err := handler.GetCoin(ctx)
 	if err != nil {
 		return nil, err
 	}
@@ -55,7 +62,15 @@ func (h *accountHandler) checkAccountCoin() error {
 }
 
 func (h *accountHandler) recheckAccount(ctx context.Context) (bool, error) {
-	account, err := payaccmwcli.GetAccount(ctx, h.EntID)
+	handler, err := payaccmw.NewHandler(
+		ctx,
+		payaccmw.WithEntID(&h.EntID, true),
+	)
+	if err != nil {
+		return false, err
+	}
+
+	account, err := handler.GetAccount(ctx)
 	if err != nil {
 		return false, err
 	}
@@ -130,14 +145,23 @@ func (h *accountHandler) checkFeeBalance(ctx context.Context) error {
 }
 
 func (h *accountHandler) getCollectAccount(ctx context.Context) error {
-	account, err := pltfaccmwcli.GetAccountOnly(ctx, &pltfaccmwpb.Conds{
+	conds := &pltfaccmwpb.Conds{
 		CoinTypeID: &basetypes.StringVal{Op: cruder.EQ, Value: h.coin.EntID},
 		UsedFor:    &basetypes.Uint32Val{Op: cruder.EQ, Value: uint32(basetypes.AccountUsedFor_PaymentCollector)},
 		Backup:     &basetypes.BoolVal{Op: cruder.EQ, Value: false},
 		Active:     &basetypes.BoolVal{Op: cruder.EQ, Value: true},
 		Locked:     &basetypes.BoolVal{Op: cruder.EQ, Value: false},
 		Blocked:    &basetypes.BoolVal{Op: cruder.EQ, Value: false},
-	})
+	}
+	handler, err := pltfaccmw.NewHandler(
+		ctx,
+		pltfaccmw.WithConds(conds),
+	)
+	if err != nil {
+		return err
+	}
+
+	account, err := handler.GetAccountOnly(ctx)
 	if err != nil {
 		return err
 	}
@@ -149,7 +173,7 @@ func (h *accountHandler) getCollectAccount(ctx context.Context) error {
 }
 
 func (h *accountHandler) checkTransferring(ctx context.Context) (bool, error) {
-	txs, _, err := txmwcli.GetTxs(ctx, &txmwpb.Conds{
+	conds := &txmwpb.Conds{
 		AccountID: &basetypes.StringVal{Op: cruder.EQ, Value: h.AccountID},
 		States: &basetypes.Uint32SliceVal{Op: cruder.IN, Value: []uint32{
 			uint32(basetypes.TxState_TxStateCreated),
@@ -160,7 +184,18 @@ func (h *accountHandler) checkTransferring(ctx context.Context) (bool, error) {
 			uint32(basetypes.TxState_TxStateSuccessful),
 		}},
 		Type: &basetypes.Uint32Val{Op: cruder.EQ, Value: uint32(basetypes.TxType_TxPaymentCollect)},
-	}, int32(0), int32(1))
+	}
+	handler, err := txmw.NewHandler(
+		ctx,
+		txmw.WithConds(conds),
+		txmw.WithOffset(0),
+		txmw.WithLimit(1),
+	)
+	if err != nil {
+		return false, err
+	}
+
+	txs, _, err := handler.GetTxs(ctx)
 	if err != nil {
 		return false, err
 	}
@@ -241,12 +276,6 @@ func (h *accountHandler) exec(ctx context.Context) error {
 	if err = h.checkAccountCoin(); err != nil {
 		return err
 	}
-	if err = accountlock.Lock(h.AccountID); err != nil {
-		return err
-	}
-	defer func() {
-		_ = accountlock.Unlock(h.AccountID) //nolint
-	}()
 	if executable, err = h.recheckAccount(ctx); err != nil || !executable {
 		return err
 	}

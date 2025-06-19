@@ -3,15 +3,15 @@ package sentinel
 import (
 	"context"
 
-	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
+	cancelablefeed "github.com/NpoolPlatform/kunman/cron/scheduler/base/cancelablefeed"
+	basesentinel "github.com/NpoolPlatform/kunman/cron/scheduler/base/sentinel"
+	types "github.com/NpoolPlatform/kunman/cron/scheduler/payment/obselete/transfer/bookkeeping/types"
 	ordertypes "github.com/NpoolPlatform/kunman/message/basetypes/order/v1"
 	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	paymentmwpb "github.com/NpoolPlatform/kunman/message/order/middleware/v1/payment"
-	cancelablefeed "github.com/NpoolPlatform/kunman/cron/scheduler/base/cancelablefeed"
-	basesentinel "github.com/NpoolPlatform/kunman/cron/scheduler/base/sentinel"
+	paymentmw "github.com/NpoolPlatform/kunman/middleware/order/payment"
 	constant "github.com/NpoolPlatform/kunman/pkg/const"
-	types "github.com/NpoolPlatform/kunman/cron/scheduler/payment/obselete/transfer/bookkeeping/types"
-	paymentmwcli "github.com/NpoolPlatform/kunman/middleware/order/payment"
+	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 )
 
 type handler struct{}
@@ -24,10 +24,22 @@ func (h *handler) scanPayments(ctx context.Context, state ordertypes.PaymentObse
 	offset := int32(0)
 	limit := constant.DefaultRowLimit
 
+	conds := &paymentmwpb.Conds{
+		ObseleteState: &basetypes.Uint32Val{Op: cruder.EQ, Value: uint32(state)},
+	}
+
 	for {
-		payments, _, err := paymentmwcli.GetPayments(ctx, &paymentmwpb.Conds{
-			ObseleteState: &basetypes.Uint32Val{Op: cruder.EQ, Value: uint32(state)},
-		}, offset, limit)
+		handler, err := paymentmw.NewHandler(
+			ctx,
+			paymentmw.WithConds(conds),
+			paymentmw.WithOffset(offset),
+			paymentmw.WithLimit(limit),
+		)
+		if err != nil {
+			return err
+		}
+
+		payments, _, err := handler.GetPayments(ctx)
 		if err != nil {
 			return err
 		}
