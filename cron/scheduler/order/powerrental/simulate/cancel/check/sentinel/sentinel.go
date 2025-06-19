@@ -4,16 +4,16 @@ import (
 	"context"
 	"time"
 
+	cancelablefeed "github.com/NpoolPlatform/kunman/cron/scheduler/base/cancelablefeed"
+	basesentinel "github.com/NpoolPlatform/kunman/cron/scheduler/base/sentinel"
+	types "github.com/NpoolPlatform/kunman/cron/scheduler/order/powerrental/simulate/cancel/check/types"
 	timedef "github.com/NpoolPlatform/kunman/framework/const/time"
-	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 	ordertypes "github.com/NpoolPlatform/kunman/message/basetypes/order/v1"
 	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	powerrentalordermwpb "github.com/NpoolPlatform/kunman/message/order/middleware/v1/powerrental"
-	cancelablefeed "github.com/NpoolPlatform/kunman/cron/scheduler/base/cancelablefeed"
-	basesentinel "github.com/NpoolPlatform/kunman/cron/scheduler/base/sentinel"
+	powerrentalordermw "github.com/NpoolPlatform/kunman/middleware/order/powerrental"
 	constant "github.com/NpoolPlatform/kunman/pkg/const"
-	types "github.com/NpoolPlatform/kunman/cron/scheduler/order/powerrental/simulate/cancel/check/types"
-	powerrentalordermwcli "github.com/NpoolPlatform/kunman/middleware/order/powerrental"
+	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 )
 
 type handler struct{}
@@ -42,7 +42,18 @@ func (h *handler) scanPowerRentalOrders(ctx context.Context, admin bool, exec ch
 		} else {
 			conds.UserSetCanceled = &basetypes.BoolVal{Op: cruder.EQ, Value: true}
 		}
-		orders, _, err := powerrentalordermwcli.GetPowerRentalOrders(ctx, conds, offset, limit)
+
+		handler, err := powerrentalordermw.NewHandler(
+			ctx,
+			powerrentalordermw.WithConds(conds),
+			powerrentalordermw.WithOffset(offset),
+			powerrentalordermw.WithLimit(limit),
+		)
+		if err != nil {
+			return err
+		}
+
+		orders, _, err := handler.GetPowerRentals(ctx)
 		if err != nil {
 			return err
 		}
