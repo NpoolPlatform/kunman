@@ -4,15 +4,15 @@ import (
 	"context"
 	"time"
 
-	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
+	cancelablefeed "github.com/NpoolPlatform/kunman/cron/scheduler/base/cancelablefeed"
+	basesentinel "github.com/NpoolPlatform/kunman/cron/scheduler/base/sentinel"
+	types "github.com/NpoolPlatform/kunman/cron/scheduler/order/powerrental/renew/wait/types"
 	ordertypes "github.com/NpoolPlatform/kunman/message/basetypes/order/v1"
 	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	powerrentalordermwpb "github.com/NpoolPlatform/kunman/message/order/middleware/v1/powerrental"
-	cancelablefeed "github.com/NpoolPlatform/kunman/cron/scheduler/base/cancelablefeed"
-	basesentinel "github.com/NpoolPlatform/kunman/cron/scheduler/base/sentinel"
+	powerrentalordermw "github.com/NpoolPlatform/kunman/middleware/order/powerrental"
 	constant "github.com/NpoolPlatform/kunman/pkg/const"
-	types "github.com/NpoolPlatform/kunman/cron/scheduler/order/powerrental/renew/wait/types"
-	powerrentalordermwcli "github.com/NpoolPlatform/kunman/middleware/order/powerrental"
+	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 )
 
 type handler struct{}
@@ -25,24 +25,36 @@ func (h *handler) scanOrders(ctx context.Context, state ordertypes.OrderState, e
 	offset := int32(0)
 	limit := constant.DefaultRowLimit
 
-	for {
-		orders, _, err := powerrentalordermwcli.GetPowerRentalOrders(ctx, &powerrentalordermwpb.Conds{
-			OrderState:    &basetypes.Uint32Val{Op: cruder.EQ, Value: uint32(state)},
-			RenewState:    &basetypes.Uint32Val{Op: cruder.EQ, Value: uint32(ordertypes.OrderRenewState_OrderRenewWait)},
-			RenewNotifyAt: &basetypes.Uint32Val{Op: cruder.LT, Value: uint32(time.Now().Unix())},
-			OrderType:     &basetypes.Uint32Val{Op: cruder.EQ, Value: uint32(ordertypes.OrderType_Normal)},
-			Simulate:      &basetypes.BoolVal{Op: cruder.EQ, Value: false},
-			PaymentTypes: &basetypes.Uint32SliceVal{
-				Op: cruder.IN,
-				Value: []uint32{
-					uint32(ordertypes.PaymentType_PayWithBalanceOnly),
-					uint32(ordertypes.PaymentType_PayWithTransferOnly),
-					uint32(ordertypes.PaymentType_PayWithTransferAndBalance),
-					uint32(ordertypes.PaymentType_PayWithOffline),
-					uint32(ordertypes.PaymentType_PayWithNoPayment),
-				},
+	conds := &powerrentalordermwpb.Conds{
+		OrderState:    &basetypes.Uint32Val{Op: cruder.EQ, Value: uint32(state)},
+		RenewState:    &basetypes.Uint32Val{Op: cruder.EQ, Value: uint32(ordertypes.OrderRenewState_OrderRenewWait)},
+		RenewNotifyAt: &basetypes.Uint32Val{Op: cruder.LT, Value: uint32(time.Now().Unix())},
+		OrderType:     &basetypes.Uint32Val{Op: cruder.EQ, Value: uint32(ordertypes.OrderType_Normal)},
+		Simulate:      &basetypes.BoolVal{Op: cruder.EQ, Value: false},
+		PaymentTypes: &basetypes.Uint32SliceVal{
+			Op: cruder.IN,
+			Value: []uint32{
+				uint32(ordertypes.PaymentType_PayWithBalanceOnly),
+				uint32(ordertypes.PaymentType_PayWithTransferOnly),
+				uint32(ordertypes.PaymentType_PayWithTransferAndBalance),
+				uint32(ordertypes.PaymentType_PayWithOffline),
+				uint32(ordertypes.PaymentType_PayWithNoPayment),
 			},
-		}, offset, limit)
+		},
+	}
+
+	for {
+		handler, err := powerrentalordermw.NewHandler(
+			ctx,
+			powerrentalordermw.WithConds(conds),
+			powerrentalordermw.WithOffset(offset),
+			powerrentalordermw.WithLimit(limit),
+		)
+		if err != nil {
+			return err
+		}
+
+		orders, _, err := handler.GetPowerRentals(ctx)
 		if err != nil {
 			return err
 		}

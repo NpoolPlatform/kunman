@@ -5,20 +5,20 @@ import (
 	"math"
 	"time"
 
+	asyncfeed "github.com/NpoolPlatform/kunman/cron/scheduler/base/asyncfeed"
+	types "github.com/NpoolPlatform/kunman/cron/scheduler/order/powerrental/renew/check/types"
+	renewcommon "github.com/NpoolPlatform/kunman/cron/scheduler/order/powerrental/renew/common"
 	timedef "github.com/NpoolPlatform/kunman/framework/const/time"
 	"github.com/NpoolPlatform/kunman/framework/logger"
-	cruder "github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 	goodtypes "github.com/NpoolPlatform/kunman/message/basetypes/good/v1"
 	ordertypes "github.com/NpoolPlatform/kunman/message/basetypes/order/v1"
 	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	feeordermwpb "github.com/NpoolPlatform/kunman/message/order/middleware/v1/fee"
 	outofgasmwpb "github.com/NpoolPlatform/kunman/message/order/middleware/v1/outofgas"
-	asyncfeed "github.com/NpoolPlatform/kunman/cron/scheduler/base/asyncfeed"
+	feeordermw "github.com/NpoolPlatform/kunman/middleware/order/fee"
+	outofgasmw "github.com/NpoolPlatform/kunman/middleware/order/outofgas"
 	constant "github.com/NpoolPlatform/kunman/pkg/const"
-	types "github.com/NpoolPlatform/kunman/cron/scheduler/order/powerrental/renew/check/types"
-	renewcommon "github.com/NpoolPlatform/kunman/cron/scheduler/order/powerrental/renew/common"
-	feeordermwcli "github.com/NpoolPlatform/kunman/middleware/order/fee"
-	outofgasmwcli "github.com/NpoolPlatform/kunman/middleware/order/outofgas"
+	cruder "github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 )
 
 type orderHandler struct {
@@ -123,10 +123,19 @@ func (h *orderHandler) checkNotifiable(ctx context.Context) (bool, error) {
 }
 
 func (h *orderHandler) getOutOfGas(ctx context.Context) error {
-	info, err := outofgasmwcli.GetOutOfGasOnly(ctx, &outofgasmwpb.Conds{
+	conds := &outofgasmwpb.Conds{
 		OrderID: &basetypes.StringVal{Op: cruder.EQ, Value: h.OrderID},
 		EndAt:   &basetypes.Uint32Val{Op: cruder.EQ, Value: 0},
-	})
+	}
+	handler, err := outofgasmw.NewHandler(
+		ctx,
+		outofgasmw.WithConds(conds),
+	)
+	if err != nil {
+		return err
+	}
+
+	info, err := handler.GetOutOfGasOnly(ctx)
 	if err != nil {
 		return err
 	}
@@ -139,11 +148,23 @@ func (h *orderHandler) calculateOutOfGasFinishedAt(ctx context.Context) error { 
 	limit := constant.DefaultRowLimit
 	finishedAt := map[goodtypes.GoodType]uint32{}
 
+	conds := &feeordermwpb.Conds{
+		ParentOrderID: &basetypes.StringVal{Op: cruder.EQ, Value: h.OrderID},
+		PaidAt:        &basetypes.Uint32Val{Op: cruder.GTE, Value: h.outOfGas.StartAt},
+	}
+
 	for {
-		feeOrders, _, err := feeordermwcli.GetFeeOrders(ctx, &feeordermwpb.Conds{
-			ParentOrderID: &basetypes.StringVal{Op: cruder.EQ, Value: h.OrderID},
-			PaidAt:        &basetypes.Uint32Val{Op: cruder.GTE, Value: h.outOfGas.StartAt},
-		}, offset, limit)
+		handler, err := feeordermw.NewHandler(
+			ctx,
+			feeordermw.WithConds(conds),
+			feeordermw.WithOffset(offset),
+			feeordermw.WithLimit(limit),
+		)
+		if err != nil {
+			return err
+		}
+
+		feeOrders, _, err := handler.GetFeeOrders(ctx)
 		if err != nil {
 			return err
 		}

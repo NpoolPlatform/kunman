@@ -2,20 +2,11 @@ package executor
 
 import (
 	"context"
-	"fmt"
 	"sort"
 	"time"
 
-	appcoinmwcli "github.com/NpoolPlatform/kunman/middleware/chain/app/coin"
-	currencymwcli "github.com/NpoolPlatform/kunman/middleware/chain/coin/currency"
-	coinusedformwcli "github.com/NpoolPlatform/kunman/middleware/chain/coin/usedfor"
 	timedef "github.com/NpoolPlatform/kunman/framework/const/time"
 	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
-	appfeemwcli "github.com/NpoolPlatform/kunman/middleware/good/app/fee"
-	appgoodrequiredmwcli "github.com/NpoolPlatform/kunman/middleware/good/app/good/required"
-	apppowerrentalmwcli "github.com/NpoolPlatform/kunman/middleware/good/app/powerrental"
-	ledgermwcli "github.com/NpoolPlatform/kunman/middleware/ledger/ledger"
-	cruder "github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 	chaintypes "github.com/NpoolPlatform/kunman/message/basetypes/chain/v1"
 	goodtypes "github.com/NpoolPlatform/kunman/message/basetypes/good/v1"
 	ordertypes "github.com/NpoolPlatform/kunman/message/basetypes/order/v1"
@@ -30,8 +21,16 @@ import (
 	feeordermwpb "github.com/NpoolPlatform/kunman/message/order/middleware/v1/fee"
 	powerrentalordermwpb "github.com/NpoolPlatform/kunman/message/order/middleware/v1/powerrental"
 	orderrenewpb "github.com/NpoolPlatform/kunman/message/scheduler/middleware/v1/order/renew"
+	appcoinmw "github.com/NpoolPlatform/kunman/middleware/chain/app/coin"
+	currencymw "github.com/NpoolPlatform/kunman/middleware/chain/coin/currency"
+	coinusedformw "github.com/NpoolPlatform/kunman/middleware/chain/coin/usedfor"
+	appfeemw "github.com/NpoolPlatform/kunman/middleware/good/app/fee"
+	appgoodrequiredmw "github.com/NpoolPlatform/kunman/middleware/good/app/good/required"
+	apppowerrentalmw "github.com/NpoolPlatform/kunman/middleware/good/app/powerrental"
+	ledgermw "github.com/NpoolPlatform/kunman/middleware/ledger/ledger"
+	feeordermw "github.com/NpoolPlatform/kunman/middleware/order/fee"
 	constant "github.com/NpoolPlatform/kunman/pkg/const"
-	feeordermwcli "github.com/NpoolPlatform/kunman/middleware/order/fee"
+	cruder "github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 
 	"github.com/shopspring/decimal"
 )
@@ -66,7 +65,15 @@ type OrderHandler struct {
 }
 
 func (h *OrderHandler) GetAppPowerRental(ctx context.Context) (err error) {
-	h.AppPowerRental, err = apppowerrentalmwcli.GetPowerRental(ctx, h.AppGoodID)
+	handler, err := apppowerrentalmw.NewHandler(
+		ctx,
+		apppowerrentalmw.WithAppGoodID(&h.AppGoodID, true),
+	)
+	if err != nil {
+		return err
+	}
+
+	h.AppPowerRental, err = handler.GetPowerRental(ctx)
 	if err != nil {
 		return wlog.WrapError(err)
 	}
@@ -80,10 +87,22 @@ func (h *OrderHandler) GetAppGoodRequireds(ctx context.Context) error {
 	offset := int32(0)
 	limit := constant.DefaultRowLimit
 
+	conds := &appgoodrequiredmwpb.Conds{
+		MainAppGoodID: &basetypes.StringVal{Op: cruder.EQ, Value: h.AppGoodID},
+	}
+
 	for {
-		requireds, _, err := appgoodrequiredmwcli.GetRequireds(ctx, &appgoodrequiredmwpb.Conds{
-			MainAppGoodID: &basetypes.StringVal{Op: cruder.EQ, Value: h.AppGoodID},
-		}, offset, limit)
+		handler, err := appgoodrequiredmw.NewHandler(
+			ctx,
+			appgoodrequiredmw.WithConds(conds),
+			appgoodrequiredmw.WithOffset(offset),
+			appgoodrequiredmw.WithLimit(limit),
+		)
+		if err != nil {
+			return err
+		}
+
+		requireds, _, err := handler.GetRequireds(ctx)
 		if err != nil {
 			return wlog.WrapError(err)
 		}
@@ -100,7 +119,7 @@ func (h *OrderHandler) GetAppFees(ctx context.Context) error {
 	offset := int32(0)
 	limit := constant.DefaultRowLimit
 
-	appFees, _, err := appfeemwcli.GetFees(ctx, &appfeemwpb.Conds{
+	conds := &appfeemwpb.Conds{
 		AppID: &basetypes.StringVal{Op: cruder.EQ, Value: h.AppID},
 		AppGoodIDs: &basetypes.StringSliceVal{Op: cruder.IN, Value: func() (appGoodIDs []string) {
 			for _, appGoodRequired := range h.appGoodRequireds {
@@ -108,7 +127,18 @@ func (h *OrderHandler) GetAppFees(ctx context.Context) error {
 			}
 			return
 		}()},
-	}, offset, limit)
+	}
+	handler, err := appfeemw.NewHandler(
+		ctx,
+		appfeemw.WithConds(conds),
+		appfeemw.WithOffset(offset),
+		appfeemw.WithLimit(limit),
+	)
+	if err != nil {
+		return err
+	}
+
+	appFees, _, err := handler.GetFees(ctx)
 	if err != nil {
 		return wlog.WrapError(err)
 	}
@@ -127,10 +157,20 @@ func (h *OrderHandler) Renewable(ctx context.Context) (bool, error) {
 	if h.AppPowerRental.PackageWithRequireds {
 		return false, nil
 	}
-	if exist, err := feeordermwcli.ExistFeeOrderConds(ctx, &feeordermwpb.Conds{
+
+	conds := &feeordermwpb.Conds{
 		ParentOrderID: &basetypes.StringVal{Op: cruder.EQ, Value: h.OrderID},
 		PaymentState:  &basetypes.Uint32Val{Op: cruder.EQ, Value: uint32(ordertypes.PaymentState_PaymentStateWait)},
-	}); err != nil || exist {
+	}
+	handler, err := feeordermw.NewHandler(
+		ctx,
+		feeordermw.WithConds(conds),
+	)
+	if err != nil {
+		return false, err
+	}
+
+	if exist, err := handler.ExistFeeOrderConds(ctx); err != nil || exist {
 		return false, wlog.WrapError(err)
 	}
 	return h.TechniqueFee != nil || h.ElectricityFee != nil, nil
@@ -140,10 +180,8 @@ func (h *OrderHandler) FormalizeFeeDurationSeconds() {
 	for _, feeDuration := range h.FeeDurations {
 		if h.ElectricityFee != nil && h.ElectricityFee.AppGoodID == feeDuration.AppGoodID {
 			h.ElectricityFeeSeconds = feeDuration.TotalDurationSeconds
-			fmt.Printf("Electricity AppGoodID %v, TotalDurationSeconds %v, FeeDurationAppGoodID %v\n", h.ElectricityFee.AppGoodID, feeDuration.TotalDurationSeconds, feeDuration.AppGoodID)
 		}
 		if h.TechniqueFee != nil && h.TechniqueFee.AppGoodID == feeDuration.AppGoodID {
-			fmt.Printf("Technique AppGoodID %v, TotalDurationSeconds %v, FeeDurationAppGoodID %v\n", h.TechniqueFee.AppGoodID, feeDuration.TotalDurationSeconds, feeDuration.AppGoodID)
 			h.TechniqueFeeSeconds = feeDuration.TotalDurationSeconds
 		}
 	}
@@ -180,10 +218,22 @@ func (h *OrderHandler) GetDeductionCoins(ctx context.Context) error {
 	offset := int32(0)
 	limit := constant.DefaultRowLimit
 
+	conds := &coinusedformwpb.Conds{
+		UsedFor: &basetypes.Uint32Val{Op: cruder.EQ, Value: uint32(chaintypes.CoinUsedFor_CoinUsedForGoodFee)},
+	}
+
 	for {
-		coinUsedFors, _, err := coinusedformwcli.GetCoinUsedFors(ctx, &coinusedformwpb.Conds{
-			UsedFor: &basetypes.Uint32Val{Op: cruder.EQ, Value: uint32(chaintypes.CoinUsedFor_CoinUsedForGoodFee)},
-		}, offset, limit)
+		handler, err := coinusedformw.NewHandler(
+			ctx,
+			coinusedformw.WithConds(conds),
+			coinusedformw.WithOffset(offset),
+			coinusedformw.WithLimit(limit),
+		)
+		if err != nil {
+			return err
+		}
+
+		coinUsedFors, _, err := handler.GetCoinUsedFors(ctx)
 		if err != nil {
 			return wlog.WrapError(err)
 		}
@@ -212,10 +262,21 @@ func (h *OrderHandler) GetDeductionAppCoins(ctx context.Context) error {
 
 	h.DeductionAppCoins = map[string]*appcoinmwpb.Coin{}
 
-	coins, _, err := appcoinmwcli.GetCoins(ctx, &appcoinmwpb.Conds{
+	conds := &appcoinmwpb.Conds{
 		AppID:       &basetypes.StringVal{Op: cruder.EQ, Value: h.AppID},
 		CoinTypeIDs: &basetypes.StringSliceVal{Op: cruder.IN, Value: coinTypeIDs},
-	}, 0, int32(len(coinTypeIDs)))
+	}
+	handler, err := appcoinmw.NewHandler(
+		ctx,
+		appcoinmw.WithConds(conds),
+		appcoinmw.WithOffset(0),
+		appcoinmw.WithLimit(int32(len(coinTypeIDs))),
+	)
+	if err != nil {
+		return err
+	}
+
+	coins, _, err := handler.GetCoins(ctx)
 	if err != nil {
 		return wlog.WrapError(err)
 	}
@@ -233,11 +294,22 @@ func (h *OrderHandler) GetUserLedgers(ctx context.Context) error {
 
 	h.UserLedgers = map[string]*ledgermwpb.Ledger{}
 
-	ledgers, _, err := ledgermwcli.GetLedgers(ctx, &ledgermwpb.Conds{
+	conds := &ledgermwpb.Conds{
 		AppID:       &basetypes.StringVal{Op: cruder.EQ, Value: h.AppID},
 		UserID:      &basetypes.StringVal{Op: cruder.EQ, Value: h.UserID},
 		CoinTypeIDs: &basetypes.StringSliceVal{Op: cruder.IN, Value: coinTypeIDs},
-	}, 0, int32(len(coinTypeIDs)))
+	}
+	handler, err := ledgermw.NewHandler(
+		ctx,
+		ledgermw.WithConds(conds),
+		ledgermw.WithOffset(0),
+		ledgermw.WithLimit(int32(len(coinTypeIDs))),
+	)
+	if err != nil {
+		return err
+	}
+
+	ledgers, _, err := handler.GetLedgers(ctx)
 	if err != nil {
 		return wlog.WrapError(err)
 	}
@@ -256,9 +328,20 @@ func (h *OrderHandler) GetCoinUSDCurrency(ctx context.Context) error {
 
 	h.Currencies = map[string]*currencymwpb.Currency{}
 
-	currencies, _, err := currencymwcli.GetCurrencies(ctx, &currencymwpb.Conds{
+	conds := &currencymwpb.Conds{
 		CoinTypeIDs: &basetypes.StringSliceVal{Op: cruder.IN, Value: coinTypeIDs},
-	}, 0, int32(len(coinTypeIDs)*2))
+	}
+	handler, err := currencymw.NewHandler(
+		ctx,
+		currencymw.WithConds(conds),
+		currencymw.WithOffset(0),
+		currencymw.WithLimit(int32(len(coinTypeIDs)*2)),
+	)
+	if err != nil {
+		return err
+	}
+
+	currencies, _, err := handler.GetCurrencies(ctx)
 	if err != nil {
 		return wlog.WrapError(err)
 	}

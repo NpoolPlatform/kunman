@@ -112,3 +112,41 @@ func (h *Handler) GetOutOfGases(ctx context.Context) ([]*npool.OutOfGas, uint32,
 
 	return handler.infos, handler.total, nil
 }
+
+func (h *Handler) GetOutOfGasOnly(ctx context.Context) (*npool.OutOfGas, error) {
+	handler := &queryHandler{
+		baseQueryHandler: &baseQueryHandler{
+			Handler: h,
+		},
+	}
+
+	var err error
+	err = db.WithClient(ctx, func(_ctx context.Context, cli *ent.Client) error {
+		handler.stmSelect, err = handler.queryOutOfGases(cli)
+		if err != nil {
+			return wlog.WrapError(err)
+		}
+
+		handler.queryJoin()
+
+		handler.stmSelect.
+			Offset(0).
+			Limit(2).
+			Order(ent.Desc(entoutofgas.FieldCreatedAt))
+
+		return handler.scan(_ctx)
+	})
+	if err != nil {
+		return nil, wlog.WrapError(err)
+	}
+	if len(handler.infos) > 1 {
+		return nil, wlog.Errorf("invalid outofgas")
+	}
+	if len(handler.infos) == 0 {
+		return nil, nil
+	}
+
+	handler.formalize()
+
+	return handler.infos[0], nil
+}
