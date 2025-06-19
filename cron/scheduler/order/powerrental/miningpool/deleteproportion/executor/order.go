@@ -3,17 +3,17 @@ package executor
 import (
 	"context"
 
+	asyncfeed "github.com/NpoolPlatform/kunman/cron/scheduler/base/asyncfeed"
+	types "github.com/NpoolPlatform/kunman/cron/scheduler/order/powerrental/miningpool/deleteproportion/types"
 	"github.com/NpoolPlatform/kunman/framework/logger"
 	"github.com/NpoolPlatform/kunman/framework/wlog"
-	apppowerrentalmwcli "github.com/NpoolPlatform/kunman/middleware/good/app/powerrental"
 	goodtypes "github.com/NpoolPlatform/kunman/message/basetypes/good/v1"
 	ordertypes "github.com/NpoolPlatform/kunman/message/basetypes/order/v1"
 	powerrentalgoodmwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/app/powerrental"
 	orderusermwpb "github.com/NpoolPlatform/kunman/message/miningpool/middleware/v1/orderuser"
 	powerrentalordermwpb "github.com/NpoolPlatform/kunman/message/order/middleware/v1/powerrental"
-	orderusermwcli "github.com/NpoolPlatform/kunman/middleware/miningpool/orderuser"
-	asyncfeed "github.com/NpoolPlatform/kunman/cron/scheduler/base/asyncfeed"
-	types "github.com/NpoolPlatform/kunman/cron/scheduler/order/powerrental/miningpool/deleteproportion/types"
+	apppowerrentalmw "github.com/NpoolPlatform/kunman/middleware/good/app/powerrental"
+	orderusermw "github.com/NpoolPlatform/kunman/middleware/miningpool/orderuser"
 	"github.com/shopspring/decimal"
 )
 
@@ -32,7 +32,15 @@ type orderHandler struct {
 }
 
 func (h *orderHandler) getAppPowerRental(ctx context.Context) error {
-	good, err := apppowerrentalmwcli.GetPowerRental(ctx, h.AppGoodID)
+	handler, err := apppowerrentalmw.NewHandler(
+		ctx,
+		apppowerrentalmw.WithAppGoodID(&h.AppGoodID, true),
+	)
+	if err != nil {
+		return err
+	}
+
+	good, err := handler.GetPowerRental(ctx)
 	if err != nil {
 		return wlog.WrapError(err)
 	}
@@ -69,7 +77,15 @@ func (h *orderHandler) validatePoolOrderUserID(ctx context.Context) error {
 		return wlog.Errorf("invalid poolorderuserid")
 	}
 
-	info, err := orderusermwcli.GetOrderUser(ctx, *h.PowerRentalOrder.PoolOrderUserID)
+	handler, err := orderusermw.NewHandler(
+		ctx,
+		orderusermw.WithEntID(h.PowerRentalOrder.PoolOrderUserID, true),
+	)
+	if err != nil {
+		return err
+	}
+
+	info, err := handler.GetOrderUser(ctx)
 	if err != nil {
 		return wlog.WrapError(err)
 	}

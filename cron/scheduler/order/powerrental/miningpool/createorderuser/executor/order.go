@@ -3,17 +3,17 @@ package executor
 import (
 	"context"
 
+	asyncfeed "github.com/NpoolPlatform/kunman/cron/scheduler/base/asyncfeed"
+	types "github.com/NpoolPlatform/kunman/cron/scheduler/order/powerrental/miningpool/createorderuser/types"
 	"github.com/NpoolPlatform/kunman/framework/logger"
 	"github.com/NpoolPlatform/kunman/framework/wlog"
-	apppowerrentalmwcli "github.com/NpoolPlatform/kunman/middleware/good/app/powerrental"
 	goodtypes "github.com/NpoolPlatform/kunman/message/basetypes/good/v1"
 	ordertypes "github.com/NpoolPlatform/kunman/message/basetypes/order/v1"
 	powerrentalgoodmwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/app/powerrental"
 	orderusermwpb "github.com/NpoolPlatform/kunman/message/miningpool/middleware/v1/orderuser"
 	powerrentalordermwpb "github.com/NpoolPlatform/kunman/message/order/middleware/v1/powerrental"
-	goodusermwcli "github.com/NpoolPlatform/kunman/middleware/miningpool/gooduser"
-	asyncfeed "github.com/NpoolPlatform/kunman/cron/scheduler/base/asyncfeed"
-	types "github.com/NpoolPlatform/kunman/cron/scheduler/order/powerrental/miningpool/createorderuser/types"
+	apppowerrentalmw "github.com/NpoolPlatform/kunman/middleware/good/app/powerrental"
+	goodusermw "github.com/NpoolPlatform/kunman/middleware/miningpool/gooduser"
 	"github.com/google/uuid"
 )
 
@@ -31,7 +31,15 @@ type orderHandler struct {
 }
 
 func (h *orderHandler) getAppPowerRental(ctx context.Context) error {
-	good, err := apppowerrentalmwcli.GetPowerRental(ctx, h.AppGoodID)
+	handler, err := apppowerrentalmw.NewHandler(
+		ctx,
+		apppowerrentalmw.WithAppGoodID(&h.AppGoodID, true),
+	)
+	if err != nil {
+		return err
+	}
+
+	good, err := handler.GetPowerRental(ctx)
 	if err != nil {
 		return wlog.WrapError(err)
 	}
@@ -89,7 +97,16 @@ func (h *orderHandler) validatePoolGoodUserID(ctx context.Context) error {
 	if h.poolGoodUserID == nil {
 		return wlog.Errorf("invalid poolgooduserid")
 	}
-	info, err := goodusermwcli.GetGoodUser(ctx, *h.poolGoodUserID)
+
+	handler, err := goodusermw.NewHandler(
+		ctx,
+		goodusermw.WithEntID(h.poolGoodUserID, true),
+	)
+	if err != nil {
+		return err
+	}
+
+	info, err := handler.GetGoodUser(ctx)
 	if err != nil {
 		return wlog.WrapError(err)
 	}

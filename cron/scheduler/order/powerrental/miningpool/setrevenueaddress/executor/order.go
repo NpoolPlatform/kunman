@@ -3,11 +3,10 @@ package executor
 import (
 	"context"
 
-	orderbenefitmwcli "github.com/NpoolPlatform/kunman/middleware/account/orderbenefit"
+	asyncfeed "github.com/NpoolPlatform/kunman/cron/scheduler/base/asyncfeed"
+	types "github.com/NpoolPlatform/kunman/cron/scheduler/order/powerrental/miningpool/setrevenueaddress/types"
 	"github.com/NpoolPlatform/kunman/framework/logger"
 	"github.com/NpoolPlatform/kunman/framework/wlog"
-	apppowerrentalmwcli "github.com/NpoolPlatform/kunman/middleware/good/app/powerrental"
-	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 	"github.com/NpoolPlatform/kunman/message/account/middleware/v1/orderbenefit"
 	goodtypes "github.com/NpoolPlatform/kunman/message/basetypes/good/v1"
 	ordertypes "github.com/NpoolPlatform/kunman/message/basetypes/order/v1"
@@ -15,9 +14,10 @@ import (
 	powerrentalgoodmwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/app/powerrental"
 	orderusermwpb "github.com/NpoolPlatform/kunman/message/miningpool/middleware/v1/orderuser"
 	powerrentalordermwpb "github.com/NpoolPlatform/kunman/message/order/middleware/v1/powerrental"
-	orderusermwcli "github.com/NpoolPlatform/kunman/middleware/miningpool/orderuser"
-	asyncfeed "github.com/NpoolPlatform/kunman/cron/scheduler/base/asyncfeed"
-	types "github.com/NpoolPlatform/kunman/cron/scheduler/order/powerrental/miningpool/setrevenueaddress/types"
+	orderbenefitmw "github.com/NpoolPlatform/kunman/middleware/account/orderbenefit"
+	apppowerrentalmw "github.com/NpoolPlatform/kunman/middleware/good/app/powerrental"
+	orderusermw "github.com/NpoolPlatform/kunman/middleware/miningpool/orderuser"
+	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 )
 
 type orderHandler struct {
@@ -36,7 +36,15 @@ type orderHandler struct {
 }
 
 func (h *orderHandler) getAppPowerRental(ctx context.Context) error {
-	good, err := apppowerrentalmwcli.GetPowerRental(ctx, h.AppGoodID)
+	handler, err := apppowerrentalmw.NewHandler(
+		ctx,
+		apppowerrentalmw.WithAppGoodID(&h.AppGoodID, true),
+	)
+	if err != nil {
+		return err
+	}
+
+	good, err := handler.GetPowerRental(ctx)
 	if err != nil {
 		return wlog.WrapError(err)
 	}
@@ -48,12 +56,20 @@ func (h *orderHandler) getAppPowerRental(ctx context.Context) error {
 }
 
 func (h *orderHandler) getOrderBenefits(ctx context.Context) error {
-	accounts, _, err := orderbenefitmwcli.GetAccounts(ctx, &orderbenefit.Conds{
-		OrderID: &v1.StringVal{
-			Op:    cruder.EQ,
-			Value: h.PowerRentalOrder.OrderID,
-		},
-	}, 0, 0)
+	conds := &orderbenefit.Conds{
+		OrderID: &v1.StringVal{Op: cruder.EQ, Value: h.PowerRentalOrder.OrderID},
+	}
+	handler, err := orderbenefitmw.NewHandler(
+		ctx,
+		orderbenefitmw.WithConds(conds),
+		orderbenefitmw.WithOffset(0),
+		orderbenefitmw.WithLimit(0),
+	)
+	if err != nil {
+		return err
+	}
+
+	accounts, _, err := handler.GetAccounts(ctx)
 	if err != nil {
 		return wlog.WrapError(err)
 	}
@@ -91,7 +107,15 @@ func (h *orderHandler) validatePoolOrderUserID(ctx context.Context) error {
 		return wlog.Errorf("invalid poolorderuserid")
 	}
 
-	info, err := orderusermwcli.GetOrderUser(ctx, *h.PowerRentalOrder.PoolOrderUserID)
+	handler, err := orderusermw.NewHandler(
+		ctx,
+		orderusermw.WithEntID(h.PowerRentalOrder.PoolOrderUserID, true),
+	)
+	if err != nil {
+		return err
+	}
+
+	info, err := handler.GetOrderUser(ctx)
 	if err != nil {
 		return wlog.WrapError(err)
 	}

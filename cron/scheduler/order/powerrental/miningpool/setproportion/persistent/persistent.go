@@ -3,16 +3,14 @@ package persistent
 import (
 	"context"
 
-	dtmcli "github.com/NpoolPlatform/dtm-cluster/pkg/dtm"
-	"github.com/NpoolPlatform/kunman/framework/wlog"
-	orderusermwpb "github.com/NpoolPlatform/kunman/message/miningpool/middleware/v1/orderuser"
-	powerrentalordermwpb "github.com/NpoolPlatform/kunman/message/order/middleware/v1/powerrental"
-	orderusersvcname "github.com/NpoolPlatform/kunman/middleware/miningpool/servicename"
 	asyncfeed "github.com/NpoolPlatform/kunman/cron/scheduler/base/asyncfeed"
 	basepersistent "github.com/NpoolPlatform/kunman/cron/scheduler/base/persistent"
 	types "github.com/NpoolPlatform/kunman/cron/scheduler/order/powerrental/miningpool/setproportion/types"
-	ordersvcname "github.com/NpoolPlatform/kunman/middleware/order/servicename"
-	"github.com/dtm-labs/dtm/client/dtmcli/dtmimp"
+	"github.com/NpoolPlatform/kunman/framework/wlog"
+	orderusermwpb "github.com/NpoolPlatform/kunman/message/miningpool/middleware/v1/orderuser"
+	powerrentalordermwpb "github.com/NpoolPlatform/kunman/message/order/middleware/v1/powerrental"
+	orderusermw "github.com/NpoolPlatform/kunman/middleware/miningpool/orderuser"
+	powerrentalordermw "github.com/NpoolPlatform/kunman/middleware/order/powerrental"
 )
 
 type handler struct{}
@@ -21,30 +19,62 @@ func NewPersistent() basepersistent.Persistenter {
 	return &handler{}
 }
 
-func (p *handler) withSetProportion(dispose *dtmcli.SagaDispose, reqs []*orderusermwpb.OrderUserReq) {
+func (p *handler) withSetProportion(ctx context.Context, reqs []*orderusermwpb.OrderUserReq) error {
 	for _, req := range reqs {
-		dispose.Add(
-			orderusersvcname.ServiceDomain,
-			"miningpool.middleware.orderuser.v1.Middleware/UpdateOrderUser",
-			"",
-			&orderusermwpb.UpdateOrderUserRequest{
-				Info: req,
-			},
+		handler, err := orderusermw.NewHandler(
+			ctx,
+			orderusermw.WithID(req.ID, false),
+			orderusermw.WithEntID(req.EntID, false),
+			orderusermw.WithCoinTypeID(req.CoinTypeID, false),
+			orderusermw.WithProportion(req.Proportion, false),
+			orderusermw.WithRevenueAddress(req.RevenueAddress, false),
+			orderusermw.WithAutoPay(req.AutoPay, false),
 		)
+		if err != nil {
+			return err
+		}
+
+		if err := handler.UpdateOrderUser(ctx); err != nil {
+			return err
+		}
 	}
+	return nil
 }
 
-func (p *handler) withUpdateOrderState(dispose *dtmcli.SagaDispose, req *powerrentalordermwpb.PowerRentalOrderReq) {
-	rollback := true
-	req.Rollback = &rollback
-	dispose.Add(
-		ordersvcname.ServiceDomain,
-		"order.middleware.powerrental.v1.Middleware/UpdatePowerRentalOrder",
-		"order.middleware.powerrental.v1.Middleware/UpdatePowerRentalOrder",
-		&powerrentalordermwpb.UpdatePowerRentalOrderRequest{
-			Info: req,
-		},
+func (p *handler) withUpdateOrderState(ctx context.Context, req *powerrentalordermwpb.PowerRentalOrderReq) error {
+	handler, err := powerrentalordermw.NewHandler(
+		ctx,
+		powerrentalordermw.WithID(req.ID, false),
+		powerrentalordermw.WithEntID(req.EntID, false),
+		powerrentalordermw.WithOrderID(req.OrderID, false),
+		powerrentalordermw.WithPaymentType(req.PaymentType, false),
+
+		powerrentalordermw.WithOrderState(req.OrderState, false),
+		powerrentalordermw.WithStartMode(req.StartMode, false),
+		powerrentalordermw.WithStartAt(req.StartAt, false),
+		powerrentalordermw.WithLastBenefitAt(req.LastBenefitAt, false),
+		powerrentalordermw.WithBenefitState(req.BenefitState, false),
+		powerrentalordermw.WithUserSetPaid(req.UserSetPaid, false),
+		powerrentalordermw.WithUserSetCanceled(req.UserSetCanceled, false),
+		powerrentalordermw.WithAdminSetCanceled(req.AdminSetCanceled, false),
+		powerrentalordermw.WithPaymentState(req.PaymentState, false),
+		powerrentalordermw.WithRenewState(req.RenewState, false),
+		powerrentalordermw.WithRenewNotifyAt(req.RenewNotifyAt, false),
+
+		powerrentalordermw.WithLedgerLockID(req.LedgerLockID, false),
+		powerrentalordermw.WithPaymentID(req.PaymentID, false),
+		powerrentalordermw.WithCouponIDs(req.CouponIDs, false),
+		powerrentalordermw.WithPaymentBalances(req.PaymentBalances, false),
+		powerrentalordermw.WithPaymentTransfers(req.PaymentTransfers, false),
+
+		powerrentalordermw.WithRollback(req.Rollback, false),
+		powerrentalordermw.WithPoolOrderUserID(req.PoolOrderUserID, false),
 	)
+	if err != nil {
+		return err
+	}
+
+	return handler.UpdatePowerRental(ctx)
 }
 
 func (p *handler) Update(ctx context.Context, order interface{}, reward, notif, done chan interface{}) error {
@@ -55,21 +85,13 @@ func (p *handler) Update(ctx context.Context, order interface{}, reward, notif, 
 
 	defer asyncfeed.AsyncFeed(ctx, _order, done)
 
-	const timeoutSeconds = 10
-	sagaDispose := dtmcli.NewSagaDispose(dtmimp.TransOptions{
-		WaitResult:     true,
-		RequestTimeout: timeoutSeconds,
-	})
-
 	if len(_order.OrderUserReqs) > 0 {
-		p.withSetProportion(sagaDispose, _order.OrderUserReqs)
+		if err := p.withSetProportion(ctx, _order.OrderUserReqs); err != nil {
+			return err
+		}
 	}
 	if _order.PowerRentalOrderReq != nil {
-		p.withUpdateOrderState(sagaDispose, _order.PowerRentalOrderReq)
-	}
-
-	if err := dtmcli.WithSaga(ctx, sagaDispose); err != nil {
-		return wlog.WrapError(err)
+		return p.withUpdateOrderState(ctx, _order.PowerRentalOrderReq)
 	}
 
 	return nil
