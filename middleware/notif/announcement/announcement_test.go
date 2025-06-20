@@ -8,7 +8,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/NpoolPlatform/libent-cruder/pkg/cruder"
+	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 
 	npool "github.com/NpoolPlatform/kunman/message/notif/middleware/v1/announcement"
 	"github.com/google/uuid"

@@ -9,7 +9,7 @@ import (
 	"time"
 
 	goodtypes "github.com/NpoolPlatform/kunman/message/basetypes/good/v1"
-	"github.com/NpoolPlatform/libent-cruder/pkg/cruder"
+	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 
 	npool "github.com/NpoolPlatform/kunman/message/notif/middleware/v1/notif/goodbenefit"
 	"github.com/google/uuid"

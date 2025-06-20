@@ -5,7 +5,7 @@ import (
 
 	ent "github.com/NpoolPlatform/kunman/middleware/notif/db/ent/generated"
 	"github.com/NpoolPlatform/kunman/middleware/notif/db/ent/generated/contact"
-	"github.com/NpoolPlatform/libent-cruder/pkg/cruder"
+	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 	"github.com/google/uuid"
 
 	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"

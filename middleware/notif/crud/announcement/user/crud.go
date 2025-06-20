@@ -5,7 +5,7 @@ import (
 
 	ent "github.com/NpoolPlatform/kunman/middleware/notif/db/ent/generated"
 	entuseramt "github.com/NpoolPlatform/kunman/middleware/notif/db/ent/generated/userannouncement"
-	"github.com/NpoolPlatform/libent-cruder/pkg/cruder"
+	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 
 	"github.com/google/uuid"
 )

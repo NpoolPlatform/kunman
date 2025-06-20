@@ -9,7 +9,7 @@ import (
 	announcement1 "github.com/NpoolPlatform/kunman/middleware/notif/announcement"
 	"github.com/NpoolPlatform/kunman/middleware/notif/announcement/handler"
 	crud "github.com/NpoolPlatform/kunman/middleware/notif/crud/announcement/sendstate"
-	"github.com/NpoolPlatform/libent-cruder/pkg/cruder"
+	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 	"github.com/google/uuid"
 )
 

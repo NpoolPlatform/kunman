@@ -10,7 +10,7 @@ import (
 	notifmwpb "github.com/NpoolPlatform/kunman/message/notif/middleware/v1/notif"
 	emailtemplatecrud "github.com/NpoolPlatform/kunman/middleware/notif/crud/template/email"
 
-	cruder "github.com/NpoolPlatform/libent-cruder/pkg/cruder"
+	cruder "github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 
 	tmplreplace "github.com/NpoolPlatform/kunman/middleware/notif/template/replace"
 )

@@ -10,7 +10,7 @@ import (
 	usernotifcrud "github.com/NpoolPlatform/kunman/middleware/notif/crud/notif/user"
 	usernotifmw "github.com/NpoolPlatform/kunman/middleware/notif/notif/user"
 	templatemwcli "github.com/NpoolPlatform/kunman/middleware/notif/template"
-	cruder "github.com/NpoolPlatform/libent-cruder/pkg/cruder"
+	cruder "github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 
 	"github.com/google/uuid"
 )

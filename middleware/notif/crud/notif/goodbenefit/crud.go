@@ -7,7 +7,7 @@ import (
 	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	ent "github.com/NpoolPlatform/kunman/middleware/notif/db/ent/generated"
 	entgoodbenefit "github.com/NpoolPlatform/kunman/middleware/notif/db/ent/generated/goodbenefit"
-	"github.com/NpoolPlatform/libent-cruder/pkg/cruder"
+	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 
 	"github.com/google/uuid"
 )

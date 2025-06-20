@@ -8,7 +8,7 @@ import (
 	npool "github.com/NpoolPlatform/kunman/message/notif/middleware/v1/notif/user"
 	usercrud "github.com/NpoolPlatform/kunman/middleware/notif/crud/notif/user"
 	constant "github.com/NpoolPlatform/kunman/pkg/const"
-	"github.com/NpoolPlatform/libent-cruder/pkg/cruder"
+	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 
 	"github.com/google/uuid"
 )

@@ -9,7 +9,7 @@ import (
 	templatemwpb "github.com/NpoolPlatform/kunman/message/notif/middleware/v1/template"
 	notifcrud "github.com/NpoolPlatform/kunman/middleware/notif/crud/notif"
 	constant "github.com/NpoolPlatform/kunman/pkg/const"
-	"github.com/NpoolPlatform/libent-cruder/pkg/cruder"
+	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 
 	"github.com/google/uuid"
 )

@@ -8,7 +8,7 @@ import (
 	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	npool "github.com/NpoolPlatform/kunman/message/notif/middleware/v1/contact"
 	crud "github.com/NpoolPlatform/kunman/middleware/notif/crud/contact"
-	cruder "github.com/NpoolPlatform/libent-cruder/pkg/cruder"
+	cruder "github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 )
 
 func (h *Handler) GenerateContact(ctx context.Context) (*npool.TextInfo, error) {

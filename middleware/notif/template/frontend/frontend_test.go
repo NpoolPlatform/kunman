@@ -7,7 +7,7 @@ import (
 	"strconv"
 	"testing"
 
-	"github.com/NpoolPlatform/libent-cruder/pkg/cruder"
+	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 
 	npool "github.com/NpoolPlatform/kunman/message/notif/middleware/v1/template/frontend"
 	"github.com/google/uuid"

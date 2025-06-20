@@ -11,7 +11,7 @@ import (
 
 	frontendtemplatecrud "github.com/NpoolPlatform/kunman/middleware/notif/crud/template/frontend"
 
-	cruder "github.com/NpoolPlatform/libent-cruder/pkg/cruder"
+	cruder "github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 
 	tmplreplace "github.com/NpoolPlatform/kunman/middleware/notif/template/replace"
 )

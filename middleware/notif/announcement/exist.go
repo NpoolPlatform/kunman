@@ -10,7 +10,7 @@ import (
 	ent "github.com/NpoolPlatform/kunman/middleware/notif/db/ent/generated"
 	entamt "github.com/NpoolPlatform/kunman/middleware/notif/db/ent/generated/announcement"
 	entread "github.com/NpoolPlatform/kunman/middleware/notif/db/ent/generated/readannouncement"
-	"github.com/NpoolPlatform/libent-cruder/pkg/cruder"
+	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 	"github.com/google/uuid"
 )
 

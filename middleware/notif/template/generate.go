@@ -7,7 +7,7 @@ import (
 	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	npool "github.com/NpoolPlatform/kunman/message/notif/middleware/v1/template"
 
-	cruder "github.com/NpoolPlatform/libent-cruder/pkg/cruder"
+	cruder "github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 
 	notifmwpb "github.com/NpoolPlatform/kunman/message/notif/middleware/v1/notif"
 	notifchancrud "github.com/NpoolPlatform/kunman/middleware/notif/crud/notif/channel"

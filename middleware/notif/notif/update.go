@@ -11,7 +11,7 @@ import (
 
 	"github.com/NpoolPlatform/kunman/middleware/notif/db"
 	ent "github.com/NpoolPlatform/kunman/middleware/notif/db/ent/generated"
-	"github.com/NpoolPlatform/libent-cruder/pkg/cruder"
+	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 )
 
 func (h *Handler) UpdateNotif(ctx context.Context) (*npool.Notif, error) {

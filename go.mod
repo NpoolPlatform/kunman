@@ -7,7 +7,6 @@ require (
 	entgo.io/ent v0.14.4
 	github.com/AmirSoleimani/VoucherCodeGenerator/vcgen v0.0.0-20220706103434-bcb25b5bff9c
 	github.com/NpoolPlatform/go-service-framework v0.0.0-20250123031703-66a23c81e8e0
-	github.com/NpoolPlatform/libent-cruder v0.0.0-20240514082633-598d5fc7b1e3
 	github.com/NpoolPlatform/message v0.0.0-20250604112546-25213bae6bb9
 	github.com/NpoolPlatform/sphinx-proxy v0.0.0-20231201062049-852b1487d4a9
 	github.com/ThreeDotsLabs/watermill v1.2.0
@@ -54,6 +53,7 @@ require (
 require (
 	ariga.io/atlas v0.31.1-0.20250212144724-069be8033e83 // indirect
 	github.com/BurntSushi/toml v1.2.0 // indirect
+	github.com/NpoolPlatform/libent-cruder v0.0.0-20231008051607-f64457cf6ab6 // indirect
 	github.com/Shonminh/apollo-client v0.4.0 // indirect
 	github.com/agext/levenshtein v1.2.1 // indirect
 	github.com/andres-erbsen/clock v0.0.0-20160526145045-9e14626cd129 // indirect
