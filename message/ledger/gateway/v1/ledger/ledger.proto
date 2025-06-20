@@ -5,6 +5,7 @@ package ledger.gateway.ledger.v1;
 option go_package = "github.com/NpoolPlatform/kunman/message/ledger/gateway/v1/ledger";
 
 import "google/api/annotations.proto";
+import "basetypes/ledger/v1/enums.proto";
 
 // Service Name
 service Gateway {
@@ -24,13 +25,14 @@ service Gateway {
 }
 
 message Ledger {
-  string CoinTypeID = 10;
-  string CoinName = 20;
+  string CurrencyID = 10;
+  basetypes.ledger.v1.CurrencyType CurrencyType = 11;
+  string CurrencyName = 20;
   repeated string DisplayNames = 21;
-  string CoinLogo = 30;
-  string CoinUnit = 40;
-  bool CoinDisabled = 41;
-  bool CoinDisplay = 42;
+  string CurrencyLogo = 30;
+  string CurrencyUnit = 40;
+  bool CurrencyDisabled = 41;
+  bool CurrencyDisplay = 42;
   string Incoming = 50;
   string Locked = 60;
   string Outcoming = 70;

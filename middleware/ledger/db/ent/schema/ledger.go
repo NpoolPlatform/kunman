@@ -6,6 +6,7 @@ import (
 	"entgo.io/ent/dialect/entsql"
 	"entgo.io/ent/schema"
 	"entgo.io/ent/schema/field"
+	types "github.com/NpoolPlatform/kunman/message/basetypes/ledger/v1"
 	crudermixin "github.com/NpoolPlatform/kunman/pkg/cruder/mixin"
 	"github.com/google/uuid"
 	"github.com/shopspring/decimal"
@@ -39,11 +40,15 @@ func (Ledger) Fields() []ent.Field {
 				return uuid.UUID{}
 			}),
 		field.
-			UUID("coin_type_id", uuid.UUID{}).
+			UUID("currency_id", uuid.UUID{}).
 			Optional().
 			Default(func() uuid.UUID {
 				return uuid.UUID{}
 			}),
+		field.
+			String("currency_type").
+			Optional().
+			Default(types.CurrencyType_CurrencyCrypto.String()),
 		field.
 			Float("incoming").
 			GoType(decimal.Decimal{}).

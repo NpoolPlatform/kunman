@@ -68,3 +68,10 @@ enum LedgerLockState {
   LedgerLockRollback = 30;
   LedgerLockCanceled = 40;
 }
+
+enum CurrencyType {
+  DefaultCurrencyType = 0;
+
+  CurrencyFiat = 10;
+  CurrencyCrypto = 20;
+}

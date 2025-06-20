@@ -139,23 +139,43 @@ func (lu *LedgerUpdate) ClearUserID() *LedgerUpdate {
 	return lu
 }
 
-// SetCoinTypeID sets the "coin_type_id" field.
-func (lu *LedgerUpdate) SetCoinTypeID(u uuid.UUID) *LedgerUpdate {
-	lu.mutation.SetCoinTypeID(u)
+// SetCurrencyID sets the "currency_id" field.
+func (lu *LedgerUpdate) SetCurrencyID(u uuid.UUID) *LedgerUpdate {
+	lu.mutation.SetCurrencyID(u)
 	return lu
 }
 
-// SetNillableCoinTypeID sets the "coin_type_id" field if the given value is not nil.
-func (lu *LedgerUpdate) SetNillableCoinTypeID(u *uuid.UUID) *LedgerUpdate {
+// SetNillableCurrencyID sets the "currency_id" field if the given value is not nil.
+func (lu *LedgerUpdate) SetNillableCurrencyID(u *uuid.UUID) *LedgerUpdate {
 	if u != nil {
-		lu.SetCoinTypeID(*u)
+		lu.SetCurrencyID(*u)
 	}
 	return lu
 }
 
-// ClearCoinTypeID clears the value of the "coin_type_id" field.
-func (lu *LedgerUpdate) ClearCoinTypeID() *LedgerUpdate {
-	lu.mutation.ClearCoinTypeID()
+// ClearCurrencyID clears the value of the "currency_id" field.
+func (lu *LedgerUpdate) ClearCurrencyID() *LedgerUpdate {
+	lu.mutation.ClearCurrencyID()
+	return lu
+}
+
+// SetCurrencyType sets the "currency_type" field.
+func (lu *LedgerUpdate) SetCurrencyType(s string) *LedgerUpdate {
+	lu.mutation.SetCurrencyType(s)
+	return lu
+}
+
+// SetNillableCurrencyType sets the "currency_type" field if the given value is not nil.
+func (lu *LedgerUpdate) SetNillableCurrencyType(s *string) *LedgerUpdate {
+	if s != nil {
+		lu.SetCurrencyType(*s)
+	}
+	return lu
+}
+
+// ClearCurrencyType clears the value of the "currency_type" field.
+func (lu *LedgerUpdate) ClearCurrencyType() *LedgerUpdate {
+	lu.mutation.ClearCurrencyType()
 	return lu
 }
 
@@ -356,11 +376,17 @@ func (lu *LedgerUpdate) sqlSave(ctx context.Context) (n int, err error) {
 	if lu.mutation.UserIDCleared() {
 		_spec.ClearField(ledger.FieldUserID, field.TypeUUID)
 	}
-	if value, ok := lu.mutation.CoinTypeID(); ok {
-		_spec.SetField(ledger.FieldCoinTypeID, field.TypeUUID, value)
+	if value, ok := lu.mutation.CurrencyID(); ok {
+		_spec.SetField(ledger.FieldCurrencyID, field.TypeUUID, value)
 	}
-	if lu.mutation.CoinTypeIDCleared() {
-		_spec.ClearField(ledger.FieldCoinTypeID, field.TypeUUID)
+	if lu.mutation.CurrencyIDCleared() {
+		_spec.ClearField(ledger.FieldCurrencyID, field.TypeUUID)
+	}
+	if value, ok := lu.mutation.CurrencyType(); ok {
+		_spec.SetField(ledger.FieldCurrencyType, field.TypeString, value)
+	}
+	if lu.mutation.CurrencyTypeCleared() {
+		_spec.ClearField(ledger.FieldCurrencyType, field.TypeString)
 	}
 	if value, ok := lu.mutation.Incoming(); ok {
 		_spec.SetField(ledger.FieldIncoming, field.TypeFloat64, value)
@@ -529,23 +555,43 @@ func (luo *LedgerUpdateOne) ClearUserID() *LedgerUpdateOne {
 	return luo
 }
 
-// SetCoinTypeID sets the "coin_type_id" field.
-func (luo *LedgerUpdateOne) SetCoinTypeID(u uuid.UUID) *LedgerUpdateOne {
-	luo.mutation.SetCoinTypeID(u)
+// SetCurrencyID sets the "currency_id" field.
+func (luo *LedgerUpdateOne) SetCurrencyID(u uuid.UUID) *LedgerUpdateOne {
+	luo.mutation.SetCurrencyID(u)
 	return luo
 }
 
-// SetNillableCoinTypeID sets the "coin_type_id" field if the given value is not nil.
-func (luo *LedgerUpdateOne) SetNillableCoinTypeID(u *uuid.UUID) *LedgerUpdateOne {
+// SetNillableCurrencyID sets the "currency_id" field if the given value is not nil.
+func (luo *LedgerUpdateOne) SetNillableCurrencyID(u *uuid.UUID) *LedgerUpdateOne {
 	if u != nil {
-		luo.SetCoinTypeID(*u)
+		luo.SetCurrencyID(*u)
 	}
 	return luo
 }
 
-// ClearCoinTypeID clears the value of the "coin_type_id" field.
-func (luo *LedgerUpdateOne) ClearCoinTypeID() *LedgerUpdateOne {
-	luo.mutation.ClearCoinTypeID()
+// ClearCurrencyID clears the value of the "currency_id" field.
+func (luo *LedgerUpdateOne) ClearCurrencyID() *LedgerUpdateOne {
+	luo.mutation.ClearCurrencyID()
+	return luo
+}
+
+// SetCurrencyType sets the "currency_type" field.
+func (luo *LedgerUpdateOne) SetCurrencyType(s string) *LedgerUpdateOne {
+	luo.mutation.SetCurrencyType(s)
+	return luo
+}
+
+// SetNillableCurrencyType sets the "currency_type" field if the given value is not nil.
+func (luo *LedgerUpdateOne) SetNillableCurrencyType(s *string) *LedgerUpdateOne {
+	if s != nil {
+		luo.SetCurrencyType(*s)
+	}
+	return luo
+}
+
+// ClearCurrencyType clears the value of the "currency_type" field.
+func (luo *LedgerUpdateOne) ClearCurrencyType() *LedgerUpdateOne {
+	luo.mutation.ClearCurrencyType()
 	return luo
 }
 
@@ -776,11 +822,17 @@ func (luo *LedgerUpdateOne) sqlSave(ctx context.Context) (_node *Ledger, err err
 	if luo.mutation.UserIDCleared() {
 		_spec.ClearField(ledger.FieldUserID, field.TypeUUID)
 	}
-	if value, ok := luo.mutation.CoinTypeID(); ok {
-		_spec.SetField(ledger.FieldCoinTypeID, field.TypeUUID, value)
+	if value, ok := luo.mutation.CurrencyID(); ok {
+		_spec.SetField(ledger.FieldCurrencyID, field.TypeUUID, value)
 	}
-	if luo.mutation.CoinTypeIDCleared() {
-		_spec.ClearField(ledger.FieldCoinTypeID, field.TypeUUID)
+	if luo.mutation.CurrencyIDCleared() {
+		_spec.ClearField(ledger.FieldCurrencyID, field.TypeUUID)
+	}
+	if value, ok := luo.mutation.CurrencyType(); ok {
+		_spec.SetField(ledger.FieldCurrencyType, field.TypeString, value)
+	}
+	if luo.mutation.CurrencyTypeCleared() {
+		_spec.ClearField(ledger.FieldCurrencyType, field.TypeString)
 	}
 	if value, ok := luo.mutation.Incoming(); ok {
 		_spec.SetField(ledger.FieldIncoming, field.TypeFloat64, value)

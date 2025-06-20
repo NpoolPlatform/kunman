@@ -24,8 +24,10 @@ const (
 	FieldAppID = "app_id"
 	// FieldUserID holds the string denoting the user_id field in the database.
 	FieldUserID = "user_id"
-	// FieldCoinTypeID holds the string denoting the coin_type_id field in the database.
-	FieldCoinTypeID = "coin_type_id"
+	// FieldCurrencyID holds the string denoting the currency_id field in the database.
+	FieldCurrencyID = "currency_id"
+	// FieldCurrencyType holds the string denoting the currency_type field in the database.
+	FieldCurrencyType = "currency_type"
 	// FieldIoType holds the string denoting the io_type field in the database.
 	FieldIoType = "io_type"
 	// FieldIoSubType holds the string denoting the io_sub_type field in the database.
@@ -49,7 +51,8 @@ var Columns = []string{
 	FieldEntID,
 	FieldAppID,
 	FieldUserID,
-	FieldCoinTypeID,
+	FieldCurrencyID,
+	FieldCurrencyType,
 	FieldIoType,
 	FieldIoSubType,
 	FieldAmount,
@@ -82,8 +85,10 @@ var (
 	DefaultAppID func() uuid.UUID
 	// DefaultUserID holds the default value on creation for the "user_id" field.
 	DefaultUserID func() uuid.UUID
-	// DefaultCoinTypeID holds the default value on creation for the "coin_type_id" field.
-	DefaultCoinTypeID func() uuid.UUID
+	// DefaultCurrencyID holds the default value on creation for the "currency_id" field.
+	DefaultCurrencyID func() uuid.UUID
+	// DefaultCurrencyType holds the default value on creation for the "currency_type" field.
+	DefaultCurrencyType string
 	// DefaultIoType holds the default value on creation for the "io_type" field.
 	DefaultIoType string
 	// DefaultIoSubType holds the default value on creation for the "io_sub_type" field.
@@ -136,9 +141,14 @@ func ByUserID(opts ...sql.OrderTermOption) OrderOption {
 	return sql.OrderByField(FieldUserID, opts...).ToFunc()
 }
 
-// ByCoinTypeID orders the results by the coin_type_id field.
-func ByCoinTypeID(opts ...sql.OrderTermOption) OrderOption {
-	return sql.OrderByField(FieldCoinTypeID, opts...).ToFunc()
+// ByCurrencyID orders the results by the currency_id field.
+func ByCurrencyID(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldCurrencyID, opts...).ToFunc()
+}
+
+// ByCurrencyType orders the results by the currency_type field.
+func ByCurrencyType(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldCurrencyType, opts...).ToFunc()
 }
 
 // ByIoType orders the results by the io_type field.

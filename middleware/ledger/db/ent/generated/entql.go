@@ -106,17 +106,18 @@ var schemaGraph = func() *sqlgraph.Schema {
 		},
 		Type: "Ledger",
 		Fields: map[string]*sqlgraph.FieldSpec{
-			ledger.FieldCreatedAt:  {Type: field.TypeUint32, Column: ledger.FieldCreatedAt},
-			ledger.FieldUpdatedAt:  {Type: field.TypeUint32, Column: ledger.FieldUpdatedAt},
-			ledger.FieldDeletedAt:  {Type: field.TypeUint32, Column: ledger.FieldDeletedAt},
-			ledger.FieldEntID:      {Type: field.TypeUUID, Column: ledger.FieldEntID},
-			ledger.FieldAppID:      {Type: field.TypeUUID, Column: ledger.FieldAppID},
-			ledger.FieldUserID:     {Type: field.TypeUUID, Column: ledger.FieldUserID},
-			ledger.FieldCoinTypeID: {Type: field.TypeUUID, Column: ledger.FieldCoinTypeID},
-			ledger.FieldIncoming:   {Type: field.TypeFloat64, Column: ledger.FieldIncoming},
-			ledger.FieldLocked:     {Type: field.TypeFloat64, Column: ledger.FieldLocked},
-			ledger.FieldOutcoming:  {Type: field.TypeFloat64, Column: ledger.FieldOutcoming},
-			ledger.FieldSpendable:  {Type: field.TypeFloat64, Column: ledger.FieldSpendable},
+			ledger.FieldCreatedAt:    {Type: field.TypeUint32, Column: ledger.FieldCreatedAt},
+			ledger.FieldUpdatedAt:    {Type: field.TypeUint32, Column: ledger.FieldUpdatedAt},
+			ledger.FieldDeletedAt:    {Type: field.TypeUint32, Column: ledger.FieldDeletedAt},
+			ledger.FieldEntID:        {Type: field.TypeUUID, Column: ledger.FieldEntID},
+			ledger.FieldAppID:        {Type: field.TypeUUID, Column: ledger.FieldAppID},
+			ledger.FieldUserID:       {Type: field.TypeUUID, Column: ledger.FieldUserID},
+			ledger.FieldCurrencyID:   {Type: field.TypeUUID, Column: ledger.FieldCurrencyID},
+			ledger.FieldCurrencyType: {Type: field.TypeString, Column: ledger.FieldCurrencyType},
+			ledger.FieldIncoming:     {Type: field.TypeFloat64, Column: ledger.FieldIncoming},
+			ledger.FieldLocked:       {Type: field.TypeFloat64, Column: ledger.FieldLocked},
+			ledger.FieldOutcoming:    {Type: field.TypeFloat64, Column: ledger.FieldOutcoming},
+			ledger.FieldSpendable:    {Type: field.TypeFloat64, Column: ledger.FieldSpendable},
 		},
 	}
 	graph.Nodes[4] = &sqlgraph.Node{
@@ -242,18 +243,19 @@ var schemaGraph = func() *sqlgraph.Schema {
 		},
 		Type: "Statement",
 		Fields: map[string]*sqlgraph.FieldSpec{
-			statement.FieldCreatedAt:  {Type: field.TypeUint32, Column: statement.FieldCreatedAt},
-			statement.FieldUpdatedAt:  {Type: field.TypeUint32, Column: statement.FieldUpdatedAt},
-			statement.FieldDeletedAt:  {Type: field.TypeUint32, Column: statement.FieldDeletedAt},
-			statement.FieldEntID:      {Type: field.TypeUUID, Column: statement.FieldEntID},
-			statement.FieldAppID:      {Type: field.TypeUUID, Column: statement.FieldAppID},
-			statement.FieldUserID:     {Type: field.TypeUUID, Column: statement.FieldUserID},
-			statement.FieldCoinTypeID: {Type: field.TypeUUID, Column: statement.FieldCoinTypeID},
-			statement.FieldIoType:     {Type: field.TypeString, Column: statement.FieldIoType},
-			statement.FieldIoSubType:  {Type: field.TypeString, Column: statement.FieldIoSubType},
-			statement.FieldAmount:     {Type: field.TypeFloat64, Column: statement.FieldAmount},
-			statement.FieldIoExtra:    {Type: field.TypeString, Column: statement.FieldIoExtra},
-			statement.FieldIoExtraV1:  {Type: field.TypeString, Column: statement.FieldIoExtraV1},
+			statement.FieldCreatedAt:    {Type: field.TypeUint32, Column: statement.FieldCreatedAt},
+			statement.FieldUpdatedAt:    {Type: field.TypeUint32, Column: statement.FieldUpdatedAt},
+			statement.FieldDeletedAt:    {Type: field.TypeUint32, Column: statement.FieldDeletedAt},
+			statement.FieldEntID:        {Type: field.TypeUUID, Column: statement.FieldEntID},
+			statement.FieldAppID:        {Type: field.TypeUUID, Column: statement.FieldAppID},
+			statement.FieldUserID:       {Type: field.TypeUUID, Column: statement.FieldUserID},
+			statement.FieldCurrencyID:   {Type: field.TypeUUID, Column: statement.FieldCurrencyID},
+			statement.FieldCurrencyType: {Type: field.TypeString, Column: statement.FieldCurrencyType},
+			statement.FieldIoType:       {Type: field.TypeString, Column: statement.FieldIoType},
+			statement.FieldIoSubType:    {Type: field.TypeString, Column: statement.FieldIoSubType},
+			statement.FieldAmount:       {Type: field.TypeFloat64, Column: statement.FieldAmount},
+			statement.FieldIoExtra:      {Type: field.TypeString, Column: statement.FieldIoExtra},
+			statement.FieldIoExtraV1:    {Type: field.TypeString, Column: statement.FieldIoExtraV1},
 		},
 	}
 	graph.Nodes[10] = &sqlgraph.Node{
@@ -659,9 +661,14 @@ func (f *LedgerFilter) WhereUserID(p entql.ValueP) {
 	f.Where(p.Field(ledger.FieldUserID))
 }
 
-// WhereCoinTypeID applies the entql [16]byte predicate on the coin_type_id field.
-func (f *LedgerFilter) WhereCoinTypeID(p entql.ValueP) {
-	f.Where(p.Field(ledger.FieldCoinTypeID))
+// WhereCurrencyID applies the entql [16]byte predicate on the currency_id field.
+func (f *LedgerFilter) WhereCurrencyID(p entql.ValueP) {
+	f.Where(p.Field(ledger.FieldCurrencyID))
+}
+
+// WhereCurrencyType applies the entql string predicate on the currency_type field.
+func (f *LedgerFilter) WhereCurrencyType(p entql.StringP) {
+	f.Where(p.Field(ledger.FieldCurrencyType))
 }
 
 // WhereIncoming applies the entql float64 predicate on the incoming field.
@@ -1189,9 +1196,14 @@ func (f *StatementFilter) WhereUserID(p entql.ValueP) {
 	f.Where(p.Field(statement.FieldUserID))
 }
 
-// WhereCoinTypeID applies the entql [16]byte predicate on the coin_type_id field.
-func (f *StatementFilter) WhereCoinTypeID(p entql.ValueP) {
-	f.Where(p.Field(statement.FieldCoinTypeID))
+// WhereCurrencyID applies the entql [16]byte predicate on the currency_id field.
+func (f *StatementFilter) WhereCurrencyID(p entql.ValueP) {
+	f.Where(p.Field(statement.FieldCurrencyID))
+}
+
+// WhereCurrencyType applies the entql string predicate on the currency_type field.
+func (f *StatementFilter) WhereCurrencyType(p entql.StringP) {
+	f.Where(p.Field(statement.FieldCurrencyType))
 }
 
 // WhereIoType applies the entql string predicate on the io_type field.

@@ -139,23 +139,43 @@ func (su *StatementUpdate) ClearUserID() *StatementUpdate {
 	return su
 }
 
-// SetCoinTypeID sets the "coin_type_id" field.
-func (su *StatementUpdate) SetCoinTypeID(u uuid.UUID) *StatementUpdate {
-	su.mutation.SetCoinTypeID(u)
+// SetCurrencyID sets the "currency_id" field.
+func (su *StatementUpdate) SetCurrencyID(u uuid.UUID) *StatementUpdate {
+	su.mutation.SetCurrencyID(u)
 	return su
 }
 
-// SetNillableCoinTypeID sets the "coin_type_id" field if the given value is not nil.
-func (su *StatementUpdate) SetNillableCoinTypeID(u *uuid.UUID) *StatementUpdate {
+// SetNillableCurrencyID sets the "currency_id" field if the given value is not nil.
+func (su *StatementUpdate) SetNillableCurrencyID(u *uuid.UUID) *StatementUpdate {
 	if u != nil {
-		su.SetCoinTypeID(*u)
+		su.SetCurrencyID(*u)
 	}
 	return su
 }
 
-// ClearCoinTypeID clears the value of the "coin_type_id" field.
-func (su *StatementUpdate) ClearCoinTypeID() *StatementUpdate {
-	su.mutation.ClearCoinTypeID()
+// ClearCurrencyID clears the value of the "currency_id" field.
+func (su *StatementUpdate) ClearCurrencyID() *StatementUpdate {
+	su.mutation.ClearCurrencyID()
+	return su
+}
+
+// SetCurrencyType sets the "currency_type" field.
+func (su *StatementUpdate) SetCurrencyType(s string) *StatementUpdate {
+	su.mutation.SetCurrencyType(s)
+	return su
+}
+
+// SetNillableCurrencyType sets the "currency_type" field if the given value is not nil.
+func (su *StatementUpdate) SetNillableCurrencyType(s *string) *StatementUpdate {
+	if s != nil {
+		su.SetCurrencyType(*s)
+	}
+	return su
+}
+
+// ClearCurrencyType clears the value of the "currency_type" field.
+func (su *StatementUpdate) ClearCurrencyType() *StatementUpdate {
+	su.mutation.ClearCurrencyType()
 	return su
 }
 
@@ -373,11 +393,17 @@ func (su *StatementUpdate) sqlSave(ctx context.Context) (n int, err error) {
 	if su.mutation.UserIDCleared() {
 		_spec.ClearField(statement.FieldUserID, field.TypeUUID)
 	}
-	if value, ok := su.mutation.CoinTypeID(); ok {
-		_spec.SetField(statement.FieldCoinTypeID, field.TypeUUID, value)
+	if value, ok := su.mutation.CurrencyID(); ok {
+		_spec.SetField(statement.FieldCurrencyID, field.TypeUUID, value)
 	}
-	if su.mutation.CoinTypeIDCleared() {
-		_spec.ClearField(statement.FieldCoinTypeID, field.TypeUUID)
+	if su.mutation.CurrencyIDCleared() {
+		_spec.ClearField(statement.FieldCurrencyID, field.TypeUUID)
+	}
+	if value, ok := su.mutation.CurrencyType(); ok {
+		_spec.SetField(statement.FieldCurrencyType, field.TypeString, value)
+	}
+	if su.mutation.CurrencyTypeCleared() {
+		_spec.ClearField(statement.FieldCurrencyType, field.TypeString)
 	}
 	if value, ok := su.mutation.IoType(); ok {
 		_spec.SetField(statement.FieldIoType, field.TypeString, value)
@@ -543,23 +569,43 @@ func (suo *StatementUpdateOne) ClearUserID() *StatementUpdateOne {
 	return suo
 }
 
-// SetCoinTypeID sets the "coin_type_id" field.
-func (suo *StatementUpdateOne) SetCoinTypeID(u uuid.UUID) *StatementUpdateOne {
-	suo.mutation.SetCoinTypeID(u)
+// SetCurrencyID sets the "currency_id" field.
+func (suo *StatementUpdateOne) SetCurrencyID(u uuid.UUID) *StatementUpdateOne {
+	suo.mutation.SetCurrencyID(u)
 	return suo
 }
 
-// SetNillableCoinTypeID sets the "coin_type_id" field if the given value is not nil.
-func (suo *StatementUpdateOne) SetNillableCoinTypeID(u *uuid.UUID) *StatementUpdateOne {
+// SetNillableCurrencyID sets the "currency_id" field if the given value is not nil.
+func (suo *StatementUpdateOne) SetNillableCurrencyID(u *uuid.UUID) *StatementUpdateOne {
 	if u != nil {
-		suo.SetCoinTypeID(*u)
+		suo.SetCurrencyID(*u)
 	}
 	return suo
 }
 
-// ClearCoinTypeID clears the value of the "coin_type_id" field.
-func (suo *StatementUpdateOne) ClearCoinTypeID() *StatementUpdateOne {
-	suo.mutation.ClearCoinTypeID()
+// ClearCurrencyID clears the value of the "currency_id" field.
+func (suo *StatementUpdateOne) ClearCurrencyID() *StatementUpdateOne {
+	suo.mutation.ClearCurrencyID()
+	return suo
+}
+
+// SetCurrencyType sets the "currency_type" field.
+func (suo *StatementUpdateOne) SetCurrencyType(s string) *StatementUpdateOne {
+	suo.mutation.SetCurrencyType(s)
+	return suo
+}
+
+// SetNillableCurrencyType sets the "currency_type" field if the given value is not nil.
+func (suo *StatementUpdateOne) SetNillableCurrencyType(s *string) *StatementUpdateOne {
+	if s != nil {
+		suo.SetCurrencyType(*s)
+	}
+	return suo
+}
+
+// ClearCurrencyType clears the value of the "currency_type" field.
+func (suo *StatementUpdateOne) ClearCurrencyType() *StatementUpdateOne {
+	suo.mutation.ClearCurrencyType()
 	return suo
 }
 
@@ -807,11 +853,17 @@ func (suo *StatementUpdateOne) sqlSave(ctx context.Context) (_node *Statement, e
 	if suo.mutation.UserIDCleared() {
 		_spec.ClearField(statement.FieldUserID, field.TypeUUID)
 	}
-	if value, ok := suo.mutation.CoinTypeID(); ok {
-		_spec.SetField(statement.FieldCoinTypeID, field.TypeUUID, value)
+	if value, ok := suo.mutation.CurrencyID(); ok {
+		_spec.SetField(statement.FieldCurrencyID, field.TypeUUID, value)
 	}
-	if suo.mutation.CoinTypeIDCleared() {
-		_spec.ClearField(statement.FieldCoinTypeID, field.TypeUUID)
+	if suo.mutation.CurrencyIDCleared() {
+		_spec.ClearField(statement.FieldCurrencyID, field.TypeUUID)
+	}
+	if value, ok := suo.mutation.CurrencyType(); ok {
+		_spec.SetField(statement.FieldCurrencyType, field.TypeString, value)
+	}
+	if suo.mutation.CurrencyTypeCleared() {
+		_spec.ClearField(statement.FieldCurrencyType, field.TypeString)
 	}
 	if value, ok := suo.mutation.IoType(); ok {
 		_spec.SetField(statement.FieldIoType, field.TypeString, value)

@@ -30,8 +30,10 @@ type Ledger struct {
 	AppID uuid.UUID `json:"app_id,omitempty"`
 	// UserID holds the value of the "user_id" field.
 	UserID uuid.UUID `json:"user_id,omitempty"`
-	// CoinTypeID holds the value of the "coin_type_id" field.
-	CoinTypeID uuid.UUID `json:"coin_type_id,omitempty"`
+	// CurrencyID holds the value of the "currency_id" field.
+	CurrencyID uuid.UUID `json:"currency_id,omitempty"`
+	// CurrencyType holds the value of the "currency_type" field.
+	CurrencyType string `json:"currency_type,omitempty"`
 	// Incoming holds the value of the "incoming" field.
 	Incoming decimal.Decimal `json:"incoming,omitempty"`
 	// Locked holds the value of the "locked" field.
@@ -52,7 +54,9 @@ func (*Ledger) scanValues(columns []string) ([]any, error) {
 			values[i] = new(decimal.Decimal)
 		case ledger.FieldID, ledger.FieldCreatedAt, ledger.FieldUpdatedAt, ledger.FieldDeletedAt:
 			values[i] = new(sql.NullInt64)
-		case ledger.FieldEntID, ledger.FieldAppID, ledger.FieldUserID, ledger.FieldCoinTypeID:
+		case ledger.FieldCurrencyType:
+			values[i] = new(sql.NullString)
+		case ledger.FieldEntID, ledger.FieldAppID, ledger.FieldUserID, ledger.FieldCurrencyID:
 			values[i] = new(uuid.UUID)
 		default:
 			values[i] = new(sql.UnknownType)
@@ -111,11 +115,17 @@ func (l *Ledger) assignValues(columns []string, values []any) error {
 			} else if value != nil {
 				l.UserID = *value
 			}
-		case ledger.FieldCoinTypeID:
+		case ledger.FieldCurrencyID:
 			if value, ok := values[i].(*uuid.UUID); !ok {
-				return fmt.Errorf("unexpected type %T for field coin_type_id", values[i])
+				return fmt.Errorf("unexpected type %T for field currency_id", values[i])
 			} else if value != nil {
-				l.CoinTypeID = *value
+				l.CurrencyID = *value
+			}
+		case ledger.FieldCurrencyType:
+			if value, ok := values[i].(*sql.NullString); !ok {
+				return fmt.Errorf("unexpected type %T for field currency_type", values[i])
+			} else if value.Valid {
+				l.CurrencyType = value.String
 			}
 		case ledger.FieldIncoming:
 			if value, ok := values[i].(*decimal.Decimal); !ok {
@@ -195,8 +205,11 @@ func (l *Ledger) String() string {
 	builder.WriteString("user_id=")
 	builder.WriteString(fmt.Sprintf("%v", l.UserID))
 	builder.WriteString(", ")
-	builder.WriteString("coin_type_id=")
-	builder.WriteString(fmt.Sprintf("%v", l.CoinTypeID))
+	builder.WriteString("currency_id=")
+	builder.WriteString(fmt.Sprintf("%v", l.CurrencyID))
+	builder.WriteString(", ")
+	builder.WriteString("currency_type=")
+	builder.WriteString(l.CurrencyType)
 	builder.WriteString(", ")
 	builder.WriteString("incoming=")
 	builder.WriteString(fmt.Sprintf("%v", l.Incoming))

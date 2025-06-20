@@ -6,7 +6,7 @@ import (
 	"entgo.io/ent/dialect/entsql"
 	"entgo.io/ent/schema"
 	"entgo.io/ent/schema/field"
-	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/ledger/v1"
+	types "github.com/NpoolPlatform/kunman/message/basetypes/ledger/v1"
 	crudermixin "github.com/NpoolPlatform/kunman/pkg/cruder/mixin"
 	"github.com/google/uuid"
 	"github.com/shopspring/decimal"
@@ -40,19 +40,23 @@ func (Statement) Fields() []ent.Field {
 				return uuid.UUID{}
 			}),
 		field.
-			UUID("coin_type_id", uuid.UUID{}).
+			UUID("currency_id", uuid.UUID{}).
 			Optional().
 			Default(func() uuid.UUID {
 				return uuid.UUID{}
 			}),
 		field.
+			String("currency_type").
+			Optional().
+			Default(types.CurrencyType_CurrencyCrypto.String()),
+		field.
 			String("io_type").
 			Optional().
-			Default(basetypes.IOType_DefaultType.String()),
+			Default(types.IOType_DefaultType.String()),
 		field.
 			String("io_sub_type").
 			Optional().
-			Default(basetypes.IOSubType_DefaultSubType.String()),
+			Default(types.IOSubType_DefaultSubType.String()),
 		field.
 			Float("amount").
 			GoType(decimal.Decimal{}).

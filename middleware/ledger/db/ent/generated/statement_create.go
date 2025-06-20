@@ -107,16 +107,30 @@ func (sc *StatementCreate) SetNillableUserID(u *uuid.UUID) *StatementCreate {
 	return sc
 }
 
-// SetCoinTypeID sets the "coin_type_id" field.
-func (sc *StatementCreate) SetCoinTypeID(u uuid.UUID) *StatementCreate {
-	sc.mutation.SetCoinTypeID(u)
+// SetCurrencyID sets the "currency_id" field.
+func (sc *StatementCreate) SetCurrencyID(u uuid.UUID) *StatementCreate {
+	sc.mutation.SetCurrencyID(u)
 	return sc
 }
 
-// SetNillableCoinTypeID sets the "coin_type_id" field if the given value is not nil.
-func (sc *StatementCreate) SetNillableCoinTypeID(u *uuid.UUID) *StatementCreate {
+// SetNillableCurrencyID sets the "currency_id" field if the given value is not nil.
+func (sc *StatementCreate) SetNillableCurrencyID(u *uuid.UUID) *StatementCreate {
 	if u != nil {
-		sc.SetCoinTypeID(*u)
+		sc.SetCurrencyID(*u)
+	}
+	return sc
+}
+
+// SetCurrencyType sets the "currency_type" field.
+func (sc *StatementCreate) SetCurrencyType(s string) *StatementCreate {
+	sc.mutation.SetCurrencyType(s)
+	return sc
+}
+
+// SetNillableCurrencyType sets the "currency_type" field if the given value is not nil.
+func (sc *StatementCreate) SetNillableCurrencyType(s *string) *StatementCreate {
+	if s != nil {
+		sc.SetCurrencyType(*s)
 	}
 	return sc
 }
@@ -256,9 +270,13 @@ func (sc *StatementCreate) defaults() {
 		v := statement.DefaultUserID()
 		sc.mutation.SetUserID(v)
 	}
-	if _, ok := sc.mutation.CoinTypeID(); !ok {
-		v := statement.DefaultCoinTypeID()
-		sc.mutation.SetCoinTypeID(v)
+	if _, ok := sc.mutation.CurrencyID(); !ok {
+		v := statement.DefaultCurrencyID()
+		sc.mutation.SetCurrencyID(v)
+	}
+	if _, ok := sc.mutation.CurrencyType(); !ok {
+		v := statement.DefaultCurrencyType
+		sc.mutation.SetCurrencyType(v)
 	}
 	if _, ok := sc.mutation.IoType(); !ok {
 		v := statement.DefaultIoType
@@ -359,9 +377,13 @@ func (sc *StatementCreate) createSpec() (*Statement, *sqlgraph.CreateSpec) {
 		_spec.SetField(statement.FieldUserID, field.TypeUUID, value)
 		_node.UserID = value
 	}
-	if value, ok := sc.mutation.CoinTypeID(); ok {
-		_spec.SetField(statement.FieldCoinTypeID, field.TypeUUID, value)
-		_node.CoinTypeID = value
+	if value, ok := sc.mutation.CurrencyID(); ok {
+		_spec.SetField(statement.FieldCurrencyID, field.TypeUUID, value)
+		_node.CurrencyID = value
+	}
+	if value, ok := sc.mutation.CurrencyType(); ok {
+		_spec.SetField(statement.FieldCurrencyType, field.TypeString, value)
+		_node.CurrencyType = value
 	}
 	if value, ok := sc.mutation.IoType(); ok {
 		_spec.SetField(statement.FieldIoType, field.TypeString, value)
@@ -537,21 +559,39 @@ func (u *StatementUpsert) ClearUserID() *StatementUpsert {
 	return u
 }
 
-// SetCoinTypeID sets the "coin_type_id" field.
-func (u *StatementUpsert) SetCoinTypeID(v uuid.UUID) *StatementUpsert {
-	u.Set(statement.FieldCoinTypeID, v)
+// SetCurrencyID sets the "currency_id" field.
+func (u *StatementUpsert) SetCurrencyID(v uuid.UUID) *StatementUpsert {
+	u.Set(statement.FieldCurrencyID, v)
 	return u
 }
 
-// UpdateCoinTypeID sets the "coin_type_id" field to the value that was provided on create.
-func (u *StatementUpsert) UpdateCoinTypeID() *StatementUpsert {
-	u.SetExcluded(statement.FieldCoinTypeID)
+// UpdateCurrencyID sets the "currency_id" field to the value that was provided on create.
+func (u *StatementUpsert) UpdateCurrencyID() *StatementUpsert {
+	u.SetExcluded(statement.FieldCurrencyID)
 	return u
 }
 
-// ClearCoinTypeID clears the value of the "coin_type_id" field.
-func (u *StatementUpsert) ClearCoinTypeID() *StatementUpsert {
-	u.SetNull(statement.FieldCoinTypeID)
+// ClearCurrencyID clears the value of the "currency_id" field.
+func (u *StatementUpsert) ClearCurrencyID() *StatementUpsert {
+	u.SetNull(statement.FieldCurrencyID)
+	return u
+}
+
+// SetCurrencyType sets the "currency_type" field.
+func (u *StatementUpsert) SetCurrencyType(v string) *StatementUpsert {
+	u.Set(statement.FieldCurrencyType, v)
+	return u
+}
+
+// UpdateCurrencyType sets the "currency_type" field to the value that was provided on create.
+func (u *StatementUpsert) UpdateCurrencyType() *StatementUpsert {
+	u.SetExcluded(statement.FieldCurrencyType)
+	return u
+}
+
+// ClearCurrencyType clears the value of the "currency_type" field.
+func (u *StatementUpsert) ClearCurrencyType() *StatementUpsert {
+	u.SetNull(statement.FieldCurrencyType)
 	return u
 }
 
@@ -818,24 +858,45 @@ func (u *StatementUpsertOne) ClearUserID() *StatementUpsertOne {
 	})
 }
 
-// SetCoinTypeID sets the "coin_type_id" field.
-func (u *StatementUpsertOne) SetCoinTypeID(v uuid.UUID) *StatementUpsertOne {
+// SetCurrencyID sets the "currency_id" field.
+func (u *StatementUpsertOne) SetCurrencyID(v uuid.UUID) *StatementUpsertOne {
 	return u.Update(func(s *StatementUpsert) {
-		s.SetCoinTypeID(v)
+		s.SetCurrencyID(v)
 	})
 }
 
-// UpdateCoinTypeID sets the "coin_type_id" field to the value that was provided on create.
-func (u *StatementUpsertOne) UpdateCoinTypeID() *StatementUpsertOne {
+// UpdateCurrencyID sets the "currency_id" field to the value that was provided on create.
+func (u *StatementUpsertOne) UpdateCurrencyID() *StatementUpsertOne {
 	return u.Update(func(s *StatementUpsert) {
-		s.UpdateCoinTypeID()
+		s.UpdateCurrencyID()
 	})
 }
 
-// ClearCoinTypeID clears the value of the "coin_type_id" field.
-func (u *StatementUpsertOne) ClearCoinTypeID() *StatementUpsertOne {
+// ClearCurrencyID clears the value of the "currency_id" field.
+func (u *StatementUpsertOne) ClearCurrencyID() *StatementUpsertOne {
 	return u.Update(func(s *StatementUpsert) {
-		s.ClearCoinTypeID()
+		s.ClearCurrencyID()
+	})
+}
+
+// SetCurrencyType sets the "currency_type" field.
+func (u *StatementUpsertOne) SetCurrencyType(v string) *StatementUpsertOne {
+	return u.Update(func(s *StatementUpsert) {
+		s.SetCurrencyType(v)
+	})
+}
+
+// UpdateCurrencyType sets the "currency_type" field to the value that was provided on create.
+func (u *StatementUpsertOne) UpdateCurrencyType() *StatementUpsertOne {
+	return u.Update(func(s *StatementUpsert) {
+		s.UpdateCurrencyType()
+	})
+}
+
+// ClearCurrencyType clears the value of the "currency_type" field.
+func (u *StatementUpsertOne) ClearCurrencyType() *StatementUpsertOne {
+	return u.Update(func(s *StatementUpsert) {
+		s.ClearCurrencyType()
 	})
 }
 
@@ -1284,24 +1345,45 @@ func (u *StatementUpsertBulk) ClearUserID() *StatementUpsertBulk {
 	})
 }
 
-// SetCoinTypeID sets the "coin_type_id" field.
-func (u *StatementUpsertBulk) SetCoinTypeID(v uuid.UUID) *StatementUpsertBulk {
+// SetCurrencyID sets the "currency_id" field.
+func (u *StatementUpsertBulk) SetCurrencyID(v uuid.UUID) *StatementUpsertBulk {
 	return u.Update(func(s *StatementUpsert) {
-		s.SetCoinTypeID(v)
+		s.SetCurrencyID(v)
 	})
 }
 
-// UpdateCoinTypeID sets the "coin_type_id" field to the value that was provided on create.
-func (u *StatementUpsertBulk) UpdateCoinTypeID() *StatementUpsertBulk {
+// UpdateCurrencyID sets the "currency_id" field to the value that was provided on create.
+func (u *StatementUpsertBulk) UpdateCurrencyID() *StatementUpsertBulk {
 	return u.Update(func(s *StatementUpsert) {
-		s.UpdateCoinTypeID()
+		s.UpdateCurrencyID()
 	})
 }
 
-// ClearCoinTypeID clears the value of the "coin_type_id" field.
-func (u *StatementUpsertBulk) ClearCoinTypeID() *StatementUpsertBulk {
+// ClearCurrencyID clears the value of the "currency_id" field.
+func (u *StatementUpsertBulk) ClearCurrencyID() *StatementUpsertBulk {
 	return u.Update(func(s *StatementUpsert) {
-		s.ClearCoinTypeID()
+		s.ClearCurrencyID()
+	})
+}
+
+// SetCurrencyType sets the "currency_type" field.
+func (u *StatementUpsertBulk) SetCurrencyType(v string) *StatementUpsertBulk {
+	return u.Update(func(s *StatementUpsert) {
+		s.SetCurrencyType(v)
+	})
+}
+
+// UpdateCurrencyType sets the "currency_type" field to the value that was provided on create.
+func (u *StatementUpsertBulk) UpdateCurrencyType() *StatementUpsertBulk {
+	return u.Update(func(s *StatementUpsert) {
+		s.UpdateCurrencyType()
+	})
+}
+
+// ClearCurrencyType clears the value of the "currency_type" field.
+func (u *StatementUpsertBulk) ClearCurrencyType() *StatementUpsertBulk {
+	return u.Update(func(s *StatementUpsert) {
+		s.ClearCurrencyType()
 	})
 }
 

@@ -52,6 +52,7 @@ require (
 
 require (
 	ariga.io/atlas v0.31.1-0.20250212144724-069be8033e83 // indirect
+	entgo.io/contrib v0.6.1-0.20250319063240-8a7f182943cb // indirect
 	github.com/BurntSushi/toml v1.2.0 // indirect
 	github.com/NpoolPlatform/libent-cruder v0.0.0-20231008051607-f64457cf6ab6 // indirect
 	github.com/Shonminh/apollo-client v0.4.0 // indirect
@@ -77,6 +78,7 @@ require (
 	github.com/benbjohnson/clock v1.3.0 // indirect
 	github.com/beorn7/perks v1.0.1 // indirect
 	github.com/bmatcuk/doublestar v1.3.4 // indirect
+	github.com/bmatcuk/doublestar/v4 v4.0.2 // indirect
 	github.com/cenkalti/backoff/v3 v3.2.2 // indirect
 	github.com/cespare/xxhash v1.1.0 // indirect
 	github.com/cespare/xxhash/v2 v2.2.0 // indirect
@@ -91,6 +93,7 @@ require (
 	github.com/go-logr/stdr v1.2.2 // indirect
 	github.com/go-openapi/inflect v0.19.0 // indirect
 	github.com/golang/protobuf v1.5.4 // indirect
+	github.com/google/addlicense v1.1.1 // indirect
 	github.com/google/btree v1.0.1 // indirect
 	github.com/google/go-cmp v0.7.0 // indirect
 	github.com/hashicorp/errwrap v1.1.0 // indirect
@@ -141,6 +144,7 @@ require (
 	go.uber.org/ratelimit v0.2.0 // indirect
 	golang.org/x/mod v0.24.0 // indirect
 	golang.org/x/net v0.37.0 // indirect
+	golang.org/x/sync v0.12.0 // indirect
 	golang.org/x/sys v0.31.0 // indirect
 	golang.org/x/tools v0.31.0 // indirect
 	gopkg.in/ini.v1 v1.66.6 // indirect

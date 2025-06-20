@@ -84,9 +84,14 @@ func UserID(v uuid.UUID) predicate.Statement {
 	return predicate.Statement(sql.FieldEQ(FieldUserID, v))
 }
 
-// CoinTypeID applies equality check predicate on the "coin_type_id" field. It's identical to CoinTypeIDEQ.
-func CoinTypeID(v uuid.UUID) predicate.Statement {
-	return predicate.Statement(sql.FieldEQ(FieldCoinTypeID, v))
+// CurrencyID applies equality check predicate on the "currency_id" field. It's identical to CurrencyIDEQ.
+func CurrencyID(v uuid.UUID) predicate.Statement {
+	return predicate.Statement(sql.FieldEQ(FieldCurrencyID, v))
+}
+
+// CurrencyType applies equality check predicate on the "currency_type" field. It's identical to CurrencyTypeEQ.
+func CurrencyType(v string) predicate.Statement {
+	return predicate.Statement(sql.FieldEQ(FieldCurrencyType, v))
 }
 
 // IoType applies equality check predicate on the "io_type" field. It's identical to IoTypeEQ.
@@ -374,54 +379,129 @@ func UserIDNotNil() predicate.Statement {
 	return predicate.Statement(sql.FieldNotNull(FieldUserID))
 }
 
-// CoinTypeIDEQ applies the EQ predicate on the "coin_type_id" field.
-func CoinTypeIDEQ(v uuid.UUID) predicate.Statement {
-	return predicate.Statement(sql.FieldEQ(FieldCoinTypeID, v))
+// CurrencyIDEQ applies the EQ predicate on the "currency_id" field.
+func CurrencyIDEQ(v uuid.UUID) predicate.Statement {
+	return predicate.Statement(sql.FieldEQ(FieldCurrencyID, v))
 }
 
-// CoinTypeIDNEQ applies the NEQ predicate on the "coin_type_id" field.
-func CoinTypeIDNEQ(v uuid.UUID) predicate.Statement {
-	return predicate.Statement(sql.FieldNEQ(FieldCoinTypeID, v))
+// CurrencyIDNEQ applies the NEQ predicate on the "currency_id" field.
+func CurrencyIDNEQ(v uuid.UUID) predicate.Statement {
+	return predicate.Statement(sql.FieldNEQ(FieldCurrencyID, v))
 }
 
-// CoinTypeIDIn applies the In predicate on the "coin_type_id" field.
-func CoinTypeIDIn(vs ...uuid.UUID) predicate.Statement {
-	return predicate.Statement(sql.FieldIn(FieldCoinTypeID, vs...))
+// CurrencyIDIn applies the In predicate on the "currency_id" field.
+func CurrencyIDIn(vs ...uuid.UUID) predicate.Statement {
+	return predicate.Statement(sql.FieldIn(FieldCurrencyID, vs...))
 }
 
-// CoinTypeIDNotIn applies the NotIn predicate on the "coin_type_id" field.
-func CoinTypeIDNotIn(vs ...uuid.UUID) predicate.Statement {
-	return predicate.Statement(sql.FieldNotIn(FieldCoinTypeID, vs...))
+// CurrencyIDNotIn applies the NotIn predicate on the "currency_id" field.
+func CurrencyIDNotIn(vs ...uuid.UUID) predicate.Statement {
+	return predicate.Statement(sql.FieldNotIn(FieldCurrencyID, vs...))
 }
 
-// CoinTypeIDGT applies the GT predicate on the "coin_type_id" field.
-func CoinTypeIDGT(v uuid.UUID) predicate.Statement {
-	return predicate.Statement(sql.FieldGT(FieldCoinTypeID, v))
+// CurrencyIDGT applies the GT predicate on the "currency_id" field.
+func CurrencyIDGT(v uuid.UUID) predicate.Statement {
+	return predicate.Statement(sql.FieldGT(FieldCurrencyID, v))
 }
 
-// CoinTypeIDGTE applies the GTE predicate on the "coin_type_id" field.
-func CoinTypeIDGTE(v uuid.UUID) predicate.Statement {
-	return predicate.Statement(sql.FieldGTE(FieldCoinTypeID, v))
+// CurrencyIDGTE applies the GTE predicate on the "currency_id" field.
+func CurrencyIDGTE(v uuid.UUID) predicate.Statement {
+	return predicate.Statement(sql.FieldGTE(FieldCurrencyID, v))
 }
 
-// CoinTypeIDLT applies the LT predicate on the "coin_type_id" field.
-func CoinTypeIDLT(v uuid.UUID) predicate.Statement {
-	return predicate.Statement(sql.FieldLT(FieldCoinTypeID, v))
+// CurrencyIDLT applies the LT predicate on the "currency_id" field.
+func CurrencyIDLT(v uuid.UUID) predicate.Statement {
+	return predicate.Statement(sql.FieldLT(FieldCurrencyID, v))
 }
 
-// CoinTypeIDLTE applies the LTE predicate on the "coin_type_id" field.
-func CoinTypeIDLTE(v uuid.UUID) predicate.Statement {
-	return predicate.Statement(sql.FieldLTE(FieldCoinTypeID, v))
+// CurrencyIDLTE applies the LTE predicate on the "currency_id" field.
+func CurrencyIDLTE(v uuid.UUID) predicate.Statement {
+	return predicate.Statement(sql.FieldLTE(FieldCurrencyID, v))
 }
 
-// CoinTypeIDIsNil applies the IsNil predicate on the "coin_type_id" field.
-func CoinTypeIDIsNil() predicate.Statement {
-	return predicate.Statement(sql.FieldIsNull(FieldCoinTypeID))
+// CurrencyIDIsNil applies the IsNil predicate on the "currency_id" field.
+func CurrencyIDIsNil() predicate.Statement {
+	return predicate.Statement(sql.FieldIsNull(FieldCurrencyID))
 }
 
-// CoinTypeIDNotNil applies the NotNil predicate on the "coin_type_id" field.
-func CoinTypeIDNotNil() predicate.Statement {
-	return predicate.Statement(sql.FieldNotNull(FieldCoinTypeID))
+// CurrencyIDNotNil applies the NotNil predicate on the "currency_id" field.
+func CurrencyIDNotNil() predicate.Statement {
+	return predicate.Statement(sql.FieldNotNull(FieldCurrencyID))
+}
+
+// CurrencyTypeEQ applies the EQ predicate on the "currency_type" field.
+func CurrencyTypeEQ(v string) predicate.Statement {
+	return predicate.Statement(sql.FieldEQ(FieldCurrencyType, v))
+}
+
+// CurrencyTypeNEQ applies the NEQ predicate on the "currency_type" field.
+func CurrencyTypeNEQ(v string) predicate.Statement {
+	return predicate.Statement(sql.FieldNEQ(FieldCurrencyType, v))
+}
+
+// CurrencyTypeIn applies the In predicate on the "currency_type" field.
+func CurrencyTypeIn(vs ...string) predicate.Statement {
+	return predicate.Statement(sql.FieldIn(FieldCurrencyType, vs...))
+}
+
+// CurrencyTypeNotIn applies the NotIn predicate on the "currency_type" field.
+func CurrencyTypeNotIn(vs ...string) predicate.Statement {
+	return predicate.Statement(sql.FieldNotIn(FieldCurrencyType, vs...))
+}
+
+// CurrencyTypeGT applies the GT predicate on the "currency_type" field.
+func CurrencyTypeGT(v string) predicate.Statement {
+	return predicate.Statement(sql.FieldGT(FieldCurrencyType, v))
+}
+
+// CurrencyTypeGTE applies the GTE predicate on the "currency_type" field.
+func CurrencyTypeGTE(v string) predicate.Statement {
+	return predicate.Statement(sql.FieldGTE(FieldCurrencyType, v))
+}
+
+// CurrencyTypeLT applies the LT predicate on the "currency_type" field.
+func CurrencyTypeLT(v string) predicate.Statement {
+	return predicate.Statement(sql.FieldLT(FieldCurrencyType, v))
+}
+
+// CurrencyTypeLTE applies the LTE predicate on the "currency_type" field.
+func CurrencyTypeLTE(v string) predicate.Statement {
+	return predicate.Statement(sql.FieldLTE(FieldCurrencyType, v))
+}
+
+// CurrencyTypeContains applies the Contains predicate on the "currency_type" field.
+func CurrencyTypeContains(v string) predicate.Statement {
+	return predicate.Statement(sql.FieldContains(FieldCurrencyType, v))
+}
+
+// CurrencyTypeHasPrefix applies the HasPrefix predicate on the "currency_type" field.
+func CurrencyTypeHasPrefix(v string) predicate.Statement {
+	return predicate.Statement(sql.FieldHasPrefix(FieldCurrencyType, v))
+}
+
+// CurrencyTypeHasSuffix applies the HasSuffix predicate on the "currency_type" field.
+func CurrencyTypeHasSuffix(v string) predicate.Statement {
+	return predicate.Statement(sql.FieldHasSuffix(FieldCurrencyType, v))
+}
+
+// CurrencyTypeIsNil applies the IsNil predicate on the "currency_type" field.
+func CurrencyTypeIsNil() predicate.Statement {
+	return predicate.Statement(sql.FieldIsNull(FieldCurrencyType))
+}
+
+// CurrencyTypeNotNil applies the NotNil predicate on the "currency_type" field.
+func CurrencyTypeNotNil() predicate.Statement {
+	return predicate.Statement(sql.FieldNotNull(FieldCurrencyType))
+}
+
+// CurrencyTypeEqualFold applies the EqualFold predicate on the "currency_type" field.
+func CurrencyTypeEqualFold(v string) predicate.Statement {
+	return predicate.Statement(sql.FieldEqualFold(FieldCurrencyType, v))
+}
+
+// CurrencyTypeContainsFold applies the ContainsFold predicate on the "currency_type" field.
+func CurrencyTypeContainsFold(v string) predicate.Statement {
+	return predicate.Statement(sql.FieldContainsFold(FieldCurrencyType, v))
 }
 
 // IoTypeEQ applies the EQ predicate on the "io_type" field.

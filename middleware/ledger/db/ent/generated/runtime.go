@@ -175,10 +175,14 @@ func init() {
 	ledgerDescUserID := ledgerFields[1].Descriptor()
 	// ledger.DefaultUserID holds the default value on creation for the user_id field.
 	ledger.DefaultUserID = ledgerDescUserID.Default.(func() uuid.UUID)
-	// ledgerDescCoinTypeID is the schema descriptor for coin_type_id field.
-	ledgerDescCoinTypeID := ledgerFields[2].Descriptor()
-	// ledger.DefaultCoinTypeID holds the default value on creation for the coin_type_id field.
-	ledger.DefaultCoinTypeID = ledgerDescCoinTypeID.Default.(func() uuid.UUID)
+	// ledgerDescCurrencyID is the schema descriptor for currency_id field.
+	ledgerDescCurrencyID := ledgerFields[2].Descriptor()
+	// ledger.DefaultCurrencyID holds the default value on creation for the currency_id field.
+	ledger.DefaultCurrencyID = ledgerDescCurrencyID.Default.(func() uuid.UUID)
+	// ledgerDescCurrencyType is the schema descriptor for currency_type field.
+	ledgerDescCurrencyType := ledgerFields[3].Descriptor()
+	// ledger.DefaultCurrencyType holds the default value on creation for the currency_type field.
+	ledger.DefaultCurrencyType = ledgerDescCurrencyType.Default.(string)
 	ledgerlockMixin := schema.LedgerLock{}.Mixin()
 	ledgerlockMixinFields0 := ledgerlockMixin[0].Fields()
 	_ = ledgerlockMixinFields0
@@ -423,26 +427,30 @@ func init() {
 	statementDescUserID := statementFields[1].Descriptor()
 	// statement.DefaultUserID holds the default value on creation for the user_id field.
 	statement.DefaultUserID = statementDescUserID.Default.(func() uuid.UUID)
-	// statementDescCoinTypeID is the schema descriptor for coin_type_id field.
-	statementDescCoinTypeID := statementFields[2].Descriptor()
-	// statement.DefaultCoinTypeID holds the default value on creation for the coin_type_id field.
-	statement.DefaultCoinTypeID = statementDescCoinTypeID.Default.(func() uuid.UUID)
+	// statementDescCurrencyID is the schema descriptor for currency_id field.
+	statementDescCurrencyID := statementFields[2].Descriptor()
+	// statement.DefaultCurrencyID holds the default value on creation for the currency_id field.
+	statement.DefaultCurrencyID = statementDescCurrencyID.Default.(func() uuid.UUID)
+	// statementDescCurrencyType is the schema descriptor for currency_type field.
+	statementDescCurrencyType := statementFields[3].Descriptor()
+	// statement.DefaultCurrencyType holds the default value on creation for the currency_type field.
+	statement.DefaultCurrencyType = statementDescCurrencyType.Default.(string)
 	// statementDescIoType is the schema descriptor for io_type field.
-	statementDescIoType := statementFields[3].Descriptor()
+	statementDescIoType := statementFields[4].Descriptor()
 	// statement.DefaultIoType holds the default value on creation for the io_type field.
 	statement.DefaultIoType = statementDescIoType.Default.(string)
 	// statementDescIoSubType is the schema descriptor for io_sub_type field.
-	statementDescIoSubType := statementFields[4].Descriptor()
+	statementDescIoSubType := statementFields[5].Descriptor()
 	// statement.DefaultIoSubType holds the default value on creation for the io_sub_type field.
 	statement.DefaultIoSubType = statementDescIoSubType.Default.(string)
 	// statementDescIoExtra is the schema descriptor for io_extra field.
-	statementDescIoExtra := statementFields[6].Descriptor()
+	statementDescIoExtra := statementFields[7].Descriptor()
 	// statement.DefaultIoExtra holds the default value on creation for the io_extra field.
 	statement.DefaultIoExtra = statementDescIoExtra.Default.(string)
 	// statement.IoExtraValidator is a validator for the "io_extra" field. It is called by the builders before save.
 	statement.IoExtraValidator = statementDescIoExtra.Validators[0].(func(string) error)
 	// statementDescIoExtraV1 is the schema descriptor for io_extra_v1 field.
-	statementDescIoExtraV1 := statementFields[7].Descriptor()
+	statementDescIoExtraV1 := statementFields[8].Descriptor()
 	// statement.DefaultIoExtraV1 holds the default value on creation for the io_extra_v1 field.
 	statement.DefaultIoExtraV1 = statementDescIoExtraV1.Default.(string)
 	// statement.IoExtraV1Validator is a validator for the "io_extra_v1" field. It is called by the builders before save.

@@ -8,7 +8,6 @@ package statement
 
 import (
 	context "context"
-
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -68,12 +67,12 @@ type GatewayServer interface {
 }
 
 // UnimplementedGatewayServer must be embedded to have forward compatible implementations.
-type UnimplementedGatewayServer struct{}
+type UnimplementedGatewayServer struct {
+}
 
 func (UnimplementedGatewayServer) GetStatements(context.Context, *GetStatementsRequest) (*GetStatementsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetStatements not implemented")
 }
-
 func (UnimplementedGatewayServer) GetAppStatements(context.Context, *GetAppStatementsRequest) (*GetAppStatementsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetAppStatements not implemented")
 }

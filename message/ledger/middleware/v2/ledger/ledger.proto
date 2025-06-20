@@ -16,8 +16,11 @@ message Ledger {
   string AppID = 20;
   // @inject_tag: sql:"user_id"
   string UserID = 30;
-  // @inject_tag: sql:"coin_type_id"
-  string CoinTypeID = 40;
+  // @inject_tag: sql:"currency_id"
+  string CurrencyID = 40;
+  // @inject_tag: sql:"currency_type"
+  string CurrencyTypeStr = 41;
+  basetypes.ledger.v1.CurrencyType CurrencyType = 42;
   // @inject_tag: sql:"incoming"
   string Incoming = 50;
   // @inject_tag: sql:"outcoming"
@@ -36,11 +39,11 @@ message Conds {
   optional basetypes.v1.StringVal EntID = 10;
   optional basetypes.v1.StringVal AppID = 20;
   optional basetypes.v1.StringVal UserID = 30;
-  optional basetypes.v1.StringVal CoinTypeID = 40;
-  optional basetypes.v1.StringSliceVal CoinTypeIDs = 90;
+  optional basetypes.v1.StringVal CurrencyID = 40;
+  optional basetypes.v1.StringSliceVal CurrencyIDs = 90;
 }
 
 message LockBalance {
-  string CoinTypeID = 10;
+  string CurrencyID = 10;
   string Amount = 20;
 }

@@ -29,11 +29,12 @@ message Statement {
     string EntID = 20;
     string AppID = 30;
     string UserID = 40;
-    string CoinTypeID = 50;
-    string CoinName = 60;
+    string CurrencyID = 50;
+    basetypes.ledger.v1.CurrencyType CurrencyType = 51;
+    string CurrencyName = 60;
     repeated string DisplayNames = 70;
-    string CoinLogo = 80;
-    string CoinUnit = 90;
+    string CurrencyLogo = 80;
+    string CurrencyUnit = 90;
     basetypes.ledger.v1.IOType IOType = 100;
     basetypes.ledger.v1.IOSubType IOSubType = 110;
     string Amount = 120;

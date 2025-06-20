@@ -30,8 +30,10 @@ type Statement struct {
 	AppID uuid.UUID `json:"app_id,omitempty"`
 	// UserID holds the value of the "user_id" field.
 	UserID uuid.UUID `json:"user_id,omitempty"`
-	// CoinTypeID holds the value of the "coin_type_id" field.
-	CoinTypeID uuid.UUID `json:"coin_type_id,omitempty"`
+	// CurrencyID holds the value of the "currency_id" field.
+	CurrencyID uuid.UUID `json:"currency_id,omitempty"`
+	// CurrencyType holds the value of the "currency_type" field.
+	CurrencyType string `json:"currency_type,omitempty"`
 	// IoType holds the value of the "io_type" field.
 	IoType string `json:"io_type,omitempty"`
 	// IoSubType holds the value of the "io_sub_type" field.
@@ -54,9 +56,9 @@ func (*Statement) scanValues(columns []string) ([]any, error) {
 			values[i] = new(decimal.Decimal)
 		case statement.FieldID, statement.FieldCreatedAt, statement.FieldUpdatedAt, statement.FieldDeletedAt:
 			values[i] = new(sql.NullInt64)
-		case statement.FieldIoType, statement.FieldIoSubType, statement.FieldIoExtra, statement.FieldIoExtraV1:
+		case statement.FieldCurrencyType, statement.FieldIoType, statement.FieldIoSubType, statement.FieldIoExtra, statement.FieldIoExtraV1:
 			values[i] = new(sql.NullString)
-		case statement.FieldEntID, statement.FieldAppID, statement.FieldUserID, statement.FieldCoinTypeID:
+		case statement.FieldEntID, statement.FieldAppID, statement.FieldUserID, statement.FieldCurrencyID:
 			values[i] = new(uuid.UUID)
 		default:
 			values[i] = new(sql.UnknownType)
@@ -115,11 +117,17 @@ func (s *Statement) assignValues(columns []string, values []any) error {
 			} else if value != nil {
 				s.UserID = *value
 			}
-		case statement.FieldCoinTypeID:
+		case statement.FieldCurrencyID:
 			if value, ok := values[i].(*uuid.UUID); !ok {
-				return fmt.Errorf("unexpected type %T for field coin_type_id", values[i])
+				return fmt.Errorf("unexpected type %T for field currency_id", values[i])
 			} else if value != nil {
-				s.CoinTypeID = *value
+				s.CurrencyID = *value
+			}
+		case statement.FieldCurrencyType:
+			if value, ok := values[i].(*sql.NullString); !ok {
+				return fmt.Errorf("unexpected type %T for field currency_type", values[i])
+			} else if value.Valid {
+				s.CurrencyType = value.String
 			}
 		case statement.FieldIoType:
 			if value, ok := values[i].(*sql.NullString); !ok {
@@ -205,8 +213,11 @@ func (s *Statement) String() string {
 	builder.WriteString("user_id=")
 	builder.WriteString(fmt.Sprintf("%v", s.UserID))
 	builder.WriteString(", ")
-	builder.WriteString("coin_type_id=")
-	builder.WriteString(fmt.Sprintf("%v", s.CoinTypeID))
+	builder.WriteString("currency_id=")
+	builder.WriteString(fmt.Sprintf("%v", s.CurrencyID))
+	builder.WriteString(", ")
+	builder.WriteString("currency_type=")
+	builder.WriteString(s.CurrencyType)
 	builder.WriteString(", ")
 	builder.WriteString("io_type=")
 	builder.WriteString(s.IoType)

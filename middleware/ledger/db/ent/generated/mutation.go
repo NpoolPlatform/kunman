@@ -3555,7 +3555,8 @@ type LedgerMutation struct {
 	ent_id        *uuid.UUID
 	app_id        *uuid.UUID
 	user_id       *uuid.UUID
-	coin_type_id  *uuid.UUID
+	currency_id   *uuid.UUID
+	currency_type *string
 	incoming      *decimal.Decimal
 	addincoming   *decimal.Decimal
 	locked        *decimal.Decimal
@@ -3976,53 +3977,102 @@ func (m *LedgerMutation) ResetUserID() {
 	delete(m.clearedFields, ledger.FieldUserID)
 }
 
-// SetCoinTypeID sets the "coin_type_id" field.
-func (m *LedgerMutation) SetCoinTypeID(u uuid.UUID) {
-	m.coin_type_id = &u
+// SetCurrencyID sets the "currency_id" field.
+func (m *LedgerMutation) SetCurrencyID(u uuid.UUID) {
+	m.currency_id = &u
 }
 
-// CoinTypeID returns the value of the "coin_type_id" field in the mutation.
-func (m *LedgerMutation) CoinTypeID() (r uuid.UUID, exists bool) {
-	v := m.coin_type_id
+// CurrencyID returns the value of the "currency_id" field in the mutation.
+func (m *LedgerMutation) CurrencyID() (r uuid.UUID, exists bool) {
+	v := m.currency_id
 	if v == nil {
 		return
 	}
 	return *v, true
 }
 
-// OldCoinTypeID returns the old "coin_type_id" field's value of the Ledger entity.
+// OldCurrencyID returns the old "currency_id" field's value of the Ledger entity.
 // If the Ledger object wasn't provided to the builder, the object is fetched from the database.
 // An error is returned if the mutation operation is not UpdateOne, or the database query fails.
-func (m *LedgerMutation) OldCoinTypeID(ctx context.Context) (v uuid.UUID, err error) {
+func (m *LedgerMutation) OldCurrencyID(ctx context.Context) (v uuid.UUID, err error) {
 	if !m.op.Is(OpUpdateOne) {
-		return v, errors.New("OldCoinTypeID is only allowed on UpdateOne operations")
+		return v, errors.New("OldCurrencyID is only allowed on UpdateOne operations")
 	}
 	if m.id == nil || m.oldValue == nil {
-		return v, errors.New("OldCoinTypeID requires an ID field in the mutation")
+		return v, errors.New("OldCurrencyID requires an ID field in the mutation")
 	}
 	oldValue, err := m.oldValue(ctx)
 	if err != nil {
-		return v, fmt.Errorf("querying old value for OldCoinTypeID: %w", err)
+		return v, fmt.Errorf("querying old value for OldCurrencyID: %w", err)
 	}
-	return oldValue.CoinTypeID, nil
+	return oldValue.CurrencyID, nil
 }
 
-// ClearCoinTypeID clears the value of the "coin_type_id" field.
-func (m *LedgerMutation) ClearCoinTypeID() {
-	m.coin_type_id = nil
-	m.clearedFields[ledger.FieldCoinTypeID] = struct{}{}
+// ClearCurrencyID clears the value of the "currency_id" field.
+func (m *LedgerMutation) ClearCurrencyID() {
+	m.currency_id = nil
+	m.clearedFields[ledger.FieldCurrencyID] = struct{}{}
 }
 
-// CoinTypeIDCleared returns if the "coin_type_id" field was cleared in this mutation.
-func (m *LedgerMutation) CoinTypeIDCleared() bool {
-	_, ok := m.clearedFields[ledger.FieldCoinTypeID]
+// CurrencyIDCleared returns if the "currency_id" field was cleared in this mutation.
+func (m *LedgerMutation) CurrencyIDCleared() bool {
+	_, ok := m.clearedFields[ledger.FieldCurrencyID]
 	return ok
 }
 
-// ResetCoinTypeID resets all changes to the "coin_type_id" field.
-func (m *LedgerMutation) ResetCoinTypeID() {
-	m.coin_type_id = nil
-	delete(m.clearedFields, ledger.FieldCoinTypeID)
+// ResetCurrencyID resets all changes to the "currency_id" field.
+func (m *LedgerMutation) ResetCurrencyID() {
+	m.currency_id = nil
+	delete(m.clearedFields, ledger.FieldCurrencyID)
+}
+
+// SetCurrencyType sets the "currency_type" field.
+func (m *LedgerMutation) SetCurrencyType(s string) {
+	m.currency_type = &s
+}
+
+// CurrencyType returns the value of the "currency_type" field in the mutation.
+func (m *LedgerMutation) CurrencyType() (r string, exists bool) {
+	v := m.currency_type
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldCurrencyType returns the old "currency_type" field's value of the Ledger entity.
+// If the Ledger object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *LedgerMutation) OldCurrencyType(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldCurrencyType is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldCurrencyType requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldCurrencyType: %w", err)
+	}
+	return oldValue.CurrencyType, nil
+}
+
+// ClearCurrencyType clears the value of the "currency_type" field.
+func (m *LedgerMutation) ClearCurrencyType() {
+	m.currency_type = nil
+	m.clearedFields[ledger.FieldCurrencyType] = struct{}{}
+}
+
+// CurrencyTypeCleared returns if the "currency_type" field was cleared in this mutation.
+func (m *LedgerMutation) CurrencyTypeCleared() bool {
+	_, ok := m.clearedFields[ledger.FieldCurrencyType]
+	return ok
+}
+
+// ResetCurrencyType resets all changes to the "currency_type" field.
+func (m *LedgerMutation) ResetCurrencyType() {
+	m.currency_type = nil
+	delete(m.clearedFields, ledger.FieldCurrencyType)
 }
 
 // SetIncoming sets the "incoming" field.
@@ -4339,7 +4389,7 @@ func (m *LedgerMutation) Type() string {
 // order to get all numeric fields that were incremented/decremented, call
 // AddedFields().
 func (m *LedgerMutation) Fields() []string {
-	fields := make([]string, 0, 11)
+	fields := make([]string, 0, 12)
 	if m.created_at != nil {
 		fields = append(fields, ledger.FieldCreatedAt)
 	}
@@ -4358,8 +4408,11 @@ func (m *LedgerMutation) Fields() []string {
 	if m.user_id != nil {
 		fields = append(fields, ledger.FieldUserID)
 	}
-	if m.coin_type_id != nil {
-		fields = append(fields, ledger.FieldCoinTypeID)
+	if m.currency_id != nil {
+		fields = append(fields, ledger.FieldCurrencyID)
+	}
+	if m.currency_type != nil {
+		fields = append(fields, ledger.FieldCurrencyType)
 	}
 	if m.incoming != nil {
 		fields = append(fields, ledger.FieldIncoming)
@@ -4393,8 +4446,10 @@ func (m *LedgerMutation) Field(name string) (ent.Value, bool) {
 		return m.AppID()
 	case ledger.FieldUserID:
 		return m.UserID()
-	case ledger.FieldCoinTypeID:
-		return m.CoinTypeID()
+	case ledger.FieldCurrencyID:
+		return m.CurrencyID()
+	case ledger.FieldCurrencyType:
+		return m.CurrencyType()
 	case ledger.FieldIncoming:
 		return m.Incoming()
 	case ledger.FieldLocked:
@@ -4424,8 +4479,10 @@ func (m *LedgerMutation) OldField(ctx context.Context, name string) (ent.Value, 
 		return m.OldAppID(ctx)
 	case ledger.FieldUserID:
 		return m.OldUserID(ctx)
-	case ledger.FieldCoinTypeID:
-		return m.OldCoinTypeID(ctx)
+	case ledger.FieldCurrencyID:
+		return m.OldCurrencyID(ctx)
+	case ledger.FieldCurrencyType:
+		return m.OldCurrencyType(ctx)
 	case ledger.FieldIncoming:
 		return m.OldIncoming(ctx)
 	case ledger.FieldLocked:
@@ -4485,12 +4542,19 @@ func (m *LedgerMutation) SetField(name string, value ent.Value) error {
 		}
 		m.SetUserID(v)
 		return nil
-	case ledger.FieldCoinTypeID:
+	case ledger.FieldCurrencyID:
 		v, ok := value.(uuid.UUID)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
-		m.SetCoinTypeID(v)
+		m.SetCurrencyID(v)
+		return nil
+	case ledger.FieldCurrencyType:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetCurrencyType(v)
 		return nil
 	case ledger.FieldIncoming:
 		v, ok := value.(decimal.Decimal)
@@ -4643,8 +4707,11 @@ func (m *LedgerMutation) ClearedFields() []string {
 	if m.FieldCleared(ledger.FieldUserID) {
 		fields = append(fields, ledger.FieldUserID)
 	}
-	if m.FieldCleared(ledger.FieldCoinTypeID) {
-		fields = append(fields, ledger.FieldCoinTypeID)
+	if m.FieldCleared(ledger.FieldCurrencyID) {
+		fields = append(fields, ledger.FieldCurrencyID)
+	}
+	if m.FieldCleared(ledger.FieldCurrencyType) {
+		fields = append(fields, ledger.FieldCurrencyType)
 	}
 	if m.FieldCleared(ledger.FieldIncoming) {
 		fields = append(fields, ledger.FieldIncoming)
@@ -4678,8 +4745,11 @@ func (m *LedgerMutation) ClearField(name string) error {
 	case ledger.FieldUserID:
 		m.ClearUserID()
 		return nil
-	case ledger.FieldCoinTypeID:
-		m.ClearCoinTypeID()
+	case ledger.FieldCurrencyID:
+		m.ClearCurrencyID()
+		return nil
+	case ledger.FieldCurrencyType:
+		m.ClearCurrencyType()
 		return nil
 	case ledger.FieldIncoming:
 		m.ClearIncoming()
@@ -4719,8 +4789,11 @@ func (m *LedgerMutation) ResetField(name string) error {
 	case ledger.FieldUserID:
 		m.ResetUserID()
 		return nil
-	case ledger.FieldCoinTypeID:
-		m.ResetCoinTypeID()
+	case ledger.FieldCurrencyID:
+		m.ResetCurrencyID()
+		return nil
+	case ledger.FieldCurrencyType:
+		m.ResetCurrencyType()
 		return nil
 	case ledger.FieldIncoming:
 		m.ResetIncoming()
@@ -9971,7 +10044,8 @@ type StatementMutation struct {
 	ent_id        *uuid.UUID
 	app_id        *uuid.UUID
 	user_id       *uuid.UUID
-	coin_type_id  *uuid.UUID
+	currency_id   *uuid.UUID
+	currency_type *string
 	io_type       *string
 	io_sub_type   *string
 	amount        *decimal.Decimal
@@ -10390,53 +10464,102 @@ func (m *StatementMutation) ResetUserID() {
 	delete(m.clearedFields, statement.FieldUserID)
 }
 
-// SetCoinTypeID sets the "coin_type_id" field.
-func (m *StatementMutation) SetCoinTypeID(u uuid.UUID) {
-	m.coin_type_id = &u
+// SetCurrencyID sets the "currency_id" field.
+func (m *StatementMutation) SetCurrencyID(u uuid.UUID) {
+	m.currency_id = &u
 }
 
-// CoinTypeID returns the value of the "coin_type_id" field in the mutation.
-func (m *StatementMutation) CoinTypeID() (r uuid.UUID, exists bool) {
-	v := m.coin_type_id
+// CurrencyID returns the value of the "currency_id" field in the mutation.
+func (m *StatementMutation) CurrencyID() (r uuid.UUID, exists bool) {
+	v := m.currency_id
 	if v == nil {
 		return
 	}
 	return *v, true
 }
 
-// OldCoinTypeID returns the old "coin_type_id" field's value of the Statement entity.
+// OldCurrencyID returns the old "currency_id" field's value of the Statement entity.
 // If the Statement object wasn't provided to the builder, the object is fetched from the database.
 // An error is returned if the mutation operation is not UpdateOne, or the database query fails.
-func (m *StatementMutation) OldCoinTypeID(ctx context.Context) (v uuid.UUID, err error) {
+func (m *StatementMutation) OldCurrencyID(ctx context.Context) (v uuid.UUID, err error) {
 	if !m.op.Is(OpUpdateOne) {
-		return v, errors.New("OldCoinTypeID is only allowed on UpdateOne operations")
+		return v, errors.New("OldCurrencyID is only allowed on UpdateOne operations")
 	}
 	if m.id == nil || m.oldValue == nil {
-		return v, errors.New("OldCoinTypeID requires an ID field in the mutation")
+		return v, errors.New("OldCurrencyID requires an ID field in the mutation")
 	}
 	oldValue, err := m.oldValue(ctx)
 	if err != nil {
-		return v, fmt.Errorf("querying old value for OldCoinTypeID: %w", err)
+		return v, fmt.Errorf("querying old value for OldCurrencyID: %w", err)
 	}
-	return oldValue.CoinTypeID, nil
+	return oldValue.CurrencyID, nil
 }
 
-// ClearCoinTypeID clears the value of the "coin_type_id" field.
-func (m *StatementMutation) ClearCoinTypeID() {
-	m.coin_type_id = nil
-	m.clearedFields[statement.FieldCoinTypeID] = struct{}{}
+// ClearCurrencyID clears the value of the "currency_id" field.
+func (m *StatementMutation) ClearCurrencyID() {
+	m.currency_id = nil
+	m.clearedFields[statement.FieldCurrencyID] = struct{}{}
 }
 
-// CoinTypeIDCleared returns if the "coin_type_id" field was cleared in this mutation.
-func (m *StatementMutation) CoinTypeIDCleared() bool {
-	_, ok := m.clearedFields[statement.FieldCoinTypeID]
+// CurrencyIDCleared returns if the "currency_id" field was cleared in this mutation.
+func (m *StatementMutation) CurrencyIDCleared() bool {
+	_, ok := m.clearedFields[statement.FieldCurrencyID]
 	return ok
 }
 
-// ResetCoinTypeID resets all changes to the "coin_type_id" field.
-func (m *StatementMutation) ResetCoinTypeID() {
-	m.coin_type_id = nil
-	delete(m.clearedFields, statement.FieldCoinTypeID)
+// ResetCurrencyID resets all changes to the "currency_id" field.
+func (m *StatementMutation) ResetCurrencyID() {
+	m.currency_id = nil
+	delete(m.clearedFields, statement.FieldCurrencyID)
+}
+
+// SetCurrencyType sets the "currency_type" field.
+func (m *StatementMutation) SetCurrencyType(s string) {
+	m.currency_type = &s
+}
+
+// CurrencyType returns the value of the "currency_type" field in the mutation.
+func (m *StatementMutation) CurrencyType() (r string, exists bool) {
+	v := m.currency_type
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldCurrencyType returns the old "currency_type" field's value of the Statement entity.
+// If the Statement object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *StatementMutation) OldCurrencyType(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldCurrencyType is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldCurrencyType requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldCurrencyType: %w", err)
+	}
+	return oldValue.CurrencyType, nil
+}
+
+// ClearCurrencyType clears the value of the "currency_type" field.
+func (m *StatementMutation) ClearCurrencyType() {
+	m.currency_type = nil
+	m.clearedFields[statement.FieldCurrencyType] = struct{}{}
+}
+
+// CurrencyTypeCleared returns if the "currency_type" field was cleared in this mutation.
+func (m *StatementMutation) CurrencyTypeCleared() bool {
+	_, ok := m.clearedFields[statement.FieldCurrencyType]
+	return ok
+}
+
+// ResetCurrencyType resets all changes to the "currency_type" field.
+func (m *StatementMutation) ResetCurrencyType() {
+	m.currency_type = nil
+	delete(m.clearedFields, statement.FieldCurrencyType)
 }
 
 // SetIoType sets the "io_type" field.
@@ -10739,7 +10862,7 @@ func (m *StatementMutation) Type() string {
 // order to get all numeric fields that were incremented/decremented, call
 // AddedFields().
 func (m *StatementMutation) Fields() []string {
-	fields := make([]string, 0, 12)
+	fields := make([]string, 0, 13)
 	if m.created_at != nil {
 		fields = append(fields, statement.FieldCreatedAt)
 	}
@@ -10758,8 +10881,11 @@ func (m *StatementMutation) Fields() []string {
 	if m.user_id != nil {
 		fields = append(fields, statement.FieldUserID)
 	}
-	if m.coin_type_id != nil {
-		fields = append(fields, statement.FieldCoinTypeID)
+	if m.currency_id != nil {
+		fields = append(fields, statement.FieldCurrencyID)
+	}
+	if m.currency_type != nil {
+		fields = append(fields, statement.FieldCurrencyType)
 	}
 	if m.io_type != nil {
 		fields = append(fields, statement.FieldIoType)
@@ -10796,8 +10922,10 @@ func (m *StatementMutation) Field(name string) (ent.Value, bool) {
 		return m.AppID()
 	case statement.FieldUserID:
 		return m.UserID()
-	case statement.FieldCoinTypeID:
-		return m.CoinTypeID()
+	case statement.FieldCurrencyID:
+		return m.CurrencyID()
+	case statement.FieldCurrencyType:
+		return m.CurrencyType()
 	case statement.FieldIoType:
 		return m.IoType()
 	case statement.FieldIoSubType:
@@ -10829,8 +10957,10 @@ func (m *StatementMutation) OldField(ctx context.Context, name string) (ent.Valu
 		return m.OldAppID(ctx)
 	case statement.FieldUserID:
 		return m.OldUserID(ctx)
-	case statement.FieldCoinTypeID:
-		return m.OldCoinTypeID(ctx)
+	case statement.FieldCurrencyID:
+		return m.OldCurrencyID(ctx)
+	case statement.FieldCurrencyType:
+		return m.OldCurrencyType(ctx)
 	case statement.FieldIoType:
 		return m.OldIoType(ctx)
 	case statement.FieldIoSubType:
@@ -10892,12 +11022,19 @@ func (m *StatementMutation) SetField(name string, value ent.Value) error {
 		}
 		m.SetUserID(v)
 		return nil
-	case statement.FieldCoinTypeID:
+	case statement.FieldCurrencyID:
 		v, ok := value.(uuid.UUID)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
-		m.SetCoinTypeID(v)
+		m.SetCurrencyID(v)
+		return nil
+	case statement.FieldCurrencyType:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetCurrencyType(v)
 		return nil
 	case statement.FieldIoType:
 		v, ok := value.(string)
@@ -11021,8 +11158,11 @@ func (m *StatementMutation) ClearedFields() []string {
 	if m.FieldCleared(statement.FieldUserID) {
 		fields = append(fields, statement.FieldUserID)
 	}
-	if m.FieldCleared(statement.FieldCoinTypeID) {
-		fields = append(fields, statement.FieldCoinTypeID)
+	if m.FieldCleared(statement.FieldCurrencyID) {
+		fields = append(fields, statement.FieldCurrencyID)
+	}
+	if m.FieldCleared(statement.FieldCurrencyType) {
+		fields = append(fields, statement.FieldCurrencyType)
 	}
 	if m.FieldCleared(statement.FieldIoType) {
 		fields = append(fields, statement.FieldIoType)
@@ -11059,8 +11199,11 @@ func (m *StatementMutation) ClearField(name string) error {
 	case statement.FieldUserID:
 		m.ClearUserID()
 		return nil
-	case statement.FieldCoinTypeID:
-		m.ClearCoinTypeID()
+	case statement.FieldCurrencyID:
+		m.ClearCurrencyID()
+		return nil
+	case statement.FieldCurrencyType:
+		m.ClearCurrencyType()
 		return nil
 	case statement.FieldIoType:
 		m.ClearIoType()
@@ -11103,8 +11246,11 @@ func (m *StatementMutation) ResetField(name string) error {
 	case statement.FieldUserID:
 		m.ResetUserID()
 		return nil
-	case statement.FieldCoinTypeID:
-		m.ResetCoinTypeID()
+	case statement.FieldCurrencyID:
+		m.ResetCurrencyID()
+		return nil
+	case statement.FieldCurrencyType:
+		m.ResetCurrencyType()
 		return nil
 	case statement.FieldIoType:
 		m.ResetIoType()

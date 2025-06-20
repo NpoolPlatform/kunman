@@ -8,7 +8,6 @@ package ledger
 
 import (
 	context "context"
-
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -68,12 +67,12 @@ type GatewayServer interface {
 }
 
 // UnimplementedGatewayServer must be embedded to have forward compatible implementations.
-type UnimplementedGatewayServer struct{}
+type UnimplementedGatewayServer struct {
+}
 
 func (UnimplementedGatewayServer) GetLedgers(context.Context, *GetLedgersRequest) (*GetLedgersResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetLedgers not implemented")
 }
-
 func (UnimplementedGatewayServer) GetAppLedgers(context.Context, *GetAppLedgersRequest) (*GetAppLedgersResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetAppLedgers not implemented")
 }

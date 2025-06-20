@@ -107,16 +107,30 @@ func (lc *LedgerCreate) SetNillableUserID(u *uuid.UUID) *LedgerCreate {
 	return lc
 }
 
-// SetCoinTypeID sets the "coin_type_id" field.
-func (lc *LedgerCreate) SetCoinTypeID(u uuid.UUID) *LedgerCreate {
-	lc.mutation.SetCoinTypeID(u)
+// SetCurrencyID sets the "currency_id" field.
+func (lc *LedgerCreate) SetCurrencyID(u uuid.UUID) *LedgerCreate {
+	lc.mutation.SetCurrencyID(u)
 	return lc
 }
 
-// SetNillableCoinTypeID sets the "coin_type_id" field if the given value is not nil.
-func (lc *LedgerCreate) SetNillableCoinTypeID(u *uuid.UUID) *LedgerCreate {
+// SetNillableCurrencyID sets the "currency_id" field if the given value is not nil.
+func (lc *LedgerCreate) SetNillableCurrencyID(u *uuid.UUID) *LedgerCreate {
 	if u != nil {
-		lc.SetCoinTypeID(*u)
+		lc.SetCurrencyID(*u)
+	}
+	return lc
+}
+
+// SetCurrencyType sets the "currency_type" field.
+func (lc *LedgerCreate) SetCurrencyType(s string) *LedgerCreate {
+	lc.mutation.SetCurrencyType(s)
+	return lc
+}
+
+// SetNillableCurrencyType sets the "currency_type" field if the given value is not nil.
+func (lc *LedgerCreate) SetNillableCurrencyType(s *string) *LedgerCreate {
+	if s != nil {
+		lc.SetCurrencyType(*s)
 	}
 	return lc
 }
@@ -242,9 +256,13 @@ func (lc *LedgerCreate) defaults() {
 		v := ledger.DefaultUserID()
 		lc.mutation.SetUserID(v)
 	}
-	if _, ok := lc.mutation.CoinTypeID(); !ok {
-		v := ledger.DefaultCoinTypeID()
-		lc.mutation.SetCoinTypeID(v)
+	if _, ok := lc.mutation.CurrencyID(); !ok {
+		v := ledger.DefaultCurrencyID()
+		lc.mutation.SetCurrencyID(v)
+	}
+	if _, ok := lc.mutation.CurrencyType(); !ok {
+		v := ledger.DefaultCurrencyType
+		lc.mutation.SetCurrencyType(v)
 	}
 }
 
@@ -319,9 +337,13 @@ func (lc *LedgerCreate) createSpec() (*Ledger, *sqlgraph.CreateSpec) {
 		_spec.SetField(ledger.FieldUserID, field.TypeUUID, value)
 		_node.UserID = value
 	}
-	if value, ok := lc.mutation.CoinTypeID(); ok {
-		_spec.SetField(ledger.FieldCoinTypeID, field.TypeUUID, value)
-		_node.CoinTypeID = value
+	if value, ok := lc.mutation.CurrencyID(); ok {
+		_spec.SetField(ledger.FieldCurrencyID, field.TypeUUID, value)
+		_node.CurrencyID = value
+	}
+	if value, ok := lc.mutation.CurrencyType(); ok {
+		_spec.SetField(ledger.FieldCurrencyType, field.TypeString, value)
+		_node.CurrencyType = value
 	}
 	if value, ok := lc.mutation.Incoming(); ok {
 		_spec.SetField(ledger.FieldIncoming, field.TypeFloat64, value)
@@ -493,21 +515,39 @@ func (u *LedgerUpsert) ClearUserID() *LedgerUpsert {
 	return u
 }
 
-// SetCoinTypeID sets the "coin_type_id" field.
-func (u *LedgerUpsert) SetCoinTypeID(v uuid.UUID) *LedgerUpsert {
-	u.Set(ledger.FieldCoinTypeID, v)
+// SetCurrencyID sets the "currency_id" field.
+func (u *LedgerUpsert) SetCurrencyID(v uuid.UUID) *LedgerUpsert {
+	u.Set(ledger.FieldCurrencyID, v)
 	return u
 }
 
-// UpdateCoinTypeID sets the "coin_type_id" field to the value that was provided on create.
-func (u *LedgerUpsert) UpdateCoinTypeID() *LedgerUpsert {
-	u.SetExcluded(ledger.FieldCoinTypeID)
+// UpdateCurrencyID sets the "currency_id" field to the value that was provided on create.
+func (u *LedgerUpsert) UpdateCurrencyID() *LedgerUpsert {
+	u.SetExcluded(ledger.FieldCurrencyID)
 	return u
 }
 
-// ClearCoinTypeID clears the value of the "coin_type_id" field.
-func (u *LedgerUpsert) ClearCoinTypeID() *LedgerUpsert {
-	u.SetNull(ledger.FieldCoinTypeID)
+// ClearCurrencyID clears the value of the "currency_id" field.
+func (u *LedgerUpsert) ClearCurrencyID() *LedgerUpsert {
+	u.SetNull(ledger.FieldCurrencyID)
+	return u
+}
+
+// SetCurrencyType sets the "currency_type" field.
+func (u *LedgerUpsert) SetCurrencyType(v string) *LedgerUpsert {
+	u.Set(ledger.FieldCurrencyType, v)
+	return u
+}
+
+// UpdateCurrencyType sets the "currency_type" field to the value that was provided on create.
+func (u *LedgerUpsert) UpdateCurrencyType() *LedgerUpsert {
+	u.SetExcluded(ledger.FieldCurrencyType)
+	return u
+}
+
+// ClearCurrencyType clears the value of the "currency_type" field.
+func (u *LedgerUpsert) ClearCurrencyType() *LedgerUpsert {
+	u.SetNull(ledger.FieldCurrencyType)
 	return u
 }
 
@@ -774,24 +814,45 @@ func (u *LedgerUpsertOne) ClearUserID() *LedgerUpsertOne {
 	})
 }
 
-// SetCoinTypeID sets the "coin_type_id" field.
-func (u *LedgerUpsertOne) SetCoinTypeID(v uuid.UUID) *LedgerUpsertOne {
+// SetCurrencyID sets the "currency_id" field.
+func (u *LedgerUpsertOne) SetCurrencyID(v uuid.UUID) *LedgerUpsertOne {
 	return u.Update(func(s *LedgerUpsert) {
-		s.SetCoinTypeID(v)
+		s.SetCurrencyID(v)
 	})
 }
 
-// UpdateCoinTypeID sets the "coin_type_id" field to the value that was provided on create.
-func (u *LedgerUpsertOne) UpdateCoinTypeID() *LedgerUpsertOne {
+// UpdateCurrencyID sets the "currency_id" field to the value that was provided on create.
+func (u *LedgerUpsertOne) UpdateCurrencyID() *LedgerUpsertOne {
 	return u.Update(func(s *LedgerUpsert) {
-		s.UpdateCoinTypeID()
+		s.UpdateCurrencyID()
 	})
 }
 
-// ClearCoinTypeID clears the value of the "coin_type_id" field.
-func (u *LedgerUpsertOne) ClearCoinTypeID() *LedgerUpsertOne {
+// ClearCurrencyID clears the value of the "currency_id" field.
+func (u *LedgerUpsertOne) ClearCurrencyID() *LedgerUpsertOne {
 	return u.Update(func(s *LedgerUpsert) {
-		s.ClearCoinTypeID()
+		s.ClearCurrencyID()
+	})
+}
+
+// SetCurrencyType sets the "currency_type" field.
+func (u *LedgerUpsertOne) SetCurrencyType(v string) *LedgerUpsertOne {
+	return u.Update(func(s *LedgerUpsert) {
+		s.SetCurrencyType(v)
+	})
+}
+
+// UpdateCurrencyType sets the "currency_type" field to the value that was provided on create.
+func (u *LedgerUpsertOne) UpdateCurrencyType() *LedgerUpsertOne {
+	return u.Update(func(s *LedgerUpsert) {
+		s.UpdateCurrencyType()
+	})
+}
+
+// ClearCurrencyType clears the value of the "currency_type" field.
+func (u *LedgerUpsertOne) ClearCurrencyType() *LedgerUpsertOne {
+	return u.Update(func(s *LedgerUpsert) {
+		s.ClearCurrencyType()
 	})
 }
 
@@ -1240,24 +1301,45 @@ func (u *LedgerUpsertBulk) ClearUserID() *LedgerUpsertBulk {
 	})
 }
 
-// SetCoinTypeID sets the "coin_type_id" field.
-func (u *LedgerUpsertBulk) SetCoinTypeID(v uuid.UUID) *LedgerUpsertBulk {
+// SetCurrencyID sets the "currency_id" field.
+func (u *LedgerUpsertBulk) SetCurrencyID(v uuid.UUID) *LedgerUpsertBulk {
 	return u.Update(func(s *LedgerUpsert) {
-		s.SetCoinTypeID(v)
+		s.SetCurrencyID(v)
 	})
 }
 
-// UpdateCoinTypeID sets the "coin_type_id" field to the value that was provided on create.
-func (u *LedgerUpsertBulk) UpdateCoinTypeID() *LedgerUpsertBulk {
+// UpdateCurrencyID sets the "currency_id" field to the value that was provided on create.
+func (u *LedgerUpsertBulk) UpdateCurrencyID() *LedgerUpsertBulk {
 	return u.Update(func(s *LedgerUpsert) {
-		s.UpdateCoinTypeID()
+		s.UpdateCurrencyID()
 	})
 }
 
-// ClearCoinTypeID clears the value of the "coin_type_id" field.
-func (u *LedgerUpsertBulk) ClearCoinTypeID() *LedgerUpsertBulk {
+// ClearCurrencyID clears the value of the "currency_id" field.
+func (u *LedgerUpsertBulk) ClearCurrencyID() *LedgerUpsertBulk {
 	return u.Update(func(s *LedgerUpsert) {
-		s.ClearCoinTypeID()
+		s.ClearCurrencyID()
+	})
+}
+
+// SetCurrencyType sets the "currency_type" field.
+func (u *LedgerUpsertBulk) SetCurrencyType(v string) *LedgerUpsertBulk {
+	return u.Update(func(s *LedgerUpsert) {
+		s.SetCurrencyType(v)
+	})
+}
+
+// UpdateCurrencyType sets the "currency_type" field to the value that was provided on create.
+func (u *LedgerUpsertBulk) UpdateCurrencyType() *LedgerUpsertBulk {
+	return u.Update(func(s *LedgerUpsert) {
+		s.UpdateCurrencyType()
+	})
+}
+
+// ClearCurrencyType clears the value of the "currency_type" field.
+func (u *LedgerUpsertBulk) ClearCurrencyType() *LedgerUpsertBulk {
+	return u.Update(func(s *LedgerUpsert) {
+		s.ClearCurrencyType()
 	})
 }
 
