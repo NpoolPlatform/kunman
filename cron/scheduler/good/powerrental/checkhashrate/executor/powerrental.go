@@ -42,7 +42,7 @@ type powerRentalHandler struct {
 }
 
 func (h *powerRentalHandler) checkMiningGoodStockState() error {
-	for _, miningGoodStock := range h.PowerRental.MiningGoodStocks {
+	for _, miningGoodStock := range h.MiningGoodStocks {
 		if miningGoodStock.State != currentMiningGoodStockState {
 			return wlog.Errorf("invalid mininggoodstockstate: %v, mininggoodstock: %v", miningGoodStock.State, miningGoodStock.EntID)
 		}
@@ -52,7 +52,7 @@ func (h *powerRentalHandler) checkMiningGoodStockState() error {
 
 func (h *powerRentalHandler) getCoinTypeIDs() {
 	h.goodCoinTypeIDs = []string{}
-	for _, goodCoin := range h.PowerRental.GoodCoins {
+	for _, goodCoin := range h.GoodCoins {
 		if goodCoin.Main {
 			h.goodCoinTypeIDs = append(h.goodCoinTypeIDs, goodCoin.CoinTypeID)
 		}
@@ -78,7 +78,7 @@ func _removeRepeatedElement(arr []string) []string {
 }
 
 func (h *powerRentalHandler) checkHashRate(ctx context.Context) error {
-	for _, miningGoodStock := range h.PowerRental.MiningGoodStocks {
+	for _, miningGoodStock := range h.MiningGoodStocks {
 		handler, err := goodusermw.NewHandler(
 			ctx,
 			goodusermw.WithEntID(&miningGoodStock.PoolGoodUserID, true),
@@ -103,7 +103,7 @@ func (h *powerRentalHandler) checkHashRate(ctx context.Context) error {
 			return wlog.WrapError(err)
 		}
 
-		unit, err := decimal.NewFromString(h.PowerRental.QuantityUnitAmount)
+		unit, err := decimal.NewFromString(h.QuantityUnitAmount)
 		if err != nil {
 			return wlog.WrapError(err)
 		}
@@ -120,7 +120,7 @@ func (h *powerRentalHandler) checkHashRate(ctx context.Context) error {
 
 func (h *powerRentalHandler) constructMiningGoodStockReqs() {
 	_miningGoodStockReqs := []*miningstockmwpb.MiningGoodStockReq{}
-	for _, req := range h.PowerRental.MiningGoodStocks {
+	for _, req := range h.MiningGoodStocks {
 		_miningGoodStockReqs = append(_miningGoodStockReqs,
 			&miningstockmwpb.MiningGoodStockReq{
 				EntID: &req.EntID,

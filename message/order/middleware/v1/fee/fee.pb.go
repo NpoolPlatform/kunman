@@ -7,6 +7,9 @@
 package fee
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/good/v1"
 	v11 "github.com/NpoolPlatform/kunman/message/basetypes/order/v1"
 	v12 "github.com/NpoolPlatform/kunman/message/basetypes/v1"
@@ -15,8 +18,6 @@ import (
 	payment "github.com/NpoolPlatform/kunman/message/order/middleware/v1/payment"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -1479,29 +1480,31 @@ func file_order_middleware_v1_fee_fee_proto_rawDescGZIP() []byte {
 	return file_order_middleware_v1_fee_fee_proto_rawDescData
 }
 
-var file_order_middleware_v1_fee_fee_proto_msgTypes = make([]protoimpl.MessageInfo, 4)
-var file_order_middleware_v1_fee_fee_proto_goTypes = []interface{}{
-	(*FeeOrderReq)(nil),                 // 0: order.middleware.fee.v1.FeeOrderReq
-	(*FeeOrder)(nil),                    // 1: order.middleware.fee.v1.FeeOrder
-	(*FeeDuration)(nil),                 // 2: order.middleware.fee.v1.FeeDuration
-	(*Conds)(nil),                       // 3: order.middleware.fee.v1.Conds
-	(v1.GoodType)(0),                    // 4: basetypes.good.v1.GoodType
-	(v11.OrderType)(0),                  // 5: basetypes.order.v1.OrderType
-	(v11.PaymentType)(0),                // 6: basetypes.order.v1.PaymentType
-	(v11.OrderCreateMethod)(0),          // 7: basetypes.order.v1.OrderCreateMethod
-	(v11.OrderState)(0),                 // 8: basetypes.order.v1.OrderState
-	(v11.PaymentState)(0),               // 9: basetypes.order.v1.PaymentState
-	(*payment.PaymentBalanceReq)(nil),   // 10: order.middleware.payment.v1.PaymentBalanceReq
-	(*payment.PaymentTransferReq)(nil),  // 11: order.middleware.payment.v1.PaymentTransferReq
-	(*coupon.OrderCouponInfo)(nil),      // 12: order.middleware.order1.coupon.v1.OrderCouponInfo
-	(*payment.PaymentBalanceInfo)(nil),  // 13: order.middleware.payment.v1.PaymentBalanceInfo
-	(*payment.PaymentTransferInfo)(nil), // 14: order.middleware.payment.v1.PaymentTransferInfo
-	(*v12.Uint32Val)(nil),               // 15: basetypes.v1.Uint32Val
-	(*v12.Uint32SliceVal)(nil),          // 16: basetypes.v1.Uint32SliceVal
-	(*v12.StringVal)(nil),               // 17: basetypes.v1.StringVal
-	(*v12.StringSliceVal)(nil),          // 18: basetypes.v1.StringSliceVal
-	(*v12.BoolVal)(nil),                 // 19: basetypes.v1.BoolVal
-}
+var (
+	file_order_middleware_v1_fee_fee_proto_msgTypes = make([]protoimpl.MessageInfo, 4)
+	file_order_middleware_v1_fee_fee_proto_goTypes  = []interface{}{
+		(*FeeOrderReq)(nil),                 // 0: order.middleware.fee.v1.FeeOrderReq
+		(*FeeOrder)(nil),                    // 1: order.middleware.fee.v1.FeeOrder
+		(*FeeDuration)(nil),                 // 2: order.middleware.fee.v1.FeeDuration
+		(*Conds)(nil),                       // 3: order.middleware.fee.v1.Conds
+		(v1.GoodType)(0),                    // 4: basetypes.good.v1.GoodType
+		(v11.OrderType)(0),                  // 5: basetypes.order.v1.OrderType
+		(v11.PaymentType)(0),                // 6: basetypes.order.v1.PaymentType
+		(v11.OrderCreateMethod)(0),          // 7: basetypes.order.v1.OrderCreateMethod
+		(v11.OrderState)(0),                 // 8: basetypes.order.v1.OrderState
+		(v11.PaymentState)(0),               // 9: basetypes.order.v1.PaymentState
+		(*payment.PaymentBalanceReq)(nil),   // 10: order.middleware.payment.v1.PaymentBalanceReq
+		(*payment.PaymentTransferReq)(nil),  // 11: order.middleware.payment.v1.PaymentTransferReq
+		(*coupon.OrderCouponInfo)(nil),      // 12: order.middleware.order1.coupon.v1.OrderCouponInfo
+		(*payment.PaymentBalanceInfo)(nil),  // 13: order.middleware.payment.v1.PaymentBalanceInfo
+		(*payment.PaymentTransferInfo)(nil), // 14: order.middleware.payment.v1.PaymentTransferInfo
+		(*v12.Uint32Val)(nil),               // 15: basetypes.v1.Uint32Val
+		(*v12.Uint32SliceVal)(nil),          // 16: basetypes.v1.Uint32SliceVal
+		(*v12.StringVal)(nil),               // 17: basetypes.v1.StringVal
+		(*v12.StringSliceVal)(nil),          // 18: basetypes.v1.StringSliceVal
+		(*v12.BoolVal)(nil),                 // 19: basetypes.v1.BoolVal
+	}
+)
 var file_order_middleware_v1_fee_fee_proto_depIdxs = []int32{
 	4,  // 0: order.middleware.fee.v1.FeeOrderReq.GoodType:type_name -> basetypes.good.v1.GoodType
 	5,  // 1: order.middleware.fee.v1.FeeOrderReq.OrderType:type_name -> basetypes.order.v1.OrderType

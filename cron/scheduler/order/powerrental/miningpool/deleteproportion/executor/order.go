@@ -73,13 +73,13 @@ func (h *orderHandler) getCoinTypeIDs() error {
 }
 
 func (h *orderHandler) validatePoolOrderUserID(ctx context.Context) error {
-	if h.PowerRentalOrder.PoolOrderUserID == nil {
+	if h.PoolOrderUserID == nil {
 		return wlog.Errorf("invalid poolorderuserid")
 	}
 
 	handler, err := orderusermw.NewHandler(
 		ctx,
-		orderusermw.WithEntID(h.PowerRentalOrder.PoolOrderUserID, true),
+		orderusermw.WithEntID(h.PoolOrderUserID, true),
 	)
 	if err != nil {
 		return err
@@ -153,7 +153,7 @@ func (h *orderHandler) exec(ctx context.Context) error {
 	var err error
 	defer h.final(ctx, &err)
 
-	if h.PowerRentalOrder.GoodStockMode != goodtypes.GoodStockMode_GoodStockByMiningPool {
+	if h.GoodStockMode != goodtypes.GoodStockMode_GoodStockByMiningPool {
 		h.constructPowerRentalOrderReq()
 		return nil
 	}

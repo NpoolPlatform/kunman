@@ -8,6 +8,7 @@ package constraint
 
 import (
 	context "context"
+
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -141,30 +142,36 @@ type GatewayServer interface {
 }
 
 // UnimplementedGatewayServer must be embedded to have forward compatible implementations.
-type UnimplementedGatewayServer struct {
-}
+type UnimplementedGatewayServer struct{}
 
 func (UnimplementedGatewayServer) CreateTopMostGoodConstraint(context.Context, *CreateTopMostGoodConstraintRequest) (*CreateTopMostGoodConstraintResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateTopMostGoodConstraint not implemented")
 }
+
 func (UnimplementedGatewayServer) UpdateTopMostGoodConstraint(context.Context, *UpdateTopMostGoodConstraintRequest) (*UpdateTopMostGoodConstraintResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateTopMostGoodConstraint not implemented")
 }
+
 func (UnimplementedGatewayServer) GetTopMostGoodConstraints(context.Context, *GetTopMostGoodConstraintsRequest) (*GetTopMostGoodConstraintsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetTopMostGoodConstraints not implemented")
 }
+
 func (UnimplementedGatewayServer) DeleteTopMostGoodConstraint(context.Context, *DeleteTopMostGoodConstraintRequest) (*DeleteTopMostGoodConstraintResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteTopMostGoodConstraint not implemented")
 }
+
 func (UnimplementedGatewayServer) AdminCreateTopMostGoodConstraint(context.Context, *AdminCreateTopMostGoodConstraintRequest) (*AdminCreateTopMostGoodConstraintResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AdminCreateTopMostGoodConstraint not implemented")
 }
+
 func (UnimplementedGatewayServer) AdminUpdateTopMostGoodConstraint(context.Context, *AdminUpdateTopMostGoodConstraintRequest) (*AdminUpdateTopMostGoodConstraintResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AdminUpdateTopMostGoodConstraint not implemented")
 }
+
 func (UnimplementedGatewayServer) AdminGetTopMostGoodConstraints(context.Context, *AdminGetTopMostGoodConstraintsRequest) (*AdminGetTopMostGoodConstraintsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AdminGetTopMostGoodConstraints not implemented")
 }
+
 func (UnimplementedGatewayServer) AdminDeleteTopMostGoodConstraint(context.Context, *AdminDeleteTopMostGoodConstraintRequest) (*AdminDeleteTopMostGoodConstraintResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AdminDeleteTopMostGoodConstraint not implemented")
 }

@@ -7,12 +7,13 @@
 package simulate
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	coin "github.com/NpoolPlatform/kunman/message/good/middleware/v1/good/coin"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -411,15 +412,17 @@ func file_good_middleware_v1_app_powerrental_simulate_simulate_proto_rawDescGZIP
 	return file_good_middleware_v1_app_powerrental_simulate_simulate_proto_rawDescData
 }
 
-var file_good_middleware_v1_app_powerrental_simulate_simulate_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
-var file_good_middleware_v1_app_powerrental_simulate_simulate_proto_goTypes = []interface{}{
-	(*SimulateReq)(nil),       // 0: good.middleware.app.powerrental.simulate.v1.SimulateReq
-	(*Simulate)(nil),          // 1: good.middleware.app.powerrental.simulate.v1.Simulate
-	(*Conds)(nil),             // 2: good.middleware.app.powerrental.simulate.v1.Conds
-	(*coin.GoodCoinInfo)(nil), // 3: good.middleware.good1.coin.v1.GoodCoinInfo
-	(*v1.Uint32Val)(nil),      // 4: basetypes.v1.Uint32Val
-	(*v1.StringVal)(nil),      // 5: basetypes.v1.StringVal
-}
+var (
+	file_good_middleware_v1_app_powerrental_simulate_simulate_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
+	file_good_middleware_v1_app_powerrental_simulate_simulate_proto_goTypes  = []interface{}{
+		(*SimulateReq)(nil),       // 0: good.middleware.app.powerrental.simulate.v1.SimulateReq
+		(*Simulate)(nil),          // 1: good.middleware.app.powerrental.simulate.v1.Simulate
+		(*Conds)(nil),             // 2: good.middleware.app.powerrental.simulate.v1.Conds
+		(*coin.GoodCoinInfo)(nil), // 3: good.middleware.good1.coin.v1.GoodCoinInfo
+		(*v1.Uint32Val)(nil),      // 4: basetypes.v1.Uint32Val
+		(*v1.StringVal)(nil),      // 5: basetypes.v1.StringVal
+	}
+)
 var file_good_middleware_v1_app_powerrental_simulate_simulate_proto_depIdxs = []int32{
 	3, // 0: good.middleware.app.powerrental.simulate.v1.Simulate.GoodCoins:type_name -> good.middleware.good1.coin.v1.GoodCoinInfo
 	4, // 1: good.middleware.app.powerrental.simulate.v1.Conds.ID:type_name -> basetypes.v1.Uint32Val

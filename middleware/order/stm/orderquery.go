@@ -54,7 +54,7 @@ func (h *orderQueryHandler) _getOrder(ctx context.Context, cli *ent.Client, must
 	return h.getOrderStateBase(ctx, cli)
 }
 
-//nolint
+// nolint
 func (h *orderQueryHandler) requireOrder(ctx context.Context) error {
 	return db.WithClient(ctx, func(_ctx context.Context, cli *ent.Client) error {
 		return h._getOrder(_ctx, cli, true)

@@ -7,11 +7,12 @@
 package v1
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	_ "google.golang.org/protobuf/types/known/structpb"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -571,18 +572,20 @@ func file_basetypes_v1_conds_proto_rawDescGZIP() []byte {
 	return file_basetypes_v1_conds_proto_rawDescData
 }
 
-var file_basetypes_v1_conds_proto_msgTypes = make([]protoimpl.MessageInfo, 9)
-var file_basetypes_v1_conds_proto_goTypes = []interface{}{
-	(*Int32Val)(nil),       // 0: basetypes.v1.Int32Val
-	(*Int64Val)(nil),       // 1: basetypes.v1.Int64Val
-	(*Uint32Val)(nil),      // 2: basetypes.v1.Uint32Val
-	(*Uint64Val)(nil),      // 3: basetypes.v1.Uint64Val
-	(*DoubleVal)(nil),      // 4: basetypes.v1.DoubleVal
-	(*StringVal)(nil),      // 5: basetypes.v1.StringVal
-	(*BoolVal)(nil),        // 6: basetypes.v1.BoolVal
-	(*StringSliceVal)(nil), // 7: basetypes.v1.StringSliceVal
-	(*Uint32SliceVal)(nil), // 8: basetypes.v1.Uint32SliceVal
-}
+var (
+	file_basetypes_v1_conds_proto_msgTypes = make([]protoimpl.MessageInfo, 9)
+	file_basetypes_v1_conds_proto_goTypes  = []interface{}{
+		(*Int32Val)(nil),       // 0: basetypes.v1.Int32Val
+		(*Int64Val)(nil),       // 1: basetypes.v1.Int64Val
+		(*Uint32Val)(nil),      // 2: basetypes.v1.Uint32Val
+		(*Uint64Val)(nil),      // 3: basetypes.v1.Uint64Val
+		(*DoubleVal)(nil),      // 4: basetypes.v1.DoubleVal
+		(*StringVal)(nil),      // 5: basetypes.v1.StringVal
+		(*BoolVal)(nil),        // 6: basetypes.v1.BoolVal
+		(*StringSliceVal)(nil), // 7: basetypes.v1.StringSliceVal
+		(*Uint32SliceVal)(nil), // 8: basetypes.v1.Uint32SliceVal
+	}
+)
 var file_basetypes_v1_conds_proto_depIdxs = []int32{
 	0, // [0:0] is the sub-list for method output_type
 	0, // [0:0] is the sub-list for method input_type

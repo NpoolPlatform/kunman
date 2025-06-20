@@ -19,7 +19,6 @@ import (
 	sms "github.com/NpoolPlatform/kunman/middleware/notif/template/sms"
 )
 
-// nolint:gocyclo
 func (h *Handler) GenerateNotifs(
 	ctx context.Context,
 ) (

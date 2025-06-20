@@ -5,8 +5,8 @@ import (
 
 	"github.com/NpoolPlatform/kunman/framework/logger"
 
-	npool "github.com/NpoolPlatform/kunman/message/order/gateway/v1/order/coupon"
 	ordercoupon1 "github.com/NpoolPlatform/kunman/gateway/order/order/coupon"
+	npool "github.com/NpoolPlatform/kunman/message/order/gateway/v1/order/coupon"
 
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"

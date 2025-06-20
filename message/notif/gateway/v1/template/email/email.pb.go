@@ -7,13 +7,14 @@
 package email
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	email "github.com/NpoolPlatform/kunman/message/notif/middleware/v1/template/email"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -1246,25 +1247,27 @@ func file_notif_gateway_v1_template_email_email_proto_rawDescGZIP() []byte {
 	return file_notif_gateway_v1_template_email_email_proto_rawDescData
 }
 
-var file_notif_gateway_v1_template_email_email_proto_msgTypes = make([]protoimpl.MessageInfo, 14)
-var file_notif_gateway_v1_template_email_email_proto_goTypes = []interface{}{
-	(*CreateEmailTemplateRequest)(nil),     // 0: notif.gateway.template.email.v1.CreateEmailTemplateRequest
-	(*CreateEmailTemplateResponse)(nil),    // 1: notif.gateway.template.email.v1.CreateEmailTemplateResponse
-	(*CreateAppEmailTemplateRequest)(nil),  // 2: notif.gateway.template.email.v1.CreateAppEmailTemplateRequest
-	(*CreateAppEmailTemplateResponse)(nil), // 3: notif.gateway.template.email.v1.CreateAppEmailTemplateResponse
-	(*GetEmailTemplateRequest)(nil),        // 4: notif.gateway.template.email.v1.GetEmailTemplateRequest
-	(*GetEmailTemplateResponse)(nil),       // 5: notif.gateway.template.email.v1.GetEmailTemplateResponse
-	(*GetEmailTemplatesRequest)(nil),       // 6: notif.gateway.template.email.v1.GetEmailTemplatesRequest
-	(*GetEmailTemplatesResponse)(nil),      // 7: notif.gateway.template.email.v1.GetEmailTemplatesResponse
-	(*GetAppEmailTemplatesRequest)(nil),    // 8: notif.gateway.template.email.v1.GetAppEmailTemplatesRequest
-	(*GetAppEmailTemplatesResponse)(nil),   // 9: notif.gateway.template.email.v1.GetAppEmailTemplatesResponse
-	(*UpdateEmailTemplateRequest)(nil),     // 10: notif.gateway.template.email.v1.UpdateEmailTemplateRequest
-	(*UpdateEmailTemplateResponse)(nil),    // 11: notif.gateway.template.email.v1.UpdateEmailTemplateResponse
-	(*UpdateAppEmailTemplateRequest)(nil),  // 12: notif.gateway.template.email.v1.UpdateAppEmailTemplateRequest
-	(*UpdateAppEmailTemplateResponse)(nil), // 13: notif.gateway.template.email.v1.UpdateAppEmailTemplateResponse
-	(v1.UsedFor)(0),                        // 14: basetypes.v1.UsedFor
-	(*email.EmailTemplate)(nil),            // 15: notif.middleware.template.email.v1.EmailTemplate
-}
+var (
+	file_notif_gateway_v1_template_email_email_proto_msgTypes = make([]protoimpl.MessageInfo, 14)
+	file_notif_gateway_v1_template_email_email_proto_goTypes  = []interface{}{
+		(*CreateEmailTemplateRequest)(nil),     // 0: notif.gateway.template.email.v1.CreateEmailTemplateRequest
+		(*CreateEmailTemplateResponse)(nil),    // 1: notif.gateway.template.email.v1.CreateEmailTemplateResponse
+		(*CreateAppEmailTemplateRequest)(nil),  // 2: notif.gateway.template.email.v1.CreateAppEmailTemplateRequest
+		(*CreateAppEmailTemplateResponse)(nil), // 3: notif.gateway.template.email.v1.CreateAppEmailTemplateResponse
+		(*GetEmailTemplateRequest)(nil),        // 4: notif.gateway.template.email.v1.GetEmailTemplateRequest
+		(*GetEmailTemplateResponse)(nil),       // 5: notif.gateway.template.email.v1.GetEmailTemplateResponse
+		(*GetEmailTemplatesRequest)(nil),       // 6: notif.gateway.template.email.v1.GetEmailTemplatesRequest
+		(*GetEmailTemplatesResponse)(nil),      // 7: notif.gateway.template.email.v1.GetEmailTemplatesResponse
+		(*GetAppEmailTemplatesRequest)(nil),    // 8: notif.gateway.template.email.v1.GetAppEmailTemplatesRequest
+		(*GetAppEmailTemplatesResponse)(nil),   // 9: notif.gateway.template.email.v1.GetAppEmailTemplatesResponse
+		(*UpdateEmailTemplateRequest)(nil),     // 10: notif.gateway.template.email.v1.UpdateEmailTemplateRequest
+		(*UpdateEmailTemplateResponse)(nil),    // 11: notif.gateway.template.email.v1.UpdateEmailTemplateResponse
+		(*UpdateAppEmailTemplateRequest)(nil),  // 12: notif.gateway.template.email.v1.UpdateAppEmailTemplateRequest
+		(*UpdateAppEmailTemplateResponse)(nil), // 13: notif.gateway.template.email.v1.UpdateAppEmailTemplateResponse
+		(v1.UsedFor)(0),                        // 14: basetypes.v1.UsedFor
+		(*email.EmailTemplate)(nil),            // 15: notif.middleware.template.email.v1.EmailTemplate
+	}
+)
 var file_notif_gateway_v1_template_email_email_proto_depIdxs = []int32{
 	14, // 0: notif.gateway.template.email.v1.CreateEmailTemplateRequest.UsedFor:type_name -> basetypes.v1.UsedFor
 	15, // 1: notif.gateway.template.email.v1.CreateEmailTemplateResponse.Info:type_name -> notif.middleware.template.email.v1.EmailTemplate

@@ -7,14 +7,15 @@
 package delegatedstaking
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/good/v1"
 	v11 "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	coin "github.com/NpoolPlatform/kunman/message/good/middleware/v1/good/coin"
 	reward "github.com/NpoolPlatform/kunman/message/good/middleware/v1/good/coin/reward"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -883,25 +884,27 @@ func file_good_middleware_v1_delegatedstaking_delegatedstaking_proto_rawDescGZIP
 	return file_good_middleware_v1_delegatedstaking_delegatedstaking_proto_rawDescData
 }
 
-var file_good_middleware_v1_delegatedstaking_delegatedstaking_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
-var file_good_middleware_v1_delegatedstaking_delegatedstaking_proto_goTypes = []interface{}{
-	(*DelegatedStakingReq)(nil), // 0: good.middleware.delegatedstaking.v1.DelegatedStakingReq
-	(*DelegatedStaking)(nil),    // 1: good.middleware.delegatedstaking.v1.DelegatedStaking
-	(*Conds)(nil),               // 2: good.middleware.delegatedstaking.v1.Conds
-	(v1.GoodType)(0),            // 3: basetypes.good.v1.GoodType
-	(v1.GoodStartMode)(0),       // 4: basetypes.good.v1.GoodStartMode
-	(v1.BenefitState)(0),        // 5: basetypes.good.v1.BenefitState
-	(*reward.RewardReq)(nil),    // 6: good.middleware.good1.coin.reward.v1.RewardReq
-	(v1.ContractState)(0),       // 7: basetypes.good.v1.ContractState
-	(v1.BenefitType)(0),         // 8: basetypes.good.v1.BenefitType
-	(v1.GoodState)(0),           // 9: basetypes.good.v1.GoodState
-	(*coin.GoodCoinInfo)(nil),   // 10: good.middleware.good1.coin.v1.GoodCoinInfo
-	(*reward.RewardInfo)(nil),   // 11: good.middleware.good1.coin.reward.v1.RewardInfo
-	(*v11.Uint32Val)(nil),       // 12: basetypes.v1.Uint32Val
-	(*v11.StringVal)(nil),       // 13: basetypes.v1.StringVal
-	(*v11.StringSliceVal)(nil),  // 14: basetypes.v1.StringSliceVal
-	(*v11.Uint32SliceVal)(nil),  // 15: basetypes.v1.Uint32SliceVal
-}
+var (
+	file_good_middleware_v1_delegatedstaking_delegatedstaking_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
+	file_good_middleware_v1_delegatedstaking_delegatedstaking_proto_goTypes  = []interface{}{
+		(*DelegatedStakingReq)(nil), // 0: good.middleware.delegatedstaking.v1.DelegatedStakingReq
+		(*DelegatedStaking)(nil),    // 1: good.middleware.delegatedstaking.v1.DelegatedStaking
+		(*Conds)(nil),               // 2: good.middleware.delegatedstaking.v1.Conds
+		(v1.GoodType)(0),            // 3: basetypes.good.v1.GoodType
+		(v1.GoodStartMode)(0),       // 4: basetypes.good.v1.GoodStartMode
+		(v1.BenefitState)(0),        // 5: basetypes.good.v1.BenefitState
+		(*reward.RewardReq)(nil),    // 6: good.middleware.good1.coin.reward.v1.RewardReq
+		(v1.ContractState)(0),       // 7: basetypes.good.v1.ContractState
+		(v1.BenefitType)(0),         // 8: basetypes.good.v1.BenefitType
+		(v1.GoodState)(0),           // 9: basetypes.good.v1.GoodState
+		(*coin.GoodCoinInfo)(nil),   // 10: good.middleware.good1.coin.v1.GoodCoinInfo
+		(*reward.RewardInfo)(nil),   // 11: good.middleware.good1.coin.reward.v1.RewardInfo
+		(*v11.Uint32Val)(nil),       // 12: basetypes.v1.Uint32Val
+		(*v11.StringVal)(nil),       // 13: basetypes.v1.StringVal
+		(*v11.StringSliceVal)(nil),  // 14: basetypes.v1.StringSliceVal
+		(*v11.Uint32SliceVal)(nil),  // 15: basetypes.v1.Uint32SliceVal
+	}
+)
 var file_good_middleware_v1_delegatedstaking_delegatedstaking_proto_depIdxs = []int32{
 	3,  // 0: good.middleware.delegatedstaking.v1.DelegatedStakingReq.GoodType:type_name -> basetypes.good.v1.GoodType
 	4,  // 1: good.middleware.delegatedstaking.v1.DelegatedStakingReq.StartMode:type_name -> basetypes.good.v1.GoodStartMode

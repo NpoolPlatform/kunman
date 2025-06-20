@@ -7,12 +7,13 @@
 package scope
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/inspire/v1"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -649,18 +650,20 @@ func file_inspire_gateway_v1_coupon_app_scope_scope_proto_rawDescGZIP() []byte {
 	return file_inspire_gateway_v1_coupon_app_scope_scope_proto_rawDescData
 }
 
-var file_inspire_gateway_v1_coupon_app_scope_scope_proto_msgTypes = make([]protoimpl.MessageInfo, 7)
-var file_inspire_gateway_v1_coupon_app_scope_scope_proto_goTypes = []interface{}{
-	(*Scope)(nil),                      // 0: inspire.gateway.coupon.app.scope.v1.Scope
-	(*GetAppGoodScopesRequest)(nil),    // 1: inspire.gateway.coupon.app.scope.v1.GetAppGoodScopesRequest
-	(*GetAppGoodScopesResponse)(nil),   // 2: inspire.gateway.coupon.app.scope.v1.GetAppGoodScopesResponse
-	(*CreateAppGoodScopeRequest)(nil),  // 3: inspire.gateway.coupon.app.scope.v1.CreateAppGoodScopeRequest
-	(*CreateAppGoodScopeResponse)(nil), // 4: inspire.gateway.coupon.app.scope.v1.CreateAppGoodScopeResponse
-	(*DeleteAppGoodScopeRequest)(nil),  // 5: inspire.gateway.coupon.app.scope.v1.DeleteAppGoodScopeRequest
-	(*DeleteAppGoodScopeResponse)(nil), // 6: inspire.gateway.coupon.app.scope.v1.DeleteAppGoodScopeResponse
-	(v1.CouponType)(0),                 // 7: basetypes.inspire.v1.CouponType
-	(v1.CouponScope)(0),                // 8: basetypes.inspire.v1.CouponScope
-}
+var (
+	file_inspire_gateway_v1_coupon_app_scope_scope_proto_msgTypes = make([]protoimpl.MessageInfo, 7)
+	file_inspire_gateway_v1_coupon_app_scope_scope_proto_goTypes  = []interface{}{
+		(*Scope)(nil),                      // 0: inspire.gateway.coupon.app.scope.v1.Scope
+		(*GetAppGoodScopesRequest)(nil),    // 1: inspire.gateway.coupon.app.scope.v1.GetAppGoodScopesRequest
+		(*GetAppGoodScopesResponse)(nil),   // 2: inspire.gateway.coupon.app.scope.v1.GetAppGoodScopesResponse
+		(*CreateAppGoodScopeRequest)(nil),  // 3: inspire.gateway.coupon.app.scope.v1.CreateAppGoodScopeRequest
+		(*CreateAppGoodScopeResponse)(nil), // 4: inspire.gateway.coupon.app.scope.v1.CreateAppGoodScopeResponse
+		(*DeleteAppGoodScopeRequest)(nil),  // 5: inspire.gateway.coupon.app.scope.v1.DeleteAppGoodScopeRequest
+		(*DeleteAppGoodScopeResponse)(nil), // 6: inspire.gateway.coupon.app.scope.v1.DeleteAppGoodScopeResponse
+		(v1.CouponType)(0),                 // 7: basetypes.inspire.v1.CouponType
+		(v1.CouponScope)(0),                // 8: basetypes.inspire.v1.CouponScope
+	}
+)
 var file_inspire_gateway_v1_coupon_app_scope_scope_proto_depIdxs = []int32{
 	7, // 0: inspire.gateway.coupon.app.scope.v1.Scope.CouponType:type_name -> basetypes.inspire.v1.CouponType
 	8, // 1: inspire.gateway.coupon.app.scope.v1.Scope.CouponScope:type_name -> basetypes.inspire.v1.CouponScope

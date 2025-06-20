@@ -7,12 +7,13 @@
 package announcement
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -1220,24 +1221,26 @@ func file_notif_gateway_v1_announcement_announcement_proto_rawDescGZIP() []byte 
 	return file_notif_gateway_v1_announcement_announcement_proto_rawDescData
 }
 
-var file_notif_gateway_v1_announcement_announcement_proto_msgTypes = make([]protoimpl.MessageInfo, 13)
-var file_notif_gateway_v1_announcement_announcement_proto_goTypes = []interface{}{
-	(*Announcement)(nil),                 // 0: notif.gateway.announcement.v1.Announcement
-	(*CreateAnnouncementRequest)(nil),    // 1: notif.gateway.announcement.v1.CreateAnnouncementRequest
-	(*CreateAnnouncementResponse)(nil),   // 2: notif.gateway.announcement.v1.CreateAnnouncementResponse
-	(*UpdateAnnouncementRequest)(nil),    // 3: notif.gateway.announcement.v1.UpdateAnnouncementRequest
-	(*UpdateAnnouncementResponse)(nil),   // 4: notif.gateway.announcement.v1.UpdateAnnouncementResponse
-	(*DeleteAnnouncementRequest)(nil),    // 5: notif.gateway.announcement.v1.DeleteAnnouncementRequest
-	(*DeleteAnnouncementResponse)(nil),   // 6: notif.gateway.announcement.v1.DeleteAnnouncementResponse
-	(*GetAnnouncementsRequest)(nil),      // 7: notif.gateway.announcement.v1.GetAnnouncementsRequest
-	(*GetAnnouncementsResponse)(nil),     // 8: notif.gateway.announcement.v1.GetAnnouncementsResponse
-	(*GetAppAnnouncementsRequest)(nil),   // 9: notif.gateway.announcement.v1.GetAppAnnouncementsRequest
-	(*GetAppAnnouncementsResponse)(nil),  // 10: notif.gateway.announcement.v1.GetAppAnnouncementsResponse
-	(*GetNAppAnnouncementsRequest)(nil),  // 11: notif.gateway.announcement.v1.GetNAppAnnouncementsRequest
-	(*GetNAppAnnouncementsResponse)(nil), // 12: notif.gateway.announcement.v1.GetNAppAnnouncementsResponse
-	(v1.NotifChannel)(0),                 // 13: basetypes.v1.NotifChannel
-	(v1.NotifType)(0),                    // 14: basetypes.v1.NotifType
-}
+var (
+	file_notif_gateway_v1_announcement_announcement_proto_msgTypes = make([]protoimpl.MessageInfo, 13)
+	file_notif_gateway_v1_announcement_announcement_proto_goTypes  = []interface{}{
+		(*Announcement)(nil),                 // 0: notif.gateway.announcement.v1.Announcement
+		(*CreateAnnouncementRequest)(nil),    // 1: notif.gateway.announcement.v1.CreateAnnouncementRequest
+		(*CreateAnnouncementResponse)(nil),   // 2: notif.gateway.announcement.v1.CreateAnnouncementResponse
+		(*UpdateAnnouncementRequest)(nil),    // 3: notif.gateway.announcement.v1.UpdateAnnouncementRequest
+		(*UpdateAnnouncementResponse)(nil),   // 4: notif.gateway.announcement.v1.UpdateAnnouncementResponse
+		(*DeleteAnnouncementRequest)(nil),    // 5: notif.gateway.announcement.v1.DeleteAnnouncementRequest
+		(*DeleteAnnouncementResponse)(nil),   // 6: notif.gateway.announcement.v1.DeleteAnnouncementResponse
+		(*GetAnnouncementsRequest)(nil),      // 7: notif.gateway.announcement.v1.GetAnnouncementsRequest
+		(*GetAnnouncementsResponse)(nil),     // 8: notif.gateway.announcement.v1.GetAnnouncementsResponse
+		(*GetAppAnnouncementsRequest)(nil),   // 9: notif.gateway.announcement.v1.GetAppAnnouncementsRequest
+		(*GetAppAnnouncementsResponse)(nil),  // 10: notif.gateway.announcement.v1.GetAppAnnouncementsResponse
+		(*GetNAppAnnouncementsRequest)(nil),  // 11: notif.gateway.announcement.v1.GetNAppAnnouncementsRequest
+		(*GetNAppAnnouncementsResponse)(nil), // 12: notif.gateway.announcement.v1.GetNAppAnnouncementsResponse
+		(v1.NotifChannel)(0),                 // 13: basetypes.v1.NotifChannel
+		(v1.NotifType)(0),                    // 14: basetypes.v1.NotifType
+	}
+)
 var file_notif_gateway_v1_announcement_announcement_proto_depIdxs = []int32{
 	13, // 0: notif.gateway.announcement.v1.Announcement.Channel:type_name -> basetypes.v1.NotifChannel
 	14, // 1: notif.gateway.announcement.v1.Announcement.AnnouncementType:type_name -> basetypes.v1.NotifType

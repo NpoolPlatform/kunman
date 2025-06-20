@@ -74,13 +74,13 @@ func (h *orderHandler) getCoinTypeIDs() error {
 }
 
 func (h *orderHandler) validatePoolOrderUserID(ctx context.Context) error {
-	if h.PowerRentalOrder.PoolOrderUserID == nil {
+	if h.PoolOrderUserID == nil {
 		return wlog.Errorf("invalid poolorderuserid")
 	}
 
 	handler, err := orderusermw.NewHandler(
 		ctx,
-		orderusermw.WithEntID(h.PowerRentalOrder.PoolOrderUserID, true),
+		orderusermw.WithEntID(h.PoolOrderUserID, true),
 	)
 	if err != nil {
 		return err
@@ -104,14 +104,14 @@ func (h *orderHandler) getProportion() error {
 	var miningGoodStockID *string
 	var total *string
 	for _, appMiningGoodStock := range h.appPowerRental.AppMiningGoodStocks {
-		if appMiningGoodStock.EntID == h.PowerRentalOrder.AppGoodStockID {
+		if appMiningGoodStock.EntID == h.AppGoodStockID {
 			miningGoodStockID = &appMiningGoodStock.MiningGoodStockID
 			break
 		}
 	}
 
 	if miningGoodStockID == nil {
-		return wlog.Errorf("cannot find appmininggoodstock, appgoodstockid: %v", h.PowerRentalOrder.AppGoodStockID)
+		return wlog.Errorf("cannot find appmininggoodstock, appgoodstockid: %v", h.AppGoodStockID)
 	}
 
 	for _, miningGoodStock := range h.appPowerRental.MiningGoodStocks {
@@ -125,7 +125,7 @@ func (h *orderHandler) getProportion() error {
 		return wlog.Errorf("cannot find mininggoodstock, mininggoodstockid: %v", miningGoodStockID)
 	}
 
-	unitsDec, err := decimal.NewFromString(h.PowerRentalOrder.Units)
+	unitsDec, err := decimal.NewFromString(h.Units)
 	if err != nil {
 		return wlog.WrapError(err)
 	}
@@ -148,7 +148,7 @@ func (h *orderHandler) getProportion() error {
 func (h *orderHandler) constructOrderUserReq() {
 	for _, coinTypeID := range h.coinTypeIDs {
 		h.orderUserReqs = append(h.orderUserReqs, &orderusermwpb.OrderUserReq{
-			EntID:      h.PowerRentalOrder.PoolOrderUserID,
+			EntID:      h.PoolOrderUserID,
 			CoinTypeID: &coinTypeID,
 			Proportion: &h.proportion,
 		})
@@ -157,12 +157,11 @@ func (h *orderHandler) constructOrderUserReq() {
 
 func (h *orderHandler) constructPowerRentalOrderReq() {
 	h.powerRentalOrderReq = &powerrentalordermwpb.PowerRentalOrderReq{
-		ID:         &h.PowerRentalOrder.ID,
+		ID:         &h.ID,
 		OrderState: &h.nextState,
 	}
 }
 
-//nolint:gocritic
 func (h *orderHandler) final(ctx context.Context, err *error) {
 	if *err != nil {
 		logger.Sugar().Errorw(
@@ -186,14 +185,13 @@ func (h *orderHandler) final(ctx context.Context, err *error) {
 	}
 }
 
-//nolint:gocritic
 func (h *orderHandler) exec(ctx context.Context) error {
 	h.nextState = ordertypes.OrderState_OrderStateSetRevenueAddress
 
 	var err error
 	defer h.final(ctx, &err)
 
-	if h.PowerRentalOrder.GoodStockMode != goodtypes.GoodStockMode_GoodStockByMiningPool {
+	if h.GoodStockMode != goodtypes.GoodStockMode_GoodStockByMiningPool {
 		h.constructPowerRentalOrderReq()
 		return nil
 	}

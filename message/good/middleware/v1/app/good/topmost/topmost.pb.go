@@ -7,12 +7,13 @@
 package topmost
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/good/v1"
 	v11 "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -473,16 +474,18 @@ func file_good_middleware_v1_app_good_topmost_topmost_proto_rawDescGZIP() []byte
 	return file_good_middleware_v1_app_good_topmost_topmost_proto_rawDescData
 }
 
-var file_good_middleware_v1_app_good_topmost_topmost_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
-var file_good_middleware_v1_app_good_topmost_topmost_proto_goTypes = []interface{}{
-	(*TopMostReq)(nil),         // 0: good.middleware.app.good1.topmost.v1.TopMostReq
-	(*TopMost)(nil),            // 1: good.middleware.app.good1.topmost.v1.TopMost
-	(*Conds)(nil),              // 2: good.middleware.app.good1.topmost.v1.Conds
-	(v1.GoodTopMostType)(0),    // 3: basetypes.good.v1.GoodTopMostType
-	(*v11.Uint32Val)(nil),      // 4: basetypes.v1.Uint32Val
-	(*v11.StringVal)(nil),      // 5: basetypes.v1.StringVal
-	(*v11.StringSliceVal)(nil), // 6: basetypes.v1.StringSliceVal
-}
+var (
+	file_good_middleware_v1_app_good_topmost_topmost_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
+	file_good_middleware_v1_app_good_topmost_topmost_proto_goTypes  = []interface{}{
+		(*TopMostReq)(nil),         // 0: good.middleware.app.good1.topmost.v1.TopMostReq
+		(*TopMost)(nil),            // 1: good.middleware.app.good1.topmost.v1.TopMost
+		(*Conds)(nil),              // 2: good.middleware.app.good1.topmost.v1.Conds
+		(v1.GoodTopMostType)(0),    // 3: basetypes.good.v1.GoodTopMostType
+		(*v11.Uint32Val)(nil),      // 4: basetypes.v1.Uint32Val
+		(*v11.StringVal)(nil),      // 5: basetypes.v1.StringVal
+		(*v11.StringSliceVal)(nil), // 6: basetypes.v1.StringSliceVal
+	}
+)
 var file_good_middleware_v1_app_good_topmost_topmost_proto_depIdxs = []int32{
 	3, // 0: good.middleware.app.good1.topmost.v1.TopMostReq.TopMostType:type_name -> basetypes.good.v1.GoodTopMostType
 	3, // 1: good.middleware.app.good1.topmost.v1.TopMost.TopMostType:type_name -> basetypes.good.v1.GoodTopMostType

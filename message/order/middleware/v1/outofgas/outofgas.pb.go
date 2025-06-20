@@ -7,12 +7,13 @@
 package outofgas
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/good/v1"
 	v11 "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -392,15 +393,17 @@ func file_order_middleware_v1_outofgas_outofgas_proto_rawDescGZIP() []byte {
 	return file_order_middleware_v1_outofgas_outofgas_proto_rawDescData
 }
 
-var file_order_middleware_v1_outofgas_outofgas_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
-var file_order_middleware_v1_outofgas_outofgas_proto_goTypes = []interface{}{
-	(*OutOfGas)(nil),           // 0: order.middleware.outofgas.v1.OutOfGas
-	(*Conds)(nil),              // 1: order.middleware.outofgas.v1.Conds
-	(v1.GoodType)(0),           // 2: basetypes.good.v1.GoodType
-	(*v11.Uint32Val)(nil),      // 3: basetypes.v1.Uint32Val
-	(*v11.StringVal)(nil),      // 4: basetypes.v1.StringVal
-	(*v11.StringSliceVal)(nil), // 5: basetypes.v1.StringSliceVal
-}
+var (
+	file_order_middleware_v1_outofgas_outofgas_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
+	file_order_middleware_v1_outofgas_outofgas_proto_goTypes  = []interface{}{
+		(*OutOfGas)(nil),           // 0: order.middleware.outofgas.v1.OutOfGas
+		(*Conds)(nil),              // 1: order.middleware.outofgas.v1.Conds
+		(v1.GoodType)(0),           // 2: basetypes.good.v1.GoodType
+		(*v11.Uint32Val)(nil),      // 3: basetypes.v1.Uint32Val
+		(*v11.StringVal)(nil),      // 4: basetypes.v1.StringVal
+		(*v11.StringSliceVal)(nil), // 5: basetypes.v1.StringSliceVal
+	}
+)
 var file_order_middleware_v1_outofgas_outofgas_proto_depIdxs = []int32{
 	2,  // 0: order.middleware.outofgas.v1.OutOfGas.GoodType:type_name -> basetypes.good.v1.GoodType
 	3,  // 1: order.middleware.outofgas.v1.Conds.ID:type_name -> basetypes.v1.Uint32Val

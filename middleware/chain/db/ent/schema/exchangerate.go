@@ -49,7 +49,7 @@ func (ExchangeRate) Fields() []ent.Field {
 		field.
 			Uint32("settle_percent").
 			Optional().
-			Default(100), // nolint
+			Default(100),
 		field.
 			JSON("settle_tips", []string{}).
 			Optional().

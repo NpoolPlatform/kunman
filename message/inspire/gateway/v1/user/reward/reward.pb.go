@@ -7,12 +7,13 @@
 package reward
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	reward "github.com/NpoolPlatform/kunman/message/inspire/middleware/v1/user/reward"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -351,14 +352,16 @@ func file_inspire_gateway_v1_user_reward_reward_proto_rawDescGZIP() []byte {
 	return file_inspire_gateway_v1_user_reward_reward_proto_rawDescData
 }
 
-var file_inspire_gateway_v1_user_reward_reward_proto_msgTypes = make([]protoimpl.MessageInfo, 4)
-var file_inspire_gateway_v1_user_reward_reward_proto_goTypes = []interface{}{
-	(*GetMyUserRewardsRequest)(nil),     // 0: inspire.gateway.user.reward.v1.GetMyUserRewardsRequest
-	(*GetMyUserRewardsResponse)(nil),    // 1: inspire.gateway.user.reward.v1.GetMyUserRewardsResponse
-	(*AdminGetUserRewardsRequest)(nil),  // 2: inspire.gateway.user.reward.v1.AdminGetUserRewardsRequest
-	(*AdminGetUserRewardsResponse)(nil), // 3: inspire.gateway.user.reward.v1.AdminGetUserRewardsResponse
-	(*reward.UserReward)(nil),           // 4: inspire.middleware.user.reward.v1.UserReward
-}
+var (
+	file_inspire_gateway_v1_user_reward_reward_proto_msgTypes = make([]protoimpl.MessageInfo, 4)
+	file_inspire_gateway_v1_user_reward_reward_proto_goTypes  = []interface{}{
+		(*GetMyUserRewardsRequest)(nil),     // 0: inspire.gateway.user.reward.v1.GetMyUserRewardsRequest
+		(*GetMyUserRewardsResponse)(nil),    // 1: inspire.gateway.user.reward.v1.GetMyUserRewardsResponse
+		(*AdminGetUserRewardsRequest)(nil),  // 2: inspire.gateway.user.reward.v1.AdminGetUserRewardsRequest
+		(*AdminGetUserRewardsResponse)(nil), // 3: inspire.gateway.user.reward.v1.AdminGetUserRewardsResponse
+		(*reward.UserReward)(nil),           // 4: inspire.middleware.user.reward.v1.UserReward
+	}
+)
 var file_inspire_gateway_v1_user_reward_reward_proto_depIdxs = []int32{
 	4, // 0: inspire.gateway.user.reward.v1.GetMyUserRewardsResponse.Infos:type_name -> inspire.middleware.user.reward.v1.UserReward
 	4, // 1: inspire.gateway.user.reward.v1.AdminGetUserRewardsResponse.Infos:type_name -> inspire.middleware.user.reward.v1.UserReward

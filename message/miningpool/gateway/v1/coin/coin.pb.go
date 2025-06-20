@@ -7,13 +7,14 @@
 package coin
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	v11 "github.com/NpoolPlatform/kunman/message/basetypes/miningpool/v1"
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -853,20 +854,22 @@ func file_miningpool_gateway_v1_coin_coin_proto_rawDescGZIP() []byte {
 	return file_miningpool_gateway_v1_coin_coin_proto_rawDescData
 }
 
-var file_miningpool_gateway_v1_coin_coin_proto_msgTypes = make([]protoimpl.MessageInfo, 9)
-var file_miningpool_gateway_v1_coin_coin_proto_goTypes = []interface{}{
-	(*Coin)(nil),                    // 0: miningpool.gateway.coin.v1.Coin
-	(*AdminCreateCoinRequest)(nil),  // 1: miningpool.gateway.coin.v1.AdminCreateCoinRequest
-	(*AdminCreateCoinResponse)(nil), // 2: miningpool.gateway.coin.v1.AdminCreateCoinResponse
-	(*AdminUpdateCoinRequest)(nil),  // 3: miningpool.gateway.coin.v1.AdminUpdateCoinRequest
-	(*AdminUpdateCoinResponse)(nil), // 4: miningpool.gateway.coin.v1.AdminUpdateCoinResponse
-	(*AdminGetCoinsRequest)(nil),    // 5: miningpool.gateway.coin.v1.AdminGetCoinsRequest
-	(*AdminGetCoinsResponse)(nil),   // 6: miningpool.gateway.coin.v1.AdminGetCoinsResponse
-	(*AdminDeleteCoinRequest)(nil),  // 7: miningpool.gateway.coin.v1.AdminDeleteCoinRequest
-	(*AdminDeleteCoinResponse)(nil), // 8: miningpool.gateway.coin.v1.AdminDeleteCoinResponse
-	(v1.CoinType)(0),                // 9: basetypes.v1.CoinType
-	(v11.MiningPoolType)(0),         // 10: basetypes.miningpool.v1.MiningPoolType
-}
+var (
+	file_miningpool_gateway_v1_coin_coin_proto_msgTypes = make([]protoimpl.MessageInfo, 9)
+	file_miningpool_gateway_v1_coin_coin_proto_goTypes  = []interface{}{
+		(*Coin)(nil),                    // 0: miningpool.gateway.coin.v1.Coin
+		(*AdminCreateCoinRequest)(nil),  // 1: miningpool.gateway.coin.v1.AdminCreateCoinRequest
+		(*AdminCreateCoinResponse)(nil), // 2: miningpool.gateway.coin.v1.AdminCreateCoinResponse
+		(*AdminUpdateCoinRequest)(nil),  // 3: miningpool.gateway.coin.v1.AdminUpdateCoinRequest
+		(*AdminUpdateCoinResponse)(nil), // 4: miningpool.gateway.coin.v1.AdminUpdateCoinResponse
+		(*AdminGetCoinsRequest)(nil),    // 5: miningpool.gateway.coin.v1.AdminGetCoinsRequest
+		(*AdminGetCoinsResponse)(nil),   // 6: miningpool.gateway.coin.v1.AdminGetCoinsResponse
+		(*AdminDeleteCoinRequest)(nil),  // 7: miningpool.gateway.coin.v1.AdminDeleteCoinRequest
+		(*AdminDeleteCoinResponse)(nil), // 8: miningpool.gateway.coin.v1.AdminDeleteCoinResponse
+		(v1.CoinType)(0),                // 9: basetypes.v1.CoinType
+		(v11.MiningPoolType)(0),         // 10: basetypes.miningpool.v1.MiningPoolType
+	}
+)
 var file_miningpool_gateway_v1_coin_coin_proto_depIdxs = []int32{
 	9,  // 0: miningpool.gateway.coin.v1.Coin.CoinType:type_name -> basetypes.v1.CoinType
 	10, // 1: miningpool.gateway.coin.v1.Coin.MiningPoolType:type_name -> basetypes.miningpool.v1.MiningPoolType

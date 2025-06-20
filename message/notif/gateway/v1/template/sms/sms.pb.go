@@ -7,13 +7,14 @@
 package sms
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	sms "github.com/NpoolPlatform/kunman/message/notif/middleware/v1/template/sms"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -1075,25 +1076,27 @@ func file_notif_gateway_v1_template_sms_sms_proto_rawDescGZIP() []byte {
 	return file_notif_gateway_v1_template_sms_sms_proto_rawDescData
 }
 
-var file_notif_gateway_v1_template_sms_sms_proto_msgTypes = make([]protoimpl.MessageInfo, 14)
-var file_notif_gateway_v1_template_sms_sms_proto_goTypes = []interface{}{
-	(*CreateSMSTemplateRequest)(nil),     // 0: notif.gateway.template.sms.v1.CreateSMSTemplateRequest
-	(*CreateSMSTemplateResponse)(nil),    // 1: notif.gateway.template.sms.v1.CreateSMSTemplateResponse
-	(*CreateAppSMSTemplateRequest)(nil),  // 2: notif.gateway.template.sms.v1.CreateAppSMSTemplateRequest
-	(*CreateAppSMSTemplateResponse)(nil), // 3: notif.gateway.template.sms.v1.CreateAppSMSTemplateResponse
-	(*GetSMSTemplateRequest)(nil),        // 4: notif.gateway.template.sms.v1.GetSMSTemplateRequest
-	(*GetSMSTemplateResponse)(nil),       // 5: notif.gateway.template.sms.v1.GetSMSTemplateResponse
-	(*GetSMSTemplatesRequest)(nil),       // 6: notif.gateway.template.sms.v1.GetSMSTemplatesRequest
-	(*GetSMSTemplatesResponse)(nil),      // 7: notif.gateway.template.sms.v1.GetSMSTemplatesResponse
-	(*GetAppSMSTemplatesRequest)(nil),    // 8: notif.gateway.template.sms.v1.GetAppSMSTemplatesRequest
-	(*GetAppSMSTemplatesResponse)(nil),   // 9: notif.gateway.template.sms.v1.GetAppSMSTemplatesResponse
-	(*UpdateSMSTemplateRequest)(nil),     // 10: notif.gateway.template.sms.v1.UpdateSMSTemplateRequest
-	(*UpdateSMSTemplateResponse)(nil),    // 11: notif.gateway.template.sms.v1.UpdateSMSTemplateResponse
-	(*UpdateAppSMSTemplateRequest)(nil),  // 12: notif.gateway.template.sms.v1.UpdateAppSMSTemplateRequest
-	(*UpdateAppSMSTemplateResponse)(nil), // 13: notif.gateway.template.sms.v1.UpdateAppSMSTemplateResponse
-	(v1.UsedFor)(0),                      // 14: basetypes.v1.UsedFor
-	(*sms.SMSTemplate)(nil),              // 15: notif.middleware.template.sms.v1.SMSTemplate
-}
+var (
+	file_notif_gateway_v1_template_sms_sms_proto_msgTypes = make([]protoimpl.MessageInfo, 14)
+	file_notif_gateway_v1_template_sms_sms_proto_goTypes  = []interface{}{
+		(*CreateSMSTemplateRequest)(nil),     // 0: notif.gateway.template.sms.v1.CreateSMSTemplateRequest
+		(*CreateSMSTemplateResponse)(nil),    // 1: notif.gateway.template.sms.v1.CreateSMSTemplateResponse
+		(*CreateAppSMSTemplateRequest)(nil),  // 2: notif.gateway.template.sms.v1.CreateAppSMSTemplateRequest
+		(*CreateAppSMSTemplateResponse)(nil), // 3: notif.gateway.template.sms.v1.CreateAppSMSTemplateResponse
+		(*GetSMSTemplateRequest)(nil),        // 4: notif.gateway.template.sms.v1.GetSMSTemplateRequest
+		(*GetSMSTemplateResponse)(nil),       // 5: notif.gateway.template.sms.v1.GetSMSTemplateResponse
+		(*GetSMSTemplatesRequest)(nil),       // 6: notif.gateway.template.sms.v1.GetSMSTemplatesRequest
+		(*GetSMSTemplatesResponse)(nil),      // 7: notif.gateway.template.sms.v1.GetSMSTemplatesResponse
+		(*GetAppSMSTemplatesRequest)(nil),    // 8: notif.gateway.template.sms.v1.GetAppSMSTemplatesRequest
+		(*GetAppSMSTemplatesResponse)(nil),   // 9: notif.gateway.template.sms.v1.GetAppSMSTemplatesResponse
+		(*UpdateSMSTemplateRequest)(nil),     // 10: notif.gateway.template.sms.v1.UpdateSMSTemplateRequest
+		(*UpdateSMSTemplateResponse)(nil),    // 11: notif.gateway.template.sms.v1.UpdateSMSTemplateResponse
+		(*UpdateAppSMSTemplateRequest)(nil),  // 12: notif.gateway.template.sms.v1.UpdateAppSMSTemplateRequest
+		(*UpdateAppSMSTemplateResponse)(nil), // 13: notif.gateway.template.sms.v1.UpdateAppSMSTemplateResponse
+		(v1.UsedFor)(0),                      // 14: basetypes.v1.UsedFor
+		(*sms.SMSTemplate)(nil),              // 15: notif.middleware.template.sms.v1.SMSTemplate
+	}
+)
 var file_notif_gateway_v1_template_sms_sms_proto_depIdxs = []int32{
 	14, // 0: notif.gateway.template.sms.v1.CreateSMSTemplateRequest.UsedFor:type_name -> basetypes.v1.UsedFor
 	15, // 1: notif.gateway.template.sms.v1.CreateSMSTemplateResponse.Info:type_name -> notif.middleware.template.sms.v1.SMSTemplate

@@ -7,12 +7,13 @@
 package sendstate
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -489,16 +490,18 @@ func file_notif_middleware_v1_announcement_sendstate_sendstate_proto_rawDescGZIP
 	return file_notif_middleware_v1_announcement_sendstate_sendstate_proto_rawDescData
 }
 
-var file_notif_middleware_v1_announcement_sendstate_sendstate_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
-var file_notif_middleware_v1_announcement_sendstate_sendstate_proto_goTypes = []interface{}{
-	(*SendState)(nil),         // 0: notif.middleware.announcement.sendstate.v1.SendState
-	(*SendStateReq)(nil),      // 1: notif.middleware.announcement.sendstate.v1.SendStateReq
-	(*Conds)(nil),             // 2: notif.middleware.announcement.sendstate.v1.Conds
-	(v1.NotifChannel)(0),      // 3: basetypes.v1.NotifChannel
-	(*v1.Uint32Val)(nil),      // 4: basetypes.v1.Uint32Val
-	(*v1.StringVal)(nil),      // 5: basetypes.v1.StringVal
-	(*v1.StringSliceVal)(nil), // 6: basetypes.v1.StringSliceVal
-}
+var (
+	file_notif_middleware_v1_announcement_sendstate_sendstate_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
+	file_notif_middleware_v1_announcement_sendstate_sendstate_proto_goTypes  = []interface{}{
+		(*SendState)(nil),         // 0: notif.middleware.announcement.sendstate.v1.SendState
+		(*SendStateReq)(nil),      // 1: notif.middleware.announcement.sendstate.v1.SendStateReq
+		(*Conds)(nil),             // 2: notif.middleware.announcement.sendstate.v1.Conds
+		(v1.NotifChannel)(0),      // 3: basetypes.v1.NotifChannel
+		(*v1.Uint32Val)(nil),      // 4: basetypes.v1.Uint32Val
+		(*v1.StringVal)(nil),      // 5: basetypes.v1.StringVal
+		(*v1.StringSliceVal)(nil), // 6: basetypes.v1.StringSliceVal
+	}
+)
 var file_notif_middleware_v1_announcement_sendstate_sendstate_proto_depIdxs = []int32{
 	3, // 0: notif.middleware.announcement.sendstate.v1.SendStateReq.Channel:type_name -> basetypes.v1.NotifChannel
 	4, // 1: notif.middleware.announcement.sendstate.v1.Conds.ID:type_name -> basetypes.v1.Uint32Val

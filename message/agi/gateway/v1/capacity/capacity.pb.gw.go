@@ -25,11 +25,14 @@ import (
 
 // Suppress "imported and not used" errors
 var _ codes.Code
-var _ io.Reader
-var _ status.Status
-var _ = runtime.String
-var _ = utilities.NewDoubleArray
-var _ = metadata.Join
+
+var (
+	_ io.Reader
+	_ status.Status
+	_ = runtime.String
+	_ = utilities.NewDoubleArray
+	_ = metadata.Join
+)
 
 func request_Gateway_AdminCreateCapacity_0(ctx context.Context, marshaler runtime.Marshaler, client GatewayClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq AdminCreateCapacityRequest
@@ -45,7 +48,6 @@ func request_Gateway_AdminCreateCapacity_0(ctx context.Context, marshaler runtim
 
 	msg, err := client.AdminCreateCapacity(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_Gateway_AdminCreateCapacity_0(ctx context.Context, marshaler runtime.Marshaler, server GatewayServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
@@ -62,7 +64,6 @@ func local_request_Gateway_AdminCreateCapacity_0(ctx context.Context, marshaler 
 
 	msg, err := server.AdminCreateCapacity(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
 func request_Gateway_CreateCapacity_0(ctx context.Context, marshaler runtime.Marshaler, client GatewayClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
@@ -79,7 +80,6 @@ func request_Gateway_CreateCapacity_0(ctx context.Context, marshaler runtime.Mar
 
 	msg, err := client.CreateCapacity(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_Gateway_CreateCapacity_0(ctx context.Context, marshaler runtime.Marshaler, server GatewayServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
@@ -96,7 +96,6 @@ func local_request_Gateway_CreateCapacity_0(ctx context.Context, marshaler runti
 
 	msg, err := server.CreateCapacity(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
 func request_Gateway_UpdateCapacity_0(ctx context.Context, marshaler runtime.Marshaler, client GatewayClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
@@ -113,7 +112,6 @@ func request_Gateway_UpdateCapacity_0(ctx context.Context, marshaler runtime.Mar
 
 	msg, err := client.UpdateCapacity(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_Gateway_UpdateCapacity_0(ctx context.Context, marshaler runtime.Marshaler, server GatewayServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
@@ -130,7 +128,6 @@ func local_request_Gateway_UpdateCapacity_0(ctx context.Context, marshaler runti
 
 	msg, err := server.UpdateCapacity(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
 func request_Gateway_AdminGetCapacities_0(ctx context.Context, marshaler runtime.Marshaler, client GatewayClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
@@ -147,7 +144,6 @@ func request_Gateway_AdminGetCapacities_0(ctx context.Context, marshaler runtime
 
 	msg, err := client.AdminGetCapacities(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_Gateway_AdminGetCapacities_0(ctx context.Context, marshaler runtime.Marshaler, server GatewayServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
@@ -164,7 +160,6 @@ func local_request_Gateway_AdminGetCapacities_0(ctx context.Context, marshaler r
 
 	msg, err := server.AdminGetCapacities(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
 func request_Gateway_GetCapacities_0(ctx context.Context, marshaler runtime.Marshaler, client GatewayClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
@@ -181,7 +176,6 @@ func request_Gateway_GetCapacities_0(ctx context.Context, marshaler runtime.Mars
 
 	msg, err := client.GetCapacities(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_Gateway_GetCapacities_0(ctx context.Context, marshaler runtime.Marshaler, server GatewayServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
@@ -198,7 +192,6 @@ func local_request_Gateway_GetCapacities_0(ctx context.Context, marshaler runtim
 
 	msg, err := server.GetCapacities(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
 func request_Gateway_AdminCountCapacities_0(ctx context.Context, marshaler runtime.Marshaler, client GatewayClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
@@ -215,7 +208,6 @@ func request_Gateway_AdminCountCapacities_0(ctx context.Context, marshaler runti
 
 	msg, err := client.AdminCountCapacities(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_Gateway_AdminCountCapacities_0(ctx context.Context, marshaler runtime.Marshaler, server GatewayServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
@@ -232,7 +224,6 @@ func local_request_Gateway_AdminCountCapacities_0(ctx context.Context, marshaler
 
 	msg, err := server.AdminCountCapacities(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
 func request_Gateway_CountCapacities_0(ctx context.Context, marshaler runtime.Marshaler, client GatewayClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
@@ -249,7 +240,6 @@ func request_Gateway_CountCapacities_0(ctx context.Context, marshaler runtime.Ma
 
 	msg, err := client.CountCapacities(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_Gateway_CountCapacities_0(ctx context.Context, marshaler runtime.Marshaler, server GatewayServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
@@ -266,7 +256,6 @@ func local_request_Gateway_CountCapacities_0(ctx context.Context, marshaler runt
 
 	msg, err := server.CountCapacities(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
 func request_Gateway_DeleteCapacity_0(ctx context.Context, marshaler runtime.Marshaler, client GatewayClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
@@ -283,7 +272,6 @@ func request_Gateway_DeleteCapacity_0(ctx context.Context, marshaler runtime.Mar
 
 	msg, err := client.DeleteCapacity(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_Gateway_DeleteCapacity_0(ctx context.Context, marshaler runtime.Marshaler, server GatewayServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
@@ -300,7 +288,6 @@ func local_request_Gateway_DeleteCapacity_0(ctx context.Context, marshaler runti
 
 	msg, err := server.DeleteCapacity(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
 // RegisterGatewayHandlerServer registers the http handlers for service Gateway to "mux".
@@ -308,7 +295,6 @@ func local_request_Gateway_DeleteCapacity_0(ctx context.Context, marshaler runti
 // StreamingRPC :currently unsupported pending https://github.com/grpc/grpc-go/issues/906.
 // Note that using this registration option will cause many gRPC library features to stop working. Consider using RegisterGatewayHandlerFromEndpoint instead.
 func RegisterGatewayHandlerServer(ctx context.Context, mux *runtime.ServeMux, server GatewayServer) error {
-
 	mux.Handle("POST", pattern_Gateway_AdminCreateCapacity_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
@@ -329,7 +315,6 @@ func RegisterGatewayHandlerServer(ctx context.Context, mux *runtime.ServeMux, se
 		}
 
 		forward_Gateway_AdminCreateCapacity_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
 
 	mux.Handle("POST", pattern_Gateway_CreateCapacity_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
@@ -352,7 +337,6 @@ func RegisterGatewayHandlerServer(ctx context.Context, mux *runtime.ServeMux, se
 		}
 
 		forward_Gateway_CreateCapacity_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
 
 	mux.Handle("POST", pattern_Gateway_UpdateCapacity_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
@@ -375,7 +359,6 @@ func RegisterGatewayHandlerServer(ctx context.Context, mux *runtime.ServeMux, se
 		}
 
 		forward_Gateway_UpdateCapacity_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
 
 	mux.Handle("POST", pattern_Gateway_AdminGetCapacities_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
@@ -398,7 +381,6 @@ func RegisterGatewayHandlerServer(ctx context.Context, mux *runtime.ServeMux, se
 		}
 
 		forward_Gateway_AdminGetCapacities_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
 
 	mux.Handle("POST", pattern_Gateway_GetCapacities_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
@@ -421,7 +403,6 @@ func RegisterGatewayHandlerServer(ctx context.Context, mux *runtime.ServeMux, se
 		}
 
 		forward_Gateway_GetCapacities_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
 
 	mux.Handle("POST", pattern_Gateway_AdminCountCapacities_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
@@ -444,7 +425,6 @@ func RegisterGatewayHandlerServer(ctx context.Context, mux *runtime.ServeMux, se
 		}
 
 		forward_Gateway_AdminCountCapacities_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
 
 	mux.Handle("POST", pattern_Gateway_CountCapacities_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
@@ -467,7 +447,6 @@ func RegisterGatewayHandlerServer(ctx context.Context, mux *runtime.ServeMux, se
 		}
 
 		forward_Gateway_CountCapacities_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
 
 	mux.Handle("POST", pattern_Gateway_DeleteCapacity_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
@@ -490,7 +469,6 @@ func RegisterGatewayHandlerServer(ctx context.Context, mux *runtime.ServeMux, se
 		}
 
 		forward_Gateway_DeleteCapacity_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
 
 	return nil
@@ -533,7 +511,6 @@ func RegisterGatewayHandler(ctx context.Context, mux *runtime.ServeMux, conn *gr
 // doesn't go through the normal gRPC flow (creating a gRPC client etc.) then it will be up to the passed in
 // "GatewayClient" to call the correct interceptors.
 func RegisterGatewayHandlerClient(ctx context.Context, mux *runtime.ServeMux, client GatewayClient) error {
-
 	mux.Handle("POST", pattern_Gateway_AdminCreateCapacity_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
@@ -551,7 +528,6 @@ func RegisterGatewayHandlerClient(ctx context.Context, mux *runtime.ServeMux, cl
 		}
 
 		forward_Gateway_AdminCreateCapacity_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
 
 	mux.Handle("POST", pattern_Gateway_CreateCapacity_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
@@ -571,7 +547,6 @@ func RegisterGatewayHandlerClient(ctx context.Context, mux *runtime.ServeMux, cl
 		}
 
 		forward_Gateway_CreateCapacity_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
 
 	mux.Handle("POST", pattern_Gateway_UpdateCapacity_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
@@ -591,7 +566,6 @@ func RegisterGatewayHandlerClient(ctx context.Context, mux *runtime.ServeMux, cl
 		}
 
 		forward_Gateway_UpdateCapacity_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
 
 	mux.Handle("POST", pattern_Gateway_AdminGetCapacities_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
@@ -611,7 +585,6 @@ func RegisterGatewayHandlerClient(ctx context.Context, mux *runtime.ServeMux, cl
 		}
 
 		forward_Gateway_AdminGetCapacities_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
 
 	mux.Handle("POST", pattern_Gateway_GetCapacities_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
@@ -631,7 +604,6 @@ func RegisterGatewayHandlerClient(ctx context.Context, mux *runtime.ServeMux, cl
 		}
 
 		forward_Gateway_GetCapacities_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
 
 	mux.Handle("POST", pattern_Gateway_AdminCountCapacities_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
@@ -651,7 +623,6 @@ func RegisterGatewayHandlerClient(ctx context.Context, mux *runtime.ServeMux, cl
 		}
 
 		forward_Gateway_AdminCountCapacities_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
 
 	mux.Handle("POST", pattern_Gateway_CountCapacities_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
@@ -671,7 +642,6 @@ func RegisterGatewayHandlerClient(ctx context.Context, mux *runtime.ServeMux, cl
 		}
 
 		forward_Gateway_CountCapacities_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
 
 	mux.Handle("POST", pattern_Gateway_DeleteCapacity_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
@@ -691,7 +661,6 @@ func RegisterGatewayHandlerClient(ctx context.Context, mux *runtime.ServeMux, cl
 		}
 
 		forward_Gateway_DeleteCapacity_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
 
 	return nil

@@ -7,12 +7,13 @@
 package coupon
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/inspire/v1"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -917,21 +918,23 @@ func file_inspire_gateway_v1_event_coupon_coupon_proto_rawDescGZIP() []byte {
 	return file_inspire_gateway_v1_event_coupon_coupon_proto_rawDescData
 }
 
-var file_inspire_gateway_v1_event_coupon_coupon_proto_msgTypes = make([]protoimpl.MessageInfo, 11)
-var file_inspire_gateway_v1_event_coupon_coupon_proto_goTypes = []interface{}{
-	(*EventCoupon)(nil),                    // 0: inspire.gateway.event.coupon.v1.EventCoupon
-	(*CreateEventCouponRequest)(nil),       // 1: inspire.gateway.event.coupon.v1.CreateEventCouponRequest
-	(*CreateEventCouponResponse)(nil),      // 2: inspire.gateway.event.coupon.v1.CreateEventCouponResponse
-	(*GetEventCouponsRequest)(nil),         // 3: inspire.gateway.event.coupon.v1.GetEventCouponsRequest
-	(*GetEventCouponsResponse)(nil),        // 4: inspire.gateway.event.coupon.v1.GetEventCouponsResponse
-	(*AdminGetEventCouponsRequest)(nil),    // 5: inspire.gateway.event.coupon.v1.AdminGetEventCouponsRequest
-	(*AdminGetEventCouponsResponse)(nil),   // 6: inspire.gateway.event.coupon.v1.AdminGetEventCouponsResponse
-	(*AdminCreateEventCouponRequest)(nil),  // 7: inspire.gateway.event.coupon.v1.AdminCreateEventCouponRequest
-	(*AdminCreateEventCouponResponse)(nil), // 8: inspire.gateway.event.coupon.v1.AdminCreateEventCouponResponse
-	(*AdminDeleteEventCouponRequest)(nil),  // 9: inspire.gateway.event.coupon.v1.AdminDeleteEventCouponRequest
-	(*AdminDeleteEventCouponResponse)(nil), // 10: inspire.gateway.event.coupon.v1.AdminDeleteEventCouponResponse
-	(v1.CouponType)(0),                     // 11: basetypes.inspire.v1.CouponType
-}
+var (
+	file_inspire_gateway_v1_event_coupon_coupon_proto_msgTypes = make([]protoimpl.MessageInfo, 11)
+	file_inspire_gateway_v1_event_coupon_coupon_proto_goTypes  = []interface{}{
+		(*EventCoupon)(nil),                    // 0: inspire.gateway.event.coupon.v1.EventCoupon
+		(*CreateEventCouponRequest)(nil),       // 1: inspire.gateway.event.coupon.v1.CreateEventCouponRequest
+		(*CreateEventCouponResponse)(nil),      // 2: inspire.gateway.event.coupon.v1.CreateEventCouponResponse
+		(*GetEventCouponsRequest)(nil),         // 3: inspire.gateway.event.coupon.v1.GetEventCouponsRequest
+		(*GetEventCouponsResponse)(nil),        // 4: inspire.gateway.event.coupon.v1.GetEventCouponsResponse
+		(*AdminGetEventCouponsRequest)(nil),    // 5: inspire.gateway.event.coupon.v1.AdminGetEventCouponsRequest
+		(*AdminGetEventCouponsResponse)(nil),   // 6: inspire.gateway.event.coupon.v1.AdminGetEventCouponsResponse
+		(*AdminCreateEventCouponRequest)(nil),  // 7: inspire.gateway.event.coupon.v1.AdminCreateEventCouponRequest
+		(*AdminCreateEventCouponResponse)(nil), // 8: inspire.gateway.event.coupon.v1.AdminCreateEventCouponResponse
+		(*AdminDeleteEventCouponRequest)(nil),  // 9: inspire.gateway.event.coupon.v1.AdminDeleteEventCouponRequest
+		(*AdminDeleteEventCouponResponse)(nil), // 10: inspire.gateway.event.coupon.v1.AdminDeleteEventCouponResponse
+		(v1.CouponType)(0),                     // 11: basetypes.inspire.v1.CouponType
+	}
+)
 var file_inspire_gateway_v1_event_coupon_coupon_proto_depIdxs = []int32{
 	11, // 0: inspire.gateway.event.coupon.v1.EventCoupon.CouponType:type_name -> basetypes.inspire.v1.CouponType
 	0,  // 1: inspire.gateway.event.coupon.v1.CreateEventCouponResponse.Info:type_name -> inspire.gateway.event.coupon.v1.EventCoupon

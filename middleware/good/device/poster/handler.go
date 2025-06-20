@@ -4,11 +4,11 @@ import (
 	"context"
 
 	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
-	constant "github.com/NpoolPlatform/kunman/pkg/const"
+	npool "github.com/NpoolPlatform/kunman/message/good/middleware/v1/device/poster"
 	devicepostercrud "github.com/NpoolPlatform/kunman/middleware/good/crud/device/poster"
 	device1 "github.com/NpoolPlatform/kunman/middleware/good/device"
+	constant "github.com/NpoolPlatform/kunman/pkg/const"
 	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
-	npool "github.com/NpoolPlatform/kunman/message/good/middleware/v1/device/poster"
 
 	"github.com/google/uuid"
 )

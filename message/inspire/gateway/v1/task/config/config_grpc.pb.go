@@ -8,6 +8,7 @@ package config
 
 import (
 	context "context"
+
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -91,18 +92,20 @@ type GatewayServer interface {
 }
 
 // UnimplementedGatewayServer must be embedded to have forward compatible implementations.
-type UnimplementedGatewayServer struct {
-}
+type UnimplementedGatewayServer struct{}
 
 func (UnimplementedGatewayServer) AdminCreateTaskConfig(context.Context, *AdminCreateTaskConfigRequest) (*AdminCreateTaskConfigResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AdminCreateTaskConfig not implemented")
 }
+
 func (UnimplementedGatewayServer) AdminUpdateTaskConfig(context.Context, *AdminUpdateTaskConfigRequest) (*AdminUpdateTaskConfigResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AdminUpdateTaskConfig not implemented")
 }
+
 func (UnimplementedGatewayServer) AdminDeleteTaskConfig(context.Context, *AdminDeleteTaskConfigRequest) (*AdminDeleteTaskConfigResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AdminDeleteTaskConfig not implemented")
 }
+
 func (UnimplementedGatewayServer) AdminGetTaskConfigs(context.Context, *AdminGetTaskConfigsRequest) (*AdminGetTaskConfigsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AdminGetTaskConfigs not implemented")
 }

@@ -7,12 +7,13 @@
 package description
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/good/v1"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -1402,27 +1403,29 @@ func file_good_gateway_v1_app_good_description_description_proto_rawDescGZIP() [
 	return file_good_gateway_v1_app_good_description_description_proto_rawDescData
 }
 
-var file_good_gateway_v1_app_good_description_description_proto_msgTypes = make([]protoimpl.MessageInfo, 17)
-var file_good_gateway_v1_app_good_description_description_proto_goTypes = []interface{}{
-	(*Description)(nil),                    // 0: good.gateway.app.good1.description.v1.Description
-	(*CreateDescriptionRequest)(nil),       // 1: good.gateway.app.good1.description.v1.CreateDescriptionRequest
-	(*CreateDescriptionResponse)(nil),      // 2: good.gateway.app.good1.description.v1.CreateDescriptionResponse
-	(*UpdateDescriptionRequest)(nil),       // 3: good.gateway.app.good1.description.v1.UpdateDescriptionRequest
-	(*UpdateDescriptionResponse)(nil),      // 4: good.gateway.app.good1.description.v1.UpdateDescriptionResponse
-	(*GetDescriptionsRequest)(nil),         // 5: good.gateway.app.good1.description.v1.GetDescriptionsRequest
-	(*GetDescriptionsResponse)(nil),        // 6: good.gateway.app.good1.description.v1.GetDescriptionsResponse
-	(*DeleteDescriptionRequest)(nil),       // 7: good.gateway.app.good1.description.v1.DeleteDescriptionRequest
-	(*DeleteDescriptionResponse)(nil),      // 8: good.gateway.app.good1.description.v1.DeleteDescriptionResponse
-	(*AdminCreateDescriptionRequest)(nil),  // 9: good.gateway.app.good1.description.v1.AdminCreateDescriptionRequest
-	(*AdminCreateDescriptionResponse)(nil), // 10: good.gateway.app.good1.description.v1.AdminCreateDescriptionResponse
-	(*AdminGetDescriptionsRequest)(nil),    // 11: good.gateway.app.good1.description.v1.AdminGetDescriptionsRequest
-	(*AdminGetDescriptionsResponse)(nil),   // 12: good.gateway.app.good1.description.v1.AdminGetDescriptionsResponse
-	(*AdminUpdateDescriptionRequest)(nil),  // 13: good.gateway.app.good1.description.v1.AdminUpdateDescriptionRequest
-	(*AdminUpdateDescriptionResponse)(nil), // 14: good.gateway.app.good1.description.v1.AdminUpdateDescriptionResponse
-	(*AdminDeleteDescriptionRequest)(nil),  // 15: good.gateway.app.good1.description.v1.AdminDeleteDescriptionRequest
-	(*AdminDeleteDescriptionResponse)(nil), // 16: good.gateway.app.good1.description.v1.AdminDeleteDescriptionResponse
-	(v1.GoodType)(0),                       // 17: basetypes.good.v1.GoodType
-}
+var (
+	file_good_gateway_v1_app_good_description_description_proto_msgTypes = make([]protoimpl.MessageInfo, 17)
+	file_good_gateway_v1_app_good_description_description_proto_goTypes  = []interface{}{
+		(*Description)(nil),                    // 0: good.gateway.app.good1.description.v1.Description
+		(*CreateDescriptionRequest)(nil),       // 1: good.gateway.app.good1.description.v1.CreateDescriptionRequest
+		(*CreateDescriptionResponse)(nil),      // 2: good.gateway.app.good1.description.v1.CreateDescriptionResponse
+		(*UpdateDescriptionRequest)(nil),       // 3: good.gateway.app.good1.description.v1.UpdateDescriptionRequest
+		(*UpdateDescriptionResponse)(nil),      // 4: good.gateway.app.good1.description.v1.UpdateDescriptionResponse
+		(*GetDescriptionsRequest)(nil),         // 5: good.gateway.app.good1.description.v1.GetDescriptionsRequest
+		(*GetDescriptionsResponse)(nil),        // 6: good.gateway.app.good1.description.v1.GetDescriptionsResponse
+		(*DeleteDescriptionRequest)(nil),       // 7: good.gateway.app.good1.description.v1.DeleteDescriptionRequest
+		(*DeleteDescriptionResponse)(nil),      // 8: good.gateway.app.good1.description.v1.DeleteDescriptionResponse
+		(*AdminCreateDescriptionRequest)(nil),  // 9: good.gateway.app.good1.description.v1.AdminCreateDescriptionRequest
+		(*AdminCreateDescriptionResponse)(nil), // 10: good.gateway.app.good1.description.v1.AdminCreateDescriptionResponse
+		(*AdminGetDescriptionsRequest)(nil),    // 11: good.gateway.app.good1.description.v1.AdminGetDescriptionsRequest
+		(*AdminGetDescriptionsResponse)(nil),   // 12: good.gateway.app.good1.description.v1.AdminGetDescriptionsResponse
+		(*AdminUpdateDescriptionRequest)(nil),  // 13: good.gateway.app.good1.description.v1.AdminUpdateDescriptionRequest
+		(*AdminUpdateDescriptionResponse)(nil), // 14: good.gateway.app.good1.description.v1.AdminUpdateDescriptionResponse
+		(*AdminDeleteDescriptionRequest)(nil),  // 15: good.gateway.app.good1.description.v1.AdminDeleteDescriptionRequest
+		(*AdminDeleteDescriptionResponse)(nil), // 16: good.gateway.app.good1.description.v1.AdminDeleteDescriptionResponse
+		(v1.GoodType)(0),                       // 17: basetypes.good.v1.GoodType
+	}
+)
 var file_good_gateway_v1_app_good_description_description_proto_depIdxs = []int32{
 	17, // 0: good.gateway.app.good1.description.v1.Description.GoodType:type_name -> basetypes.good.v1.GoodType
 	0,  // 1: good.gateway.app.good1.description.v1.CreateDescriptionResponse.Info:type_name -> good.gateway.app.good1.description.v1.Description

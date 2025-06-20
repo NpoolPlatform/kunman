@@ -8,6 +8,7 @@ package powerrental
 
 import (
 	context "context"
+
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -177,39 +178,48 @@ type GatewayServer interface {
 }
 
 // UnimplementedGatewayServer must be embedded to have forward compatible implementations.
-type UnimplementedGatewayServer struct {
-}
+type UnimplementedGatewayServer struct{}
 
 func (UnimplementedGatewayServer) CreatePowerRentalOrder(context.Context, *CreatePowerRentalOrderRequest) (*CreatePowerRentalOrderResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreatePowerRentalOrder not implemented")
 }
+
 func (UnimplementedGatewayServer) CreateUserPowerRentalOrder(context.Context, *CreateUserPowerRentalOrderRequest) (*CreateUserPowerRentalOrderResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateUserPowerRentalOrder not implemented")
 }
+
 func (UnimplementedGatewayServer) UpdatePowerRentalOrder(context.Context, *UpdatePowerRentalOrderRequest) (*UpdatePowerRentalOrderResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdatePowerRentalOrder not implemented")
 }
+
 func (UnimplementedGatewayServer) UpdateUserPowerRentalOrder(context.Context, *UpdateUserPowerRentalOrderRequest) (*UpdateUserPowerRentalOrderResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateUserPowerRentalOrder not implemented")
 }
+
 func (UnimplementedGatewayServer) GetPowerRentalOrder(context.Context, *GetPowerRentalOrderRequest) (*GetPowerRentalOrderResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetPowerRentalOrder not implemented")
 }
+
 func (UnimplementedGatewayServer) GetPowerRentalOrders(context.Context, *GetPowerRentalOrdersRequest) (*GetPowerRentalOrdersResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetPowerRentalOrders not implemented")
 }
+
 func (UnimplementedGatewayServer) GetMyPowerRentalOrders(context.Context, *GetMyPowerRentalOrdersRequest) (*GetMyPowerRentalOrdersResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetMyPowerRentalOrders not implemented")
 }
+
 func (UnimplementedGatewayServer) AdminCreatePowerRentalOrder(context.Context, *AdminCreatePowerRentalOrderRequest) (*AdminCreatePowerRentalOrderResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AdminCreatePowerRentalOrder not implemented")
 }
+
 func (UnimplementedGatewayServer) AdminUpdatePowerRentalOrder(context.Context, *AdminUpdatePowerRentalOrderRequest) (*AdminUpdatePowerRentalOrderResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AdminUpdatePowerRentalOrder not implemented")
 }
+
 func (UnimplementedGatewayServer) AdminGetPowerRentalOrders(context.Context, *AdminGetPowerRentalOrdersRequest) (*AdminGetPowerRentalOrdersResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AdminGetPowerRentalOrders not implemented")
 }
+
 func (UnimplementedGatewayServer) AdminDeletePowerRentalOrder(context.Context, *AdminDeletePowerRentalOrderRequest) (*AdminDeletePowerRentalOrderResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AdminDeletePowerRentalOrder not implemented")
 }

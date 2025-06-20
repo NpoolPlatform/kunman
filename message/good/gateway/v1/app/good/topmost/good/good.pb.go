@@ -7,13 +7,14 @@
 package good
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/good/v1"
 	poster "github.com/NpoolPlatform/kunman/message/good/middleware/v1/app/good/topmost/good/poster"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -1489,29 +1490,31 @@ func file_good_gateway_v1_app_good_topmost_good_good_proto_rawDescGZIP() []byte 
 	return file_good_gateway_v1_app_good_topmost_good_good_proto_rawDescData
 }
 
-var file_good_gateway_v1_app_good_topmost_good_good_proto_msgTypes = make([]protoimpl.MessageInfo, 17)
-var file_good_gateway_v1_app_good_topmost_good_good_proto_goTypes = []interface{}{
-	(*TopMostGood)(nil),                    // 0: good.gateway.app.good1.topmost.good2.v1.TopMostGood
-	(*CreateTopMostGoodRequest)(nil),       // 1: good.gateway.app.good1.topmost.good2.v1.CreateTopMostGoodRequest
-	(*CreateTopMostGoodResponse)(nil),      // 2: good.gateway.app.good1.topmost.good2.v1.CreateTopMostGoodResponse
-	(*GetTopMostGoodsRequest)(nil),         // 3: good.gateway.app.good1.topmost.good2.v1.GetTopMostGoodsRequest
-	(*GetTopMostGoodsResponse)(nil),        // 4: good.gateway.app.good1.topmost.good2.v1.GetTopMostGoodsResponse
-	(*DeleteTopMostGoodRequest)(nil),       // 5: good.gateway.app.good1.topmost.good2.v1.DeleteTopMostGoodRequest
-	(*DeleteTopMostGoodResponse)(nil),      // 6: good.gateway.app.good1.topmost.good2.v1.DeleteTopMostGoodResponse
-	(*UpdateTopMostGoodRequest)(nil),       // 7: good.gateway.app.good1.topmost.good2.v1.UpdateTopMostGoodRequest
-	(*UpdateTopMostGoodResponse)(nil),      // 8: good.gateway.app.good1.topmost.good2.v1.UpdateTopMostGoodResponse
-	(*AdminCreateTopMostGoodRequest)(nil),  // 9: good.gateway.app.good1.topmost.good2.v1.AdminCreateTopMostGoodRequest
-	(*AdminCreateTopMostGoodResponse)(nil), // 10: good.gateway.app.good1.topmost.good2.v1.AdminCreateTopMostGoodResponse
-	(*AdminGetTopMostGoodsRequest)(nil),    // 11: good.gateway.app.good1.topmost.good2.v1.AdminGetTopMostGoodsRequest
-	(*AdminGetTopMostGoodsResponse)(nil),   // 12: good.gateway.app.good1.topmost.good2.v1.AdminGetTopMostGoodsResponse
-	(*AdminUpdateTopMostGoodRequest)(nil),  // 13: good.gateway.app.good1.topmost.good2.v1.AdminUpdateTopMostGoodRequest
-	(*AdminUpdateTopMostGoodResponse)(nil), // 14: good.gateway.app.good1.topmost.good2.v1.AdminUpdateTopMostGoodResponse
-	(*AdminDeleteTopMostGoodRequest)(nil),  // 15: good.gateway.app.good1.topmost.good2.v1.AdminDeleteTopMostGoodRequest
-	(*AdminDeleteTopMostGoodResponse)(nil), // 16: good.gateway.app.good1.topmost.good2.v1.AdminDeleteTopMostGoodResponse
-	(v1.GoodType)(0),                       // 17: basetypes.good.v1.GoodType
-	(v1.GoodTopMostType)(0),                // 18: basetypes.good.v1.GoodTopMostType
-	(*poster.PosterInfo)(nil),              // 19: good.middleware.app.good1.topmost.good2.poster.v1.PosterInfo
-}
+var (
+	file_good_gateway_v1_app_good_topmost_good_good_proto_msgTypes = make([]protoimpl.MessageInfo, 17)
+	file_good_gateway_v1_app_good_topmost_good_good_proto_goTypes  = []interface{}{
+		(*TopMostGood)(nil),                    // 0: good.gateway.app.good1.topmost.good2.v1.TopMostGood
+		(*CreateTopMostGoodRequest)(nil),       // 1: good.gateway.app.good1.topmost.good2.v1.CreateTopMostGoodRequest
+		(*CreateTopMostGoodResponse)(nil),      // 2: good.gateway.app.good1.topmost.good2.v1.CreateTopMostGoodResponse
+		(*GetTopMostGoodsRequest)(nil),         // 3: good.gateway.app.good1.topmost.good2.v1.GetTopMostGoodsRequest
+		(*GetTopMostGoodsResponse)(nil),        // 4: good.gateway.app.good1.topmost.good2.v1.GetTopMostGoodsResponse
+		(*DeleteTopMostGoodRequest)(nil),       // 5: good.gateway.app.good1.topmost.good2.v1.DeleteTopMostGoodRequest
+		(*DeleteTopMostGoodResponse)(nil),      // 6: good.gateway.app.good1.topmost.good2.v1.DeleteTopMostGoodResponse
+		(*UpdateTopMostGoodRequest)(nil),       // 7: good.gateway.app.good1.topmost.good2.v1.UpdateTopMostGoodRequest
+		(*UpdateTopMostGoodResponse)(nil),      // 8: good.gateway.app.good1.topmost.good2.v1.UpdateTopMostGoodResponse
+		(*AdminCreateTopMostGoodRequest)(nil),  // 9: good.gateway.app.good1.topmost.good2.v1.AdminCreateTopMostGoodRequest
+		(*AdminCreateTopMostGoodResponse)(nil), // 10: good.gateway.app.good1.topmost.good2.v1.AdminCreateTopMostGoodResponse
+		(*AdminGetTopMostGoodsRequest)(nil),    // 11: good.gateway.app.good1.topmost.good2.v1.AdminGetTopMostGoodsRequest
+		(*AdminGetTopMostGoodsResponse)(nil),   // 12: good.gateway.app.good1.topmost.good2.v1.AdminGetTopMostGoodsResponse
+		(*AdminUpdateTopMostGoodRequest)(nil),  // 13: good.gateway.app.good1.topmost.good2.v1.AdminUpdateTopMostGoodRequest
+		(*AdminUpdateTopMostGoodResponse)(nil), // 14: good.gateway.app.good1.topmost.good2.v1.AdminUpdateTopMostGoodResponse
+		(*AdminDeleteTopMostGoodRequest)(nil),  // 15: good.gateway.app.good1.topmost.good2.v1.AdminDeleteTopMostGoodRequest
+		(*AdminDeleteTopMostGoodResponse)(nil), // 16: good.gateway.app.good1.topmost.good2.v1.AdminDeleteTopMostGoodResponse
+		(v1.GoodType)(0),                       // 17: basetypes.good.v1.GoodType
+		(v1.GoodTopMostType)(0),                // 18: basetypes.good.v1.GoodTopMostType
+		(*poster.PosterInfo)(nil),              // 19: good.middleware.app.good1.topmost.good2.poster.v1.PosterInfo
+	}
+)
 var file_good_gateway_v1_app_good_topmost_good_good_proto_depIdxs = []int32{
 	17, // 0: good.gateway.app.good1.topmost.good2.v1.TopMostGood.GoodType:type_name -> basetypes.good.v1.GoodType
 	18, // 1: good.gateway.app.good1.topmost.good2.v1.TopMostGood.TopMostType:type_name -> basetypes.good.v1.GoodTopMostType

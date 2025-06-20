@@ -7,12 +7,13 @@
 package commission
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/inspire/v1"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -1531,28 +1532,30 @@ func file_inspire_gateway_v1_commission_commission_proto_rawDescGZIP() []byte {
 	return file_inspire_gateway_v1_commission_commission_proto_rawDescData
 }
 
-var file_inspire_gateway_v1_commission_commission_proto_msgTypes = make([]protoimpl.MessageInfo, 15)
-var file_inspire_gateway_v1_commission_commission_proto_goTypes = []interface{}{
-	(*Commission)(nil),                   // 0: inspire.gateway.commission.v1.Commission
-	(*CreateCommissionRequest)(nil),      // 1: inspire.gateway.commission.v1.CreateCommissionRequest
-	(*CreateCommissionResponse)(nil),     // 2: inspire.gateway.commission.v1.CreateCommissionResponse
-	(*CreateUserCommissionRequest)(nil),  // 3: inspire.gateway.commission.v1.CreateUserCommissionRequest
-	(*CreateUserCommissionResponse)(nil), // 4: inspire.gateway.commission.v1.CreateUserCommissionResponse
-	(*UpdateCommissionRequest)(nil),      // 5: inspire.gateway.commission.v1.UpdateCommissionRequest
-	(*UpdateCommissionResponse)(nil),     // 6: inspire.gateway.commission.v1.UpdateCommissionResponse
-	(*GetCommissionsRequest)(nil),        // 7: inspire.gateway.commission.v1.GetCommissionsRequest
-	(*GetCommissionsResponse)(nil),       // 8: inspire.gateway.commission.v1.GetCommissionsResponse
-	(*GetAppCommissionsRequest)(nil),     // 9: inspire.gateway.commission.v1.GetAppCommissionsRequest
-	(*GetAppCommissionsResponse)(nil),    // 10: inspire.gateway.commission.v1.GetAppCommissionsResponse
-	(*CloneCommissionsRequest)(nil),      // 11: inspire.gateway.commission.v1.CloneCommissionsRequest
-	(*CloneCommissionsResponse)(nil),     // 12: inspire.gateway.commission.v1.CloneCommissionsResponse
-	(*CloneAppCommissionsRequest)(nil),   // 13: inspire.gateway.commission.v1.CloneAppCommissionsRequest
-	(*CloneAppCommissionsResponse)(nil),  // 14: inspire.gateway.commission.v1.CloneAppCommissionsResponse
-	(v1.SettleType)(0),                   // 15: basetypes.inspire.v1.SettleType
-	(v1.SettleMode)(0),                   // 16: basetypes.inspire.v1.SettleMode
-	(v1.SettleAmountType)(0),             // 17: basetypes.inspire.v1.SettleAmountType
-	(v1.SettleInterval)(0),               // 18: basetypes.inspire.v1.SettleInterval
-}
+var (
+	file_inspire_gateway_v1_commission_commission_proto_msgTypes = make([]protoimpl.MessageInfo, 15)
+	file_inspire_gateway_v1_commission_commission_proto_goTypes  = []interface{}{
+		(*Commission)(nil),                   // 0: inspire.gateway.commission.v1.Commission
+		(*CreateCommissionRequest)(nil),      // 1: inspire.gateway.commission.v1.CreateCommissionRequest
+		(*CreateCommissionResponse)(nil),     // 2: inspire.gateway.commission.v1.CreateCommissionResponse
+		(*CreateUserCommissionRequest)(nil),  // 3: inspire.gateway.commission.v1.CreateUserCommissionRequest
+		(*CreateUserCommissionResponse)(nil), // 4: inspire.gateway.commission.v1.CreateUserCommissionResponse
+		(*UpdateCommissionRequest)(nil),      // 5: inspire.gateway.commission.v1.UpdateCommissionRequest
+		(*UpdateCommissionResponse)(nil),     // 6: inspire.gateway.commission.v1.UpdateCommissionResponse
+		(*GetCommissionsRequest)(nil),        // 7: inspire.gateway.commission.v1.GetCommissionsRequest
+		(*GetCommissionsResponse)(nil),       // 8: inspire.gateway.commission.v1.GetCommissionsResponse
+		(*GetAppCommissionsRequest)(nil),     // 9: inspire.gateway.commission.v1.GetAppCommissionsRequest
+		(*GetAppCommissionsResponse)(nil),    // 10: inspire.gateway.commission.v1.GetAppCommissionsResponse
+		(*CloneCommissionsRequest)(nil),      // 11: inspire.gateway.commission.v1.CloneCommissionsRequest
+		(*CloneCommissionsResponse)(nil),     // 12: inspire.gateway.commission.v1.CloneCommissionsResponse
+		(*CloneAppCommissionsRequest)(nil),   // 13: inspire.gateway.commission.v1.CloneAppCommissionsRequest
+		(*CloneAppCommissionsResponse)(nil),  // 14: inspire.gateway.commission.v1.CloneAppCommissionsResponse
+		(v1.SettleType)(0),                   // 15: basetypes.inspire.v1.SettleType
+		(v1.SettleMode)(0),                   // 16: basetypes.inspire.v1.SettleMode
+		(v1.SettleAmountType)(0),             // 17: basetypes.inspire.v1.SettleAmountType
+		(v1.SettleInterval)(0),               // 18: basetypes.inspire.v1.SettleInterval
+	}
+)
 var file_inspire_gateway_v1_commission_commission_proto_depIdxs = []int32{
 	15, // 0: inspire.gateway.commission.v1.Commission.SettleType:type_name -> basetypes.inspire.v1.SettleType
 	16, // 1: inspire.gateway.commission.v1.Commission.SettleMode:type_name -> basetypes.inspire.v1.SettleMode

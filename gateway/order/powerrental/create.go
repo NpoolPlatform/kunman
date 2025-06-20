@@ -67,7 +67,7 @@ func (h *Handler) CreatePowerRentalOrder(ctx context.Context) (*npool.PowerRenta
 	if err := handler.getAppPowerRental(ctx); err != nil {
 		return nil, wlog.WrapError(err)
 	}
-	if !handler.OrderOpHandler.Simulate &&
+	if !handler.Simulate &&
 		*h.OrderType != types.OrderType_Offline &&
 		*h.OrderType != types.OrderType_Airdrop {
 		if err := handler.ValidateMaxUnpaidOrders(ctx); err != nil {
@@ -77,7 +77,7 @@ func (h *Handler) CreatePowerRentalOrder(ctx context.Context) (*npool.PowerRenta
 			return nil, wlog.WrapError(err)
 		}
 	}
-	if handler.OrderOpHandler.Simulate {
+	if handler.Simulate {
 		if err := handler.getAppPowerRentalSimulate(ctx); err != nil {
 			return nil, wlog.WrapError(err)
 		}
@@ -140,7 +140,7 @@ func (h *Handler) CreatePowerRentalOrder(ctx context.Context) (*npool.PowerRenta
 	if err := handler.calculateTotalGoodValueUSD(); err != nil {
 		return nil, wlog.WrapError(err)
 	}
-	if !handler.OrderOpHandler.Simulate {
+	if !handler.Simulate {
 		if err := handler.CalculateDeductAmountUSD(); err != nil {
 			return nil, wlog.WrapError(err)
 		}
@@ -152,7 +152,7 @@ func (h *Handler) CreatePowerRentalOrder(ctx context.Context) (*npool.PowerRenta
 	if err := handler.ResolvePaymentType(); err != nil {
 		return nil, wlog.WrapError(err)
 	}
-	if !handler.OrderOpHandler.Simulate {
+	if !handler.Simulate {
 		handler.PrepareLedgerLockID()
 		handler.PreparePaymentID()
 		handler.formalizePayment()
@@ -165,7 +165,7 @@ func (h *Handler) CreatePowerRentalOrder(ctx context.Context) (*npool.PowerRenta
 		return nil, wlog.WrapError(err)
 	}
 
-	if !handler.OrderOpHandler.Simulate && *h.OrderType == types.OrderType_Normal {
+	if !handler.Simulate && *h.OrderType == types.OrderType_Normal {
 		existGoodID, err := handler.checkExistEventGood(ctx)
 		if err != nil {
 			return nil, wlog.WrapError(err)

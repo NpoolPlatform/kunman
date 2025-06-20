@@ -488,7 +488,6 @@ func (h *Handler) GetUsers(ctx context.Context) ([]*npool.User, uint32, error) {
 		}
 		return nil
 	})
-
 	if err != nil {
 		return nil, 0, err
 	}

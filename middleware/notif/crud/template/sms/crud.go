@@ -71,7 +71,6 @@ type Conds struct {
 	UsedFors *cruder.Cond
 }
 
-// nolint:funlen,gocyclo
 func SetQueryConds(q *ent.SMSTemplateQuery, conds *Conds) (*ent.SMSTemplateQuery, error) {
 	if conds.ID != nil {
 		id, ok := conds.ID.Val.(uint32)

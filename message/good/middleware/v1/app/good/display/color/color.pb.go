@@ -7,12 +7,13 @@
 package color
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/good/v1"
 	v11 "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -523,17 +524,19 @@ func file_good_middleware_v1_app_good_display_color_color_proto_rawDescGZIP() []
 	return file_good_middleware_v1_app_good_display_color_color_proto_rawDescData
 }
 
-var file_good_middleware_v1_app_good_display_color_color_proto_msgTypes = make([]protoimpl.MessageInfo, 4)
-var file_good_middleware_v1_app_good_display_color_color_proto_goTypes = []interface{}{
-	(*DisplayColorReq)(nil),    // 0: good.middleware.app.good1.display.color.v1.DisplayColorReq
-	(*DisplayColor)(nil),       // 1: good.middleware.app.good1.display.color.v1.DisplayColor
-	(*DisplayColorInfo)(nil),   // 2: good.middleware.app.good1.display.color.v1.DisplayColorInfo
-	(*Conds)(nil),              // 3: good.middleware.app.good1.display.color.v1.Conds
-	(v1.GoodType)(0),           // 4: basetypes.good.v1.GoodType
-	(*v11.Uint32Val)(nil),      // 5: basetypes.v1.Uint32Val
-	(*v11.StringVal)(nil),      // 6: basetypes.v1.StringVal
-	(*v11.StringSliceVal)(nil), // 7: basetypes.v1.StringSliceVal
-}
+var (
+	file_good_middleware_v1_app_good_display_color_color_proto_msgTypes = make([]protoimpl.MessageInfo, 4)
+	file_good_middleware_v1_app_good_display_color_color_proto_goTypes  = []interface{}{
+		(*DisplayColorReq)(nil),    // 0: good.middleware.app.good1.display.color.v1.DisplayColorReq
+		(*DisplayColor)(nil),       // 1: good.middleware.app.good1.display.color.v1.DisplayColor
+		(*DisplayColorInfo)(nil),   // 2: good.middleware.app.good1.display.color.v1.DisplayColorInfo
+		(*Conds)(nil),              // 3: good.middleware.app.good1.display.color.v1.Conds
+		(v1.GoodType)(0),           // 4: basetypes.good.v1.GoodType
+		(*v11.Uint32Val)(nil),      // 5: basetypes.v1.Uint32Val
+		(*v11.StringVal)(nil),      // 6: basetypes.v1.StringVal
+		(*v11.StringSliceVal)(nil), // 7: basetypes.v1.StringSliceVal
+	}
+)
 var file_good_middleware_v1_app_good_display_color_color_proto_depIdxs = []int32{
 	4, // 0: good.middleware.app.good1.display.color.v1.DisplayColor.GoodType:type_name -> basetypes.good.v1.GoodType
 	5, // 1: good.middleware.app.good1.display.color.v1.Conds.ID:type_name -> basetypes.v1.Uint32Val

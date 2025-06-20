@@ -15,13 +15,10 @@ import (
 // Requires gRPC-Go v1.32.0 or later.
 const _ = grpc.SupportPackageIsVersion7
 
-const ()
-
 // GatewayClient is the client API for Gateway service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
-type GatewayClient interface {
-}
+type GatewayClient interface{}
 
 type gatewayClient struct {
 	cc grpc.ClientConnInterface
@@ -39,8 +36,7 @@ type GatewayServer interface {
 }
 
 // UnimplementedGatewayServer must be embedded to have forward compatible implementations.
-type UnimplementedGatewayServer struct {
-}
+type UnimplementedGatewayServer struct{}
 
 func (UnimplementedGatewayServer) mustEmbedUnimplementedGatewayServer() {}
 

@@ -7,12 +7,13 @@
 package fractionwithdrawal
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/miningpool/v1"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -663,17 +664,19 @@ func file_miningpool_gateway_v1_fractionwithdrawal_fractionwithdrawal_proto_rawD
 	return file_miningpool_gateway_v1_fractionwithdrawal_fractionwithdrawal_proto_rawDescData
 }
 
-var file_miningpool_gateway_v1_fractionwithdrawal_fractionwithdrawal_proto_msgTypes = make([]protoimpl.MessageInfo, 7)
-var file_miningpool_gateway_v1_fractionwithdrawal_fractionwithdrawal_proto_goTypes = []interface{}{
-	(*FractionWithdrawal)(nil),                 // 0: miningpool.gateway.fractionwithdrawal.v1.FractionWithdrawal
-	(*CreateFractionWithdrawalRequest)(nil),    // 1: miningpool.gateway.fractionwithdrawal.v1.CreateFractionWithdrawalRequest
-	(*CreateFractionWithdrawalResponse)(nil),   // 2: miningpool.gateway.fractionwithdrawal.v1.CreateFractionWithdrawalResponse
-	(*GetFractionWithdrawalRequest)(nil),       // 3: miningpool.gateway.fractionwithdrawal.v1.GetFractionWithdrawalRequest
-	(*GetFractionWithdrawalResponse)(nil),      // 4: miningpool.gateway.fractionwithdrawal.v1.GetFractionWithdrawalResponse
-	(*GetUserFractionWithdrawalsRequest)(nil),  // 5: miningpool.gateway.fractionwithdrawal.v1.GetUserFractionWithdrawalsRequest
-	(*GetUserFractionWithdrawalsResponse)(nil), // 6: miningpool.gateway.fractionwithdrawal.v1.GetUserFractionWithdrawalsResponse
-	(v1.FractionWithdrawState)(0),              // 7: basetypes.miningpool.v1.FractionWithdrawState
-}
+var (
+	file_miningpool_gateway_v1_fractionwithdrawal_fractionwithdrawal_proto_msgTypes = make([]protoimpl.MessageInfo, 7)
+	file_miningpool_gateway_v1_fractionwithdrawal_fractionwithdrawal_proto_goTypes  = []interface{}{
+		(*FractionWithdrawal)(nil),                 // 0: miningpool.gateway.fractionwithdrawal.v1.FractionWithdrawal
+		(*CreateFractionWithdrawalRequest)(nil),    // 1: miningpool.gateway.fractionwithdrawal.v1.CreateFractionWithdrawalRequest
+		(*CreateFractionWithdrawalResponse)(nil),   // 2: miningpool.gateway.fractionwithdrawal.v1.CreateFractionWithdrawalResponse
+		(*GetFractionWithdrawalRequest)(nil),       // 3: miningpool.gateway.fractionwithdrawal.v1.GetFractionWithdrawalRequest
+		(*GetFractionWithdrawalResponse)(nil),      // 4: miningpool.gateway.fractionwithdrawal.v1.GetFractionWithdrawalResponse
+		(*GetUserFractionWithdrawalsRequest)(nil),  // 5: miningpool.gateway.fractionwithdrawal.v1.GetUserFractionWithdrawalsRequest
+		(*GetUserFractionWithdrawalsResponse)(nil), // 6: miningpool.gateway.fractionwithdrawal.v1.GetUserFractionWithdrawalsResponse
+		(v1.FractionWithdrawState)(0),              // 7: basetypes.miningpool.v1.FractionWithdrawState
+	}
+)
 var file_miningpool_gateway_v1_fractionwithdrawal_fractionwithdrawal_proto_depIdxs = []int32{
 	7, // 0: miningpool.gateway.fractionwithdrawal.v1.FractionWithdrawal.FractionWithdrawState:type_name -> basetypes.miningpool.v1.FractionWithdrawState
 	0, // 1: miningpool.gateway.fractionwithdrawal.v1.CreateFractionWithdrawalResponse.Info:type_name -> miningpool.gateway.fractionwithdrawal.v1.FractionWithdrawal

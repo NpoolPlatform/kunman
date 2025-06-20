@@ -113,7 +113,7 @@ func (h *benefitHandler) generateHTMLHeader() {
 	h.content += "<table id='notif-good-benefit' class='notif-benefit'>"
 }
 
-//nolint
+// nolint
 func (h *benefitHandler) generateTableHeader(goodTypeName string, appPowerRental bool) {
 	h.content += "<tr>"
 	if appPowerRental {

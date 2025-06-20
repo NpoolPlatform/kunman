@@ -23,6 +23,9 @@ func (h *Handler) DeleteAppConfig(ctx context.Context) (*appconfigmwpb.AppConfig
 		appconfigmw.WithEntID(h.EntID, true),
 		appconfigmw.WithAppID(h.AppID, true),
 	)
+	if err != nil {
+		return nil, err
+	}
 
 	if err := configHandler.DeleteAppConfig(ctx); err != nil {
 		return nil, wlog.WrapError(err)

@@ -4,11 +4,11 @@ import (
 	"context"
 	"sync"
 
-	"github.com/NpoolPlatform/kunman/framework/logger"
 	"github.com/NpoolPlatform/kunman/cron/scheduler/config"
 	"github.com/NpoolPlatform/kunman/cron/scheduler/deposit/finish"
 	"github.com/NpoolPlatform/kunman/cron/scheduler/deposit/transfer"
 	"github.com/NpoolPlatform/kunman/cron/scheduler/deposit/user"
+	"github.com/NpoolPlatform/kunman/framework/logger"
 )
 
 const subsystem = "deposit"

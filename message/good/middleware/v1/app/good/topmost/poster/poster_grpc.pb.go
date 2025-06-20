@@ -8,6 +8,7 @@ package poster
 
 import (
 	context "context"
+
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -115,24 +116,28 @@ type MiddlewareServer interface {
 }
 
 // UnimplementedMiddlewareServer must be embedded to have forward compatible implementations.
-type UnimplementedMiddlewareServer struct {
-}
+type UnimplementedMiddlewareServer struct{}
 
 func (UnimplementedMiddlewareServer) CreatePoster(context.Context, *CreatePosterRequest) (*CreatePosterResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreatePoster not implemented")
 }
+
 func (UnimplementedMiddlewareServer) UpdatePoster(context.Context, *UpdatePosterRequest) (*UpdatePosterResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdatePoster not implemented")
 }
+
 func (UnimplementedMiddlewareServer) GetPoster(context.Context, *GetPosterRequest) (*GetPosterResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetPoster not implemented")
 }
+
 func (UnimplementedMiddlewareServer) GetPosters(context.Context, *GetPostersRequest) (*GetPostersResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetPosters not implemented")
 }
+
 func (UnimplementedMiddlewareServer) ExistPosterConds(context.Context, *ExistPosterCondsRequest) (*ExistPosterCondsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ExistPosterConds not implemented")
 }
+
 func (UnimplementedMiddlewareServer) DeletePoster(context.Context, *DeletePosterRequest) (*DeletePosterResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeletePoster not implemented")
 }

@@ -4,9 +4,9 @@ import (
 	"context"
 	"fmt"
 
-	constant "github.com/NpoolPlatform/kunman/pkg/const"
-	coincrud "github.com/NpoolPlatform/kunman/middleware/chain/crud/app/coin"
 	npool "github.com/NpoolPlatform/kunman/message/chain/middleware/v1/app/coin"
+	coincrud "github.com/NpoolPlatform/kunman/middleware/chain/crud/app/coin"
+	constant "github.com/NpoolPlatform/kunman/pkg/const"
 
 	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 

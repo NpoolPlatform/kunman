@@ -120,7 +120,7 @@ type Conds struct {
 	GoodIDs *cruder.Cond
 }
 
-//nolint
+// nolint
 func SetQueryConds(q *ent.FbmCrowdFundingQuery, conds *Conds) (*ent.FbmCrowdFundingQuery, error) {
 	q.Where(entfbmcrowdfunding.DeletedAt(0))
 	if conds == nil {

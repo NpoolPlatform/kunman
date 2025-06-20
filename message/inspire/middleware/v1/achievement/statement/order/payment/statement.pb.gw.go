@@ -25,11 +25,14 @@ import (
 
 // Suppress "imported and not used" errors
 var _ codes.Code
-var _ io.Reader
-var _ status.Status
-var _ = runtime.String
-var _ = utilities.NewDoubleArray
-var _ = metadata.Join
+
+var (
+	_ io.Reader
+	_ status.Status
+	_ = runtime.String
+	_ = utilities.NewDoubleArray
+	_ = metadata.Join
+)
 
 func request_Middleware_GetStatements_0(ctx context.Context, marshaler runtime.Marshaler, client MiddlewareClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq GetStatementsRequest
@@ -45,7 +48,6 @@ func request_Middleware_GetStatements_0(ctx context.Context, marshaler runtime.M
 
 	msg, err := client.GetStatements(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_Middleware_GetStatements_0(ctx context.Context, marshaler runtime.Marshaler, server MiddlewareServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
@@ -62,7 +64,6 @@ func local_request_Middleware_GetStatements_0(ctx context.Context, marshaler run
 
 	msg, err := server.GetStatements(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
 // RegisterMiddlewareHandlerServer registers the http handlers for service Middleware to "mux".
@@ -70,7 +71,6 @@ func local_request_Middleware_GetStatements_0(ctx context.Context, marshaler run
 // StreamingRPC :currently unsupported pending https://github.com/grpc/grpc-go/issues/906.
 // Note that using this registration option will cause many gRPC library features to stop working. Consider using RegisterMiddlewareHandlerFromEndpoint instead.
 func RegisterMiddlewareHandlerServer(ctx context.Context, mux *runtime.ServeMux, server MiddlewareServer) error {
-
 	mux.Handle("POST", pattern_Middleware_GetStatements_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
@@ -91,7 +91,6 @@ func RegisterMiddlewareHandlerServer(ctx context.Context, mux *runtime.ServeMux,
 		}
 
 		forward_Middleware_GetStatements_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
 
 	return nil
@@ -134,7 +133,6 @@ func RegisterMiddlewareHandler(ctx context.Context, mux *runtime.ServeMux, conn 
 // doesn't go through the normal gRPC flow (creating a gRPC client etc.) then it will be up to the passed in
 // "MiddlewareClient" to call the correct interceptors.
 func RegisterMiddlewareHandlerClient(ctx context.Context, mux *runtime.ServeMux, client MiddlewareClient) error {
-
 	mux.Handle("POST", pattern_Middleware_GetStatements_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
@@ -152,16 +150,11 @@ func RegisterMiddlewareHandlerClient(ctx context.Context, mux *runtime.ServeMux,
 		}
 
 		forward_Middleware_GetStatements_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
 
 	return nil
 }
 
-var (
-	pattern_Middleware_GetStatements_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"v1", "order_payment_statement_GetStatements"}, ""))
-)
+var pattern_Middleware_GetStatements_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"v1", "order_payment_statement_GetStatements"}, ""))
 
-var (
-	forward_Middleware_GetStatements_0 = runtime.ForwardResponseMessage
-)
+var forward_Middleware_GetStatements_0 = runtime.ForwardResponseMessage

@@ -16,9 +16,9 @@ func Upper(size int) []byte {
 	}
 	warehouse := []int{65, 90}
 	result := make([]byte, 26)
-	rand.Seed(time.Now().UnixNano())
+	r := rand.New(rand.NewSource(time.Now().UnixNano()))
 	for i := 0; i < size; i++ {
-		result[i] = uint8(warehouse[0] + rand.Intn(26))
+		result[i] = uint8(warehouse[0] + r.Intn(26))
 	}
 	return result
 }
@@ -29,9 +29,9 @@ func Number(size int) []byte {
 	}
 	warehouse := []int{48, 57}
 	result := make([]byte, 10)
-	rand.Seed(time.Now().UnixNano())
+	r := rand.New(rand.NewSource(time.Now().UnixNano()))
 	for i := 0; i < size; i++ {
-		result[i] = uint8(warehouse[0] + rand.Intn(9))
+		result[i] = uint8(warehouse[0] + r.Intn(9))
 	}
 	return result
 }
@@ -42,9 +42,9 @@ func Lower(size int) []byte {
 	}
 	warehouse := []int{97, 122}
 	result := make([]byte, 26)
-	rand.Seed(time.Now().UnixNano())
+	r := rand.New(rand.NewSource(time.Now().UnixNano()))
 	for i := 0; i < size; i++ {
-		result[i] = uint8(warehouse[0] + rand.Intn(26))
+		result[i] = uint8(warehouse[0] + r.Intn(26))
 	}
 	return result
 }

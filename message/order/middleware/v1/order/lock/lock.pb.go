@@ -7,13 +7,14 @@
 package lock
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	v11 "github.com/NpoolPlatform/kunman/message/basetypes/good/v1"
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/order/v1"
 	v12 "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -462,18 +463,20 @@ func file_order_middleware_v1_order_lock_lock_proto_rawDescGZIP() []byte {
 	return file_order_middleware_v1_order_lock_lock_proto_rawDescData
 }
 
-var file_order_middleware_v1_order_lock_lock_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
-var file_order_middleware_v1_order_lock_lock_proto_goTypes = []interface{}{
-	(*OrderLockReq)(nil),       // 0: order.middleware.order1.lock.v1.OrderLockReq
-	(*OrderLock)(nil),          // 1: order.middleware.order1.lock.v1.OrderLock
-	(*Conds)(nil),              // 2: order.middleware.order1.lock.v1.Conds
-	(v1.OrderLockType)(0),      // 3: basetypes.order.v1.OrderLockType
-	(v11.GoodType)(0),          // 4: basetypes.good.v1.GoodType
-	(*v12.Uint32Val)(nil),      // 5: basetypes.v1.Uint32Val
-	(*v12.Uint32SliceVal)(nil), // 6: basetypes.v1.Uint32SliceVal
-	(*v12.StringVal)(nil),      // 7: basetypes.v1.StringVal
-	(*v12.StringSliceVal)(nil), // 8: basetypes.v1.StringSliceVal
-}
+var (
+	file_order_middleware_v1_order_lock_lock_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
+	file_order_middleware_v1_order_lock_lock_proto_goTypes  = []interface{}{
+		(*OrderLockReq)(nil),       // 0: order.middleware.order1.lock.v1.OrderLockReq
+		(*OrderLock)(nil),          // 1: order.middleware.order1.lock.v1.OrderLock
+		(*Conds)(nil),              // 2: order.middleware.order1.lock.v1.Conds
+		(v1.OrderLockType)(0),      // 3: basetypes.order.v1.OrderLockType
+		(v11.GoodType)(0),          // 4: basetypes.good.v1.GoodType
+		(*v12.Uint32Val)(nil),      // 5: basetypes.v1.Uint32Val
+		(*v12.Uint32SliceVal)(nil), // 6: basetypes.v1.Uint32SliceVal
+		(*v12.StringVal)(nil),      // 7: basetypes.v1.StringVal
+		(*v12.StringSliceVal)(nil), // 8: basetypes.v1.StringSliceVal
+	}
+)
 var file_order_middleware_v1_order_lock_lock_proto_depIdxs = []int32{
 	3,  // 0: order.middleware.order1.lock.v1.OrderLockReq.LockType:type_name -> basetypes.order.v1.OrderLockType
 	4,  // 1: order.middleware.order1.lock.v1.OrderLock.GoodType:type_name -> basetypes.good.v1.GoodType

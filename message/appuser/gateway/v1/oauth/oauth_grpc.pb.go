@@ -8,6 +8,7 @@ package oauth
 
 import (
 	context "context"
+
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -67,12 +68,12 @@ type GatewayServer interface {
 }
 
 // UnimplementedGatewayServer must be embedded to have forward compatible implementations.
-type UnimplementedGatewayServer struct {
-}
+type UnimplementedGatewayServer struct{}
 
 func (UnimplementedGatewayServer) GetOAuthLoginURL(context.Context, *GetOAuthLoginURLRequest) (*GetOAuthLoginURLResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetOAuthLoginURL not implemented")
 }
+
 func (UnimplementedGatewayServer) OAuthLogin(context.Context, *OAuthLoginRequest) (*OAuthLoginResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method OAuthLogin not implemented")
 }

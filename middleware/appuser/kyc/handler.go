@@ -4,11 +4,11 @@ import (
 	"context"
 	"fmt"
 
-	constant "github.com/NpoolPlatform/kunman/pkg/const"
-	kyccrud "github.com/NpoolPlatform/kunman/middleware/appuser/crud/kyc"
-	app "github.com/NpoolPlatform/kunman/middleware/appuser/app"
 	npool "github.com/NpoolPlatform/kunman/message/appuser/middleware/v1/kyc"
 	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
+	app "github.com/NpoolPlatform/kunman/middleware/appuser/app"
+	kyccrud "github.com/NpoolPlatform/kunman/middleware/appuser/crud/kyc"
+	constant "github.com/NpoolPlatform/kunman/pkg/const"
 
 	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 

@@ -7,12 +7,13 @@
 package recoverycode
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	recoverycode "github.com/NpoolPlatform/kunman/message/appuser/middleware/v1/user/recoverycode"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -336,14 +337,16 @@ func file_appuser_gateway_v1_user_recoverycode_recoverycode_proto_rawDescGZIP() 
 	return file_appuser_gateway_v1_user_recoverycode_recoverycode_proto_rawDescData
 }
 
-var file_appuser_gateway_v1_user_recoverycode_recoverycode_proto_msgTypes = make([]protoimpl.MessageInfo, 4)
-var file_appuser_gateway_v1_user_recoverycode_recoverycode_proto_goTypes = []interface{}{
-	(*GenerateRecoveryCodesRequest)(nil),  // 0: appuser.gateway.user.recoverycode.v1.GenerateRecoveryCodesRequest
-	(*GenerateRecoveryCodesResponse)(nil), // 1: appuser.gateway.user.recoverycode.v1.GenerateRecoveryCodesResponse
-	(*GetRecoveryCodesRequest)(nil),       // 2: appuser.gateway.user.recoverycode.v1.GetRecoveryCodesRequest
-	(*GetRecoveryCodesResponse)(nil),      // 3: appuser.gateway.user.recoverycode.v1.GetRecoveryCodesResponse
-	(*recoverycode.RecoveryCode)(nil),     // 4: appuser.middleware.user.recoverycode.v1.RecoveryCode
-}
+var (
+	file_appuser_gateway_v1_user_recoverycode_recoverycode_proto_msgTypes = make([]protoimpl.MessageInfo, 4)
+	file_appuser_gateway_v1_user_recoverycode_recoverycode_proto_goTypes  = []interface{}{
+		(*GenerateRecoveryCodesRequest)(nil),  // 0: appuser.gateway.user.recoverycode.v1.GenerateRecoveryCodesRequest
+		(*GenerateRecoveryCodesResponse)(nil), // 1: appuser.gateway.user.recoverycode.v1.GenerateRecoveryCodesResponse
+		(*GetRecoveryCodesRequest)(nil),       // 2: appuser.gateway.user.recoverycode.v1.GetRecoveryCodesRequest
+		(*GetRecoveryCodesResponse)(nil),      // 3: appuser.gateway.user.recoverycode.v1.GetRecoveryCodesResponse
+		(*recoverycode.RecoveryCode)(nil),     // 4: appuser.middleware.user.recoverycode.v1.RecoveryCode
+	}
+)
 var file_appuser_gateway_v1_user_recoverycode_recoverycode_proto_depIdxs = []int32{
 	4, // 0: appuser.gateway.user.recoverycode.v1.GenerateRecoveryCodesResponse.Infos:type_name -> appuser.middleware.user.recoverycode.v1.RecoveryCode
 	4, // 1: appuser.gateway.user.recoverycode.v1.GetRecoveryCodesResponse.Infos:type_name -> appuser.middleware.user.recoverycode.v1.RecoveryCode

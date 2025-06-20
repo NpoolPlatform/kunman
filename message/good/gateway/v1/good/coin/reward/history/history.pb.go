@@ -7,12 +7,13 @@
 package history
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	history "github.com/NpoolPlatform/kunman/message/good/middleware/v1/good/coin/reward/history"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -234,12 +235,14 @@ func file_good_gateway_v1_good_coin_reward_history_history_proto_rawDescGZIP() [
 	return file_good_gateway_v1_good_coin_reward_history_history_proto_rawDescData
 }
 
-var file_good_gateway_v1_good_coin_reward_history_history_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
-var file_good_gateway_v1_good_coin_reward_history_history_proto_goTypes = []interface{}{
-	(*GetHistoriesRequest)(nil),  // 0: good.gateway.good1.coin.reward.history.v1.GetHistoriesRequest
-	(*GetHistoriesResponse)(nil), // 1: good.gateway.good1.coin.reward.history.v1.GetHistoriesResponse
-	(*history.History)(nil),      // 2: good.middleware.good1.coin.reward.history.v1.History
-}
+var (
+	file_good_gateway_v1_good_coin_reward_history_history_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
+	file_good_gateway_v1_good_coin_reward_history_history_proto_goTypes  = []interface{}{
+		(*GetHistoriesRequest)(nil),  // 0: good.gateway.good1.coin.reward.history.v1.GetHistoriesRequest
+		(*GetHistoriesResponse)(nil), // 1: good.gateway.good1.coin.reward.history.v1.GetHistoriesResponse
+		(*history.History)(nil),      // 2: good.middleware.good1.coin.reward.history.v1.History
+	}
+)
 var file_good_gateway_v1_good_coin_reward_history_history_proto_depIdxs = []int32{
 	2, // 0: good.gateway.good1.coin.reward.history.v1.GetHistoriesResponse.Infos:type_name -> good.middleware.good1.coin.reward.history.v1.History
 	0, // 1: good.gateway.good1.coin.reward.history.v1.Gateway.GetHistories:input_type -> good.gateway.good1.coin.reward.history.v1.GetHistoriesRequest

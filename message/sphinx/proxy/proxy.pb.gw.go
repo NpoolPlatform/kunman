@@ -25,11 +25,14 @@ import (
 
 // Suppress "imported and not used" errors
 var _ codes.Code
-var _ io.Reader
-var _ status.Status
-var _ = runtime.String
-var _ = utilities.NewDoubleArray
-var _ = metadata.Join
+
+var (
+	_ io.Reader
+	_ status.Status
+	_ = runtime.String
+	_ = utilities.NewDoubleArray
+	_ = metadata.Join
+)
 
 func request_SphinxProxy_UpdateTransaction_0(ctx context.Context, marshaler runtime.Marshaler, client SphinxProxyClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq UpdateTransactionRequest
@@ -45,7 +48,6 @@ func request_SphinxProxy_UpdateTransaction_0(ctx context.Context, marshaler runt
 
 	msg, err := client.UpdateTransaction(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_SphinxProxy_UpdateTransaction_0(ctx context.Context, marshaler runtime.Marshaler, server SphinxProxyServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
@@ -62,7 +64,6 @@ func local_request_SphinxProxy_UpdateTransaction_0(ctx context.Context, marshale
 
 	msg, err := server.UpdateTransaction(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
 // RegisterSphinxProxyHandlerServer registers the http handlers for service SphinxProxy to "mux".
@@ -70,7 +71,6 @@ func local_request_SphinxProxy_UpdateTransaction_0(ctx context.Context, marshale
 // StreamingRPC :currently unsupported pending https://github.com/grpc/grpc-go/issues/906.
 // Note that using this registration option will cause many gRPC library features to stop working. Consider using RegisterSphinxProxyHandlerFromEndpoint instead.
 func RegisterSphinxProxyHandlerServer(ctx context.Context, mux *runtime.ServeMux, server SphinxProxyServer) error {
-
 	mux.Handle("POST", pattern_SphinxProxy_UpdateTransaction_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
@@ -91,7 +91,6 @@ func RegisterSphinxProxyHandlerServer(ctx context.Context, mux *runtime.ServeMux
 		}
 
 		forward_SphinxProxy_UpdateTransaction_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
 
 	return nil
@@ -134,7 +133,6 @@ func RegisterSphinxProxyHandler(ctx context.Context, mux *runtime.ServeMux, conn
 // doesn't go through the normal gRPC flow (creating a gRPC client etc.) then it will be up to the passed in
 // "SphinxProxyClient" to call the correct interceptors.
 func RegisterSphinxProxyHandlerClient(ctx context.Context, mux *runtime.ServeMux, client SphinxProxyClient) error {
-
 	mux.Handle("POST", pattern_SphinxProxy_UpdateTransaction_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
@@ -152,16 +150,11 @@ func RegisterSphinxProxyHandlerClient(ctx context.Context, mux *runtime.ServeMux
 		}
 
 		forward_SphinxProxy_UpdateTransaction_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
 
 	return nil
 }
 
-var (
-	pattern_SphinxProxy_UpdateTransaction_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"v1", "update", "transaction"}, ""))
-)
+var pattern_SphinxProxy_UpdateTransaction_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"v1", "update", "transaction"}, ""))
 
-var (
-	forward_SphinxProxy_UpdateTransaction_0 = runtime.ForwardResponseMessage
-)
+var forward_SphinxProxy_UpdateTransaction_0 = runtime.ForwardResponseMessage

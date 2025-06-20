@@ -7,12 +7,13 @@
 package constraint
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/good/v1"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -1535,28 +1536,30 @@ func file_good_gateway_v1_app_good_topmost_good_constraint_constraint_proto_rawD
 	return file_good_gateway_v1_app_good_topmost_good_constraint_constraint_proto_rawDescData
 }
 
-var file_good_gateway_v1_app_good_topmost_good_constraint_constraint_proto_msgTypes = make([]protoimpl.MessageInfo, 17)
-var file_good_gateway_v1_app_good_topmost_good_constraint_constraint_proto_goTypes = []interface{}{
-	(*TopMostGoodConstraint)(nil),                    // 0: good.gateway.app.good1.topmost.good2.constraint.v1.TopMostGoodConstraint
-	(*CreateTopMostGoodConstraintRequest)(nil),       // 1: good.gateway.app.good1.topmost.good2.constraint.v1.CreateTopMostGoodConstraintRequest
-	(*CreateTopMostGoodConstraintResponse)(nil),      // 2: good.gateway.app.good1.topmost.good2.constraint.v1.CreateTopMostGoodConstraintResponse
-	(*UpdateTopMostGoodConstraintRequest)(nil),       // 3: good.gateway.app.good1.topmost.good2.constraint.v1.UpdateTopMostGoodConstraintRequest
-	(*UpdateTopMostGoodConstraintResponse)(nil),      // 4: good.gateway.app.good1.topmost.good2.constraint.v1.UpdateTopMostGoodConstraintResponse
-	(*GetTopMostGoodConstraintsRequest)(nil),         // 5: good.gateway.app.good1.topmost.good2.constraint.v1.GetTopMostGoodConstraintsRequest
-	(*GetTopMostGoodConstraintsResponse)(nil),        // 6: good.gateway.app.good1.topmost.good2.constraint.v1.GetTopMostGoodConstraintsResponse
-	(*DeleteTopMostGoodConstraintRequest)(nil),       // 7: good.gateway.app.good1.topmost.good2.constraint.v1.DeleteTopMostGoodConstraintRequest
-	(*DeleteTopMostGoodConstraintResponse)(nil),      // 8: good.gateway.app.good1.topmost.good2.constraint.v1.DeleteTopMostGoodConstraintResponse
-	(*AdminCreateTopMostGoodConstraintRequest)(nil),  // 9: good.gateway.app.good1.topmost.good2.constraint.v1.AdminCreateTopMostGoodConstraintRequest
-	(*AdminCreateTopMostGoodConstraintResponse)(nil), // 10: good.gateway.app.good1.topmost.good2.constraint.v1.AdminCreateTopMostGoodConstraintResponse
-	(*AdminGetTopMostGoodConstraintsRequest)(nil),    // 11: good.gateway.app.good1.topmost.good2.constraint.v1.AdminGetTopMostGoodConstraintsRequest
-	(*AdminGetTopMostGoodConstraintsResponse)(nil),   // 12: good.gateway.app.good1.topmost.good2.constraint.v1.AdminGetTopMostGoodConstraintsResponse
-	(*AdminUpdateTopMostGoodConstraintRequest)(nil),  // 13: good.gateway.app.good1.topmost.good2.constraint.v1.AdminUpdateTopMostGoodConstraintRequest
-	(*AdminUpdateTopMostGoodConstraintResponse)(nil), // 14: good.gateway.app.good1.topmost.good2.constraint.v1.AdminUpdateTopMostGoodConstraintResponse
-	(*AdminDeleteTopMostGoodConstraintRequest)(nil),  // 15: good.gateway.app.good1.topmost.good2.constraint.v1.AdminDeleteTopMostGoodConstraintRequest
-	(*AdminDeleteTopMostGoodConstraintResponse)(nil), // 16: good.gateway.app.good1.topmost.good2.constraint.v1.AdminDeleteTopMostGoodConstraintResponse
-	(v1.GoodTopMostType)(0),                          // 17: basetypes.good.v1.GoodTopMostType
-	(v1.GoodTopMostConstraint)(0),                    // 18: basetypes.good.v1.GoodTopMostConstraint
-}
+var (
+	file_good_gateway_v1_app_good_topmost_good_constraint_constraint_proto_msgTypes = make([]protoimpl.MessageInfo, 17)
+	file_good_gateway_v1_app_good_topmost_good_constraint_constraint_proto_goTypes  = []interface{}{
+		(*TopMostGoodConstraint)(nil),                    // 0: good.gateway.app.good1.topmost.good2.constraint.v1.TopMostGoodConstraint
+		(*CreateTopMostGoodConstraintRequest)(nil),       // 1: good.gateway.app.good1.topmost.good2.constraint.v1.CreateTopMostGoodConstraintRequest
+		(*CreateTopMostGoodConstraintResponse)(nil),      // 2: good.gateway.app.good1.topmost.good2.constraint.v1.CreateTopMostGoodConstraintResponse
+		(*UpdateTopMostGoodConstraintRequest)(nil),       // 3: good.gateway.app.good1.topmost.good2.constraint.v1.UpdateTopMostGoodConstraintRequest
+		(*UpdateTopMostGoodConstraintResponse)(nil),      // 4: good.gateway.app.good1.topmost.good2.constraint.v1.UpdateTopMostGoodConstraintResponse
+		(*GetTopMostGoodConstraintsRequest)(nil),         // 5: good.gateway.app.good1.topmost.good2.constraint.v1.GetTopMostGoodConstraintsRequest
+		(*GetTopMostGoodConstraintsResponse)(nil),        // 6: good.gateway.app.good1.topmost.good2.constraint.v1.GetTopMostGoodConstraintsResponse
+		(*DeleteTopMostGoodConstraintRequest)(nil),       // 7: good.gateway.app.good1.topmost.good2.constraint.v1.DeleteTopMostGoodConstraintRequest
+		(*DeleteTopMostGoodConstraintResponse)(nil),      // 8: good.gateway.app.good1.topmost.good2.constraint.v1.DeleteTopMostGoodConstraintResponse
+		(*AdminCreateTopMostGoodConstraintRequest)(nil),  // 9: good.gateway.app.good1.topmost.good2.constraint.v1.AdminCreateTopMostGoodConstraintRequest
+		(*AdminCreateTopMostGoodConstraintResponse)(nil), // 10: good.gateway.app.good1.topmost.good2.constraint.v1.AdminCreateTopMostGoodConstraintResponse
+		(*AdminGetTopMostGoodConstraintsRequest)(nil),    // 11: good.gateway.app.good1.topmost.good2.constraint.v1.AdminGetTopMostGoodConstraintsRequest
+		(*AdminGetTopMostGoodConstraintsResponse)(nil),   // 12: good.gateway.app.good1.topmost.good2.constraint.v1.AdminGetTopMostGoodConstraintsResponse
+		(*AdminUpdateTopMostGoodConstraintRequest)(nil),  // 13: good.gateway.app.good1.topmost.good2.constraint.v1.AdminUpdateTopMostGoodConstraintRequest
+		(*AdminUpdateTopMostGoodConstraintResponse)(nil), // 14: good.gateway.app.good1.topmost.good2.constraint.v1.AdminUpdateTopMostGoodConstraintResponse
+		(*AdminDeleteTopMostGoodConstraintRequest)(nil),  // 15: good.gateway.app.good1.topmost.good2.constraint.v1.AdminDeleteTopMostGoodConstraintRequest
+		(*AdminDeleteTopMostGoodConstraintResponse)(nil), // 16: good.gateway.app.good1.topmost.good2.constraint.v1.AdminDeleteTopMostGoodConstraintResponse
+		(v1.GoodTopMostType)(0),                          // 17: basetypes.good.v1.GoodTopMostType
+		(v1.GoodTopMostConstraint)(0),                    // 18: basetypes.good.v1.GoodTopMostConstraint
+	}
+)
 var file_good_gateway_v1_app_good_topmost_good_constraint_constraint_proto_depIdxs = []int32{
 	17, // 0: good.gateway.app.good1.topmost.good2.constraint.v1.TopMostGoodConstraint.TopMostType:type_name -> basetypes.good.v1.GoodTopMostType
 	18, // 1: good.gateway.app.good1.topmost.good2.constraint.v1.TopMostGoodConstraint.Constraint:type_name -> basetypes.good.v1.GoodTopMostConstraint

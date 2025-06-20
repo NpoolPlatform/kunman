@@ -4,8 +4,8 @@ import (
 	"context"
 	"fmt"
 
-	coinmwpb "github.com/NpoolPlatform/kunman/message/chain/middleware/v1/coin"
 	baseexecutor "github.com/NpoolPlatform/kunman/cron/scheduler/base/executor"
+	coinmwpb "github.com/NpoolPlatform/kunman/message/chain/middleware/v1/coin"
 )
 
 type handler struct{}

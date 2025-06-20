@@ -8,6 +8,7 @@ package subscription
 
 import (
 	context "context"
+
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -177,39 +178,48 @@ type GatewayServer interface {
 }
 
 // UnimplementedGatewayServer must be embedded to have forward compatible implementations.
-type UnimplementedGatewayServer struct {
-}
+type UnimplementedGatewayServer struct{}
 
 func (UnimplementedGatewayServer) CreateSubscriptionOrder(context.Context, *CreateSubscriptionOrderRequest) (*CreateSubscriptionOrderResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateSubscriptionOrder not implemented")
 }
+
 func (UnimplementedGatewayServer) CreateUserSubscriptionOrder(context.Context, *CreateUserSubscriptionOrderRequest) (*CreateUserSubscriptionOrderResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateUserSubscriptionOrder not implemented")
 }
+
 func (UnimplementedGatewayServer) UpdateSubscriptionOrder(context.Context, *UpdateSubscriptionOrderRequest) (*UpdateSubscriptionOrderResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateSubscriptionOrder not implemented")
 }
+
 func (UnimplementedGatewayServer) UpdateUserSubscriptionOrder(context.Context, *UpdateUserSubscriptionOrderRequest) (*UpdateUserSubscriptionOrderResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateUserSubscriptionOrder not implemented")
 }
+
 func (UnimplementedGatewayServer) GetSubscriptionOrder(context.Context, *GetSubscriptionOrderRequest) (*GetSubscriptionOrderResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetSubscriptionOrder not implemented")
 }
+
 func (UnimplementedGatewayServer) GetSubscriptionOrders(context.Context, *GetSubscriptionOrdersRequest) (*GetSubscriptionOrdersResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetSubscriptionOrders not implemented")
 }
+
 func (UnimplementedGatewayServer) GetMySubscriptionOrders(context.Context, *GetMySubscriptionOrdersRequest) (*GetMySubscriptionOrdersResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetMySubscriptionOrders not implemented")
 }
+
 func (UnimplementedGatewayServer) AdminCreateSubscriptionOrder(context.Context, *AdminCreateSubscriptionOrderRequest) (*AdminCreateSubscriptionOrderResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AdminCreateSubscriptionOrder not implemented")
 }
+
 func (UnimplementedGatewayServer) AdminUpdateSubscriptionOrder(context.Context, *AdminUpdateSubscriptionOrderRequest) (*AdminUpdateSubscriptionOrderResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AdminUpdateSubscriptionOrder not implemented")
 }
+
 func (UnimplementedGatewayServer) AdminGetSubscriptionOrders(context.Context, *AdminGetSubscriptionOrdersRequest) (*AdminGetSubscriptionOrdersResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AdminGetSubscriptionOrders not implemented")
 }
+
 func (UnimplementedGatewayServer) AdminDeleteSubscriptionOrder(context.Context, *AdminDeleteSubscriptionOrderRequest) (*AdminDeleteSubscriptionOrderResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AdminDeleteSubscriptionOrder not implemented")
 }

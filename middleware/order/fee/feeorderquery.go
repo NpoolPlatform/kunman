@@ -229,14 +229,14 @@ func (h *feeOrderQueryHandler) requireFeeOrderWithTx(ctx context.Context, tx *en
 	return h._getFeeOrder(ctx, tx.Client(), true)
 }
 
-//nolint
+// nolint
 func (h *feeOrderQueryHandler) getFeeOrder(ctx context.Context) error {
 	return db.WithClient(ctx, func(_ctx context.Context, cli *ent.Client) error {
 		return h._getFeeOrder(_ctx, cli, false)
 	})
 }
 
-//nolint
+// nolint
 func (h *feeOrderQueryHandler) requireFeeOrder(ctx context.Context) error {
 	return db.WithClient(ctx, func(_ctx context.Context, cli *ent.Client) error {
 		return h._getFeeOrder(_ctx, cli, true)

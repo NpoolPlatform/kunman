@@ -2,10 +2,10 @@ package coin
 
 import (
 	"github.com/NpoolPlatform/kunman/framework/wlog"
+	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	ent "github.com/NpoolPlatform/kunman/middleware/miningpool/db/ent/generated"
 	coinent "github.com/NpoolPlatform/kunman/middleware/miningpool/db/ent/generated/coin"
 	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
-	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	"github.com/shopspring/decimal"
 
 	"github.com/google/uuid"

@@ -7,10 +7,11 @@
 package v1
 
 import (
-	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
-	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	reflect "reflect"
 	sync "sync"
+
+	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
+	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 )
 
 const (
@@ -1093,23 +1094,25 @@ func file_basetypes_order_v1_enums_proto_rawDescGZIP() []byte {
 	return file_basetypes_order_v1_enums_proto_rawDescData
 }
 
-var file_basetypes_order_v1_enums_proto_enumTypes = make([]protoimpl.EnumInfo, 14)
-var file_basetypes_order_v1_enums_proto_goTypes = []interface{}{
-	(OrderType)(0),               // 0: basetypes.order.v1.OrderType
-	(OrderState)(0),              // 1: basetypes.order.v1.OrderState
-	(PaymentState)(0),            // 2: basetypes.order.v1.PaymentState
-	(PaymentObseleteState)(0),    // 3: basetypes.order.v1.PaymentObseleteState
-	(InvestmentType)(0),          // 4: basetypes.order.v1.InvestmentType
-	(PaymentType)(0),             // 5: basetypes.order.v1.PaymentType
-	(FiatPaymentChannel)(0),      // 6: basetypes.order.v1.FiatPaymentChannel
-	(CompensateType)(0),          // 7: basetypes.order.v1.CompensateType
-	(BenefitState)(0),            // 8: basetypes.order.v1.BenefitState
-	(OrderStartMode)(0),          // 9: basetypes.order.v1.OrderStartMode
-	(OrderLockType)(0),           // 10: basetypes.order.v1.OrderLockType
-	(SimulateOrderCouponMode)(0), // 11: basetypes.order.v1.SimulateOrderCouponMode
-	(OrderRenewState)(0),         // 12: basetypes.order.v1.OrderRenewState
-	(OrderCreateMethod)(0),       // 13: basetypes.order.v1.OrderCreateMethod
-}
+var (
+	file_basetypes_order_v1_enums_proto_enumTypes = make([]protoimpl.EnumInfo, 14)
+	file_basetypes_order_v1_enums_proto_goTypes   = []interface{}{
+		(OrderType)(0),               // 0: basetypes.order.v1.OrderType
+		(OrderState)(0),              // 1: basetypes.order.v1.OrderState
+		(PaymentState)(0),            // 2: basetypes.order.v1.PaymentState
+		(PaymentObseleteState)(0),    // 3: basetypes.order.v1.PaymentObseleteState
+		(InvestmentType)(0),          // 4: basetypes.order.v1.InvestmentType
+		(PaymentType)(0),             // 5: basetypes.order.v1.PaymentType
+		(FiatPaymentChannel)(0),      // 6: basetypes.order.v1.FiatPaymentChannel
+		(CompensateType)(0),          // 7: basetypes.order.v1.CompensateType
+		(BenefitState)(0),            // 8: basetypes.order.v1.BenefitState
+		(OrderStartMode)(0),          // 9: basetypes.order.v1.OrderStartMode
+		(OrderLockType)(0),           // 10: basetypes.order.v1.OrderLockType
+		(SimulateOrderCouponMode)(0), // 11: basetypes.order.v1.SimulateOrderCouponMode
+		(OrderRenewState)(0),         // 12: basetypes.order.v1.OrderRenewState
+		(OrderCreateMethod)(0),       // 13: basetypes.order.v1.OrderCreateMethod
+	}
+)
 var file_basetypes_order_v1_enums_proto_depIdxs = []int32{
 	0, // [0:0] is the sub-list for method output_type
 	0, // [0:0] is the sub-list for method input_type

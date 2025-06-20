@@ -44,7 +44,7 @@ type Conds struct {
 	LedgerLockID *cruder.Cond
 }
 
-//nolint
+// nolint
 func SetQueryConds(q *ent.PaymentBalanceLockQuery, conds *Conds) (*ent.PaymentBalanceLockQuery, error) {
 	q.Where(entpaymentbalancelock.DeletedAt(0))
 	if conds == nil {

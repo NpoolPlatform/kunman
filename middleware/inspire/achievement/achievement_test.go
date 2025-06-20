@@ -8,17 +8,17 @@ import (
 	"testing"
 	"time"
 
-	commission1 "github.com/NpoolPlatform/kunman/middleware/inspire/app/config"
 	types "github.com/NpoolPlatform/kunman/message/basetypes/inspire/v1"
 	orderstatementmwpb "github.com/NpoolPlatform/kunman/message/inspire/middleware/v1/achievement/statement/order"
 	paymentmwpb "github.com/NpoolPlatform/kunman/message/inspire/middleware/v1/achievement/statement/order/payment"
+	commission1 "github.com/NpoolPlatform/kunman/middleware/inspire/app/config"
 
-	achievement1 "github.com/NpoolPlatform/kunman/middleware/inspire/achievement/good"
-	statement1 "github.com/NpoolPlatform/kunman/middleware/inspire/achievement/statement/order"
-	cruder "github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	npool "github.com/NpoolPlatform/kunman/message/inspire/middleware/v1/achievement/good"
 	appconfigmwpb "github.com/NpoolPlatform/kunman/message/inspire/middleware/v1/app/config"
+	achievement1 "github.com/NpoolPlatform/kunman/middleware/inspire/achievement/good"
+	statement1 "github.com/NpoolPlatform/kunman/middleware/inspire/achievement/statement/order"
+	cruder "github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 
 	"github.com/NpoolPlatform/kunman/middleware/inspire/testinit"
 
@@ -134,11 +134,12 @@ func createStatement(t *testing.T) {
 		statement1.WithAppConfigID(&ret.AppConfigID, true),
 		statement1.WithCommissionConfigID(&ret.CommissionConfigID, true),
 		statement1.WithCommissionConfigType(&ret.CommissionConfigType, true),
-		statement1.WithPaymentStatements([]*paymentmwpb.StatementReq{{
-			PaymentCoinTypeID: &paymentCoinTypeID,
-			Amount:            &amount,
-			CommissionAmount:  &commissionAmount,
-		},
+		statement1.WithPaymentStatements([]*paymentmwpb.StatementReq{
+			{
+				PaymentCoinTypeID: &paymentCoinTypeID,
+				Amount:            &amount,
+				CommissionAmount:  &commissionAmount,
+			},
 		}, true),
 	)
 	assert.Nil(t, err)

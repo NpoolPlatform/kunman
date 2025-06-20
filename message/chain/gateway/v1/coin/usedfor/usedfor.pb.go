@@ -7,13 +7,14 @@
 package usedfor
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/chain/v1"
 	usedfor "github.com/NpoolPlatform/kunman/message/chain/middleware/v1/coin/usedfor"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -472,17 +473,19 @@ func file_chain_gateway_v1_coin_usedfor_usedfor_proto_rawDescGZIP() []byte {
 	return file_chain_gateway_v1_coin_usedfor_usedfor_proto_rawDescData
 }
 
-var file_chain_gateway_v1_coin_usedfor_usedfor_proto_msgTypes = make([]protoimpl.MessageInfo, 6)
-var file_chain_gateway_v1_coin_usedfor_usedfor_proto_goTypes = []interface{}{
-	(*CreateCoinUsedForRequest)(nil),  // 0: chain.gateway.coin.usedfor.v1.CreateCoinUsedForRequest
-	(*CreateCoinUsedForResponse)(nil), // 1: chain.gateway.coin.usedfor.v1.CreateCoinUsedForResponse
-	(*GetCoinUsedForsRequest)(nil),    // 2: chain.gateway.coin.usedfor.v1.GetCoinUsedForsRequest
-	(*GetCoinUsedForsResponse)(nil),   // 3: chain.gateway.coin.usedfor.v1.GetCoinUsedForsResponse
-	(*DeleteCoinUsedForRequest)(nil),  // 4: chain.gateway.coin.usedfor.v1.DeleteCoinUsedForRequest
-	(*DeleteCoinUsedForResponse)(nil), // 5: chain.gateway.coin.usedfor.v1.DeleteCoinUsedForResponse
-	(v1.CoinUsedFor)(0),               // 6: basetypes.chain.v1.CoinUsedFor
-	(*usedfor.CoinUsedFor)(nil),       // 7: chain.middleware.coin.usedfor.v1.CoinUsedFor
-}
+var (
+	file_chain_gateway_v1_coin_usedfor_usedfor_proto_msgTypes = make([]protoimpl.MessageInfo, 6)
+	file_chain_gateway_v1_coin_usedfor_usedfor_proto_goTypes  = []interface{}{
+		(*CreateCoinUsedForRequest)(nil),  // 0: chain.gateway.coin.usedfor.v1.CreateCoinUsedForRequest
+		(*CreateCoinUsedForResponse)(nil), // 1: chain.gateway.coin.usedfor.v1.CreateCoinUsedForResponse
+		(*GetCoinUsedForsRequest)(nil),    // 2: chain.gateway.coin.usedfor.v1.GetCoinUsedForsRequest
+		(*GetCoinUsedForsResponse)(nil),   // 3: chain.gateway.coin.usedfor.v1.GetCoinUsedForsResponse
+		(*DeleteCoinUsedForRequest)(nil),  // 4: chain.gateway.coin.usedfor.v1.DeleteCoinUsedForRequest
+		(*DeleteCoinUsedForResponse)(nil), // 5: chain.gateway.coin.usedfor.v1.DeleteCoinUsedForResponse
+		(v1.CoinUsedFor)(0),               // 6: basetypes.chain.v1.CoinUsedFor
+		(*usedfor.CoinUsedFor)(nil),       // 7: chain.middleware.coin.usedfor.v1.CoinUsedFor
+	}
+)
 var file_chain_gateway_v1_coin_usedfor_usedfor_proto_depIdxs = []int32{
 	6, // 0: chain.gateway.coin.usedfor.v1.CreateCoinUsedForRequest.UsedFor:type_name -> basetypes.chain.v1.CoinUsedFor
 	7, // 1: chain.gateway.coin.usedfor.v1.CreateCoinUsedForResponse.Info:type_name -> chain.middleware.coin.usedfor.v1.CoinUsedFor

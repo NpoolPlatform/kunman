@@ -165,14 +165,17 @@ func (h *sqlHandler) genCreateSQL() (string, error) {
 	sql := fmt.Sprintf("insert into %v (%v) select * from (select %v) as tmp "+
 		"where not exists (select * from %v where %v and deleted_at=0)"+
 		"and exists "+
-		"(select * from good_users A left join root_users B on A.root_user_id=B.ent_id left join app_pools C on B.pool_id=C.pool_id where A.ent_id='%v' and C.app_id='%v' and A.deleted_at=0 and B.deleted_at=0 and C.deleted_at=0);",
+		"(select * from good_users A "+
+		"left join root_users B on A.root_user_id=B.ent_id "+
+		"left join app_pools C on B.pool_id=C.pool_id "+
+		"where A.ent_id='%v' and C.app_id='%v' and A.deleted_at=0 and B.deleted_at=0 and C.deleted_at=0);",
 		orderuser.Table,
 		strings.Join(keys, ","),
 		strings.Join(selectVals, ","),
 		orderuser.Table,
 		strings.Join(bondVals, " AND "),
-		h.Handler.GoodUserID.String(),
-		h.Handler.AppID.String(),
+		h.GoodUserID.String(),
+		h.AppID.String(),
 	)
 
 	return sql, nil

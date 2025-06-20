@@ -7,6 +7,9 @@
 package subscription
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/good/v1"
 	v11 "github.com/NpoolPlatform/kunman/message/basetypes/order/v1"
 	v12 "github.com/NpoolPlatform/kunman/message/basetypes/v1"
@@ -15,8 +18,6 @@ import (
 	payment "github.com/NpoolPlatform/kunman/message/order/middleware/v1/payment"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -1326,30 +1327,32 @@ func file_order_middleware_v1_subscription_subscription_proto_rawDescGZIP() []by
 	return file_order_middleware_v1_subscription_subscription_proto_rawDescData
 }
 
-var file_order_middleware_v1_subscription_subscription_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
-var file_order_middleware_v1_subscription_subscription_proto_goTypes = []interface{}{
-	(*SubscriptionOrderReq)(nil),        // 0: order.middleware.subscription.v1.SubscriptionOrderReq
-	(*SubscriptionOrder)(nil),           // 1: order.middleware.subscription.v1.SubscriptionOrder
-	(*Conds)(nil),                       // 2: order.middleware.subscription.v1.Conds
-	(v1.GoodType)(0),                    // 3: basetypes.good.v1.GoodType
-	(v11.OrderType)(0),                  // 4: basetypes.order.v1.OrderType
-	(v11.PaymentType)(0),                // 5: basetypes.order.v1.PaymentType
-	(v11.OrderCreateMethod)(0),          // 6: basetypes.order.v1.OrderCreateMethod
-	(v11.OrderState)(0),                 // 7: basetypes.order.v1.OrderState
-	(v11.PaymentState)(0),               // 8: basetypes.order.v1.PaymentState
-	(*payment.PaymentBalanceReq)(nil),   // 9: order.middleware.payment.v1.PaymentBalanceReq
-	(*payment.PaymentTransferReq)(nil),  // 10: order.middleware.payment.v1.PaymentTransferReq
-	(*payment.PaymentFiatReq)(nil),      // 11: order.middleware.payment.v1.PaymentFiatReq
-	(*coupon.OrderCouponInfo)(nil),      // 12: order.middleware.order1.coupon.v1.OrderCouponInfo
-	(*payment.PaymentBalanceInfo)(nil),  // 13: order.middleware.payment.v1.PaymentBalanceInfo
-	(*payment.PaymentTransferInfo)(nil), // 14: order.middleware.payment.v1.PaymentTransferInfo
-	(*payment.PaymentFiatInfo)(nil),     // 15: order.middleware.payment.v1.PaymentFiatInfo
-	(*v12.Uint32Val)(nil),               // 16: basetypes.v1.Uint32Val
-	(*v12.Uint32SliceVal)(nil),          // 17: basetypes.v1.Uint32SliceVal
-	(*v12.StringVal)(nil),               // 18: basetypes.v1.StringVal
-	(*v12.StringSliceVal)(nil),          // 19: basetypes.v1.StringSliceVal
-	(*v12.BoolVal)(nil),                 // 20: basetypes.v1.BoolVal
-}
+var (
+	file_order_middleware_v1_subscription_subscription_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
+	file_order_middleware_v1_subscription_subscription_proto_goTypes  = []interface{}{
+		(*SubscriptionOrderReq)(nil),        // 0: order.middleware.subscription.v1.SubscriptionOrderReq
+		(*SubscriptionOrder)(nil),           // 1: order.middleware.subscription.v1.SubscriptionOrder
+		(*Conds)(nil),                       // 2: order.middleware.subscription.v1.Conds
+		(v1.GoodType)(0),                    // 3: basetypes.good.v1.GoodType
+		(v11.OrderType)(0),                  // 4: basetypes.order.v1.OrderType
+		(v11.PaymentType)(0),                // 5: basetypes.order.v1.PaymentType
+		(v11.OrderCreateMethod)(0),          // 6: basetypes.order.v1.OrderCreateMethod
+		(v11.OrderState)(0),                 // 7: basetypes.order.v1.OrderState
+		(v11.PaymentState)(0),               // 8: basetypes.order.v1.PaymentState
+		(*payment.PaymentBalanceReq)(nil),   // 9: order.middleware.payment.v1.PaymentBalanceReq
+		(*payment.PaymentTransferReq)(nil),  // 10: order.middleware.payment.v1.PaymentTransferReq
+		(*payment.PaymentFiatReq)(nil),      // 11: order.middleware.payment.v1.PaymentFiatReq
+		(*coupon.OrderCouponInfo)(nil),      // 12: order.middleware.order1.coupon.v1.OrderCouponInfo
+		(*payment.PaymentBalanceInfo)(nil),  // 13: order.middleware.payment.v1.PaymentBalanceInfo
+		(*payment.PaymentTransferInfo)(nil), // 14: order.middleware.payment.v1.PaymentTransferInfo
+		(*payment.PaymentFiatInfo)(nil),     // 15: order.middleware.payment.v1.PaymentFiatInfo
+		(*v12.Uint32Val)(nil),               // 16: basetypes.v1.Uint32Val
+		(*v12.Uint32SliceVal)(nil),          // 17: basetypes.v1.Uint32SliceVal
+		(*v12.StringVal)(nil),               // 18: basetypes.v1.StringVal
+		(*v12.StringSliceVal)(nil),          // 19: basetypes.v1.StringSliceVal
+		(*v12.BoolVal)(nil),                 // 20: basetypes.v1.BoolVal
+	}
+)
 var file_order_middleware_v1_subscription_subscription_proto_depIdxs = []int32{
 	3,  // 0: order.middleware.subscription.v1.SubscriptionOrderReq.GoodType:type_name -> basetypes.good.v1.GoodType
 	4,  // 1: order.middleware.subscription.v1.SubscriptionOrderReq.OrderType:type_name -> basetypes.order.v1.OrderType

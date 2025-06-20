@@ -2,7 +2,6 @@ package config
 
 import (
 	"fmt"
-	"io/ioutil"
 	"os"
 	"testing"
 
@@ -38,7 +37,7 @@ func init() {
 }
 
 func TestMain(m *testing.M) {
-	err := os.MkdirAll(cfgDir, 0755) //nolint
+	err := os.MkdirAll(cfgDir, 0o755)
 	if err != nil {
 		panic(fmt.Sprintf("fail to create dir %v: %v", cfgDir, err))
 	}
@@ -69,7 +68,7 @@ func TestMain(m *testing.M) {
 		panic(fmt.Sprintf("fail to marshal service config: %v", err))
 	}
 
-	err = ioutil.WriteFile(cfgFile, []byte(config), 0755) //nolint
+	err = os.WriteFile(cfgFile, []byte(config), 0o755) //nolint
 	if err != nil {
 		panic(fmt.Sprintf("fail to write %v: %v", cfgFile, err))
 	}

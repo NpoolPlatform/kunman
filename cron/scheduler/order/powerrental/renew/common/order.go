@@ -187,7 +187,6 @@ func (h *OrderHandler) FormalizeFeeDurationSeconds() {
 	}
 }
 
-//nolint:gocognit,gocyclo
 func (h *OrderHandler) CalculateRenewDuration(ctx context.Context) error {
 	ignoredSeconds := h.OutOfGasSeconds + h.CompensateSeconds
 	h.ElectricityFeeEndAt = h.StartAt + h.ElectricityFeeSeconds + ignoredSeconds

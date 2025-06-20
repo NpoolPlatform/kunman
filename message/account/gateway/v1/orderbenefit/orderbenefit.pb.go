@@ -7,12 +7,13 @@
 package orderbenefit
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -582,15 +583,17 @@ func file_account_gateway_v1_orderbenefit_orderbenefit_proto_rawDescGZIP() []byt
 	return file_account_gateway_v1_orderbenefit_orderbenefit_proto_rawDescData
 }
 
-var file_account_gateway_v1_orderbenefit_orderbenefit_proto_msgTypes = make([]protoimpl.MessageInfo, 5)
-var file_account_gateway_v1_orderbenefit_orderbenefit_proto_goTypes = []interface{}{
-	(*Account)(nil),             // 0: account.gateway.orderbenefit.v1.Account
-	(*GetAccountRequest)(nil),   // 1: account.gateway.orderbenefit.v1.GetAccountRequest
-	(*GetAccountResponse)(nil),  // 2: account.gateway.orderbenefit.v1.GetAccountResponse
-	(*GetAccountsRequest)(nil),  // 3: account.gateway.orderbenefit.v1.GetAccountsRequest
-	(*GetAccountsResponse)(nil), // 4: account.gateway.orderbenefit.v1.GetAccountsResponse
-	(v1.AccountUsedFor)(0),      // 5: basetypes.v1.AccountUsedFor
-}
+var (
+	file_account_gateway_v1_orderbenefit_orderbenefit_proto_msgTypes = make([]protoimpl.MessageInfo, 5)
+	file_account_gateway_v1_orderbenefit_orderbenefit_proto_goTypes  = []interface{}{
+		(*Account)(nil),             // 0: account.gateway.orderbenefit.v1.Account
+		(*GetAccountRequest)(nil),   // 1: account.gateway.orderbenefit.v1.GetAccountRequest
+		(*GetAccountResponse)(nil),  // 2: account.gateway.orderbenefit.v1.GetAccountResponse
+		(*GetAccountsRequest)(nil),  // 3: account.gateway.orderbenefit.v1.GetAccountsRequest
+		(*GetAccountsResponse)(nil), // 4: account.gateway.orderbenefit.v1.GetAccountsResponse
+		(v1.AccountUsedFor)(0),      // 5: basetypes.v1.AccountUsedFor
+	}
+)
 var file_account_gateway_v1_orderbenefit_orderbenefit_proto_depIdxs = []int32{
 	5, // 0: account.gateway.orderbenefit.v1.Account.UsedFor:type_name -> basetypes.v1.AccountUsedFor
 	0, // 1: account.gateway.orderbenefit.v1.GetAccountResponse.Info:type_name -> account.gateway.orderbenefit.v1.Account

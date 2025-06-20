@@ -52,7 +52,7 @@ type baseCreateHandler struct {
 
 func (h *baseCreateHandler) checkExistEventGood(ctx context.Context) (bool, error) {
 	conds := &eventmwpb.Conds{
-		AppID:     &basetypes.StringVal{Op: cruder.EQ, Value: *h.OrderCheckHandler.AppUserCheckHandler.AppID},
+		AppID:     &basetypes.StringVal{Op: cruder.EQ, Value: *h.OrderCheckHandler.AppID},
 		EventType: &basetypes.Uint32Val{Op: cruder.EQ, Value: uint32(basetypes.UsedFor_Purchase)},
 	}
 	handler, err := eventmw.NewHandler(
@@ -168,12 +168,12 @@ func (h *baseCreateHandler) formalizeFeeAppGoodIDs() {
 		if !required.Must {
 			continue
 		}
-		h.Handler.FeeAppGoodIDs = append(h.Handler.FeeAppGoodIDs, required.RequiredAppGoodID)
+		h.FeeAppGoodIDs = append(h.FeeAppGoodIDs, required.RequiredAppGoodID)
 	}
 }
 
 func (h *baseCreateHandler) getAppFees(ctx context.Context) (err error) {
-	h.appFees, err = ordergwcommon.GetAppFees(ctx, h.Handler.FeeAppGoodIDs)
+	h.appFees, err = ordergwcommon.GetAppFees(ctx, h.FeeAppGoodIDs)
 	return wlog.WrapError(err)
 }
 
@@ -272,7 +272,7 @@ func (h *baseCreateHandler) validateOrderUnits(ctx context.Context) error {
 	conds := &powerrentalordermwpb.Conds{
 		AppID:      &basetypes.StringVal{Op: cruder.EQ, Value: *h.AppGoodCheckHandler.AppID},
 		UserID:     &basetypes.StringVal{Op: cruder.EQ, Value: *h.AppGoodCheckHandler.UserID},
-		AppGoodID:  &basetypes.StringVal{Op: cruder.EQ, Value: *h.AppGoodCheckHandler.AppGoodID},
+		AppGoodID:  &basetypes.StringVal{Op: cruder.EQ, Value: *h.AppGoodID},
 		OrderType:  &basetypes.Uint32Val{Op: cruder.EQ, Value: uint32(types.OrderType_Normal)},
 		OrderState: &basetypes.Uint32Val{Op: cruder.NEQ, Value: uint32(types.OrderState_OrderStateCanceled)},
 		Simulate:   &basetypes.BoolVal{Op: cruder.EQ, Value: false},
@@ -308,25 +308,25 @@ func (h *baseCreateHandler) calculateFeeOrderValueUSD(appGoodID string) (value d
 	if err != nil {
 		return value, wlog.WrapError(err)
 	}
-	quantityUnits := *h.Handler.Units
-	if h.Handler.FeeDurationSeconds == nil {
+	quantityUnits := *h.Units
+	if h.FeeDurationSeconds == nil {
 		if !h.appPowerRental.PackageWithRequireds {
 			return decimal.NewFromInt(0), wlog.Errorf("invalid feedurationseconds")
 		}
-		h.Handler.FeeDurationSeconds = h.Handler.DurationSeconds
+		h.FeeDurationSeconds = h.Handler.DurationSeconds
 	}
 	durationUnits, _ := ordergwcommon.GoodDurationDisplayType2Unit(
-		appFee.DurationDisplayType, *h.Handler.FeeDurationSeconds,
+		appFee.DurationDisplayType, *h.FeeDurationSeconds,
 	)
-	*h.Handler.FeeDurationSeconds = ordergwcommon.GoodDurationDisplayType2Seconds(appFee.DurationDisplayType) * durationUnits
+	*h.FeeDurationSeconds = ordergwcommon.GoodDurationDisplayType2Seconds(appFee.DurationDisplayType) * durationUnits
 	return unitValue.Mul(quantityUnits).Mul(decimal.NewFromInt(int64(durationUnits))), nil
 }
 
 func (h *baseCreateHandler) checkEnableSimulateOrder() error {
-	if h.OrderOpHandler.Simulate && h.OrderConfig != nil && !h.OrderConfig.EnableSimulateOrder {
+	if h.Simulate && h.OrderConfig != nil && !h.OrderConfig.EnableSimulateOrder {
 		return wlog.Errorf("permission denied")
 	}
-	if h.OrderOpHandler.Simulate && h.appPowerRental.StockMode == goodtypes.GoodStockMode_GoodStockByMiningPool {
+	if h.Simulate && h.appPowerRental.StockMode == goodtypes.GoodStockMode_GoodStockByMiningPool {
 		return wlog.Errorf("disable simulate order of good is goodstockbyminingpool")
 	}
 	return nil
@@ -337,7 +337,7 @@ func (h *baseCreateHandler) calculatePowerRentalOrderValueUSD() (value decimal.D
 	if err != nil {
 		return value, wlog.WrapError(err)
 	}
-	quantityUnits := *h.Handler.Units
+	quantityUnits := *h.Units
 	if h.appPowerRental.FixedDuration {
 		return unitValue.Mul(quantityUnits), nil
 	}
@@ -385,8 +385,8 @@ func (h *baseCreateHandler) constructFeeOrderReq(appGoodID string) error {
 	}
 	req := &feeordermwpb.FeeOrderReq{
 		EntID:        func() *string { s := uuid.NewString(); return &s }(),
-		AppID:        h.Handler.OrderCheckHandler.AppID,
-		UserID:       h.Handler.OrderCheckHandler.UserID,
+		AppID:        h.OrderCheckHandler.AppID,
+		UserID:       h.OrderCheckHandler.UserID,
 		GoodID:       &appFee.GoodID,
 		GoodType:     &appFee.GoodType,
 		AppGoodID:    &appFee.AppGoodID,
@@ -409,7 +409,7 @@ func (h *baseCreateHandler) constructFeeOrderReq(appGoodID string) error {
 			if h.appPowerRental.PackageWithRequireds {
 				return h.Handler.DurationSeconds
 			} else {
-				return h.Handler.FeeDurationSeconds
+				return h.FeeDurationSeconds
 			}
 		}(),
 		PaymentID: h.PaymentID,
@@ -487,8 +487,8 @@ func (h *baseCreateHandler) constructPowerRentalOrderReq() error {
 	h.appGoodStockLockID = func() *string { s := uuid.NewString(); return &s }()
 	req := &powerrentalordermwpb.PowerRentalOrderReq{
 		EntID:        func() *string { s := uuid.NewString(); return &s }(),
-		AppID:        h.Handler.OrderCheckHandler.AppID,
-		UserID:       h.Handler.OrderCheckHandler.UserID,
+		AppID:        h.OrderCheckHandler.AppID,
+		UserID:       h.OrderCheckHandler.UserID,
 		GoodID:       &h.appPowerRental.GoodID,
 		GoodType:     &h.appPowerRental.GoodType,
 		AppGoodID:    &h.appPowerRental.AppGoodID,
@@ -498,13 +498,13 @@ func (h *baseCreateHandler) constructPowerRentalOrderReq() error {
 		Simulate:     h.Handler.Simulate,
 
 		AppGoodStockID:    h.AppGoodStockID,
-		Units:             func() *string { s := h.Handler.Units.String(); return &s }(),
+		Units:             func() *string { s := h.Units.String(); return &s }(),
 		GoodValueUSD:      func() *string { s := goodValueUSD.String(); return &s }(),
 		PaymentAmountUSD:  func() *string { s := h.PaymentAmountUSD.String(); return &s }(),
 		DiscountAmountUSD: func() *string { s := h.DeductAmountUSD.String(); return &s }(),
 		PromotionID:       promotionID,
 		DurationSeconds:   h.Handler.DurationSeconds,
-		InvestmentType:    h.Handler.InvestmentType,
+		InvestmentType:    h.InvestmentType,
 		GoodStockMode:     &h.appPowerRental.StockMode,
 
 		StartMode: &h.orderStartMode,
@@ -555,8 +555,8 @@ func (h *baseCreateHandler) formalizeOrderBenefitReqs(ctx context.Context) error
 func (h *baseCreateHandler) formalizeOrderBenefitReq(ctx context.Context, req *powerrentalpb.OrderBenefitAccountReq) (err error) {
 	if req.AccountID != nil {
 		conds := &orderbenefitmwpb.Conds{
-			AppID:     &basetypes.StringVal{Op: cruder.EQ, Value: *h.Handler.OrderCheckHandler.AppID},
-			UserID:    &basetypes.StringVal{Op: cruder.EQ, Value: *h.Handler.OrderCheckHandler.UserID},
+			AppID:     &basetypes.StringVal{Op: cruder.EQ, Value: *h.OrderCheckHandler.AppID},
+			UserID:    &basetypes.StringVal{Op: cruder.EQ, Value: *h.OrderCheckHandler.UserID},
 			AccountID: &basetypes.StringVal{Op: cruder.EQ, Value: *req.AccountID},
 		}
 		handler, err := orderbenefitmw.NewHandler(
@@ -599,8 +599,8 @@ func (h *baseCreateHandler) formalizeOrderBenefitReq(ctx context.Context, req *p
 
 	conds := &orderbenefitmwpb.Conds{
 		CoinTypeID: &basetypes.StringVal{Op: cruder.EQ, Value: *req.CoinTypeID},
-		AppID:      &basetypes.StringVal{Op: cruder.EQ, Value: *h.Handler.OrderCheckHandler.AppID},
-		UserID:     &basetypes.StringVal{Op: cruder.EQ, Value: *h.Handler.OrderCheckHandler.UserID},
+		AppID:      &basetypes.StringVal{Op: cruder.EQ, Value: *h.OrderCheckHandler.AppID},
+		UserID:     &basetypes.StringVal{Op: cruder.EQ, Value: *h.OrderCheckHandler.UserID},
 		Address:    &basetypes.StringVal{Op: cruder.EQ, Value: *req.Address},
 	}
 	handler, err := orderbenefitmw.NewHandler(
@@ -609,6 +609,9 @@ func (h *baseCreateHandler) formalizeOrderBenefitReq(ctx context.Context, req *p
 		orderbenefitmw.WithOffset(0),
 		orderbenefitmw.WithLimit(1),
 	)
+	if err != nil {
+		return wlog.WrapError(err)
+	}
 
 	historyAccounts, _, err := handler.GetAccounts(ctx)
 	if err != nil {
@@ -666,8 +669,8 @@ func (h *baseCreateHandler) constructOrderBenefitReqs() {
 	for _, req := range h.OrderBenefitAccounts {
 		_req := orderbenefitmwpb.AccountReq{
 			EntID:      func() *string { id := uuid.NewString(); return &id }(),
-			AppID:      h.Handler.OrderCheckHandler.AppID,
-			UserID:     h.Handler.OrderCheckHandler.UserID,
+			AppID:      h.OrderCheckHandler.AppID,
+			UserID:     h.OrderCheckHandler.UserID,
 			AccountID:  req.AccountID,
 			CoinTypeID: req.CoinTypeID,
 			Address:    req.Address,
@@ -691,7 +694,6 @@ func (h *baseCreateHandler) withCreateOrderBenefits(ctx context.Context) error {
 }
 
 func (h *baseCreateHandler) notifyCouponUsed() {
-
 }
 
 func (h *baseCreateHandler) withCreatePowerRentalOrderWithFees(ctx context.Context) error {
@@ -760,7 +762,7 @@ func (h *baseCreateHandler) withLockStock(ctx context.Context) error {
 }
 
 func (h *baseCreateHandler) createPowerRentalOrder(ctx context.Context) error {
-	if !h.OrderOpHandler.Simulate {
+	if !h.Simulate {
 		if h.AppGoodStockID == nil {
 			return wlog.Errorf("invalid appgoodstockid")
 		}

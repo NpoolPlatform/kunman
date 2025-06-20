@@ -7,12 +7,13 @@
 package subscription
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/good/v1"
 	v11 "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -518,18 +519,20 @@ func file_good_middleware_v1_subscription_subscription_proto_rawDescGZIP() []byt
 	return file_good_middleware_v1_subscription_subscription_proto_rawDescData
 }
 
-var file_good_middleware_v1_subscription_subscription_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
-var file_good_middleware_v1_subscription_subscription_proto_goTypes = []interface{}{
-	(*SubscriptionReq)(nil),    // 0: good.middleware.subscription.v1.SubscriptionReq
-	(*Subscription)(nil),       // 1: good.middleware.subscription.v1.Subscription
-	(*Conds)(nil),              // 2: good.middleware.subscription.v1.Conds
-	(v1.GoodType)(0),           // 3: basetypes.good.v1.GoodType
-	(v1.GoodDurationType)(0),   // 4: basetypes.good.v1.GoodDurationType
-	(*v11.Uint32Val)(nil),      // 5: basetypes.v1.Uint32Val
-	(*v11.Uint32SliceVal)(nil), // 6: basetypes.v1.Uint32SliceVal
-	(*v11.StringVal)(nil),      // 7: basetypes.v1.StringVal
-	(*v11.StringSliceVal)(nil), // 8: basetypes.v1.StringSliceVal
-}
+var (
+	file_good_middleware_v1_subscription_subscription_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
+	file_good_middleware_v1_subscription_subscription_proto_goTypes  = []interface{}{
+		(*SubscriptionReq)(nil),    // 0: good.middleware.subscription.v1.SubscriptionReq
+		(*Subscription)(nil),       // 1: good.middleware.subscription.v1.Subscription
+		(*Conds)(nil),              // 2: good.middleware.subscription.v1.Conds
+		(v1.GoodType)(0),           // 3: basetypes.good.v1.GoodType
+		(v1.GoodDurationType)(0),   // 4: basetypes.good.v1.GoodDurationType
+		(*v11.Uint32Val)(nil),      // 5: basetypes.v1.Uint32Val
+		(*v11.Uint32SliceVal)(nil), // 6: basetypes.v1.Uint32SliceVal
+		(*v11.StringVal)(nil),      // 7: basetypes.v1.StringVal
+		(*v11.StringSliceVal)(nil), // 8: basetypes.v1.StringSliceVal
+	}
+)
 var file_good_middleware_v1_subscription_subscription_proto_depIdxs = []int32{
 	3,  // 0: good.middleware.subscription.v1.SubscriptionReq.GoodType:type_name -> basetypes.good.v1.GoodType
 	4,  // 1: good.middleware.subscription.v1.SubscriptionReq.DurationDisplayType:type_name -> basetypes.good.v1.GoodDurationType

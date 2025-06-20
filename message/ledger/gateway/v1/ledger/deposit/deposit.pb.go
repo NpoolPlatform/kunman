@@ -7,12 +7,13 @@
 package deposit
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	statement "github.com/NpoolPlatform/kunman/message/ledger/gateway/v1/ledger/statement"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -221,12 +222,14 @@ func file_ledger_gateway_v1_ledger_deposit_deposit_proto_rawDescGZIP() []byte {
 	return file_ledger_gateway_v1_ledger_deposit_deposit_proto_rawDescData
 }
 
-var file_ledger_gateway_v1_ledger_deposit_deposit_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
-var file_ledger_gateway_v1_ledger_deposit_deposit_proto_goTypes = []interface{}{
-	(*CreateAppUserDepositRequest)(nil),  // 0: ledger.gateway.ledger.deposit.v1.CreateAppUserDepositRequest
-	(*CreateAppUserDepositResponse)(nil), // 1: ledger.gateway.ledger.deposit.v1.CreateAppUserDepositResponse
-	(*statement.Statement)(nil),          // 2: ledger.gateway.ledger.statement.v1.Statement
-}
+var (
+	file_ledger_gateway_v1_ledger_deposit_deposit_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
+	file_ledger_gateway_v1_ledger_deposit_deposit_proto_goTypes  = []interface{}{
+		(*CreateAppUserDepositRequest)(nil),  // 0: ledger.gateway.ledger.deposit.v1.CreateAppUserDepositRequest
+		(*CreateAppUserDepositResponse)(nil), // 1: ledger.gateway.ledger.deposit.v1.CreateAppUserDepositResponse
+		(*statement.Statement)(nil),          // 2: ledger.gateway.ledger.statement.v1.Statement
+	}
+)
 var file_ledger_gateway_v1_ledger_deposit_deposit_proto_depIdxs = []int32{
 	2, // 0: ledger.gateway.ledger.deposit.v1.CreateAppUserDepositResponse.Info:type_name -> ledger.gateway.ledger.statement.v1.Statement
 	0, // 1: ledger.gateway.ledger.deposit.v1.Gateway.CreateAppUserDeposit:input_type -> ledger.gateway.ledger.deposit.v1.CreateAppUserDepositRequest

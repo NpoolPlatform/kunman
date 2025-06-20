@@ -7,11 +7,12 @@
 package allocated
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -490,14 +491,16 @@ func file_inspire_gateway_v1_credit_allocated_allocated_proto_rawDescGZIP() []by
 	return file_inspire_gateway_v1_credit_allocated_allocated_proto_rawDescData
 }
 
-var file_inspire_gateway_v1_credit_allocated_allocated_proto_msgTypes = make([]protoimpl.MessageInfo, 5)
-var file_inspire_gateway_v1_credit_allocated_allocated_proto_goTypes = []interface{}{
-	(*CreditAllocated)(nil),                  // 0: inspire.gateway.credit.allocated.v1.CreditAllocated
-	(*GetMyCreditAllocatedsRequest)(nil),     // 1: inspire.gateway.credit.allocated.v1.GetMyCreditAllocatedsRequest
-	(*GetMyCreditAllocatedsResponse)(nil),    // 2: inspire.gateway.credit.allocated.v1.GetMyCreditAllocatedsResponse
-	(*AdminGetCreditAllocatedsRequest)(nil),  // 3: inspire.gateway.credit.allocated.v1.AdminGetCreditAllocatedsRequest
-	(*AdminGetCreditAllocatedsResponse)(nil), // 4: inspire.gateway.credit.allocated.v1.AdminGetCreditAllocatedsResponse
-}
+var (
+	file_inspire_gateway_v1_credit_allocated_allocated_proto_msgTypes = make([]protoimpl.MessageInfo, 5)
+	file_inspire_gateway_v1_credit_allocated_allocated_proto_goTypes  = []interface{}{
+		(*CreditAllocated)(nil),                  // 0: inspire.gateway.credit.allocated.v1.CreditAllocated
+		(*GetMyCreditAllocatedsRequest)(nil),     // 1: inspire.gateway.credit.allocated.v1.GetMyCreditAllocatedsRequest
+		(*GetMyCreditAllocatedsResponse)(nil),    // 2: inspire.gateway.credit.allocated.v1.GetMyCreditAllocatedsResponse
+		(*AdminGetCreditAllocatedsRequest)(nil),  // 3: inspire.gateway.credit.allocated.v1.AdminGetCreditAllocatedsRequest
+		(*AdminGetCreditAllocatedsResponse)(nil), // 4: inspire.gateway.credit.allocated.v1.AdminGetCreditAllocatedsResponse
+	}
+)
 var file_inspire_gateway_v1_credit_allocated_allocated_proto_depIdxs = []int32{
 	0, // 0: inspire.gateway.credit.allocated.v1.GetMyCreditAllocatedsResponse.Infos:type_name -> inspire.gateway.credit.allocated.v1.CreditAllocated
 	0, // 1: inspire.gateway.credit.allocated.v1.AdminGetCreditAllocatedsResponse.Infos:type_name -> inspire.gateway.credit.allocated.v1.CreditAllocated

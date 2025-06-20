@@ -26,17 +26,15 @@ func init() {
 	}
 }
 
-var (
-	ret = npool.Contact{
-		AppID:          uuid.NewString(),
-		Account:        "vagrant@163.com",
-		AccountType:    basetypes.SignMethod_Email,
-		AccountTypeStr: basetypes.SignMethod_Email.String(),
-		UsedFor:        basetypes.UsedFor_Contact,
-		UsedForStr:     basetypes.UsedFor_Contact.String(),
-		Sender:         "vagrant2@163.com",
-	}
-)
+var ret = npool.Contact{
+	AppID:          uuid.NewString(),
+	Account:        "vagrant@163.com",
+	AccountType:    basetypes.SignMethod_Email,
+	AccountTypeStr: basetypes.SignMethod_Email.String(),
+	UsedFor:        basetypes.UsedFor_Contact,
+	UsedForStr:     basetypes.UsedFor_Contact.String(),
+	Sender:         "vagrant2@163.com",
+}
 
 func createContact(t *testing.T) {
 	handler, err := NewHandler(

@@ -7,12 +7,13 @@
 package required
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/good/v1"
 	v11 "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -677,20 +678,22 @@ func file_good_middleware_v1_app_good_required_required_proto_rawDescGZIP() []by
 	return file_good_middleware_v1_app_good_required_required_proto_rawDescData
 }
 
-var file_good_middleware_v1_app_good_required_required_proto_msgTypes = make([]protoimpl.MessageInfo, 4)
-var file_good_middleware_v1_app_good_required_required_proto_goTypes = []interface{}{
-	(*RequiredReq)(nil),        // 0: good.middleware.app.good1.required1.v1.RequiredReq
-	(*Required)(nil),           // 1: good.middleware.app.good1.required1.v1.Required
-	(*RequiredInfo)(nil),       // 2: good.middleware.app.good1.required1.v1.RequiredInfo
-	(*Conds)(nil),              // 3: good.middleware.app.good1.required1.v1.Conds
-	(v1.GoodType)(0),           // 4: basetypes.good.v1.GoodType
-	(v1.GoodSettlementType)(0), // 5: basetypes.good.v1.GoodSettlementType
-	(*v11.Uint32Val)(nil),      // 6: basetypes.v1.Uint32Val
-	(*v11.StringVal)(nil),      // 7: basetypes.v1.StringVal
-	(*v11.StringSliceVal)(nil), // 8: basetypes.v1.StringSliceVal
-	(*v11.BoolVal)(nil),        // 9: basetypes.v1.BoolVal
-	(*v11.Uint32SliceVal)(nil), // 10: basetypes.v1.Uint32SliceVal
-}
+var (
+	file_good_middleware_v1_app_good_required_required_proto_msgTypes = make([]protoimpl.MessageInfo, 4)
+	file_good_middleware_v1_app_good_required_required_proto_goTypes  = []interface{}{
+		(*RequiredReq)(nil),        // 0: good.middleware.app.good1.required1.v1.RequiredReq
+		(*Required)(nil),           // 1: good.middleware.app.good1.required1.v1.Required
+		(*RequiredInfo)(nil),       // 2: good.middleware.app.good1.required1.v1.RequiredInfo
+		(*Conds)(nil),              // 3: good.middleware.app.good1.required1.v1.Conds
+		(v1.GoodType)(0),           // 4: basetypes.good.v1.GoodType
+		(v1.GoodSettlementType)(0), // 5: basetypes.good.v1.GoodSettlementType
+		(*v11.Uint32Val)(nil),      // 6: basetypes.v1.Uint32Val
+		(*v11.StringVal)(nil),      // 7: basetypes.v1.StringVal
+		(*v11.StringSliceVal)(nil), // 8: basetypes.v1.StringSliceVal
+		(*v11.BoolVal)(nil),        // 9: basetypes.v1.BoolVal
+		(*v11.Uint32SliceVal)(nil), // 10: basetypes.v1.Uint32SliceVal
+	}
+)
 var file_good_middleware_v1_app_good_required_required_proto_depIdxs = []int32{
 	4,  // 0: good.middleware.app.good1.required1.v1.RequiredInfo.RequiredGoodType:type_name -> basetypes.good.v1.GoodType
 	5,  // 1: good.middleware.app.good1.required1.v1.RequiredInfo.RequiredGoodSettlementType:type_name -> basetypes.good.v1.GoodSettlementType

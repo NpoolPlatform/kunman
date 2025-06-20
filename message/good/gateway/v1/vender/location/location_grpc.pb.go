@@ -8,6 +8,7 @@ package location
 
 import (
 	context "context"
+
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -91,18 +92,20 @@ type GatewayServer interface {
 }
 
 // UnimplementedGatewayServer must be embedded to have forward compatible implementations.
-type UnimplementedGatewayServer struct {
-}
+type UnimplementedGatewayServer struct{}
 
 func (UnimplementedGatewayServer) AdminCreateLocation(context.Context, *AdminCreateLocationRequest) (*AdminCreateLocationResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AdminCreateLocation not implemented")
 }
+
 func (UnimplementedGatewayServer) AdminUpdateLocation(context.Context, *AdminUpdateLocationRequest) (*AdminUpdateLocationResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AdminUpdateLocation not implemented")
 }
+
 func (UnimplementedGatewayServer) GetLocations(context.Context, *GetLocationsRequest) (*GetLocationsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetLocations not implemented")
 }
+
 func (UnimplementedGatewayServer) AdminDeleteLocation(context.Context, *AdminDeleteLocationRequest) (*AdminDeleteLocationResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AdminDeleteLocation not implemented")
 }

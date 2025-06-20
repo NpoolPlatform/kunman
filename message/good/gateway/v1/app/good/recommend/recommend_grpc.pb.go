@@ -8,6 +8,7 @@ package recommend
 
 import (
 	context "context"
+
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -139,30 +140,36 @@ type GatewayServer interface {
 }
 
 // UnimplementedGatewayServer must be embedded to have forward compatible implementations.
-type UnimplementedGatewayServer struct {
-}
+type UnimplementedGatewayServer struct{}
 
 func (UnimplementedGatewayServer) CreateRecommend(context.Context, *CreateRecommendRequest) (*CreateRecommendResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateRecommend not implemented")
 }
+
 func (UnimplementedGatewayServer) UpdateRecommend(context.Context, *UpdateRecommendRequest) (*UpdateRecommendResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateRecommend not implemented")
 }
+
 func (UnimplementedGatewayServer) GetMyRecommends(context.Context, *GetMyRecommendsRequest) (*GetMyRecommendsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetMyRecommends not implemented")
 }
+
 func (UnimplementedGatewayServer) GetRecommends(context.Context, *GetRecommendsRequest) (*GetRecommendsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetRecommends not implemented")
 }
+
 func (UnimplementedGatewayServer) DeleteRecommend(context.Context, *DeleteRecommendRequest) (*DeleteRecommendResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteRecommend not implemented")
 }
+
 func (UnimplementedGatewayServer) UpdateUserRecommend(context.Context, *UpdateUserRecommendRequest) (*UpdateUserRecommendResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateUserRecommend not implemented")
 }
+
 func (UnimplementedGatewayServer) AdminUpdateRecommend(context.Context, *AdminUpdateRecommendRequest) (*AdminUpdateRecommendResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AdminUpdateRecommend not implemented")
 }
+
 func (UnimplementedGatewayServer) AdminGetRecommends(context.Context, *AdminGetRecommendsRequest) (*AdminGetRecommendsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AdminGetRecommends not implemented")
 }

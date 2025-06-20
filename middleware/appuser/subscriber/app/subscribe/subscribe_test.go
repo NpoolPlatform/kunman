@@ -13,8 +13,8 @@ import (
 	"github.com/google/uuid"
 	"github.com/stretchr/testify/assert"
 
-	"github.com/NpoolPlatform/kunman/middleware/appuser/testinit"
 	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
+	"github.com/NpoolPlatform/kunman/middleware/appuser/testinit"
 
 	app "github.com/NpoolPlatform/kunman/middleware/appuser/app"
 )
@@ -28,13 +28,11 @@ func init() {
 	}
 }
 
-var (
-	ret = npool.AppSubscribe{
-		EntID:          uuid.NewString(),
-		AppID:          uuid.NewString(),
-		SubscribeAppID: uuid.NewString(),
-	}
-)
+var ret = npool.AppSubscribe{
+	EntID:          uuid.NewString(),
+	AppID:          uuid.NewString(),
+	SubscribeAppID: uuid.NewString(),
+}
 
 func setupAppSubscribe(t *testing.T) func(*testing.T) {
 	createdBy := uuid.NewString()

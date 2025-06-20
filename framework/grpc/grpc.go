@@ -186,7 +186,7 @@ func RunGRPCGateWay(serviceRegister func(mux *runtime.ServeMux, endpoint string,
 
 	// consul health check
 	if err := mux.HandlePath(http.MethodGet, "/healthz", func(w http.ResponseWriter, r *http.Request, pathParams map[string]string) {
-		w.Write([]byte("PONG")) // nolint
+		_, _ = w.Write([]byte("PONG"))
 	}); err != nil {
 		return xerrors.Errorf("fail to healthz check: %v", err)
 	}
@@ -267,7 +267,7 @@ func GetGRPCConn(service string, tags ...string) (*grpc.ClientConn, error) {
 	return GetGRPCConnV1(service, 4*1024*1024, tags...)
 }
 
-type GRPCHandler func(context.Context, *grpc.ClientConn) (interface{}, error) //nolint
+type GRPCHandler func(context.Context, *grpc.ClientConn) (interface{}, error)
 
 func WithGRPCConnV1(ctx context.Context, service string, timeout time.Duration, recvMsgBytes int, handler GRPCHandler, tags ...string) (interface{}, error) {
 	conn, err := GetGRPCConnV1(service, recvMsgBytes, tags...)

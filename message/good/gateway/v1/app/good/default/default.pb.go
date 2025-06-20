@@ -7,11 +7,12 @@
 package _default
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -1343,26 +1344,28 @@ func file_good_gateway_v1_app_good_default_default_proto_rawDescGZIP() []byte {
 	return file_good_gateway_v1_app_good_default_default_proto_rawDescData
 }
 
-var file_good_gateway_v1_app_good_default_default_proto_msgTypes = make([]protoimpl.MessageInfo, 17)
-var file_good_gateway_v1_app_good_default_default_proto_goTypes = []interface{}{
-	(*Default)(nil),                    // 0: good.gateway.app.good1.default1.v1.Default
-	(*CreateDefaultRequest)(nil),       // 1: good.gateway.app.good1.default1.v1.CreateDefaultRequest
-	(*CreateDefaultResponse)(nil),      // 2: good.gateway.app.good1.default1.v1.CreateDefaultResponse
-	(*GetDefaultsRequest)(nil),         // 3: good.gateway.app.good1.default1.v1.GetDefaultsRequest
-	(*GetDefaultsResponse)(nil),        // 4: good.gateway.app.good1.default1.v1.GetDefaultsResponse
-	(*DeleteDefaultRequest)(nil),       // 5: good.gateway.app.good1.default1.v1.DeleteDefaultRequest
-	(*DeleteDefaultResponse)(nil),      // 6: good.gateway.app.good1.default1.v1.DeleteDefaultResponse
-	(*UpdateDefaultRequest)(nil),       // 7: good.gateway.app.good1.default1.v1.UpdateDefaultRequest
-	(*UpdateDefaultResponse)(nil),      // 8: good.gateway.app.good1.default1.v1.UpdateDefaultResponse
-	(*AdminCreateDefaultRequest)(nil),  // 9: good.gateway.app.good1.default1.v1.AdminCreateDefaultRequest
-	(*AdminCreateDefaultResponse)(nil), // 10: good.gateway.app.good1.default1.v1.AdminCreateDefaultResponse
-	(*AdminGetDefaultsRequest)(nil),    // 11: good.gateway.app.good1.default1.v1.AdminGetDefaultsRequest
-	(*AdminGetDefaultsResponse)(nil),   // 12: good.gateway.app.good1.default1.v1.AdminGetDefaultsResponse
-	(*AdminDeleteDefaultRequest)(nil),  // 13: good.gateway.app.good1.default1.v1.AdminDeleteDefaultRequest
-	(*AdminDeleteDefaultResponse)(nil), // 14: good.gateway.app.good1.default1.v1.AdminDeleteDefaultResponse
-	(*AdminUpdateDefaultRequest)(nil),  // 15: good.gateway.app.good1.default1.v1.AdminUpdateDefaultRequest
-	(*AdminUpdateDefaultResponse)(nil), // 16: good.gateway.app.good1.default1.v1.AdminUpdateDefaultResponse
-}
+var (
+	file_good_gateway_v1_app_good_default_default_proto_msgTypes = make([]protoimpl.MessageInfo, 17)
+	file_good_gateway_v1_app_good_default_default_proto_goTypes  = []interface{}{
+		(*Default)(nil),                    // 0: good.gateway.app.good1.default1.v1.Default
+		(*CreateDefaultRequest)(nil),       // 1: good.gateway.app.good1.default1.v1.CreateDefaultRequest
+		(*CreateDefaultResponse)(nil),      // 2: good.gateway.app.good1.default1.v1.CreateDefaultResponse
+		(*GetDefaultsRequest)(nil),         // 3: good.gateway.app.good1.default1.v1.GetDefaultsRequest
+		(*GetDefaultsResponse)(nil),        // 4: good.gateway.app.good1.default1.v1.GetDefaultsResponse
+		(*DeleteDefaultRequest)(nil),       // 5: good.gateway.app.good1.default1.v1.DeleteDefaultRequest
+		(*DeleteDefaultResponse)(nil),      // 6: good.gateway.app.good1.default1.v1.DeleteDefaultResponse
+		(*UpdateDefaultRequest)(nil),       // 7: good.gateway.app.good1.default1.v1.UpdateDefaultRequest
+		(*UpdateDefaultResponse)(nil),      // 8: good.gateway.app.good1.default1.v1.UpdateDefaultResponse
+		(*AdminCreateDefaultRequest)(nil),  // 9: good.gateway.app.good1.default1.v1.AdminCreateDefaultRequest
+		(*AdminCreateDefaultResponse)(nil), // 10: good.gateway.app.good1.default1.v1.AdminCreateDefaultResponse
+		(*AdminGetDefaultsRequest)(nil),    // 11: good.gateway.app.good1.default1.v1.AdminGetDefaultsRequest
+		(*AdminGetDefaultsResponse)(nil),   // 12: good.gateway.app.good1.default1.v1.AdminGetDefaultsResponse
+		(*AdminDeleteDefaultRequest)(nil),  // 13: good.gateway.app.good1.default1.v1.AdminDeleteDefaultRequest
+		(*AdminDeleteDefaultResponse)(nil), // 14: good.gateway.app.good1.default1.v1.AdminDeleteDefaultResponse
+		(*AdminUpdateDefaultRequest)(nil),  // 15: good.gateway.app.good1.default1.v1.AdminUpdateDefaultRequest
+		(*AdminUpdateDefaultResponse)(nil), // 16: good.gateway.app.good1.default1.v1.AdminUpdateDefaultResponse
+	}
+)
 var file_good_gateway_v1_app_good_default_default_proto_depIdxs = []int32{
 	0,  // 0: good.gateway.app.good1.default1.v1.CreateDefaultResponse.Info:type_name -> good.gateway.app.good1.default1.v1.Default
 	0,  // 1: good.gateway.app.good1.default1.v1.GetDefaultsResponse.Infos:type_name -> good.gateway.app.good1.default1.v1.Default

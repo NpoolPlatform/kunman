@@ -7,11 +7,12 @@
 package api
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -669,19 +670,21 @@ func file_basal_middleware_v1_api_api_proto_rawDescGZIP() []byte {
 	return file_basal_middleware_v1_api_api_proto_rawDescData
 }
 
-var file_basal_middleware_v1_api_api_proto_enumTypes = make([]protoimpl.EnumInfo, 2)
-var file_basal_middleware_v1_api_api_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
-var file_basal_middleware_v1_api_api_proto_goTypes = []interface{}{
-	(Protocol)(0),             // 0: basal.middleware.api.v1.Protocol
-	(Method)(0),               // 1: basal.middleware.api.v1.Method
-	(*APIReq)(nil),            // 2: basal.middleware.api.v1.APIReq
-	(*API)(nil),               // 3: basal.middleware.api.v1.API
-	(*Conds)(nil),             // 4: basal.middleware.api.v1.Conds
-	(*v1.StringVal)(nil),      // 5: basetypes.v1.StringVal
-	(*v1.Uint32Val)(nil),      // 6: basetypes.v1.Uint32Val
-	(*v1.BoolVal)(nil),        // 7: basetypes.v1.BoolVal
-	(*v1.StringSliceVal)(nil), // 8: basetypes.v1.StringSliceVal
-}
+var (
+	file_basal_middleware_v1_api_api_proto_enumTypes = make([]protoimpl.EnumInfo, 2)
+	file_basal_middleware_v1_api_api_proto_msgTypes  = make([]protoimpl.MessageInfo, 3)
+	file_basal_middleware_v1_api_api_proto_goTypes   = []interface{}{
+		(Protocol)(0),             // 0: basal.middleware.api.v1.Protocol
+		(Method)(0),               // 1: basal.middleware.api.v1.Method
+		(*APIReq)(nil),            // 2: basal.middleware.api.v1.APIReq
+		(*API)(nil),               // 3: basal.middleware.api.v1.API
+		(*Conds)(nil),             // 4: basal.middleware.api.v1.Conds
+		(*v1.StringVal)(nil),      // 5: basetypes.v1.StringVal
+		(*v1.Uint32Val)(nil),      // 6: basetypes.v1.Uint32Val
+		(*v1.BoolVal)(nil),        // 7: basetypes.v1.BoolVal
+		(*v1.StringSliceVal)(nil), // 8: basetypes.v1.StringSliceVal
+	}
+)
 var file_basal_middleware_v1_api_api_proto_depIdxs = []int32{
 	0,  // 0: basal.middleware.api.v1.APIReq.Protocol:type_name -> basal.middleware.api.v1.Protocol
 	1,  // 1: basal.middleware.api.v1.APIReq.Method:type_name -> basal.middleware.api.v1.Method

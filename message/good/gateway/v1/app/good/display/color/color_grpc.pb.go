@@ -8,6 +8,7 @@ package color
 
 import (
 	context "context"
+
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -141,30 +142,36 @@ type GatewayServer interface {
 }
 
 // UnimplementedGatewayServer must be embedded to have forward compatible implementations.
-type UnimplementedGatewayServer struct {
-}
+type UnimplementedGatewayServer struct{}
 
 func (UnimplementedGatewayServer) CreateDisplayColor(context.Context, *CreateDisplayColorRequest) (*CreateDisplayColorResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateDisplayColor not implemented")
 }
+
 func (UnimplementedGatewayServer) UpdateDisplayColor(context.Context, *UpdateDisplayColorRequest) (*UpdateDisplayColorResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateDisplayColor not implemented")
 }
+
 func (UnimplementedGatewayServer) GetDisplayColors(context.Context, *GetDisplayColorsRequest) (*GetDisplayColorsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetDisplayColors not implemented")
 }
+
 func (UnimplementedGatewayServer) DeleteDisplayColor(context.Context, *DeleteDisplayColorRequest) (*DeleteDisplayColorResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteDisplayColor not implemented")
 }
+
 func (UnimplementedGatewayServer) AdminCreateDisplayColor(context.Context, *AdminCreateDisplayColorRequest) (*AdminCreateDisplayColorResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AdminCreateDisplayColor not implemented")
 }
+
 func (UnimplementedGatewayServer) AdminUpdateDisplayColor(context.Context, *AdminUpdateDisplayColorRequest) (*AdminUpdateDisplayColorResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AdminUpdateDisplayColor not implemented")
 }
+
 func (UnimplementedGatewayServer) AdminGetDisplayColors(context.Context, *AdminGetDisplayColorsRequest) (*AdminGetDisplayColorsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AdminGetDisplayColors not implemented")
 }
+
 func (UnimplementedGatewayServer) AdminDeleteDisplayColor(context.Context, *AdminDeleteDisplayColorRequest) (*AdminDeleteDisplayColorResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AdminDeleteDisplayColor not implemented")
 }

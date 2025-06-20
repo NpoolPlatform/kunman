@@ -7,13 +7,14 @@
 package compensate
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/good/v1"
 	v11 "github.com/NpoolPlatform/kunman/message/basetypes/order/v1"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -769,18 +770,20 @@ func file_order_gateway_v1_compensate_compensate_proto_rawDescGZIP() []byte {
 	return file_order_gateway_v1_compensate_compensate_proto_rawDescData
 }
 
-var file_order_gateway_v1_compensate_compensate_proto_msgTypes = make([]protoimpl.MessageInfo, 7)
-var file_order_gateway_v1_compensate_compensate_proto_goTypes = []interface{}{
-	(*Compensate)(nil),                  // 0: order.gateway.compensate.v1.Compensate
-	(*GetCompensatesRequest)(nil),       // 1: order.gateway.compensate.v1.GetCompensatesRequest
-	(*GetCompensatesResponse)(nil),      // 2: order.gateway.compensate.v1.GetCompensatesResponse
-	(*GetMyCompensatesRequest)(nil),     // 3: order.gateway.compensate.v1.GetMyCompensatesRequest
-	(*GetMyCompensatesResponse)(nil),    // 4: order.gateway.compensate.v1.GetMyCompensatesResponse
-	(*AdminGetCompensatesRequest)(nil),  // 5: order.gateway.compensate.v1.AdminGetCompensatesRequest
-	(*AdminGetCompensatesResponse)(nil), // 6: order.gateway.compensate.v1.AdminGetCompensatesResponse
-	(v1.GoodType)(0),                    // 7: basetypes.good.v1.GoodType
-	(v11.CompensateType)(0),             // 8: basetypes.order.v1.CompensateType
-}
+var (
+	file_order_gateway_v1_compensate_compensate_proto_msgTypes = make([]protoimpl.MessageInfo, 7)
+	file_order_gateway_v1_compensate_compensate_proto_goTypes  = []interface{}{
+		(*Compensate)(nil),                  // 0: order.gateway.compensate.v1.Compensate
+		(*GetCompensatesRequest)(nil),       // 1: order.gateway.compensate.v1.GetCompensatesRequest
+		(*GetCompensatesResponse)(nil),      // 2: order.gateway.compensate.v1.GetCompensatesResponse
+		(*GetMyCompensatesRequest)(nil),     // 3: order.gateway.compensate.v1.GetMyCompensatesRequest
+		(*GetMyCompensatesResponse)(nil),    // 4: order.gateway.compensate.v1.GetMyCompensatesResponse
+		(*AdminGetCompensatesRequest)(nil),  // 5: order.gateway.compensate.v1.AdminGetCompensatesRequest
+		(*AdminGetCompensatesResponse)(nil), // 6: order.gateway.compensate.v1.AdminGetCompensatesResponse
+		(v1.GoodType)(0),                    // 7: basetypes.good.v1.GoodType
+		(v11.CompensateType)(0),             // 8: basetypes.order.v1.CompensateType
+	}
+)
 var file_order_gateway_v1_compensate_compensate_proto_depIdxs = []int32{
 	7, // 0: order.gateway.compensate.v1.Compensate.GoodType:type_name -> basetypes.good.v1.GoodType
 	8, // 1: order.gateway.compensate.v1.Compensate.CompensateType:type_name -> basetypes.order.v1.CompensateType

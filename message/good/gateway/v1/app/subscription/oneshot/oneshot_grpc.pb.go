@@ -8,6 +8,7 @@ package oneshot
 
 import (
 	context "context"
+
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -129,27 +130,32 @@ type GatewayServer interface {
 }
 
 // UnimplementedGatewayServer must be embedded to have forward compatible implementations.
-type UnimplementedGatewayServer struct {
-}
+type UnimplementedGatewayServer struct{}
 
 func (UnimplementedGatewayServer) UpdateAppOneShot(context.Context, *UpdateAppOneShotRequest) (*UpdateAppOneShotResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateAppOneShot not implemented")
 }
+
 func (UnimplementedGatewayServer) GetAppOneShot(context.Context, *GetAppOneShotRequest) (*GetAppOneShotResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetAppOneShot not implemented")
 }
+
 func (UnimplementedGatewayServer) GetAppOneShots(context.Context, *GetAppOneShotsRequest) (*GetAppOneShotsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetAppOneShots not implemented")
 }
+
 func (UnimplementedGatewayServer) AdminCreateAppOneShot(context.Context, *AdminCreateAppOneShotRequest) (*AdminCreateAppOneShotResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AdminCreateAppOneShot not implemented")
 }
+
 func (UnimplementedGatewayServer) AdminUpdateAppOneShot(context.Context, *AdminUpdateAppOneShotRequest) (*AdminUpdateAppOneShotResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AdminUpdateAppOneShot not implemented")
 }
+
 func (UnimplementedGatewayServer) AdminGetAppOneShots(context.Context, *AdminGetAppOneShotsRequest) (*AdminGetAppOneShotsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AdminGetAppOneShots not implemented")
 }
+
 func (UnimplementedGatewayServer) AdminDeleteAppOneShot(context.Context, *AdminDeleteAppOneShotRequest) (*AdminDeleteAppOneShotResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AdminDeleteAppOneShot not implemented")
 }

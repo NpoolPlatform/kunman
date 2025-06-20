@@ -8,6 +8,7 @@ package subscribe
 
 import (
 	context "context"
+
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -79,15 +80,16 @@ type GatewayServer interface {
 }
 
 // UnimplementedGatewayServer must be embedded to have forward compatible implementations.
-type UnimplementedGatewayServer struct {
-}
+type UnimplementedGatewayServer struct{}
 
 func (UnimplementedGatewayServer) CreateAppSubscribe(context.Context, *CreateAppSubscribeRequest) (*CreateAppSubscribeResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateAppSubscribe not implemented")
 }
+
 func (UnimplementedGatewayServer) GetAppSubscribes(context.Context, *GetAppSubscribesRequest) (*GetAppSubscribesResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetAppSubscribes not implemented")
 }
+
 func (UnimplementedGatewayServer) DeleteAppSubscribe(context.Context, *DeleteAppSubscribeRequest) (*DeleteAppSubscribeResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteAppSubscribe not implemented")
 }

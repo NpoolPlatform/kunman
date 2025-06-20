@@ -10,16 +10,16 @@ import (
 
 	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 
-	appconfig1 "github.com/NpoolPlatform/kunman/middleware/inspire/app/config"
 	npool "github.com/NpoolPlatform/kunman/message/inspire/middleware/v1/app/commission/config"
 	appconfigmw "github.com/NpoolPlatform/kunman/message/inspire/middleware/v1/app/config"
+	appconfig1 "github.com/NpoolPlatform/kunman/middleware/inspire/app/config"
 	"github.com/google/uuid"
 	"github.com/shopspring/decimal"
 	"github.com/stretchr/testify/assert"
 
-	"github.com/NpoolPlatform/kunman/middleware/inspire/testinit"
 	types "github.com/NpoolPlatform/kunman/message/basetypes/inspire/v1"
 	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
+	"github.com/NpoolPlatform/kunman/middleware/inspire/testinit"
 )
 
 func init() {

@@ -7,12 +7,13 @@
 package capacity
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/agi/v1"
 	v11 "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -409,17 +410,19 @@ func file_agi_middleware_v1_capacity_capacity_proto_rawDescGZIP() []byte {
 	return file_agi_middleware_v1_capacity_capacity_proto_rawDescData
 }
 
-var file_agi_middleware_v1_capacity_capacity_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
-var file_agi_middleware_v1_capacity_capacity_proto_goTypes = []interface{}{
-	(*CapacityReq)(nil),        // 0: agi.middleware.capacity.v1.CapacityReq
-	(*Capacity)(nil),           // 1: agi.middleware.capacity.v1.Capacity
-	(*Conds)(nil),              // 2: agi.middleware.capacity.v1.Conds
-	(v1.CapacityKey)(0),        // 3: basetypes.agi.v1.CapacityKey
-	(*v11.Uint32Val)(nil),      // 4: basetypes.v1.Uint32Val
-	(*v11.Uint32SliceVal)(nil), // 5: basetypes.v1.Uint32SliceVal
-	(*v11.StringVal)(nil),      // 6: basetypes.v1.StringVal
-	(*v11.StringSliceVal)(nil), // 7: basetypes.v1.StringSliceVal
-}
+var (
+	file_agi_middleware_v1_capacity_capacity_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
+	file_agi_middleware_v1_capacity_capacity_proto_goTypes  = []interface{}{
+		(*CapacityReq)(nil),        // 0: agi.middleware.capacity.v1.CapacityReq
+		(*Capacity)(nil),           // 1: agi.middleware.capacity.v1.Capacity
+		(*Conds)(nil),              // 2: agi.middleware.capacity.v1.Conds
+		(v1.CapacityKey)(0),        // 3: basetypes.agi.v1.CapacityKey
+		(*v11.Uint32Val)(nil),      // 4: basetypes.v1.Uint32Val
+		(*v11.Uint32SliceVal)(nil), // 5: basetypes.v1.Uint32SliceVal
+		(*v11.StringVal)(nil),      // 6: basetypes.v1.StringVal
+		(*v11.StringSliceVal)(nil), // 7: basetypes.v1.StringSliceVal
+	}
+)
 var file_agi_middleware_v1_capacity_capacity_proto_depIdxs = []int32{
 	3, // 0: agi.middleware.capacity.v1.CapacityReq.CapacityKey:type_name -> basetypes.agi.v1.CapacityKey
 	3, // 1: agi.middleware.capacity.v1.Capacity.CapacityKey:type_name -> basetypes.agi.v1.CapacityKey

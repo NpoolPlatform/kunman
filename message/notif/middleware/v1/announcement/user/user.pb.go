@@ -7,11 +7,12 @@
 package user
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -435,14 +436,16 @@ func file_notif_middleware_v1_announcement_user_user_proto_rawDescGZIP() []byte 
 	return file_notif_middleware_v1_announcement_user_user_proto_rawDescData
 }
 
-var file_notif_middleware_v1_announcement_user_user_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
-var file_notif_middleware_v1_announcement_user_user_proto_goTypes = []interface{}{
-	(*AnnouncementUser)(nil),    // 0: notif.middleware.announcement.user.v1.AnnouncementUser
-	(*AnnouncementUserReq)(nil), // 1: notif.middleware.announcement.user.v1.AnnouncementUserReq
-	(*Conds)(nil),               // 2: notif.middleware.announcement.user.v1.Conds
-	(*v1.Uint32Val)(nil),        // 3: basetypes.v1.Uint32Val
-	(*v1.StringVal)(nil),        // 4: basetypes.v1.StringVal
-}
+var (
+	file_notif_middleware_v1_announcement_user_user_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
+	file_notif_middleware_v1_announcement_user_user_proto_goTypes  = []interface{}{
+		(*AnnouncementUser)(nil),    // 0: notif.middleware.announcement.user.v1.AnnouncementUser
+		(*AnnouncementUserReq)(nil), // 1: notif.middleware.announcement.user.v1.AnnouncementUserReq
+		(*Conds)(nil),               // 2: notif.middleware.announcement.user.v1.Conds
+		(*v1.Uint32Val)(nil),        // 3: basetypes.v1.Uint32Val
+		(*v1.StringVal)(nil),        // 4: basetypes.v1.StringVal
+	}
+)
 var file_notif_middleware_v1_announcement_user_user_proto_depIdxs = []int32{
 	3, // 0: notif.middleware.announcement.user.v1.Conds.ID:type_name -> basetypes.v1.Uint32Val
 	4, // 1: notif.middleware.announcement.user.v1.Conds.EntID:type_name -> basetypes.v1.StringVal

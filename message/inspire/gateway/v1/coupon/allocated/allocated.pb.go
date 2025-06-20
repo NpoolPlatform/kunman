@@ -7,12 +7,13 @@
 package allocated
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/inspire/v1"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -834,19 +835,21 @@ func file_inspire_gateway_v1_coupon_allocated_allocated_proto_rawDescGZIP() []by
 	return file_inspire_gateway_v1_coupon_allocated_allocated_proto_rawDescData
 }
 
-var file_inspire_gateway_v1_coupon_allocated_allocated_proto_msgTypes = make([]protoimpl.MessageInfo, 7)
-var file_inspire_gateway_v1_coupon_allocated_allocated_proto_goTypes = []interface{}{
-	(*Coupon)(nil),                // 0: inspire.gateway.coupon.allocated.v1.Coupon
-	(*CreateCouponRequest)(nil),   // 1: inspire.gateway.coupon.allocated.v1.CreateCouponRequest
-	(*CreateCouponResponse)(nil),  // 2: inspire.gateway.coupon.allocated.v1.CreateCouponResponse
-	(*GetCouponsRequest)(nil),     // 3: inspire.gateway.coupon.allocated.v1.GetCouponsRequest
-	(*GetCouponsResponse)(nil),    // 4: inspire.gateway.coupon.allocated.v1.GetCouponsResponse
-	(*GetAppCouponsRequest)(nil),  // 5: inspire.gateway.coupon.allocated.v1.GetAppCouponsRequest
-	(*GetAppCouponsResponse)(nil), // 6: inspire.gateway.coupon.allocated.v1.GetAppCouponsResponse
-	(v1.CouponType)(0),            // 7: basetypes.inspire.v1.CouponType
-	(v1.CouponConstraint)(0),      // 8: basetypes.inspire.v1.CouponConstraint
-	(v1.CouponScope)(0),           // 9: basetypes.inspire.v1.CouponScope
-}
+var (
+	file_inspire_gateway_v1_coupon_allocated_allocated_proto_msgTypes = make([]protoimpl.MessageInfo, 7)
+	file_inspire_gateway_v1_coupon_allocated_allocated_proto_goTypes  = []interface{}{
+		(*Coupon)(nil),                // 0: inspire.gateway.coupon.allocated.v1.Coupon
+		(*CreateCouponRequest)(nil),   // 1: inspire.gateway.coupon.allocated.v1.CreateCouponRequest
+		(*CreateCouponResponse)(nil),  // 2: inspire.gateway.coupon.allocated.v1.CreateCouponResponse
+		(*GetCouponsRequest)(nil),     // 3: inspire.gateway.coupon.allocated.v1.GetCouponsRequest
+		(*GetCouponsResponse)(nil),    // 4: inspire.gateway.coupon.allocated.v1.GetCouponsResponse
+		(*GetAppCouponsRequest)(nil),  // 5: inspire.gateway.coupon.allocated.v1.GetAppCouponsRequest
+		(*GetAppCouponsResponse)(nil), // 6: inspire.gateway.coupon.allocated.v1.GetAppCouponsResponse
+		(v1.CouponType)(0),            // 7: basetypes.inspire.v1.CouponType
+		(v1.CouponConstraint)(0),      // 8: basetypes.inspire.v1.CouponConstraint
+		(v1.CouponScope)(0),           // 9: basetypes.inspire.v1.CouponScope
+	}
+)
 var file_inspire_gateway_v1_coupon_allocated_allocated_proto_depIdxs = []int32{
 	7, // 0: inspire.gateway.coupon.allocated.v1.Coupon.CouponType:type_name -> basetypes.inspire.v1.CouponType
 	8, // 1: inspire.gateway.coupon.allocated.v1.Coupon.CouponConstraint:type_name -> basetypes.inspire.v1.CouponConstraint

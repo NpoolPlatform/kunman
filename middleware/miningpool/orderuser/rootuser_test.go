@@ -4,12 +4,12 @@ import (
 	"context"
 	"testing"
 
-	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 	poolmw "github.com/NpoolPlatform/kunman/message/miningpool/middleware/v1/pool"
 	npool "github.com/NpoolPlatform/kunman/message/miningpool/middleware/v1/rootuser"
 	"github.com/NpoolPlatform/kunman/middleware/miningpool/pool"
-	"github.com/NpoolPlatform/kunman/middleware/miningpool/rootuser"
 	"github.com/NpoolPlatform/kunman/middleware/miningpool/pools"
+	"github.com/NpoolPlatform/kunman/middleware/miningpool/rootuser"
+	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 	"github.com/google/uuid"
 
 	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/miningpool/v1"

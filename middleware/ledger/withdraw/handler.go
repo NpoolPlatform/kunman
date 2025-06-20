@@ -4,11 +4,11 @@ import (
 	"context"
 	"fmt"
 
-	constant "github.com/NpoolPlatform/kunman/pkg/const"
-	crud "github.com/NpoolPlatform/kunman/middleware/ledger/crud/withdraw"
-	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/ledger/v1"
 	npool "github.com/NpoolPlatform/kunman/message/ledger/middleware/v2/withdraw"
+	crud "github.com/NpoolPlatform/kunman/middleware/ledger/crud/withdraw"
+	constant "github.com/NpoolPlatform/kunman/pkg/const"
+	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 	"github.com/google/uuid"
 	"github.com/shopspring/decimal"
 )
@@ -193,7 +193,7 @@ func WithAddress(address *string, must bool) func(context.Context, *Handler) err
 	}
 }
 
-//nolint
+// nolint
 func WithState(state *basetypes.WithdrawState, must bool) func(context.Context, *Handler) error {
 	return func(ctx context.Context, h *Handler) error {
 		if state == nil {

@@ -4,8 +4,8 @@ import (
 	"context"
 	"fmt"
 
-	powerrentalmwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/powerrental"
 	baseexecutor "github.com/NpoolPlatform/kunman/cron/scheduler/base/executor"
+	powerrentalmwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/powerrental"
 )
 
 type handler struct{}

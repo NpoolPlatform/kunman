@@ -7,6 +7,9 @@
 package delegatedstaking
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/good/v1"
 	coin "github.com/NpoolPlatform/kunman/message/good/gateway/v1/good/coin"
 	reward "github.com/NpoolPlatform/kunman/message/good/gateway/v1/good/coin/reward"
@@ -18,8 +21,6 @@ import (
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -1960,35 +1961,37 @@ func file_good_gateway_v1_app_delegatedstaking_delegatedstaking_proto_rawDescGZI
 	return file_good_gateway_v1_app_delegatedstaking_delegatedstaking_proto_rawDescData
 }
 
-var file_good_gateway_v1_app_delegatedstaking_delegatedstaking_proto_msgTypes = make([]protoimpl.MessageInfo, 15)
-var file_good_gateway_v1_app_delegatedstaking_delegatedstaking_proto_goTypes = []interface{}{
-	(*AppDelegatedStaking)(nil),                    // 0: good.gateway.app.delegatedstaking.v1.AppDelegatedStaking
-	(*UpdateAppDelegatedStakingRequest)(nil),       // 1: good.gateway.app.delegatedstaking.v1.UpdateAppDelegatedStakingRequest
-	(*UpdateAppDelegatedStakingResponse)(nil),      // 2: good.gateway.app.delegatedstaking.v1.UpdateAppDelegatedStakingResponse
-	(*GetAppDelegatedStakingRequest)(nil),          // 3: good.gateway.app.delegatedstaking.v1.GetAppDelegatedStakingRequest
-	(*GetAppDelegatedStakingResponse)(nil),         // 4: good.gateway.app.delegatedstaking.v1.GetAppDelegatedStakingResponse
-	(*GetAppDelegatedStakingsRequest)(nil),         // 5: good.gateway.app.delegatedstaking.v1.GetAppDelegatedStakingsRequest
-	(*GetAppDelegatedStakingsResponse)(nil),        // 6: good.gateway.app.delegatedstaking.v1.GetAppDelegatedStakingsResponse
-	(*AdminCreateAppDelegatedStakingRequest)(nil),  // 7: good.gateway.app.delegatedstaking.v1.AdminCreateAppDelegatedStakingRequest
-	(*AdminCreateAppDelegatedStakingResponse)(nil), // 8: good.gateway.app.delegatedstaking.v1.AdminCreateAppDelegatedStakingResponse
-	(*AdminUpdateAppDelegatedStakingRequest)(nil),  // 9: good.gateway.app.delegatedstaking.v1.AdminUpdateAppDelegatedStakingRequest
-	(*AdminUpdateAppDelegatedStakingResponse)(nil), // 10: good.gateway.app.delegatedstaking.v1.AdminUpdateAppDelegatedStakingResponse
-	(*AdminGetAppDelegatedStakingsRequest)(nil),    // 11: good.gateway.app.delegatedstaking.v1.AdminGetAppDelegatedStakingsRequest
-	(*AdminGetAppDelegatedStakingsResponse)(nil),   // 12: good.gateway.app.delegatedstaking.v1.AdminGetAppDelegatedStakingsResponse
-	(*AdminDeleteAppDelegatedStakingRequest)(nil),  // 13: good.gateway.app.delegatedstaking.v1.AdminDeleteAppDelegatedStakingRequest
-	(*AdminDeleteAppDelegatedStakingResponse)(nil), // 14: good.gateway.app.delegatedstaking.v1.AdminDeleteAppDelegatedStakingResponse
-	(v1.GoodType)(0),                    // 15: basetypes.good.v1.GoodType
-	(v1.BenefitType)(0),                 // 16: basetypes.good.v1.BenefitType
-	(v1.GoodStartMode)(0),               // 17: basetypes.good.v1.GoodStartMode
-	(v1.GoodState)(0),                   // 18: basetypes.good.v1.GoodState
-	(*coin.GoodCoinInfo)(nil),           // 19: good.gateway.good1.coin.v1.GoodCoinInfo
-	(*description.DescriptionInfo)(nil), // 20: good.middleware.app.good1.description.v1.DescriptionInfo
-	(*poster.PosterInfo)(nil),           // 21: good.middleware.app.good1.poster.v1.PosterInfo
-	(*name.DisplayNameInfo)(nil),        // 22: good.middleware.app.good1.display.name.v1.DisplayNameInfo
-	(*color.DisplayColorInfo)(nil),      // 23: good.middleware.app.good1.display.color.v1.DisplayColorInfo
-	(*label.LabelInfo)(nil),             // 24: good.middleware.app.good1.label.v1.LabelInfo
-	(*reward.RewardInfo)(nil),           // 25: good.gateway.good1.coin.reward.v1.RewardInfo
-}
+var (
+	file_good_gateway_v1_app_delegatedstaking_delegatedstaking_proto_msgTypes = make([]protoimpl.MessageInfo, 15)
+	file_good_gateway_v1_app_delegatedstaking_delegatedstaking_proto_goTypes  = []interface{}{
+		(*AppDelegatedStaking)(nil),                    // 0: good.gateway.app.delegatedstaking.v1.AppDelegatedStaking
+		(*UpdateAppDelegatedStakingRequest)(nil),       // 1: good.gateway.app.delegatedstaking.v1.UpdateAppDelegatedStakingRequest
+		(*UpdateAppDelegatedStakingResponse)(nil),      // 2: good.gateway.app.delegatedstaking.v1.UpdateAppDelegatedStakingResponse
+		(*GetAppDelegatedStakingRequest)(nil),          // 3: good.gateway.app.delegatedstaking.v1.GetAppDelegatedStakingRequest
+		(*GetAppDelegatedStakingResponse)(nil),         // 4: good.gateway.app.delegatedstaking.v1.GetAppDelegatedStakingResponse
+		(*GetAppDelegatedStakingsRequest)(nil),         // 5: good.gateway.app.delegatedstaking.v1.GetAppDelegatedStakingsRequest
+		(*GetAppDelegatedStakingsResponse)(nil),        // 6: good.gateway.app.delegatedstaking.v1.GetAppDelegatedStakingsResponse
+		(*AdminCreateAppDelegatedStakingRequest)(nil),  // 7: good.gateway.app.delegatedstaking.v1.AdminCreateAppDelegatedStakingRequest
+		(*AdminCreateAppDelegatedStakingResponse)(nil), // 8: good.gateway.app.delegatedstaking.v1.AdminCreateAppDelegatedStakingResponse
+		(*AdminUpdateAppDelegatedStakingRequest)(nil),  // 9: good.gateway.app.delegatedstaking.v1.AdminUpdateAppDelegatedStakingRequest
+		(*AdminUpdateAppDelegatedStakingResponse)(nil), // 10: good.gateway.app.delegatedstaking.v1.AdminUpdateAppDelegatedStakingResponse
+		(*AdminGetAppDelegatedStakingsRequest)(nil),    // 11: good.gateway.app.delegatedstaking.v1.AdminGetAppDelegatedStakingsRequest
+		(*AdminGetAppDelegatedStakingsResponse)(nil),   // 12: good.gateway.app.delegatedstaking.v1.AdminGetAppDelegatedStakingsResponse
+		(*AdminDeleteAppDelegatedStakingRequest)(nil),  // 13: good.gateway.app.delegatedstaking.v1.AdminDeleteAppDelegatedStakingRequest
+		(*AdminDeleteAppDelegatedStakingResponse)(nil), // 14: good.gateway.app.delegatedstaking.v1.AdminDeleteAppDelegatedStakingResponse
+		(v1.GoodType)(0),                    // 15: basetypes.good.v1.GoodType
+		(v1.BenefitType)(0),                 // 16: basetypes.good.v1.BenefitType
+		(v1.GoodStartMode)(0),               // 17: basetypes.good.v1.GoodStartMode
+		(v1.GoodState)(0),                   // 18: basetypes.good.v1.GoodState
+		(*coin.GoodCoinInfo)(nil),           // 19: good.gateway.good1.coin.v1.GoodCoinInfo
+		(*description.DescriptionInfo)(nil), // 20: good.middleware.app.good1.description.v1.DescriptionInfo
+		(*poster.PosterInfo)(nil),           // 21: good.middleware.app.good1.poster.v1.PosterInfo
+		(*name.DisplayNameInfo)(nil),        // 22: good.middleware.app.good1.display.name.v1.DisplayNameInfo
+		(*color.DisplayColorInfo)(nil),      // 23: good.middleware.app.good1.display.color.v1.DisplayColorInfo
+		(*label.LabelInfo)(nil),             // 24: good.middleware.app.good1.label.v1.LabelInfo
+		(*reward.RewardInfo)(nil),           // 25: good.gateway.good1.coin.reward.v1.RewardInfo
+	}
+)
 var file_good_gateway_v1_app_delegatedstaking_delegatedstaking_proto_depIdxs = []int32{
 	15, // 0: good.gateway.app.delegatedstaking.v1.AppDelegatedStaking.GoodType:type_name -> basetypes.good.v1.GoodType
 	16, // 1: good.gateway.app.delegatedstaking.v1.AppDelegatedStaking.BenefitType:type_name -> basetypes.good.v1.BenefitType

@@ -7,13 +7,14 @@
 package cashcontrol
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/inspire/v1"
 	cashcontrol "github.com/NpoolPlatform/kunman/message/inspire/middleware/v1/coupon/app/cashcontrol"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -771,21 +772,23 @@ func file_inspire_gateway_v1_coupon_app_cashcontrol_cashcontrol_proto_rawDescGZI
 	return file_inspire_gateway_v1_coupon_app_cashcontrol_cashcontrol_proto_rawDescData
 }
 
-var file_inspire_gateway_v1_coupon_app_cashcontrol_cashcontrol_proto_msgTypes = make([]protoimpl.MessageInfo, 10)
-var file_inspire_gateway_v1_coupon_app_cashcontrol_cashcontrol_proto_goTypes = []interface{}{
-	(*GetCashControlsRequest)(nil),     // 0: inspire.gateway.coupon.app.cashcontrol.v1.GetCashControlsRequest
-	(*GetCashControlsResponse)(nil),    // 1: inspire.gateway.coupon.app.cashcontrol.v1.GetCashControlsResponse
-	(*CreateCashControlRequest)(nil),   // 2: inspire.gateway.coupon.app.cashcontrol.v1.CreateCashControlRequest
-	(*CreateCashControlResponse)(nil),  // 3: inspire.gateway.coupon.app.cashcontrol.v1.CreateCashControlResponse
-	(*UpdateCashControlRequest)(nil),   // 4: inspire.gateway.coupon.app.cashcontrol.v1.UpdateCashControlRequest
-	(*UpdateCashControlResponse)(nil),  // 5: inspire.gateway.coupon.app.cashcontrol.v1.UpdateCashControlResponse
-	(*DeleteCashControlRequest)(nil),   // 6: inspire.gateway.coupon.app.cashcontrol.v1.DeleteCashControlRequest
-	(*DeleteCashControlResponse)(nil),  // 7: inspire.gateway.coupon.app.cashcontrol.v1.DeleteCashControlResponse
-	(*GetAppCashControlsRequest)(nil),  // 8: inspire.gateway.coupon.app.cashcontrol.v1.GetAppCashControlsRequest
-	(*GetAppCashControlsResponse)(nil), // 9: inspire.gateway.coupon.app.cashcontrol.v1.GetAppCashControlsResponse
-	(*cashcontrol.CashControl)(nil),    // 10: inspire.middleware.coupon.app.cashcontrol.v1.CashControl
-	(v1.ControlType)(0),                // 11: basetypes.inspire.v1.ControlType
-}
+var (
+	file_inspire_gateway_v1_coupon_app_cashcontrol_cashcontrol_proto_msgTypes = make([]protoimpl.MessageInfo, 10)
+	file_inspire_gateway_v1_coupon_app_cashcontrol_cashcontrol_proto_goTypes  = []interface{}{
+		(*GetCashControlsRequest)(nil),     // 0: inspire.gateway.coupon.app.cashcontrol.v1.GetCashControlsRequest
+		(*GetCashControlsResponse)(nil),    // 1: inspire.gateway.coupon.app.cashcontrol.v1.GetCashControlsResponse
+		(*CreateCashControlRequest)(nil),   // 2: inspire.gateway.coupon.app.cashcontrol.v1.CreateCashControlRequest
+		(*CreateCashControlResponse)(nil),  // 3: inspire.gateway.coupon.app.cashcontrol.v1.CreateCashControlResponse
+		(*UpdateCashControlRequest)(nil),   // 4: inspire.gateway.coupon.app.cashcontrol.v1.UpdateCashControlRequest
+		(*UpdateCashControlResponse)(nil),  // 5: inspire.gateway.coupon.app.cashcontrol.v1.UpdateCashControlResponse
+		(*DeleteCashControlRequest)(nil),   // 6: inspire.gateway.coupon.app.cashcontrol.v1.DeleteCashControlRequest
+		(*DeleteCashControlResponse)(nil),  // 7: inspire.gateway.coupon.app.cashcontrol.v1.DeleteCashControlResponse
+		(*GetAppCashControlsRequest)(nil),  // 8: inspire.gateway.coupon.app.cashcontrol.v1.GetAppCashControlsRequest
+		(*GetAppCashControlsResponse)(nil), // 9: inspire.gateway.coupon.app.cashcontrol.v1.GetAppCashControlsResponse
+		(*cashcontrol.CashControl)(nil),    // 10: inspire.middleware.coupon.app.cashcontrol.v1.CashControl
+		(v1.ControlType)(0),                // 11: basetypes.inspire.v1.ControlType
+	}
+)
 var file_inspire_gateway_v1_coupon_app_cashcontrol_cashcontrol_proto_depIdxs = []int32{
 	10, // 0: inspire.gateway.coupon.app.cashcontrol.v1.GetCashControlsResponse.Infos:type_name -> inspire.middleware.coupon.app.cashcontrol.v1.CashControl
 	11, // 1: inspire.gateway.coupon.app.cashcontrol.v1.CreateCashControlRequest.ControlType:type_name -> basetypes.inspire.v1.ControlType

@@ -12,7 +12,7 @@ import (
 	npool "github.com/NpoolPlatform/kunman/message/good/gateway/v1/app/good/comment"
 )
 
-//nolint
+// nolint
 func (s *Server) AdminUpdateComment(ctx context.Context, in *npool.AdminUpdateCommentRequest) (*npool.AdminUpdateCommentResponse, error) {
 	handler, err := comment1.NewHandler(
 		ctx,

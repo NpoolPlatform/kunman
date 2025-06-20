@@ -4,11 +4,11 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/NpoolPlatform/libent-cruder/pkg/cruder"
 	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	npool "github.com/NpoolPlatform/kunman/message/notif/middleware/v1/notif/user"
-	constant "github.com/NpoolPlatform/kunman/pkg/const"
 	usercrud "github.com/NpoolPlatform/kunman/middleware/notif/crud/notif/user"
+	constant "github.com/NpoolPlatform/kunman/pkg/const"
+	"github.com/NpoolPlatform/libent-cruder/pkg/cruder"
 
 	"github.com/google/uuid"
 )
@@ -126,7 +126,7 @@ func WithEventType(eventtype *basetypes.UsedFor, must bool) func(context.Context
 	}
 }
 
-//nolint
+// nolint
 func WithReqs(reqs []*npool.NotifUserReq, must bool) func(context.Context, *Handler) error {
 	return func(ctx context.Context, h *Handler) error {
 		_reqs := []*usercrud.Req{}

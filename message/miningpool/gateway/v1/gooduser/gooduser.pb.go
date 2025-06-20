@@ -7,12 +7,13 @@
 package gooduser
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/miningpool/v1"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -318,13 +319,15 @@ func file_miningpool_gateway_v1_gooduser_gooduser_proto_rawDescGZIP() []byte {
 	return file_miningpool_gateway_v1_gooduser_gooduser_proto_rawDescData
 }
 
-var file_miningpool_gateway_v1_gooduser_gooduser_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
-var file_miningpool_gateway_v1_gooduser_gooduser_proto_goTypes = []interface{}{
-	(*GoodUser)(nil),                  // 0: miningpool.gateway.gooduser.v1.GoodUser
-	(*AdminGetGoodUsersRequest)(nil),  // 1: miningpool.gateway.gooduser.v1.AdminGetGoodUsersRequest
-	(*AdminGetGoodUsersResponse)(nil), // 2: miningpool.gateway.gooduser.v1.AdminGetGoodUsersResponse
-	(v1.MiningPoolType)(0),            // 3: basetypes.miningpool.v1.MiningPoolType
-}
+var (
+	file_miningpool_gateway_v1_gooduser_gooduser_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
+	file_miningpool_gateway_v1_gooduser_gooduser_proto_goTypes  = []interface{}{
+		(*GoodUser)(nil),                  // 0: miningpool.gateway.gooduser.v1.GoodUser
+		(*AdminGetGoodUsersRequest)(nil),  // 1: miningpool.gateway.gooduser.v1.AdminGetGoodUsersRequest
+		(*AdminGetGoodUsersResponse)(nil), // 2: miningpool.gateway.gooduser.v1.AdminGetGoodUsersResponse
+		(v1.MiningPoolType)(0),            // 3: basetypes.miningpool.v1.MiningPoolType
+	}
+)
 var file_miningpool_gateway_v1_gooduser_gooduser_proto_depIdxs = []int32{
 	3, // 0: miningpool.gateway.gooduser.v1.GoodUser.MiningPoolType:type_name -> basetypes.miningpool.v1.MiningPoolType
 	0, // 1: miningpool.gateway.gooduser.v1.AdminGetGoodUsersResponse.Infos:type_name -> miningpool.gateway.gooduser.v1.GoodUser

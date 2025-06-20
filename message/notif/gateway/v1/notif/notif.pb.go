@@ -7,13 +7,14 @@
 package notif
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	notif "github.com/NpoolPlatform/kunman/message/notif/middleware/v1/notif"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -724,20 +725,22 @@ func file_notif_gateway_v1_notif_notif_proto_rawDescGZIP() []byte {
 	return file_notif_gateway_v1_notif_notif_proto_rawDescData
 }
 
-var file_notif_gateway_v1_notif_notif_proto_msgTypes = make([]protoimpl.MessageInfo, 7)
-var file_notif_gateway_v1_notif_notif_proto_goTypes = []interface{}{
-	(*Notif)(nil),                // 0: notif.gateway.notif3.v1.Notif
-	(*UpdateNotifsRequest)(nil),  // 1: notif.gateway.notif3.v1.UpdateNotifsRequest
-	(*UpdateNotifsResponse)(nil), // 2: notif.gateway.notif3.v1.UpdateNotifsResponse
-	(*GetNotifsRequest)(nil),     // 3: notif.gateway.notif3.v1.GetNotifsRequest
-	(*GetNotifsResponse)(nil),    // 4: notif.gateway.notif3.v1.GetNotifsResponse
-	(*GetAppNotifsRequest)(nil),  // 5: notif.gateway.notif3.v1.GetAppNotifsRequest
-	(*GetAppNotifsResponse)(nil), // 6: notif.gateway.notif3.v1.GetAppNotifsResponse
-	(v1.UsedFor)(0),              // 7: basetypes.v1.UsedFor
-	(v1.NotifChannel)(0),         // 8: basetypes.v1.NotifChannel
-	(v1.NotifType)(0),            // 9: basetypes.v1.NotifType
-	(*notif.NotifReq)(nil),       // 10: notif.middleware.notif.v1.NotifReq
-}
+var (
+	file_notif_gateway_v1_notif_notif_proto_msgTypes = make([]protoimpl.MessageInfo, 7)
+	file_notif_gateway_v1_notif_notif_proto_goTypes  = []interface{}{
+		(*Notif)(nil),                // 0: notif.gateway.notif3.v1.Notif
+		(*UpdateNotifsRequest)(nil),  // 1: notif.gateway.notif3.v1.UpdateNotifsRequest
+		(*UpdateNotifsResponse)(nil), // 2: notif.gateway.notif3.v1.UpdateNotifsResponse
+		(*GetNotifsRequest)(nil),     // 3: notif.gateway.notif3.v1.GetNotifsRequest
+		(*GetNotifsResponse)(nil),    // 4: notif.gateway.notif3.v1.GetNotifsResponse
+		(*GetAppNotifsRequest)(nil),  // 5: notif.gateway.notif3.v1.GetAppNotifsRequest
+		(*GetAppNotifsResponse)(nil), // 6: notif.gateway.notif3.v1.GetAppNotifsResponse
+		(v1.UsedFor)(0),              // 7: basetypes.v1.UsedFor
+		(v1.NotifChannel)(0),         // 8: basetypes.v1.NotifChannel
+		(v1.NotifType)(0),            // 9: basetypes.v1.NotifType
+		(*notif.NotifReq)(nil),       // 10: notif.middleware.notif.v1.NotifReq
+	}
+)
 var file_notif_gateway_v1_notif_notif_proto_depIdxs = []int32{
 	7,  // 0: notif.gateway.notif3.v1.Notif.EventType:type_name -> basetypes.v1.UsedFor
 	8,  // 1: notif.gateway.notif3.v1.Notif.Channel:type_name -> basetypes.v1.NotifChannel

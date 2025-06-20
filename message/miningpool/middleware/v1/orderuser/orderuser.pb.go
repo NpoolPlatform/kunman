@@ -7,12 +7,13 @@
 package orderuser
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/miningpool/v1"
 	v11 "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -624,17 +625,19 @@ func file_miningpool_middleware_v1_orderuser_orderuser_proto_rawDescGZIP() []byt
 	return file_miningpool_middleware_v1_orderuser_orderuser_proto_rawDescData
 }
 
-var file_miningpool_middleware_v1_orderuser_orderuser_proto_msgTypes = make([]protoimpl.MessageInfo, 4)
-var file_miningpool_middleware_v1_orderuser_orderuser_proto_goTypes = []interface{}{
-	(*OrderUserReq)(nil),       // 0: miningpool.middleware.orderuser.v1.OrderUserReq
-	(*OrderUser)(nil),          // 1: miningpool.middleware.orderuser.v1.OrderUser
-	(*Conds)(nil),              // 2: miningpool.middleware.orderuser.v1.Conds
-	(*BalanceInfo)(nil),        // 3: miningpool.middleware.orderuser.v1.BalanceInfo
-	(v1.MiningPoolType)(0),     // 4: basetypes.miningpool.v1.MiningPoolType
-	(*v11.Uint32Val)(nil),      // 5: basetypes.v1.Uint32Val
-	(*v11.StringVal)(nil),      // 6: basetypes.v1.StringVal
-	(*v11.StringSliceVal)(nil), // 7: basetypes.v1.StringSliceVal
-}
+var (
+	file_miningpool_middleware_v1_orderuser_orderuser_proto_msgTypes = make([]protoimpl.MessageInfo, 4)
+	file_miningpool_middleware_v1_orderuser_orderuser_proto_goTypes  = []interface{}{
+		(*OrderUserReq)(nil),       // 0: miningpool.middleware.orderuser.v1.OrderUserReq
+		(*OrderUser)(nil),          // 1: miningpool.middleware.orderuser.v1.OrderUser
+		(*Conds)(nil),              // 2: miningpool.middleware.orderuser.v1.Conds
+		(*BalanceInfo)(nil),        // 3: miningpool.middleware.orderuser.v1.BalanceInfo
+		(v1.MiningPoolType)(0),     // 4: basetypes.miningpool.v1.MiningPoolType
+		(*v11.Uint32Val)(nil),      // 5: basetypes.v1.Uint32Val
+		(*v11.StringVal)(nil),      // 6: basetypes.v1.StringVal
+		(*v11.StringSliceVal)(nil), // 7: basetypes.v1.StringSliceVal
+	}
+)
 var file_miningpool_middleware_v1_orderuser_orderuser_proto_depIdxs = []int32{
 	4, // 0: miningpool.middleware.orderuser.v1.OrderUser.MiningPoolType:type_name -> basetypes.miningpool.v1.MiningPoolType
 	5, // 1: miningpool.middleware.orderuser.v1.Conds.ID:type_name -> basetypes.v1.Uint32Val

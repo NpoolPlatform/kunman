@@ -221,18 +221,20 @@ var _comm1 = commmwpb.CommissionReq{
 	StartAt:          &comm1.StartAt,
 }
 
-var percent2 = "25"
-var comm2 = commmwpb.Commission{
-	AppID:            reg1.AppID,
-	UserID:           reg2.InviterID,
-	GoodID:           comm1.GoodID,
-	AppGoodID:        comm1.AppGoodID,
-	SettleType:       types.SettleType_GoodOrderPayment,
-	SettleMode:       types.SettleMode_SettleWithPaymentAmount,
-	SettleAmountType: types.SettleAmountType_SettleByPercent,
-	AmountOrPercent:  percent2,
-	StartAt:          uint32(time.Now().Unix()),
-}
+var (
+	percent2 = "25"
+	comm2    = commmwpb.Commission{
+		AppID:            reg1.AppID,
+		UserID:           reg2.InviterID,
+		GoodID:           comm1.GoodID,
+		AppGoodID:        comm1.AppGoodID,
+		SettleType:       types.SettleType_GoodOrderPayment,
+		SettleMode:       types.SettleMode_SettleWithPaymentAmount,
+		SettleAmountType: types.SettleAmountType_SettleByPercent,
+		AmountOrPercent:  percent2,
+		StartAt:          uint32(time.Now().Unix()),
+	}
+)
 
 var _comm2 = commmwpb.CommissionReq{
 	AppID:            &comm2.AppID,
@@ -246,18 +248,20 @@ var _comm2 = commmwpb.CommissionReq{
 	StartAt:          &comm2.StartAt,
 }
 
-var percent3 = "20"
-var comm3 = commmwpb.Commission{
-	AppID:            reg1.AppID,
-	UserID:           reg3.InviterID,
-	GoodID:           comm1.GoodID,
-	AppGoodID:        comm1.AppGoodID,
-	SettleType:       types.SettleType_GoodOrderPayment,
-	SettleMode:       types.SettleMode_SettleWithPaymentAmount,
-	SettleAmountType: types.SettleAmountType_SettleByPercent,
-	AmountOrPercent:  percent3,
-	StartAt:          uint32(time.Now().Unix()),
-}
+var (
+	percent3 = "20"
+	comm3    = commmwpb.Commission{
+		AppID:            reg1.AppID,
+		UserID:           reg3.InviterID,
+		GoodID:           comm1.GoodID,
+		AppGoodID:        comm1.AppGoodID,
+		SettleType:       types.SettleType_GoodOrderPayment,
+		SettleMode:       types.SettleMode_SettleWithPaymentAmount,
+		SettleAmountType: types.SettleAmountType_SettleByPercent,
+		AmountOrPercent:  percent3,
+		StartAt:          uint32(time.Now().Unix()),
+	}
+)
 
 var _comm3 = commmwpb.CommissionReq{
 	AppID:            &comm3.AppID,
@@ -271,18 +275,20 @@ var _comm3 = commmwpb.CommissionReq{
 	StartAt:          &comm3.StartAt,
 }
 
-var percent4 = "15"
-var comm4 = commmwpb.Commission{
-	AppID:            reg1.AppID,
-	UserID:           reg4.InviterID,
-	GoodID:           comm1.GoodID,
-	AppGoodID:        comm1.AppGoodID,
-	SettleType:       types.SettleType_GoodOrderPayment,
-	SettleMode:       types.SettleMode_SettleWithPaymentAmount,
-	SettleAmountType: types.SettleAmountType_SettleByPercent,
-	AmountOrPercent:  percent4,
-	StartAt:          uint32(time.Now().Unix()),
-}
+var (
+	percent4 = "15"
+	comm4    = commmwpb.Commission{
+		AppID:            reg1.AppID,
+		UserID:           reg4.InviterID,
+		GoodID:           comm1.GoodID,
+		AppGoodID:        comm1.AppGoodID,
+		SettleType:       types.SettleType_GoodOrderPayment,
+		SettleMode:       types.SettleMode_SettleWithPaymentAmount,
+		SettleAmountType: types.SettleAmountType_SettleByPercent,
+		AmountOrPercent:  percent4,
+		StartAt:          uint32(time.Now().Unix()),
+	}
+)
 
 var _comm4 = commmwpb.CommissionReq{
 	AppID:            &comm4.AppID,
@@ -296,18 +302,20 @@ var _comm4 = commmwpb.CommissionReq{
 	StartAt:          &comm4.StartAt,
 }
 
-var percent5 = "12.4"
-var comm5 = commmwpb.Commission{
-	AppID:            reg1.AppID,
-	UserID:           reg5.InviterID,
-	GoodID:           comm1.GoodID,
-	AppGoodID:        comm1.AppGoodID,
-	SettleType:       types.SettleType_GoodOrderPayment,
-	SettleMode:       types.SettleMode_SettleWithPaymentAmount,
-	SettleAmountType: types.SettleAmountType_SettleByPercent,
-	AmountOrPercent:  percent5,
-	StartAt:          uint32(time.Now().Unix()),
-}
+var (
+	percent5 = "12.4"
+	comm5    = commmwpb.Commission{
+		AppID:            reg1.AppID,
+		UserID:           reg5.InviterID,
+		GoodID:           comm1.GoodID,
+		AppGoodID:        comm1.AppGoodID,
+		SettleType:       types.SettleType_GoodOrderPayment,
+		SettleMode:       types.SettleMode_SettleWithPaymentAmount,
+		SettleAmountType: types.SettleAmountType_SettleByPercent,
+		AmountOrPercent:  percent5,
+		StartAt:          uint32(time.Now().Unix()),
+	}
+)
 
 var _comm5 = commmwpb.CommissionReq{
 	AppID:            &comm5.AppID,
@@ -321,18 +329,20 @@ var _comm5 = commmwpb.CommissionReq{
 	StartAt:          &comm5.StartAt,
 }
 
-var percent6 = "7"
-var comm6 = commmwpb.Commission{
-	AppID:            reg1.AppID,
-	UserID:           reg5.InviteeID,
-	GoodID:           comm1.GoodID,
-	AppGoodID:        comm1.AppGoodID,
-	SettleType:       types.SettleType_GoodOrderPayment,
-	SettleMode:       types.SettleMode_SettleWithPaymentAmount,
-	SettleAmountType: types.SettleAmountType_SettleByPercent,
-	AmountOrPercent:  percent6,
-	StartAt:          uint32(time.Now().Unix()),
-}
+var (
+	percent6 = "7"
+	comm6    = commmwpb.Commission{
+		AppID:            reg1.AppID,
+		UserID:           reg5.InviteeID,
+		GoodID:           comm1.GoodID,
+		AppGoodID:        comm1.AppGoodID,
+		SettleType:       types.SettleType_GoodOrderPayment,
+		SettleMode:       types.SettleMode_SettleWithPaymentAmount,
+		SettleAmountType: types.SettleAmountType_SettleByPercent,
+		AmountOrPercent:  percent6,
+		StartAt:          uint32(time.Now().Unix()),
+	}
+)
 
 var _comm6 = commmwpb.CommissionReq{
 	AppID:            &comm6.AppID,
@@ -1000,7 +1010,7 @@ func addAppGoodCommissionConfig(t *testing.T) func(*testing.T) {
 	}
 }
 
-//nolint
+// nolint
 func calculateLegacyCommission(t *testing.T) {
 	orderID := uuid.NewString()
 	coinTypeID := uuid.NewString()
@@ -1103,7 +1113,7 @@ func calculateLegacyCommission(t *testing.T) {
 	}
 }
 
-//nolint
+// nolint
 func calculateAppCommission(t *testing.T) {
 	orderID := uuid.NewString()
 	coinTypeID := uuid.NewString()
@@ -1206,7 +1216,7 @@ func calculateAppCommission(t *testing.T) {
 	}
 }
 
-//nolint
+// nolint
 func calculateAppGoodCommission(t *testing.T) {
 	orderID := uuid.NewString()
 	coinTypeID := uuid.NewString()
@@ -1309,7 +1319,7 @@ func calculateAppGoodCommission(t *testing.T) {
 	}
 }
 
-//nolint
+// nolint
 func calculateDirectAppGoodCommission(t *testing.T) {
 	orderID := uuid.NewString()
 	coinTypeID := uuid.NewString()
@@ -1416,7 +1426,7 @@ func calculateDirectAppGoodCommission(t *testing.T) {
 	}
 }
 
-//nolint
+// nolint
 func calculateWithoutCommission(t *testing.T) {
 	orderID := uuid.NewString()
 	coinTypeID := uuid.NewString()

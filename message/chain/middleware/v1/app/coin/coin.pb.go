@@ -7,11 +7,12 @@
 package coin
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -1051,15 +1052,17 @@ func file_chain_middleware_v1_app_coin_coin_proto_rawDescGZIP() []byte {
 	return file_chain_middleware_v1_app_coin_coin_proto_rawDescData
 }
 
-var file_chain_middleware_v1_app_coin_coin_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
-var file_chain_middleware_v1_app_coin_coin_proto_goTypes = []interface{}{
-	(*CoinReq)(nil),           // 0: chain.middleware.app.coin.v1.CoinReq
-	(*Coin)(nil),              // 1: chain.middleware.app.coin.v1.Coin
-	(*Conds)(nil),             // 2: chain.middleware.app.coin.v1.Conds
-	(*v1.StringVal)(nil),      // 3: basetypes.v1.StringVal
-	(*v1.BoolVal)(nil),        // 4: basetypes.v1.BoolVal
-	(*v1.StringSliceVal)(nil), // 5: basetypes.v1.StringSliceVal
-}
+var (
+	file_chain_middleware_v1_app_coin_coin_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
+	file_chain_middleware_v1_app_coin_coin_proto_goTypes  = []interface{}{
+		(*CoinReq)(nil),           // 0: chain.middleware.app.coin.v1.CoinReq
+		(*Coin)(nil),              // 1: chain.middleware.app.coin.v1.Coin
+		(*Conds)(nil),             // 2: chain.middleware.app.coin.v1.Conds
+		(*v1.StringVal)(nil),      // 3: basetypes.v1.StringVal
+		(*v1.BoolVal)(nil),        // 4: basetypes.v1.BoolVal
+		(*v1.StringSliceVal)(nil), // 5: basetypes.v1.StringSliceVal
+	}
+)
 var file_chain_middleware_v1_app_coin_coin_proto_depIdxs = []int32{
 	3, // 0: chain.middleware.app.coin.v1.Conds.EntID:type_name -> basetypes.v1.StringVal
 	3, // 1: chain.middleware.app.coin.v1.Conds.AppID:type_name -> basetypes.v1.StringVal

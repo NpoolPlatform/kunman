@@ -7,11 +7,12 @@
 package poster
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -430,16 +431,18 @@ func file_good_middleware_v1_device_poster_poster_proto_rawDescGZIP() []byte {
 	return file_good_middleware_v1_device_poster_poster_proto_rawDescData
 }
 
-var file_good_middleware_v1_device_poster_poster_proto_msgTypes = make([]protoimpl.MessageInfo, 4)
-var file_good_middleware_v1_device_poster_poster_proto_goTypes = []interface{}{
-	(*PosterReq)(nil),         // 0: good.middleware.device.poster.v1.PosterReq
-	(*Poster)(nil),            // 1: good.middleware.device.poster.v1.Poster
-	(*PosterInfo)(nil),        // 2: good.middleware.device.poster.v1.PosterInfo
-	(*Conds)(nil),             // 3: good.middleware.device.poster.v1.Conds
-	(*v1.Uint32Val)(nil),      // 4: basetypes.v1.Uint32Val
-	(*v1.StringVal)(nil),      // 5: basetypes.v1.StringVal
-	(*v1.StringSliceVal)(nil), // 6: basetypes.v1.StringSliceVal
-}
+var (
+	file_good_middleware_v1_device_poster_poster_proto_msgTypes = make([]protoimpl.MessageInfo, 4)
+	file_good_middleware_v1_device_poster_poster_proto_goTypes  = []interface{}{
+		(*PosterReq)(nil),         // 0: good.middleware.device.poster.v1.PosterReq
+		(*Poster)(nil),            // 1: good.middleware.device.poster.v1.Poster
+		(*PosterInfo)(nil),        // 2: good.middleware.device.poster.v1.PosterInfo
+		(*Conds)(nil),             // 3: good.middleware.device.poster.v1.Conds
+		(*v1.Uint32Val)(nil),      // 4: basetypes.v1.Uint32Val
+		(*v1.StringVal)(nil),      // 5: basetypes.v1.StringVal
+		(*v1.StringSliceVal)(nil), // 6: basetypes.v1.StringSliceVal
+	}
+)
 var file_good_middleware_v1_device_poster_poster_proto_depIdxs = []int32{
 	4, // 0: good.middleware.device.poster.v1.Conds.ID:type_name -> basetypes.v1.Uint32Val
 	5, // 1: good.middleware.device.poster.v1.Conds.EntID:type_name -> basetypes.v1.StringVal

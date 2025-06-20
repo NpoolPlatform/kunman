@@ -7,12 +7,13 @@
 package gooduser
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/miningpool/v1"
 	v11 "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -443,16 +444,18 @@ func file_miningpool_middleware_v1_gooduser_gooduser_proto_rawDescGZIP() []byte 
 	return file_miningpool_middleware_v1_gooduser_gooduser_proto_rawDescData
 }
 
-var file_miningpool_middleware_v1_gooduser_gooduser_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
-var file_miningpool_middleware_v1_gooduser_gooduser_proto_goTypes = []interface{}{
-	(*GoodUserReq)(nil),        // 0: miningpool.middleware.gooduser.v1.GoodUserReq
-	(*GoodUser)(nil),           // 1: miningpool.middleware.gooduser.v1.GoodUser
-	(*Conds)(nil),              // 2: miningpool.middleware.gooduser.v1.Conds
-	(v1.MiningPoolType)(0),     // 3: basetypes.miningpool.v1.MiningPoolType
-	(*v11.Uint32Val)(nil),      // 4: basetypes.v1.Uint32Val
-	(*v11.StringVal)(nil),      // 5: basetypes.v1.StringVal
-	(*v11.StringSliceVal)(nil), // 6: basetypes.v1.StringSliceVal
-}
+var (
+	file_miningpool_middleware_v1_gooduser_gooduser_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
+	file_miningpool_middleware_v1_gooduser_gooduser_proto_goTypes  = []interface{}{
+		(*GoodUserReq)(nil),        // 0: miningpool.middleware.gooduser.v1.GoodUserReq
+		(*GoodUser)(nil),           // 1: miningpool.middleware.gooduser.v1.GoodUser
+		(*Conds)(nil),              // 2: miningpool.middleware.gooduser.v1.Conds
+		(v1.MiningPoolType)(0),     // 3: basetypes.miningpool.v1.MiningPoolType
+		(*v11.Uint32Val)(nil),      // 4: basetypes.v1.Uint32Val
+		(*v11.StringVal)(nil),      // 5: basetypes.v1.StringVal
+		(*v11.StringSliceVal)(nil), // 6: basetypes.v1.StringSliceVal
+	}
+)
 var file_miningpool_middleware_v1_gooduser_gooduser_proto_depIdxs = []int32{
 	3, // 0: miningpool.middleware.gooduser.v1.GoodUser.MiningPoolType:type_name -> basetypes.miningpool.v1.MiningPoolType
 	4, // 1: miningpool.middleware.gooduser.v1.Conds.ID:type_name -> basetypes.v1.Uint32Val

@@ -99,7 +99,6 @@ func (h *Handler) GetNotif(ctx context.Context) (*npool.Notif, error) {
 		}
 		return nil
 	})
-
 	if err != nil {
 		return nil, err
 	}

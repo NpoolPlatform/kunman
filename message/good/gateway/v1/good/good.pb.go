@@ -7,12 +7,13 @@
 package good
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	good "github.com/NpoolPlatform/kunman/message/good/middleware/v1/good"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -180,12 +181,14 @@ func file_good_gateway_v1_good_good_proto_rawDescGZIP() []byte {
 	return file_good_gateway_v1_good_good_proto_rawDescData
 }
 
-var file_good_gateway_v1_good_good_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
-var file_good_gateway_v1_good_good_proto_goTypes = []interface{}{
-	(*GetGoodsRequest)(nil),  // 0: good.gateway.good1.v1.GetGoodsRequest
-	(*GetGoodsResponse)(nil), // 1: good.gateway.good1.v1.GetGoodsResponse
-	(*good.Good)(nil),        // 2: good.middleware.good1.v1.Good
-}
+var (
+	file_good_gateway_v1_good_good_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
+	file_good_gateway_v1_good_good_proto_goTypes  = []interface{}{
+		(*GetGoodsRequest)(nil),  // 0: good.gateway.good1.v1.GetGoodsRequest
+		(*GetGoodsResponse)(nil), // 1: good.gateway.good1.v1.GetGoodsResponse
+		(*good.Good)(nil),        // 2: good.middleware.good1.v1.Good
+	}
+)
 var file_good_gateway_v1_good_good_proto_depIdxs = []int32{
 	2, // 0: good.gateway.good1.v1.GetGoodsResponse.Infos:type_name -> good.middleware.good1.v1.Good
 	0, // 1: good.gateway.good1.v1.Gateway.GetGoods:input_type -> good.gateway.good1.v1.GetGoodsRequest

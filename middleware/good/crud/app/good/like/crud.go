@@ -52,7 +52,7 @@ type Conds struct {
 	AppGoodIDs *cruder.Cond
 }
 
-//nolint
+// nolint
 func SetQueryConds(q *ent.LikeQuery, conds *Conds) (*ent.LikeQuery, error) {
 	q.Where(entlike.DeletedAt(0))
 	if conds == nil {

@@ -7,12 +7,13 @@
 package v1
 
 import (
+	reflect "reflect"
+
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	emptypb "google.golang.org/protobuf/types/known/emptypb"
-	reflect "reflect"
 )
 
 const (
@@ -50,6 +51,7 @@ var file_chain_gateway_v1_gw_proto_goTypes = []interface{}{
 	(*emptypb.Empty)(nil),      // 0: google.protobuf.Empty
 	(*v1.VersionResponse)(nil), // 1: basetypes.v1.VersionResponse
 }
+
 var file_chain_gateway_v1_gw_proto_depIdxs = []int32{
 	0, // 0: chain.gateway.v1.Gateway.Version:input_type -> google.protobuf.Empty
 	1, // 1: chain.gateway.v1.Gateway.Version:output_type -> basetypes.v1.VersionResponse

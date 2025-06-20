@@ -75,8 +75,8 @@ func (h *baseCreateHandler) constructSubscriptionOrderReq() error {
 
 	req := &subscriptionordermwpb.SubscriptionOrderReq{
 		EntID:        h.EntID,
-		AppID:        h.Handler.OrderCheckHandler.AppID,
-		UserID:       h.Handler.OrderCheckHandler.UserID,
+		AppID:        h.OrderCheckHandler.AppID,
+		UserID:       h.OrderCheckHandler.UserID,
 		GoodID:       &h.appSubscription.GoodID,
 		GoodType:     &h.appSubscription.GoodType,
 		AppGoodID:    &h.appSubscription.AppGoodID,

@@ -8,6 +8,7 @@ package config
 
 import (
 	context "context"
+
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -115,24 +116,28 @@ type GatewayServer interface {
 }
 
 // UnimplementedGatewayServer must be embedded to have forward compatible implementations.
-type UnimplementedGatewayServer struct {
-}
+type UnimplementedGatewayServer struct{}
 
 func (UnimplementedGatewayServer) CreateAppGoodCommissionConfig(context.Context, *CreateAppGoodCommissionConfigRequest) (*CreateAppGoodCommissionConfigResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateAppGoodCommissionConfig not implemented")
 }
+
 func (UnimplementedGatewayServer) AdminCreateAppGoodCommissionConfig(context.Context, *AdminCreateAppGoodCommissionConfigRequest) (*AdminCreateAppGoodCommissionConfigResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AdminCreateAppGoodCommissionConfig not implemented")
 }
+
 func (UnimplementedGatewayServer) UpdateAppGoodCommissionConfig(context.Context, *UpdateAppGoodCommissionConfigRequest) (*UpdateAppGoodCommissionConfigResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateAppGoodCommissionConfig not implemented")
 }
+
 func (UnimplementedGatewayServer) AdminUpdateAppGoodCommissionConfig(context.Context, *AdminUpdateAppGoodCommissionConfigRequest) (*AdminUpdateAppGoodCommissionConfigResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AdminUpdateAppGoodCommissionConfig not implemented")
 }
+
 func (UnimplementedGatewayServer) GetAppGoodCommissionConfigs(context.Context, *GetAppGoodCommissionConfigsRequest) (*GetAppGoodCommissionConfigsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetAppGoodCommissionConfigs not implemented")
 }
+
 func (UnimplementedGatewayServer) AdminGetAppGoodCommissionConfigs(context.Context, *AdminGetAppGoodCommissionConfigsRequest) (*AdminGetAppGoodCommissionConfigsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AdminGetAppGoodCommissionConfigs not implemented")
 }

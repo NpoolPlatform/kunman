@@ -3,10 +3,10 @@ package currencyfeed
 import (
 	"fmt"
 
+	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	ent "github.com/NpoolPlatform/kunman/middleware/chain/db/ent/generated"
 	entcurrencyfeed "github.com/NpoolPlatform/kunman/middleware/chain/db/ent/generated/currencyfeed"
 	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
-	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 
 	"github.com/google/uuid"
 )

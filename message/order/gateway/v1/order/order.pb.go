@@ -7,13 +7,14 @@
 package order
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/good/v1"
 	v11 "github.com/NpoolPlatform/kunman/message/basetypes/order/v1"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -785,23 +786,25 @@ func file_order_gateway_v1_order_order_proto_rawDescGZIP() []byte {
 	return file_order_gateway_v1_order_order_proto_rawDescData
 }
 
-var file_order_gateway_v1_order_order_proto_msgTypes = make([]protoimpl.MessageInfo, 7)
-var file_order_gateway_v1_order_order_proto_goTypes = []interface{}{
-	(*Order)(nil),                  // 0: order.gateway.order1.v1.Order
-	(*GetOrdersRequest)(nil),       // 1: order.gateway.order1.v1.GetOrdersRequest
-	(*GetOrdersResponse)(nil),      // 2: order.gateway.order1.v1.GetOrdersResponse
-	(*GetMyOrdersRequest)(nil),     // 3: order.gateway.order1.v1.GetMyOrdersRequest
-	(*GetMyOrdersResponse)(nil),    // 4: order.gateway.order1.v1.GetMyOrdersResponse
-	(*AdminGetOrdersRequest)(nil),  // 5: order.gateway.order1.v1.AdminGetOrdersRequest
-	(*AdminGetOrdersResponse)(nil), // 6: order.gateway.order1.v1.AdminGetOrdersResponse
-	(v1.GoodType)(0),               // 7: basetypes.good.v1.GoodType
-	(v11.OrderType)(0),             // 8: basetypes.order.v1.OrderType
-	(v11.PaymentType)(0),           // 9: basetypes.order.v1.PaymentType
-	(v11.OrderCreateMethod)(0),     // 10: basetypes.order.v1.OrderCreateMethod
-	(v11.OrderState)(0),            // 11: basetypes.order.v1.OrderState
-	(v11.OrderStartMode)(0),        // 12: basetypes.order.v1.OrderStartMode
-	(v11.BenefitState)(0),          // 13: basetypes.order.v1.BenefitState
-}
+var (
+	file_order_gateway_v1_order_order_proto_msgTypes = make([]protoimpl.MessageInfo, 7)
+	file_order_gateway_v1_order_order_proto_goTypes  = []interface{}{
+		(*Order)(nil),                  // 0: order.gateway.order1.v1.Order
+		(*GetOrdersRequest)(nil),       // 1: order.gateway.order1.v1.GetOrdersRequest
+		(*GetOrdersResponse)(nil),      // 2: order.gateway.order1.v1.GetOrdersResponse
+		(*GetMyOrdersRequest)(nil),     // 3: order.gateway.order1.v1.GetMyOrdersRequest
+		(*GetMyOrdersResponse)(nil),    // 4: order.gateway.order1.v1.GetMyOrdersResponse
+		(*AdminGetOrdersRequest)(nil),  // 5: order.gateway.order1.v1.AdminGetOrdersRequest
+		(*AdminGetOrdersResponse)(nil), // 6: order.gateway.order1.v1.AdminGetOrdersResponse
+		(v1.GoodType)(0),               // 7: basetypes.good.v1.GoodType
+		(v11.OrderType)(0),             // 8: basetypes.order.v1.OrderType
+		(v11.PaymentType)(0),           // 9: basetypes.order.v1.PaymentType
+		(v11.OrderCreateMethod)(0),     // 10: basetypes.order.v1.OrderCreateMethod
+		(v11.OrderState)(0),            // 11: basetypes.order.v1.OrderState
+		(v11.OrderStartMode)(0),        // 12: basetypes.order.v1.OrderStartMode
+		(v11.BenefitState)(0),          // 13: basetypes.order.v1.BenefitState
+	}
+)
 var file_order_gateway_v1_order_order_proto_depIdxs = []int32{
 	7,  // 0: order.gateway.order1.v1.Order.GoodType:type_name -> basetypes.good.v1.GoodType
 	8,  // 1: order.gateway.order1.v1.Order.OrderType:type_name -> basetypes.order.v1.OrderType

@@ -8,6 +8,7 @@ package sms
 
 import (
 	context "context"
+
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -127,27 +128,32 @@ type GatewayServer interface {
 }
 
 // UnimplementedGatewayServer must be embedded to have forward compatible implementations.
-type UnimplementedGatewayServer struct {
-}
+type UnimplementedGatewayServer struct{}
 
 func (UnimplementedGatewayServer) CreateSMSTemplate(context.Context, *CreateSMSTemplateRequest) (*CreateSMSTemplateResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateSMSTemplate not implemented")
 }
+
 func (UnimplementedGatewayServer) CreateAppSMSTemplate(context.Context, *CreateAppSMSTemplateRequest) (*CreateAppSMSTemplateResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateAppSMSTemplate not implemented")
 }
+
 func (UnimplementedGatewayServer) GetSMSTemplate(context.Context, *GetSMSTemplateRequest) (*GetSMSTemplateResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetSMSTemplate not implemented")
 }
+
 func (UnimplementedGatewayServer) GetSMSTemplates(context.Context, *GetSMSTemplatesRequest) (*GetSMSTemplatesResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetSMSTemplates not implemented")
 }
+
 func (UnimplementedGatewayServer) GetAppSMSTemplates(context.Context, *GetAppSMSTemplatesRequest) (*GetAppSMSTemplatesResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetAppSMSTemplates not implemented")
 }
+
 func (UnimplementedGatewayServer) UpdateSMSTemplate(context.Context, *UpdateSMSTemplateRequest) (*UpdateSMSTemplateResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateSMSTemplate not implemented")
 }
+
 func (UnimplementedGatewayServer) UpdateAppSMSTemplate(context.Context, *UpdateAppSMSTemplateRequest) (*UpdateAppSMSTemplateResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateAppSMSTemplate not implemented")
 }

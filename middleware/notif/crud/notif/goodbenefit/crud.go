@@ -84,7 +84,7 @@ type Conds struct {
 	BenefitDateEnd   *cruder.Cond
 }
 
-//nolint
+// nolint
 func SetQueryConds(q *ent.GoodBenefitQuery, conds *Conds) (*ent.GoodBenefitQuery, error) {
 	if conds == nil {
 		return q, nil

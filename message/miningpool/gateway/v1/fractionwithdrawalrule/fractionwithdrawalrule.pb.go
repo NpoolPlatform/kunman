@@ -7,13 +7,14 @@
 package fractionwithdrawalrule
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/miningpool/v1"
 	v11 "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -862,20 +863,22 @@ func file_miningpool_gateway_v1_fractionwithdrawalrule_fractionwithdrawalrule_pr
 	return file_miningpool_gateway_v1_fractionwithdrawalrule_fractionwithdrawalrule_proto_rawDescData
 }
 
-var file_miningpool_gateway_v1_fractionwithdrawalrule_fractionwithdrawalrule_proto_msgTypes = make([]protoimpl.MessageInfo, 9)
-var file_miningpool_gateway_v1_fractionwithdrawalrule_fractionwithdrawalrule_proto_goTypes = []interface{}{
-	(*FractionWithdrawalRule)(nil),                    // 0: miningpool.gateway.fractionwithdrawalrule.v1.FractionWithdrawalRule
-	(*AdminCreateFractionWithdrawalRuleRequest)(nil),  // 1: miningpool.gateway.fractionwithdrawalrule.v1.AdminCreateFractionWithdrawalRuleRequest
-	(*AdminCreateFractionWithdrawalRuleResponse)(nil), // 2: miningpool.gateway.fractionwithdrawalrule.v1.AdminCreateFractionWithdrawalRuleResponse
-	(*AdminUpdateFractionWithdrawalRuleRequest)(nil),  // 3: miningpool.gateway.fractionwithdrawalrule.v1.AdminUpdateFractionWithdrawalRuleRequest
-	(*AdminUpdateFractionWithdrawalRuleResponse)(nil), // 4: miningpool.gateway.fractionwithdrawalrule.v1.AdminUpdateFractionWithdrawalRuleResponse
-	(*AdminGetFractionWithdrawalRulesRequest)(nil),    // 5: miningpool.gateway.fractionwithdrawalrule.v1.AdminGetFractionWithdrawalRulesRequest
-	(*AdminGetFractionWithdrawalRulesResponse)(nil),   // 6: miningpool.gateway.fractionwithdrawalrule.v1.AdminGetFractionWithdrawalRulesResponse
-	(*AdminDeleteFractionWithdrawalRuleRequest)(nil),  // 7: miningpool.gateway.fractionwithdrawalrule.v1.AdminDeleteFractionWithdrawalRuleRequest
-	(*AdminDeleteFractionWithdrawalRuleResponse)(nil), // 8: miningpool.gateway.fractionwithdrawalrule.v1.AdminDeleteFractionWithdrawalRuleResponse
-	(v1.MiningPoolType)(0),                            // 9: basetypes.miningpool.v1.MiningPoolType
-	(v11.CoinType)(0),                                 // 10: basetypes.v1.CoinType
-}
+var (
+	file_miningpool_gateway_v1_fractionwithdrawalrule_fractionwithdrawalrule_proto_msgTypes = make([]protoimpl.MessageInfo, 9)
+	file_miningpool_gateway_v1_fractionwithdrawalrule_fractionwithdrawalrule_proto_goTypes  = []interface{}{
+		(*FractionWithdrawalRule)(nil),                    // 0: miningpool.gateway.fractionwithdrawalrule.v1.FractionWithdrawalRule
+		(*AdminCreateFractionWithdrawalRuleRequest)(nil),  // 1: miningpool.gateway.fractionwithdrawalrule.v1.AdminCreateFractionWithdrawalRuleRequest
+		(*AdminCreateFractionWithdrawalRuleResponse)(nil), // 2: miningpool.gateway.fractionwithdrawalrule.v1.AdminCreateFractionWithdrawalRuleResponse
+		(*AdminUpdateFractionWithdrawalRuleRequest)(nil),  // 3: miningpool.gateway.fractionwithdrawalrule.v1.AdminUpdateFractionWithdrawalRuleRequest
+		(*AdminUpdateFractionWithdrawalRuleResponse)(nil), // 4: miningpool.gateway.fractionwithdrawalrule.v1.AdminUpdateFractionWithdrawalRuleResponse
+		(*AdminGetFractionWithdrawalRulesRequest)(nil),    // 5: miningpool.gateway.fractionwithdrawalrule.v1.AdminGetFractionWithdrawalRulesRequest
+		(*AdminGetFractionWithdrawalRulesResponse)(nil),   // 6: miningpool.gateway.fractionwithdrawalrule.v1.AdminGetFractionWithdrawalRulesResponse
+		(*AdminDeleteFractionWithdrawalRuleRequest)(nil),  // 7: miningpool.gateway.fractionwithdrawalrule.v1.AdminDeleteFractionWithdrawalRuleRequest
+		(*AdminDeleteFractionWithdrawalRuleResponse)(nil), // 8: miningpool.gateway.fractionwithdrawalrule.v1.AdminDeleteFractionWithdrawalRuleResponse
+		(v1.MiningPoolType)(0),                            // 9: basetypes.miningpool.v1.MiningPoolType
+		(v11.CoinType)(0),                                 // 10: basetypes.v1.CoinType
+	}
+)
 var file_miningpool_gateway_v1_fractionwithdrawalrule_fractionwithdrawalrule_proto_depIdxs = []int32{
 	9,  // 0: miningpool.gateway.fractionwithdrawalrule.v1.FractionWithdrawalRule.MiningPoolType:type_name -> basetypes.miningpool.v1.MiningPoolType
 	10, // 1: miningpool.gateway.fractionwithdrawalrule.v1.FractionWithdrawalRule.CoinType:type_name -> basetypes.v1.CoinType

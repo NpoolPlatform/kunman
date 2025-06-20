@@ -7,13 +7,14 @@
 package pool
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/miningpool/v1"
 	v11 "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -1104,24 +1105,26 @@ func file_miningpool_gateway_v1_app_pool_pool_proto_rawDescGZIP() []byte {
 	return file_miningpool_gateway_v1_app_pool_pool_proto_rawDescData
 }
 
-var file_miningpool_gateway_v1_app_pool_pool_proto_msgTypes = make([]protoimpl.MessageInfo, 13)
-var file_miningpool_gateway_v1_app_pool_pool_proto_goTypes = []interface{}{
-	(*Pool)(nil),                    // 0: miningpool.gateway.app.pool.v1.Pool
-	(*Coin)(nil),                    // 1: miningpool.gateway.app.pool.v1.Coin
-	(*FractionWithdrawalRule)(nil),  // 2: miningpool.gateway.app.pool.v1.FractionWithdrawalRule
-	(*AdminCreatePoolRequest)(nil),  // 3: miningpool.gateway.app.pool.v1.AdminCreatePoolRequest
-	(*AdminCreatePoolResponse)(nil), // 4: miningpool.gateway.app.pool.v1.AdminCreatePoolResponse
-	(*GetPoolRequest)(nil),          // 5: miningpool.gateway.app.pool.v1.GetPoolRequest
-	(*GetPoolResponse)(nil),         // 6: miningpool.gateway.app.pool.v1.GetPoolResponse
-	(*GetPoolsRequest)(nil),         // 7: miningpool.gateway.app.pool.v1.GetPoolsRequest
-	(*GetPoolsResponse)(nil),        // 8: miningpool.gateway.app.pool.v1.GetPoolsResponse
-	(*AdminGetPoolsRequest)(nil),    // 9: miningpool.gateway.app.pool.v1.AdminGetPoolsRequest
-	(*AdminGetPoolsResponse)(nil),   // 10: miningpool.gateway.app.pool.v1.AdminGetPoolsResponse
-	(*AdminDeletePoolRequest)(nil),  // 11: miningpool.gateway.app.pool.v1.AdminDeletePoolRequest
-	(*AdminDeletePoolResponse)(nil), // 12: miningpool.gateway.app.pool.v1.AdminDeletePoolResponse
-	(v1.MiningPoolType)(0),          // 13: basetypes.miningpool.v1.MiningPoolType
-	(v11.CoinType)(0),               // 14: basetypes.v1.CoinType
-}
+var (
+	file_miningpool_gateway_v1_app_pool_pool_proto_msgTypes = make([]protoimpl.MessageInfo, 13)
+	file_miningpool_gateway_v1_app_pool_pool_proto_goTypes  = []interface{}{
+		(*Pool)(nil),                    // 0: miningpool.gateway.app.pool.v1.Pool
+		(*Coin)(nil),                    // 1: miningpool.gateway.app.pool.v1.Coin
+		(*FractionWithdrawalRule)(nil),  // 2: miningpool.gateway.app.pool.v1.FractionWithdrawalRule
+		(*AdminCreatePoolRequest)(nil),  // 3: miningpool.gateway.app.pool.v1.AdminCreatePoolRequest
+		(*AdminCreatePoolResponse)(nil), // 4: miningpool.gateway.app.pool.v1.AdminCreatePoolResponse
+		(*GetPoolRequest)(nil),          // 5: miningpool.gateway.app.pool.v1.GetPoolRequest
+		(*GetPoolResponse)(nil),         // 6: miningpool.gateway.app.pool.v1.GetPoolResponse
+		(*GetPoolsRequest)(nil),         // 7: miningpool.gateway.app.pool.v1.GetPoolsRequest
+		(*GetPoolsResponse)(nil),        // 8: miningpool.gateway.app.pool.v1.GetPoolsResponse
+		(*AdminGetPoolsRequest)(nil),    // 9: miningpool.gateway.app.pool.v1.AdminGetPoolsRequest
+		(*AdminGetPoolsResponse)(nil),   // 10: miningpool.gateway.app.pool.v1.AdminGetPoolsResponse
+		(*AdminDeletePoolRequest)(nil),  // 11: miningpool.gateway.app.pool.v1.AdminDeletePoolRequest
+		(*AdminDeletePoolResponse)(nil), // 12: miningpool.gateway.app.pool.v1.AdminDeletePoolResponse
+		(v1.MiningPoolType)(0),          // 13: basetypes.miningpool.v1.MiningPoolType
+		(v11.CoinType)(0),               // 14: basetypes.v1.CoinType
+	}
+)
 var file_miningpool_gateway_v1_app_pool_pool_proto_depIdxs = []int32{
 	13, // 0: miningpool.gateway.app.pool.v1.Pool.MiningPoolType:type_name -> basetypes.miningpool.v1.MiningPoolType
 	1,  // 1: miningpool.gateway.app.pool.v1.Pool.Coins:type_name -> miningpool.gateway.app.pool.v1.Coin

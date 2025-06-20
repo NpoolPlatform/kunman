@@ -92,7 +92,7 @@ func GetUserInfo(accessToken string) (*npool.ThirdUserInfo, error) {
 		return nil, fmt.Errorf("resp error: %v", resp.StatusCode())
 	}
 
-	var userInfoMap = make(map[string]interface{})
+	userInfoMap := make(map[string]interface{})
 	if err = json.Unmarshal(resp.Body(), &userInfoMap); err != nil {
 		logger.Sugar().Error("decode param err: ", err)
 		return nil, err

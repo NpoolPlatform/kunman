@@ -8,6 +8,7 @@ package outofgas
 
 import (
 	context "context"
+
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -81,15 +82,16 @@ type GatewayServer interface {
 }
 
 // UnimplementedGatewayServer must be embedded to have forward compatible implementations.
-type UnimplementedGatewayServer struct {
-}
+type UnimplementedGatewayServer struct{}
 
 func (UnimplementedGatewayServer) GetOutOfGases(context.Context, *GetOutOfGasesRequest) (*GetOutOfGasesResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetOutOfGases not implemented")
 }
+
 func (UnimplementedGatewayServer) GetMyOutOfGases(context.Context, *GetMyOutOfGasesRequest) (*GetMyOutOfGasesResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetMyOutOfGases not implemented")
 }
+
 func (UnimplementedGatewayServer) AdminGetOutOfGases(context.Context, *AdminGetOutOfGasesRequest) (*AdminGetOutOfGasesResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AdminGetOutOfGases not implemented")
 }

@@ -7,6 +7,9 @@
 package powerrental
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/good/v1"
 	coin "github.com/NpoolPlatform/kunman/message/good/gateway/v1/good/coin"
 	reward "github.com/NpoolPlatform/kunman/message/good/gateway/v1/good/coin/reward"
@@ -14,8 +17,6 @@ import (
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -1675,31 +1676,33 @@ func file_good_gateway_v1_powerrental_powerrental_proto_rawDescGZIP() []byte {
 	return file_good_gateway_v1_powerrental_powerrental_proto_rawDescData
 }
 
-var file_good_gateway_v1_powerrental_powerrental_proto_msgTypes = make([]protoimpl.MessageInfo, 11)
-var file_good_gateway_v1_powerrental_powerrental_proto_goTypes = []interface{}{
-	(*PowerRental)(nil),                    // 0: good.gateway.powerrental.v1.PowerRental
-	(*AdminCreatePowerRentalRequest)(nil),  // 1: good.gateway.powerrental.v1.AdminCreatePowerRentalRequest
-	(*AdminCreatePowerRentalResponse)(nil), // 2: good.gateway.powerrental.v1.AdminCreatePowerRentalResponse
-	(*AdminUpdatePowerRentalRequest)(nil),  // 3: good.gateway.powerrental.v1.AdminUpdatePowerRentalRequest
-	(*AdminUpdatePowerRentalResponse)(nil), // 4: good.gateway.powerrental.v1.AdminUpdatePowerRentalResponse
-	(*GetPowerRentalRequest)(nil),          // 5: good.gateway.powerrental.v1.GetPowerRentalRequest
-	(*GetPowerRentalResponse)(nil),         // 6: good.gateway.powerrental.v1.GetPowerRentalResponse
-	(*GetPowerRentalsRequest)(nil),         // 7: good.gateway.powerrental.v1.GetPowerRentalsRequest
-	(*GetPowerRentalsResponse)(nil),        // 8: good.gateway.powerrental.v1.GetPowerRentalsResponse
-	(*AdminDeletePowerRentalRequest)(nil),  // 9: good.gateway.powerrental.v1.AdminDeletePowerRentalRequest
-	(*AdminDeletePowerRentalResponse)(nil), // 10: good.gateway.powerrental.v1.AdminDeletePowerRentalResponse
-	(v1.GoodDurationType)(0),               // 11: basetypes.good.v1.GoodDurationType
-	(v1.GoodType)(0),                       // 12: basetypes.good.v1.GoodType
-	(v1.BenefitType)(0),                    // 13: basetypes.good.v1.BenefitType
-	(v1.GoodStartMode)(0),                  // 14: basetypes.good.v1.GoodStartMode
-	(v1.GoodStockMode)(0),                  // 15: basetypes.good.v1.GoodStockMode
-	(v1.GoodState)(0),                      // 16: basetypes.good.v1.GoodState
-	(v1.BenefitState)(0),                   // 17: basetypes.good.v1.BenefitState
-	(*coin.GoodCoinInfo)(nil),              // 18: good.gateway.good1.coin.v1.GoodCoinInfo
-	(*stock.MiningGoodStock)(nil),          // 19: good.gateway.good1.stock.v1.MiningGoodStock
-	(*reward.RewardInfo)(nil),              // 20: good.gateway.good1.coin.reward.v1.RewardInfo
-	(*stock.MiningGoodStockReq)(nil),       // 21: good.gateway.good1.stock.v1.MiningGoodStockReq
-}
+var (
+	file_good_gateway_v1_powerrental_powerrental_proto_msgTypes = make([]protoimpl.MessageInfo, 11)
+	file_good_gateway_v1_powerrental_powerrental_proto_goTypes  = []interface{}{
+		(*PowerRental)(nil),                    // 0: good.gateway.powerrental.v1.PowerRental
+		(*AdminCreatePowerRentalRequest)(nil),  // 1: good.gateway.powerrental.v1.AdminCreatePowerRentalRequest
+		(*AdminCreatePowerRentalResponse)(nil), // 2: good.gateway.powerrental.v1.AdminCreatePowerRentalResponse
+		(*AdminUpdatePowerRentalRequest)(nil),  // 3: good.gateway.powerrental.v1.AdminUpdatePowerRentalRequest
+		(*AdminUpdatePowerRentalResponse)(nil), // 4: good.gateway.powerrental.v1.AdminUpdatePowerRentalResponse
+		(*GetPowerRentalRequest)(nil),          // 5: good.gateway.powerrental.v1.GetPowerRentalRequest
+		(*GetPowerRentalResponse)(nil),         // 6: good.gateway.powerrental.v1.GetPowerRentalResponse
+		(*GetPowerRentalsRequest)(nil),         // 7: good.gateway.powerrental.v1.GetPowerRentalsRequest
+		(*GetPowerRentalsResponse)(nil),        // 8: good.gateway.powerrental.v1.GetPowerRentalsResponse
+		(*AdminDeletePowerRentalRequest)(nil),  // 9: good.gateway.powerrental.v1.AdminDeletePowerRentalRequest
+		(*AdminDeletePowerRentalResponse)(nil), // 10: good.gateway.powerrental.v1.AdminDeletePowerRentalResponse
+		(v1.GoodDurationType)(0),               // 11: basetypes.good.v1.GoodDurationType
+		(v1.GoodType)(0),                       // 12: basetypes.good.v1.GoodType
+		(v1.BenefitType)(0),                    // 13: basetypes.good.v1.BenefitType
+		(v1.GoodStartMode)(0),                  // 14: basetypes.good.v1.GoodStartMode
+		(v1.GoodStockMode)(0),                  // 15: basetypes.good.v1.GoodStockMode
+		(v1.GoodState)(0),                      // 16: basetypes.good.v1.GoodState
+		(v1.BenefitState)(0),                   // 17: basetypes.good.v1.BenefitState
+		(*coin.GoodCoinInfo)(nil),              // 18: good.gateway.good1.coin.v1.GoodCoinInfo
+		(*stock.MiningGoodStock)(nil),          // 19: good.gateway.good1.stock.v1.MiningGoodStock
+		(*reward.RewardInfo)(nil),              // 20: good.gateway.good1.coin.reward.v1.RewardInfo
+		(*stock.MiningGoodStockReq)(nil),       // 21: good.gateway.good1.stock.v1.MiningGoodStockReq
+	}
+)
 var file_good_gateway_v1_powerrental_powerrental_proto_depIdxs = []int32{
 	11, // 0: good.gateway.powerrental.v1.PowerRental.DurationDisplayType:type_name -> basetypes.good.v1.GoodDurationType
 	12, // 1: good.gateway.powerrental.v1.PowerRental.GoodType:type_name -> basetypes.good.v1.GoodType

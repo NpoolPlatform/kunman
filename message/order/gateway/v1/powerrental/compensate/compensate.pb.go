@@ -7,14 +7,15 @@
 package compensate
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	_ "github.com/NpoolPlatform/kunman/message/basetypes/good/v1"
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/order/v1"
 	compensate "github.com/NpoolPlatform/kunman/message/order/gateway/v1/compensate"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -371,15 +372,17 @@ func file_order_gateway_v1_powerrental_compensate_compensate_proto_rawDescGZIP()
 	return file_order_gateway_v1_powerrental_compensate_compensate_proto_rawDescData
 }
 
-var file_order_gateway_v1_powerrental_compensate_compensate_proto_msgTypes = make([]protoimpl.MessageInfo, 4)
-var file_order_gateway_v1_powerrental_compensate_compensate_proto_goTypes = []interface{}{
-	(*AdminCreateCompensateRequest)(nil),  // 0: order.gateway.powerrental.compensate.v1.AdminCreateCompensateRequest
-	(*AdminCreateCompensateResponse)(nil), // 1: order.gateway.powerrental.compensate.v1.AdminCreateCompensateResponse
-	(*AdminDeleteCompensateRequest)(nil),  // 2: order.gateway.powerrental.compensate.v1.AdminDeleteCompensateRequest
-	(*AdminDeleteCompensateResponse)(nil), // 3: order.gateway.powerrental.compensate.v1.AdminDeleteCompensateResponse
-	(v1.CompensateType)(0),                // 4: basetypes.order.v1.CompensateType
-	(*compensate.Compensate)(nil),         // 5: order.gateway.compensate.v1.Compensate
-}
+var (
+	file_order_gateway_v1_powerrental_compensate_compensate_proto_msgTypes = make([]protoimpl.MessageInfo, 4)
+	file_order_gateway_v1_powerrental_compensate_compensate_proto_goTypes  = []interface{}{
+		(*AdminCreateCompensateRequest)(nil),  // 0: order.gateway.powerrental.compensate.v1.AdminCreateCompensateRequest
+		(*AdminCreateCompensateResponse)(nil), // 1: order.gateway.powerrental.compensate.v1.AdminCreateCompensateResponse
+		(*AdminDeleteCompensateRequest)(nil),  // 2: order.gateway.powerrental.compensate.v1.AdminDeleteCompensateRequest
+		(*AdminDeleteCompensateResponse)(nil), // 3: order.gateway.powerrental.compensate.v1.AdminDeleteCompensateResponse
+		(v1.CompensateType)(0),                // 4: basetypes.order.v1.CompensateType
+		(*compensate.Compensate)(nil),         // 5: order.gateway.compensate.v1.Compensate
+	}
+)
 var file_order_gateway_v1_powerrental_compensate_compensate_proto_depIdxs = []int32{
 	4, // 0: order.gateway.powerrental.compensate.v1.AdminCreateCompensateRequest.CompensateType:type_name -> basetypes.order.v1.CompensateType
 	5, // 1: order.gateway.powerrental.compensate.v1.AdminCreateCompensateResponse.Infos:type_name -> order.gateway.compensate.v1.Compensate

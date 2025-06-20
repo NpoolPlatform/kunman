@@ -8,6 +8,7 @@ package admin
 
 import (
 	context "context"
+
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -135,27 +136,32 @@ type GatewayServer interface {
 }
 
 // UnimplementedGatewayServer must be embedded to have forward compatible implementations.
-type UnimplementedGatewayServer struct {
-}
+type UnimplementedGatewayServer struct{}
 
 func (UnimplementedGatewayServer) CreateAdminApps(context.Context, *CreateAdminAppsRequest) (*CreateAdminAppsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateAdminApps not implemented")
 }
+
 func (UnimplementedGatewayServer) CreateGenesisRoles(context.Context, *CreateGenesisRolesRequest) (*CreateGenesisRolesResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateGenesisRoles not implemented")
 }
+
 func (UnimplementedGatewayServer) CreateGenesisUser(context.Context, *CreateGenesisUserRequest) (*CreateGenesisUserResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateGenesisUser not implemented")
 }
+
 func (UnimplementedGatewayServer) GetAdminApps(context.Context, *GetAdminAppsRequest) (*GetAdminAppsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetAdminApps not implemented")
 }
+
 func (UnimplementedGatewayServer) GetGenesisRoles(context.Context, *GetGenesisRolesRequest) (*GetGenesisRolesResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetGenesisRoles not implemented")
 }
+
 func (UnimplementedGatewayServer) GetGenesisUsers(context.Context, *GetGenesisUsersRequest) (*GetGenesisUsersResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetGenesisUsers not implemented")
 }
+
 func (UnimplementedGatewayServer) AuthorizeGenesis(context.Context, *AuthorizeGenesisRequest) (*AuthorizeGenesisResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AuthorizeGenesis not implemented")
 }

@@ -8,6 +8,7 @@ package delegatedstaking
 
 import (
 	context "context"
+
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -103,21 +104,24 @@ type GatewayServer interface {
 }
 
 // UnimplementedGatewayServer must be embedded to have forward compatible implementations.
-type UnimplementedGatewayServer struct {
-}
+type UnimplementedGatewayServer struct{}
 
 func (UnimplementedGatewayServer) AdminCreateDelegatedStaking(context.Context, *AdminCreateDelegatedStakingRequest) (*AdminCreateDelegatedStakingResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AdminCreateDelegatedStaking not implemented")
 }
+
 func (UnimplementedGatewayServer) AdminUpdateDelegatedStaking(context.Context, *AdminUpdateDelegatedStakingRequest) (*AdminUpdateDelegatedStakingResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AdminUpdateDelegatedStaking not implemented")
 }
+
 func (UnimplementedGatewayServer) GetDelegatedStaking(context.Context, *GetDelegatedStakingRequest) (*GetDelegatedStakingResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetDelegatedStaking not implemented")
 }
+
 func (UnimplementedGatewayServer) GetDelegatedStakings(context.Context, *GetDelegatedStakingsRequest) (*GetDelegatedStakingsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetDelegatedStakings not implemented")
 }
+
 func (UnimplementedGatewayServer) AdminDeleteDelegatedStaking(context.Context, *AdminDeleteDelegatedStakingRequest) (*AdminDeleteDelegatedStakingResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AdminDeleteDelegatedStaking not implemented")
 }

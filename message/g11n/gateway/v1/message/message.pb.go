@@ -7,12 +7,13 @@
 package message
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	message "github.com/NpoolPlatform/kunman/message/g11n/middleware/v1/message"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -1717,31 +1718,33 @@ func file_g11n_gateway_v1_message_message_proto_rawDescGZIP() []byte {
 	return file_g11n_gateway_v1_message_message_proto_rawDescData
 }
 
-var file_g11n_gateway_v1_message_message_proto_msgTypes = make([]protoimpl.MessageInfo, 21)
-var file_g11n_gateway_v1_message_message_proto_goTypes = []interface{}{
-	(*Message)(nil),                   // 0: g11n.gateway.message1.v1.Message
-	(*CreateMessageRequest)(nil),      // 1: g11n.gateway.message1.v1.CreateMessageRequest
-	(*CreateMessageResponse)(nil),     // 2: g11n.gateway.message1.v1.CreateMessageResponse
-	(*CreateAppMessageRequest)(nil),   // 3: g11n.gateway.message1.v1.CreateAppMessageRequest
-	(*CreateAppMessageResponse)(nil),  // 4: g11n.gateway.message1.v1.CreateAppMessageResponse
-	(*CreateMessagesRequest)(nil),     // 5: g11n.gateway.message1.v1.CreateMessagesRequest
-	(*CreateMessagesResponse)(nil),    // 6: g11n.gateway.message1.v1.CreateMessagesResponse
-	(*CreateAppMessagesRequest)(nil),  // 7: g11n.gateway.message1.v1.CreateAppMessagesRequest
-	(*CreateAppMessagesResponse)(nil), // 8: g11n.gateway.message1.v1.CreateAppMessagesResponse
-	(*UpdateMessageRequest)(nil),      // 9: g11n.gateway.message1.v1.UpdateMessageRequest
-	(*UpdateMessageResponse)(nil),     // 10: g11n.gateway.message1.v1.UpdateMessageResponse
-	(*UpdateAppMessageRequest)(nil),   // 11: g11n.gateway.message1.v1.UpdateAppMessageRequest
-	(*UpdateAppMessageResponse)(nil),  // 12: g11n.gateway.message1.v1.UpdateAppMessageResponse
-	(*GetMessagesRequest)(nil),        // 13: g11n.gateway.message1.v1.GetMessagesRequest
-	(*GetMessagesResponse)(nil),       // 14: g11n.gateway.message1.v1.GetMessagesResponse
-	(*GetAppMessagesRequest)(nil),     // 15: g11n.gateway.message1.v1.GetAppMessagesRequest
-	(*GetAppMessagesResponse)(nil),    // 16: g11n.gateway.message1.v1.GetAppMessagesResponse
-	(*DeleteMessageRequest)(nil),      // 17: g11n.gateway.message1.v1.DeleteMessageRequest
-	(*DeleteMessageResponse)(nil),     // 18: g11n.gateway.message1.v1.DeleteMessageResponse
-	(*DeleteAppMessageRequest)(nil),   // 19: g11n.gateway.message1.v1.DeleteAppMessageRequest
-	(*DeleteAppMessageResponse)(nil),  // 20: g11n.gateway.message1.v1.DeleteAppMessageResponse
-	(*message.MessageReq)(nil),        // 21: g11n.middleware.message1.v1.MessageReq
-}
+var (
+	file_g11n_gateway_v1_message_message_proto_msgTypes = make([]protoimpl.MessageInfo, 21)
+	file_g11n_gateway_v1_message_message_proto_goTypes  = []interface{}{
+		(*Message)(nil),                   // 0: g11n.gateway.message1.v1.Message
+		(*CreateMessageRequest)(nil),      // 1: g11n.gateway.message1.v1.CreateMessageRequest
+		(*CreateMessageResponse)(nil),     // 2: g11n.gateway.message1.v1.CreateMessageResponse
+		(*CreateAppMessageRequest)(nil),   // 3: g11n.gateway.message1.v1.CreateAppMessageRequest
+		(*CreateAppMessageResponse)(nil),  // 4: g11n.gateway.message1.v1.CreateAppMessageResponse
+		(*CreateMessagesRequest)(nil),     // 5: g11n.gateway.message1.v1.CreateMessagesRequest
+		(*CreateMessagesResponse)(nil),    // 6: g11n.gateway.message1.v1.CreateMessagesResponse
+		(*CreateAppMessagesRequest)(nil),  // 7: g11n.gateway.message1.v1.CreateAppMessagesRequest
+		(*CreateAppMessagesResponse)(nil), // 8: g11n.gateway.message1.v1.CreateAppMessagesResponse
+		(*UpdateMessageRequest)(nil),      // 9: g11n.gateway.message1.v1.UpdateMessageRequest
+		(*UpdateMessageResponse)(nil),     // 10: g11n.gateway.message1.v1.UpdateMessageResponse
+		(*UpdateAppMessageRequest)(nil),   // 11: g11n.gateway.message1.v1.UpdateAppMessageRequest
+		(*UpdateAppMessageResponse)(nil),  // 12: g11n.gateway.message1.v1.UpdateAppMessageResponse
+		(*GetMessagesRequest)(nil),        // 13: g11n.gateway.message1.v1.GetMessagesRequest
+		(*GetMessagesResponse)(nil),       // 14: g11n.gateway.message1.v1.GetMessagesResponse
+		(*GetAppMessagesRequest)(nil),     // 15: g11n.gateway.message1.v1.GetAppMessagesRequest
+		(*GetAppMessagesResponse)(nil),    // 16: g11n.gateway.message1.v1.GetAppMessagesResponse
+		(*DeleteMessageRequest)(nil),      // 17: g11n.gateway.message1.v1.DeleteMessageRequest
+		(*DeleteMessageResponse)(nil),     // 18: g11n.gateway.message1.v1.DeleteMessageResponse
+		(*DeleteAppMessageRequest)(nil),   // 19: g11n.gateway.message1.v1.DeleteAppMessageRequest
+		(*DeleteAppMessageResponse)(nil),  // 20: g11n.gateway.message1.v1.DeleteAppMessageResponse
+		(*message.MessageReq)(nil),        // 21: g11n.middleware.message1.v1.MessageReq
+	}
+)
 var file_g11n_gateway_v1_message_message_proto_depIdxs = []int32{
 	0,  // 0: g11n.gateway.message1.v1.CreateMessageResponse.Info:type_name -> g11n.gateway.message1.v1.Message
 	0,  // 1: g11n.gateway.message1.v1.CreateAppMessageResponse.Info:type_name -> g11n.gateway.message1.v1.Message

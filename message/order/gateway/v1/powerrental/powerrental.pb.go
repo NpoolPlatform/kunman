@@ -7,6 +7,9 @@
 package powerrental
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/good/v1"
 	v11 "github.com/NpoolPlatform/kunman/message/basetypes/order/v1"
 	fee "github.com/NpoolPlatform/kunman/message/order/gateway/v1/fee"
@@ -15,8 +18,6 @@ import (
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -2970,51 +2971,53 @@ func file_order_gateway_v1_powerrental_powerrental_proto_rawDescGZIP() []byte {
 	return file_order_gateway_v1_powerrental_powerrental_proto_rawDescData
 }
 
-var file_order_gateway_v1_powerrental_powerrental_proto_msgTypes = make([]protoimpl.MessageInfo, 25)
-var file_order_gateway_v1_powerrental_powerrental_proto_goTypes = []interface{}{
-	(*PowerRentalOrder)(nil),                    // 0: order.gateway.powerrental.v1.PowerRentalOrder
-	(*OrderBenefitAccountReq)(nil),              // 1: order.gateway.powerrental.v1.OrderBenefitAccountReq
-	(*OrderBenefitAccount)(nil),                 // 2: order.gateway.powerrental.v1.OrderBenefitAccount
-	(*CreatePowerRentalOrderRequest)(nil),       // 3: order.gateway.powerrental.v1.CreatePowerRentalOrderRequest
-	(*CreatePowerRentalOrderResponse)(nil),      // 4: order.gateway.powerrental.v1.CreatePowerRentalOrderResponse
-	(*CreateUserPowerRentalOrderRequest)(nil),   // 5: order.gateway.powerrental.v1.CreateUserPowerRentalOrderRequest
-	(*CreateUserPowerRentalOrderResponse)(nil),  // 6: order.gateway.powerrental.v1.CreateUserPowerRentalOrderResponse
-	(*UpdatePowerRentalOrderRequest)(nil),       // 7: order.gateway.powerrental.v1.UpdatePowerRentalOrderRequest
-	(*UpdatePowerRentalOrderResponse)(nil),      // 8: order.gateway.powerrental.v1.UpdatePowerRentalOrderResponse
-	(*UpdateUserPowerRentalOrderRequest)(nil),   // 9: order.gateway.powerrental.v1.UpdateUserPowerRentalOrderRequest
-	(*UpdateUserPowerRentalOrderResponse)(nil),  // 10: order.gateway.powerrental.v1.UpdateUserPowerRentalOrderResponse
-	(*GetPowerRentalOrderRequest)(nil),          // 11: order.gateway.powerrental.v1.GetPowerRentalOrderRequest
-	(*GetPowerRentalOrderResponse)(nil),         // 12: order.gateway.powerrental.v1.GetPowerRentalOrderResponse
-	(*GetPowerRentalOrdersRequest)(nil),         // 13: order.gateway.powerrental.v1.GetPowerRentalOrdersRequest
-	(*GetPowerRentalOrdersResponse)(nil),        // 14: order.gateway.powerrental.v1.GetPowerRentalOrdersResponse
-	(*GetMyPowerRentalOrdersRequest)(nil),       // 15: order.gateway.powerrental.v1.GetMyPowerRentalOrdersRequest
-	(*GetMyPowerRentalOrdersResponse)(nil),      // 16: order.gateway.powerrental.v1.GetMyPowerRentalOrdersResponse
-	(*AdminCreatePowerRentalOrderRequest)(nil),  // 17: order.gateway.powerrental.v1.AdminCreatePowerRentalOrderRequest
-	(*AdminCreatePowerRentalOrderResponse)(nil), // 18: order.gateway.powerrental.v1.AdminCreatePowerRentalOrderResponse
-	(*AdminUpdatePowerRentalOrderRequest)(nil),  // 19: order.gateway.powerrental.v1.AdminUpdatePowerRentalOrderRequest
-	(*AdminUpdatePowerRentalOrderResponse)(nil), // 20: order.gateway.powerrental.v1.AdminUpdatePowerRentalOrderResponse
-	(*AdminGetPowerRentalOrdersRequest)(nil),    // 21: order.gateway.powerrental.v1.AdminGetPowerRentalOrdersRequest
-	(*AdminGetPowerRentalOrdersResponse)(nil),   // 22: order.gateway.powerrental.v1.AdminGetPowerRentalOrdersResponse
-	(*AdminDeletePowerRentalOrderRequest)(nil),  // 23: order.gateway.powerrental.v1.AdminDeletePowerRentalOrderRequest
-	(*AdminDeletePowerRentalOrderResponse)(nil), // 24: order.gateway.powerrental.v1.AdminDeletePowerRentalOrderResponse
-	(v1.GoodType)(0),                            // 25: basetypes.good.v1.GoodType
-	(v1.BenefitType)(0),                         // 26: basetypes.good.v1.BenefitType
-	(v11.OrderType)(0),                          // 27: basetypes.order.v1.OrderType
-	(v11.PaymentType)(0),                        // 28: basetypes.order.v1.PaymentType
-	(v11.OrderCreateMethod)(0),                  // 29: basetypes.order.v1.OrderCreateMethod
-	(v11.OrderState)(0),                         // 30: basetypes.order.v1.OrderState
-	(v11.OrderStartMode)(0),                     // 31: basetypes.order.v1.OrderStartMode
-	(v11.BenefitState)(0),                       // 32: basetypes.order.v1.BenefitState
-	(v1.GoodDurationType)(0),                    // 33: basetypes.good.v1.GoodDurationType
-	(v11.InvestmentType)(0),                     // 34: basetypes.order.v1.InvestmentType
-	(v1.GoodStockMode)(0),                       // 35: basetypes.good.v1.GoodStockMode
-	(v11.PaymentState)(0),                       // 36: basetypes.order.v1.PaymentState
-	(*coupon.OrderCouponInfo)(nil),              // 37: order.gateway.order1.coupon.v1.OrderCouponInfo
-	(*payment.PaymentBalanceInfo)(nil),          // 38: order.gateway.payment.v1.PaymentBalanceInfo
-	(*payment.PaymentTransferInfo)(nil),         // 39: order.gateway.payment.v1.PaymentTransferInfo
-	(*fee.FeeDuration)(nil),                     // 40: order.gateway.fee.v1.FeeDuration
-	(*payment.PaymentBalance)(nil),              // 41: order.gateway.payment.v1.PaymentBalance
-}
+var (
+	file_order_gateway_v1_powerrental_powerrental_proto_msgTypes = make([]protoimpl.MessageInfo, 25)
+	file_order_gateway_v1_powerrental_powerrental_proto_goTypes  = []interface{}{
+		(*PowerRentalOrder)(nil),                    // 0: order.gateway.powerrental.v1.PowerRentalOrder
+		(*OrderBenefitAccountReq)(nil),              // 1: order.gateway.powerrental.v1.OrderBenefitAccountReq
+		(*OrderBenefitAccount)(nil),                 // 2: order.gateway.powerrental.v1.OrderBenefitAccount
+		(*CreatePowerRentalOrderRequest)(nil),       // 3: order.gateway.powerrental.v1.CreatePowerRentalOrderRequest
+		(*CreatePowerRentalOrderResponse)(nil),      // 4: order.gateway.powerrental.v1.CreatePowerRentalOrderResponse
+		(*CreateUserPowerRentalOrderRequest)(nil),   // 5: order.gateway.powerrental.v1.CreateUserPowerRentalOrderRequest
+		(*CreateUserPowerRentalOrderResponse)(nil),  // 6: order.gateway.powerrental.v1.CreateUserPowerRentalOrderResponse
+		(*UpdatePowerRentalOrderRequest)(nil),       // 7: order.gateway.powerrental.v1.UpdatePowerRentalOrderRequest
+		(*UpdatePowerRentalOrderResponse)(nil),      // 8: order.gateway.powerrental.v1.UpdatePowerRentalOrderResponse
+		(*UpdateUserPowerRentalOrderRequest)(nil),   // 9: order.gateway.powerrental.v1.UpdateUserPowerRentalOrderRequest
+		(*UpdateUserPowerRentalOrderResponse)(nil),  // 10: order.gateway.powerrental.v1.UpdateUserPowerRentalOrderResponse
+		(*GetPowerRentalOrderRequest)(nil),          // 11: order.gateway.powerrental.v1.GetPowerRentalOrderRequest
+		(*GetPowerRentalOrderResponse)(nil),         // 12: order.gateway.powerrental.v1.GetPowerRentalOrderResponse
+		(*GetPowerRentalOrdersRequest)(nil),         // 13: order.gateway.powerrental.v1.GetPowerRentalOrdersRequest
+		(*GetPowerRentalOrdersResponse)(nil),        // 14: order.gateway.powerrental.v1.GetPowerRentalOrdersResponse
+		(*GetMyPowerRentalOrdersRequest)(nil),       // 15: order.gateway.powerrental.v1.GetMyPowerRentalOrdersRequest
+		(*GetMyPowerRentalOrdersResponse)(nil),      // 16: order.gateway.powerrental.v1.GetMyPowerRentalOrdersResponse
+		(*AdminCreatePowerRentalOrderRequest)(nil),  // 17: order.gateway.powerrental.v1.AdminCreatePowerRentalOrderRequest
+		(*AdminCreatePowerRentalOrderResponse)(nil), // 18: order.gateway.powerrental.v1.AdminCreatePowerRentalOrderResponse
+		(*AdminUpdatePowerRentalOrderRequest)(nil),  // 19: order.gateway.powerrental.v1.AdminUpdatePowerRentalOrderRequest
+		(*AdminUpdatePowerRentalOrderResponse)(nil), // 20: order.gateway.powerrental.v1.AdminUpdatePowerRentalOrderResponse
+		(*AdminGetPowerRentalOrdersRequest)(nil),    // 21: order.gateway.powerrental.v1.AdminGetPowerRentalOrdersRequest
+		(*AdminGetPowerRentalOrdersResponse)(nil),   // 22: order.gateway.powerrental.v1.AdminGetPowerRentalOrdersResponse
+		(*AdminDeletePowerRentalOrderRequest)(nil),  // 23: order.gateway.powerrental.v1.AdminDeletePowerRentalOrderRequest
+		(*AdminDeletePowerRentalOrderResponse)(nil), // 24: order.gateway.powerrental.v1.AdminDeletePowerRentalOrderResponse
+		(v1.GoodType)(0),                            // 25: basetypes.good.v1.GoodType
+		(v1.BenefitType)(0),                         // 26: basetypes.good.v1.BenefitType
+		(v11.OrderType)(0),                          // 27: basetypes.order.v1.OrderType
+		(v11.PaymentType)(0),                        // 28: basetypes.order.v1.PaymentType
+		(v11.OrderCreateMethod)(0),                  // 29: basetypes.order.v1.OrderCreateMethod
+		(v11.OrderState)(0),                         // 30: basetypes.order.v1.OrderState
+		(v11.OrderStartMode)(0),                     // 31: basetypes.order.v1.OrderStartMode
+		(v11.BenefitState)(0),                       // 32: basetypes.order.v1.BenefitState
+		(v1.GoodDurationType)(0),                    // 33: basetypes.good.v1.GoodDurationType
+		(v11.InvestmentType)(0),                     // 34: basetypes.order.v1.InvestmentType
+		(v1.GoodStockMode)(0),                       // 35: basetypes.good.v1.GoodStockMode
+		(v11.PaymentState)(0),                       // 36: basetypes.order.v1.PaymentState
+		(*coupon.OrderCouponInfo)(nil),              // 37: order.gateway.order1.coupon.v1.OrderCouponInfo
+		(*payment.PaymentBalanceInfo)(nil),          // 38: order.gateway.payment.v1.PaymentBalanceInfo
+		(*payment.PaymentTransferInfo)(nil),         // 39: order.gateway.payment.v1.PaymentTransferInfo
+		(*fee.FeeDuration)(nil),                     // 40: order.gateway.fee.v1.FeeDuration
+		(*payment.PaymentBalance)(nil),              // 41: order.gateway.payment.v1.PaymentBalance
+	}
+)
 var file_order_gateway_v1_powerrental_powerrental_proto_depIdxs = []int32{
 	25, // 0: order.gateway.powerrental.v1.PowerRentalOrder.GoodType:type_name -> basetypes.good.v1.GoodType
 	26, // 1: order.gateway.powerrental.v1.PowerRentalOrder.BenefitType:type_name -> basetypes.good.v1.BenefitType

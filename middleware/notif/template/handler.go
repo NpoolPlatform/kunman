@@ -80,7 +80,6 @@ func WithLangID(id *string, must bool) func(context.Context, *Handler) error {
 	}
 }
 
-// nolint:gocyclo
 func WithUsedFor(_usedFor *basetypes.UsedFor, must bool) func(context.Context, *Handler) error {
 	return func(ctx context.Context, h *Handler) error {
 		if _usedFor == nil {

@@ -7,11 +7,12 @@
 package applang
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -858,20 +859,22 @@ func file_g11n_gateway_v1_applang_applang_proto_rawDescGZIP() []byte {
 	return file_g11n_gateway_v1_applang_applang_proto_rawDescData
 }
 
-var file_g11n_gateway_v1_applang_applang_proto_msgTypes = make([]protoimpl.MessageInfo, 11)
-var file_g11n_gateway_v1_applang_applang_proto_goTypes = []interface{}{
-	(*Lang)(nil),                // 0: g11n.gateway.applang.v1.Lang
-	(*CreateLangRequest)(nil),   // 1: g11n.gateway.applang.v1.CreateLangRequest
-	(*CreateLangResponse)(nil),  // 2: g11n.gateway.applang.v1.CreateLangResponse
-	(*UpdateLangRequest)(nil),   // 3: g11n.gateway.applang.v1.UpdateLangRequest
-	(*UpdateLangResponse)(nil),  // 4: g11n.gateway.applang.v1.UpdateLangResponse
-	(*GetLangsRequest)(nil),     // 5: g11n.gateway.applang.v1.GetLangsRequest
-	(*GetLangsResponse)(nil),    // 6: g11n.gateway.applang.v1.GetLangsResponse
-	(*GetAppLangsRequest)(nil),  // 7: g11n.gateway.applang.v1.GetAppLangsRequest
-	(*GetAppLangsResponse)(nil), // 8: g11n.gateway.applang.v1.GetAppLangsResponse
-	(*DeleteLangRequest)(nil),   // 9: g11n.gateway.applang.v1.DeleteLangRequest
-	(*DeleteLangResponse)(nil),  // 10: g11n.gateway.applang.v1.DeleteLangResponse
-}
+var (
+	file_g11n_gateway_v1_applang_applang_proto_msgTypes = make([]protoimpl.MessageInfo, 11)
+	file_g11n_gateway_v1_applang_applang_proto_goTypes  = []interface{}{
+		(*Lang)(nil),                // 0: g11n.gateway.applang.v1.Lang
+		(*CreateLangRequest)(nil),   // 1: g11n.gateway.applang.v1.CreateLangRequest
+		(*CreateLangResponse)(nil),  // 2: g11n.gateway.applang.v1.CreateLangResponse
+		(*UpdateLangRequest)(nil),   // 3: g11n.gateway.applang.v1.UpdateLangRequest
+		(*UpdateLangResponse)(nil),  // 4: g11n.gateway.applang.v1.UpdateLangResponse
+		(*GetLangsRequest)(nil),     // 5: g11n.gateway.applang.v1.GetLangsRequest
+		(*GetLangsResponse)(nil),    // 6: g11n.gateway.applang.v1.GetLangsResponse
+		(*GetAppLangsRequest)(nil),  // 7: g11n.gateway.applang.v1.GetAppLangsRequest
+		(*GetAppLangsResponse)(nil), // 8: g11n.gateway.applang.v1.GetAppLangsResponse
+		(*DeleteLangRequest)(nil),   // 9: g11n.gateway.applang.v1.DeleteLangRequest
+		(*DeleteLangResponse)(nil),  // 10: g11n.gateway.applang.v1.DeleteLangResponse
+	}
+)
 var file_g11n_gateway_v1_applang_applang_proto_depIdxs = []int32{
 	0,  // 0: g11n.gateway.applang.v1.CreateLangResponse.Info:type_name -> g11n.gateway.applang.v1.Lang
 	0,  // 1: g11n.gateway.applang.v1.UpdateLangResponse.Info:type_name -> g11n.gateway.applang.v1.Lang

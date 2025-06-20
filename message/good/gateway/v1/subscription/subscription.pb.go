@@ -7,13 +7,14 @@
 package subscription
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/good/v1"
 	subscription "github.com/NpoolPlatform/kunman/message/good/middleware/v1/subscription"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -809,21 +810,23 @@ func file_good_gateway_v1_subscription_subscription_proto_rawDescGZIP() []byte {
 	return file_good_gateway_v1_subscription_subscription_proto_rawDescData
 }
 
-var file_good_gateway_v1_subscription_subscription_proto_msgTypes = make([]protoimpl.MessageInfo, 10)
-var file_good_gateway_v1_subscription_subscription_proto_goTypes = []interface{}{
-	(*AdminCreateSubscriptionRequest)(nil),  // 0: good.gateway.subscription.v1.AdminCreateSubscriptionRequest
-	(*AdminCreateSubscriptionResponse)(nil), // 1: good.gateway.subscription.v1.AdminCreateSubscriptionResponse
-	(*AdminUpdateSubscriptionRequest)(nil),  // 2: good.gateway.subscription.v1.AdminUpdateSubscriptionRequest
-	(*AdminUpdateSubscriptionResponse)(nil), // 3: good.gateway.subscription.v1.AdminUpdateSubscriptionResponse
-	(*GetSubscriptionRequest)(nil),          // 4: good.gateway.subscription.v1.GetSubscriptionRequest
-	(*GetSubscriptionResponse)(nil),         // 5: good.gateway.subscription.v1.GetSubscriptionResponse
-	(*GetSubscriptionsRequest)(nil),         // 6: good.gateway.subscription.v1.GetSubscriptionsRequest
-	(*GetSubscriptionsResponse)(nil),        // 7: good.gateway.subscription.v1.GetSubscriptionsResponse
-	(*AdminDeleteSubscriptionRequest)(nil),  // 8: good.gateway.subscription.v1.AdminDeleteSubscriptionRequest
-	(*AdminDeleteSubscriptionResponse)(nil), // 9: good.gateway.subscription.v1.AdminDeleteSubscriptionResponse
-	(v1.GoodDurationType)(0),                // 10: basetypes.good.v1.GoodDurationType
-	(*subscription.Subscription)(nil),       // 11: good.middleware.subscription.v1.Subscription
-}
+var (
+	file_good_gateway_v1_subscription_subscription_proto_msgTypes = make([]protoimpl.MessageInfo, 10)
+	file_good_gateway_v1_subscription_subscription_proto_goTypes  = []interface{}{
+		(*AdminCreateSubscriptionRequest)(nil),  // 0: good.gateway.subscription.v1.AdminCreateSubscriptionRequest
+		(*AdminCreateSubscriptionResponse)(nil), // 1: good.gateway.subscription.v1.AdminCreateSubscriptionResponse
+		(*AdminUpdateSubscriptionRequest)(nil),  // 2: good.gateway.subscription.v1.AdminUpdateSubscriptionRequest
+		(*AdminUpdateSubscriptionResponse)(nil), // 3: good.gateway.subscription.v1.AdminUpdateSubscriptionResponse
+		(*GetSubscriptionRequest)(nil),          // 4: good.gateway.subscription.v1.GetSubscriptionRequest
+		(*GetSubscriptionResponse)(nil),         // 5: good.gateway.subscription.v1.GetSubscriptionResponse
+		(*GetSubscriptionsRequest)(nil),         // 6: good.gateway.subscription.v1.GetSubscriptionsRequest
+		(*GetSubscriptionsResponse)(nil),        // 7: good.gateway.subscription.v1.GetSubscriptionsResponse
+		(*AdminDeleteSubscriptionRequest)(nil),  // 8: good.gateway.subscription.v1.AdminDeleteSubscriptionRequest
+		(*AdminDeleteSubscriptionResponse)(nil), // 9: good.gateway.subscription.v1.AdminDeleteSubscriptionResponse
+		(v1.GoodDurationType)(0),                // 10: basetypes.good.v1.GoodDurationType
+		(*subscription.Subscription)(nil),       // 11: good.middleware.subscription.v1.Subscription
+	}
+)
 var file_good_gateway_v1_subscription_subscription_proto_depIdxs = []int32{
 	10, // 0: good.gateway.subscription.v1.AdminCreateSubscriptionRequest.DurationDisplayType:type_name -> basetypes.good.v1.GoodDurationType
 	11, // 1: good.gateway.subscription.v1.AdminCreateSubscriptionResponse.Info:type_name -> good.middleware.subscription.v1.Subscription

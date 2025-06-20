@@ -54,7 +54,7 @@ type Conds struct {
 	LockType *cruder.Cond
 }
 
-//nolint
+// nolint
 func SetQueryConds(q *ent.OrderLockQuery, conds *Conds) (*ent.OrderLockQuery, error) {
 	q.Where(entorderlock.DeletedAt(0))
 	if conds == nil {

@@ -8,6 +8,7 @@ package fiat
 
 import (
 	context "context"
+
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -79,15 +80,16 @@ type GatewayServer interface {
 }
 
 // UnimplementedGatewayServer must be embedded to have forward compatible implementations.
-type UnimplementedGatewayServer struct {
-}
+type UnimplementedGatewayServer struct{}
 
 func (UnimplementedGatewayServer) CreateFiat(context.Context, *CreateFiatRequest) (*CreateFiatResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateFiat not implemented")
 }
+
 func (UnimplementedGatewayServer) GetFiats(context.Context, *GetFiatsRequest) (*GetFiatsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetFiats not implemented")
 }
+
 func (UnimplementedGatewayServer) UpdateFiat(context.Context, *UpdateFiatRequest) (*UpdateFiatResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateFiat not implemented")
 }

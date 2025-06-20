@@ -5,11 +5,11 @@ import (
 	"fmt"
 	"time"
 
+	asyncfeed "github.com/NpoolPlatform/kunman/cron/scheduler/base/asyncfeed"
+	types "github.com/NpoolPlatform/kunman/cron/scheduler/order/powerrental/simulate/paid/check/types"
 	"github.com/NpoolPlatform/kunman/framework/logger"
 	ordertypes "github.com/NpoolPlatform/kunman/message/basetypes/order/v1"
 	powerrentalordermwpb "github.com/NpoolPlatform/kunman/message/order/middleware/v1/powerrental"
-	asyncfeed "github.com/NpoolPlatform/kunman/cron/scheduler/base/asyncfeed"
-	types "github.com/NpoolPlatform/kunman/cron/scheduler/order/powerrental/simulate/paid/check/types"
 )
 
 type orderHandler struct {
@@ -22,9 +22,9 @@ type orderHandler struct {
 func (h *orderHandler) startable() (bool, error) {
 	switch h.PaymentState {
 	case ordertypes.PaymentState_PaymentStateWait:
-		fallthrough // nolint
+		fallthrough
 	case ordertypes.PaymentState_PaymentStateCanceled:
-		fallthrough // nolint
+		fallthrough
 	case ordertypes.PaymentState_PaymentStateTimeout:
 		return false, nil
 	case ordertypes.PaymentState_PaymentStateDone:
@@ -39,7 +39,6 @@ func (h *orderHandler) startable() (bool, error) {
 	return true, nil
 }
 
-//nolint:gocritic
 func (h *orderHandler) final(ctx context.Context, err *error) {
 	if *err != nil {
 		logger.Sugar().Errorw(
@@ -62,7 +61,6 @@ func (h *orderHandler) final(ctx context.Context, err *error) {
 	asyncfeed.AsyncFeed(ctx, h.PowerRentalOrder, h.done)
 }
 
-//nolint:gocritic
 func (h *orderHandler) exec(ctx context.Context) error {
 	h.newOrderState = h.OrderState
 

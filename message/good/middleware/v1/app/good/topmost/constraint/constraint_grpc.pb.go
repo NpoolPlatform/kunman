@@ -8,6 +8,7 @@ package constraint
 
 import (
 	context "context"
+
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -115,24 +116,28 @@ type MiddlewareServer interface {
 }
 
 // UnimplementedMiddlewareServer must be embedded to have forward compatible implementations.
-type UnimplementedMiddlewareServer struct {
-}
+type UnimplementedMiddlewareServer struct{}
 
 func (UnimplementedMiddlewareServer) CreateTopMostConstraint(context.Context, *CreateTopMostConstraintRequest) (*CreateTopMostConstraintResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateTopMostConstraint not implemented")
 }
+
 func (UnimplementedMiddlewareServer) UpdateTopMostConstraint(context.Context, *UpdateTopMostConstraintRequest) (*UpdateTopMostConstraintResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateTopMostConstraint not implemented")
 }
+
 func (UnimplementedMiddlewareServer) GetTopMostConstraint(context.Context, *GetTopMostConstraintRequest) (*GetTopMostConstraintResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetTopMostConstraint not implemented")
 }
+
 func (UnimplementedMiddlewareServer) GetTopMostConstraints(context.Context, *GetTopMostConstraintsRequest) (*GetTopMostConstraintsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetTopMostConstraints not implemented")
 }
+
 func (UnimplementedMiddlewareServer) ExistTopMostConstraintConds(context.Context, *ExistTopMostConstraintCondsRequest) (*ExistTopMostConstraintCondsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ExistTopMostConstraintConds not implemented")
 }
+
 func (UnimplementedMiddlewareServer) DeleteTopMostConstraint(context.Context, *DeleteTopMostConstraintRequest) (*DeleteTopMostConstraintResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteTopMostConstraint not implemented")
 }

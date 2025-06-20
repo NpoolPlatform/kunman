@@ -8,6 +8,7 @@ package label
 
 import (
 	context "context"
+
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -141,30 +142,36 @@ type GatewayServer interface {
 }
 
 // UnimplementedGatewayServer must be embedded to have forward compatible implementations.
-type UnimplementedGatewayServer struct {
-}
+type UnimplementedGatewayServer struct{}
 
 func (UnimplementedGatewayServer) CreateLabel(context.Context, *CreateLabelRequest) (*CreateLabelResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateLabel not implemented")
 }
+
 func (UnimplementedGatewayServer) UpdateLabel(context.Context, *UpdateLabelRequest) (*UpdateLabelResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateLabel not implemented")
 }
+
 func (UnimplementedGatewayServer) GetLabels(context.Context, *GetLabelsRequest) (*GetLabelsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetLabels not implemented")
 }
+
 func (UnimplementedGatewayServer) DeleteLabel(context.Context, *DeleteLabelRequest) (*DeleteLabelResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteLabel not implemented")
 }
+
 func (UnimplementedGatewayServer) AdminCreateLabel(context.Context, *AdminCreateLabelRequest) (*AdminCreateLabelResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AdminCreateLabel not implemented")
 }
+
 func (UnimplementedGatewayServer) AdminUpdateLabel(context.Context, *AdminUpdateLabelRequest) (*AdminUpdateLabelResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AdminUpdateLabel not implemented")
 }
+
 func (UnimplementedGatewayServer) AdminGetLabels(context.Context, *AdminGetLabelsRequest) (*AdminGetLabelsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AdminGetLabels not implemented")
 }
+
 func (UnimplementedGatewayServer) AdminDeleteLabel(context.Context, *AdminDeleteLabelRequest) (*AdminDeleteLabelResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AdminDeleteLabel not implemented")
 }

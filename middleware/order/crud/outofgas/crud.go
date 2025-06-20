@@ -57,7 +57,7 @@ type Conds struct {
 	StartEnd *cruder.Cond
 }
 
-//nolint
+// nolint
 func SetQueryConds(q *ent.OutOfGasQuery, conds *Conds) (*ent.OutOfGasQuery, error) {
 	q.Where(entoutofgas.DeletedAt(0))
 	if conds == nil {

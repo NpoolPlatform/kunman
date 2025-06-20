@@ -8,6 +8,7 @@ package description
 
 import (
 	context "context"
+
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -141,30 +142,36 @@ type GatewayServer interface {
 }
 
 // UnimplementedGatewayServer must be embedded to have forward compatible implementations.
-type UnimplementedGatewayServer struct {
-}
+type UnimplementedGatewayServer struct{}
 
 func (UnimplementedGatewayServer) CreateDescription(context.Context, *CreateDescriptionRequest) (*CreateDescriptionResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateDescription not implemented")
 }
+
 func (UnimplementedGatewayServer) UpdateDescription(context.Context, *UpdateDescriptionRequest) (*UpdateDescriptionResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateDescription not implemented")
 }
+
 func (UnimplementedGatewayServer) GetDescriptions(context.Context, *GetDescriptionsRequest) (*GetDescriptionsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetDescriptions not implemented")
 }
+
 func (UnimplementedGatewayServer) DeleteDescription(context.Context, *DeleteDescriptionRequest) (*DeleteDescriptionResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteDescription not implemented")
 }
+
 func (UnimplementedGatewayServer) AdminCreateDescription(context.Context, *AdminCreateDescriptionRequest) (*AdminCreateDescriptionResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AdminCreateDescription not implemented")
 }
+
 func (UnimplementedGatewayServer) AdminUpdateDescription(context.Context, *AdminUpdateDescriptionRequest) (*AdminUpdateDescriptionResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AdminUpdateDescription not implemented")
 }
+
 func (UnimplementedGatewayServer) AdminGetDescriptions(context.Context, *AdminGetDescriptionsRequest) (*AdminGetDescriptionsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AdminGetDescriptions not implemented")
 }
+
 func (UnimplementedGatewayServer) AdminDeleteDescription(context.Context, *AdminDeleteDescriptionRequest) (*AdminDeleteDescriptionResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AdminDeleteDescription not implemented")
 }

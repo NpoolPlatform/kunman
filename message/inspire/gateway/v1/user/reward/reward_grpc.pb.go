@@ -8,6 +8,7 @@ package reward
 
 import (
 	context "context"
+
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -67,12 +68,12 @@ type GatewayServer interface {
 }
 
 // UnimplementedGatewayServer must be embedded to have forward compatible implementations.
-type UnimplementedGatewayServer struct {
-}
+type UnimplementedGatewayServer struct{}
 
 func (UnimplementedGatewayServer) AdminGetUserRewards(context.Context, *AdminGetUserRewardsRequest) (*AdminGetUserRewardsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AdminGetUserRewards not implemented")
 }
+
 func (UnimplementedGatewayServer) GetMyUserRewards(context.Context, *GetMyUserRewardsRequest) (*GetMyUserRewardsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetMyUserRewards not implemented")
 }

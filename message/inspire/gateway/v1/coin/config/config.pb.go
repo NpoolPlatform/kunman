@@ -7,11 +7,12 @@
 package config
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -757,18 +758,20 @@ func file_inspire_gateway_v1_coin_config_config_proto_rawDescGZIP() []byte {
 	return file_inspire_gateway_v1_coin_config_config_proto_rawDescData
 }
 
-var file_inspire_gateway_v1_coin_config_config_proto_msgTypes = make([]protoimpl.MessageInfo, 9)
-var file_inspire_gateway_v1_coin_config_config_proto_goTypes = []interface{}{
-	(*CoinConfig)(nil),                    // 0: inspire.gateway.coin.config.v1.CoinConfig
-	(*AdminCreateCoinConfigRequest)(nil),  // 1: inspire.gateway.coin.config.v1.AdminCreateCoinConfigRequest
-	(*AdminCreateCoinConfigResponse)(nil), // 2: inspire.gateway.coin.config.v1.AdminCreateCoinConfigResponse
-	(*AdminUpdateCoinConfigRequest)(nil),  // 3: inspire.gateway.coin.config.v1.AdminUpdateCoinConfigRequest
-	(*AdminUpdateCoinConfigResponse)(nil), // 4: inspire.gateway.coin.config.v1.AdminUpdateCoinConfigResponse
-	(*AdminGetCoinConfigsRequest)(nil),    // 5: inspire.gateway.coin.config.v1.AdminGetCoinConfigsRequest
-	(*AdminGetCoinConfigsResponse)(nil),   // 6: inspire.gateway.coin.config.v1.AdminGetCoinConfigsResponse
-	(*AdminDeleteCoinConfigRequest)(nil),  // 7: inspire.gateway.coin.config.v1.AdminDeleteCoinConfigRequest
-	(*AdminDeleteCoinConfigResponse)(nil), // 8: inspire.gateway.coin.config.v1.AdminDeleteCoinConfigResponse
-}
+var (
+	file_inspire_gateway_v1_coin_config_config_proto_msgTypes = make([]protoimpl.MessageInfo, 9)
+	file_inspire_gateway_v1_coin_config_config_proto_goTypes  = []interface{}{
+		(*CoinConfig)(nil),                    // 0: inspire.gateway.coin.config.v1.CoinConfig
+		(*AdminCreateCoinConfigRequest)(nil),  // 1: inspire.gateway.coin.config.v1.AdminCreateCoinConfigRequest
+		(*AdminCreateCoinConfigResponse)(nil), // 2: inspire.gateway.coin.config.v1.AdminCreateCoinConfigResponse
+		(*AdminUpdateCoinConfigRequest)(nil),  // 3: inspire.gateway.coin.config.v1.AdminUpdateCoinConfigRequest
+		(*AdminUpdateCoinConfigResponse)(nil), // 4: inspire.gateway.coin.config.v1.AdminUpdateCoinConfigResponse
+		(*AdminGetCoinConfigsRequest)(nil),    // 5: inspire.gateway.coin.config.v1.AdminGetCoinConfigsRequest
+		(*AdminGetCoinConfigsResponse)(nil),   // 6: inspire.gateway.coin.config.v1.AdminGetCoinConfigsResponse
+		(*AdminDeleteCoinConfigRequest)(nil),  // 7: inspire.gateway.coin.config.v1.AdminDeleteCoinConfigRequest
+		(*AdminDeleteCoinConfigResponse)(nil), // 8: inspire.gateway.coin.config.v1.AdminDeleteCoinConfigResponse
+	}
+)
 var file_inspire_gateway_v1_coin_config_config_proto_depIdxs = []int32{
 	0, // 0: inspire.gateway.coin.config.v1.AdminCreateCoinConfigResponse.Info:type_name -> inspire.gateway.coin.config.v1.CoinConfig
 	0, // 1: inspire.gateway.coin.config.v1.AdminUpdateCoinConfigResponse.Info:type_name -> inspire.gateway.coin.config.v1.CoinConfig

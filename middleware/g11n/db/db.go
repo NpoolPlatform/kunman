@@ -18,8 +18,10 @@ import (
 	_ "github.com/NpoolPlatform/kunman/middleware/g11n/db/ent/generated/runtime"
 )
 
-var db *mysql.DB
-var mutex sync.Mutex
+var (
+	db    *mysql.DB
+	mutex sync.Mutex
+)
 
 func client(f func(cli *ent.Client) error) error {
 	mutex.Lock()

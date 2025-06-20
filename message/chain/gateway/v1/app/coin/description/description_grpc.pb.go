@@ -8,6 +8,7 @@ package description
 
 import (
 	context "context"
+
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -103,21 +104,24 @@ type GatewayServer interface {
 }
 
 // UnimplementedGatewayServer must be embedded to have forward compatible implementations.
-type UnimplementedGatewayServer struct {
-}
+type UnimplementedGatewayServer struct{}
 
 func (UnimplementedGatewayServer) CreateCoinDescription(context.Context, *CreateCoinDescriptionRequest) (*CreateCoinDescriptionResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateCoinDescription not implemented")
 }
+
 func (UnimplementedGatewayServer) CreateAppCoinDescription(context.Context, *CreateAppCoinDescriptionRequest) (*CreateAppCoinDescriptionResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateAppCoinDescription not implemented")
 }
+
 func (UnimplementedGatewayServer) GetCoinDescriptions(context.Context, *GetCoinDescriptionsRequest) (*GetCoinDescriptionsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetCoinDescriptions not implemented")
 }
+
 func (UnimplementedGatewayServer) GetAppCoinDescriptions(context.Context, *GetAppCoinDescriptionsRequest) (*GetAppCoinDescriptionsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetAppCoinDescriptions not implemented")
 }
+
 func (UnimplementedGatewayServer) UpdateCoinDescription(context.Context, *UpdateCoinDescriptionRequest) (*UpdateCoinDescriptionResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateCoinDescription not implemented")
 }

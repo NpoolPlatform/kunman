@@ -5,11 +5,11 @@ import (
 	"sync"
 	"time"
 
-	"github.com/NpoolPlatform/kunman/framework/logger"
 	"github.com/NpoolPlatform/kunman/cron/scheduler/base"
 	"github.com/NpoolPlatform/kunman/cron/scheduler/notif/announcement/executor"
 	"github.com/NpoolPlatform/kunman/cron/scheduler/notif/announcement/persistent"
 	"github.com/NpoolPlatform/kunman/cron/scheduler/notif/announcement/sentinel"
+	"github.com/NpoolPlatform/kunman/framework/logger"
 )
 
 const subsystem = "announcement"

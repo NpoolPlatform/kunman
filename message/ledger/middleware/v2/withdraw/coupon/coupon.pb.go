@@ -7,12 +7,13 @@
 package coupon
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/ledger/v1"
 	v11 "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -499,15 +500,17 @@ func file_ledger_middleware_v2_withdraw_coupon_coupon_proto_rawDescGZIP() []byte
 	return file_ledger_middleware_v2_withdraw_coupon_coupon_proto_rawDescData
 }
 
-var file_ledger_middleware_v2_withdraw_coupon_coupon_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
-var file_ledger_middleware_v2_withdraw_coupon_coupon_proto_goTypes = []interface{}{
-	(*CouponWithdrawReq)(nil), // 0: ledger.middleware.withdraw.coupon.v2.CouponWithdrawReq
-	(*CouponWithdraw)(nil),    // 1: ledger.middleware.withdraw.coupon.v2.CouponWithdraw
-	(*Conds)(nil),             // 2: ledger.middleware.withdraw.coupon.v2.Conds
-	(v1.WithdrawState)(0),     // 3: basetypes.ledger.v1.WithdrawState
-	(*v11.StringVal)(nil),     // 4: basetypes.v1.StringVal
-	(*v11.Uint32Val)(nil),     // 5: basetypes.v1.Uint32Val
-}
+var (
+	file_ledger_middleware_v2_withdraw_coupon_coupon_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
+	file_ledger_middleware_v2_withdraw_coupon_coupon_proto_goTypes  = []interface{}{
+		(*CouponWithdrawReq)(nil), // 0: ledger.middleware.withdraw.coupon.v2.CouponWithdrawReq
+		(*CouponWithdraw)(nil),    // 1: ledger.middleware.withdraw.coupon.v2.CouponWithdraw
+		(*Conds)(nil),             // 2: ledger.middleware.withdraw.coupon.v2.Conds
+		(v1.WithdrawState)(0),     // 3: basetypes.ledger.v1.WithdrawState
+		(*v11.StringVal)(nil),     // 4: basetypes.v1.StringVal
+		(*v11.Uint32Val)(nil),     // 5: basetypes.v1.Uint32Val
+	}
+)
 var file_ledger_middleware_v2_withdraw_coupon_coupon_proto_depIdxs = []int32{
 	3,  // 0: ledger.middleware.withdraw.coupon.v2.CouponWithdrawReq.State:type_name -> basetypes.ledger.v1.WithdrawState
 	3,  // 1: ledger.middleware.withdraw.coupon.v2.CouponWithdraw.State:type_name -> basetypes.ledger.v1.WithdrawState

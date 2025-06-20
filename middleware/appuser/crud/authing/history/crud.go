@@ -54,7 +54,7 @@ type Conds struct {
 	Allowed  *cruder.Cond
 }
 
-//nolint
+// nolint
 func SetQueryConds(q *ent.AuthHistoryQuery, conds *Conds) (*ent.AuthHistoryQuery, error) {
 	if conds == nil {
 		return q, nil

@@ -27,18 +27,16 @@ func init() {
 	}
 }
 
-var (
-	ret = npool.Lang{
-		EntID:  uuid.NewString(),
-		AppID:  uuid.NewString(),
-		LangID: uuid.NewString(),
-		Lang:   "test mw lang" + uuid.NewString(),
-		Name:   "test mw lang" + uuid.NewString(),
-		Logo:   "test mw logo" + uuid.NewString(),
-		Short:  "test mw short" + uuid.NewString(),
-		Main:   true,
-	}
-)
+var ret = npool.Lang{
+	EntID:  uuid.NewString(),
+	AppID:  uuid.NewString(),
+	LangID: uuid.NewString(),
+	Lang:   "test mw lang" + uuid.NewString(),
+	Name:   "test mw lang" + uuid.NewString(),
+	Logo:   "test mw logo" + uuid.NewString(),
+	Short:  "test mw short" + uuid.NewString(),
+	Main:   true,
+}
 
 func setup(t *testing.T) func(*testing.T) {
 	lh, err := lang.NewHandler(

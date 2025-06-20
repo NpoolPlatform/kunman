@@ -55,7 +55,7 @@ type Conds struct {
 	Genesis *cruder.Cond
 }
 
-//nolint
+// nolint
 func SetQueryConds(q *ent.AppRoleUserQuery, conds *Conds) (*ent.AppRoleUserQuery, error) {
 	if conds == nil {
 		return q, nil

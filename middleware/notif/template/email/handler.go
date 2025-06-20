@@ -4,12 +4,12 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/NpoolPlatform/libent-cruder/pkg/cruder"
 	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	templatemwpb "github.com/NpoolPlatform/kunman/message/notif/middleware/v1/template"
 	npool "github.com/NpoolPlatform/kunman/message/notif/middleware/v1/template/email"
-	constant "github.com/NpoolPlatform/kunman/pkg/const"
 	emailtemplatecrud "github.com/NpoolPlatform/kunman/middleware/notif/crud/template/email"
+	constant "github.com/NpoolPlatform/kunman/pkg/const"
+	"github.com/NpoolPlatform/libent-cruder/pkg/cruder"
 
 	"github.com/google/uuid"
 )
@@ -124,7 +124,6 @@ func WithDefaultToUsername(defaultToUsername *string, must bool) func(context.Co
 	}
 }
 
-// nolint
 func WithUsedFor(_usedFor *basetypes.UsedFor, must bool) func(context.Context, *Handler) error {
 	return func(ctx context.Context, h *Handler) error {
 		if _usedFor == nil {
@@ -279,7 +278,7 @@ func WithVars(vars *templatemwpb.TemplateVars, must bool) func(context.Context, 
 	}
 }
 
-//nolint
+// nolint
 func WithReqs(reqs []*npool.EmailTemplateReq, must bool) func(context.Context, *Handler) error {
 	return func(ctx context.Context, h *Handler) error {
 		_reqs := []*emailtemplatecrud.Req{}

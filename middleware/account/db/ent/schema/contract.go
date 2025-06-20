@@ -3,8 +3,8 @@ package schema
 import (
 	"entgo.io/ent"
 	"entgo.io/ent/schema/field"
-	crudermixin "github.com/NpoolPlatform/kunman/pkg/cruder/mixin"
 	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/account/v1"
+	crudermixin "github.com/NpoolPlatform/kunman/pkg/cruder/mixin"
 	"github.com/google/uuid"
 )
 

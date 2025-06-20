@@ -4,8 +4,8 @@ import (
 	"context"
 	"fmt"
 
-	notifmwpb "github.com/NpoolPlatform/kunman/message/notif/middleware/v1/notif"
 	baseexecutor "github.com/NpoolPlatform/kunman/cron/scheduler/base/executor"
+	notifmwpb "github.com/NpoolPlatform/kunman/message/notif/middleware/v1/notif"
 )
 
 type handler struct{}

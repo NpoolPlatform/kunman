@@ -154,7 +154,6 @@ func (h *Handler) VerifyUser(ctx context.Context) (*npool.User, error) {
 		handler.queryJoinAppUserSecret()
 		return handler.stm.Scan(_ctx, &infos)
 	})
-
 	if err != nil {
 		return nil, err
 	}

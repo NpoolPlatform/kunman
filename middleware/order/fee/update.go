@@ -50,7 +50,7 @@ type updateHandler struct {
 func (h *updateHandler) constructOrderStateBaseSQL(ctx context.Context) (err error) {
 	handler, _ := orderstatebase1.NewHandler(ctx)
 	handler.Req = *h.OrderStateBaseReq
-	handler.Req.StartMode = func() *types.OrderStartMode { e := types.OrderStartMode_OrderStartInstantly; return &e }()
+	handler.StartMode = func() *types.OrderStartMode { e := types.OrderStartMode_OrderStartInstantly; return &e }()
 	if h.sqlOrderStateBase, err = handler.ConstructUpdateSQL(); err != nil && wlog.Equal(err, cruder.ErrUpdateNothing) {
 		return nil
 	}

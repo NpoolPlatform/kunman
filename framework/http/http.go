@@ -58,7 +58,7 @@ func Run(routeRegister func(router *chi.Mux) error) error {
 	return http2.ListenAndServe(listen, r)
 }
 
-func Response(w http2.ResponseWriter, body interface{}, code int, msg string) error { //nolint
+func Response(w http2.ResponseWriter, body interface{}, code int, msg string) error {
 	type input struct {
 		Body interface{} `json:"body"`
 		Code int         `json:"code"`

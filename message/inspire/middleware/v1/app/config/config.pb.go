@@ -7,12 +7,13 @@
 package config
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/inspire/v1"
 	v11 "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -639,20 +640,22 @@ func file_inspire_middleware_v1_app_config_config_proto_rawDescGZIP() []byte {
 	return file_inspire_middleware_v1_app_config_config_proto_rawDescData
 }
 
-var file_inspire_middleware_v1_app_config_config_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
-var file_inspire_middleware_v1_app_config_config_proto_goTypes = []interface{}{
-	(*AppConfigReq)(nil),       // 0: inspire.middleware.app.config.v1.AppConfigReq
-	(*AppConfig)(nil),          // 1: inspire.middleware.app.config.v1.AppConfig
-	(*Conds)(nil),              // 2: inspire.middleware.app.config.v1.Conds
-	(v1.SettleMode)(0),         // 3: basetypes.inspire.v1.SettleMode
-	(v1.SettleAmountType)(0),   // 4: basetypes.inspire.v1.SettleAmountType
-	(v1.SettleInterval)(0),     // 5: basetypes.inspire.v1.SettleInterval
-	(v1.CommissionType)(0),     // 6: basetypes.inspire.v1.CommissionType
-	(*v11.StringVal)(nil),      // 7: basetypes.v1.StringVal
-	(*v11.Uint32Val)(nil),      // 8: basetypes.v1.Uint32Val
-	(*v11.BoolVal)(nil),        // 9: basetypes.v1.BoolVal
-	(*v11.StringSliceVal)(nil), // 10: basetypes.v1.StringSliceVal
-}
+var (
+	file_inspire_middleware_v1_app_config_config_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
+	file_inspire_middleware_v1_app_config_config_proto_goTypes  = []interface{}{
+		(*AppConfigReq)(nil),       // 0: inspire.middleware.app.config.v1.AppConfigReq
+		(*AppConfig)(nil),          // 1: inspire.middleware.app.config.v1.AppConfig
+		(*Conds)(nil),              // 2: inspire.middleware.app.config.v1.Conds
+		(v1.SettleMode)(0),         // 3: basetypes.inspire.v1.SettleMode
+		(v1.SettleAmountType)(0),   // 4: basetypes.inspire.v1.SettleAmountType
+		(v1.SettleInterval)(0),     // 5: basetypes.inspire.v1.SettleInterval
+		(v1.CommissionType)(0),     // 6: basetypes.inspire.v1.CommissionType
+		(*v11.StringVal)(nil),      // 7: basetypes.v1.StringVal
+		(*v11.Uint32Val)(nil),      // 8: basetypes.v1.Uint32Val
+		(*v11.BoolVal)(nil),        // 9: basetypes.v1.BoolVal
+		(*v11.StringSliceVal)(nil), // 10: basetypes.v1.StringSliceVal
+	}
+)
 var file_inspire_middleware_v1_app_config_config_proto_depIdxs = []int32{
 	3,  // 0: inspire.middleware.app.config.v1.AppConfigReq.SettleMode:type_name -> basetypes.inspire.v1.SettleMode
 	4,  // 1: inspire.middleware.app.config.v1.AppConfigReq.SettleAmountType:type_name -> basetypes.inspire.v1.SettleAmountType

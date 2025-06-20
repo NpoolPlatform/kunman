@@ -68,14 +68,14 @@ func (h *orderHandler) getPoolGoodUserID() error {
 	var miningGoodStockID *string
 	var poolGoodOrderID *string
 	for _, appMiningGoodStock := range h.appPowerRental.AppMiningGoodStocks {
-		if appMiningGoodStock.EntID == h.PowerRentalOrder.AppGoodStockID {
+		if appMiningGoodStock.EntID == h.AppGoodStockID {
 			miningGoodStockID = &appMiningGoodStock.MiningGoodStockID
 			break
 		}
 	}
 
 	if miningGoodStockID == nil {
-		return wlog.Errorf("cannot find appmininggoodstock, appgoodstockid: %v", h.PowerRentalOrder.AppGoodStockID)
+		return wlog.Errorf("cannot find appmininggoodstock, appgoodstockid: %v", h.AppGoodStockID)
 	}
 
 	for _, miningGoodStock := range h.appPowerRental.MiningGoodStocks {
@@ -119,16 +119,16 @@ func (h *orderHandler) validatePoolGoodUserID(ctx context.Context) error {
 func (h *orderHandler) constructCreateOrderUserReq() {
 	h.orderUserReq = &orderusermwpb.OrderUserReq{
 		EntID:      func() *string { entID := uuid.NewString(); return &entID }(),
-		AppID:      &h.PowerRentalOrder.AppID,
-		UserID:     &h.PowerRentalOrder.UserID,
+		AppID:      &h.AppID,
+		UserID:     &h.UserID,
 		GoodUserID: h.poolGoodUserID,
 	}
 }
 
 func (h *orderHandler) constructUpdatePowerrentalOrderReq() {
 	h.powerRentalOrderReq = &powerrentalordermwpb.PowerRentalOrderReq{
-		ID:              &h.PowerRentalOrder.ID,
-		EntID:           &h.PowerRentalOrder.EntID,
+		ID:              &h.ID,
+		EntID:           &h.EntID,
 		PoolOrderUserID: h.orderUserReq.EntID,
 		OrderState:      h.nextState,
 	}
@@ -136,8 +136,8 @@ func (h *orderHandler) constructUpdatePowerrentalOrderReq() {
 
 func (h *orderHandler) constructUpdatePowerrentalOrderReqForSkip() {
 	h.powerRentalOrderReq = &powerrentalordermwpb.PowerRentalOrderReq{
-		ID:         &h.PowerRentalOrder.ID,
-		EntID:      &h.PowerRentalOrder.EntID,
+		ID:         &h.ID,
+		EntID:      &h.EntID,
 		OrderState: h.nextState,
 	}
 }
@@ -173,7 +173,7 @@ func (h *orderHandler) exec(ctx context.Context) error {
 	var err error
 	defer h.final(ctx, &err)
 
-	if h.PowerRentalOrder.GoodStockMode != goodtypes.GoodStockMode_GoodStockByMiningPool {
+	if h.GoodStockMode != goodtypes.GoodStockMode_GoodStockByMiningPool {
 		h.constructUpdatePowerrentalOrderReqForSkip()
 		return nil
 	}

@@ -3,13 +3,13 @@ package executor
 import (
 	"context"
 
+	"github.com/NpoolPlatform/kunman/cron/scheduler/base/asyncfeed"
+	"github.com/NpoolPlatform/kunman/cron/scheduler/good/powerrental/wait/types"
 	"github.com/NpoolPlatform/kunman/framework/logger"
 	"github.com/NpoolPlatform/kunman/framework/wlog"
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/good/v1"
 	miningstockmwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/good/stock"
 	goodpowerrentalmwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/powerrental"
-	"github.com/NpoolPlatform/kunman/cron/scheduler/base/asyncfeed"
-	"github.com/NpoolPlatform/kunman/cron/scheduler/good/powerrental/wait/types"
 )
 
 var (
@@ -26,7 +26,7 @@ type powerRentalHandler struct {
 }
 
 func (h *powerRentalHandler) checkMiningGoodStockState() error {
-	for _, miningGoodStock := range h.PowerRental.MiningGoodStocks {
+	for _, miningGoodStock := range h.MiningGoodStocks {
 		if miningGoodStock.State != currentMiningGoodStockState {
 			return wlog.Errorf("invalid mininggoodstockstate: %v, mininggoodstock: %v", miningGoodStock.State, miningGoodStock.EntID)
 		}
@@ -36,7 +36,7 @@ func (h *powerRentalHandler) checkMiningGoodStockState() error {
 
 func (h *powerRentalHandler) constructMiningGoodStockReqs() {
 	_miningGoodStockReqs := []*miningstockmwpb.MiningGoodStockReq{}
-	for _, req := range h.PowerRental.MiningGoodStocks {
+	for _, req := range h.MiningGoodStocks {
 		_miningGoodStockReqs = append(_miningGoodStockReqs,
 			&miningstockmwpb.MiningGoodStockReq{
 				EntID: &req.EntID,

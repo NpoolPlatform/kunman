@@ -7,11 +7,12 @@
 package stock
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/good/v1"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -482,13 +483,15 @@ func file_good_gateway_v1_good_stock_stock_proto_rawDescGZIP() []byte {
 	return file_good_gateway_v1_good_stock_stock_proto_rawDescData
 }
 
-var file_good_gateway_v1_good_stock_stock_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
-var file_good_gateway_v1_good_stock_stock_proto_goTypes = []interface{}{
-	(*MiningGoodStockReq)(nil),   // 0: good.gateway.good1.stock.v1.MiningGoodStockReq
-	(*MiningGoodStock)(nil),      // 1: good.gateway.good1.stock.v1.MiningGoodStock
-	(*MiningGoodStockInfo)(nil),  // 2: good.gateway.good1.stock.v1.MiningGoodStockInfo
-	(v1.MiningGoodStockState)(0), // 3: basetypes.good.v1.MiningGoodStockState
-}
+var (
+	file_good_gateway_v1_good_stock_stock_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
+	file_good_gateway_v1_good_stock_stock_proto_goTypes  = []interface{}{
+		(*MiningGoodStockReq)(nil),   // 0: good.gateway.good1.stock.v1.MiningGoodStockReq
+		(*MiningGoodStock)(nil),      // 1: good.gateway.good1.stock.v1.MiningGoodStock
+		(*MiningGoodStockInfo)(nil),  // 2: good.gateway.good1.stock.v1.MiningGoodStockInfo
+		(v1.MiningGoodStockState)(0), // 3: basetypes.good.v1.MiningGoodStockState
+	}
+)
 var file_good_gateway_v1_good_stock_stock_proto_depIdxs = []int32{
 	3, // 0: good.gateway.good1.stock.v1.MiningGoodStockReq.State:type_name -> basetypes.good.v1.MiningGoodStockState
 	3, // 1: good.gateway.good1.stock.v1.MiningGoodStock.State:type_name -> basetypes.good.v1.MiningGoodStockState

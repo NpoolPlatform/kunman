@@ -7,11 +7,12 @@
 package payment
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/order/v1"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -608,15 +609,17 @@ func file_order_gateway_v1_payment_payment_proto_rawDescGZIP() []byte {
 	return file_order_gateway_v1_payment_payment_proto_rawDescData
 }
 
-var file_order_gateway_v1_payment_payment_proto_msgTypes = make([]protoimpl.MessageInfo, 5)
-var file_order_gateway_v1_payment_payment_proto_goTypes = []interface{}{
-	(*PaymentBalance)(nil),      // 0: order.gateway.payment.v1.PaymentBalance
-	(*PaymentBalanceInfo)(nil),  // 1: order.gateway.payment.v1.PaymentBalanceInfo
-	(*PaymentContractInfo)(nil), // 2: order.gateway.payment.v1.PaymentContractInfo
-	(*PaymentTransferInfo)(nil), // 3: order.gateway.payment.v1.PaymentTransferInfo
-	(*PaymentFiatInfo)(nil),     // 4: order.gateway.payment.v1.PaymentFiatInfo
-	(v1.FiatPaymentChannel)(0),  // 5: basetypes.order.v1.FiatPaymentChannel
-}
+var (
+	file_order_gateway_v1_payment_payment_proto_msgTypes = make([]protoimpl.MessageInfo, 5)
+	file_order_gateway_v1_payment_payment_proto_goTypes  = []interface{}{
+		(*PaymentBalance)(nil),      // 0: order.gateway.payment.v1.PaymentBalance
+		(*PaymentBalanceInfo)(nil),  // 1: order.gateway.payment.v1.PaymentBalanceInfo
+		(*PaymentContractInfo)(nil), // 2: order.gateway.payment.v1.PaymentContractInfo
+		(*PaymentTransferInfo)(nil), // 3: order.gateway.payment.v1.PaymentTransferInfo
+		(*PaymentFiatInfo)(nil),     // 4: order.gateway.payment.v1.PaymentFiatInfo
+		(v1.FiatPaymentChannel)(0),  // 5: basetypes.order.v1.FiatPaymentChannel
+	}
+)
 var file_order_gateway_v1_payment_payment_proto_depIdxs = []int32{
 	5, // 0: order.gateway.payment.v1.PaymentFiatInfo.PaymentChannel:type_name -> basetypes.order.v1.FiatPaymentChannel
 	1, // [1:1] is the sub-list for method output_type

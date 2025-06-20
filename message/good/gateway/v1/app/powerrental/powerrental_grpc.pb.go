@@ -8,6 +8,7 @@ package powerrental
 
 import (
 	context "context"
+
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -129,27 +130,32 @@ type GatewayServer interface {
 }
 
 // UnimplementedGatewayServer must be embedded to have forward compatible implementations.
-type UnimplementedGatewayServer struct {
-}
+type UnimplementedGatewayServer struct{}
 
 func (UnimplementedGatewayServer) UpdateAppPowerRental(context.Context, *UpdateAppPowerRentalRequest) (*UpdateAppPowerRentalResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateAppPowerRental not implemented")
 }
+
 func (UnimplementedGatewayServer) GetAppPowerRental(context.Context, *GetAppPowerRentalRequest) (*GetAppPowerRentalResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetAppPowerRental not implemented")
 }
+
 func (UnimplementedGatewayServer) GetAppPowerRentals(context.Context, *GetAppPowerRentalsRequest) (*GetAppPowerRentalsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetAppPowerRentals not implemented")
 }
+
 func (UnimplementedGatewayServer) AdminCreateAppPowerRental(context.Context, *AdminCreateAppPowerRentalRequest) (*AdminCreateAppPowerRentalResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AdminCreateAppPowerRental not implemented")
 }
+
 func (UnimplementedGatewayServer) AdminUpdateAppPowerRental(context.Context, *AdminUpdateAppPowerRentalRequest) (*AdminUpdateAppPowerRentalResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AdminUpdateAppPowerRental not implemented")
 }
+
 func (UnimplementedGatewayServer) AdminGetAppPowerRentals(context.Context, *AdminGetAppPowerRentalsRequest) (*AdminGetAppPowerRentalsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AdminGetAppPowerRentals not implemented")
 }
+
 func (UnimplementedGatewayServer) AdminDeleteAppPowerRental(context.Context, *AdminDeleteAppPowerRentalRequest) (*AdminDeleteAppPowerRentalResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AdminDeleteAppPowerRental not implemented")
 }

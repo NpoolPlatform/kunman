@@ -105,7 +105,6 @@ type Conds struct {
 	StockMode         *cruder.Cond
 }
 
-// nolint
 func SetQueryConds(q *ent.PowerRentalQuery, conds *Conds) (*ent.PowerRentalQuery, error) {
 	q.Where(entpowerrental.DeletedAt(0))
 	if conds == nil {

@@ -229,14 +229,14 @@ func (h *subscriptionOrderQueryHandler) requireSubscriptionOrderWithTx(ctx conte
 	return h._getSubscriptionOrder(ctx, tx.Client(), true)
 }
 
-//nolint
+// nolint
 func (h *subscriptionOrderQueryHandler) getSubscriptionOrder(ctx context.Context) error {
 	return db.WithClient(ctx, func(_ctx context.Context, cli *ent.Client) error {
 		return h._getSubscriptionOrder(_ctx, cli, false)
 	})
 }
 
-//nolint
+// nolint
 func (h *subscriptionOrderQueryHandler) requireSubscriptionOrder(ctx context.Context) error {
 	return db.WithClient(ctx, func(_ctx context.Context, cli *ent.Client) error {
 		return h._getSubscriptionOrder(_ctx, cli, true)

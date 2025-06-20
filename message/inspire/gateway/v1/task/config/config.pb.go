@@ -7,13 +7,14 @@
 package config
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/inspire/v1"
 	v11 "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -1092,20 +1093,22 @@ func file_inspire_gateway_v1_task_config_config_proto_rawDescGZIP() []byte {
 	return file_inspire_gateway_v1_task_config_config_proto_rawDescData
 }
 
-var file_inspire_gateway_v1_task_config_config_proto_msgTypes = make([]protoimpl.MessageInfo, 9)
-var file_inspire_gateway_v1_task_config_config_proto_goTypes = []interface{}{
-	(*TaskConfig)(nil),                    // 0: inspire.gateway.task.config.v1.TaskConfig
-	(*AdminCreateTaskConfigRequest)(nil),  // 1: inspire.gateway.task.config.v1.AdminCreateTaskConfigRequest
-	(*AdminCreateTaskConfigResponse)(nil), // 2: inspire.gateway.task.config.v1.AdminCreateTaskConfigResponse
-	(*AdminUpdateTaskConfigRequest)(nil),  // 3: inspire.gateway.task.config.v1.AdminUpdateTaskConfigRequest
-	(*AdminUpdateTaskConfigResponse)(nil), // 4: inspire.gateway.task.config.v1.AdminUpdateTaskConfigResponse
-	(*AdminGetTaskConfigsRequest)(nil),    // 5: inspire.gateway.task.config.v1.AdminGetTaskConfigsRequest
-	(*AdminGetTaskConfigsResponse)(nil),   // 6: inspire.gateway.task.config.v1.AdminGetTaskConfigsResponse
-	(*AdminDeleteTaskConfigRequest)(nil),  // 7: inspire.gateway.task.config.v1.AdminDeleteTaskConfigRequest
-	(*AdminDeleteTaskConfigResponse)(nil), // 8: inspire.gateway.task.config.v1.AdminDeleteTaskConfigResponse
-	(v1.TaskType)(0),                      // 9: basetypes.inspire.v1.TaskType
-	(v11.UsedFor)(0),                      // 10: basetypes.v1.UsedFor
-}
+var (
+	file_inspire_gateway_v1_task_config_config_proto_msgTypes = make([]protoimpl.MessageInfo, 9)
+	file_inspire_gateway_v1_task_config_config_proto_goTypes  = []interface{}{
+		(*TaskConfig)(nil),                    // 0: inspire.gateway.task.config.v1.TaskConfig
+		(*AdminCreateTaskConfigRequest)(nil),  // 1: inspire.gateway.task.config.v1.AdminCreateTaskConfigRequest
+		(*AdminCreateTaskConfigResponse)(nil), // 2: inspire.gateway.task.config.v1.AdminCreateTaskConfigResponse
+		(*AdminUpdateTaskConfigRequest)(nil),  // 3: inspire.gateway.task.config.v1.AdminUpdateTaskConfigRequest
+		(*AdminUpdateTaskConfigResponse)(nil), // 4: inspire.gateway.task.config.v1.AdminUpdateTaskConfigResponse
+		(*AdminGetTaskConfigsRequest)(nil),    // 5: inspire.gateway.task.config.v1.AdminGetTaskConfigsRequest
+		(*AdminGetTaskConfigsResponse)(nil),   // 6: inspire.gateway.task.config.v1.AdminGetTaskConfigsResponse
+		(*AdminDeleteTaskConfigRequest)(nil),  // 7: inspire.gateway.task.config.v1.AdminDeleteTaskConfigRequest
+		(*AdminDeleteTaskConfigResponse)(nil), // 8: inspire.gateway.task.config.v1.AdminDeleteTaskConfigResponse
+		(v1.TaskType)(0),                      // 9: basetypes.inspire.v1.TaskType
+		(v11.UsedFor)(0),                      // 10: basetypes.v1.UsedFor
+	}
+)
 var file_inspire_gateway_v1_task_config_config_proto_depIdxs = []int32{
 	9,  // 0: inspire.gateway.task.config.v1.TaskConfig.TaskType:type_name -> basetypes.inspire.v1.TaskType
 	10, // 1: inspire.gateway.task.config.v1.TaskConfig.EventType:type_name -> basetypes.v1.UsedFor

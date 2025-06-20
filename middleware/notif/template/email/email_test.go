@@ -26,21 +26,19 @@ func init() {
 	}
 }
 
-var (
-	ret = npool.EmailTemplate{
-		EntID:             uuid.NewString(),
-		AppID:             uuid.NewString(),
-		LangID:            uuid.NewString(),
-		UsedFor:           basetypes.UsedFor_KYCApproved,
-		UsedForStr:        basetypes.UsedFor_KYCApproved.String(),
-		Sender:            "Sender " + uuid.NewString(),
-		ReplyTos:          []string{uuid.NewString(), uuid.NewString()},
-		CCTos:             []string{uuid.NewString(), uuid.NewString()},
-		Subject:           "Subject " + uuid.NewString(),
-		Body:              "Body " + uuid.NewString(),
-		DefaultToUsername: "DefaultToUsername " + uuid.NewString(),
-	}
-)
+var ret = npool.EmailTemplate{
+	EntID:             uuid.NewString(),
+	AppID:             uuid.NewString(),
+	LangID:            uuid.NewString(),
+	UsedFor:           basetypes.UsedFor_KYCApproved,
+	UsedForStr:        basetypes.UsedFor_KYCApproved.String(),
+	Sender:            "Sender " + uuid.NewString(),
+	ReplyTos:          []string{uuid.NewString(), uuid.NewString()},
+	CCTos:             []string{uuid.NewString(), uuid.NewString()},
+	Subject:           "Subject " + uuid.NewString(),
+	Body:              "Body " + uuid.NewString(),
+	DefaultToUsername: "DefaultToUsername " + uuid.NewString(),
+}
 
 func createEmailTemplate(t *testing.T) {
 	handler, err := NewHandler(

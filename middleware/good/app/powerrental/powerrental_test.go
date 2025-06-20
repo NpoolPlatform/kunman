@@ -11,24 +11,24 @@ import (
 
 	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 
+	appmininggoodstockmwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/app/good/stock/mining"
+	npool "github.com/NpoolPlatform/kunman/message/good/middleware/v1/app/powerrental"
+	goodcoinmwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/good/coin"
+	goodcoinrewardmwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/good/coin/reward"
+	stockmwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/good/stock"
 	devicetype1 "github.com/NpoolPlatform/kunman/middleware/good/device"
 	manufacturer1 "github.com/NpoolPlatform/kunman/middleware/good/device/manufacturer"
 	goodcoin1 "github.com/NpoolPlatform/kunman/middleware/good/good/coin"
 	powerrental1 "github.com/NpoolPlatform/kunman/middleware/good/powerrental"
 	vendorbrand1 "github.com/NpoolPlatform/kunman/middleware/good/vender/brand"
 	vendorlocation1 "github.com/NpoolPlatform/kunman/middleware/good/vender/location"
-	appmininggoodstockmwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/app/good/stock/mining"
-	npool "github.com/NpoolPlatform/kunman/message/good/middleware/v1/app/powerrental"
-	goodcoinmwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/good/coin"
-	goodcoinrewardmwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/good/coin/reward"
-	stockmwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/good/stock"
 	"github.com/google/uuid"
 	"github.com/shopspring/decimal"
 	"github.com/stretchr/testify/assert"
 
-	"github.com/NpoolPlatform/kunman/middleware/good/testinit"
 	types "github.com/NpoolPlatform/kunman/message/basetypes/good/v1"
 	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
+	"github.com/NpoolPlatform/kunman/middleware/good/testinit"
 )
 
 func init() {

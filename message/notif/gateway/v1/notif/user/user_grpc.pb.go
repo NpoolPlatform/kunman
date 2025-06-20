@@ -8,6 +8,7 @@ package user
 
 import (
 	context "context"
+
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -91,18 +92,20 @@ type GatewayServer interface {
 }
 
 // UnimplementedGatewayServer must be embedded to have forward compatible implementations.
-type UnimplementedGatewayServer struct {
-}
+type UnimplementedGatewayServer struct{}
 
 func (UnimplementedGatewayServer) CreateNotifUser(context.Context, *CreateNotifUserRequest) (*CreateNotifUserResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateNotifUser not implemented")
 }
+
 func (UnimplementedGatewayServer) DeleteNotifUser(context.Context, *DeleteNotifUserRequest) (*DeleteNotifUserResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteNotifUser not implemented")
 }
+
 func (UnimplementedGatewayServer) GetNotifUsers(context.Context, *GetNotifUsersRequest) (*GetNotifUsersResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetNotifUsers not implemented")
 }
+
 func (UnimplementedGatewayServer) GetAppNotifUsers(context.Context, *GetAppNotifUsersRequest) (*GetAppNotifUsersResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetAppNotifUsers not implemented")
 }

@@ -74,7 +74,7 @@ type Conds struct {
 	EntIDs           *cruder.Cond
 }
 
-func SetQueryConds(q *ent.FractionWithdrawalRuleQuery, conds *Conds) (*ent.FractionWithdrawalRuleQuery, error) { //nolint
+func SetQueryConds(q *ent.FractionWithdrawalRuleQuery, conds *Conds) (*ent.FractionWithdrawalRuleQuery, error) {
 	if conds == nil {
 		return nil, wlog.Errorf("have no any conds")
 	}

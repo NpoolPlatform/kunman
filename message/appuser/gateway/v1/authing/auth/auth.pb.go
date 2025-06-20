@@ -7,12 +7,13 @@
 package auth
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	auth "github.com/NpoolPlatform/kunman/message/appuser/middleware/v1/authing/auth"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -631,18 +632,20 @@ func file_appuser_gateway_v1_authing_auth_auth_proto_rawDescGZIP() []byte {
 	return file_appuser_gateway_v1_authing_auth_auth_proto_rawDescData
 }
 
-var file_appuser_gateway_v1_authing_auth_auth_proto_msgTypes = make([]protoimpl.MessageInfo, 8)
-var file_appuser_gateway_v1_authing_auth_auth_proto_goTypes = []interface{}{
-	(*AuthenticateRequest)(nil),   // 0: appuser.gateway.authing.auth.v1.AuthenticateRequest
-	(*AuthenticateResponse)(nil),  // 1: appuser.gateway.authing.auth.v1.AuthenticateResponse
-	(*CreateAppAuthRequest)(nil),  // 2: appuser.gateway.authing.auth.v1.CreateAppAuthRequest
-	(*CreateAppAuthResponse)(nil), // 3: appuser.gateway.authing.auth.v1.CreateAppAuthResponse
-	(*DeleteAppAuthRequest)(nil),  // 4: appuser.gateway.authing.auth.v1.DeleteAppAuthRequest
-	(*DeleteAppAuthResponse)(nil), // 5: appuser.gateway.authing.auth.v1.DeleteAppAuthResponse
-	(*GetAppAuthsRequest)(nil),    // 6: appuser.gateway.authing.auth.v1.GetAppAuthsRequest
-	(*GetAppAuthsResponse)(nil),   // 7: appuser.gateway.authing.auth.v1.GetAppAuthsResponse
-	(*auth.Auth)(nil),             // 8: appuser.middleware.authing.auth.v1.Auth
-}
+var (
+	file_appuser_gateway_v1_authing_auth_auth_proto_msgTypes = make([]protoimpl.MessageInfo, 8)
+	file_appuser_gateway_v1_authing_auth_auth_proto_goTypes  = []interface{}{
+		(*AuthenticateRequest)(nil),   // 0: appuser.gateway.authing.auth.v1.AuthenticateRequest
+		(*AuthenticateResponse)(nil),  // 1: appuser.gateway.authing.auth.v1.AuthenticateResponse
+		(*CreateAppAuthRequest)(nil),  // 2: appuser.gateway.authing.auth.v1.CreateAppAuthRequest
+		(*CreateAppAuthResponse)(nil), // 3: appuser.gateway.authing.auth.v1.CreateAppAuthResponse
+		(*DeleteAppAuthRequest)(nil),  // 4: appuser.gateway.authing.auth.v1.DeleteAppAuthRequest
+		(*DeleteAppAuthResponse)(nil), // 5: appuser.gateway.authing.auth.v1.DeleteAppAuthResponse
+		(*GetAppAuthsRequest)(nil),    // 6: appuser.gateway.authing.auth.v1.GetAppAuthsRequest
+		(*GetAppAuthsResponse)(nil),   // 7: appuser.gateway.authing.auth.v1.GetAppAuthsResponse
+		(*auth.Auth)(nil),             // 8: appuser.middleware.authing.auth.v1.Auth
+	}
+)
 var file_appuser_gateway_v1_authing_auth_auth_proto_depIdxs = []int32{
 	8, // 0: appuser.gateway.authing.auth.v1.CreateAppAuthResponse.Info:type_name -> appuser.middleware.authing.auth.v1.Auth
 	8, // 1: appuser.gateway.authing.auth.v1.DeleteAppAuthResponse.Info:type_name -> appuser.middleware.authing.auth.v1.Auth

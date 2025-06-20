@@ -253,8 +253,8 @@ func (h *baseCreateHandler) constructFeeOrderReq(appGoodID string) error {
 	}
 	req := &feeordermwpb.FeeOrderReq{
 		EntID:         func() *string { s := uuid.NewString(); return &s }(),
-		AppID:         h.Handler.OrderCheckHandler.AppID,
-		UserID:        h.Handler.OrderCheckHandler.UserID,
+		AppID:         h.OrderCheckHandler.AppID,
+		UserID:        h.OrderCheckHandler.UserID,
 		GoodID:        &appFee.GoodID,
 		GoodType:      &appFee.GoodType,
 		AppGoodID:     &appFee.AppGoodID,
@@ -306,7 +306,6 @@ func (h *baseCreateHandler) formalizePayment() {
 }
 
 func (h *baseCreateHandler) notifyCouponUsed() {
-
 }
 
 func (h *baseCreateHandler) withCreateFeeOrders(ctx context.Context) error {

@@ -6,9 +6,9 @@ import (
 
 	constant "github.com/NpoolPlatform/kunman/pkg/const"
 
-	codecrud "github.com/NpoolPlatform/kunman/middleware/appuser/crud/user/recoverycode"
-	app "github.com/NpoolPlatform/kunman/middleware/appuser/app"
 	npool "github.com/NpoolPlatform/kunman/message/appuser/middleware/v1/user/recoverycode"
+	app "github.com/NpoolPlatform/kunman/middleware/appuser/app"
+	codecrud "github.com/NpoolPlatform/kunman/middleware/appuser/crud/user/recoverycode"
 
 	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 

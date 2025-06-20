@@ -8,6 +8,7 @@ package event
 
 import (
 	context "context"
+
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -127,27 +128,32 @@ type GatewayServer interface {
 }
 
 // UnimplementedGatewayServer must be embedded to have forward compatible implementations.
-type UnimplementedGatewayServer struct {
-}
+type UnimplementedGatewayServer struct{}
 
 func (UnimplementedGatewayServer) CreateEvent(context.Context, *CreateEventRequest) (*CreateEventResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateEvent not implemented")
 }
+
 func (UnimplementedGatewayServer) GetEvents(context.Context, *GetEventsRequest) (*GetEventsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetEvents not implemented")
 }
+
 func (UnimplementedGatewayServer) UpdateEvent(context.Context, *UpdateEventRequest) (*UpdateEventResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateEvent not implemented")
 }
+
 func (UnimplementedGatewayServer) AdminGetEvents(context.Context, *AdminGetEventsRequest) (*AdminGetEventsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AdminGetEvents not implemented")
 }
+
 func (UnimplementedGatewayServer) AdminCreateEvent(context.Context, *AdminCreateEventRequest) (*AdminCreateEventResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AdminCreateEvent not implemented")
 }
+
 func (UnimplementedGatewayServer) AdminUpdateEvent(context.Context, *AdminUpdateEventRequest) (*AdminUpdateEventResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AdminUpdateEvent not implemented")
 }
+
 func (UnimplementedGatewayServer) AdminDeleteEvent(context.Context, *AdminDeleteEventRequest) (*AdminDeleteEventResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AdminDeleteEvent not implemented")
 }

@@ -68,7 +68,7 @@ type Conds struct {
 	Short  *cruder.Cond
 }
 
-//nolint
+// nolint
 func SetQueryConds(q *ent.LangQuery, conds *Conds) (*ent.LangQuery, error) {
 	if conds == nil {
 		return q, nil

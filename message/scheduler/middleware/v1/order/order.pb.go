@@ -7,11 +7,12 @@
 package order
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/good/v1"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -289,14 +290,16 @@ func file_scheduler_middleware_v1_order_order_proto_rawDescGZIP() []byte {
 	return file_scheduler_middleware_v1_order_order_proto_rawDescData
 }
 
-var file_scheduler_middleware_v1_order_order_proto_enumTypes = make([]protoimpl.EnumInfo, 1)
-var file_scheduler_middleware_v1_order_order_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
-var file_scheduler_middleware_v1_order_order_proto_goTypes = []interface{}{
-	(PaymentType)(0),    // 0: scheduler.middleware.order.v1.PaymentType
-	(*PaymentInfo)(nil), // 1: scheduler.middleware.order.v1.PaymentInfo
-	(*OrderInfo)(nil),   // 2: scheduler.middleware.order.v1.OrderInfo
-	(v1.GoodType)(0),    // 3: basetypes.good.v1.GoodType
-}
+var (
+	file_scheduler_middleware_v1_order_order_proto_enumTypes = make([]protoimpl.EnumInfo, 1)
+	file_scheduler_middleware_v1_order_order_proto_msgTypes  = make([]protoimpl.MessageInfo, 2)
+	file_scheduler_middleware_v1_order_order_proto_goTypes   = []interface{}{
+		(PaymentType)(0),    // 0: scheduler.middleware.order.v1.PaymentType
+		(*PaymentInfo)(nil), // 1: scheduler.middleware.order.v1.PaymentInfo
+		(*OrderInfo)(nil),   // 2: scheduler.middleware.order.v1.OrderInfo
+		(v1.GoodType)(0),    // 3: basetypes.good.v1.GoodType
+	}
+)
 var file_scheduler_middleware_v1_order_order_proto_depIdxs = []int32{
 	0, // 0: scheduler.middleware.order.v1.PaymentInfo.PaymentType:type_name -> scheduler.middleware.order.v1.PaymentType
 	3, // 1: scheduler.middleware.order.v1.OrderInfo.GoodType:type_name -> basetypes.good.v1.GoodType

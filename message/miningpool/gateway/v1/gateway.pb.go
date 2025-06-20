@@ -7,10 +7,11 @@
 package v1
 
 import (
+	reflect "reflect"
+
 	_ "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
 )
 
 const (
@@ -36,14 +37,16 @@ var file_miningpool_gateway_v1_gateway_proto_rawDesc = []byte{
 	0x65, 0x2f, 0x76, 0x31, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
-var file_miningpool_gateway_v1_gateway_proto_goTypes = []interface{}{}
-var file_miningpool_gateway_v1_gateway_proto_depIdxs = []int32{
-	0, // [0:0] is the sub-list for method output_type
-	0, // [0:0] is the sub-list for method input_type
-	0, // [0:0] is the sub-list for extension type_name
-	0, // [0:0] is the sub-list for extension extendee
-	0, // [0:0] is the sub-list for field type_name
-}
+var (
+	file_miningpool_gateway_v1_gateway_proto_goTypes = []interface{}{}
+	file_miningpool_gateway_v1_gateway_proto_depIdxs = []int32{
+		0, // [0:0] is the sub-list for method output_type
+		0, // [0:0] is the sub-list for method input_type
+		0, // [0:0] is the sub-list for extension type_name
+		0, // [0:0] is the sub-list for extension extendee
+		0, // [0:0] is the sub-list for field type_name
+	}
+)
 
 func init() { file_miningpool_gateway_v1_gateway_proto_init() }
 func file_miningpool_gateway_v1_gateway_proto_init() {

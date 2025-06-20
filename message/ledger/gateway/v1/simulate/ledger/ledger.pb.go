@@ -7,11 +7,12 @@
 package ledger
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -530,14 +531,16 @@ func file_ledger_gateway_v1_simulate_ledger_ledger_proto_rawDescGZIP() []byte {
 	return file_ledger_gateway_v1_simulate_ledger_ledger_proto_rawDescData
 }
 
-var file_ledger_gateway_v1_simulate_ledger_ledger_proto_msgTypes = make([]protoimpl.MessageInfo, 5)
-var file_ledger_gateway_v1_simulate_ledger_ledger_proto_goTypes = []interface{}{
-	(*Ledger)(nil),                // 0: ledger.gateway.simulate.ledger.v1.Ledger
-	(*GetLedgersRequest)(nil),     // 1: ledger.gateway.simulate.ledger.v1.GetLedgersRequest
-	(*GetLedgersResponse)(nil),    // 2: ledger.gateway.simulate.ledger.v1.GetLedgersResponse
-	(*GetAppLedgersRequest)(nil),  // 3: ledger.gateway.simulate.ledger.v1.GetAppLedgersRequest
-	(*GetAppLedgersResponse)(nil), // 4: ledger.gateway.simulate.ledger.v1.GetAppLedgersResponse
-}
+var (
+	file_ledger_gateway_v1_simulate_ledger_ledger_proto_msgTypes = make([]protoimpl.MessageInfo, 5)
+	file_ledger_gateway_v1_simulate_ledger_ledger_proto_goTypes  = []interface{}{
+		(*Ledger)(nil),                // 0: ledger.gateway.simulate.ledger.v1.Ledger
+		(*GetLedgersRequest)(nil),     // 1: ledger.gateway.simulate.ledger.v1.GetLedgersRequest
+		(*GetLedgersResponse)(nil),    // 2: ledger.gateway.simulate.ledger.v1.GetLedgersResponse
+		(*GetAppLedgersRequest)(nil),  // 3: ledger.gateway.simulate.ledger.v1.GetAppLedgersRequest
+		(*GetAppLedgersResponse)(nil), // 4: ledger.gateway.simulate.ledger.v1.GetAppLedgersResponse
+	}
+)
 var file_ledger_gateway_v1_simulate_ledger_ledger_proto_depIdxs = []int32{
 	0, // 0: ledger.gateway.simulate.ledger.v1.GetLedgersResponse.Infos:type_name -> ledger.gateway.simulate.ledger.v1.Ledger
 	0, // 1: ledger.gateway.simulate.ledger.v1.GetAppLedgersResponse.Infos:type_name -> ledger.gateway.simulate.ledger.v1.Ledger

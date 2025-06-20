@@ -7,12 +7,13 @@
 package appoauththirdparty
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	appoauththirdparty "github.com/NpoolPlatform/kunman/message/appuser/middleware/v1/oauth/appoauththirdparty"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -835,20 +836,22 @@ func file_appuser_gateway_v1_oauth_appoauththirdparty_appoauththirdparty_proto_r
 	return file_appuser_gateway_v1_oauth_appoauththirdparty_appoauththirdparty_proto_rawDescData
 }
 
-var file_appuser_gateway_v1_oauth_appoauththirdparty_appoauththirdparty_proto_msgTypes = make([]protoimpl.MessageInfo, 10)
-var file_appuser_gateway_v1_oauth_appoauththirdparty_appoauththirdparty_proto_goTypes = []interface{}{
-	(*CreateOAuthThirdPartyRequest)(nil),       // 0: appuser.gateway.oauth.appoauththirdparty.v1.CreateOAuthThirdPartyRequest
-	(*CreateOAuthThirdPartyResponse)(nil),      // 1: appuser.gateway.oauth.appoauththirdparty.v1.CreateOAuthThirdPartyResponse
-	(*UpdateOAuthThirdPartyRequest)(nil),       // 2: appuser.gateway.oauth.appoauththirdparty.v1.UpdateOAuthThirdPartyRequest
-	(*UpdateOAuthThirdPartyResponse)(nil),      // 3: appuser.gateway.oauth.appoauththirdparty.v1.UpdateOAuthThirdPartyResponse
-	(*GetOAuthThirdPartiesRequest)(nil),        // 4: appuser.gateway.oauth.appoauththirdparty.v1.GetOAuthThirdPartiesRequest
-	(*GetOAuthThirdPartiesResponse)(nil),       // 5: appuser.gateway.oauth.appoauththirdparty.v1.GetOAuthThirdPartiesResponse
-	(*GetAppOAuthThirdPartiesRequest)(nil),     // 6: appuser.gateway.oauth.appoauththirdparty.v1.GetAppOAuthThirdPartiesRequest
-	(*GetAppOAuthThirdPartiesResponse)(nil),    // 7: appuser.gateway.oauth.appoauththirdparty.v1.GetAppOAuthThirdPartiesResponse
-	(*DeleteOAuthThirdPartyRequest)(nil),       // 8: appuser.gateway.oauth.appoauththirdparty.v1.DeleteOAuthThirdPartyRequest
-	(*DeleteOAuthThirdPartyResponse)(nil),      // 9: appuser.gateway.oauth.appoauththirdparty.v1.DeleteOAuthThirdPartyResponse
-	(*appoauththirdparty.OAuthThirdParty)(nil), // 10: appuser.middleware.oauth.appoauththirdparty.v1.OAuthThirdParty
-}
+var (
+	file_appuser_gateway_v1_oauth_appoauththirdparty_appoauththirdparty_proto_msgTypes = make([]protoimpl.MessageInfo, 10)
+	file_appuser_gateway_v1_oauth_appoauththirdparty_appoauththirdparty_proto_goTypes  = []interface{}{
+		(*CreateOAuthThirdPartyRequest)(nil),       // 0: appuser.gateway.oauth.appoauththirdparty.v1.CreateOAuthThirdPartyRequest
+		(*CreateOAuthThirdPartyResponse)(nil),      // 1: appuser.gateway.oauth.appoauththirdparty.v1.CreateOAuthThirdPartyResponse
+		(*UpdateOAuthThirdPartyRequest)(nil),       // 2: appuser.gateway.oauth.appoauththirdparty.v1.UpdateOAuthThirdPartyRequest
+		(*UpdateOAuthThirdPartyResponse)(nil),      // 3: appuser.gateway.oauth.appoauththirdparty.v1.UpdateOAuthThirdPartyResponse
+		(*GetOAuthThirdPartiesRequest)(nil),        // 4: appuser.gateway.oauth.appoauththirdparty.v1.GetOAuthThirdPartiesRequest
+		(*GetOAuthThirdPartiesResponse)(nil),       // 5: appuser.gateway.oauth.appoauththirdparty.v1.GetOAuthThirdPartiesResponse
+		(*GetAppOAuthThirdPartiesRequest)(nil),     // 6: appuser.gateway.oauth.appoauththirdparty.v1.GetAppOAuthThirdPartiesRequest
+		(*GetAppOAuthThirdPartiesResponse)(nil),    // 7: appuser.gateway.oauth.appoauththirdparty.v1.GetAppOAuthThirdPartiesResponse
+		(*DeleteOAuthThirdPartyRequest)(nil),       // 8: appuser.gateway.oauth.appoauththirdparty.v1.DeleteOAuthThirdPartyRequest
+		(*DeleteOAuthThirdPartyResponse)(nil),      // 9: appuser.gateway.oauth.appoauththirdparty.v1.DeleteOAuthThirdPartyResponse
+		(*appoauththirdparty.OAuthThirdParty)(nil), // 10: appuser.middleware.oauth.appoauththirdparty.v1.OAuthThirdParty
+	}
+)
 var file_appuser_gateway_v1_oauth_appoauththirdparty_appoauththirdparty_proto_depIdxs = []int32{
 	10, // 0: appuser.gateway.oauth.appoauththirdparty.v1.CreateOAuthThirdPartyResponse.Info:type_name -> appuser.middleware.oauth.appoauththirdparty.v1.OAuthThirdParty
 	10, // 1: appuser.gateway.oauth.appoauththirdparty.v1.UpdateOAuthThirdPartyResponse.Info:type_name -> appuser.middleware.oauth.appoauththirdparty.v1.OAuthThirdParty

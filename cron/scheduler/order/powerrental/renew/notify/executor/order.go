@@ -4,6 +4,9 @@ import (
 	"context"
 	"time"
 
+	asyncfeed "github.com/NpoolPlatform/kunman/cron/scheduler/base/asyncfeed"
+	renewcommon "github.com/NpoolPlatform/kunman/cron/scheduler/order/powerrental/renew/common"
+	types "github.com/NpoolPlatform/kunman/cron/scheduler/order/powerrental/renew/notify/types"
 	timedef "github.com/NpoolPlatform/kunman/framework/const/time"
 	logger "github.com/NpoolPlatform/kunman/framework/logger"
 	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
@@ -11,9 +14,6 @@ import (
 	currencymwpb "github.com/NpoolPlatform/kunman/message/chain/middleware/v1/coin/currency"
 	schedorderpb "github.com/NpoolPlatform/kunman/message/scheduler/middleware/v1/order"
 	orderrenewpb "github.com/NpoolPlatform/kunman/message/scheduler/middleware/v1/order/renew"
-	asyncfeed "github.com/NpoolPlatform/kunman/cron/scheduler/base/asyncfeed"
-	renewcommon "github.com/NpoolPlatform/kunman/cron/scheduler/order/powerrental/renew/common"
-	types "github.com/NpoolPlatform/kunman/cron/scheduler/order/powerrental/renew/notify/types"
 )
 
 type orderHandler struct {
@@ -96,7 +96,7 @@ func (h *orderHandler) final(ctx context.Context, err *error) {
 	}
 	if *err != nil {
 		errStr := (*err).Error()
-		persistentOrder.MsgOrderChildsRenewReq.Error = &errStr
+		persistentOrder.Error = &errStr
 	}
 	asyncfeed.AsyncFeed(ctx, persistentOrder, h.notif)
 	if h.newRenewState != h.RenewState {

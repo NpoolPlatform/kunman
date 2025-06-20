@@ -8,6 +8,7 @@ package required
 
 import (
 	context "context"
+
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -141,30 +142,36 @@ type GatewayServer interface {
 }
 
 // UnimplementedGatewayServer must be embedded to have forward compatible implementations.
-type UnimplementedGatewayServer struct {
-}
+type UnimplementedGatewayServer struct{}
 
 func (UnimplementedGatewayServer) CreateRequired(context.Context, *CreateRequiredRequest) (*CreateRequiredResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateRequired not implemented")
 }
+
 func (UnimplementedGatewayServer) UpdateRequired(context.Context, *UpdateRequiredRequest) (*UpdateRequiredResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateRequired not implemented")
 }
+
 func (UnimplementedGatewayServer) GetRequireds(context.Context, *GetRequiredsRequest) (*GetRequiredsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetRequireds not implemented")
 }
+
 func (UnimplementedGatewayServer) DeleteRequired(context.Context, *DeleteRequiredRequest) (*DeleteRequiredResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteRequired not implemented")
 }
+
 func (UnimplementedGatewayServer) AdminCreateRequired(context.Context, *AdminCreateRequiredRequest) (*AdminCreateRequiredResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AdminCreateRequired not implemented")
 }
+
 func (UnimplementedGatewayServer) AdminUpdateRequired(context.Context, *AdminUpdateRequiredRequest) (*AdminUpdateRequiredResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AdminUpdateRequired not implemented")
 }
+
 func (UnimplementedGatewayServer) AdminGetRequireds(context.Context, *AdminGetRequiredsRequest) (*AdminGetRequiredsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AdminGetRequireds not implemented")
 }
+
 func (UnimplementedGatewayServer) AdminDeleteRequired(context.Context, *AdminDeleteRequiredRequest) (*AdminDeleteRequiredResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AdminDeleteRequired not implemented")
 }

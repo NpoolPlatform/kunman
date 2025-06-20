@@ -4,10 +4,10 @@ import (
 	"context"
 	"time"
 
+	npool "github.com/NpoolPlatform/kunman/message/notif/middleware/v1/announcement"
 	crud "github.com/NpoolPlatform/kunman/middleware/notif/crud/announcement"
 	"github.com/NpoolPlatform/kunman/middleware/notif/db"
 	ent "github.com/NpoolPlatform/kunman/middleware/notif/db/ent/generated"
-	npool "github.com/NpoolPlatform/kunman/message/notif/middleware/v1/announcement"
 )
 
 func (h *Handler) DeleteAnnouncement(ctx context.Context) (*npool.Announcement, error) {

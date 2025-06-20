@@ -7,11 +7,12 @@
 package history
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -360,14 +361,16 @@ func file_good_middleware_v1_good_coin_reward_history_history_proto_rawDescGZIP(
 	return file_good_middleware_v1_good_coin_reward_history_history_proto_rawDescData
 }
 
-var file_good_middleware_v1_good_coin_reward_history_history_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
-var file_good_middleware_v1_good_coin_reward_history_history_proto_goTypes = []interface{}{
-	(*History)(nil),           // 0: good.middleware.good1.coin.reward.history.v1.History
-	(*Conds)(nil),             // 1: good.middleware.good1.coin.reward.history.v1.Conds
-	(*v1.Uint32Val)(nil),      // 2: basetypes.v1.Uint32Val
-	(*v1.StringVal)(nil),      // 3: basetypes.v1.StringVal
-	(*v1.StringSliceVal)(nil), // 4: basetypes.v1.StringSliceVal
-}
+var (
+	file_good_middleware_v1_good_coin_reward_history_history_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
+	file_good_middleware_v1_good_coin_reward_history_history_proto_goTypes  = []interface{}{
+		(*History)(nil),           // 0: good.middleware.good1.coin.reward.history.v1.History
+		(*Conds)(nil),             // 1: good.middleware.good1.coin.reward.history.v1.Conds
+		(*v1.Uint32Val)(nil),      // 2: basetypes.v1.Uint32Val
+		(*v1.StringVal)(nil),      // 3: basetypes.v1.StringVal
+		(*v1.StringSliceVal)(nil), // 4: basetypes.v1.StringSliceVal
+	}
+)
 var file_good_middleware_v1_good_coin_reward_history_history_proto_depIdxs = []int32{
 	2, // 0: good.middleware.good1.coin.reward.history.v1.Conds.ID:type_name -> basetypes.v1.Uint32Val
 	3, // 1: good.middleware.good1.coin.reward.history.v1.Conds.EntID:type_name -> basetypes.v1.StringVal

@@ -7,11 +7,12 @@
 package reward
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -587,16 +588,18 @@ func file_good_middleware_v1_good_coin_reward_reward_proto_rawDescGZIP() []byte 
 	return file_good_middleware_v1_good_coin_reward_reward_proto_rawDescData
 }
 
-var file_good_middleware_v1_good_coin_reward_reward_proto_msgTypes = make([]protoimpl.MessageInfo, 4)
-var file_good_middleware_v1_good_coin_reward_reward_proto_goTypes = []interface{}{
-	(*RewardReq)(nil),         // 0: good.middleware.good1.coin.reward.v1.RewardReq
-	(*Reward)(nil),            // 1: good.middleware.good1.coin.reward.v1.Reward
-	(*RewardInfo)(nil),        // 2: good.middleware.good1.coin.reward.v1.RewardInfo
-	(*Conds)(nil),             // 3: good.middleware.good1.coin.reward.v1.Conds
-	(*v1.Uint32Val)(nil),      // 4: basetypes.v1.Uint32Val
-	(*v1.StringVal)(nil),      // 5: basetypes.v1.StringVal
-	(*v1.StringSliceVal)(nil), // 6: basetypes.v1.StringSliceVal
-}
+var (
+	file_good_middleware_v1_good_coin_reward_reward_proto_msgTypes = make([]protoimpl.MessageInfo, 4)
+	file_good_middleware_v1_good_coin_reward_reward_proto_goTypes  = []interface{}{
+		(*RewardReq)(nil),         // 0: good.middleware.good1.coin.reward.v1.RewardReq
+		(*Reward)(nil),            // 1: good.middleware.good1.coin.reward.v1.Reward
+		(*RewardInfo)(nil),        // 2: good.middleware.good1.coin.reward.v1.RewardInfo
+		(*Conds)(nil),             // 3: good.middleware.good1.coin.reward.v1.Conds
+		(*v1.Uint32Val)(nil),      // 4: basetypes.v1.Uint32Val
+		(*v1.StringVal)(nil),      // 5: basetypes.v1.StringVal
+		(*v1.StringSliceVal)(nil), // 6: basetypes.v1.StringSliceVal
+	}
+)
 var file_good_middleware_v1_good_coin_reward_reward_proto_depIdxs = []int32{
 	4, // 0: good.middleware.good1.coin.reward.v1.Conds.ID:type_name -> basetypes.v1.Uint32Val
 	5, // 1: good.middleware.good1.coin.reward.v1.Conds.EntID:type_name -> basetypes.v1.StringVal

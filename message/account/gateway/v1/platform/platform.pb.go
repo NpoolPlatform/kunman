@@ -7,12 +7,13 @@
 package platform
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -682,18 +683,20 @@ func file_account_gateway_v1_platform_platform_proto_rawDescGZIP() []byte {
 	return file_account_gateway_v1_platform_platform_proto_rawDescData
 }
 
-var file_account_gateway_v1_platform_platform_proto_msgTypes = make([]protoimpl.MessageInfo, 7)
-var file_account_gateway_v1_platform_platform_proto_goTypes = []interface{}{
-	(*Account)(nil),               // 0: account.gateway.platform.v1.Account
-	(*CreateAccountRequest)(nil),  // 1: account.gateway.platform.v1.CreateAccountRequest
-	(*CreateAccountResponse)(nil), // 2: account.gateway.platform.v1.CreateAccountResponse
-	(*UpdateAccountRequest)(nil),  // 3: account.gateway.platform.v1.UpdateAccountRequest
-	(*UpdateAccountResponse)(nil), // 4: account.gateway.platform.v1.UpdateAccountResponse
-	(*GetAccountsRequest)(nil),    // 5: account.gateway.platform.v1.GetAccountsRequest
-	(*GetAccountsResponse)(nil),   // 6: account.gateway.platform.v1.GetAccountsResponse
-	(v1.AccountUsedFor)(0),        // 7: basetypes.v1.AccountUsedFor
-	(v1.AccountLockedBy)(0),       // 8: basetypes.v1.AccountLockedBy
-}
+var (
+	file_account_gateway_v1_platform_platform_proto_msgTypes = make([]protoimpl.MessageInfo, 7)
+	file_account_gateway_v1_platform_platform_proto_goTypes  = []interface{}{
+		(*Account)(nil),               // 0: account.gateway.platform.v1.Account
+		(*CreateAccountRequest)(nil),  // 1: account.gateway.platform.v1.CreateAccountRequest
+		(*CreateAccountResponse)(nil), // 2: account.gateway.platform.v1.CreateAccountResponse
+		(*UpdateAccountRequest)(nil),  // 3: account.gateway.platform.v1.UpdateAccountRequest
+		(*UpdateAccountResponse)(nil), // 4: account.gateway.platform.v1.UpdateAccountResponse
+		(*GetAccountsRequest)(nil),    // 5: account.gateway.platform.v1.GetAccountsRequest
+		(*GetAccountsResponse)(nil),   // 6: account.gateway.platform.v1.GetAccountsResponse
+		(v1.AccountUsedFor)(0),        // 7: basetypes.v1.AccountUsedFor
+		(v1.AccountLockedBy)(0),       // 8: basetypes.v1.AccountLockedBy
+	}
+)
 var file_account_gateway_v1_platform_platform_proto_depIdxs = []int32{
 	7, // 0: account.gateway.platform.v1.Account.UsedFor:type_name -> basetypes.v1.AccountUsedFor
 	8, // 1: account.gateway.platform.v1.Account.LockedBy:type_name -> basetypes.v1.AccountLockedBy

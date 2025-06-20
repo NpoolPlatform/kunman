@@ -7,12 +7,13 @@
 package sendstate
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -893,20 +894,22 @@ func file_notif_gateway_v1_announcement_sendstate_sendstate_proto_rawDescGZIP() 
 	return file_notif_gateway_v1_announcement_sendstate_sendstate_proto_rawDescData
 }
 
-var file_notif_gateway_v1_announcement_sendstate_sendstate_proto_msgTypes = make([]protoimpl.MessageInfo, 9)
-var file_notif_gateway_v1_announcement_sendstate_sendstate_proto_goTypes = []interface{}{
-	(*SendState)(nil),                    // 0: notif.gateway.announcement.sendstate.v1.SendState
-	(*GetSendStatesRequest)(nil),         // 1: notif.gateway.announcement.sendstate.v1.GetSendStatesRequest
-	(*GetSendStatesResponse)(nil),        // 2: notif.gateway.announcement.sendstate.v1.GetSendStatesResponse
-	(*GetAppUserSendStatesRequest)(nil),  // 3: notif.gateway.announcement.sendstate.v1.GetAppUserSendStatesRequest
-	(*GetAppUserSendStatesResponse)(nil), // 4: notif.gateway.announcement.sendstate.v1.GetAppUserSendStatesResponse
-	(*GetAppSendStatesRequest)(nil),      // 5: notif.gateway.announcement.sendstate.v1.GetAppSendStatesRequest
-	(*GetAppSendStatesResponse)(nil),     // 6: notif.gateway.announcement.sendstate.v1.GetAppSendStatesResponse
-	(*GetNAppSendStatesRequest)(nil),     // 7: notif.gateway.announcement.sendstate.v1.GetNAppSendStatesRequest
-	(*GetNAppSendStatesResponse)(nil),    // 8: notif.gateway.announcement.sendstate.v1.GetNAppSendStatesResponse
-	(v1.NotifChannel)(0),                 // 9: basetypes.v1.NotifChannel
-	(v1.NotifType)(0),                    // 10: basetypes.v1.NotifType
-}
+var (
+	file_notif_gateway_v1_announcement_sendstate_sendstate_proto_msgTypes = make([]protoimpl.MessageInfo, 9)
+	file_notif_gateway_v1_announcement_sendstate_sendstate_proto_goTypes  = []interface{}{
+		(*SendState)(nil),                    // 0: notif.gateway.announcement.sendstate.v1.SendState
+		(*GetSendStatesRequest)(nil),         // 1: notif.gateway.announcement.sendstate.v1.GetSendStatesRequest
+		(*GetSendStatesResponse)(nil),        // 2: notif.gateway.announcement.sendstate.v1.GetSendStatesResponse
+		(*GetAppUserSendStatesRequest)(nil),  // 3: notif.gateway.announcement.sendstate.v1.GetAppUserSendStatesRequest
+		(*GetAppUserSendStatesResponse)(nil), // 4: notif.gateway.announcement.sendstate.v1.GetAppUserSendStatesResponse
+		(*GetAppSendStatesRequest)(nil),      // 5: notif.gateway.announcement.sendstate.v1.GetAppSendStatesRequest
+		(*GetAppSendStatesResponse)(nil),     // 6: notif.gateway.announcement.sendstate.v1.GetAppSendStatesResponse
+		(*GetNAppSendStatesRequest)(nil),     // 7: notif.gateway.announcement.sendstate.v1.GetNAppSendStatesRequest
+		(*GetNAppSendStatesResponse)(nil),    // 8: notif.gateway.announcement.sendstate.v1.GetNAppSendStatesResponse
+		(v1.NotifChannel)(0),                 // 9: basetypes.v1.NotifChannel
+		(v1.NotifType)(0),                    // 10: basetypes.v1.NotifType
+	}
+)
 var file_notif_gateway_v1_announcement_sendstate_sendstate_proto_depIdxs = []int32{
 	9,  // 0: notif.gateway.announcement.sendstate.v1.SendState.Channel:type_name -> basetypes.v1.NotifChannel
 	10, // 1: notif.gateway.announcement.sendstate.v1.SendState.AnnouncementType:type_name -> basetypes.v1.NotifType

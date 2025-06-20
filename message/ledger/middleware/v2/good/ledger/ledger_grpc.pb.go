@@ -15,13 +15,10 @@ import (
 // Requires gRPC-Go v1.32.0 or later.
 const _ = grpc.SupportPackageIsVersion7
 
-const ()
-
 // MiddlewareClient is the client API for Middleware service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
-type MiddlewareClient interface {
-}
+type MiddlewareClient interface{}
 
 type middlewareClient struct {
 	cc grpc.ClientConnInterface
@@ -39,8 +36,7 @@ type MiddlewareServer interface {
 }
 
 // UnimplementedMiddlewareServer must be embedded to have forward compatible implementations.
-type UnimplementedMiddlewareServer struct {
-}
+type UnimplementedMiddlewareServer struct{}
 
 func (UnimplementedMiddlewareServer) mustEmbedUnimplementedMiddlewareServer() {}
 

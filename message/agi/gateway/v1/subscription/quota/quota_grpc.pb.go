@@ -8,6 +8,7 @@ package quota
 
 import (
 	context "context"
+
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -115,24 +116,28 @@ type GatewayServer interface {
 }
 
 // UnimplementedGatewayServer must be embedded to have forward compatible implementations.
-type UnimplementedGatewayServer struct {
-}
+type UnimplementedGatewayServer struct{}
 
 func (UnimplementedGatewayServer) AdminGetQuotas(context.Context, *AdminGetQuotasRequest) (*AdminGetQuotasResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AdminGetQuotas not implemented")
 }
+
 func (UnimplementedGatewayServer) AdminCountQuotas(context.Context, *AdminCountQuotasRequest) (*AdminCountQuotasResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AdminCountQuotas not implemented")
 }
+
 func (UnimplementedGatewayServer) GetQuotas(context.Context, *GetQuotasRequest) (*GetQuotasResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetQuotas not implemented")
 }
+
 func (UnimplementedGatewayServer) CountQuotas(context.Context, *CountQuotasRequest) (*CountQuotasResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CountQuotas not implemented")
 }
+
 func (UnimplementedGatewayServer) GetMyQuotas(context.Context, *GetQuotasRequest) (*GetQuotasResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetMyQuotas not implemented")
 }
+
 func (UnimplementedGatewayServer) CountMyQuotas(context.Context, *CountQuotasRequest) (*CountQuotasResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CountMyQuotas not implemented")
 }

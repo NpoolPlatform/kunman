@@ -7,11 +7,12 @@
 package usercode
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -171,12 +172,14 @@ func file_basal_middleware_v1_usercode_usercode_proto_rawDescGZIP() []byte {
 	return file_basal_middleware_v1_usercode_usercode_proto_rawDescData
 }
 
-var file_basal_middleware_v1_usercode_usercode_proto_msgTypes = make([]protoimpl.MessageInfo, 1)
-var file_basal_middleware_v1_usercode_usercode_proto_goTypes = []interface{}{
-	(*UserCode)(nil),   // 0: basal.middleware.usercode.v1.UserCode
-	(v1.SignMethod)(0), // 1: basetypes.v1.SignMethod
-	(v1.UsedFor)(0),    // 2: basetypes.v1.UsedFor
-}
+var (
+	file_basal_middleware_v1_usercode_usercode_proto_msgTypes = make([]protoimpl.MessageInfo, 1)
+	file_basal_middleware_v1_usercode_usercode_proto_goTypes  = []interface{}{
+		(*UserCode)(nil),   // 0: basal.middleware.usercode.v1.UserCode
+		(v1.SignMethod)(0), // 1: basetypes.v1.SignMethod
+		(v1.UsedFor)(0),    // 2: basetypes.v1.UsedFor
+	}
+)
 var file_basal_middleware_v1_usercode_usercode_proto_depIdxs = []int32{
 	1, // 0: basal.middleware.usercode.v1.UserCode.AccountType:type_name -> basetypes.v1.SignMethod
 	2, // 1: basal.middleware.usercode.v1.UserCode.UsedFor:type_name -> basetypes.v1.UsedFor

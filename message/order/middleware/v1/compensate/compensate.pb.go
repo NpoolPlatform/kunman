@@ -7,13 +7,14 @@
 package compensate
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	v11 "github.com/NpoolPlatform/kunman/message/basetypes/good/v1"
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/order/v1"
 	v12 "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -490,17 +491,19 @@ func file_order_middleware_v1_compensate_compensate_proto_rawDescGZIP() []byte {
 	return file_order_middleware_v1_compensate_compensate_proto_rawDescData
 }
 
-var file_order_middleware_v1_compensate_compensate_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
-var file_order_middleware_v1_compensate_compensate_proto_goTypes = []interface{}{
-	(*Compensate)(nil),            // 0: order.middleware.compensate.v1.Compensate
-	(*Conds)(nil),                 // 1: order.middleware.compensate.v1.Conds
-	(*CompensateOrderNumber)(nil), // 2: order.middleware.compensate.v1.CompensateOrderNumber
-	(v1.CompensateType)(0),        // 3: basetypes.order.v1.CompensateType
-	(v11.GoodType)(0),             // 4: basetypes.good.v1.GoodType
-	(*v12.Uint32Val)(nil),         // 5: basetypes.v1.Uint32Val
-	(*v12.StringVal)(nil),         // 6: basetypes.v1.StringVal
-	(*v12.StringSliceVal)(nil),    // 7: basetypes.v1.StringSliceVal
-}
+var (
+	file_order_middleware_v1_compensate_compensate_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
+	file_order_middleware_v1_compensate_compensate_proto_goTypes  = []interface{}{
+		(*Compensate)(nil),            // 0: order.middleware.compensate.v1.Compensate
+		(*Conds)(nil),                 // 1: order.middleware.compensate.v1.Conds
+		(*CompensateOrderNumber)(nil), // 2: order.middleware.compensate.v1.CompensateOrderNumber
+		(v1.CompensateType)(0),        // 3: basetypes.order.v1.CompensateType
+		(v11.GoodType)(0),             // 4: basetypes.good.v1.GoodType
+		(*v12.Uint32Val)(nil),         // 5: basetypes.v1.Uint32Val
+		(*v12.StringVal)(nil),         // 6: basetypes.v1.StringVal
+		(*v12.StringSliceVal)(nil),    // 7: basetypes.v1.StringSliceVal
+	}
+)
 var file_order_middleware_v1_compensate_compensate_proto_depIdxs = []int32{
 	3,  // 0: order.middleware.compensate.v1.Compensate.CompensateType:type_name -> basetypes.order.v1.CompensateType
 	4,  // 1: order.middleware.compensate.v1.Compensate.GoodType:type_name -> basetypes.good.v1.GoodType

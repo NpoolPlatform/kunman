@@ -65,9 +65,8 @@ func (h *Handler) ExistUserConds(ctx context.Context) (bool, error) {
 	}
 
 	exist := false
-	var err error
 
-	err = db.WithClient(ctx, func(_ctx context.Context, cli *ent.Client) error {
+	err := db.WithClient(ctx, func(_ctx context.Context, cli *ent.Client) error {
 		if err := handler.queryAppRoleUsers(cli); err != nil {
 			return err
 		}

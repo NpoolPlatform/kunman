@@ -4,11 +4,11 @@ import (
 	"context"
 	"fmt"
 
-	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
-	npool "github.com/NpoolPlatform/kunman/message/third/middleware/v1/oauth"
 	facebook "github.com/NpoolPlatform/kunman/mal/third/facebook"
 	github "github.com/NpoolPlatform/kunman/mal/third/github"
 	google "github.com/NpoolPlatform/kunman/mal/third/google"
+	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
+	npool "github.com/NpoolPlatform/kunman/message/third/middleware/v1/oauth"
 )
 
 func (h *Handler) GetAccessToken(ctx context.Context) (*npool.AccessTokenInfo, error) {

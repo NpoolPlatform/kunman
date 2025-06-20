@@ -59,7 +59,7 @@ type Conds struct {
 	AppGoodIDs *cruder.Cond
 }
 
-//nolint
+// nolint
 func SetQueryConds(q *ent.ScoreQuery, conds *Conds) (*ent.ScoreQuery, error) {
 	q.Where(entscore.DeletedAt(0))
 	if conds == nil {

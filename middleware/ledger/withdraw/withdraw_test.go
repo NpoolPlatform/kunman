@@ -12,10 +12,10 @@ import (
 	"github.com/google/uuid"
 	"github.com/stretchr/testify/assert"
 
-	statement1 "github.com/NpoolPlatform/kunman/middleware/ledger/ledger/statement"
 	types "github.com/NpoolPlatform/kunman/message/basetypes/ledger/v1"
 	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	npool "github.com/NpoolPlatform/kunman/message/ledger/middleware/v2/withdraw"
+	statement1 "github.com/NpoolPlatform/kunman/middleware/ledger/ledger/statement"
 )
 
 func init() {
@@ -27,21 +27,19 @@ func init() {
 	}
 }
 
-var (
-	ret = npool.Withdraw{
-		EntID:                 uuid.NewString(),
-		AppID:                 uuid.NewString(),
-		UserID:                uuid.NewString(),
-		CoinTypeID:            uuid.NewString(),
-		AccountID:             uuid.NewString(),
-		Address:               uuid.NewString(),
-		Amount:                "999.999999999",
-		State:                 types.WithdrawState_Created,
-		StateStr:              types.WithdrawState_Created.String(),
-		PlatformTransactionID: uuid.Nil.String(),
-		ReviewID:              uuid.Nil.String(),
-	}
-)
+var ret = npool.Withdraw{
+	EntID:                 uuid.NewString(),
+	AppID:                 uuid.NewString(),
+	UserID:                uuid.NewString(),
+	CoinTypeID:            uuid.NewString(),
+	AccountID:             uuid.NewString(),
+	Address:               uuid.NewString(),
+	Amount:                "999.999999999",
+	State:                 types.WithdrawState_Created,
+	StateStr:              types.WithdrawState_Created.String(),
+	PlatformTransactionID: uuid.Nil.String(),
+	ReviewID:              uuid.Nil.String(),
+}
 
 func createStatement(t *testing.T) {
 	ioType := types.IOType_Incoming

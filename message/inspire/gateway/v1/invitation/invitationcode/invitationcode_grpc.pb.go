@@ -8,6 +8,7 @@ package invitationcode
 
 import (
 	context "context"
+
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -79,15 +80,16 @@ type GatewayServer interface {
 }
 
 // UnimplementedGatewayServer must be embedded to have forward compatible implementations.
-type UnimplementedGatewayServer struct {
-}
+type UnimplementedGatewayServer struct{}
 
 func (UnimplementedGatewayServer) CreateInvitationCode(context.Context, *CreateInvitationCodeRequest) (*CreateInvitationCodeResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateInvitationCode not implemented")
 }
+
 func (UnimplementedGatewayServer) GetInvitationCodes(context.Context, *GetInvitationCodesRequest) (*GetInvitationCodesResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetInvitationCodes not implemented")
 }
+
 func (UnimplementedGatewayServer) GetAppInvitationCodes(context.Context, *GetAppInvitationCodesRequest) (*GetAppInvitationCodesResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetAppInvitationCodes not implemented")
 }

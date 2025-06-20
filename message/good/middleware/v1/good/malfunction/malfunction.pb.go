@@ -7,12 +7,13 @@
 package malfunction
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/good/v1"
 	v11 "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -463,16 +464,18 @@ func file_good_middleware_v1_good_malfunction_malfunction_proto_rawDescGZIP() []
 	return file_good_middleware_v1_good_malfunction_malfunction_proto_rawDescData
 }
 
-var file_good_middleware_v1_good_malfunction_malfunction_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
-var file_good_middleware_v1_good_malfunction_malfunction_proto_goTypes = []interface{}{
-	(*MalfunctionReq)(nil),     // 0: good.middleware.good1.malfunction.v1.MalfunctionReq
-	(*Malfunction)(nil),        // 1: good.middleware.good1.malfunction.v1.Malfunction
-	(*Conds)(nil),              // 2: good.middleware.good1.malfunction.v1.Conds
-	(v1.GoodType)(0),           // 3: basetypes.good.v1.GoodType
-	(*v11.Uint32Val)(nil),      // 4: basetypes.v1.Uint32Val
-	(*v11.StringVal)(nil),      // 5: basetypes.v1.StringVal
-	(*v11.StringSliceVal)(nil), // 6: basetypes.v1.StringSliceVal
-}
+var (
+	file_good_middleware_v1_good_malfunction_malfunction_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
+	file_good_middleware_v1_good_malfunction_malfunction_proto_goTypes  = []interface{}{
+		(*MalfunctionReq)(nil),     // 0: good.middleware.good1.malfunction.v1.MalfunctionReq
+		(*Malfunction)(nil),        // 1: good.middleware.good1.malfunction.v1.Malfunction
+		(*Conds)(nil),              // 2: good.middleware.good1.malfunction.v1.Conds
+		(v1.GoodType)(0),           // 3: basetypes.good.v1.GoodType
+		(*v11.Uint32Val)(nil),      // 4: basetypes.v1.Uint32Val
+		(*v11.StringVal)(nil),      // 5: basetypes.v1.StringVal
+		(*v11.StringSliceVal)(nil), // 6: basetypes.v1.StringSliceVal
+	}
+)
 var file_good_middleware_v1_good_malfunction_malfunction_proto_depIdxs = []int32{
 	3, // 0: good.middleware.good1.malfunction.v1.Malfunction.GoodType:type_name -> basetypes.good.v1.GoodType
 	4, // 1: good.middleware.good1.malfunction.v1.Conds.ID:type_name -> basetypes.v1.Uint32Val

@@ -16,7 +16,6 @@ type updateHandler struct {
 	*Handler
 }
 
-//nolint:gocyclo
 func (h *updateHandler) validateState(info *ent.FractionWithdrawal) error {
 	if info.FractionWithdrawState == basetypes.FractionWithdrawState_DefaultFractionWithdrawState.String() {
 		return wlog.Errorf("invalid withdrawstate")

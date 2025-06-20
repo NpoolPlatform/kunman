@@ -7,13 +7,14 @@
 package description
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	description "github.com/NpoolPlatform/kunman/message/chain/middleware/v1/app/coin/description"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -815,21 +816,23 @@ func file_chain_gateway_v1_app_coin_description_description_proto_rawDescGZIP() 
 	return file_chain_gateway_v1_app_coin_description_description_proto_rawDescData
 }
 
-var file_chain_gateway_v1_app_coin_description_description_proto_msgTypes = make([]protoimpl.MessageInfo, 10)
-var file_chain_gateway_v1_app_coin_description_description_proto_goTypes = []interface{}{
-	(*CreateCoinDescriptionRequest)(nil),     // 0: chain.gateway.app.coin.description.v1.CreateCoinDescriptionRequest
-	(*CreateCoinDescriptionResponse)(nil),    // 1: chain.gateway.app.coin.description.v1.CreateCoinDescriptionResponse
-	(*CreateAppCoinDescriptionRequest)(nil),  // 2: chain.gateway.app.coin.description.v1.CreateAppCoinDescriptionRequest
-	(*CreateAppCoinDescriptionResponse)(nil), // 3: chain.gateway.app.coin.description.v1.CreateAppCoinDescriptionResponse
-	(*UpdateCoinDescriptionRequest)(nil),     // 4: chain.gateway.app.coin.description.v1.UpdateCoinDescriptionRequest
-	(*UpdateCoinDescriptionResponse)(nil),    // 5: chain.gateway.app.coin.description.v1.UpdateCoinDescriptionResponse
-	(*GetCoinDescriptionsRequest)(nil),       // 6: chain.gateway.app.coin.description.v1.GetCoinDescriptionsRequest
-	(*GetCoinDescriptionsResponse)(nil),      // 7: chain.gateway.app.coin.description.v1.GetCoinDescriptionsResponse
-	(*GetAppCoinDescriptionsRequest)(nil),    // 8: chain.gateway.app.coin.description.v1.GetAppCoinDescriptionsRequest
-	(*GetAppCoinDescriptionsResponse)(nil),   // 9: chain.gateway.app.coin.description.v1.GetAppCoinDescriptionsResponse
-	(v1.UsedFor)(0),                          // 10: basetypes.v1.UsedFor
-	(*description.CoinDescription)(nil),      // 11: chain.middleware.app.coin.description.v1.CoinDescription
-}
+var (
+	file_chain_gateway_v1_app_coin_description_description_proto_msgTypes = make([]protoimpl.MessageInfo, 10)
+	file_chain_gateway_v1_app_coin_description_description_proto_goTypes  = []interface{}{
+		(*CreateCoinDescriptionRequest)(nil),     // 0: chain.gateway.app.coin.description.v1.CreateCoinDescriptionRequest
+		(*CreateCoinDescriptionResponse)(nil),    // 1: chain.gateway.app.coin.description.v1.CreateCoinDescriptionResponse
+		(*CreateAppCoinDescriptionRequest)(nil),  // 2: chain.gateway.app.coin.description.v1.CreateAppCoinDescriptionRequest
+		(*CreateAppCoinDescriptionResponse)(nil), // 3: chain.gateway.app.coin.description.v1.CreateAppCoinDescriptionResponse
+		(*UpdateCoinDescriptionRequest)(nil),     // 4: chain.gateway.app.coin.description.v1.UpdateCoinDescriptionRequest
+		(*UpdateCoinDescriptionResponse)(nil),    // 5: chain.gateway.app.coin.description.v1.UpdateCoinDescriptionResponse
+		(*GetCoinDescriptionsRequest)(nil),       // 6: chain.gateway.app.coin.description.v1.GetCoinDescriptionsRequest
+		(*GetCoinDescriptionsResponse)(nil),      // 7: chain.gateway.app.coin.description.v1.GetCoinDescriptionsResponse
+		(*GetAppCoinDescriptionsRequest)(nil),    // 8: chain.gateway.app.coin.description.v1.GetAppCoinDescriptionsRequest
+		(*GetAppCoinDescriptionsResponse)(nil),   // 9: chain.gateway.app.coin.description.v1.GetAppCoinDescriptionsResponse
+		(v1.UsedFor)(0),                          // 10: basetypes.v1.UsedFor
+		(*description.CoinDescription)(nil),      // 11: chain.middleware.app.coin.description.v1.CoinDescription
+	}
+)
 var file_chain_gateway_v1_app_coin_description_description_proto_depIdxs = []int32{
 	10, // 0: chain.gateway.app.coin.description.v1.CreateCoinDescriptionRequest.UsedFor:type_name -> basetypes.v1.UsedFor
 	11, // 1: chain.gateway.app.coin.description.v1.CreateCoinDescriptionResponse.Info:type_name -> chain.middleware.app.coin.description.v1.CoinDescription

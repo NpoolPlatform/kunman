@@ -7,14 +7,15 @@
 package outofgas
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	_ "github.com/NpoolPlatform/kunman/message/basetypes/good/v1"
 	_ "github.com/NpoolPlatform/kunman/message/basetypes/order/v1"
 	outofgas "github.com/NpoolPlatform/kunman/message/order/gateway/v1/outofgas"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -217,12 +218,14 @@ func file_order_gateway_v1_powerrental_outofgas_outofgas_proto_rawDescGZIP() []b
 	return file_order_gateway_v1_powerrental_outofgas_outofgas_proto_rawDescData
 }
 
-var file_order_gateway_v1_powerrental_outofgas_outofgas_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
-var file_order_gateway_v1_powerrental_outofgas_outofgas_proto_goTypes = []interface{}{
-	(*AdminDeleteOutOfGasRequest)(nil),  // 0: order.gateway.powerrental.outofgas.v1.AdminDeleteOutOfGasRequest
-	(*AdminDeleteOutOfGasResponse)(nil), // 1: order.gateway.powerrental.outofgas.v1.AdminDeleteOutOfGasResponse
-	(*outofgas.OutOfGas)(nil),           // 2: order.gateway.outofgas.v1.OutOfGas
-}
+var (
+	file_order_gateway_v1_powerrental_outofgas_outofgas_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
+	file_order_gateway_v1_powerrental_outofgas_outofgas_proto_goTypes  = []interface{}{
+		(*AdminDeleteOutOfGasRequest)(nil),  // 0: order.gateway.powerrental.outofgas.v1.AdminDeleteOutOfGasRequest
+		(*AdminDeleteOutOfGasResponse)(nil), // 1: order.gateway.powerrental.outofgas.v1.AdminDeleteOutOfGasResponse
+		(*outofgas.OutOfGas)(nil),           // 2: order.gateway.outofgas.v1.OutOfGas
+	}
+)
 var file_order_gateway_v1_powerrental_outofgas_outofgas_proto_depIdxs = []int32{
 	2, // 0: order.gateway.powerrental.outofgas.v1.AdminDeleteOutOfGasResponse.Info:type_name -> order.gateway.outofgas.v1.OutOfGas
 	0, // 1: order.gateway.powerrental.outofgas.v1.Gateway.AdminDeleteOutOfGas:input_type -> order.gateway.powerrental.outofgas.v1.AdminDeleteOutOfGasRequest

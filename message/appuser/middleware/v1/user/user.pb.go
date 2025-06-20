@@ -7,11 +7,12 @@
 package user
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -1335,18 +1336,20 @@ func file_appuser_middleware_v1_user_user_proto_rawDescGZIP() []byte {
 	return file_appuser_middleware_v1_user_user_proto_rawDescData
 }
 
-var file_appuser_middleware_v1_user_user_proto_msgTypes = make([]protoimpl.MessageInfo, 4)
-var file_appuser_middleware_v1_user_user_proto_goTypes = []interface{}{
-	(*UserReq)(nil),           // 0: appuser.middleware.user.v1.UserReq
-	(*OAuthThirdParty)(nil),   // 1: appuser.middleware.user.v1.OAuthThirdParty
-	(*User)(nil),              // 2: appuser.middleware.user.v1.User
-	(*Conds)(nil),             // 3: appuser.middleware.user.v1.Conds
-	(v1.SignMethod)(0),        // 4: basetypes.v1.SignMethod
-	(v1.KycState)(0),          // 5: basetypes.v1.KycState
-	(*v1.Uint32Val)(nil),      // 6: basetypes.v1.Uint32Val
-	(*v1.StringVal)(nil),      // 7: basetypes.v1.StringVal
-	(*v1.StringSliceVal)(nil), // 8: basetypes.v1.StringSliceVal
-}
+var (
+	file_appuser_middleware_v1_user_user_proto_msgTypes = make([]protoimpl.MessageInfo, 4)
+	file_appuser_middleware_v1_user_user_proto_goTypes  = []interface{}{
+		(*UserReq)(nil),           // 0: appuser.middleware.user.v1.UserReq
+		(*OAuthThirdParty)(nil),   // 1: appuser.middleware.user.v1.OAuthThirdParty
+		(*User)(nil),              // 2: appuser.middleware.user.v1.User
+		(*Conds)(nil),             // 3: appuser.middleware.user.v1.Conds
+		(v1.SignMethod)(0),        // 4: basetypes.v1.SignMethod
+		(v1.KycState)(0),          // 5: basetypes.v1.KycState
+		(*v1.Uint32Val)(nil),      // 6: basetypes.v1.Uint32Val
+		(*v1.StringVal)(nil),      // 7: basetypes.v1.StringVal
+		(*v1.StringSliceVal)(nil), // 8: basetypes.v1.StringSliceVal
+	}
+)
 var file_appuser_middleware_v1_user_user_proto_depIdxs = []int32{
 	4,  // 0: appuser.middleware.user.v1.UserReq.SigninVerifyType:type_name -> basetypes.v1.SignMethod
 	4,  // 1: appuser.middleware.user.v1.User.SigninVerifyType:type_name -> basetypes.v1.SignMethod

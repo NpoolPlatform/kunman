@@ -7,8 +7,8 @@ import (
 	"strconv"
 	"testing"
 
-	testinit "github.com/NpoolPlatform/kunman/middleware/chain/testinit"
 	npool "github.com/NpoolPlatform/kunman/message/chain/middleware/v1/coin"
+	testinit "github.com/NpoolPlatform/kunman/middleware/chain/testinit"
 
 	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 
@@ -25,31 +25,33 @@ func init() {
 	}
 }
 
-var chainType = uuid.NewString()
-var chainAtomicUnit = uuid.NewString()
-var chainUnitExp = uint32(1)
-var gasType = basetypes.GasType_FixedGas
-var chainID = uuid.NewString()
-var chainNickname = uuid.NewString()
-var chainNativeCoinName = uuid.NewString()
-var ret = &npool.Coin{
-	Name:                        uuid.NewString(),
-	Unit:                        "BTC1",
-	ENV:                         "test",
-	ReservedAmount:              "0.000000000000000000",
-	WithdrawFeeByStableUSD:      true,
-	WithdrawFeeAmount:           "0.000000000000000000",
-	CollectFeeAmount:            "0.000000000000000000",
-	HotWalletFeeAmount:          "0.000000000000000000",
-	LowFeeAmount:                "0.000000000000000000",
-	HotLowFeeAmount:             "0.000000000000000000",
-	HotWalletAccountAmount:      "0.000000000000000000",
-	PaymentAccountCollectAmount: "0.000000000000000000",
-	FeeCoinUnit:                 "BTC1",
-	FeeCoinENV:                  "test",
-	LeastTransferAmount:         "0.000000000000000000",
-	CheckNewAddressBalance:      true,
-}
+var (
+	chainType           = uuid.NewString()
+	chainAtomicUnit     = uuid.NewString()
+	chainUnitExp        = uint32(1)
+	gasType             = basetypes.GasType_FixedGas
+	chainID             = uuid.NewString()
+	chainNickname       = uuid.NewString()
+	chainNativeCoinName = uuid.NewString()
+	ret                 = &npool.Coin{
+		Name:                        uuid.NewString(),
+		Unit:                        "BTC1",
+		ENV:                         "test",
+		ReservedAmount:              "0.000000000000000000",
+		WithdrawFeeByStableUSD:      true,
+		WithdrawFeeAmount:           "0.000000000000000000",
+		CollectFeeAmount:            "0.000000000000000000",
+		HotWalletFeeAmount:          "0.000000000000000000",
+		LowFeeAmount:                "0.000000000000000000",
+		HotLowFeeAmount:             "0.000000000000000000",
+		HotWalletAccountAmount:      "0.000000000000000000",
+		PaymentAccountCollectAmount: "0.000000000000000000",
+		FeeCoinUnit:                 "BTC1",
+		FeeCoinENV:                  "test",
+		LeastTransferAmount:         "0.000000000000000000",
+		CheckNewAddressBalance:      true,
+	}
+)
 
 var req = &npool.CoinReq{
 	Name:                &ret.Name,
@@ -65,7 +67,7 @@ var req = &npool.CoinReq{
 	ChainNativeUnit:     &ret.Unit,
 }
 
-//nolint
+// nolint
 func setupCoin(t *testing.T) func(*testing.T) {
 	ret.FeeCoinName = ret.Name
 	return func(*testing.T) {}

@@ -7,12 +7,13 @@
 package usedfor
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/chain/v1"
 	v11 "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -421,17 +422,19 @@ func file_chain_middleware_v1_coin_usedfor_usedfor_proto_rawDescGZIP() []byte {
 	return file_chain_middleware_v1_coin_usedfor_usedfor_proto_rawDescData
 }
 
-var file_chain_middleware_v1_coin_usedfor_usedfor_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
-var file_chain_middleware_v1_coin_usedfor_usedfor_proto_goTypes = []interface{}{
-	(*CoinUsedForReq)(nil),     // 0: chain.middleware.coin.usedfor.v1.CoinUsedForReq
-	(*CoinUsedFor)(nil),        // 1: chain.middleware.coin.usedfor.v1.CoinUsedFor
-	(*Conds)(nil),              // 2: chain.middleware.coin.usedfor.v1.Conds
-	(v1.CoinUsedFor)(0),        // 3: basetypes.chain.v1.CoinUsedFor
-	(*v11.StringVal)(nil),      // 4: basetypes.v1.StringVal
-	(*v11.StringSliceVal)(nil), // 5: basetypes.v1.StringSliceVal
-	(*v11.Uint32Val)(nil),      // 6: basetypes.v1.Uint32Val
-	(*v11.Uint32SliceVal)(nil), // 7: basetypes.v1.Uint32SliceVal
-}
+var (
+	file_chain_middleware_v1_coin_usedfor_usedfor_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
+	file_chain_middleware_v1_coin_usedfor_usedfor_proto_goTypes  = []interface{}{
+		(*CoinUsedForReq)(nil),     // 0: chain.middleware.coin.usedfor.v1.CoinUsedForReq
+		(*CoinUsedFor)(nil),        // 1: chain.middleware.coin.usedfor.v1.CoinUsedFor
+		(*Conds)(nil),              // 2: chain.middleware.coin.usedfor.v1.Conds
+		(v1.CoinUsedFor)(0),        // 3: basetypes.chain.v1.CoinUsedFor
+		(*v11.StringVal)(nil),      // 4: basetypes.v1.StringVal
+		(*v11.StringSliceVal)(nil), // 5: basetypes.v1.StringSliceVal
+		(*v11.Uint32Val)(nil),      // 6: basetypes.v1.Uint32Val
+		(*v11.Uint32SliceVal)(nil), // 7: basetypes.v1.Uint32SliceVal
+	}
+)
 var file_chain_middleware_v1_coin_usedfor_usedfor_proto_depIdxs = []int32{
 	3, // 0: chain.middleware.coin.usedfor.v1.CoinUsedForReq.UsedFor:type_name -> basetypes.chain.v1.CoinUsedFor
 	3, // 1: chain.middleware.coin.usedfor.v1.CoinUsedFor.UsedFor:type_name -> basetypes.chain.v1.CoinUsedFor

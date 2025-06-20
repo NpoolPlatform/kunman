@@ -79,10 +79,10 @@ func Initialize(configPath, appName string, deps ...string) error {
 		return xerrors.Errorf("fail to find a usable service: %v", err)
 	}
 
-	appID := viper.GetStringMap(rootConfig)[KeyAppID].(string)            //nolint
-	serviceID, _ := viper.GetStringMap(rootConfig)[KeyServiceID].(string) //nolint
-	myHostname := viper.GetStringMap(rootConfig)[KeyHostname].(string)    //nolint
-	logDir := viper.GetStringMap(rootConfig)[KeyLogDir].(string)          //nolint
+	appID := viper.GetStringMap(rootConfig)[KeyAppID].(string)
+	serviceID, _ := viper.GetStringMap(rootConfig)[KeyServiceID].(string)
+	myHostname := viper.GetStringMap(rootConfig)[KeyHostname].(string)
+	logDir := viper.GetStringMap(rootConfig)[KeyLogDir].(string)
 
 	depServices := make([]string, len(deps)+1)
 	for idx, dep := range deps {

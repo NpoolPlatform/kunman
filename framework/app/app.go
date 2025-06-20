@@ -66,7 +66,7 @@ func Initialize(
 	}
 
 	logDir := config.GetStringValueWithNameSpace("", config.KeyLogDir)
-	err = os.MkdirAll(logDir, 0755) //nolint
+	err = os.MkdirAll(logDir, 0o755) //nolint
 	if err != nil {
 		panic(xerrors.Errorf("Fail to create log dir %v: %v", logDir, err))
 	}

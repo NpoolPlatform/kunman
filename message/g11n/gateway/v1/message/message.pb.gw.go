@@ -25,11 +25,14 @@ import (
 
 // Suppress "imported and not used" errors
 var _ codes.Code
-var _ io.Reader
-var _ status.Status
-var _ = runtime.String
-var _ = utilities.NewDoubleArray
-var _ = metadata.Join
+
+var (
+	_ io.Reader
+	_ status.Status
+	_ = runtime.String
+	_ = utilities.NewDoubleArray
+	_ = metadata.Join
+)
 
 func request_Gateway_CreateMessage_0(ctx context.Context, marshaler runtime.Marshaler, client GatewayClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq CreateMessageRequest
@@ -45,7 +48,6 @@ func request_Gateway_CreateMessage_0(ctx context.Context, marshaler runtime.Mars
 
 	msg, err := client.CreateMessage(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_Gateway_CreateMessage_0(ctx context.Context, marshaler runtime.Marshaler, server GatewayServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
@@ -62,7 +64,6 @@ func local_request_Gateway_CreateMessage_0(ctx context.Context, marshaler runtim
 
 	msg, err := server.CreateMessage(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
 func request_Gateway_CreateAppMessage_0(ctx context.Context, marshaler runtime.Marshaler, client GatewayClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
@@ -79,7 +80,6 @@ func request_Gateway_CreateAppMessage_0(ctx context.Context, marshaler runtime.M
 
 	msg, err := client.CreateAppMessage(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_Gateway_CreateAppMessage_0(ctx context.Context, marshaler runtime.Marshaler, server GatewayServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
@@ -96,7 +96,6 @@ func local_request_Gateway_CreateAppMessage_0(ctx context.Context, marshaler run
 
 	msg, err := server.CreateAppMessage(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
 func request_Gateway_CreateMessages_0(ctx context.Context, marshaler runtime.Marshaler, client GatewayClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
@@ -113,7 +112,6 @@ func request_Gateway_CreateMessages_0(ctx context.Context, marshaler runtime.Mar
 
 	msg, err := client.CreateMessages(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_Gateway_CreateMessages_0(ctx context.Context, marshaler runtime.Marshaler, server GatewayServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
@@ -130,7 +128,6 @@ func local_request_Gateway_CreateMessages_0(ctx context.Context, marshaler runti
 
 	msg, err := server.CreateMessages(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
 func request_Gateway_CreateAppMessages_0(ctx context.Context, marshaler runtime.Marshaler, client GatewayClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
@@ -147,7 +144,6 @@ func request_Gateway_CreateAppMessages_0(ctx context.Context, marshaler runtime.
 
 	msg, err := client.CreateAppMessages(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_Gateway_CreateAppMessages_0(ctx context.Context, marshaler runtime.Marshaler, server GatewayServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
@@ -164,7 +160,6 @@ func local_request_Gateway_CreateAppMessages_0(ctx context.Context, marshaler ru
 
 	msg, err := server.CreateAppMessages(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
 func request_Gateway_UpdateMessage_0(ctx context.Context, marshaler runtime.Marshaler, client GatewayClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
@@ -181,7 +176,6 @@ func request_Gateway_UpdateMessage_0(ctx context.Context, marshaler runtime.Mars
 
 	msg, err := client.UpdateMessage(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_Gateway_UpdateMessage_0(ctx context.Context, marshaler runtime.Marshaler, server GatewayServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
@@ -198,7 +192,6 @@ func local_request_Gateway_UpdateMessage_0(ctx context.Context, marshaler runtim
 
 	msg, err := server.UpdateMessage(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
 func request_Gateway_UpdateAppMessage_0(ctx context.Context, marshaler runtime.Marshaler, client GatewayClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
@@ -215,7 +208,6 @@ func request_Gateway_UpdateAppMessage_0(ctx context.Context, marshaler runtime.M
 
 	msg, err := client.UpdateAppMessage(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_Gateway_UpdateAppMessage_0(ctx context.Context, marshaler runtime.Marshaler, server GatewayServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
@@ -232,7 +224,6 @@ func local_request_Gateway_UpdateAppMessage_0(ctx context.Context, marshaler run
 
 	msg, err := server.UpdateAppMessage(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
 func request_Gateway_GetMessages_0(ctx context.Context, marshaler runtime.Marshaler, client GatewayClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
@@ -249,7 +240,6 @@ func request_Gateway_GetMessages_0(ctx context.Context, marshaler runtime.Marsha
 
 	msg, err := client.GetMessages(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_Gateway_GetMessages_0(ctx context.Context, marshaler runtime.Marshaler, server GatewayServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
@@ -266,7 +256,6 @@ func local_request_Gateway_GetMessages_0(ctx context.Context, marshaler runtime.
 
 	msg, err := server.GetMessages(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
 func request_Gateway_GetAppMessages_0(ctx context.Context, marshaler runtime.Marshaler, client GatewayClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
@@ -283,7 +272,6 @@ func request_Gateway_GetAppMessages_0(ctx context.Context, marshaler runtime.Mar
 
 	msg, err := client.GetAppMessages(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_Gateway_GetAppMessages_0(ctx context.Context, marshaler runtime.Marshaler, server GatewayServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
@@ -300,7 +288,6 @@ func local_request_Gateway_GetAppMessages_0(ctx context.Context, marshaler runti
 
 	msg, err := server.GetAppMessages(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
 func request_Gateway_DeleteMessage_0(ctx context.Context, marshaler runtime.Marshaler, client GatewayClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
@@ -317,7 +304,6 @@ func request_Gateway_DeleteMessage_0(ctx context.Context, marshaler runtime.Mars
 
 	msg, err := client.DeleteMessage(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_Gateway_DeleteMessage_0(ctx context.Context, marshaler runtime.Marshaler, server GatewayServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
@@ -334,7 +320,6 @@ func local_request_Gateway_DeleteMessage_0(ctx context.Context, marshaler runtim
 
 	msg, err := server.DeleteMessage(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
 func request_Gateway_DeleteAppMessage_0(ctx context.Context, marshaler runtime.Marshaler, client GatewayClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
@@ -351,7 +336,6 @@ func request_Gateway_DeleteAppMessage_0(ctx context.Context, marshaler runtime.M
 
 	msg, err := client.DeleteAppMessage(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_Gateway_DeleteAppMessage_0(ctx context.Context, marshaler runtime.Marshaler, server GatewayServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
@@ -368,7 +352,6 @@ func local_request_Gateway_DeleteAppMessage_0(ctx context.Context, marshaler run
 
 	msg, err := server.DeleteAppMessage(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
 // RegisterGatewayHandlerServer registers the http handlers for service Gateway to "mux".
@@ -376,7 +359,6 @@ func local_request_Gateway_DeleteAppMessage_0(ctx context.Context, marshaler run
 // StreamingRPC :currently unsupported pending https://github.com/grpc/grpc-go/issues/906.
 // Note that using this registration option will cause many gRPC library features to stop working. Consider using RegisterGatewayHandlerFromEndpoint instead.
 func RegisterGatewayHandlerServer(ctx context.Context, mux *runtime.ServeMux, server GatewayServer) error {
-
 	mux.Handle("POST", pattern_Gateway_CreateMessage_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
@@ -397,7 +379,6 @@ func RegisterGatewayHandlerServer(ctx context.Context, mux *runtime.ServeMux, se
 		}
 
 		forward_Gateway_CreateMessage_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
 
 	mux.Handle("POST", pattern_Gateway_CreateAppMessage_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
@@ -420,7 +401,6 @@ func RegisterGatewayHandlerServer(ctx context.Context, mux *runtime.ServeMux, se
 		}
 
 		forward_Gateway_CreateAppMessage_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
 
 	mux.Handle("POST", pattern_Gateway_CreateMessages_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
@@ -443,7 +423,6 @@ func RegisterGatewayHandlerServer(ctx context.Context, mux *runtime.ServeMux, se
 		}
 
 		forward_Gateway_CreateMessages_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
 
 	mux.Handle("POST", pattern_Gateway_CreateAppMessages_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
@@ -466,7 +445,6 @@ func RegisterGatewayHandlerServer(ctx context.Context, mux *runtime.ServeMux, se
 		}
 
 		forward_Gateway_CreateAppMessages_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
 
 	mux.Handle("POST", pattern_Gateway_UpdateMessage_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
@@ -489,7 +467,6 @@ func RegisterGatewayHandlerServer(ctx context.Context, mux *runtime.ServeMux, se
 		}
 
 		forward_Gateway_UpdateMessage_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
 
 	mux.Handle("POST", pattern_Gateway_UpdateAppMessage_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
@@ -512,7 +489,6 @@ func RegisterGatewayHandlerServer(ctx context.Context, mux *runtime.ServeMux, se
 		}
 
 		forward_Gateway_UpdateAppMessage_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
 
 	mux.Handle("POST", pattern_Gateway_GetMessages_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
@@ -535,7 +511,6 @@ func RegisterGatewayHandlerServer(ctx context.Context, mux *runtime.ServeMux, se
 		}
 
 		forward_Gateway_GetMessages_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
 
 	mux.Handle("POST", pattern_Gateway_GetAppMessages_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
@@ -558,7 +533,6 @@ func RegisterGatewayHandlerServer(ctx context.Context, mux *runtime.ServeMux, se
 		}
 
 		forward_Gateway_GetAppMessages_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
 
 	mux.Handle("POST", pattern_Gateway_DeleteMessage_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
@@ -581,7 +555,6 @@ func RegisterGatewayHandlerServer(ctx context.Context, mux *runtime.ServeMux, se
 		}
 
 		forward_Gateway_DeleteMessage_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
 
 	mux.Handle("POST", pattern_Gateway_DeleteAppMessage_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
@@ -604,7 +577,6 @@ func RegisterGatewayHandlerServer(ctx context.Context, mux *runtime.ServeMux, se
 		}
 
 		forward_Gateway_DeleteAppMessage_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
 
 	return nil
@@ -647,7 +619,6 @@ func RegisterGatewayHandler(ctx context.Context, mux *runtime.ServeMux, conn *gr
 // doesn't go through the normal gRPC flow (creating a gRPC client etc.) then it will be up to the passed in
 // "GatewayClient" to call the correct interceptors.
 func RegisterGatewayHandlerClient(ctx context.Context, mux *runtime.ServeMux, client GatewayClient) error {
-
 	mux.Handle("POST", pattern_Gateway_CreateMessage_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
@@ -665,7 +636,6 @@ func RegisterGatewayHandlerClient(ctx context.Context, mux *runtime.ServeMux, cl
 		}
 
 		forward_Gateway_CreateMessage_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
 
 	mux.Handle("POST", pattern_Gateway_CreateAppMessage_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
@@ -685,7 +655,6 @@ func RegisterGatewayHandlerClient(ctx context.Context, mux *runtime.ServeMux, cl
 		}
 
 		forward_Gateway_CreateAppMessage_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
 
 	mux.Handle("POST", pattern_Gateway_CreateMessages_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
@@ -705,7 +674,6 @@ func RegisterGatewayHandlerClient(ctx context.Context, mux *runtime.ServeMux, cl
 		}
 
 		forward_Gateway_CreateMessages_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
 
 	mux.Handle("POST", pattern_Gateway_CreateAppMessages_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
@@ -725,7 +693,6 @@ func RegisterGatewayHandlerClient(ctx context.Context, mux *runtime.ServeMux, cl
 		}
 
 		forward_Gateway_CreateAppMessages_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
 
 	mux.Handle("POST", pattern_Gateway_UpdateMessage_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
@@ -745,7 +712,6 @@ func RegisterGatewayHandlerClient(ctx context.Context, mux *runtime.ServeMux, cl
 		}
 
 		forward_Gateway_UpdateMessage_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
 
 	mux.Handle("POST", pattern_Gateway_UpdateAppMessage_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
@@ -765,7 +731,6 @@ func RegisterGatewayHandlerClient(ctx context.Context, mux *runtime.ServeMux, cl
 		}
 
 		forward_Gateway_UpdateAppMessage_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
 
 	mux.Handle("POST", pattern_Gateway_GetMessages_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
@@ -785,7 +750,6 @@ func RegisterGatewayHandlerClient(ctx context.Context, mux *runtime.ServeMux, cl
 		}
 
 		forward_Gateway_GetMessages_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
 
 	mux.Handle("POST", pattern_Gateway_GetAppMessages_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
@@ -805,7 +769,6 @@ func RegisterGatewayHandlerClient(ctx context.Context, mux *runtime.ServeMux, cl
 		}
 
 		forward_Gateway_GetAppMessages_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
 
 	mux.Handle("POST", pattern_Gateway_DeleteMessage_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
@@ -825,7 +788,6 @@ func RegisterGatewayHandlerClient(ctx context.Context, mux *runtime.ServeMux, cl
 		}
 
 		forward_Gateway_DeleteMessage_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
 
 	mux.Handle("POST", pattern_Gateway_DeleteAppMessage_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
@@ -845,7 +807,6 @@ func RegisterGatewayHandlerClient(ctx context.Context, mux *runtime.ServeMux, cl
 		}
 
 		forward_Gateway_DeleteAppMessage_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
 
 	return nil

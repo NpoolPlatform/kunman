@@ -26,19 +26,17 @@ func init() {
 	}
 }
 
-var (
-	ret = npool.CouponWithdraw{
-		EntID:       uuid.NewString(),
-		AppID:       uuid.NewString(),
-		UserID:      uuid.NewString(),
-		CoinTypeID:  uuid.NewString(),
-		AllocatedID: uuid.NewString(),
-		Amount:      "999.999999999",
-		State:       types.WithdrawState_Reviewing,
-		StateStr:    types.WithdrawState_Reviewing.String(),
-		ReviewID:    uuid.NewString(),
-	}
-)
+var ret = npool.CouponWithdraw{
+	EntID:       uuid.NewString(),
+	AppID:       uuid.NewString(),
+	UserID:      uuid.NewString(),
+	CoinTypeID:  uuid.NewString(),
+	AllocatedID: uuid.NewString(),
+	Amount:      "999.999999999",
+	State:       types.WithdrawState_Reviewing,
+	StateStr:    types.WithdrawState_Reviewing.String(),
+	ReviewID:    uuid.NewString(),
+}
 
 func createCouponWithdraw(t *testing.T) {
 	handler, err := NewHandler(

@@ -26,17 +26,15 @@ func init() {
 	}
 }
 
-var (
-	ret = npool.FrontendTemplate{
-		EntID:      uuid.NewString(),
-		AppID:      uuid.NewString(),
-		LangID:     uuid.NewString(),
-		UsedFor:    basetypes.UsedFor_KYCApproved,
-		UsedForStr: basetypes.UsedFor_KYCApproved.String(),
-		Title:      "title " + uuid.NewString(),
-		Content:    "content " + uuid.NewString(),
-	}
-)
+var ret = npool.FrontendTemplate{
+	EntID:      uuid.NewString(),
+	AppID:      uuid.NewString(),
+	LangID:     uuid.NewString(),
+	UsedFor:    basetypes.UsedFor_KYCApproved,
+	UsedForStr: basetypes.UsedFor_KYCApproved.String(),
+	Title:      "title " + uuid.NewString(),
+	Content:    "content " + uuid.NewString(),
+}
 
 func createFrontendTemplate(t *testing.T) {
 	handler, err := NewHandler(

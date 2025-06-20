@@ -28,40 +28,6 @@ type createHandler struct {
 	*Handler
 }
 
-func (h *createHandler) account() (string, error) {
-	if h.AccountType == nil {
-		return "", fmt.Errorf("invalid accounttype")
-	}
-	switch *h.AccountType {
-	case basetypes.SignMethod_Email:
-		if h.EmailAddress == nil {
-			return "", fmt.Errorf("invalid emailaddress")
-		}
-		return *h.EmailAddress, nil
-	case basetypes.SignMethod_Mobile:
-		if h.PhoneNO == nil {
-			return "", fmt.Errorf("invalid phoneno")
-		}
-		return *h.PhoneNO, nil
-	case basetypes.SignMethod_Twitter:
-		fallthrough //nolint
-	case basetypes.SignMethod_Github:
-		fallthrough //nolint
-	case basetypes.SignMethod_Facebook:
-		fallthrough //nolint
-	case basetypes.SignMethod_Linkedin:
-		fallthrough //nolint
-	case basetypes.SignMethod_Wechat:
-		fallthrough //nolint
-	case basetypes.SignMethod_Google:
-		if h.ThirdPartyUserID == nil {
-			return "", fmt.Errorf("invalid thirdpartyuserid")
-		}
-		return *h.ThirdPartyUserID, nil
-	}
-	return "", fmt.Errorf("invalid accounttype")
-}
-
 func (h *createHandler) createAppUser(ctx context.Context, tx *ent.Tx) error {
 	switch *h.AccountType {
 	case basetypes.SignMethod_Twitter:
@@ -239,8 +205,6 @@ func (h *Handler) CreateUser(ctx context.Context) (info *npool.User, err error) 
 	handler := &createHandler{
 		Handler: h,
 	}
-
-	// TODO: deduplicate
 
 	if err := h.checkAccountExist(ctx); err != nil {
 		return nil, err

@@ -7,12 +7,13 @@
 package manufacturer
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	manufacturer "github.com/NpoolPlatform/kunman/message/good/middleware/v1/device/manufacturer"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -592,18 +593,20 @@ func file_good_gateway_v1_device_manufacturer_manufacturer_proto_rawDescGZIP() [
 	return file_good_gateway_v1_device_manufacturer_manufacturer_proto_rawDescData
 }
 
-var file_good_gateway_v1_device_manufacturer_manufacturer_proto_msgTypes = make([]protoimpl.MessageInfo, 8)
-var file_good_gateway_v1_device_manufacturer_manufacturer_proto_goTypes = []interface{}{
-	(*AdminCreateManufacturerRequest)(nil),  // 0: good.gateway.device.manufacturer.v1.AdminCreateManufacturerRequest
-	(*AdminCreateManufacturerResponse)(nil), // 1: good.gateway.device.manufacturer.v1.AdminCreateManufacturerResponse
-	(*AdminUpdateManufacturerRequest)(nil),  // 2: good.gateway.device.manufacturer.v1.AdminUpdateManufacturerRequest
-	(*AdminUpdateManufacturerResponse)(nil), // 3: good.gateway.device.manufacturer.v1.AdminUpdateManufacturerResponse
-	(*GetManufacturersRequest)(nil),         // 4: good.gateway.device.manufacturer.v1.GetManufacturersRequest
-	(*GetManufacturersResponse)(nil),        // 5: good.gateway.device.manufacturer.v1.GetManufacturersResponse
-	(*AdminDeleteManufacturerRequest)(nil),  // 6: good.gateway.device.manufacturer.v1.AdminDeleteManufacturerRequest
-	(*AdminDeleteManufacturerResponse)(nil), // 7: good.gateway.device.manufacturer.v1.AdminDeleteManufacturerResponse
-	(*manufacturer.Manufacturer)(nil),       // 8: good.middleware.device.manufacturer.v1.Manufacturer
-}
+var (
+	file_good_gateway_v1_device_manufacturer_manufacturer_proto_msgTypes = make([]protoimpl.MessageInfo, 8)
+	file_good_gateway_v1_device_manufacturer_manufacturer_proto_goTypes  = []interface{}{
+		(*AdminCreateManufacturerRequest)(nil),  // 0: good.gateway.device.manufacturer.v1.AdminCreateManufacturerRequest
+		(*AdminCreateManufacturerResponse)(nil), // 1: good.gateway.device.manufacturer.v1.AdminCreateManufacturerResponse
+		(*AdminUpdateManufacturerRequest)(nil),  // 2: good.gateway.device.manufacturer.v1.AdminUpdateManufacturerRequest
+		(*AdminUpdateManufacturerResponse)(nil), // 3: good.gateway.device.manufacturer.v1.AdminUpdateManufacturerResponse
+		(*GetManufacturersRequest)(nil),         // 4: good.gateway.device.manufacturer.v1.GetManufacturersRequest
+		(*GetManufacturersResponse)(nil),        // 5: good.gateway.device.manufacturer.v1.GetManufacturersResponse
+		(*AdminDeleteManufacturerRequest)(nil),  // 6: good.gateway.device.manufacturer.v1.AdminDeleteManufacturerRequest
+		(*AdminDeleteManufacturerResponse)(nil), // 7: good.gateway.device.manufacturer.v1.AdminDeleteManufacturerResponse
+		(*manufacturer.Manufacturer)(nil),       // 8: good.middleware.device.manufacturer.v1.Manufacturer
+	}
+)
 var file_good_gateway_v1_device_manufacturer_manufacturer_proto_depIdxs = []int32{
 	8, // 0: good.gateway.device.manufacturer.v1.AdminCreateManufacturerResponse.Info:type_name -> good.middleware.device.manufacturer.v1.Manufacturer
 	8, // 1: good.gateway.device.manufacturer.v1.AdminUpdateManufacturerResponse.Info:type_name -> good.middleware.device.manufacturer.v1.Manufacturer

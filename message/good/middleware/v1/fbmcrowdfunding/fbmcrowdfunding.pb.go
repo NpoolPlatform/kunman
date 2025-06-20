@@ -7,13 +7,14 @@
 package fbmcrowdfunding
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/good/v1"
 	v11 "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	coin "github.com/NpoolPlatform/kunman/message/good/middleware/v1/good/coin"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -1097,23 +1098,25 @@ func file_good_middleware_v1_fbmcrowdfunding_fbmcrowdfunding_proto_rawDescGZIP()
 	return file_good_middleware_v1_fbmcrowdfunding_fbmcrowdfunding_proto_rawDescData
 }
 
-var file_good_middleware_v1_fbmcrowdfunding_fbmcrowdfunding_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
-var file_good_middleware_v1_fbmcrowdfunding_fbmcrowdfunding_proto_goTypes = []interface{}{
-	(*FbmCrowdFundingReq)(nil), // 0: good.middleware.fbmcrowdfunding.v1.FbmCrowdFundingReq
-	(*FbmCrowdFunding)(nil),    // 1: good.middleware.fbmcrowdfunding.v1.FbmCrowdFunding
-	(*Conds)(nil),              // 2: good.middleware.fbmcrowdfunding.v1.Conds
-	(v1.GoodDurationType)(0),   // 3: basetypes.good.v1.GoodDurationType
-	(v1.GoodType)(0),           // 4: basetypes.good.v1.GoodType
-	(v1.BenefitType)(0),        // 5: basetypes.good.v1.BenefitType
-	(v1.GoodStartMode)(0),      // 6: basetypes.good.v1.GoodStartMode
-	(v1.BenefitState)(0),       // 7: basetypes.good.v1.BenefitState
-	(v1.GoodState)(0),          // 8: basetypes.good.v1.GoodState
-	(*coin.GoodCoinInfo)(nil),  // 9: good.middleware.good1.coin.v1.GoodCoinInfo
-	(*v11.Uint32Val)(nil),      // 10: basetypes.v1.Uint32Val
-	(*v11.StringVal)(nil),      // 11: basetypes.v1.StringVal
-	(*v11.StringSliceVal)(nil), // 12: basetypes.v1.StringSliceVal
-	(*v11.Uint32SliceVal)(nil), // 13: basetypes.v1.Uint32SliceVal
-}
+var (
+	file_good_middleware_v1_fbmcrowdfunding_fbmcrowdfunding_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
+	file_good_middleware_v1_fbmcrowdfunding_fbmcrowdfunding_proto_goTypes  = []interface{}{
+		(*FbmCrowdFundingReq)(nil), // 0: good.middleware.fbmcrowdfunding.v1.FbmCrowdFundingReq
+		(*FbmCrowdFunding)(nil),    // 1: good.middleware.fbmcrowdfunding.v1.FbmCrowdFunding
+		(*Conds)(nil),              // 2: good.middleware.fbmcrowdfunding.v1.Conds
+		(v1.GoodDurationType)(0),   // 3: basetypes.good.v1.GoodDurationType
+		(v1.GoodType)(0),           // 4: basetypes.good.v1.GoodType
+		(v1.BenefitType)(0),        // 5: basetypes.good.v1.BenefitType
+		(v1.GoodStartMode)(0),      // 6: basetypes.good.v1.GoodStartMode
+		(v1.BenefitState)(0),       // 7: basetypes.good.v1.BenefitState
+		(v1.GoodState)(0),          // 8: basetypes.good.v1.GoodState
+		(*coin.GoodCoinInfo)(nil),  // 9: good.middleware.good1.coin.v1.GoodCoinInfo
+		(*v11.Uint32Val)(nil),      // 10: basetypes.v1.Uint32Val
+		(*v11.StringVal)(nil),      // 11: basetypes.v1.StringVal
+		(*v11.StringSliceVal)(nil), // 12: basetypes.v1.StringSliceVal
+		(*v11.Uint32SliceVal)(nil), // 13: basetypes.v1.Uint32SliceVal
+	}
+)
 var file_good_middleware_v1_fbmcrowdfunding_fbmcrowdfunding_proto_depIdxs = []int32{
 	3,  // 0: good.middleware.fbmcrowdfunding.v1.FbmCrowdFundingReq.DurationType:type_name -> basetypes.good.v1.GoodDurationType
 	4,  // 1: good.middleware.fbmcrowdfunding.v1.FbmCrowdFundingReq.GoodType:type_name -> basetypes.good.v1.GoodType

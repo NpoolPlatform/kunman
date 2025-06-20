@@ -30,7 +30,6 @@ func (h *queryHandler) getApps(ctx context.Context) (err error) {
 	return wlog.WrapError(err)
 }
 
-//nolint:funlen
 func (h *queryHandler) formalize() {
 	for _, appOneShot := range h.appOneShots {
 		info := &npool.AppOneShot{

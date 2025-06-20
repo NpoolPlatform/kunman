@@ -7,11 +7,12 @@
 package description
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -458,15 +459,17 @@ func file_chain_middleware_v1_app_coin_description_description_proto_rawDescGZIP
 	return file_chain_middleware_v1_app_coin_description_description_proto_rawDescData
 }
 
-var file_chain_middleware_v1_app_coin_description_description_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
-var file_chain_middleware_v1_app_coin_description_description_proto_goTypes = []interface{}{
-	(*CoinDescriptionReq)(nil), // 0: chain.middleware.app.coin.description.v1.CoinDescriptionReq
-	(*CoinDescription)(nil),    // 1: chain.middleware.app.coin.description.v1.CoinDescription
-	(*Conds)(nil),              // 2: chain.middleware.app.coin.description.v1.Conds
-	(v1.UsedFor)(0),            // 3: basetypes.v1.UsedFor
-	(*v1.StringVal)(nil),       // 4: basetypes.v1.StringVal
-	(*v1.Int32Val)(nil),        // 5: basetypes.v1.Int32Val
-}
+var (
+	file_chain_middleware_v1_app_coin_description_description_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
+	file_chain_middleware_v1_app_coin_description_description_proto_goTypes  = []interface{}{
+		(*CoinDescriptionReq)(nil), // 0: chain.middleware.app.coin.description.v1.CoinDescriptionReq
+		(*CoinDescription)(nil),    // 1: chain.middleware.app.coin.description.v1.CoinDescription
+		(*Conds)(nil),              // 2: chain.middleware.app.coin.description.v1.Conds
+		(v1.UsedFor)(0),            // 3: basetypes.v1.UsedFor
+		(*v1.StringVal)(nil),       // 4: basetypes.v1.StringVal
+		(*v1.Int32Val)(nil),        // 5: basetypes.v1.Int32Val
+	}
+)
 var file_chain_middleware_v1_app_coin_description_description_proto_depIdxs = []int32{
 	3, // 0: chain.middleware.app.coin.description.v1.CoinDescriptionReq.UsedFor:type_name -> basetypes.v1.UsedFor
 	3, // 1: chain.middleware.app.coin.description.v1.CoinDescription.UsedFor:type_name -> basetypes.v1.UsedFor

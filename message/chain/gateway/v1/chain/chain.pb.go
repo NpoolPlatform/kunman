@@ -7,13 +7,14 @@
 package chain
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	chain "github.com/NpoolPlatform/kunman/message/chain/middleware/v1/chain"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -597,17 +598,19 @@ func file_chain_gateway_v1_chain_chain_proto_rawDescGZIP() []byte {
 	return file_chain_gateway_v1_chain_chain_proto_rawDescData
 }
 
-var file_chain_gateway_v1_chain_chain_proto_msgTypes = make([]protoimpl.MessageInfo, 6)
-var file_chain_gateway_v1_chain_chain_proto_goTypes = []interface{}{
-	(*GetChainsRequest)(nil),         // 0: chain.gateway.chain.v1.GetChainsRequest
-	(*GetChainsResponse)(nil),        // 1: chain.gateway.chain.v1.GetChainsResponse
-	(*AdminCreateChainRequest)(nil),  // 2: chain.gateway.chain.v1.AdminCreateChainRequest
-	(*AdminCreateChainResponse)(nil), // 3: chain.gateway.chain.v1.AdminCreateChainResponse
-	(*AdminUpdateChainRequest)(nil),  // 4: chain.gateway.chain.v1.AdminUpdateChainRequest
-	(*AdminUpdateChainResponse)(nil), // 5: chain.gateway.chain.v1.AdminUpdateChainResponse
-	(*chain.Chain)(nil),              // 6: chain.middleware.chain.v1.Chain
-	(v1.GasType)(0),                  // 7: basetypes.v1.GasType
-}
+var (
+	file_chain_gateway_v1_chain_chain_proto_msgTypes = make([]protoimpl.MessageInfo, 6)
+	file_chain_gateway_v1_chain_chain_proto_goTypes  = []interface{}{
+		(*GetChainsRequest)(nil),         // 0: chain.gateway.chain.v1.GetChainsRequest
+		(*GetChainsResponse)(nil),        // 1: chain.gateway.chain.v1.GetChainsResponse
+		(*AdminCreateChainRequest)(nil),  // 2: chain.gateway.chain.v1.AdminCreateChainRequest
+		(*AdminCreateChainResponse)(nil), // 3: chain.gateway.chain.v1.AdminCreateChainResponse
+		(*AdminUpdateChainRequest)(nil),  // 4: chain.gateway.chain.v1.AdminUpdateChainRequest
+		(*AdminUpdateChainResponse)(nil), // 5: chain.gateway.chain.v1.AdminUpdateChainResponse
+		(*chain.Chain)(nil),              // 6: chain.middleware.chain.v1.Chain
+		(v1.GasType)(0),                  // 7: basetypes.v1.GasType
+	}
+)
 var file_chain_gateway_v1_chain_chain_proto_depIdxs = []int32{
 	6, // 0: chain.gateway.chain.v1.GetChainsResponse.Infos:type_name -> chain.middleware.chain.v1.Chain
 	7, // 1: chain.gateway.chain.v1.AdminCreateChainRequest.GasType:type_name -> basetypes.v1.GasType

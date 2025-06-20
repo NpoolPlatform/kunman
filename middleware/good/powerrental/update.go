@@ -1,4 +1,3 @@
-//nolint:dupl
 package powerrental
 
 import (
@@ -412,7 +411,6 @@ func (h *updateHandler) _validateStock() error {
 	return h.stockValidator.validateStock()
 }
 
-//nolint:gocyclo,funlen
 func (h *updateHandler) validateRewardState() error {
 	if h.RewardReq.RewardState == nil {
 		return nil
@@ -430,7 +428,7 @@ func (h *updateHandler) validateRewardState() error {
 
 	switch *h.RewardReq.RewardState {
 	case types.BenefitState_BenefitDone:
-		fallthrough // nolint
+		fallthrough
 	case types.BenefitState_BenefitWait:
 		coinRewardReqs := []*goodcoinrewardcrud.Req{}
 		for _, coinReward := range h.coinRewards {
@@ -486,7 +484,7 @@ func (h *updateHandler) validateRewardState() error {
 			return wlog.Errorf("broken rewardstate %v -> %v", h.goodReward.RewardState, *h.RewardReq.RewardState)
 		}
 	case types.BenefitState_BenefitDone.String():
-		fallthrough //nolint
+		fallthrough
 	case types.BenefitState_BenefitFail.String():
 		if *h.RewardReq.RewardState != types.BenefitState_BenefitWait {
 			return wlog.Errorf("broken rewardstate %v -> %v", h.goodReward.RewardState, *h.RewardReq.RewardState)
@@ -497,7 +495,6 @@ func (h *updateHandler) validateRewardState() error {
 	return nil
 }
 
-//nolint:gocyclo
 func (h *updateHandler) validateGoodState(ctx context.Context) error {
 	if h.powerRental.StockMode != types.GoodStockMode_GoodStockByMiningPool.String() {
 		return nil
@@ -615,7 +612,6 @@ func (h *updateHandler) createCoinRewardHistories(ctx context.Context, tx *ent.T
 	return nil
 }
 
-//nolint:gocyclo
 func (h *Handler) UpdatePowerRental(ctx context.Context) error {
 	handler := &updateHandler{
 		powerRentalGoodQueryHandler: &powerRentalGoodQueryHandler{

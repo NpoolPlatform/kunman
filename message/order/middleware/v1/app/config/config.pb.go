@@ -7,12 +7,13 @@
 package config
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/order/v1"
 	v11 "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -467,15 +468,17 @@ func file_order_middleware_v1_app_config_config_proto_rawDescGZIP() []byte {
 	return file_order_middleware_v1_app_config_config_proto_rawDescData
 }
 
-var file_order_middleware_v1_app_config_config_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
-var file_order_middleware_v1_app_config_config_proto_goTypes = []interface{}{
-	(*AppConfigReq)(nil),            // 0: order.middleware.app.config.v1.AppConfigReq
-	(*AppConfig)(nil),               // 1: order.middleware.app.config.v1.AppConfig
-	(*Conds)(nil),                   // 2: order.middleware.app.config.v1.Conds
-	(v1.SimulateOrderCouponMode)(0), // 3: basetypes.order.v1.SimulateOrderCouponMode
-	(*v11.Uint32Val)(nil),           // 4: basetypes.v1.Uint32Val
-	(*v11.StringVal)(nil),           // 5: basetypes.v1.StringVal
-}
+var (
+	file_order_middleware_v1_app_config_config_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
+	file_order_middleware_v1_app_config_config_proto_goTypes  = []interface{}{
+		(*AppConfigReq)(nil),            // 0: order.middleware.app.config.v1.AppConfigReq
+		(*AppConfig)(nil),               // 1: order.middleware.app.config.v1.AppConfig
+		(*Conds)(nil),                   // 2: order.middleware.app.config.v1.Conds
+		(v1.SimulateOrderCouponMode)(0), // 3: basetypes.order.v1.SimulateOrderCouponMode
+		(*v11.Uint32Val)(nil),           // 4: basetypes.v1.Uint32Val
+		(*v11.StringVal)(nil),           // 5: basetypes.v1.StringVal
+	}
+)
 var file_order_middleware_v1_app_config_config_proto_depIdxs = []int32{
 	3, // 0: order.middleware.app.config.v1.AppConfigReq.SimulateOrderCouponMode:type_name -> basetypes.order.v1.SimulateOrderCouponMode
 	3, // 1: order.middleware.app.config.v1.AppConfig.SimulateOrderCouponMode:type_name -> basetypes.order.v1.SimulateOrderCouponMode

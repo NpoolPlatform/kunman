@@ -4,10 +4,10 @@ import (
 	"context"
 	"fmt"
 
-	constant "github.com/NpoolPlatform/kunman/pkg/const"
-	txcrud "github.com/NpoolPlatform/kunman/middleware/chain/crud/tx"
 	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	npool "github.com/NpoolPlatform/kunman/message/chain/middleware/v1/tx"
+	txcrud "github.com/NpoolPlatform/kunman/middleware/chain/crud/tx"
+	constant "github.com/NpoolPlatform/kunman/pkg/const"
 
 	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 
@@ -231,7 +231,6 @@ func WithType(_type *basetypes.TxType, must bool) func(context.Context, *Handler
 	}
 }
 
-// nolint:gocyclo
 func WithReqs(reqs []*npool.TxReq, must bool) func(context.Context, *Handler) error {
 	return func(ctx context.Context, h *Handler) error {
 		_reqs := []*txcrud.Req{}

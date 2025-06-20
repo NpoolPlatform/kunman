@@ -7,12 +7,13 @@
 package email
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -561,17 +562,19 @@ func file_notif_middleware_v1_template_email_email_proto_rawDescGZIP() []byte {
 	return file_notif_middleware_v1_template_email_email_proto_rawDescData
 }
 
-var file_notif_middleware_v1_template_email_email_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
-var file_notif_middleware_v1_template_email_email_proto_goTypes = []interface{}{
-	(*EmailTemplate)(nil),     // 0: notif.middleware.template.email.v1.EmailTemplate
-	(*EmailTemplateReq)(nil),  // 1: notif.middleware.template.email.v1.EmailTemplateReq
-	(*Conds)(nil),             // 2: notif.middleware.template.email.v1.Conds
-	(v1.UsedFor)(0),           // 3: basetypes.v1.UsedFor
-	(*v1.Uint32Val)(nil),      // 4: basetypes.v1.Uint32Val
-	(*v1.StringVal)(nil),      // 5: basetypes.v1.StringVal
-	(*v1.StringSliceVal)(nil), // 6: basetypes.v1.StringSliceVal
-	(*v1.Uint32SliceVal)(nil), // 7: basetypes.v1.Uint32SliceVal
-}
+var (
+	file_notif_middleware_v1_template_email_email_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
+	file_notif_middleware_v1_template_email_email_proto_goTypes  = []interface{}{
+		(*EmailTemplate)(nil),     // 0: notif.middleware.template.email.v1.EmailTemplate
+		(*EmailTemplateReq)(nil),  // 1: notif.middleware.template.email.v1.EmailTemplateReq
+		(*Conds)(nil),             // 2: notif.middleware.template.email.v1.Conds
+		(v1.UsedFor)(0),           // 3: basetypes.v1.UsedFor
+		(*v1.Uint32Val)(nil),      // 4: basetypes.v1.Uint32Val
+		(*v1.StringVal)(nil),      // 5: basetypes.v1.StringVal
+		(*v1.StringSliceVal)(nil), // 6: basetypes.v1.StringSliceVal
+		(*v1.Uint32SliceVal)(nil), // 7: basetypes.v1.Uint32SliceVal
+	}
+)
 var file_notif_middleware_v1_template_email_email_proto_depIdxs = []int32{
 	3,  // 0: notif.middleware.template.email.v1.EmailTemplate.UsedFor:type_name -> basetypes.v1.UsedFor
 	3,  // 1: notif.middleware.template.email.v1.EmailTemplateReq.UsedFor:type_name -> basetypes.v1.UsedFor

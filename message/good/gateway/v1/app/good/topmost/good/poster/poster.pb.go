@@ -7,12 +7,13 @@
 package poster
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/good/v1"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -1433,27 +1434,29 @@ func file_good_gateway_v1_app_good_topmost_good_poster_poster_proto_rawDescGZIP(
 	return file_good_gateway_v1_app_good_topmost_good_poster_poster_proto_rawDescData
 }
 
-var file_good_gateway_v1_app_good_topmost_good_poster_poster_proto_msgTypes = make([]protoimpl.MessageInfo, 17)
-var file_good_gateway_v1_app_good_topmost_good_poster_poster_proto_goTypes = []interface{}{
-	(*Poster)(nil),                    // 0: good.gateway.app.good1.topmost.good2.poster.v1.Poster
-	(*CreatePosterRequest)(nil),       // 1: good.gateway.app.good1.topmost.good2.poster.v1.CreatePosterRequest
-	(*CreatePosterResponse)(nil),      // 2: good.gateway.app.good1.topmost.good2.poster.v1.CreatePosterResponse
-	(*UpdatePosterRequest)(nil),       // 3: good.gateway.app.good1.topmost.good2.poster.v1.UpdatePosterRequest
-	(*UpdatePosterResponse)(nil),      // 4: good.gateway.app.good1.topmost.good2.poster.v1.UpdatePosterResponse
-	(*GetPostersRequest)(nil),         // 5: good.gateway.app.good1.topmost.good2.poster.v1.GetPostersRequest
-	(*GetPostersResponse)(nil),        // 6: good.gateway.app.good1.topmost.good2.poster.v1.GetPostersResponse
-	(*DeletePosterRequest)(nil),       // 7: good.gateway.app.good1.topmost.good2.poster.v1.DeletePosterRequest
-	(*DeletePosterResponse)(nil),      // 8: good.gateway.app.good1.topmost.good2.poster.v1.DeletePosterResponse
-	(*AdminCreatePosterRequest)(nil),  // 9: good.gateway.app.good1.topmost.good2.poster.v1.AdminCreatePosterRequest
-	(*AdminCreatePosterResponse)(nil), // 10: good.gateway.app.good1.topmost.good2.poster.v1.AdminCreatePosterResponse
-	(*AdminGetPostersRequest)(nil),    // 11: good.gateway.app.good1.topmost.good2.poster.v1.AdminGetPostersRequest
-	(*AdminGetPostersResponse)(nil),   // 12: good.gateway.app.good1.topmost.good2.poster.v1.AdminGetPostersResponse
-	(*AdminUpdatePosterRequest)(nil),  // 13: good.gateway.app.good1.topmost.good2.poster.v1.AdminUpdatePosterRequest
-	(*AdminUpdatePosterResponse)(nil), // 14: good.gateway.app.good1.topmost.good2.poster.v1.AdminUpdatePosterResponse
-	(*AdminDeletePosterRequest)(nil),  // 15: good.gateway.app.good1.topmost.good2.poster.v1.AdminDeletePosterRequest
-	(*AdminDeletePosterResponse)(nil), // 16: good.gateway.app.good1.topmost.good2.poster.v1.AdminDeletePosterResponse
-	(v1.GoodTopMostType)(0),           // 17: basetypes.good.v1.GoodTopMostType
-}
+var (
+	file_good_gateway_v1_app_good_topmost_good_poster_poster_proto_msgTypes = make([]protoimpl.MessageInfo, 17)
+	file_good_gateway_v1_app_good_topmost_good_poster_poster_proto_goTypes  = []interface{}{
+		(*Poster)(nil),                    // 0: good.gateway.app.good1.topmost.good2.poster.v1.Poster
+		(*CreatePosterRequest)(nil),       // 1: good.gateway.app.good1.topmost.good2.poster.v1.CreatePosterRequest
+		(*CreatePosterResponse)(nil),      // 2: good.gateway.app.good1.topmost.good2.poster.v1.CreatePosterResponse
+		(*UpdatePosterRequest)(nil),       // 3: good.gateway.app.good1.topmost.good2.poster.v1.UpdatePosterRequest
+		(*UpdatePosterResponse)(nil),      // 4: good.gateway.app.good1.topmost.good2.poster.v1.UpdatePosterResponse
+		(*GetPostersRequest)(nil),         // 5: good.gateway.app.good1.topmost.good2.poster.v1.GetPostersRequest
+		(*GetPostersResponse)(nil),        // 6: good.gateway.app.good1.topmost.good2.poster.v1.GetPostersResponse
+		(*DeletePosterRequest)(nil),       // 7: good.gateway.app.good1.topmost.good2.poster.v1.DeletePosterRequest
+		(*DeletePosterResponse)(nil),      // 8: good.gateway.app.good1.topmost.good2.poster.v1.DeletePosterResponse
+		(*AdminCreatePosterRequest)(nil),  // 9: good.gateway.app.good1.topmost.good2.poster.v1.AdminCreatePosterRequest
+		(*AdminCreatePosterResponse)(nil), // 10: good.gateway.app.good1.topmost.good2.poster.v1.AdminCreatePosterResponse
+		(*AdminGetPostersRequest)(nil),    // 11: good.gateway.app.good1.topmost.good2.poster.v1.AdminGetPostersRequest
+		(*AdminGetPostersResponse)(nil),   // 12: good.gateway.app.good1.topmost.good2.poster.v1.AdminGetPostersResponse
+		(*AdminUpdatePosterRequest)(nil),  // 13: good.gateway.app.good1.topmost.good2.poster.v1.AdminUpdatePosterRequest
+		(*AdminUpdatePosterResponse)(nil), // 14: good.gateway.app.good1.topmost.good2.poster.v1.AdminUpdatePosterResponse
+		(*AdminDeletePosterRequest)(nil),  // 15: good.gateway.app.good1.topmost.good2.poster.v1.AdminDeletePosterRequest
+		(*AdminDeletePosterResponse)(nil), // 16: good.gateway.app.good1.topmost.good2.poster.v1.AdminDeletePosterResponse
+		(v1.GoodTopMostType)(0),           // 17: basetypes.good.v1.GoodTopMostType
+	}
+)
 var file_good_gateway_v1_app_good_topmost_good_poster_poster_proto_depIdxs = []int32{
 	17, // 0: good.gateway.app.good1.topmost.good2.poster.v1.Poster.TopMostType:type_name -> basetypes.good.v1.GoodTopMostType
 	0,  // 1: good.gateway.app.good1.topmost.good2.poster.v1.CreatePosterResponse.Info:type_name -> good.gateway.app.good1.topmost.good2.poster.v1.Poster

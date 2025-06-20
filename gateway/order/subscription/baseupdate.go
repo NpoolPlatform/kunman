@@ -19,7 +19,6 @@ type baseUpdateHandler struct {
 	subscriptionOrder    *npool.SubscriptionOrder
 	subscriptionOrderReq *subscriptionordermwpb.SubscriptionOrderReq
 	appSubscription      *appsubscriptionmwpb.Subscription
-	goodBenefitedAt      uint32
 }
 
 func (h *baseUpdateHandler) getSubscriptionOrder(ctx context.Context) (err error) {
@@ -116,7 +115,7 @@ func (h *baseUpdateHandler) formalizePayment() {
 }
 
 func (h *baseUpdateHandler) updateSubscriptionOrder(ctx context.Context) error {
-	if !h.OrderOpHandler.Simulate {
+	if !h.Simulate {
 		if len(h.CommissionLockIDs) > 0 {
 			if err := h.WithCreateOrderCommissionLocks(ctx); err != nil {
 				return wlog.WrapError(err)

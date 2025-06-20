@@ -7,13 +7,14 @@
 package quota
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	quota "github.com/NpoolPlatform/kunman/message/agi/middleware/v1/subscription/quota"
 	_ "github.com/NpoolPlatform/kunman/message/basetypes/agi/v1"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -856,22 +857,24 @@ func file_agi_gateway_v1_subscription_quota_quota_proto_rawDescGZIP() []byte {
 	return file_agi_gateway_v1_subscription_quota_quota_proto_rawDescData
 }
 
-var file_agi_gateway_v1_subscription_quota_quota_proto_msgTypes = make([]protoimpl.MessageInfo, 12)
-var file_agi_gateway_v1_subscription_quota_quota_proto_goTypes = []interface{}{
-	(*AdminGetQuotasRequest)(nil),    // 0: agi.gateway.subscription.quota.v1.AdminGetQuotasRequest
-	(*AdminGetQuotasResponse)(nil),   // 1: agi.gateway.subscription.quota.v1.AdminGetQuotasResponse
-	(*AdminCountQuotasRequest)(nil),  // 2: agi.gateway.subscription.quota.v1.AdminCountQuotasRequest
-	(*AdminCountQuotasResponse)(nil), // 3: agi.gateway.subscription.quota.v1.AdminCountQuotasResponse
-	(*GetQuotasRequest)(nil),         // 4: agi.gateway.subscription.quota.v1.GetQuotasRequest
-	(*GetQuotasResponse)(nil),        // 5: agi.gateway.subscription.quota.v1.GetQuotasResponse
-	(*CountQuotasRequest)(nil),       // 6: agi.gateway.subscription.quota.v1.CountQuotasRequest
-	(*CountQuotasResponse)(nil),      // 7: agi.gateway.subscription.quota.v1.CountQuotasResponse
-	(*GetMyQuotasRequest)(nil),       // 8: agi.gateway.subscription.quota.v1.GetMyQuotasRequest
-	(*GetMyQuotasResponse)(nil),      // 9: agi.gateway.subscription.quota.v1.GetMyQuotasResponse
-	(*CountMyQuotasRequest)(nil),     // 10: agi.gateway.subscription.quota.v1.CountMyQuotasRequest
-	(*CountMyQuotasResponse)(nil),    // 11: agi.gateway.subscription.quota.v1.CountMyQuotasResponse
-	(*quota.Quota)(nil),              // 12: agi.middleware.subscription.quota.v1.Quota
-}
+var (
+	file_agi_gateway_v1_subscription_quota_quota_proto_msgTypes = make([]protoimpl.MessageInfo, 12)
+	file_agi_gateway_v1_subscription_quota_quota_proto_goTypes  = []interface{}{
+		(*AdminGetQuotasRequest)(nil),    // 0: agi.gateway.subscription.quota.v1.AdminGetQuotasRequest
+		(*AdminGetQuotasResponse)(nil),   // 1: agi.gateway.subscription.quota.v1.AdminGetQuotasResponse
+		(*AdminCountQuotasRequest)(nil),  // 2: agi.gateway.subscription.quota.v1.AdminCountQuotasRequest
+		(*AdminCountQuotasResponse)(nil), // 3: agi.gateway.subscription.quota.v1.AdminCountQuotasResponse
+		(*GetQuotasRequest)(nil),         // 4: agi.gateway.subscription.quota.v1.GetQuotasRequest
+		(*GetQuotasResponse)(nil),        // 5: agi.gateway.subscription.quota.v1.GetQuotasResponse
+		(*CountQuotasRequest)(nil),       // 6: agi.gateway.subscription.quota.v1.CountQuotasRequest
+		(*CountQuotasResponse)(nil),      // 7: agi.gateway.subscription.quota.v1.CountQuotasResponse
+		(*GetMyQuotasRequest)(nil),       // 8: agi.gateway.subscription.quota.v1.GetMyQuotasRequest
+		(*GetMyQuotasResponse)(nil),      // 9: agi.gateway.subscription.quota.v1.GetMyQuotasResponse
+		(*CountMyQuotasRequest)(nil),     // 10: agi.gateway.subscription.quota.v1.CountMyQuotasRequest
+		(*CountMyQuotasResponse)(nil),    // 11: agi.gateway.subscription.quota.v1.CountMyQuotasResponse
+		(*quota.Quota)(nil),              // 12: agi.middleware.subscription.quota.v1.Quota
+	}
+)
 var file_agi_gateway_v1_subscription_quota_quota_proto_depIdxs = []int32{
 	12, // 0: agi.gateway.subscription.quota.v1.AdminGetQuotasResponse.Infos:type_name -> agi.middleware.subscription.quota.v1.Quota
 	12, // 1: agi.gateway.subscription.quota.v1.GetQuotasResponse.Infos:type_name -> agi.middleware.subscription.quota.v1.Quota

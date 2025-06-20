@@ -85,11 +85,7 @@ func (h *sortHandler) sortInviters() error {
 		return wlog.Errorf("invalid top inviter")
 	}
 
-	for {
-		if inviterCount == 0 || len(inviters) == 0 {
-			break
-		}
-
+	for inviterCount != 0 && len(inviters) > 0 {
 		if len(inviters) == 1 {
 			if _inviters[len(_inviters)-1].InviteeID != inviters[0].InviterID {
 				return wlog.Errorf("mismatch registration")

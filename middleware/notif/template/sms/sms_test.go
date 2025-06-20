@@ -26,17 +26,15 @@ func init() {
 	}
 }
 
-var (
-	ret = npool.SMSTemplate{
-		EntID:      uuid.NewString(),
-		AppID:      uuid.NewString(),
-		LangID:     uuid.NewString(),
-		UsedFor:    basetypes.UsedFor_KYCRejected,
-		UsedForStr: basetypes.UsedFor_KYCRejected.String(),
-		Subject:    "subject " + uuid.NewString(),
-		Message:    "message " + uuid.NewString(),
-	}
-)
+var ret = npool.SMSTemplate{
+	EntID:      uuid.NewString(),
+	AppID:      uuid.NewString(),
+	LangID:     uuid.NewString(),
+	UsedFor:    basetypes.UsedFor_KYCRejected,
+	UsedForStr: basetypes.UsedFor_KYCRejected.String(),
+	Subject:    "subject " + uuid.NewString(),
+	Message:    "message " + uuid.NewString(),
+}
 
 func createSMSTemplate(t *testing.T) {
 	handler, err := NewHandler(

@@ -50,7 +50,7 @@ func (h *createHandler) constructOrderBaseSQL(ctx context.Context) {
 func (h *createHandler) constructOrderStateBaseSQL(ctx context.Context) {
 	handler, _ := orderstatebase1.NewHandler(ctx)
 	handler.Req = *h.OrderStateBaseReq
-	handler.Req.StartMode = func() *types.OrderStartMode { e := types.OrderStartMode_OrderStartInstantly; return &e }()
+	handler.StartMode = func() *types.OrderStartMode { e := types.OrderStartMode_OrderStartInstantly; return &e }()
 	h.sqlOrderStateBase = handler.ConstructCreateSQL()
 }
 

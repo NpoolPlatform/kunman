@@ -7,12 +7,13 @@
 package comment
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/good/v1"
 	v11 "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -631,16 +632,18 @@ func file_good_middleware_v1_app_good_comment_comment_proto_rawDescGZIP() []byte
 	return file_good_middleware_v1_app_good_comment_comment_proto_rawDescData
 }
 
-var file_good_middleware_v1_app_good_comment_comment_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
-var file_good_middleware_v1_app_good_comment_comment_proto_goTypes = []interface{}{
-	(*CommentReq)(nil),            // 0: good.middleware.app.good1.comment.v1.CommentReq
-	(*Comment)(nil),               // 1: good.middleware.app.good1.comment.v1.Comment
-	(*Conds)(nil),                 // 2: good.middleware.app.good1.comment.v1.Conds
-	(v1.GoodCommentHideReason)(0), // 3: basetypes.good.v1.GoodCommentHideReason
-	(*v11.Uint32Val)(nil),         // 4: basetypes.v1.Uint32Val
-	(*v11.StringVal)(nil),         // 5: basetypes.v1.StringVal
-	(*v11.StringSliceVal)(nil),    // 6: basetypes.v1.StringSliceVal
-}
+var (
+	file_good_middleware_v1_app_good_comment_comment_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
+	file_good_middleware_v1_app_good_comment_comment_proto_goTypes  = []interface{}{
+		(*CommentReq)(nil),            // 0: good.middleware.app.good1.comment.v1.CommentReq
+		(*Comment)(nil),               // 1: good.middleware.app.good1.comment.v1.Comment
+		(*Conds)(nil),                 // 2: good.middleware.app.good1.comment.v1.Conds
+		(v1.GoodCommentHideReason)(0), // 3: basetypes.good.v1.GoodCommentHideReason
+		(*v11.Uint32Val)(nil),         // 4: basetypes.v1.Uint32Val
+		(*v11.StringVal)(nil),         // 5: basetypes.v1.StringVal
+		(*v11.StringSliceVal)(nil),    // 6: basetypes.v1.StringSliceVal
+	}
+)
 var file_good_middleware_v1_app_good_comment_comment_proto_depIdxs = []int32{
 	3,  // 0: good.middleware.app.good1.comment.v1.CommentReq.HideReason:type_name -> basetypes.good.v1.GoodCommentHideReason
 	3,  // 1: good.middleware.app.good1.comment.v1.Comment.HideReason:type_name -> basetypes.good.v1.GoodCommentHideReason

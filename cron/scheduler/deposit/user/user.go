@@ -5,13 +5,13 @@ import (
 	"sync"
 	"time"
 
-	"github.com/NpoolPlatform/kunman/framework/logger"
 	"github.com/NpoolPlatform/kunman/cron/scheduler/base"
 	"github.com/NpoolPlatform/kunman/cron/scheduler/deposit/user/executor"
 	"github.com/NpoolPlatform/kunman/cron/scheduler/deposit/user/notif"
 	"github.com/NpoolPlatform/kunman/cron/scheduler/deposit/user/persistent"
 	"github.com/NpoolPlatform/kunman/cron/scheduler/deposit/user/reward"
 	"github.com/NpoolPlatform/kunman/cron/scheduler/deposit/user/sentinel"
+	"github.com/NpoolPlatform/kunman/framework/logger"
 )
 
 const subsystem = "deposituser"

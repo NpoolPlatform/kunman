@@ -7,12 +7,13 @@
 package statement
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/ledger/v1"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -570,16 +571,18 @@ func file_ledger_gateway_v1_ledger_statement_statement_proto_rawDescGZIP() []byt
 	return file_ledger_gateway_v1_ledger_statement_statement_proto_rawDescData
 }
 
-var file_ledger_gateway_v1_ledger_statement_statement_proto_msgTypes = make([]protoimpl.MessageInfo, 5)
-var file_ledger_gateway_v1_ledger_statement_statement_proto_goTypes = []interface{}{
-	(*Statement)(nil),                // 0: ledger.gateway.ledger.statement.v1.Statement
-	(*GetStatementsRequest)(nil),     // 1: ledger.gateway.ledger.statement.v1.GetStatementsRequest
-	(*GetStatementsResponse)(nil),    // 2: ledger.gateway.ledger.statement.v1.GetStatementsResponse
-	(*GetAppStatementsRequest)(nil),  // 3: ledger.gateway.ledger.statement.v1.GetAppStatementsRequest
-	(*GetAppStatementsResponse)(nil), // 4: ledger.gateway.ledger.statement.v1.GetAppStatementsResponse
-	(v1.IOType)(0),                   // 5: basetypes.ledger.v1.IOType
-	(v1.IOSubType)(0),                // 6: basetypes.ledger.v1.IOSubType
-}
+var (
+	file_ledger_gateway_v1_ledger_statement_statement_proto_msgTypes = make([]protoimpl.MessageInfo, 5)
+	file_ledger_gateway_v1_ledger_statement_statement_proto_goTypes  = []interface{}{
+		(*Statement)(nil),                // 0: ledger.gateway.ledger.statement.v1.Statement
+		(*GetStatementsRequest)(nil),     // 1: ledger.gateway.ledger.statement.v1.GetStatementsRequest
+		(*GetStatementsResponse)(nil),    // 2: ledger.gateway.ledger.statement.v1.GetStatementsResponse
+		(*GetAppStatementsRequest)(nil),  // 3: ledger.gateway.ledger.statement.v1.GetAppStatementsRequest
+		(*GetAppStatementsResponse)(nil), // 4: ledger.gateway.ledger.statement.v1.GetAppStatementsResponse
+		(v1.IOType)(0),                   // 5: basetypes.ledger.v1.IOType
+		(v1.IOSubType)(0),                // 6: basetypes.ledger.v1.IOSubType
+	}
+)
 var file_ledger_gateway_v1_ledger_statement_statement_proto_depIdxs = []int32{
 	5, // 0: ledger.gateway.ledger.statement.v1.Statement.IOType:type_name -> basetypes.ledger.v1.IOType
 	6, // 1: ledger.gateway.ledger.statement.v1.Statement.IOSubType:type_name -> basetypes.ledger.v1.IOSubType

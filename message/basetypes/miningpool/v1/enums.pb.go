@@ -7,10 +7,11 @@
 package v1
 
 import (
-	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
-	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	reflect "reflect"
 	sync "sync"
+
+	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
+	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 )
 
 const (
@@ -214,12 +215,14 @@ func file_basetypes_miningpool_v1_enums_proto_rawDescGZIP() []byte {
 	return file_basetypes_miningpool_v1_enums_proto_rawDescData
 }
 
-var file_basetypes_miningpool_v1_enums_proto_enumTypes = make([]protoimpl.EnumInfo, 3)
-var file_basetypes_miningpool_v1_enums_proto_goTypes = []interface{}{
-	(MiningPoolType)(0),        // 0: basetypes.miningpool.v1.MiningPoolType
-	(RevenueType)(0),           // 1: basetypes.miningpool.v1.RevenueType
-	(FractionWithdrawState)(0), // 2: basetypes.miningpool.v1.FractionWithdrawState
-}
+var (
+	file_basetypes_miningpool_v1_enums_proto_enumTypes = make([]protoimpl.EnumInfo, 3)
+	file_basetypes_miningpool_v1_enums_proto_goTypes   = []interface{}{
+		(MiningPoolType)(0),        // 0: basetypes.miningpool.v1.MiningPoolType
+		(RevenueType)(0),           // 1: basetypes.miningpool.v1.RevenueType
+		(FractionWithdrawState)(0), // 2: basetypes.miningpool.v1.FractionWithdrawState
+	}
+)
 var file_basetypes_miningpool_v1_enums_proto_depIdxs = []int32{
 	0, // [0:0] is the sub-list for method output_type
 	0, // [0:0] is the sub-list for method input_type

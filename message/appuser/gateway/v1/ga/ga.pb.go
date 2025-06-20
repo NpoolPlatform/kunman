@@ -7,12 +7,13 @@
 package ga
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	user "github.com/NpoolPlatform/kunman/message/appuser/middleware/v1/user"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -304,14 +305,16 @@ func file_appuser_gateway_v1_ga_ga_proto_rawDescGZIP() []byte {
 	return file_appuser_gateway_v1_ga_ga_proto_rawDescData
 }
 
-var file_appuser_gateway_v1_ga_ga_proto_msgTypes = make([]protoimpl.MessageInfo, 4)
-var file_appuser_gateway_v1_ga_ga_proto_goTypes = []interface{}{
-	(*SetupGoogleAuthRequest)(nil),   // 0: appuser.gateway.ga.v1.SetupGoogleAuthRequest
-	(*SetupGoogleAuthResponse)(nil),  // 1: appuser.gateway.ga.v1.SetupGoogleAuthResponse
-	(*VerifyGoogleAuthRequest)(nil),  // 2: appuser.gateway.ga.v1.VerifyGoogleAuthRequest
-	(*VerifyGoogleAuthResponse)(nil), // 3: appuser.gateway.ga.v1.VerifyGoogleAuthResponse
-	(*user.User)(nil),                // 4: appuser.middleware.user.v1.User
-}
+var (
+	file_appuser_gateway_v1_ga_ga_proto_msgTypes = make([]protoimpl.MessageInfo, 4)
+	file_appuser_gateway_v1_ga_ga_proto_goTypes  = []interface{}{
+		(*SetupGoogleAuthRequest)(nil),   // 0: appuser.gateway.ga.v1.SetupGoogleAuthRequest
+		(*SetupGoogleAuthResponse)(nil),  // 1: appuser.gateway.ga.v1.SetupGoogleAuthResponse
+		(*VerifyGoogleAuthRequest)(nil),  // 2: appuser.gateway.ga.v1.VerifyGoogleAuthRequest
+		(*VerifyGoogleAuthResponse)(nil), // 3: appuser.gateway.ga.v1.VerifyGoogleAuthResponse
+		(*user.User)(nil),                // 4: appuser.middleware.user.v1.User
+	}
+)
 var file_appuser_gateway_v1_ga_ga_proto_depIdxs = []int32{
 	4, // 0: appuser.gateway.ga.v1.SetupGoogleAuthResponse.Info:type_name -> appuser.middleware.user.v1.User
 	4, // 1: appuser.gateway.ga.v1.VerifyGoogleAuthResponse.Info:type_name -> appuser.middleware.user.v1.User

@@ -25,15 +25,13 @@ func init() {
 	}
 }
 
-var (
-	ret = npool.Profit{
-		EntID:      uuid.NewString(),
-		AppID:      uuid.NewString(),
-		UserID:     uuid.NewString(),
-		CoinTypeID: uuid.NewString(),
-		Incoming:   "10",
-	}
-)
+var ret = npool.Profit{
+	EntID:      uuid.NewString(),
+	AppID:      uuid.NewString(),
+	UserID:     uuid.NewString(),
+	CoinTypeID: uuid.NewString(),
+	Incoming:   "10",
+}
 
 func createProfit(t *testing.T) {
 	handler, err := NewHandler(

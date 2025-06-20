@@ -7,13 +7,14 @@
 package fee
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/good/v1"
 	fee "github.com/NpoolPlatform/kunman/message/good/middleware/v1/fee"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -769,23 +770,25 @@ func file_good_gateway_v1_fee_fee_proto_rawDescGZIP() []byte {
 	return file_good_gateway_v1_fee_fee_proto_rawDescData
 }
 
-var file_good_gateway_v1_fee_fee_proto_msgTypes = make([]protoimpl.MessageInfo, 10)
-var file_good_gateway_v1_fee_fee_proto_goTypes = []interface{}{
-	(*AdminCreateFeeRequest)(nil),  // 0: good.gateway.fee.v1.AdminCreateFeeRequest
-	(*AdminCreateFeeResponse)(nil), // 1: good.gateway.fee.v1.AdminCreateFeeResponse
-	(*AdminUpdateFeeRequest)(nil),  // 2: good.gateway.fee.v1.AdminUpdateFeeRequest
-	(*AdminUpdateFeeResponse)(nil), // 3: good.gateway.fee.v1.AdminUpdateFeeResponse
-	(*GetFeeRequest)(nil),          // 4: good.gateway.fee.v1.GetFeeRequest
-	(*GetFeeResponse)(nil),         // 5: good.gateway.fee.v1.GetFeeResponse
-	(*GetFeesRequest)(nil),         // 6: good.gateway.fee.v1.GetFeesRequest
-	(*GetFeesResponse)(nil),        // 7: good.gateway.fee.v1.GetFeesResponse
-	(*AdminDeleteFeeRequest)(nil),  // 8: good.gateway.fee.v1.AdminDeleteFeeRequest
-	(*AdminDeleteFeeResponse)(nil), // 9: good.gateway.fee.v1.AdminDeleteFeeResponse
-	(v1.GoodType)(0),               // 10: basetypes.good.v1.GoodType
-	(v1.GoodSettlementType)(0),     // 11: basetypes.good.v1.GoodSettlementType
-	(v1.GoodDurationType)(0),       // 12: basetypes.good.v1.GoodDurationType
-	(*fee.Fee)(nil),                // 13: good.middleware.fee.v1.Fee
-}
+var (
+	file_good_gateway_v1_fee_fee_proto_msgTypes = make([]protoimpl.MessageInfo, 10)
+	file_good_gateway_v1_fee_fee_proto_goTypes  = []interface{}{
+		(*AdminCreateFeeRequest)(nil),  // 0: good.gateway.fee.v1.AdminCreateFeeRequest
+		(*AdminCreateFeeResponse)(nil), // 1: good.gateway.fee.v1.AdminCreateFeeResponse
+		(*AdminUpdateFeeRequest)(nil),  // 2: good.gateway.fee.v1.AdminUpdateFeeRequest
+		(*AdminUpdateFeeResponse)(nil), // 3: good.gateway.fee.v1.AdminUpdateFeeResponse
+		(*GetFeeRequest)(nil),          // 4: good.gateway.fee.v1.GetFeeRequest
+		(*GetFeeResponse)(nil),         // 5: good.gateway.fee.v1.GetFeeResponse
+		(*GetFeesRequest)(nil),         // 6: good.gateway.fee.v1.GetFeesRequest
+		(*GetFeesResponse)(nil),        // 7: good.gateway.fee.v1.GetFeesResponse
+		(*AdminDeleteFeeRequest)(nil),  // 8: good.gateway.fee.v1.AdminDeleteFeeRequest
+		(*AdminDeleteFeeResponse)(nil), // 9: good.gateway.fee.v1.AdminDeleteFeeResponse
+		(v1.GoodType)(0),               // 10: basetypes.good.v1.GoodType
+		(v1.GoodSettlementType)(0),     // 11: basetypes.good.v1.GoodSettlementType
+		(v1.GoodDurationType)(0),       // 12: basetypes.good.v1.GoodDurationType
+		(*fee.Fee)(nil),                // 13: good.middleware.fee.v1.Fee
+	}
+)
 var file_good_gateway_v1_fee_fee_proto_depIdxs = []int32{
 	10, // 0: good.gateway.fee.v1.AdminCreateFeeRequest.GoodType:type_name -> basetypes.good.v1.GoodType
 	11, // 1: good.gateway.fee.v1.AdminCreateFeeRequest.SettlementType:type_name -> basetypes.good.v1.GoodSettlementType

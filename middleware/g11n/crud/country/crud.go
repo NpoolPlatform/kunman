@@ -67,7 +67,7 @@ type Conds struct {
 	Countries *cruder.Cond
 }
 
-//nolint
+// nolint
 func SetQueryConds(q *ent.CountryQuery, conds *Conds) (*ent.CountryQuery, error) {
 	if conds == nil {
 		return q, nil

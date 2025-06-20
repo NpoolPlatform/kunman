@@ -7,12 +7,13 @@
 package label
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/good/v1"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -1513,28 +1514,30 @@ func file_good_gateway_v1_app_good_label_label_proto_rawDescGZIP() []byte {
 	return file_good_gateway_v1_app_good_label_label_proto_rawDescData
 }
 
-var file_good_gateway_v1_app_good_label_label_proto_msgTypes = make([]protoimpl.MessageInfo, 17)
-var file_good_gateway_v1_app_good_label_label_proto_goTypes = []interface{}{
-	(*Label)(nil),                    // 0: good.gateway.app.good1.label.v1.Label
-	(*CreateLabelRequest)(nil),       // 1: good.gateway.app.good1.label.v1.CreateLabelRequest
-	(*CreateLabelResponse)(nil),      // 2: good.gateway.app.good1.label.v1.CreateLabelResponse
-	(*UpdateLabelRequest)(nil),       // 3: good.gateway.app.good1.label.v1.UpdateLabelRequest
-	(*UpdateLabelResponse)(nil),      // 4: good.gateway.app.good1.label.v1.UpdateLabelResponse
-	(*GetLabelsRequest)(nil),         // 5: good.gateway.app.good1.label.v1.GetLabelsRequest
-	(*GetLabelsResponse)(nil),        // 6: good.gateway.app.good1.label.v1.GetLabelsResponse
-	(*DeleteLabelRequest)(nil),       // 7: good.gateway.app.good1.label.v1.DeleteLabelRequest
-	(*DeleteLabelResponse)(nil),      // 8: good.gateway.app.good1.label.v1.DeleteLabelResponse
-	(*AdminCreateLabelRequest)(nil),  // 9: good.gateway.app.good1.label.v1.AdminCreateLabelRequest
-	(*AdminCreateLabelResponse)(nil), // 10: good.gateway.app.good1.label.v1.AdminCreateLabelResponse
-	(*AdminGetLabelsRequest)(nil),    // 11: good.gateway.app.good1.label.v1.AdminGetLabelsRequest
-	(*AdminGetLabelsResponse)(nil),   // 12: good.gateway.app.good1.label.v1.AdminGetLabelsResponse
-	(*AdminUpdateLabelRequest)(nil),  // 13: good.gateway.app.good1.label.v1.AdminUpdateLabelRequest
-	(*AdminUpdateLabelResponse)(nil), // 14: good.gateway.app.good1.label.v1.AdminUpdateLabelResponse
-	(*AdminDeleteLabelRequest)(nil),  // 15: good.gateway.app.good1.label.v1.AdminDeleteLabelRequest
-	(*AdminDeleteLabelResponse)(nil), // 16: good.gateway.app.good1.label.v1.AdminDeleteLabelResponse
-	(v1.GoodType)(0),                 // 17: basetypes.good.v1.GoodType
-	(v1.GoodLabel)(0),                // 18: basetypes.good.v1.GoodLabel
-}
+var (
+	file_good_gateway_v1_app_good_label_label_proto_msgTypes = make([]protoimpl.MessageInfo, 17)
+	file_good_gateway_v1_app_good_label_label_proto_goTypes  = []interface{}{
+		(*Label)(nil),                    // 0: good.gateway.app.good1.label.v1.Label
+		(*CreateLabelRequest)(nil),       // 1: good.gateway.app.good1.label.v1.CreateLabelRequest
+		(*CreateLabelResponse)(nil),      // 2: good.gateway.app.good1.label.v1.CreateLabelResponse
+		(*UpdateLabelRequest)(nil),       // 3: good.gateway.app.good1.label.v1.UpdateLabelRequest
+		(*UpdateLabelResponse)(nil),      // 4: good.gateway.app.good1.label.v1.UpdateLabelResponse
+		(*GetLabelsRequest)(nil),         // 5: good.gateway.app.good1.label.v1.GetLabelsRequest
+		(*GetLabelsResponse)(nil),        // 6: good.gateway.app.good1.label.v1.GetLabelsResponse
+		(*DeleteLabelRequest)(nil),       // 7: good.gateway.app.good1.label.v1.DeleteLabelRequest
+		(*DeleteLabelResponse)(nil),      // 8: good.gateway.app.good1.label.v1.DeleteLabelResponse
+		(*AdminCreateLabelRequest)(nil),  // 9: good.gateway.app.good1.label.v1.AdminCreateLabelRequest
+		(*AdminCreateLabelResponse)(nil), // 10: good.gateway.app.good1.label.v1.AdminCreateLabelResponse
+		(*AdminGetLabelsRequest)(nil),    // 11: good.gateway.app.good1.label.v1.AdminGetLabelsRequest
+		(*AdminGetLabelsResponse)(nil),   // 12: good.gateway.app.good1.label.v1.AdminGetLabelsResponse
+		(*AdminUpdateLabelRequest)(nil),  // 13: good.gateway.app.good1.label.v1.AdminUpdateLabelRequest
+		(*AdminUpdateLabelResponse)(nil), // 14: good.gateway.app.good1.label.v1.AdminUpdateLabelResponse
+		(*AdminDeleteLabelRequest)(nil),  // 15: good.gateway.app.good1.label.v1.AdminDeleteLabelRequest
+		(*AdminDeleteLabelResponse)(nil), // 16: good.gateway.app.good1.label.v1.AdminDeleteLabelResponse
+		(v1.GoodType)(0),                 // 17: basetypes.good.v1.GoodType
+		(v1.GoodLabel)(0),                // 18: basetypes.good.v1.GoodLabel
+	}
+)
 var file_good_gateway_v1_app_good_label_label_proto_depIdxs = []int32{
 	17, // 0: good.gateway.app.good1.label.v1.Label.GoodType:type_name -> basetypes.good.v1.GoodType
 	18, // 1: good.gateway.app.good1.label.v1.Label.Label:type_name -> basetypes.good.v1.GoodLabel

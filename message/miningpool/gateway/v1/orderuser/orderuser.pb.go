@@ -7,12 +7,13 @@
 package orderuser
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/miningpool/v1"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -626,17 +627,19 @@ func file_miningpool_gateway_v1_orderuser_orderuser_proto_rawDescGZIP() []byte {
 	return file_miningpool_gateway_v1_orderuser_orderuser_proto_rawDescData
 }
 
-var file_miningpool_gateway_v1_orderuser_orderuser_proto_msgTypes = make([]protoimpl.MessageInfo, 7)
-var file_miningpool_gateway_v1_orderuser_orderuser_proto_goTypes = []interface{}{
-	(*OrderUser)(nil),                           // 0: miningpool.gateway.orderuser.v1.OrderUser
-	(*GetOrderUserRequest)(nil),                 // 1: miningpool.gateway.orderuser.v1.GetOrderUserRequest
-	(*GetOrderUserResponse)(nil),                // 2: miningpool.gateway.orderuser.v1.GetOrderUserResponse
-	(*AdminUpdateOrderUserRequest)(nil),         // 3: miningpool.gateway.orderuser.v1.AdminUpdateOrderUserRequest
-	(*AdminUpdateOrderUserResponse)(nil),        // 4: miningpool.gateway.orderuser.v1.AdminUpdateOrderUserResponse
-	(*AdminGetOrderUserProportionRequest)(nil),  // 5: miningpool.gateway.orderuser.v1.AdminGetOrderUserProportionRequest
-	(*AdminGetOrderUserProportionResponse)(nil), // 6: miningpool.gateway.orderuser.v1.AdminGetOrderUserProportionResponse
-	(v1.MiningPoolType)(0),                      // 7: basetypes.miningpool.v1.MiningPoolType
-}
+var (
+	file_miningpool_gateway_v1_orderuser_orderuser_proto_msgTypes = make([]protoimpl.MessageInfo, 7)
+	file_miningpool_gateway_v1_orderuser_orderuser_proto_goTypes  = []interface{}{
+		(*OrderUser)(nil),                           // 0: miningpool.gateway.orderuser.v1.OrderUser
+		(*GetOrderUserRequest)(nil),                 // 1: miningpool.gateway.orderuser.v1.GetOrderUserRequest
+		(*GetOrderUserResponse)(nil),                // 2: miningpool.gateway.orderuser.v1.GetOrderUserResponse
+		(*AdminUpdateOrderUserRequest)(nil),         // 3: miningpool.gateway.orderuser.v1.AdminUpdateOrderUserRequest
+		(*AdminUpdateOrderUserResponse)(nil),        // 4: miningpool.gateway.orderuser.v1.AdminUpdateOrderUserResponse
+		(*AdminGetOrderUserProportionRequest)(nil),  // 5: miningpool.gateway.orderuser.v1.AdminGetOrderUserProportionRequest
+		(*AdminGetOrderUserProportionResponse)(nil), // 6: miningpool.gateway.orderuser.v1.AdminGetOrderUserProportionResponse
+		(v1.MiningPoolType)(0),                      // 7: basetypes.miningpool.v1.MiningPoolType
+	}
+)
 var file_miningpool_gateway_v1_orderuser_orderuser_proto_depIdxs = []int32{
 	7, // 0: miningpool.gateway.orderuser.v1.OrderUser.MiningPoolType:type_name -> basetypes.miningpool.v1.MiningPoolType
 	0, // 1: miningpool.gateway.orderuser.v1.GetOrderUserResponse.Info:type_name -> miningpool.gateway.orderuser.v1.OrderUser

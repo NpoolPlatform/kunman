@@ -130,7 +130,7 @@ func (h *goodHandler) final(ctx context.Context, err *error) {
 	asyncfeed.AsyncFeed(ctx, persistentGood, h.done)
 }
 
-//nolint
+// nolint
 func (h *goodHandler) exec(ctx context.Context) error {
 	var err error
 

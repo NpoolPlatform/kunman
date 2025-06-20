@@ -7,14 +7,15 @@
 package stock
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/good/v1"
 	_ "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	mining "github.com/NpoolPlatform/kunman/message/good/middleware/v1/app/good/stock/mining"
 	stock "github.com/NpoolPlatform/kunman/message/good/middleware/v1/good/stock"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -392,14 +393,16 @@ func file_good_middleware_v1_app_good_stock_stock_proto_rawDescGZIP() []byte {
 	return file_good_middleware_v1_app_good_stock_stock_proto_rawDescData
 }
 
-var file_good_middleware_v1_app_good_stock_stock_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
-var file_good_middleware_v1_app_good_stock_stock_proto_goTypes = []interface{}{
-	(*Stock)(nil),                     // 0: good.middleware.app.good1.stock.v1.Stock
-	(*LockStock)(nil),                 // 1: good.middleware.app.good1.stock.v1.LockStock
-	(v1.GoodStockMode)(0),             // 2: basetypes.good.v1.GoodStockMode
-	(*stock.MiningGoodStockInfo)(nil), // 3: good.middleware.good1.stock.v1.MiningGoodStockInfo
-	(*mining.StockInfo)(nil),          // 4: good.middleware.app.good1.stock.mining.v1.StockInfo
-}
+var (
+	file_good_middleware_v1_app_good_stock_stock_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
+	file_good_middleware_v1_app_good_stock_stock_proto_goTypes  = []interface{}{
+		(*Stock)(nil),                     // 0: good.middleware.app.good1.stock.v1.Stock
+		(*LockStock)(nil),                 // 1: good.middleware.app.good1.stock.v1.LockStock
+		(v1.GoodStockMode)(0),             // 2: basetypes.good.v1.GoodStockMode
+		(*stock.MiningGoodStockInfo)(nil), // 3: good.middleware.good1.stock.v1.MiningGoodStockInfo
+		(*mining.StockInfo)(nil),          // 4: good.middleware.app.good1.stock.mining.v1.StockInfo
+	}
+)
 var file_good_middleware_v1_app_good_stock_stock_proto_depIdxs = []int32{
 	2, // 0: good.middleware.app.good1.stock.v1.Stock.StockMode:type_name -> basetypes.good.v1.GoodStockMode
 	3, // 1: good.middleware.app.good1.stock.v1.Stock.MiningGoodStocks:type_name -> good.middleware.good1.stock.v1.MiningGoodStockInfo

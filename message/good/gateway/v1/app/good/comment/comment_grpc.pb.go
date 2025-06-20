@@ -8,6 +8,7 @@ package comment
 
 import (
 	context "context"
+
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -167,36 +168,44 @@ type GatewayServer interface {
 }
 
 // UnimplementedGatewayServer must be embedded to have forward compatible implementations.
-type UnimplementedGatewayServer struct {
-}
+type UnimplementedGatewayServer struct{}
 
 func (UnimplementedGatewayServer) CreateComment(context.Context, *CreateCommentRequest) (*CreateCommentResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateComment not implemented")
 }
+
 func (UnimplementedGatewayServer) UpdateComment(context.Context, *UpdateCommentRequest) (*UpdateCommentResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateComment not implemented")
 }
+
 func (UnimplementedGatewayServer) GetMyComments(context.Context, *GetMyCommentsRequest) (*GetMyCommentsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetMyComments not implemented")
 }
+
 func (UnimplementedGatewayServer) GetComments(context.Context, *GetCommentsRequest) (*GetCommentsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetComments not implemented")
 }
+
 func (UnimplementedGatewayServer) DeleteComment(context.Context, *DeleteCommentRequest) (*DeleteCommentResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteComment not implemented")
 }
+
 func (UnimplementedGatewayServer) UpdateUserComment(context.Context, *UpdateUserCommentRequest) (*UpdateUserCommentResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateUserComment not implemented")
 }
+
 func (UnimplementedGatewayServer) DeleteUserComment(context.Context, *DeleteUserCommentRequest) (*DeleteUserCommentResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteUserComment not implemented")
 }
+
 func (UnimplementedGatewayServer) AdminUpdateComment(context.Context, *AdminUpdateCommentRequest) (*AdminUpdateCommentResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AdminUpdateComment not implemented")
 }
+
 func (UnimplementedGatewayServer) AdminDeleteComment(context.Context, *AdminDeleteCommentRequest) (*AdminDeleteCommentResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AdminDeleteComment not implemented")
 }
+
 func (UnimplementedGatewayServer) AdminGetComments(context.Context, *AdminGetCommentsRequest) (*AdminGetCommentsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AdminGetComments not implemented")
 }

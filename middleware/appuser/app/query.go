@@ -130,10 +130,9 @@ func (h *queryHandler) scan(ctx context.Context) error {
 
 func (h *queryHandler) formalize() {
 	for _, info := range h.infos {
-		info.CreateInvitationCodeWhen =
-			basetypes.CreateInvitationCodeWhen(
-				basetypes.CreateInvitationCodeWhen_value[info.CreateInvitationCodeWhenStr],
-			)
+		info.CreateInvitationCodeWhen = basetypes.CreateInvitationCodeWhen(
+			basetypes.CreateInvitationCodeWhen_value[info.CreateInvitationCodeWhenStr],
+		)
 		_ = json.Unmarshal([]byte(info.CommitButtonTargetsStr), &info.CommitButtonTargets)
 
 		methods := []string{}

@@ -61,7 +61,7 @@ type Conds struct {
 	CompensateTypes   *cruder.Cond
 }
 
-//nolint
+// nolint
 func SetQueryConds(q *ent.CompensateQuery, conds *Conds) (*ent.CompensateQuery, error) {
 	q.Where(entcompensate.DeletedAt(0))
 	if conds == nil {

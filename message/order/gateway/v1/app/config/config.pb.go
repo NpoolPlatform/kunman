@@ -7,13 +7,14 @@
 package config
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/order/v1"
 	config "github.com/NpoolPlatform/kunman/message/order/middleware/v1/app/config"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -1287,25 +1288,27 @@ func file_order_gateway_v1_app_config_config_proto_rawDescGZIP() []byte {
 	return file_order_gateway_v1_app_config_config_proto_rawDescData
 }
 
-var file_order_gateway_v1_app_config_config_proto_msgTypes = make([]protoimpl.MessageInfo, 14)
-var file_order_gateway_v1_app_config_config_proto_goTypes = []interface{}{
-	(*CreateAppConfigRequest)(nil),       // 0: order.gateway.app.config.v1.CreateAppConfigRequest
-	(*CreateAppConfigResponse)(nil),      // 1: order.gateway.app.config.v1.CreateAppConfigResponse
-	(*UpdateAppConfigRequest)(nil),       // 2: order.gateway.app.config.v1.UpdateAppConfigRequest
-	(*UpdateAppConfigResponse)(nil),      // 3: order.gateway.app.config.v1.UpdateAppConfigResponse
-	(*GetAppConfigRequest)(nil),          // 4: order.gateway.app.config.v1.GetAppConfigRequest
-	(*GetAppConfigResponse)(nil),         // 5: order.gateway.app.config.v1.GetAppConfigResponse
-	(*AdminCreateAppConfigRequest)(nil),  // 6: order.gateway.app.config.v1.AdminCreateAppConfigRequest
-	(*AdminCreateAppConfigResponse)(nil), // 7: order.gateway.app.config.v1.AdminCreateAppConfigResponse
-	(*AdminUpdateAppConfigRequest)(nil),  // 8: order.gateway.app.config.v1.AdminUpdateAppConfigRequest
-	(*AdminUpdateAppConfigResponse)(nil), // 9: order.gateway.app.config.v1.AdminUpdateAppConfigResponse
-	(*AdminGetAppConfigsRequest)(nil),    // 10: order.gateway.app.config.v1.AdminGetAppConfigsRequest
-	(*AdminGetAppConfigsResponse)(nil),   // 11: order.gateway.app.config.v1.AdminGetAppConfigsResponse
-	(*AdminDeleteAppConfigRequest)(nil),  // 12: order.gateway.app.config.v1.AdminDeleteAppConfigRequest
-	(*AdminDeleteAppConfigResponse)(nil), // 13: order.gateway.app.config.v1.AdminDeleteAppConfigResponse
-	(v1.SimulateOrderCouponMode)(0),      // 14: basetypes.order.v1.SimulateOrderCouponMode
-	(*config.AppConfig)(nil),             // 15: order.middleware.app.config.v1.AppConfig
-}
+var (
+	file_order_gateway_v1_app_config_config_proto_msgTypes = make([]protoimpl.MessageInfo, 14)
+	file_order_gateway_v1_app_config_config_proto_goTypes  = []interface{}{
+		(*CreateAppConfigRequest)(nil),       // 0: order.gateway.app.config.v1.CreateAppConfigRequest
+		(*CreateAppConfigResponse)(nil),      // 1: order.gateway.app.config.v1.CreateAppConfigResponse
+		(*UpdateAppConfigRequest)(nil),       // 2: order.gateway.app.config.v1.UpdateAppConfigRequest
+		(*UpdateAppConfigResponse)(nil),      // 3: order.gateway.app.config.v1.UpdateAppConfigResponse
+		(*GetAppConfigRequest)(nil),          // 4: order.gateway.app.config.v1.GetAppConfigRequest
+		(*GetAppConfigResponse)(nil),         // 5: order.gateway.app.config.v1.GetAppConfigResponse
+		(*AdminCreateAppConfigRequest)(nil),  // 6: order.gateway.app.config.v1.AdminCreateAppConfigRequest
+		(*AdminCreateAppConfigResponse)(nil), // 7: order.gateway.app.config.v1.AdminCreateAppConfigResponse
+		(*AdminUpdateAppConfigRequest)(nil),  // 8: order.gateway.app.config.v1.AdminUpdateAppConfigRequest
+		(*AdminUpdateAppConfigResponse)(nil), // 9: order.gateway.app.config.v1.AdminUpdateAppConfigResponse
+		(*AdminGetAppConfigsRequest)(nil),    // 10: order.gateway.app.config.v1.AdminGetAppConfigsRequest
+		(*AdminGetAppConfigsResponse)(nil),   // 11: order.gateway.app.config.v1.AdminGetAppConfigsResponse
+		(*AdminDeleteAppConfigRequest)(nil),  // 12: order.gateway.app.config.v1.AdminDeleteAppConfigRequest
+		(*AdminDeleteAppConfigResponse)(nil), // 13: order.gateway.app.config.v1.AdminDeleteAppConfigResponse
+		(v1.SimulateOrderCouponMode)(0),      // 14: basetypes.order.v1.SimulateOrderCouponMode
+		(*config.AppConfig)(nil),             // 15: order.middleware.app.config.v1.AppConfig
+	}
+)
 var file_order_gateway_v1_app_config_config_proto_depIdxs = []int32{
 	14, // 0: order.gateway.app.config.v1.CreateAppConfigRequest.SimulateOrderCouponMode:type_name -> basetypes.order.v1.SimulateOrderCouponMode
 	15, // 1: order.gateway.app.config.v1.CreateAppConfigResponse.Info:type_name -> order.middleware.app.config.v1.AppConfig

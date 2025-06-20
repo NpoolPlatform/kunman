@@ -3,8 +3,8 @@ package outofgas
 import (
 	"context"
 
-	npool "github.com/NpoolPlatform/kunman/message/order/gateway/v1/powerrental/outofgas"
 	outofgas1 "github.com/NpoolPlatform/kunman/gateway/order/powerrental/outofgas"
+	npool "github.com/NpoolPlatform/kunman/message/order/gateway/v1/powerrental/outofgas"
 
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"

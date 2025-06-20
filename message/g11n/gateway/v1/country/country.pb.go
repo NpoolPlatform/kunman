@@ -7,12 +7,13 @@
 package country
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	country "github.com/NpoolPlatform/kunman/message/g11n/middleware/v1/country"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -599,19 +600,21 @@ func file_g11n_gateway_v1_country_country_proto_rawDescGZIP() []byte {
 	return file_g11n_gateway_v1_country_country_proto_rawDescData
 }
 
-var file_g11n_gateway_v1_country_country_proto_msgTypes = make([]protoimpl.MessageInfo, 8)
-var file_g11n_gateway_v1_country_country_proto_goTypes = []interface{}{
-	(*CreateCountryRequest)(nil),    // 0: g11n.gateway.country.v1.CreateCountryRequest
-	(*CreateCountryResponse)(nil),   // 1: g11n.gateway.country.v1.CreateCountryResponse
-	(*CreateCountriesRequest)(nil),  // 2: g11n.gateway.country.v1.CreateCountriesRequest
-	(*CreateCountriesResponse)(nil), // 3: g11n.gateway.country.v1.CreateCountriesResponse
-	(*UpdateCountryRequest)(nil),    // 4: g11n.gateway.country.v1.UpdateCountryRequest
-	(*UpdateCountryResponse)(nil),   // 5: g11n.gateway.country.v1.UpdateCountryResponse
-	(*GetCountriesRequest)(nil),     // 6: g11n.gateway.country.v1.GetCountriesRequest
-	(*GetCountriesResponse)(nil),    // 7: g11n.gateway.country.v1.GetCountriesResponse
-	(*country.Country)(nil),         // 8: g11n.middleware.country.v1.Country
-	(*country.CountryReq)(nil),      // 9: g11n.middleware.country.v1.CountryReq
-}
+var (
+	file_g11n_gateway_v1_country_country_proto_msgTypes = make([]protoimpl.MessageInfo, 8)
+	file_g11n_gateway_v1_country_country_proto_goTypes  = []interface{}{
+		(*CreateCountryRequest)(nil),    // 0: g11n.gateway.country.v1.CreateCountryRequest
+		(*CreateCountryResponse)(nil),   // 1: g11n.gateway.country.v1.CreateCountryResponse
+		(*CreateCountriesRequest)(nil),  // 2: g11n.gateway.country.v1.CreateCountriesRequest
+		(*CreateCountriesResponse)(nil), // 3: g11n.gateway.country.v1.CreateCountriesResponse
+		(*UpdateCountryRequest)(nil),    // 4: g11n.gateway.country.v1.UpdateCountryRequest
+		(*UpdateCountryResponse)(nil),   // 5: g11n.gateway.country.v1.UpdateCountryResponse
+		(*GetCountriesRequest)(nil),     // 6: g11n.gateway.country.v1.GetCountriesRequest
+		(*GetCountriesResponse)(nil),    // 7: g11n.gateway.country.v1.GetCountriesResponse
+		(*country.Country)(nil),         // 8: g11n.middleware.country.v1.Country
+		(*country.CountryReq)(nil),      // 9: g11n.middleware.country.v1.CountryReq
+	}
+)
 var file_g11n_gateway_v1_country_country_proto_depIdxs = []int32{
 	8, // 0: g11n.gateway.country.v1.CreateCountryResponse.Info:type_name -> g11n.middleware.country.v1.Country
 	9, // 1: g11n.gateway.country.v1.CreateCountriesRequest.Infos:type_name -> g11n.middleware.country.v1.CountryReq

@@ -3,10 +3,10 @@ package executor
 import (
 	"context"
 
-	"github.com/NpoolPlatform/kunman/framework/logger"
-	withdrawmwpb "github.com/NpoolPlatform/kunman/message/ledger/middleware/v2/withdraw"
 	asyncfeed "github.com/NpoolPlatform/kunman/cron/scheduler/base/asyncfeed"
 	types "github.com/NpoolPlatform/kunman/cron/scheduler/withdraw/rejected/returnbalance/types"
+	"github.com/NpoolPlatform/kunman/framework/logger"
+	withdrawmwpb "github.com/NpoolPlatform/kunman/message/ledger/middleware/v2/withdraw"
 
 	"github.com/shopspring/decimal"
 )
@@ -41,7 +41,7 @@ func (h *withdrawHandler) final(ctx context.Context, err *error) {
 	asyncfeed.AsyncFeed(ctx, persistentWithdraw, h.done)
 }
 
-//nolint
+// nolint
 func (h *withdrawHandler) exec(ctx context.Context) error {
 	var err error
 

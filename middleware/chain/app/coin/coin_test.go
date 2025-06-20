@@ -7,8 +7,8 @@ import (
 	"strconv"
 	"testing"
 
-	testinit "github.com/NpoolPlatform/kunman/middleware/chain/testinit"
 	npool "github.com/NpoolPlatform/kunman/message/chain/middleware/v1/app/coin"
+	testinit "github.com/NpoolPlatform/kunman/middleware/chain/testinit"
 
 	coin1 "github.com/NpoolPlatform/kunman/middleware/chain/coin"
 

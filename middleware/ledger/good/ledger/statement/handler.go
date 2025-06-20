@@ -4,10 +4,10 @@ import (
 	"context"
 	"fmt"
 
-	constant "github.com/NpoolPlatform/kunman/pkg/const"
-	crud "github.com/NpoolPlatform/kunman/middleware/ledger/crud/good/ledger/statement"
-	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 	npool "github.com/NpoolPlatform/kunman/message/ledger/middleware/v2/good/ledger/statement"
+	crud "github.com/NpoolPlatform/kunman/middleware/ledger/crud/good/ledger/statement"
+	constant "github.com/NpoolPlatform/kunman/pkg/const"
+	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 	"github.com/google/uuid"
 	"github.com/shopspring/decimal"
 )
@@ -95,7 +95,7 @@ func WithCoinTypeID(id *string, must bool) func(context.Context, *Handler) error
 	}
 }
 
-//nolint
+// nolint
 func WithTotalAmount(amount *string, must bool) func(context.Context, *Handler) error {
 	return func(ctx context.Context, h *Handler) error {
 		if amount == nil {
@@ -116,7 +116,7 @@ func WithTotalAmount(amount *string, must bool) func(context.Context, *Handler) 
 	}
 }
 
-//nolint
+// nolint
 func WithUnsoldAmount(amount *string, must bool) func(context.Context, *Handler) error {
 	return func(ctx context.Context, h *Handler) error {
 		if amount == nil {
@@ -137,7 +137,7 @@ func WithUnsoldAmount(amount *string, must bool) func(context.Context, *Handler)
 	}
 }
 
-//nolint
+// nolint
 func WithTechniqueServiceFeeAmount(amount *string, must bool) func(context.Context, *Handler) error {
 	return func(ctx context.Context, h *Handler) error {
 		if amount == nil {
@@ -184,7 +184,7 @@ func WithRollback(rollback *bool, must bool) func(context.Context, *Handler) err
 	}
 }
 
-//nolint
+// nolint
 func WithReqs(reqs []*npool.GoodStatementReq, must bool) func(context.Context, *Handler) error {
 	return func(ctx context.Context, h *Handler) error {
 		_reqs := []*crud.Req{}

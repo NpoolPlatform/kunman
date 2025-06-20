@@ -7,14 +7,15 @@
 package withdraw
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/ledger/v1"
 	v12 "github.com/NpoolPlatform/kunman/message/basetypes/review/v1"
 	v11 "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -958,23 +959,25 @@ func file_review_gateway_v2_withdraw_withdraw_proto_rawDescGZIP() []byte {
 	return file_review_gateway_v2_withdraw_withdraw_proto_rawDescData
 }
 
-var file_review_gateway_v2_withdraw_withdraw_proto_msgTypes = make([]protoimpl.MessageInfo, 9)
-var file_review_gateway_v2_withdraw_withdraw_proto_goTypes = []interface{}{
-	(*WithdrawReview)(nil),                  // 0: review.gateway.withdraw.v2.WithdrawReview
-	(*GetWithdrawReviewsRequest)(nil),       // 1: review.gateway.withdraw.v2.GetWithdrawReviewsRequest
-	(*GetWithdrawReviewsResponse)(nil),      // 2: review.gateway.withdraw.v2.GetWithdrawReviewsResponse
-	(*GetAppWithdrawReviewsRequest)(nil),    // 3: review.gateway.withdraw.v2.GetAppWithdrawReviewsRequest
-	(*GetAppWithdrawReviewsResponse)(nil),   // 4: review.gateway.withdraw.v2.GetAppWithdrawReviewsResponse
-	(*UpdateWithdrawReviewRequest)(nil),     // 5: review.gateway.withdraw.v2.UpdateWithdrawReviewRequest
-	(*UpdateWithdrawReviewResponse)(nil),    // 6: review.gateway.withdraw.v2.UpdateWithdrawReviewResponse
-	(*UpdateAppWithdrawReviewRequest)(nil),  // 7: review.gateway.withdraw.v2.UpdateAppWithdrawReviewRequest
-	(*UpdateAppWithdrawReviewResponse)(nil), // 8: review.gateway.withdraw.v2.UpdateAppWithdrawReviewResponse
-	(v1.WithdrawState)(0),                   // 9: basetypes.ledger.v1.WithdrawState
-	(v11.KycState)(0),                       // 10: basetypes.v1.KycState
-	(v12.ReviewObjectType)(0),               // 11: basetypes.review.v1.ReviewObjectType
-	(v12.ReviewState)(0),                    // 12: basetypes.review.v1.ReviewState
-	(v12.ReviewTriggerType)(0),              // 13: basetypes.review.v1.ReviewTriggerType
-}
+var (
+	file_review_gateway_v2_withdraw_withdraw_proto_msgTypes = make([]protoimpl.MessageInfo, 9)
+	file_review_gateway_v2_withdraw_withdraw_proto_goTypes  = []interface{}{
+		(*WithdrawReview)(nil),                  // 0: review.gateway.withdraw.v2.WithdrawReview
+		(*GetWithdrawReviewsRequest)(nil),       // 1: review.gateway.withdraw.v2.GetWithdrawReviewsRequest
+		(*GetWithdrawReviewsResponse)(nil),      // 2: review.gateway.withdraw.v2.GetWithdrawReviewsResponse
+		(*GetAppWithdrawReviewsRequest)(nil),    // 3: review.gateway.withdraw.v2.GetAppWithdrawReviewsRequest
+		(*GetAppWithdrawReviewsResponse)(nil),   // 4: review.gateway.withdraw.v2.GetAppWithdrawReviewsResponse
+		(*UpdateWithdrawReviewRequest)(nil),     // 5: review.gateway.withdraw.v2.UpdateWithdrawReviewRequest
+		(*UpdateWithdrawReviewResponse)(nil),    // 6: review.gateway.withdraw.v2.UpdateWithdrawReviewResponse
+		(*UpdateAppWithdrawReviewRequest)(nil),  // 7: review.gateway.withdraw.v2.UpdateAppWithdrawReviewRequest
+		(*UpdateAppWithdrawReviewResponse)(nil), // 8: review.gateway.withdraw.v2.UpdateAppWithdrawReviewResponse
+		(v1.WithdrawState)(0),                   // 9: basetypes.ledger.v1.WithdrawState
+		(v11.KycState)(0),                       // 10: basetypes.v1.KycState
+		(v12.ReviewObjectType)(0),               // 11: basetypes.review.v1.ReviewObjectType
+		(v12.ReviewState)(0),                    // 12: basetypes.review.v1.ReviewState
+		(v12.ReviewTriggerType)(0),              // 13: basetypes.review.v1.ReviewTriggerType
+	}
+)
 var file_review_gateway_v2_withdraw_withdraw_proto_depIdxs = []int32{
 	9,  // 0: review.gateway.withdraw.v2.WithdrawReview.WithdrawState:type_name -> basetypes.ledger.v1.WithdrawState
 	10, // 1: review.gateway.withdraw.v2.WithdrawReview.KycState:type_name -> basetypes.v1.KycState

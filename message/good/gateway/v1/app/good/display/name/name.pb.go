@@ -7,12 +7,13 @@
 package name
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/good/v1"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -1398,27 +1399,29 @@ func file_good_gateway_v1_app_good_display_name_name_proto_rawDescGZIP() []byte 
 	return file_good_gateway_v1_app_good_display_name_name_proto_rawDescData
 }
 
-var file_good_gateway_v1_app_good_display_name_name_proto_msgTypes = make([]protoimpl.MessageInfo, 17)
-var file_good_gateway_v1_app_good_display_name_name_proto_goTypes = []interface{}{
-	(*DisplayName)(nil),                    // 0: good.gateway.app.good1.display.name.v1.DisplayName
-	(*CreateDisplayNameRequest)(nil),       // 1: good.gateway.app.good1.display.name.v1.CreateDisplayNameRequest
-	(*CreateDisplayNameResponse)(nil),      // 2: good.gateway.app.good1.display.name.v1.CreateDisplayNameResponse
-	(*UpdateDisplayNameRequest)(nil),       // 3: good.gateway.app.good1.display.name.v1.UpdateDisplayNameRequest
-	(*UpdateDisplayNameResponse)(nil),      // 4: good.gateway.app.good1.display.name.v1.UpdateDisplayNameResponse
-	(*GetDisplayNamesRequest)(nil),         // 5: good.gateway.app.good1.display.name.v1.GetDisplayNamesRequest
-	(*GetDisplayNamesResponse)(nil),        // 6: good.gateway.app.good1.display.name.v1.GetDisplayNamesResponse
-	(*DeleteDisplayNameRequest)(nil),       // 7: good.gateway.app.good1.display.name.v1.DeleteDisplayNameRequest
-	(*DeleteDisplayNameResponse)(nil),      // 8: good.gateway.app.good1.display.name.v1.DeleteDisplayNameResponse
-	(*AdminCreateDisplayNameRequest)(nil),  // 9: good.gateway.app.good1.display.name.v1.AdminCreateDisplayNameRequest
-	(*AdminCreateDisplayNameResponse)(nil), // 10: good.gateway.app.good1.display.name.v1.AdminCreateDisplayNameResponse
-	(*AdminGetDisplayNamesRequest)(nil),    // 11: good.gateway.app.good1.display.name.v1.AdminGetDisplayNamesRequest
-	(*AdminGetDisplayNamesResponse)(nil),   // 12: good.gateway.app.good1.display.name.v1.AdminGetDisplayNamesResponse
-	(*AdminUpdateDisplayNameRequest)(nil),  // 13: good.gateway.app.good1.display.name.v1.AdminUpdateDisplayNameRequest
-	(*AdminUpdateDisplayNameResponse)(nil), // 14: good.gateway.app.good1.display.name.v1.AdminUpdateDisplayNameResponse
-	(*AdminDeleteDisplayNameRequest)(nil),  // 15: good.gateway.app.good1.display.name.v1.AdminDeleteDisplayNameRequest
-	(*AdminDeleteDisplayNameResponse)(nil), // 16: good.gateway.app.good1.display.name.v1.AdminDeleteDisplayNameResponse
-	(v1.GoodType)(0),                       // 17: basetypes.good.v1.GoodType
-}
+var (
+	file_good_gateway_v1_app_good_display_name_name_proto_msgTypes = make([]protoimpl.MessageInfo, 17)
+	file_good_gateway_v1_app_good_display_name_name_proto_goTypes  = []interface{}{
+		(*DisplayName)(nil),                    // 0: good.gateway.app.good1.display.name.v1.DisplayName
+		(*CreateDisplayNameRequest)(nil),       // 1: good.gateway.app.good1.display.name.v1.CreateDisplayNameRequest
+		(*CreateDisplayNameResponse)(nil),      // 2: good.gateway.app.good1.display.name.v1.CreateDisplayNameResponse
+		(*UpdateDisplayNameRequest)(nil),       // 3: good.gateway.app.good1.display.name.v1.UpdateDisplayNameRequest
+		(*UpdateDisplayNameResponse)(nil),      // 4: good.gateway.app.good1.display.name.v1.UpdateDisplayNameResponse
+		(*GetDisplayNamesRequest)(nil),         // 5: good.gateway.app.good1.display.name.v1.GetDisplayNamesRequest
+		(*GetDisplayNamesResponse)(nil),        // 6: good.gateway.app.good1.display.name.v1.GetDisplayNamesResponse
+		(*DeleteDisplayNameRequest)(nil),       // 7: good.gateway.app.good1.display.name.v1.DeleteDisplayNameRequest
+		(*DeleteDisplayNameResponse)(nil),      // 8: good.gateway.app.good1.display.name.v1.DeleteDisplayNameResponse
+		(*AdminCreateDisplayNameRequest)(nil),  // 9: good.gateway.app.good1.display.name.v1.AdminCreateDisplayNameRequest
+		(*AdminCreateDisplayNameResponse)(nil), // 10: good.gateway.app.good1.display.name.v1.AdminCreateDisplayNameResponse
+		(*AdminGetDisplayNamesRequest)(nil),    // 11: good.gateway.app.good1.display.name.v1.AdminGetDisplayNamesRequest
+		(*AdminGetDisplayNamesResponse)(nil),   // 12: good.gateway.app.good1.display.name.v1.AdminGetDisplayNamesResponse
+		(*AdminUpdateDisplayNameRequest)(nil),  // 13: good.gateway.app.good1.display.name.v1.AdminUpdateDisplayNameRequest
+		(*AdminUpdateDisplayNameResponse)(nil), // 14: good.gateway.app.good1.display.name.v1.AdminUpdateDisplayNameResponse
+		(*AdminDeleteDisplayNameRequest)(nil),  // 15: good.gateway.app.good1.display.name.v1.AdminDeleteDisplayNameRequest
+		(*AdminDeleteDisplayNameResponse)(nil), // 16: good.gateway.app.good1.display.name.v1.AdminDeleteDisplayNameResponse
+		(v1.GoodType)(0),                       // 17: basetypes.good.v1.GoodType
+	}
+)
 var file_good_gateway_v1_app_good_display_name_name_proto_depIdxs = []int32{
 	17, // 0: good.gateway.app.good1.display.name.v1.DisplayName.GoodType:type_name -> basetypes.good.v1.GoodType
 	0,  // 1: good.gateway.app.good1.display.name.v1.CreateDisplayNameResponse.Info:type_name -> good.gateway.app.good1.display.name.v1.DisplayName

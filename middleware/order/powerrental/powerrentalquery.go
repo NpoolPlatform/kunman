@@ -5,7 +5,6 @@ import (
 
 	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
 	types "github.com/NpoolPlatform/kunman/message/basetypes/order/v1"
-	"github.com/NpoolPlatform/kunman/middleware/order/db"
 	ent "github.com/NpoolPlatform/kunman/middleware/order/db/ent/generated"
 	entfeeorderstate "github.com/NpoolPlatform/kunman/middleware/order/db/ent/generated/feeorderstate"
 	entorderbase "github.com/NpoolPlatform/kunman/middleware/order/db/ent/generated/orderbase"
@@ -289,18 +288,4 @@ func (h *powerRentalQueryHandler) getPowerRentalWithTx(ctx context.Context, tx *
 
 func (h *powerRentalQueryHandler) requirePowerRentalWithTx(ctx context.Context, tx *ent.Tx) error {
 	return h._getPowerRental(ctx, tx.Client(), true)
-}
-
-// nolint
-func (h *powerRentalQueryHandler) getPowerRental(ctx context.Context) error {
-	return db.WithClient(ctx, func(_ctx context.Context, cli *ent.Client) error {
-		return h._getPowerRental(_ctx, cli, false)
-	})
-}
-
-// nolint
-func (h *powerRentalQueryHandler) requirePowerRental(ctx context.Context) error {
-	return db.WithClient(ctx, func(_ctx context.Context, cli *ent.Client) error {
-		return h._getPowerRental(_ctx, cli, true)
-	})
 }

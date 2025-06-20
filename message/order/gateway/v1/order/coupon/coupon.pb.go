@@ -7,13 +7,14 @@
 package coupon
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/good/v1"
 	v11 "github.com/NpoolPlatform/kunman/message/basetypes/inspire/v1"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -841,19 +842,21 @@ func file_order_gateway_v1_order_coupon_coupon_proto_rawDescGZIP() []byte {
 	return file_order_gateway_v1_order_coupon_coupon_proto_rawDescData
 }
 
-var file_order_gateway_v1_order_coupon_coupon_proto_msgTypes = make([]protoimpl.MessageInfo, 8)
-var file_order_gateway_v1_order_coupon_coupon_proto_goTypes = []interface{}{
-	(*OrderCoupon)(nil),                  // 0: order.gateway.order1.coupon.v1.OrderCoupon
-	(*OrderCouponInfo)(nil),              // 1: order.gateway.order1.coupon.v1.OrderCouponInfo
-	(*GetOrderCouponsRequest)(nil),       // 2: order.gateway.order1.coupon.v1.GetOrderCouponsRequest
-	(*GetOrderCouponsResponse)(nil),      // 3: order.gateway.order1.coupon.v1.GetOrderCouponsResponse
-	(*GetMyOrderCouponsRequest)(nil),     // 4: order.gateway.order1.coupon.v1.GetMyOrderCouponsRequest
-	(*GetMyOrderCouponsResponse)(nil),    // 5: order.gateway.order1.coupon.v1.GetMyOrderCouponsResponse
-	(*AdminGetOrderCouponsRequest)(nil),  // 6: order.gateway.order1.coupon.v1.AdminGetOrderCouponsRequest
-	(*AdminGetOrderCouponsResponse)(nil), // 7: order.gateway.order1.coupon.v1.AdminGetOrderCouponsResponse
-	(v1.GoodType)(0),                     // 8: basetypes.good.v1.GoodType
-	(v11.CouponType)(0),                  // 9: basetypes.inspire.v1.CouponType
-}
+var (
+	file_order_gateway_v1_order_coupon_coupon_proto_msgTypes = make([]protoimpl.MessageInfo, 8)
+	file_order_gateway_v1_order_coupon_coupon_proto_goTypes  = []interface{}{
+		(*OrderCoupon)(nil),                  // 0: order.gateway.order1.coupon.v1.OrderCoupon
+		(*OrderCouponInfo)(nil),              // 1: order.gateway.order1.coupon.v1.OrderCouponInfo
+		(*GetOrderCouponsRequest)(nil),       // 2: order.gateway.order1.coupon.v1.GetOrderCouponsRequest
+		(*GetOrderCouponsResponse)(nil),      // 3: order.gateway.order1.coupon.v1.GetOrderCouponsResponse
+		(*GetMyOrderCouponsRequest)(nil),     // 4: order.gateway.order1.coupon.v1.GetMyOrderCouponsRequest
+		(*GetMyOrderCouponsResponse)(nil),    // 5: order.gateway.order1.coupon.v1.GetMyOrderCouponsResponse
+		(*AdminGetOrderCouponsRequest)(nil),  // 6: order.gateway.order1.coupon.v1.AdminGetOrderCouponsRequest
+		(*AdminGetOrderCouponsResponse)(nil), // 7: order.gateway.order1.coupon.v1.AdminGetOrderCouponsResponse
+		(v1.GoodType)(0),                     // 8: basetypes.good.v1.GoodType
+		(v11.CouponType)(0),                  // 9: basetypes.inspire.v1.CouponType
+	}
+)
 var file_order_gateway_v1_order_coupon_coupon_proto_depIdxs = []int32{
 	8, // 0: order.gateway.order1.coupon.v1.OrderCoupon.GoodType:type_name -> basetypes.good.v1.GoodType
 	9, // 1: order.gateway.order1.coupon.v1.OrderCoupon.CouponType:type_name -> basetypes.inspire.v1.CouponType

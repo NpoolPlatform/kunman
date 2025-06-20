@@ -8,6 +8,7 @@ package malfunction
 
 import (
 	context "context"
+
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -91,18 +92,20 @@ type GatewayServer interface {
 }
 
 // UnimplementedGatewayServer must be embedded to have forward compatible implementations.
-type UnimplementedGatewayServer struct {
-}
+type UnimplementedGatewayServer struct{}
 
 func (UnimplementedGatewayServer) AdminCreateMalfunction(context.Context, *AdminCreateMalfunctionRequest) (*AdminCreateMalfunctionResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AdminCreateMalfunction not implemented")
 }
+
 func (UnimplementedGatewayServer) AdminUpdateMalfunction(context.Context, *AdminUpdateMalfunctionRequest) (*AdminUpdateMalfunctionResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AdminUpdateMalfunction not implemented")
 }
+
 func (UnimplementedGatewayServer) GetMalfunctions(context.Context, *GetMalfunctionsRequest) (*GetMalfunctionsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetMalfunctions not implemented")
 }
+
 func (UnimplementedGatewayServer) AdminDeleteMalfunction(context.Context, *AdminDeleteMalfunctionRequest) (*AdminDeleteMalfunctionResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AdminDeleteMalfunction not implemented")
 }

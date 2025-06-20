@@ -7,12 +7,13 @@
 package kyc
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -655,17 +656,19 @@ func file_appuser_middleware_v1_kyc_kyc_proto_rawDescGZIP() []byte {
 	return file_appuser_middleware_v1_kyc_kyc_proto_rawDescData
 }
 
-var file_appuser_middleware_v1_kyc_kyc_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
-var file_appuser_middleware_v1_kyc_kyc_proto_goTypes = []interface{}{
-	(*KycReq)(nil),          // 0: appuser.middleware.kyc.v1.KycReq
-	(*Kyc)(nil),             // 1: appuser.middleware.kyc.v1.Kyc
-	(*Conds)(nil),           // 2: appuser.middleware.kyc.v1.Conds
-	(v1.KycDocumentType)(0), // 3: basetypes.v1.KycDocumentType
-	(v1.KycEntityType)(0),   // 4: basetypes.v1.KycEntityType
-	(v1.KycState)(0),        // 5: basetypes.v1.KycState
-	(*v1.Uint32Val)(nil),    // 6: basetypes.v1.Uint32Val
-	(*v1.StringVal)(nil),    // 7: basetypes.v1.StringVal
-}
+var (
+	file_appuser_middleware_v1_kyc_kyc_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
+	file_appuser_middleware_v1_kyc_kyc_proto_goTypes  = []interface{}{
+		(*KycReq)(nil),          // 0: appuser.middleware.kyc.v1.KycReq
+		(*Kyc)(nil),             // 1: appuser.middleware.kyc.v1.Kyc
+		(*Conds)(nil),           // 2: appuser.middleware.kyc.v1.Conds
+		(v1.KycDocumentType)(0), // 3: basetypes.v1.KycDocumentType
+		(v1.KycEntityType)(0),   // 4: basetypes.v1.KycEntityType
+		(v1.KycState)(0),        // 5: basetypes.v1.KycState
+		(*v1.Uint32Val)(nil),    // 6: basetypes.v1.Uint32Val
+		(*v1.StringVal)(nil),    // 7: basetypes.v1.StringVal
+	}
+)
 var file_appuser_middleware_v1_kyc_kyc_proto_depIdxs = []int32{
 	3,  // 0: appuser.middleware.kyc.v1.KycReq.DocumentType:type_name -> basetypes.v1.KycDocumentType
 	4,  // 1: appuser.middleware.kyc.v1.KycReq.EntityType:type_name -> basetypes.v1.KycEntityType

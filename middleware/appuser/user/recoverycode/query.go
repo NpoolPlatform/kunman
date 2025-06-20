@@ -166,7 +166,6 @@ func (h *Handler) GetRecoveryCodes(ctx context.Context) ([]*npool.RecoveryCode, 
 		}
 		return nil
 	})
-
 	if err != nil {
 		return nil, 0, err
 	}

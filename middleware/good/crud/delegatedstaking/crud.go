@@ -65,7 +65,7 @@ type Conds struct {
 	ContractStates *cruder.Cond
 }
 
-//nolint
+// nolint
 func SetQueryConds(q *ent.DelegatedStakingQuery, conds *Conds) (*ent.DelegatedStakingQuery, error) {
 	q.Where(entdelegatedstaking.DeletedAt(0))
 	if conds == nil {

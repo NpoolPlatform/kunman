@@ -3,10 +3,10 @@ package announcement
 import (
 	"fmt"
 
-	"github.com/NpoolPlatform/libent-cruder/pkg/cruder"
 	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	ent "github.com/NpoolPlatform/kunman/middleware/notif/db/ent/generated"
 	entamt "github.com/NpoolPlatform/kunman/middleware/notif/db/ent/generated/announcement"
+	"github.com/NpoolPlatform/libent-cruder/pkg/cruder"
 
 	"github.com/google/uuid"
 )
@@ -92,7 +92,7 @@ type Conds struct {
 	Channel          *cruder.Cond
 }
 
-//nolint
+// nolint
 func SetQueryConds(q *ent.AnnouncementQuery, conds *Conds) (*ent.AnnouncementQuery, error) {
 	if conds == nil {
 		return q, nil

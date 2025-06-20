@@ -7,10 +7,11 @@
 package unsold
 
 import (
-	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
-	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	reflect "reflect"
 	sync "sync"
+
+	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
+	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 )
 
 const (
@@ -265,12 +266,14 @@ func file_ledger_middleware_v2_good_ledger_unsold_unsold_proto_rawDescGZIP() []b
 	return file_ledger_middleware_v2_good_ledger_unsold_unsold_proto_rawDescData
 }
 
-var file_ledger_middleware_v2_good_ledger_unsold_unsold_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
-var file_ledger_middleware_v2_good_ledger_unsold_unsold_proto_goTypes = []interface{}{
-	(*UnsoldStatementReq)(nil), // 0: ledger.middleware.good.ledger.unsold.v2.UnsoldStatementReq
-	(*UnsoldStatement)(nil),    // 1: ledger.middleware.good.ledger.unsold.v2.UnsoldStatement
-	(*Conds)(nil),              // 2: ledger.middleware.good.ledger.unsold.v2.Conds
-}
+var (
+	file_ledger_middleware_v2_good_ledger_unsold_unsold_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
+	file_ledger_middleware_v2_good_ledger_unsold_unsold_proto_goTypes  = []interface{}{
+		(*UnsoldStatementReq)(nil), // 0: ledger.middleware.good.ledger.unsold.v2.UnsoldStatementReq
+		(*UnsoldStatement)(nil),    // 1: ledger.middleware.good.ledger.unsold.v2.UnsoldStatement
+		(*Conds)(nil),              // 2: ledger.middleware.good.ledger.unsold.v2.Conds
+	}
+)
 var file_ledger_middleware_v2_good_ledger_unsold_unsold_proto_depIdxs = []int32{
 	0, // [0:0] is the sub-list for method output_type
 	0, // [0:0] is the sub-list for method input_type

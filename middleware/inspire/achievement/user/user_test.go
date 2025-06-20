@@ -8,15 +8,15 @@ import (
 	"testing"
 	"time"
 
-	statement1 "github.com/NpoolPlatform/kunman/middleware/inspire/achievement/statement/order"
-	common1 "github.com/NpoolPlatform/kunman/middleware/inspire/achievement/user/common"
-	commission1 "github.com/NpoolPlatform/kunman/middleware/inspire/app/config"
-	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 	types "github.com/NpoolPlatform/kunman/message/basetypes/inspire/v1"
 	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	orderstatementmwpb "github.com/NpoolPlatform/kunman/message/inspire/middleware/v1/achievement/statement/order"
 	npool "github.com/NpoolPlatform/kunman/message/inspire/middleware/v1/achievement/user"
 	appconfigmwpb "github.com/NpoolPlatform/kunman/message/inspire/middleware/v1/app/config"
+	statement1 "github.com/NpoolPlatform/kunman/middleware/inspire/achievement/statement/order"
+	common1 "github.com/NpoolPlatform/kunman/middleware/inspire/achievement/user/common"
+	commission1 "github.com/NpoolPlatform/kunman/middleware/inspire/app/config"
+	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 
 	"github.com/NpoolPlatform/kunman/middleware/inspire/testinit"
 
@@ -50,25 +50,27 @@ var appconfig = appconfigmwpb.AppConfig{
 	MaxLevel:            uint32(5),
 }
 
-var userID = uuid.NewString()
-var statement = &orderstatementmwpb.Statement{
-	EntID:                uuid.NewString(),
-	AppID:                appconfig.AppID,
-	UserID:               userID,
-	GoodID:               uuid.NewString(),
-	AppGoodID:            uuid.NewString(),
-	OrderID:              uuid.NewString(),
-	OrderUserID:          userID,
-	DirectContributorID:  userID,
-	GoodCoinTypeID:       uuid.NewString(),
-	Units:                decimal.NewFromInt(10).String(),
-	GoodValueUSD:         decimal.NewFromInt(120).String(),
-	PaymentAmountUSD:     decimal.NewFromInt(120).String(),
-	CommissionAmountUSD:  decimal.NewFromInt(0).String(),
-	AppConfigID:          appconfig.EntID,
-	CommissionConfigID:   uuid.Nil.String(),
-	CommissionConfigType: types.CommissionConfigType_LegacyCommissionConfig,
-}
+var (
+	userID    = uuid.NewString()
+	statement = &orderstatementmwpb.Statement{
+		EntID:                uuid.NewString(),
+		AppID:                appconfig.AppID,
+		UserID:               userID,
+		GoodID:               uuid.NewString(),
+		AppGoodID:            uuid.NewString(),
+		OrderID:              uuid.NewString(),
+		OrderUserID:          userID,
+		DirectContributorID:  userID,
+		GoodCoinTypeID:       uuid.NewString(),
+		Units:                decimal.NewFromInt(10).String(),
+		GoodValueUSD:         decimal.NewFromInt(120).String(),
+		PaymentAmountUSD:     decimal.NewFromInt(120).String(),
+		CommissionAmountUSD:  decimal.NewFromInt(0).String(),
+		AppConfigID:          appconfig.EntID,
+		CommissionConfigID:   uuid.Nil.String(),
+		CommissionConfigType: types.CommissionConfigType_LegacyCommissionConfig,
+	}
+)
 
 func setup(t *testing.T) func(*testing.T) {
 	statement.CommissionConfigTypeStr = statement.CommissionConfigType.String()

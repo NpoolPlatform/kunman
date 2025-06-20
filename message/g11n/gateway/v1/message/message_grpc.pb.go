@@ -8,6 +8,7 @@ package message
 
 import (
 	context "context"
+
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -163,36 +164,44 @@ type GatewayServer interface {
 }
 
 // UnimplementedGatewayServer must be embedded to have forward compatible implementations.
-type UnimplementedGatewayServer struct {
-}
+type UnimplementedGatewayServer struct{}
 
 func (UnimplementedGatewayServer) CreateMessage(context.Context, *CreateMessageRequest) (*CreateMessageResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateMessage not implemented")
 }
+
 func (UnimplementedGatewayServer) CreateAppMessage(context.Context, *CreateAppMessageRequest) (*CreateAppMessageResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateAppMessage not implemented")
 }
+
 func (UnimplementedGatewayServer) CreateMessages(context.Context, *CreateMessagesRequest) (*CreateMessagesResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateMessages not implemented")
 }
+
 func (UnimplementedGatewayServer) CreateAppMessages(context.Context, *CreateAppMessagesRequest) (*CreateAppMessagesResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateAppMessages not implemented")
 }
+
 func (UnimplementedGatewayServer) UpdateMessage(context.Context, *UpdateMessageRequest) (*UpdateMessageResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateMessage not implemented")
 }
+
 func (UnimplementedGatewayServer) UpdateAppMessage(context.Context, *UpdateAppMessageRequest) (*UpdateAppMessageResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateAppMessage not implemented")
 }
+
 func (UnimplementedGatewayServer) GetMessages(context.Context, *GetMessagesRequest) (*GetMessagesResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetMessages not implemented")
 }
+
 func (UnimplementedGatewayServer) GetAppMessages(context.Context, *GetAppMessagesRequest) (*GetAppMessagesResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetAppMessages not implemented")
 }
+
 func (UnimplementedGatewayServer) DeleteMessage(context.Context, *DeleteMessageRequest) (*DeleteMessageResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteMessage not implemented")
 }
+
 func (UnimplementedGatewayServer) DeleteAppMessage(context.Context, *DeleteAppMessageRequest) (*DeleteAppMessageResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteAppMessage not implemented")
 }

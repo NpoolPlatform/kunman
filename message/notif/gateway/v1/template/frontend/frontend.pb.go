@@ -7,13 +7,14 @@
 package frontend
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	frontend "github.com/NpoolPlatform/kunman/message/notif/middleware/v1/template/frontend"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -1098,25 +1099,27 @@ func file_notif_gateway_v1_template_frontend_frontend_proto_rawDescGZIP() []byte
 	return file_notif_gateway_v1_template_frontend_frontend_proto_rawDescData
 }
 
-var file_notif_gateway_v1_template_frontend_frontend_proto_msgTypes = make([]protoimpl.MessageInfo, 14)
-var file_notif_gateway_v1_template_frontend_frontend_proto_goTypes = []interface{}{
-	(*CreateFrontendTemplateRequest)(nil),     // 0: notif.gateway.template.frontend.v1.CreateFrontendTemplateRequest
-	(*CreateFrontendTemplateResponse)(nil),    // 1: notif.gateway.template.frontend.v1.CreateFrontendTemplateResponse
-	(*CreateAppFrontendTemplateRequest)(nil),  // 2: notif.gateway.template.frontend.v1.CreateAppFrontendTemplateRequest
-	(*CreateAppFrontendTemplateResponse)(nil), // 3: notif.gateway.template.frontend.v1.CreateAppFrontendTemplateResponse
-	(*GetFrontendTemplateRequest)(nil),        // 4: notif.gateway.template.frontend.v1.GetFrontendTemplateRequest
-	(*GetFrontendTemplateResponse)(nil),       // 5: notif.gateway.template.frontend.v1.GetFrontendTemplateResponse
-	(*GetFrontendTemplatesRequest)(nil),       // 6: notif.gateway.template.frontend.v1.GetFrontendTemplatesRequest
-	(*GetFrontendTemplatesResponse)(nil),      // 7: notif.gateway.template.frontend.v1.GetFrontendTemplatesResponse
-	(*GetAppFrontendTemplatesRequest)(nil),    // 8: notif.gateway.template.frontend.v1.GetAppFrontendTemplatesRequest
-	(*GetAppFrontendTemplatesResponse)(nil),   // 9: notif.gateway.template.frontend.v1.GetAppFrontendTemplatesResponse
-	(*UpdateFrontendTemplateRequest)(nil),     // 10: notif.gateway.template.frontend.v1.UpdateFrontendTemplateRequest
-	(*UpdateFrontendTemplateResponse)(nil),    // 11: notif.gateway.template.frontend.v1.UpdateFrontendTemplateResponse
-	(*UpdateAppFrontendTemplateRequest)(nil),  // 12: notif.gateway.template.frontend.v1.UpdateAppFrontendTemplateRequest
-	(*UpdateAppFrontendTemplateResponse)(nil), // 13: notif.gateway.template.frontend.v1.UpdateAppFrontendTemplateResponse
-	(v1.UsedFor)(0),                   // 14: basetypes.v1.UsedFor
-	(*frontend.FrontendTemplate)(nil), // 15: notif.middleware.template.frontend.v1.FrontendTemplate
-}
+var (
+	file_notif_gateway_v1_template_frontend_frontend_proto_msgTypes = make([]protoimpl.MessageInfo, 14)
+	file_notif_gateway_v1_template_frontend_frontend_proto_goTypes  = []interface{}{
+		(*CreateFrontendTemplateRequest)(nil),     // 0: notif.gateway.template.frontend.v1.CreateFrontendTemplateRequest
+		(*CreateFrontendTemplateResponse)(nil),    // 1: notif.gateway.template.frontend.v1.CreateFrontendTemplateResponse
+		(*CreateAppFrontendTemplateRequest)(nil),  // 2: notif.gateway.template.frontend.v1.CreateAppFrontendTemplateRequest
+		(*CreateAppFrontendTemplateResponse)(nil), // 3: notif.gateway.template.frontend.v1.CreateAppFrontendTemplateResponse
+		(*GetFrontendTemplateRequest)(nil),        // 4: notif.gateway.template.frontend.v1.GetFrontendTemplateRequest
+		(*GetFrontendTemplateResponse)(nil),       // 5: notif.gateway.template.frontend.v1.GetFrontendTemplateResponse
+		(*GetFrontendTemplatesRequest)(nil),       // 6: notif.gateway.template.frontend.v1.GetFrontendTemplatesRequest
+		(*GetFrontendTemplatesResponse)(nil),      // 7: notif.gateway.template.frontend.v1.GetFrontendTemplatesResponse
+		(*GetAppFrontendTemplatesRequest)(nil),    // 8: notif.gateway.template.frontend.v1.GetAppFrontendTemplatesRequest
+		(*GetAppFrontendTemplatesResponse)(nil),   // 9: notif.gateway.template.frontend.v1.GetAppFrontendTemplatesResponse
+		(*UpdateFrontendTemplateRequest)(nil),     // 10: notif.gateway.template.frontend.v1.UpdateFrontendTemplateRequest
+		(*UpdateFrontendTemplateResponse)(nil),    // 11: notif.gateway.template.frontend.v1.UpdateFrontendTemplateResponse
+		(*UpdateAppFrontendTemplateRequest)(nil),  // 12: notif.gateway.template.frontend.v1.UpdateAppFrontendTemplateRequest
+		(*UpdateAppFrontendTemplateResponse)(nil), // 13: notif.gateway.template.frontend.v1.UpdateAppFrontendTemplateResponse
+		(v1.UsedFor)(0),                   // 14: basetypes.v1.UsedFor
+		(*frontend.FrontendTemplate)(nil), // 15: notif.middleware.template.frontend.v1.FrontendTemplate
+	}
+)
 var file_notif_gateway_v1_template_frontend_frontend_proto_depIdxs = []int32{
 	14, // 0: notif.gateway.template.frontend.v1.CreateFrontendTemplateRequest.UsedFor:type_name -> basetypes.v1.UsedFor
 	15, // 1: notif.gateway.template.frontend.v1.CreateFrontendTemplateResponse.Info:type_name -> notif.middleware.template.frontend.v1.FrontendTemplate

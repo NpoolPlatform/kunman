@@ -4,8 +4,8 @@ package appconfig
 import (
 	"context"
 
-	npool "github.com/NpoolPlatform/kunman/message/order/gateway/v1/app/config"
 	config1 "github.com/NpoolPlatform/kunman/gateway/order/app/config"
+	npool "github.com/NpoolPlatform/kunman/message/order/gateway/v1/app/config"
 
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"

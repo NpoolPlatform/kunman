@@ -7,11 +7,12 @@
 package allocated
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -389,15 +390,17 @@ func file_inspire_middleware_v1_credit_allocated_allocated_proto_rawDescGZIP() [
 	return file_inspire_middleware_v1_credit_allocated_allocated_proto_rawDescData
 }
 
-var file_inspire_middleware_v1_credit_allocated_allocated_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
-var file_inspire_middleware_v1_credit_allocated_allocated_proto_goTypes = []interface{}{
-	(*CreditAllocatedReq)(nil), // 0: inspire.middleware.credit.allocated.v1.CreditAllocatedReq
-	(*CreditAllocated)(nil),    // 1: inspire.middleware.credit.allocated.v1.CreditAllocated
-	(*Conds)(nil),              // 2: inspire.middleware.credit.allocated.v1.Conds
-	(*v1.StringVal)(nil),       // 3: basetypes.v1.StringVal
-	(*v1.StringSliceVal)(nil),  // 4: basetypes.v1.StringSliceVal
-	(*v1.Uint32Val)(nil),       // 5: basetypes.v1.Uint32Val
-}
+var (
+	file_inspire_middleware_v1_credit_allocated_allocated_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
+	file_inspire_middleware_v1_credit_allocated_allocated_proto_goTypes  = []interface{}{
+		(*CreditAllocatedReq)(nil), // 0: inspire.middleware.credit.allocated.v1.CreditAllocatedReq
+		(*CreditAllocated)(nil),    // 1: inspire.middleware.credit.allocated.v1.CreditAllocated
+		(*Conds)(nil),              // 2: inspire.middleware.credit.allocated.v1.Conds
+		(*v1.StringVal)(nil),       // 3: basetypes.v1.StringVal
+		(*v1.StringSliceVal)(nil),  // 4: basetypes.v1.StringSliceVal
+		(*v1.Uint32Val)(nil),       // 5: basetypes.v1.Uint32Val
+	}
+)
 var file_inspire_middleware_v1_credit_allocated_allocated_proto_depIdxs = []int32{
 	3, // 0: inspire.middleware.credit.allocated.v1.Conds.EntID:type_name -> basetypes.v1.StringVal
 	3, // 1: inspire.middleware.credit.allocated.v1.Conds.AppID:type_name -> basetypes.v1.StringVal

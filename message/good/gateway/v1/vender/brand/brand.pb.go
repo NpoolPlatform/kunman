@@ -7,12 +7,13 @@
 package brand
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	brand "github.com/NpoolPlatform/kunman/message/good/middleware/v1/vender/brand"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -572,18 +573,20 @@ func file_good_gateway_v1_vender_brand_brand_proto_rawDescGZIP() []byte {
 	return file_good_gateway_v1_vender_brand_brand_proto_rawDescData
 }
 
-var file_good_gateway_v1_vender_brand_brand_proto_msgTypes = make([]protoimpl.MessageInfo, 8)
-var file_good_gateway_v1_vender_brand_brand_proto_goTypes = []interface{}{
-	(*AdminCreateBrandRequest)(nil),  // 0: good.gateway.vendor.brand.v1.AdminCreateBrandRequest
-	(*AdminCreateBrandResponse)(nil), // 1: good.gateway.vendor.brand.v1.AdminCreateBrandResponse
-	(*AdminUpdateBrandRequest)(nil),  // 2: good.gateway.vendor.brand.v1.AdminUpdateBrandRequest
-	(*AdminUpdateBrandResponse)(nil), // 3: good.gateway.vendor.brand.v1.AdminUpdateBrandResponse
-	(*GetBrandsRequest)(nil),         // 4: good.gateway.vendor.brand.v1.GetBrandsRequest
-	(*GetBrandsResponse)(nil),        // 5: good.gateway.vendor.brand.v1.GetBrandsResponse
-	(*AdminDeleteBrandRequest)(nil),  // 6: good.gateway.vendor.brand.v1.AdminDeleteBrandRequest
-	(*AdminDeleteBrandResponse)(nil), // 7: good.gateway.vendor.brand.v1.AdminDeleteBrandResponse
-	(*brand.Brand)(nil),              // 8: good.middleware.vendor.brand.v1.Brand
-}
+var (
+	file_good_gateway_v1_vender_brand_brand_proto_msgTypes = make([]protoimpl.MessageInfo, 8)
+	file_good_gateway_v1_vender_brand_brand_proto_goTypes  = []interface{}{
+		(*AdminCreateBrandRequest)(nil),  // 0: good.gateway.vendor.brand.v1.AdminCreateBrandRequest
+		(*AdminCreateBrandResponse)(nil), // 1: good.gateway.vendor.brand.v1.AdminCreateBrandResponse
+		(*AdminUpdateBrandRequest)(nil),  // 2: good.gateway.vendor.brand.v1.AdminUpdateBrandRequest
+		(*AdminUpdateBrandResponse)(nil), // 3: good.gateway.vendor.brand.v1.AdminUpdateBrandResponse
+		(*GetBrandsRequest)(nil),         // 4: good.gateway.vendor.brand.v1.GetBrandsRequest
+		(*GetBrandsResponse)(nil),        // 5: good.gateway.vendor.brand.v1.GetBrandsResponse
+		(*AdminDeleteBrandRequest)(nil),  // 6: good.gateway.vendor.brand.v1.AdminDeleteBrandRequest
+		(*AdminDeleteBrandResponse)(nil), // 7: good.gateway.vendor.brand.v1.AdminDeleteBrandResponse
+		(*brand.Brand)(nil),              // 8: good.middleware.vendor.brand.v1.Brand
+	}
+)
 var file_good_gateway_v1_vender_brand_brand_proto_depIdxs = []int32{
 	8, // 0: good.gateway.vendor.brand.v1.AdminCreateBrandResponse.Info:type_name -> good.middleware.vendor.brand.v1.Brand
 	8, // 1: good.gateway.vendor.brand.v1.AdminUpdateBrandResponse.Info:type_name -> good.middleware.vendor.brand.v1.Brand

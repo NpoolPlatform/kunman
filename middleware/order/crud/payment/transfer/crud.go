@@ -74,7 +74,7 @@ type Conds struct {
 	CoinTypeID *cruder.Cond
 }
 
-//nolint
+// nolint
 func SetQueryConds(q *ent.PaymentTransferQuery, conds *Conds) (*ent.PaymentTransferQuery, error) {
 	q.Where(entpaymenttransfer.DeletedAt(0))
 	if conds == nil {

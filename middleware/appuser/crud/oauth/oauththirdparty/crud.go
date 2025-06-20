@@ -4,9 +4,9 @@ package auth
 import (
 	"fmt"
 
+	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	ent "github.com/NpoolPlatform/kunman/middleware/appuser/db/ent/generated"
 	entoauththirdparty "github.com/NpoolPlatform/kunman/middleware/appuser/db/ent/generated/oauththirdparty"
-	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 
 	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 	"github.com/google/uuid"

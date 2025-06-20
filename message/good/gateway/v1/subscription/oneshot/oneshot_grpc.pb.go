@@ -8,6 +8,7 @@ package oneshot
 
 import (
 	context "context"
+
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -103,21 +104,24 @@ type GatewayServer interface {
 }
 
 // UnimplementedGatewayServer must be embedded to have forward compatible implementations.
-type UnimplementedGatewayServer struct {
-}
+type UnimplementedGatewayServer struct{}
 
 func (UnimplementedGatewayServer) AdminCreateOneShot(context.Context, *AdminCreateOneShotRequest) (*AdminCreateOneShotResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AdminCreateOneShot not implemented")
 }
+
 func (UnimplementedGatewayServer) AdminUpdateOneShot(context.Context, *AdminUpdateOneShotRequest) (*AdminUpdateOneShotResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AdminUpdateOneShot not implemented")
 }
+
 func (UnimplementedGatewayServer) GetOneShot(context.Context, *GetOneShotRequest) (*GetOneShotResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetOneShot not implemented")
 }
+
 func (UnimplementedGatewayServer) GetOneShots(context.Context, *GetOneShotsRequest) (*GetOneShotsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetOneShots not implemented")
 }
+
 func (UnimplementedGatewayServer) AdminDeleteOneShot(context.Context, *AdminDeleteOneShotRequest) (*AdminDeleteOneShotResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AdminDeleteOneShot not implemented")
 }

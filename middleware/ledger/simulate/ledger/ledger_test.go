@@ -7,13 +7,13 @@ import (
 	"strconv"
 	"testing"
 
-	statement1 "github.com/NpoolPlatform/kunman/middleware/ledger/simulate/ledger/statement"
-	"github.com/NpoolPlatform/kunman/middleware/ledger/testinit"
-	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/ledger/v1"
 	commonpb "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	ledgermwpb "github.com/NpoolPlatform/kunman/message/ledger/middleware/v2/simulate/ledger"
 	statementmwpb "github.com/NpoolPlatform/kunman/message/ledger/middleware/v2/simulate/ledger/statement"
+	statement1 "github.com/NpoolPlatform/kunman/middleware/ledger/simulate/ledger/statement"
+	"github.com/NpoolPlatform/kunman/middleware/ledger/testinit"
+	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 	"github.com/google/uuid"
 	"github.com/stretchr/testify/assert"
 )
@@ -115,6 +115,7 @@ func getLedgerOnly(t *testing.T) {
 		assert.Equal(t, &ledgerResult, info)
 	}
 }
+
 func TestLedger(t *testing.T) {
 	if runByGithubAction, err := strconv.ParseBool(os.Getenv("RUN_BY_GITHUB_ACTION")); err == nil && runByGithubAction {
 		return

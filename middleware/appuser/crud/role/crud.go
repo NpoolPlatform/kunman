@@ -77,7 +77,7 @@ type Conds struct {
 	Roles     *cruder.Cond
 }
 
-//nolint
+// nolint
 func SetQueryConds(q *ent.AppRoleQuery, conds *Conds) (*ent.AppRoleQuery, error) {
 	if conds == nil {
 		return q, nil

@@ -3,9 +3,9 @@ package benefit
 import (
 	"context"
 
-	"github.com/NpoolPlatform/kunman/framework/logger"
 	powerrental "github.com/NpoolPlatform/kunman/cron/scheduler/benefit/powerrental"
 	"github.com/NpoolPlatform/kunman/cron/scheduler/config"
+	"github.com/NpoolPlatform/kunman/framework/logger"
 )
 
 const subsystem = "benefit"

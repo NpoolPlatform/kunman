@@ -8,6 +8,7 @@ package _default
 
 import (
 	context "context"
+
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -141,30 +142,36 @@ type GatewayServer interface {
 }
 
 // UnimplementedGatewayServer must be embedded to have forward compatible implementations.
-type UnimplementedGatewayServer struct {
-}
+type UnimplementedGatewayServer struct{}
 
 func (UnimplementedGatewayServer) CreateDefault(context.Context, *CreateDefaultRequest) (*CreateDefaultResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateDefault not implemented")
 }
+
 func (UnimplementedGatewayServer) GetDefaults(context.Context, *GetDefaultsRequest) (*GetDefaultsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetDefaults not implemented")
 }
+
 func (UnimplementedGatewayServer) DeleteDefault(context.Context, *DeleteDefaultRequest) (*DeleteDefaultResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteDefault not implemented")
 }
+
 func (UnimplementedGatewayServer) UpdateDefault(context.Context, *UpdateDefaultRequest) (*UpdateDefaultResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateDefault not implemented")
 }
+
 func (UnimplementedGatewayServer) AdminCreateDefault(context.Context, *AdminCreateDefaultRequest) (*AdminCreateDefaultResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AdminCreateDefault not implemented")
 }
+
 func (UnimplementedGatewayServer) AdminGetDefaults(context.Context, *AdminGetDefaultsRequest) (*AdminGetDefaultsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AdminGetDefaults not implemented")
 }
+
 func (UnimplementedGatewayServer) AdminDeleteDefault(context.Context, *AdminDeleteDefaultRequest) (*AdminDeleteDefaultResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AdminDeleteDefault not implemented")
 }
+
 func (UnimplementedGatewayServer) AdminUpdateDefault(context.Context, *AdminUpdateDefaultRequest) (*AdminUpdateDefaultResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AdminUpdateDefault not implemented")
 }

@@ -7,12 +7,13 @@
 package simulate
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	coin "github.com/NpoolPlatform/kunman/message/good/middleware/v1/good/coin"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -1440,27 +1441,29 @@ func file_good_gateway_v1_app_powerrental_simulate_simulate_proto_rawDescGZIP() 
 	return file_good_gateway_v1_app_powerrental_simulate_simulate_proto_rawDescData
 }
 
-var file_good_gateway_v1_app_powerrental_simulate_simulate_proto_msgTypes = make([]protoimpl.MessageInfo, 17)
-var file_good_gateway_v1_app_powerrental_simulate_simulate_proto_goTypes = []interface{}{
-	(*Simulate)(nil),                    // 0: good.gateway.app.powerrental.simulate.v1.Simulate
-	(*CreateSimulateRequest)(nil),       // 1: good.gateway.app.powerrental.simulate.v1.CreateSimulateRequest
-	(*CreateSimulateResponse)(nil),      // 2: good.gateway.app.powerrental.simulate.v1.CreateSimulateResponse
-	(*GetSimulatesRequest)(nil),         // 3: good.gateway.app.powerrental.simulate.v1.GetSimulatesRequest
-	(*GetSimulatesResponse)(nil),        // 4: good.gateway.app.powerrental.simulate.v1.GetSimulatesResponse
-	(*DeleteSimulateRequest)(nil),       // 5: good.gateway.app.powerrental.simulate.v1.DeleteSimulateRequest
-	(*DeleteSimulateResponse)(nil),      // 6: good.gateway.app.powerrental.simulate.v1.DeleteSimulateResponse
-	(*UpdateSimulateRequest)(nil),       // 7: good.gateway.app.powerrental.simulate.v1.UpdateSimulateRequest
-	(*UpdateSimulateResponse)(nil),      // 8: good.gateway.app.powerrental.simulate.v1.UpdateSimulateResponse
-	(*AdminCreateSimulateRequest)(nil),  // 9: good.gateway.app.powerrental.simulate.v1.AdminCreateSimulateRequest
-	(*AdminCreateSimulateResponse)(nil), // 10: good.gateway.app.powerrental.simulate.v1.AdminCreateSimulateResponse
-	(*AdminGetSimulatesRequest)(nil),    // 11: good.gateway.app.powerrental.simulate.v1.AdminGetSimulatesRequest
-	(*AdminGetSimulatesResponse)(nil),   // 12: good.gateway.app.powerrental.simulate.v1.AdminGetSimulatesResponse
-	(*AdminDeleteSimulateRequest)(nil),  // 13: good.gateway.app.powerrental.simulate.v1.AdminDeleteSimulateRequest
-	(*AdminDeleteSimulateResponse)(nil), // 14: good.gateway.app.powerrental.simulate.v1.AdminDeleteSimulateResponse
-	(*AdminUpdateSimulateRequest)(nil),  // 15: good.gateway.app.powerrental.simulate.v1.AdminUpdateSimulateRequest
-	(*AdminUpdateSimulateResponse)(nil), // 16: good.gateway.app.powerrental.simulate.v1.AdminUpdateSimulateResponse
-	(*coin.GoodCoinInfo)(nil),           // 17: good.middleware.good1.coin.v1.GoodCoinInfo
-}
+var (
+	file_good_gateway_v1_app_powerrental_simulate_simulate_proto_msgTypes = make([]protoimpl.MessageInfo, 17)
+	file_good_gateway_v1_app_powerrental_simulate_simulate_proto_goTypes  = []interface{}{
+		(*Simulate)(nil),                    // 0: good.gateway.app.powerrental.simulate.v1.Simulate
+		(*CreateSimulateRequest)(nil),       // 1: good.gateway.app.powerrental.simulate.v1.CreateSimulateRequest
+		(*CreateSimulateResponse)(nil),      // 2: good.gateway.app.powerrental.simulate.v1.CreateSimulateResponse
+		(*GetSimulatesRequest)(nil),         // 3: good.gateway.app.powerrental.simulate.v1.GetSimulatesRequest
+		(*GetSimulatesResponse)(nil),        // 4: good.gateway.app.powerrental.simulate.v1.GetSimulatesResponse
+		(*DeleteSimulateRequest)(nil),       // 5: good.gateway.app.powerrental.simulate.v1.DeleteSimulateRequest
+		(*DeleteSimulateResponse)(nil),      // 6: good.gateway.app.powerrental.simulate.v1.DeleteSimulateResponse
+		(*UpdateSimulateRequest)(nil),       // 7: good.gateway.app.powerrental.simulate.v1.UpdateSimulateRequest
+		(*UpdateSimulateResponse)(nil),      // 8: good.gateway.app.powerrental.simulate.v1.UpdateSimulateResponse
+		(*AdminCreateSimulateRequest)(nil),  // 9: good.gateway.app.powerrental.simulate.v1.AdminCreateSimulateRequest
+		(*AdminCreateSimulateResponse)(nil), // 10: good.gateway.app.powerrental.simulate.v1.AdminCreateSimulateResponse
+		(*AdminGetSimulatesRequest)(nil),    // 11: good.gateway.app.powerrental.simulate.v1.AdminGetSimulatesRequest
+		(*AdminGetSimulatesResponse)(nil),   // 12: good.gateway.app.powerrental.simulate.v1.AdminGetSimulatesResponse
+		(*AdminDeleteSimulateRequest)(nil),  // 13: good.gateway.app.powerrental.simulate.v1.AdminDeleteSimulateRequest
+		(*AdminDeleteSimulateResponse)(nil), // 14: good.gateway.app.powerrental.simulate.v1.AdminDeleteSimulateResponse
+		(*AdminUpdateSimulateRequest)(nil),  // 15: good.gateway.app.powerrental.simulate.v1.AdminUpdateSimulateRequest
+		(*AdminUpdateSimulateResponse)(nil), // 16: good.gateway.app.powerrental.simulate.v1.AdminUpdateSimulateResponse
+		(*coin.GoodCoinInfo)(nil),           // 17: good.middleware.good1.coin.v1.GoodCoinInfo
+	}
+)
 var file_good_gateway_v1_app_powerrental_simulate_simulate_proto_depIdxs = []int32{
 	17, // 0: good.gateway.app.powerrental.simulate.v1.Simulate.GoodCoins:type_name -> good.middleware.good1.coin.v1.GoodCoinInfo
 	0,  // 1: good.gateway.app.powerrental.simulate.v1.CreateSimulateResponse.Info:type_name -> good.gateway.app.powerrental.simulate.v1.Simulate

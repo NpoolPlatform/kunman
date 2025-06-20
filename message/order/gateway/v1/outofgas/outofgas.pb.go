@@ -7,12 +7,13 @@
 package outofgas
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/good/v1"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -736,17 +737,19 @@ func file_order_gateway_v1_outofgas_outofgas_proto_rawDescGZIP() []byte {
 	return file_order_gateway_v1_outofgas_outofgas_proto_rawDescData
 }
 
-var file_order_gateway_v1_outofgas_outofgas_proto_msgTypes = make([]protoimpl.MessageInfo, 7)
-var file_order_gateway_v1_outofgas_outofgas_proto_goTypes = []interface{}{
-	(*OutOfGas)(nil),                   // 0: order.gateway.outofgas.v1.OutOfGas
-	(*GetOutOfGasesRequest)(nil),       // 1: order.gateway.outofgas.v1.GetOutOfGasesRequest
-	(*GetOutOfGasesResponse)(nil),      // 2: order.gateway.outofgas.v1.GetOutOfGasesResponse
-	(*GetMyOutOfGasesRequest)(nil),     // 3: order.gateway.outofgas.v1.GetMyOutOfGasesRequest
-	(*GetMyOutOfGasesResponse)(nil),    // 4: order.gateway.outofgas.v1.GetMyOutOfGasesResponse
-	(*AdminGetOutOfGasesRequest)(nil),  // 5: order.gateway.outofgas.v1.AdminGetOutOfGasesRequest
-	(*AdminGetOutOfGasesResponse)(nil), // 6: order.gateway.outofgas.v1.AdminGetOutOfGasesResponse
-	(v1.GoodType)(0),                   // 7: basetypes.good.v1.GoodType
-}
+var (
+	file_order_gateway_v1_outofgas_outofgas_proto_msgTypes = make([]protoimpl.MessageInfo, 7)
+	file_order_gateway_v1_outofgas_outofgas_proto_goTypes  = []interface{}{
+		(*OutOfGas)(nil),                   // 0: order.gateway.outofgas.v1.OutOfGas
+		(*GetOutOfGasesRequest)(nil),       // 1: order.gateway.outofgas.v1.GetOutOfGasesRequest
+		(*GetOutOfGasesResponse)(nil),      // 2: order.gateway.outofgas.v1.GetOutOfGasesResponse
+		(*GetMyOutOfGasesRequest)(nil),     // 3: order.gateway.outofgas.v1.GetMyOutOfGasesRequest
+		(*GetMyOutOfGasesResponse)(nil),    // 4: order.gateway.outofgas.v1.GetMyOutOfGasesResponse
+		(*AdminGetOutOfGasesRequest)(nil),  // 5: order.gateway.outofgas.v1.AdminGetOutOfGasesRequest
+		(*AdminGetOutOfGasesResponse)(nil), // 6: order.gateway.outofgas.v1.AdminGetOutOfGasesResponse
+		(v1.GoodType)(0),                   // 7: basetypes.good.v1.GoodType
+	}
+)
 var file_order_gateway_v1_outofgas_outofgas_proto_depIdxs = []int32{
 	7, // 0: order.gateway.outofgas.v1.OutOfGas.GoodType:type_name -> basetypes.good.v1.GoodType
 	0, // 1: order.gateway.outofgas.v1.GetOutOfGasesResponse.Infos:type_name -> order.gateway.outofgas.v1.OutOfGas

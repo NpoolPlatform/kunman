@@ -7,11 +7,12 @@
 package profit
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -381,13 +382,15 @@ func file_ledger_middleware_v2_simulate_ledger_profit_profit_proto_rawDescGZIP()
 	return file_ledger_middleware_v2_simulate_ledger_profit_profit_proto_rawDescData
 }
 
-var file_ledger_middleware_v2_simulate_ledger_profit_profit_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
-var file_ledger_middleware_v2_simulate_ledger_profit_profit_proto_goTypes = []interface{}{
-	(*ProfitReq)(nil),    // 0: ledger.middleware.simulate.ledger.profit.v2.ProfitReq
-	(*Profit)(nil),       // 1: ledger.middleware.simulate.ledger.profit.v2.Profit
-	(*Conds)(nil),        // 2: ledger.middleware.simulate.ledger.profit.v2.Conds
-	(*v1.StringVal)(nil), // 3: basetypes.v1.StringVal
-}
+var (
+	file_ledger_middleware_v2_simulate_ledger_profit_profit_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
+	file_ledger_middleware_v2_simulate_ledger_profit_profit_proto_goTypes  = []interface{}{
+		(*ProfitReq)(nil),    // 0: ledger.middleware.simulate.ledger.profit.v2.ProfitReq
+		(*Profit)(nil),       // 1: ledger.middleware.simulate.ledger.profit.v2.Profit
+		(*Conds)(nil),        // 2: ledger.middleware.simulate.ledger.profit.v2.Conds
+		(*v1.StringVal)(nil), // 3: basetypes.v1.StringVal
+	}
+)
 var file_ledger_middleware_v2_simulate_ledger_profit_profit_proto_depIdxs = []int32{
 	3, // 0: ledger.middleware.simulate.ledger.profit.v2.Conds.EntID:type_name -> basetypes.v1.StringVal
 	3, // 1: ledger.middleware.simulate.ledger.profit.v2.Conds.AppID:type_name -> basetypes.v1.StringVal

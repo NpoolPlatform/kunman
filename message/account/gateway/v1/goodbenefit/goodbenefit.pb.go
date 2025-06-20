@@ -7,13 +7,14 @@
 package goodbenefit
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/good/v1"
 	v11 "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -703,18 +704,20 @@ func file_account_gateway_v1_goodbenefit_goodbenefit_proto_rawDescGZIP() []byte 
 	return file_account_gateway_v1_goodbenefit_goodbenefit_proto_rawDescData
 }
 
-var file_account_gateway_v1_goodbenefit_goodbenefit_proto_msgTypes = make([]protoimpl.MessageInfo, 7)
-var file_account_gateway_v1_goodbenefit_goodbenefit_proto_goTypes = []interface{}{
-	(*Account)(nil),               // 0: account.gateway.goodbenefit.v1.Account
-	(*CreateAccountRequest)(nil),  // 1: account.gateway.goodbenefit.v1.CreateAccountRequest
-	(*CreateAccountResponse)(nil), // 2: account.gateway.goodbenefit.v1.CreateAccountResponse
-	(*UpdateAccountRequest)(nil),  // 3: account.gateway.goodbenefit.v1.UpdateAccountRequest
-	(*UpdateAccountResponse)(nil), // 4: account.gateway.goodbenefit.v1.UpdateAccountResponse
-	(*GetAccountsRequest)(nil),    // 5: account.gateway.goodbenefit.v1.GetAccountsRequest
-	(*GetAccountsResponse)(nil),   // 6: account.gateway.goodbenefit.v1.GetAccountsResponse
-	(v1.GoodType)(0),              // 7: basetypes.good.v1.GoodType
-	(v11.AccountLockedBy)(0),      // 8: basetypes.v1.AccountLockedBy
-}
+var (
+	file_account_gateway_v1_goodbenefit_goodbenefit_proto_msgTypes = make([]protoimpl.MessageInfo, 7)
+	file_account_gateway_v1_goodbenefit_goodbenefit_proto_goTypes  = []interface{}{
+		(*Account)(nil),               // 0: account.gateway.goodbenefit.v1.Account
+		(*CreateAccountRequest)(nil),  // 1: account.gateway.goodbenefit.v1.CreateAccountRequest
+		(*CreateAccountResponse)(nil), // 2: account.gateway.goodbenefit.v1.CreateAccountResponse
+		(*UpdateAccountRequest)(nil),  // 3: account.gateway.goodbenefit.v1.UpdateAccountRequest
+		(*UpdateAccountResponse)(nil), // 4: account.gateway.goodbenefit.v1.UpdateAccountResponse
+		(*GetAccountsRequest)(nil),    // 5: account.gateway.goodbenefit.v1.GetAccountsRequest
+		(*GetAccountsResponse)(nil),   // 6: account.gateway.goodbenefit.v1.GetAccountsResponse
+		(v1.GoodType)(0),              // 7: basetypes.good.v1.GoodType
+		(v11.AccountLockedBy)(0),      // 8: basetypes.v1.AccountLockedBy
+	}
+)
 var file_account_gateway_v1_goodbenefit_goodbenefit_proto_depIdxs = []int32{
 	7, // 0: account.gateway.goodbenefit.v1.Account.GoodType:type_name -> basetypes.good.v1.GoodType
 	8, // 1: account.gateway.goodbenefit.v1.Account.LockedBy:type_name -> basetypes.v1.AccountLockedBy

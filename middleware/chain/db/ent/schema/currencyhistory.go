@@ -6,8 +6,8 @@ import (
 	"entgo.io/ent/dialect"
 	"entgo.io/ent/schema/field"
 	"entgo.io/ent/schema/index"
-	crudermixin "github.com/NpoolPlatform/kunman/pkg/cruder/mixin"
 	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
+	crudermixin "github.com/NpoolPlatform/kunman/pkg/cruder/mixin"
 	"github.com/google/uuid"
 	"github.com/shopspring/decimal"
 )

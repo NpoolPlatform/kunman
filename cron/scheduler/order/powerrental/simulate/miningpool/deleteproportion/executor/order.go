@@ -3,9 +3,9 @@ package executor
 import (
 	"context"
 
-	powerrentalordermwpb "github.com/NpoolPlatform/kunman/message/order/middleware/v1/powerrental"
 	asyncfeed "github.com/NpoolPlatform/kunman/cron/scheduler/base/asyncfeed"
 	types "github.com/NpoolPlatform/kunman/cron/scheduler/order/powerrental/simulate/miningpool/deleteproportion/types"
+	powerrentalordermwpb "github.com/NpoolPlatform/kunman/message/order/middleware/v1/powerrental"
 )
 
 type orderHandler struct {

@@ -8,6 +8,7 @@ package cashcontrol
 
 import (
 	context "context"
+
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -103,21 +104,24 @@ type GatewayServer interface {
 }
 
 // UnimplementedGatewayServer must be embedded to have forward compatible implementations.
-type UnimplementedGatewayServer struct {
-}
+type UnimplementedGatewayServer struct{}
 
 func (UnimplementedGatewayServer) GetCashControls(context.Context, *GetCashControlsRequest) (*GetCashControlsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetCashControls not implemented")
 }
+
 func (UnimplementedGatewayServer) CreateCashControl(context.Context, *CreateCashControlRequest) (*CreateCashControlResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateCashControl not implemented")
 }
+
 func (UnimplementedGatewayServer) UpdateCashControl(context.Context, *UpdateCashControlRequest) (*UpdateCashControlResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateCashControl not implemented")
 }
+
 func (UnimplementedGatewayServer) DeleteCashControl(context.Context, *DeleteCashControlRequest) (*DeleteCashControlResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteCashControl not implemented")
 }
+
 func (UnimplementedGatewayServer) GetAppCashControls(context.Context, *GetAppCashControlsRequest) (*GetAppCashControlsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetAppCashControls not implemented")
 }

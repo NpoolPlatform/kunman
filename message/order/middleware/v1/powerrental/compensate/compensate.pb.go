@@ -7,14 +7,15 @@
 package compensate
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	_ "github.com/NpoolPlatform/kunman/message/basetypes/good/v1"
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/order/v1"
 	_ "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	_ "github.com/NpoolPlatform/kunman/message/order/middleware/v1/compensate"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -183,11 +184,13 @@ func file_order_middleware_v1_powerrental_compensate_compensate_proto_rawDescGZI
 	return file_order_middleware_v1_powerrental_compensate_compensate_proto_rawDescData
 }
 
-var file_order_middleware_v1_powerrental_compensate_compensate_proto_msgTypes = make([]protoimpl.MessageInfo, 1)
-var file_order_middleware_v1_powerrental_compensate_compensate_proto_goTypes = []interface{}{
-	(*CompensateReq)(nil),  // 0: order.middleware.powerrental.compensate.v1.CompensateReq
-	(v1.CompensateType)(0), // 1: basetypes.order.v1.CompensateType
-}
+var (
+	file_order_middleware_v1_powerrental_compensate_compensate_proto_msgTypes = make([]protoimpl.MessageInfo, 1)
+	file_order_middleware_v1_powerrental_compensate_compensate_proto_goTypes  = []interface{}{
+		(*CompensateReq)(nil),  // 0: order.middleware.powerrental.compensate.v1.CompensateReq
+		(v1.CompensateType)(0), // 1: basetypes.order.v1.CompensateType
+	}
+)
 var file_order_middleware_v1_powerrental_compensate_compensate_proto_depIdxs = []int32{
 	1, // 0: order.middleware.powerrental.compensate.v1.CompensateReq.CompensateType:type_name -> basetypes.order.v1.CompensateType
 	1, // [1:1] is the sub-list for method output_type

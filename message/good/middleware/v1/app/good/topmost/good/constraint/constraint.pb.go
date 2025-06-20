@@ -7,12 +7,13 @@
 package constraint
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/good/v1"
 	v11 "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -520,16 +521,18 @@ func file_good_middleware_v1_app_good_topmost_good_constraint_constraint_proto_r
 	return file_good_middleware_v1_app_good_topmost_good_constraint_constraint_proto_rawDescData
 }
 
-var file_good_middleware_v1_app_good_topmost_good_constraint_constraint_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
-var file_good_middleware_v1_app_good_topmost_good_constraint_constraint_proto_goTypes = []interface{}{
-	(*TopMostGoodConstraintReq)(nil), // 0: good.middleware.app.good1.topmost.good2.constraint.v1.TopMostGoodConstraintReq
-	(*TopMostGoodConstraint)(nil),    // 1: good.middleware.app.good1.topmost.good2.constraint.v1.TopMostGoodConstraint
-	(*Conds)(nil),                    // 2: good.middleware.app.good1.topmost.good2.constraint.v1.Conds
-	(v1.GoodTopMostConstraint)(0),    // 3: basetypes.good.v1.GoodTopMostConstraint
-	(v1.GoodTopMostType)(0),          // 4: basetypes.good.v1.GoodTopMostType
-	(*v11.Uint32Val)(nil),            // 5: basetypes.v1.Uint32Val
-	(*v11.StringVal)(nil),            // 6: basetypes.v1.StringVal
-}
+var (
+	file_good_middleware_v1_app_good_topmost_good_constraint_constraint_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
+	file_good_middleware_v1_app_good_topmost_good_constraint_constraint_proto_goTypes  = []interface{}{
+		(*TopMostGoodConstraintReq)(nil), // 0: good.middleware.app.good1.topmost.good2.constraint.v1.TopMostGoodConstraintReq
+		(*TopMostGoodConstraint)(nil),    // 1: good.middleware.app.good1.topmost.good2.constraint.v1.TopMostGoodConstraint
+		(*Conds)(nil),                    // 2: good.middleware.app.good1.topmost.good2.constraint.v1.Conds
+		(v1.GoodTopMostConstraint)(0),    // 3: basetypes.good.v1.GoodTopMostConstraint
+		(v1.GoodTopMostType)(0),          // 4: basetypes.good.v1.GoodTopMostType
+		(*v11.Uint32Val)(nil),            // 5: basetypes.v1.Uint32Val
+		(*v11.StringVal)(nil),            // 6: basetypes.v1.StringVal
+	}
+)
 var file_good_middleware_v1_app_good_topmost_good_constraint_constraint_proto_depIdxs = []int32{
 	3, // 0: good.middleware.app.good1.topmost.good2.constraint.v1.TopMostGoodConstraintReq.Constraint:type_name -> basetypes.good.v1.GoodTopMostConstraint
 	4, // 1: good.middleware.app.good1.topmost.good2.constraint.v1.TopMostGoodConstraint.TopMostType:type_name -> basetypes.good.v1.GoodTopMostType

@@ -7,13 +7,14 @@
 package withdraw
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/ledger/v1"
 	v11 "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -848,20 +849,22 @@ func file_ledger_gateway_v1_withdraw_withdraw_proto_rawDescGZIP() []byte {
 	return file_ledger_gateway_v1_withdraw_withdraw_proto_rawDescData
 }
 
-var file_ledger_gateway_v1_withdraw_withdraw_proto_msgTypes = make([]protoimpl.MessageInfo, 9)
-var file_ledger_gateway_v1_withdraw_withdraw_proto_goTypes = []interface{}{
-	(*Withdraw)(nil),                 // 0: ledger.gateway.withdraw.v1.Withdraw
-	(*CreateWithdrawRequest)(nil),    // 1: ledger.gateway.withdraw.v1.CreateWithdrawRequest
-	(*CreateWithdrawResponse)(nil),   // 2: ledger.gateway.withdraw.v1.CreateWithdrawResponse
-	(*GetWithdrawsRequest)(nil),      // 3: ledger.gateway.withdraw.v1.GetWithdrawsRequest
-	(*GetWithdrawsResponse)(nil),     // 4: ledger.gateway.withdraw.v1.GetWithdrawsResponse
-	(*GetAppWithdrawsRequest)(nil),   // 5: ledger.gateway.withdraw.v1.GetAppWithdrawsRequest
-	(*GetAppWithdrawsResponse)(nil),  // 6: ledger.gateway.withdraw.v1.GetAppWithdrawsResponse
-	(*GetNAppWithdrawsRequest)(nil),  // 7: ledger.gateway.withdraw.v1.GetNAppWithdrawsRequest
-	(*GetNAppWithdrawsResponse)(nil), // 8: ledger.gateway.withdraw.v1.GetNAppWithdrawsResponse
-	(v1.WithdrawState)(0),            // 9: basetypes.ledger.v1.WithdrawState
-	(v11.SignMethod)(0),              // 10: basetypes.v1.SignMethod
-}
+var (
+	file_ledger_gateway_v1_withdraw_withdraw_proto_msgTypes = make([]protoimpl.MessageInfo, 9)
+	file_ledger_gateway_v1_withdraw_withdraw_proto_goTypes  = []interface{}{
+		(*Withdraw)(nil),                 // 0: ledger.gateway.withdraw.v1.Withdraw
+		(*CreateWithdrawRequest)(nil),    // 1: ledger.gateway.withdraw.v1.CreateWithdrawRequest
+		(*CreateWithdrawResponse)(nil),   // 2: ledger.gateway.withdraw.v1.CreateWithdrawResponse
+		(*GetWithdrawsRequest)(nil),      // 3: ledger.gateway.withdraw.v1.GetWithdrawsRequest
+		(*GetWithdrawsResponse)(nil),     // 4: ledger.gateway.withdraw.v1.GetWithdrawsResponse
+		(*GetAppWithdrawsRequest)(nil),   // 5: ledger.gateway.withdraw.v1.GetAppWithdrawsRequest
+		(*GetAppWithdrawsResponse)(nil),  // 6: ledger.gateway.withdraw.v1.GetAppWithdrawsResponse
+		(*GetNAppWithdrawsRequest)(nil),  // 7: ledger.gateway.withdraw.v1.GetNAppWithdrawsRequest
+		(*GetNAppWithdrawsResponse)(nil), // 8: ledger.gateway.withdraw.v1.GetNAppWithdrawsResponse
+		(v1.WithdrawState)(0),            // 9: basetypes.ledger.v1.WithdrawState
+		(v11.SignMethod)(0),              // 10: basetypes.v1.SignMethod
+	}
+)
 var file_ledger_gateway_v1_withdraw_withdraw_proto_depIdxs = []int32{
 	9,  // 0: ledger.gateway.withdraw.v1.Withdraw.State:type_name -> basetypes.ledger.v1.WithdrawState
 	10, // 1: ledger.gateway.withdraw.v1.CreateWithdrawRequest.AccountType:type_name -> basetypes.v1.SignMethod

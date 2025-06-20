@@ -7,6 +7,9 @@
 package oneshot
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/good/v1"
 	_ "github.com/NpoolPlatform/kunman/message/good/gateway/v1/good/coin"
 	_ "github.com/NpoolPlatform/kunman/message/good/gateway/v1/good/coin/reward"
@@ -21,8 +24,6 @@ import (
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -1467,30 +1468,32 @@ func file_good_gateway_v1_app_subscription_oneshot_oneshot_proto_rawDescGZIP() [
 	return file_good_gateway_v1_app_subscription_oneshot_oneshot_proto_rawDescData
 }
 
-var file_good_gateway_v1_app_subscription_oneshot_oneshot_proto_msgTypes = make([]protoimpl.MessageInfo, 15)
-var file_good_gateway_v1_app_subscription_oneshot_oneshot_proto_goTypes = []interface{}{
-	(*AppOneShot)(nil),                    // 0: good.gateway.app.subscription.oneshot.v1.AppOneShot
-	(*UpdateAppOneShotRequest)(nil),       // 1: good.gateway.app.subscription.oneshot.v1.UpdateAppOneShotRequest
-	(*UpdateAppOneShotResponse)(nil),      // 2: good.gateway.app.subscription.oneshot.v1.UpdateAppOneShotResponse
-	(*GetAppOneShotRequest)(nil),          // 3: good.gateway.app.subscription.oneshot.v1.GetAppOneShotRequest
-	(*GetAppOneShotResponse)(nil),         // 4: good.gateway.app.subscription.oneshot.v1.GetAppOneShotResponse
-	(*GetAppOneShotsRequest)(nil),         // 5: good.gateway.app.subscription.oneshot.v1.GetAppOneShotsRequest
-	(*GetAppOneShotsResponse)(nil),        // 6: good.gateway.app.subscription.oneshot.v1.GetAppOneShotsResponse
-	(*AdminCreateAppOneShotRequest)(nil),  // 7: good.gateway.app.subscription.oneshot.v1.AdminCreateAppOneShotRequest
-	(*AdminCreateAppOneShotResponse)(nil), // 8: good.gateway.app.subscription.oneshot.v1.AdminCreateAppOneShotResponse
-	(*AdminUpdateAppOneShotRequest)(nil),  // 9: good.gateway.app.subscription.oneshot.v1.AdminUpdateAppOneShotRequest
-	(*AdminUpdateAppOneShotResponse)(nil), // 10: good.gateway.app.subscription.oneshot.v1.AdminUpdateAppOneShotResponse
-	(*AdminGetAppOneShotsRequest)(nil),    // 11: good.gateway.app.subscription.oneshot.v1.AdminGetAppOneShotsRequest
-	(*AdminGetAppOneShotsResponse)(nil),   // 12: good.gateway.app.subscription.oneshot.v1.AdminGetAppOneShotsResponse
-	(*AdminDeleteAppOneShotRequest)(nil),  // 13: good.gateway.app.subscription.oneshot.v1.AdminDeleteAppOneShotRequest
-	(*AdminDeleteAppOneShotResponse)(nil), // 14: good.gateway.app.subscription.oneshot.v1.AdminDeleteAppOneShotResponse
-	(v1.GoodType)(0),                      // 15: basetypes.good.v1.GoodType
-	(*description.DescriptionInfo)(nil),   // 16: good.middleware.app.good1.description.v1.DescriptionInfo
-	(*poster.PosterInfo)(nil),             // 17: good.middleware.app.good1.poster.v1.PosterInfo
-	(*name.DisplayNameInfo)(nil),          // 18: good.middleware.app.good1.display.name.v1.DisplayNameInfo
-	(*color.DisplayColorInfo)(nil),        // 19: good.middleware.app.good1.display.color.v1.DisplayColorInfo
-	(*label.LabelInfo)(nil),               // 20: good.middleware.app.good1.label.v1.LabelInfo
-}
+var (
+	file_good_gateway_v1_app_subscription_oneshot_oneshot_proto_msgTypes = make([]protoimpl.MessageInfo, 15)
+	file_good_gateway_v1_app_subscription_oneshot_oneshot_proto_goTypes  = []interface{}{
+		(*AppOneShot)(nil),                    // 0: good.gateway.app.subscription.oneshot.v1.AppOneShot
+		(*UpdateAppOneShotRequest)(nil),       // 1: good.gateway.app.subscription.oneshot.v1.UpdateAppOneShotRequest
+		(*UpdateAppOneShotResponse)(nil),      // 2: good.gateway.app.subscription.oneshot.v1.UpdateAppOneShotResponse
+		(*GetAppOneShotRequest)(nil),          // 3: good.gateway.app.subscription.oneshot.v1.GetAppOneShotRequest
+		(*GetAppOneShotResponse)(nil),         // 4: good.gateway.app.subscription.oneshot.v1.GetAppOneShotResponse
+		(*GetAppOneShotsRequest)(nil),         // 5: good.gateway.app.subscription.oneshot.v1.GetAppOneShotsRequest
+		(*GetAppOneShotsResponse)(nil),        // 6: good.gateway.app.subscription.oneshot.v1.GetAppOneShotsResponse
+		(*AdminCreateAppOneShotRequest)(nil),  // 7: good.gateway.app.subscription.oneshot.v1.AdminCreateAppOneShotRequest
+		(*AdminCreateAppOneShotResponse)(nil), // 8: good.gateway.app.subscription.oneshot.v1.AdminCreateAppOneShotResponse
+		(*AdminUpdateAppOneShotRequest)(nil),  // 9: good.gateway.app.subscription.oneshot.v1.AdminUpdateAppOneShotRequest
+		(*AdminUpdateAppOneShotResponse)(nil), // 10: good.gateway.app.subscription.oneshot.v1.AdminUpdateAppOneShotResponse
+		(*AdminGetAppOneShotsRequest)(nil),    // 11: good.gateway.app.subscription.oneshot.v1.AdminGetAppOneShotsRequest
+		(*AdminGetAppOneShotsResponse)(nil),   // 12: good.gateway.app.subscription.oneshot.v1.AdminGetAppOneShotsResponse
+		(*AdminDeleteAppOneShotRequest)(nil),  // 13: good.gateway.app.subscription.oneshot.v1.AdminDeleteAppOneShotRequest
+		(*AdminDeleteAppOneShotResponse)(nil), // 14: good.gateway.app.subscription.oneshot.v1.AdminDeleteAppOneShotResponse
+		(v1.GoodType)(0),                      // 15: basetypes.good.v1.GoodType
+		(*description.DescriptionInfo)(nil),   // 16: good.middleware.app.good1.description.v1.DescriptionInfo
+		(*poster.PosterInfo)(nil),             // 17: good.middleware.app.good1.poster.v1.PosterInfo
+		(*name.DisplayNameInfo)(nil),          // 18: good.middleware.app.good1.display.name.v1.DisplayNameInfo
+		(*color.DisplayColorInfo)(nil),        // 19: good.middleware.app.good1.display.color.v1.DisplayColorInfo
+		(*label.LabelInfo)(nil),               // 20: good.middleware.app.good1.label.v1.LabelInfo
+	}
+)
 var file_good_gateway_v1_app_subscription_oneshot_oneshot_proto_depIdxs = []int32{
 	15, // 0: good.gateway.app.subscription.oneshot.v1.AppOneShot.GoodType:type_name -> basetypes.good.v1.GoodType
 	16, // 1: good.gateway.app.subscription.oneshot.v1.AppOneShot.Descriptions:type_name -> good.middleware.app.good1.description.v1.DescriptionInfo

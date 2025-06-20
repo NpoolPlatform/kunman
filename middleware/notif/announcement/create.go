@@ -4,10 +4,10 @@ import (
 	"context"
 	"fmt"
 
+	npool "github.com/NpoolPlatform/kunman/message/notif/middleware/v1/announcement"
 	crud "github.com/NpoolPlatform/kunman/middleware/notif/crud/announcement"
 	"github.com/NpoolPlatform/kunman/middleware/notif/db"
 	ent "github.com/NpoolPlatform/kunman/middleware/notif/db/ent/generated"
-	npool "github.com/NpoolPlatform/kunman/message/notif/middleware/v1/announcement"
 	"github.com/google/uuid"
 )
 

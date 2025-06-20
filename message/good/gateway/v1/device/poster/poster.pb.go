@@ -7,13 +7,14 @@
 package poster
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	_ "github.com/NpoolPlatform/kunman/message/basetypes/good/v1"
 	poster "github.com/NpoolPlatform/kunman/message/good/middleware/v1/device/poster"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -601,18 +602,20 @@ func file_good_gateway_v1_device_poster_poster_proto_rawDescGZIP() []byte {
 	return file_good_gateway_v1_device_poster_poster_proto_rawDescData
 }
 
-var file_good_gateway_v1_device_poster_poster_proto_msgTypes = make([]protoimpl.MessageInfo, 8)
-var file_good_gateway_v1_device_poster_poster_proto_goTypes = []interface{}{
-	(*AdminCreatePosterRequest)(nil),  // 0: good.gateway.device.poster.v1.AdminCreatePosterRequest
-	(*AdminCreatePosterResponse)(nil), // 1: good.gateway.device.poster.v1.AdminCreatePosterResponse
-	(*AdminUpdatePosterRequest)(nil),  // 2: good.gateway.device.poster.v1.AdminUpdatePosterRequest
-	(*AdminUpdatePosterResponse)(nil), // 3: good.gateway.device.poster.v1.AdminUpdatePosterResponse
-	(*GetPostersRequest)(nil),         // 4: good.gateway.device.poster.v1.GetPostersRequest
-	(*GetPostersResponse)(nil),        // 5: good.gateway.device.poster.v1.GetPostersResponse
-	(*AdminDeletePosterRequest)(nil),  // 6: good.gateway.device.poster.v1.AdminDeletePosterRequest
-	(*AdminDeletePosterResponse)(nil), // 7: good.gateway.device.poster.v1.AdminDeletePosterResponse
-	(*poster.Poster)(nil),             // 8: good.middleware.device.poster.v1.Poster
-}
+var (
+	file_good_gateway_v1_device_poster_poster_proto_msgTypes = make([]protoimpl.MessageInfo, 8)
+	file_good_gateway_v1_device_poster_poster_proto_goTypes  = []interface{}{
+		(*AdminCreatePosterRequest)(nil),  // 0: good.gateway.device.poster.v1.AdminCreatePosterRequest
+		(*AdminCreatePosterResponse)(nil), // 1: good.gateway.device.poster.v1.AdminCreatePosterResponse
+		(*AdminUpdatePosterRequest)(nil),  // 2: good.gateway.device.poster.v1.AdminUpdatePosterRequest
+		(*AdminUpdatePosterResponse)(nil), // 3: good.gateway.device.poster.v1.AdminUpdatePosterResponse
+		(*GetPostersRequest)(nil),         // 4: good.gateway.device.poster.v1.GetPostersRequest
+		(*GetPostersResponse)(nil),        // 5: good.gateway.device.poster.v1.GetPostersResponse
+		(*AdminDeletePosterRequest)(nil),  // 6: good.gateway.device.poster.v1.AdminDeletePosterRequest
+		(*AdminDeletePosterResponse)(nil), // 7: good.gateway.device.poster.v1.AdminDeletePosterResponse
+		(*poster.Poster)(nil),             // 8: good.middleware.device.poster.v1.Poster
+	}
+)
 var file_good_gateway_v1_device_poster_poster_proto_depIdxs = []int32{
 	8, // 0: good.gateway.device.poster.v1.AdminCreatePosterResponse.Info:type_name -> good.middleware.device.poster.v1.Poster
 	8, // 1: good.gateway.device.poster.v1.AdminUpdatePosterResponse.Info:type_name -> good.middleware.device.poster.v1.Poster

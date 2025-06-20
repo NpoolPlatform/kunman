@@ -7,13 +7,14 @@
 package channel
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	channel "github.com/NpoolPlatform/kunman/message/notif/middleware/v1/notif/channel"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -611,20 +612,22 @@ func file_notif_gateway_v1_notif_channel_channel_proto_rawDescGZIP() []byte {
 	return file_notif_gateway_v1_notif_channel_channel_proto_rawDescData
 }
 
-var file_notif_gateway_v1_notif_channel_channel_proto_msgTypes = make([]protoimpl.MessageInfo, 8)
-var file_notif_gateway_v1_notif_channel_channel_proto_goTypes = []interface{}{
-	(*CreateChannelRequest)(nil),    // 0: notif.gateway.notif2.channel.v1.CreateChannelRequest
-	(*CreateChannelResponse)(nil),   // 1: notif.gateway.notif2.channel.v1.CreateChannelResponse
-	(*DeleteChannelRequest)(nil),    // 2: notif.gateway.notif2.channel.v1.DeleteChannelRequest
-	(*DeleteChannelResponse)(nil),   // 3: notif.gateway.notif2.channel.v1.DeleteChannelResponse
-	(*GetAppChannelsRequest)(nil),   // 4: notif.gateway.notif2.channel.v1.GetAppChannelsRequest
-	(*GetAppChannelsResponse)(nil),  // 5: notif.gateway.notif2.channel.v1.GetAppChannelsResponse
-	(*GetNAppChannelsRequest)(nil),  // 6: notif.gateway.notif2.channel.v1.GetNAppChannelsRequest
-	(*GetNAppChannelsResponse)(nil), // 7: notif.gateway.notif2.channel.v1.GetNAppChannelsResponse
-	(v1.UsedFor)(0),                 // 8: basetypes.v1.UsedFor
-	(v1.NotifChannel)(0),            // 9: basetypes.v1.NotifChannel
-	(*channel.Channel)(nil),         // 10: notif.middleware.notif.channel.v1.Channel
-}
+var (
+	file_notif_gateway_v1_notif_channel_channel_proto_msgTypes = make([]protoimpl.MessageInfo, 8)
+	file_notif_gateway_v1_notif_channel_channel_proto_goTypes  = []interface{}{
+		(*CreateChannelRequest)(nil),    // 0: notif.gateway.notif2.channel.v1.CreateChannelRequest
+		(*CreateChannelResponse)(nil),   // 1: notif.gateway.notif2.channel.v1.CreateChannelResponse
+		(*DeleteChannelRequest)(nil),    // 2: notif.gateway.notif2.channel.v1.DeleteChannelRequest
+		(*DeleteChannelResponse)(nil),   // 3: notif.gateway.notif2.channel.v1.DeleteChannelResponse
+		(*GetAppChannelsRequest)(nil),   // 4: notif.gateway.notif2.channel.v1.GetAppChannelsRequest
+		(*GetAppChannelsResponse)(nil),  // 5: notif.gateway.notif2.channel.v1.GetAppChannelsResponse
+		(*GetNAppChannelsRequest)(nil),  // 6: notif.gateway.notif2.channel.v1.GetNAppChannelsRequest
+		(*GetNAppChannelsResponse)(nil), // 7: notif.gateway.notif2.channel.v1.GetNAppChannelsResponse
+		(v1.UsedFor)(0),                 // 8: basetypes.v1.UsedFor
+		(v1.NotifChannel)(0),            // 9: basetypes.v1.NotifChannel
+		(*channel.Channel)(nil),         // 10: notif.middleware.notif.channel.v1.Channel
+	}
+)
 var file_notif_gateway_v1_notif_channel_channel_proto_depIdxs = []int32{
 	8,  // 0: notif.gateway.notif2.channel.v1.CreateChannelRequest.EventType:type_name -> basetypes.v1.UsedFor
 	9,  // 1: notif.gateway.notif2.channel.v1.CreateChannelRequest.Channel:type_name -> basetypes.v1.NotifChannel

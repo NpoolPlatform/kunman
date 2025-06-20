@@ -7,11 +7,12 @@
 package allocated
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -547,14 +548,16 @@ func file_inspire_gateway_v1_coin_allocated_allocated_proto_rawDescGZIP() []byte
 	return file_inspire_gateway_v1_coin_allocated_allocated_proto_rawDescData
 }
 
-var file_inspire_gateway_v1_coin_allocated_allocated_proto_msgTypes = make([]protoimpl.MessageInfo, 5)
-var file_inspire_gateway_v1_coin_allocated_allocated_proto_goTypes = []interface{}{
-	(*CoinAllocated)(nil),                  // 0: inspire.gateway.coin.allocated.v1.CoinAllocated
-	(*GetMyCoinAllocatedsRequest)(nil),     // 1: inspire.gateway.coin.allocated.v1.GetMyCoinAllocatedsRequest
-	(*GetMyCoinAllocatedsResponse)(nil),    // 2: inspire.gateway.coin.allocated.v1.GetMyCoinAllocatedsResponse
-	(*AdminGetCoinAllocatedsRequest)(nil),  // 3: inspire.gateway.coin.allocated.v1.AdminGetCoinAllocatedsRequest
-	(*AdminGetCoinAllocatedsResponse)(nil), // 4: inspire.gateway.coin.allocated.v1.AdminGetCoinAllocatedsResponse
-}
+var (
+	file_inspire_gateway_v1_coin_allocated_allocated_proto_msgTypes = make([]protoimpl.MessageInfo, 5)
+	file_inspire_gateway_v1_coin_allocated_allocated_proto_goTypes  = []interface{}{
+		(*CoinAllocated)(nil),                  // 0: inspire.gateway.coin.allocated.v1.CoinAllocated
+		(*GetMyCoinAllocatedsRequest)(nil),     // 1: inspire.gateway.coin.allocated.v1.GetMyCoinAllocatedsRequest
+		(*GetMyCoinAllocatedsResponse)(nil),    // 2: inspire.gateway.coin.allocated.v1.GetMyCoinAllocatedsResponse
+		(*AdminGetCoinAllocatedsRequest)(nil),  // 3: inspire.gateway.coin.allocated.v1.AdminGetCoinAllocatedsRequest
+		(*AdminGetCoinAllocatedsResponse)(nil), // 4: inspire.gateway.coin.allocated.v1.AdminGetCoinAllocatedsResponse
+	}
+)
 var file_inspire_gateway_v1_coin_allocated_allocated_proto_depIdxs = []int32{
 	0, // 0: inspire.gateway.coin.allocated.v1.GetMyCoinAllocatedsResponse.Infos:type_name -> inspire.gateway.coin.allocated.v1.CoinAllocated
 	0, // 1: inspire.gateway.coin.allocated.v1.AdminGetCoinAllocatedsResponse.Infos:type_name -> inspire.gateway.coin.allocated.v1.CoinAllocated

@@ -7,12 +7,13 @@
 package contact
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -523,17 +524,19 @@ func file_notif_middleware_v1_contact_contact_proto_rawDescGZIP() []byte {
 	return file_notif_middleware_v1_contact_contact_proto_rawDescData
 }
 
-var file_notif_middleware_v1_contact_contact_proto_msgTypes = make([]protoimpl.MessageInfo, 4)
-var file_notif_middleware_v1_contact_contact_proto_goTypes = []interface{}{
-	(*ContactReq)(nil),   // 0: notif.middleware.contact.v1.ContactReq
-	(*Contact)(nil),      // 1: notif.middleware.contact.v1.Contact
-	(*Conds)(nil),        // 2: notif.middleware.contact.v1.Conds
-	(*TextInfo)(nil),     // 3: notif.middleware.contact.v1.TextInfo
-	(v1.SignMethod)(0),   // 4: basetypes.v1.SignMethod
-	(v1.UsedFor)(0),      // 5: basetypes.v1.UsedFor
-	(*v1.Uint32Val)(nil), // 6: basetypes.v1.Uint32Val
-	(*v1.StringVal)(nil), // 7: basetypes.v1.StringVal
-}
+var (
+	file_notif_middleware_v1_contact_contact_proto_msgTypes = make([]protoimpl.MessageInfo, 4)
+	file_notif_middleware_v1_contact_contact_proto_goTypes  = []interface{}{
+		(*ContactReq)(nil),   // 0: notif.middleware.contact.v1.ContactReq
+		(*Contact)(nil),      // 1: notif.middleware.contact.v1.Contact
+		(*Conds)(nil),        // 2: notif.middleware.contact.v1.Conds
+		(*TextInfo)(nil),     // 3: notif.middleware.contact.v1.TextInfo
+		(v1.SignMethod)(0),   // 4: basetypes.v1.SignMethod
+		(v1.UsedFor)(0),      // 5: basetypes.v1.UsedFor
+		(*v1.Uint32Val)(nil), // 6: basetypes.v1.Uint32Val
+		(*v1.StringVal)(nil), // 7: basetypes.v1.StringVal
+	}
+)
 var file_notif_middleware_v1_contact_contact_proto_depIdxs = []int32{
 	4, // 0: notif.middleware.contact.v1.ContactReq.AccountType:type_name -> basetypes.v1.SignMethod
 	5, // 1: notif.middleware.contact.v1.ContactReq.UsedFor:type_name -> basetypes.v1.UsedFor

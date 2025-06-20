@@ -26,25 +26,23 @@ func init() {
 	}
 }
 
-var (
-	ret = npool.Notif{
-		EntID:        uuid.NewString(),
-		AppID:        uuid.NewString(),
-		UserID:       uuid.NewString(),
-		Notified:     false,
-		LangID:       uuid.NewString(),
-		EventID:      uuid.NewString(),
-		EventType:    basetypes.UsedFor_KYCApproved,
-		EventTypeStr: basetypes.UsedFor_KYCApproved.String(),
-		UseTemplate:  true,
-		Title:        "title " + uuid.NewString(),
-		Content:      "content " + uuid.NewString(),
-		Channel:      basetypes.NotifChannel_ChannelSMS,
-		ChannelStr:   basetypes.NotifChannel_ChannelSMS.String(),
-		NotifType:    basetypes.NotifType_NotifMulticast,
-		NotifTypeStr: basetypes.NotifType_NotifMulticast.String(),
-	}
-)
+var ret = npool.Notif{
+	EntID:        uuid.NewString(),
+	AppID:        uuid.NewString(),
+	UserID:       uuid.NewString(),
+	Notified:     false,
+	LangID:       uuid.NewString(),
+	EventID:      uuid.NewString(),
+	EventType:    basetypes.UsedFor_KYCApproved,
+	EventTypeStr: basetypes.UsedFor_KYCApproved.String(),
+	UseTemplate:  true,
+	Title:        "title " + uuid.NewString(),
+	Content:      "content " + uuid.NewString(),
+	Channel:      basetypes.NotifChannel_ChannelSMS,
+	ChannelStr:   basetypes.NotifChannel_ChannelSMS.String(),
+	NotifType:    basetypes.NotifType_NotifMulticast,
+	NotifTypeStr: basetypes.NotifType_NotifMulticast.String(),
+}
 
 func createNotif(t *testing.T) {
 	handler, err := NewHandler(

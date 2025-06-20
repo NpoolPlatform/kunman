@@ -3,8 +3,8 @@ package compensate
 import (
 	"context"
 
-	npool "github.com/NpoolPlatform/kunman/message/order/gateway/v1/compensate"
 	compensate1 "github.com/NpoolPlatform/kunman/gateway/order/compensate"
+	npool "github.com/NpoolPlatform/kunman/message/order/gateway/v1/compensate"
 
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"

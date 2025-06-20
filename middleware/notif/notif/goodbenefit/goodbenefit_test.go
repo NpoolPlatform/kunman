@@ -8,8 +8,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/NpoolPlatform/libent-cruder/pkg/cruder"
 	goodtypes "github.com/NpoolPlatform/kunman/message/basetypes/good/v1"
+	"github.com/NpoolPlatform/libent-cruder/pkg/cruder"
 
 	npool "github.com/NpoolPlatform/kunman/message/notif/middleware/v1/notif/goodbenefit"
 	"github.com/google/uuid"

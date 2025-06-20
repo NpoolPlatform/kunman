@@ -7,9 +7,9 @@ import (
 	mpbasetypes "github.com/NpoolPlatform/kunman/message/basetypes/miningpool/v1"
 	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	npool "github.com/NpoolPlatform/kunman/message/miningpool/middleware/v1/coin"
-	constant "github.com/NpoolPlatform/kunman/pkg/const"
 	coincrud "github.com/NpoolPlatform/kunman/middleware/miningpool/crud/coin"
 	"github.com/NpoolPlatform/kunman/middleware/miningpool/pool"
+	constant "github.com/NpoolPlatform/kunman/pkg/const"
 	"github.com/shopspring/decimal"
 
 	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"

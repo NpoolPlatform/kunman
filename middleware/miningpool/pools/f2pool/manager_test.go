@@ -27,7 +27,6 @@ func auth(t *testing.T) {
 	assert.Equal(t, nil, authed)
 }
 
-//nolint:gocritic
 func mininguser(t *testing.T) {
 	mgr, err := NewF2PoolManager(v1.CoinType_CoinTypeBitCoin.Enum(), accessToken)
 	assert.Nil(t, err)
@@ -122,7 +121,6 @@ func pageLink(t *testing.T) {
 	// assert.NotEqual(t, link, _link)
 }
 
-//nolint:gocritic
 func payment(t *testing.T) {
 	mgr, err := NewF2PoolManager(v1.CoinType_CoinTypeBitCoin.Enum(), accessToken)
 	assert.Nil(t, err)
@@ -139,7 +137,6 @@ func payment(t *testing.T) {
 	assert.Equal(t, true, resumed)
 }
 
-//nolint:gocritic
 func withdrawFractionWithdrawal(t *testing.T) {
 	mgr, err := NewF2PoolManager(v1.CoinType_CoinTypeBitCoin.Enum(), accessToken)
 	assert.Nil(t, err)

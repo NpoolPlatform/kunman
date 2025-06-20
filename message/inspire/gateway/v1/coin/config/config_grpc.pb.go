@@ -8,6 +8,7 @@ package config
 
 import (
 	context "context"
+
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -91,18 +92,20 @@ type GatewayServer interface {
 }
 
 // UnimplementedGatewayServer must be embedded to have forward compatible implementations.
-type UnimplementedGatewayServer struct {
-}
+type UnimplementedGatewayServer struct{}
 
 func (UnimplementedGatewayServer) AdminCreateCoinConfig(context.Context, *AdminCreateCoinConfigRequest) (*AdminCreateCoinConfigResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AdminCreateCoinConfig not implemented")
 }
+
 func (UnimplementedGatewayServer) AdminUpdateCoinConfig(context.Context, *AdminUpdateCoinConfigRequest) (*AdminUpdateCoinConfigResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AdminUpdateCoinConfig not implemented")
 }
+
 func (UnimplementedGatewayServer) AdminGetCoinConfigs(context.Context, *AdminGetCoinConfigsRequest) (*AdminGetCoinConfigsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AdminGetCoinConfigs not implemented")
 }
+
 func (UnimplementedGatewayServer) AdminDeleteCoinConfig(context.Context, *AdminDeleteCoinConfigRequest) (*AdminDeleteCoinConfigResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AdminDeleteCoinConfig not implemented")
 }

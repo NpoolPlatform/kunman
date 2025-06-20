@@ -7,12 +7,13 @@
 package subscribe
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	subscribe "github.com/NpoolPlatform/kunman/message/appuser/middleware/v1/subscriber/app/subscribe"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -468,16 +469,18 @@ func file_appuser_gateway_v1_subscriber_app_subscribe_subscribe_proto_rawDescGZI
 	return file_appuser_gateway_v1_subscriber_app_subscribe_subscribe_proto_rawDescData
 }
 
-var file_appuser_gateway_v1_subscriber_app_subscribe_subscribe_proto_msgTypes = make([]protoimpl.MessageInfo, 6)
-var file_appuser_gateway_v1_subscriber_app_subscribe_subscribe_proto_goTypes = []interface{}{
-	(*CreateAppSubscribeRequest)(nil),  // 0: appuser.gateway.subscriber.app.subscribe.v1.CreateAppSubscribeRequest
-	(*CreateAppSubscribeResponse)(nil), // 1: appuser.gateway.subscriber.app.subscribe.v1.CreateAppSubscribeResponse
-	(*GetAppSubscribesRequest)(nil),    // 2: appuser.gateway.subscriber.app.subscribe.v1.GetAppSubscribesRequest
-	(*GetAppSubscribesResponse)(nil),   // 3: appuser.gateway.subscriber.app.subscribe.v1.GetAppSubscribesResponse
-	(*DeleteAppSubscribeRequest)(nil),  // 4: appuser.gateway.subscriber.app.subscribe.v1.DeleteAppSubscribeRequest
-	(*DeleteAppSubscribeResponse)(nil), // 5: appuser.gateway.subscriber.app.subscribe.v1.DeleteAppSubscribeResponse
-	(*subscribe.AppSubscribe)(nil),     // 6: appuser.middleware.subscriber.app.subscribe.v1.AppSubscribe
-}
+var (
+	file_appuser_gateway_v1_subscriber_app_subscribe_subscribe_proto_msgTypes = make([]protoimpl.MessageInfo, 6)
+	file_appuser_gateway_v1_subscriber_app_subscribe_subscribe_proto_goTypes  = []interface{}{
+		(*CreateAppSubscribeRequest)(nil),  // 0: appuser.gateway.subscriber.app.subscribe.v1.CreateAppSubscribeRequest
+		(*CreateAppSubscribeResponse)(nil), // 1: appuser.gateway.subscriber.app.subscribe.v1.CreateAppSubscribeResponse
+		(*GetAppSubscribesRequest)(nil),    // 2: appuser.gateway.subscriber.app.subscribe.v1.GetAppSubscribesRequest
+		(*GetAppSubscribesResponse)(nil),   // 3: appuser.gateway.subscriber.app.subscribe.v1.GetAppSubscribesResponse
+		(*DeleteAppSubscribeRequest)(nil),  // 4: appuser.gateway.subscriber.app.subscribe.v1.DeleteAppSubscribeRequest
+		(*DeleteAppSubscribeResponse)(nil), // 5: appuser.gateway.subscriber.app.subscribe.v1.DeleteAppSubscribeResponse
+		(*subscribe.AppSubscribe)(nil),     // 6: appuser.middleware.subscriber.app.subscribe.v1.AppSubscribe
+	}
+)
 var file_appuser_gateway_v1_subscriber_app_subscribe_subscribe_proto_depIdxs = []int32{
 	6, // 0: appuser.gateway.subscriber.app.subscribe.v1.CreateAppSubscribeResponse.Info:type_name -> appuser.middleware.subscriber.app.subscribe.v1.AppSubscribe
 	6, // 1: appuser.gateway.subscriber.app.subscribe.v1.GetAppSubscribesResponse.Infos:type_name -> appuser.middleware.subscriber.app.subscribe.v1.AppSubscribe

@@ -7,13 +7,14 @@
 package capacity
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	capacity "github.com/NpoolPlatform/kunman/message/agi/middleware/v1/capacity"
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/agi/v1"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -1252,29 +1253,31 @@ func file_agi_gateway_v1_capacity_capacity_proto_rawDescGZIP() []byte {
 	return file_agi_gateway_v1_capacity_capacity_proto_rawDescData
 }
 
-var file_agi_gateway_v1_capacity_capacity_proto_msgTypes = make([]protoimpl.MessageInfo, 18)
-var file_agi_gateway_v1_capacity_capacity_proto_goTypes = []interface{}{
-	(*AdminCreateCapacityRequest)(nil),   // 0: agi.gateway.capacity.v1.AdminCreateCapacityRequest
-	(*AdminCreateCapacityResponse)(nil),  // 1: agi.gateway.capacity.v1.AdminCreateCapacityResponse
-	(*CreateCapacityRequest)(nil),        // 2: agi.gateway.capacity.v1.CreateCapacityRequest
-	(*CreateCapacityResponse)(nil),       // 3: agi.gateway.capacity.v1.CreateCapacityResponse
-	(*UpdateCapacityRequest)(nil),        // 4: agi.gateway.capacity.v1.UpdateCapacityRequest
-	(*UpdateCapacityResponse)(nil),       // 5: agi.gateway.capacity.v1.UpdateCapacityResponse
-	(*GetCapacityRequest)(nil),           // 6: agi.gateway.capacity.v1.GetCapacityRequest
-	(*GetCapacityResponse)(nil),          // 7: agi.gateway.capacity.v1.GetCapacityResponse
-	(*AdminGetCapacitiesRequest)(nil),    // 8: agi.gateway.capacity.v1.AdminGetCapacitiesRequest
-	(*AdminGetCapacitiesResponse)(nil),   // 9: agi.gateway.capacity.v1.AdminGetCapacitiesResponse
-	(*GetCapacitiesRequest)(nil),         // 10: agi.gateway.capacity.v1.GetCapacitiesRequest
-	(*GetCapacitiesResponse)(nil),        // 11: agi.gateway.capacity.v1.GetCapacitiesResponse
-	(*AdminCountCapacitiesRequest)(nil),  // 12: agi.gateway.capacity.v1.AdminCountCapacitiesRequest
-	(*AdminCountCapacitiesResponse)(nil), // 13: agi.gateway.capacity.v1.AdminCountCapacitiesResponse
-	(*CountCapacitiesRequest)(nil),       // 14: agi.gateway.capacity.v1.CountCapacitiesRequest
-	(*CountCapacitiesResponse)(nil),      // 15: agi.gateway.capacity.v1.CountCapacitiesResponse
-	(*DeleteCapacityRequest)(nil),        // 16: agi.gateway.capacity.v1.DeleteCapacityRequest
-	(*DeleteCapacityResponse)(nil),       // 17: agi.gateway.capacity.v1.DeleteCapacityResponse
-	(v1.CapacityKey)(0),                  // 18: basetypes.agi.v1.CapacityKey
-	(*capacity.Capacity)(nil),            // 19: agi.middleware.capacity.v1.Capacity
-}
+var (
+	file_agi_gateway_v1_capacity_capacity_proto_msgTypes = make([]protoimpl.MessageInfo, 18)
+	file_agi_gateway_v1_capacity_capacity_proto_goTypes  = []interface{}{
+		(*AdminCreateCapacityRequest)(nil),   // 0: agi.gateway.capacity.v1.AdminCreateCapacityRequest
+		(*AdminCreateCapacityResponse)(nil),  // 1: agi.gateway.capacity.v1.AdminCreateCapacityResponse
+		(*CreateCapacityRequest)(nil),        // 2: agi.gateway.capacity.v1.CreateCapacityRequest
+		(*CreateCapacityResponse)(nil),       // 3: agi.gateway.capacity.v1.CreateCapacityResponse
+		(*UpdateCapacityRequest)(nil),        // 4: agi.gateway.capacity.v1.UpdateCapacityRequest
+		(*UpdateCapacityResponse)(nil),       // 5: agi.gateway.capacity.v1.UpdateCapacityResponse
+		(*GetCapacityRequest)(nil),           // 6: agi.gateway.capacity.v1.GetCapacityRequest
+		(*GetCapacityResponse)(nil),          // 7: agi.gateway.capacity.v1.GetCapacityResponse
+		(*AdminGetCapacitiesRequest)(nil),    // 8: agi.gateway.capacity.v1.AdminGetCapacitiesRequest
+		(*AdminGetCapacitiesResponse)(nil),   // 9: agi.gateway.capacity.v1.AdminGetCapacitiesResponse
+		(*GetCapacitiesRequest)(nil),         // 10: agi.gateway.capacity.v1.GetCapacitiesRequest
+		(*GetCapacitiesResponse)(nil),        // 11: agi.gateway.capacity.v1.GetCapacitiesResponse
+		(*AdminCountCapacitiesRequest)(nil),  // 12: agi.gateway.capacity.v1.AdminCountCapacitiesRequest
+		(*AdminCountCapacitiesResponse)(nil), // 13: agi.gateway.capacity.v1.AdminCountCapacitiesResponse
+		(*CountCapacitiesRequest)(nil),       // 14: agi.gateway.capacity.v1.CountCapacitiesRequest
+		(*CountCapacitiesResponse)(nil),      // 15: agi.gateway.capacity.v1.CountCapacitiesResponse
+		(*DeleteCapacityRequest)(nil),        // 16: agi.gateway.capacity.v1.DeleteCapacityRequest
+		(*DeleteCapacityResponse)(nil),       // 17: agi.gateway.capacity.v1.DeleteCapacityResponse
+		(v1.CapacityKey)(0),                  // 18: basetypes.agi.v1.CapacityKey
+		(*capacity.Capacity)(nil),            // 19: agi.middleware.capacity.v1.Capacity
+	}
+)
 var file_agi_gateway_v1_capacity_capacity_proto_depIdxs = []int32{
 	18, // 0: agi.gateway.capacity.v1.AdminCreateCapacityRequest.CapacityKey:type_name -> basetypes.agi.v1.CapacityKey
 	19, // 1: agi.gateway.capacity.v1.AdminCreateCapacityResponse.Info:type_name -> agi.middleware.capacity.v1.Capacity

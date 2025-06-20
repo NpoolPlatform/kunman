@@ -7,12 +7,13 @@
 package fee
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/good/v1"
 	v11 "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -680,20 +681,22 @@ func file_good_middleware_v1_app_fee_fee_proto_rawDescGZIP() []byte {
 	return file_good_middleware_v1_app_fee_fee_proto_rawDescData
 }
 
-var file_good_middleware_v1_app_fee_fee_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
-var file_good_middleware_v1_app_fee_fee_proto_goTypes = []interface{}{
-	(*FeeReq)(nil),             // 0: good.middleware.app.fee.v1.FeeReq
-	(*Fee)(nil),                // 1: good.middleware.app.fee.v1.Fee
-	(*Conds)(nil),              // 2: good.middleware.app.fee.v1.Conds
-	(v1.CancelMode)(0),         // 3: basetypes.good.v1.CancelMode
-	(v1.GoodType)(0),           // 4: basetypes.good.v1.GoodType
-	(v1.GoodSettlementType)(0), // 5: basetypes.good.v1.GoodSettlementType
-	(v1.GoodDurationType)(0),   // 6: basetypes.good.v1.GoodDurationType
-	(*v11.Uint32Val)(nil),      // 7: basetypes.v1.Uint32Val
-	(*v11.Uint32SliceVal)(nil), // 8: basetypes.v1.Uint32SliceVal
-	(*v11.StringVal)(nil),      // 9: basetypes.v1.StringVal
-	(*v11.StringSliceVal)(nil), // 10: basetypes.v1.StringSliceVal
-}
+var (
+	file_good_middleware_v1_app_fee_fee_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
+	file_good_middleware_v1_app_fee_fee_proto_goTypes  = []interface{}{
+		(*FeeReq)(nil),             // 0: good.middleware.app.fee.v1.FeeReq
+		(*Fee)(nil),                // 1: good.middleware.app.fee.v1.Fee
+		(*Conds)(nil),              // 2: good.middleware.app.fee.v1.Conds
+		(v1.CancelMode)(0),         // 3: basetypes.good.v1.CancelMode
+		(v1.GoodType)(0),           // 4: basetypes.good.v1.GoodType
+		(v1.GoodSettlementType)(0), // 5: basetypes.good.v1.GoodSettlementType
+		(v1.GoodDurationType)(0),   // 6: basetypes.good.v1.GoodDurationType
+		(*v11.Uint32Val)(nil),      // 7: basetypes.v1.Uint32Val
+		(*v11.Uint32SliceVal)(nil), // 8: basetypes.v1.Uint32SliceVal
+		(*v11.StringVal)(nil),      // 9: basetypes.v1.StringVal
+		(*v11.StringSliceVal)(nil), // 10: basetypes.v1.StringSliceVal
+	}
+)
 var file_good_middleware_v1_app_fee_fee_proto_depIdxs = []int32{
 	3,  // 0: good.middleware.app.fee.v1.FeeReq.CancelMode:type_name -> basetypes.good.v1.CancelMode
 	4,  // 1: good.middleware.app.fee.v1.Fee.GoodType:type_name -> basetypes.good.v1.GoodType

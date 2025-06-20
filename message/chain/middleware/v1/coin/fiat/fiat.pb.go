@@ -7,11 +7,12 @@
 package fiat
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -426,15 +427,17 @@ func file_chain_middleware_v1_coin_fiat_fiat_proto_rawDescGZIP() []byte {
 	return file_chain_middleware_v1_coin_fiat_fiat_proto_rawDescData
 }
 
-var file_chain_middleware_v1_coin_fiat_fiat_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
-var file_chain_middleware_v1_coin_fiat_fiat_proto_goTypes = []interface{}{
-	(*CoinFiatReq)(nil),       // 0: chain.middleware.coin.fiat.v1.CoinFiatReq
-	(*CoinFiat)(nil),          // 1: chain.middleware.coin.fiat.v1.CoinFiat
-	(*Conds)(nil),             // 2: chain.middleware.coin.fiat.v1.Conds
-	(v1.CurrencyFeedType)(0),  // 3: basetypes.v1.CurrencyFeedType
-	(*v1.StringVal)(nil),      // 4: basetypes.v1.StringVal
-	(*v1.StringSliceVal)(nil), // 5: basetypes.v1.StringSliceVal
-}
+var (
+	file_chain_middleware_v1_coin_fiat_fiat_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
+	file_chain_middleware_v1_coin_fiat_fiat_proto_goTypes  = []interface{}{
+		(*CoinFiatReq)(nil),       // 0: chain.middleware.coin.fiat.v1.CoinFiatReq
+		(*CoinFiat)(nil),          // 1: chain.middleware.coin.fiat.v1.CoinFiat
+		(*Conds)(nil),             // 2: chain.middleware.coin.fiat.v1.Conds
+		(v1.CurrencyFeedType)(0),  // 3: basetypes.v1.CurrencyFeedType
+		(*v1.StringVal)(nil),      // 4: basetypes.v1.StringVal
+		(*v1.StringSliceVal)(nil), // 5: basetypes.v1.StringSliceVal
+	}
+)
 var file_chain_middleware_v1_coin_fiat_fiat_proto_depIdxs = []int32{
 	3, // 0: chain.middleware.coin.fiat.v1.CoinFiatReq.FeedType:type_name -> basetypes.v1.CurrencyFeedType
 	3, // 1: chain.middleware.coin.fiat.v1.CoinFiat.FeedType:type_name -> basetypes.v1.CurrencyFeedType

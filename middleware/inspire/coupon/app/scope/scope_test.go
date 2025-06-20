@@ -11,17 +11,17 @@ import (
 	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 	"github.com/shopspring/decimal"
 
-	coupon1 "github.com/NpoolPlatform/kunman/middleware/inspire/coupon"
-	scope1 "github.com/NpoolPlatform/kunman/middleware/inspire/coupon/scope"
 	couponmwpb "github.com/NpoolPlatform/kunman/message/inspire/middleware/v1/coupon"
 	npool "github.com/NpoolPlatform/kunman/message/inspire/middleware/v1/coupon/app/scope"
 	scopemwpb "github.com/NpoolPlatform/kunman/message/inspire/middleware/v1/coupon/scope"
+	coupon1 "github.com/NpoolPlatform/kunman/middleware/inspire/coupon"
+	scope1 "github.com/NpoolPlatform/kunman/middleware/inspire/coupon/scope"
 	"github.com/google/uuid"
 	"github.com/stretchr/testify/assert"
 
-	"github.com/NpoolPlatform/kunman/middleware/inspire/testinit"
 	types "github.com/NpoolPlatform/kunman/message/basetypes/inspire/v1"
 	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
+	"github.com/NpoolPlatform/kunman/middleware/inspire/testinit"
 )
 
 func init() {

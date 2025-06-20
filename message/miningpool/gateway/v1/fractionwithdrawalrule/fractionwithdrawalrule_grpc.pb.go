@@ -8,6 +8,7 @@ package fractionwithdrawalrule
 
 import (
 	context "context"
+
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -91,18 +92,20 @@ type GatewayServer interface {
 }
 
 // UnimplementedGatewayServer must be embedded to have forward compatible implementations.
-type UnimplementedGatewayServer struct {
-}
+type UnimplementedGatewayServer struct{}
 
 func (UnimplementedGatewayServer) AdminCreateFractionWithdrawalRule(context.Context, *AdminCreateFractionWithdrawalRuleRequest) (*AdminCreateFractionWithdrawalRuleResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AdminCreateFractionWithdrawalRule not implemented")
 }
+
 func (UnimplementedGatewayServer) AdminUpdateFractionWithdrawalRule(context.Context, *AdminUpdateFractionWithdrawalRuleRequest) (*AdminUpdateFractionWithdrawalRuleResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AdminUpdateFractionWithdrawalRule not implemented")
 }
+
 func (UnimplementedGatewayServer) AdminGetFractionWithdrawalRules(context.Context, *AdminGetFractionWithdrawalRulesRequest) (*AdminGetFractionWithdrawalRulesResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AdminGetFractionWithdrawalRules not implemented")
 }
+
 func (UnimplementedGatewayServer) AdminDeleteFractionWithdrawalRule(context.Context, *AdminDeleteFractionWithdrawalRuleRequest) (*AdminDeleteFractionWithdrawalRuleResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AdminDeleteFractionWithdrawalRule not implemented")
 }

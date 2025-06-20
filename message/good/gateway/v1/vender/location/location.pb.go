@@ -7,12 +7,13 @@
 package location
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	location "github.com/NpoolPlatform/kunman/message/good/middleware/v1/vender/location"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -653,18 +654,20 @@ func file_good_gateway_v1_vender_location_location_proto_rawDescGZIP() []byte {
 	return file_good_gateway_v1_vender_location_location_proto_rawDescData
 }
 
-var file_good_gateway_v1_vender_location_location_proto_msgTypes = make([]protoimpl.MessageInfo, 8)
-var file_good_gateway_v1_vender_location_location_proto_goTypes = []interface{}{
-	(*AdminCreateLocationRequest)(nil),  // 0: good.gateway.vendor.location.v1.AdminCreateLocationRequest
-	(*AdminCreateLocationResponse)(nil), // 1: good.gateway.vendor.location.v1.AdminCreateLocationResponse
-	(*AdminUpdateLocationRequest)(nil),  // 2: good.gateway.vendor.location.v1.AdminUpdateLocationRequest
-	(*AdminUpdateLocationResponse)(nil), // 3: good.gateway.vendor.location.v1.AdminUpdateLocationResponse
-	(*GetLocationsRequest)(nil),         // 4: good.gateway.vendor.location.v1.GetLocationsRequest
-	(*GetLocationsResponse)(nil),        // 5: good.gateway.vendor.location.v1.GetLocationsResponse
-	(*AdminDeleteLocationRequest)(nil),  // 6: good.gateway.vendor.location.v1.AdminDeleteLocationRequest
-	(*AdminDeleteLocationResponse)(nil), // 7: good.gateway.vendor.location.v1.AdminDeleteLocationResponse
-	(*location.Location)(nil),           // 8: good.middleware.vendor.location.v1.Location
-}
+var (
+	file_good_gateway_v1_vender_location_location_proto_msgTypes = make([]protoimpl.MessageInfo, 8)
+	file_good_gateway_v1_vender_location_location_proto_goTypes  = []interface{}{
+		(*AdminCreateLocationRequest)(nil),  // 0: good.gateway.vendor.location.v1.AdminCreateLocationRequest
+		(*AdminCreateLocationResponse)(nil), // 1: good.gateway.vendor.location.v1.AdminCreateLocationResponse
+		(*AdminUpdateLocationRequest)(nil),  // 2: good.gateway.vendor.location.v1.AdminUpdateLocationRequest
+		(*AdminUpdateLocationResponse)(nil), // 3: good.gateway.vendor.location.v1.AdminUpdateLocationResponse
+		(*GetLocationsRequest)(nil),         // 4: good.gateway.vendor.location.v1.GetLocationsRequest
+		(*GetLocationsResponse)(nil),        // 5: good.gateway.vendor.location.v1.GetLocationsResponse
+		(*AdminDeleteLocationRequest)(nil),  // 6: good.gateway.vendor.location.v1.AdminDeleteLocationRequest
+		(*AdminDeleteLocationResponse)(nil), // 7: good.gateway.vendor.location.v1.AdminDeleteLocationResponse
+		(*location.Location)(nil),           // 8: good.middleware.vendor.location.v1.Location
+	}
+)
 var file_good_gateway_v1_vender_location_location_proto_depIdxs = []int32{
 	8, // 0: good.gateway.vendor.location.v1.AdminCreateLocationResponse.Info:type_name -> good.middleware.vendor.location.v1.Location
 	8, // 1: good.gateway.vendor.location.v1.AdminUpdateLocationResponse.Info:type_name -> good.middleware.vendor.location.v1.Location

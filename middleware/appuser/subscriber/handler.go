@@ -5,10 +5,10 @@ import (
 	"fmt"
 	"net/mail"
 
-	constant "github.com/NpoolPlatform/kunman/pkg/const"
-	subscribercrud "github.com/NpoolPlatform/kunman/middleware/appuser/crud/subscriber"
-	app "github.com/NpoolPlatform/kunman/middleware/appuser/app"
 	npool "github.com/NpoolPlatform/kunman/message/appuser/middleware/v1/subscriber"
+	app "github.com/NpoolPlatform/kunman/middleware/appuser/app"
+	subscribercrud "github.com/NpoolPlatform/kunman/middleware/appuser/crud/subscriber"
+	constant "github.com/NpoolPlatform/kunman/pkg/const"
 
 	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 

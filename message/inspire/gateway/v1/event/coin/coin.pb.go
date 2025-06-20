@@ -7,11 +7,12 @@
 package coin
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -1260,24 +1261,26 @@ func file_inspire_gateway_v1_event_coin_coin_proto_rawDescGZIP() []byte {
 	return file_inspire_gateway_v1_event_coin_coin_proto_rawDescData
 }
 
-var file_inspire_gateway_v1_event_coin_coin_proto_msgTypes = make([]protoimpl.MessageInfo, 15)
-var file_inspire_gateway_v1_event_coin_coin_proto_goTypes = []interface{}{
-	(*EventCoin)(nil),                    // 0: inspire.gateway.event.coin.v1.EventCoin
-	(*CreateEventCoinRequest)(nil),       // 1: inspire.gateway.event.coin.v1.CreateEventCoinRequest
-	(*CreateEventCoinResponse)(nil),      // 2: inspire.gateway.event.coin.v1.CreateEventCoinResponse
-	(*GetEventCoinsRequest)(nil),         // 3: inspire.gateway.event.coin.v1.GetEventCoinsRequest
-	(*GetEventCoinsResponse)(nil),        // 4: inspire.gateway.event.coin.v1.GetEventCoinsResponse
-	(*UpdateEventCoinRequest)(nil),       // 5: inspire.gateway.event.coin.v1.UpdateEventCoinRequest
-	(*UpdateEventCoinResponse)(nil),      // 6: inspire.gateway.event.coin.v1.UpdateEventCoinResponse
-	(*AdminGetEventCoinsRequest)(nil),    // 7: inspire.gateway.event.coin.v1.AdminGetEventCoinsRequest
-	(*AdminGetEventCoinsResponse)(nil),   // 8: inspire.gateway.event.coin.v1.AdminGetEventCoinsResponse
-	(*AdminCreateEventCoinRequest)(nil),  // 9: inspire.gateway.event.coin.v1.AdminCreateEventCoinRequest
-	(*AdminCreateEventCoinResponse)(nil), // 10: inspire.gateway.event.coin.v1.AdminCreateEventCoinResponse
-	(*AdminUpdateEventCoinRequest)(nil),  // 11: inspire.gateway.event.coin.v1.AdminUpdateEventCoinRequest
-	(*AdminUpdateEventCoinResponse)(nil), // 12: inspire.gateway.event.coin.v1.AdminUpdateEventCoinResponse
-	(*AdminDeleteEventCoinRequest)(nil),  // 13: inspire.gateway.event.coin.v1.AdminDeleteEventCoinRequest
-	(*AdminDeleteEventCoinResponse)(nil), // 14: inspire.gateway.event.coin.v1.AdminDeleteEventCoinResponse
-}
+var (
+	file_inspire_gateway_v1_event_coin_coin_proto_msgTypes = make([]protoimpl.MessageInfo, 15)
+	file_inspire_gateway_v1_event_coin_coin_proto_goTypes  = []interface{}{
+		(*EventCoin)(nil),                    // 0: inspire.gateway.event.coin.v1.EventCoin
+		(*CreateEventCoinRequest)(nil),       // 1: inspire.gateway.event.coin.v1.CreateEventCoinRequest
+		(*CreateEventCoinResponse)(nil),      // 2: inspire.gateway.event.coin.v1.CreateEventCoinResponse
+		(*GetEventCoinsRequest)(nil),         // 3: inspire.gateway.event.coin.v1.GetEventCoinsRequest
+		(*GetEventCoinsResponse)(nil),        // 4: inspire.gateway.event.coin.v1.GetEventCoinsResponse
+		(*UpdateEventCoinRequest)(nil),       // 5: inspire.gateway.event.coin.v1.UpdateEventCoinRequest
+		(*UpdateEventCoinResponse)(nil),      // 6: inspire.gateway.event.coin.v1.UpdateEventCoinResponse
+		(*AdminGetEventCoinsRequest)(nil),    // 7: inspire.gateway.event.coin.v1.AdminGetEventCoinsRequest
+		(*AdminGetEventCoinsResponse)(nil),   // 8: inspire.gateway.event.coin.v1.AdminGetEventCoinsResponse
+		(*AdminCreateEventCoinRequest)(nil),  // 9: inspire.gateway.event.coin.v1.AdminCreateEventCoinRequest
+		(*AdminCreateEventCoinResponse)(nil), // 10: inspire.gateway.event.coin.v1.AdminCreateEventCoinResponse
+		(*AdminUpdateEventCoinRequest)(nil),  // 11: inspire.gateway.event.coin.v1.AdminUpdateEventCoinRequest
+		(*AdminUpdateEventCoinResponse)(nil), // 12: inspire.gateway.event.coin.v1.AdminUpdateEventCoinResponse
+		(*AdminDeleteEventCoinRequest)(nil),  // 13: inspire.gateway.event.coin.v1.AdminDeleteEventCoinRequest
+		(*AdminDeleteEventCoinResponse)(nil), // 14: inspire.gateway.event.coin.v1.AdminDeleteEventCoinResponse
+	}
+)
 var file_inspire_gateway_v1_event_coin_coin_proto_depIdxs = []int32{
 	0,  // 0: inspire.gateway.event.coin.v1.CreateEventCoinResponse.Info:type_name -> inspire.gateway.event.coin.v1.EventCoin
 	0,  // 1: inspire.gateway.event.coin.v1.GetEventCoinsResponse.Infos:type_name -> inspire.gateway.event.coin.v1.EventCoin

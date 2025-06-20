@@ -8,6 +8,7 @@ package coin
 
 import (
 	context "context"
+
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -91,18 +92,20 @@ type GatewayServer interface {
 }
 
 // UnimplementedGatewayServer must be embedded to have forward compatible implementations.
-type UnimplementedGatewayServer struct {
-}
+type UnimplementedGatewayServer struct{}
 
 func (UnimplementedGatewayServer) AdminCreateGoodCoin(context.Context, *AdminCreateGoodCoinRequest) (*AdminCreateGoodCoinResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AdminCreateGoodCoin not implemented")
 }
+
 func (UnimplementedGatewayServer) AdminUpdateGoodCoin(context.Context, *AdminUpdateGoodCoinRequest) (*AdminUpdateGoodCoinResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AdminUpdateGoodCoin not implemented")
 }
+
 func (UnimplementedGatewayServer) GetGoodCoins(context.Context, *GetGoodCoinsRequest) (*GetGoodCoinsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetGoodCoins not implemented")
 }
+
 func (UnimplementedGatewayServer) AdminDeleteGoodCoin(context.Context, *AdminDeleteGoodCoinRequest) (*AdminDeleteGoodCoinResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AdminDeleteGoodCoin not implemented")
 }

@@ -14,8 +14,8 @@ import (
 	"github.com/google/uuid"
 	"github.com/stretchr/testify/assert"
 
-	"github.com/NpoolPlatform/kunman/middleware/appuser/testinit"
 	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
+	"github.com/NpoolPlatform/kunman/middleware/appuser/testinit"
 
 	app "github.com/NpoolPlatform/kunman/middleware/appuser/app"
 	user "github.com/NpoolPlatform/kunman/middleware/appuser/user"
@@ -30,24 +30,22 @@ func init() {
 	}
 }
 
-var (
-	ret = npool.Kyc{
-		EntID:           uuid.NewString(),
-		AppID:           uuid.NewString(),
-		UserID:          uuid.NewString(),
-		DocumentType:    basetypes.KycDocumentType_IDCard,
-		DocumentTypeStr: basetypes.KycDocumentType_IDCard.String(),
-		IDNumber:        uuid.NewString(),
-		FrontImg:        uuid.NewString(),
-		BackImg:         uuid.NewString(),
-		SelfieImg:       uuid.NewString(),
-		EntityType:      basetypes.KycEntityType_Individual,
-		EntityTypeStr:   basetypes.KycEntityType_Individual.String(),
-		ReviewID:        uuid.NewString(),
-		State:           basetypes.KycState_Reviewing,
-		StateStr:        basetypes.KycState_Reviewing.String(),
-	}
-)
+var ret = npool.Kyc{
+	EntID:           uuid.NewString(),
+	AppID:           uuid.NewString(),
+	UserID:          uuid.NewString(),
+	DocumentType:    basetypes.KycDocumentType_IDCard,
+	DocumentTypeStr: basetypes.KycDocumentType_IDCard.String(),
+	IDNumber:        uuid.NewString(),
+	FrontImg:        uuid.NewString(),
+	BackImg:         uuid.NewString(),
+	SelfieImg:       uuid.NewString(),
+	EntityType:      basetypes.KycEntityType_Individual,
+	EntityTypeStr:   basetypes.KycEntityType_Individual.String(),
+	ReviewID:        uuid.NewString(),
+	State:           basetypes.KycState_Reviewing,
+	StateStr:        basetypes.KycState_Reviewing.String(),
+}
 
 func setupKyc(t *testing.T) func(*testing.T) {
 	ah, err := app.NewHandler(

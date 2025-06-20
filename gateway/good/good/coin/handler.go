@@ -4,9 +4,9 @@ import (
 	"context"
 	"fmt"
 
+	goodcommon "github.com/NpoolPlatform/kunman/gateway/good/good/common"
 	goodgwcommon "github.com/NpoolPlatform/kunman/pkg/common"
 	constant "github.com/NpoolPlatform/kunman/pkg/const"
-	goodcommon "github.com/NpoolPlatform/kunman/gateway/good/good/common"
 
 	"github.com/google/uuid"
 )

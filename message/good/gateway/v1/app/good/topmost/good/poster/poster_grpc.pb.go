@@ -8,6 +8,7 @@ package poster
 
 import (
 	context "context"
+
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -141,30 +142,36 @@ type GatewayServer interface {
 }
 
 // UnimplementedGatewayServer must be embedded to have forward compatible implementations.
-type UnimplementedGatewayServer struct {
-}
+type UnimplementedGatewayServer struct{}
 
 func (UnimplementedGatewayServer) CreatePoster(context.Context, *CreatePosterRequest) (*CreatePosterResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreatePoster not implemented")
 }
+
 func (UnimplementedGatewayServer) UpdatePoster(context.Context, *UpdatePosterRequest) (*UpdatePosterResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdatePoster not implemented")
 }
+
 func (UnimplementedGatewayServer) GetPosters(context.Context, *GetPostersRequest) (*GetPostersResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetPosters not implemented")
 }
+
 func (UnimplementedGatewayServer) DeletePoster(context.Context, *DeletePosterRequest) (*DeletePosterResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeletePoster not implemented")
 }
+
 func (UnimplementedGatewayServer) AdminCreatePoster(context.Context, *AdminCreatePosterRequest) (*AdminCreatePosterResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AdminCreatePoster not implemented")
 }
+
 func (UnimplementedGatewayServer) AdminUpdatePoster(context.Context, *AdminUpdatePosterRequest) (*AdminUpdatePosterResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AdminUpdatePoster not implemented")
 }
+
 func (UnimplementedGatewayServer) AdminGetPosters(context.Context, *AdminGetPostersRequest) (*AdminGetPostersResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AdminGetPosters not implemented")
 }
+
 func (UnimplementedGatewayServer) AdminDeletePoster(context.Context, *AdminDeletePosterRequest) (*AdminDeletePosterResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AdminDeletePoster not implemented")
 }

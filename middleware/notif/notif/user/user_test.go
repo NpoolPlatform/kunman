@@ -26,15 +26,13 @@ func init() {
 	}
 }
 
-var (
-	ret = npool.NotifUser{
-		EntID:        uuid.NewString(),
-		AppID:        uuid.NewString(),
-		EventType:    basetypes.UsedFor_WithdrawalRequest,
-		EventTypeStr: basetypes.UsedFor_WithdrawalRequest.String(),
-		UserID:       uuid.NewString(),
-	}
-)
+var ret = npool.NotifUser{
+	EntID:        uuid.NewString(),
+	AppID:        uuid.NewString(),
+	EventType:    basetypes.UsedFor_WithdrawalRequest,
+	EventTypeStr: basetypes.UsedFor_WithdrawalRequest.String(),
+	UserID:       uuid.NewString(),
+}
 
 func createNotifUser(t *testing.T) {
 	handler, err := NewHandler(

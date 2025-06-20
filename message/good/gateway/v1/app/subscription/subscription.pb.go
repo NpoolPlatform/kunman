@@ -7,6 +7,9 @@
 package subscription
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/good/v1"
 	_ "github.com/NpoolPlatform/kunman/message/good/gateway/v1/good/coin"
 	_ "github.com/NpoolPlatform/kunman/message/good/gateway/v1/good/coin/reward"
@@ -21,8 +24,6 @@ import (
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -1535,31 +1536,33 @@ func file_good_gateway_v1_app_subscription_subscription_proto_rawDescGZIP() []by
 	return file_good_gateway_v1_app_subscription_subscription_proto_rawDescData
 }
 
-var file_good_gateway_v1_app_subscription_subscription_proto_msgTypes = make([]protoimpl.MessageInfo, 15)
-var file_good_gateway_v1_app_subscription_subscription_proto_goTypes = []interface{}{
-	(*AppSubscription)(nil),                    // 0: good.gateway.app.subscription.v1.AppSubscription
-	(*UpdateAppSubscriptionRequest)(nil),       // 1: good.gateway.app.subscription.v1.UpdateAppSubscriptionRequest
-	(*UpdateAppSubscriptionResponse)(nil),      // 2: good.gateway.app.subscription.v1.UpdateAppSubscriptionResponse
-	(*GetAppSubscriptionRequest)(nil),          // 3: good.gateway.app.subscription.v1.GetAppSubscriptionRequest
-	(*GetAppSubscriptionResponse)(nil),         // 4: good.gateway.app.subscription.v1.GetAppSubscriptionResponse
-	(*GetAppSubscriptionsRequest)(nil),         // 5: good.gateway.app.subscription.v1.GetAppSubscriptionsRequest
-	(*GetAppSubscriptionsResponse)(nil),        // 6: good.gateway.app.subscription.v1.GetAppSubscriptionsResponse
-	(*AdminCreateAppSubscriptionRequest)(nil),  // 7: good.gateway.app.subscription.v1.AdminCreateAppSubscriptionRequest
-	(*AdminCreateAppSubscriptionResponse)(nil), // 8: good.gateway.app.subscription.v1.AdminCreateAppSubscriptionResponse
-	(*AdminUpdateAppSubscriptionRequest)(nil),  // 9: good.gateway.app.subscription.v1.AdminUpdateAppSubscriptionRequest
-	(*AdminUpdateAppSubscriptionResponse)(nil), // 10: good.gateway.app.subscription.v1.AdminUpdateAppSubscriptionResponse
-	(*AdminGetAppSubscriptionsRequest)(nil),    // 11: good.gateway.app.subscription.v1.AdminGetAppSubscriptionsRequest
-	(*AdminGetAppSubscriptionsResponse)(nil),   // 12: good.gateway.app.subscription.v1.AdminGetAppSubscriptionsResponse
-	(*AdminDeleteAppSubscriptionRequest)(nil),  // 13: good.gateway.app.subscription.v1.AdminDeleteAppSubscriptionRequest
-	(*AdminDeleteAppSubscriptionResponse)(nil), // 14: good.gateway.app.subscription.v1.AdminDeleteAppSubscriptionResponse
-	(v1.GoodDurationType)(0),                   // 15: basetypes.good.v1.GoodDurationType
-	(v1.GoodType)(0),                           // 16: basetypes.good.v1.GoodType
-	(*description.DescriptionInfo)(nil),        // 17: good.middleware.app.good1.description.v1.DescriptionInfo
-	(*poster.PosterInfo)(nil),                  // 18: good.middleware.app.good1.poster.v1.PosterInfo
-	(*name.DisplayNameInfo)(nil),               // 19: good.middleware.app.good1.display.name.v1.DisplayNameInfo
-	(*color.DisplayColorInfo)(nil),             // 20: good.middleware.app.good1.display.color.v1.DisplayColorInfo
-	(*label.LabelInfo)(nil),                    // 21: good.middleware.app.good1.label.v1.LabelInfo
-}
+var (
+	file_good_gateway_v1_app_subscription_subscription_proto_msgTypes = make([]protoimpl.MessageInfo, 15)
+	file_good_gateway_v1_app_subscription_subscription_proto_goTypes  = []interface{}{
+		(*AppSubscription)(nil),                    // 0: good.gateway.app.subscription.v1.AppSubscription
+		(*UpdateAppSubscriptionRequest)(nil),       // 1: good.gateway.app.subscription.v1.UpdateAppSubscriptionRequest
+		(*UpdateAppSubscriptionResponse)(nil),      // 2: good.gateway.app.subscription.v1.UpdateAppSubscriptionResponse
+		(*GetAppSubscriptionRequest)(nil),          // 3: good.gateway.app.subscription.v1.GetAppSubscriptionRequest
+		(*GetAppSubscriptionResponse)(nil),         // 4: good.gateway.app.subscription.v1.GetAppSubscriptionResponse
+		(*GetAppSubscriptionsRequest)(nil),         // 5: good.gateway.app.subscription.v1.GetAppSubscriptionsRequest
+		(*GetAppSubscriptionsResponse)(nil),        // 6: good.gateway.app.subscription.v1.GetAppSubscriptionsResponse
+		(*AdminCreateAppSubscriptionRequest)(nil),  // 7: good.gateway.app.subscription.v1.AdminCreateAppSubscriptionRequest
+		(*AdminCreateAppSubscriptionResponse)(nil), // 8: good.gateway.app.subscription.v1.AdminCreateAppSubscriptionResponse
+		(*AdminUpdateAppSubscriptionRequest)(nil),  // 9: good.gateway.app.subscription.v1.AdminUpdateAppSubscriptionRequest
+		(*AdminUpdateAppSubscriptionResponse)(nil), // 10: good.gateway.app.subscription.v1.AdminUpdateAppSubscriptionResponse
+		(*AdminGetAppSubscriptionsRequest)(nil),    // 11: good.gateway.app.subscription.v1.AdminGetAppSubscriptionsRequest
+		(*AdminGetAppSubscriptionsResponse)(nil),   // 12: good.gateway.app.subscription.v1.AdminGetAppSubscriptionsResponse
+		(*AdminDeleteAppSubscriptionRequest)(nil),  // 13: good.gateway.app.subscription.v1.AdminDeleteAppSubscriptionRequest
+		(*AdminDeleteAppSubscriptionResponse)(nil), // 14: good.gateway.app.subscription.v1.AdminDeleteAppSubscriptionResponse
+		(v1.GoodDurationType)(0),                   // 15: basetypes.good.v1.GoodDurationType
+		(v1.GoodType)(0),                           // 16: basetypes.good.v1.GoodType
+		(*description.DescriptionInfo)(nil),        // 17: good.middleware.app.good1.description.v1.DescriptionInfo
+		(*poster.PosterInfo)(nil),                  // 18: good.middleware.app.good1.poster.v1.PosterInfo
+		(*name.DisplayNameInfo)(nil),               // 19: good.middleware.app.good1.display.name.v1.DisplayNameInfo
+		(*color.DisplayColorInfo)(nil),             // 20: good.middleware.app.good1.display.color.v1.DisplayColorInfo
+		(*label.LabelInfo)(nil),                    // 21: good.middleware.app.good1.label.v1.LabelInfo
+	}
+)
 var file_good_gateway_v1_app_subscription_subscription_proto_depIdxs = []int32{
 	15, // 0: good.gateway.app.subscription.v1.AppSubscription.DurationDisplayType:type_name -> basetypes.good.v1.GoodDurationType
 	16, // 1: good.gateway.app.subscription.v1.AppSubscription.GoodType:type_name -> basetypes.good.v1.GoodType

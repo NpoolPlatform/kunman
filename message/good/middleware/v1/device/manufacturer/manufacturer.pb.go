@@ -7,11 +7,12 @@
 package manufacturer
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -310,14 +311,16 @@ func file_good_middleware_v1_device_manufacturer_manufacturer_proto_rawDescGZIP(
 	return file_good_middleware_v1_device_manufacturer_manufacturer_proto_rawDescData
 }
 
-var file_good_middleware_v1_device_manufacturer_manufacturer_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
-var file_good_middleware_v1_device_manufacturer_manufacturer_proto_goTypes = []interface{}{
-	(*ManufacturerReq)(nil), // 0: good.middleware.device.manufacturer.v1.ManufacturerReq
-	(*Manufacturer)(nil),    // 1: good.middleware.device.manufacturer.v1.Manufacturer
-	(*Conds)(nil),           // 2: good.middleware.device.manufacturer.v1.Conds
-	(*v1.Uint32Val)(nil),    // 3: basetypes.v1.Uint32Val
-	(*v1.StringVal)(nil),    // 4: basetypes.v1.StringVal
-}
+var (
+	file_good_middleware_v1_device_manufacturer_manufacturer_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
+	file_good_middleware_v1_device_manufacturer_manufacturer_proto_goTypes  = []interface{}{
+		(*ManufacturerReq)(nil), // 0: good.middleware.device.manufacturer.v1.ManufacturerReq
+		(*Manufacturer)(nil),    // 1: good.middleware.device.manufacturer.v1.Manufacturer
+		(*Conds)(nil),           // 2: good.middleware.device.manufacturer.v1.Conds
+		(*v1.Uint32Val)(nil),    // 3: basetypes.v1.Uint32Val
+		(*v1.StringVal)(nil),    // 4: basetypes.v1.StringVal
+	}
+)
 var file_good_middleware_v1_device_manufacturer_manufacturer_proto_depIdxs = []int32{
 	3, // 0: good.middleware.device.manufacturer.v1.Conds.ID:type_name -> basetypes.v1.Uint32Val
 	4, // 1: good.middleware.device.manufacturer.v1.Conds.EntID:type_name -> basetypes.v1.StringVal

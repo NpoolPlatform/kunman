@@ -7,12 +7,13 @@
 package role
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	role "github.com/NpoolPlatform/kunman/message/appuser/middleware/v1/role"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -1211,26 +1212,28 @@ func file_appuser_gateway_v1_role_role_proto_rawDescGZIP() []byte {
 	return file_appuser_gateway_v1_role_role_proto_rawDescData
 }
 
-var file_appuser_gateway_v1_role_role_proto_msgTypes = make([]protoimpl.MessageInfo, 16)
-var file_appuser_gateway_v1_role_role_proto_goTypes = []interface{}{
-	(*CreateRoleRequest)(nil),     // 0: appuser.gateway.role.v1.CreateRoleRequest
-	(*CreateRoleResponse)(nil),    // 1: appuser.gateway.role.v1.CreateRoleResponse
-	(*GetRolesRequest)(nil),       // 2: appuser.gateway.role.v1.GetRolesRequest
-	(*GetRolesResponse)(nil),      // 3: appuser.gateway.role.v1.GetRolesResponse
-	(*UpdateRoleRequest)(nil),     // 4: appuser.gateway.role.v1.UpdateRoleRequest
-	(*UpdateRoleResponse)(nil),    // 5: appuser.gateway.role.v1.UpdateRoleResponse
-	(*DeleteRoleRequest)(nil),     // 6: appuser.gateway.role.v1.DeleteRoleRequest
-	(*DeleteRoleResponse)(nil),    // 7: appuser.gateway.role.v1.DeleteRoleResponse
-	(*CreateAppRoleRequest)(nil),  // 8: appuser.gateway.role.v1.CreateAppRoleRequest
-	(*CreateAppRoleResponse)(nil), // 9: appuser.gateway.role.v1.CreateAppRoleResponse
-	(*UpdateAppRoleRequest)(nil),  // 10: appuser.gateway.role.v1.UpdateAppRoleRequest
-	(*UpdateAppRoleResponse)(nil), // 11: appuser.gateway.role.v1.UpdateAppRoleResponse
-	(*GetAppRolesRequest)(nil),    // 12: appuser.gateway.role.v1.GetAppRolesRequest
-	(*GetAppRolesResponse)(nil),   // 13: appuser.gateway.role.v1.GetAppRolesResponse
-	(*DeleteAppRoleRequest)(nil),  // 14: appuser.gateway.role.v1.DeleteAppRoleRequest
-	(*DeleteAppRoleResponse)(nil), // 15: appuser.gateway.role.v1.DeleteAppRoleResponse
-	(*role.Role)(nil),             // 16: appuser.middleware.role.v1.Role
-}
+var (
+	file_appuser_gateway_v1_role_role_proto_msgTypes = make([]protoimpl.MessageInfo, 16)
+	file_appuser_gateway_v1_role_role_proto_goTypes  = []interface{}{
+		(*CreateRoleRequest)(nil),     // 0: appuser.gateway.role.v1.CreateRoleRequest
+		(*CreateRoleResponse)(nil),    // 1: appuser.gateway.role.v1.CreateRoleResponse
+		(*GetRolesRequest)(nil),       // 2: appuser.gateway.role.v1.GetRolesRequest
+		(*GetRolesResponse)(nil),      // 3: appuser.gateway.role.v1.GetRolesResponse
+		(*UpdateRoleRequest)(nil),     // 4: appuser.gateway.role.v1.UpdateRoleRequest
+		(*UpdateRoleResponse)(nil),    // 5: appuser.gateway.role.v1.UpdateRoleResponse
+		(*DeleteRoleRequest)(nil),     // 6: appuser.gateway.role.v1.DeleteRoleRequest
+		(*DeleteRoleResponse)(nil),    // 7: appuser.gateway.role.v1.DeleteRoleResponse
+		(*CreateAppRoleRequest)(nil),  // 8: appuser.gateway.role.v1.CreateAppRoleRequest
+		(*CreateAppRoleResponse)(nil), // 9: appuser.gateway.role.v1.CreateAppRoleResponse
+		(*UpdateAppRoleRequest)(nil),  // 10: appuser.gateway.role.v1.UpdateAppRoleRequest
+		(*UpdateAppRoleResponse)(nil), // 11: appuser.gateway.role.v1.UpdateAppRoleResponse
+		(*GetAppRolesRequest)(nil),    // 12: appuser.gateway.role.v1.GetAppRolesRequest
+		(*GetAppRolesResponse)(nil),   // 13: appuser.gateway.role.v1.GetAppRolesResponse
+		(*DeleteAppRoleRequest)(nil),  // 14: appuser.gateway.role.v1.DeleteAppRoleRequest
+		(*DeleteAppRoleResponse)(nil), // 15: appuser.gateway.role.v1.DeleteAppRoleResponse
+		(*role.Role)(nil),             // 16: appuser.middleware.role.v1.Role
+	}
+)
 var file_appuser_gateway_v1_role_role_proto_depIdxs = []int32{
 	16, // 0: appuser.gateway.role.v1.CreateRoleResponse.Info:type_name -> appuser.middleware.role.v1.Role
 	16, // 1: appuser.gateway.role.v1.GetRolesResponse.Infos:type_name -> appuser.middleware.role.v1.Role

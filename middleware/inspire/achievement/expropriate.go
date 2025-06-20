@@ -5,10 +5,10 @@ import (
 
 	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
 
-	constant "github.com/NpoolPlatform/kunman/pkg/const"
-	orderstatement1 "github.com/NpoolPlatform/kunman/middleware/inspire/achievement/statement/order"
 	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	orderstatementmwpb "github.com/NpoolPlatform/kunman/message/inspire/middleware/v1/achievement/statement/order"
+	orderstatement1 "github.com/NpoolPlatform/kunman/middleware/inspire/achievement/statement/order"
+	constant "github.com/NpoolPlatform/kunman/pkg/const"
 
 	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 )

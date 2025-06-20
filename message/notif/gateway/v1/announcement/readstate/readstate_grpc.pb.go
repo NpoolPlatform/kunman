@@ -8,6 +8,7 @@ package readstate
 
 import (
 	context "context"
+
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -115,24 +116,28 @@ type GatewayServer interface {
 }
 
 // UnimplementedGatewayServer must be embedded to have forward compatible implementations.
-type UnimplementedGatewayServer struct {
-}
+type UnimplementedGatewayServer struct{}
 
 func (UnimplementedGatewayServer) CreateReadState(context.Context, *CreateReadStateRequest) (*CreateReadStateResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateReadState not implemented")
 }
+
 func (UnimplementedGatewayServer) GetReadState(context.Context, *GetReadStateRequest) (*GetReadStateResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetReadState not implemented")
 }
+
 func (UnimplementedGatewayServer) GetReadStates(context.Context, *GetReadStatesRequest) (*GetReadStatesResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetReadStates not implemented")
 }
+
 func (UnimplementedGatewayServer) GetAppUserReadStates(context.Context, *GetAppUserReadStatesRequest) (*GetAppUserReadStatesResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetAppUserReadStates not implemented")
 }
+
 func (UnimplementedGatewayServer) GetAppReadStates(context.Context, *GetAppReadStatesRequest) (*GetAppReadStatesResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetAppReadStates not implemented")
 }
+
 func (UnimplementedGatewayServer) GetNAppReadStates(context.Context, *GetNAppReadStatesRequest) (*GetNAppReadStatesResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetNAppReadStates not implemented")
 }

@@ -8,6 +8,7 @@ package order
 
 import (
 	context "context"
+
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -79,15 +80,16 @@ type GatewayServer interface {
 }
 
 // UnimplementedGatewayServer must be embedded to have forward compatible implementations.
-type UnimplementedGatewayServer struct {
-}
+type UnimplementedGatewayServer struct{}
 
 func (UnimplementedGatewayServer) GetOrders(context.Context, *GetOrdersRequest) (*GetOrdersResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetOrders not implemented")
 }
+
 func (UnimplementedGatewayServer) GetMyOrders(context.Context, *GetMyOrdersRequest) (*GetMyOrdersResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetMyOrders not implemented")
 }
+
 func (UnimplementedGatewayServer) AdminGetOrders(context.Context, *AdminGetOrdersRequest) (*AdminGetOrdersResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AdminGetOrders not implemented")
 }

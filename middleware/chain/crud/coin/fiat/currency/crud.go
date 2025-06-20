@@ -3,10 +3,10 @@ package currency
 import (
 	"fmt"
 
+	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	ent "github.com/NpoolPlatform/kunman/middleware/chain/db/ent/generated"
 	entcurrency "github.com/NpoolPlatform/kunman/middleware/chain/db/ent/generated/coinfiatcurrency"
 	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
-	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 
 	"github.com/google/uuid"
 	"github.com/shopspring/decimal"

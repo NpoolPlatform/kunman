@@ -5,11 +5,11 @@ import (
 	"sync"
 	"time"
 
-	"github.com/NpoolPlatform/kunman/framework/logger"
 	"github.com/NpoolPlatform/kunman/cron/scheduler/base"
 	"github.com/NpoolPlatform/kunman/cron/scheduler/txqueue/transferring/executor"
 	"github.com/NpoolPlatform/kunman/cron/scheduler/txqueue/transferring/persistent"
 	"github.com/NpoolPlatform/kunman/cron/scheduler/txqueue/transferring/sentinel"
+	"github.com/NpoolPlatform/kunman/framework/logger"
 )
 
 const subsystem = "txqueuetransferring"

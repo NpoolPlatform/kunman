@@ -7,12 +7,13 @@
 package currency
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	currency "github.com/NpoolPlatform/kunman/message/chain/middleware/v1/coin/currency"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -310,14 +311,16 @@ func file_chain_gateway_v1_coin_currency_currency_proto_rawDescGZIP() []byte {
 	return file_chain_gateway_v1_coin_currency_currency_proto_rawDescData
 }
 
-var file_chain_gateway_v1_coin_currency_currency_proto_msgTypes = make([]protoimpl.MessageInfo, 4)
-var file_chain_gateway_v1_coin_currency_currency_proto_goTypes = []interface{}{
-	(*GetCurrencyRequest)(nil),    // 0: chain.gateway.coin.currency.v1.GetCurrencyRequest
-	(*GetCurrencyResponse)(nil),   // 1: chain.gateway.coin.currency.v1.GetCurrencyResponse
-	(*GetCurrenciesRequest)(nil),  // 2: chain.gateway.coin.currency.v1.GetCurrenciesRequest
-	(*GetCurrenciesResponse)(nil), // 3: chain.gateway.coin.currency.v1.GetCurrenciesResponse
-	(*currency.Currency)(nil),     // 4: chain.middleware.coin.currency.v1.Currency
-}
+var (
+	file_chain_gateway_v1_coin_currency_currency_proto_msgTypes = make([]protoimpl.MessageInfo, 4)
+	file_chain_gateway_v1_coin_currency_currency_proto_goTypes  = []interface{}{
+		(*GetCurrencyRequest)(nil),    // 0: chain.gateway.coin.currency.v1.GetCurrencyRequest
+		(*GetCurrencyResponse)(nil),   // 1: chain.gateway.coin.currency.v1.GetCurrencyResponse
+		(*GetCurrenciesRequest)(nil),  // 2: chain.gateway.coin.currency.v1.GetCurrenciesRequest
+		(*GetCurrenciesResponse)(nil), // 3: chain.gateway.coin.currency.v1.GetCurrenciesResponse
+		(*currency.Currency)(nil),     // 4: chain.middleware.coin.currency.v1.Currency
+	}
+)
 var file_chain_gateway_v1_coin_currency_currency_proto_depIdxs = []int32{
 	4, // 0: chain.gateway.coin.currency.v1.GetCurrencyResponse.Info:type_name -> chain.middleware.coin.currency.v1.Currency
 	4, // 1: chain.gateway.coin.currency.v1.GetCurrenciesResponse.Infos:type_name -> chain.middleware.coin.currency.v1.Currency

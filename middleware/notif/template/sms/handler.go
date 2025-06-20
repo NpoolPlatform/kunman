@@ -4,12 +4,12 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/NpoolPlatform/libent-cruder/pkg/cruder"
 	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	templatemwpb "github.com/NpoolPlatform/kunman/message/notif/middleware/v1/template"
 	npool "github.com/NpoolPlatform/kunman/message/notif/middleware/v1/template/sms"
-	constant "github.com/NpoolPlatform/kunman/pkg/const"
 	smstemplatecrud "github.com/NpoolPlatform/kunman/middleware/notif/crud/template/sms"
+	constant "github.com/NpoolPlatform/kunman/pkg/const"
+	"github.com/NpoolPlatform/libent-cruder/pkg/cruder"
 
 	"github.com/google/uuid"
 )
@@ -104,7 +104,6 @@ func WithLangID(id *string, must bool) func(context.Context, *Handler) error {
 	}
 }
 
-// nolint
 func WithUsedFor(_usedFor *basetypes.UsedFor, must bool) func(context.Context, *Handler) error {
 	return func(ctx context.Context, h *Handler) error {
 		if _usedFor == nil {
@@ -211,7 +210,6 @@ func WithVars(vars *templatemwpb.TemplateVars, must bool) func(context.Context, 
 	}
 }
 
-// nolint
 func WithReqs(reqs []*npool.SMSTemplateReq, must bool) func(context.Context, *Handler) error {
 	return func(ctx context.Context, h *Handler) error {
 		_reqs := []*smstemplatecrud.Req{}
@@ -296,7 +294,6 @@ func WithReqs(reqs []*npool.SMSTemplateReq, must bool) func(context.Context, *Ha
 	}
 }
 
-// nolint:gocyclo
 func WithConds(conds *npool.Conds) func(context.Context, *Handler) error {
 	return func(ctx context.Context, h *Handler) error {
 		h.Conds = &smstemplatecrud.Conds{}

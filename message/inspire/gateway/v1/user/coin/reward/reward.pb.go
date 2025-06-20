@@ -7,11 +7,12 @@
 package reward
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -508,14 +509,16 @@ func file_inspire_gateway_v1_user_coin_reward_reward_proto_rawDescGZIP() []byte 
 	return file_inspire_gateway_v1_user_coin_reward_reward_proto_rawDescData
 }
 
-var file_inspire_gateway_v1_user_coin_reward_reward_proto_msgTypes = make([]protoimpl.MessageInfo, 5)
-var file_inspire_gateway_v1_user_coin_reward_reward_proto_goTypes = []interface{}{
-	(*UserCoinReward)(nil),                  // 0: inspire.gateway.user.coin.reward.v1.UserCoinReward
-	(*GetMyCoinRewardsRequest)(nil),         // 1: inspire.gateway.user.coin.reward.v1.GetMyCoinRewardsRequest
-	(*GetMyCoinRewardsResponse)(nil),        // 2: inspire.gateway.user.coin.reward.v1.GetMyCoinRewardsResponse
-	(*AdminGetUserCoinRewardsRequest)(nil),  // 3: inspire.gateway.user.coin.reward.v1.AdminGetUserCoinRewardsRequest
-	(*AdminGetUserCoinRewardsResponse)(nil), // 4: inspire.gateway.user.coin.reward.v1.AdminGetUserCoinRewardsResponse
-}
+var (
+	file_inspire_gateway_v1_user_coin_reward_reward_proto_msgTypes = make([]protoimpl.MessageInfo, 5)
+	file_inspire_gateway_v1_user_coin_reward_reward_proto_goTypes  = []interface{}{
+		(*UserCoinReward)(nil),                  // 0: inspire.gateway.user.coin.reward.v1.UserCoinReward
+		(*GetMyCoinRewardsRequest)(nil),         // 1: inspire.gateway.user.coin.reward.v1.GetMyCoinRewardsRequest
+		(*GetMyCoinRewardsResponse)(nil),        // 2: inspire.gateway.user.coin.reward.v1.GetMyCoinRewardsResponse
+		(*AdminGetUserCoinRewardsRequest)(nil),  // 3: inspire.gateway.user.coin.reward.v1.AdminGetUserCoinRewardsRequest
+		(*AdminGetUserCoinRewardsResponse)(nil), // 4: inspire.gateway.user.coin.reward.v1.AdminGetUserCoinRewardsResponse
+	}
+)
 var file_inspire_gateway_v1_user_coin_reward_reward_proto_depIdxs = []int32{
 	0, // 0: inspire.gateway.user.coin.reward.v1.GetMyCoinRewardsResponse.Infos:type_name -> inspire.gateway.user.coin.reward.v1.UserCoinReward
 	0, // 1: inspire.gateway.user.coin.reward.v1.AdminGetUserCoinRewardsResponse.Infos:type_name -> inspire.gateway.user.coin.reward.v1.UserCoinReward

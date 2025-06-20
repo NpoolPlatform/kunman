@@ -7,10 +7,11 @@
 package v1
 
 import (
-	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
-	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	reflect "reflect"
 	sync "sync"
+
+	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
+	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 )
 
 const (
@@ -377,13 +378,15 @@ func file_basetypes_ledger_v1_enums_proto_rawDescGZIP() []byte {
 	return file_basetypes_ledger_v1_enums_proto_rawDescData
 }
 
-var file_basetypes_ledger_v1_enums_proto_enumTypes = make([]protoimpl.EnumInfo, 4)
-var file_basetypes_ledger_v1_enums_proto_goTypes = []interface{}{
-	(IOType)(0),          // 0: basetypes.ledger.v1.IOType
-	(IOSubType)(0),       // 1: basetypes.ledger.v1.IOSubType
-	(WithdrawState)(0),   // 2: basetypes.ledger.v1.WithdrawState
-	(LedgerLockState)(0), // 3: basetypes.ledger.v1.LedgerLockState
-}
+var (
+	file_basetypes_ledger_v1_enums_proto_enumTypes = make([]protoimpl.EnumInfo, 4)
+	file_basetypes_ledger_v1_enums_proto_goTypes   = []interface{}{
+		(IOType)(0),          // 0: basetypes.ledger.v1.IOType
+		(IOSubType)(0),       // 1: basetypes.ledger.v1.IOSubType
+		(WithdrawState)(0),   // 2: basetypes.ledger.v1.WithdrawState
+		(LedgerLockState)(0), // 3: basetypes.ledger.v1.LedgerLockState
+	}
+)
 var file_basetypes_ledger_v1_enums_proto_depIdxs = []int32{
 	0, // [0:0] is the sub-list for method output_type
 	0, // [0:0] is the sub-list for method input_type

@@ -7,11 +7,12 @@
 package ledger
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -288,13 +289,15 @@ func file_ledger_middleware_v2_simulate_ledger_ledger_proto_rawDescGZIP() []byte
 	return file_ledger_middleware_v2_simulate_ledger_ledger_proto_rawDescData
 }
 
-var file_ledger_middleware_v2_simulate_ledger_ledger_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
-var file_ledger_middleware_v2_simulate_ledger_ledger_proto_goTypes = []interface{}{
-	(*Ledger)(nil),            // 0: ledger.middleware.simulate.ledger.v2.Ledger
-	(*Conds)(nil),             // 1: ledger.middleware.simulate.ledger.v2.Conds
-	(*v1.StringVal)(nil),      // 2: basetypes.v1.StringVal
-	(*v1.StringSliceVal)(nil), // 3: basetypes.v1.StringSliceVal
-}
+var (
+	file_ledger_middleware_v2_simulate_ledger_ledger_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
+	file_ledger_middleware_v2_simulate_ledger_ledger_proto_goTypes  = []interface{}{
+		(*Ledger)(nil),            // 0: ledger.middleware.simulate.ledger.v2.Ledger
+		(*Conds)(nil),             // 1: ledger.middleware.simulate.ledger.v2.Conds
+		(*v1.StringVal)(nil),      // 2: basetypes.v1.StringVal
+		(*v1.StringSliceVal)(nil), // 3: basetypes.v1.StringSliceVal
+	}
+)
 var file_ledger_middleware_v2_simulate_ledger_ledger_proto_depIdxs = []int32{
 	2, // 0: ledger.middleware.simulate.ledger.v2.Conds.EntID:type_name -> basetypes.v1.StringVal
 	2, // 1: ledger.middleware.simulate.ledger.v2.Conds.AppID:type_name -> basetypes.v1.StringVal

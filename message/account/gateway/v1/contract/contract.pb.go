@@ -7,14 +7,15 @@
 package contract
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	v12 "github.com/NpoolPlatform/kunman/message/basetypes/account/v1"
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/good/v1"
 	v11 "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -444,15 +445,17 @@ func file_account_gateway_v1_contract_contract_proto_rawDescGZIP() []byte {
 	return file_account_gateway_v1_contract_contract_proto_rawDescData
 }
 
-var file_account_gateway_v1_contract_contract_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
-var file_account_gateway_v1_contract_contract_proto_goTypes = []interface{}{
-	(*Account)(nil),                  // 0: account.gateway.contract.v1.Account
-	(*AdminGetAccountsRequest)(nil),  // 1: account.gateway.contract.v1.AdminGetAccountsRequest
-	(*AdminGetAccountsResponse)(nil), // 2: account.gateway.contract.v1.AdminGetAccountsResponse
-	(v1.GoodType)(0),                 // 3: basetypes.good.v1.GoodType
-	(v11.AccountLockedBy)(0),         // 4: basetypes.v1.AccountLockedBy
-	(v12.ContractOperatorType)(0),    // 5: basetypes.account.v1.ContractOperatorType
-}
+var (
+	file_account_gateway_v1_contract_contract_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
+	file_account_gateway_v1_contract_contract_proto_goTypes  = []interface{}{
+		(*Account)(nil),                  // 0: account.gateway.contract.v1.Account
+		(*AdminGetAccountsRequest)(nil),  // 1: account.gateway.contract.v1.AdminGetAccountsRequest
+		(*AdminGetAccountsResponse)(nil), // 2: account.gateway.contract.v1.AdminGetAccountsResponse
+		(v1.GoodType)(0),                 // 3: basetypes.good.v1.GoodType
+		(v11.AccountLockedBy)(0),         // 4: basetypes.v1.AccountLockedBy
+		(v12.ContractOperatorType)(0),    // 5: basetypes.account.v1.ContractOperatorType
+	}
+)
 var file_account_gateway_v1_contract_contract_proto_depIdxs = []int32{
 	3, // 0: account.gateway.contract.v1.Account.GoodType:type_name -> basetypes.good.v1.GoodType
 	4, // 1: account.gateway.contract.v1.Account.LockedBy:type_name -> basetypes.v1.AccountLockedBy

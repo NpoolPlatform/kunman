@@ -7,11 +7,12 @@
 package channel
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -386,16 +387,18 @@ func file_notif_middleware_v1_notif_channel_channel_proto_rawDescGZIP() []byte {
 	return file_notif_middleware_v1_notif_channel_channel_proto_rawDescData
 }
 
-var file_notif_middleware_v1_notif_channel_channel_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
-var file_notif_middleware_v1_notif_channel_channel_proto_goTypes = []interface{}{
-	(*Channel)(nil),      // 0: notif.middleware.notif.channel.v1.Channel
-	(*ChannelReq)(nil),   // 1: notif.middleware.notif.channel.v1.ChannelReq
-	(*Conds)(nil),        // 2: notif.middleware.notif.channel.v1.Conds
-	(v1.UsedFor)(0),      // 3: basetypes.v1.UsedFor
-	(v1.NotifChannel)(0), // 4: basetypes.v1.NotifChannel
-	(*v1.Uint32Val)(nil), // 5: basetypes.v1.Uint32Val
-	(*v1.StringVal)(nil), // 6: basetypes.v1.StringVal
-}
+var (
+	file_notif_middleware_v1_notif_channel_channel_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
+	file_notif_middleware_v1_notif_channel_channel_proto_goTypes  = []interface{}{
+		(*Channel)(nil),      // 0: notif.middleware.notif.channel.v1.Channel
+		(*ChannelReq)(nil),   // 1: notif.middleware.notif.channel.v1.ChannelReq
+		(*Conds)(nil),        // 2: notif.middleware.notif.channel.v1.Conds
+		(v1.UsedFor)(0),      // 3: basetypes.v1.UsedFor
+		(v1.NotifChannel)(0), // 4: basetypes.v1.NotifChannel
+		(*v1.Uint32Val)(nil), // 5: basetypes.v1.Uint32Val
+		(*v1.StringVal)(nil), // 6: basetypes.v1.StringVal
+	}
+)
 var file_notif_middleware_v1_notif_channel_channel_proto_depIdxs = []int32{
 	3, // 0: notif.middleware.notif.channel.v1.Channel.EventType:type_name -> basetypes.v1.UsedFor
 	4, // 1: notif.middleware.notif.channel.v1.Channel.Channel:type_name -> basetypes.v1.NotifChannel

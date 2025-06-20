@@ -8,6 +8,7 @@ package country
 
 import (
 	context "context"
+
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -91,18 +92,20 @@ type GatewayServer interface {
 }
 
 // UnimplementedGatewayServer must be embedded to have forward compatible implementations.
-type UnimplementedGatewayServer struct {
-}
+type UnimplementedGatewayServer struct{}
 
 func (UnimplementedGatewayServer) CreateCountry(context.Context, *CreateCountryRequest) (*CreateCountryResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateCountry not implemented")
 }
+
 func (UnimplementedGatewayServer) CreateCountries(context.Context, *CreateCountriesRequest) (*CreateCountriesResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateCountries not implemented")
 }
+
 func (UnimplementedGatewayServer) UpdateCountry(context.Context, *UpdateCountryRequest) (*UpdateCountryResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateCountry not implemented")
 }
+
 func (UnimplementedGatewayServer) GetCountries(context.Context, *GetCountriesRequest) (*GetCountriesResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetCountries not implemented")
 }

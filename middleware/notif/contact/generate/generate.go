@@ -5,10 +5,10 @@ import (
 	"fmt"
 	"strings"
 
-	cruder "github.com/NpoolPlatform/libent-cruder/pkg/cruder"
 	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	npool "github.com/NpoolPlatform/kunman/message/notif/middleware/v1/contact"
 	crud "github.com/NpoolPlatform/kunman/middleware/notif/crud/contact"
+	cruder "github.com/NpoolPlatform/libent-cruder/pkg/cruder"
 )
 
 func (h *Handler) GenerateContact(ctx context.Context) (*npool.TextInfo, error) {

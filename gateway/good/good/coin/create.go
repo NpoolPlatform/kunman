@@ -3,13 +3,13 @@ package goodcoin
 import (
 	"context"
 
-	constant "github.com/NpoolPlatform/kunman/pkg/const"
 	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
 	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	coinmwpb "github.com/NpoolPlatform/kunman/message/chain/middleware/v1/coin"
 	npool "github.com/NpoolPlatform/kunman/message/good/gateway/v1/good/coin"
 	coinmw "github.com/NpoolPlatform/kunman/middleware/chain/coin"
 	goodcoinmw "github.com/NpoolPlatform/kunman/middleware/good/good/coin"
+	constant "github.com/NpoolPlatform/kunman/pkg/const"
 	cruder "github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 
 	"github.com/google/uuid"

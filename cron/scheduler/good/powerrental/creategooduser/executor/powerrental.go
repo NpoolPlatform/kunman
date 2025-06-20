@@ -44,7 +44,7 @@ type powerRentalHandler struct {
 }
 
 func (h *powerRentalHandler) checkMiningGoodStockState() error {
-	for _, miningGoodStock := range h.PowerRental.MiningGoodStocks {
+	for _, miningGoodStock := range h.MiningGoodStocks {
 		if miningGoodStock.State != currentMiningGoodStockState {
 			return wlog.Errorf("invalid mininggoodstockstate: %v, mininggoodstock: %v", miningGoodStock.State, miningGoodStock.EntID)
 		}
@@ -53,13 +53,13 @@ func (h *powerRentalHandler) checkMiningGoodStockState() error {
 }
 
 func (h *powerRentalHandler) getCoinTypeIDs() error {
-	if len(h.PowerRental.GoodCoins) == 0 {
+	if len(h.GoodCoins) == 0 {
 		return wlog.Errorf("powerrental good have no coins")
 	}
 
 	h.goodCoinTypeIDs = []string{}
 	haveMainCoin := false
-	for _, goodCoin := range h.PowerRental.GoodCoins {
+	for _, goodCoin := range h.GoodCoins {
 		h.goodCoinTypeIDs = append(h.goodCoinTypeIDs, goodCoin.CoinTypeID)
 		if goodCoin.Main {
 			haveMainCoin = true
@@ -93,7 +93,7 @@ func _removeRepeatedElement(arr []string) []string {
 func (h *powerRentalHandler) getPoolInfos(ctx context.Context) error {
 	var err error
 	poolRootUserIDs := []string{}
-	for _, miningGoodStock := range h.PowerRental.MiningGoodStocks {
+	for _, miningGoodStock := range h.MiningGoodStocks {
 		poolRootUserIDs = append(poolRootUserIDs, miningGoodStock.PoolRootUserID)
 	}
 
@@ -149,7 +149,7 @@ func (h *powerRentalHandler) getPoolInfos(ctx context.Context) error {
 }
 
 func (h *powerRentalHandler) checkPoolRootUsers() error {
-	for _, miningGoodStock := range h.PowerRental.MiningGoodStocks {
+	for _, miningGoodStock := range h.MiningGoodStocks {
 		exist := false
 		for _, rootUser := range h.rootUsers {
 			if miningGoodStock.PoolRootUserID == rootUser.EntID {
@@ -173,7 +173,7 @@ func (h *powerRentalHandler) checkPoolRootUsers() error {
 func (h *powerRentalHandler) constructMiningGoodStockReqs() {
 	_miningGoodStockReqs := []*miningstockmwpb.MiningGoodStockReq{}
 	_gooduserReqs := []*goodusermwpb.GoodUserReq{}
-	for _, req := range h.PowerRental.MiningGoodStocks {
+	for _, req := range h.MiningGoodStocks {
 		poolGoodUserID := uuid.NewString()
 		_miningGoodStockReqs = append(_miningGoodStockReqs,
 			&miningstockmwpb.MiningGoodStockReq{

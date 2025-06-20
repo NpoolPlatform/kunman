@@ -431,7 +431,6 @@ func resetup(t *testing.T) func(*testing.T) {
 	}
 }
 
-//nolint:dupl
 func rewardEvent(t *testing.T) {
 	eventType := basetypes.UsedFor_Signup
 	consecutive := uint32(1)
@@ -450,7 +449,6 @@ func rewardEvent(t *testing.T) {
 	assert.Nil(t, err)
 }
 
-//nolint:dupl
 func rewardEvent2(t *testing.T) {
 	eventType := basetypes.UsedFor_SetWithdrawAddress
 	consecutive := uint32(1)

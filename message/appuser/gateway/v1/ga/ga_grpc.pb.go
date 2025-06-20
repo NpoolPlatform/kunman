@@ -8,6 +8,7 @@ package ga
 
 import (
 	context "context"
+
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -69,12 +70,12 @@ type GatewayServer interface {
 }
 
 // UnimplementedGatewayServer must be embedded to have forward compatible implementations.
-type UnimplementedGatewayServer struct {
-}
+type UnimplementedGatewayServer struct{}
 
 func (UnimplementedGatewayServer) SetupGoogleAuth(context.Context, *SetupGoogleAuthRequest) (*SetupGoogleAuthResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SetupGoogleAuth not implemented")
 }
+
 func (UnimplementedGatewayServer) VerifyGoogleAuth(context.Context, *VerifyGoogleAuthRequest) (*VerifyGoogleAuthResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method VerifyGoogleAuth not implemented")
 }

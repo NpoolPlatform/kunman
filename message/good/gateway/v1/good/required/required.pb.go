@@ -7,12 +7,13 @@
 package required
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	required "github.com/NpoolPlatform/kunman/message/good/middleware/v1/good/required"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -592,18 +593,20 @@ func file_good_gateway_v1_good_required_required_proto_rawDescGZIP() []byte {
 	return file_good_gateway_v1_good_required_required_proto_rawDescData
 }
 
-var file_good_gateway_v1_good_required_required_proto_msgTypes = make([]protoimpl.MessageInfo, 8)
-var file_good_gateway_v1_good_required_required_proto_goTypes = []interface{}{
-	(*AdminCreateRequiredRequest)(nil),  // 0: good.gateway.good1.required1.v1.AdminCreateRequiredRequest
-	(*AdminCreateRequiredResponse)(nil), // 1: good.gateway.good1.required1.v1.AdminCreateRequiredResponse
-	(*AdminUpdateRequiredRequest)(nil),  // 2: good.gateway.good1.required1.v1.AdminUpdateRequiredRequest
-	(*AdminUpdateRequiredResponse)(nil), // 3: good.gateway.good1.required1.v1.AdminUpdateRequiredResponse
-	(*GetRequiredsRequest)(nil),         // 4: good.gateway.good1.required1.v1.GetRequiredsRequest
-	(*GetRequiredsResponse)(nil),        // 5: good.gateway.good1.required1.v1.GetRequiredsResponse
-	(*AdminDeleteRequiredRequest)(nil),  // 6: good.gateway.good1.required1.v1.AdminDeleteRequiredRequest
-	(*AdminDeleteRequiredResponse)(nil), // 7: good.gateway.good1.required1.v1.AdminDeleteRequiredResponse
-	(*required.Required)(nil),           // 8: good.middleware.good1.required1.v1.Required
-}
+var (
+	file_good_gateway_v1_good_required_required_proto_msgTypes = make([]protoimpl.MessageInfo, 8)
+	file_good_gateway_v1_good_required_required_proto_goTypes  = []interface{}{
+		(*AdminCreateRequiredRequest)(nil),  // 0: good.gateway.good1.required1.v1.AdminCreateRequiredRequest
+		(*AdminCreateRequiredResponse)(nil), // 1: good.gateway.good1.required1.v1.AdminCreateRequiredResponse
+		(*AdminUpdateRequiredRequest)(nil),  // 2: good.gateway.good1.required1.v1.AdminUpdateRequiredRequest
+		(*AdminUpdateRequiredResponse)(nil), // 3: good.gateway.good1.required1.v1.AdminUpdateRequiredResponse
+		(*GetRequiredsRequest)(nil),         // 4: good.gateway.good1.required1.v1.GetRequiredsRequest
+		(*GetRequiredsResponse)(nil),        // 5: good.gateway.good1.required1.v1.GetRequiredsResponse
+		(*AdminDeleteRequiredRequest)(nil),  // 6: good.gateway.good1.required1.v1.AdminDeleteRequiredRequest
+		(*AdminDeleteRequiredResponse)(nil), // 7: good.gateway.good1.required1.v1.AdminDeleteRequiredResponse
+		(*required.Required)(nil),           // 8: good.middleware.good1.required1.v1.Required
+	}
+)
 var file_good_gateway_v1_good_required_required_proto_depIdxs = []int32{
 	8, // 0: good.gateway.good1.required1.v1.AdminCreateRequiredResponse.Info:type_name -> good.middleware.good1.required1.v1.Required
 	8, // 1: good.gateway.good1.required1.v1.AdminUpdateRequiredResponse.Info:type_name -> good.middleware.good1.required1.v1.Required

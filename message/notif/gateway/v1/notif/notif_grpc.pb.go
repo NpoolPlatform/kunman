@@ -8,6 +8,7 @@ package notif
 
 import (
 	context "context"
+
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -79,15 +80,16 @@ type GatewayServer interface {
 }
 
 // UnimplementedGatewayServer must be embedded to have forward compatible implementations.
-type UnimplementedGatewayServer struct {
-}
+type UnimplementedGatewayServer struct{}
 
 func (UnimplementedGatewayServer) UpdateNotifs(context.Context, *UpdateNotifsRequest) (*UpdateNotifsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateNotifs not implemented")
 }
+
 func (UnimplementedGatewayServer) GetNotifs(context.Context, *GetNotifsRequest) (*GetNotifsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetNotifs not implemented")
 }
+
 func (UnimplementedGatewayServer) GetAppNotifs(context.Context, *GetAppNotifsRequest) (*GetAppNotifsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetAppNotifs not implemented")
 }

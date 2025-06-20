@@ -3,10 +3,10 @@ package coinusedfor
 import (
 	"fmt"
 
+	types "github.com/NpoolPlatform/kunman/message/basetypes/chain/v1"
 	ent "github.com/NpoolPlatform/kunman/middleware/chain/db/ent/generated"
 	entcoinusedfor "github.com/NpoolPlatform/kunman/middleware/chain/db/ent/generated/coinusedfor"
 	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
-	types "github.com/NpoolPlatform/kunman/message/basetypes/chain/v1"
 
 	"github.com/google/uuid"
 )

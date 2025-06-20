@@ -7,11 +7,12 @@
 package template
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	_ "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -286,11 +287,13 @@ func file_notif_middleware_v1_template_template_proto_rawDescGZIP() []byte {
 	return file_notif_middleware_v1_template_template_proto_rawDescData
 }
 
-var file_notif_middleware_v1_template_template_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
-var file_notif_middleware_v1_template_template_proto_goTypes = []interface{}{
-	(*TemplateVars)(nil), // 0: notif.middleware.template.v1.TemplateVars
-	(*TextInfo)(nil),     // 1: notif.middleware.template.v1.TextInfo
-}
+var (
+	file_notif_middleware_v1_template_template_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
+	file_notif_middleware_v1_template_template_proto_goTypes  = []interface{}{
+		(*TemplateVars)(nil), // 0: notif.middleware.template.v1.TemplateVars
+		(*TextInfo)(nil),     // 1: notif.middleware.template.v1.TextInfo
+	}
+)
 var file_notif_middleware_v1_template_template_proto_depIdxs = []int32{
 	0, // [0:0] is the sub-list for method output_type
 	0, // [0:0] is the sub-list for method input_type

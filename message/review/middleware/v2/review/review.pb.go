@@ -7,13 +7,14 @@
 package review
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/review/v1"
 	v11 "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -563,18 +564,20 @@ func file_review_middleware_v2_review_review_proto_rawDescGZIP() []byte {
 	return file_review_middleware_v2_review_review_proto_rawDescData
 }
 
-var file_review_middleware_v2_review_review_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
-var file_review_middleware_v2_review_review_proto_goTypes = []interface{}{
-	(*ReviewReq)(nil),          // 0: review.middleware.review.v2.ReviewReq
-	(*Review)(nil),             // 1: review.middleware.review.v2.Review
-	(*Conds)(nil),              // 2: review.middleware.review.v2.Conds
-	(v1.ReviewTriggerType)(0),  // 3: basetypes.review.v1.ReviewTriggerType
-	(v1.ReviewObjectType)(0),   // 4: basetypes.review.v1.ReviewObjectType
-	(v1.ReviewState)(0),        // 5: basetypes.review.v1.ReviewState
-	(*v11.StringVal)(nil),      // 6: basetypes.v1.StringVal
-	(*v11.Uint32Val)(nil),      // 7: basetypes.v1.Uint32Val
-	(*v11.StringSliceVal)(nil), // 8: basetypes.v1.StringSliceVal
-}
+var (
+	file_review_middleware_v2_review_review_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
+	file_review_middleware_v2_review_review_proto_goTypes  = []interface{}{
+		(*ReviewReq)(nil),          // 0: review.middleware.review.v2.ReviewReq
+		(*Review)(nil),             // 1: review.middleware.review.v2.Review
+		(*Conds)(nil),              // 2: review.middleware.review.v2.Conds
+		(v1.ReviewTriggerType)(0),  // 3: basetypes.review.v1.ReviewTriggerType
+		(v1.ReviewObjectType)(0),   // 4: basetypes.review.v1.ReviewObjectType
+		(v1.ReviewState)(0),        // 5: basetypes.review.v1.ReviewState
+		(*v11.StringVal)(nil),      // 6: basetypes.v1.StringVal
+		(*v11.Uint32Val)(nil),      // 7: basetypes.v1.Uint32Val
+		(*v11.StringSliceVal)(nil), // 8: basetypes.v1.StringSliceVal
+	}
+)
 var file_review_middleware_v2_review_review_proto_depIdxs = []int32{
 	3,  // 0: review.middleware.review.v2.ReviewReq.Trigger:type_name -> basetypes.review.v1.ReviewTriggerType
 	4,  // 1: review.middleware.review.v2.ReviewReq.ObjectType:type_name -> basetypes.review.v1.ReviewObjectType

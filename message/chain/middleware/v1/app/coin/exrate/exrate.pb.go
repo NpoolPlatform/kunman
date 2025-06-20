@@ -7,11 +7,12 @@
 package exchangerate
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -445,13 +446,15 @@ func file_chain_middleware_v1_app_coin_exrate_exrate_proto_rawDescGZIP() []byte 
 	return file_chain_middleware_v1_app_coin_exrate_exrate_proto_rawDescData
 }
 
-var file_chain_middleware_v1_app_coin_exrate_exrate_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
-var file_chain_middleware_v1_app_coin_exrate_exrate_proto_goTypes = []interface{}{
-	(*ExchangeRateReq)(nil), // 0: chain.middleware.app.coin.exchangerate.v1.ExchangeRateReq
-	(*ExchangeRate)(nil),    // 1: chain.middleware.app.coin.exchangerate.v1.ExchangeRate
-	(*Conds)(nil),           // 2: chain.middleware.app.coin.exchangerate.v1.Conds
-	(*v1.StringVal)(nil),    // 3: basetypes.v1.StringVal
-}
+var (
+	file_chain_middleware_v1_app_coin_exrate_exrate_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
+	file_chain_middleware_v1_app_coin_exrate_exrate_proto_goTypes  = []interface{}{
+		(*ExchangeRateReq)(nil), // 0: chain.middleware.app.coin.exchangerate.v1.ExchangeRateReq
+		(*ExchangeRate)(nil),    // 1: chain.middleware.app.coin.exchangerate.v1.ExchangeRate
+		(*Conds)(nil),           // 2: chain.middleware.app.coin.exchangerate.v1.Conds
+		(*v1.StringVal)(nil),    // 3: basetypes.v1.StringVal
+	}
+)
 var file_chain_middleware_v1_app_coin_exrate_exrate_proto_depIdxs = []int32{
 	3, // 0: chain.middleware.app.coin.exchangerate.v1.Conds.EntID:type_name -> basetypes.v1.StringVal
 	3, // 1: chain.middleware.app.coin.exchangerate.v1.Conds.AppID:type_name -> basetypes.v1.StringVal

@@ -3,9 +3,9 @@ package history
 import (
 	"context"
 
-	historycrud "github.com/NpoolPlatform/kunman/middleware/appuser/crud/authing/history"
-	handler "github.com/NpoolPlatform/kunman/middleware/appuser/authing/handler"
 	npool "github.com/NpoolPlatform/kunman/message/appuser/middleware/v1/authing/history"
+	handler "github.com/NpoolPlatform/kunman/middleware/appuser/authing/handler"
+	historycrud "github.com/NpoolPlatform/kunman/middleware/appuser/crud/authing/history"
 
 	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 

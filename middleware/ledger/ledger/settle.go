@@ -112,7 +112,7 @@ func (h *Handler) SettleBalance(ctx context.Context) (*ledgermwpb.Ledger, error)
 		},
 	}
 
-	err := db.WithTx(ctx, func(ctx context.Context, tx *ent.Tx) error { //nolint:dupl
+	err := db.WithTx(ctx, func(ctx context.Context, tx *ent.Tx) error {
 		if err := handler.getLocks(ctx, tx.LedgerLock); err != nil {
 			return err
 		}
@@ -156,7 +156,7 @@ func (h *Handler) SettleBalances(ctx context.Context) ([]*ledgermwpb.Ledger, err
 		},
 	}
 
-	err := db.WithTx(ctx, func(ctx context.Context, tx *ent.Tx) error { //nolint:dupl
+	err := db.WithTx(ctx, func(ctx context.Context, tx *ent.Tx) error {
 		if err := handler.getLocks(ctx, tx.LedgerLock); err != nil {
 			return err
 		}

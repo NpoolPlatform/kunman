@@ -18,8 +18,8 @@ func (h *checkHandler) checkCompensate(ctx context.Context) error {
 	conds := &compensatemwpb.Conds{
 		ID:     &basetypes.Uint32Val{Op: cruder.EQ, Value: *h.ID},
 		EntID:  &basetypes.StringVal{Op: cruder.EQ, Value: *h.EntID},
-		AppID:  &basetypes.StringVal{Op: cruder.EQ, Value: *h.OrderCheckHandler.AppID},
-		UserID: &basetypes.StringVal{Op: cruder.EQ, Value: *h.OrderCheckHandler.UserID},
+		AppID:  &basetypes.StringVal{Op: cruder.EQ, Value: *h.AppID},
+		UserID: &basetypes.StringVal{Op: cruder.EQ, Value: *h.UserID},
 	}
 	handler, err := compensatemw.NewHandler(
 		ctx,

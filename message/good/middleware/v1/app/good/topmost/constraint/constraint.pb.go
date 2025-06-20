@@ -7,12 +7,13 @@
 package constraint
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/good/v1"
 	v11 "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -1220,28 +1221,30 @@ func file_good_middleware_v1_app_good_topmost_constraint_constraint_proto_rawDes
 	return file_good_middleware_v1_app_good_topmost_constraint_constraint_proto_rawDescData
 }
 
-var file_good_middleware_v1_app_good_topmost_constraint_constraint_proto_msgTypes = make([]protoimpl.MessageInfo, 15)
-var file_good_middleware_v1_app_good_topmost_constraint_constraint_proto_goTypes = []interface{}{
-	(*TopMostConstraintReq)(nil),                // 0: good.middleware.app.good1.topmost.constraint.v1.TopMostConstraintReq
-	(*TopMostConstraint)(nil),                   // 1: good.middleware.app.good1.topmost.constraint.v1.TopMostConstraint
-	(*Conds)(nil),                               // 2: good.middleware.app.good1.topmost.constraint.v1.Conds
-	(*CreateTopMostConstraintRequest)(nil),      // 3: good.middleware.app.good1.topmost.constraint.v1.CreateTopMostConstraintRequest
-	(*CreateTopMostConstraintResponse)(nil),     // 4: good.middleware.app.good1.topmost.constraint.v1.CreateTopMostConstraintResponse
-	(*UpdateTopMostConstraintRequest)(nil),      // 5: good.middleware.app.good1.topmost.constraint.v1.UpdateTopMostConstraintRequest
-	(*UpdateTopMostConstraintResponse)(nil),     // 6: good.middleware.app.good1.topmost.constraint.v1.UpdateTopMostConstraintResponse
-	(*GetTopMostConstraintRequest)(nil),         // 7: good.middleware.app.good1.topmost.constraint.v1.GetTopMostConstraintRequest
-	(*GetTopMostConstraintResponse)(nil),        // 8: good.middleware.app.good1.topmost.constraint.v1.GetTopMostConstraintResponse
-	(*GetTopMostConstraintsRequest)(nil),        // 9: good.middleware.app.good1.topmost.constraint.v1.GetTopMostConstraintsRequest
-	(*GetTopMostConstraintsResponse)(nil),       // 10: good.middleware.app.good1.topmost.constraint.v1.GetTopMostConstraintsResponse
-	(*ExistTopMostConstraintCondsRequest)(nil),  // 11: good.middleware.app.good1.topmost.constraint.v1.ExistTopMostConstraintCondsRequest
-	(*ExistTopMostConstraintCondsResponse)(nil), // 12: good.middleware.app.good1.topmost.constraint.v1.ExistTopMostConstraintCondsResponse
-	(*DeleteTopMostConstraintRequest)(nil),      // 13: good.middleware.app.good1.topmost.constraint.v1.DeleteTopMostConstraintRequest
-	(*DeleteTopMostConstraintResponse)(nil),     // 14: good.middleware.app.good1.topmost.constraint.v1.DeleteTopMostConstraintResponse
-	(v1.GoodTopMostConstraint)(0),               // 15: basetypes.good.v1.GoodTopMostConstraint
-	(v1.GoodTopMostType)(0),                     // 16: basetypes.good.v1.GoodTopMostType
-	(*v11.Uint32Val)(nil),                       // 17: basetypes.v1.Uint32Val
-	(*v11.StringVal)(nil),                       // 18: basetypes.v1.StringVal
-}
+var (
+	file_good_middleware_v1_app_good_topmost_constraint_constraint_proto_msgTypes = make([]protoimpl.MessageInfo, 15)
+	file_good_middleware_v1_app_good_topmost_constraint_constraint_proto_goTypes  = []interface{}{
+		(*TopMostConstraintReq)(nil),                // 0: good.middleware.app.good1.topmost.constraint.v1.TopMostConstraintReq
+		(*TopMostConstraint)(nil),                   // 1: good.middleware.app.good1.topmost.constraint.v1.TopMostConstraint
+		(*Conds)(nil),                               // 2: good.middleware.app.good1.topmost.constraint.v1.Conds
+		(*CreateTopMostConstraintRequest)(nil),      // 3: good.middleware.app.good1.topmost.constraint.v1.CreateTopMostConstraintRequest
+		(*CreateTopMostConstraintResponse)(nil),     // 4: good.middleware.app.good1.topmost.constraint.v1.CreateTopMostConstraintResponse
+		(*UpdateTopMostConstraintRequest)(nil),      // 5: good.middleware.app.good1.topmost.constraint.v1.UpdateTopMostConstraintRequest
+		(*UpdateTopMostConstraintResponse)(nil),     // 6: good.middleware.app.good1.topmost.constraint.v1.UpdateTopMostConstraintResponse
+		(*GetTopMostConstraintRequest)(nil),         // 7: good.middleware.app.good1.topmost.constraint.v1.GetTopMostConstraintRequest
+		(*GetTopMostConstraintResponse)(nil),        // 8: good.middleware.app.good1.topmost.constraint.v1.GetTopMostConstraintResponse
+		(*GetTopMostConstraintsRequest)(nil),        // 9: good.middleware.app.good1.topmost.constraint.v1.GetTopMostConstraintsRequest
+		(*GetTopMostConstraintsResponse)(nil),       // 10: good.middleware.app.good1.topmost.constraint.v1.GetTopMostConstraintsResponse
+		(*ExistTopMostConstraintCondsRequest)(nil),  // 11: good.middleware.app.good1.topmost.constraint.v1.ExistTopMostConstraintCondsRequest
+		(*ExistTopMostConstraintCondsResponse)(nil), // 12: good.middleware.app.good1.topmost.constraint.v1.ExistTopMostConstraintCondsResponse
+		(*DeleteTopMostConstraintRequest)(nil),      // 13: good.middleware.app.good1.topmost.constraint.v1.DeleteTopMostConstraintRequest
+		(*DeleteTopMostConstraintResponse)(nil),     // 14: good.middleware.app.good1.topmost.constraint.v1.DeleteTopMostConstraintResponse
+		(v1.GoodTopMostConstraint)(0),               // 15: basetypes.good.v1.GoodTopMostConstraint
+		(v1.GoodTopMostType)(0),                     // 16: basetypes.good.v1.GoodTopMostType
+		(*v11.Uint32Val)(nil),                       // 17: basetypes.v1.Uint32Val
+		(*v11.StringVal)(nil),                       // 18: basetypes.v1.StringVal
+	}
+)
 var file_good_middleware_v1_app_good_topmost_constraint_constraint_proto_depIdxs = []int32{
 	15, // 0: good.middleware.app.good1.topmost.constraint.v1.TopMostConstraintReq.Constraint:type_name -> basetypes.good.v1.GoodTopMostConstraint
 	16, // 1: good.middleware.app.good1.topmost.constraint.v1.TopMostConstraint.TopMostType:type_name -> basetypes.good.v1.GoodTopMostType

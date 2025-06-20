@@ -9,13 +9,13 @@ import (
 
 	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 
-	brand1 "github.com/NpoolPlatform/kunman/middleware/good/vender/brand"
 	npool "github.com/NpoolPlatform/kunman/message/good/middleware/v1/vender/location"
+	brand1 "github.com/NpoolPlatform/kunman/middleware/good/vender/brand"
 	"github.com/google/uuid"
 	"github.com/stretchr/testify/assert"
 
-	"github.com/NpoolPlatform/kunman/middleware/good/testinit"
 	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
+	"github.com/NpoolPlatform/kunman/middleware/good/testinit"
 )
 
 func init() {

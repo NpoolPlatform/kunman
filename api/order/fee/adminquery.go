@@ -3,8 +3,8 @@ package feeorder
 import (
 	"context"
 
-	npool "github.com/NpoolPlatform/kunman/message/order/gateway/v1/fee"
 	feeorder1 "github.com/NpoolPlatform/kunman/gateway/order/fee"
+	npool "github.com/NpoolPlatform/kunman/message/order/gateway/v1/fee"
 
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"

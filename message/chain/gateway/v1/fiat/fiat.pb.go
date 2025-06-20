@@ -7,12 +7,13 @@
 package fiat
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	fiat "github.com/NpoolPlatform/kunman/message/chain/middleware/v1/fiat"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -447,16 +448,18 @@ func file_chain_gateway_v1_fiat_fiat_proto_rawDescGZIP() []byte {
 	return file_chain_gateway_v1_fiat_fiat_proto_rawDescData
 }
 
-var file_chain_gateway_v1_fiat_fiat_proto_msgTypes = make([]protoimpl.MessageInfo, 6)
-var file_chain_gateway_v1_fiat_fiat_proto_goTypes = []interface{}{
-	(*CreateFiatRequest)(nil),  // 0: chain.gateway.fiat.v1.CreateFiatRequest
-	(*CreateFiatResponse)(nil), // 1: chain.gateway.fiat.v1.CreateFiatResponse
-	(*GetFiatsRequest)(nil),    // 2: chain.gateway.fiat.v1.GetFiatsRequest
-	(*GetFiatsResponse)(nil),   // 3: chain.gateway.fiat.v1.GetFiatsResponse
-	(*UpdateFiatRequest)(nil),  // 4: chain.gateway.fiat.v1.UpdateFiatRequest
-	(*UpdateFiatResponse)(nil), // 5: chain.gateway.fiat.v1.UpdateFiatResponse
-	(*fiat.Fiat)(nil),          // 6: chain.middleware.fiat.v1.Fiat
-}
+var (
+	file_chain_gateway_v1_fiat_fiat_proto_msgTypes = make([]protoimpl.MessageInfo, 6)
+	file_chain_gateway_v1_fiat_fiat_proto_goTypes  = []interface{}{
+		(*CreateFiatRequest)(nil),  // 0: chain.gateway.fiat.v1.CreateFiatRequest
+		(*CreateFiatResponse)(nil), // 1: chain.gateway.fiat.v1.CreateFiatResponse
+		(*GetFiatsRequest)(nil),    // 2: chain.gateway.fiat.v1.GetFiatsRequest
+		(*GetFiatsResponse)(nil),   // 3: chain.gateway.fiat.v1.GetFiatsResponse
+		(*UpdateFiatRequest)(nil),  // 4: chain.gateway.fiat.v1.UpdateFiatRequest
+		(*UpdateFiatResponse)(nil), // 5: chain.gateway.fiat.v1.UpdateFiatResponse
+		(*fiat.Fiat)(nil),          // 6: chain.middleware.fiat.v1.Fiat
+	}
+)
 var file_chain_gateway_v1_fiat_fiat_proto_depIdxs = []int32{
 	6, // 0: chain.gateway.fiat.v1.CreateFiatResponse.Info:type_name -> chain.middleware.fiat.v1.Fiat
 	6, // 1: chain.gateway.fiat.v1.GetFiatsResponse.Infos:type_name -> chain.middleware.fiat.v1.Fiat

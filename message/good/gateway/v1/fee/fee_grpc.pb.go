@@ -8,6 +8,7 @@ package fee
 
 import (
 	context "context"
+
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -103,21 +104,24 @@ type GatewayServer interface {
 }
 
 // UnimplementedGatewayServer must be embedded to have forward compatible implementations.
-type UnimplementedGatewayServer struct {
-}
+type UnimplementedGatewayServer struct{}
 
 func (UnimplementedGatewayServer) AdminCreateFee(context.Context, *AdminCreateFeeRequest) (*AdminCreateFeeResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AdminCreateFee not implemented")
 }
+
 func (UnimplementedGatewayServer) AdminUpdateFee(context.Context, *AdminUpdateFeeRequest) (*AdminUpdateFeeResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AdminUpdateFee not implemented")
 }
+
 func (UnimplementedGatewayServer) GetFee(context.Context, *GetFeeRequest) (*GetFeeResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetFee not implemented")
 }
+
 func (UnimplementedGatewayServer) GetFees(context.Context, *GetFeesRequest) (*GetFeesResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetFees not implemented")
 }
+
 func (UnimplementedGatewayServer) AdminDeleteFee(context.Context, *AdminDeleteFeeRequest) (*AdminDeleteFeeResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AdminDeleteFee not implemented")
 }

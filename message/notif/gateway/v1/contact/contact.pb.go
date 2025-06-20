@@ -7,13 +7,14 @@
 package contact
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	contact "github.com/NpoolPlatform/kunman/message/notif/middleware/v1/contact"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -1244,28 +1245,30 @@ func file_notif_gateway_v1_contact_contact_proto_rawDescGZIP() []byte {
 	return file_notif_gateway_v1_contact_contact_proto_rawDescData
 }
 
-var file_notif_gateway_v1_contact_contact_proto_msgTypes = make([]protoimpl.MessageInfo, 16)
-var file_notif_gateway_v1_contact_contact_proto_goTypes = []interface{}{
-	(*CreateContactRequest)(nil),     // 0: notif.gateway.contact.v1.CreateContactRequest
-	(*CreateContactResponse)(nil),    // 1: notif.gateway.contact.v1.CreateContactResponse
-	(*CreateAppContactRequest)(nil),  // 2: notif.gateway.contact.v1.CreateAppContactRequest
-	(*CreateAppContactResponse)(nil), // 3: notif.gateway.contact.v1.CreateAppContactResponse
-	(*GetContactRequest)(nil),        // 4: notif.gateway.contact.v1.GetContactRequest
-	(*GetContactResponse)(nil),       // 5: notif.gateway.contact.v1.GetContactResponse
-	(*GetContactsRequest)(nil),       // 6: notif.gateway.contact.v1.GetContactsRequest
-	(*GetContactsResponse)(nil),      // 7: notif.gateway.contact.v1.GetContactsResponse
-	(*GetAppContactsRequest)(nil),    // 8: notif.gateway.contact.v1.GetAppContactsRequest
-	(*GetAppContactsResponse)(nil),   // 9: notif.gateway.contact.v1.GetAppContactsResponse
-	(*UpdateContactRequest)(nil),     // 10: notif.gateway.contact.v1.UpdateContactRequest
-	(*UpdateContactResponse)(nil),    // 11: notif.gateway.contact.v1.UpdateContactResponse
-	(*UpdateAppContactRequest)(nil),  // 12: notif.gateway.contact.v1.UpdateAppContactRequest
-	(*UpdateAppContactResponse)(nil), // 13: notif.gateway.contact.v1.UpdateAppContactResponse
-	(*ContactViaEmailRequest)(nil),   // 14: notif.gateway.contact.v1.ContactViaEmailRequest
-	(*ContactViaEmailResponse)(nil),  // 15: notif.gateway.contact.v1.ContactViaEmailResponse
-	(v1.UsedFor)(0),                  // 16: basetypes.v1.UsedFor
-	(v1.SignMethod)(0),               // 17: basetypes.v1.SignMethod
-	(*contact.Contact)(nil),          // 18: notif.middleware.contact.v1.Contact
-}
+var (
+	file_notif_gateway_v1_contact_contact_proto_msgTypes = make([]protoimpl.MessageInfo, 16)
+	file_notif_gateway_v1_contact_contact_proto_goTypes  = []interface{}{
+		(*CreateContactRequest)(nil),     // 0: notif.gateway.contact.v1.CreateContactRequest
+		(*CreateContactResponse)(nil),    // 1: notif.gateway.contact.v1.CreateContactResponse
+		(*CreateAppContactRequest)(nil),  // 2: notif.gateway.contact.v1.CreateAppContactRequest
+		(*CreateAppContactResponse)(nil), // 3: notif.gateway.contact.v1.CreateAppContactResponse
+		(*GetContactRequest)(nil),        // 4: notif.gateway.contact.v1.GetContactRequest
+		(*GetContactResponse)(nil),       // 5: notif.gateway.contact.v1.GetContactResponse
+		(*GetContactsRequest)(nil),       // 6: notif.gateway.contact.v1.GetContactsRequest
+		(*GetContactsResponse)(nil),      // 7: notif.gateway.contact.v1.GetContactsResponse
+		(*GetAppContactsRequest)(nil),    // 8: notif.gateway.contact.v1.GetAppContactsRequest
+		(*GetAppContactsResponse)(nil),   // 9: notif.gateway.contact.v1.GetAppContactsResponse
+		(*UpdateContactRequest)(nil),     // 10: notif.gateway.contact.v1.UpdateContactRequest
+		(*UpdateContactResponse)(nil),    // 11: notif.gateway.contact.v1.UpdateContactResponse
+		(*UpdateAppContactRequest)(nil),  // 12: notif.gateway.contact.v1.UpdateAppContactRequest
+		(*UpdateAppContactResponse)(nil), // 13: notif.gateway.contact.v1.UpdateAppContactResponse
+		(*ContactViaEmailRequest)(nil),   // 14: notif.gateway.contact.v1.ContactViaEmailRequest
+		(*ContactViaEmailResponse)(nil),  // 15: notif.gateway.contact.v1.ContactViaEmailResponse
+		(v1.UsedFor)(0),                  // 16: basetypes.v1.UsedFor
+		(v1.SignMethod)(0),               // 17: basetypes.v1.SignMethod
+		(*contact.Contact)(nil),          // 18: notif.middleware.contact.v1.Contact
+	}
+)
 var file_notif_gateway_v1_contact_contact_proto_depIdxs = []int32{
 	16, // 0: notif.gateway.contact.v1.CreateContactRequest.UsedFor:type_name -> basetypes.v1.UsedFor
 	17, // 1: notif.gateway.contact.v1.CreateContactRequest.AccountType:type_name -> basetypes.v1.SignMethod

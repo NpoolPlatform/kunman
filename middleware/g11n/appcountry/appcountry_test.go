@@ -27,17 +27,15 @@ func init() {
 	}
 }
 
-var (
-	ret = npool.Country{
-		EntID:     uuid.NewString(),
-		AppID:     uuid.NewString(),
-		CountryID: uuid.NewString(),
-		Country:   "test country" + uuid.NewString(),
-		Flag:      "test flag" + uuid.NewString(),
-		Code:      "test code" + uuid.NewString(),
-		Short:     "test short" + uuid.NewString(),
-	}
-)
+var ret = npool.Country{
+	EntID:     uuid.NewString(),
+	AppID:     uuid.NewString(),
+	CountryID: uuid.NewString(),
+	Country:   "test country" + uuid.NewString(),
+	Flag:      "test flag" + uuid.NewString(),
+	Code:      "test code" + uuid.NewString(),
+	Short:     "test short" + uuid.NewString(),
+}
 
 func setup(t *testing.T) func(*testing.T) {
 	ch, err := country.NewHandler(

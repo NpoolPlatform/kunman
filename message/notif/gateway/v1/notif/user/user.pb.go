@@ -7,12 +7,13 @@
 package user
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -783,20 +784,22 @@ func file_notif_gateway_v1_notif_user_user_proto_rawDescGZIP() []byte {
 	return file_notif_gateway_v1_notif_user_user_proto_rawDescData
 }
 
-var file_notif_gateway_v1_notif_user_user_proto_msgTypes = make([]protoimpl.MessageInfo, 9)
-var file_notif_gateway_v1_notif_user_user_proto_goTypes = []interface{}{
-	(*NotifUser)(nil),                // 0: notif.gateway.notif.user.v1.NotifUser
-	(*CreateNotifUserRequest)(nil),   // 1: notif.gateway.notif.user.v1.CreateNotifUserRequest
-	(*CreateNotifUserResponse)(nil),  // 2: notif.gateway.notif.user.v1.CreateNotifUserResponse
-	(*DeleteNotifUserRequest)(nil),   // 3: notif.gateway.notif.user.v1.DeleteNotifUserRequest
-	(*DeleteNotifUserResponse)(nil),  // 4: notif.gateway.notif.user.v1.DeleteNotifUserResponse
-	(*GetNotifUsersRequest)(nil),     // 5: notif.gateway.notif.user.v1.GetNotifUsersRequest
-	(*GetNotifUsersResponse)(nil),    // 6: notif.gateway.notif.user.v1.GetNotifUsersResponse
-	(*GetAppNotifUsersRequest)(nil),  // 7: notif.gateway.notif.user.v1.GetAppNotifUsersRequest
-	(*GetAppNotifUsersResponse)(nil), // 8: notif.gateway.notif.user.v1.GetAppNotifUsersResponse
-	(v1.UsedFor)(0),                  // 9: basetypes.v1.UsedFor
-	(v1.NotifType)(0),                // 10: basetypes.v1.NotifType
-}
+var (
+	file_notif_gateway_v1_notif_user_user_proto_msgTypes = make([]protoimpl.MessageInfo, 9)
+	file_notif_gateway_v1_notif_user_user_proto_goTypes  = []interface{}{
+		(*NotifUser)(nil),                // 0: notif.gateway.notif.user.v1.NotifUser
+		(*CreateNotifUserRequest)(nil),   // 1: notif.gateway.notif.user.v1.CreateNotifUserRequest
+		(*CreateNotifUserResponse)(nil),  // 2: notif.gateway.notif.user.v1.CreateNotifUserResponse
+		(*DeleteNotifUserRequest)(nil),   // 3: notif.gateway.notif.user.v1.DeleteNotifUserRequest
+		(*DeleteNotifUserResponse)(nil),  // 4: notif.gateway.notif.user.v1.DeleteNotifUserResponse
+		(*GetNotifUsersRequest)(nil),     // 5: notif.gateway.notif.user.v1.GetNotifUsersRequest
+		(*GetNotifUsersResponse)(nil),    // 6: notif.gateway.notif.user.v1.GetNotifUsersResponse
+		(*GetAppNotifUsersRequest)(nil),  // 7: notif.gateway.notif.user.v1.GetAppNotifUsersRequest
+		(*GetAppNotifUsersResponse)(nil), // 8: notif.gateway.notif.user.v1.GetAppNotifUsersResponse
+		(v1.UsedFor)(0),                  // 9: basetypes.v1.UsedFor
+		(v1.NotifType)(0),                // 10: basetypes.v1.NotifType
+	}
+)
 var file_notif_gateway_v1_notif_user_user_proto_depIdxs = []int32{
 	9,  // 0: notif.gateway.notif.user.v1.NotifUser.EventType:type_name -> basetypes.v1.UsedFor
 	10, // 1: notif.gateway.notif.user.v1.NotifUser.NotifType:type_name -> basetypes.v1.NotifType

@@ -7,10 +7,11 @@
 package v1
 
 import (
-	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
-	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	reflect "reflect"
 	sync "sync"
+
+	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
+	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 )
 
 const (
@@ -172,12 +173,14 @@ func file_basetypes_v1_errno_proto_rawDescGZIP() []byte {
 	return file_basetypes_v1_errno_proto_rawDescData
 }
 
-var file_basetypes_v1_errno_proto_enumTypes = make([]protoimpl.EnumInfo, 1)
-var file_basetypes_v1_errno_proto_msgTypes = make([]protoimpl.MessageInfo, 1)
-var file_basetypes_v1_errno_proto_goTypes = []interface{}{
-	(ErrorAct)(0), // 0: basetypes.v1.ErrorAct
-	(*Error)(nil), // 1: basetypes.v1.Error
-}
+var (
+	file_basetypes_v1_errno_proto_enumTypes = make([]protoimpl.EnumInfo, 1)
+	file_basetypes_v1_errno_proto_msgTypes  = make([]protoimpl.MessageInfo, 1)
+	file_basetypes_v1_errno_proto_goTypes   = []interface{}{
+		(ErrorAct)(0), // 0: basetypes.v1.ErrorAct
+		(*Error)(nil), // 1: basetypes.v1.Error
+	}
+)
 var file_basetypes_v1_errno_proto_depIdxs = []int32{
 	0, // 0: basetypes.v1.Error.Action:type_name -> basetypes.v1.ErrorAct
 	1, // [1:1] is the sub-list for method output_type

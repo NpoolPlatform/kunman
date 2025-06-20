@@ -8,6 +8,7 @@ package config
 
 import (
 	context "context"
+
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -129,27 +130,32 @@ type GatewayServer interface {
 }
 
 // UnimplementedGatewayServer must be embedded to have forward compatible implementations.
-type UnimplementedGatewayServer struct {
-}
+type UnimplementedGatewayServer struct{}
 
 func (UnimplementedGatewayServer) CreateAppConfig(context.Context, *CreateAppConfigRequest) (*CreateAppConfigResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateAppConfig not implemented")
 }
+
 func (UnimplementedGatewayServer) UpdateAppConfig(context.Context, *UpdateAppConfigRequest) (*UpdateAppConfigResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateAppConfig not implemented")
 }
+
 func (UnimplementedGatewayServer) GetAppConfig(context.Context, *GetAppConfigRequest) (*GetAppConfigResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetAppConfig not implemented")
 }
+
 func (UnimplementedGatewayServer) AdminCreateAppConfig(context.Context, *AdminCreateAppConfigRequest) (*AdminCreateAppConfigResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AdminCreateAppConfig not implemented")
 }
+
 func (UnimplementedGatewayServer) AdminUpdateAppConfig(context.Context, *AdminUpdateAppConfigRequest) (*AdminUpdateAppConfigResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AdminUpdateAppConfig not implemented")
 }
+
 func (UnimplementedGatewayServer) AdminGetAppConfigs(context.Context, *AdminGetAppConfigsRequest) (*AdminGetAppConfigsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AdminGetAppConfigs not implemented")
 }
+
 func (UnimplementedGatewayServer) AdminDeleteAppConfig(context.Context, *AdminDeleteAppConfigRequest) (*AdminDeleteAppConfigResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AdminDeleteAppConfig not implemented")
 }

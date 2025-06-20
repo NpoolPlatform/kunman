@@ -10,7 +10,6 @@ import (
 	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	coinmwpb "github.com/NpoolPlatform/kunman/message/chain/middleware/v1/coin"
 	fiatmwpb "github.com/NpoolPlatform/kunman/message/chain/middleware/v1/fiat"
-	appfeemwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/app/fee"
 	topmostmwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/app/good/topmost"
 	appsubscriptionmwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/app/subscription"
 	allocatedcouponmwpb "github.com/NpoolPlatform/kunman/message/inspire/middleware/v1/coupon/allocated"
@@ -31,7 +30,6 @@ type queryHandler struct {
 	subscriptionOrders []*subscriptionordermwpb.SubscriptionOrder
 	infos              []*npool.SubscriptionOrder
 	apps               map[string]*appmwpb.App
-	appFees            map[string]*appfeemwpb.Fee
 	users              map[string]*usermwpb.User
 	topMosts           map[string]*topmostmwpb.TopMost
 	allocatedCoupons   map[string]*allocatedcouponmwpb.Coupon
@@ -116,7 +114,7 @@ func (h *queryHandler) getFiats(ctx context.Context) (err error) {
 		return nil
 	}
 	h.fiats, err = common.GetFiats(ctx, []string{*h.PaymentFiatID})
-	return nil
+	return err
 }
 
 func (h *queryHandler) getPaymentAccounts(ctx context.Context) (err error) {
@@ -131,7 +129,6 @@ func (h *queryHandler) getPaymentAccounts(ctx context.Context) (err error) {
 	return err
 }
 
-//nolint:funlen,gocyclo
 func (h *queryHandler) formalize() {
 	for _, subscriptionOrder := range h.subscriptionOrders {
 		info := &npool.SubscriptionOrder{

@@ -8,6 +8,7 @@ package device
 
 import (
 	context "context"
+
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -91,18 +92,20 @@ type GatewayServer interface {
 }
 
 // UnimplementedGatewayServer must be embedded to have forward compatible implementations.
-type UnimplementedGatewayServer struct {
-}
+type UnimplementedGatewayServer struct{}
 
 func (UnimplementedGatewayServer) AdminCreateDeviceType(context.Context, *AdminCreateDeviceTypeRequest) (*AdminCreateDeviceTypeResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AdminCreateDeviceType not implemented")
 }
+
 func (UnimplementedGatewayServer) AdminUpdateDeviceType(context.Context, *AdminUpdateDeviceTypeRequest) (*AdminUpdateDeviceTypeResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AdminUpdateDeviceType not implemented")
 }
+
 func (UnimplementedGatewayServer) GetDeviceTypes(context.Context, *GetDeviceTypesRequest) (*GetDeviceTypesResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetDeviceTypes not implemented")
 }
+
 func (UnimplementedGatewayServer) AdminDeleteDeviceType(context.Context, *AdminDeleteDeviceTypeRequest) (*AdminDeleteDeviceTypeResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AdminDeleteDeviceType not implemented")
 }

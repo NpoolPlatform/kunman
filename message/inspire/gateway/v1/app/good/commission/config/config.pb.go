@@ -7,12 +7,13 @@
 package config
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/inspire/v1"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -1394,23 +1395,25 @@ func file_inspire_gateway_v1_app_good_commission_config_config_proto_rawDescGZIP
 	return file_inspire_gateway_v1_app_good_commission_config_config_proto_rawDescData
 }
 
-var file_inspire_gateway_v1_app_good_commission_config_config_proto_msgTypes = make([]protoimpl.MessageInfo, 13)
-var file_inspire_gateway_v1_app_good_commission_config_config_proto_goTypes = []interface{}{
-	(*AppGoodCommissionConfig)(nil),                    // 0: inspire.gateway.app.good.commission.config.v1.AppGoodCommissionConfig
-	(*CreateAppGoodCommissionConfigRequest)(nil),       // 1: inspire.gateway.app.good.commission.config.v1.CreateAppGoodCommissionConfigRequest
-	(*CreateAppGoodCommissionConfigResponse)(nil),      // 2: inspire.gateway.app.good.commission.config.v1.CreateAppGoodCommissionConfigResponse
-	(*AdminCreateAppGoodCommissionConfigRequest)(nil),  // 3: inspire.gateway.app.good.commission.config.v1.AdminCreateAppGoodCommissionConfigRequest
-	(*AdminCreateAppGoodCommissionConfigResponse)(nil), // 4: inspire.gateway.app.good.commission.config.v1.AdminCreateAppGoodCommissionConfigResponse
-	(*UpdateAppGoodCommissionConfigRequest)(nil),       // 5: inspire.gateway.app.good.commission.config.v1.UpdateAppGoodCommissionConfigRequest
-	(*UpdateAppGoodCommissionConfigResponse)(nil),      // 6: inspire.gateway.app.good.commission.config.v1.UpdateAppGoodCommissionConfigResponse
-	(*AdminUpdateAppGoodCommissionConfigRequest)(nil),  // 7: inspire.gateway.app.good.commission.config.v1.AdminUpdateAppGoodCommissionConfigRequest
-	(*AdminUpdateAppGoodCommissionConfigResponse)(nil), // 8: inspire.gateway.app.good.commission.config.v1.AdminUpdateAppGoodCommissionConfigResponse
-	(*GetAppGoodCommissionConfigsRequest)(nil),         // 9: inspire.gateway.app.good.commission.config.v1.GetAppGoodCommissionConfigsRequest
-	(*GetAppGoodCommissionConfigsResponse)(nil),        // 10: inspire.gateway.app.good.commission.config.v1.GetAppGoodCommissionConfigsResponse
-	(*AdminGetAppGoodCommissionConfigsRequest)(nil),    // 11: inspire.gateway.app.good.commission.config.v1.AdminGetAppGoodCommissionConfigsRequest
-	(*AdminGetAppGoodCommissionConfigsResponse)(nil),   // 12: inspire.gateway.app.good.commission.config.v1.AdminGetAppGoodCommissionConfigsResponse
-	(v1.SettleType)(0),                                 // 13: basetypes.inspire.v1.SettleType
-}
+var (
+	file_inspire_gateway_v1_app_good_commission_config_config_proto_msgTypes = make([]protoimpl.MessageInfo, 13)
+	file_inspire_gateway_v1_app_good_commission_config_config_proto_goTypes  = []interface{}{
+		(*AppGoodCommissionConfig)(nil),                    // 0: inspire.gateway.app.good.commission.config.v1.AppGoodCommissionConfig
+		(*CreateAppGoodCommissionConfigRequest)(nil),       // 1: inspire.gateway.app.good.commission.config.v1.CreateAppGoodCommissionConfigRequest
+		(*CreateAppGoodCommissionConfigResponse)(nil),      // 2: inspire.gateway.app.good.commission.config.v1.CreateAppGoodCommissionConfigResponse
+		(*AdminCreateAppGoodCommissionConfigRequest)(nil),  // 3: inspire.gateway.app.good.commission.config.v1.AdminCreateAppGoodCommissionConfigRequest
+		(*AdminCreateAppGoodCommissionConfigResponse)(nil), // 4: inspire.gateway.app.good.commission.config.v1.AdminCreateAppGoodCommissionConfigResponse
+		(*UpdateAppGoodCommissionConfigRequest)(nil),       // 5: inspire.gateway.app.good.commission.config.v1.UpdateAppGoodCommissionConfigRequest
+		(*UpdateAppGoodCommissionConfigResponse)(nil),      // 6: inspire.gateway.app.good.commission.config.v1.UpdateAppGoodCommissionConfigResponse
+		(*AdminUpdateAppGoodCommissionConfigRequest)(nil),  // 7: inspire.gateway.app.good.commission.config.v1.AdminUpdateAppGoodCommissionConfigRequest
+		(*AdminUpdateAppGoodCommissionConfigResponse)(nil), // 8: inspire.gateway.app.good.commission.config.v1.AdminUpdateAppGoodCommissionConfigResponse
+		(*GetAppGoodCommissionConfigsRequest)(nil),         // 9: inspire.gateway.app.good.commission.config.v1.GetAppGoodCommissionConfigsRequest
+		(*GetAppGoodCommissionConfigsResponse)(nil),        // 10: inspire.gateway.app.good.commission.config.v1.GetAppGoodCommissionConfigsResponse
+		(*AdminGetAppGoodCommissionConfigsRequest)(nil),    // 11: inspire.gateway.app.good.commission.config.v1.AdminGetAppGoodCommissionConfigsRequest
+		(*AdminGetAppGoodCommissionConfigsResponse)(nil),   // 12: inspire.gateway.app.good.commission.config.v1.AdminGetAppGoodCommissionConfigsResponse
+		(v1.SettleType)(0),                                 // 13: basetypes.inspire.v1.SettleType
+	}
+)
 var file_inspire_gateway_v1_app_good_commission_config_config_proto_depIdxs = []int32{
 	13, // 0: inspire.gateway.app.good.commission.config.v1.AppGoodCommissionConfig.SettleType:type_name -> basetypes.inspire.v1.SettleType
 	13, // 1: inspire.gateway.app.good.commission.config.v1.CreateAppGoodCommissionConfigRequest.SettleType:type_name -> basetypes.inspire.v1.SettleType

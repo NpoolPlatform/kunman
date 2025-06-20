@@ -5,11 +5,11 @@ import (
 	"sync"
 	"time"
 
-	"github.com/NpoolPlatform/kunman/framework/logger"
 	"github.com/NpoolPlatform/kunman/cron/scheduler/base"
 	"github.com/NpoolPlatform/kunman/cron/scheduler/good/powerrental/wait/executor"
 	"github.com/NpoolPlatform/kunman/cron/scheduler/good/powerrental/wait/persistent"
 	"github.com/NpoolPlatform/kunman/cron/scheduler/good/powerrental/wait/sentinel"
+	"github.com/NpoolPlatform/kunman/framework/logger"
 )
 
 const subsystem = "goodpowerrentalwait"

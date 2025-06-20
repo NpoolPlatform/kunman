@@ -8,6 +8,7 @@ package recoverycode
 
 import (
 	context "context"
+
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -67,12 +68,12 @@ type GatewayServer interface {
 }
 
 // UnimplementedGatewayServer must be embedded to have forward compatible implementations.
-type UnimplementedGatewayServer struct {
-}
+type UnimplementedGatewayServer struct{}
 
 func (UnimplementedGatewayServer) GenerateRecoveryCodes(context.Context, *GenerateRecoveryCodesRequest) (*GenerateRecoveryCodesResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GenerateRecoveryCodes not implemented")
 }
+
 func (UnimplementedGatewayServer) GetRecoveryCodes(context.Context, *GetRecoveryCodesRequest) (*GetRecoveryCodesResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetRecoveryCodes not implemented")
 }

@@ -26,15 +26,13 @@ func init() {
 	}
 }
 
-var (
-	ret = npool.Channel{
-		AppID:        uuid.NewString(),
-		EventType:    basetypes.UsedFor_KYCApproved,
-		EventTypeStr: basetypes.UsedFor_KYCApproved.String(),
-		Channel:      basetypes.NotifChannel_ChannelEmail,
-		ChannelStr:   basetypes.NotifChannel_ChannelEmail.String(),
-	}
-)
+var ret = npool.Channel{
+	AppID:        uuid.NewString(),
+	EventType:    basetypes.UsedFor_KYCApproved,
+	EventTypeStr: basetypes.UsedFor_KYCApproved.String(),
+	Channel:      basetypes.NotifChannel_ChannelEmail,
+	ChannelStr:   basetypes.NotifChannel_ChannelEmail.String(),
+}
 
 func createChannel(t *testing.T) {
 	handler, err := NewHandler(

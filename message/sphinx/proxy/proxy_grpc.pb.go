@@ -8,6 +8,7 @@ package proxy
 
 import (
 	context "context"
+
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -125,15 +126,16 @@ type SphinxProxyServer interface {
 }
 
 // UnimplementedSphinxProxyServer must be embedded to have forward compatible implementations.
-type UnimplementedSphinxProxyServer struct {
-}
+type UnimplementedSphinxProxyServer struct{}
 
 func (UnimplementedSphinxProxyServer) UpdateTransaction(context.Context, *UpdateTransactionRequest) (*UpdateTransactionResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateTransaction not implemented")
 }
+
 func (UnimplementedSphinxProxyServer) ProxyPlugin(SphinxProxy_ProxyPluginServer) error {
 	return status.Errorf(codes.Unimplemented, "method ProxyPlugin not implemented")
 }
+
 func (UnimplementedSphinxProxyServer) ProxySign(SphinxProxy_ProxySignServer) error {
 	return status.Errorf(codes.Unimplemented, "method ProxySign not implemented")
 }

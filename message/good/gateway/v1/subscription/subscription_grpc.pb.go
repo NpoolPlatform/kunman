@@ -8,6 +8,7 @@ package subscription
 
 import (
 	context "context"
+
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -103,21 +104,24 @@ type GatewayServer interface {
 }
 
 // UnimplementedGatewayServer must be embedded to have forward compatible implementations.
-type UnimplementedGatewayServer struct {
-}
+type UnimplementedGatewayServer struct{}
 
 func (UnimplementedGatewayServer) AdminCreateSubscription(context.Context, *AdminCreateSubscriptionRequest) (*AdminCreateSubscriptionResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AdminCreateSubscription not implemented")
 }
+
 func (UnimplementedGatewayServer) AdminUpdateSubscription(context.Context, *AdminUpdateSubscriptionRequest) (*AdminUpdateSubscriptionResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AdminUpdateSubscription not implemented")
 }
+
 func (UnimplementedGatewayServer) GetSubscription(context.Context, *GetSubscriptionRequest) (*GetSubscriptionResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetSubscription not implemented")
 }
+
 func (UnimplementedGatewayServer) GetSubscriptions(context.Context, *GetSubscriptionsRequest) (*GetSubscriptionsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetSubscriptions not implemented")
 }
+
 func (UnimplementedGatewayServer) AdminDeleteSubscription(context.Context, *AdminDeleteSubscriptionRequest) (*AdminDeleteSubscriptionResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AdminDeleteSubscription not implemented")
 }

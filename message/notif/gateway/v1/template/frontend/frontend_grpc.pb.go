@@ -8,6 +8,7 @@ package frontend
 
 import (
 	context "context"
+
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -127,27 +128,32 @@ type GatewayServer interface {
 }
 
 // UnimplementedGatewayServer must be embedded to have forward compatible implementations.
-type UnimplementedGatewayServer struct {
-}
+type UnimplementedGatewayServer struct{}
 
 func (UnimplementedGatewayServer) CreateFrontendTemplate(context.Context, *CreateFrontendTemplateRequest) (*CreateFrontendTemplateResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateFrontendTemplate not implemented")
 }
+
 func (UnimplementedGatewayServer) CreateAppFrontendTemplate(context.Context, *CreateAppFrontendTemplateRequest) (*CreateAppFrontendTemplateResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateAppFrontendTemplate not implemented")
 }
+
 func (UnimplementedGatewayServer) GetFrontendTemplate(context.Context, *GetFrontendTemplateRequest) (*GetFrontendTemplateResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetFrontendTemplate not implemented")
 }
+
 func (UnimplementedGatewayServer) GetFrontendTemplates(context.Context, *GetFrontendTemplatesRequest) (*GetFrontendTemplatesResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetFrontendTemplates not implemented")
 }
+
 func (UnimplementedGatewayServer) GetAppFrontendTemplates(context.Context, *GetAppFrontendTemplatesRequest) (*GetAppFrontendTemplatesResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetAppFrontendTemplates not implemented")
 }
+
 func (UnimplementedGatewayServer) UpdateFrontendTemplate(context.Context, *UpdateFrontendTemplateRequest) (*UpdateFrontendTemplateResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateFrontendTemplate not implemented")
 }
+
 func (UnimplementedGatewayServer) UpdateAppFrontendTemplate(context.Context, *UpdateAppFrontendTemplateRequest) (*UpdateAppFrontendTemplateResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateAppFrontendTemplate not implemented")
 }

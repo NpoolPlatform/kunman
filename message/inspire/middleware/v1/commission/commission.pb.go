@@ -7,13 +7,14 @@
 package commission
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/inspire/v1"
 	v11 "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -716,19 +717,21 @@ func file_inspire_middleware_v1_commission_commission_proto_rawDescGZIP() []byte
 	return file_inspire_middleware_v1_commission_commission_proto_rawDescData
 }
 
-var file_inspire_middleware_v1_commission_commission_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
-var file_inspire_middleware_v1_commission_commission_proto_goTypes = []interface{}{
-	(*CommissionReq)(nil),      // 0: inspire.middleware.commission.v1.CommissionReq
-	(*Commission)(nil),         // 1: inspire.middleware.commission.v1.Commission
-	(*Conds)(nil),              // 2: inspire.middleware.commission.v1.Conds
-	(v1.SettleType)(0),         // 3: basetypes.inspire.v1.SettleType
-	(v1.SettleMode)(0),         // 4: basetypes.inspire.v1.SettleMode
-	(v1.SettleInterval)(0),     // 5: basetypes.inspire.v1.SettleInterval
-	(v1.SettleAmountType)(0),   // 6: basetypes.inspire.v1.SettleAmountType
-	(*v11.StringVal)(nil),      // 7: basetypes.v1.StringVal
-	(*v11.Uint32Val)(nil),      // 8: basetypes.v1.Uint32Val
-	(*v11.StringSliceVal)(nil), // 9: basetypes.v1.StringSliceVal
-}
+var (
+	file_inspire_middleware_v1_commission_commission_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
+	file_inspire_middleware_v1_commission_commission_proto_goTypes  = []interface{}{
+		(*CommissionReq)(nil),      // 0: inspire.middleware.commission.v1.CommissionReq
+		(*Commission)(nil),         // 1: inspire.middleware.commission.v1.Commission
+		(*Conds)(nil),              // 2: inspire.middleware.commission.v1.Conds
+		(v1.SettleType)(0),         // 3: basetypes.inspire.v1.SettleType
+		(v1.SettleMode)(0),         // 4: basetypes.inspire.v1.SettleMode
+		(v1.SettleInterval)(0),     // 5: basetypes.inspire.v1.SettleInterval
+		(v1.SettleAmountType)(0),   // 6: basetypes.inspire.v1.SettleAmountType
+		(*v11.StringVal)(nil),      // 7: basetypes.v1.StringVal
+		(*v11.Uint32Val)(nil),      // 8: basetypes.v1.Uint32Val
+		(*v11.StringSliceVal)(nil), // 9: basetypes.v1.StringSliceVal
+	}
+)
 var file_inspire_middleware_v1_commission_commission_proto_depIdxs = []int32{
 	3,  // 0: inspire.middleware.commission.v1.CommissionReq.SettleType:type_name -> basetypes.inspire.v1.SettleType
 	4,  // 1: inspire.middleware.commission.v1.CommissionReq.SettleMode:type_name -> basetypes.inspire.v1.SettleMode

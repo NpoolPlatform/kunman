@@ -10,15 +10,15 @@ import (
 
 	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 
-	coupon1 "github.com/NpoolPlatform/kunman/middleware/inspire/coupon"
 	npool "github.com/NpoolPlatform/kunman/message/inspire/middleware/v1/coupon/allocated"
+	coupon1 "github.com/NpoolPlatform/kunman/middleware/inspire/coupon"
 	"github.com/google/uuid"
 	"github.com/shopspring/decimal"
 	"github.com/stretchr/testify/assert"
 
-	"github.com/NpoolPlatform/kunman/middleware/inspire/testinit"
 	types "github.com/NpoolPlatform/kunman/message/basetypes/inspire/v1"
 	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
+	"github.com/NpoolPlatform/kunman/middleware/inspire/testinit"
 )
 
 func init() {

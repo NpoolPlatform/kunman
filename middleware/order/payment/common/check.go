@@ -85,13 +85,13 @@ func (h *PaymentCheckHandler) ValidatePayment() error {
 
 	switch *h.PaymentType {
 	case types.PaymentType_PayWithBalanceOnly:
-		fallthrough // nolint
+		fallthrough
 	case types.PaymentType_PayWithTransferOnly:
-		fallthrough // nolint
+		fallthrough
 	case types.PaymentType_PayWithFiatOnly:
-		fallthrough // nolint
+		fallthrough
 	case types.PaymentType_PayWithFiatAndBalance:
-		fallthrough // nolint
+		fallthrough
 	case types.PaymentType_PayWithTransferAndBalance:
 		if h.PaymentAmountUSD == nil || h.PaymentAmountUSD.Equal(decimal.NewFromInt(0)) {
 			return wlog.Errorf("invalid paymentamount")

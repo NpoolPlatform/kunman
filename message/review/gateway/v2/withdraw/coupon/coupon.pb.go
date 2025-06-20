@@ -7,14 +7,15 @@
 package coupon
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	v12 "github.com/NpoolPlatform/kunman/message/basetypes/ledger/v1"
 	v11 "github.com/NpoolPlatform/kunman/message/basetypes/review/v1"
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -990,23 +991,25 @@ func file_review_gateway_v2_withdraw_coupon_coupon_proto_rawDescGZIP() []byte {
 	return file_review_gateway_v2_withdraw_coupon_coupon_proto_rawDescData
 }
 
-var file_review_gateway_v2_withdraw_coupon_coupon_proto_msgTypes = make([]protoimpl.MessageInfo, 9)
-var file_review_gateway_v2_withdraw_coupon_coupon_proto_goTypes = []interface{}{
-	(*CouponWithdrawReview)(nil),                  // 0: review.gateway.withdraw.coupon.v2.CouponWithdrawReview
-	(*GetCouponWithdrawReviewsRequest)(nil),       // 1: review.gateway.withdraw.coupon.v2.GetCouponWithdrawReviewsRequest
-	(*GetCouponWithdrawReviewsResponse)(nil),      // 2: review.gateway.withdraw.coupon.v2.GetCouponWithdrawReviewsResponse
-	(*GetAppCouponWithdrawReviewsRequest)(nil),    // 3: review.gateway.withdraw.coupon.v2.GetAppCouponWithdrawReviewsRequest
-	(*GetAppCouponWithdrawReviewsResponse)(nil),   // 4: review.gateway.withdraw.coupon.v2.GetAppCouponWithdrawReviewsResponse
-	(*UpdateCouponWithdrawReviewRequest)(nil),     // 5: review.gateway.withdraw.coupon.v2.UpdateCouponWithdrawReviewRequest
-	(*UpdateCouponWithdrawReviewResponse)(nil),    // 6: review.gateway.withdraw.coupon.v2.UpdateCouponWithdrawReviewResponse
-	(*UpdateAppCouponWithdrawReviewRequest)(nil),  // 7: review.gateway.withdraw.coupon.v2.UpdateAppCouponWithdrawReviewRequest
-	(*UpdateAppCouponWithdrawReviewResponse)(nil), // 8: review.gateway.withdraw.coupon.v2.UpdateAppCouponWithdrawReviewResponse
-	(v1.KycState)(0),           // 9: basetypes.v1.KycState
-	(v11.ReviewObjectType)(0),  // 10: basetypes.review.v1.ReviewObjectType
-	(v11.ReviewState)(0),       // 11: basetypes.review.v1.ReviewState
-	(v11.ReviewTriggerType)(0), // 12: basetypes.review.v1.ReviewTriggerType
-	(v12.WithdrawState)(0),     // 13: basetypes.ledger.v1.WithdrawState
-}
+var (
+	file_review_gateway_v2_withdraw_coupon_coupon_proto_msgTypes = make([]protoimpl.MessageInfo, 9)
+	file_review_gateway_v2_withdraw_coupon_coupon_proto_goTypes  = []interface{}{
+		(*CouponWithdrawReview)(nil),                  // 0: review.gateway.withdraw.coupon.v2.CouponWithdrawReview
+		(*GetCouponWithdrawReviewsRequest)(nil),       // 1: review.gateway.withdraw.coupon.v2.GetCouponWithdrawReviewsRequest
+		(*GetCouponWithdrawReviewsResponse)(nil),      // 2: review.gateway.withdraw.coupon.v2.GetCouponWithdrawReviewsResponse
+		(*GetAppCouponWithdrawReviewsRequest)(nil),    // 3: review.gateway.withdraw.coupon.v2.GetAppCouponWithdrawReviewsRequest
+		(*GetAppCouponWithdrawReviewsResponse)(nil),   // 4: review.gateway.withdraw.coupon.v2.GetAppCouponWithdrawReviewsResponse
+		(*UpdateCouponWithdrawReviewRequest)(nil),     // 5: review.gateway.withdraw.coupon.v2.UpdateCouponWithdrawReviewRequest
+		(*UpdateCouponWithdrawReviewResponse)(nil),    // 6: review.gateway.withdraw.coupon.v2.UpdateCouponWithdrawReviewResponse
+		(*UpdateAppCouponWithdrawReviewRequest)(nil),  // 7: review.gateway.withdraw.coupon.v2.UpdateAppCouponWithdrawReviewRequest
+		(*UpdateAppCouponWithdrawReviewResponse)(nil), // 8: review.gateway.withdraw.coupon.v2.UpdateAppCouponWithdrawReviewResponse
+		(v1.KycState)(0),           // 9: basetypes.v1.KycState
+		(v11.ReviewObjectType)(0),  // 10: basetypes.review.v1.ReviewObjectType
+		(v11.ReviewState)(0),       // 11: basetypes.review.v1.ReviewState
+		(v11.ReviewTriggerType)(0), // 12: basetypes.review.v1.ReviewTriggerType
+		(v12.WithdrawState)(0),     // 13: basetypes.ledger.v1.WithdrawState
+	}
+)
 var file_review_gateway_v2_withdraw_coupon_coupon_proto_depIdxs = []int32{
 	9,  // 0: review.gateway.withdraw.coupon.v2.CouponWithdrawReview.KycState:type_name -> basetypes.v1.KycState
 	10, // 1: review.gateway.withdraw.coupon.v2.CouponWithdrawReview.ObjectType:type_name -> basetypes.review.v1.ReviewObjectType

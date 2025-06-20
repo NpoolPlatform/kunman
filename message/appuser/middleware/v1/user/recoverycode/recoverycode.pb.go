@@ -7,11 +7,12 @@
 package recoverycode
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -398,15 +399,17 @@ func file_appuser_middleware_v1_user_recoverycode_recoverycode_proto_rawDescGZIP
 	return file_appuser_middleware_v1_user_recoverycode_recoverycode_proto_rawDescData
 }
 
-var file_appuser_middleware_v1_user_recoverycode_recoverycode_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
-var file_appuser_middleware_v1_user_recoverycode_recoverycode_proto_goTypes = []interface{}{
-	(*RecoveryCodeReq)(nil), // 0: appuser.middleware.user.recoverycode.v1.RecoveryCodeReq
-	(*RecoveryCode)(nil),    // 1: appuser.middleware.user.recoverycode.v1.RecoveryCode
-	(*Conds)(nil),           // 2: appuser.middleware.user.recoverycode.v1.Conds
-	(*v1.Uint32Val)(nil),    // 3: basetypes.v1.Uint32Val
-	(*v1.StringVal)(nil),    // 4: basetypes.v1.StringVal
-	(*v1.BoolVal)(nil),      // 5: basetypes.v1.BoolVal
-}
+var (
+	file_appuser_middleware_v1_user_recoverycode_recoverycode_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
+	file_appuser_middleware_v1_user_recoverycode_recoverycode_proto_goTypes  = []interface{}{
+		(*RecoveryCodeReq)(nil), // 0: appuser.middleware.user.recoverycode.v1.RecoveryCodeReq
+		(*RecoveryCode)(nil),    // 1: appuser.middleware.user.recoverycode.v1.RecoveryCode
+		(*Conds)(nil),           // 2: appuser.middleware.user.recoverycode.v1.Conds
+		(*v1.Uint32Val)(nil),    // 3: basetypes.v1.Uint32Val
+		(*v1.StringVal)(nil),    // 4: basetypes.v1.StringVal
+		(*v1.BoolVal)(nil),      // 5: basetypes.v1.BoolVal
+	}
+)
 var file_appuser_middleware_v1_user_recoverycode_recoverycode_proto_depIdxs = []int32{
 	3, // 0: appuser.middleware.user.recoverycode.v1.Conds.ID:type_name -> basetypes.v1.Uint32Val
 	4, // 1: appuser.middleware.user.recoverycode.v1.Conds.EntID:type_name -> basetypes.v1.StringVal

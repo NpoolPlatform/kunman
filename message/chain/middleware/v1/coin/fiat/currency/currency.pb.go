@@ -7,11 +7,12 @@
 package currency
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -376,12 +377,14 @@ func file_chain_middleware_v1_coin_fiat_currency_currency_proto_rawDescGZIP() []
 	return file_chain_middleware_v1_coin_fiat_currency_currency_proto_rawDescData
 }
 
-var file_chain_middleware_v1_coin_fiat_currency_currency_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
-var file_chain_middleware_v1_coin_fiat_currency_currency_proto_goTypes = []interface{}{
-	(*CurrencyReq)(nil),      // 0: chain.middleware.coin.fiat.currency.v1.CurrencyReq
-	(*Currency)(nil),         // 1: chain.middleware.coin.fiat.currency.v1.Currency
-	(v1.CurrencyFeedType)(0), // 2: basetypes.v1.CurrencyFeedType
-}
+var (
+	file_chain_middleware_v1_coin_fiat_currency_currency_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
+	file_chain_middleware_v1_coin_fiat_currency_currency_proto_goTypes  = []interface{}{
+		(*CurrencyReq)(nil),      // 0: chain.middleware.coin.fiat.currency.v1.CurrencyReq
+		(*Currency)(nil),         // 1: chain.middleware.coin.fiat.currency.v1.Currency
+		(v1.CurrencyFeedType)(0), // 2: basetypes.v1.CurrencyFeedType
+	}
+)
 var file_chain_middleware_v1_coin_fiat_currency_currency_proto_depIdxs = []int32{
 	2, // 0: chain.middleware.coin.fiat.currency.v1.CurrencyReq.FeedType:type_name -> basetypes.v1.CurrencyFeedType
 	2, // 1: chain.middleware.coin.fiat.currency.v1.Currency.FeedType:type_name -> basetypes.v1.CurrencyFeedType

@@ -7,6 +7,9 @@
 package admin
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	app "github.com/NpoolPlatform/kunman/message/appuser/middleware/v1/app"
 	auth "github.com/NpoolPlatform/kunman/message/appuser/middleware/v1/authing/auth"
 	role "github.com/NpoolPlatform/kunman/message/appuser/middleware/v1/role"
@@ -14,8 +17,6 @@ import (
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -835,27 +836,29 @@ func file_appuser_gateway_v1_admin_admin_proto_rawDescGZIP() []byte {
 	return file_appuser_gateway_v1_admin_admin_proto_rawDescData
 }
 
-var file_appuser_gateway_v1_admin_admin_proto_msgTypes = make([]protoimpl.MessageInfo, 14)
-var file_appuser_gateway_v1_admin_admin_proto_goTypes = []interface{}{
-	(*CreateAdminAppsRequest)(nil),     // 0: appuser.gateway.admin.v1.CreateAdminAppsRequest
-	(*CreateAdminAppsResponse)(nil),    // 1: appuser.gateway.admin.v1.CreateAdminAppsResponse
-	(*CreateGenesisRolesRequest)(nil),  // 2: appuser.gateway.admin.v1.CreateGenesisRolesRequest
-	(*CreateGenesisRolesResponse)(nil), // 3: appuser.gateway.admin.v1.CreateGenesisRolesResponse
-	(*CreateGenesisUserRequest)(nil),   // 4: appuser.gateway.admin.v1.CreateGenesisUserRequest
-	(*CreateGenesisUserResponse)(nil),  // 5: appuser.gateway.admin.v1.CreateGenesisUserResponse
-	(*GetAdminAppsRequest)(nil),        // 6: appuser.gateway.admin.v1.GetAdminAppsRequest
-	(*GetAdminAppsResponse)(nil),       // 7: appuser.gateway.admin.v1.GetAdminAppsResponse
-	(*AuthorizeGenesisRequest)(nil),    // 8: appuser.gateway.admin.v1.AuthorizeGenesisRequest
-	(*AuthorizeGenesisResponse)(nil),   // 9: appuser.gateway.admin.v1.AuthorizeGenesisResponse
-	(*GetGenesisRolesRequest)(nil),     // 10: appuser.gateway.admin.v1.GetGenesisRolesRequest
-	(*GetGenesisRolesResponse)(nil),    // 11: appuser.gateway.admin.v1.GetGenesisRolesResponse
-	(*GetGenesisUsersRequest)(nil),     // 12: appuser.gateway.admin.v1.GetGenesisUsersRequest
-	(*GetGenesisUsersResponse)(nil),    // 13: appuser.gateway.admin.v1.GetGenesisUsersResponse
-	(*app.App)(nil),                    // 14: appuser.middleware.app.v1.App
-	(*role.Role)(nil),                  // 15: appuser.middleware.role.v1.Role
-	(*user.User)(nil),                  // 16: appuser.middleware.user.v1.User
-	(*auth.Auth)(nil),                  // 17: appuser.middleware.authing.auth.v1.Auth
-}
+var (
+	file_appuser_gateway_v1_admin_admin_proto_msgTypes = make([]protoimpl.MessageInfo, 14)
+	file_appuser_gateway_v1_admin_admin_proto_goTypes  = []interface{}{
+		(*CreateAdminAppsRequest)(nil),     // 0: appuser.gateway.admin.v1.CreateAdminAppsRequest
+		(*CreateAdminAppsResponse)(nil),    // 1: appuser.gateway.admin.v1.CreateAdminAppsResponse
+		(*CreateGenesisRolesRequest)(nil),  // 2: appuser.gateway.admin.v1.CreateGenesisRolesRequest
+		(*CreateGenesisRolesResponse)(nil), // 3: appuser.gateway.admin.v1.CreateGenesisRolesResponse
+		(*CreateGenesisUserRequest)(nil),   // 4: appuser.gateway.admin.v1.CreateGenesisUserRequest
+		(*CreateGenesisUserResponse)(nil),  // 5: appuser.gateway.admin.v1.CreateGenesisUserResponse
+		(*GetAdminAppsRequest)(nil),        // 6: appuser.gateway.admin.v1.GetAdminAppsRequest
+		(*GetAdminAppsResponse)(nil),       // 7: appuser.gateway.admin.v1.GetAdminAppsResponse
+		(*AuthorizeGenesisRequest)(nil),    // 8: appuser.gateway.admin.v1.AuthorizeGenesisRequest
+		(*AuthorizeGenesisResponse)(nil),   // 9: appuser.gateway.admin.v1.AuthorizeGenesisResponse
+		(*GetGenesisRolesRequest)(nil),     // 10: appuser.gateway.admin.v1.GetGenesisRolesRequest
+		(*GetGenesisRolesResponse)(nil),    // 11: appuser.gateway.admin.v1.GetGenesisRolesResponse
+		(*GetGenesisUsersRequest)(nil),     // 12: appuser.gateway.admin.v1.GetGenesisUsersRequest
+		(*GetGenesisUsersResponse)(nil),    // 13: appuser.gateway.admin.v1.GetGenesisUsersResponse
+		(*app.App)(nil),                    // 14: appuser.middleware.app.v1.App
+		(*role.Role)(nil),                  // 15: appuser.middleware.role.v1.Role
+		(*user.User)(nil),                  // 16: appuser.middleware.user.v1.User
+		(*auth.Auth)(nil),                  // 17: appuser.middleware.authing.auth.v1.Auth
+	}
+)
 var file_appuser_gateway_v1_admin_admin_proto_depIdxs = []int32{
 	14, // 0: appuser.gateway.admin.v1.CreateAdminAppsResponse.Infos:type_name -> appuser.middleware.app.v1.App
 	15, // 1: appuser.gateway.admin.v1.CreateGenesisRolesResponse.Infos:type_name -> appuser.middleware.role.v1.Role

@@ -7,12 +7,13 @@
 package history
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	currency "github.com/NpoolPlatform/kunman/message/chain/middleware/v1/coin/currency"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -231,12 +232,14 @@ func file_chain_gateway_v1_coin_currency_history_history_proto_rawDescGZIP() []b
 	return file_chain_gateway_v1_coin_currency_history_history_proto_rawDescData
 }
 
-var file_chain_gateway_v1_coin_currency_history_history_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
-var file_chain_gateway_v1_coin_currency_history_history_proto_goTypes = []interface{}{
-	(*GetCurrenciesRequest)(nil),  // 0: chain.gateway.coin.currency.history.v1.GetCurrenciesRequest
-	(*GetCurrenciesResponse)(nil), // 1: chain.gateway.coin.currency.history.v1.GetCurrenciesResponse
-	(*currency.Currency)(nil),     // 2: chain.middleware.coin.currency.v1.Currency
-}
+var (
+	file_chain_gateway_v1_coin_currency_history_history_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
+	file_chain_gateway_v1_coin_currency_history_history_proto_goTypes  = []interface{}{
+		(*GetCurrenciesRequest)(nil),  // 0: chain.gateway.coin.currency.history.v1.GetCurrenciesRequest
+		(*GetCurrenciesResponse)(nil), // 1: chain.gateway.coin.currency.history.v1.GetCurrenciesResponse
+		(*currency.Currency)(nil),     // 2: chain.middleware.coin.currency.v1.Currency
+	}
+)
 var file_chain_gateway_v1_coin_currency_history_history_proto_depIdxs = []int32{
 	2, // 0: chain.gateway.coin.currency.history.v1.GetCurrenciesResponse.Infos:type_name -> chain.middleware.coin.currency.v1.Currency
 	0, // 1: chain.gateway.coin.currency.history.v1.Gateway.GetCurrencies:input_type -> chain.gateway.coin.currency.history.v1.GetCurrenciesRequest

@@ -7,11 +7,12 @@
 package appcountry
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -360,14 +361,16 @@ func file_g11n_middleware_v1_appcountry_appcountry_proto_rawDescGZIP() []byte {
 	return file_g11n_middleware_v1_appcountry_appcountry_proto_rawDescData
 }
 
-var file_g11n_middleware_v1_appcountry_appcountry_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
-var file_g11n_middleware_v1_appcountry_appcountry_proto_goTypes = []interface{}{
-	(*CountryReq)(nil),   // 0: g11n.middleware.appcountry.v1.CountryReq
-	(*Country)(nil),      // 1: g11n.middleware.appcountry.v1.Country
-	(*Conds)(nil),        // 2: g11n.middleware.appcountry.v1.Conds
-	(*v1.Uint32Val)(nil), // 3: basetypes.v1.Uint32Val
-	(*v1.StringVal)(nil), // 4: basetypes.v1.StringVal
-}
+var (
+	file_g11n_middleware_v1_appcountry_appcountry_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
+	file_g11n_middleware_v1_appcountry_appcountry_proto_goTypes  = []interface{}{
+		(*CountryReq)(nil),   // 0: g11n.middleware.appcountry.v1.CountryReq
+		(*Country)(nil),      // 1: g11n.middleware.appcountry.v1.Country
+		(*Conds)(nil),        // 2: g11n.middleware.appcountry.v1.Conds
+		(*v1.Uint32Val)(nil), // 3: basetypes.v1.Uint32Val
+		(*v1.StringVal)(nil), // 4: basetypes.v1.StringVal
+	}
+)
 var file_g11n_middleware_v1_appcountry_appcountry_proto_depIdxs = []int32{
 	3, // 0: g11n.middleware.appcountry.v1.Conds.ID:type_name -> basetypes.v1.Uint32Val
 	4, // 1: g11n.middleware.appcountry.v1.Conds.EntID:type_name -> basetypes.v1.StringVal

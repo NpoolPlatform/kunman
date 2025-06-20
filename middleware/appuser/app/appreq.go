@@ -3,9 +3,9 @@ package app
 import (
 	"fmt"
 
+	npool "github.com/NpoolPlatform/kunman/message/appuser/middleware/v1/app"
 	appcrud "github.com/NpoolPlatform/kunman/middleware/appuser/crud/app"
 	ctrlcrud "github.com/NpoolPlatform/kunman/middleware/appuser/crud/app/control"
-	npool "github.com/NpoolPlatform/kunman/message/appuser/middleware/v1/app"
 
 	"github.com/google/uuid"
 )

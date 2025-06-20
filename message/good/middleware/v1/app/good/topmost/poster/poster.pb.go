@@ -7,12 +7,13 @@
 package poster
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/good/v1"
 	v11 "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -1207,29 +1208,31 @@ func file_good_middleware_v1_app_good_topmost_poster_poster_proto_rawDescGZIP() 
 	return file_good_middleware_v1_app_good_topmost_poster_poster_proto_rawDescData
 }
 
-var file_good_middleware_v1_app_good_topmost_poster_poster_proto_msgTypes = make([]protoimpl.MessageInfo, 16)
-var file_good_middleware_v1_app_good_topmost_poster_poster_proto_goTypes = []interface{}{
-	(*PosterReq)(nil),                // 0: good.middleware.app.good1.topmost.poster.v1.PosterReq
-	(*Poster)(nil),                   // 1: good.middleware.app.good1.topmost.poster.v1.Poster
-	(*PosterInfo)(nil),               // 2: good.middleware.app.good1.topmost.poster.v1.PosterInfo
-	(*Conds)(nil),                    // 3: good.middleware.app.good1.topmost.poster.v1.Conds
-	(*CreatePosterRequest)(nil),      // 4: good.middleware.app.good1.topmost.poster.v1.CreatePosterRequest
-	(*CreatePosterResponse)(nil),     // 5: good.middleware.app.good1.topmost.poster.v1.CreatePosterResponse
-	(*UpdatePosterRequest)(nil),      // 6: good.middleware.app.good1.topmost.poster.v1.UpdatePosterRequest
-	(*UpdatePosterResponse)(nil),     // 7: good.middleware.app.good1.topmost.poster.v1.UpdatePosterResponse
-	(*GetPosterRequest)(nil),         // 8: good.middleware.app.good1.topmost.poster.v1.GetPosterRequest
-	(*GetPosterResponse)(nil),        // 9: good.middleware.app.good1.topmost.poster.v1.GetPosterResponse
-	(*GetPostersRequest)(nil),        // 10: good.middleware.app.good1.topmost.poster.v1.GetPostersRequest
-	(*GetPostersResponse)(nil),       // 11: good.middleware.app.good1.topmost.poster.v1.GetPostersResponse
-	(*ExistPosterCondsRequest)(nil),  // 12: good.middleware.app.good1.topmost.poster.v1.ExistPosterCondsRequest
-	(*ExistPosterCondsResponse)(nil), // 13: good.middleware.app.good1.topmost.poster.v1.ExistPosterCondsResponse
-	(*DeletePosterRequest)(nil),      // 14: good.middleware.app.good1.topmost.poster.v1.DeletePosterRequest
-	(*DeletePosterResponse)(nil),     // 15: good.middleware.app.good1.topmost.poster.v1.DeletePosterResponse
-	(v1.GoodTopMostType)(0),          // 16: basetypes.good.v1.GoodTopMostType
-	(*v11.Uint32Val)(nil),            // 17: basetypes.v1.Uint32Val
-	(*v11.StringVal)(nil),            // 18: basetypes.v1.StringVal
-	(*v11.StringSliceVal)(nil),       // 19: basetypes.v1.StringSliceVal
-}
+var (
+	file_good_middleware_v1_app_good_topmost_poster_poster_proto_msgTypes = make([]protoimpl.MessageInfo, 16)
+	file_good_middleware_v1_app_good_topmost_poster_poster_proto_goTypes  = []interface{}{
+		(*PosterReq)(nil),                // 0: good.middleware.app.good1.topmost.poster.v1.PosterReq
+		(*Poster)(nil),                   // 1: good.middleware.app.good1.topmost.poster.v1.Poster
+		(*PosterInfo)(nil),               // 2: good.middleware.app.good1.topmost.poster.v1.PosterInfo
+		(*Conds)(nil),                    // 3: good.middleware.app.good1.topmost.poster.v1.Conds
+		(*CreatePosterRequest)(nil),      // 4: good.middleware.app.good1.topmost.poster.v1.CreatePosterRequest
+		(*CreatePosterResponse)(nil),     // 5: good.middleware.app.good1.topmost.poster.v1.CreatePosterResponse
+		(*UpdatePosterRequest)(nil),      // 6: good.middleware.app.good1.topmost.poster.v1.UpdatePosterRequest
+		(*UpdatePosterResponse)(nil),     // 7: good.middleware.app.good1.topmost.poster.v1.UpdatePosterResponse
+		(*GetPosterRequest)(nil),         // 8: good.middleware.app.good1.topmost.poster.v1.GetPosterRequest
+		(*GetPosterResponse)(nil),        // 9: good.middleware.app.good1.topmost.poster.v1.GetPosterResponse
+		(*GetPostersRequest)(nil),        // 10: good.middleware.app.good1.topmost.poster.v1.GetPostersRequest
+		(*GetPostersResponse)(nil),       // 11: good.middleware.app.good1.topmost.poster.v1.GetPostersResponse
+		(*ExistPosterCondsRequest)(nil),  // 12: good.middleware.app.good1.topmost.poster.v1.ExistPosterCondsRequest
+		(*ExistPosterCondsResponse)(nil), // 13: good.middleware.app.good1.topmost.poster.v1.ExistPosterCondsResponse
+		(*DeletePosterRequest)(nil),      // 14: good.middleware.app.good1.topmost.poster.v1.DeletePosterRequest
+		(*DeletePosterResponse)(nil),     // 15: good.middleware.app.good1.topmost.poster.v1.DeletePosterResponse
+		(v1.GoodTopMostType)(0),          // 16: basetypes.good.v1.GoodTopMostType
+		(*v11.Uint32Val)(nil),            // 17: basetypes.v1.Uint32Val
+		(*v11.StringVal)(nil),            // 18: basetypes.v1.StringVal
+		(*v11.StringSliceVal)(nil),       // 19: basetypes.v1.StringSliceVal
+	}
+)
 var file_good_middleware_v1_app_good_topmost_poster_poster_proto_depIdxs = []int32{
 	16, // 0: good.middleware.app.good1.topmost.poster.v1.Poster.TopMostType:type_name -> basetypes.good.v1.GoodTopMostType
 	17, // 1: good.middleware.app.good1.topmost.poster.v1.Conds.ID:type_name -> basetypes.v1.Uint32Val

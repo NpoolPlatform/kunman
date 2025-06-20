@@ -7,12 +7,13 @@
 package subscriber
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	subscriber "github.com/NpoolPlatform/kunman/message/appuser/middleware/v1/subscriber"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -457,16 +458,18 @@ func file_appuser_gateway_v1_subscriber_subscriber_proto_rawDescGZIP() []byte {
 	return file_appuser_gateway_v1_subscriber_subscriber_proto_rawDescData
 }
 
-var file_appuser_gateway_v1_subscriber_subscriber_proto_msgTypes = make([]protoimpl.MessageInfo, 6)
-var file_appuser_gateway_v1_subscriber_subscriber_proto_goTypes = []interface{}{
-	(*CreateSubscriberRequest)(nil),  // 0: appuser.gateway.subscriber.v1.CreateSubscriberRequest
-	(*CreateSubscriberResponse)(nil), // 1: appuser.gateway.subscriber.v1.CreateSubscriberResponse
-	(*GetSubscriberesRequest)(nil),   // 2: appuser.gateway.subscriber.v1.GetSubscriberesRequest
-	(*GetSubscriberesResponse)(nil),  // 3: appuser.gateway.subscriber.v1.GetSubscriberesResponse
-	(*DeleteSubscriberRequest)(nil),  // 4: appuser.gateway.subscriber.v1.DeleteSubscriberRequest
-	(*DeleteSubscriberResponse)(nil), // 5: appuser.gateway.subscriber.v1.DeleteSubscriberResponse
-	(*subscriber.Subscriber)(nil),    // 6: appuser.middleware.subscriber.v1.Subscriber
-}
+var (
+	file_appuser_gateway_v1_subscriber_subscriber_proto_msgTypes = make([]protoimpl.MessageInfo, 6)
+	file_appuser_gateway_v1_subscriber_subscriber_proto_goTypes  = []interface{}{
+		(*CreateSubscriberRequest)(nil),  // 0: appuser.gateway.subscriber.v1.CreateSubscriberRequest
+		(*CreateSubscriberResponse)(nil), // 1: appuser.gateway.subscriber.v1.CreateSubscriberResponse
+		(*GetSubscriberesRequest)(nil),   // 2: appuser.gateway.subscriber.v1.GetSubscriberesRequest
+		(*GetSubscriberesResponse)(nil),  // 3: appuser.gateway.subscriber.v1.GetSubscriberesResponse
+		(*DeleteSubscriberRequest)(nil),  // 4: appuser.gateway.subscriber.v1.DeleteSubscriberRequest
+		(*DeleteSubscriberResponse)(nil), // 5: appuser.gateway.subscriber.v1.DeleteSubscriberResponse
+		(*subscriber.Subscriber)(nil),    // 6: appuser.middleware.subscriber.v1.Subscriber
+	}
+)
 var file_appuser_gateway_v1_subscriber_subscriber_proto_depIdxs = []int32{
 	6, // 0: appuser.gateway.subscriber.v1.CreateSubscriberResponse.Info:type_name -> appuser.middleware.subscriber.v1.Subscriber
 	6, // 1: appuser.gateway.subscriber.v1.GetSubscriberesResponse.Infos:type_name -> appuser.middleware.subscriber.v1.Subscriber

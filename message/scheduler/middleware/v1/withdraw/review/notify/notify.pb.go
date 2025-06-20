@@ -7,14 +7,15 @@
 package notify
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	account "github.com/NpoolPlatform/kunman/message/account/middleware/v1/account"
 	user "github.com/NpoolPlatform/kunman/message/appuser/middleware/v1/user"
 	coin "github.com/NpoolPlatform/kunman/message/chain/middleware/v1/coin"
 	withdraw "github.com/NpoolPlatform/kunman/message/ledger/middleware/v2/withdraw"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -280,16 +281,18 @@ func file_scheduler_middleware_v1_withdraw_review_notify_notify_proto_rawDescGZI
 	return file_scheduler_middleware_v1_withdraw_review_notify_notify_proto_rawDescData
 }
 
-var file_scheduler_middleware_v1_withdraw_review_notify_notify_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
-var file_scheduler_middleware_v1_withdraw_review_notify_notify_proto_goTypes = []interface{}{
-	(*WithdrawInfo)(nil),               // 0: scheduler.middleware.withdraw.review.notify.v1.WithdrawInfo
-	(*AppWithdrawInfos)(nil),           // 1: scheduler.middleware.withdraw.review.notify.v1.AppWithdrawInfos
-	(*MsgWithdrawReviewNotifyReq)(nil), // 2: scheduler.middleware.withdraw.review.notify.v1.MsgWithdrawReviewNotifyReq
-	(*withdraw.Withdraw)(nil),          // 3: ledger.middleware.withdraw.v2.Withdraw
-	(*user.User)(nil),                  // 4: appuser.middleware.user.v1.User
-	(*account.Account)(nil),            // 5: account.middleware.account1.v1.Account
-	(*coin.Coin)(nil),                  // 6: chain.middleware.coin.v1.Coin
-}
+var (
+	file_scheduler_middleware_v1_withdraw_review_notify_notify_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
+	file_scheduler_middleware_v1_withdraw_review_notify_notify_proto_goTypes  = []interface{}{
+		(*WithdrawInfo)(nil),               // 0: scheduler.middleware.withdraw.review.notify.v1.WithdrawInfo
+		(*AppWithdrawInfos)(nil),           // 1: scheduler.middleware.withdraw.review.notify.v1.AppWithdrawInfos
+		(*MsgWithdrawReviewNotifyReq)(nil), // 2: scheduler.middleware.withdraw.review.notify.v1.MsgWithdrawReviewNotifyReq
+		(*withdraw.Withdraw)(nil),          // 3: ledger.middleware.withdraw.v2.Withdraw
+		(*user.User)(nil),                  // 4: appuser.middleware.user.v1.User
+		(*account.Account)(nil),            // 5: account.middleware.account1.v1.Account
+		(*coin.Coin)(nil),                  // 6: chain.middleware.coin.v1.Coin
+	}
+)
 var file_scheduler_middleware_v1_withdraw_review_notify_notify_proto_depIdxs = []int32{
 	3, // 0: scheduler.middleware.withdraw.review.notify.v1.WithdrawInfo.Withdraw:type_name -> ledger.middleware.withdraw.v2.Withdraw
 	4, // 1: scheduler.middleware.withdraw.review.notify.v1.WithdrawInfo.User:type_name -> appuser.middleware.user.v1.User

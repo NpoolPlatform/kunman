@@ -4,11 +4,11 @@ import (
 	"context"
 	"sync"
 
-	"github.com/NpoolPlatform/kunman/framework/logger"
 	"github.com/NpoolPlatform/kunman/cron/scheduler/config"
 	"github.com/NpoolPlatform/kunman/cron/scheduler/good/powerrental/checkhashrate"
 	"github.com/NpoolPlatform/kunman/cron/scheduler/good/powerrental/creategooduser"
 	"github.com/NpoolPlatform/kunman/cron/scheduler/good/powerrental/wait"
+	"github.com/NpoolPlatform/kunman/framework/logger"
 )
 
 const subsystem = "goodpowerrental"

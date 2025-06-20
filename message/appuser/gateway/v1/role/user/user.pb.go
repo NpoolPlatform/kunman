@@ -7,12 +7,13 @@
 package user
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	user "github.com/NpoolPlatform/kunman/message/appuser/middleware/v1/role/user"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -896,22 +897,24 @@ func file_appuser_gateway_v1_role_user_user_proto_rawDescGZIP() []byte {
 	return file_appuser_gateway_v1_role_user_user_proto_rawDescData
 }
 
-var file_appuser_gateway_v1_role_user_user_proto_msgTypes = make([]protoimpl.MessageInfo, 12)
-var file_appuser_gateway_v1_role_user_user_proto_goTypes = []interface{}{
-	(*CreateUserRequest)(nil),     // 0: appuser.gateway.role.user.v1.CreateUserRequest
-	(*CreateUserResponse)(nil),    // 1: appuser.gateway.role.user.v1.CreateUserResponse
-	(*GetUsersRequest)(nil),       // 2: appuser.gateway.role.user.v1.GetUsersRequest
-	(*GetUsersResponse)(nil),      // 3: appuser.gateway.role.user.v1.GetUsersResponse
-	(*DeleteUserRequest)(nil),     // 4: appuser.gateway.role.user.v1.DeleteUserRequest
-	(*DeleteUserResponse)(nil),    // 5: appuser.gateway.role.user.v1.DeleteUserResponse
-	(*DeleteAppUserRequest)(nil),  // 6: appuser.gateway.role.user.v1.DeleteAppUserRequest
-	(*DeleteAppUserResponse)(nil), // 7: appuser.gateway.role.user.v1.DeleteAppUserResponse
-	(*CreateAppUserRequest)(nil),  // 8: appuser.gateway.role.user.v1.CreateAppUserRequest
-	(*CreateAppUserResponse)(nil), // 9: appuser.gateway.role.user.v1.CreateAppUserResponse
-	(*GetAppUsersRequest)(nil),    // 10: appuser.gateway.role.user.v1.GetAppUsersRequest
-	(*GetAppUsersResponse)(nil),   // 11: appuser.gateway.role.user.v1.GetAppUsersResponse
-	(*user.User)(nil),             // 12: appuser.middleware.role.user.v1.User
-}
+var (
+	file_appuser_gateway_v1_role_user_user_proto_msgTypes = make([]protoimpl.MessageInfo, 12)
+	file_appuser_gateway_v1_role_user_user_proto_goTypes  = []interface{}{
+		(*CreateUserRequest)(nil),     // 0: appuser.gateway.role.user.v1.CreateUserRequest
+		(*CreateUserResponse)(nil),    // 1: appuser.gateway.role.user.v1.CreateUserResponse
+		(*GetUsersRequest)(nil),       // 2: appuser.gateway.role.user.v1.GetUsersRequest
+		(*GetUsersResponse)(nil),      // 3: appuser.gateway.role.user.v1.GetUsersResponse
+		(*DeleteUserRequest)(nil),     // 4: appuser.gateway.role.user.v1.DeleteUserRequest
+		(*DeleteUserResponse)(nil),    // 5: appuser.gateway.role.user.v1.DeleteUserResponse
+		(*DeleteAppUserRequest)(nil),  // 6: appuser.gateway.role.user.v1.DeleteAppUserRequest
+		(*DeleteAppUserResponse)(nil), // 7: appuser.gateway.role.user.v1.DeleteAppUserResponse
+		(*CreateAppUserRequest)(nil),  // 8: appuser.gateway.role.user.v1.CreateAppUserRequest
+		(*CreateAppUserResponse)(nil), // 9: appuser.gateway.role.user.v1.CreateAppUserResponse
+		(*GetAppUsersRequest)(nil),    // 10: appuser.gateway.role.user.v1.GetAppUsersRequest
+		(*GetAppUsersResponse)(nil),   // 11: appuser.gateway.role.user.v1.GetAppUsersResponse
+		(*user.User)(nil),             // 12: appuser.middleware.role.user.v1.User
+	}
+)
 var file_appuser_gateway_v1_role_user_user_proto_depIdxs = []int32{
 	12, // 0: appuser.gateway.role.user.v1.CreateUserResponse.Info:type_name -> appuser.middleware.role.user.v1.User
 	12, // 1: appuser.gateway.role.user.v1.GetUsersResponse.Infos:type_name -> appuser.middleware.role.user.v1.User

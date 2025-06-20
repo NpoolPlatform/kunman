@@ -248,7 +248,7 @@ func (h *announcementHandler) multicastUsers(ctx context.Context, users []*userm
 		if err := h.unicast(ctx, user); err != nil {
 			logger.Sugar().Errorw(
 				"multicastUsers",
-				"AnnouncementID", h.Announcement.ID,
+				"AnnouncementID", h.ID,
 				"User", user,
 				"Error", err,
 			)
@@ -290,7 +290,7 @@ func (h *announcementHandler) broadcast(ctx context.Context) error {
 		if err := h.multicastUsers(ctx, users); err != nil {
 			logger.Sugar().Errorw(
 				"broadcast",
-				"AnnouncementID", h.Announcement.ID,
+				"AnnouncementID", h.ID,
 				"Error", err,
 			)
 			return err

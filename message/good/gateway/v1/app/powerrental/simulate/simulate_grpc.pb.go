@@ -8,6 +8,7 @@ package simulate
 
 import (
 	context "context"
+
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -141,30 +142,36 @@ type GatewayServer interface {
 }
 
 // UnimplementedGatewayServer must be embedded to have forward compatible implementations.
-type UnimplementedGatewayServer struct {
-}
+type UnimplementedGatewayServer struct{}
 
 func (UnimplementedGatewayServer) CreateSimulate(context.Context, *CreateSimulateRequest) (*CreateSimulateResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateSimulate not implemented")
 }
+
 func (UnimplementedGatewayServer) GetSimulates(context.Context, *GetSimulatesRequest) (*GetSimulatesResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetSimulates not implemented")
 }
+
 func (UnimplementedGatewayServer) DeleteSimulate(context.Context, *DeleteSimulateRequest) (*DeleteSimulateResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteSimulate not implemented")
 }
+
 func (UnimplementedGatewayServer) UpdateSimulate(context.Context, *UpdateSimulateRequest) (*UpdateSimulateResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateSimulate not implemented")
 }
+
 func (UnimplementedGatewayServer) AdminCreateSimulate(context.Context, *AdminCreateSimulateRequest) (*AdminCreateSimulateResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AdminCreateSimulate not implemented")
 }
+
 func (UnimplementedGatewayServer) AdminGetSimulates(context.Context, *AdminGetSimulatesRequest) (*AdminGetSimulatesResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AdminGetSimulates not implemented")
 }
+
 func (UnimplementedGatewayServer) AdminDeleteSimulate(context.Context, *AdminDeleteSimulateRequest) (*AdminDeleteSimulateResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AdminDeleteSimulate not implemented")
 }
+
 func (UnimplementedGatewayServer) AdminUpdateSimulate(context.Context, *AdminUpdateSimulateRequest) (*AdminUpdateSimulateResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AdminUpdateSimulate not implemented")
 }

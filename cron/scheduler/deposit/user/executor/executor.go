@@ -4,8 +4,8 @@ import (
 	"context"
 	"fmt"
 
-	depositaccmwpb "github.com/NpoolPlatform/kunman/message/account/middleware/v1/deposit"
 	baseexecutor "github.com/NpoolPlatform/kunman/cron/scheduler/base/executor"
+	depositaccmwpb "github.com/NpoolPlatform/kunman/message/account/middleware/v1/deposit"
 )
 
 type handler struct{}

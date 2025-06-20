@@ -15,9 +15,9 @@ import (
 	"github.com/shopspring/decimal"
 	"github.com/stretchr/testify/assert"
 
-	"github.com/NpoolPlatform/kunman/middleware/inspire/testinit"
 	types "github.com/NpoolPlatform/kunman/message/basetypes/inspire/v1"
 	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
+	"github.com/NpoolPlatform/kunman/middleware/inspire/testinit"
 )
 
 func init() {
@@ -29,29 +29,27 @@ func init() {
 	}
 }
 
-var (
-	ret = npool.Coupon{
-		EntID:               uuid.NewString(),
-		CouponType:          types.CouponType_FixAmount,
-		CouponTypeStr:       types.CouponType_FixAmount.String(),
-		AppID:               uuid.NewString(),
-		Denomination:        decimal.RequireFromString("12.25").String(),
-		Circulation:         decimal.RequireFromString("12.25").String(),
-		IssuedBy:            uuid.NewString(),
-		StartAt:             uint32(time.Now().Unix()),
-		EndAt:               uint32(time.Now().Add(24 * time.Hour).Unix()),
-		DurationDays:        234,
-		Message:             uuid.NewString(),
-		Name:                uuid.NewString(),
-		CouponConstraint:    types.CouponConstraint_Normal,
-		CouponConstraintStr: types.CouponConstraint_Normal.String(),
-		CouponScope:         types.CouponScope_Whitelist,
-		CouponScopeStr:      types.CouponScope_Whitelist.String(),
-		Allocated:           decimal.NewFromInt(0).String(),
-		Threshold:           decimal.NewFromInt(0).String(),
-		CashableProbability: decimal.RequireFromString("0.0001").String(),
-	}
-)
+var ret = npool.Coupon{
+	EntID:               uuid.NewString(),
+	CouponType:          types.CouponType_FixAmount,
+	CouponTypeStr:       types.CouponType_FixAmount.String(),
+	AppID:               uuid.NewString(),
+	Denomination:        decimal.RequireFromString("12.25").String(),
+	Circulation:         decimal.RequireFromString("12.25").String(),
+	IssuedBy:            uuid.NewString(),
+	StartAt:             uint32(time.Now().Unix()),
+	EndAt:               uint32(time.Now().Add(24 * time.Hour).Unix()),
+	DurationDays:        234,
+	Message:             uuid.NewString(),
+	Name:                uuid.NewString(),
+	CouponConstraint:    types.CouponConstraint_Normal,
+	CouponConstraintStr: types.CouponConstraint_Normal.String(),
+	CouponScope:         types.CouponScope_Whitelist,
+	CouponScopeStr:      types.CouponScope_Whitelist.String(),
+	Allocated:           decimal.NewFromInt(0).String(),
+	Threshold:           decimal.NewFromInt(0).String(),
+	CashableProbability: decimal.RequireFromString("0.0001").String(),
+}
 
 func setup(t *testing.T) func(*testing.T) {
 	return func(*testing.T) {}

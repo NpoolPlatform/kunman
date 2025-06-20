@@ -7,12 +7,13 @@
 package malfunction
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/good/v1"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -846,19 +847,21 @@ func file_good_gateway_v1_good_malfunction_malfunction_proto_rawDescGZIP() []byt
 	return file_good_gateway_v1_good_malfunction_malfunction_proto_rawDescData
 }
 
-var file_good_gateway_v1_good_malfunction_malfunction_proto_msgTypes = make([]protoimpl.MessageInfo, 9)
-var file_good_gateway_v1_good_malfunction_malfunction_proto_goTypes = []interface{}{
-	(*Malfunction)(nil),                    // 0: good.gateway.good1.malfunction.v1.Malfunction
-	(*AdminCreateMalfunctionRequest)(nil),  // 1: good.gateway.good1.malfunction.v1.AdminCreateMalfunctionRequest
-	(*AdminCreateMalfunctionResponse)(nil), // 2: good.gateway.good1.malfunction.v1.AdminCreateMalfunctionResponse
-	(*AdminUpdateMalfunctionRequest)(nil),  // 3: good.gateway.good1.malfunction.v1.AdminUpdateMalfunctionRequest
-	(*AdminUpdateMalfunctionResponse)(nil), // 4: good.gateway.good1.malfunction.v1.AdminUpdateMalfunctionResponse
-	(*GetMalfunctionsRequest)(nil),         // 5: good.gateway.good1.malfunction.v1.GetMalfunctionsRequest
-	(*GetMalfunctionsResponse)(nil),        // 6: good.gateway.good1.malfunction.v1.GetMalfunctionsResponse
-	(*AdminDeleteMalfunctionRequest)(nil),  // 7: good.gateway.good1.malfunction.v1.AdminDeleteMalfunctionRequest
-	(*AdminDeleteMalfunctionResponse)(nil), // 8: good.gateway.good1.malfunction.v1.AdminDeleteMalfunctionResponse
-	(v1.GoodType)(0),                       // 9: basetypes.good.v1.GoodType
-}
+var (
+	file_good_gateway_v1_good_malfunction_malfunction_proto_msgTypes = make([]protoimpl.MessageInfo, 9)
+	file_good_gateway_v1_good_malfunction_malfunction_proto_goTypes  = []interface{}{
+		(*Malfunction)(nil),                    // 0: good.gateway.good1.malfunction.v1.Malfunction
+		(*AdminCreateMalfunctionRequest)(nil),  // 1: good.gateway.good1.malfunction.v1.AdminCreateMalfunctionRequest
+		(*AdminCreateMalfunctionResponse)(nil), // 2: good.gateway.good1.malfunction.v1.AdminCreateMalfunctionResponse
+		(*AdminUpdateMalfunctionRequest)(nil),  // 3: good.gateway.good1.malfunction.v1.AdminUpdateMalfunctionRequest
+		(*AdminUpdateMalfunctionResponse)(nil), // 4: good.gateway.good1.malfunction.v1.AdminUpdateMalfunctionResponse
+		(*GetMalfunctionsRequest)(nil),         // 5: good.gateway.good1.malfunction.v1.GetMalfunctionsRequest
+		(*GetMalfunctionsResponse)(nil),        // 6: good.gateway.good1.malfunction.v1.GetMalfunctionsResponse
+		(*AdminDeleteMalfunctionRequest)(nil),  // 7: good.gateway.good1.malfunction.v1.AdminDeleteMalfunctionRequest
+		(*AdminDeleteMalfunctionResponse)(nil), // 8: good.gateway.good1.malfunction.v1.AdminDeleteMalfunctionResponse
+		(v1.GoodType)(0),                       // 9: basetypes.good.v1.GoodType
+	}
+)
 var file_good_gateway_v1_good_malfunction_malfunction_proto_depIdxs = []int32{
 	9, // 0: good.gateway.good1.malfunction.v1.Malfunction.GoodType:type_name -> basetypes.good.v1.GoodType
 	0, // 1: good.gateway.good1.malfunction.v1.AdminCreateMalfunctionResponse.Info:type_name -> good.gateway.good1.malfunction.v1.Malfunction

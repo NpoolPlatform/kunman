@@ -15,7 +15,6 @@ import (
 	"google.golang.org/grpc"
 )
 
-// nolint
 func Run(
 	ctx context.Context,
 	init func(ctx context.Context) error,

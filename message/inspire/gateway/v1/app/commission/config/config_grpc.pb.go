@@ -8,6 +8,7 @@ package config
 
 import (
 	context "context"
+
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -115,24 +116,28 @@ type GatewayServer interface {
 }
 
 // UnimplementedGatewayServer must be embedded to have forward compatible implementations.
-type UnimplementedGatewayServer struct {
-}
+type UnimplementedGatewayServer struct{}
 
 func (UnimplementedGatewayServer) CreateAppCommissionConfig(context.Context, *CreateAppCommissionConfigRequest) (*CreateAppCommissionConfigResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateAppCommissionConfig not implemented")
 }
+
 func (UnimplementedGatewayServer) AdminCreateAppCommissionConfig(context.Context, *AdminCreateAppCommissionConfigRequest) (*AdminCreateAppCommissionConfigResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AdminCreateAppCommissionConfig not implemented")
 }
+
 func (UnimplementedGatewayServer) UpdateAppCommissionConfig(context.Context, *UpdateAppCommissionConfigRequest) (*UpdateAppCommissionConfigResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateAppCommissionConfig not implemented")
 }
+
 func (UnimplementedGatewayServer) AdminUpdateAppCommissionConfig(context.Context, *AdminUpdateAppCommissionConfigRequest) (*AdminUpdateAppCommissionConfigResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AdminUpdateAppCommissionConfig not implemented")
 }
+
 func (UnimplementedGatewayServer) GetAppCommissionConfigs(context.Context, *GetAppCommissionConfigsRequest) (*GetAppCommissionConfigsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetAppCommissionConfigs not implemented")
 }
+
 func (UnimplementedGatewayServer) AdminGetAppCommissionConfigs(context.Context, *AdminGetAppCommissionConfigsRequest) (*AdminGetAppCommissionConfigsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AdminGetAppCommissionConfigs not implemented")
 }

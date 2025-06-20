@@ -7,12 +7,13 @@
 package config
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/inspire/v1"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -1215,26 +1216,28 @@ func file_inspire_gateway_v1_app_config_config_proto_rawDescGZIP() []byte {
 	return file_inspire_gateway_v1_app_config_config_proto_rawDescData
 }
 
-var file_inspire_gateway_v1_app_config_config_proto_msgTypes = make([]protoimpl.MessageInfo, 13)
-var file_inspire_gateway_v1_app_config_config_proto_goTypes = []interface{}{
-	(*AppConfig)(nil),                    // 0: inspire.gateway.app.config.v1.AppConfig
-	(*CreateAppConfigRequest)(nil),       // 1: inspire.gateway.app.config.v1.CreateAppConfigRequest
-	(*CreateAppConfigResponse)(nil),      // 2: inspire.gateway.app.config.v1.CreateAppConfigResponse
-	(*AdminCreateAppConfigRequest)(nil),  // 3: inspire.gateway.app.config.v1.AdminCreateAppConfigRequest
-	(*AdminCreateAppConfigResponse)(nil), // 4: inspire.gateway.app.config.v1.AdminCreateAppConfigResponse
-	(*UpdateAppConfigRequest)(nil),       // 5: inspire.gateway.app.config.v1.UpdateAppConfigRequest
-	(*UpdateAppConfigResponse)(nil),      // 6: inspire.gateway.app.config.v1.UpdateAppConfigResponse
-	(*AdminUpdateAppConfigRequest)(nil),  // 7: inspire.gateway.app.config.v1.AdminUpdateAppConfigRequest
-	(*AdminUpdateAppConfigResponse)(nil), // 8: inspire.gateway.app.config.v1.AdminUpdateAppConfigResponse
-	(*GetAppConfigsRequest)(nil),         // 9: inspire.gateway.app.config.v1.GetAppConfigsRequest
-	(*GetAppConfigsResponse)(nil),        // 10: inspire.gateway.app.config.v1.GetAppConfigsResponse
-	(*AdminGetAppConfigsRequest)(nil),    // 11: inspire.gateway.app.config.v1.AdminGetAppConfigsRequest
-	(*AdminGetAppConfigsResponse)(nil),   // 12: inspire.gateway.app.config.v1.AdminGetAppConfigsResponse
-	(v1.SettleMode)(0),                   // 13: basetypes.inspire.v1.SettleMode
-	(v1.SettleAmountType)(0),             // 14: basetypes.inspire.v1.SettleAmountType
-	(v1.SettleInterval)(0),               // 15: basetypes.inspire.v1.SettleInterval
-	(v1.CommissionType)(0),               // 16: basetypes.inspire.v1.CommissionType
-}
+var (
+	file_inspire_gateway_v1_app_config_config_proto_msgTypes = make([]protoimpl.MessageInfo, 13)
+	file_inspire_gateway_v1_app_config_config_proto_goTypes  = []interface{}{
+		(*AppConfig)(nil),                    // 0: inspire.gateway.app.config.v1.AppConfig
+		(*CreateAppConfigRequest)(nil),       // 1: inspire.gateway.app.config.v1.CreateAppConfigRequest
+		(*CreateAppConfigResponse)(nil),      // 2: inspire.gateway.app.config.v1.CreateAppConfigResponse
+		(*AdminCreateAppConfigRequest)(nil),  // 3: inspire.gateway.app.config.v1.AdminCreateAppConfigRequest
+		(*AdminCreateAppConfigResponse)(nil), // 4: inspire.gateway.app.config.v1.AdminCreateAppConfigResponse
+		(*UpdateAppConfigRequest)(nil),       // 5: inspire.gateway.app.config.v1.UpdateAppConfigRequest
+		(*UpdateAppConfigResponse)(nil),      // 6: inspire.gateway.app.config.v1.UpdateAppConfigResponse
+		(*AdminUpdateAppConfigRequest)(nil),  // 7: inspire.gateway.app.config.v1.AdminUpdateAppConfigRequest
+		(*AdminUpdateAppConfigResponse)(nil), // 8: inspire.gateway.app.config.v1.AdminUpdateAppConfigResponse
+		(*GetAppConfigsRequest)(nil),         // 9: inspire.gateway.app.config.v1.GetAppConfigsRequest
+		(*GetAppConfigsResponse)(nil),        // 10: inspire.gateway.app.config.v1.GetAppConfigsResponse
+		(*AdminGetAppConfigsRequest)(nil),    // 11: inspire.gateway.app.config.v1.AdminGetAppConfigsRequest
+		(*AdminGetAppConfigsResponse)(nil),   // 12: inspire.gateway.app.config.v1.AdminGetAppConfigsResponse
+		(v1.SettleMode)(0),                   // 13: basetypes.inspire.v1.SettleMode
+		(v1.SettleAmountType)(0),             // 14: basetypes.inspire.v1.SettleAmountType
+		(v1.SettleInterval)(0),               // 15: basetypes.inspire.v1.SettleInterval
+		(v1.CommissionType)(0),               // 16: basetypes.inspire.v1.CommissionType
+	}
+)
 var file_inspire_gateway_v1_app_config_config_proto_depIdxs = []int32{
 	13, // 0: inspire.gateway.app.config.v1.AppConfig.SettleMode:type_name -> basetypes.inspire.v1.SettleMode
 	14, // 1: inspire.gateway.app.config.v1.AppConfig.SettleAmountType:type_name -> basetypes.inspire.v1.SettleAmountType

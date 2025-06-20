@@ -29,6 +29,10 @@ func GetOrderBenefits(ctx context.Context, orderIDs []string) (map[string][]*ord
 	}
 
 	infos, _, err := handler.GetAccounts(ctx)
+	if err != nil {
+		return nil, err
+	}
+
 	for _, info := range infos {
 		accounts, ok := orderBenefitMap[info.OrderID]
 		if !ok {

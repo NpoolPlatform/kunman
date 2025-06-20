@@ -7,6 +7,9 @@
 package powerrental
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/good/v1"
 	v11 "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	description "github.com/NpoolPlatform/kunman/message/good/middleware/v1/app/good/description"
@@ -21,8 +24,6 @@ import (
 	stock "github.com/NpoolPlatform/kunman/message/good/middleware/v1/good/stock"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -1828,34 +1829,36 @@ func file_good_middleware_v1_app_powerrental_powerrental_proto_rawDescGZIP() []b
 	return file_good_middleware_v1_app_powerrental_powerrental_proto_rawDescData
 }
 
-var file_good_middleware_v1_app_powerrental_powerrental_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
-var file_good_middleware_v1_app_powerrental_powerrental_proto_goTypes = []interface{}{
-	(*PowerRentalReq)(nil),              // 0: good.middleware.app.powerrental.v1.PowerRentalReq
-	(*PowerRental)(nil),                 // 1: good.middleware.app.powerrental.v1.PowerRental
-	(*Conds)(nil),                       // 2: good.middleware.app.powerrental.v1.Conds
-	(v1.GoodStartMode)(0),               // 3: basetypes.good.v1.GoodStartMode
-	(v1.CancelMode)(0),                  // 4: basetypes.good.v1.CancelMode
-	(v1.GoodSaleMode)(0),                // 5: basetypes.good.v1.GoodSaleMode
-	(v1.GoodDurationType)(0),            // 6: basetypes.good.v1.GoodDurationType
-	(v1.GoodType)(0),                    // 7: basetypes.good.v1.GoodType
-	(v1.BenefitType)(0),                 // 8: basetypes.good.v1.BenefitType
-	(v1.GoodStockMode)(0),               // 9: basetypes.good.v1.GoodStockMode
-	(v1.GoodState)(0),                   // 10: basetypes.good.v1.GoodState
-	(*coin.GoodCoinInfo)(nil),           // 11: good.middleware.good1.coin.v1.GoodCoinInfo
-	(*description.DescriptionInfo)(nil), // 12: good.middleware.app.good1.description.v1.DescriptionInfo
-	(*poster.PosterInfo)(nil),           // 13: good.middleware.app.good1.poster.v1.PosterInfo
-	(*name.DisplayNameInfo)(nil),        // 14: good.middleware.app.good1.display.name.v1.DisplayNameInfo
-	(*color.DisplayColorInfo)(nil),      // 15: good.middleware.app.good1.display.color.v1.DisplayColorInfo
-	(*mining.StockInfo)(nil),            // 16: good.middleware.app.good1.stock.mining.v1.StockInfo
-	(*stock.MiningGoodStockInfo)(nil),   // 17: good.middleware.good1.stock.v1.MiningGoodStockInfo
-	(*label.LabelInfo)(nil),             // 18: good.middleware.app.good1.label.v1.LabelInfo
-	(*reward.RewardInfo)(nil),           // 19: good.middleware.good1.coin.reward.v1.RewardInfo
-	(*required.RequiredInfo)(nil),       // 20: good.middleware.app.good1.required1.v1.RequiredInfo
-	(*v11.Uint32Val)(nil),               // 21: basetypes.v1.Uint32Val
-	(*v11.StringVal)(nil),               // 22: basetypes.v1.StringVal
-	(*v11.StringSliceVal)(nil),          // 23: basetypes.v1.StringSliceVal
-	(*v11.Uint32SliceVal)(nil),          // 24: basetypes.v1.Uint32SliceVal
-}
+var (
+	file_good_middleware_v1_app_powerrental_powerrental_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
+	file_good_middleware_v1_app_powerrental_powerrental_proto_goTypes  = []interface{}{
+		(*PowerRentalReq)(nil),              // 0: good.middleware.app.powerrental.v1.PowerRentalReq
+		(*PowerRental)(nil),                 // 1: good.middleware.app.powerrental.v1.PowerRental
+		(*Conds)(nil),                       // 2: good.middleware.app.powerrental.v1.Conds
+		(v1.GoodStartMode)(0),               // 3: basetypes.good.v1.GoodStartMode
+		(v1.CancelMode)(0),                  // 4: basetypes.good.v1.CancelMode
+		(v1.GoodSaleMode)(0),                // 5: basetypes.good.v1.GoodSaleMode
+		(v1.GoodDurationType)(0),            // 6: basetypes.good.v1.GoodDurationType
+		(v1.GoodType)(0),                    // 7: basetypes.good.v1.GoodType
+		(v1.BenefitType)(0),                 // 8: basetypes.good.v1.BenefitType
+		(v1.GoodStockMode)(0),               // 9: basetypes.good.v1.GoodStockMode
+		(v1.GoodState)(0),                   // 10: basetypes.good.v1.GoodState
+		(*coin.GoodCoinInfo)(nil),           // 11: good.middleware.good1.coin.v1.GoodCoinInfo
+		(*description.DescriptionInfo)(nil), // 12: good.middleware.app.good1.description.v1.DescriptionInfo
+		(*poster.PosterInfo)(nil),           // 13: good.middleware.app.good1.poster.v1.PosterInfo
+		(*name.DisplayNameInfo)(nil),        // 14: good.middleware.app.good1.display.name.v1.DisplayNameInfo
+		(*color.DisplayColorInfo)(nil),      // 15: good.middleware.app.good1.display.color.v1.DisplayColorInfo
+		(*mining.StockInfo)(nil),            // 16: good.middleware.app.good1.stock.mining.v1.StockInfo
+		(*stock.MiningGoodStockInfo)(nil),   // 17: good.middleware.good1.stock.v1.MiningGoodStockInfo
+		(*label.LabelInfo)(nil),             // 18: good.middleware.app.good1.label.v1.LabelInfo
+		(*reward.RewardInfo)(nil),           // 19: good.middleware.good1.coin.reward.v1.RewardInfo
+		(*required.RequiredInfo)(nil),       // 20: good.middleware.app.good1.required1.v1.RequiredInfo
+		(*v11.Uint32Val)(nil),               // 21: basetypes.v1.Uint32Val
+		(*v11.StringVal)(nil),               // 22: basetypes.v1.StringVal
+		(*v11.StringSliceVal)(nil),          // 23: basetypes.v1.StringSliceVal
+		(*v11.Uint32SliceVal)(nil),          // 24: basetypes.v1.Uint32SliceVal
+	}
+)
 var file_good_middleware_v1_app_powerrental_powerrental_proto_depIdxs = []int32{
 	3,  // 0: good.middleware.app.powerrental.v1.PowerRentalReq.StartMode:type_name -> basetypes.good.v1.GoodStartMode
 	4,  // 1: good.middleware.app.powerrental.v1.PowerRentalReq.CancelMode:type_name -> basetypes.good.v1.CancelMode

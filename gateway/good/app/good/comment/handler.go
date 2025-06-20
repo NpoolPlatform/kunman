@@ -3,12 +3,12 @@ package comment
 import (
 	"context"
 
-	appgoodcommon "github.com/NpoolPlatform/kunman/gateway/good/app/good/common"
-	constant "github.com/NpoolPlatform/kunman/pkg/const"
 	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
+	appgoodcommon "github.com/NpoolPlatform/kunman/gateway/good/app/good/common"
 	types "github.com/NpoolPlatform/kunman/message/basetypes/good/v1"
 	appmw "github.com/NpoolPlatform/kunman/middleware/appuser/app"
 	ordermw "github.com/NpoolPlatform/kunman/middleware/order/order"
+	constant "github.com/NpoolPlatform/kunman/pkg/const"
 
 	"github.com/google/uuid"
 	"github.com/shopspring/decimal"

@@ -5,13 +5,13 @@ import (
 	"context"
 
 	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
-	constant "github.com/NpoolPlatform/kunman/pkg/const"
-	orderstatementcrud "github.com/NpoolPlatform/kunman/middleware/inspire/crud/achievement/statement/order"
-	orderpaymentstatementcrud "github.com/NpoolPlatform/kunman/middleware/inspire/crud/achievement/statement/order/payment"
-	cruder "github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 	types "github.com/NpoolPlatform/kunman/message/basetypes/inspire/v1"
 	npool "github.com/NpoolPlatform/kunman/message/inspire/middleware/v1/achievement/statement/order"
 	orderpaymentstatementmwpb "github.com/NpoolPlatform/kunman/message/inspire/middleware/v1/achievement/statement/order/payment"
+	orderstatementcrud "github.com/NpoolPlatform/kunman/middleware/inspire/crud/achievement/statement/order"
+	orderpaymentstatementcrud "github.com/NpoolPlatform/kunman/middleware/inspire/crud/achievement/statement/order/payment"
+	constant "github.com/NpoolPlatform/kunman/pkg/const"
+	cruder "github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 
 	"github.com/google/uuid"
 	"github.com/shopspring/decimal"
@@ -186,6 +186,7 @@ func WithDirectContributorID(id *string, must bool) func(context.Context, *Handl
 		return nil
 	}
 }
+
 func WithGoodCoinTypeID(id *string, must bool) func(context.Context, *Handler) error {
 	return func(ctx context.Context, h *Handler) error {
 		if id == nil {

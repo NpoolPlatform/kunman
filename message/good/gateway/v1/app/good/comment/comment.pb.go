@@ -7,12 +7,13 @@
 package comment
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/good/v1"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -1919,31 +1920,33 @@ func file_good_gateway_v1_app_good_comment_comment_proto_rawDescGZIP() []byte {
 	return file_good_gateway_v1_app_good_comment_comment_proto_rawDescData
 }
 
-var file_good_gateway_v1_app_good_comment_comment_proto_msgTypes = make([]protoimpl.MessageInfo, 21)
-var file_good_gateway_v1_app_good_comment_comment_proto_goTypes = []interface{}{
-	(*Comment)(nil),                    // 0: good.gateway.app.good1.comment.v1.Comment
-	(*CreateCommentRequest)(nil),       // 1: good.gateway.app.good1.comment.v1.CreateCommentRequest
-	(*CreateCommentResponse)(nil),      // 2: good.gateway.app.good1.comment.v1.CreateCommentResponse
-	(*UpdateCommentRequest)(nil),       // 3: good.gateway.app.good1.comment.v1.UpdateCommentRequest
-	(*UpdateCommentResponse)(nil),      // 4: good.gateway.app.good1.comment.v1.UpdateCommentResponse
-	(*GetMyCommentsRequest)(nil),       // 5: good.gateway.app.good1.comment.v1.GetMyCommentsRequest
-	(*GetMyCommentsResponse)(nil),      // 6: good.gateway.app.good1.comment.v1.GetMyCommentsResponse
-	(*GetCommentsRequest)(nil),         // 7: good.gateway.app.good1.comment.v1.GetCommentsRequest
-	(*GetCommentsResponse)(nil),        // 8: good.gateway.app.good1.comment.v1.GetCommentsResponse
-	(*DeleteCommentRequest)(nil),       // 9: good.gateway.app.good1.comment.v1.DeleteCommentRequest
-	(*DeleteCommentResponse)(nil),      // 10: good.gateway.app.good1.comment.v1.DeleteCommentResponse
-	(*UpdateUserCommentRequest)(nil),   // 11: good.gateway.app.good1.comment.v1.UpdateUserCommentRequest
-	(*UpdateUserCommentResponse)(nil),  // 12: good.gateway.app.good1.comment.v1.UpdateUserCommentResponse
-	(*DeleteUserCommentRequest)(nil),   // 13: good.gateway.app.good1.comment.v1.DeleteUserCommentRequest
-	(*DeleteUserCommentResponse)(nil),  // 14: good.gateway.app.good1.comment.v1.DeleteUserCommentResponse
-	(*AdminUpdateCommentRequest)(nil),  // 15: good.gateway.app.good1.comment.v1.AdminUpdateCommentRequest
-	(*AdminUpdateCommentResponse)(nil), // 16: good.gateway.app.good1.comment.v1.AdminUpdateCommentResponse
-	(*AdminDeleteCommentRequest)(nil),  // 17: good.gateway.app.good1.comment.v1.AdminDeleteCommentRequest
-	(*AdminDeleteCommentResponse)(nil), // 18: good.gateway.app.good1.comment.v1.AdminDeleteCommentResponse
-	(*AdminGetCommentsRequest)(nil),    // 19: good.gateway.app.good1.comment.v1.AdminGetCommentsRequest
-	(*AdminGetCommentsResponse)(nil),   // 20: good.gateway.app.good1.comment.v1.AdminGetCommentsResponse
-	(v1.GoodCommentHideReason)(0),      // 21: basetypes.good.v1.GoodCommentHideReason
-}
+var (
+	file_good_gateway_v1_app_good_comment_comment_proto_msgTypes = make([]protoimpl.MessageInfo, 21)
+	file_good_gateway_v1_app_good_comment_comment_proto_goTypes  = []interface{}{
+		(*Comment)(nil),                    // 0: good.gateway.app.good1.comment.v1.Comment
+		(*CreateCommentRequest)(nil),       // 1: good.gateway.app.good1.comment.v1.CreateCommentRequest
+		(*CreateCommentResponse)(nil),      // 2: good.gateway.app.good1.comment.v1.CreateCommentResponse
+		(*UpdateCommentRequest)(nil),       // 3: good.gateway.app.good1.comment.v1.UpdateCommentRequest
+		(*UpdateCommentResponse)(nil),      // 4: good.gateway.app.good1.comment.v1.UpdateCommentResponse
+		(*GetMyCommentsRequest)(nil),       // 5: good.gateway.app.good1.comment.v1.GetMyCommentsRequest
+		(*GetMyCommentsResponse)(nil),      // 6: good.gateway.app.good1.comment.v1.GetMyCommentsResponse
+		(*GetCommentsRequest)(nil),         // 7: good.gateway.app.good1.comment.v1.GetCommentsRequest
+		(*GetCommentsResponse)(nil),        // 8: good.gateway.app.good1.comment.v1.GetCommentsResponse
+		(*DeleteCommentRequest)(nil),       // 9: good.gateway.app.good1.comment.v1.DeleteCommentRequest
+		(*DeleteCommentResponse)(nil),      // 10: good.gateway.app.good1.comment.v1.DeleteCommentResponse
+		(*UpdateUserCommentRequest)(nil),   // 11: good.gateway.app.good1.comment.v1.UpdateUserCommentRequest
+		(*UpdateUserCommentResponse)(nil),  // 12: good.gateway.app.good1.comment.v1.UpdateUserCommentResponse
+		(*DeleteUserCommentRequest)(nil),   // 13: good.gateway.app.good1.comment.v1.DeleteUserCommentRequest
+		(*DeleteUserCommentResponse)(nil),  // 14: good.gateway.app.good1.comment.v1.DeleteUserCommentResponse
+		(*AdminUpdateCommentRequest)(nil),  // 15: good.gateway.app.good1.comment.v1.AdminUpdateCommentRequest
+		(*AdminUpdateCommentResponse)(nil), // 16: good.gateway.app.good1.comment.v1.AdminUpdateCommentResponse
+		(*AdminDeleteCommentRequest)(nil),  // 17: good.gateway.app.good1.comment.v1.AdminDeleteCommentRequest
+		(*AdminDeleteCommentResponse)(nil), // 18: good.gateway.app.good1.comment.v1.AdminDeleteCommentResponse
+		(*AdminGetCommentsRequest)(nil),    // 19: good.gateway.app.good1.comment.v1.AdminGetCommentsRequest
+		(*AdminGetCommentsResponse)(nil),   // 20: good.gateway.app.good1.comment.v1.AdminGetCommentsResponse
+		(v1.GoodCommentHideReason)(0),      // 21: basetypes.good.v1.GoodCommentHideReason
+	}
+)
 var file_good_gateway_v1_app_good_comment_comment_proto_depIdxs = []int32{
 	21, // 0: good.gateway.app.good1.comment.v1.Comment.HideReason:type_name -> basetypes.good.v1.GoodCommentHideReason
 	0,  // 1: good.gateway.app.good1.comment.v1.CreateCommentResponse.Info:type_name -> good.gateway.app.good1.comment.v1.Comment

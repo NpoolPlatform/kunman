@@ -8,6 +8,7 @@ package usedfor
 
 import (
 	context "context"
+
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -79,15 +80,16 @@ type GatewayServer interface {
 }
 
 // UnimplementedGatewayServer must be embedded to have forward compatible implementations.
-type UnimplementedGatewayServer struct {
-}
+type UnimplementedGatewayServer struct{}
 
 func (UnimplementedGatewayServer) CreateCoinUsedFor(context.Context, *CreateCoinUsedForRequest) (*CreateCoinUsedForResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateCoinUsedFor not implemented")
 }
+
 func (UnimplementedGatewayServer) GetCoinUsedFors(context.Context, *GetCoinUsedForsRequest) (*GetCoinUsedForsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetCoinUsedFors not implemented")
 }
+
 func (UnimplementedGatewayServer) DeleteCoinUsedFor(context.Context, *DeleteCoinUsedForRequest) (*DeleteCoinUsedForResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteCoinUsedFor not implemented")
 }

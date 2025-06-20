@@ -114,7 +114,6 @@ type Conds struct {
 	State       *cruder.Cond
 }
 
-// nolint
 func SetQueryConds(q *ent.GoodBaseQuery, conds *Conds) (*ent.GoodBaseQuery, error) {
 	q.Where(entgoodbase.DeletedAt(0))
 	if conds == nil {

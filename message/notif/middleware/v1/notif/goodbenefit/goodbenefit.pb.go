@@ -7,12 +7,13 @@
 package goodbenefit
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/good/v1"
 	v11 "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -593,18 +594,20 @@ func file_notif_middleware_v1_notif_goodbenefit_goodbenefit_proto_rawDescGZIP() 
 	return file_notif_middleware_v1_notif_goodbenefit_goodbenefit_proto_rawDescData
 }
 
-var file_notif_middleware_v1_notif_goodbenefit_goodbenefit_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
-var file_notif_middleware_v1_notif_goodbenefit_goodbenefit_proto_goTypes = []interface{}{
-	(*GoodBenefitReq)(nil),     // 0: notif.middleware.notif.goodbenefit.v1.GoodBenefitReq
-	(*GoodBenefit)(nil),        // 1: notif.middleware.notif.goodbenefit.v1.GoodBenefit
-	(*Conds)(nil),              // 2: notif.middleware.notif.goodbenefit.v1.Conds
-	(v1.GoodType)(0),           // 3: basetypes.good.v1.GoodType
-	(v11.Result)(0),            // 4: basetypes.v1.Result
-	(*v11.Uint32Val)(nil),      // 5: basetypes.v1.Uint32Val
-	(*v11.StringVal)(nil),      // 6: basetypes.v1.StringVal
-	(*v11.Uint32SliceVal)(nil), // 7: basetypes.v1.Uint32SliceVal
-	(*v11.BoolVal)(nil),        // 8: basetypes.v1.BoolVal
-}
+var (
+	file_notif_middleware_v1_notif_goodbenefit_goodbenefit_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
+	file_notif_middleware_v1_notif_goodbenefit_goodbenefit_proto_goTypes  = []interface{}{
+		(*GoodBenefitReq)(nil),     // 0: notif.middleware.notif.goodbenefit.v1.GoodBenefitReq
+		(*GoodBenefit)(nil),        // 1: notif.middleware.notif.goodbenefit.v1.GoodBenefit
+		(*Conds)(nil),              // 2: notif.middleware.notif.goodbenefit.v1.Conds
+		(v1.GoodType)(0),           // 3: basetypes.good.v1.GoodType
+		(v11.Result)(0),            // 4: basetypes.v1.Result
+		(*v11.Uint32Val)(nil),      // 5: basetypes.v1.Uint32Val
+		(*v11.StringVal)(nil),      // 6: basetypes.v1.StringVal
+		(*v11.Uint32SliceVal)(nil), // 7: basetypes.v1.Uint32SliceVal
+		(*v11.BoolVal)(nil),        // 8: basetypes.v1.BoolVal
+	}
+)
 var file_notif_middleware_v1_notif_goodbenefit_goodbenefit_proto_depIdxs = []int32{
 	3,  // 0: notif.middleware.notif.goodbenefit.v1.GoodBenefitReq.GoodType:type_name -> basetypes.good.v1.GoodType
 	4,  // 1: notif.middleware.notif.goodbenefit.v1.GoodBenefitReq.State:type_name -> basetypes.v1.Result

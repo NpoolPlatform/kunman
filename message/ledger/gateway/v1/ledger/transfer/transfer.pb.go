@@ -7,12 +7,13 @@
 package transfer
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -402,13 +403,15 @@ func file_ledger_gateway_v1_ledger_transfer_transfer_proto_rawDescGZIP() []byte 
 	return file_ledger_gateway_v1_ledger_transfer_transfer_proto_rawDescData
 }
 
-var file_ledger_gateway_v1_ledger_transfer_transfer_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
-var file_ledger_gateway_v1_ledger_transfer_transfer_proto_goTypes = []interface{}{
-	(*Transfer)(nil),               // 0: ledger.gateway.ledger.transfer.v1.Transfer
-	(*CreateTransferRequest)(nil),  // 1: ledger.gateway.ledger.transfer.v1.CreateTransferRequest
-	(*CreateTransferResponse)(nil), // 2: ledger.gateway.ledger.transfer.v1.CreateTransferResponse
-	(v1.SignMethod)(0),             // 3: basetypes.v1.SignMethod
-}
+var (
+	file_ledger_gateway_v1_ledger_transfer_transfer_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
+	file_ledger_gateway_v1_ledger_transfer_transfer_proto_goTypes  = []interface{}{
+		(*Transfer)(nil),               // 0: ledger.gateway.ledger.transfer.v1.Transfer
+		(*CreateTransferRequest)(nil),  // 1: ledger.gateway.ledger.transfer.v1.CreateTransferRequest
+		(*CreateTransferResponse)(nil), // 2: ledger.gateway.ledger.transfer.v1.CreateTransferResponse
+		(v1.SignMethod)(0),             // 3: basetypes.v1.SignMethod
+	}
+)
 var file_ledger_gateway_v1_ledger_transfer_transfer_proto_depIdxs = []int32{
 	3, // 0: ledger.gateway.ledger.transfer.v1.CreateTransferRequest.AccountType:type_name -> basetypes.v1.SignMethod
 	0, // 1: ledger.gateway.ledger.transfer.v1.CreateTransferResponse.Info:type_name -> ledger.gateway.ledger.transfer.v1.Transfer

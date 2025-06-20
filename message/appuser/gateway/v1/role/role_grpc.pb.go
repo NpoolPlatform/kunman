@@ -8,6 +8,7 @@ package role
 
 import (
 	context "context"
+
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -139,30 +140,36 @@ type GatewayServer interface {
 }
 
 // UnimplementedGatewayServer must be embedded to have forward compatible implementations.
-type UnimplementedGatewayServer struct {
-}
+type UnimplementedGatewayServer struct{}
 
 func (UnimplementedGatewayServer) CreateRole(context.Context, *CreateRoleRequest) (*CreateRoleResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateRole not implemented")
 }
+
 func (UnimplementedGatewayServer) GetRoles(context.Context, *GetRolesRequest) (*GetRolesResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetRoles not implemented")
 }
+
 func (UnimplementedGatewayServer) UpdateRole(context.Context, *UpdateRoleRequest) (*UpdateRoleResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateRole not implemented")
 }
+
 func (UnimplementedGatewayServer) DeleteRole(context.Context, *DeleteRoleRequest) (*DeleteRoleResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteRole not implemented")
 }
+
 func (UnimplementedGatewayServer) CreateAppRole(context.Context, *CreateAppRoleRequest) (*CreateAppRoleResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateAppRole not implemented")
 }
+
 func (UnimplementedGatewayServer) UpdateAppRole(context.Context, *UpdateAppRoleRequest) (*UpdateAppRoleResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateAppRole not implemented")
 }
+
 func (UnimplementedGatewayServer) GetAppRoles(context.Context, *GetAppRolesRequest) (*GetAppRolesResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetAppRoles not implemented")
 }
+
 func (UnimplementedGatewayServer) DeleteAppRole(context.Context, *DeleteAppRoleRequest) (*DeleteAppRoleResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteAppRole not implemented")
 }

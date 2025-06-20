@@ -63,7 +63,7 @@ type Conds struct {
 	OrderIDs *cruder.Cond
 }
 
-//nolint
+// nolint
 func SetQueryConds(q *ent.SubscriptionOrderQuery, conds *Conds) (*ent.SubscriptionOrderQuery, error) {
 	q.Where(entsubscriptionorder.DeletedAt(0))
 	if conds == nil {

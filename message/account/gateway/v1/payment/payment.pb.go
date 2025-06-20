@@ -7,12 +7,13 @@
 package payment
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -533,15 +534,17 @@ func file_account_gateway_v1_payment_payment_proto_rawDescGZIP() []byte {
 	return file_account_gateway_v1_payment_payment_proto_rawDescData
 }
 
-var file_account_gateway_v1_payment_payment_proto_msgTypes = make([]protoimpl.MessageInfo, 5)
-var file_account_gateway_v1_payment_payment_proto_goTypes = []interface{}{
-	(*Account)(nil),               // 0: account.gateway.payment.v1.Account
-	(*UpdateAccountRequest)(nil),  // 1: account.gateway.payment.v1.UpdateAccountRequest
-	(*UpdateAccountResponse)(nil), // 2: account.gateway.payment.v1.UpdateAccountResponse
-	(*GetAccountsRequest)(nil),    // 3: account.gateway.payment.v1.GetAccountsRequest
-	(*GetAccountsResponse)(nil),   // 4: account.gateway.payment.v1.GetAccountsResponse
-	(v1.AccountLockedBy)(0),       // 5: basetypes.v1.AccountLockedBy
-}
+var (
+	file_account_gateway_v1_payment_payment_proto_msgTypes = make([]protoimpl.MessageInfo, 5)
+	file_account_gateway_v1_payment_payment_proto_goTypes  = []interface{}{
+		(*Account)(nil),               // 0: account.gateway.payment.v1.Account
+		(*UpdateAccountRequest)(nil),  // 1: account.gateway.payment.v1.UpdateAccountRequest
+		(*UpdateAccountResponse)(nil), // 2: account.gateway.payment.v1.UpdateAccountResponse
+		(*GetAccountsRequest)(nil),    // 3: account.gateway.payment.v1.GetAccountsRequest
+		(*GetAccountsResponse)(nil),   // 4: account.gateway.payment.v1.GetAccountsResponse
+		(v1.AccountLockedBy)(0),       // 5: basetypes.v1.AccountLockedBy
+	}
+)
 var file_account_gateway_v1_payment_payment_proto_depIdxs = []int32{
 	5, // 0: account.gateway.payment.v1.Account.LockedBy:type_name -> basetypes.v1.AccountLockedBy
 	0, // 1: account.gateway.payment.v1.UpdateAccountResponse.Info:type_name -> account.gateway.payment.v1.Account

@@ -15,9 +15,9 @@ import (
 	"github.com/shopspring/decimal"
 	"github.com/stretchr/testify/assert"
 
-	"github.com/NpoolPlatform/kunman/middleware/inspire/testinit"
 	types "github.com/NpoolPlatform/kunman/message/basetypes/inspire/v1"
 	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
+	"github.com/NpoolPlatform/kunman/middleware/inspire/testinit"
 )
 
 func init() {
@@ -29,26 +29,24 @@ func init() {
 	}
 }
 
-var (
-	ret = npool.Commission{
-		EntID:               uuid.NewString(),
-		AppID:               uuid.NewString(),
-		UserID:              uuid.NewString(),
-		GoodID:              uuid.NewString(),
-		AppGoodID:           uuid.NewString(),
-		SettleType:          types.SettleType_GoodOrderPayment,
-		SettleTypeStr:       types.SettleType_GoodOrderPayment.String(),
-		SettleMode:          types.SettleMode_SettleWithGoodValue,
-		SettleModeStr:       types.SettleMode_SettleWithGoodValue.String(),
-		SettleAmountType:    types.SettleAmountType_SettleByPercent,
-		SettleAmountTypeStr: types.SettleAmountType_SettleByPercent.String(),
-		SettleInterval:      types.SettleInterval_SettleYearly,
-		SettleIntervalStr:   types.SettleInterval_SettleYearly.String(),
-		AmountOrPercent:     decimal.RequireFromString("12.25").String(),
-		StartAt:             uint32(time.Now().Unix()),
-		Threshold:           decimal.RequireFromString("12.26").String(),
-	}
-)
+var ret = npool.Commission{
+	EntID:               uuid.NewString(),
+	AppID:               uuid.NewString(),
+	UserID:              uuid.NewString(),
+	GoodID:              uuid.NewString(),
+	AppGoodID:           uuid.NewString(),
+	SettleType:          types.SettleType_GoodOrderPayment,
+	SettleTypeStr:       types.SettleType_GoodOrderPayment.String(),
+	SettleMode:          types.SettleMode_SettleWithGoodValue,
+	SettleModeStr:       types.SettleMode_SettleWithGoodValue.String(),
+	SettleAmountType:    types.SettleAmountType_SettleByPercent,
+	SettleAmountTypeStr: types.SettleAmountType_SettleByPercent.String(),
+	SettleInterval:      types.SettleInterval_SettleYearly,
+	SettleIntervalStr:   types.SettleInterval_SettleYearly.String(),
+	AmountOrPercent:     decimal.RequireFromString("12.25").String(),
+	StartAt:             uint32(time.Now().Unix()),
+	Threshold:           decimal.RequireFromString("12.26").String(),
+}
 
 func setup(t *testing.T) func(*testing.T) {
 	return func(*testing.T) {}

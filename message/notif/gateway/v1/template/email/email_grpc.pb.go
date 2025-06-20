@@ -8,6 +8,7 @@ package email
 
 import (
 	context "context"
+
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -127,27 +128,32 @@ type GatewayServer interface {
 }
 
 // UnimplementedGatewayServer must be embedded to have forward compatible implementations.
-type UnimplementedGatewayServer struct {
-}
+type UnimplementedGatewayServer struct{}
 
 func (UnimplementedGatewayServer) CreateEmailTemplate(context.Context, *CreateEmailTemplateRequest) (*CreateEmailTemplateResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateEmailTemplate not implemented")
 }
+
 func (UnimplementedGatewayServer) CreateAppEmailTemplate(context.Context, *CreateAppEmailTemplateRequest) (*CreateAppEmailTemplateResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateAppEmailTemplate not implemented")
 }
+
 func (UnimplementedGatewayServer) GetEmailTemplate(context.Context, *GetEmailTemplateRequest) (*GetEmailTemplateResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetEmailTemplate not implemented")
 }
+
 func (UnimplementedGatewayServer) GetEmailTemplates(context.Context, *GetEmailTemplatesRequest) (*GetEmailTemplatesResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetEmailTemplates not implemented")
 }
+
 func (UnimplementedGatewayServer) GetAppEmailTemplates(context.Context, *GetAppEmailTemplatesRequest) (*GetAppEmailTemplatesResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetAppEmailTemplates not implemented")
 }
+
 func (UnimplementedGatewayServer) UpdateEmailTemplate(context.Context, *UpdateEmailTemplateRequest) (*UpdateEmailTemplateResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateEmailTemplate not implemented")
 }
+
 func (UnimplementedGatewayServer) UpdateAppEmailTemplate(context.Context, *UpdateAppEmailTemplateRequest) (*UpdateAppEmailTemplateResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateAppEmailTemplate not implemented")
 }

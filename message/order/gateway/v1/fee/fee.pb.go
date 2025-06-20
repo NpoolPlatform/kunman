@@ -7,6 +7,9 @@
 package fee
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/good/v1"
 	v11 "github.com/NpoolPlatform/kunman/message/basetypes/order/v1"
 	coupon "github.com/NpoolPlatform/kunman/message/order/gateway/v1/order/coupon"
@@ -14,8 +17,6 @@ import (
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -2618,46 +2619,48 @@ func file_order_gateway_v1_fee_fee_proto_rawDescGZIP() []byte {
 	return file_order_gateway_v1_fee_fee_proto_rawDescData
 }
 
-var file_order_gateway_v1_fee_fee_proto_msgTypes = make([]protoimpl.MessageInfo, 26)
-var file_order_gateway_v1_fee_fee_proto_goTypes = []interface{}{
-	(*FeeOrder)(nil),                    // 0: order.gateway.fee.v1.FeeOrder
-	(*FeeDuration)(nil),                 // 1: order.gateway.fee.v1.FeeDuration
-	(*CreateFeeOrderRequest)(nil),       // 2: order.gateway.fee.v1.CreateFeeOrderRequest
-	(*CreateFeeOrderResponse)(nil),      // 3: order.gateway.fee.v1.CreateFeeOrderResponse
-	(*CreateUserFeeOrderRequest)(nil),   // 4: order.gateway.fee.v1.CreateUserFeeOrderRequest
-	(*CreateUserFeeOrderResponse)(nil),  // 5: order.gateway.fee.v1.CreateUserFeeOrderResponse
-	(*CreateFeeOrdersRequest)(nil),      // 6: order.gateway.fee.v1.CreateFeeOrdersRequest
-	(*CreateFeeOrdersResponse)(nil),     // 7: order.gateway.fee.v1.CreateFeeOrdersResponse
-	(*UpdateFeeOrderRequest)(nil),       // 8: order.gateway.fee.v1.UpdateFeeOrderRequest
-	(*UpdateFeeOrderResponse)(nil),      // 9: order.gateway.fee.v1.UpdateFeeOrderResponse
-	(*UpdateUserFeeOrderRequest)(nil),   // 10: order.gateway.fee.v1.UpdateUserFeeOrderRequest
-	(*UpdateUserFeeOrderResponse)(nil),  // 11: order.gateway.fee.v1.UpdateUserFeeOrderResponse
-	(*GetFeeOrderRequest)(nil),          // 12: order.gateway.fee.v1.GetFeeOrderRequest
-	(*GetFeeOrderResponse)(nil),         // 13: order.gateway.fee.v1.GetFeeOrderResponse
-	(*GetFeeOrdersRequest)(nil),         // 14: order.gateway.fee.v1.GetFeeOrdersRequest
-	(*GetFeeOrdersResponse)(nil),        // 15: order.gateway.fee.v1.GetFeeOrdersResponse
-	(*GetMyFeeOrdersRequest)(nil),       // 16: order.gateway.fee.v1.GetMyFeeOrdersRequest
-	(*GetMyFeeOrdersResponse)(nil),      // 17: order.gateway.fee.v1.GetMyFeeOrdersResponse
-	(*AdminCreateFeeOrderRequest)(nil),  // 18: order.gateway.fee.v1.AdminCreateFeeOrderRequest
-	(*AdminCreateFeeOrderResponse)(nil), // 19: order.gateway.fee.v1.AdminCreateFeeOrderResponse
-	(*AdminUpdateFeeOrderRequest)(nil),  // 20: order.gateway.fee.v1.AdminUpdateFeeOrderRequest
-	(*AdminUpdateFeeOrderResponse)(nil), // 21: order.gateway.fee.v1.AdminUpdateFeeOrderResponse
-	(*AdminGetFeeOrdersRequest)(nil),    // 22: order.gateway.fee.v1.AdminGetFeeOrdersRequest
-	(*AdminGetFeeOrdersResponse)(nil),   // 23: order.gateway.fee.v1.AdminGetFeeOrdersResponse
-	(*AdminDeleteFeeOrderRequest)(nil),  // 24: order.gateway.fee.v1.AdminDeleteFeeOrderRequest
-	(*AdminDeleteFeeOrderResponse)(nil), // 25: order.gateway.fee.v1.AdminDeleteFeeOrderResponse
-	(v1.GoodType)(0),                    // 26: basetypes.good.v1.GoodType
-	(v11.OrderType)(0),                  // 27: basetypes.order.v1.OrderType
-	(v11.PaymentType)(0),                // 28: basetypes.order.v1.PaymentType
-	(v11.OrderCreateMethod)(0),          // 29: basetypes.order.v1.OrderCreateMethod
-	(v11.OrderState)(0),                 // 30: basetypes.order.v1.OrderState
-	(v1.GoodDurationType)(0),            // 31: basetypes.good.v1.GoodDurationType
-	(v11.PaymentState)(0),               // 32: basetypes.order.v1.PaymentState
-	(*coupon.OrderCouponInfo)(nil),      // 33: order.gateway.order1.coupon.v1.OrderCouponInfo
-	(*payment.PaymentBalanceInfo)(nil),  // 34: order.gateway.payment.v1.PaymentBalanceInfo
-	(*payment.PaymentTransferInfo)(nil), // 35: order.gateway.payment.v1.PaymentTransferInfo
-	(*payment.PaymentBalance)(nil),      // 36: order.gateway.payment.v1.PaymentBalance
-}
+var (
+	file_order_gateway_v1_fee_fee_proto_msgTypes = make([]protoimpl.MessageInfo, 26)
+	file_order_gateway_v1_fee_fee_proto_goTypes  = []interface{}{
+		(*FeeOrder)(nil),                    // 0: order.gateway.fee.v1.FeeOrder
+		(*FeeDuration)(nil),                 // 1: order.gateway.fee.v1.FeeDuration
+		(*CreateFeeOrderRequest)(nil),       // 2: order.gateway.fee.v1.CreateFeeOrderRequest
+		(*CreateFeeOrderResponse)(nil),      // 3: order.gateway.fee.v1.CreateFeeOrderResponse
+		(*CreateUserFeeOrderRequest)(nil),   // 4: order.gateway.fee.v1.CreateUserFeeOrderRequest
+		(*CreateUserFeeOrderResponse)(nil),  // 5: order.gateway.fee.v1.CreateUserFeeOrderResponse
+		(*CreateFeeOrdersRequest)(nil),      // 6: order.gateway.fee.v1.CreateFeeOrdersRequest
+		(*CreateFeeOrdersResponse)(nil),     // 7: order.gateway.fee.v1.CreateFeeOrdersResponse
+		(*UpdateFeeOrderRequest)(nil),       // 8: order.gateway.fee.v1.UpdateFeeOrderRequest
+		(*UpdateFeeOrderResponse)(nil),      // 9: order.gateway.fee.v1.UpdateFeeOrderResponse
+		(*UpdateUserFeeOrderRequest)(nil),   // 10: order.gateway.fee.v1.UpdateUserFeeOrderRequest
+		(*UpdateUserFeeOrderResponse)(nil),  // 11: order.gateway.fee.v1.UpdateUserFeeOrderResponse
+		(*GetFeeOrderRequest)(nil),          // 12: order.gateway.fee.v1.GetFeeOrderRequest
+		(*GetFeeOrderResponse)(nil),         // 13: order.gateway.fee.v1.GetFeeOrderResponse
+		(*GetFeeOrdersRequest)(nil),         // 14: order.gateway.fee.v1.GetFeeOrdersRequest
+		(*GetFeeOrdersResponse)(nil),        // 15: order.gateway.fee.v1.GetFeeOrdersResponse
+		(*GetMyFeeOrdersRequest)(nil),       // 16: order.gateway.fee.v1.GetMyFeeOrdersRequest
+		(*GetMyFeeOrdersResponse)(nil),      // 17: order.gateway.fee.v1.GetMyFeeOrdersResponse
+		(*AdminCreateFeeOrderRequest)(nil),  // 18: order.gateway.fee.v1.AdminCreateFeeOrderRequest
+		(*AdminCreateFeeOrderResponse)(nil), // 19: order.gateway.fee.v1.AdminCreateFeeOrderResponse
+		(*AdminUpdateFeeOrderRequest)(nil),  // 20: order.gateway.fee.v1.AdminUpdateFeeOrderRequest
+		(*AdminUpdateFeeOrderResponse)(nil), // 21: order.gateway.fee.v1.AdminUpdateFeeOrderResponse
+		(*AdminGetFeeOrdersRequest)(nil),    // 22: order.gateway.fee.v1.AdminGetFeeOrdersRequest
+		(*AdminGetFeeOrdersResponse)(nil),   // 23: order.gateway.fee.v1.AdminGetFeeOrdersResponse
+		(*AdminDeleteFeeOrderRequest)(nil),  // 24: order.gateway.fee.v1.AdminDeleteFeeOrderRequest
+		(*AdminDeleteFeeOrderResponse)(nil), // 25: order.gateway.fee.v1.AdminDeleteFeeOrderResponse
+		(v1.GoodType)(0),                    // 26: basetypes.good.v1.GoodType
+		(v11.OrderType)(0),                  // 27: basetypes.order.v1.OrderType
+		(v11.PaymentType)(0),                // 28: basetypes.order.v1.PaymentType
+		(v11.OrderCreateMethod)(0),          // 29: basetypes.order.v1.OrderCreateMethod
+		(v11.OrderState)(0),                 // 30: basetypes.order.v1.OrderState
+		(v1.GoodDurationType)(0),            // 31: basetypes.good.v1.GoodDurationType
+		(v11.PaymentState)(0),               // 32: basetypes.order.v1.PaymentState
+		(*coupon.OrderCouponInfo)(nil),      // 33: order.gateway.order1.coupon.v1.OrderCouponInfo
+		(*payment.PaymentBalanceInfo)(nil),  // 34: order.gateway.payment.v1.PaymentBalanceInfo
+		(*payment.PaymentTransferInfo)(nil), // 35: order.gateway.payment.v1.PaymentTransferInfo
+		(*payment.PaymentBalance)(nil),      // 36: order.gateway.payment.v1.PaymentBalance
+	}
+)
 var file_order_gateway_v1_fee_fee_proto_depIdxs = []int32{
 	26, // 0: order.gateway.fee.v1.FeeOrder.GoodType:type_name -> basetypes.good.v1.GoodType
 	26, // 1: order.gateway.fee.v1.FeeOrder.ParentGoodType:type_name -> basetypes.good.v1.GoodType

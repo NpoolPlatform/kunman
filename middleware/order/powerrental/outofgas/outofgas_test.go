@@ -8,13 +8,13 @@ import (
 	"testing"
 	"time"
 
-	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 	goodtypes "github.com/NpoolPlatform/kunman/message/basetypes/good/v1"
 	types "github.com/NpoolPlatform/kunman/message/basetypes/order/v1"
 	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	outofgasmiddlewarepb "github.com/NpoolPlatform/kunman/message/order/middleware/v1/outofgas"
 	outofgas1 "github.com/NpoolPlatform/kunman/middleware/order/outofgas"
 	powerrental1 "github.com/NpoolPlatform/kunman/middleware/order/powerrental"
+	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 
 	"github.com/google/uuid"
 	"github.com/shopspring/decimal"
@@ -45,7 +45,6 @@ var ret = outofgasmiddlewarepb.OutOfGas{
 	StartAt:   uint32(time.Now().Unix()),
 }
 
-// nolint: funlen
 func setup(t *testing.T) func(*testing.T) {
 	ret.GoodTypeStr = ret.GoodType.String()
 

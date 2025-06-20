@@ -7,11 +7,12 @@
 package appcountry
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -719,18 +720,20 @@ func file_g11n_gateway_v1_appcountry_appcountry_proto_rawDescGZIP() []byte {
 	return file_g11n_gateway_v1_appcountry_appcountry_proto_rawDescData
 }
 
-var file_g11n_gateway_v1_appcountry_appcountry_proto_msgTypes = make([]protoimpl.MessageInfo, 9)
-var file_g11n_gateway_v1_appcountry_appcountry_proto_goTypes = []interface{}{
-	(*Country)(nil),                 // 0: g11n.gateway.appcountry.v1.Country
-	(*CreateCountryRequest)(nil),    // 1: g11n.gateway.appcountry.v1.CreateCountryRequest
-	(*CreateCountryResponse)(nil),   // 2: g11n.gateway.appcountry.v1.CreateCountryResponse
-	(*GetCountriesRequest)(nil),     // 3: g11n.gateway.appcountry.v1.GetCountriesRequest
-	(*GetCountriesResponse)(nil),    // 4: g11n.gateway.appcountry.v1.GetCountriesResponse
-	(*GetAppCountriesRequest)(nil),  // 5: g11n.gateway.appcountry.v1.GetAppCountriesRequest
-	(*GetAppCountriesResponse)(nil), // 6: g11n.gateway.appcountry.v1.GetAppCountriesResponse
-	(*DeleteCountryRequest)(nil),    // 7: g11n.gateway.appcountry.v1.DeleteCountryRequest
-	(*DeleteCountryResponse)(nil),   // 8: g11n.gateway.appcountry.v1.DeleteCountryResponse
-}
+var (
+	file_g11n_gateway_v1_appcountry_appcountry_proto_msgTypes = make([]protoimpl.MessageInfo, 9)
+	file_g11n_gateway_v1_appcountry_appcountry_proto_goTypes  = []interface{}{
+		(*Country)(nil),                 // 0: g11n.gateway.appcountry.v1.Country
+		(*CreateCountryRequest)(nil),    // 1: g11n.gateway.appcountry.v1.CreateCountryRequest
+		(*CreateCountryResponse)(nil),   // 2: g11n.gateway.appcountry.v1.CreateCountryResponse
+		(*GetCountriesRequest)(nil),     // 3: g11n.gateway.appcountry.v1.GetCountriesRequest
+		(*GetCountriesResponse)(nil),    // 4: g11n.gateway.appcountry.v1.GetCountriesResponse
+		(*GetAppCountriesRequest)(nil),  // 5: g11n.gateway.appcountry.v1.GetAppCountriesRequest
+		(*GetAppCountriesResponse)(nil), // 6: g11n.gateway.appcountry.v1.GetAppCountriesResponse
+		(*DeleteCountryRequest)(nil),    // 7: g11n.gateway.appcountry.v1.DeleteCountryRequest
+		(*DeleteCountryResponse)(nil),   // 8: g11n.gateway.appcountry.v1.DeleteCountryResponse
+	}
+)
 var file_g11n_gateway_v1_appcountry_appcountry_proto_depIdxs = []int32{
 	0, // 0: g11n.gateway.appcountry.v1.CreateCountryResponse.Info:type_name -> g11n.gateway.appcountry.v1.Country
 	0, // 1: g11n.gateway.appcountry.v1.GetCountriesResponse.Infos:type_name -> g11n.gateway.appcountry.v1.Country

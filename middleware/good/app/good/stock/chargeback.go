@@ -16,7 +16,6 @@ type chargeBackHandler struct {
 	lockOp *lockopHandler
 }
 
-//nolint:goconst
 func (h *chargeBackHandler) constructSQL(table string, lock *ent.AppStockLock, returnSpotQuantity, checkTotal bool, id uint32) (string, error) {
 	sql := fmt.Sprintf(
 		`update %v

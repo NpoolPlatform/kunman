@@ -7,11 +7,12 @@
 package invitationcode
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -622,16 +623,18 @@ func file_inspire_gateway_v1_invitation_invitationcode_invitationcode_proto_rawD
 	return file_inspire_gateway_v1_invitation_invitationcode_invitationcode_proto_rawDescData
 }
 
-var file_inspire_gateway_v1_invitation_invitationcode_invitationcode_proto_msgTypes = make([]protoimpl.MessageInfo, 7)
-var file_inspire_gateway_v1_invitation_invitationcode_invitationcode_proto_goTypes = []interface{}{
-	(*InvitationCode)(nil),                // 0: inspire.gateway.invitation.invitationcode.v1.InvitationCode
-	(*CreateInvitationCodeRequest)(nil),   // 1: inspire.gateway.invitation.invitationcode.v1.CreateInvitationCodeRequest
-	(*CreateInvitationCodeResponse)(nil),  // 2: inspire.gateway.invitation.invitationcode.v1.CreateInvitationCodeResponse
-	(*GetInvitationCodesRequest)(nil),     // 3: inspire.gateway.invitation.invitationcode.v1.GetInvitationCodesRequest
-	(*GetInvitationCodesResponse)(nil),    // 4: inspire.gateway.invitation.invitationcode.v1.GetInvitationCodesResponse
-	(*GetAppInvitationCodesRequest)(nil),  // 5: inspire.gateway.invitation.invitationcode.v1.GetAppInvitationCodesRequest
-	(*GetAppInvitationCodesResponse)(nil), // 6: inspire.gateway.invitation.invitationcode.v1.GetAppInvitationCodesResponse
-}
+var (
+	file_inspire_gateway_v1_invitation_invitationcode_invitationcode_proto_msgTypes = make([]protoimpl.MessageInfo, 7)
+	file_inspire_gateway_v1_invitation_invitationcode_invitationcode_proto_goTypes  = []interface{}{
+		(*InvitationCode)(nil),                // 0: inspire.gateway.invitation.invitationcode.v1.InvitationCode
+		(*CreateInvitationCodeRequest)(nil),   // 1: inspire.gateway.invitation.invitationcode.v1.CreateInvitationCodeRequest
+		(*CreateInvitationCodeResponse)(nil),  // 2: inspire.gateway.invitation.invitationcode.v1.CreateInvitationCodeResponse
+		(*GetInvitationCodesRequest)(nil),     // 3: inspire.gateway.invitation.invitationcode.v1.GetInvitationCodesRequest
+		(*GetInvitationCodesResponse)(nil),    // 4: inspire.gateway.invitation.invitationcode.v1.GetInvitationCodesResponse
+		(*GetAppInvitationCodesRequest)(nil),  // 5: inspire.gateway.invitation.invitationcode.v1.GetAppInvitationCodesRequest
+		(*GetAppInvitationCodesResponse)(nil), // 6: inspire.gateway.invitation.invitationcode.v1.GetAppInvitationCodesResponse
+	}
+)
 var file_inspire_gateway_v1_invitation_invitationcode_invitationcode_proto_depIdxs = []int32{
 	0, // 0: inspire.gateway.invitation.invitationcode.v1.CreateInvitationCodeResponse.Info:type_name -> inspire.gateway.invitation.invitationcode.v1.InvitationCode
 	0, // 1: inspire.gateway.invitation.invitationcode.v1.GetInvitationCodesResponse.Infos:type_name -> inspire.gateway.invitation.invitationcode.v1.InvitationCode

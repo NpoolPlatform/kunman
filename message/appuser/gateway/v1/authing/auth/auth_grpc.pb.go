@@ -8,6 +8,7 @@ package auth
 
 import (
 	context "context"
+
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -91,18 +92,20 @@ type GatewayServer interface {
 }
 
 // UnimplementedGatewayServer must be embedded to have forward compatible implementations.
-type UnimplementedGatewayServer struct {
-}
+type UnimplementedGatewayServer struct{}
 
 func (UnimplementedGatewayServer) Authenticate(context.Context, *AuthenticateRequest) (*AuthenticateResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Authenticate not implemented")
 }
+
 func (UnimplementedGatewayServer) CreateAppAuth(context.Context, *CreateAppAuthRequest) (*CreateAppAuthResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateAppAuth not implemented")
 }
+
 func (UnimplementedGatewayServer) DeleteAppAuth(context.Context, *DeleteAppAuthRequest) (*DeleteAppAuthResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteAppAuth not implemented")
 }
+
 func (UnimplementedGatewayServer) GetAppAuths(context.Context, *GetAppAuthsRequest) (*GetAppAuthsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetAppAuths not implemented")
 }

@@ -7,11 +7,12 @@
 package registration
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -375,14 +376,16 @@ func file_inspire_middleware_v1_invitation_registration_registration_proto_rawDe
 	return file_inspire_middleware_v1_invitation_registration_registration_proto_rawDescData
 }
 
-var file_inspire_middleware_v1_invitation_registration_registration_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
-var file_inspire_middleware_v1_invitation_registration_registration_proto_goTypes = []interface{}{
-	(*RegistrationReq)(nil),   // 0: inspire.middleware.invitation.registration.v1.RegistrationReq
-	(*Registration)(nil),      // 1: inspire.middleware.invitation.registration.v1.Registration
-	(*Conds)(nil),             // 2: inspire.middleware.invitation.registration.v1.Conds
-	(*v1.StringVal)(nil),      // 3: basetypes.v1.StringVal
-	(*v1.StringSliceVal)(nil), // 4: basetypes.v1.StringSliceVal
-}
+var (
+	file_inspire_middleware_v1_invitation_registration_registration_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
+	file_inspire_middleware_v1_invitation_registration_registration_proto_goTypes  = []interface{}{
+		(*RegistrationReq)(nil),   // 0: inspire.middleware.invitation.registration.v1.RegistrationReq
+		(*Registration)(nil),      // 1: inspire.middleware.invitation.registration.v1.Registration
+		(*Conds)(nil),             // 2: inspire.middleware.invitation.registration.v1.Conds
+		(*v1.StringVal)(nil),      // 3: basetypes.v1.StringVal
+		(*v1.StringSliceVal)(nil), // 4: basetypes.v1.StringSliceVal
+	}
+)
 var file_inspire_middleware_v1_invitation_registration_registration_proto_depIdxs = []int32{
 	3, // 0: inspire.middleware.invitation.registration.v1.Conds.EntID:type_name -> basetypes.v1.StringVal
 	3, // 1: inspire.middleware.invitation.registration.v1.Conds.AppID:type_name -> basetypes.v1.StringVal

@@ -8,6 +8,7 @@ package like
 
 import (
 	context "context"
+
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -91,18 +92,20 @@ type GatewayServer interface {
 }
 
 // UnimplementedGatewayServer must be embedded to have forward compatible implementations.
-type UnimplementedGatewayServer struct {
-}
+type UnimplementedGatewayServer struct{}
 
 func (UnimplementedGatewayServer) CreateLike(context.Context, *CreateLikeRequest) (*CreateLikeResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateLike not implemented")
 }
+
 func (UnimplementedGatewayServer) GetMyLikes(context.Context, *GetMyLikesRequest) (*GetMyLikesResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetMyLikes not implemented")
 }
+
 func (UnimplementedGatewayServer) GetLikes(context.Context, *GetLikesRequest) (*GetLikesResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetLikes not implemented")
 }
+
 func (UnimplementedGatewayServer) DeleteLike(context.Context, *DeleteLikeRequest) (*DeleteLikeResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteLike not implemented")
 }

@@ -7,11 +7,12 @@
 package oauththirdparty
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -447,17 +448,19 @@ func file_appuser_middleware_v1_oauth_oauththirdparty_oauththirdparty_proto_rawD
 	return file_appuser_middleware_v1_oauth_oauththirdparty_oauththirdparty_proto_rawDescData
 }
 
-var file_appuser_middleware_v1_oauth_oauththirdparty_oauththirdparty_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
-var file_appuser_middleware_v1_oauth_oauththirdparty_oauththirdparty_proto_goTypes = []interface{}{
-	(*OAuthThirdPartyReq)(nil), // 0: appuser.middleware.oauth.oauththirdparty.v1.OAuthThirdPartyReq
-	(*OAuthThirdParty)(nil),    // 1: appuser.middleware.oauth.oauththirdparty.v1.OAuthThirdParty
-	(*Conds)(nil),              // 2: appuser.middleware.oauth.oauththirdparty.v1.Conds
-	(v1.SignMethod)(0),         // 3: basetypes.v1.SignMethod
-	(*v1.Uint32Val)(nil),       // 4: basetypes.v1.Uint32Val
-	(*v1.StringVal)(nil),       // 5: basetypes.v1.StringVal
-	(*v1.Int32Val)(nil),        // 6: basetypes.v1.Int32Val
-	(*v1.StringSliceVal)(nil),  // 7: basetypes.v1.StringSliceVal
-}
+var (
+	file_appuser_middleware_v1_oauth_oauththirdparty_oauththirdparty_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
+	file_appuser_middleware_v1_oauth_oauththirdparty_oauththirdparty_proto_goTypes  = []interface{}{
+		(*OAuthThirdPartyReq)(nil), // 0: appuser.middleware.oauth.oauththirdparty.v1.OAuthThirdPartyReq
+		(*OAuthThirdParty)(nil),    // 1: appuser.middleware.oauth.oauththirdparty.v1.OAuthThirdParty
+		(*Conds)(nil),              // 2: appuser.middleware.oauth.oauththirdparty.v1.Conds
+		(v1.SignMethod)(0),         // 3: basetypes.v1.SignMethod
+		(*v1.Uint32Val)(nil),       // 4: basetypes.v1.Uint32Val
+		(*v1.StringVal)(nil),       // 5: basetypes.v1.StringVal
+		(*v1.Int32Val)(nil),        // 6: basetypes.v1.Int32Val
+		(*v1.StringSliceVal)(nil),  // 7: basetypes.v1.StringSliceVal
+	}
+)
 var file_appuser_middleware_v1_oauth_oauththirdparty_oauththirdparty_proto_depIdxs = []int32{
 	3, // 0: appuser.middleware.oauth.oauththirdparty.v1.OAuthThirdPartyReq.ClientName:type_name -> basetypes.v1.SignMethod
 	3, // 1: appuser.middleware.oauth.oauththirdparty.v1.OAuthThirdParty.ClientName:type_name -> basetypes.v1.SignMethod

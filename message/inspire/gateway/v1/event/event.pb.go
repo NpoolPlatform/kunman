@@ -7,12 +7,13 @@
 package event
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -1388,25 +1389,27 @@ func file_inspire_gateway_v1_event_event_proto_rawDescGZIP() []byte {
 	return file_inspire_gateway_v1_event_event_proto_rawDescData
 }
 
-var file_inspire_gateway_v1_event_event_proto_msgTypes = make([]protoimpl.MessageInfo, 15)
-var file_inspire_gateway_v1_event_event_proto_goTypes = []interface{}{
-	(*Event)(nil),                    // 0: inspire.gateway.event.v1.Event
-	(*CreateEventRequest)(nil),       // 1: inspire.gateway.event.v1.CreateEventRequest
-	(*CreateEventResponse)(nil),      // 2: inspire.gateway.event.v1.CreateEventResponse
-	(*GetEventsRequest)(nil),         // 3: inspire.gateway.event.v1.GetEventsRequest
-	(*GetEventsResponse)(nil),        // 4: inspire.gateway.event.v1.GetEventsResponse
-	(*UpdateEventRequest)(nil),       // 5: inspire.gateway.event.v1.UpdateEventRequest
-	(*UpdateEventResponse)(nil),      // 6: inspire.gateway.event.v1.UpdateEventResponse
-	(*AdminGetEventsRequest)(nil),    // 7: inspire.gateway.event.v1.AdminGetEventsRequest
-	(*AdminGetEventsResponse)(nil),   // 8: inspire.gateway.event.v1.AdminGetEventsResponse
-	(*AdminCreateEventRequest)(nil),  // 9: inspire.gateway.event.v1.AdminCreateEventRequest
-	(*AdminCreateEventResponse)(nil), // 10: inspire.gateway.event.v1.AdminCreateEventResponse
-	(*AdminUpdateEventRequest)(nil),  // 11: inspire.gateway.event.v1.AdminUpdateEventRequest
-	(*AdminUpdateEventResponse)(nil), // 12: inspire.gateway.event.v1.AdminUpdateEventResponse
-	(*AdminDeleteEventRequest)(nil),  // 13: inspire.gateway.event.v1.AdminDeleteEventRequest
-	(*AdminDeleteEventResponse)(nil), // 14: inspire.gateway.event.v1.AdminDeleteEventResponse
-	(v1.UsedFor)(0),                  // 15: basetypes.v1.UsedFor
-}
+var (
+	file_inspire_gateway_v1_event_event_proto_msgTypes = make([]protoimpl.MessageInfo, 15)
+	file_inspire_gateway_v1_event_event_proto_goTypes  = []interface{}{
+		(*Event)(nil),                    // 0: inspire.gateway.event.v1.Event
+		(*CreateEventRequest)(nil),       // 1: inspire.gateway.event.v1.CreateEventRequest
+		(*CreateEventResponse)(nil),      // 2: inspire.gateway.event.v1.CreateEventResponse
+		(*GetEventsRequest)(nil),         // 3: inspire.gateway.event.v1.GetEventsRequest
+		(*GetEventsResponse)(nil),        // 4: inspire.gateway.event.v1.GetEventsResponse
+		(*UpdateEventRequest)(nil),       // 5: inspire.gateway.event.v1.UpdateEventRequest
+		(*UpdateEventResponse)(nil),      // 6: inspire.gateway.event.v1.UpdateEventResponse
+		(*AdminGetEventsRequest)(nil),    // 7: inspire.gateway.event.v1.AdminGetEventsRequest
+		(*AdminGetEventsResponse)(nil),   // 8: inspire.gateway.event.v1.AdminGetEventsResponse
+		(*AdminCreateEventRequest)(nil),  // 9: inspire.gateway.event.v1.AdminCreateEventRequest
+		(*AdminCreateEventResponse)(nil), // 10: inspire.gateway.event.v1.AdminCreateEventResponse
+		(*AdminUpdateEventRequest)(nil),  // 11: inspire.gateway.event.v1.AdminUpdateEventRequest
+		(*AdminUpdateEventResponse)(nil), // 12: inspire.gateway.event.v1.AdminUpdateEventResponse
+		(*AdminDeleteEventRequest)(nil),  // 13: inspire.gateway.event.v1.AdminDeleteEventRequest
+		(*AdminDeleteEventResponse)(nil), // 14: inspire.gateway.event.v1.AdminDeleteEventResponse
+		(v1.UsedFor)(0),                  // 15: basetypes.v1.UsedFor
+	}
+)
 var file_inspire_gateway_v1_event_event_proto_depIdxs = []int32{
 	15, // 0: inspire.gateway.event.v1.Event.EventType:type_name -> basetypes.v1.UsedFor
 	15, // 1: inspire.gateway.event.v1.CreateEventRequest.EventType:type_name -> basetypes.v1.UsedFor

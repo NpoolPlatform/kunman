@@ -7,12 +7,13 @@
 package readstate
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -1111,24 +1112,26 @@ func file_notif_gateway_v1_announcement_readstate_readstate_proto_rawDescGZIP() 
 	return file_notif_gateway_v1_announcement_readstate_readstate_proto_rawDescData
 }
 
-var file_notif_gateway_v1_announcement_readstate_readstate_proto_msgTypes = make([]protoimpl.MessageInfo, 13)
-var file_notif_gateway_v1_announcement_readstate_readstate_proto_goTypes = []interface{}{
-	(*ReadState)(nil),                    // 0: notif.gateway.announcement.readstate.v1.ReadState
-	(*CreateReadStateRequest)(nil),       // 1: notif.gateway.announcement.readstate.v1.CreateReadStateRequest
-	(*CreateReadStateResponse)(nil),      // 2: notif.gateway.announcement.readstate.v1.CreateReadStateResponse
-	(*GetReadStateRequest)(nil),          // 3: notif.gateway.announcement.readstate.v1.GetReadStateRequest
-	(*GetReadStateResponse)(nil),         // 4: notif.gateway.announcement.readstate.v1.GetReadStateResponse
-	(*GetReadStatesRequest)(nil),         // 5: notif.gateway.announcement.readstate.v1.GetReadStatesRequest
-	(*GetReadStatesResponse)(nil),        // 6: notif.gateway.announcement.readstate.v1.GetReadStatesResponse
-	(*GetAppUserReadStatesRequest)(nil),  // 7: notif.gateway.announcement.readstate.v1.GetAppUserReadStatesRequest
-	(*GetAppUserReadStatesResponse)(nil), // 8: notif.gateway.announcement.readstate.v1.GetAppUserReadStatesResponse
-	(*GetAppReadStatesRequest)(nil),      // 9: notif.gateway.announcement.readstate.v1.GetAppReadStatesRequest
-	(*GetAppReadStatesResponse)(nil),     // 10: notif.gateway.announcement.readstate.v1.GetAppReadStatesResponse
-	(*GetNAppReadStatesRequest)(nil),     // 11: notif.gateway.announcement.readstate.v1.GetNAppReadStatesRequest
-	(*GetNAppReadStatesResponse)(nil),    // 12: notif.gateway.announcement.readstate.v1.GetNAppReadStatesResponse
-	(v1.NotifType)(0),                    // 13: basetypes.v1.NotifType
-	(v1.NotifChannel)(0),                 // 14: basetypes.v1.NotifChannel
-}
+var (
+	file_notif_gateway_v1_announcement_readstate_readstate_proto_msgTypes = make([]protoimpl.MessageInfo, 13)
+	file_notif_gateway_v1_announcement_readstate_readstate_proto_goTypes  = []interface{}{
+		(*ReadState)(nil),                    // 0: notif.gateway.announcement.readstate.v1.ReadState
+		(*CreateReadStateRequest)(nil),       // 1: notif.gateway.announcement.readstate.v1.CreateReadStateRequest
+		(*CreateReadStateResponse)(nil),      // 2: notif.gateway.announcement.readstate.v1.CreateReadStateResponse
+		(*GetReadStateRequest)(nil),          // 3: notif.gateway.announcement.readstate.v1.GetReadStateRequest
+		(*GetReadStateResponse)(nil),         // 4: notif.gateway.announcement.readstate.v1.GetReadStateResponse
+		(*GetReadStatesRequest)(nil),         // 5: notif.gateway.announcement.readstate.v1.GetReadStatesRequest
+		(*GetReadStatesResponse)(nil),        // 6: notif.gateway.announcement.readstate.v1.GetReadStatesResponse
+		(*GetAppUserReadStatesRequest)(nil),  // 7: notif.gateway.announcement.readstate.v1.GetAppUserReadStatesRequest
+		(*GetAppUserReadStatesResponse)(nil), // 8: notif.gateway.announcement.readstate.v1.GetAppUserReadStatesResponse
+		(*GetAppReadStatesRequest)(nil),      // 9: notif.gateway.announcement.readstate.v1.GetAppReadStatesRequest
+		(*GetAppReadStatesResponse)(nil),     // 10: notif.gateway.announcement.readstate.v1.GetAppReadStatesResponse
+		(*GetNAppReadStatesRequest)(nil),     // 11: notif.gateway.announcement.readstate.v1.GetNAppReadStatesRequest
+		(*GetNAppReadStatesResponse)(nil),    // 12: notif.gateway.announcement.readstate.v1.GetNAppReadStatesResponse
+		(v1.NotifType)(0),                    // 13: basetypes.v1.NotifType
+		(v1.NotifChannel)(0),                 // 14: basetypes.v1.NotifChannel
+	}
+)
 var file_notif_gateway_v1_announcement_readstate_readstate_proto_depIdxs = []int32{
 	13, // 0: notif.gateway.announcement.readstate.v1.ReadState.AnnouncementType:type_name -> basetypes.v1.NotifType
 	14, // 1: notif.gateway.announcement.readstate.v1.ReadState.Channel:type_name -> basetypes.v1.NotifChannel

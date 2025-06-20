@@ -3,9 +3,9 @@ package currencyhistory
 import (
 	"context"
 
-	constant "github.com/NpoolPlatform/kunman/pkg/const"
-	historycrud "github.com/NpoolPlatform/kunman/middleware/chain/crud/coin/fiat/currency/history"
 	npool "github.com/NpoolPlatform/kunman/message/chain/middleware/v1/coin/fiat/currency/history"
+	historycrud "github.com/NpoolPlatform/kunman/middleware/chain/crud/coin/fiat/currency/history"
+	constant "github.com/NpoolPlatform/kunman/pkg/const"
 
 	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 	"github.com/google/uuid"

@@ -5,11 +5,11 @@ import (
 	"sync"
 	"time"
 
-	"github.com/NpoolPlatform/kunman/framework/logger"
 	"github.com/NpoolPlatform/kunman/cron/scheduler/base"
 	"github.com/NpoolPlatform/kunman/cron/scheduler/order/powerrental/simulate/paid/check/executor"
 	"github.com/NpoolPlatform/kunman/cron/scheduler/order/powerrental/simulate/paid/check/persistent"
 	"github.com/NpoolPlatform/kunman/cron/scheduler/order/powerrental/simulate/paid/check/sentinel"
+	"github.com/NpoolPlatform/kunman/framework/logger"
 )
 
 const subsystem = "orderpowerrentalsimulatepaidcheck"

@@ -3,10 +3,10 @@ package control
 import (
 	"fmt"
 
+	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	ent "github.com/NpoolPlatform/kunman/middleware/appuser/db/ent/generated"
 	entappuserctrl "github.com/NpoolPlatform/kunman/middleware/appuser/db/ent/generated/appusercontrol"
 	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
-	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	"github.com/google/uuid"
 )
 
@@ -76,7 +76,7 @@ type Conds struct {
 	KolConfirmed *cruder.Cond
 }
 
-//nolint
+// nolint
 func SetQueryConds(q *ent.AppUserControlQuery, conds *Conds) (*ent.AppUserControlQuery, error) {
 	if conds == nil {
 		return q, nil

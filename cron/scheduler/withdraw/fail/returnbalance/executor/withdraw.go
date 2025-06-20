@@ -3,10 +3,10 @@ package executor
 import (
 	"context"
 
-	"github.com/NpoolPlatform/kunman/framework/logger"
-	withdrawmwpb "github.com/NpoolPlatform/kunman/message/ledger/middleware/v2/withdraw"
 	asyncfeed "github.com/NpoolPlatform/kunman/cron/scheduler/base/asyncfeed"
 	types "github.com/NpoolPlatform/kunman/cron/scheduler/withdraw/fail/returnbalance/types"
+	"github.com/NpoolPlatform/kunman/framework/logger"
+	withdrawmwpb "github.com/NpoolPlatform/kunman/message/ledger/middleware/v2/withdraw"
 
 	"github.com/shopspring/decimal"
 )
@@ -18,7 +18,6 @@ type withdrawHandler struct {
 	lockedBalanceAmount decimal.Decimal
 }
 
-//nolint:gocritic
 func (h *withdrawHandler) final(ctx context.Context, err *error) {
 	if *err != nil {
 		logger.Sugar().Errorw(
@@ -39,7 +38,7 @@ func (h *withdrawHandler) final(ctx context.Context, err *error) {
 	asyncfeed.AsyncFeed(ctx, persistentWithdraw, h.done)
 }
 
-func (h *withdrawHandler) exec(ctx context.Context) error { //nolint
+func (h *withdrawHandler) exec(ctx context.Context) error {
 	var err error
 
 	defer h.final(ctx, &err)

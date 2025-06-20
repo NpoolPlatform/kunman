@@ -7,12 +7,13 @@
 package fee
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/good/v1"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -1427,28 +1428,30 @@ func file_good_gateway_v1_app_fee_fee_proto_rawDescGZIP() []byte {
 	return file_good_gateway_v1_app_fee_fee_proto_rawDescData
 }
 
-var file_good_gateway_v1_app_fee_fee_proto_msgTypes = make([]protoimpl.MessageInfo, 15)
-var file_good_gateway_v1_app_fee_fee_proto_goTypes = []interface{}{
-	(*AppFee)(nil),                    // 0: good.gateway.app.fee.v1.AppFee
-	(*GetAppFeesRequest)(nil),         // 1: good.gateway.app.fee.v1.GetAppFeesRequest
-	(*GetAppFeesResponse)(nil),        // 2: good.gateway.app.fee.v1.GetAppFeesResponse
-	(*GetAppFeeRequest)(nil),          // 3: good.gateway.app.fee.v1.GetAppFeeRequest
-	(*GetAppFeeResponse)(nil),         // 4: good.gateway.app.fee.v1.GetAppFeeResponse
-	(*UpdateAppFeeRequest)(nil),       // 5: good.gateway.app.fee.v1.UpdateAppFeeRequest
-	(*UpdateAppFeeResponse)(nil),      // 6: good.gateway.app.fee.v1.UpdateAppFeeResponse
-	(*AdminCreateAppFeeRequest)(nil),  // 7: good.gateway.app.fee.v1.AdminCreateAppFeeRequest
-	(*AdminCreateAppFeeResponse)(nil), // 8: good.gateway.app.fee.v1.AdminCreateAppFeeResponse
-	(*AdminGetAppFeesRequest)(nil),    // 9: good.gateway.app.fee.v1.AdminGetAppFeesRequest
-	(*AdminGetAppFeesResponse)(nil),   // 10: good.gateway.app.fee.v1.AdminGetAppFeesResponse
-	(*AdminUpdateAppFeeRequest)(nil),  // 11: good.gateway.app.fee.v1.AdminUpdateAppFeeRequest
-	(*AdminUpdateAppFeeResponse)(nil), // 12: good.gateway.app.fee.v1.AdminUpdateAppFeeResponse
-	(*AdminDeleteAppFeeRequest)(nil),  // 13: good.gateway.app.fee.v1.AdminDeleteAppFeeRequest
-	(*AdminDeleteAppFeeResponse)(nil), // 14: good.gateway.app.fee.v1.AdminDeleteAppFeeResponse
-	(v1.CancelMode)(0),                // 15: basetypes.good.v1.CancelMode
-	(v1.GoodType)(0),                  // 16: basetypes.good.v1.GoodType
-	(v1.GoodSettlementType)(0),        // 17: basetypes.good.v1.GoodSettlementType
-	(v1.GoodDurationType)(0),          // 18: basetypes.good.v1.GoodDurationType
-}
+var (
+	file_good_gateway_v1_app_fee_fee_proto_msgTypes = make([]protoimpl.MessageInfo, 15)
+	file_good_gateway_v1_app_fee_fee_proto_goTypes  = []interface{}{
+		(*AppFee)(nil),                    // 0: good.gateway.app.fee.v1.AppFee
+		(*GetAppFeesRequest)(nil),         // 1: good.gateway.app.fee.v1.GetAppFeesRequest
+		(*GetAppFeesResponse)(nil),        // 2: good.gateway.app.fee.v1.GetAppFeesResponse
+		(*GetAppFeeRequest)(nil),          // 3: good.gateway.app.fee.v1.GetAppFeeRequest
+		(*GetAppFeeResponse)(nil),         // 4: good.gateway.app.fee.v1.GetAppFeeResponse
+		(*UpdateAppFeeRequest)(nil),       // 5: good.gateway.app.fee.v1.UpdateAppFeeRequest
+		(*UpdateAppFeeResponse)(nil),      // 6: good.gateway.app.fee.v1.UpdateAppFeeResponse
+		(*AdminCreateAppFeeRequest)(nil),  // 7: good.gateway.app.fee.v1.AdminCreateAppFeeRequest
+		(*AdminCreateAppFeeResponse)(nil), // 8: good.gateway.app.fee.v1.AdminCreateAppFeeResponse
+		(*AdminGetAppFeesRequest)(nil),    // 9: good.gateway.app.fee.v1.AdminGetAppFeesRequest
+		(*AdminGetAppFeesResponse)(nil),   // 10: good.gateway.app.fee.v1.AdminGetAppFeesResponse
+		(*AdminUpdateAppFeeRequest)(nil),  // 11: good.gateway.app.fee.v1.AdminUpdateAppFeeRequest
+		(*AdminUpdateAppFeeResponse)(nil), // 12: good.gateway.app.fee.v1.AdminUpdateAppFeeResponse
+		(*AdminDeleteAppFeeRequest)(nil),  // 13: good.gateway.app.fee.v1.AdminDeleteAppFeeRequest
+		(*AdminDeleteAppFeeResponse)(nil), // 14: good.gateway.app.fee.v1.AdminDeleteAppFeeResponse
+		(v1.CancelMode)(0),                // 15: basetypes.good.v1.CancelMode
+		(v1.GoodType)(0),                  // 16: basetypes.good.v1.GoodType
+		(v1.GoodSettlementType)(0),        // 17: basetypes.good.v1.GoodSettlementType
+		(v1.GoodDurationType)(0),          // 18: basetypes.good.v1.GoodDurationType
+	}
+)
 var file_good_gateway_v1_app_fee_fee_proto_depIdxs = []int32{
 	15, // 0: good.gateway.app.fee.v1.AppFee.CancelMode:type_name -> basetypes.good.v1.CancelMode
 	16, // 1: good.gateway.app.fee.v1.AppFee.GoodType:type_name -> basetypes.good.v1.GoodType

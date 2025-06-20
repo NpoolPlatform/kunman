@@ -8,6 +8,7 @@ package contact
 
 import (
 	context "context"
+
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -139,30 +140,36 @@ type GatewayServer interface {
 }
 
 // UnimplementedGatewayServer must be embedded to have forward compatible implementations.
-type UnimplementedGatewayServer struct {
-}
+type UnimplementedGatewayServer struct{}
 
 func (UnimplementedGatewayServer) CreateContact(context.Context, *CreateContactRequest) (*CreateContactResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateContact not implemented")
 }
+
 func (UnimplementedGatewayServer) CreateAppContact(context.Context, *CreateAppContactRequest) (*CreateAppContactResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateAppContact not implemented")
 }
+
 func (UnimplementedGatewayServer) GetContact(context.Context, *GetContactRequest) (*GetContactResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetContact not implemented")
 }
+
 func (UnimplementedGatewayServer) GetContacts(context.Context, *GetContactsRequest) (*GetContactsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetContacts not implemented")
 }
+
 func (UnimplementedGatewayServer) GetAppContacts(context.Context, *GetAppContactsRequest) (*GetAppContactsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetAppContacts not implemented")
 }
+
 func (UnimplementedGatewayServer) UpdateContact(context.Context, *UpdateContactRequest) (*UpdateContactResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateContact not implemented")
 }
+
 func (UnimplementedGatewayServer) UpdateAppContact(context.Context, *UpdateAppContactRequest) (*UpdateAppContactResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateAppContact not implemented")
 }
+
 func (UnimplementedGatewayServer) ContactViaEmail(context.Context, *ContactViaEmailRequest) (*ContactViaEmailResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ContactViaEmail not implemented")
 }

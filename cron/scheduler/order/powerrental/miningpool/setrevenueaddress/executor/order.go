@@ -57,7 +57,7 @@ func (h *orderHandler) getAppPowerRental(ctx context.Context) error {
 
 func (h *orderHandler) getOrderBenefits(ctx context.Context) error {
 	conds := &orderbenefit.Conds{
-		OrderID: &v1.StringVal{Op: cruder.EQ, Value: h.PowerRentalOrder.OrderID},
+		OrderID: &v1.StringVal{Op: cruder.EQ, Value: h.OrderID},
 	}
 	handler, err := orderbenefitmw.NewHandler(
 		ctx,
@@ -103,13 +103,13 @@ func (h *orderHandler) getCoinTypeIDs() error {
 }
 
 func (h *orderHandler) validatePoolOrderUserID(ctx context.Context) error {
-	if h.PowerRentalOrder.PoolOrderUserID == nil {
+	if h.PoolOrderUserID == nil {
 		return wlog.Errorf("invalid poolorderuserid")
 	}
 
 	handler, err := orderusermw.NewHandler(
 		ctx,
-		orderusermw.WithEntID(h.PowerRentalOrder.PoolOrderUserID, true),
+		orderusermw.WithEntID(h.PoolOrderUserID, true),
 	)
 	if err != nil {
 		return err
@@ -134,7 +134,7 @@ func (h *orderHandler) constructOrderUserReqs() error {
 			return wlog.Errorf("cannot find orderbenefit account for cointypeid: %v", coinTypeID)
 		}
 		h.orderUserReqs = append(h.orderUserReqs, &orderusermwpb.OrderUserReq{
-			EntID:          h.PowerRentalOrder.PoolOrderUserID,
+			EntID:          h.PoolOrderUserID,
 			RevenueAddress: &acc.Address,
 			CoinTypeID:     &coinTypeID,
 			AutoPay:        &autoPay,
@@ -145,7 +145,7 @@ func (h *orderHandler) constructOrderUserReqs() error {
 
 func (h *orderHandler) constructPowerRentalOrderReq() {
 	h.powerRentalOrderReq = &powerrentalordermwpb.PowerRentalOrderReq{
-		ID:         &h.PowerRentalOrder.ID,
+		ID:         &h.ID,
 		OrderState: &h.nextState,
 	}
 }
@@ -165,7 +165,7 @@ func (h *orderHandler) final(ctx context.Context, err *error) {
 		PowerRentalOrder:    h.PowerRentalOrder,
 		OrderUserReqs:       h.orderUserReqs,
 		PowerRentalOrderReq: h.powerRentalOrderReq,
-		AppGoodStockLockID:  &h.PowerRentalOrder.AppGoodStockLockID,
+		AppGoodStockLockID:  &h.AppGoodStockLockID,
 	}
 
 	if *err == nil {
@@ -175,14 +175,13 @@ func (h *orderHandler) final(ctx context.Context, err *error) {
 	}
 }
 
-//nolint:gocritic
 func (h *orderHandler) exec(ctx context.Context) error {
 	h.nextState = ordertypes.OrderState_OrderStateInService
 
 	var err error
 	defer h.final(ctx, &err)
 
-	if h.PowerRentalOrder.GoodStockMode != goodtypes.GoodStockMode_GoodStockByMiningPool {
+	if h.GoodStockMode != goodtypes.GoodStockMode_GoodStockByMiningPool {
 		h.constructPowerRentalOrderReq()
 		return nil
 	}

@@ -7,11 +7,12 @@
 package subscriber
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -371,15 +372,17 @@ func file_appuser_middleware_v1_subscriber_subscriber_proto_rawDescGZIP() []byte
 	return file_appuser_middleware_v1_subscriber_subscriber_proto_rawDescData
 }
 
-var file_appuser_middleware_v1_subscriber_subscriber_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
-var file_appuser_middleware_v1_subscriber_subscriber_proto_goTypes = []interface{}{
-	(*SubscriberReq)(nil), // 0: appuser.middleware.subscriber.v1.SubscriberReq
-	(*Subscriber)(nil),    // 1: appuser.middleware.subscriber.v1.Subscriber
-	(*Conds)(nil),         // 2: appuser.middleware.subscriber.v1.Conds
-	(*v1.Uint32Val)(nil),  // 3: basetypes.v1.Uint32Val
-	(*v1.StringVal)(nil),  // 4: basetypes.v1.StringVal
-	(*v1.BoolVal)(nil),    // 5: basetypes.v1.BoolVal
-}
+var (
+	file_appuser_middleware_v1_subscriber_subscriber_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
+	file_appuser_middleware_v1_subscriber_subscriber_proto_goTypes  = []interface{}{
+		(*SubscriberReq)(nil), // 0: appuser.middleware.subscriber.v1.SubscriberReq
+		(*Subscriber)(nil),    // 1: appuser.middleware.subscriber.v1.Subscriber
+		(*Conds)(nil),         // 2: appuser.middleware.subscriber.v1.Conds
+		(*v1.Uint32Val)(nil),  // 3: basetypes.v1.Uint32Val
+		(*v1.StringVal)(nil),  // 4: basetypes.v1.StringVal
+		(*v1.BoolVal)(nil),    // 5: basetypes.v1.BoolVal
+	}
+)
 var file_appuser_middleware_v1_subscriber_subscriber_proto_depIdxs = []int32{
 	3, // 0: appuser.middleware.subscriber.v1.Conds.ID:type_name -> basetypes.v1.Uint32Val
 	4, // 1: appuser.middleware.subscriber.v1.Conds.EntID:type_name -> basetypes.v1.StringVal

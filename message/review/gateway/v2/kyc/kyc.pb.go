@@ -7,13 +7,14 @@
 package kyc
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	v11 "github.com/NpoolPlatform/kunman/message/basetypes/review/v1"
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -921,23 +922,25 @@ func file_review_gateway_v2_kyc_kyc_proto_rawDescGZIP() []byte {
 	return file_review_gateway_v2_kyc_kyc_proto_rawDescData
 }
 
-var file_review_gateway_v2_kyc_kyc_proto_msgTypes = make([]protoimpl.MessageInfo, 9)
-var file_review_gateway_v2_kyc_kyc_proto_goTypes = []interface{}{
-	(*KycReview)(nil),                  // 0: review.gateway.kyc.v2.KycReview
-	(*GetKycReviewsRequest)(nil),       // 1: review.gateway.kyc.v2.GetKycReviewsRequest
-	(*GetKycReviewsResponse)(nil),      // 2: review.gateway.kyc.v2.GetKycReviewsResponse
-	(*GetAppKycReviewsRequest)(nil),    // 3: review.gateway.kyc.v2.GetAppKycReviewsRequest
-	(*GetAppKycReviewsResponse)(nil),   // 4: review.gateway.kyc.v2.GetAppKycReviewsResponse
-	(*UpdateKycReviewRequest)(nil),     // 5: review.gateway.kyc.v2.UpdateKycReviewRequest
-	(*UpdateKycReviewResponse)(nil),    // 6: review.gateway.kyc.v2.UpdateKycReviewResponse
-	(*UpdateAppKycReviewRequest)(nil),  // 7: review.gateway.kyc.v2.UpdateAppKycReviewRequest
-	(*UpdateAppKycReviewResponse)(nil), // 8: review.gateway.kyc.v2.UpdateAppKycReviewResponse
-	(v1.KycDocumentType)(0),            // 9: basetypes.v1.KycDocumentType
-	(v1.KycEntityType)(0),              // 10: basetypes.v1.KycEntityType
-	(v11.ReviewObjectType)(0),          // 11: basetypes.review.v1.ReviewObjectType
-	(v11.ReviewState)(0),               // 12: basetypes.review.v1.ReviewState
-	(v1.KycState)(0),                   // 13: basetypes.v1.KycState
-}
+var (
+	file_review_gateway_v2_kyc_kyc_proto_msgTypes = make([]protoimpl.MessageInfo, 9)
+	file_review_gateway_v2_kyc_kyc_proto_goTypes  = []interface{}{
+		(*KycReview)(nil),                  // 0: review.gateway.kyc.v2.KycReview
+		(*GetKycReviewsRequest)(nil),       // 1: review.gateway.kyc.v2.GetKycReviewsRequest
+		(*GetKycReviewsResponse)(nil),      // 2: review.gateway.kyc.v2.GetKycReviewsResponse
+		(*GetAppKycReviewsRequest)(nil),    // 3: review.gateway.kyc.v2.GetAppKycReviewsRequest
+		(*GetAppKycReviewsResponse)(nil),   // 4: review.gateway.kyc.v2.GetAppKycReviewsResponse
+		(*UpdateKycReviewRequest)(nil),     // 5: review.gateway.kyc.v2.UpdateKycReviewRequest
+		(*UpdateKycReviewResponse)(nil),    // 6: review.gateway.kyc.v2.UpdateKycReviewResponse
+		(*UpdateAppKycReviewRequest)(nil),  // 7: review.gateway.kyc.v2.UpdateAppKycReviewRequest
+		(*UpdateAppKycReviewResponse)(nil), // 8: review.gateway.kyc.v2.UpdateAppKycReviewResponse
+		(v1.KycDocumentType)(0),            // 9: basetypes.v1.KycDocumentType
+		(v1.KycEntityType)(0),              // 10: basetypes.v1.KycEntityType
+		(v11.ReviewObjectType)(0),          // 11: basetypes.review.v1.ReviewObjectType
+		(v11.ReviewState)(0),               // 12: basetypes.review.v1.ReviewState
+		(v1.KycState)(0),                   // 13: basetypes.v1.KycState
+	}
+)
 var file_review_gateway_v2_kyc_kyc_proto_depIdxs = []int32{
 	9,  // 0: review.gateway.kyc.v2.KycReview.DocumentType:type_name -> basetypes.v1.KycDocumentType
 	10, // 1: review.gateway.kyc.v2.KycReview.EntityType:type_name -> basetypes.v1.KycEntityType

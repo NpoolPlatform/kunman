@@ -7,14 +7,15 @@
 package renew
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/good/v1"
 	coin "github.com/NpoolPlatform/kunman/message/chain/middleware/v1/app/coin"
 	_ "github.com/NpoolPlatform/kunman/message/order/middleware/v1/order"
 	order "github.com/NpoolPlatform/kunman/message/scheduler/middleware/v1/order"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -412,17 +413,19 @@ func file_scheduler_middleware_v1_order_renew_renew_proto_rawDescGZIP() []byte {
 	return file_scheduler_middleware_v1_order_renew_renew_proto_rawDescData
 }
 
-var file_scheduler_middleware_v1_order_renew_renew_proto_msgTypes = make([]protoimpl.MessageInfo, 4)
-var file_scheduler_middleware_v1_order_renew_renew_proto_goTypes = []interface{}{
-	(*AppGoodInfo)(nil),            // 0: scheduler.middleware.order2.renew.v1.AppGoodInfo
-	(*Deduction)(nil),              // 1: scheduler.middleware.order2.renew.v1.Deduction
-	(*RenewInfo)(nil),              // 2: scheduler.middleware.order2.renew.v1.RenewInfo
-	(*MsgOrderChildsRenewReq)(nil), // 3: scheduler.middleware.order2.renew.v1.MsgOrderChildsRenewReq
-	(v1.GoodType)(0),               // 4: basetypes.good.v1.GoodType
-	(v1.GoodSettlementType)(0),     // 5: basetypes.good.v1.GoodSettlementType
-	(*coin.Coin)(nil),              // 6: chain.middleware.app.coin.v1.Coin
-	(*order.OrderInfo)(nil),        // 7: scheduler.middleware.order.v1.OrderInfo
-}
+var (
+	file_scheduler_middleware_v1_order_renew_renew_proto_msgTypes = make([]protoimpl.MessageInfo, 4)
+	file_scheduler_middleware_v1_order_renew_renew_proto_goTypes  = []interface{}{
+		(*AppGoodInfo)(nil),            // 0: scheduler.middleware.order2.renew.v1.AppGoodInfo
+		(*Deduction)(nil),              // 1: scheduler.middleware.order2.renew.v1.Deduction
+		(*RenewInfo)(nil),              // 2: scheduler.middleware.order2.renew.v1.RenewInfo
+		(*MsgOrderChildsRenewReq)(nil), // 3: scheduler.middleware.order2.renew.v1.MsgOrderChildsRenewReq
+		(v1.GoodType)(0),               // 4: basetypes.good.v1.GoodType
+		(v1.GoodSettlementType)(0),     // 5: basetypes.good.v1.GoodSettlementType
+		(*coin.Coin)(nil),              // 6: chain.middleware.app.coin.v1.Coin
+		(*order.OrderInfo)(nil),        // 7: scheduler.middleware.order.v1.OrderInfo
+	}
+)
 var file_scheduler_middleware_v1_order_renew_renew_proto_depIdxs = []int32{
 	4, // 0: scheduler.middleware.order2.renew.v1.AppGoodInfo.GoodType:type_name -> basetypes.good.v1.GoodType
 	5, // 1: scheduler.middleware.order2.renew.v1.AppGoodInfo.SettlementType:type_name -> basetypes.good.v1.GoodSettlementType

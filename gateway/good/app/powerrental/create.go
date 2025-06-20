@@ -108,6 +108,9 @@ func (h *CreateHander) checkAppPoolAuth(ctx context.Context) error {
 	}
 
 	appPools, _, err := poolHandler.GetPools(ctx)
+	if err != nil {
+		return wlog.WrapError(err)
+	}
 	if len(appPools) == 0 {
 		return wlog.Errorf("Permission denied")
 	}

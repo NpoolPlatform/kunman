@@ -8,6 +8,7 @@ package allocated
 
 import (
 	context "context"
+
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -67,12 +68,12 @@ type GatewayServer interface {
 }
 
 // UnimplementedGatewayServer must be embedded to have forward compatible implementations.
-type UnimplementedGatewayServer struct {
-}
+type UnimplementedGatewayServer struct{}
 
 func (UnimplementedGatewayServer) GetMyCreditAllocateds(context.Context, *GetMyCreditAllocatedsRequest) (*GetMyCreditAllocatedsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetMyCreditAllocateds not implemented")
 }
+
 func (UnimplementedGatewayServer) AdminGetCreditAllocateds(context.Context, *AdminGetCreditAllocatedsRequest) (*AdminGetCreditAllocatedsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AdminGetCreditAllocateds not implemented")
 }

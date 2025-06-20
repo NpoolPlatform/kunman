@@ -7,12 +7,13 @@
 package user
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -1077,24 +1078,26 @@ func file_notif_gateway_v1_announcement_user_user_proto_rawDescGZIP() []byte {
 	return file_notif_gateway_v1_announcement_user_user_proto_rawDescData
 }
 
-var file_notif_gateway_v1_announcement_user_user_proto_msgTypes = make([]protoimpl.MessageInfo, 13)
-var file_notif_gateway_v1_announcement_user_user_proto_goTypes = []interface{}{
-	(*AnnouncementUser)(nil),                  // 0: notif.gateway.announcement.user.v1.AnnouncementUser
-	(*CreateAnnouncementUserRequest)(nil),     // 1: notif.gateway.announcement.user.v1.CreateAnnouncementUserRequest
-	(*CreateAnnouncementUserResponse)(nil),    // 2: notif.gateway.announcement.user.v1.CreateAnnouncementUserResponse
-	(*CreateAppAnnouncementUserRequest)(nil),  // 3: notif.gateway.announcement.user.v1.CreateAppAnnouncementUserRequest
-	(*CreateAppAnnouncementUserResponse)(nil), // 4: notif.gateway.announcement.user.v1.CreateAppAnnouncementUserResponse
-	(*DeleteAnnouncementUserRequest)(nil),     // 5: notif.gateway.announcement.user.v1.DeleteAnnouncementUserRequest
-	(*DeleteAnnouncementUserResponse)(nil),    // 6: notif.gateway.announcement.user.v1.DeleteAnnouncementUserResponse
-	(*DeleteAppAnnouncementUserRequest)(nil),  // 7: notif.gateway.announcement.user.v1.DeleteAppAnnouncementUserRequest
-	(*DeleteAppAnnouncementUserResponse)(nil), // 8: notif.gateway.announcement.user.v1.DeleteAppAnnouncementUserResponse
-	(*GetAnnouncementUsersRequest)(nil),       // 9: notif.gateway.announcement.user.v1.GetAnnouncementUsersRequest
-	(*GetAnnouncementUsersResponse)(nil),      // 10: notif.gateway.announcement.user.v1.GetAnnouncementUsersResponse
-	(*GetAppAnnouncementUsersRequest)(nil),    // 11: notif.gateway.announcement.user.v1.GetAppAnnouncementUsersRequest
-	(*GetAppAnnouncementUsersResponse)(nil),   // 12: notif.gateway.announcement.user.v1.GetAppAnnouncementUsersResponse
-	(v1.NotifType)(0),                         // 13: basetypes.v1.NotifType
-	(v1.NotifChannel)(0),                      // 14: basetypes.v1.NotifChannel
-}
+var (
+	file_notif_gateway_v1_announcement_user_user_proto_msgTypes = make([]protoimpl.MessageInfo, 13)
+	file_notif_gateway_v1_announcement_user_user_proto_goTypes  = []interface{}{
+		(*AnnouncementUser)(nil),                  // 0: notif.gateway.announcement.user.v1.AnnouncementUser
+		(*CreateAnnouncementUserRequest)(nil),     // 1: notif.gateway.announcement.user.v1.CreateAnnouncementUserRequest
+		(*CreateAnnouncementUserResponse)(nil),    // 2: notif.gateway.announcement.user.v1.CreateAnnouncementUserResponse
+		(*CreateAppAnnouncementUserRequest)(nil),  // 3: notif.gateway.announcement.user.v1.CreateAppAnnouncementUserRequest
+		(*CreateAppAnnouncementUserResponse)(nil), // 4: notif.gateway.announcement.user.v1.CreateAppAnnouncementUserResponse
+		(*DeleteAnnouncementUserRequest)(nil),     // 5: notif.gateway.announcement.user.v1.DeleteAnnouncementUserRequest
+		(*DeleteAnnouncementUserResponse)(nil),    // 6: notif.gateway.announcement.user.v1.DeleteAnnouncementUserResponse
+		(*DeleteAppAnnouncementUserRequest)(nil),  // 7: notif.gateway.announcement.user.v1.DeleteAppAnnouncementUserRequest
+		(*DeleteAppAnnouncementUserResponse)(nil), // 8: notif.gateway.announcement.user.v1.DeleteAppAnnouncementUserResponse
+		(*GetAnnouncementUsersRequest)(nil),       // 9: notif.gateway.announcement.user.v1.GetAnnouncementUsersRequest
+		(*GetAnnouncementUsersResponse)(nil),      // 10: notif.gateway.announcement.user.v1.GetAnnouncementUsersResponse
+		(*GetAppAnnouncementUsersRequest)(nil),    // 11: notif.gateway.announcement.user.v1.GetAppAnnouncementUsersRequest
+		(*GetAppAnnouncementUsersResponse)(nil),   // 12: notif.gateway.announcement.user.v1.GetAppAnnouncementUsersResponse
+		(v1.NotifType)(0),                         // 13: basetypes.v1.NotifType
+		(v1.NotifChannel)(0),                      // 14: basetypes.v1.NotifChannel
+	}
+)
 var file_notif_gateway_v1_announcement_user_user_proto_depIdxs = []int32{
 	13, // 0: notif.gateway.announcement.user.v1.AnnouncementUser.AnnouncementType:type_name -> basetypes.v1.NotifType
 	14, // 1: notif.gateway.announcement.user.v1.AnnouncementUser.Channel:type_name -> basetypes.v1.NotifChannel

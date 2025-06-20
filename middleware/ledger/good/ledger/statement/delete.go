@@ -70,7 +70,7 @@ func (h *deleteHandler) updateGoodLedger(req *goodstatementcrud.Req, ctx context
 	return nil
 }
 
-//nolint
+// nolint
 func (h *deleteHandler) deleteGoodStatement(req *goodstatementcrud.Req, ctx context.Context, tx *ent.Tx) error {
 	info, err := tx.
 		GoodStatement.
@@ -96,7 +96,7 @@ func (h *deleteHandler) deleteGoodStatement(req *goodstatementcrud.Req, ctx cont
 	return nil
 }
 
-//nolint
+// nolint
 func (h *deleteHandler) deleteUnsoldStatement(req *goodstatementcrud.Req, ctx context.Context, tx *ent.Tx) error {
 	info, err := tx.
 		UnsoldStatement.

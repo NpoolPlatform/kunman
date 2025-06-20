@@ -7,11 +7,12 @@
 package history
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -423,14 +424,16 @@ func file_appuser_middleware_v1_authing_history_history_proto_rawDescGZIP() []by
 	return file_appuser_middleware_v1_authing_history_history_proto_rawDescData
 }
 
-var file_appuser_middleware_v1_authing_history_history_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
-var file_appuser_middleware_v1_authing_history_history_proto_goTypes = []interface{}{
-	(*HistoryReq)(nil),   // 0: appuser.middleware.authing.history.v1.HistoryReq
-	(*History)(nil),      // 1: appuser.middleware.authing.history.v1.History
-	(*Conds)(nil),        // 2: appuser.middleware.authing.history.v1.Conds
-	(*v1.StringVal)(nil), // 3: basetypes.v1.StringVal
-	(*v1.BoolVal)(nil),   // 4: basetypes.v1.BoolVal
-}
+var (
+	file_appuser_middleware_v1_authing_history_history_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
+	file_appuser_middleware_v1_authing_history_history_proto_goTypes  = []interface{}{
+		(*HistoryReq)(nil),   // 0: appuser.middleware.authing.history.v1.HistoryReq
+		(*History)(nil),      // 1: appuser.middleware.authing.history.v1.History
+		(*Conds)(nil),        // 2: appuser.middleware.authing.history.v1.Conds
+		(*v1.StringVal)(nil), // 3: basetypes.v1.StringVal
+		(*v1.BoolVal)(nil),   // 4: basetypes.v1.BoolVal
+	}
+)
 var file_appuser_middleware_v1_authing_history_history_proto_depIdxs = []int32{
 	3, // 0: appuser.middleware.authing.history.v1.Conds.EntID:type_name -> basetypes.v1.StringVal
 	3, // 1: appuser.middleware.authing.history.v1.Conds.AppID:type_name -> basetypes.v1.StringVal

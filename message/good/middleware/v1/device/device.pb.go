@@ -7,12 +7,13 @@
 package device
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	poster "github.com/NpoolPlatform/kunman/message/good/middleware/v1/device/poster"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -410,15 +411,17 @@ func file_good_middleware_v1_device_device_proto_rawDescGZIP() []byte {
 	return file_good_middleware_v1_device_device_proto_rawDescData
 }
 
-var file_good_middleware_v1_device_device_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
-var file_good_middleware_v1_device_device_proto_goTypes = []interface{}{
-	(*DeviceTypeReq)(nil),     // 0: good.middleware.device.v1.DeviceTypeReq
-	(*DeviceType)(nil),        // 1: good.middleware.device.v1.DeviceType
-	(*Conds)(nil),             // 2: good.middleware.device.v1.Conds
-	(*poster.PosterInfo)(nil), // 3: good.middleware.device.poster.v1.PosterInfo
-	(*v1.Uint32Val)(nil),      // 4: basetypes.v1.Uint32Val
-	(*v1.StringVal)(nil),      // 5: basetypes.v1.StringVal
-}
+var (
+	file_good_middleware_v1_device_device_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
+	file_good_middleware_v1_device_device_proto_goTypes  = []interface{}{
+		(*DeviceTypeReq)(nil),     // 0: good.middleware.device.v1.DeviceTypeReq
+		(*DeviceType)(nil),        // 1: good.middleware.device.v1.DeviceType
+		(*Conds)(nil),             // 2: good.middleware.device.v1.Conds
+		(*poster.PosterInfo)(nil), // 3: good.middleware.device.poster.v1.PosterInfo
+		(*v1.Uint32Val)(nil),      // 4: basetypes.v1.Uint32Val
+		(*v1.StringVal)(nil),      // 5: basetypes.v1.StringVal
+	}
+)
 var file_good_middleware_v1_device_device_proto_depIdxs = []int32{
 	3, // 0: good.middleware.device.v1.DeviceType.Posters:type_name -> good.middleware.device.poster.v1.PosterInfo
 	4, // 1: good.middleware.device.v1.Conds.ID:type_name -> basetypes.v1.Uint32Val

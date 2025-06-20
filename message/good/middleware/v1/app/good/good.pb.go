@@ -7,12 +7,13 @@
 package good
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/good/v1"
 	v11 "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -552,19 +553,21 @@ func file_good_middleware_v1_app_good_good_proto_rawDescGZIP() []byte {
 	return file_good_middleware_v1_app_good_good_proto_rawDescData
 }
 
-var file_good_middleware_v1_app_good_good_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
-var file_good_middleware_v1_app_good_good_proto_goTypes = []interface{}{
-	(*Good)(nil),               // 0: good.middleware.app.good1.v1.Good
-	(*Conds)(nil),              // 1: good.middleware.app.good1.v1.Conds
-	(v1.GoodType)(0),           // 2: basetypes.good.v1.GoodType
-	(v1.BenefitType)(0),        // 3: basetypes.good.v1.BenefitType
-	(v1.GoodStartMode)(0),      // 4: basetypes.good.v1.GoodStartMode
-	(v1.GoodState)(0),          // 5: basetypes.good.v1.GoodState
-	(*v11.Uint32Val)(nil),      // 6: basetypes.v1.Uint32Val
-	(*v11.Uint32SliceVal)(nil), // 7: basetypes.v1.Uint32SliceVal
-	(*v11.StringVal)(nil),      // 8: basetypes.v1.StringVal
-	(*v11.StringSliceVal)(nil), // 9: basetypes.v1.StringSliceVal
-}
+var (
+	file_good_middleware_v1_app_good_good_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
+	file_good_middleware_v1_app_good_good_proto_goTypes  = []interface{}{
+		(*Good)(nil),               // 0: good.middleware.app.good1.v1.Good
+		(*Conds)(nil),              // 1: good.middleware.app.good1.v1.Conds
+		(v1.GoodType)(0),           // 2: basetypes.good.v1.GoodType
+		(v1.BenefitType)(0),        // 3: basetypes.good.v1.BenefitType
+		(v1.GoodStartMode)(0),      // 4: basetypes.good.v1.GoodStartMode
+		(v1.GoodState)(0),          // 5: basetypes.good.v1.GoodState
+		(*v11.Uint32Val)(nil),      // 6: basetypes.v1.Uint32Val
+		(*v11.Uint32SliceVal)(nil), // 7: basetypes.v1.Uint32SliceVal
+		(*v11.StringVal)(nil),      // 8: basetypes.v1.StringVal
+		(*v11.StringSliceVal)(nil), // 9: basetypes.v1.StringSliceVal
+	}
+)
 var file_good_middleware_v1_app_good_good_proto_depIdxs = []int32{
 	2,  // 0: good.middleware.app.good1.v1.Good.GoodType:type_name -> basetypes.good.v1.GoodType
 	3,  // 1: good.middleware.app.good1.v1.Good.BenefitType:type_name -> basetypes.good.v1.BenefitType

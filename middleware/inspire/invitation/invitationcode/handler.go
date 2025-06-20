@@ -4,11 +4,11 @@ import (
 	"context"
 
 	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
-	constant "github.com/NpoolPlatform/kunman/pkg/const"
+	npool "github.com/NpoolPlatform/kunman/message/inspire/middleware/v1/invitation/invitationcode"
 	invitationcodecrud "github.com/NpoolPlatform/kunman/middleware/inspire/crud/invitation/invitationcode"
 	codegenerator "github.com/NpoolPlatform/kunman/middleware/inspire/invitation/invitationcode/generator"
+	constant "github.com/NpoolPlatform/kunman/pkg/const"
 	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
-	npool "github.com/NpoolPlatform/kunman/message/inspire/middleware/v1/invitation/invitationcode"
 
 	"github.com/google/uuid"
 )

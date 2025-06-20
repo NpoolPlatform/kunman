@@ -7,12 +7,13 @@
 package withdraw
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/ledger/v1"
 	v11 "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -591,15 +592,17 @@ func file_ledger_middleware_v2_withdraw_withdraw_proto_rawDescGZIP() []byte {
 	return file_ledger_middleware_v2_withdraw_withdraw_proto_rawDescData
 }
 
-var file_ledger_middleware_v2_withdraw_withdraw_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
-var file_ledger_middleware_v2_withdraw_withdraw_proto_goTypes = []interface{}{
-	(*WithdrawReq)(nil),   // 0: ledger.middleware.withdraw.v2.WithdrawReq
-	(*Withdraw)(nil),      // 1: ledger.middleware.withdraw.v2.Withdraw
-	(*Conds)(nil),         // 2: ledger.middleware.withdraw.v2.Conds
-	(v1.WithdrawState)(0), // 3: basetypes.ledger.v1.WithdrawState
-	(*v11.StringVal)(nil), // 4: basetypes.v1.StringVal
-	(*v11.Uint32Val)(nil), // 5: basetypes.v1.Uint32Val
-}
+var (
+	file_ledger_middleware_v2_withdraw_withdraw_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
+	file_ledger_middleware_v2_withdraw_withdraw_proto_goTypes  = []interface{}{
+		(*WithdrawReq)(nil),   // 0: ledger.middleware.withdraw.v2.WithdrawReq
+		(*Withdraw)(nil),      // 1: ledger.middleware.withdraw.v2.Withdraw
+		(*Conds)(nil),         // 2: ledger.middleware.withdraw.v2.Conds
+		(v1.WithdrawState)(0), // 3: basetypes.ledger.v1.WithdrawState
+		(*v11.StringVal)(nil), // 4: basetypes.v1.StringVal
+		(*v11.Uint32Val)(nil), // 5: basetypes.v1.Uint32Val
+	}
+)
 var file_ledger_middleware_v2_withdraw_withdraw_proto_depIdxs = []int32{
 	3,  // 0: ledger.middleware.withdraw.v2.WithdrawReq.State:type_name -> basetypes.ledger.v1.WithdrawState
 	3,  // 1: ledger.middleware.withdraw.v2.Withdraw.State:type_name -> basetypes.ledger.v1.WithdrawState

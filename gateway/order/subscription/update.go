@@ -15,7 +15,7 @@ type updateHandler struct {
 }
 
 //nolint:gocyclo
-func (h *Handler) UpdateSubscriptionOrder(ctx context.Context) (*npool.SubscriptionOrder, error) { //nolint:funlen
+func (h *Handler) UpdateSubscriptionOrder(ctx context.Context) (*npool.SubscriptionOrder, error) {
 	if err := h.CheckOrder(ctx); err != nil {
 		return nil, wlog.WrapError(err)
 	}
@@ -47,8 +47,8 @@ func (h *Handler) UpdateSubscriptionOrder(ctx context.Context) (*npool.Subscript
 	if err := handler.getSubscriptionOrder(ctx); err != nil {
 		return nil, wlog.WrapError(err)
 	}
-	handler.OrderOpHandler.OrderType = handler.subscriptionOrder.OrderType
-	handler.OrderOpHandler.OrderState = handler.subscriptionOrder.OrderState
+	handler.OrderType = handler.subscriptionOrder.OrderType
+	handler.OrderState = handler.subscriptionOrder.OrderState
 	if h.PaymentTransferCoinTypeID != nil || len(h.Balances) > 0 {
 		if err := handler.PaymentUpdatable(); err != nil {
 			return nil, wlog.WrapError(err)
@@ -78,7 +78,7 @@ func (h *Handler) UpdateSubscriptionOrder(ctx context.Context) (*npool.Subscript
 	if err := handler.GetFiatUSDCurrencies(ctx); err != nil {
 		return nil, wlog.WrapError(err)
 	}
-	handler.OrderOpHandler.PaymentAmountUSD, _ = decimal.NewFromString(handler.subscriptionOrder.PaymentAmountUSD)
+	handler.PaymentAmountUSD, _ = decimal.NewFromString(handler.subscriptionOrder.PaymentAmountUSD)
 	if err := handler.AcquirePaymentTransferAccount(ctx); err != nil {
 		return nil, wlog.WrapError(err)
 	}

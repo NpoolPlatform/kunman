@@ -8,6 +8,7 @@ package user
 
 import (
 	context "context"
+
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -163,36 +164,44 @@ type GatewayServer interface {
 }
 
 // UnimplementedGatewayServer must be embedded to have forward compatible implementations.
-type UnimplementedGatewayServer struct {
-}
+type UnimplementedGatewayServer struct{}
 
 func (UnimplementedGatewayServer) GetDepositAccount(context.Context, *GetDepositAccountRequest) (*GetDepositAccountResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetDepositAccount not implemented")
 }
+
 func (UnimplementedGatewayServer) GetDepositAccounts(context.Context, *GetDepositAccountsRequest) (*GetDepositAccountsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetDepositAccounts not implemented")
 }
+
 func (UnimplementedGatewayServer) GetAppDepositAccounts(context.Context, *GetAppDepositAccountsRequest) (*GetAppDepositAccountsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetAppDepositAccounts not implemented")
 }
+
 func (UnimplementedGatewayServer) CreateAccount(context.Context, *CreateAccountRequest) (*CreateAccountResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateAccount not implemented")
 }
+
 func (UnimplementedGatewayServer) UpdateAccount(context.Context, *UpdateAccountRequest) (*UpdateAccountResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateAccount not implemented")
 }
+
 func (UnimplementedGatewayServer) DeleteAccount(context.Context, *DeleteAccountRequest) (*DeleteAccountResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteAccount not implemented")
 }
+
 func (UnimplementedGatewayServer) UpdateAppUserAccount(context.Context, *UpdateAppUserAccountRequest) (*UpdateAppUserAccountResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateAppUserAccount not implemented")
 }
+
 func (UnimplementedGatewayServer) GetAccounts(context.Context, *GetAccountsRequest) (*GetAccountsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetAccounts not implemented")
 }
+
 func (UnimplementedGatewayServer) GetAppAccounts(context.Context, *GetAppAccountsRequest) (*GetAppAccountsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetAppAccounts not implemented")
 }
+
 func (UnimplementedGatewayServer) GetNAppAccounts(context.Context, *GetNAppAccountsRequest) (*GetNAppAccountsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetNAppAccounts not implemented")
 }

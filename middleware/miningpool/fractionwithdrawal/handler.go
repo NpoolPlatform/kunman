@@ -6,9 +6,9 @@ import (
 	"github.com/NpoolPlatform/kunman/framework/wlog"
 	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/miningpool/v1"
 	npool "github.com/NpoolPlatform/kunman/message/miningpool/middleware/v1/fractionwithdrawal"
-	constant "github.com/NpoolPlatform/kunman/pkg/const"
 	fractionwithdrawalcrud "github.com/NpoolPlatform/kunman/middleware/miningpool/crud/fractionwithdrawal"
 	"github.com/NpoolPlatform/kunman/middleware/miningpool/orderuser"
+	constant "github.com/NpoolPlatform/kunman/pkg/const"
 
 	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 

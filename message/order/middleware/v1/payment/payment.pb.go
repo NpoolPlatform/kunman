@@ -7,12 +7,13 @@
 package payment
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/order/v1"
 	v11 "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -1319,23 +1320,25 @@ func file_order_middleware_v1_payment_payment_proto_rawDescGZIP() []byte {
 	return file_order_middleware_v1_payment_payment_proto_rawDescData
 }
 
-var file_order_middleware_v1_payment_payment_proto_msgTypes = make([]protoimpl.MessageInfo, 11)
-var file_order_middleware_v1_payment_payment_proto_goTypes = []interface{}{
-	(*PaymentReq)(nil),           // 0: order.middleware.payment.v1.PaymentReq
-	(*Payment)(nil),              // 1: order.middleware.payment.v1.Payment
-	(*Conds)(nil),                // 2: order.middleware.payment.v1.Conds
-	(*PaymentBalanceReq)(nil),    // 3: order.middleware.payment.v1.PaymentBalanceReq
-	(*PaymentBalanceInfo)(nil),   // 4: order.middleware.payment.v1.PaymentBalanceInfo
-	(*PaymentContractReq)(nil),   // 5: order.middleware.payment.v1.PaymentContractReq
-	(*PaymentContractInfo)(nil),  // 6: order.middleware.payment.v1.PaymentContractInfo
-	(*PaymentTransferReq)(nil),   // 7: order.middleware.payment.v1.PaymentTransferReq
-	(*PaymentTransferInfo)(nil),  // 8: order.middleware.payment.v1.PaymentTransferInfo
-	(*PaymentFiatReq)(nil),       // 9: order.middleware.payment.v1.PaymentFiatReq
-	(*PaymentFiatInfo)(nil),      // 10: order.middleware.payment.v1.PaymentFiatInfo
-	(v1.PaymentObseleteState)(0), // 11: basetypes.order.v1.PaymentObseleteState
-	(*v11.Uint32Val)(nil),        // 12: basetypes.v1.Uint32Val
-	(v1.FiatPaymentChannel)(0),   // 13: basetypes.order.v1.FiatPaymentChannel
-}
+var (
+	file_order_middleware_v1_payment_payment_proto_msgTypes = make([]protoimpl.MessageInfo, 11)
+	file_order_middleware_v1_payment_payment_proto_goTypes  = []interface{}{
+		(*PaymentReq)(nil),           // 0: order.middleware.payment.v1.PaymentReq
+		(*Payment)(nil),              // 1: order.middleware.payment.v1.Payment
+		(*Conds)(nil),                // 2: order.middleware.payment.v1.Conds
+		(*PaymentBalanceReq)(nil),    // 3: order.middleware.payment.v1.PaymentBalanceReq
+		(*PaymentBalanceInfo)(nil),   // 4: order.middleware.payment.v1.PaymentBalanceInfo
+		(*PaymentContractReq)(nil),   // 5: order.middleware.payment.v1.PaymentContractReq
+		(*PaymentContractInfo)(nil),  // 6: order.middleware.payment.v1.PaymentContractInfo
+		(*PaymentTransferReq)(nil),   // 7: order.middleware.payment.v1.PaymentTransferReq
+		(*PaymentTransferInfo)(nil),  // 8: order.middleware.payment.v1.PaymentTransferInfo
+		(*PaymentFiatReq)(nil),       // 9: order.middleware.payment.v1.PaymentFiatReq
+		(*PaymentFiatInfo)(nil),      // 10: order.middleware.payment.v1.PaymentFiatInfo
+		(v1.PaymentObseleteState)(0), // 11: basetypes.order.v1.PaymentObseleteState
+		(*v11.Uint32Val)(nil),        // 12: basetypes.v1.Uint32Val
+		(v1.FiatPaymentChannel)(0),   // 13: basetypes.order.v1.FiatPaymentChannel
+	}
+)
 var file_order_middleware_v1_payment_payment_proto_depIdxs = []int32{
 	11, // 0: order.middleware.payment.v1.PaymentReq.ObseleteState:type_name -> basetypes.order.v1.PaymentObseleteState
 	7,  // 1: order.middleware.payment.v1.PaymentReq.PaymentTransfers:type_name -> order.middleware.payment.v1.PaymentTransferReq

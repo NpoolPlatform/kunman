@@ -7,6 +7,9 @@
 package subscription
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/good/v1"
 	v11 "github.com/NpoolPlatform/kunman/message/basetypes/order/v1"
 	coupon "github.com/NpoolPlatform/kunman/message/order/gateway/v1/order/coupon"
@@ -14,8 +17,6 @@ import (
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -2416,44 +2417,46 @@ func file_order_gateway_v1_subscription_subscription_proto_rawDescGZIP() []byte 
 	return file_order_gateway_v1_subscription_subscription_proto_rawDescData
 }
 
-var file_order_gateway_v1_subscription_subscription_proto_msgTypes = make([]protoimpl.MessageInfo, 23)
-var file_order_gateway_v1_subscription_subscription_proto_goTypes = []interface{}{
-	(*SubscriptionOrder)(nil),                    // 0: order.gateway.subscription.v1.SubscriptionOrder
-	(*CreateSubscriptionOrderRequest)(nil),       // 1: order.gateway.subscription.v1.CreateSubscriptionOrderRequest
-	(*CreateSubscriptionOrderResponse)(nil),      // 2: order.gateway.subscription.v1.CreateSubscriptionOrderResponse
-	(*CreateUserSubscriptionOrderRequest)(nil),   // 3: order.gateway.subscription.v1.CreateUserSubscriptionOrderRequest
-	(*CreateUserSubscriptionOrderResponse)(nil),  // 4: order.gateway.subscription.v1.CreateUserSubscriptionOrderResponse
-	(*UpdateSubscriptionOrderRequest)(nil),       // 5: order.gateway.subscription.v1.UpdateSubscriptionOrderRequest
-	(*UpdateSubscriptionOrderResponse)(nil),      // 6: order.gateway.subscription.v1.UpdateSubscriptionOrderResponse
-	(*UpdateUserSubscriptionOrderRequest)(nil),   // 7: order.gateway.subscription.v1.UpdateUserSubscriptionOrderRequest
-	(*UpdateUserSubscriptionOrderResponse)(nil),  // 8: order.gateway.subscription.v1.UpdateUserSubscriptionOrderResponse
-	(*GetSubscriptionOrderRequest)(nil),          // 9: order.gateway.subscription.v1.GetSubscriptionOrderRequest
-	(*GetSubscriptionOrderResponse)(nil),         // 10: order.gateway.subscription.v1.GetSubscriptionOrderResponse
-	(*GetSubscriptionOrdersRequest)(nil),         // 11: order.gateway.subscription.v1.GetSubscriptionOrdersRequest
-	(*GetSubscriptionOrdersResponse)(nil),        // 12: order.gateway.subscription.v1.GetSubscriptionOrdersResponse
-	(*GetMySubscriptionOrdersRequest)(nil),       // 13: order.gateway.subscription.v1.GetMySubscriptionOrdersRequest
-	(*GetMySubscriptionOrdersResponse)(nil),      // 14: order.gateway.subscription.v1.GetMySubscriptionOrdersResponse
-	(*AdminCreateSubscriptionOrderRequest)(nil),  // 15: order.gateway.subscription.v1.AdminCreateSubscriptionOrderRequest
-	(*AdminCreateSubscriptionOrderResponse)(nil), // 16: order.gateway.subscription.v1.AdminCreateSubscriptionOrderResponse
-	(*AdminUpdateSubscriptionOrderRequest)(nil),  // 17: order.gateway.subscription.v1.AdminUpdateSubscriptionOrderRequest
-	(*AdminUpdateSubscriptionOrderResponse)(nil), // 18: order.gateway.subscription.v1.AdminUpdateSubscriptionOrderResponse
-	(*AdminGetSubscriptionOrdersRequest)(nil),    // 19: order.gateway.subscription.v1.AdminGetSubscriptionOrdersRequest
-	(*AdminGetSubscriptionOrdersResponse)(nil),   // 20: order.gateway.subscription.v1.AdminGetSubscriptionOrdersResponse
-	(*AdminDeleteSubscriptionOrderRequest)(nil),  // 21: order.gateway.subscription.v1.AdminDeleteSubscriptionOrderRequest
-	(*AdminDeleteSubscriptionOrderResponse)(nil), // 22: order.gateway.subscription.v1.AdminDeleteSubscriptionOrderResponse
-	(v1.GoodType)(0),                             // 23: basetypes.good.v1.GoodType
-	(v11.OrderType)(0),                           // 24: basetypes.order.v1.OrderType
-	(v11.PaymentType)(0),                         // 25: basetypes.order.v1.PaymentType
-	(v11.OrderCreateMethod)(0),                   // 26: basetypes.order.v1.OrderCreateMethod
-	(v11.OrderState)(0),                          // 27: basetypes.order.v1.OrderState
-	(v1.GoodDurationType)(0),                     // 28: basetypes.good.v1.GoodDurationType
-	(v11.PaymentState)(0),                        // 29: basetypes.order.v1.PaymentState
-	(*coupon.OrderCouponInfo)(nil),               // 30: order.gateway.order1.coupon.v1.OrderCouponInfo
-	(*payment.PaymentBalanceInfo)(nil),           // 31: order.gateway.payment.v1.PaymentBalanceInfo
-	(*payment.PaymentTransferInfo)(nil),          // 32: order.gateway.payment.v1.PaymentTransferInfo
-	(*payment.PaymentFiatInfo)(nil),              // 33: order.gateway.payment.v1.PaymentFiatInfo
-	(*payment.PaymentBalance)(nil),               // 34: order.gateway.payment.v1.PaymentBalance
-}
+var (
+	file_order_gateway_v1_subscription_subscription_proto_msgTypes = make([]protoimpl.MessageInfo, 23)
+	file_order_gateway_v1_subscription_subscription_proto_goTypes  = []interface{}{
+		(*SubscriptionOrder)(nil),                    // 0: order.gateway.subscription.v1.SubscriptionOrder
+		(*CreateSubscriptionOrderRequest)(nil),       // 1: order.gateway.subscription.v1.CreateSubscriptionOrderRequest
+		(*CreateSubscriptionOrderResponse)(nil),      // 2: order.gateway.subscription.v1.CreateSubscriptionOrderResponse
+		(*CreateUserSubscriptionOrderRequest)(nil),   // 3: order.gateway.subscription.v1.CreateUserSubscriptionOrderRequest
+		(*CreateUserSubscriptionOrderResponse)(nil),  // 4: order.gateway.subscription.v1.CreateUserSubscriptionOrderResponse
+		(*UpdateSubscriptionOrderRequest)(nil),       // 5: order.gateway.subscription.v1.UpdateSubscriptionOrderRequest
+		(*UpdateSubscriptionOrderResponse)(nil),      // 6: order.gateway.subscription.v1.UpdateSubscriptionOrderResponse
+		(*UpdateUserSubscriptionOrderRequest)(nil),   // 7: order.gateway.subscription.v1.UpdateUserSubscriptionOrderRequest
+		(*UpdateUserSubscriptionOrderResponse)(nil),  // 8: order.gateway.subscription.v1.UpdateUserSubscriptionOrderResponse
+		(*GetSubscriptionOrderRequest)(nil),          // 9: order.gateway.subscription.v1.GetSubscriptionOrderRequest
+		(*GetSubscriptionOrderResponse)(nil),         // 10: order.gateway.subscription.v1.GetSubscriptionOrderResponse
+		(*GetSubscriptionOrdersRequest)(nil),         // 11: order.gateway.subscription.v1.GetSubscriptionOrdersRequest
+		(*GetSubscriptionOrdersResponse)(nil),        // 12: order.gateway.subscription.v1.GetSubscriptionOrdersResponse
+		(*GetMySubscriptionOrdersRequest)(nil),       // 13: order.gateway.subscription.v1.GetMySubscriptionOrdersRequest
+		(*GetMySubscriptionOrdersResponse)(nil),      // 14: order.gateway.subscription.v1.GetMySubscriptionOrdersResponse
+		(*AdminCreateSubscriptionOrderRequest)(nil),  // 15: order.gateway.subscription.v1.AdminCreateSubscriptionOrderRequest
+		(*AdminCreateSubscriptionOrderResponse)(nil), // 16: order.gateway.subscription.v1.AdminCreateSubscriptionOrderResponse
+		(*AdminUpdateSubscriptionOrderRequest)(nil),  // 17: order.gateway.subscription.v1.AdminUpdateSubscriptionOrderRequest
+		(*AdminUpdateSubscriptionOrderResponse)(nil), // 18: order.gateway.subscription.v1.AdminUpdateSubscriptionOrderResponse
+		(*AdminGetSubscriptionOrdersRequest)(nil),    // 19: order.gateway.subscription.v1.AdminGetSubscriptionOrdersRequest
+		(*AdminGetSubscriptionOrdersResponse)(nil),   // 20: order.gateway.subscription.v1.AdminGetSubscriptionOrdersResponse
+		(*AdminDeleteSubscriptionOrderRequest)(nil),  // 21: order.gateway.subscription.v1.AdminDeleteSubscriptionOrderRequest
+		(*AdminDeleteSubscriptionOrderResponse)(nil), // 22: order.gateway.subscription.v1.AdminDeleteSubscriptionOrderResponse
+		(v1.GoodType)(0),                             // 23: basetypes.good.v1.GoodType
+		(v11.OrderType)(0),                           // 24: basetypes.order.v1.OrderType
+		(v11.PaymentType)(0),                         // 25: basetypes.order.v1.PaymentType
+		(v11.OrderCreateMethod)(0),                   // 26: basetypes.order.v1.OrderCreateMethod
+		(v11.OrderState)(0),                          // 27: basetypes.order.v1.OrderState
+		(v1.GoodDurationType)(0),                     // 28: basetypes.good.v1.GoodDurationType
+		(v11.PaymentState)(0),                        // 29: basetypes.order.v1.PaymentState
+		(*coupon.OrderCouponInfo)(nil),               // 30: order.gateway.order1.coupon.v1.OrderCouponInfo
+		(*payment.PaymentBalanceInfo)(nil),           // 31: order.gateway.payment.v1.PaymentBalanceInfo
+		(*payment.PaymentTransferInfo)(nil),          // 32: order.gateway.payment.v1.PaymentTransferInfo
+		(*payment.PaymentFiatInfo)(nil),              // 33: order.gateway.payment.v1.PaymentFiatInfo
+		(*payment.PaymentBalance)(nil),               // 34: order.gateway.payment.v1.PaymentBalance
+	}
+)
 var file_order_gateway_v1_subscription_subscription_proto_depIdxs = []int32{
 	23, // 0: order.gateway.subscription.v1.SubscriptionOrder.GoodType:type_name -> basetypes.good.v1.GoodType
 	24, // 1: order.gateway.subscription.v1.SubscriptionOrder.OrderType:type_name -> basetypes.order.v1.OrderType

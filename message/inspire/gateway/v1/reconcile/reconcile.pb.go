@@ -7,11 +7,12 @@
 package reconciliation
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -159,11 +160,13 @@ func file_inspire_gateway_v1_reconcile_reconcile_proto_rawDescGZIP() []byte {
 	return file_inspire_gateway_v1_reconcile_reconcile_proto_rawDescData
 }
 
-var file_inspire_gateway_v1_reconcile_reconcile_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
-var file_inspire_gateway_v1_reconcile_reconcile_proto_goTypes = []interface{}{
-	(*ReconcileRequest)(nil),  // 0: inspire.gateway.reconciliation.v1.ReconcileRequest
-	(*ReconcileResponse)(nil), // 1: inspire.gateway.reconciliation.v1.ReconcileResponse
-}
+var (
+	file_inspire_gateway_v1_reconcile_reconcile_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
+	file_inspire_gateway_v1_reconcile_reconcile_proto_goTypes  = []interface{}{
+		(*ReconcileRequest)(nil),  // 0: inspire.gateway.reconciliation.v1.ReconcileRequest
+		(*ReconcileResponse)(nil), // 1: inspire.gateway.reconciliation.v1.ReconcileResponse
+	}
+)
 var file_inspire_gateway_v1_reconcile_reconcile_proto_depIdxs = []int32{
 	0, // 0: inspire.gateway.reconciliation.v1.Gateway.Reconcile:input_type -> inspire.gateway.reconciliation.v1.ReconcileRequest
 	1, // 1: inspire.gateway.reconciliation.v1.Gateway.Reconcile:output_type -> inspire.gateway.reconciliation.v1.ReconcileResponse

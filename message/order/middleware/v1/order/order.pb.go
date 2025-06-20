@@ -7,13 +7,14 @@
 package order
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/good/v1"
 	v11 "github.com/NpoolPlatform/kunman/message/basetypes/order/v1"
 	v12 "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -749,23 +750,25 @@ func file_order_middleware_v1_order_order_proto_rawDescGZIP() []byte {
 	return file_order_middleware_v1_order_order_proto_rawDescData
 }
 
-var file_order_middleware_v1_order_order_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
-var file_order_middleware_v1_order_order_proto_goTypes = []interface{}{
-	(*Order)(nil),              // 0: order.middleware.order1.v1.Order
-	(*Conds)(nil),              // 1: order.middleware.order1.v1.Conds
-	(v1.GoodType)(0),           // 2: basetypes.good.v1.GoodType
-	(v11.OrderType)(0),         // 3: basetypes.order.v1.OrderType
-	(v11.PaymentType)(0),       // 4: basetypes.order.v1.PaymentType
-	(v11.OrderCreateMethod)(0), // 5: basetypes.order.v1.OrderCreateMethod
-	(v11.OrderState)(0),        // 6: basetypes.order.v1.OrderState
-	(v11.OrderStartMode)(0),    // 7: basetypes.order.v1.OrderStartMode
-	(v11.BenefitState)(0),      // 8: basetypes.order.v1.BenefitState
-	(*v12.Uint32Val)(nil),      // 9: basetypes.v1.Uint32Val
-	(*v12.Uint32SliceVal)(nil), // 10: basetypes.v1.Uint32SliceVal
-	(*v12.StringVal)(nil),      // 11: basetypes.v1.StringVal
-	(*v12.StringSliceVal)(nil), // 12: basetypes.v1.StringSliceVal
-	(*v12.BoolVal)(nil),        // 13: basetypes.v1.BoolVal
-}
+var (
+	file_order_middleware_v1_order_order_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
+	file_order_middleware_v1_order_order_proto_goTypes  = []interface{}{
+		(*Order)(nil),              // 0: order.middleware.order1.v1.Order
+		(*Conds)(nil),              // 1: order.middleware.order1.v1.Conds
+		(v1.GoodType)(0),           // 2: basetypes.good.v1.GoodType
+		(v11.OrderType)(0),         // 3: basetypes.order.v1.OrderType
+		(v11.PaymentType)(0),       // 4: basetypes.order.v1.PaymentType
+		(v11.OrderCreateMethod)(0), // 5: basetypes.order.v1.OrderCreateMethod
+		(v11.OrderState)(0),        // 6: basetypes.order.v1.OrderState
+		(v11.OrderStartMode)(0),    // 7: basetypes.order.v1.OrderStartMode
+		(v11.BenefitState)(0),      // 8: basetypes.order.v1.BenefitState
+		(*v12.Uint32Val)(nil),      // 9: basetypes.v1.Uint32Val
+		(*v12.Uint32SliceVal)(nil), // 10: basetypes.v1.Uint32SliceVal
+		(*v12.StringVal)(nil),      // 11: basetypes.v1.StringVal
+		(*v12.StringSliceVal)(nil), // 12: basetypes.v1.StringSliceVal
+		(*v12.BoolVal)(nil),        // 13: basetypes.v1.BoolVal
+	}
+)
 var file_order_middleware_v1_order_order_proto_depIdxs = []int32{
 	2,  // 0: order.middleware.order1.v1.Order.GoodType:type_name -> basetypes.good.v1.GoodType
 	3,  // 1: order.middleware.order1.v1.Order.OrderType:type_name -> basetypes.order.v1.OrderType

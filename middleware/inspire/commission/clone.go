@@ -12,7 +12,7 @@ import (
 	"github.com/shopspring/decimal"
 )
 
-func (h *Handler) CloneCommissions(ctx context.Context) error { //nolint
+func (h *Handler) CloneCommissions(ctx context.Context) error {
 	if *h.FromAppGoodID == *h.ToAppGoodID {
 		return nil
 	}

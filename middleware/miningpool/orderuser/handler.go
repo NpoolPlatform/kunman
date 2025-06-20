@@ -5,9 +5,9 @@ import (
 
 	"github.com/NpoolPlatform/kunman/framework/wlog"
 	npool "github.com/NpoolPlatform/kunman/message/miningpool/middleware/v1/orderuser"
-	constant "github.com/NpoolPlatform/kunman/pkg/const"
 	orderusercrud "github.com/NpoolPlatform/kunman/middleware/miningpool/crud/orderuser"
 	"github.com/NpoolPlatform/kunman/middleware/miningpool/gooduser"
+	constant "github.com/NpoolPlatform/kunman/pkg/const"
 	"github.com/shopspring/decimal"
 
 	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"

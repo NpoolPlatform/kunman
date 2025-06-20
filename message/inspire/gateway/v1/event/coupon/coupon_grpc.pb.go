@@ -8,6 +8,7 @@ package coupon
 
 import (
 	context "context"
+
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -103,21 +104,24 @@ type GatewayServer interface {
 }
 
 // UnimplementedGatewayServer must be embedded to have forward compatible implementations.
-type UnimplementedGatewayServer struct {
-}
+type UnimplementedGatewayServer struct{}
 
 func (UnimplementedGatewayServer) CreateEventCoupon(context.Context, *CreateEventCouponRequest) (*CreateEventCouponResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateEventCoupon not implemented")
 }
+
 func (UnimplementedGatewayServer) GetEventCoupons(context.Context, *GetEventCouponsRequest) (*GetEventCouponsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetEventCoupons not implemented")
 }
+
 func (UnimplementedGatewayServer) AdminGetEventCoupons(context.Context, *AdminGetEventCouponsRequest) (*AdminGetEventCouponsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AdminGetEventCoupons not implemented")
 }
+
 func (UnimplementedGatewayServer) AdminCreateEventCoupon(context.Context, *AdminCreateEventCouponRequest) (*AdminCreateEventCouponResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AdminCreateEventCoupon not implemented")
 }
+
 func (UnimplementedGatewayServer) AdminDeleteEventCoupon(context.Context, *AdminDeleteEventCouponRequest) (*AdminDeleteEventCouponResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AdminDeleteEventCoupon not implemented")
 }

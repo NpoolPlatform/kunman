@@ -14,8 +14,8 @@ import (
 	"github.com/shopspring/decimal"
 	"github.com/stretchr/testify/assert"
 
-	"github.com/NpoolPlatform/kunman/middleware/inspire/testinit"
 	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
+	"github.com/NpoolPlatform/kunman/middleware/inspire/testinit"
 )
 
 func init() {
@@ -27,15 +27,13 @@ func init() {
 	}
 }
 
-var (
-	ret = npool.UserCoinReward{
-		EntID:       uuid.NewString(),
-		AppID:       uuid.NewString(),
-		UserID:      uuid.NewString(),
-		CoinTypeID:  uuid.NewString(),
-		CoinRewards: decimal.RequireFromString("11.25").String(),
-	}
-)
+var ret = npool.UserCoinReward{
+	EntID:       uuid.NewString(),
+	AppID:       uuid.NewString(),
+	UserID:      uuid.NewString(),
+	CoinTypeID:  uuid.NewString(),
+	CoinRewards: decimal.RequireFromString("11.25").String(),
+}
 
 func setup(t *testing.T) func(*testing.T) {
 	return func(*testing.T) {}

@@ -8,8 +8,8 @@ import (
 	"testing"
 	"time"
 
-	commission1 "github.com/NpoolPlatform/kunman/middleware/inspire/app/config"
 	appconfigmwpb "github.com/NpoolPlatform/kunman/message/inspire/middleware/v1/app/config"
+	commission1 "github.com/NpoolPlatform/kunman/middleware/inspire/app/config"
 
 	types "github.com/NpoolPlatform/kunman/message/basetypes/inspire/v1"
 	orderstatementmwpb "github.com/NpoolPlatform/kunman/message/inspire/middleware/v1/achievement/statement/order"

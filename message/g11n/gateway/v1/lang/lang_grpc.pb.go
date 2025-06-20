@@ -8,6 +8,7 @@ package lang
 
 import (
 	context "context"
+
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -91,18 +92,20 @@ type GatewayServer interface {
 }
 
 // UnimplementedGatewayServer must be embedded to have forward compatible implementations.
-type UnimplementedGatewayServer struct {
-}
+type UnimplementedGatewayServer struct{}
 
 func (UnimplementedGatewayServer) CreateLang(context.Context, *CreateLangRequest) (*CreateLangResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateLang not implemented")
 }
+
 func (UnimplementedGatewayServer) CreateLangs(context.Context, *CreateLangsRequest) (*CreateLangsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateLangs not implemented")
 }
+
 func (UnimplementedGatewayServer) UpdateLang(context.Context, *UpdateLangRequest) (*UpdateLangResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateLang not implemented")
 }
+
 func (UnimplementedGatewayServer) GetLangs(context.Context, *GetLangsRequest) (*GetLangsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetLangs not implemented")
 }

@@ -60,7 +60,7 @@ func (h *orderHandler) getPaymentAccounts(ctx context.Context) (err error) {
 func (h *orderHandler) checkFirstOrderComplatedHistory(ctx context.Context) error {
 	eventType := basetypes.UsedFor_FirstOrderCompleted
 	eventConds := &eventmwpb.Conds{
-		AppID:     &basetypes.StringVal{Op: cruder.EQ, Value: h.PowerRentalOrder.AppID},
+		AppID:     &basetypes.StringVal{Op: cruder.EQ, Value: h.AppID},
 		EventType: &basetypes.Uint32Val{Op: cruder.EQ, Value: uint32(eventType)},
 	}
 	eventHandler, err := eventmw.NewHandler(
@@ -80,7 +80,7 @@ func (h *orderHandler) checkFirstOrderComplatedHistory(ctx context.Context) erro
 	}
 
 	tcConds := &taskconfigmwpb.Conds{
-		AppID:   &basetypes.StringVal{Op: cruder.EQ, Value: h.PowerRentalOrder.AppID},
+		AppID:   &basetypes.StringVal{Op: cruder.EQ, Value: h.AppID},
 		EventID: &basetypes.StringVal{Op: cruder.EQ, Value: ev.EntID},
 	}
 	tcHandler, err := taskconfigmw.NewHandler(
@@ -100,7 +100,7 @@ func (h *orderHandler) checkFirstOrderComplatedHistory(ctx context.Context) erro
 	}
 
 	tuConds := &taskusermwpb.Conds{
-		AppID:   &basetypes.StringVal{Op: cruder.EQ, Value: h.PowerRentalOrder.AppID},
+		AppID:   &basetypes.StringVal{Op: cruder.EQ, Value: h.AppID},
 		EventID: &basetypes.StringVal{Op: cruder.EQ, Value: ev.EntID},
 		TaskID:  &basetypes.StringVal{Op: cruder.EQ, Value: taskConfig.EntID},
 		UserID:  &basetypes.StringVal{Op: cruder.EQ, Value: h.UserID},
@@ -128,7 +128,7 @@ func (h *orderHandler) checkFirstOrderComplatedHistory(ctx context.Context) erro
 func (h *orderHandler) checkOrderComplatedHistory(ctx context.Context) error {
 	eventType := basetypes.UsedFor_OrderCompleted
 	eventConds := &eventmwpb.Conds{
-		AppID:     &basetypes.StringVal{Op: cruder.EQ, Value: h.PowerRentalOrder.AppID},
+		AppID:     &basetypes.StringVal{Op: cruder.EQ, Value: h.AppID},
 		EventType: &basetypes.Uint32Val{Op: cruder.EQ, Value: uint32(eventType)},
 	}
 	eventHandler, err := eventmw.NewHandler(
@@ -148,7 +148,7 @@ func (h *orderHandler) checkOrderComplatedHistory(ctx context.Context) error {
 	}
 
 	tcConds := &taskconfigmwpb.Conds{
-		AppID:   &basetypes.StringVal{Op: cruder.EQ, Value: h.PowerRentalOrder.AppID},
+		AppID:   &basetypes.StringVal{Op: cruder.EQ, Value: h.AppID},
 		EventID: &basetypes.StringVal{Op: cruder.EQ, Value: ev.EntID},
 	}
 	tcHandler, err := taskconfigmw.NewHandler(
@@ -168,7 +168,7 @@ func (h *orderHandler) checkOrderComplatedHistory(ctx context.Context) error {
 	}
 
 	tuConds := &taskusermwpb.Conds{
-		AppID:   &basetypes.StringVal{Op: cruder.EQ, Value: h.PowerRentalOrder.AppID},
+		AppID:   &basetypes.StringVal{Op: cruder.EQ, Value: h.AppID},
 		EventID: &basetypes.StringVal{Op: cruder.EQ, Value: ev.EntID},
 		TaskID:  &basetypes.StringVal{Op: cruder.EQ, Value: taskConfig.EntID},
 		UserID:  &basetypes.StringVal{Op: cruder.EQ, Value: h.UserID},
@@ -202,10 +202,7 @@ func (h *orderHandler) final(ctx context.Context, err *error) {
 			"Error", *err,
 		)
 	}
-	existOrderCompletedHistory := false
-	if h.existFirstOrderCompletedHistory || h.existOrderCompletedHistory {
-		existOrderCompletedHistory = true
-	}
+	existOrderCompletedHistory := h.existFirstOrderCompletedHistory || h.existOrderCompletedHistory
 	persistentOrder := &types.PersistentOrder{
 		PowerRentalOrder: h.PowerRentalOrder,
 		PaymentAccountIDs: func() (ids []uint32) {

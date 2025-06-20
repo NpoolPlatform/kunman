@@ -8,6 +8,7 @@ package good
 
 import (
 	context "context"
+
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -139,30 +140,36 @@ type GatewayServer interface {
 }
 
 // UnimplementedGatewayServer must be embedded to have forward compatible implementations.
-type UnimplementedGatewayServer struct {
-}
+type UnimplementedGatewayServer struct{}
 
 func (UnimplementedGatewayServer) CreateTopMostGood(context.Context, *CreateTopMostGoodRequest) (*CreateTopMostGoodResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateTopMostGood not implemented")
 }
+
 func (UnimplementedGatewayServer) GetTopMostGoods(context.Context, *GetTopMostGoodsRequest) (*GetTopMostGoodsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetTopMostGoods not implemented")
 }
+
 func (UnimplementedGatewayServer) DeleteTopMostGood(context.Context, *DeleteTopMostGoodRequest) (*DeleteTopMostGoodResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteTopMostGood not implemented")
 }
+
 func (UnimplementedGatewayServer) UpdateTopMostGood(context.Context, *UpdateTopMostGoodRequest) (*UpdateTopMostGoodResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateTopMostGood not implemented")
 }
+
 func (UnimplementedGatewayServer) AdminCreateTopMostGood(context.Context, *AdminCreateTopMostGoodRequest) (*AdminCreateTopMostGoodResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AdminCreateTopMostGood not implemented")
 }
+
 func (UnimplementedGatewayServer) AdminGetTopMostGoods(context.Context, *AdminGetTopMostGoodsRequest) (*AdminGetTopMostGoodsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AdminGetTopMostGoods not implemented")
 }
+
 func (UnimplementedGatewayServer) AdminUpdateTopMostGood(context.Context, *AdminUpdateTopMostGoodRequest) (*AdminUpdateTopMostGoodResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AdminUpdateTopMostGood not implemented")
 }
+
 func (UnimplementedGatewayServer) AdminDeleteTopMostGood(context.Context, *AdminDeleteTopMostGoodRequest) (*AdminDeleteTopMostGoodResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AdminDeleteTopMostGood not implemented")
 }

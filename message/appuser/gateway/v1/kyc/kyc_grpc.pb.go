@@ -8,6 +8,7 @@ package kyc
 
 import (
 	context "context"
+
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -151,33 +152,40 @@ type GatewayServer interface {
 }
 
 // UnimplementedGatewayServer must be embedded to have forward compatible implementations.
-type UnimplementedGatewayServer struct {
-}
+type UnimplementedGatewayServer struct{}
 
 func (UnimplementedGatewayServer) CreateKyc(context.Context, *CreateKycRequest) (*CreateKycResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateKyc not implemented")
 }
+
 func (UnimplementedGatewayServer) UpdateKyc(context.Context, *UpdateKycRequest) (*UpdateKycResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateKyc not implemented")
 }
+
 func (UnimplementedGatewayServer) GetKyc(context.Context, *GetKycRequest) (*GetKycResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetKyc not implemented")
 }
+
 func (UnimplementedGatewayServer) GetKycs(context.Context, *GetKycsRequest) (*GetKycsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetKycs not implemented")
 }
+
 func (UnimplementedGatewayServer) GetAppKycs(context.Context, *GetAppKycsRequest) (*GetAppKycsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetAppKycs not implemented")
 }
+
 func (UnimplementedGatewayServer) UploadKycImage(context.Context, *UploadKycImageRequest) (*UploadKycImageResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UploadKycImage not implemented")
 }
+
 func (UnimplementedGatewayServer) GetKycImage(context.Context, *GetKycImageRequest) (*GetKycImageResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetKycImage not implemented")
 }
+
 func (UnimplementedGatewayServer) GetUserKycImage(context.Context, *GetUserKycImageRequest) (*GetUserKycImageResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetUserKycImage not implemented")
 }
+
 func (UnimplementedGatewayServer) GetAppUserKycImage(context.Context, *GetAppUserKycImageRequest) (*GetAppUserKycImageResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetAppUserKycImage not implemented")
 }

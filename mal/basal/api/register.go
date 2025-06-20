@@ -134,7 +134,7 @@ func Register(mux *runtime.ServeMux) error {
 	return registerHttp(apis)
 }
 
-func registerHttp(apis []*npool.APIReq) error { //nolint
+func registerHttp(apis []*npool.APIReq) error {
 	serviceName := config.GetStringValueWithNameSpace("", config.KeyHostname)
 	gatewayRouters, err := getGatewayRouters(serviceName)
 	if err != nil {
@@ -151,7 +151,6 @@ func registerHttp(apis []*npool.APIReq) error { //nolint
 			return err
 		}
 		routerPath, err := router.Path()
-
 		if err != nil {
 			return err
 		}

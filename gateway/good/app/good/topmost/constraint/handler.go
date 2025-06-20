@@ -5,8 +5,8 @@ import (
 	"fmt"
 
 	topmostcommon "github.com/NpoolPlatform/kunman/gateway/good/app/good/topmost/common"
-	constant "github.com/NpoolPlatform/kunman/pkg/const"
 	types "github.com/NpoolPlatform/kunman/message/basetypes/good/v1"
+	constant "github.com/NpoolPlatform/kunman/pkg/const"
 
 	"github.com/google/uuid"
 	"github.com/shopspring/decimal"

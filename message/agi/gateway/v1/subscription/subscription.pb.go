@@ -7,13 +7,14 @@
 package subscription
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	subscription "github.com/NpoolPlatform/kunman/message/agi/middleware/v1/subscription"
 	_ "github.com/NpoolPlatform/kunman/message/basetypes/agi/v1"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -710,20 +711,22 @@ func file_agi_gateway_v1_subscription_subscription_proto_rawDescGZIP() []byte {
 	return file_agi_gateway_v1_subscription_subscription_proto_rawDescData
 }
 
-var file_agi_gateway_v1_subscription_subscription_proto_msgTypes = make([]protoimpl.MessageInfo, 10)
-var file_agi_gateway_v1_subscription_subscription_proto_goTypes = []interface{}{
-	(*GetSubscriptionRequest)(nil),          // 0: agi.gateway.subscription.v1.GetSubscriptionRequest
-	(*GetSubscriptionResponse)(nil),         // 1: agi.gateway.subscription.v1.GetSubscriptionResponse
-	(*GetSubscriptionsRequest)(nil),         // 2: agi.gateway.subscription.v1.GetSubscriptionsRequest
-	(*GetSubscriptionsResponse)(nil),        // 3: agi.gateway.subscription.v1.GetSubscriptionsResponse
-	(*CountSubscriptionsRequest)(nil),       // 4: agi.gateway.subscription.v1.CountSubscriptionsRequest
-	(*CountSubscriptionsResponse)(nil),      // 5: agi.gateway.subscription.v1.CountSubscriptionsResponse
-	(*AdminGetSubscriptionsRequest)(nil),    // 6: agi.gateway.subscription.v1.AdminGetSubscriptionsRequest
-	(*AdminGetSubscriptionsResponse)(nil),   // 7: agi.gateway.subscription.v1.AdminGetSubscriptionsResponse
-	(*AdminCountSubscriptionsRequest)(nil),  // 8: agi.gateway.subscription.v1.AdminCountSubscriptionsRequest
-	(*AdminCountSubscriptionsResponse)(nil), // 9: agi.gateway.subscription.v1.AdminCountSubscriptionsResponse
-	(*subscription.Subscription)(nil),       // 10: agi.middleware.subscription.v1.Subscription
-}
+var (
+	file_agi_gateway_v1_subscription_subscription_proto_msgTypes = make([]protoimpl.MessageInfo, 10)
+	file_agi_gateway_v1_subscription_subscription_proto_goTypes  = []interface{}{
+		(*GetSubscriptionRequest)(nil),          // 0: agi.gateway.subscription.v1.GetSubscriptionRequest
+		(*GetSubscriptionResponse)(nil),         // 1: agi.gateway.subscription.v1.GetSubscriptionResponse
+		(*GetSubscriptionsRequest)(nil),         // 2: agi.gateway.subscription.v1.GetSubscriptionsRequest
+		(*GetSubscriptionsResponse)(nil),        // 3: agi.gateway.subscription.v1.GetSubscriptionsResponse
+		(*CountSubscriptionsRequest)(nil),       // 4: agi.gateway.subscription.v1.CountSubscriptionsRequest
+		(*CountSubscriptionsResponse)(nil),      // 5: agi.gateway.subscription.v1.CountSubscriptionsResponse
+		(*AdminGetSubscriptionsRequest)(nil),    // 6: agi.gateway.subscription.v1.AdminGetSubscriptionsRequest
+		(*AdminGetSubscriptionsResponse)(nil),   // 7: agi.gateway.subscription.v1.AdminGetSubscriptionsResponse
+		(*AdminCountSubscriptionsRequest)(nil),  // 8: agi.gateway.subscription.v1.AdminCountSubscriptionsRequest
+		(*AdminCountSubscriptionsResponse)(nil), // 9: agi.gateway.subscription.v1.AdminCountSubscriptionsResponse
+		(*subscription.Subscription)(nil),       // 10: agi.middleware.subscription.v1.Subscription
+	}
+)
 var file_agi_gateway_v1_subscription_subscription_proto_depIdxs = []int32{
 	10, // 0: agi.gateway.subscription.v1.GetSubscriptionResponse.Info:type_name -> agi.middleware.subscription.v1.Subscription
 	10, // 1: agi.gateway.subscription.v1.GetSubscriptionsResponse.Infos:type_name -> agi.middleware.subscription.v1.Subscription

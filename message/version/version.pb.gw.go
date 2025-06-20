@@ -26,11 +26,14 @@ import (
 
 // Suppress "imported and not used" errors
 var _ codes.Code
-var _ io.Reader
-var _ status.Status
-var _ = runtime.String
-var _ = utilities.NewDoubleArray
-var _ = metadata.Join
+
+var (
+	_ io.Reader
+	_ status.Status
+	_ = runtime.String
+	_ = utilities.NewDoubleArray
+	_ = metadata.Join
+)
 
 func request_Kunman_Version_0(ctx context.Context, marshaler runtime.Marshaler, client KunmanClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq emptypb.Empty
@@ -46,7 +49,6 @@ func request_Kunman_Version_0(ctx context.Context, marshaler runtime.Marshaler, 
 
 	msg, err := client.Version(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_Kunman_Version_0(ctx context.Context, marshaler runtime.Marshaler, server KunmanServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
@@ -63,7 +65,6 @@ func local_request_Kunman_Version_0(ctx context.Context, marshaler runtime.Marsh
 
 	msg, err := server.Version(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
 // RegisterKunmanHandlerServer registers the http handlers for service Kunman to "mux".
@@ -71,7 +72,6 @@ func local_request_Kunman_Version_0(ctx context.Context, marshaler runtime.Marsh
 // StreamingRPC :currently unsupported pending https://github.com/grpc/grpc-go/issues/906.
 // Note that using this registration option will cause many gRPC library features to stop working. Consider using RegisterKunmanHandlerFromEndpoint instead.
 func RegisterKunmanHandlerServer(ctx context.Context, mux *runtime.ServeMux, server KunmanServer) error {
-
 	mux.Handle("POST", pattern_Kunman_Version_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
@@ -92,7 +92,6 @@ func RegisterKunmanHandlerServer(ctx context.Context, mux *runtime.ServeMux, ser
 		}
 
 		forward_Kunman_Version_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
 
 	return nil
@@ -135,7 +134,6 @@ func RegisterKunmanHandler(ctx context.Context, mux *runtime.ServeMux, conn *grp
 // doesn't go through the normal gRPC flow (creating a gRPC client etc.) then it will be up to the passed in
 // "KunmanClient" to call the correct interceptors.
 func RegisterKunmanHandlerClient(ctx context.Context, mux *runtime.ServeMux, client KunmanClient) error {
-
 	mux.Handle("POST", pattern_Kunman_Version_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
@@ -153,16 +151,11 @@ func RegisterKunmanHandlerClient(ctx context.Context, mux *runtime.ServeMux, cli
 		}
 
 		forward_Kunman_Version_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
 
 	return nil
 }
 
-var (
-	pattern_Kunman_Version_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"v1", "version"}, ""))
-)
+var pattern_Kunman_Version_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"v1", "version"}, ""))
 
-var (
-	forward_Kunman_Version_0 = runtime.ForwardResponseMessage
-)
+var forward_Kunman_Version_0 = runtime.ForwardResponseMessage

@@ -8,6 +8,7 @@ package score
 
 import (
 	context "context"
+
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -103,21 +104,24 @@ type GatewayServer interface {
 }
 
 // UnimplementedGatewayServer must be embedded to have forward compatible implementations.
-type UnimplementedGatewayServer struct {
-}
+type UnimplementedGatewayServer struct{}
 
 func (UnimplementedGatewayServer) CreateScore(context.Context, *CreateScoreRequest) (*CreateScoreResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateScore not implemented")
 }
+
 func (UnimplementedGatewayServer) GetMyScores(context.Context, *GetMyScoresRequest) (*GetMyScoresResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetMyScores not implemented")
 }
+
 func (UnimplementedGatewayServer) GetScores(context.Context, *GetScoresRequest) (*GetScoresResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetScores not implemented")
 }
+
 func (UnimplementedGatewayServer) DeleteScore(context.Context, *DeleteScoreRequest) (*DeleteScoreResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteScore not implemented")
 }
+
 func (UnimplementedGatewayServer) AdminGetScores(context.Context, *AdminGetScoresRequest) (*AdminGetScoresResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AdminGetScores not implemented")
 }

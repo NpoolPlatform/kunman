@@ -7,11 +7,12 @@
 package auth
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -464,14 +465,16 @@ func file_appuser_middleware_v1_authing_auth_auth_proto_rawDescGZIP() []byte {
 	return file_appuser_middleware_v1_authing_auth_auth_proto_rawDescData
 }
 
-var file_appuser_middleware_v1_authing_auth_auth_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
-var file_appuser_middleware_v1_authing_auth_auth_proto_goTypes = []interface{}{
-	(*AuthReq)(nil),      // 0: appuser.middleware.authing.auth.v1.AuthReq
-	(*Auth)(nil),         // 1: appuser.middleware.authing.auth.v1.Auth
-	(*Conds)(nil),        // 2: appuser.middleware.authing.auth.v1.Conds
-	(*v1.Uint32Val)(nil), // 3: basetypes.v1.Uint32Val
-	(*v1.StringVal)(nil), // 4: basetypes.v1.StringVal
-}
+var (
+	file_appuser_middleware_v1_authing_auth_auth_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
+	file_appuser_middleware_v1_authing_auth_auth_proto_goTypes  = []interface{}{
+		(*AuthReq)(nil),      // 0: appuser.middleware.authing.auth.v1.AuthReq
+		(*Auth)(nil),         // 1: appuser.middleware.authing.auth.v1.Auth
+		(*Conds)(nil),        // 2: appuser.middleware.authing.auth.v1.Conds
+		(*v1.Uint32Val)(nil), // 3: basetypes.v1.Uint32Val
+		(*v1.StringVal)(nil), // 4: basetypes.v1.StringVal
+	}
+)
 var file_appuser_middleware_v1_authing_auth_auth_proto_depIdxs = []int32{
 	3, // 0: appuser.middleware.authing.auth.v1.Conds.ID:type_name -> basetypes.v1.Uint32Val
 	4, // 1: appuser.middleware.authing.auth.v1.Conds.EntID:type_name -> basetypes.v1.StringVal

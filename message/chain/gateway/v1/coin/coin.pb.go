@@ -7,13 +7,14 @@
 package coin
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	coin "github.com/NpoolPlatform/kunman/message/chain/middleware/v1/coin"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -754,17 +755,19 @@ func file_chain_gateway_v1_coin_coin_proto_rawDescGZIP() []byte {
 	return file_chain_gateway_v1_coin_coin_proto_rawDescData
 }
 
-var file_chain_gateway_v1_coin_coin_proto_msgTypes = make([]protoimpl.MessageInfo, 6)
-var file_chain_gateway_v1_coin_coin_proto_goTypes = []interface{}{
-	(*CreateCoinRequest)(nil),  // 0: chain.gateway.coin.v1.CreateCoinRequest
-	(*CreateCoinResponse)(nil), // 1: chain.gateway.coin.v1.CreateCoinResponse
-	(*GetCoinsRequest)(nil),    // 2: chain.gateway.coin.v1.GetCoinsRequest
-	(*GetCoinsResponse)(nil),   // 3: chain.gateway.coin.v1.GetCoinsResponse
-	(*UpdateCoinRequest)(nil),  // 4: chain.gateway.coin.v1.UpdateCoinRequest
-	(*UpdateCoinResponse)(nil), // 5: chain.gateway.coin.v1.UpdateCoinResponse
-	(v1.GasType)(0),            // 6: basetypes.v1.GasType
-	(*coin.Coin)(nil),          // 7: chain.middleware.coin.v1.Coin
-}
+var (
+	file_chain_gateway_v1_coin_coin_proto_msgTypes = make([]protoimpl.MessageInfo, 6)
+	file_chain_gateway_v1_coin_coin_proto_goTypes  = []interface{}{
+		(*CreateCoinRequest)(nil),  // 0: chain.gateway.coin.v1.CreateCoinRequest
+		(*CreateCoinResponse)(nil), // 1: chain.gateway.coin.v1.CreateCoinResponse
+		(*GetCoinsRequest)(nil),    // 2: chain.gateway.coin.v1.GetCoinsRequest
+		(*GetCoinsResponse)(nil),   // 3: chain.gateway.coin.v1.GetCoinsResponse
+		(*UpdateCoinRequest)(nil),  // 4: chain.gateway.coin.v1.UpdateCoinRequest
+		(*UpdateCoinResponse)(nil), // 5: chain.gateway.coin.v1.UpdateCoinResponse
+		(v1.GasType)(0),            // 6: basetypes.v1.GasType
+		(*coin.Coin)(nil),          // 7: chain.middleware.coin.v1.Coin
+	}
+)
 var file_chain_gateway_v1_coin_coin_proto_depIdxs = []int32{
 	6, // 0: chain.gateway.coin.v1.CreateCoinRequest.GasType:type_name -> basetypes.v1.GasType
 	7, // 1: chain.gateway.coin.v1.CreateCoinResponse.Info:type_name -> chain.middleware.coin.v1.Coin

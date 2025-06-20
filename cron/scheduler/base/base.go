@@ -34,14 +34,14 @@ type syncMap struct {
 	subsystem  string
 }
 
-func (s *syncMap) Store(key, value interface{}) (bool, bool) { //nolint
+func (s *syncMap) Store(key, value interface{}) (bool, bool) {
 	desc := &idDesc{
 		id:        key.(string),
 		subsystem: s.subsystem,
 		start:     time.Now(),
 		value:     value,
 	}
-	_desc, loaded := s.Map.LoadOrStore(key, desc)
+	_desc, loaded := s.LoadOrStore(key, desc)
 	if !loaded {
 		if s.count >= s.concurrent && s.concurrent < math.MaxInt {
 			s.Map.Delete(key)
@@ -70,11 +70,11 @@ func (s *syncMap) Store(key, value interface{}) (bool, bool) { //nolint
 }
 
 func (s *syncMap) Delete(key interface{}) {
-	desc, ok := s.Map.LoadAndDelete(key)
+	desc, ok := s.LoadAndDelete(key)
 	if !ok {
 		return
 	}
-	if time.Now().Sub(desc.(*idDesc).start).Seconds() > 10 { //nolint
+	if time.Since(desc.(*idDesc).start).Seconds() > 10 {
 		logger.Sugar().Warnw(
 			"Delete",
 			"ID", desc.(*idDesc).id,
@@ -323,7 +323,7 @@ func (h *Handler) Finalize(ctx context.Context) {
 		return
 	}
 	if h.locked {
-		_ = redis2.Unlock(h.lockKey()) //nolint
+		_ = redis2.Unlock(h.lockKey())
 	}
 	h.cancel()
 	h.sentinel.Finalize(ctx)

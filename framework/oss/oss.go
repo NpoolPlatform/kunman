@@ -5,7 +5,7 @@ import (
 	"context"
 	"encoding/json"
 	"errors"
-	"io/ioutil"
+	"io"
 	"net"
 	"net/http"
 	"time"
@@ -46,7 +46,6 @@ type S3Config struct {
 	Bucket    string `json:"bucket,omitempty"`
 }
 
-// nolint
 func Init(storeType, bucketKey string) error {
 	keyStore := myconfig.GetStringValueWithNameSpace(ossconst.S3NameSpace, storeType)
 	s3Config := S3Config{}
@@ -133,7 +132,7 @@ func GetObject(ctx context.Context, key string, decrypt bool) ([]byte, error) {
 
 	defer s3out.Body.Close()
 
-	out, err := ioutil.ReadAll(s3out.Body)
+	out, err := io.ReadAll(s3out.Body)
 	if err != nil {
 		return nil, err
 	}

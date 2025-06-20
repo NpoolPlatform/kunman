@@ -7,12 +7,13 @@
 package coin
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/good/v1"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -877,20 +878,22 @@ func file_good_gateway_v1_good_coin_coin_proto_rawDescGZIP() []byte {
 	return file_good_gateway_v1_good_coin_coin_proto_rawDescData
 }
 
-var file_good_gateway_v1_good_coin_coin_proto_msgTypes = make([]protoimpl.MessageInfo, 10)
-var file_good_gateway_v1_good_coin_coin_proto_goTypes = []interface{}{
-	(*GoodCoin)(nil),                    // 0: good.gateway.good1.coin.v1.GoodCoin
-	(*GoodCoinInfo)(nil),                // 1: good.gateway.good1.coin.v1.GoodCoinInfo
-	(*AdminCreateGoodCoinRequest)(nil),  // 2: good.gateway.good1.coin.v1.AdminCreateGoodCoinRequest
-	(*AdminCreateGoodCoinResponse)(nil), // 3: good.gateway.good1.coin.v1.AdminCreateGoodCoinResponse
-	(*AdminUpdateGoodCoinRequest)(nil),  // 4: good.gateway.good1.coin.v1.AdminUpdateGoodCoinRequest
-	(*AdminUpdateGoodCoinResponse)(nil), // 5: good.gateway.good1.coin.v1.AdminUpdateGoodCoinResponse
-	(*GetGoodCoinsRequest)(nil),         // 6: good.gateway.good1.coin.v1.GetGoodCoinsRequest
-	(*GetGoodCoinsResponse)(nil),        // 7: good.gateway.good1.coin.v1.GetGoodCoinsResponse
-	(*AdminDeleteGoodCoinRequest)(nil),  // 8: good.gateway.good1.coin.v1.AdminDeleteGoodCoinRequest
-	(*AdminDeleteGoodCoinResponse)(nil), // 9: good.gateway.good1.coin.v1.AdminDeleteGoodCoinResponse
-	(v1.GoodType)(0),                    // 10: basetypes.good.v1.GoodType
-}
+var (
+	file_good_gateway_v1_good_coin_coin_proto_msgTypes = make([]protoimpl.MessageInfo, 10)
+	file_good_gateway_v1_good_coin_coin_proto_goTypes  = []interface{}{
+		(*GoodCoin)(nil),                    // 0: good.gateway.good1.coin.v1.GoodCoin
+		(*GoodCoinInfo)(nil),                // 1: good.gateway.good1.coin.v1.GoodCoinInfo
+		(*AdminCreateGoodCoinRequest)(nil),  // 2: good.gateway.good1.coin.v1.AdminCreateGoodCoinRequest
+		(*AdminCreateGoodCoinResponse)(nil), // 3: good.gateway.good1.coin.v1.AdminCreateGoodCoinResponse
+		(*AdminUpdateGoodCoinRequest)(nil),  // 4: good.gateway.good1.coin.v1.AdminUpdateGoodCoinRequest
+		(*AdminUpdateGoodCoinResponse)(nil), // 5: good.gateway.good1.coin.v1.AdminUpdateGoodCoinResponse
+		(*GetGoodCoinsRequest)(nil),         // 6: good.gateway.good1.coin.v1.GetGoodCoinsRequest
+		(*GetGoodCoinsResponse)(nil),        // 7: good.gateway.good1.coin.v1.GetGoodCoinsResponse
+		(*AdminDeleteGoodCoinRequest)(nil),  // 8: good.gateway.good1.coin.v1.AdminDeleteGoodCoinRequest
+		(*AdminDeleteGoodCoinResponse)(nil), // 9: good.gateway.good1.coin.v1.AdminDeleteGoodCoinResponse
+		(v1.GoodType)(0),                    // 10: basetypes.good.v1.GoodType
+	}
+)
 var file_good_gateway_v1_good_coin_coin_proto_depIdxs = []int32{
 	10, // 0: good.gateway.good1.coin.v1.GoodCoin.GoodType:type_name -> basetypes.good.v1.GoodType
 	0,  // 1: good.gateway.good1.coin.v1.AdminCreateGoodCoinResponse.Info:type_name -> good.gateway.good1.coin.v1.GoodCoin

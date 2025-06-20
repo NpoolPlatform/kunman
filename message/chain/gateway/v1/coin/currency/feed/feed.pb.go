@@ -7,13 +7,14 @@
 package feed
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	feed "github.com/NpoolPlatform/kunman/message/chain/middleware/v1/coin/currency/feed"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -461,17 +462,19 @@ func file_chain_gateway_v1_coin_currency_feed_feed_proto_rawDescGZIP() []byte {
 	return file_chain_gateway_v1_coin_currency_feed_feed_proto_rawDescData
 }
 
-var file_chain_gateway_v1_coin_currency_feed_feed_proto_msgTypes = make([]protoimpl.MessageInfo, 6)
-var file_chain_gateway_v1_coin_currency_feed_feed_proto_goTypes = []interface{}{
-	(*CreateFeedRequest)(nil),  // 0: chain.gateway.coin.currency.feed.v1.CreateFeedRequest
-	(*CreateFeedResponse)(nil), // 1: chain.gateway.coin.currency.feed.v1.CreateFeedResponse
-	(*UpdateFeedRequest)(nil),  // 2: chain.gateway.coin.currency.feed.v1.UpdateFeedRequest
-	(*UpdateFeedResponse)(nil), // 3: chain.gateway.coin.currency.feed.v1.UpdateFeedResponse
-	(*GetFeedsRequest)(nil),    // 4: chain.gateway.coin.currency.feed.v1.GetFeedsRequest
-	(*GetFeedsResponse)(nil),   // 5: chain.gateway.coin.currency.feed.v1.GetFeedsResponse
-	(v1.CurrencyFeedType)(0),   // 6: basetypes.v1.CurrencyFeedType
-	(*feed.Feed)(nil),          // 7: chain.middleware.coin.currency1.feed.v1.Feed
-}
+var (
+	file_chain_gateway_v1_coin_currency_feed_feed_proto_msgTypes = make([]protoimpl.MessageInfo, 6)
+	file_chain_gateway_v1_coin_currency_feed_feed_proto_goTypes  = []interface{}{
+		(*CreateFeedRequest)(nil),  // 0: chain.gateway.coin.currency.feed.v1.CreateFeedRequest
+		(*CreateFeedResponse)(nil), // 1: chain.gateway.coin.currency.feed.v1.CreateFeedResponse
+		(*UpdateFeedRequest)(nil),  // 2: chain.gateway.coin.currency.feed.v1.UpdateFeedRequest
+		(*UpdateFeedResponse)(nil), // 3: chain.gateway.coin.currency.feed.v1.UpdateFeedResponse
+		(*GetFeedsRequest)(nil),    // 4: chain.gateway.coin.currency.feed.v1.GetFeedsRequest
+		(*GetFeedsResponse)(nil),   // 5: chain.gateway.coin.currency.feed.v1.GetFeedsResponse
+		(v1.CurrencyFeedType)(0),   // 6: basetypes.v1.CurrencyFeedType
+		(*feed.Feed)(nil),          // 7: chain.middleware.coin.currency1.feed.v1.Feed
+	}
+)
 var file_chain_gateway_v1_coin_currency_feed_feed_proto_depIdxs = []int32{
 	6, // 0: chain.gateway.coin.currency.feed.v1.CreateFeedRequest.FeedType:type_name -> basetypes.v1.CurrencyFeedType
 	7, // 1: chain.gateway.coin.currency.feed.v1.CreateFeedResponse.Info:type_name -> chain.middleware.coin.currency1.feed.v1.Feed

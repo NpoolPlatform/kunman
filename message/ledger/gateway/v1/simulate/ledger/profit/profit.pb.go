@@ -7,13 +7,14 @@
 package profit
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	v11 "github.com/NpoolPlatform/kunman/message/basetypes/good/v1"
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/ledger/v1"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -1222,23 +1223,25 @@ func file_ledger_gateway_v1_simulate_ledger_profit_profit_proto_rawDescGZIP() []
 	return file_ledger_gateway_v1_simulate_ledger_profit_profit_proto_rawDescData
 }
 
-var file_ledger_gateway_v1_simulate_ledger_profit_profit_proto_msgTypes = make([]protoimpl.MessageInfo, 11)
-var file_ledger_gateway_v1_simulate_ledger_profit_profit_proto_goTypes = []interface{}{
-	(*MiningReward)(nil),               // 0: ledger.gateway.simulate.ledger.profit.v1.MiningReward
-	(*GetMiningRewardsRequest)(nil),    // 1: ledger.gateway.simulate.ledger.profit.v1.GetMiningRewardsRequest
-	(*GetMiningRewardsResponse)(nil),   // 2: ledger.gateway.simulate.ledger.profit.v1.GetMiningRewardsResponse
-	(*Profit)(nil),                     // 3: ledger.gateway.simulate.ledger.profit.v1.Profit
-	(*GetProfitsRequest)(nil),          // 4: ledger.gateway.simulate.ledger.profit.v1.GetProfitsRequest
-	(*GetProfitsResponse)(nil),         // 5: ledger.gateway.simulate.ledger.profit.v1.GetProfitsResponse
-	(*GetIntervalProfitsRequest)(nil),  // 6: ledger.gateway.simulate.ledger.profit.v1.GetIntervalProfitsRequest
-	(*GetIntervalProfitsResponse)(nil), // 7: ledger.gateway.simulate.ledger.profit.v1.GetIntervalProfitsResponse
-	(*GoodProfit)(nil),                 // 8: ledger.gateway.simulate.ledger.profit.v1.GoodProfit
-	(*GetGoodProfitsRequest)(nil),      // 9: ledger.gateway.simulate.ledger.profit.v1.GetGoodProfitsRequest
-	(*GetGoodProfitsResponse)(nil),     // 10: ledger.gateway.simulate.ledger.profit.v1.GetGoodProfitsResponse
-	(v1.IOType)(0),                     // 11: basetypes.ledger.v1.IOType
-	(v1.IOSubType)(0),                  // 12: basetypes.ledger.v1.IOSubType
-	(v11.GoodDurationType)(0),          // 13: basetypes.good.v1.GoodDurationType
-}
+var (
+	file_ledger_gateway_v1_simulate_ledger_profit_profit_proto_msgTypes = make([]protoimpl.MessageInfo, 11)
+	file_ledger_gateway_v1_simulate_ledger_profit_profit_proto_goTypes  = []interface{}{
+		(*MiningReward)(nil),               // 0: ledger.gateway.simulate.ledger.profit.v1.MiningReward
+		(*GetMiningRewardsRequest)(nil),    // 1: ledger.gateway.simulate.ledger.profit.v1.GetMiningRewardsRequest
+		(*GetMiningRewardsResponse)(nil),   // 2: ledger.gateway.simulate.ledger.profit.v1.GetMiningRewardsResponse
+		(*Profit)(nil),                     // 3: ledger.gateway.simulate.ledger.profit.v1.Profit
+		(*GetProfitsRequest)(nil),          // 4: ledger.gateway.simulate.ledger.profit.v1.GetProfitsRequest
+		(*GetProfitsResponse)(nil),         // 5: ledger.gateway.simulate.ledger.profit.v1.GetProfitsResponse
+		(*GetIntervalProfitsRequest)(nil),  // 6: ledger.gateway.simulate.ledger.profit.v1.GetIntervalProfitsRequest
+		(*GetIntervalProfitsResponse)(nil), // 7: ledger.gateway.simulate.ledger.profit.v1.GetIntervalProfitsResponse
+		(*GoodProfit)(nil),                 // 8: ledger.gateway.simulate.ledger.profit.v1.GoodProfit
+		(*GetGoodProfitsRequest)(nil),      // 9: ledger.gateway.simulate.ledger.profit.v1.GetGoodProfitsRequest
+		(*GetGoodProfitsResponse)(nil),     // 10: ledger.gateway.simulate.ledger.profit.v1.GetGoodProfitsResponse
+		(v1.IOType)(0),                     // 11: basetypes.ledger.v1.IOType
+		(v1.IOSubType)(0),                  // 12: basetypes.ledger.v1.IOSubType
+		(v11.GoodDurationType)(0),          // 13: basetypes.good.v1.GoodDurationType
+	}
+)
 var file_ledger_gateway_v1_simulate_ledger_profit_profit_proto_depIdxs = []int32{
 	11, // 0: ledger.gateway.simulate.ledger.profit.v1.MiningReward.IOType:type_name -> basetypes.ledger.v1.IOType
 	12, // 1: ledger.gateway.simulate.ledger.profit.v1.MiningReward.IOSubType:type_name -> basetypes.ledger.v1.IOSubType

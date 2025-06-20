@@ -8,6 +8,7 @@ package profit
 
 import (
 	context "context"
+
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -79,15 +80,16 @@ type GatewayServer interface {
 }
 
 // UnimplementedGatewayServer must be embedded to have forward compatible implementations.
-type UnimplementedGatewayServer struct {
-}
+type UnimplementedGatewayServer struct{}
 
 func (UnimplementedGatewayServer) GetMiningRewards(context.Context, *GetMiningRewardsRequest) (*GetMiningRewardsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetMiningRewards not implemented")
 }
+
 func (UnimplementedGatewayServer) GetCoinProfits(context.Context, *GetCoinProfitsRequest) (*GetCoinProfitsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetCoinProfits not implemented")
 }
+
 func (UnimplementedGatewayServer) GetGoodProfits(context.Context, *GetGoodProfitsRequest) (*GetGoodProfitsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetGoodProfits not implemented")
 }

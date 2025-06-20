@@ -5,10 +5,10 @@ import (
 
 	"github.com/NpoolPlatform/kunman/framework/wlog"
 	npool "github.com/NpoolPlatform/kunman/message/miningpool/middleware/v1/fractionwithdrawalrule"
-	constant "github.com/NpoolPlatform/kunman/pkg/const"
+	"github.com/NpoolPlatform/kunman/middleware/miningpool/coin"
 	fractionwithdrawalrulecrud "github.com/NpoolPlatform/kunman/middleware/miningpool/crud/fractionwithdrawalrule"
 	poolcrud "github.com/NpoolPlatform/kunman/middleware/miningpool/crud/pool"
-	"github.com/NpoolPlatform/kunman/middleware/miningpool/coin"
+	constant "github.com/NpoolPlatform/kunman/pkg/const"
 	"github.com/shopspring/decimal"
 
 	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"

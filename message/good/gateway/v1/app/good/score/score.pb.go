@@ -7,11 +7,12 @@
 package score
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -1008,20 +1009,22 @@ func file_good_gateway_v1_app_good_score_score_proto_rawDescGZIP() []byte {
 	return file_good_gateway_v1_app_good_score_score_proto_rawDescData
 }
 
-var file_good_gateway_v1_app_good_score_score_proto_msgTypes = make([]protoimpl.MessageInfo, 11)
-var file_good_gateway_v1_app_good_score_score_proto_goTypes = []interface{}{
-	(*Score)(nil),                  // 0: good.gateway.app.good1.score.v1.Score
-	(*CreateScoreRequest)(nil),     // 1: good.gateway.app.good1.score.v1.CreateScoreRequest
-	(*CreateScoreResponse)(nil),    // 2: good.gateway.app.good1.score.v1.CreateScoreResponse
-	(*GetMyScoresRequest)(nil),     // 3: good.gateway.app.good1.score.v1.GetMyScoresRequest
-	(*GetMyScoresResponse)(nil),    // 4: good.gateway.app.good1.score.v1.GetMyScoresResponse
-	(*GetScoresRequest)(nil),       // 5: good.gateway.app.good1.score.v1.GetScoresRequest
-	(*GetScoresResponse)(nil),      // 6: good.gateway.app.good1.score.v1.GetScoresResponse
-	(*DeleteScoreRequest)(nil),     // 7: good.gateway.app.good1.score.v1.DeleteScoreRequest
-	(*DeleteScoreResponse)(nil),    // 8: good.gateway.app.good1.score.v1.DeleteScoreResponse
-	(*AdminGetScoresRequest)(nil),  // 9: good.gateway.app.good1.score.v1.AdminGetScoresRequest
-	(*AdminGetScoresResponse)(nil), // 10: good.gateway.app.good1.score.v1.AdminGetScoresResponse
-}
+var (
+	file_good_gateway_v1_app_good_score_score_proto_msgTypes = make([]protoimpl.MessageInfo, 11)
+	file_good_gateway_v1_app_good_score_score_proto_goTypes  = []interface{}{
+		(*Score)(nil),                  // 0: good.gateway.app.good1.score.v1.Score
+		(*CreateScoreRequest)(nil),     // 1: good.gateway.app.good1.score.v1.CreateScoreRequest
+		(*CreateScoreResponse)(nil),    // 2: good.gateway.app.good1.score.v1.CreateScoreResponse
+		(*GetMyScoresRequest)(nil),     // 3: good.gateway.app.good1.score.v1.GetMyScoresRequest
+		(*GetMyScoresResponse)(nil),    // 4: good.gateway.app.good1.score.v1.GetMyScoresResponse
+		(*GetScoresRequest)(nil),       // 5: good.gateway.app.good1.score.v1.GetScoresRequest
+		(*GetScoresResponse)(nil),      // 6: good.gateway.app.good1.score.v1.GetScoresResponse
+		(*DeleteScoreRequest)(nil),     // 7: good.gateway.app.good1.score.v1.DeleteScoreRequest
+		(*DeleteScoreResponse)(nil),    // 8: good.gateway.app.good1.score.v1.DeleteScoreResponse
+		(*AdminGetScoresRequest)(nil),  // 9: good.gateway.app.good1.score.v1.AdminGetScoresRequest
+		(*AdminGetScoresResponse)(nil), // 10: good.gateway.app.good1.score.v1.AdminGetScoresResponse
+	}
+)
 var file_good_gateway_v1_app_good_score_score_proto_depIdxs = []int32{
 	0,  // 0: good.gateway.app.good1.score.v1.CreateScoreResponse.Info:type_name -> good.gateway.app.good1.score.v1.Score
 	0,  // 1: good.gateway.app.good1.score.v1.GetMyScoresResponse.Infos:type_name -> good.gateway.app.good1.score.v1.Score

@@ -14,9 +14,9 @@ import (
 	"github.com/google/uuid"
 	"github.com/stretchr/testify/assert"
 
-	"github.com/NpoolPlatform/kunman/middleware/inspire/testinit"
 	types "github.com/NpoolPlatform/kunman/message/basetypes/inspire/v1"
 	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
+	"github.com/NpoolPlatform/kunman/middleware/inspire/testinit"
 )
 
 func init() {
@@ -28,23 +28,21 @@ func init() {
 	}
 }
 
-var (
-	ret = npool.AppConfig{
-		EntID:               uuid.NewString(),
-		AppID:               uuid.NewString(),
-		SettleMode:          types.SettleMode_SettleWithGoodValue,
-		SettleModeStr:       types.SettleMode_SettleWithGoodValue.String(),
-		SettleAmountType:    types.SettleAmountType_SettleByPercent,
-		SettleAmountTypeStr: types.SettleAmountType_SettleByPercent.String(),
-		SettleInterval:      types.SettleInterval_SettleYearly,
-		SettleIntervalStr:   types.SettleInterval_SettleYearly.String(),
-		CommissionType:      types.CommissionType_LayeredCommission,
-		CommissionTypeStr:   types.CommissionType_LayeredCommission.String(),
-		SettleBenefit:       false,
-		StartAt:             uint32(time.Now().Unix()),
-		MaxLevel:            uint32(5),
-	}
-)
+var ret = npool.AppConfig{
+	EntID:               uuid.NewString(),
+	AppID:               uuid.NewString(),
+	SettleMode:          types.SettleMode_SettleWithGoodValue,
+	SettleModeStr:       types.SettleMode_SettleWithGoodValue.String(),
+	SettleAmountType:    types.SettleAmountType_SettleByPercent,
+	SettleAmountTypeStr: types.SettleAmountType_SettleByPercent.String(),
+	SettleInterval:      types.SettleInterval_SettleYearly,
+	SettleIntervalStr:   types.SettleInterval_SettleYearly.String(),
+	CommissionType:      types.CommissionType_LayeredCommission,
+	CommissionTypeStr:   types.CommissionType_LayeredCommission.String(),
+	SettleBenefit:       false,
+	StartAt:             uint32(time.Now().Unix()),
+	MaxLevel:            uint32(5),
+}
 
 func setup(t *testing.T) func(*testing.T) {
 	return func(*testing.T) {}

@@ -8,6 +8,7 @@ package kyc
 
 import (
 	context "context"
+
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -91,18 +92,20 @@ type GatewayServer interface {
 }
 
 // UnimplementedGatewayServer must be embedded to have forward compatible implementations.
-type UnimplementedGatewayServer struct {
-}
+type UnimplementedGatewayServer struct{}
 
 func (UnimplementedGatewayServer) GetKycReviews(context.Context, *GetKycReviewsRequest) (*GetKycReviewsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetKycReviews not implemented")
 }
+
 func (UnimplementedGatewayServer) GetAppKycReviews(context.Context, *GetAppKycReviewsRequest) (*GetAppKycReviewsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetAppKycReviews not implemented")
 }
+
 func (UnimplementedGatewayServer) UpdateKycReview(context.Context, *UpdateKycReviewRequest) (*UpdateKycReviewResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateKycReview not implemented")
 }
+
 func (UnimplementedGatewayServer) UpdateAppKycReview(context.Context, *UpdateAppKycReviewRequest) (*UpdateAppKycReviewResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateAppKycReview not implemented")
 }

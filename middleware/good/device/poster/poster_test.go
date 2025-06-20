@@ -7,11 +7,11 @@ import (
 	"strconv"
 	"testing"
 
+	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
+	npool "github.com/NpoolPlatform/kunman/message/good/middleware/v1/device/poster"
 	devicetype1 "github.com/NpoolPlatform/kunman/middleware/good/device"
 	manufacturer1 "github.com/NpoolPlatform/kunman/middleware/good/device/manufacturer"
 	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
-	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
-	npool "github.com/NpoolPlatform/kunman/message/good/middleware/v1/device/poster"
 
 	"github.com/google/uuid"
 	"github.com/stretchr/testify/assert"

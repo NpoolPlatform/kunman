@@ -228,7 +228,7 @@ func (h *updateHandler) validateRewardState() error {
 
 	switch *h.RewardReq.RewardState {
 	case types.BenefitState_BenefitDone:
-		fallthrough // nolint
+		fallthrough
 	case types.BenefitState_BenefitWait:
 		coinRewardReqs := []*goodcoinrewardcrud.Req{}
 		for _, coinReward := range h.coinRewards {

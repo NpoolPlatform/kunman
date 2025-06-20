@@ -5,11 +5,11 @@ import (
 	"sync"
 	"time"
 
-	"github.com/NpoolPlatform/kunman/framework/logger"
 	"github.com/NpoolPlatform/kunman/cron/scheduler/base"
 	"github.com/NpoolPlatform/kunman/cron/scheduler/benefit/powerrental/fail/executor"
 	"github.com/NpoolPlatform/kunman/cron/scheduler/benefit/powerrental/fail/persistent"
 	"github.com/NpoolPlatform/kunman/cron/scheduler/benefit/powerrental/fail/sentinel"
+	"github.com/NpoolPlatform/kunman/framework/logger"
 )
 
 const subsystem = "benefitpowerrentalfail"

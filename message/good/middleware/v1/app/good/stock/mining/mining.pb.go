@@ -7,10 +7,11 @@
 package mining
 
 import (
-	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
-	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	reflect "reflect"
 	sync "sync"
+
+	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
+	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 )
 
 const (
@@ -271,11 +272,13 @@ func file_good_middleware_v1_app_good_stock_mining_mining_proto_rawDescGZIP() []
 	return file_good_middleware_v1_app_good_stock_mining_mining_proto_rawDescData
 }
 
-var file_good_middleware_v1_app_good_stock_mining_mining_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
-var file_good_middleware_v1_app_good_stock_mining_mining_proto_goTypes = []interface{}{
-	(*StockReq)(nil),  // 0: good.middleware.app.good1.stock.mining.v1.StockReq
-	(*StockInfo)(nil), // 1: good.middleware.app.good1.stock.mining.v1.StockInfo
-}
+var (
+	file_good_middleware_v1_app_good_stock_mining_mining_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
+	file_good_middleware_v1_app_good_stock_mining_mining_proto_goTypes  = []interface{}{
+		(*StockReq)(nil),  // 0: good.middleware.app.good1.stock.mining.v1.StockReq
+		(*StockInfo)(nil), // 1: good.middleware.app.good1.stock.mining.v1.StockInfo
+	}
+)
 var file_good_middleware_v1_app_good_stock_mining_mining_proto_depIdxs = []int32{
 	0, // [0:0] is the sub-list for method output_type
 	0, // [0:0] is the sub-list for method input_type

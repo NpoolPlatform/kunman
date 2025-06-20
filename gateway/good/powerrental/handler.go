@@ -5,13 +5,13 @@ import (
 	"context"
 
 	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
-	constant "github.com/NpoolPlatform/kunman/pkg/const"
 	devicecommon "github.com/NpoolPlatform/kunman/gateway/good/device/common"
 	goodcommon "github.com/NpoolPlatform/kunman/gateway/good/good/common"
 	locationcommon "github.com/NpoolPlatform/kunman/gateway/good/vender/location/common"
 	types "github.com/NpoolPlatform/kunman/message/basetypes/good/v1"
 	goodstockgwpb "github.com/NpoolPlatform/kunman/message/good/gateway/v1/good/stock"
 	goodstockmwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/good/stock"
+	constant "github.com/NpoolPlatform/kunman/pkg/const"
 
 	"github.com/google/uuid"
 	"github.com/shopspring/decimal"

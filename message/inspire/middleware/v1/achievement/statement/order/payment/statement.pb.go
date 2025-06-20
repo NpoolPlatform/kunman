@@ -7,13 +7,14 @@
 package payment
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/inspire/v1"
 	v11 "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -734,17 +735,19 @@ func file_inspire_middleware_v1_achievement_statement_order_payment_statement_pr
 	return file_inspire_middleware_v1_achievement_statement_order_payment_statement_proto_rawDescData
 }
 
-var file_inspire_middleware_v1_achievement_statement_order_payment_statement_proto_msgTypes = make([]protoimpl.MessageInfo, 5)
-var file_inspire_middleware_v1_achievement_statement_order_payment_statement_proto_goTypes = []interface{}{
-	(*StatementReq)(nil),          // 0: inspire.middleware.achievement.statement.order.payment.v1.StatementReq
-	(*Statement)(nil),             // 1: inspire.middleware.achievement.statement.order.payment.v1.Statement
-	(*Conds)(nil),                 // 2: inspire.middleware.achievement.statement.order.payment.v1.Conds
-	(*GetStatementsRequest)(nil),  // 3: inspire.middleware.achievement.statement.order.payment.v1.GetStatementsRequest
-	(*GetStatementsResponse)(nil), // 4: inspire.middleware.achievement.statement.order.payment.v1.GetStatementsResponse
-	(v1.CommissionConfigType)(0),  // 5: basetypes.inspire.v1.CommissionConfigType
-	(*v11.StringVal)(nil),         // 6: basetypes.v1.StringVal
-	(*v11.StringSliceVal)(nil),    // 7: basetypes.v1.StringSliceVal
-}
+var (
+	file_inspire_middleware_v1_achievement_statement_order_payment_statement_proto_msgTypes = make([]protoimpl.MessageInfo, 5)
+	file_inspire_middleware_v1_achievement_statement_order_payment_statement_proto_goTypes  = []interface{}{
+		(*StatementReq)(nil),          // 0: inspire.middleware.achievement.statement.order.payment.v1.StatementReq
+		(*Statement)(nil),             // 1: inspire.middleware.achievement.statement.order.payment.v1.Statement
+		(*Conds)(nil),                 // 2: inspire.middleware.achievement.statement.order.payment.v1.Conds
+		(*GetStatementsRequest)(nil),  // 3: inspire.middleware.achievement.statement.order.payment.v1.GetStatementsRequest
+		(*GetStatementsResponse)(nil), // 4: inspire.middleware.achievement.statement.order.payment.v1.GetStatementsResponse
+		(v1.CommissionConfigType)(0),  // 5: basetypes.inspire.v1.CommissionConfigType
+		(*v11.StringVal)(nil),         // 6: basetypes.v1.StringVal
+		(*v11.StringSliceVal)(nil),    // 7: basetypes.v1.StringSliceVal
+	}
+)
 var file_inspire_middleware_v1_achievement_statement_order_payment_statement_proto_depIdxs = []int32{
 	5,  // 0: inspire.middleware.achievement.statement.order.payment.v1.Statement.CommissionConfigType:type_name -> basetypes.inspire.v1.CommissionConfigType
 	6,  // 1: inspire.middleware.achievement.statement.order.payment.v1.Conds.EntID:type_name -> basetypes.v1.StringVal

@@ -5,8 +5,8 @@ import (
 	"fmt"
 
 	appgoodcommon "github.com/NpoolPlatform/kunman/gateway/good/app/good/common"
-	constant "github.com/NpoolPlatform/kunman/pkg/const"
 	appmw "github.com/NpoolPlatform/kunman/middleware/appuser/app"
+	constant "github.com/NpoolPlatform/kunman/pkg/const"
 
 	"github.com/google/uuid"
 )

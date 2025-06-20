@@ -8,6 +8,7 @@ package brand
 
 import (
 	context "context"
+
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -91,18 +92,20 @@ type GatewayServer interface {
 }
 
 // UnimplementedGatewayServer must be embedded to have forward compatible implementations.
-type UnimplementedGatewayServer struct {
-}
+type UnimplementedGatewayServer struct{}
 
 func (UnimplementedGatewayServer) AdminCreateBrand(context.Context, *AdminCreateBrandRequest) (*AdminCreateBrandResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AdminCreateBrand not implemented")
 }
+
 func (UnimplementedGatewayServer) AdminUpdateBrand(context.Context, *AdminUpdateBrandRequest) (*AdminUpdateBrandResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AdminUpdateBrand not implemented")
 }
+
 func (UnimplementedGatewayServer) GetBrands(context.Context, *GetBrandsRequest) (*GetBrandsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetBrands not implemented")
 }
+
 func (UnimplementedGatewayServer) AdminDeleteBrand(context.Context, *AdminDeleteBrandRequest) (*AdminDeleteBrandResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AdminDeleteBrand not implemented")
 }

@@ -10,7 +10,7 @@ import (
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	powerrentalmwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/powerrental"
 	powerrentalmw "github.com/NpoolPlatform/kunman/middleware/good/powerrental"
-	"github.com/NpoolPlatform/kunman/pkg/const"
+	constant "github.com/NpoolPlatform/kunman/pkg/const"
 	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 )
 

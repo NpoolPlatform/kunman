@@ -7,13 +7,14 @@
 package profit
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	v11 "github.com/NpoolPlatform/kunman/message/basetypes/good/v1"
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/ledger/v1"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -1118,21 +1119,23 @@ func file_ledger_gateway_v1_ledger_profit_profit_proto_rawDescGZIP() []byte {
 	return file_ledger_gateway_v1_ledger_profit_profit_proto_rawDescData
 }
 
-var file_ledger_gateway_v1_ledger_profit_profit_proto_msgTypes = make([]protoimpl.MessageInfo, 9)
-var file_ledger_gateway_v1_ledger_profit_profit_proto_goTypes = []interface{}{
-	(*MiningReward)(nil),             // 0: ledger.gateway.ledger.profit.v1.MiningReward
-	(*GetMiningRewardsRequest)(nil),  // 1: ledger.gateway.ledger.profit.v1.GetMiningRewardsRequest
-	(*GetMiningRewardsResponse)(nil), // 2: ledger.gateway.ledger.profit.v1.GetMiningRewardsResponse
-	(*CoinProfit)(nil),               // 3: ledger.gateway.ledger.profit.v1.CoinProfit
-	(*GetCoinProfitsRequest)(nil),    // 4: ledger.gateway.ledger.profit.v1.GetCoinProfitsRequest
-	(*GetCoinProfitsResponse)(nil),   // 5: ledger.gateway.ledger.profit.v1.GetCoinProfitsResponse
-	(*GoodProfit)(nil),               // 6: ledger.gateway.ledger.profit.v1.GoodProfit
-	(*GetGoodProfitsRequest)(nil),    // 7: ledger.gateway.ledger.profit.v1.GetGoodProfitsRequest
-	(*GetGoodProfitsResponse)(nil),   // 8: ledger.gateway.ledger.profit.v1.GetGoodProfitsResponse
-	(v1.IOType)(0),                   // 9: basetypes.ledger.v1.IOType
-	(v1.IOSubType)(0),                // 10: basetypes.ledger.v1.IOSubType
-	(v11.GoodType)(0),                // 11: basetypes.good.v1.GoodType
-}
+var (
+	file_ledger_gateway_v1_ledger_profit_profit_proto_msgTypes = make([]protoimpl.MessageInfo, 9)
+	file_ledger_gateway_v1_ledger_profit_profit_proto_goTypes  = []interface{}{
+		(*MiningReward)(nil),             // 0: ledger.gateway.ledger.profit.v1.MiningReward
+		(*GetMiningRewardsRequest)(nil),  // 1: ledger.gateway.ledger.profit.v1.GetMiningRewardsRequest
+		(*GetMiningRewardsResponse)(nil), // 2: ledger.gateway.ledger.profit.v1.GetMiningRewardsResponse
+		(*CoinProfit)(nil),               // 3: ledger.gateway.ledger.profit.v1.CoinProfit
+		(*GetCoinProfitsRequest)(nil),    // 4: ledger.gateway.ledger.profit.v1.GetCoinProfitsRequest
+		(*GetCoinProfitsResponse)(nil),   // 5: ledger.gateway.ledger.profit.v1.GetCoinProfitsResponse
+		(*GoodProfit)(nil),               // 6: ledger.gateway.ledger.profit.v1.GoodProfit
+		(*GetGoodProfitsRequest)(nil),    // 7: ledger.gateway.ledger.profit.v1.GetGoodProfitsRequest
+		(*GetGoodProfitsResponse)(nil),   // 8: ledger.gateway.ledger.profit.v1.GetGoodProfitsResponse
+		(v1.IOType)(0),                   // 9: basetypes.ledger.v1.IOType
+		(v1.IOSubType)(0),                // 10: basetypes.ledger.v1.IOSubType
+		(v11.GoodType)(0),                // 11: basetypes.good.v1.GoodType
+	}
+)
 var file_ledger_gateway_v1_ledger_profit_profit_proto_depIdxs = []int32{
 	9,  // 0: ledger.gateway.ledger.profit.v1.MiningReward.IOType:type_name -> basetypes.ledger.v1.IOType
 	10, // 1: ledger.gateway.ledger.profit.v1.MiningReward.IOSubType:type_name -> basetypes.ledger.v1.IOSubType

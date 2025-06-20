@@ -8,12 +8,12 @@ import (
 	"testing"
 	"time"
 
+	goodstatementmwpb "github.com/NpoolPlatform/kunman/message/ledger/middleware/v2/good/ledger/statement"
 	unsoldstatement "github.com/NpoolPlatform/kunman/middleware/ledger/crud/good/ledger/unsold"
 	goodstatement1 "github.com/NpoolPlatform/kunman/middleware/ledger/good/ledger/statement"
 	unsold1 "github.com/NpoolPlatform/kunman/middleware/ledger/good/ledger/unsold"
 	"github.com/NpoolPlatform/kunman/middleware/ledger/testinit"
 	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
-	goodstatementmwpb "github.com/NpoolPlatform/kunman/message/ledger/middleware/v2/good/ledger/statement"
 	"github.com/google/uuid"
 	"github.com/stretchr/testify/assert"
 )

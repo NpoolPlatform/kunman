@@ -78,7 +78,7 @@ type Conds struct {
 	MessageIDs *cruder.Cond
 }
 
-//nolint
+// nolint
 func SetQueryConds(q *ent.MessageQuery, conds *Conds) (*ent.MessageQuery, error) {
 	if conds == nil {
 		return q, nil

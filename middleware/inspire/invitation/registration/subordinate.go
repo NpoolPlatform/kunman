@@ -1,4 +1,3 @@
-//nolint:dupl
 package registration
 
 import (
@@ -77,7 +76,7 @@ func (h *queryHandler) getInviterIDs(ctx context.Context) error {
 			}
 		}
 
-		__inviterIDs := strings.Split(subordinates, ",") //nolint
+		__inviterIDs := strings.Split(subordinates, ",")
 		for _, id := range __inviterIDs {
 			_id, err := uuid.Parse(id)
 			if err != nil {

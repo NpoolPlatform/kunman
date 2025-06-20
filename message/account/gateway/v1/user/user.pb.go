@@ -7,12 +7,13 @@
 package user
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -1818,32 +1819,34 @@ func file_account_gateway_v1_user_user_proto_rawDescGZIP() []byte {
 	return file_account_gateway_v1_user_user_proto_rawDescData
 }
 
-var file_account_gateway_v1_user_user_proto_msgTypes = make([]protoimpl.MessageInfo, 21)
-var file_account_gateway_v1_user_user_proto_goTypes = []interface{}{
-	(*Account)(nil),                       // 0: account.gateway.user.v1.Account
-	(*CreateAccountRequest)(nil),          // 1: account.gateway.user.v1.CreateAccountRequest
-	(*GetDepositAccountRequest)(nil),      // 2: account.gateway.user.v1.GetDepositAccountRequest
-	(*GetDepositAccountResponse)(nil),     // 3: account.gateway.user.v1.GetDepositAccountResponse
-	(*GetDepositAccountsRequest)(nil),     // 4: account.gateway.user.v1.GetDepositAccountsRequest
-	(*GetDepositAccountsResponse)(nil),    // 5: account.gateway.user.v1.GetDepositAccountsResponse
-	(*GetAppDepositAccountsRequest)(nil),  // 6: account.gateway.user.v1.GetAppDepositAccountsRequest
-	(*GetAppDepositAccountsResponse)(nil), // 7: account.gateway.user.v1.GetAppDepositAccountsResponse
-	(*CreateAccountResponse)(nil),         // 8: account.gateway.user.v1.CreateAccountResponse
-	(*UpdateAccountRequest)(nil),          // 9: account.gateway.user.v1.UpdateAccountRequest
-	(*UpdateAccountResponse)(nil),         // 10: account.gateway.user.v1.UpdateAccountResponse
-	(*DeleteAccountRequest)(nil),          // 11: account.gateway.user.v1.DeleteAccountRequest
-	(*DeleteAccountResponse)(nil),         // 12: account.gateway.user.v1.DeleteAccountResponse
-	(*UpdateAppUserAccountRequest)(nil),   // 13: account.gateway.user.v1.UpdateAppUserAccountRequest
-	(*UpdateAppUserAccountResponse)(nil),  // 14: account.gateway.user.v1.UpdateAppUserAccountResponse
-	(*GetAccountsRequest)(nil),            // 15: account.gateway.user.v1.GetAccountsRequest
-	(*GetAccountsResponse)(nil),           // 16: account.gateway.user.v1.GetAccountsResponse
-	(*GetAppAccountsRequest)(nil),         // 17: account.gateway.user.v1.GetAppAccountsRequest
-	(*GetAppAccountsResponse)(nil),        // 18: account.gateway.user.v1.GetAppAccountsResponse
-	(*GetNAppAccountsRequest)(nil),        // 19: account.gateway.user.v1.GetNAppAccountsRequest
-	(*GetNAppAccountsResponse)(nil),       // 20: account.gateway.user.v1.GetNAppAccountsResponse
-	(v1.AccountUsedFor)(0),                // 21: basetypes.v1.AccountUsedFor
-	(v1.SignMethod)(0),                    // 22: basetypes.v1.SignMethod
-}
+var (
+	file_account_gateway_v1_user_user_proto_msgTypes = make([]protoimpl.MessageInfo, 21)
+	file_account_gateway_v1_user_user_proto_goTypes  = []interface{}{
+		(*Account)(nil),                       // 0: account.gateway.user.v1.Account
+		(*CreateAccountRequest)(nil),          // 1: account.gateway.user.v1.CreateAccountRequest
+		(*GetDepositAccountRequest)(nil),      // 2: account.gateway.user.v1.GetDepositAccountRequest
+		(*GetDepositAccountResponse)(nil),     // 3: account.gateway.user.v1.GetDepositAccountResponse
+		(*GetDepositAccountsRequest)(nil),     // 4: account.gateway.user.v1.GetDepositAccountsRequest
+		(*GetDepositAccountsResponse)(nil),    // 5: account.gateway.user.v1.GetDepositAccountsResponse
+		(*GetAppDepositAccountsRequest)(nil),  // 6: account.gateway.user.v1.GetAppDepositAccountsRequest
+		(*GetAppDepositAccountsResponse)(nil), // 7: account.gateway.user.v1.GetAppDepositAccountsResponse
+		(*CreateAccountResponse)(nil),         // 8: account.gateway.user.v1.CreateAccountResponse
+		(*UpdateAccountRequest)(nil),          // 9: account.gateway.user.v1.UpdateAccountRequest
+		(*UpdateAccountResponse)(nil),         // 10: account.gateway.user.v1.UpdateAccountResponse
+		(*DeleteAccountRequest)(nil),          // 11: account.gateway.user.v1.DeleteAccountRequest
+		(*DeleteAccountResponse)(nil),         // 12: account.gateway.user.v1.DeleteAccountResponse
+		(*UpdateAppUserAccountRequest)(nil),   // 13: account.gateway.user.v1.UpdateAppUserAccountRequest
+		(*UpdateAppUserAccountResponse)(nil),  // 14: account.gateway.user.v1.UpdateAppUserAccountResponse
+		(*GetAccountsRequest)(nil),            // 15: account.gateway.user.v1.GetAccountsRequest
+		(*GetAccountsResponse)(nil),           // 16: account.gateway.user.v1.GetAccountsResponse
+		(*GetAppAccountsRequest)(nil),         // 17: account.gateway.user.v1.GetAppAccountsRequest
+		(*GetAppAccountsResponse)(nil),        // 18: account.gateway.user.v1.GetAppAccountsResponse
+		(*GetNAppAccountsRequest)(nil),        // 19: account.gateway.user.v1.GetNAppAccountsRequest
+		(*GetNAppAccountsResponse)(nil),       // 20: account.gateway.user.v1.GetNAppAccountsResponse
+		(v1.AccountUsedFor)(0),                // 21: basetypes.v1.AccountUsedFor
+		(v1.SignMethod)(0),                    // 22: basetypes.v1.SignMethod
+	}
+)
 var file_account_gateway_v1_user_user_proto_depIdxs = []int32{
 	21, // 0: account.gateway.user.v1.Account.UsedFor:type_name -> basetypes.v1.AccountUsedFor
 	21, // 1: account.gateway.user.v1.CreateAccountRequest.UsedFor:type_name -> basetypes.v1.AccountUsedFor

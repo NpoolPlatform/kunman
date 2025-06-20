@@ -7,10 +7,10 @@ import (
 	"strconv"
 	"testing"
 
-	testinit "github.com/NpoolPlatform/kunman/middleware/chain/testinit"
 	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	currencymwpb "github.com/NpoolPlatform/kunman/message/chain/middleware/v1/coin/currency"
 	npool "github.com/NpoolPlatform/kunman/message/chain/middleware/v1/coin/currency/history"
+	testinit "github.com/NpoolPlatform/kunman/middleware/chain/testinit"
 
 	coin1 "github.com/NpoolPlatform/kunman/middleware/chain/coin"
 	currency1 "github.com/NpoolPlatform/kunman/middleware/chain/coin/currency"

@@ -7,11 +7,12 @@
 package announcement
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -566,16 +567,18 @@ func file_notif_middleware_v1_announcement_announcement_proto_rawDescGZIP() []by
 	return file_notif_middleware_v1_announcement_announcement_proto_rawDescData
 }
 
-var file_notif_middleware_v1_announcement_announcement_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
-var file_notif_middleware_v1_announcement_announcement_proto_goTypes = []interface{}{
-	(*AnnouncementReq)(nil), // 0: notif.middleware.announcement.v1.AnnouncementReq
-	(*Announcement)(nil),    // 1: notif.middleware.announcement.v1.Announcement
-	(*Conds)(nil),           // 2: notif.middleware.announcement.v1.Conds
-	(v1.NotifChannel)(0),    // 3: basetypes.v1.NotifChannel
-	(v1.NotifType)(0),       // 4: basetypes.v1.NotifType
-	(*v1.Uint32Val)(nil),    // 5: basetypes.v1.Uint32Val
-	(*v1.StringVal)(nil),    // 6: basetypes.v1.StringVal
-}
+var (
+	file_notif_middleware_v1_announcement_announcement_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
+	file_notif_middleware_v1_announcement_announcement_proto_goTypes  = []interface{}{
+		(*AnnouncementReq)(nil), // 0: notif.middleware.announcement.v1.AnnouncementReq
+		(*Announcement)(nil),    // 1: notif.middleware.announcement.v1.Announcement
+		(*Conds)(nil),           // 2: notif.middleware.announcement.v1.Conds
+		(v1.NotifChannel)(0),    // 3: basetypes.v1.NotifChannel
+		(v1.NotifType)(0),       // 4: basetypes.v1.NotifType
+		(*v1.Uint32Val)(nil),    // 5: basetypes.v1.Uint32Val
+		(*v1.StringVal)(nil),    // 6: basetypes.v1.StringVal
+	}
+)
 var file_notif_middleware_v1_announcement_announcement_proto_depIdxs = []int32{
 	3,  // 0: notif.middleware.announcement.v1.AnnouncementReq.Channel:type_name -> basetypes.v1.NotifChannel
 	4,  // 1: notif.middleware.announcement.v1.AnnouncementReq.AnnouncementType:type_name -> basetypes.v1.NotifType

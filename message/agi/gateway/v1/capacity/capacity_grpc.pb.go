@@ -8,6 +8,7 @@ package capacity
 
 import (
 	context "context"
+
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -139,30 +140,36 @@ type GatewayServer interface {
 }
 
 // UnimplementedGatewayServer must be embedded to have forward compatible implementations.
-type UnimplementedGatewayServer struct {
-}
+type UnimplementedGatewayServer struct{}
 
 func (UnimplementedGatewayServer) AdminCreateCapacity(context.Context, *AdminCreateCapacityRequest) (*AdminCreateCapacityResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AdminCreateCapacity not implemented")
 }
+
 func (UnimplementedGatewayServer) CreateCapacity(context.Context, *CreateCapacityRequest) (*CreateCapacityResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateCapacity not implemented")
 }
+
 func (UnimplementedGatewayServer) UpdateCapacity(context.Context, *UpdateCapacityRequest) (*UpdateCapacityResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateCapacity not implemented")
 }
+
 func (UnimplementedGatewayServer) AdminGetCapacities(context.Context, *AdminGetCapacitiesRequest) (*AdminGetCapacitiesResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AdminGetCapacities not implemented")
 }
+
 func (UnimplementedGatewayServer) GetCapacities(context.Context, *GetCapacitiesRequest) (*GetCapacitiesResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetCapacities not implemented")
 }
+
 func (UnimplementedGatewayServer) AdminCountCapacities(context.Context, *AdminCountCapacitiesRequest) (*AdminCountCapacitiesResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AdminCountCapacities not implemented")
 }
+
 func (UnimplementedGatewayServer) CountCapacities(context.Context, *CountCapacitiesRequest) (*CountCapacitiesResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CountCapacities not implemented")
 }
+
 func (UnimplementedGatewayServer) DeleteCapacity(context.Context, *DeleteCapacityRequest) (*DeleteCapacityResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteCapacity not implemented")
 }

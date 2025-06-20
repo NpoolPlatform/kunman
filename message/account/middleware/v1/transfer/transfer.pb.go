@@ -7,11 +7,12 @@
 package transfer
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -368,14 +369,16 @@ func file_account_middleware_v1_transfer_transfer_proto_rawDescGZIP() []byte {
 	return file_account_middleware_v1_transfer_transfer_proto_rawDescData
 }
 
-var file_account_middleware_v1_transfer_transfer_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
-var file_account_middleware_v1_transfer_transfer_proto_goTypes = []interface{}{
-	(*TransferReq)(nil),  // 0: account.middleware.transfer.v1.TransferReq
-	(*Transfer)(nil),     // 1: account.middleware.transfer.v1.Transfer
-	(*Conds)(nil),        // 2: account.middleware.transfer.v1.Conds
-	(*v1.Uint32Val)(nil), // 3: basetypes.v1.Uint32Val
-	(*v1.StringVal)(nil), // 4: basetypes.v1.StringVal
-}
+var (
+	file_account_middleware_v1_transfer_transfer_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
+	file_account_middleware_v1_transfer_transfer_proto_goTypes  = []interface{}{
+		(*TransferReq)(nil),  // 0: account.middleware.transfer.v1.TransferReq
+		(*Transfer)(nil),     // 1: account.middleware.transfer.v1.Transfer
+		(*Conds)(nil),        // 2: account.middleware.transfer.v1.Conds
+		(*v1.Uint32Val)(nil), // 3: basetypes.v1.Uint32Val
+		(*v1.StringVal)(nil), // 4: basetypes.v1.StringVal
+	}
+)
 var file_account_middleware_v1_transfer_transfer_proto_depIdxs = []int32{
 	3, // 0: account.middleware.transfer.v1.Conds.ID:type_name -> basetypes.v1.Uint32Val
 	4, // 1: account.middleware.transfer.v1.Conds.EntID:type_name -> basetypes.v1.StringVal

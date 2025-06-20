@@ -7,11 +7,12 @@
 package message
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -447,16 +448,18 @@ func file_g11n_middleware_v1_message_message_proto_rawDescGZIP() []byte {
 	return file_g11n_middleware_v1_message_message_proto_rawDescData
 }
 
-var file_g11n_middleware_v1_message_message_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
-var file_g11n_middleware_v1_message_message_proto_goTypes = []interface{}{
-	(*MessageReq)(nil),        // 0: g11n.middleware.message1.v1.MessageReq
-	(*Message)(nil),           // 1: g11n.middleware.message1.v1.Message
-	(*Conds)(nil),             // 2: g11n.middleware.message1.v1.Conds
-	(*v1.Uint32Val)(nil),      // 3: basetypes.v1.Uint32Val
-	(*v1.StringVal)(nil),      // 4: basetypes.v1.StringVal
-	(*v1.BoolVal)(nil),        // 5: basetypes.v1.BoolVal
-	(*v1.StringSliceVal)(nil), // 6: basetypes.v1.StringSliceVal
-}
+var (
+	file_g11n_middleware_v1_message_message_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
+	file_g11n_middleware_v1_message_message_proto_goTypes  = []interface{}{
+		(*MessageReq)(nil),        // 0: g11n.middleware.message1.v1.MessageReq
+		(*Message)(nil),           // 1: g11n.middleware.message1.v1.Message
+		(*Conds)(nil),             // 2: g11n.middleware.message1.v1.Conds
+		(*v1.Uint32Val)(nil),      // 3: basetypes.v1.Uint32Val
+		(*v1.StringVal)(nil),      // 4: basetypes.v1.StringVal
+		(*v1.BoolVal)(nil),        // 5: basetypes.v1.BoolVal
+		(*v1.StringSliceVal)(nil), // 6: basetypes.v1.StringSliceVal
+	}
+)
 var file_g11n_middleware_v1_message_message_proto_depIdxs = []int32{
 	3, // 0: g11n.middleware.message1.v1.Conds.ID:type_name -> basetypes.v1.Uint32Val
 	4, // 1: g11n.middleware.message1.v1.Conds.EntID:type_name -> basetypes.v1.StringVal

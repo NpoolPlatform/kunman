@@ -76,6 +76,9 @@ func (p *handler) Update(ctx context.Context, account interface{}, reward, notif
 		txmw.WithExtra(&extra, true),
 		txmw.WithType(&txType, true),
 	)
+	if err != nil {
+		return err
+	}
 
 	if _, err := txHandler.CreateTx(ctx); err != nil {
 		return err

@@ -23,7 +23,6 @@ type createHandler struct {
 	coupon *ent.Coupon
 }
 
-//nolint:dupl
 func (h *createHandler) getCoupon(ctx context.Context) error {
 	return db.WithClient(ctx, func(_ctx context.Context, cli *ent.Client) error {
 		coupon, err := cli.
@@ -59,8 +58,8 @@ func (h *createHandler) cashable() bool {
 		return true
 	}
 
-	rand.Seed(time.Now().UnixNano())
-	value := rand.Float64() //nolint
+	r := rand.New(rand.NewSource(time.Now().UnixNano()))
+	value := r.Float64()
 	return decimal.NewFromFloat(value).Cmp(h.coupon.CashableProbability) <= 0
 }
 
@@ -103,7 +102,6 @@ func (h *createHandler) validateAllocated() error {
 	return nil
 }
 
-//nolint:dupl
 func (h *createHandler) updateCoupon(ctx context.Context, tx *ent.Tx) error {
 	allocated := h.coupon.Allocated
 	switch h.coupon.CouponType {

@@ -16,7 +16,6 @@ type lockHandler struct {
 	lockOp *lockopHandler
 }
 
-//nolint:goconst
 func (h *lockHandler) constructGoodStockSQL(table string, stock *LockStock, id uint32) (string, error) {
 	platformLocked := *stock.Locked
 	if stock.AppSpotLocked != nil {

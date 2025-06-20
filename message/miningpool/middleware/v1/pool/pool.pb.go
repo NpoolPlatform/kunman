@@ -7,12 +7,13 @@
 package pool
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/miningpool/v1"
 	v11 "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -418,16 +419,18 @@ func file_miningpool_middleware_v1_pool_pool_proto_rawDescGZIP() []byte {
 	return file_miningpool_middleware_v1_pool_pool_proto_rawDescData
 }
 
-var file_miningpool_middleware_v1_pool_pool_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
-var file_miningpool_middleware_v1_pool_pool_proto_goTypes = []interface{}{
-	(*PoolReq)(nil),            // 0: miningpool.middleware.pool.v1.PoolReq
-	(*Pool)(nil),               // 1: miningpool.middleware.pool.v1.Pool
-	(*Conds)(nil),              // 2: miningpool.middleware.pool.v1.Conds
-	(v1.MiningPoolType)(0),     // 3: basetypes.miningpool.v1.MiningPoolType
-	(*v11.Uint32Val)(nil),      // 4: basetypes.v1.Uint32Val
-	(*v11.StringVal)(nil),      // 5: basetypes.v1.StringVal
-	(*v11.StringSliceVal)(nil), // 6: basetypes.v1.StringSliceVal
-}
+var (
+	file_miningpool_middleware_v1_pool_pool_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
+	file_miningpool_middleware_v1_pool_pool_proto_goTypes  = []interface{}{
+		(*PoolReq)(nil),            // 0: miningpool.middleware.pool.v1.PoolReq
+		(*Pool)(nil),               // 1: miningpool.middleware.pool.v1.Pool
+		(*Conds)(nil),              // 2: miningpool.middleware.pool.v1.Conds
+		(v1.MiningPoolType)(0),     // 3: basetypes.miningpool.v1.MiningPoolType
+		(*v11.Uint32Val)(nil),      // 4: basetypes.v1.Uint32Val
+		(*v11.StringVal)(nil),      // 5: basetypes.v1.StringVal
+		(*v11.StringSliceVal)(nil), // 6: basetypes.v1.StringSliceVal
+	}
+)
 var file_miningpool_middleware_v1_pool_pool_proto_depIdxs = []int32{
 	3, // 0: miningpool.middleware.pool.v1.PoolReq.MiningPoolType:type_name -> basetypes.miningpool.v1.MiningPoolType
 	3, // 1: miningpool.middleware.pool.v1.Pool.MiningPoolType:type_name -> basetypes.miningpool.v1.MiningPoolType

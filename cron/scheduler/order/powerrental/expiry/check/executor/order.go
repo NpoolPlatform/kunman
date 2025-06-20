@@ -5,11 +5,11 @@ import (
 	"fmt"
 	"time"
 
+	asyncfeed "github.com/NpoolPlatform/kunman/cron/scheduler/base/asyncfeed"
+	types "github.com/NpoolPlatform/kunman/cron/scheduler/order/powerrental/expiry/check/types"
 	"github.com/NpoolPlatform/kunman/framework/logger"
 	ordertypes "github.com/NpoolPlatform/kunman/message/basetypes/order/v1"
 	powerrentalordermwpb "github.com/NpoolPlatform/kunman/message/order/middleware/v1/powerrental"
-	asyncfeed "github.com/NpoolPlatform/kunman/cron/scheduler/base/asyncfeed"
-	types "github.com/NpoolPlatform/kunman/cron/scheduler/order/powerrental/expiry/check/types"
 )
 
 type orderHandler struct {
@@ -23,9 +23,9 @@ type orderHandler struct {
 func (h *orderHandler) expired() (bool, error) {
 	switch h.PaymentState {
 	case ordertypes.PaymentState_PaymentStateWait:
-		fallthrough // nolint
+		fallthrough
 	case ordertypes.PaymentState_PaymentStateCanceled:
-		fallthrough // nolint
+		fallthrough
 	case ordertypes.PaymentState_PaymentStateTimeout:
 		return false, nil
 	case ordertypes.PaymentState_PaymentStateDone:

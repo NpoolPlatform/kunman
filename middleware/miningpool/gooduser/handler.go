@@ -5,9 +5,9 @@ import (
 
 	"github.com/NpoolPlatform/kunman/framework/wlog"
 	npool "github.com/NpoolPlatform/kunman/message/miningpool/middleware/v1/gooduser"
-	constant "github.com/NpoolPlatform/kunman/pkg/const"
 	goodusercrud "github.com/NpoolPlatform/kunman/middleware/miningpool/crud/gooduser"
 	"github.com/NpoolPlatform/kunman/middleware/miningpool/rootuser"
+	constant "github.com/NpoolPlatform/kunman/pkg/const"
 
 	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 

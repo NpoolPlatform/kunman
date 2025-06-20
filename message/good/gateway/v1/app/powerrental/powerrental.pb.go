@@ -7,6 +7,9 @@
 package powerrental
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/good/v1"
 	coin "github.com/NpoolPlatform/kunman/message/good/gateway/v1/good/coin"
 	reward "github.com/NpoolPlatform/kunman/message/good/gateway/v1/good/coin/reward"
@@ -21,8 +24,6 @@ import (
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -2906,42 +2907,44 @@ func file_good_gateway_v1_app_powerrental_powerrental_proto_rawDescGZIP() []byte
 	return file_good_gateway_v1_app_powerrental_powerrental_proto_rawDescData
 }
 
-var file_good_gateway_v1_app_powerrental_powerrental_proto_msgTypes = make([]protoimpl.MessageInfo, 15)
-var file_good_gateway_v1_app_powerrental_powerrental_proto_goTypes = []interface{}{
-	(*AppPowerRental)(nil),                    // 0: good.gateway.app.powerrental.v1.AppPowerRental
-	(*UpdateAppPowerRentalRequest)(nil),       // 1: good.gateway.app.powerrental.v1.UpdateAppPowerRentalRequest
-	(*UpdateAppPowerRentalResponse)(nil),      // 2: good.gateway.app.powerrental.v1.UpdateAppPowerRentalResponse
-	(*GetAppPowerRentalRequest)(nil),          // 3: good.gateway.app.powerrental.v1.GetAppPowerRentalRequest
-	(*GetAppPowerRentalResponse)(nil),         // 4: good.gateway.app.powerrental.v1.GetAppPowerRentalResponse
-	(*GetAppPowerRentalsRequest)(nil),         // 5: good.gateway.app.powerrental.v1.GetAppPowerRentalsRequest
-	(*GetAppPowerRentalsResponse)(nil),        // 6: good.gateway.app.powerrental.v1.GetAppPowerRentalsResponse
-	(*AdminCreateAppPowerRentalRequest)(nil),  // 7: good.gateway.app.powerrental.v1.AdminCreateAppPowerRentalRequest
-	(*AdminCreateAppPowerRentalResponse)(nil), // 8: good.gateway.app.powerrental.v1.AdminCreateAppPowerRentalResponse
-	(*AdminUpdateAppPowerRentalRequest)(nil),  // 9: good.gateway.app.powerrental.v1.AdminUpdateAppPowerRentalRequest
-	(*AdminUpdateAppPowerRentalResponse)(nil), // 10: good.gateway.app.powerrental.v1.AdminUpdateAppPowerRentalResponse
-	(*AdminGetAppPowerRentalsRequest)(nil),    // 11: good.gateway.app.powerrental.v1.AdminGetAppPowerRentalsRequest
-	(*AdminGetAppPowerRentalsResponse)(nil),   // 12: good.gateway.app.powerrental.v1.AdminGetAppPowerRentalsResponse
-	(*AdminDeleteAppPowerRentalRequest)(nil),  // 13: good.gateway.app.powerrental.v1.AdminDeleteAppPowerRentalRequest
-	(*AdminDeleteAppPowerRentalResponse)(nil), // 14: good.gateway.app.powerrental.v1.AdminDeleteAppPowerRentalResponse
-	(v1.GoodDurationType)(0),                  // 15: basetypes.good.v1.GoodDurationType
-	(v1.GoodType)(0),                          // 16: basetypes.good.v1.GoodType
-	(v1.BenefitType)(0),                       // 17: basetypes.good.v1.BenefitType
-	(v1.GoodStartMode)(0),                     // 18: basetypes.good.v1.GoodStartMode
-	(v1.GoodStockMode)(0),                     // 19: basetypes.good.v1.GoodStockMode
-	(v1.GoodState)(0),                         // 20: basetypes.good.v1.GoodState
-	(v1.CancelMode)(0),                        // 21: basetypes.good.v1.CancelMode
-	(v1.GoodSaleMode)(0),                      // 22: basetypes.good.v1.GoodSaleMode
-	(*coin.GoodCoinInfo)(nil),                 // 23: good.gateway.good1.coin.v1.GoodCoinInfo
-	(*description.DescriptionInfo)(nil),       // 24: good.middleware.app.good1.description.v1.DescriptionInfo
-	(*poster.PosterInfo)(nil),                 // 25: good.middleware.app.good1.poster.v1.PosterInfo
-	(*name.DisplayNameInfo)(nil),              // 26: good.middleware.app.good1.display.name.v1.DisplayNameInfo
-	(*color.DisplayColorInfo)(nil),            // 27: good.middleware.app.good1.display.color.v1.DisplayColorInfo
-	(*mining.StockInfo)(nil),                  // 28: good.middleware.app.good1.stock.mining.v1.StockInfo
-	(*stock.MiningGoodStockInfo)(nil),         // 29: good.gateway.good1.stock.v1.MiningGoodStockInfo
-	(*label.LabelInfo)(nil),                   // 30: good.middleware.app.good1.label.v1.LabelInfo
-	(*reward.RewardInfo)(nil),                 // 31: good.gateway.good1.coin.reward.v1.RewardInfo
-	(*required.RequiredInfo)(nil),             // 32: good.middleware.app.good1.required1.v1.RequiredInfo
-}
+var (
+	file_good_gateway_v1_app_powerrental_powerrental_proto_msgTypes = make([]protoimpl.MessageInfo, 15)
+	file_good_gateway_v1_app_powerrental_powerrental_proto_goTypes  = []interface{}{
+		(*AppPowerRental)(nil),                    // 0: good.gateway.app.powerrental.v1.AppPowerRental
+		(*UpdateAppPowerRentalRequest)(nil),       // 1: good.gateway.app.powerrental.v1.UpdateAppPowerRentalRequest
+		(*UpdateAppPowerRentalResponse)(nil),      // 2: good.gateway.app.powerrental.v1.UpdateAppPowerRentalResponse
+		(*GetAppPowerRentalRequest)(nil),          // 3: good.gateway.app.powerrental.v1.GetAppPowerRentalRequest
+		(*GetAppPowerRentalResponse)(nil),         // 4: good.gateway.app.powerrental.v1.GetAppPowerRentalResponse
+		(*GetAppPowerRentalsRequest)(nil),         // 5: good.gateway.app.powerrental.v1.GetAppPowerRentalsRequest
+		(*GetAppPowerRentalsResponse)(nil),        // 6: good.gateway.app.powerrental.v1.GetAppPowerRentalsResponse
+		(*AdminCreateAppPowerRentalRequest)(nil),  // 7: good.gateway.app.powerrental.v1.AdminCreateAppPowerRentalRequest
+		(*AdminCreateAppPowerRentalResponse)(nil), // 8: good.gateway.app.powerrental.v1.AdminCreateAppPowerRentalResponse
+		(*AdminUpdateAppPowerRentalRequest)(nil),  // 9: good.gateway.app.powerrental.v1.AdminUpdateAppPowerRentalRequest
+		(*AdminUpdateAppPowerRentalResponse)(nil), // 10: good.gateway.app.powerrental.v1.AdminUpdateAppPowerRentalResponse
+		(*AdminGetAppPowerRentalsRequest)(nil),    // 11: good.gateway.app.powerrental.v1.AdminGetAppPowerRentalsRequest
+		(*AdminGetAppPowerRentalsResponse)(nil),   // 12: good.gateway.app.powerrental.v1.AdminGetAppPowerRentalsResponse
+		(*AdminDeleteAppPowerRentalRequest)(nil),  // 13: good.gateway.app.powerrental.v1.AdminDeleteAppPowerRentalRequest
+		(*AdminDeleteAppPowerRentalResponse)(nil), // 14: good.gateway.app.powerrental.v1.AdminDeleteAppPowerRentalResponse
+		(v1.GoodDurationType)(0),                  // 15: basetypes.good.v1.GoodDurationType
+		(v1.GoodType)(0),                          // 16: basetypes.good.v1.GoodType
+		(v1.BenefitType)(0),                       // 17: basetypes.good.v1.BenefitType
+		(v1.GoodStartMode)(0),                     // 18: basetypes.good.v1.GoodStartMode
+		(v1.GoodStockMode)(0),                     // 19: basetypes.good.v1.GoodStockMode
+		(v1.GoodState)(0),                         // 20: basetypes.good.v1.GoodState
+		(v1.CancelMode)(0),                        // 21: basetypes.good.v1.CancelMode
+		(v1.GoodSaleMode)(0),                      // 22: basetypes.good.v1.GoodSaleMode
+		(*coin.GoodCoinInfo)(nil),                 // 23: good.gateway.good1.coin.v1.GoodCoinInfo
+		(*description.DescriptionInfo)(nil),       // 24: good.middleware.app.good1.description.v1.DescriptionInfo
+		(*poster.PosterInfo)(nil),                 // 25: good.middleware.app.good1.poster.v1.PosterInfo
+		(*name.DisplayNameInfo)(nil),              // 26: good.middleware.app.good1.display.name.v1.DisplayNameInfo
+		(*color.DisplayColorInfo)(nil),            // 27: good.middleware.app.good1.display.color.v1.DisplayColorInfo
+		(*mining.StockInfo)(nil),                  // 28: good.middleware.app.good1.stock.mining.v1.StockInfo
+		(*stock.MiningGoodStockInfo)(nil),         // 29: good.gateway.good1.stock.v1.MiningGoodStockInfo
+		(*label.LabelInfo)(nil),                   // 30: good.middleware.app.good1.label.v1.LabelInfo
+		(*reward.RewardInfo)(nil),                 // 31: good.gateway.good1.coin.reward.v1.RewardInfo
+		(*required.RequiredInfo)(nil),             // 32: good.middleware.app.good1.required1.v1.RequiredInfo
+	}
+)
 var file_good_gateway_v1_app_powerrental_powerrental_proto_depIdxs = []int32{
 	15, // 0: good.gateway.app.powerrental.v1.AppPowerRental.DurationDisplayType:type_name -> basetypes.good.v1.GoodDurationType
 	16, // 1: good.gateway.app.powerrental.v1.AppPowerRental.GoodType:type_name -> basetypes.good.v1.GoodType

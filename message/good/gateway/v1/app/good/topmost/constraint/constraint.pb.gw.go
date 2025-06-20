@@ -25,11 +25,14 @@ import (
 
 // Suppress "imported and not used" errors
 var _ codes.Code
-var _ io.Reader
-var _ status.Status
-var _ = runtime.String
-var _ = utilities.NewDoubleArray
-var _ = metadata.Join
+
+var (
+	_ io.Reader
+	_ status.Status
+	_ = runtime.String
+	_ = utilities.NewDoubleArray
+	_ = metadata.Join
+)
 
 func request_Gateway_CreateTopMostConstraint_0(ctx context.Context, marshaler runtime.Marshaler, client GatewayClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq CreateTopMostConstraintRequest
@@ -45,7 +48,6 @@ func request_Gateway_CreateTopMostConstraint_0(ctx context.Context, marshaler ru
 
 	msg, err := client.CreateTopMostConstraint(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_Gateway_CreateTopMostConstraint_0(ctx context.Context, marshaler runtime.Marshaler, server GatewayServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
@@ -62,7 +64,6 @@ func local_request_Gateway_CreateTopMostConstraint_0(ctx context.Context, marsha
 
 	msg, err := server.CreateTopMostConstraint(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
 func request_Gateway_UpdateTopMostConstraint_0(ctx context.Context, marshaler runtime.Marshaler, client GatewayClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
@@ -79,7 +80,6 @@ func request_Gateway_UpdateTopMostConstraint_0(ctx context.Context, marshaler ru
 
 	msg, err := client.UpdateTopMostConstraint(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_Gateway_UpdateTopMostConstraint_0(ctx context.Context, marshaler runtime.Marshaler, server GatewayServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
@@ -96,7 +96,6 @@ func local_request_Gateway_UpdateTopMostConstraint_0(ctx context.Context, marsha
 
 	msg, err := server.UpdateTopMostConstraint(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
 func request_Gateway_GetTopMostConstraints_0(ctx context.Context, marshaler runtime.Marshaler, client GatewayClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
@@ -113,7 +112,6 @@ func request_Gateway_GetTopMostConstraints_0(ctx context.Context, marshaler runt
 
 	msg, err := client.GetTopMostConstraints(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_Gateway_GetTopMostConstraints_0(ctx context.Context, marshaler runtime.Marshaler, server GatewayServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
@@ -130,7 +128,6 @@ func local_request_Gateway_GetTopMostConstraints_0(ctx context.Context, marshale
 
 	msg, err := server.GetTopMostConstraints(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
 func request_Gateway_DeleteTopMostConstraint_0(ctx context.Context, marshaler runtime.Marshaler, client GatewayClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
@@ -147,7 +144,6 @@ func request_Gateway_DeleteTopMostConstraint_0(ctx context.Context, marshaler ru
 
 	msg, err := client.DeleteTopMostConstraint(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_Gateway_DeleteTopMostConstraint_0(ctx context.Context, marshaler runtime.Marshaler, server GatewayServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
@@ -164,7 +160,6 @@ func local_request_Gateway_DeleteTopMostConstraint_0(ctx context.Context, marsha
 
 	msg, err := server.DeleteTopMostConstraint(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
 func request_Gateway_AdminCreateTopMostConstraint_0(ctx context.Context, marshaler runtime.Marshaler, client GatewayClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
@@ -181,7 +176,6 @@ func request_Gateway_AdminCreateTopMostConstraint_0(ctx context.Context, marshal
 
 	msg, err := client.AdminCreateTopMostConstraint(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_Gateway_AdminCreateTopMostConstraint_0(ctx context.Context, marshaler runtime.Marshaler, server GatewayServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
@@ -198,7 +192,6 @@ func local_request_Gateway_AdminCreateTopMostConstraint_0(ctx context.Context, m
 
 	msg, err := server.AdminCreateTopMostConstraint(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
 func request_Gateway_AdminUpdateTopMostConstraint_0(ctx context.Context, marshaler runtime.Marshaler, client GatewayClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
@@ -215,7 +208,6 @@ func request_Gateway_AdminUpdateTopMostConstraint_0(ctx context.Context, marshal
 
 	msg, err := client.AdminUpdateTopMostConstraint(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_Gateway_AdminUpdateTopMostConstraint_0(ctx context.Context, marshaler runtime.Marshaler, server GatewayServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
@@ -232,7 +224,6 @@ func local_request_Gateway_AdminUpdateTopMostConstraint_0(ctx context.Context, m
 
 	msg, err := server.AdminUpdateTopMostConstraint(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
 func request_Gateway_AdminGetTopMostConstraints_0(ctx context.Context, marshaler runtime.Marshaler, client GatewayClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
@@ -249,7 +240,6 @@ func request_Gateway_AdminGetTopMostConstraints_0(ctx context.Context, marshaler
 
 	msg, err := client.AdminGetTopMostConstraints(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_Gateway_AdminGetTopMostConstraints_0(ctx context.Context, marshaler runtime.Marshaler, server GatewayServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
@@ -266,7 +256,6 @@ func local_request_Gateway_AdminGetTopMostConstraints_0(ctx context.Context, mar
 
 	msg, err := server.AdminGetTopMostConstraints(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
 func request_Gateway_AdminDeleteTopMostConstraint_0(ctx context.Context, marshaler runtime.Marshaler, client GatewayClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
@@ -283,7 +272,6 @@ func request_Gateway_AdminDeleteTopMostConstraint_0(ctx context.Context, marshal
 
 	msg, err := client.AdminDeleteTopMostConstraint(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
-
 }
 
 func local_request_Gateway_AdminDeleteTopMostConstraint_0(ctx context.Context, marshaler runtime.Marshaler, server GatewayServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
@@ -300,7 +288,6 @@ func local_request_Gateway_AdminDeleteTopMostConstraint_0(ctx context.Context, m
 
 	msg, err := server.AdminDeleteTopMostConstraint(ctx, &protoReq)
 	return msg, metadata, err
-
 }
 
 // RegisterGatewayHandlerServer registers the http handlers for service Gateway to "mux".
@@ -308,7 +295,6 @@ func local_request_Gateway_AdminDeleteTopMostConstraint_0(ctx context.Context, m
 // StreamingRPC :currently unsupported pending https://github.com/grpc/grpc-go/issues/906.
 // Note that using this registration option will cause many gRPC library features to stop working. Consider using RegisterGatewayHandlerFromEndpoint instead.
 func RegisterGatewayHandlerServer(ctx context.Context, mux *runtime.ServeMux, server GatewayServer) error {
-
 	mux.Handle("POST", pattern_Gateway_CreateTopMostConstraint_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
@@ -329,7 +315,6 @@ func RegisterGatewayHandlerServer(ctx context.Context, mux *runtime.ServeMux, se
 		}
 
 		forward_Gateway_CreateTopMostConstraint_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
 
 	mux.Handle("POST", pattern_Gateway_UpdateTopMostConstraint_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
@@ -352,7 +337,6 @@ func RegisterGatewayHandlerServer(ctx context.Context, mux *runtime.ServeMux, se
 		}
 
 		forward_Gateway_UpdateTopMostConstraint_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
 
 	mux.Handle("POST", pattern_Gateway_GetTopMostConstraints_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
@@ -375,7 +359,6 @@ func RegisterGatewayHandlerServer(ctx context.Context, mux *runtime.ServeMux, se
 		}
 
 		forward_Gateway_GetTopMostConstraints_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
 
 	mux.Handle("POST", pattern_Gateway_DeleteTopMostConstraint_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
@@ -398,7 +381,6 @@ func RegisterGatewayHandlerServer(ctx context.Context, mux *runtime.ServeMux, se
 		}
 
 		forward_Gateway_DeleteTopMostConstraint_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
 
 	mux.Handle("POST", pattern_Gateway_AdminCreateTopMostConstraint_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
@@ -421,7 +403,6 @@ func RegisterGatewayHandlerServer(ctx context.Context, mux *runtime.ServeMux, se
 		}
 
 		forward_Gateway_AdminCreateTopMostConstraint_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
 
 	mux.Handle("POST", pattern_Gateway_AdminUpdateTopMostConstraint_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
@@ -444,7 +425,6 @@ func RegisterGatewayHandlerServer(ctx context.Context, mux *runtime.ServeMux, se
 		}
 
 		forward_Gateway_AdminUpdateTopMostConstraint_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
 
 	mux.Handle("POST", pattern_Gateway_AdminGetTopMostConstraints_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
@@ -467,7 +447,6 @@ func RegisterGatewayHandlerServer(ctx context.Context, mux *runtime.ServeMux, se
 		}
 
 		forward_Gateway_AdminGetTopMostConstraints_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
 
 	mux.Handle("POST", pattern_Gateway_AdminDeleteTopMostConstraint_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
@@ -490,7 +469,6 @@ func RegisterGatewayHandlerServer(ctx context.Context, mux *runtime.ServeMux, se
 		}
 
 		forward_Gateway_AdminDeleteTopMostConstraint_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
 
 	return nil
@@ -533,7 +511,6 @@ func RegisterGatewayHandler(ctx context.Context, mux *runtime.ServeMux, conn *gr
 // doesn't go through the normal gRPC flow (creating a gRPC client etc.) then it will be up to the passed in
 // "GatewayClient" to call the correct interceptors.
 func RegisterGatewayHandlerClient(ctx context.Context, mux *runtime.ServeMux, client GatewayClient) error {
-
 	mux.Handle("POST", pattern_Gateway_CreateTopMostConstraint_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
@@ -551,7 +528,6 @@ func RegisterGatewayHandlerClient(ctx context.Context, mux *runtime.ServeMux, cl
 		}
 
 		forward_Gateway_CreateTopMostConstraint_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
 
 	mux.Handle("POST", pattern_Gateway_UpdateTopMostConstraint_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
@@ -571,7 +547,6 @@ func RegisterGatewayHandlerClient(ctx context.Context, mux *runtime.ServeMux, cl
 		}
 
 		forward_Gateway_UpdateTopMostConstraint_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
 
 	mux.Handle("POST", pattern_Gateway_GetTopMostConstraints_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
@@ -591,7 +566,6 @@ func RegisterGatewayHandlerClient(ctx context.Context, mux *runtime.ServeMux, cl
 		}
 
 		forward_Gateway_GetTopMostConstraints_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
 
 	mux.Handle("POST", pattern_Gateway_DeleteTopMostConstraint_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
@@ -611,7 +585,6 @@ func RegisterGatewayHandlerClient(ctx context.Context, mux *runtime.ServeMux, cl
 		}
 
 		forward_Gateway_DeleteTopMostConstraint_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
 
 	mux.Handle("POST", pattern_Gateway_AdminCreateTopMostConstraint_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
@@ -631,7 +604,6 @@ func RegisterGatewayHandlerClient(ctx context.Context, mux *runtime.ServeMux, cl
 		}
 
 		forward_Gateway_AdminCreateTopMostConstraint_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
 
 	mux.Handle("POST", pattern_Gateway_AdminUpdateTopMostConstraint_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
@@ -651,7 +623,6 @@ func RegisterGatewayHandlerClient(ctx context.Context, mux *runtime.ServeMux, cl
 		}
 
 		forward_Gateway_AdminUpdateTopMostConstraint_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
 
 	mux.Handle("POST", pattern_Gateway_AdminGetTopMostConstraints_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
@@ -671,7 +642,6 @@ func RegisterGatewayHandlerClient(ctx context.Context, mux *runtime.ServeMux, cl
 		}
 
 		forward_Gateway_AdminGetTopMostConstraints_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
 
 	mux.Handle("POST", pattern_Gateway_AdminDeleteTopMostConstraint_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
@@ -691,7 +661,6 @@ func RegisterGatewayHandlerClient(ctx context.Context, mux *runtime.ServeMux, cl
 		}
 
 		forward_Gateway_AdminDeleteTopMostConstraint_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
 	})
 
 	return nil

@@ -7,12 +7,13 @@
 package coupon
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/ledger/v1"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -746,17 +747,19 @@ func file_ledger_gateway_v1_withdraw_coupon_coupon_proto_rawDescGZIP() []byte {
 	return file_ledger_gateway_v1_withdraw_coupon_coupon_proto_rawDescData
 }
 
-var file_ledger_gateway_v1_withdraw_coupon_coupon_proto_msgTypes = make([]protoimpl.MessageInfo, 7)
-var file_ledger_gateway_v1_withdraw_coupon_coupon_proto_goTypes = []interface{}{
-	(*CouponWithdraw)(nil),                // 0: ledger.gateway.withdraw.coupon.v1.CouponWithdraw
-	(*CreateCouponWithdrawRequest)(nil),   // 1: ledger.gateway.withdraw.coupon.v1.CreateCouponWithdrawRequest
-	(*CreateCouponWithdrawResponse)(nil),  // 2: ledger.gateway.withdraw.coupon.v1.CreateCouponWithdrawResponse
-	(*GetCouponWithdrawsRequest)(nil),     // 3: ledger.gateway.withdraw.coupon.v1.GetCouponWithdrawsRequest
-	(*GetCouponWithdrawsResponse)(nil),    // 4: ledger.gateway.withdraw.coupon.v1.GetCouponWithdrawsResponse
-	(*GetAppCouponWithdrawsRequest)(nil),  // 5: ledger.gateway.withdraw.coupon.v1.GetAppCouponWithdrawsRequest
-	(*GetAppCouponWithdrawsResponse)(nil), // 6: ledger.gateway.withdraw.coupon.v1.GetAppCouponWithdrawsResponse
-	(v1.WithdrawState)(0),                 // 7: basetypes.ledger.v1.WithdrawState
-}
+var (
+	file_ledger_gateway_v1_withdraw_coupon_coupon_proto_msgTypes = make([]protoimpl.MessageInfo, 7)
+	file_ledger_gateway_v1_withdraw_coupon_coupon_proto_goTypes  = []interface{}{
+		(*CouponWithdraw)(nil),                // 0: ledger.gateway.withdraw.coupon.v1.CouponWithdraw
+		(*CreateCouponWithdrawRequest)(nil),   // 1: ledger.gateway.withdraw.coupon.v1.CreateCouponWithdrawRequest
+		(*CreateCouponWithdrawResponse)(nil),  // 2: ledger.gateway.withdraw.coupon.v1.CreateCouponWithdrawResponse
+		(*GetCouponWithdrawsRequest)(nil),     // 3: ledger.gateway.withdraw.coupon.v1.GetCouponWithdrawsRequest
+		(*GetCouponWithdrawsResponse)(nil),    // 4: ledger.gateway.withdraw.coupon.v1.GetCouponWithdrawsResponse
+		(*GetAppCouponWithdrawsRequest)(nil),  // 5: ledger.gateway.withdraw.coupon.v1.GetAppCouponWithdrawsRequest
+		(*GetAppCouponWithdrawsResponse)(nil), // 6: ledger.gateway.withdraw.coupon.v1.GetAppCouponWithdrawsResponse
+		(v1.WithdrawState)(0),                 // 7: basetypes.ledger.v1.WithdrawState
+	}
+)
 var file_ledger_gateway_v1_withdraw_coupon_coupon_proto_depIdxs = []int32{
 	7, // 0: ledger.gateway.withdraw.coupon.v1.CouponWithdraw.State:type_name -> basetypes.ledger.v1.WithdrawState
 	0, // 1: ledger.gateway.withdraw.coupon.v1.CreateCouponWithdrawResponse.Info:type_name -> ledger.gateway.withdraw.coupon.v1.CouponWithdraw

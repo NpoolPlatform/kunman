@@ -7,12 +7,13 @@
 package statement
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/ledger/v1"
 	v11 "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -655,19 +656,21 @@ func file_ledger_middleware_v2_simulate_ledger_statement_statement_proto_rawDesc
 	return file_ledger_middleware_v2_simulate_ledger_statement_statement_proto_rawDescData
 }
 
-var file_ledger_middleware_v2_simulate_ledger_statement_statement_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
-var file_ledger_middleware_v2_simulate_ledger_statement_statement_proto_goTypes = []interface{}{
-	(*StatementReq)(nil),       // 0: ledger.middleware.simulate.ledger.statement.v2.StatementReq
-	(*Statement)(nil),          // 1: ledger.middleware.simulate.ledger.statement.v2.Statement
-	(*Conds)(nil),              // 2: ledger.middleware.simulate.ledger.statement.v2.Conds
-	(v1.IOType)(0),             // 3: basetypes.ledger.v1.IOType
-	(v1.IOSubType)(0),          // 4: basetypes.ledger.v1.IOSubType
-	(*v11.StringVal)(nil),      // 5: basetypes.v1.StringVal
-	(*v11.Uint32Val)(nil),      // 6: basetypes.v1.Uint32Val
-	(*v11.Uint32SliceVal)(nil), // 7: basetypes.v1.Uint32SliceVal
-	(*v11.StringSliceVal)(nil), // 8: basetypes.v1.StringSliceVal
-	(*v11.BoolVal)(nil),        // 9: basetypes.v1.BoolVal
-}
+var (
+	file_ledger_middleware_v2_simulate_ledger_statement_statement_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
+	file_ledger_middleware_v2_simulate_ledger_statement_statement_proto_goTypes  = []interface{}{
+		(*StatementReq)(nil),       // 0: ledger.middleware.simulate.ledger.statement.v2.StatementReq
+		(*Statement)(nil),          // 1: ledger.middleware.simulate.ledger.statement.v2.Statement
+		(*Conds)(nil),              // 2: ledger.middleware.simulate.ledger.statement.v2.Conds
+		(v1.IOType)(0),             // 3: basetypes.ledger.v1.IOType
+		(v1.IOSubType)(0),          // 4: basetypes.ledger.v1.IOSubType
+		(*v11.StringVal)(nil),      // 5: basetypes.v1.StringVal
+		(*v11.Uint32Val)(nil),      // 6: basetypes.v1.Uint32Val
+		(*v11.Uint32SliceVal)(nil), // 7: basetypes.v1.Uint32SliceVal
+		(*v11.StringSliceVal)(nil), // 8: basetypes.v1.StringSliceVal
+		(*v11.BoolVal)(nil),        // 9: basetypes.v1.BoolVal
+	}
+)
 var file_ledger_middleware_v2_simulate_ledger_statement_statement_proto_depIdxs = []int32{
 	3,  // 0: ledger.middleware.simulate.ledger.statement.v2.StatementReq.IOType:type_name -> basetypes.ledger.v1.IOType
 	4,  // 1: ledger.middleware.simulate.ledger.statement.v2.StatementReq.IOSubType:type_name -> basetypes.ledger.v1.IOSubType

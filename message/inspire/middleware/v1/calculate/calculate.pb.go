@@ -7,10 +7,11 @@
 package calculate
 
 import (
-	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
-	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	reflect "reflect"
 	sync "sync"
+
+	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
+	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 )
 
 const (
@@ -107,10 +108,12 @@ func file_inspire_middleware_v1_calculate_calculate_proto_rawDescGZIP() []byte {
 	return file_inspire_middleware_v1_calculate_calculate_proto_rawDescData
 }
 
-var file_inspire_middleware_v1_calculate_calculate_proto_msgTypes = make([]protoimpl.MessageInfo, 1)
-var file_inspire_middleware_v1_calculate_calculate_proto_goTypes = []interface{}{
-	(*Payment)(nil), // 0: inspire.middleware.calculate.v1.Payment
-}
+var (
+	file_inspire_middleware_v1_calculate_calculate_proto_msgTypes = make([]protoimpl.MessageInfo, 1)
+	file_inspire_middleware_v1_calculate_calculate_proto_goTypes  = []interface{}{
+		(*Payment)(nil), // 0: inspire.middleware.calculate.v1.Payment
+	}
+)
 var file_inspire_middleware_v1_calculate_calculate_proto_depIdxs = []int32{
 	0, // [0:0] is the sub-list for method output_type
 	0, // [0:0] is the sub-list for method input_type

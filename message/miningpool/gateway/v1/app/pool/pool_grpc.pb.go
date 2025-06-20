@@ -8,6 +8,7 @@ package pool
 
 import (
 	context "context"
+
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -103,21 +104,24 @@ type GatewayServer interface {
 }
 
 // UnimplementedGatewayServer must be embedded to have forward compatible implementations.
-type UnimplementedGatewayServer struct {
-}
+type UnimplementedGatewayServer struct{}
 
 func (UnimplementedGatewayServer) AdminCreatePool(context.Context, *AdminCreatePoolRequest) (*AdminCreatePoolResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AdminCreatePool not implemented")
 }
+
 func (UnimplementedGatewayServer) GetPool(context.Context, *GetPoolRequest) (*GetPoolResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetPool not implemented")
 }
+
 func (UnimplementedGatewayServer) GetPools(context.Context, *GetPoolsRequest) (*GetPoolsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetPools not implemented")
 }
+
 func (UnimplementedGatewayServer) AdminGetPools(context.Context, *AdminGetPoolsRequest) (*AdminGetPoolsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AdminGetPools not implemented")
 }
+
 func (UnimplementedGatewayServer) AdminDeletePool(context.Context, *AdminDeletePoolRequest) (*AdminDeletePoolResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AdminDeletePool not implemented")
 }

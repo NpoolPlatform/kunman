@@ -7,13 +7,14 @@
 package oauth
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	user "github.com/NpoolPlatform/kunman/message/appuser/middleware/v1/user"
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -306,15 +307,17 @@ func file_appuser_gateway_v1_oauth_oauth_proto_rawDescGZIP() []byte {
 	return file_appuser_gateway_v1_oauth_oauth_proto_rawDescData
 }
 
-var file_appuser_gateway_v1_oauth_oauth_proto_msgTypes = make([]protoimpl.MessageInfo, 4)
-var file_appuser_gateway_v1_oauth_oauth_proto_goTypes = []interface{}{
-	(*GetOAuthLoginURLRequest)(nil),  // 0: appuser.gateway.oauth.v1.GetOAuthLoginURLRequest
-	(*GetOAuthLoginURLResponse)(nil), // 1: appuser.gateway.oauth.v1.GetOAuthLoginURLResponse
-	(*OAuthLoginRequest)(nil),        // 2: appuser.gateway.oauth.v1.OAuthLoginRequest
-	(*OAuthLoginResponse)(nil),       // 3: appuser.gateway.oauth.v1.OAuthLoginResponse
-	(v1.SignMethod)(0),               // 4: basetypes.v1.SignMethod
-	(*user.User)(nil),                // 5: appuser.middleware.user.v1.User
-}
+var (
+	file_appuser_gateway_v1_oauth_oauth_proto_msgTypes = make([]protoimpl.MessageInfo, 4)
+	file_appuser_gateway_v1_oauth_oauth_proto_goTypes  = []interface{}{
+		(*GetOAuthLoginURLRequest)(nil),  // 0: appuser.gateway.oauth.v1.GetOAuthLoginURLRequest
+		(*GetOAuthLoginURLResponse)(nil), // 1: appuser.gateway.oauth.v1.GetOAuthLoginURLResponse
+		(*OAuthLoginRequest)(nil),        // 2: appuser.gateway.oauth.v1.OAuthLoginRequest
+		(*OAuthLoginResponse)(nil),       // 3: appuser.gateway.oauth.v1.OAuthLoginResponse
+		(v1.SignMethod)(0),               // 4: basetypes.v1.SignMethod
+		(*user.User)(nil),                // 5: appuser.middleware.user.v1.User
+	}
+)
 var file_appuser_gateway_v1_oauth_oauth_proto_depIdxs = []int32{
 	4, // 0: appuser.gateway.oauth.v1.GetOAuthLoginURLRequest.ClientName:type_name -> basetypes.v1.SignMethod
 	5, // 1: appuser.gateway.oauth.v1.OAuthLoginResponse.Info:type_name -> appuser.middleware.user.v1.User

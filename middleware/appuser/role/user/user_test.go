@@ -14,8 +14,8 @@ import (
 	"github.com/google/uuid"
 	"github.com/stretchr/testify/assert"
 
-	"github.com/NpoolPlatform/kunman/middleware/appuser/testinit"
 	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
+	"github.com/NpoolPlatform/kunman/middleware/appuser/testinit"
 
 	app "github.com/NpoolPlatform/kunman/middleware/appuser/app"
 	role "github.com/NpoolPlatform/kunman/middleware/appuser/role"
@@ -31,15 +31,13 @@ func init() {
 	}
 }
 
-var (
-	ret = npool.User{
-		EntID:     uuid.NewString(),
-		CreatedBy: uuid.NewString(),
-		Role:      uuid.NewString(),
-		AppID:     uuid.NewString(),
-		UserID:    uuid.NewString(),
-	}
-)
+var ret = npool.User{
+	EntID:     uuid.NewString(),
+	CreatedBy: uuid.NewString(),
+	Role:      uuid.NewString(),
+	AppID:     uuid.NewString(),
+	UserID:    uuid.NewString(),
+}
 
 func setupUser(t *testing.T) func(*testing.T) {
 	ah, err := app.NewHandler(

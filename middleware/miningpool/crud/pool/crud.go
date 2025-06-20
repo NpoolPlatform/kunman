@@ -2,10 +2,10 @@ package pool
 
 import (
 	"github.com/NpoolPlatform/kunman/framework/wlog"
+	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/miningpool/v1"
 	ent "github.com/NpoolPlatform/kunman/middleware/miningpool/db/ent/generated"
 	poolent "github.com/NpoolPlatform/kunman/middleware/miningpool/db/ent/generated/pool"
 	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
-	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/miningpool/v1"
 
 	"github.com/google/uuid"
 )

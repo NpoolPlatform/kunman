@@ -8,6 +8,7 @@ package delegatedstaking
 
 import (
 	context "context"
+
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -129,27 +130,32 @@ type GatewayServer interface {
 }
 
 // UnimplementedGatewayServer must be embedded to have forward compatible implementations.
-type UnimplementedGatewayServer struct {
-}
+type UnimplementedGatewayServer struct{}
 
 func (UnimplementedGatewayServer) UpdateAppDelegatedStaking(context.Context, *UpdateAppDelegatedStakingRequest) (*UpdateAppDelegatedStakingResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateAppDelegatedStaking not implemented")
 }
+
 func (UnimplementedGatewayServer) GetAppDelegatedStaking(context.Context, *GetAppDelegatedStakingRequest) (*GetAppDelegatedStakingResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetAppDelegatedStaking not implemented")
 }
+
 func (UnimplementedGatewayServer) GetAppDelegatedStakings(context.Context, *GetAppDelegatedStakingsRequest) (*GetAppDelegatedStakingsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetAppDelegatedStakings not implemented")
 }
+
 func (UnimplementedGatewayServer) AdminCreateAppDelegatedStaking(context.Context, *AdminCreateAppDelegatedStakingRequest) (*AdminCreateAppDelegatedStakingResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AdminCreateAppDelegatedStaking not implemented")
 }
+
 func (UnimplementedGatewayServer) AdminUpdateAppDelegatedStaking(context.Context, *AdminUpdateAppDelegatedStakingRequest) (*AdminUpdateAppDelegatedStakingResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AdminUpdateAppDelegatedStaking not implemented")
 }
+
 func (UnimplementedGatewayServer) AdminGetAppDelegatedStakings(context.Context, *AdminGetAppDelegatedStakingsRequest) (*AdminGetAppDelegatedStakingsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AdminGetAppDelegatedStakings not implemented")
 }
+
 func (UnimplementedGatewayServer) AdminDeleteAppDelegatedStaking(context.Context, *AdminDeleteAppDelegatedStakingRequest) (*AdminDeleteAppDelegatedStakingResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AdminDeleteAppDelegatedStaking not implemented")
 }

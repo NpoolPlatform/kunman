@@ -7,12 +7,13 @@
 package rootuser
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/miningpool/v1"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -781,19 +782,21 @@ func file_miningpool_gateway_v1_rootuser_rootuser_proto_rawDescGZIP() []byte {
 	return file_miningpool_gateway_v1_rootuser_rootuser_proto_rawDescData
 }
 
-var file_miningpool_gateway_v1_rootuser_rootuser_proto_msgTypes = make([]protoimpl.MessageInfo, 9)
-var file_miningpool_gateway_v1_rootuser_rootuser_proto_goTypes = []interface{}{
-	(*RootUser)(nil),                    // 0: miningpool.gateway.rootuser.v1.RootUser
-	(*AdminCreateRootUserRequest)(nil),  // 1: miningpool.gateway.rootuser.v1.AdminCreateRootUserRequest
-	(*AdminCreateRootUserResponse)(nil), // 2: miningpool.gateway.rootuser.v1.AdminCreateRootUserResponse
-	(*AdminGetRootUsersRequest)(nil),    // 3: miningpool.gateway.rootuser.v1.AdminGetRootUsersRequest
-	(*AdminGetRootUsersResponse)(nil),   // 4: miningpool.gateway.rootuser.v1.AdminGetRootUsersResponse
-	(*AdminUpdateRootUserRequest)(nil),  // 5: miningpool.gateway.rootuser.v1.AdminUpdateRootUserRequest
-	(*AdminUpdateRootUserResponse)(nil), // 6: miningpool.gateway.rootuser.v1.AdminUpdateRootUserResponse
-	(*AdminDeleteRootUserRequest)(nil),  // 7: miningpool.gateway.rootuser.v1.AdminDeleteRootUserRequest
-	(*AdminDeleteRootUserResponse)(nil), // 8: miningpool.gateway.rootuser.v1.AdminDeleteRootUserResponse
-	(v1.MiningPoolType)(0),              // 9: basetypes.miningpool.v1.MiningPoolType
-}
+var (
+	file_miningpool_gateway_v1_rootuser_rootuser_proto_msgTypes = make([]protoimpl.MessageInfo, 9)
+	file_miningpool_gateway_v1_rootuser_rootuser_proto_goTypes  = []interface{}{
+		(*RootUser)(nil),                    // 0: miningpool.gateway.rootuser.v1.RootUser
+		(*AdminCreateRootUserRequest)(nil),  // 1: miningpool.gateway.rootuser.v1.AdminCreateRootUserRequest
+		(*AdminCreateRootUserResponse)(nil), // 2: miningpool.gateway.rootuser.v1.AdminCreateRootUserResponse
+		(*AdminGetRootUsersRequest)(nil),    // 3: miningpool.gateway.rootuser.v1.AdminGetRootUsersRequest
+		(*AdminGetRootUsersResponse)(nil),   // 4: miningpool.gateway.rootuser.v1.AdminGetRootUsersResponse
+		(*AdminUpdateRootUserRequest)(nil),  // 5: miningpool.gateway.rootuser.v1.AdminUpdateRootUserRequest
+		(*AdminUpdateRootUserResponse)(nil), // 6: miningpool.gateway.rootuser.v1.AdminUpdateRootUserResponse
+		(*AdminDeleteRootUserRequest)(nil),  // 7: miningpool.gateway.rootuser.v1.AdminDeleteRootUserRequest
+		(*AdminDeleteRootUserResponse)(nil), // 8: miningpool.gateway.rootuser.v1.AdminDeleteRootUserResponse
+		(v1.MiningPoolType)(0),              // 9: basetypes.miningpool.v1.MiningPoolType
+	}
+)
 var file_miningpool_gateway_v1_rootuser_rootuser_proto_depIdxs = []int32{
 	9, // 0: miningpool.gateway.rootuser.v1.RootUser.MiningPoolType:type_name -> basetypes.miningpool.v1.MiningPoolType
 	0, // 1: miningpool.gateway.rootuser.v1.AdminCreateRootUserResponse.Info:type_name -> miningpool.gateway.rootuser.v1.RootUser

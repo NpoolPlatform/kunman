@@ -7,12 +7,13 @@
 package task
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/inspire/v1"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -585,17 +586,19 @@ func file_inspire_gateway_v1_task_task_proto_rawDescGZIP() []byte {
 	return file_inspire_gateway_v1_task_task_proto_rawDescData
 }
 
-var file_inspire_gateway_v1_task_task_proto_msgTypes = make([]protoimpl.MessageInfo, 5)
-var file_inspire_gateway_v1_task_task_proto_goTypes = []interface{}{
-	(*UserTask)(nil),              // 0: inspire.gateway.task.v1.UserTask
-	(*GetMyTasksRequest)(nil),     // 1: inspire.gateway.task.v1.GetMyTasksRequest
-	(*GetMyTasksResponse)(nil),    // 2: inspire.gateway.task.v1.GetMyTasksResponse
-	(*AdminGetTasksRequest)(nil),  // 3: inspire.gateway.task.v1.AdminGetTasksRequest
-	(*AdminGetTasksResponse)(nil), // 4: inspire.gateway.task.v1.AdminGetTasksResponse
-	(v1.TaskType)(0),              // 5: basetypes.inspire.v1.TaskType
-	(v1.TaskState)(0),             // 6: basetypes.inspire.v1.TaskState
-	(v1.RewardState)(0),           // 7: basetypes.inspire.v1.RewardState
-}
+var (
+	file_inspire_gateway_v1_task_task_proto_msgTypes = make([]protoimpl.MessageInfo, 5)
+	file_inspire_gateway_v1_task_task_proto_goTypes  = []interface{}{
+		(*UserTask)(nil),              // 0: inspire.gateway.task.v1.UserTask
+		(*GetMyTasksRequest)(nil),     // 1: inspire.gateway.task.v1.GetMyTasksRequest
+		(*GetMyTasksResponse)(nil),    // 2: inspire.gateway.task.v1.GetMyTasksResponse
+		(*AdminGetTasksRequest)(nil),  // 3: inspire.gateway.task.v1.AdminGetTasksRequest
+		(*AdminGetTasksResponse)(nil), // 4: inspire.gateway.task.v1.AdminGetTasksResponse
+		(v1.TaskType)(0),              // 5: basetypes.inspire.v1.TaskType
+		(v1.TaskState)(0),             // 6: basetypes.inspire.v1.TaskState
+		(v1.RewardState)(0),           // 7: basetypes.inspire.v1.RewardState
+	}
+)
 var file_inspire_gateway_v1_task_task_proto_depIdxs = []int32{
 	5, // 0: inspire.gateway.task.v1.UserTask.TaskType:type_name -> basetypes.inspire.v1.TaskType
 	6, // 1: inspire.gateway.task.v1.UserTask.TaskState:type_name -> basetypes.inspire.v1.TaskState

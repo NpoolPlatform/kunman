@@ -7,13 +7,14 @@
 package coupon
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/good/v1"
 	_ "github.com/NpoolPlatform/kunman/message/basetypes/order/v1"
 	v11 "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -450,17 +451,19 @@ func file_order_middleware_v1_order_coupon_coupon_proto_rawDescGZIP() []byte {
 	return file_order_middleware_v1_order_coupon_coupon_proto_rawDescData
 }
 
-var file_order_middleware_v1_order_coupon_coupon_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
-var file_order_middleware_v1_order_coupon_coupon_proto_goTypes = []interface{}{
-	(*OrderCoupon)(nil),        // 0: order.middleware.order1.coupon.v1.OrderCoupon
-	(*OrderCouponInfo)(nil),    // 1: order.middleware.order1.coupon.v1.OrderCouponInfo
-	(*Conds)(nil),              // 2: order.middleware.order1.coupon.v1.Conds
-	(v1.GoodType)(0),           // 3: basetypes.good.v1.GoodType
-	(*v11.Uint32Val)(nil),      // 4: basetypes.v1.Uint32Val
-	(*v11.Uint32SliceVal)(nil), // 5: basetypes.v1.Uint32SliceVal
-	(*v11.StringVal)(nil),      // 6: basetypes.v1.StringVal
-	(*v11.StringSliceVal)(nil), // 7: basetypes.v1.StringSliceVal
-}
+var (
+	file_order_middleware_v1_order_coupon_coupon_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
+	file_order_middleware_v1_order_coupon_coupon_proto_goTypes  = []interface{}{
+		(*OrderCoupon)(nil),        // 0: order.middleware.order1.coupon.v1.OrderCoupon
+		(*OrderCouponInfo)(nil),    // 1: order.middleware.order1.coupon.v1.OrderCouponInfo
+		(*Conds)(nil),              // 2: order.middleware.order1.coupon.v1.Conds
+		(v1.GoodType)(0),           // 3: basetypes.good.v1.GoodType
+		(*v11.Uint32Val)(nil),      // 4: basetypes.v1.Uint32Val
+		(*v11.Uint32SliceVal)(nil), // 5: basetypes.v1.Uint32SliceVal
+		(*v11.StringVal)(nil),      // 6: basetypes.v1.StringVal
+		(*v11.StringSliceVal)(nil), // 7: basetypes.v1.StringSliceVal
+	}
+)
 var file_order_middleware_v1_order_coupon_coupon_proto_depIdxs = []int32{
 	3,  // 0: order.middleware.order1.coupon.v1.OrderCoupon.GoodType:type_name -> basetypes.good.v1.GoodType
 	4,  // 1: order.middleware.order1.coupon.v1.Conds.ID:type_name -> basetypes.v1.Uint32Val

@@ -7,12 +7,13 @@
 package quota
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	_ "github.com/NpoolPlatform/kunman/message/basetypes/agi/v1"
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -439,16 +440,18 @@ func file_agi_middleware_v1_subscription_quota_quota_proto_rawDescGZIP() []byte 
 	return file_agi_middleware_v1_subscription_quota_quota_proto_rawDescData
 }
 
-var file_agi_middleware_v1_subscription_quota_quota_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
-var file_agi_middleware_v1_subscription_quota_quota_proto_goTypes = []interface{}{
-	(*QuotaReq)(nil),          // 0: agi.middleware.subscription.quota.v1.QuotaReq
-	(*Quota)(nil),             // 1: agi.middleware.subscription.quota.v1.Quota
-	(*Conds)(nil),             // 2: agi.middleware.subscription.quota.v1.Conds
-	(*v1.Uint32Val)(nil),      // 3: basetypes.v1.Uint32Val
-	(*v1.Uint32SliceVal)(nil), // 4: basetypes.v1.Uint32SliceVal
-	(*v1.StringVal)(nil),      // 5: basetypes.v1.StringVal
-	(*v1.StringSliceVal)(nil), // 6: basetypes.v1.StringSliceVal
-}
+var (
+	file_agi_middleware_v1_subscription_quota_quota_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
+	file_agi_middleware_v1_subscription_quota_quota_proto_goTypes  = []interface{}{
+		(*QuotaReq)(nil),          // 0: agi.middleware.subscription.quota.v1.QuotaReq
+		(*Quota)(nil),             // 1: agi.middleware.subscription.quota.v1.Quota
+		(*Conds)(nil),             // 2: agi.middleware.subscription.quota.v1.Conds
+		(*v1.Uint32Val)(nil),      // 3: basetypes.v1.Uint32Val
+		(*v1.Uint32SliceVal)(nil), // 4: basetypes.v1.Uint32SliceVal
+		(*v1.StringVal)(nil),      // 5: basetypes.v1.StringVal
+		(*v1.StringSliceVal)(nil), // 6: basetypes.v1.StringSliceVal
+	}
+)
 var file_agi_middleware_v1_subscription_quota_quota_proto_depIdxs = []int32{
 	3, // 0: agi.middleware.subscription.quota.v1.Conds.ID:type_name -> basetypes.v1.Uint32Val
 	4, // 1: agi.middleware.subscription.quota.v1.Conds.IDs:type_name -> basetypes.v1.Uint32SliceVal

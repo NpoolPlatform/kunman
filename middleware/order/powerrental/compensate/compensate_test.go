@@ -7,13 +7,13 @@ import (
 	"strconv"
 	"testing"
 
-	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 	goodtypes "github.com/NpoolPlatform/kunman/message/basetypes/good/v1"
 	types "github.com/NpoolPlatform/kunman/message/basetypes/order/v1"
 	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	compensatemiddlewarepb "github.com/NpoolPlatform/kunman/message/order/middleware/v1/compensate"
 	compensate1 "github.com/NpoolPlatform/kunman/middleware/order/compensate"
 	powerrental1 "github.com/NpoolPlatform/kunman/middleware/order/powerrental"
+	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 
 	"github.com/google/uuid"
 	"github.com/shopspring/decimal"
@@ -44,7 +44,6 @@ var ret = compensatemiddlewarepb.Compensate{
 	CompensateSeconds: 10000,
 }
 
-// nolint: funlen
 func setup(t *testing.T) func(*testing.T) {
 	ret.CompensateTypeStr = ret.CompensateType.String()
 	ret.GoodTypeStr = ret.GoodType.String()

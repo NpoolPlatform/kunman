@@ -8,6 +8,7 @@ package achievement
 
 import (
 	context "context"
+
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -67,12 +68,12 @@ type GatewayServer interface {
 }
 
 // UnimplementedGatewayServer must be embedded to have forward compatible implementations.
-type UnimplementedGatewayServer struct {
-}
+type UnimplementedGatewayServer struct{}
 
 func (UnimplementedGatewayServer) GetAchievements(context.Context, *GetAchievementsRequest) (*GetAchievementsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetAchievements not implemented")
 }
+
 func (UnimplementedGatewayServer) GetUserAchievements(context.Context, *GetUserAchievementsRequest) (*GetUserAchievementsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetUserAchievements not implemented")
 }

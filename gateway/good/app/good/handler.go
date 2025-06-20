@@ -4,8 +4,8 @@ import (
 	"context"
 	"fmt"
 
-	constant "github.com/NpoolPlatform/kunman/pkg/const"
 	appmw "github.com/NpoolPlatform/kunman/middleware/appuser/app"
+	constant "github.com/NpoolPlatform/kunman/pkg/const"
 )
 
 type Handler struct {

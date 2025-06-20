@@ -7,12 +7,13 @@
 package poster
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/good/v1"
 	v11 "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -527,17 +528,19 @@ func file_good_middleware_v1_app_good_topmost_good_poster_poster_proto_rawDescGZ
 	return file_good_middleware_v1_app_good_topmost_good_poster_poster_proto_rawDescData
 }
 
-var file_good_middleware_v1_app_good_topmost_good_poster_poster_proto_msgTypes = make([]protoimpl.MessageInfo, 4)
-var file_good_middleware_v1_app_good_topmost_good_poster_poster_proto_goTypes = []interface{}{
-	(*PosterReq)(nil),          // 0: good.middleware.app.good1.topmost.good2.poster.v1.PosterReq
-	(*Poster)(nil),             // 1: good.middleware.app.good1.topmost.good2.poster.v1.Poster
-	(*PosterInfo)(nil),         // 2: good.middleware.app.good1.topmost.good2.poster.v1.PosterInfo
-	(*Conds)(nil),              // 3: good.middleware.app.good1.topmost.good2.poster.v1.Conds
-	(v1.GoodTopMostType)(0),    // 4: basetypes.good.v1.GoodTopMostType
-	(*v11.Uint32Val)(nil),      // 5: basetypes.v1.Uint32Val
-	(*v11.StringVal)(nil),      // 6: basetypes.v1.StringVal
-	(*v11.StringSliceVal)(nil), // 7: basetypes.v1.StringSliceVal
-}
+var (
+	file_good_middleware_v1_app_good_topmost_good_poster_poster_proto_msgTypes = make([]protoimpl.MessageInfo, 4)
+	file_good_middleware_v1_app_good_topmost_good_poster_poster_proto_goTypes  = []interface{}{
+		(*PosterReq)(nil),          // 0: good.middleware.app.good1.topmost.good2.poster.v1.PosterReq
+		(*Poster)(nil),             // 1: good.middleware.app.good1.topmost.good2.poster.v1.Poster
+		(*PosterInfo)(nil),         // 2: good.middleware.app.good1.topmost.good2.poster.v1.PosterInfo
+		(*Conds)(nil),              // 3: good.middleware.app.good1.topmost.good2.poster.v1.Conds
+		(v1.GoodTopMostType)(0),    // 4: basetypes.good.v1.GoodTopMostType
+		(*v11.Uint32Val)(nil),      // 5: basetypes.v1.Uint32Val
+		(*v11.StringVal)(nil),      // 6: basetypes.v1.StringVal
+		(*v11.StringSliceVal)(nil), // 7: basetypes.v1.StringSliceVal
+	}
+)
 var file_good_middleware_v1_app_good_topmost_good_poster_poster_proto_depIdxs = []int32{
 	4, // 0: good.middleware.app.good1.topmost.good2.poster.v1.Poster.TopMostType:type_name -> basetypes.good.v1.GoodTopMostType
 	5, // 1: good.middleware.app.good1.topmost.good2.poster.v1.Conds.ID:type_name -> basetypes.v1.Uint32Val

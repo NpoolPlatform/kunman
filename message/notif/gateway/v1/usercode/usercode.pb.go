@@ -7,12 +7,13 @@
 package usercode
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -217,13 +218,15 @@ func file_notif_gateway_v1_usercode_usercode_proto_rawDescGZIP() []byte {
 	return file_notif_gateway_v1_usercode_usercode_proto_rawDescData
 }
 
-var file_notif_gateway_v1_usercode_usercode_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
-var file_notif_gateway_v1_usercode_usercode_proto_goTypes = []interface{}{
-	(*SendCodeRequest)(nil),  // 0: notif.gateway.usercode.v1.SendCodeRequest
-	(*SendCodeResponse)(nil), // 1: notif.gateway.usercode.v1.SendCodeResponse
-	(v1.SignMethod)(0),       // 2: basetypes.v1.SignMethod
-	(v1.UsedFor)(0),          // 3: basetypes.v1.UsedFor
-}
+var (
+	file_notif_gateway_v1_usercode_usercode_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
+	file_notif_gateway_v1_usercode_usercode_proto_goTypes  = []interface{}{
+		(*SendCodeRequest)(nil),  // 0: notif.gateway.usercode.v1.SendCodeRequest
+		(*SendCodeResponse)(nil), // 1: notif.gateway.usercode.v1.SendCodeResponse
+		(v1.SignMethod)(0),       // 2: basetypes.v1.SignMethod
+		(v1.UsedFor)(0),          // 3: basetypes.v1.UsedFor
+	}
+)
 var file_notif_gateway_v1_usercode_usercode_proto_depIdxs = []int32{
 	2, // 0: notif.gateway.usercode.v1.SendCodeRequest.AccountType:type_name -> basetypes.v1.SignMethod
 	3, // 1: notif.gateway.usercode.v1.SendCodeRequest.UsedFor:type_name -> basetypes.v1.UsedFor

@@ -7,6 +7,9 @@
 package powerrental
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/good/v1"
 	v11 "github.com/NpoolPlatform/kunman/message/basetypes/order/v1"
 	v12 "github.com/NpoolPlatform/kunman/message/basetypes/v1"
@@ -15,8 +18,6 @@ import (
 	payment "github.com/NpoolPlatform/kunman/message/order/middleware/v1/payment"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -1881,34 +1882,36 @@ func file_order_middleware_v1_powerrental_powerrental_proto_rawDescGZIP() []byte
 	return file_order_middleware_v1_powerrental_powerrental_proto_rawDescData
 }
 
-var file_order_middleware_v1_powerrental_powerrental_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
-var file_order_middleware_v1_powerrental_powerrental_proto_goTypes = []interface{}{
-	(*PowerRentalOrderReq)(nil),         // 0: order.middleware.powerrental.v1.PowerRentalOrderReq
-	(*PowerRentalOrder)(nil),            // 1: order.middleware.powerrental.v1.PowerRentalOrder
-	(*Conds)(nil),                       // 2: order.middleware.powerrental.v1.Conds
-	(v1.GoodType)(0),                    // 3: basetypes.good.v1.GoodType
-	(v11.OrderType)(0),                  // 4: basetypes.order.v1.OrderType
-	(v11.PaymentType)(0),                // 5: basetypes.order.v1.PaymentType
-	(v11.OrderCreateMethod)(0),          // 6: basetypes.order.v1.OrderCreateMethod
-	(v11.InvestmentType)(0),             // 7: basetypes.order.v1.InvestmentType
-	(v1.GoodStockMode)(0),               // 8: basetypes.good.v1.GoodStockMode
-	(v11.OrderState)(0),                 // 9: basetypes.order.v1.OrderState
-	(v11.OrderStartMode)(0),             // 10: basetypes.order.v1.OrderStartMode
-	(v11.BenefitState)(0),               // 11: basetypes.order.v1.BenefitState
-	(v11.PaymentState)(0),               // 12: basetypes.order.v1.PaymentState
-	(v11.OrderRenewState)(0),            // 13: basetypes.order.v1.OrderRenewState
-	(*payment.PaymentBalanceReq)(nil),   // 14: order.middleware.payment.v1.PaymentBalanceReq
-	(*payment.PaymentTransferReq)(nil),  // 15: order.middleware.payment.v1.PaymentTransferReq
-	(*coupon.OrderCouponInfo)(nil),      // 16: order.middleware.order1.coupon.v1.OrderCouponInfo
-	(*payment.PaymentBalanceInfo)(nil),  // 17: order.middleware.payment.v1.PaymentBalanceInfo
-	(*payment.PaymentTransferInfo)(nil), // 18: order.middleware.payment.v1.PaymentTransferInfo
-	(*fee.FeeDuration)(nil),             // 19: order.middleware.fee.v1.FeeDuration
-	(*v12.Uint32Val)(nil),               // 20: basetypes.v1.Uint32Val
-	(*v12.Uint32SliceVal)(nil),          // 21: basetypes.v1.Uint32SliceVal
-	(*v12.StringVal)(nil),               // 22: basetypes.v1.StringVal
-	(*v12.StringSliceVal)(nil),          // 23: basetypes.v1.StringSliceVal
-	(*v12.BoolVal)(nil),                 // 24: basetypes.v1.BoolVal
-}
+var (
+	file_order_middleware_v1_powerrental_powerrental_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
+	file_order_middleware_v1_powerrental_powerrental_proto_goTypes  = []interface{}{
+		(*PowerRentalOrderReq)(nil),         // 0: order.middleware.powerrental.v1.PowerRentalOrderReq
+		(*PowerRentalOrder)(nil),            // 1: order.middleware.powerrental.v1.PowerRentalOrder
+		(*Conds)(nil),                       // 2: order.middleware.powerrental.v1.Conds
+		(v1.GoodType)(0),                    // 3: basetypes.good.v1.GoodType
+		(v11.OrderType)(0),                  // 4: basetypes.order.v1.OrderType
+		(v11.PaymentType)(0),                // 5: basetypes.order.v1.PaymentType
+		(v11.OrderCreateMethod)(0),          // 6: basetypes.order.v1.OrderCreateMethod
+		(v11.InvestmentType)(0),             // 7: basetypes.order.v1.InvestmentType
+		(v1.GoodStockMode)(0),               // 8: basetypes.good.v1.GoodStockMode
+		(v11.OrderState)(0),                 // 9: basetypes.order.v1.OrderState
+		(v11.OrderStartMode)(0),             // 10: basetypes.order.v1.OrderStartMode
+		(v11.BenefitState)(0),               // 11: basetypes.order.v1.BenefitState
+		(v11.PaymentState)(0),               // 12: basetypes.order.v1.PaymentState
+		(v11.OrderRenewState)(0),            // 13: basetypes.order.v1.OrderRenewState
+		(*payment.PaymentBalanceReq)(nil),   // 14: order.middleware.payment.v1.PaymentBalanceReq
+		(*payment.PaymentTransferReq)(nil),  // 15: order.middleware.payment.v1.PaymentTransferReq
+		(*coupon.OrderCouponInfo)(nil),      // 16: order.middleware.order1.coupon.v1.OrderCouponInfo
+		(*payment.PaymentBalanceInfo)(nil),  // 17: order.middleware.payment.v1.PaymentBalanceInfo
+		(*payment.PaymentTransferInfo)(nil), // 18: order.middleware.payment.v1.PaymentTransferInfo
+		(*fee.FeeDuration)(nil),             // 19: order.middleware.fee.v1.FeeDuration
+		(*v12.Uint32Val)(nil),               // 20: basetypes.v1.Uint32Val
+		(*v12.Uint32SliceVal)(nil),          // 21: basetypes.v1.Uint32SliceVal
+		(*v12.StringVal)(nil),               // 22: basetypes.v1.StringVal
+		(*v12.StringSliceVal)(nil),          // 23: basetypes.v1.StringSliceVal
+		(*v12.BoolVal)(nil),                 // 24: basetypes.v1.BoolVal
+	}
+)
 var file_order_middleware_v1_powerrental_powerrental_proto_depIdxs = []int32{
 	3,  // 0: order.middleware.powerrental.v1.PowerRentalOrderReq.GoodType:type_name -> basetypes.good.v1.GoodType
 	4,  // 1: order.middleware.powerrental.v1.PowerRentalOrderReq.OrderType:type_name -> basetypes.order.v1.OrderType

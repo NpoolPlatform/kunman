@@ -7,11 +7,12 @@
 package registration
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -819,18 +820,20 @@ func file_inspire_gateway_v1_invitation_registration_registration_proto_rawDescG
 	return file_inspire_gateway_v1_invitation_registration_registration_proto_rawDescData
 }
 
-var file_inspire_gateway_v1_invitation_registration_registration_proto_msgTypes = make([]protoimpl.MessageInfo, 9)
-var file_inspire_gateway_v1_invitation_registration_registration_proto_goTypes = []interface{}{
-	(*Registration)(nil),                 // 0: inspire.gateway.invitation.registration.v1.Registration
-	(*UpdateRegistrationRequest)(nil),    // 1: inspire.gateway.invitation.registration.v1.UpdateRegistrationRequest
-	(*UpdateRegistrationResponse)(nil),   // 2: inspire.gateway.invitation.registration.v1.UpdateRegistrationResponse
-	(*GetUserRegistrationsRequest)(nil),  // 3: inspire.gateway.invitation.registration.v1.GetUserRegistrationsRequest
-	(*GetUserRegistrationsResponse)(nil), // 4: inspire.gateway.invitation.registration.v1.GetUserRegistrationsResponse
-	(*GetRegistrationsRequest)(nil),      // 5: inspire.gateway.invitation.registration.v1.GetRegistrationsRequest
-	(*GetRegistrationsResponse)(nil),     // 6: inspire.gateway.invitation.registration.v1.GetRegistrationsResponse
-	(*GetAppRegistrationsRequest)(nil),   // 7: inspire.gateway.invitation.registration.v1.GetAppRegistrationsRequest
-	(*GetAppRegistrationsResponse)(nil),  // 8: inspire.gateway.invitation.registration.v1.GetAppRegistrationsResponse
-}
+var (
+	file_inspire_gateway_v1_invitation_registration_registration_proto_msgTypes = make([]protoimpl.MessageInfo, 9)
+	file_inspire_gateway_v1_invitation_registration_registration_proto_goTypes  = []interface{}{
+		(*Registration)(nil),                 // 0: inspire.gateway.invitation.registration.v1.Registration
+		(*UpdateRegistrationRequest)(nil),    // 1: inspire.gateway.invitation.registration.v1.UpdateRegistrationRequest
+		(*UpdateRegistrationResponse)(nil),   // 2: inspire.gateway.invitation.registration.v1.UpdateRegistrationResponse
+		(*GetUserRegistrationsRequest)(nil),  // 3: inspire.gateway.invitation.registration.v1.GetUserRegistrationsRequest
+		(*GetUserRegistrationsResponse)(nil), // 4: inspire.gateway.invitation.registration.v1.GetUserRegistrationsResponse
+		(*GetRegistrationsRequest)(nil),      // 5: inspire.gateway.invitation.registration.v1.GetRegistrationsRequest
+		(*GetRegistrationsResponse)(nil),     // 6: inspire.gateway.invitation.registration.v1.GetRegistrationsResponse
+		(*GetAppRegistrationsRequest)(nil),   // 7: inspire.gateway.invitation.registration.v1.GetAppRegistrationsRequest
+		(*GetAppRegistrationsResponse)(nil),  // 8: inspire.gateway.invitation.registration.v1.GetAppRegistrationsResponse
+	}
+)
 var file_inspire_gateway_v1_invitation_registration_registration_proto_depIdxs = []int32{
 	0, // 0: inspire.gateway.invitation.registration.v1.UpdateRegistrationResponse.Info:type_name -> inspire.gateway.invitation.registration.v1.Registration
 	0, // 1: inspire.gateway.invitation.registration.v1.GetUserRegistrationsResponse.Infos:type_name -> inspire.gateway.invitation.registration.v1.Registration

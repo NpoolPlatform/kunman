@@ -3,10 +3,10 @@ package readstate
 import (
 	"context"
 
-	"github.com/NpoolPlatform/libent-cruder/pkg/cruder"
 	npool "github.com/NpoolPlatform/kunman/message/notif/middleware/v1/announcement/readstate"
-	crud "github.com/NpoolPlatform/kunman/middleware/notif/crud/announcement/readstate"
 	"github.com/NpoolPlatform/kunman/middleware/notif/announcement/handler"
+	crud "github.com/NpoolPlatform/kunman/middleware/notif/crud/announcement/readstate"
+	"github.com/NpoolPlatform/libent-cruder/pkg/cruder"
 	"github.com/google/uuid"
 )
 

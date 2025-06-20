@@ -47,7 +47,7 @@ func init() {
 	}
 }
 
-//nolint
+// nolint
 func (h *updateHandler) checkWithdrawState(ctx context.Context) error {
 	if h.State == nil && h.PlatformTransactionID == nil && h.ReviewID == nil {
 		return nil

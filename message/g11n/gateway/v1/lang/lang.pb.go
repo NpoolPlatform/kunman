@@ -7,12 +7,13 @@
 package lang
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	lang "github.com/NpoolPlatform/kunman/message/g11n/middleware/v1/lang"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -588,19 +589,21 @@ func file_g11n_gateway_v1_lang_lang_proto_rawDescGZIP() []byte {
 	return file_g11n_gateway_v1_lang_lang_proto_rawDescData
 }
 
-var file_g11n_gateway_v1_lang_lang_proto_msgTypes = make([]protoimpl.MessageInfo, 8)
-var file_g11n_gateway_v1_lang_lang_proto_goTypes = []interface{}{
-	(*CreateLangRequest)(nil),   // 0: g11n.gateway.lang.v1.CreateLangRequest
-	(*CreateLangResponse)(nil),  // 1: g11n.gateway.lang.v1.CreateLangResponse
-	(*CreateLangsRequest)(nil),  // 2: g11n.gateway.lang.v1.CreateLangsRequest
-	(*CreateLangsResponse)(nil), // 3: g11n.gateway.lang.v1.CreateLangsResponse
-	(*UpdateLangRequest)(nil),   // 4: g11n.gateway.lang.v1.UpdateLangRequest
-	(*UpdateLangResponse)(nil),  // 5: g11n.gateway.lang.v1.UpdateLangResponse
-	(*GetLangsRequest)(nil),     // 6: g11n.gateway.lang.v1.GetLangsRequest
-	(*GetLangsResponse)(nil),    // 7: g11n.gateway.lang.v1.GetLangsResponse
-	(*lang.Lang)(nil),           // 8: g11n.middleware.lang.v1.Lang
-	(*lang.LangReq)(nil),        // 9: g11n.middleware.lang.v1.LangReq
-}
+var (
+	file_g11n_gateway_v1_lang_lang_proto_msgTypes = make([]protoimpl.MessageInfo, 8)
+	file_g11n_gateway_v1_lang_lang_proto_goTypes  = []interface{}{
+		(*CreateLangRequest)(nil),   // 0: g11n.gateway.lang.v1.CreateLangRequest
+		(*CreateLangResponse)(nil),  // 1: g11n.gateway.lang.v1.CreateLangResponse
+		(*CreateLangsRequest)(nil),  // 2: g11n.gateway.lang.v1.CreateLangsRequest
+		(*CreateLangsResponse)(nil), // 3: g11n.gateway.lang.v1.CreateLangsResponse
+		(*UpdateLangRequest)(nil),   // 4: g11n.gateway.lang.v1.UpdateLangRequest
+		(*UpdateLangResponse)(nil),  // 5: g11n.gateway.lang.v1.UpdateLangResponse
+		(*GetLangsRequest)(nil),     // 6: g11n.gateway.lang.v1.GetLangsRequest
+		(*GetLangsResponse)(nil),    // 7: g11n.gateway.lang.v1.GetLangsResponse
+		(*lang.Lang)(nil),           // 8: g11n.middleware.lang.v1.Lang
+		(*lang.LangReq)(nil),        // 9: g11n.middleware.lang.v1.LangReq
+	}
+)
 var file_g11n_gateway_v1_lang_lang_proto_depIdxs = []int32{
 	8, // 0: g11n.gateway.lang.v1.CreateLangResponse.Info:type_name -> g11n.middleware.lang.v1.Lang
 	9, // 1: g11n.gateway.lang.v1.CreateLangsRequest.Infos:type_name -> g11n.middleware.lang.v1.LangReq

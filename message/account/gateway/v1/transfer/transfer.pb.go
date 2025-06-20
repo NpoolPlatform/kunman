@@ -7,12 +7,13 @@
 package transfer
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -954,21 +955,23 @@ func file_account_gateway_v1_transfer_transfer_proto_rawDescGZIP() []byte {
 	return file_account_gateway_v1_transfer_transfer_proto_rawDescData
 }
 
-var file_account_gateway_v1_transfer_transfer_proto_msgTypes = make([]protoimpl.MessageInfo, 11)
-var file_account_gateway_v1_transfer_transfer_proto_goTypes = []interface{}{
-	(*Transfer)(nil),                 // 0: account.gateway.transfer.v1.Transfer
-	(*CreateTransferRequest)(nil),    // 1: account.gateway.transfer.v1.CreateTransferRequest
-	(*CreateTransferResponse)(nil),   // 2: account.gateway.transfer.v1.CreateTransferResponse
-	(*DeleteTransferRequest)(nil),    // 3: account.gateway.transfer.v1.DeleteTransferRequest
-	(*DeleteTransferResponse)(nil),   // 4: account.gateway.transfer.v1.DeleteTransferResponse
-	(*GetTransfersRequest)(nil),      // 5: account.gateway.transfer.v1.GetTransfersRequest
-	(*GetTransfersResponse)(nil),     // 6: account.gateway.transfer.v1.GetTransfersResponse
-	(*GetAppTransfersRequest)(nil),   // 7: account.gateway.transfer.v1.GetAppTransfersRequest
-	(*GetAppTransfersResponse)(nil),  // 8: account.gateway.transfer.v1.GetAppTransfersResponse
-	(*GetNAppTransfersRequest)(nil),  // 9: account.gateway.transfer.v1.GetNAppTransfersRequest
-	(*GetNAppTransfersResponse)(nil), // 10: account.gateway.transfer.v1.GetNAppTransfersResponse
-	(v1.SignMethod)(0),               // 11: basetypes.v1.SignMethod
-}
+var (
+	file_account_gateway_v1_transfer_transfer_proto_msgTypes = make([]protoimpl.MessageInfo, 11)
+	file_account_gateway_v1_transfer_transfer_proto_goTypes  = []interface{}{
+		(*Transfer)(nil),                 // 0: account.gateway.transfer.v1.Transfer
+		(*CreateTransferRequest)(nil),    // 1: account.gateway.transfer.v1.CreateTransferRequest
+		(*CreateTransferResponse)(nil),   // 2: account.gateway.transfer.v1.CreateTransferResponse
+		(*DeleteTransferRequest)(nil),    // 3: account.gateway.transfer.v1.DeleteTransferRequest
+		(*DeleteTransferResponse)(nil),   // 4: account.gateway.transfer.v1.DeleteTransferResponse
+		(*GetTransfersRequest)(nil),      // 5: account.gateway.transfer.v1.GetTransfersRequest
+		(*GetTransfersResponse)(nil),     // 6: account.gateway.transfer.v1.GetTransfersResponse
+		(*GetAppTransfersRequest)(nil),   // 7: account.gateway.transfer.v1.GetAppTransfersRequest
+		(*GetAppTransfersResponse)(nil),  // 8: account.gateway.transfer.v1.GetAppTransfersResponse
+		(*GetNAppTransfersRequest)(nil),  // 9: account.gateway.transfer.v1.GetNAppTransfersRequest
+		(*GetNAppTransfersResponse)(nil), // 10: account.gateway.transfer.v1.GetNAppTransfersResponse
+		(v1.SignMethod)(0),               // 11: basetypes.v1.SignMethod
+	}
+)
 var file_account_gateway_v1_transfer_transfer_proto_depIdxs = []int32{
 	11, // 0: account.gateway.transfer.v1.CreateTransferRequest.AccountType:type_name -> basetypes.v1.SignMethod
 	11, // 1: account.gateway.transfer.v1.CreateTransferRequest.TargetAccountType:type_name -> basetypes.v1.SignMethod

@@ -8,6 +8,7 @@ package user
 
 import (
 	context "context"
+
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -115,24 +116,28 @@ type GatewayServer interface {
 }
 
 // UnimplementedGatewayServer must be embedded to have forward compatible implementations.
-type UnimplementedGatewayServer struct {
-}
+type UnimplementedGatewayServer struct{}
 
 func (UnimplementedGatewayServer) CreateAnnouncementUser(context.Context, *CreateAnnouncementUserRequest) (*CreateAnnouncementUserResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateAnnouncementUser not implemented")
 }
+
 func (UnimplementedGatewayServer) CreateAppAnnouncementUser(context.Context, *CreateAppAnnouncementUserRequest) (*CreateAppAnnouncementUserResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateAppAnnouncementUser not implemented")
 }
+
 func (UnimplementedGatewayServer) DeleteAnnouncementUser(context.Context, *DeleteAnnouncementUserRequest) (*DeleteAnnouncementUserResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteAnnouncementUser not implemented")
 }
+
 func (UnimplementedGatewayServer) DeleteAppAnnouncementUser(context.Context, *DeleteAppAnnouncementUserRequest) (*DeleteAppAnnouncementUserResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteAppAnnouncementUser not implemented")
 }
+
 func (UnimplementedGatewayServer) GetAnnouncementUsers(context.Context, *GetAnnouncementUsersRequest) (*GetAnnouncementUsersResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetAnnouncementUsers not implemented")
 }
+
 func (UnimplementedGatewayServer) GetAppAnnouncementUsers(context.Context, *GetAppAnnouncementUsersRequest) (*GetAppAnnouncementUsersResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetAppAnnouncementUsers not implemented")
 }

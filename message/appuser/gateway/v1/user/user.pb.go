@@ -7,14 +7,15 @@
 package user
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	user "github.com/NpoolPlatform/kunman/message/appuser/middleware/v1/user"
 	history "github.com/NpoolPlatform/kunman/message/appuser/middleware/v1/user/login/history"
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -3363,52 +3364,54 @@ func file_appuser_gateway_v1_user_user_proto_rawDescGZIP() []byte {
 	return file_appuser_gateway_v1_user_user_proto_rawDescData
 }
 
-var file_appuser_gateway_v1_user_user_proto_msgTypes = make([]protoimpl.MessageInfo, 40)
-var file_appuser_gateway_v1_user_user_proto_goTypes = []interface{}{
-	(*SignupRequest)(nil),             // 0: appuser.gateway.user.v1.SignupRequest
-	(*SignupResponse)(nil),            // 1: appuser.gateway.user.v1.SignupResponse
-	(*CreateUserRequest)(nil),         // 2: appuser.gateway.user.v1.CreateUserRequest
-	(*CreateUserResponse)(nil),        // 3: appuser.gateway.user.v1.CreateUserResponse
-	(*DeleteUserRequest)(nil),         // 4: appuser.gateway.user.v1.DeleteUserRequest
-	(*DeleteUserResponse)(nil),        // 5: appuser.gateway.user.v1.DeleteUserResponse
-	(*CreateAppUserRequest)(nil),      // 6: appuser.gateway.user.v1.CreateAppUserRequest
-	(*CreateAppUserResponse)(nil),     // 7: appuser.gateway.user.v1.CreateAppUserResponse
-	(*UpdateUserRequest)(nil),         // 8: appuser.gateway.user.v1.UpdateUserRequest
-	(*UpdateUserResponse)(nil),        // 9: appuser.gateway.user.v1.UpdateUserResponse
-	(*UpdateUserKolRequest)(nil),      // 10: appuser.gateway.user.v1.UpdateUserKolRequest
-	(*UpdateUserKolResponse)(nil),     // 11: appuser.gateway.user.v1.UpdateUserKolResponse
-	(*UpdateAppUserRequest)(nil),      // 12: appuser.gateway.user.v1.UpdateAppUserRequest
-	(*UpdateAppUserResponse)(nil),     // 13: appuser.gateway.user.v1.UpdateAppUserResponse
-	(*ResetUserRequest)(nil),          // 14: appuser.gateway.user.v1.ResetUserRequest
-	(*ResetUserResponse)(nil),         // 15: appuser.gateway.user.v1.ResetUserResponse
-	(*PreResetUserRequest)(nil),       // 16: appuser.gateway.user.v1.PreResetUserRequest
-	(*PreResetUserResponse)(nil),      // 17: appuser.gateway.user.v1.PreResetUserResponse
-	(*GetUsersRequest)(nil),           // 18: appuser.gateway.user.v1.GetUsersRequest
-	(*GetUsersResponse)(nil),          // 19: appuser.gateway.user.v1.GetUsersResponse
-	(*GetAppUsersRequest)(nil),        // 20: appuser.gateway.user.v1.GetAppUsersRequest
-	(*GetAppUsersResponse)(nil),       // 21: appuser.gateway.user.v1.GetAppUsersResponse
-	(*LoginRequest)(nil),              // 22: appuser.gateway.user.v1.LoginRequest
-	(*LoginResponse)(nil),             // 23: appuser.gateway.user.v1.LoginResponse
-	(*LoginVerifyRequest)(nil),        // 24: appuser.gateway.user.v1.LoginVerifyRequest
-	(*LoginVerifyResponse)(nil),       // 25: appuser.gateway.user.v1.LoginVerifyResponse
-	(*LoginedRequest)(nil),            // 26: appuser.gateway.user.v1.LoginedRequest
-	(*LoginedResponse)(nil),           // 27: appuser.gateway.user.v1.LoginedResponse
-	(*LogoutRequest)(nil),             // 28: appuser.gateway.user.v1.LogoutRequest
-	(*LogoutResponse)(nil),            // 29: appuser.gateway.user.v1.LogoutResponse
-	(*GetLoginHistoriesRequest)(nil),  // 30: appuser.gateway.user.v1.GetLoginHistoriesRequest
-	(*GetLoginHistoriesResponse)(nil), // 31: appuser.gateway.user.v1.GetLoginHistoriesResponse
-	(*BanUserRequest)(nil),            // 32: appuser.gateway.user.v1.BanUserRequest
-	(*BanUserResponse)(nil),           // 33: appuser.gateway.user.v1.BanUserResponse
-	(*BanAppUserRequest)(nil),         // 34: appuser.gateway.user.v1.BanAppUserRequest
-	(*BanAppUserResponse)(nil),        // 35: appuser.gateway.user.v1.BanAppUserResponse
-	(*BindUserRequest)(nil),           // 36: appuser.gateway.user.v1.BindUserRequest
-	(*BindUserResponse)(nil),          // 37: appuser.gateway.user.v1.BindUserResponse
-	(*UnbindOAuthRequest)(nil),        // 38: appuser.gateway.user.v1.UnbindOAuthRequest
-	(*UnbindOAuthResponse)(nil),       // 39: appuser.gateway.user.v1.UnbindOAuthResponse
-	(v1.SignMethod)(0),                // 40: basetypes.v1.SignMethod
-	(*user.User)(nil),                 // 41: appuser.middleware.user.v1.User
-	(*history.History)(nil),           // 42: appuser.middleware.user.login.history.v1.History
-}
+var (
+	file_appuser_gateway_v1_user_user_proto_msgTypes = make([]protoimpl.MessageInfo, 40)
+	file_appuser_gateway_v1_user_user_proto_goTypes  = []interface{}{
+		(*SignupRequest)(nil),             // 0: appuser.gateway.user.v1.SignupRequest
+		(*SignupResponse)(nil),            // 1: appuser.gateway.user.v1.SignupResponse
+		(*CreateUserRequest)(nil),         // 2: appuser.gateway.user.v1.CreateUserRequest
+		(*CreateUserResponse)(nil),        // 3: appuser.gateway.user.v1.CreateUserResponse
+		(*DeleteUserRequest)(nil),         // 4: appuser.gateway.user.v1.DeleteUserRequest
+		(*DeleteUserResponse)(nil),        // 5: appuser.gateway.user.v1.DeleteUserResponse
+		(*CreateAppUserRequest)(nil),      // 6: appuser.gateway.user.v1.CreateAppUserRequest
+		(*CreateAppUserResponse)(nil),     // 7: appuser.gateway.user.v1.CreateAppUserResponse
+		(*UpdateUserRequest)(nil),         // 8: appuser.gateway.user.v1.UpdateUserRequest
+		(*UpdateUserResponse)(nil),        // 9: appuser.gateway.user.v1.UpdateUserResponse
+		(*UpdateUserKolRequest)(nil),      // 10: appuser.gateway.user.v1.UpdateUserKolRequest
+		(*UpdateUserKolResponse)(nil),     // 11: appuser.gateway.user.v1.UpdateUserKolResponse
+		(*UpdateAppUserRequest)(nil),      // 12: appuser.gateway.user.v1.UpdateAppUserRequest
+		(*UpdateAppUserResponse)(nil),     // 13: appuser.gateway.user.v1.UpdateAppUserResponse
+		(*ResetUserRequest)(nil),          // 14: appuser.gateway.user.v1.ResetUserRequest
+		(*ResetUserResponse)(nil),         // 15: appuser.gateway.user.v1.ResetUserResponse
+		(*PreResetUserRequest)(nil),       // 16: appuser.gateway.user.v1.PreResetUserRequest
+		(*PreResetUserResponse)(nil),      // 17: appuser.gateway.user.v1.PreResetUserResponse
+		(*GetUsersRequest)(nil),           // 18: appuser.gateway.user.v1.GetUsersRequest
+		(*GetUsersResponse)(nil),          // 19: appuser.gateway.user.v1.GetUsersResponse
+		(*GetAppUsersRequest)(nil),        // 20: appuser.gateway.user.v1.GetAppUsersRequest
+		(*GetAppUsersResponse)(nil),       // 21: appuser.gateway.user.v1.GetAppUsersResponse
+		(*LoginRequest)(nil),              // 22: appuser.gateway.user.v1.LoginRequest
+		(*LoginResponse)(nil),             // 23: appuser.gateway.user.v1.LoginResponse
+		(*LoginVerifyRequest)(nil),        // 24: appuser.gateway.user.v1.LoginVerifyRequest
+		(*LoginVerifyResponse)(nil),       // 25: appuser.gateway.user.v1.LoginVerifyResponse
+		(*LoginedRequest)(nil),            // 26: appuser.gateway.user.v1.LoginedRequest
+		(*LoginedResponse)(nil),           // 27: appuser.gateway.user.v1.LoginedResponse
+		(*LogoutRequest)(nil),             // 28: appuser.gateway.user.v1.LogoutRequest
+		(*LogoutResponse)(nil),            // 29: appuser.gateway.user.v1.LogoutResponse
+		(*GetLoginHistoriesRequest)(nil),  // 30: appuser.gateway.user.v1.GetLoginHistoriesRequest
+		(*GetLoginHistoriesResponse)(nil), // 31: appuser.gateway.user.v1.GetLoginHistoriesResponse
+		(*BanUserRequest)(nil),            // 32: appuser.gateway.user.v1.BanUserRequest
+		(*BanUserResponse)(nil),           // 33: appuser.gateway.user.v1.BanUserResponse
+		(*BanAppUserRequest)(nil),         // 34: appuser.gateway.user.v1.BanAppUserRequest
+		(*BanAppUserResponse)(nil),        // 35: appuser.gateway.user.v1.BanAppUserResponse
+		(*BindUserRequest)(nil),           // 36: appuser.gateway.user.v1.BindUserRequest
+		(*BindUserResponse)(nil),          // 37: appuser.gateway.user.v1.BindUserResponse
+		(*UnbindOAuthRequest)(nil),        // 38: appuser.gateway.user.v1.UnbindOAuthRequest
+		(*UnbindOAuthResponse)(nil),       // 39: appuser.gateway.user.v1.UnbindOAuthResponse
+		(v1.SignMethod)(0),                // 40: basetypes.v1.SignMethod
+		(*user.User)(nil),                 // 41: appuser.middleware.user.v1.User
+		(*history.History)(nil),           // 42: appuser.middleware.user.login.history.v1.History
+	}
+)
 var file_appuser_gateway_v1_user_user_proto_depIdxs = []int32{
 	40, // 0: appuser.gateway.user.v1.SignupRequest.AccountType:type_name -> basetypes.v1.SignMethod
 	41, // 1: appuser.gateway.user.v1.SignupResponse.Info:type_name -> appuser.middleware.user.v1.User

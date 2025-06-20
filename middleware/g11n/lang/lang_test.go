@@ -26,15 +26,13 @@ func init() {
 	}
 }
 
-var (
-	ret = npool.Lang{
-		EntID: uuid.NewString(),
-		Lang:  uuid.NewString(),
-		Logo:  uuid.NewString(),
-		Name:  uuid.NewString(),
-		Short: uuid.NewString(),
-	}
-)
+var ret = npool.Lang{
+	EntID: uuid.NewString(),
+	Lang:  uuid.NewString(),
+	Logo:  uuid.NewString(),
+	Name:  uuid.NewString(),
+	Short: uuid.NewString(),
+}
 
 func createLang(t *testing.T) {
 	handler, err := NewHandler(

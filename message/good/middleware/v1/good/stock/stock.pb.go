@@ -7,12 +7,13 @@
 package stock
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/good/v1"
 	v11 "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -554,16 +555,18 @@ func file_good_middleware_v1_good_stock_stock_proto_rawDescGZIP() []byte {
 	return file_good_middleware_v1_good_stock_stock_proto_rawDescData
 }
 
-var file_good_middleware_v1_good_stock_stock_proto_msgTypes = make([]protoimpl.MessageInfo, 4)
-var file_good_middleware_v1_good_stock_stock_proto_goTypes = []interface{}{
-	(*MiningGoodStockReq)(nil),   // 0: good.middleware.good1.stock.v1.MiningGoodStockReq
-	(*MiningGoodStock)(nil),      // 1: good.middleware.good1.stock.v1.MiningGoodStock
-	(*MiningGoodStockInfo)(nil),  // 2: good.middleware.good1.stock.v1.MiningGoodStockInfo
-	(*Conds)(nil),                // 3: good.middleware.good1.stock.v1.Conds
-	(v1.MiningGoodStockState)(0), // 4: basetypes.good.v1.MiningGoodStockState
-	(*v11.Uint32Val)(nil),        // 5: basetypes.v1.Uint32Val
-	(*v11.StringVal)(nil),        // 6: basetypes.v1.StringVal
-}
+var (
+	file_good_middleware_v1_good_stock_stock_proto_msgTypes = make([]protoimpl.MessageInfo, 4)
+	file_good_middleware_v1_good_stock_stock_proto_goTypes  = []interface{}{
+		(*MiningGoodStockReq)(nil),   // 0: good.middleware.good1.stock.v1.MiningGoodStockReq
+		(*MiningGoodStock)(nil),      // 1: good.middleware.good1.stock.v1.MiningGoodStock
+		(*MiningGoodStockInfo)(nil),  // 2: good.middleware.good1.stock.v1.MiningGoodStockInfo
+		(*Conds)(nil),                // 3: good.middleware.good1.stock.v1.Conds
+		(v1.MiningGoodStockState)(0), // 4: basetypes.good.v1.MiningGoodStockState
+		(*v11.Uint32Val)(nil),        // 5: basetypes.v1.Uint32Val
+		(*v11.StringVal)(nil),        // 6: basetypes.v1.StringVal
+	}
+)
 var file_good_middleware_v1_good_stock_stock_proto_depIdxs = []int32{
 	4, // 0: good.middleware.good1.stock.v1.MiningGoodStockReq.State:type_name -> basetypes.good.v1.MiningGoodStockState
 	4, // 1: good.middleware.good1.stock.v1.MiningGoodStock.State:type_name -> basetypes.good.v1.MiningGoodStockState

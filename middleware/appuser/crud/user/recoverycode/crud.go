@@ -54,7 +54,7 @@ type Conds struct {
 	Used   *cruder.Cond
 }
 
-//nolint
+// nolint
 func SetQueryConds(q *ent.RecoveryCodeQuery, conds *Conds) (*ent.RecoveryCodeQuery, error) {
 	q.Where(entrecoverycode.DeletedAt(0))
 	if conds == nil {

@@ -7,13 +7,14 @@
 package oneshot
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	_ "github.com/NpoolPlatform/kunman/message/basetypes/good/v1"
 	oneshot "github.com/NpoolPlatform/kunman/message/good/middleware/v1/subscription/oneshot"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -732,20 +733,22 @@ func file_good_gateway_v1_subscription_oneshot_oneshot_proto_rawDescGZIP() []byt
 	return file_good_gateway_v1_subscription_oneshot_oneshot_proto_rawDescData
 }
 
-var file_good_gateway_v1_subscription_oneshot_oneshot_proto_msgTypes = make([]protoimpl.MessageInfo, 10)
-var file_good_gateway_v1_subscription_oneshot_oneshot_proto_goTypes = []interface{}{
-	(*AdminCreateOneShotRequest)(nil),  // 0: good.gateway.subscription.oneshot.v1.AdminCreateOneShotRequest
-	(*AdminCreateOneShotResponse)(nil), // 1: good.gateway.subscription.oneshot.v1.AdminCreateOneShotResponse
-	(*AdminUpdateOneShotRequest)(nil),  // 2: good.gateway.subscription.oneshot.v1.AdminUpdateOneShotRequest
-	(*AdminUpdateOneShotResponse)(nil), // 3: good.gateway.subscription.oneshot.v1.AdminUpdateOneShotResponse
-	(*GetOneShotRequest)(nil),          // 4: good.gateway.subscription.oneshot.v1.GetOneShotRequest
-	(*GetOneShotResponse)(nil),         // 5: good.gateway.subscription.oneshot.v1.GetOneShotResponse
-	(*GetOneShotsRequest)(nil),         // 6: good.gateway.subscription.oneshot.v1.GetOneShotsRequest
-	(*GetOneShotsResponse)(nil),        // 7: good.gateway.subscription.oneshot.v1.GetOneShotsResponse
-	(*AdminDeleteOneShotRequest)(nil),  // 8: good.gateway.subscription.oneshot.v1.AdminDeleteOneShotRequest
-	(*AdminDeleteOneShotResponse)(nil), // 9: good.gateway.subscription.oneshot.v1.AdminDeleteOneShotResponse
-	(*oneshot.OneShot)(nil),            // 10: good.middleware.subscription.oneshot.v1.OneShot
-}
+var (
+	file_good_gateway_v1_subscription_oneshot_oneshot_proto_msgTypes = make([]protoimpl.MessageInfo, 10)
+	file_good_gateway_v1_subscription_oneshot_oneshot_proto_goTypes  = []interface{}{
+		(*AdminCreateOneShotRequest)(nil),  // 0: good.gateway.subscription.oneshot.v1.AdminCreateOneShotRequest
+		(*AdminCreateOneShotResponse)(nil), // 1: good.gateway.subscription.oneshot.v1.AdminCreateOneShotResponse
+		(*AdminUpdateOneShotRequest)(nil),  // 2: good.gateway.subscription.oneshot.v1.AdminUpdateOneShotRequest
+		(*AdminUpdateOneShotResponse)(nil), // 3: good.gateway.subscription.oneshot.v1.AdminUpdateOneShotResponse
+		(*GetOneShotRequest)(nil),          // 4: good.gateway.subscription.oneshot.v1.GetOneShotRequest
+		(*GetOneShotResponse)(nil),         // 5: good.gateway.subscription.oneshot.v1.GetOneShotResponse
+		(*GetOneShotsRequest)(nil),         // 6: good.gateway.subscription.oneshot.v1.GetOneShotsRequest
+		(*GetOneShotsResponse)(nil),        // 7: good.gateway.subscription.oneshot.v1.GetOneShotsResponse
+		(*AdminDeleteOneShotRequest)(nil),  // 8: good.gateway.subscription.oneshot.v1.AdminDeleteOneShotRequest
+		(*AdminDeleteOneShotResponse)(nil), // 9: good.gateway.subscription.oneshot.v1.AdminDeleteOneShotResponse
+		(*oneshot.OneShot)(nil),            // 10: good.middleware.subscription.oneshot.v1.OneShot
+	}
+)
 var file_good_gateway_v1_subscription_oneshot_oneshot_proto_depIdxs = []int32{
 	10, // 0: good.gateway.subscription.oneshot.v1.AdminCreateOneShotResponse.Info:type_name -> good.middleware.subscription.oneshot.v1.OneShot
 	10, // 1: good.gateway.subscription.oneshot.v1.AdminUpdateOneShotResponse.Info:type_name -> good.middleware.subscription.oneshot.v1.OneShot

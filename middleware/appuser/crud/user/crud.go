@@ -63,7 +63,7 @@ type Conds struct {
 	ThirdPartyID     *cruder.Cond
 }
 
-//nolint
+// nolint
 func SetQueryConds(q *ent.AppUserQuery, conds *Conds) (*ent.AppUserQuery, error) {
 	if conds == nil {
 		return q, nil

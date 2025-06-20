@@ -132,7 +132,7 @@ type Conds struct {
 	CoinTypeIDs *cruder.Cond
 }
 
-//nolint
+// nolint
 func SetQueryConds(q *ent.AppCoinQuery, conds *Conds) (*ent.AppCoinQuery, error) {
 	if conds.ID != nil {
 		id, ok := conds.ID.Val.(uint32)

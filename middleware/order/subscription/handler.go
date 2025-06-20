@@ -637,7 +637,7 @@ func WithPaymentTransfers(bs []*paymentmiddlewarepb.PaymentTransferReq, must boo
 	}
 }
 
-func WithPaymentFiats(bs []*paymentmiddlewarepb.PaymentFiatReq, must bool) func(context.Context, *Handler) error { //nolint:gocyclo
+func WithPaymentFiats(bs []*paymentmiddlewarepb.PaymentFiatReq, must bool) func(context.Context, *Handler) error {
 	return func(ctx context.Context, h *Handler) error {
 		for _, b := range bs {
 			req := &paymentfiatcrud.Req{}

@@ -11,7 +11,7 @@ import (
 	"github.com/NpoolPlatform/kunman/framework/config"
 	"github.com/NpoolPlatform/kunman/framework/logger"
 	constant "github.com/NpoolPlatform/kunman/framework/mysql/const"
-	_ "github.com/go-sql-driver/mysql" // nolint
+	_ "github.com/go-sql-driver/mysql"
 	"github.com/hashicorp/consul/api"
 )
 
@@ -107,7 +107,7 @@ func mysqlConfig(domain string) (string, error) {
 	dbname := config.GetStringValueWithNameSpace(domain, keyDBName)
 	if dbname == "" {
 		logger.Sugar().Warnw("Invalid database", "Domain", domain)
-		return "", fmt.Errorf("Invalid database")
+		return "", fmt.Errorf("invalid database")
 	}
 
 	svc, err := apolloConfig()

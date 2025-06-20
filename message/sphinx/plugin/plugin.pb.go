@@ -7,10 +7,11 @@
 package plugin
 
 import (
-	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
-	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	reflect "reflect"
 	sync "sync"
+
+	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
+	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 )
 
 const (
@@ -1214,22 +1215,24 @@ func file_sphinx_plugin_plugin_proto_rawDescGZIP() []byte {
 	return file_sphinx_plugin_plugin_proto_rawDescData
 }
 
-var file_sphinx_plugin_plugin_proto_enumTypes = make([]protoimpl.EnumInfo, 2)
-var file_sphinx_plugin_plugin_proto_msgTypes = make([]protoimpl.MessageInfo, 10)
-var file_sphinx_plugin_plugin_proto_goTypes = []interface{}{
-	(CoinType)(0),               // 0: sphinx.plugin.v1.CoinType
-	(ChainType)(0),              // 1: sphinx.plugin.v1.ChainType
-	(*UnsignedMessage)(nil),     // 2: sphinx.plugin.v1.UnsignedMessage
-	(*Signature)(nil),           // 3: sphinx.plugin.v1.Signature
-	(*Unspent)(nil),             // 4: sphinx.plugin.v1.Unspent
-	(*MsgTx)(nil),               // 5: sphinx.plugin.v1.MsgTx
-	(*TxIn)(nil),                // 6: sphinx.plugin.v1.TxIn
-	(*OutPoint)(nil),            // 7: sphinx.plugin.v1.OutPoint
-	(*TxOut)(nil),               // 8: sphinx.plugin.v1.TxOut
-	(*EstimateGasRequest)(nil),  // 9: sphinx.plugin.v1.EstimateGasRequest
-	(*GasInfo)(nil),             // 10: sphinx.plugin.v1.GasInfo
-	(*EstimateGasResponse)(nil), // 11: sphinx.plugin.v1.EstimateGasResponse
-}
+var (
+	file_sphinx_plugin_plugin_proto_enumTypes = make([]protoimpl.EnumInfo, 2)
+	file_sphinx_plugin_plugin_proto_msgTypes  = make([]protoimpl.MessageInfo, 10)
+	file_sphinx_plugin_plugin_proto_goTypes   = []interface{}{
+		(CoinType)(0),               // 0: sphinx.plugin.v1.CoinType
+		(ChainType)(0),              // 1: sphinx.plugin.v1.ChainType
+		(*UnsignedMessage)(nil),     // 2: sphinx.plugin.v1.UnsignedMessage
+		(*Signature)(nil),           // 3: sphinx.plugin.v1.Signature
+		(*Unspent)(nil),             // 4: sphinx.plugin.v1.Unspent
+		(*MsgTx)(nil),               // 5: sphinx.plugin.v1.MsgTx
+		(*TxIn)(nil),                // 6: sphinx.plugin.v1.TxIn
+		(*OutPoint)(nil),            // 7: sphinx.plugin.v1.OutPoint
+		(*TxOut)(nil),               // 8: sphinx.plugin.v1.TxOut
+		(*EstimateGasRequest)(nil),  // 9: sphinx.plugin.v1.EstimateGasRequest
+		(*GasInfo)(nil),             // 10: sphinx.plugin.v1.GasInfo
+		(*EstimateGasResponse)(nil), // 11: sphinx.plugin.v1.EstimateGasResponse
+	}
+)
 var file_sphinx_plugin_plugin_proto_depIdxs = []int32{
 	4,  // 0: sphinx.plugin.v1.UnsignedMessage.Unspent:type_name -> sphinx.plugin.v1.Unspent
 	6,  // 1: sphinx.plugin.v1.MsgTx.TxIn:type_name -> sphinx.plugin.v1.TxIn

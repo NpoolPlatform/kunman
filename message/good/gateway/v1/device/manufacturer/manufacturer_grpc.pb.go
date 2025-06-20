@@ -8,6 +8,7 @@ package manufacturer
 
 import (
 	context "context"
+
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -91,18 +92,20 @@ type GatewayServer interface {
 }
 
 // UnimplementedGatewayServer must be embedded to have forward compatible implementations.
-type UnimplementedGatewayServer struct {
-}
+type UnimplementedGatewayServer struct{}
 
 func (UnimplementedGatewayServer) AdminCreateManufacturer(context.Context, *AdminCreateManufacturerRequest) (*AdminCreateManufacturerResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AdminCreateManufacturer not implemented")
 }
+
 func (UnimplementedGatewayServer) AdminUpdateManufacturer(context.Context, *AdminUpdateManufacturerRequest) (*AdminUpdateManufacturerResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AdminUpdateManufacturer not implemented")
 }
+
 func (UnimplementedGatewayServer) GetManufacturers(context.Context, *GetManufacturersRequest) (*GetManufacturersResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetManufacturers not implemented")
 }
+
 func (UnimplementedGatewayServer) AdminDeleteManufacturer(context.Context, *AdminDeleteManufacturerRequest) (*AdminDeleteManufacturerResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AdminDeleteManufacturer not implemented")
 }

@@ -8,6 +8,7 @@ package required
 
 import (
 	context "context"
+
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -91,18 +92,20 @@ type GatewayServer interface {
 }
 
 // UnimplementedGatewayServer must be embedded to have forward compatible implementations.
-type UnimplementedGatewayServer struct {
-}
+type UnimplementedGatewayServer struct{}
 
 func (UnimplementedGatewayServer) AdminCreateRequired(context.Context, *AdminCreateRequiredRequest) (*AdminCreateRequiredResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AdminCreateRequired not implemented")
 }
+
 func (UnimplementedGatewayServer) AdminUpdateRequired(context.Context, *AdminUpdateRequiredRequest) (*AdminUpdateRequiredResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AdminUpdateRequired not implemented")
 }
+
 func (UnimplementedGatewayServer) GetRequireds(context.Context, *GetRequiredsRequest) (*GetRequiredsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetRequireds not implemented")
 }
+
 func (UnimplementedGatewayServer) AdminDeleteRequired(context.Context, *AdminDeleteRequiredRequest) (*AdminDeleteRequiredResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AdminDeleteRequired not implemented")
 }

@@ -7,12 +7,13 @@
 package tx
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -580,17 +581,19 @@ func file_chain_gateway_v1_tx_tx_proto_rawDescGZIP() []byte {
 	return file_chain_gateway_v1_tx_tx_proto_rawDescData
 }
 
-var file_chain_gateway_v1_tx_tx_proto_msgTypes = make([]protoimpl.MessageInfo, 5)
-var file_chain_gateway_v1_tx_tx_proto_goTypes = []interface{}{
-	(*Tx)(nil),               // 0: chain.gateway.tx.v1.Tx
-	(*GetTxsRequest)(nil),    // 1: chain.gateway.tx.v1.GetTxsRequest
-	(*GetTxsResponse)(nil),   // 2: chain.gateway.tx.v1.GetTxsResponse
-	(*UpdateTxRequest)(nil),  // 3: chain.gateway.tx.v1.UpdateTxRequest
-	(*UpdateTxResponse)(nil), // 4: chain.gateway.tx.v1.UpdateTxResponse
-	(v1.AccountUsedFor)(0),   // 5: basetypes.v1.AccountUsedFor
-	(v1.TxState)(0),          // 6: basetypes.v1.TxState
-	(v1.TxType)(0),           // 7: basetypes.v1.TxType
-}
+var (
+	file_chain_gateway_v1_tx_tx_proto_msgTypes = make([]protoimpl.MessageInfo, 5)
+	file_chain_gateway_v1_tx_tx_proto_goTypes  = []interface{}{
+		(*Tx)(nil),               // 0: chain.gateway.tx.v1.Tx
+		(*GetTxsRequest)(nil),    // 1: chain.gateway.tx.v1.GetTxsRequest
+		(*GetTxsResponse)(nil),   // 2: chain.gateway.tx.v1.GetTxsResponse
+		(*UpdateTxRequest)(nil),  // 3: chain.gateway.tx.v1.UpdateTxRequest
+		(*UpdateTxResponse)(nil), // 4: chain.gateway.tx.v1.UpdateTxResponse
+		(v1.AccountUsedFor)(0),   // 5: basetypes.v1.AccountUsedFor
+		(v1.TxState)(0),          // 6: basetypes.v1.TxState
+		(v1.TxType)(0),           // 7: basetypes.v1.TxType
+	}
+)
 var file_chain_gateway_v1_tx_tx_proto_depIdxs = []int32{
 	5, // 0: chain.gateway.tx.v1.Tx.FromUsedFor:type_name -> basetypes.v1.AccountUsedFor
 	5, // 1: chain.gateway.tx.v1.Tx.ToUsedFor:type_name -> basetypes.v1.AccountUsedFor

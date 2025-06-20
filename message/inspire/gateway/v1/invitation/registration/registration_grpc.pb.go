@@ -8,6 +8,7 @@ package registration
 
 import (
 	context "context"
+
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -91,18 +92,20 @@ type GatewayServer interface {
 }
 
 // UnimplementedGatewayServer must be embedded to have forward compatible implementations.
-type UnimplementedGatewayServer struct {
-}
+type UnimplementedGatewayServer struct{}
 
 func (UnimplementedGatewayServer) UpdateRegistration(context.Context, *UpdateRegistrationRequest) (*UpdateRegistrationResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateRegistration not implemented")
 }
+
 func (UnimplementedGatewayServer) GetUserRegistrations(context.Context, *GetUserRegistrationsRequest) (*GetUserRegistrationsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetUserRegistrations not implemented")
 }
+
 func (UnimplementedGatewayServer) GetRegistrations(context.Context, *GetRegistrationsRequest) (*GetRegistrationsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetRegistrations not implemented")
 }
+
 func (UnimplementedGatewayServer) GetAppRegistrations(context.Context, *GetAppRegistrationsRequest) (*GetAppRegistrationsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetAppRegistrations not implemented")
 }

@@ -7,11 +7,11 @@ import (
 	"strconv"
 	"testing"
 
-	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 	npool "github.com/NpoolPlatform/kunman/message/miningpool/middleware/v1/app/pool"
 	"github.com/NpoolPlatform/kunman/middleware/miningpool/pool"
 	"github.com/NpoolPlatform/kunman/middleware/miningpool/pools/registetestinfo"
 	testinit "github.com/NpoolPlatform/kunman/middleware/miningpool/testinit"
+	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 	"github.com/google/uuid"
 
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/v1"

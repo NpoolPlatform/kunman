@@ -7,11 +7,12 @@
 package send
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -158,11 +159,13 @@ func file_third_middleware_v1_send_send_proto_rawDescGZIP() []byte {
 	return file_third_middleware_v1_send_send_proto_rawDescData
 }
 
-var file_third_middleware_v1_send_send_proto_msgTypes = make([]protoimpl.MessageInfo, 1)
-var file_third_middleware_v1_send_send_proto_goTypes = []interface{}{
-	(*SendMessageInput)(nil), // 0: third.middleware.send.v1.SendMessageInput
-	(v1.SignMethod)(0),       // 1: basetypes.v1.SignMethod
-}
+var (
+	file_third_middleware_v1_send_send_proto_msgTypes = make([]protoimpl.MessageInfo, 1)
+	file_third_middleware_v1_send_send_proto_goTypes  = []interface{}{
+		(*SendMessageInput)(nil), // 0: third.middleware.send.v1.SendMessageInput
+		(v1.SignMethod)(0),       // 1: basetypes.v1.SignMethod
+	}
+)
 var file_third_middleware_v1_send_send_proto_depIdxs = []int32{
 	1, // 0: third.middleware.send.v1.SendMessageInput.AccountType:type_name -> basetypes.v1.SignMethod
 	1, // [1:1] is the sub-list for method output_type

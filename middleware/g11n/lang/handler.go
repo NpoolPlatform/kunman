@@ -4,9 +4,9 @@ import (
 	"context"
 	"fmt"
 
-	constant "github.com/NpoolPlatform/kunman/pkg/const"
-	langcrud "github.com/NpoolPlatform/kunman/middleware/g11n/crud/lang"
 	npool "github.com/NpoolPlatform/kunman/message/g11n/middleware/v1/lang"
+	langcrud "github.com/NpoolPlatform/kunman/middleware/g11n/crud/lang"
+	constant "github.com/NpoolPlatform/kunman/pkg/const"
 
 	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 

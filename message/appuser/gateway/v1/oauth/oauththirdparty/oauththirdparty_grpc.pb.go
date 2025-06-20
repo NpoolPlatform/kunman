@@ -8,6 +8,7 @@ package oauththirdparty
 
 import (
 	context "context"
+
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -91,18 +92,20 @@ type GatewayServer interface {
 }
 
 // UnimplementedGatewayServer must be embedded to have forward compatible implementations.
-type UnimplementedGatewayServer struct {
-}
+type UnimplementedGatewayServer struct{}
 
 func (UnimplementedGatewayServer) CreateOAuthThirdParty(context.Context, *CreateOAuthThirdPartyRequest) (*CreateOAuthThirdPartyResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateOAuthThirdParty not implemented")
 }
+
 func (UnimplementedGatewayServer) UpdateOAuthThirdParty(context.Context, *UpdateOAuthThirdPartyRequest) (*UpdateOAuthThirdPartyResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateOAuthThirdParty not implemented")
 }
+
 func (UnimplementedGatewayServer) DeleteOAuthThirdParty(context.Context, *DeleteOAuthThirdPartyRequest) (*DeleteOAuthThirdPartyResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteOAuthThirdParty not implemented")
 }
+
 func (UnimplementedGatewayServer) GetOAuthThirdParties(context.Context, *GetOAuthThirdPartiesRequest) (*GetOAuthThirdPartiesResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetOAuthThirdParties not implemented")
 }

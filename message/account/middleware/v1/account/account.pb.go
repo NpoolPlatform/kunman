@@ -7,11 +7,12 @@
 package account
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -436,17 +437,19 @@ func file_account_middleware_v1_account_account_proto_rawDescGZIP() []byte {
 	return file_account_middleware_v1_account_account_proto_rawDescData
 }
 
-var file_account_middleware_v1_account_account_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
-var file_account_middleware_v1_account_account_proto_goTypes = []interface{}{
-	(*Account)(nil),           // 0: account.middleware.account1.v1.Account
-	(*Conds)(nil),             // 1: account.middleware.account1.v1.Conds
-	(v1.AccountUsedFor)(0),    // 2: basetypes.v1.AccountUsedFor
-	(v1.AccountLockedBy)(0),   // 3: basetypes.v1.AccountLockedBy
-	(*v1.Uint32Val)(nil),      // 4: basetypes.v1.Uint32Val
-	(*v1.StringVal)(nil),      // 5: basetypes.v1.StringVal
-	(*v1.BoolVal)(nil),        // 6: basetypes.v1.BoolVal
-	(*v1.StringSliceVal)(nil), // 7: basetypes.v1.StringSliceVal
-}
+var (
+	file_account_middleware_v1_account_account_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
+	file_account_middleware_v1_account_account_proto_goTypes  = []interface{}{
+		(*Account)(nil),           // 0: account.middleware.account1.v1.Account
+		(*Conds)(nil),             // 1: account.middleware.account1.v1.Conds
+		(v1.AccountUsedFor)(0),    // 2: basetypes.v1.AccountUsedFor
+		(v1.AccountLockedBy)(0),   // 3: basetypes.v1.AccountLockedBy
+		(*v1.Uint32Val)(nil),      // 4: basetypes.v1.Uint32Val
+		(*v1.StringVal)(nil),      // 5: basetypes.v1.StringVal
+		(*v1.BoolVal)(nil),        // 6: basetypes.v1.BoolVal
+		(*v1.StringSliceVal)(nil), // 7: basetypes.v1.StringSliceVal
+	}
+)
 var file_account_middleware_v1_account_account_proto_depIdxs = []int32{
 	2,  // 0: account.middleware.account1.v1.Account.UsedFor:type_name -> basetypes.v1.AccountUsedFor
 	3,  // 1: account.middleware.account1.v1.Account.LockedBy:type_name -> basetypes.v1.AccountLockedBy

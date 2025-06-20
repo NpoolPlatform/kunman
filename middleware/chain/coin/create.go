@@ -115,6 +115,7 @@ func (h *createHandler) createNativeCoinBase(ctx context.Context, tx *ent.Tx) er
 
 	return nil
 }
+
 func (h *createHandler) createCoinBase(ctx context.Context, tx *ent.Tx) error {
 	stm, err := basecrud.SetQueryConds(
 		tx.CoinBase.Query(),

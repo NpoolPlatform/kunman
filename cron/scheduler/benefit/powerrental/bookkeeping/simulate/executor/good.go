@@ -145,8 +145,8 @@ func (h *goodHandler) cashable(config *orderappconfigmwpb.AppConfig) bool {
 		return true
 	}
 
-	rand.Seed(time.Now().UnixNano())
-	value := rand.Float64() //nolint
+	r := rand.New(rand.NewSource(time.Now().UnixNano()))
+	value := r.Float64()
 	return decimal.NewFromFloat(value).Cmp(probability) <= 0
 }
 
@@ -180,8 +180,8 @@ func (h *goodHandler) shouldSendCoupon(ctx context.Context, config *orderappconf
 		return true, nil
 	}
 
-	rand.Seed(time.Now().UnixNano())
-	value := rand.Float64() //nolint
+	r := rand.New(rand.NewSource(time.Now().UnixNano()))
+	value := r.Float64()
 	return decimal.NewFromFloat(value).Cmp(probability) <= 0, nil
 }
 
@@ -270,7 +270,6 @@ func (h *goodHandler) calculateOrderRewards(ctx context.Context) error {
 	return nil
 }
 
-//nolint:gocritic
 func (h *goodHandler) final(ctx context.Context, err *error) {
 	if *err != nil {
 		logger.Sugar().Errorw(
@@ -298,7 +297,6 @@ func (h *goodHandler) final(ctx context.Context, err *error) {
 	asyncfeed.AsyncFeed(ctx, persistentGood, h.done)
 }
 
-//nolint:gocritic
 func (h *goodHandler) exec(ctx context.Context) error {
 	h.appGoodUnitSimulateRewards = map[string]map[string]decimal.Decimal{}
 	var err error

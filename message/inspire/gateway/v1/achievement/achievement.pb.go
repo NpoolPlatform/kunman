@@ -7,12 +7,13 @@
 package achievement
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/inspire/v1"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -854,19 +855,21 @@ func file_inspire_gateway_v1_achievement_achievement_proto_rawDescGZIP() []byte 
 	return file_inspire_gateway_v1_achievement_achievement_proto_rawDescData
 }
 
-var file_inspire_gateway_v1_achievement_achievement_proto_msgTypes = make([]protoimpl.MessageInfo, 6)
-var file_inspire_gateway_v1_achievement_achievement_proto_goTypes = []interface{}{
-	(*GoodAchievement)(nil),             // 0: inspire.gateway.achievement.v1.GoodAchievement
-	(*Achievement)(nil),                 // 1: inspire.gateway.achievement.v1.Achievement
-	(*GetAchievementsRequest)(nil),      // 2: inspire.gateway.achievement.v1.GetAchievementsRequest
-	(*GetAchievementsResponse)(nil),     // 3: inspire.gateway.achievement.v1.GetAchievementsResponse
-	(*GetUserAchievementsRequest)(nil),  // 4: inspire.gateway.achievement.v1.GetUserAchievementsRequest
-	(*GetUserAchievementsResponse)(nil), // 5: inspire.gateway.achievement.v1.GetUserAchievementsResponse
-	(v1.SettleType)(0),                  // 6: basetypes.inspire.v1.SettleType
-	(v1.SettleAmountType)(0),            // 7: basetypes.inspire.v1.SettleAmountType
-	(v1.SettleMode)(0),                  // 8: basetypes.inspire.v1.SettleMode
-	(v1.SettleInterval)(0),              // 9: basetypes.inspire.v1.SettleInterval
-}
+var (
+	file_inspire_gateway_v1_achievement_achievement_proto_msgTypes = make([]protoimpl.MessageInfo, 6)
+	file_inspire_gateway_v1_achievement_achievement_proto_goTypes  = []interface{}{
+		(*GoodAchievement)(nil),             // 0: inspire.gateway.achievement.v1.GoodAchievement
+		(*Achievement)(nil),                 // 1: inspire.gateway.achievement.v1.Achievement
+		(*GetAchievementsRequest)(nil),      // 2: inspire.gateway.achievement.v1.GetAchievementsRequest
+		(*GetAchievementsResponse)(nil),     // 3: inspire.gateway.achievement.v1.GetAchievementsResponse
+		(*GetUserAchievementsRequest)(nil),  // 4: inspire.gateway.achievement.v1.GetUserAchievementsRequest
+		(*GetUserAchievementsResponse)(nil), // 5: inspire.gateway.achievement.v1.GetUserAchievementsResponse
+		(v1.SettleType)(0),                  // 6: basetypes.inspire.v1.SettleType
+		(v1.SettleAmountType)(0),            // 7: basetypes.inspire.v1.SettleAmountType
+		(v1.SettleMode)(0),                  // 8: basetypes.inspire.v1.SettleMode
+		(v1.SettleInterval)(0),              // 9: basetypes.inspire.v1.SettleInterval
+	}
+)
 var file_inspire_gateway_v1_achievement_achievement_proto_depIdxs = []int32{
 	6, // 0: inspire.gateway.achievement.v1.GoodAchievement.CommissionSettleType:type_name -> basetypes.inspire.v1.SettleType
 	7, // 1: inspire.gateway.achievement.v1.GoodAchievement.CommissionSettleAmountType:type_name -> basetypes.inspire.v1.SettleAmountType

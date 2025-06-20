@@ -7,9 +7,10 @@
 package v1
 
 import (
+	reflect "reflect"
+
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
 )
 
 const (
@@ -33,14 +34,16 @@ var file_inspire_gateway_v1_gateway_proto_rawDesc = []byte{
 	0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
-var file_inspire_gateway_v1_gateway_proto_goTypes = []interface{}{}
-var file_inspire_gateway_v1_gateway_proto_depIdxs = []int32{
-	0, // [0:0] is the sub-list for method output_type
-	0, // [0:0] is the sub-list for method input_type
-	0, // [0:0] is the sub-list for extension type_name
-	0, // [0:0] is the sub-list for extension extendee
-	0, // [0:0] is the sub-list for field type_name
-}
+var (
+	file_inspire_gateway_v1_gateway_proto_goTypes = []interface{}{}
+	file_inspire_gateway_v1_gateway_proto_depIdxs = []int32{
+		0, // [0:0] is the sub-list for method output_type
+		0, // [0:0] is the sub-list for method input_type
+		0, // [0:0] is the sub-list for extension type_name
+		0, // [0:0] is the sub-list for extension extendee
+		0, // [0:0] is the sub-list for field type_name
+	}
+)
 
 func init() { file_inspire_gateway_v1_gateway_proto_init() }
 func file_inspire_gateway_v1_gateway_proto_init() {

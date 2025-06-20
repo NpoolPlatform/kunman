@@ -7,6 +7,9 @@
 package powerrental
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/good/v1"
 	v11 "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	coin "github.com/NpoolPlatform/kunman/message/good/middleware/v1/good/coin"
@@ -14,8 +17,6 @@ import (
 	stock "github.com/NpoolPlatform/kunman/message/good/middleware/v1/good/stock"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -1295,28 +1296,30 @@ func file_good_middleware_v1_powerrental_powerrental_proto_rawDescGZIP() []byte 
 	return file_good_middleware_v1_powerrental_powerrental_proto_rawDescData
 }
 
-var file_good_middleware_v1_powerrental_powerrental_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
-var file_good_middleware_v1_powerrental_powerrental_proto_goTypes = []interface{}{
-	(*PowerRentalReq)(nil),           // 0: good.middleware.powerrental.v1.PowerRentalReq
-	(*PowerRental)(nil),              // 1: good.middleware.powerrental.v1.PowerRental
-	(*Conds)(nil),                    // 2: good.middleware.powerrental.v1.Conds
-	(v1.GoodDurationType)(0),         // 3: basetypes.good.v1.GoodDurationType
-	(v1.GoodType)(0),                 // 4: basetypes.good.v1.GoodType
-	(v1.BenefitType)(0),              // 5: basetypes.good.v1.BenefitType
-	(v1.GoodStartMode)(0),            // 6: basetypes.good.v1.GoodStartMode
-	(v1.GoodStockMode)(0),            // 7: basetypes.good.v1.GoodStockMode
-	(v1.GoodState)(0),                // 8: basetypes.good.v1.GoodState
-	(*stock.MiningGoodStockReq)(nil), // 9: good.middleware.good1.stock.v1.MiningGoodStockReq
-	(v1.BenefitState)(0),             // 10: basetypes.good.v1.BenefitState
-	(*reward.RewardReq)(nil),         // 11: good.middleware.good1.coin.reward.v1.RewardReq
-	(*coin.GoodCoinInfo)(nil),        // 12: good.middleware.good1.coin.v1.GoodCoinInfo
-	(*stock.MiningGoodStock)(nil),    // 13: good.middleware.good1.stock.v1.MiningGoodStock
-	(*reward.RewardInfo)(nil),        // 14: good.middleware.good1.coin.reward.v1.RewardInfo
-	(*v11.Uint32Val)(nil),            // 15: basetypes.v1.Uint32Val
-	(*v11.StringVal)(nil),            // 16: basetypes.v1.StringVal
-	(*v11.StringSliceVal)(nil),       // 17: basetypes.v1.StringSliceVal
-	(*v11.Uint32SliceVal)(nil),       // 18: basetypes.v1.Uint32SliceVal
-}
+var (
+	file_good_middleware_v1_powerrental_powerrental_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
+	file_good_middleware_v1_powerrental_powerrental_proto_goTypes  = []interface{}{
+		(*PowerRentalReq)(nil),           // 0: good.middleware.powerrental.v1.PowerRentalReq
+		(*PowerRental)(nil),              // 1: good.middleware.powerrental.v1.PowerRental
+		(*Conds)(nil),                    // 2: good.middleware.powerrental.v1.Conds
+		(v1.GoodDurationType)(0),         // 3: basetypes.good.v1.GoodDurationType
+		(v1.GoodType)(0),                 // 4: basetypes.good.v1.GoodType
+		(v1.BenefitType)(0),              // 5: basetypes.good.v1.BenefitType
+		(v1.GoodStartMode)(0),            // 6: basetypes.good.v1.GoodStartMode
+		(v1.GoodStockMode)(0),            // 7: basetypes.good.v1.GoodStockMode
+		(v1.GoodState)(0),                // 8: basetypes.good.v1.GoodState
+		(*stock.MiningGoodStockReq)(nil), // 9: good.middleware.good1.stock.v1.MiningGoodStockReq
+		(v1.BenefitState)(0),             // 10: basetypes.good.v1.BenefitState
+		(*reward.RewardReq)(nil),         // 11: good.middleware.good1.coin.reward.v1.RewardReq
+		(*coin.GoodCoinInfo)(nil),        // 12: good.middleware.good1.coin.v1.GoodCoinInfo
+		(*stock.MiningGoodStock)(nil),    // 13: good.middleware.good1.stock.v1.MiningGoodStock
+		(*reward.RewardInfo)(nil),        // 14: good.middleware.good1.coin.reward.v1.RewardInfo
+		(*v11.Uint32Val)(nil),            // 15: basetypes.v1.Uint32Val
+		(*v11.StringVal)(nil),            // 16: basetypes.v1.StringVal
+		(*v11.StringSliceVal)(nil),       // 17: basetypes.v1.StringSliceVal
+		(*v11.Uint32SliceVal)(nil),       // 18: basetypes.v1.Uint32SliceVal
+	}
+)
 var file_good_middleware_v1_powerrental_powerrental_proto_depIdxs = []int32{
 	3,  // 0: good.middleware.powerrental.v1.PowerRentalReq.DurationDisplayType:type_name -> basetypes.good.v1.GoodDurationType
 	4,  // 1: good.middleware.powerrental.v1.PowerRentalReq.GoodType:type_name -> basetypes.good.v1.GoodType

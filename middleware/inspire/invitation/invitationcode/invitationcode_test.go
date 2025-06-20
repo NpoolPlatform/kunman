@@ -9,9 +9,9 @@ import (
 
 	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 
-	codegenerator "github.com/NpoolPlatform/kunman/middleware/inspire/invitation/invitationcode/generator"
 	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	npool "github.com/NpoolPlatform/kunman/message/inspire/middleware/v1/invitation/invitationcode"
+	codegenerator "github.com/NpoolPlatform/kunman/middleware/inspire/invitation/invitationcode/generator"
 	"github.com/google/uuid"
 	"github.com/stretchr/testify/assert"
 
@@ -27,13 +27,11 @@ func init() {
 	}
 }
 
-var (
-	ret = npool.InvitationCode{
-		EntID:  uuid.NewString(),
-		AppID:  uuid.NewString(),
-		UserID: uuid.NewString(),
-	}
-)
+var ret = npool.InvitationCode{
+	EntID:  uuid.NewString(),
+	AppID:  uuid.NewString(),
+	UserID: uuid.NewString(),
+}
 
 func setup(t *testing.T) func(*testing.T) {
 	return func(*testing.T) {}

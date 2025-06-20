@@ -44,8 +44,8 @@ func (h *Handler) UpdatePowerRentalOrder(ctx context.Context) (*npool.PowerRenta
 	if err := handler.getPowerRentalOrder(ctx); err != nil {
 		return nil, wlog.WrapError(err)
 	}
-	handler.OrderOpHandler.OrderType = handler.powerRentalOrder.OrderType
-	handler.OrderOpHandler.OrderState = handler.powerRentalOrder.OrderState
+	handler.OrderType = handler.powerRentalOrder.OrderType
+	handler.OrderState = handler.powerRentalOrder.OrderState
 	if h.PaymentTransferCoinTypeID != nil || len(h.Balances) > 0 {
 		if err := handler.PaymentUpdatable(); err != nil {
 			return nil, wlog.WrapError(err)
@@ -85,7 +85,7 @@ func (h *Handler) UpdatePowerRentalOrder(ctx context.Context) (*npool.PowerRenta
 	if err := handler.GetCoinUSDCurrencies(ctx); err != nil {
 		return nil, wlog.WrapError(err)
 	}
-	handler.OrderOpHandler.PaymentAmountUSD, _ = decimal.NewFromString(handler.powerRentalOrder.PaymentAmountUSD)
+	handler.PaymentAmountUSD, _ = decimal.NewFromString(handler.powerRentalOrder.PaymentAmountUSD)
 	if err := handler.AcquirePaymentTransferAccount(ctx); err != nil {
 		return nil, wlog.WrapError(err)
 	}

@@ -8,6 +8,7 @@ package topmost
 
 import (
 	context "context"
+
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -139,30 +140,36 @@ type GatewayServer interface {
 }
 
 // UnimplementedGatewayServer must be embedded to have forward compatible implementations.
-type UnimplementedGatewayServer struct {
-}
+type UnimplementedGatewayServer struct{}
 
 func (UnimplementedGatewayServer) CreateTopMost(context.Context, *CreateTopMostRequest) (*CreateTopMostResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateTopMost not implemented")
 }
+
 func (UnimplementedGatewayServer) GetTopMosts(context.Context, *GetTopMostsRequest) (*GetTopMostsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetTopMosts not implemented")
 }
+
 func (UnimplementedGatewayServer) DeleteTopMost(context.Context, *DeleteTopMostRequest) (*DeleteTopMostResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteTopMost not implemented")
 }
+
 func (UnimplementedGatewayServer) UpdateTopMost(context.Context, *UpdateTopMostRequest) (*UpdateTopMostResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateTopMost not implemented")
 }
+
 func (UnimplementedGatewayServer) AdminCreateTopMost(context.Context, *AdminCreateTopMostRequest) (*AdminCreateTopMostResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AdminCreateTopMost not implemented")
 }
+
 func (UnimplementedGatewayServer) AdminGetTopMosts(context.Context, *AdminGetTopMostsRequest) (*AdminGetTopMostsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AdminGetTopMosts not implemented")
 }
+
 func (UnimplementedGatewayServer) AdminUpdateTopMost(context.Context, *AdminUpdateTopMostRequest) (*AdminUpdateTopMostResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AdminUpdateTopMost not implemented")
 }
+
 func (UnimplementedGatewayServer) AdminDeleteTopMost(context.Context, *AdminDeleteTopMostRequest) (*AdminDeleteTopMostResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AdminDeleteTopMost not implemented")
 }

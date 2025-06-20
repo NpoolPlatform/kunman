@@ -8,6 +8,7 @@ package v1
 
 import (
 	context "context"
+
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
@@ -59,8 +60,7 @@ type KunmanServer interface {
 }
 
 // UnimplementedKunmanServer must be embedded to have forward compatible implementations.
-type UnimplementedKunmanServer struct {
-}
+type UnimplementedKunmanServer struct{}
 
 func (UnimplementedKunmanServer) Version(context.Context, *emptypb.Empty) (*v1.VersionResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Version not implemented")

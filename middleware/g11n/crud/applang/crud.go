@@ -55,7 +55,7 @@ type Conds struct {
 	Main    *cruder.Cond
 }
 
-//nolint
+// nolint
 func SetQueryConds(q *ent.AppLangQuery, conds *Conds) (*ent.AppLangQuery, error) {
 	if conds == nil {
 		return q, nil

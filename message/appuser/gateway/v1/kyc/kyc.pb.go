@@ -7,13 +7,14 @@
 package kyc
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	kyc "github.com/NpoolPlatform/kunman/message/appuser/middleware/v1/kyc"
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -1373,31 +1374,33 @@ func file_appuser_gateway_v1_kyc_kyc_proto_rawDescGZIP() []byte {
 	return file_appuser_gateway_v1_kyc_kyc_proto_rawDescData
 }
 
-var file_appuser_gateway_v1_kyc_kyc_proto_msgTypes = make([]protoimpl.MessageInfo, 18)
-var file_appuser_gateway_v1_kyc_kyc_proto_goTypes = []interface{}{
-	(*CreateKycRequest)(nil),           // 0: appuser.gateway.kyc.v1.CreateKycRequest
-	(*CreateKycResponse)(nil),          // 1: appuser.gateway.kyc.v1.CreateKycResponse
-	(*GetKycRequest)(nil),              // 2: appuser.gateway.kyc.v1.GetKycRequest
-	(*GetKycResponse)(nil),             // 3: appuser.gateway.kyc.v1.GetKycResponse
-	(*GetKycsRequest)(nil),             // 4: appuser.gateway.kyc.v1.GetKycsRequest
-	(*GetKycsResponse)(nil),            // 5: appuser.gateway.kyc.v1.GetKycsResponse
-	(*GetAppKycsRequest)(nil),          // 6: appuser.gateway.kyc.v1.GetAppKycsRequest
-	(*GetAppKycsResponse)(nil),         // 7: appuser.gateway.kyc.v1.GetAppKycsResponse
-	(*UpdateKycRequest)(nil),           // 8: appuser.gateway.kyc.v1.UpdateKycRequest
-	(*UpdateKycResponse)(nil),          // 9: appuser.gateway.kyc.v1.UpdateKycResponse
-	(*UploadKycImageRequest)(nil),      // 10: appuser.gateway.kyc.v1.UploadKycImageRequest
-	(*UploadKycImageResponse)(nil),     // 11: appuser.gateway.kyc.v1.UploadKycImageResponse
-	(*GetKycImageRequest)(nil),         // 12: appuser.gateway.kyc.v1.GetKycImageRequest
-	(*GetKycImageResponse)(nil),        // 13: appuser.gateway.kyc.v1.GetKycImageResponse
-	(*GetUserKycImageRequest)(nil),     // 14: appuser.gateway.kyc.v1.GetUserKycImageRequest
-	(*GetUserKycImageResponse)(nil),    // 15: appuser.gateway.kyc.v1.GetUserKycImageResponse
-	(*GetAppUserKycImageRequest)(nil),  // 16: appuser.gateway.kyc.v1.GetAppUserKycImageRequest
-	(*GetAppUserKycImageResponse)(nil), // 17: appuser.gateway.kyc.v1.GetAppUserKycImageResponse
-	(v1.KycDocumentType)(0),            // 18: basetypes.v1.KycDocumentType
-	(v1.KycEntityType)(0),              // 19: basetypes.v1.KycEntityType
-	(*kyc.Kyc)(nil),                    // 20: appuser.middleware.kyc.v1.Kyc
-	(v1.KycImageType)(0),               // 21: basetypes.v1.KycImageType
-}
+var (
+	file_appuser_gateway_v1_kyc_kyc_proto_msgTypes = make([]protoimpl.MessageInfo, 18)
+	file_appuser_gateway_v1_kyc_kyc_proto_goTypes  = []interface{}{
+		(*CreateKycRequest)(nil),           // 0: appuser.gateway.kyc.v1.CreateKycRequest
+		(*CreateKycResponse)(nil),          // 1: appuser.gateway.kyc.v1.CreateKycResponse
+		(*GetKycRequest)(nil),              // 2: appuser.gateway.kyc.v1.GetKycRequest
+		(*GetKycResponse)(nil),             // 3: appuser.gateway.kyc.v1.GetKycResponse
+		(*GetKycsRequest)(nil),             // 4: appuser.gateway.kyc.v1.GetKycsRequest
+		(*GetKycsResponse)(nil),            // 5: appuser.gateway.kyc.v1.GetKycsResponse
+		(*GetAppKycsRequest)(nil),          // 6: appuser.gateway.kyc.v1.GetAppKycsRequest
+		(*GetAppKycsResponse)(nil),         // 7: appuser.gateway.kyc.v1.GetAppKycsResponse
+		(*UpdateKycRequest)(nil),           // 8: appuser.gateway.kyc.v1.UpdateKycRequest
+		(*UpdateKycResponse)(nil),          // 9: appuser.gateway.kyc.v1.UpdateKycResponse
+		(*UploadKycImageRequest)(nil),      // 10: appuser.gateway.kyc.v1.UploadKycImageRequest
+		(*UploadKycImageResponse)(nil),     // 11: appuser.gateway.kyc.v1.UploadKycImageResponse
+		(*GetKycImageRequest)(nil),         // 12: appuser.gateway.kyc.v1.GetKycImageRequest
+		(*GetKycImageResponse)(nil),        // 13: appuser.gateway.kyc.v1.GetKycImageResponse
+		(*GetUserKycImageRequest)(nil),     // 14: appuser.gateway.kyc.v1.GetUserKycImageRequest
+		(*GetUserKycImageResponse)(nil),    // 15: appuser.gateway.kyc.v1.GetUserKycImageResponse
+		(*GetAppUserKycImageRequest)(nil),  // 16: appuser.gateway.kyc.v1.GetAppUserKycImageRequest
+		(*GetAppUserKycImageResponse)(nil), // 17: appuser.gateway.kyc.v1.GetAppUserKycImageResponse
+		(v1.KycDocumentType)(0),            // 18: basetypes.v1.KycDocumentType
+		(v1.KycEntityType)(0),              // 19: basetypes.v1.KycEntityType
+		(*kyc.Kyc)(nil),                    // 20: appuser.middleware.kyc.v1.Kyc
+		(v1.KycImageType)(0),               // 21: basetypes.v1.KycImageType
+	}
+)
 var file_appuser_gateway_v1_kyc_kyc_proto_depIdxs = []int32{
 	18, // 0: appuser.gateway.kyc.v1.CreateKycRequest.DocumentType:type_name -> basetypes.v1.KycDocumentType
 	19, // 1: appuser.gateway.kyc.v1.CreateKycRequest.EntityType:type_name -> basetypes.v1.KycEntityType

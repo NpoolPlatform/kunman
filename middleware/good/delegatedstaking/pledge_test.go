@@ -10,17 +10,17 @@ import (
 
 	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 
-	goodcoin1 "github.com/NpoolPlatform/kunman/middleware/good/good/coin"
 	npool "github.com/NpoolPlatform/kunman/message/good/middleware/v1/delegatedstaking"
 	goodcoinmwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/good/coin"
 	goodcoinrewardmwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/good/coin/reward"
+	goodcoin1 "github.com/NpoolPlatform/kunman/middleware/good/good/coin"
 	"github.com/google/uuid"
 	"github.com/shopspring/decimal"
 	"github.com/stretchr/testify/assert"
 
-	"github.com/NpoolPlatform/kunman/middleware/good/testinit"
 	types "github.com/NpoolPlatform/kunman/message/basetypes/good/v1"
 	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
+	"github.com/NpoolPlatform/kunman/middleware/good/testinit"
 )
 
 func init() {

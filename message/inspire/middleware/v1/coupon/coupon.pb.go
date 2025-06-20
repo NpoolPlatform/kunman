@@ -7,13 +7,14 @@
 package coupon
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/inspire/v1"
 	v11 "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -676,18 +677,20 @@ func file_inspire_middleware_v1_coupon_coupon_proto_rawDescGZIP() []byte {
 	return file_inspire_middleware_v1_coupon_coupon_proto_rawDescData
 }
 
-var file_inspire_middleware_v1_coupon_coupon_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
-var file_inspire_middleware_v1_coupon_coupon_proto_goTypes = []interface{}{
-	(*CouponReq)(nil),          // 0: inspire.middleware.coupon.v1.CouponReq
-	(*Coupon)(nil),             // 1: inspire.middleware.coupon.v1.Coupon
-	(*Conds)(nil),              // 2: inspire.middleware.coupon.v1.Conds
-	(v1.CouponType)(0),         // 3: basetypes.inspire.v1.CouponType
-	(v1.CouponConstraint)(0),   // 4: basetypes.inspire.v1.CouponConstraint
-	(v1.CouponScope)(0),        // 5: basetypes.inspire.v1.CouponScope
-	(*v11.StringVal)(nil),      // 6: basetypes.v1.StringVal
-	(*v11.Uint32Val)(nil),      // 7: basetypes.v1.Uint32Val
-	(*v11.StringSliceVal)(nil), // 8: basetypes.v1.StringSliceVal
-}
+var (
+	file_inspire_middleware_v1_coupon_coupon_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
+	file_inspire_middleware_v1_coupon_coupon_proto_goTypes  = []interface{}{
+		(*CouponReq)(nil),          // 0: inspire.middleware.coupon.v1.CouponReq
+		(*Coupon)(nil),             // 1: inspire.middleware.coupon.v1.Coupon
+		(*Conds)(nil),              // 2: inspire.middleware.coupon.v1.Conds
+		(v1.CouponType)(0),         // 3: basetypes.inspire.v1.CouponType
+		(v1.CouponConstraint)(0),   // 4: basetypes.inspire.v1.CouponConstraint
+		(v1.CouponScope)(0),        // 5: basetypes.inspire.v1.CouponScope
+		(*v11.StringVal)(nil),      // 6: basetypes.v1.StringVal
+		(*v11.Uint32Val)(nil),      // 7: basetypes.v1.Uint32Val
+		(*v11.StringSliceVal)(nil), // 8: basetypes.v1.StringSliceVal
+	}
+)
 var file_inspire_middleware_v1_coupon_coupon_proto_depIdxs = []int32{
 	3,  // 0: inspire.middleware.coupon.v1.CouponReq.CouponType:type_name -> basetypes.inspire.v1.CouponType
 	4,  // 1: inspire.middleware.coupon.v1.CouponReq.CouponConstraint:type_name -> basetypes.inspire.v1.CouponConstraint

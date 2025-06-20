@@ -8,6 +8,7 @@ package coin
 
 import (
 	context "context"
+
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -127,27 +128,32 @@ type GatewayServer interface {
 }
 
 // UnimplementedGatewayServer must be embedded to have forward compatible implementations.
-type UnimplementedGatewayServer struct {
-}
+type UnimplementedGatewayServer struct{}
 
 func (UnimplementedGatewayServer) CreateEventCoin(context.Context, *CreateEventCoinRequest) (*CreateEventCoinResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateEventCoin not implemented")
 }
+
 func (UnimplementedGatewayServer) GetEventCoins(context.Context, *GetEventCoinsRequest) (*GetEventCoinsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetEventCoins not implemented")
 }
+
 func (UnimplementedGatewayServer) UpdateEventCoin(context.Context, *UpdateEventCoinRequest) (*UpdateEventCoinResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateEventCoin not implemented")
 }
+
 func (UnimplementedGatewayServer) AdminGetEventCoins(context.Context, *AdminGetEventCoinsRequest) (*AdminGetEventCoinsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AdminGetEventCoins not implemented")
 }
+
 func (UnimplementedGatewayServer) AdminCreateEventCoin(context.Context, *AdminCreateEventCoinRequest) (*AdminCreateEventCoinResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AdminCreateEventCoin not implemented")
 }
+
 func (UnimplementedGatewayServer) AdminUpdateEventCoin(context.Context, *AdminUpdateEventCoinRequest) (*AdminUpdateEventCoinResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AdminUpdateEventCoin not implemented")
 }
+
 func (UnimplementedGatewayServer) AdminDeleteEventCoin(context.Context, *AdminDeleteEventCoinRequest) (*AdminDeleteEventCoinResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AdminDeleteEventCoin not implemented")
 }

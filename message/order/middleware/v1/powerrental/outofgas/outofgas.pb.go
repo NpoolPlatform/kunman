@@ -7,13 +7,14 @@
 package outofgas
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	_ "github.com/NpoolPlatform/kunman/message/basetypes/good/v1"
 	_ "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	_ "github.com/NpoolPlatform/kunman/message/order/middleware/v1/outofgas"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -151,10 +152,12 @@ func file_order_middleware_v1_powerrental_outofgas_outofgas_proto_rawDescGZIP() 
 	return file_order_middleware_v1_powerrental_outofgas_outofgas_proto_rawDescData
 }
 
-var file_order_middleware_v1_powerrental_outofgas_outofgas_proto_msgTypes = make([]protoimpl.MessageInfo, 1)
-var file_order_middleware_v1_powerrental_outofgas_outofgas_proto_goTypes = []interface{}{
-	(*OutOfGasReq)(nil), // 0: order.middleware.powerrental.outofgas.v1.OutOfGasReq
-}
+var (
+	file_order_middleware_v1_powerrental_outofgas_outofgas_proto_msgTypes = make([]protoimpl.MessageInfo, 1)
+	file_order_middleware_v1_powerrental_outofgas_outofgas_proto_goTypes  = []interface{}{
+		(*OutOfGasReq)(nil), // 0: order.middleware.powerrental.outofgas.v1.OutOfGasReq
+	}
+)
 var file_order_middleware_v1_powerrental_outofgas_outofgas_proto_depIdxs = []int32{
 	0, // [0:0] is the sub-list for method output_type
 	0, // [0:0] is the sub-list for method input_type

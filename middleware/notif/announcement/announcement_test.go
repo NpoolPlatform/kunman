@@ -27,20 +27,18 @@ func init() {
 	}
 }
 
-var (
-	ret = npool.Announcement{
-		AppID:               uuid.NewString(),
-		LangID:              uuid.NewString(),
-		Title:               uuid.NewString(),
-		Content:             uuid.NewString(),
-		Channel:             basetypes.NotifChannel_ChannelEmail,
-		ChannelStr:          basetypes.NotifChannel_ChannelEmail.String(),
-		AnnouncementType:    basetypes.NotifType_NotifMulticast,
-		AnnouncementTypeStr: basetypes.NotifType_NotifMulticast.String(),
-		StartAt:             uint32(time.Now().Add(10 * time.Minute).Unix()),
-		EndAt:               uint32(time.Now().Add(1 * time.Hour).Unix()),
-	}
-)
+var ret = npool.Announcement{
+	AppID:               uuid.NewString(),
+	LangID:              uuid.NewString(),
+	Title:               uuid.NewString(),
+	Content:             uuid.NewString(),
+	Channel:             basetypes.NotifChannel_ChannelEmail,
+	ChannelStr:          basetypes.NotifChannel_ChannelEmail.String(),
+	AnnouncementType:    basetypes.NotifType_NotifMulticast,
+	AnnouncementTypeStr: basetypes.NotifType_NotifMulticast.String(),
+	StartAt:             uint32(time.Now().Add(10 * time.Minute).Unix()),
+	EndAt:               uint32(time.Now().Add(1 * time.Hour).Unix()),
+}
 
 func createAnnouncement(t *testing.T) {
 	handler, err := NewHandler(

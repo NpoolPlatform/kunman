@@ -3,10 +3,10 @@ package description
 import (
 	"fmt"
 
+	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	ent "github.com/NpoolPlatform/kunman/middleware/chain/db/ent/generated"
 	entcoindescription "github.com/NpoolPlatform/kunman/middleware/chain/db/ent/generated/coindescription"
 	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
-	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 
 	"github.com/google/uuid"
 )

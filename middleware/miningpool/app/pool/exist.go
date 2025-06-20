@@ -12,9 +12,8 @@ import (
 
 func (h *Handler) ExistPool(ctx context.Context) (bool, error) {
 	exist := false
-	var err error
 
-	err = db.WithClient(ctx, func(_ctx context.Context, cli *ent.Client) error {
+	err := db.WithClient(ctx, func(_ctx context.Context, cli *ent.Client) error {
 		count, err := cli.
 			AppPool.
 			Query().

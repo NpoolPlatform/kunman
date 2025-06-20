@@ -7,11 +7,12 @@
 package like
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -840,18 +841,20 @@ func file_good_gateway_v1_app_good_like_like_proto_rawDescGZIP() []byte {
 	return file_good_gateway_v1_app_good_like_like_proto_rawDescData
 }
 
-var file_good_gateway_v1_app_good_like_like_proto_msgTypes = make([]protoimpl.MessageInfo, 9)
-var file_good_gateway_v1_app_good_like_like_proto_goTypes = []interface{}{
-	(*Like)(nil),               // 0: good.gateway.app.good1.like.v1.Like
-	(*CreateLikeRequest)(nil),  // 1: good.gateway.app.good1.like.v1.CreateLikeRequest
-	(*CreateLikeResponse)(nil), // 2: good.gateway.app.good1.like.v1.CreateLikeResponse
-	(*GetMyLikesRequest)(nil),  // 3: good.gateway.app.good1.like.v1.GetMyLikesRequest
-	(*GetMyLikesResponse)(nil), // 4: good.gateway.app.good1.like.v1.GetMyLikesResponse
-	(*GetLikesRequest)(nil),    // 5: good.gateway.app.good1.like.v1.GetLikesRequest
-	(*GetLikesResponse)(nil),   // 6: good.gateway.app.good1.like.v1.GetLikesResponse
-	(*DeleteLikeRequest)(nil),  // 7: good.gateway.app.good1.like.v1.DeleteLikeRequest
-	(*DeleteLikeResponse)(nil), // 8: good.gateway.app.good1.like.v1.DeleteLikeResponse
-}
+var (
+	file_good_gateway_v1_app_good_like_like_proto_msgTypes = make([]protoimpl.MessageInfo, 9)
+	file_good_gateway_v1_app_good_like_like_proto_goTypes  = []interface{}{
+		(*Like)(nil),               // 0: good.gateway.app.good1.like.v1.Like
+		(*CreateLikeRequest)(nil),  // 1: good.gateway.app.good1.like.v1.CreateLikeRequest
+		(*CreateLikeResponse)(nil), // 2: good.gateway.app.good1.like.v1.CreateLikeResponse
+		(*GetMyLikesRequest)(nil),  // 3: good.gateway.app.good1.like.v1.GetMyLikesRequest
+		(*GetMyLikesResponse)(nil), // 4: good.gateway.app.good1.like.v1.GetMyLikesResponse
+		(*GetLikesRequest)(nil),    // 5: good.gateway.app.good1.like.v1.GetLikesRequest
+		(*GetLikesResponse)(nil),   // 6: good.gateway.app.good1.like.v1.GetLikesResponse
+		(*DeleteLikeRequest)(nil),  // 7: good.gateway.app.good1.like.v1.DeleteLikeRequest
+		(*DeleteLikeResponse)(nil), // 8: good.gateway.app.good1.like.v1.DeleteLikeResponse
+	}
+)
 var file_good_gateway_v1_app_good_like_like_proto_depIdxs = []int32{
 	0, // 0: good.gateway.app.good1.like.v1.CreateLikeResponse.Info:type_name -> good.gateway.app.good1.like.v1.Like
 	0, // 1: good.gateway.app.good1.like.v1.GetMyLikesResponse.Infos:type_name -> good.gateway.app.good1.like.v1.Like

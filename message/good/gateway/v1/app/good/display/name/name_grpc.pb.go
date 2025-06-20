@@ -8,6 +8,7 @@ package name
 
 import (
 	context "context"
+
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -141,30 +142,36 @@ type GatewayServer interface {
 }
 
 // UnimplementedGatewayServer must be embedded to have forward compatible implementations.
-type UnimplementedGatewayServer struct {
-}
+type UnimplementedGatewayServer struct{}
 
 func (UnimplementedGatewayServer) CreateDisplayName(context.Context, *CreateDisplayNameRequest) (*CreateDisplayNameResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateDisplayName not implemented")
 }
+
 func (UnimplementedGatewayServer) UpdateDisplayName(context.Context, *UpdateDisplayNameRequest) (*UpdateDisplayNameResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateDisplayName not implemented")
 }
+
 func (UnimplementedGatewayServer) GetDisplayNames(context.Context, *GetDisplayNamesRequest) (*GetDisplayNamesResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetDisplayNames not implemented")
 }
+
 func (UnimplementedGatewayServer) DeleteDisplayName(context.Context, *DeleteDisplayNameRequest) (*DeleteDisplayNameResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteDisplayName not implemented")
 }
+
 func (UnimplementedGatewayServer) AdminCreateDisplayName(context.Context, *AdminCreateDisplayNameRequest) (*AdminCreateDisplayNameResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AdminCreateDisplayName not implemented")
 }
+
 func (UnimplementedGatewayServer) AdminUpdateDisplayName(context.Context, *AdminUpdateDisplayNameRequest) (*AdminUpdateDisplayNameResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AdminUpdateDisplayName not implemented")
 }
+
 func (UnimplementedGatewayServer) AdminGetDisplayNames(context.Context, *AdminGetDisplayNamesRequest) (*AdminGetDisplayNamesResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AdminGetDisplayNames not implemented")
 }
+
 func (UnimplementedGatewayServer) AdminDeleteDisplayName(context.Context, *AdminDeleteDisplayNameRequest) (*AdminDeleteDisplayNameResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AdminDeleteDisplayName not implemented")
 }

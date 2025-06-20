@@ -7,13 +7,14 @@
 package notif
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	template "github.com/NpoolPlatform/kunman/message/notif/middleware/v1/template"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -844,22 +845,24 @@ func file_notif_middleware_v1_notif_notif_proto_rawDescGZIP() []byte {
 	return file_notif_middleware_v1_notif_notif_proto_rawDescData
 }
 
-var file_notif_middleware_v1_notif_notif_proto_msgTypes = make([]protoimpl.MessageInfo, 4)
-var file_notif_middleware_v1_notif_notif_proto_goTypes = []interface{}{
-	(*Notif)(nil),                 // 0: notif.middleware.notif.v1.Notif
-	(*NotifReq)(nil),              // 1: notif.middleware.notif.v1.NotifReq
-	(*Conds)(nil),                 // 2: notif.middleware.notif.v1.Conds
-	(*XNotifReq)(nil),             // 3: notif.middleware.notif.v1.XNotifReq
-	(v1.UsedFor)(0),               // 4: basetypes.v1.UsedFor
-	(v1.NotifChannel)(0),          // 5: basetypes.v1.NotifChannel
-	(v1.NotifType)(0),             // 6: basetypes.v1.NotifType
-	(*v1.Uint32Val)(nil),          // 7: basetypes.v1.Uint32Val
-	(*v1.StringVal)(nil),          // 8: basetypes.v1.StringVal
-	(*v1.StringSliceVal)(nil),     // 9: basetypes.v1.StringSliceVal
-	(*v1.BoolVal)(nil),            // 10: basetypes.v1.BoolVal
-	(*v1.Uint32SliceVal)(nil),     // 11: basetypes.v1.Uint32SliceVal
-	(*template.TemplateVars)(nil), // 12: notif.middleware.template.v1.TemplateVars
-}
+var (
+	file_notif_middleware_v1_notif_notif_proto_msgTypes = make([]protoimpl.MessageInfo, 4)
+	file_notif_middleware_v1_notif_notif_proto_goTypes  = []interface{}{
+		(*Notif)(nil),                 // 0: notif.middleware.notif.v1.Notif
+		(*NotifReq)(nil),              // 1: notif.middleware.notif.v1.NotifReq
+		(*Conds)(nil),                 // 2: notif.middleware.notif.v1.Conds
+		(*XNotifReq)(nil),             // 3: notif.middleware.notif.v1.XNotifReq
+		(v1.UsedFor)(0),               // 4: basetypes.v1.UsedFor
+		(v1.NotifChannel)(0),          // 5: basetypes.v1.NotifChannel
+		(v1.NotifType)(0),             // 6: basetypes.v1.NotifType
+		(*v1.Uint32Val)(nil),          // 7: basetypes.v1.Uint32Val
+		(*v1.StringVal)(nil),          // 8: basetypes.v1.StringVal
+		(*v1.StringSliceVal)(nil),     // 9: basetypes.v1.StringSliceVal
+		(*v1.BoolVal)(nil),            // 10: basetypes.v1.BoolVal
+		(*v1.Uint32SliceVal)(nil),     // 11: basetypes.v1.Uint32SliceVal
+		(*template.TemplateVars)(nil), // 12: notif.middleware.template.v1.TemplateVars
+	}
+)
 var file_notif_middleware_v1_notif_notif_proto_depIdxs = []int32{
 	4,  // 0: notif.middleware.notif.v1.Notif.EventType:type_name -> basetypes.v1.UsedFor
 	5,  // 1: notif.middleware.notif.v1.Notif.Channel:type_name -> basetypes.v1.NotifChannel

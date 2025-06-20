@@ -7,12 +7,13 @@
 package event
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	coin "github.com/NpoolPlatform/kunman/message/inspire/middleware/v1/event/coin"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -887,21 +888,23 @@ func file_inspire_middleware_v1_event_event_proto_rawDescGZIP() []byte {
 	return file_inspire_middleware_v1_event_event_proto_rawDescData
 }
 
-var file_inspire_middleware_v1_event_event_proto_msgTypes = make([]protoimpl.MessageInfo, 7)
-var file_inspire_middleware_v1_event_event_proto_goTypes = []interface{}{
-	(*EventReq)(nil),          // 0: inspire.middleware.event.v1.EventReq
-	(*Event)(nil),             // 1: inspire.middleware.event.v1.Event
-	(*Conds)(nil),             // 2: inspire.middleware.event.v1.Conds
-	(*Credit)(nil),            // 3: inspire.middleware.event.v1.Credit
-	(*CoinReward)(nil),        // 4: inspire.middleware.event.v1.CoinReward
-	(*CouponReward)(nil),      // 5: inspire.middleware.event.v1.CouponReward
-	(*Reward)(nil),            // 6: inspire.middleware.event.v1.Reward
-	(v1.UsedFor)(0),           // 7: basetypes.v1.UsedFor
-	(*coin.EventCoin)(nil),    // 8: inspire.middleware.event.coin.v1.EventCoin
-	(*v1.Uint32Val)(nil),      // 9: basetypes.v1.Uint32Val
-	(*v1.StringVal)(nil),      // 10: basetypes.v1.StringVal
-	(*v1.StringSliceVal)(nil), // 11: basetypes.v1.StringSliceVal
-}
+var (
+	file_inspire_middleware_v1_event_event_proto_msgTypes = make([]protoimpl.MessageInfo, 7)
+	file_inspire_middleware_v1_event_event_proto_goTypes  = []interface{}{
+		(*EventReq)(nil),          // 0: inspire.middleware.event.v1.EventReq
+		(*Event)(nil),             // 1: inspire.middleware.event.v1.Event
+		(*Conds)(nil),             // 2: inspire.middleware.event.v1.Conds
+		(*Credit)(nil),            // 3: inspire.middleware.event.v1.Credit
+		(*CoinReward)(nil),        // 4: inspire.middleware.event.v1.CoinReward
+		(*CouponReward)(nil),      // 5: inspire.middleware.event.v1.CouponReward
+		(*Reward)(nil),            // 6: inspire.middleware.event.v1.Reward
+		(v1.UsedFor)(0),           // 7: basetypes.v1.UsedFor
+		(*coin.EventCoin)(nil),    // 8: inspire.middleware.event.coin.v1.EventCoin
+		(*v1.Uint32Val)(nil),      // 9: basetypes.v1.Uint32Val
+		(*v1.StringVal)(nil),      // 10: basetypes.v1.StringVal
+		(*v1.StringSliceVal)(nil), // 11: basetypes.v1.StringSliceVal
+	}
+)
 var file_inspire_middleware_v1_event_event_proto_depIdxs = []int32{
 	7,  // 0: inspire.middleware.event.v1.EventReq.EventType:type_name -> basetypes.v1.UsedFor
 	7,  // 1: inspire.middleware.event.v1.Event.EventType:type_name -> basetypes.v1.UsedFor

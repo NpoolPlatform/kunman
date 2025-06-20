@@ -4,10 +4,10 @@ import (
 	"context"
 
 	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
-	invitationcode1 "github.com/NpoolPlatform/kunman/middleware/inspire/invitation/invitationcode"
-	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	invitationcodemwpb "github.com/NpoolPlatform/kunman/message/inspire/middleware/v1/invitation/invitationcode"
+	invitationcode1 "github.com/NpoolPlatform/kunman/middleware/inspire/invitation/invitationcode"
+	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 )
 
 func (h *Handler) validateInvitationCode(ctx context.Context) error {

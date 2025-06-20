@@ -7,11 +7,12 @@
 package statement
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -466,14 +467,16 @@ func file_ledger_middleware_v2_good_ledger_statement_statement_proto_rawDescGZIP
 	return file_ledger_middleware_v2_good_ledger_statement_statement_proto_rawDescData
 }
 
-var file_ledger_middleware_v2_good_ledger_statement_statement_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
-var file_ledger_middleware_v2_good_ledger_statement_statement_proto_goTypes = []interface{}{
-	(*GoodStatementReq)(nil), // 0: ledger.middleware.good.ledger.statement.v2.GoodStatementReq
-	(*GoodStatement)(nil),    // 1: ledger.middleware.good.ledger.statement.v2.GoodStatement
-	(*Conds)(nil),            // 2: ledger.middleware.good.ledger.statement.v2.Conds
-	(*v1.StringVal)(nil),     // 3: basetypes.v1.StringVal
-	(*v1.Uint32Val)(nil),     // 4: basetypes.v1.Uint32Val
-}
+var (
+	file_ledger_middleware_v2_good_ledger_statement_statement_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
+	file_ledger_middleware_v2_good_ledger_statement_statement_proto_goTypes  = []interface{}{
+		(*GoodStatementReq)(nil), // 0: ledger.middleware.good.ledger.statement.v2.GoodStatementReq
+		(*GoodStatement)(nil),    // 1: ledger.middleware.good.ledger.statement.v2.GoodStatement
+		(*Conds)(nil),            // 2: ledger.middleware.good.ledger.statement.v2.Conds
+		(*v1.StringVal)(nil),     // 3: basetypes.v1.StringVal
+		(*v1.Uint32Val)(nil),     // 4: basetypes.v1.Uint32Val
+	}
+)
 var file_ledger_middleware_v2_good_ledger_statement_statement_proto_depIdxs = []int32{
 	3, // 0: ledger.middleware.good.ledger.statement.v2.Conds.EntID:type_name -> basetypes.v1.StringVal
 	3, // 1: ledger.middleware.good.ledger.statement.v2.Conds.GoodID:type_name -> basetypes.v1.StringVal

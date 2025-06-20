@@ -7,13 +7,14 @@
 package proxy
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	plugin "github.com/NpoolPlatform/kunman/message/sphinx/plugin"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -1422,28 +1423,30 @@ func file_sphinx_proxy_proxy_proto_rawDescGZIP() []byte {
 	return file_sphinx_proxy_proxy_proto_rawDescData
 }
 
-var file_sphinx_proxy_proxy_proto_enumTypes = make([]protoimpl.EnumInfo, 3)
-var file_sphinx_proxy_proxy_proto_msgTypes = make([]protoimpl.MessageInfo, 9)
-var file_sphinx_proxy_proxy_proto_goTypes = []interface{}{
-	(RPCExitCode)(0),                  // 0: sphinx.proxy.v1.RPCExitCode
-	(TransactionType)(0),              // 1: sphinx.proxy.v1.TransactionType
-	(TransactionState)(0),             // 2: sphinx.proxy.v1.TransactionState
-	(*WalletInfo)(nil),                // 3: sphinx.proxy.v1.WalletInfo
-	(*UpdateTransactionRequest)(nil),  // 4: sphinx.proxy.v1.UpdateTransactionRequest
-	(*UpdateTransactionResponse)(nil), // 5: sphinx.proxy.v1.UpdateTransactionResponse
-	(*TransactionInfo)(nil),           // 6: sphinx.proxy.v1.TransactionInfo
-	(*ProxyPluginResponse)(nil),       // 7: sphinx.proxy.v1.ProxyPluginResponse
-	(*ProxyPluginRequest)(nil),        // 8: sphinx.proxy.v1.ProxyPluginRequest
-	(*ProxySignRequest)(nil),          // 9: sphinx.proxy.v1.ProxySignRequest
-	(*ProxySignResponse)(nil),         // 10: sphinx.proxy.v1.ProxySignResponse
-	(*ProxySignResponseInfo)(nil),     // 11: sphinx.proxy.v1.ProxySignResponseInfo
-	(plugin.CoinType)(0),              // 12: sphinx.plugin.v1.CoinType
-	(plugin.ChainType)(0),             // 13: sphinx.plugin.v1.ChainType
-	(v1.GasType)(0),                   // 14: basetypes.v1.GasType
-	(*plugin.UnsignedMessage)(nil),    // 15: sphinx.plugin.v1.UnsignedMessage
-	(*plugin.Signature)(nil),          // 16: sphinx.plugin.v1.Signature
-	(*plugin.MsgTx)(nil),              // 17: sphinx.plugin.v1.MsgTx
-}
+var (
+	file_sphinx_proxy_proxy_proto_enumTypes = make([]protoimpl.EnumInfo, 3)
+	file_sphinx_proxy_proxy_proto_msgTypes  = make([]protoimpl.MessageInfo, 9)
+	file_sphinx_proxy_proxy_proto_goTypes   = []interface{}{
+		(RPCExitCode)(0),                  // 0: sphinx.proxy.v1.RPCExitCode
+		(TransactionType)(0),              // 1: sphinx.proxy.v1.TransactionType
+		(TransactionState)(0),             // 2: sphinx.proxy.v1.TransactionState
+		(*WalletInfo)(nil),                // 3: sphinx.proxy.v1.WalletInfo
+		(*UpdateTransactionRequest)(nil),  // 4: sphinx.proxy.v1.UpdateTransactionRequest
+		(*UpdateTransactionResponse)(nil), // 5: sphinx.proxy.v1.UpdateTransactionResponse
+		(*TransactionInfo)(nil),           // 6: sphinx.proxy.v1.TransactionInfo
+		(*ProxyPluginResponse)(nil),       // 7: sphinx.proxy.v1.ProxyPluginResponse
+		(*ProxyPluginRequest)(nil),        // 8: sphinx.proxy.v1.ProxyPluginRequest
+		(*ProxySignRequest)(nil),          // 9: sphinx.proxy.v1.ProxySignRequest
+		(*ProxySignResponse)(nil),         // 10: sphinx.proxy.v1.ProxySignResponse
+		(*ProxySignResponseInfo)(nil),     // 11: sphinx.proxy.v1.ProxySignResponseInfo
+		(plugin.CoinType)(0),              // 12: sphinx.plugin.v1.CoinType
+		(plugin.ChainType)(0),             // 13: sphinx.plugin.v1.ChainType
+		(v1.GasType)(0),                   // 14: basetypes.v1.GasType
+		(*plugin.UnsignedMessage)(nil),    // 15: sphinx.plugin.v1.UnsignedMessage
+		(*plugin.Signature)(nil),          // 16: sphinx.plugin.v1.Signature
+		(*plugin.MsgTx)(nil),              // 17: sphinx.plugin.v1.MsgTx
+	}
+)
 var file_sphinx_proxy_proxy_proto_depIdxs = []int32{
 	2,  // 0: sphinx.proxy.v1.UpdateTransactionRequest.TransactionState:type_name -> sphinx.proxy.v1.TransactionState
 	2,  // 1: sphinx.proxy.v1.UpdateTransactionRequest.NextTransactionState:type_name -> sphinx.proxy.v1.TransactionState

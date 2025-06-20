@@ -7,11 +7,12 @@
 package deposit
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -676,16 +677,18 @@ func file_account_middleware_v1_deposit_deposit_proto_rawDescGZIP() []byte {
 	return file_account_middleware_v1_deposit_deposit_proto_rawDescData
 }
 
-var file_account_middleware_v1_deposit_deposit_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
-var file_account_middleware_v1_deposit_deposit_proto_goTypes = []interface{}{
-	(*AccountReq)(nil),      // 0: account.middleware.deposit.v1.AccountReq
-	(*Account)(nil),         // 1: account.middleware.deposit.v1.Account
-	(*Conds)(nil),           // 2: account.middleware.deposit.v1.Conds
-	(v1.AccountLockedBy)(0), // 3: basetypes.v1.AccountLockedBy
-	(*v1.Uint32Val)(nil),    // 4: basetypes.v1.Uint32Val
-	(*v1.StringVal)(nil),    // 5: basetypes.v1.StringVal
-	(*v1.BoolVal)(nil),      // 6: basetypes.v1.BoolVal
-}
+var (
+	file_account_middleware_v1_deposit_deposit_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
+	file_account_middleware_v1_deposit_deposit_proto_goTypes  = []interface{}{
+		(*AccountReq)(nil),      // 0: account.middleware.deposit.v1.AccountReq
+		(*Account)(nil),         // 1: account.middleware.deposit.v1.Account
+		(*Conds)(nil),           // 2: account.middleware.deposit.v1.Conds
+		(v1.AccountLockedBy)(0), // 3: basetypes.v1.AccountLockedBy
+		(*v1.Uint32Val)(nil),    // 4: basetypes.v1.Uint32Val
+		(*v1.StringVal)(nil),    // 5: basetypes.v1.StringVal
+		(*v1.BoolVal)(nil),      // 6: basetypes.v1.BoolVal
+	}
+)
 var file_account_middleware_v1_deposit_deposit_proto_depIdxs = []int32{
 	3,  // 0: account.middleware.deposit.v1.AccountReq.LockedBy:type_name -> basetypes.v1.AccountLockedBy
 	3,  // 1: account.middleware.deposit.v1.Account.LockedBy:type_name -> basetypes.v1.AccountLockedBy

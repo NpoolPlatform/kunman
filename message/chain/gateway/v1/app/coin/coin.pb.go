@@ -7,11 +7,12 @@
 package coin
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -1374,20 +1375,22 @@ func file_chain_gateway_v1_app_coin_coin_proto_rawDescGZIP() []byte {
 	return file_chain_gateway_v1_app_coin_coin_proto_rawDescData
 }
 
-var file_chain_gateway_v1_app_coin_coin_proto_msgTypes = make([]protoimpl.MessageInfo, 11)
-var file_chain_gateway_v1_app_coin_coin_proto_goTypes = []interface{}{
-	(*Coin)(nil),                // 0: chain.gateway.app.coin.v1.Coin
-	(*CreateCoinRequest)(nil),   // 1: chain.gateway.app.coin.v1.CreateCoinRequest
-	(*CreateCoinResponse)(nil),  // 2: chain.gateway.app.coin.v1.CreateCoinResponse
-	(*GetCoinsRequest)(nil),     // 3: chain.gateway.app.coin.v1.GetCoinsRequest
-	(*GetCoinsResponse)(nil),    // 4: chain.gateway.app.coin.v1.GetCoinsResponse
-	(*GetAppCoinsRequest)(nil),  // 5: chain.gateway.app.coin.v1.GetAppCoinsRequest
-	(*GetAppCoinsResponse)(nil), // 6: chain.gateway.app.coin.v1.GetAppCoinsResponse
-	(*UpdateCoinRequest)(nil),   // 7: chain.gateway.app.coin.v1.UpdateCoinRequest
-	(*UpdateCoinResponse)(nil),  // 8: chain.gateway.app.coin.v1.UpdateCoinResponse
-	(*DeleteCoinRequest)(nil),   // 9: chain.gateway.app.coin.v1.DeleteCoinRequest
-	(*DeleteCoinResponse)(nil),  // 10: chain.gateway.app.coin.v1.DeleteCoinResponse
-}
+var (
+	file_chain_gateway_v1_app_coin_coin_proto_msgTypes = make([]protoimpl.MessageInfo, 11)
+	file_chain_gateway_v1_app_coin_coin_proto_goTypes  = []interface{}{
+		(*Coin)(nil),                // 0: chain.gateway.app.coin.v1.Coin
+		(*CreateCoinRequest)(nil),   // 1: chain.gateway.app.coin.v1.CreateCoinRequest
+		(*CreateCoinResponse)(nil),  // 2: chain.gateway.app.coin.v1.CreateCoinResponse
+		(*GetCoinsRequest)(nil),     // 3: chain.gateway.app.coin.v1.GetCoinsRequest
+		(*GetCoinsResponse)(nil),    // 4: chain.gateway.app.coin.v1.GetCoinsResponse
+		(*GetAppCoinsRequest)(nil),  // 5: chain.gateway.app.coin.v1.GetAppCoinsRequest
+		(*GetAppCoinsResponse)(nil), // 6: chain.gateway.app.coin.v1.GetAppCoinsResponse
+		(*UpdateCoinRequest)(nil),   // 7: chain.gateway.app.coin.v1.UpdateCoinRequest
+		(*UpdateCoinResponse)(nil),  // 8: chain.gateway.app.coin.v1.UpdateCoinResponse
+		(*DeleteCoinRequest)(nil),   // 9: chain.gateway.app.coin.v1.DeleteCoinRequest
+		(*DeleteCoinResponse)(nil),  // 10: chain.gateway.app.coin.v1.DeleteCoinResponse
+	}
+)
 var file_chain_gateway_v1_app_coin_coin_proto_depIdxs = []int32{
 	0,  // 0: chain.gateway.app.coin.v1.CreateCoinResponse.Info:type_name -> chain.gateway.app.coin.v1.Coin
 	0,  // 1: chain.gateway.app.coin.v1.GetCoinsResponse.Infos:type_name -> chain.gateway.app.coin.v1.Coin

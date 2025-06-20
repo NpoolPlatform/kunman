@@ -8,6 +8,7 @@ package commission
 
 import (
 	context "context"
+
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -127,27 +128,32 @@ type GatewayServer interface {
 }
 
 // UnimplementedGatewayServer must be embedded to have forward compatible implementations.
-type UnimplementedGatewayServer struct {
-}
+type UnimplementedGatewayServer struct{}
 
 func (UnimplementedGatewayServer) CreateCommission(context.Context, *CreateCommissionRequest) (*CreateCommissionResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateCommission not implemented")
 }
+
 func (UnimplementedGatewayServer) CreateUserCommission(context.Context, *CreateUserCommissionRequest) (*CreateUserCommissionResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateUserCommission not implemented")
 }
+
 func (UnimplementedGatewayServer) UpdateCommission(context.Context, *UpdateCommissionRequest) (*UpdateCommissionResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateCommission not implemented")
 }
+
 func (UnimplementedGatewayServer) GetCommissions(context.Context, *GetCommissionsRequest) (*GetCommissionsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetCommissions not implemented")
 }
+
 func (UnimplementedGatewayServer) GetAppCommissions(context.Context, *GetAppCommissionsRequest) (*GetAppCommissionsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetAppCommissions not implemented")
 }
+
 func (UnimplementedGatewayServer) CloneCommissions(context.Context, *CloneCommissionsRequest) (*CloneCommissionsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CloneCommissions not implemented")
 }
+
 func (UnimplementedGatewayServer) CloneAppCommissions(context.Context, *CloneAppCommissionsRequest) (*CloneAppCommissionsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CloneAppCommissions not implemented")
 }

@@ -4,13 +4,13 @@ import (
 	"context"
 	"testing"
 
-	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 	mpbasetypes "github.com/NpoolPlatform/kunman/message/basetypes/miningpool/v1"
 	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	coinmw "github.com/NpoolPlatform/kunman/message/miningpool/middleware/v1/coin"
 	npool "github.com/NpoolPlatform/kunman/message/miningpool/middleware/v1/gooduser"
 	"github.com/NpoolPlatform/kunman/middleware/miningpool/coin"
 	"github.com/NpoolPlatform/kunman/middleware/miningpool/gooduser"
+	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 	"github.com/google/uuid"
 	"github.com/stretchr/testify/assert"
 )

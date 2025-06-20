@@ -8,6 +8,7 @@ package fee
 
 import (
 	context "context"
+
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -189,42 +190,52 @@ type GatewayServer interface {
 }
 
 // UnimplementedGatewayServer must be embedded to have forward compatible implementations.
-type UnimplementedGatewayServer struct {
-}
+type UnimplementedGatewayServer struct{}
 
 func (UnimplementedGatewayServer) CreateFeeOrder(context.Context, *CreateFeeOrderRequest) (*CreateFeeOrderResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateFeeOrder not implemented")
 }
+
 func (UnimplementedGatewayServer) CreateUserFeeOrder(context.Context, *CreateUserFeeOrderRequest) (*CreateUserFeeOrderResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateUserFeeOrder not implemented")
 }
+
 func (UnimplementedGatewayServer) CreateFeeOrders(context.Context, *CreateFeeOrdersRequest) (*CreateFeeOrdersResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateFeeOrders not implemented")
 }
+
 func (UnimplementedGatewayServer) UpdateFeeOrder(context.Context, *UpdateFeeOrderRequest) (*UpdateFeeOrderResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateFeeOrder not implemented")
 }
+
 func (UnimplementedGatewayServer) UpdateUserFeeOrder(context.Context, *UpdateUserFeeOrderRequest) (*UpdateUserFeeOrderResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateUserFeeOrder not implemented")
 }
+
 func (UnimplementedGatewayServer) GetFeeOrder(context.Context, *GetFeeOrderRequest) (*GetFeeOrderResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetFeeOrder not implemented")
 }
+
 func (UnimplementedGatewayServer) GetFeeOrders(context.Context, *GetFeeOrdersRequest) (*GetFeeOrdersResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetFeeOrders not implemented")
 }
+
 func (UnimplementedGatewayServer) GetMyFeeOrders(context.Context, *GetMyFeeOrdersRequest) (*GetMyFeeOrdersResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetMyFeeOrders not implemented")
 }
+
 func (UnimplementedGatewayServer) AdminCreateFeeOrder(context.Context, *AdminCreateFeeOrderRequest) (*AdminCreateFeeOrderResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AdminCreateFeeOrder not implemented")
 }
+
 func (UnimplementedGatewayServer) AdminUpdateFeeOrder(context.Context, *AdminUpdateFeeOrderRequest) (*AdminUpdateFeeOrderResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AdminUpdateFeeOrder not implemented")
 }
+
 func (UnimplementedGatewayServer) AdminGetFeeOrders(context.Context, *AdminGetFeeOrdersRequest) (*AdminGetFeeOrdersResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AdminGetFeeOrders not implemented")
 }
+
 func (UnimplementedGatewayServer) AdminDeleteFeeOrder(context.Context, *AdminDeleteFeeOrderRequest) (*AdminDeleteFeeOrderResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AdminDeleteFeeOrder not implemented")
 }

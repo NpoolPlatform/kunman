@@ -8,6 +8,7 @@ package withdraw
 
 import (
 	context "context"
+
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -91,18 +92,20 @@ type GatewayServer interface {
 }
 
 // UnimplementedGatewayServer must be embedded to have forward compatible implementations.
-type UnimplementedGatewayServer struct {
-}
+type UnimplementedGatewayServer struct{}
 
 func (UnimplementedGatewayServer) CreateWithdraw(context.Context, *CreateWithdrawRequest) (*CreateWithdrawResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateWithdraw not implemented")
 }
+
 func (UnimplementedGatewayServer) GetWithdraws(context.Context, *GetWithdrawsRequest) (*GetWithdrawsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetWithdraws not implemented")
 }
+
 func (UnimplementedGatewayServer) GetAppWithdraws(context.Context, *GetAppWithdrawsRequest) (*GetAppWithdrawsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetAppWithdraws not implemented")
 }
+
 func (UnimplementedGatewayServer) GetNAppWithdraws(context.Context, *GetNAppWithdrawsRequest) (*GetNAppWithdrawsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetNAppWithdraws not implemented")
 }

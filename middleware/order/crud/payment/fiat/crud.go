@@ -63,7 +63,7 @@ type Conds struct {
 	FiatID     *cruder.Cond
 }
 
-//nolint
+// nolint
 func SetQueryConds(q *ent.PaymentFiatQuery, conds *Conds) (*ent.PaymentFiatQuery, error) {
 	q.Where(entpaymentfiat.DeletedAt(0))
 	if conds == nil {

@@ -7,13 +7,14 @@
 package good
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	_ "github.com/NpoolPlatform/kunman/message/basetypes/good/v1"
 	good "github.com/NpoolPlatform/kunman/message/good/middleware/v1/app/good"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -335,14 +336,16 @@ func file_good_gateway_v1_app_good_good_proto_rawDescGZIP() []byte {
 	return file_good_gateway_v1_app_good_good_proto_rawDescData
 }
 
-var file_good_gateway_v1_app_good_good_proto_msgTypes = make([]protoimpl.MessageInfo, 4)
-var file_good_gateway_v1_app_good_good_proto_goTypes = []interface{}{
-	(*GetGoodsRequest)(nil),       // 0: good.gateway.app.good1.v1.GetGoodsRequest
-	(*GetGoodsResponse)(nil),      // 1: good.gateway.app.good1.v1.GetGoodsResponse
-	(*AdminGetGoodsRequest)(nil),  // 2: good.gateway.app.good1.v1.AdminGetGoodsRequest
-	(*AdminGetGoodsResponse)(nil), // 3: good.gateway.app.good1.v1.AdminGetGoodsResponse
-	(*good.Good)(nil),             // 4: good.middleware.app.good1.v1.Good
-}
+var (
+	file_good_gateway_v1_app_good_good_proto_msgTypes = make([]protoimpl.MessageInfo, 4)
+	file_good_gateway_v1_app_good_good_proto_goTypes  = []interface{}{
+		(*GetGoodsRequest)(nil),       // 0: good.gateway.app.good1.v1.GetGoodsRequest
+		(*GetGoodsResponse)(nil),      // 1: good.gateway.app.good1.v1.GetGoodsResponse
+		(*AdminGetGoodsRequest)(nil),  // 2: good.gateway.app.good1.v1.AdminGetGoodsRequest
+		(*AdminGetGoodsResponse)(nil), // 3: good.gateway.app.good1.v1.AdminGetGoodsResponse
+		(*good.Good)(nil),             // 4: good.middleware.app.good1.v1.Good
+	}
+)
 var file_good_gateway_v1_app_good_good_proto_depIdxs = []int32{
 	4, // 0: good.gateway.app.good1.v1.GetGoodsResponse.Infos:type_name -> good.middleware.app.good1.v1.Good
 	4, // 1: good.gateway.app.good1.v1.AdminGetGoodsResponse.Infos:type_name -> good.middleware.app.good1.v1.Good

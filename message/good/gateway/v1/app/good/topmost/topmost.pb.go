@@ -7,13 +7,14 @@
 package topmost
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/good/v1"
 	poster "github.com/NpoolPlatform/kunman/message/good/middleware/v1/app/good/topmost/poster"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -1500,28 +1501,30 @@ func file_good_gateway_v1_app_good_topmost_topmost_proto_rawDescGZIP() []byte {
 	return file_good_gateway_v1_app_good_topmost_topmost_proto_rawDescData
 }
 
-var file_good_gateway_v1_app_good_topmost_topmost_proto_msgTypes = make([]protoimpl.MessageInfo, 17)
-var file_good_gateway_v1_app_good_topmost_topmost_proto_goTypes = []interface{}{
-	(*TopMost)(nil),                    // 0: good.gateway.app.good1.topmost.v1.TopMost
-	(*CreateTopMostRequest)(nil),       // 1: good.gateway.app.good1.topmost.v1.CreateTopMostRequest
-	(*CreateTopMostResponse)(nil),      // 2: good.gateway.app.good1.topmost.v1.CreateTopMostResponse
-	(*GetTopMostsRequest)(nil),         // 3: good.gateway.app.good1.topmost.v1.GetTopMostsRequest
-	(*GetTopMostsResponse)(nil),        // 4: good.gateway.app.good1.topmost.v1.GetTopMostsResponse
-	(*DeleteTopMostRequest)(nil),       // 5: good.gateway.app.good1.topmost.v1.DeleteTopMostRequest
-	(*DeleteTopMostResponse)(nil),      // 6: good.gateway.app.good1.topmost.v1.DeleteTopMostResponse
-	(*UpdateTopMostRequest)(nil),       // 7: good.gateway.app.good1.topmost.v1.UpdateTopMostRequest
-	(*UpdateTopMostResponse)(nil),      // 8: good.gateway.app.good1.topmost.v1.UpdateTopMostResponse
-	(*AdminCreateTopMostRequest)(nil),  // 9: good.gateway.app.good1.topmost.v1.AdminCreateTopMostRequest
-	(*AdminCreateTopMostResponse)(nil), // 10: good.gateway.app.good1.topmost.v1.AdminCreateTopMostResponse
-	(*AdminGetTopMostsRequest)(nil),    // 11: good.gateway.app.good1.topmost.v1.AdminGetTopMostsRequest
-	(*AdminGetTopMostsResponse)(nil),   // 12: good.gateway.app.good1.topmost.v1.AdminGetTopMostsResponse
-	(*AdminUpdateTopMostRequest)(nil),  // 13: good.gateway.app.good1.topmost.v1.AdminUpdateTopMostRequest
-	(*AdminUpdateTopMostResponse)(nil), // 14: good.gateway.app.good1.topmost.v1.AdminUpdateTopMostResponse
-	(*AdminDeleteTopMostRequest)(nil),  // 15: good.gateway.app.good1.topmost.v1.AdminDeleteTopMostRequest
-	(*AdminDeleteTopMostResponse)(nil), // 16: good.gateway.app.good1.topmost.v1.AdminDeleteTopMostResponse
-	(v1.GoodTopMostType)(0),            // 17: basetypes.good.v1.GoodTopMostType
-	(*poster.PosterInfo)(nil),          // 18: good.middleware.app.good1.topmost.poster.v1.PosterInfo
-}
+var (
+	file_good_gateway_v1_app_good_topmost_topmost_proto_msgTypes = make([]protoimpl.MessageInfo, 17)
+	file_good_gateway_v1_app_good_topmost_topmost_proto_goTypes  = []interface{}{
+		(*TopMost)(nil),                    // 0: good.gateway.app.good1.topmost.v1.TopMost
+		(*CreateTopMostRequest)(nil),       // 1: good.gateway.app.good1.topmost.v1.CreateTopMostRequest
+		(*CreateTopMostResponse)(nil),      // 2: good.gateway.app.good1.topmost.v1.CreateTopMostResponse
+		(*GetTopMostsRequest)(nil),         // 3: good.gateway.app.good1.topmost.v1.GetTopMostsRequest
+		(*GetTopMostsResponse)(nil),        // 4: good.gateway.app.good1.topmost.v1.GetTopMostsResponse
+		(*DeleteTopMostRequest)(nil),       // 5: good.gateway.app.good1.topmost.v1.DeleteTopMostRequest
+		(*DeleteTopMostResponse)(nil),      // 6: good.gateway.app.good1.topmost.v1.DeleteTopMostResponse
+		(*UpdateTopMostRequest)(nil),       // 7: good.gateway.app.good1.topmost.v1.UpdateTopMostRequest
+		(*UpdateTopMostResponse)(nil),      // 8: good.gateway.app.good1.topmost.v1.UpdateTopMostResponse
+		(*AdminCreateTopMostRequest)(nil),  // 9: good.gateway.app.good1.topmost.v1.AdminCreateTopMostRequest
+		(*AdminCreateTopMostResponse)(nil), // 10: good.gateway.app.good1.topmost.v1.AdminCreateTopMostResponse
+		(*AdminGetTopMostsRequest)(nil),    // 11: good.gateway.app.good1.topmost.v1.AdminGetTopMostsRequest
+		(*AdminGetTopMostsResponse)(nil),   // 12: good.gateway.app.good1.topmost.v1.AdminGetTopMostsResponse
+		(*AdminUpdateTopMostRequest)(nil),  // 13: good.gateway.app.good1.topmost.v1.AdminUpdateTopMostRequest
+		(*AdminUpdateTopMostResponse)(nil), // 14: good.gateway.app.good1.topmost.v1.AdminUpdateTopMostResponse
+		(*AdminDeleteTopMostRequest)(nil),  // 15: good.gateway.app.good1.topmost.v1.AdminDeleteTopMostRequest
+		(*AdminDeleteTopMostResponse)(nil), // 16: good.gateway.app.good1.topmost.v1.AdminDeleteTopMostResponse
+		(v1.GoodTopMostType)(0),            // 17: basetypes.good.v1.GoodTopMostType
+		(*poster.PosterInfo)(nil),          // 18: good.middleware.app.good1.topmost.poster.v1.PosterInfo
+	}
+)
 var file_good_gateway_v1_app_good_topmost_topmost_proto_depIdxs = []int32{
 	17, // 0: good.gateway.app.good1.topmost.v1.TopMost.TopMostType:type_name -> basetypes.good.v1.GoodTopMostType
 	18, // 1: good.gateway.app.good1.topmost.v1.TopMost.Posters:type_name -> good.middleware.app.good1.topmost.poster.v1.PosterInfo

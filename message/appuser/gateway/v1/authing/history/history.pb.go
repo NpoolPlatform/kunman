@@ -7,12 +7,13 @@
 package history
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	history "github.com/NpoolPlatform/kunman/message/appuser/middleware/v1/authing/history"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -201,12 +202,14 @@ func file_appuser_gateway_v1_authing_history_history_proto_rawDescGZIP() []byte 
 	return file_appuser_gateway_v1_authing_history_history_proto_rawDescData
 }
 
-var file_appuser_gateway_v1_authing_history_history_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
-var file_appuser_gateway_v1_authing_history_history_proto_goTypes = []interface{}{
-	(*GetAppAuthHistoriesRequest)(nil),  // 0: appuser.gateway.authing.history.v1.GetAppAuthHistoriesRequest
-	(*GetAppAuthHistoriesResponse)(nil), // 1: appuser.gateway.authing.history.v1.GetAppAuthHistoriesResponse
-	(*history.History)(nil),             // 2: appuser.middleware.authing.history.v1.History
-}
+var (
+	file_appuser_gateway_v1_authing_history_history_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
+	file_appuser_gateway_v1_authing_history_history_proto_goTypes  = []interface{}{
+		(*GetAppAuthHistoriesRequest)(nil),  // 0: appuser.gateway.authing.history.v1.GetAppAuthHistoriesRequest
+		(*GetAppAuthHistoriesResponse)(nil), // 1: appuser.gateway.authing.history.v1.GetAppAuthHistoriesResponse
+		(*history.History)(nil),             // 2: appuser.middleware.authing.history.v1.History
+	}
+)
 var file_appuser_gateway_v1_authing_history_history_proto_depIdxs = []int32{
 	2, // 0: appuser.gateway.authing.history.v1.GetAppAuthHistoriesResponse.Infos:type_name -> appuser.middleware.authing.history.v1.History
 	0, // 1: appuser.gateway.authing.history.v1.Gateway.GetAppAuthHistories:input_type -> appuser.gateway.authing.history.v1.GetAppAuthHistoriesRequest

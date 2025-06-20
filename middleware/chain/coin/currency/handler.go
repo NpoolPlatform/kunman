@@ -4,10 +4,10 @@ import (
 	"context"
 	"fmt"
 
-	constant "github.com/NpoolPlatform/kunman/pkg/const"
-	currencycrud "github.com/NpoolPlatform/kunman/middleware/chain/crud/coin/currency"
 	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	npool "github.com/NpoolPlatform/kunman/message/chain/middleware/v1/coin/currency"
+	currencycrud "github.com/NpoolPlatform/kunman/middleware/chain/crud/coin/currency"
+	constant "github.com/NpoolPlatform/kunman/pkg/const"
 
 	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 

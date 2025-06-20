@@ -5,8 +5,8 @@ import (
 	"time"
 
 	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
-	cruder "github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 	types "github.com/NpoolPlatform/kunman/message/basetypes/good/v1"
+	cruder "github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 )
 
 func (h *Handler) ConstructUpdateSQL() (string, error) { //nolint:gocyclo

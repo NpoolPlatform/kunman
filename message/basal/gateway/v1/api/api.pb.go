@@ -7,12 +7,13 @@
 package api
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	api "github.com/NpoolPlatform/kunman/message/basal/middleware/v1/api"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -429,16 +430,18 @@ func file_basal_gateway_v1_api_api_proto_rawDescGZIP() []byte {
 	return file_basal_gateway_v1_api_api_proto_rawDescData
 }
 
-var file_basal_gateway_v1_api_api_proto_msgTypes = make([]protoimpl.MessageInfo, 6)
-var file_basal_gateway_v1_api_api_proto_goTypes = []interface{}{
-	(*UpdateAPIRequest)(nil),   // 0: basal.gateway.api.v1.UpdateAPIRequest
-	(*UpdateAPIResponse)(nil),  // 1: basal.gateway.api.v1.UpdateAPIResponse
-	(*GetAPIsRequest)(nil),     // 2: basal.gateway.api.v1.GetAPIsRequest
-	(*GetAPIsResponse)(nil),    // 3: basal.gateway.api.v1.GetAPIsResponse
-	(*GetDomainsRequest)(nil),  // 4: basal.gateway.api.v1.GetDomainsRequest
-	(*GetDomainsResponse)(nil), // 5: basal.gateway.api.v1.GetDomainsResponse
-	(*api.API)(nil),            // 6: basal.middleware.api.v1.API
-}
+var (
+	file_basal_gateway_v1_api_api_proto_msgTypes = make([]protoimpl.MessageInfo, 6)
+	file_basal_gateway_v1_api_api_proto_goTypes  = []interface{}{
+		(*UpdateAPIRequest)(nil),   // 0: basal.gateway.api.v1.UpdateAPIRequest
+		(*UpdateAPIResponse)(nil),  // 1: basal.gateway.api.v1.UpdateAPIResponse
+		(*GetAPIsRequest)(nil),     // 2: basal.gateway.api.v1.GetAPIsRequest
+		(*GetAPIsResponse)(nil),    // 3: basal.gateway.api.v1.GetAPIsResponse
+		(*GetDomainsRequest)(nil),  // 4: basal.gateway.api.v1.GetDomainsRequest
+		(*GetDomainsResponse)(nil), // 5: basal.gateway.api.v1.GetDomainsResponse
+		(*api.API)(nil),            // 6: basal.middleware.api.v1.API
+	}
+)
 var file_basal_gateway_v1_api_api_proto_depIdxs = []int32{
 	6, // 0: basal.gateway.api.v1.UpdateAPIResponse.Info:type_name -> basal.middleware.api.v1.API
 	6, // 1: basal.gateway.api.v1.GetAPIsResponse.Infos:type_name -> basal.middleware.api.v1.API

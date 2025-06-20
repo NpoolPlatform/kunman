@@ -120,7 +120,6 @@ type Conds struct {
 	EventIDs    *cruder.Cond
 }
 
-// nolint:funlen,gocyclo
 func SetQueryConds(q *ent.NotifQuery, conds *Conds) (*ent.NotifQuery, error) {
 	if conds.ID != nil {
 		id, ok := conds.ID.Val.(uint32)

@@ -5,14 +5,14 @@ import (
 	"encoding/json"
 	"fmt"
 
+	basenotif "github.com/NpoolPlatform/kunman/cron/scheduler/base/notif"
+	retry1 "github.com/NpoolPlatform/kunman/cron/scheduler/base/retry"
+	types "github.com/NpoolPlatform/kunman/cron/scheduler/deposit/user/types"
 	"github.com/NpoolPlatform/kunman/framework/logger"
 	"github.com/NpoolPlatform/kunman/framework/pubsub"
 	ledgertypes "github.com/NpoolPlatform/kunman/message/basetypes/ledger/v1"
 	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	statementmwpb "github.com/NpoolPlatform/kunman/message/ledger/middleware/v2/ledger/statement"
-	basenotif "github.com/NpoolPlatform/kunman/cron/scheduler/base/notif"
-	retry1 "github.com/NpoolPlatform/kunman/cron/scheduler/base/retry"
-	types "github.com/NpoolPlatform/kunman/cron/scheduler/deposit/user/types"
 
 	"github.com/google/uuid"
 )
@@ -52,7 +52,7 @@ func (p *handler) notifyDeposit(account *types.PersistentAccount) error {
 		req := &basetypes.MsgError{
 			Error: account.Error.Error(),
 		}
-		value, _ := json.Marshal(p.statement(account)) //nolint
+		value, _ := json.Marshal(p.statement(account))
 		req.Value = string(value)
 		return publisher.Update(msgID, nil, nil, nil, req)
 	})

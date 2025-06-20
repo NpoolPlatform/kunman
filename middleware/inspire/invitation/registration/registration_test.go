@@ -364,8 +364,6 @@ func TestRegistration(t *testing.T) {
 		return
 	}
 
-	return
-
 	teardown := setup(t)
 	defer teardown(t)
 

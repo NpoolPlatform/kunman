@@ -7,14 +7,15 @@
 package app
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	app "github.com/NpoolPlatform/kunman/message/appuser/middleware/v1/app"
 	v11 "github.com/NpoolPlatform/kunman/message/basetypes/appuser/v1"
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -1163,26 +1164,28 @@ func file_appuser_gateway_v1_app_app_proto_rawDescGZIP() []byte {
 	return file_appuser_gateway_v1_app_app_proto_rawDescData
 }
 
-var file_appuser_gateway_v1_app_app_proto_msgTypes = make([]protoimpl.MessageInfo, 12)
-var file_appuser_gateway_v1_app_app_proto_goTypes = []interface{}{
-	(*CreateAppRequest)(nil),         // 0: appuser.gateway.app.v1.CreateAppRequest
-	(*CreateAppResponse)(nil),        // 1: appuser.gateway.app.v1.CreateAppResponse
-	(*UpdateAppRequest)(nil),         // 2: appuser.gateway.app.v1.UpdateAppRequest
-	(*UpdateAppResponse)(nil),        // 3: appuser.gateway.app.v1.UpdateAppResponse
-	(*GetAppRequest)(nil),            // 4: appuser.gateway.app.v1.GetAppRequest
-	(*GetAppResponse)(nil),           // 5: appuser.gateway.app.v1.GetAppResponse
-	(*GetAppsRequest)(nil),           // 6: appuser.gateway.app.v1.GetAppsRequest
-	(*GetAppsResponse)(nil),          // 7: appuser.gateway.app.v1.GetAppsResponse
-	(*DeleteAppRequest)(nil),         // 8: appuser.gateway.app.v1.DeleteAppRequest
-	(*DeleteAppResponse)(nil),        // 9: appuser.gateway.app.v1.DeleteAppResponse
-	(*BanAppRequest)(nil),            // 10: appuser.gateway.app.v1.BanAppRequest
-	(*BanAppResponse)(nil),           // 11: appuser.gateway.app.v1.BanAppResponse
-	(v1.SignMethod)(0),               // 12: basetypes.v1.SignMethod
-	(v1.RecaptchaMethod)(0),          // 13: basetypes.v1.RecaptchaMethod
-	(v1.CreateInvitationCodeWhen)(0), // 14: basetypes.v1.CreateInvitationCodeWhen
-	(v11.ResetUserMethod)(0),         // 15: basetypes.appuser.v1.ResetUserMethod
-	(*app.App)(nil),                  // 16: appuser.middleware.app.v1.App
-}
+var (
+	file_appuser_gateway_v1_app_app_proto_msgTypes = make([]protoimpl.MessageInfo, 12)
+	file_appuser_gateway_v1_app_app_proto_goTypes  = []interface{}{
+		(*CreateAppRequest)(nil),         // 0: appuser.gateway.app.v1.CreateAppRequest
+		(*CreateAppResponse)(nil),        // 1: appuser.gateway.app.v1.CreateAppResponse
+		(*UpdateAppRequest)(nil),         // 2: appuser.gateway.app.v1.UpdateAppRequest
+		(*UpdateAppResponse)(nil),        // 3: appuser.gateway.app.v1.UpdateAppResponse
+		(*GetAppRequest)(nil),            // 4: appuser.gateway.app.v1.GetAppRequest
+		(*GetAppResponse)(nil),           // 5: appuser.gateway.app.v1.GetAppResponse
+		(*GetAppsRequest)(nil),           // 6: appuser.gateway.app.v1.GetAppsRequest
+		(*GetAppsResponse)(nil),          // 7: appuser.gateway.app.v1.GetAppsResponse
+		(*DeleteAppRequest)(nil),         // 8: appuser.gateway.app.v1.DeleteAppRequest
+		(*DeleteAppResponse)(nil),        // 9: appuser.gateway.app.v1.DeleteAppResponse
+		(*BanAppRequest)(nil),            // 10: appuser.gateway.app.v1.BanAppRequest
+		(*BanAppResponse)(nil),           // 11: appuser.gateway.app.v1.BanAppResponse
+		(v1.SignMethod)(0),               // 12: basetypes.v1.SignMethod
+		(v1.RecaptchaMethod)(0),          // 13: basetypes.v1.RecaptchaMethod
+		(v1.CreateInvitationCodeWhen)(0), // 14: basetypes.v1.CreateInvitationCodeWhen
+		(v11.ResetUserMethod)(0),         // 15: basetypes.appuser.v1.ResetUserMethod
+		(*app.App)(nil),                  // 16: appuser.middleware.app.v1.App
+	}
+)
 var file_appuser_gateway_v1_app_app_proto_depIdxs = []int32{
 	12, // 0: appuser.gateway.app.v1.CreateAppRequest.SignupMethods:type_name -> basetypes.v1.SignMethod
 	12, // 1: appuser.gateway.app.v1.CreateAppRequest.ExtSigninMethods:type_name -> basetypes.v1.SignMethod

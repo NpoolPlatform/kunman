@@ -13,7 +13,7 @@ type createHandler struct {
 }
 
 func (h *createHandler) _createStock(ctx context.Context, cli *ent.Client) error {
-	h.Req.SpotQuantity = h.Req.Total
+	h.SpotQuantity = h.Total
 	if _, err := stockcrud.CreateSet(
 		cli.Stock.Create(),
 		&h.Req,

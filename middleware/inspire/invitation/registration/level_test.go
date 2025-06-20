@@ -256,7 +256,7 @@ func setupSuperior(t *testing.T) func(*testing.T) { //nolint
 	}
 }
 
-//nolint
+// nolint
 func getSuperiores(t *testing.T) {
 	handler, err := NewHandler(
 		context.Background(),

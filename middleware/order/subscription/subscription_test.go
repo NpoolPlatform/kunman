@@ -68,7 +68,7 @@ var ret = npool.SubscriptionOrder{
 	PaymentState: types.PaymentState_PaymentStateWait,
 }
 
-func setup(t *testing.T) func(*testing.T) {
+func setup(_t *testing.T) func(*testing.T) {
 	for _, paymentBalance := range ret.PaymentBalances {
 		paymentBalance.PaymentID = ret.PaymentID
 	}

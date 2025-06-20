@@ -46,7 +46,7 @@ type Conds struct {
 	ObseleteState *cruder.Cond
 }
 
-//nolint
+// nolint
 func SetQueryConds(q *ent.PaymentBaseQuery, conds *Conds) (*ent.PaymentBaseQuery, error) {
 	q.Where(entpaymentbase.DeletedAt(0))
 	if conds == nil {

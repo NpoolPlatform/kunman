@@ -7,10 +7,11 @@
 package ledger
 
 import (
-	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
-	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	reflect "reflect"
 	sync "sync"
+
+	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
+	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 )
 
 const (
@@ -184,10 +185,12 @@ func file_ledger_middleware_v2_good_ledger_ledger_proto_rawDescGZIP() []byte {
 	return file_ledger_middleware_v2_good_ledger_ledger_proto_rawDescData
 }
 
-var file_ledger_middleware_v2_good_ledger_ledger_proto_msgTypes = make([]protoimpl.MessageInfo, 1)
-var file_ledger_middleware_v2_good_ledger_ledger_proto_goTypes = []interface{}{
-	(*GoodLedger)(nil), // 0: ledger.middleware.good.ledger.v2.GoodLedger
-}
+var (
+	file_ledger_middleware_v2_good_ledger_ledger_proto_msgTypes = make([]protoimpl.MessageInfo, 1)
+	file_ledger_middleware_v2_good_ledger_ledger_proto_goTypes  = []interface{}{
+		(*GoodLedger)(nil), // 0: ledger.middleware.good.ledger.v2.GoodLedger
+	}
+)
 var file_ledger_middleware_v2_good_ledger_ledger_proto_depIdxs = []int32{
 	0, // [0:0] is the sub-list for method output_type
 	0, // [0:0] is the sub-list for method input_type

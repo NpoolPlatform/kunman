@@ -4,8 +4,8 @@ import (
 	"context"
 	"fmt"
 
-	constant "github.com/NpoolPlatform/kunman/pkg/const"
 	announcement1 "github.com/NpoolPlatform/kunman/middleware/notif/announcement"
+	constant "github.com/NpoolPlatform/kunman/pkg/const"
 	"github.com/google/uuid"
 )
 
@@ -133,6 +133,7 @@ func WithAnnouncementID(appID, amtID *string, must bool) func(context.Context, *
 		return nil
 	}
 }
+
 func WithOffset(offset int32) func(context.Context, *Handler) error {
 	return func(ctx context.Context, h *Handler) error {
 		h.Offset = offset

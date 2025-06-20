@@ -67,7 +67,7 @@ func (h *accountHandler) checkTransfer(ctx context.Context) error {
 	switch tx.State {
 	case basetypes.TxState_TxStateSuccessful:
 		h.outcoming = decimal.RequireFromString(tx.Amount)
-		fallthrough //nolint
+		fallthrough
 	case basetypes.TxState_TxStateFail:
 		h.txFinished = true
 	default:
@@ -77,7 +77,6 @@ func (h *accountHandler) checkTransfer(ctx context.Context) error {
 	return nil
 }
 
-//nolint:gocritic
 func (h *accountHandler) final(ctx context.Context, err *error) {
 	if *err != nil {
 		logger.Sugar().Errorw(
@@ -112,7 +111,6 @@ func (h *accountHandler) final(ctx context.Context, err *error) {
 	asyncfeed.AsyncFeed(ctx, persistentAccount, h.done)
 }
 
-//nolint:gocritic
 func (h *accountHandler) exec(ctx context.Context) error {
 	var err error
 

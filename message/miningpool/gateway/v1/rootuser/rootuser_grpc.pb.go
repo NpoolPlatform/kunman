@@ -8,6 +8,7 @@ package rootuser
 
 import (
 	context "context"
+
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -91,18 +92,20 @@ type GatewayServer interface {
 }
 
 // UnimplementedGatewayServer must be embedded to have forward compatible implementations.
-type UnimplementedGatewayServer struct {
-}
+type UnimplementedGatewayServer struct{}
 
 func (UnimplementedGatewayServer) AdminCreateRootUser(context.Context, *AdminCreateRootUserRequest) (*AdminCreateRootUserResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AdminCreateRootUser not implemented")
 }
+
 func (UnimplementedGatewayServer) AdminGetRootUsers(context.Context, *AdminGetRootUsersRequest) (*AdminGetRootUsersResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AdminGetRootUsers not implemented")
 }
+
 func (UnimplementedGatewayServer) AdminUpdateRootUser(context.Context, *AdminUpdateRootUserRequest) (*AdminUpdateRootUserResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AdminUpdateRootUser not implemented")
 }
+
 func (UnimplementedGatewayServer) AdminDeleteRootUser(context.Context, *AdminDeleteRootUserRequest) (*AdminDeleteRootUserResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AdminDeleteRootUser not implemented")
 }

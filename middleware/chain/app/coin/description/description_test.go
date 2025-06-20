@@ -7,9 +7,9 @@ import (
 	"strconv"
 	"testing"
 
-	testinit "github.com/NpoolPlatform/kunman/middleware/chain/testinit"
 	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	npool "github.com/NpoolPlatform/kunman/message/chain/middleware/v1/app/coin/description"
+	testinit "github.com/NpoolPlatform/kunman/middleware/chain/testinit"
 
 	appcoin1 "github.com/NpoolPlatform/kunman/middleware/chain/app/coin"
 	coin1 "github.com/NpoolPlatform/kunman/middleware/chain/coin"

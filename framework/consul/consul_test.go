@@ -28,7 +28,7 @@ func TestMain(m *testing.M) {
 }
 
 func TestNewConsulClient(t *testing.T) {
-	if runByGithubAction, _ := strconv.ParseBool(os.Getenv("RUN_BY_GITHUB_ACTION")); runByGithubAction { //nolint
+	if runByGithubAction, _ := strconv.ParseBool(os.Getenv("RUN_BY_GITHUB_ACTION")); runByGithubAction {
 		return
 	}
 
@@ -39,7 +39,7 @@ func TestNewConsulClient(t *testing.T) {
 }
 
 func TestRegisterService(t *testing.T) {
-	if runByGithubAction, _ := strconv.ParseBool(os.Getenv("RUN_BY_GITHUB_ACTION")); runByGithubAction { //nolint
+	if runByGithubAction, _ := strconv.ParseBool(os.Getenv("RUN_BY_GITHUB_ACTION")); runByGithubAction {
 		return
 	}
 

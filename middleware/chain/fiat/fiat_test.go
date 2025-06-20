@@ -7,8 +7,8 @@ import (
 	"strconv"
 	"testing"
 
-	testinit "github.com/NpoolPlatform/kunman/middleware/chain/testinit"
 	npool "github.com/NpoolPlatform/kunman/message/chain/middleware/v1/fiat"
+	testinit "github.com/NpoolPlatform/kunman/middleware/chain/testinit"
 
 	"github.com/google/uuid"
 	"github.com/stretchr/testify/assert"

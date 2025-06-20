@@ -7,12 +7,13 @@
 package recommend
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	v1 "github.com/NpoolPlatform/kunman/message/basetypes/good/v1"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -1551,27 +1552,29 @@ func file_good_gateway_v1_app_good_recommend_recommend_proto_rawDescGZIP() []byt
 	return file_good_gateway_v1_app_good_recommend_recommend_proto_rawDescData
 }
 
-var file_good_gateway_v1_app_good_recommend_recommend_proto_msgTypes = make([]protoimpl.MessageInfo, 17)
-var file_good_gateway_v1_app_good_recommend_recommend_proto_goTypes = []interface{}{
-	(*Recommend)(nil),                    // 0: good.gateway.app.good1.recommend.v1.Recommend
-	(*CreateRecommendRequest)(nil),       // 1: good.gateway.app.good1.recommend.v1.CreateRecommendRequest
-	(*CreateRecommendResponse)(nil),      // 2: good.gateway.app.good1.recommend.v1.CreateRecommendResponse
-	(*UpdateRecommendRequest)(nil),       // 3: good.gateway.app.good1.recommend.v1.UpdateRecommendRequest
-	(*UpdateRecommendResponse)(nil),      // 4: good.gateway.app.good1.recommend.v1.UpdateRecommendResponse
-	(*GetMyRecommendsRequest)(nil),       // 5: good.gateway.app.good1.recommend.v1.GetMyRecommendsRequest
-	(*GetMyRecommendsResponse)(nil),      // 6: good.gateway.app.good1.recommend.v1.GetMyRecommendsResponse
-	(*GetRecommendsRequest)(nil),         // 7: good.gateway.app.good1.recommend.v1.GetRecommendsRequest
-	(*GetRecommendsResponse)(nil),        // 8: good.gateway.app.good1.recommend.v1.GetRecommendsResponse
-	(*DeleteRecommendRequest)(nil),       // 9: good.gateway.app.good1.recommend.v1.DeleteRecommendRequest
-	(*DeleteRecommendResponse)(nil),      // 10: good.gateway.app.good1.recommend.v1.DeleteRecommendResponse
-	(*UpdateUserRecommendRequest)(nil),   // 11: good.gateway.app.good1.recommend.v1.UpdateUserRecommendRequest
-	(*UpdateUserRecommendResponse)(nil),  // 12: good.gateway.app.good1.recommend.v1.UpdateUserRecommendResponse
-	(*AdminUpdateRecommendRequest)(nil),  // 13: good.gateway.app.good1.recommend.v1.AdminUpdateRecommendRequest
-	(*AdminUpdateRecommendResponse)(nil), // 14: good.gateway.app.good1.recommend.v1.AdminUpdateRecommendResponse
-	(*AdminGetRecommendsRequest)(nil),    // 15: good.gateway.app.good1.recommend.v1.AdminGetRecommendsRequest
-	(*AdminGetRecommendsResponse)(nil),   // 16: good.gateway.app.good1.recommend.v1.AdminGetRecommendsResponse
-	(v1.GoodCommentHideReason)(0),        // 17: basetypes.good.v1.GoodCommentHideReason
-}
+var (
+	file_good_gateway_v1_app_good_recommend_recommend_proto_msgTypes = make([]protoimpl.MessageInfo, 17)
+	file_good_gateway_v1_app_good_recommend_recommend_proto_goTypes  = []interface{}{
+		(*Recommend)(nil),                    // 0: good.gateway.app.good1.recommend.v1.Recommend
+		(*CreateRecommendRequest)(nil),       // 1: good.gateway.app.good1.recommend.v1.CreateRecommendRequest
+		(*CreateRecommendResponse)(nil),      // 2: good.gateway.app.good1.recommend.v1.CreateRecommendResponse
+		(*UpdateRecommendRequest)(nil),       // 3: good.gateway.app.good1.recommend.v1.UpdateRecommendRequest
+		(*UpdateRecommendResponse)(nil),      // 4: good.gateway.app.good1.recommend.v1.UpdateRecommendResponse
+		(*GetMyRecommendsRequest)(nil),       // 5: good.gateway.app.good1.recommend.v1.GetMyRecommendsRequest
+		(*GetMyRecommendsResponse)(nil),      // 6: good.gateway.app.good1.recommend.v1.GetMyRecommendsResponse
+		(*GetRecommendsRequest)(nil),         // 7: good.gateway.app.good1.recommend.v1.GetRecommendsRequest
+		(*GetRecommendsResponse)(nil),        // 8: good.gateway.app.good1.recommend.v1.GetRecommendsResponse
+		(*DeleteRecommendRequest)(nil),       // 9: good.gateway.app.good1.recommend.v1.DeleteRecommendRequest
+		(*DeleteRecommendResponse)(nil),      // 10: good.gateway.app.good1.recommend.v1.DeleteRecommendResponse
+		(*UpdateUserRecommendRequest)(nil),   // 11: good.gateway.app.good1.recommend.v1.UpdateUserRecommendRequest
+		(*UpdateUserRecommendResponse)(nil),  // 12: good.gateway.app.good1.recommend.v1.UpdateUserRecommendResponse
+		(*AdminUpdateRecommendRequest)(nil),  // 13: good.gateway.app.good1.recommend.v1.AdminUpdateRecommendRequest
+		(*AdminUpdateRecommendResponse)(nil), // 14: good.gateway.app.good1.recommend.v1.AdminUpdateRecommendResponse
+		(*AdminGetRecommendsRequest)(nil),    // 15: good.gateway.app.good1.recommend.v1.AdminGetRecommendsRequest
+		(*AdminGetRecommendsResponse)(nil),   // 16: good.gateway.app.good1.recommend.v1.AdminGetRecommendsResponse
+		(v1.GoodCommentHideReason)(0),        // 17: basetypes.good.v1.GoodCommentHideReason
+	}
+)
 var file_good_gateway_v1_app_good_recommend_recommend_proto_depIdxs = []int32{
 	17, // 0: good.gateway.app.good1.recommend.v1.Recommend.HideReason:type_name -> basetypes.good.v1.GoodCommentHideReason
 	0,  // 1: good.gateway.app.good1.recommend.v1.CreateRecommendResponse.Info:type_name -> good.gateway.app.good1.recommend.v1.Recommend

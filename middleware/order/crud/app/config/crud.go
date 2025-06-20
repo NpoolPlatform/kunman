@@ -2,10 +2,10 @@ package appconfig
 
 import (
 	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
+	types "github.com/NpoolPlatform/kunman/message/basetypes/order/v1"
 	ent "github.com/NpoolPlatform/kunman/middleware/order/db/ent/generated"
 	entappconfig "github.com/NpoolPlatform/kunman/middleware/order/db/ent/generated/appconfig"
 	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
-	types "github.com/NpoolPlatform/kunman/message/basetypes/order/v1"
 
 	"github.com/google/uuid"
 	"github.com/shopspring/decimal"
@@ -84,7 +84,7 @@ type Conds struct {
 	AppID  *cruder.Cond
 }
 
-//nolint
+// nolint
 func SetQueryConds(q *ent.AppConfigQuery, conds *Conds) (*ent.AppConfigQuery, error) {
 	q.Where(entappconfig.DeletedAt(0))
 	if conds == nil {

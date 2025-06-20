@@ -10,11 +10,11 @@ import (
 	"github.com/google/uuid"
 	"github.com/stretchr/testify/assert"
 
-	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 	reviewtypes "github.com/NpoolPlatform/kunman/message/basetypes/review/v1"
 	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	reviewmwpb "github.com/NpoolPlatform/kunman/message/review/middleware/v2/review"
 	testinit "github.com/NpoolPlatform/kunman/middleware/review/testinit"
+	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 )
 
 func init() {
@@ -26,22 +26,20 @@ func init() {
 	}
 }
 
-var (
-	ret = reviewmwpb.Review{
-		EntID:         uuid.NewString(),
-		AppID:         uuid.NewString(),
-		Domain:        uuid.NewString(),
-		ObjectType:    reviewtypes.ReviewObjectType_ObjectKyc,
-		ObjectTypeStr: reviewtypes.ReviewObjectType_ObjectKyc.String(),
-		ObjectID:      uuid.NewString(),
-		ReviewerID:    uuid.Nil.String(),
-		State:         reviewtypes.ReviewState_Wait,
-		StateStr:      reviewtypes.ReviewState_Wait.String(),
-		Trigger:       reviewtypes.ReviewTriggerType_DefaultTriggerType,
-		TriggerStr:    reviewtypes.ReviewTriggerType_DefaultTriggerType.String(),
-		Message:       "",
-	}
-)
+var ret = reviewmwpb.Review{
+	EntID:         uuid.NewString(),
+	AppID:         uuid.NewString(),
+	Domain:        uuid.NewString(),
+	ObjectType:    reviewtypes.ReviewObjectType_ObjectKyc,
+	ObjectTypeStr: reviewtypes.ReviewObjectType_ObjectKyc.String(),
+	ObjectID:      uuid.NewString(),
+	ReviewerID:    uuid.Nil.String(),
+	State:         reviewtypes.ReviewState_Wait,
+	StateStr:      reviewtypes.ReviewState_Wait.String(),
+	Trigger:       reviewtypes.ReviewTriggerType_DefaultTriggerType,
+	TriggerStr:    reviewtypes.ReviewTriggerType_DefaultTriggerType.String(),
+	Message:       "",
+}
 
 func createReview(t *testing.T) {
 	handler, err := NewHandler(
@@ -98,17 +96,15 @@ func getReview(t *testing.T) {
 	}
 }
 
-var (
-	conds = &reviewmwpb.Conds{
-		EntID:      &basetypes.StringVal{Op: cruder.EQ, Value: ret.EntID},
-		AppID:      &basetypes.StringVal{Op: cruder.EQ, Value: ret.AppID},
-		ObjectID:   &basetypes.StringVal{Op: cruder.EQ, Value: ret.ObjectID},
-		Domain:     &basetypes.StringVal{Op: cruder.EQ, Value: ret.Domain},
-		Trigger:    &basetypes.Uint32Val{Op: cruder.EQ, Value: uint32(reviewtypes.ReviewTriggerType_DefaultTriggerType)},
-		ObjectType: &basetypes.Uint32Val{Op: cruder.EQ, Value: uint32(reviewtypes.ReviewObjectType_ObjectKyc)},
-		State:      &basetypes.Uint32Val{Op: cruder.EQ, Value: uint32(reviewtypes.ReviewState_Rejected)},
-	}
-)
+var conds = &reviewmwpb.Conds{
+	EntID:      &basetypes.StringVal{Op: cruder.EQ, Value: ret.EntID},
+	AppID:      &basetypes.StringVal{Op: cruder.EQ, Value: ret.AppID},
+	ObjectID:   &basetypes.StringVal{Op: cruder.EQ, Value: ret.ObjectID},
+	Domain:     &basetypes.StringVal{Op: cruder.EQ, Value: ret.Domain},
+	Trigger:    &basetypes.Uint32Val{Op: cruder.EQ, Value: uint32(reviewtypes.ReviewTriggerType_DefaultTriggerType)},
+	ObjectType: &basetypes.Uint32Val{Op: cruder.EQ, Value: uint32(reviewtypes.ReviewObjectType_ObjectKyc)},
+	State:      &basetypes.Uint32Val{Op: cruder.EQ, Value: uint32(reviewtypes.ReviewState_Rejected)},
+}
 
 func getReviews(t *testing.T) {
 	handler, err := NewHandler(

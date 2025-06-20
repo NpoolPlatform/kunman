@@ -5,13 +5,13 @@ import (
 	"context"
 
 	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
+	ordercommon "github.com/NpoolPlatform/kunman/gateway/order/order/common"
 	types "github.com/NpoolPlatform/kunman/message/basetypes/order/v1"
 	paymentgwpb "github.com/NpoolPlatform/kunman/message/order/gateway/v1/payment"
 	powerrentalpb "github.com/NpoolPlatform/kunman/message/order/gateway/v1/powerrental"
 	paymentmwpb "github.com/NpoolPlatform/kunman/message/order/middleware/v1/payment"
 	ordergwcommon "github.com/NpoolPlatform/kunman/pkg/common"
 	constant "github.com/NpoolPlatform/kunman/pkg/const"
-	ordercommon "github.com/NpoolPlatform/kunman/gateway/order/order/common"
 
 	"github.com/google/uuid"
 	"github.com/shopspring/decimal"
@@ -136,7 +136,7 @@ func WithGoodID(id *string, must bool) func(context.Context, *Handler) error {
 			return wlog.WrapError(err)
 		}
 		h.OrderCheckHandler.GoodID = id
-		h.AppGoodCheckHandler.GoodID = id
+		h.GoodID = id
 		return nil
 	}
 }

@@ -7,12 +7,13 @@
 package device
 
 import (
+	reflect "reflect"
+	sync "sync"
+
 	device "github.com/NpoolPlatform/kunman/message/good/middleware/v1/device"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -622,18 +623,20 @@ func file_good_gateway_v1_device_device_proto_rawDescGZIP() []byte {
 	return file_good_gateway_v1_device_device_proto_rawDescData
 }
 
-var file_good_gateway_v1_device_device_proto_msgTypes = make([]protoimpl.MessageInfo, 8)
-var file_good_gateway_v1_device_device_proto_goTypes = []interface{}{
-	(*AdminCreateDeviceTypeRequest)(nil),  // 0: good.gateway.device.v1.AdminCreateDeviceTypeRequest
-	(*AdminCreateDeviceTypeResponse)(nil), // 1: good.gateway.device.v1.AdminCreateDeviceTypeResponse
-	(*AdminUpdateDeviceTypeRequest)(nil),  // 2: good.gateway.device.v1.AdminUpdateDeviceTypeRequest
-	(*AdminUpdateDeviceTypeResponse)(nil), // 3: good.gateway.device.v1.AdminUpdateDeviceTypeResponse
-	(*GetDeviceTypesRequest)(nil),         // 4: good.gateway.device.v1.GetDeviceTypesRequest
-	(*GetDeviceTypesResponse)(nil),        // 5: good.gateway.device.v1.GetDeviceTypesResponse
-	(*AdminDeleteDeviceTypeRequest)(nil),  // 6: good.gateway.device.v1.AdminDeleteDeviceTypeRequest
-	(*AdminDeleteDeviceTypeResponse)(nil), // 7: good.gateway.device.v1.AdminDeleteDeviceTypeResponse
-	(*device.DeviceType)(nil),             // 8: good.middleware.device.v1.DeviceType
-}
+var (
+	file_good_gateway_v1_device_device_proto_msgTypes = make([]protoimpl.MessageInfo, 8)
+	file_good_gateway_v1_device_device_proto_goTypes  = []interface{}{
+		(*AdminCreateDeviceTypeRequest)(nil),  // 0: good.gateway.device.v1.AdminCreateDeviceTypeRequest
+		(*AdminCreateDeviceTypeResponse)(nil), // 1: good.gateway.device.v1.AdminCreateDeviceTypeResponse
+		(*AdminUpdateDeviceTypeRequest)(nil),  // 2: good.gateway.device.v1.AdminUpdateDeviceTypeRequest
+		(*AdminUpdateDeviceTypeResponse)(nil), // 3: good.gateway.device.v1.AdminUpdateDeviceTypeResponse
+		(*GetDeviceTypesRequest)(nil),         // 4: good.gateway.device.v1.GetDeviceTypesRequest
+		(*GetDeviceTypesResponse)(nil),        // 5: good.gateway.device.v1.GetDeviceTypesResponse
+		(*AdminDeleteDeviceTypeRequest)(nil),  // 6: good.gateway.device.v1.AdminDeleteDeviceTypeRequest
+		(*AdminDeleteDeviceTypeResponse)(nil), // 7: good.gateway.device.v1.AdminDeleteDeviceTypeResponse
+		(*device.DeviceType)(nil),             // 8: good.middleware.device.v1.DeviceType
+	}
+)
 var file_good_gateway_v1_device_device_proto_depIdxs = []int32{
 	8, // 0: good.gateway.device.v1.AdminCreateDeviceTypeResponse.Info:type_name -> good.middleware.device.v1.DeviceType
 	8, // 1: good.gateway.device.v1.AdminUpdateDeviceTypeResponse.Info:type_name -> good.middleware.device.v1.DeviceType
