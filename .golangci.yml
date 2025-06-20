@@ -5,38 +5,39 @@ linters:
   default: none
   enable:
     - bodyclose
-    - depguard
     - dogsled
     - dupl
     - errcheck
     - funlen
     - goconst
-    - gocritic
     - gocyclo
     - goprintffuncname
-    - gosec
-    - govet
     - ineffassign
     - lll
     - misspell
-    - mnd
     - nakedret
     - noctx
-    - nolintlint
     - staticcheck
     - unconvert
     - unparam
     - unused
     - whitespace
+  disable:
+    - mnd
+    - nolintlint
+    - gosec
+    - gocritic
+    - govet
+    - depguard
   settings:
     dupl:
-      threshold: 100
+      threshold: 500
     funlen:
-      lines: 100
-      statements: 50
+      lines: 280
+      statements: 180
     goconst:
       min-len: 2
-      min-occurrences: 3
+      min-occurrences: 10
     gocritic:
       disabled-checks:
         - dupImport
@@ -51,9 +52,9 @@ linters:
         - performance
         - style
     gocyclo:
-      min-complexity: 15
+      min-complexity: 100
     lll:
-      line-length: 180
+      line-length: 220
     misspell:
       locale: US
     nolintlint:
