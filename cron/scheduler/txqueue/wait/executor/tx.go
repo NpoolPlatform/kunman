@@ -4,19 +4,19 @@ import (
 	"context"
 	"fmt"
 
-	accountmwcli "github.com/NpoolPlatform/kunman/middleware/account/account"
-	useraccmwcli "github.com/NpoolPlatform/kunman/middleware/account/user"
-	coinmwcli "github.com/NpoolPlatform/kunman/middleware/chain/coin"
+	asyncfeed "github.com/NpoolPlatform/kunman/cron/scheduler/base/asyncfeed"
+	types "github.com/NpoolPlatform/kunman/cron/scheduler/txqueue/wait/types"
 	logger "github.com/NpoolPlatform/kunman/framework/logger"
-	cruder "github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 	accountmwpb "github.com/NpoolPlatform/kunman/message/account/middleware/v1/account"
 	useraccmwpb "github.com/NpoolPlatform/kunman/message/account/middleware/v1/user"
 	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	coinmwpb "github.com/NpoolPlatform/kunman/message/chain/middleware/v1/coin"
 	txmwpb "github.com/NpoolPlatform/kunman/message/chain/middleware/v1/tx"
+	accountmw "github.com/NpoolPlatform/kunman/middleware/account/account"
+	useraccmw "github.com/NpoolPlatform/kunman/middleware/account/user"
+	coinmw "github.com/NpoolPlatform/kunman/middleware/chain/coin"
+	cruder "github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 	sphinxproxypb "github.com/NpoolPlatform/message/npool/sphinxproxy"
-	asyncfeed "github.com/NpoolPlatform/kunman/cron/scheduler/base/asyncfeed"
-	types "github.com/NpoolPlatform/kunman/cron/scheduler/txqueue/wait/types"
 	sphinxproxycli "github.com/NpoolPlatform/sphinx-proxy/pkg/client"
 
 	"github.com/shopspring/decimal"
@@ -56,7 +56,15 @@ func (h *txHandler) checkTransfer(ctx context.Context) (bool, error) {
 }
 
 func (h *txHandler) getAccount(ctx context.Context, accountID string) (*accountmwpb.Account, error) {
-	account, err := accountmwcli.GetAccount(ctx, accountID)
+	handler, err := accountmw.NewHandler(
+		ctx,
+		accountmw.WithEntID(&accountID, true),
+	)
+	if err != nil {
+		return nil, err
+	}
+
+	account, err := handler.GetAccount(ctx)
 	if err != nil {
 		return nil, err
 	}
@@ -68,7 +76,15 @@ func (h *txHandler) getAccount(ctx context.Context, accountID string) (*accountm
 }
 
 func (h *txHandler) getCoin(ctx context.Context, coinTypeID string) (*coinmwpb.Coin, error) {
-	coin, err := coinmwcli.GetCoin(ctx, coinTypeID)
+	handler, err := coinmw.NewHandler(
+		ctx,
+		coinmw.WithEntID(&coinTypeID, true),
+	)
+	if err != nil {
+		return nil, err
+	}
+
+	coin, err := handler.GetCoin(ctx)
 	if err != nil {
 		return nil, err
 	}
@@ -152,13 +168,22 @@ func (h *txHandler) getMemo(ctx context.Context) error {
 		return nil
 	}
 
-	account, err := useraccmwcli.GetAccountOnly(ctx, &useraccmwpb.Conds{
+	conds := &useraccmwpb.Conds{
 		AccountID:  &basetypes.StringVal{Op: cruder.EQ, Value: h.ToAccountID},
 		CoinTypeID: &basetypes.StringVal{Op: cruder.EQ, Value: h.CoinTypeID},
 		Active:     &basetypes.BoolVal{Op: cruder.EQ, Value: true},
 		Blocked:    &basetypes.BoolVal{Op: cruder.EQ, Value: false},
 		UsedFor:    &basetypes.Uint32Val{Op: cruder.EQ, Value: uint32(basetypes.UsedFor_Withdraw)},
-	})
+	}
+	handler, err := useraccmw.NewHandler(
+		ctx,
+		useraccmw.WithConds(conds),
+	)
+	if err != nil {
+		return err
+	}
+
+	account, err := handler.GetAccountOnly(ctx)
 	if err != nil {
 		return err
 	}

@@ -4,15 +4,14 @@ import (
 	"context"
 	"fmt"
 
-	txmwcli "github.com/NpoolPlatform/kunman/middleware/chain/tx"
-	withdrawmwcli "github.com/NpoolPlatform/kunman/middleware/ledger/withdraw"
-	ledgertypes "github.com/NpoolPlatform/kunman/message/basetypes/ledger/v1"
-	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
-	txmwpb "github.com/NpoolPlatform/kunman/message/chain/middleware/v1/tx"
-	withdrawmwpb "github.com/NpoolPlatform/kunman/message/ledger/middleware/v2/withdraw"
 	asyncfeed "github.com/NpoolPlatform/kunman/cron/scheduler/base/asyncfeed"
 	basepersistent "github.com/NpoolPlatform/kunman/cron/scheduler/base/persistent"
 	types "github.com/NpoolPlatform/kunman/cron/scheduler/withdraw/approved/types"
+	ledgertypes "github.com/NpoolPlatform/kunman/message/basetypes/ledger/v1"
+	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
+	withdrawmwpb "github.com/NpoolPlatform/kunman/message/ledger/middleware/v2/withdraw"
+	txmw "github.com/NpoolPlatform/kunman/middleware/chain/tx"
+	withdrawmw "github.com/NpoolPlatform/kunman/middleware/ledger/withdraw"
 
 	"github.com/google/uuid"
 )
@@ -39,21 +38,43 @@ func (p *handler) Update(ctx context.Context, withdraw interface{}, reward, noti
 		id := uuid.NewString()
 		req.PlatformTransactionID = &id
 	}
-	if _, err := withdrawmwcli.UpdateWithdraw(ctx, req); err != nil {
+
+	handler, err := withdrawmw.NewHandler(
+		ctx,
+		withdrawmw.WithID(req.ID, true),
+		withdrawmw.WithPlatformTransactionID(req.PlatformTransactionID, false),
+		withdrawmw.WithChainTransactionID(req.ChainTransactionID, false),
+		withdrawmw.WithState(req.State, false),
+		withdrawmw.WithRollback(req.Rollback, false),
+		withdrawmw.WithFeeAmount(req.FeeAmount, false),
+		withdrawmw.WithReviewID(req.ReviewID, false),
+	)
+	if err != nil {
+		return err
+	}
+
+	if _, err := handler.UpdateWithdraw(ctx); err != nil {
 		return err
 	}
 	if _withdraw.NewWithdrawState == ledgertypes.WithdrawState_Transferring {
 		txType := basetypes.TxType_TxWithdraw
-		if _, err := txmwcli.CreateTx(ctx, &txmwpb.TxReq{
-			EntID:         req.PlatformTransactionID,
-			CoinTypeID:    &_withdraw.CoinTypeID,
-			FromAccountID: &_withdraw.UserBenefitHotAccountID,
-			ToAccountID:   &_withdraw.AccountID,
-			Amount:        &_withdraw.WithdrawAmount,
-			FeeAmount:     &_withdraw.WithdrawFeeAmount,
-			Type:          &txType,
-			Extra:         &_withdraw.WithdrawExtra,
-		}); err != nil {
+
+		handler, err := txmw.NewHandler(
+			ctx,
+			txmw.WithEntID(req.PlatformTransactionID, true),
+			txmw.WithCoinTypeID(&_withdraw.CoinTypeID, true),
+			txmw.WithFromAccountID(&_withdraw.UserBenefitHotAccountID, true),
+			txmw.WithToAccountID(&_withdraw.AccountID, true),
+			txmw.WithAmount(&_withdraw.WithdrawAmount, true),
+			txmw.WithFeeAmount(&_withdraw.WithdrawFeeAmount, true),
+			txmw.WithType(&txType, true),
+			txmw.WithExtra(&_withdraw.WithdrawExtra, true),
+		)
+		if err != nil {
+			return err
+		}
+
+		if _, err := handler.CreateTx(ctx); err != nil {
 			return err
 		}
 	}

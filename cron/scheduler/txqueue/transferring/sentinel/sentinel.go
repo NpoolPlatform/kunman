@@ -3,14 +3,14 @@ package sentinel
 import (
 	"context"
 
-	txmwcli "github.com/NpoolPlatform/kunman/middleware/chain/tx"
-	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
-	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
-	txmwpb "github.com/NpoolPlatform/kunman/message/chain/middleware/v1/tx"
 	cancelablefeed "github.com/NpoolPlatform/kunman/cron/scheduler/base/cancelablefeed"
 	basesentinel "github.com/NpoolPlatform/kunman/cron/scheduler/base/sentinel"
-	constant "github.com/NpoolPlatform/kunman/pkg/const"
 	types "github.com/NpoolPlatform/kunman/cron/scheduler/txqueue/transferring/types"
+	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
+	txmwpb "github.com/NpoolPlatform/kunman/message/chain/middleware/v1/tx"
+	txmw "github.com/NpoolPlatform/kunman/middleware/chain/tx"
+	constant "github.com/NpoolPlatform/kunman/pkg/const"
+	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 )
 
 type handler struct{}
@@ -23,10 +23,22 @@ func (h *handler) Scan(ctx context.Context, exec chan interface{}) error {
 	offset := int32(0)
 	limit := constant.DefaultRowLimit
 
+	conds := &txmwpb.Conds{
+		State: &basetypes.Uint32Val{Op: cruder.EQ, Value: uint32(basetypes.TxState_TxStateTransferring)},
+	}
+
 	for {
-		txs, _, err := txmwcli.GetTxs(ctx, &txmwpb.Conds{
-			State: &basetypes.Uint32Val{Op: cruder.EQ, Value: uint32(basetypes.TxState_TxStateTransferring)},
-		}, offset, limit)
+		handler, err := txmw.NewHandler(
+			ctx,
+			txmw.WithConds(conds),
+			txmw.WithOffset(offset),
+			txmw.WithLimit(limit),
+		)
+		if err != nil {
+			return err
+		}
+
+		txs, _, err := handler.GetTxs(ctx)
 		if err != nil {
 			return err
 		}

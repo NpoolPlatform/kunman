@@ -221,3 +221,41 @@ func (h *Handler) GetAccounts(ctx context.Context) ([]*npool.Account, uint32, er
 
 	return handler.infos, handler.total, nil
 }
+
+func (h *Handler) GetAccountOnly(ctx context.Context) (*npool.Account, error) {
+	handler := &queryHandler{
+		Handler: h,
+	}
+
+	var err error
+	err = db.WithClient(ctx, func(_ctx context.Context, cli *ent.Client) error {
+		handler.stmSelect, err = handler.queryAccounts(cli)
+		if err != nil {
+			return err
+		}
+
+		if err := handler.queryJoin(); err != nil {
+			return err
+		}
+
+		handler.stmSelect.
+			Offset(0).
+			Limit(2).
+			Order(ent.Desc(entuser.FieldCreatedAt))
+
+		return handler.scan(_ctx)
+	})
+	if err != nil {
+		return nil, err
+	}
+	if len(handler.infos) > 1 {
+		return nil, fmt.Errorf("invalid account")
+	}
+	if len(handler.infos) == 0 {
+		return nil, nil
+	}
+
+	handler.formalize()
+
+	return handler.infos[0], nil
+}

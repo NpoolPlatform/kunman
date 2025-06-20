@@ -4,20 +4,20 @@ import (
 	"context"
 	"fmt"
 
-	pltfaccmwcli "github.com/NpoolPlatform/kunman/middleware/account/platform"
-	appcoinmwcli "github.com/NpoolPlatform/kunman/middleware/chain/app/coin"
-	coinmwcli "github.com/NpoolPlatform/kunman/middleware/chain/coin"
+	asyncfeed "github.com/NpoolPlatform/kunman/cron/scheduler/base/asyncfeed"
+	types "github.com/NpoolPlatform/kunman/cron/scheduler/withdraw/created/types"
 	"github.com/NpoolPlatform/kunman/framework/logger"
-	cruder "github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 	pltfaccmwpb "github.com/NpoolPlatform/kunman/message/account/middleware/v1/platform"
 	reviewtypes "github.com/NpoolPlatform/kunman/message/basetypes/review/v1"
 	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	appcoinmwpb "github.com/NpoolPlatform/kunman/message/chain/middleware/v1/app/coin"
 	coinmwpb "github.com/NpoolPlatform/kunman/message/chain/middleware/v1/coin"
 	withdrawmwpb "github.com/NpoolPlatform/kunman/message/ledger/middleware/v2/withdraw"
+	pltfaccmw "github.com/NpoolPlatform/kunman/middleware/account/platform"
+	appcoinmw "github.com/NpoolPlatform/kunman/middleware/chain/app/coin"
+	coinmw "github.com/NpoolPlatform/kunman/middleware/chain/coin"
+	cruder "github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 	sphinxproxypb "github.com/NpoolPlatform/message/npool/sphinxproxy"
-	asyncfeed "github.com/NpoolPlatform/kunman/cron/scheduler/base/asyncfeed"
-	types "github.com/NpoolPlatform/kunman/cron/scheduler/withdraw/created/types"
 	sphinxproxycli "github.com/NpoolPlatform/sphinx-proxy/pkg/client"
 
 	"github.com/shopspring/decimal"
@@ -41,11 +41,20 @@ type withdrawHandler struct {
 }
 
 func (h *withdrawHandler) getAppCoin(ctx context.Context) error {
-	coin, err := appcoinmwcli.GetCoinOnly(ctx, &appcoinmwpb.Conds{
+	conds := &appcoinmwpb.Conds{
 		AppID:      &basetypes.StringVal{Op: cruder.EQ, Value: h.AppID},
 		CoinTypeID: &basetypes.StringVal{Op: cruder.EQ, Value: h.CoinTypeID},
 		Disabled:   &basetypes.BoolVal{Op: cruder.EQ, Value: false},
-	})
+	}
+	handler, err := appcoinmw.NewHandler(
+		ctx,
+		appcoinmw.WithConds(conds),
+	)
+	if err != nil {
+		return err
+	}
+
+	coin, err := handler.GetCoinOnly(ctx)
 	if err != nil {
 		return err
 	}
@@ -57,7 +66,15 @@ func (h *withdrawHandler) getAppCoin(ctx context.Context) error {
 }
 
 func (h *withdrawHandler) getFeeCoin(ctx context.Context) error {
-	coin, err := coinmwcli.GetCoin(ctx, h.appCoin.FeeCoinTypeID)
+	handler, err := coinmw.NewHandler(
+		ctx,
+		coinmw.WithEntID(&h.appCoin.FeeCoinTypeID, true),
+	)
+	if err != nil {
+		return err
+	}
+
+	coin, err := handler.GetCoin(ctx)
 	if err != nil {
 		return err
 	}
@@ -69,13 +86,22 @@ func (h *withdrawHandler) getFeeCoin(ctx context.Context) error {
 }
 
 func (h *withdrawHandler) getUserBenefitHotAccount(ctx context.Context) error {
-	account, err := pltfaccmwcli.GetAccountOnly(ctx, &pltfaccmwpb.Conds{
+	conds := &pltfaccmwpb.Conds{
 		CoinTypeID: &basetypes.StringVal{Op: cruder.EQ, Value: h.CoinTypeID},
 		UsedFor:    &basetypes.Uint32Val{Op: cruder.EQ, Value: uint32(basetypes.AccountUsedFor_UserBenefitHot)},
 		Active:     &basetypes.BoolVal{Op: cruder.EQ, Value: true},
 		Backup:     &basetypes.BoolVal{Op: cruder.EQ, Value: false},
 		Blocked:    &basetypes.BoolVal{Op: cruder.EQ, Value: false},
-	})
+	}
+	handler, err := pltfaccmw.NewHandler(
+		ctx,
+		pltfaccmw.WithConds(conds),
+	)
+	if err != nil {
+		return err
+	}
+
+	account, err := handler.GetAccountOnly(ctx)
 	if err != nil {
 		return err
 	}

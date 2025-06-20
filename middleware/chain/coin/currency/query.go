@@ -254,3 +254,33 @@ func (h *Handler) GetCurrencies(ctx context.Context) ([]*npool.Currency, uint32,
 	handler.formalize()
 	return handler.infos, handler.total, nil
 }
+
+func (h *Handler) GetCurrencyOnly(ctx context.Context) (*npool.Currency, error) {
+	handler := &queryHandler{
+		Handler: h,
+	}
+
+	var err error
+	err = db.WithClient(ctx, func(_ctx context.Context, cli *ent.Client) error {
+		handler.stmSelect, err = handler.queryCoinBases(cli)
+		if err != nil {
+			return err
+		}
+
+		handler.queryJoin()
+
+		handler.stmSelect.
+			Offset(0).
+			Limit(1)
+		return handler.scan(_ctx)
+	})
+	if err != nil {
+		return nil, err
+	}
+	if len(handler.infos) == 0 {
+		return nil, nil
+	}
+
+	handler.formalize()
+	return handler.infos[0], nil
+}

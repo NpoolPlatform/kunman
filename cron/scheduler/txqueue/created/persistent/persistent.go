@@ -4,12 +4,11 @@ import (
 	"context"
 	"fmt"
 
-	txmwcli "github.com/NpoolPlatform/kunman/middleware/chain/tx"
-	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
-	txmwpb "github.com/NpoolPlatform/kunman/message/chain/middleware/v1/tx"
 	asyncfeed "github.com/NpoolPlatform/kunman/cron/scheduler/base/asyncfeed"
 	basepersistent "github.com/NpoolPlatform/kunman/cron/scheduler/base/persistent"
 	types "github.com/NpoolPlatform/kunman/cron/scheduler/txqueue/created/types"
+	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
+	txmw "github.com/NpoolPlatform/kunman/middleware/chain/tx"
 )
 
 type handler struct{}
@@ -27,10 +26,17 @@ func (p *handler) Update(ctx context.Context, tx interface{}, reward, notif, don
 	defer asyncfeed.AsyncFeed(ctx, _tx, done)
 
 	state := basetypes.TxState_TxStateWait
-	if _, err := txmwcli.UpdateTx(ctx, &txmwpb.TxReq{
-		ID:    &_tx.ID,
-		State: &state,
-	}); err != nil {
+
+	handler, err := txmw.NewHandler(
+		ctx,
+		txmw.WithID(&_tx.ID, true),
+		txmw.WithState(&state, true),
+	)
+	if err != nil {
+		return err
+	}
+
+	if _, err := handler.UpdateTx(ctx); err != nil {
 		return err
 	}
 

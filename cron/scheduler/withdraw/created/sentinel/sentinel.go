@@ -2,18 +2,16 @@ package sentinel
 
 import (
 	"context"
-	"fmt"
 
-	redis2 "github.com/NpoolPlatform/kunman/framework/redis"
-	withdrawmwcli "github.com/NpoolPlatform/kunman/middleware/ledger/withdraw"
-	cruder "github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
+	cancelablefeed "github.com/NpoolPlatform/kunman/cron/scheduler/base/cancelablefeed"
+	basesentinel "github.com/NpoolPlatform/kunman/cron/scheduler/base/sentinel"
+	types "github.com/NpoolPlatform/kunman/cron/scheduler/withdraw/created/types"
 	ledgertypes "github.com/NpoolPlatform/kunman/message/basetypes/ledger/v1"
 	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	withdrawmwpb "github.com/NpoolPlatform/kunman/message/ledger/middleware/v2/withdraw"
-	cancelablefeed "github.com/NpoolPlatform/kunman/cron/scheduler/base/cancelablefeed"
-	basesentinel "github.com/NpoolPlatform/kunman/cron/scheduler/base/sentinel"
+	withdrawmw "github.com/NpoolPlatform/kunman/middleware/ledger/withdraw"
 	constant "github.com/NpoolPlatform/kunman/pkg/const"
-	types "github.com/NpoolPlatform/kunman/cron/scheduler/withdraw/created/types"
+	cruder "github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 )
 
 type handler struct{}
@@ -26,10 +24,22 @@ func (h *handler) Scan(ctx context.Context, exec chan interface{}) error {
 	offset := int32(0)
 	limit := constant.DefaultRowLimit
 
+	conds := &withdrawmwpb.Conds{
+		State: &basetypes.Uint32Val{Op: cruder.EQ, Value: uint32(ledgertypes.WithdrawState_Created)},
+	}
+
 	for {
-		withdraws, _, err := withdrawmwcli.GetWithdraws(ctx, &withdrawmwpb.Conds{
-			State: &basetypes.Uint32Val{Op: cruder.EQ, Value: uint32(ledgertypes.WithdrawState_Created)},
-		}, offset, limit)
+		handler, err := withdrawmw.NewHandler(
+			ctx,
+			withdrawmw.WithConds(conds),
+			withdrawmw.WithOffset(offset),
+			withdrawmw.WithLimit(limit),
+		)
+		if err != nil {
+			return err
+		}
+
+		withdraws, _, err := handler.GetWithdraws(ctx)
 		if err != nil {
 			return err
 		}
@@ -38,17 +48,6 @@ func (h *handler) Scan(ctx context.Context, exec chan interface{}) error {
 		}
 
 		for _, withdraw := range withdraws {
-			key := fmt.Sprintf(
-				"%v:%v:%v:%v",
-				basetypes.Prefix_PrefixCreateWithdraw,
-				withdraw.AppID,
-				withdraw.UserID,
-				withdraw.EntID,
-			)
-			if err := redis2.TryLock(key, 0); err != nil {
-				continue
-			}
-			_ = redis2.Unlock(key) // nolint
 			cancelablefeed.CancelableFeed(ctx, withdraw, exec)
 		}
 

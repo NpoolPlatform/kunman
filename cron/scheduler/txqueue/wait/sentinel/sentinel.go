@@ -3,14 +3,14 @@ package sentinel
 import (
 	"context"
 
-	txmwcli "github.com/NpoolPlatform/kunman/middleware/chain/tx"
-	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
-	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
-	txmwpb "github.com/NpoolPlatform/kunman/message/chain/middleware/v1/tx"
 	cancelablefeed "github.com/NpoolPlatform/kunman/cron/scheduler/base/cancelablefeed"
 	basesentinel "github.com/NpoolPlatform/kunman/cron/scheduler/base/sentinel"
-	constant "github.com/NpoolPlatform/kunman/pkg/const"
 	types "github.com/NpoolPlatform/kunman/cron/scheduler/txqueue/wait/types"
+	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
+	txmwpb "github.com/NpoolPlatform/kunman/message/chain/middleware/v1/tx"
+	txmw "github.com/NpoolPlatform/kunman/middleware/chain/tx"
+	constant "github.com/NpoolPlatform/kunman/pkg/const"
+	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 )
 
 type handler struct{}
@@ -22,10 +22,17 @@ func NewSentinel() basesentinel.Scanner {
 func (h *handler) feedTx(ctx context.Context, tx *txmwpb.Tx, exec chan interface{}) error {
 	if tx.State == basetypes.TxState_TxStateWait {
 		state := basetypes.TxState_TxStateWaitCheck
-		if _, err := txmwcli.UpdateTx(ctx, &txmwpb.TxReq{
-			ID:    &tx.ID,
-			State: &state,
-		}); err != nil {
+
+		handler, err := txmw.NewHandler(
+			ctx,
+			txmw.WithID(&tx.ID, true),
+			txmw.WithState(&state, true),
+		)
+		if err != nil {
+			return err
+		}
+
+		if _, err := handler.UpdateTx(ctx); err != nil {
 			return err
 		}
 	}
@@ -37,10 +44,22 @@ func (h *handler) scanTxs(ctx context.Context, state basetypes.TxState, exec cha
 	offset := int32(0)
 	limit := constant.DefaultRowLimit
 
+	conds := &txmwpb.Conds{
+		State: &basetypes.Uint32Val{Op: cruder.EQ, Value: uint32(state)},
+	}
+
 	for {
-		txs, _, err := txmwcli.GetTxs(ctx, &txmwpb.Conds{
-			State: &basetypes.Uint32Val{Op: cruder.EQ, Value: uint32(state)},
-		}, offset, limit)
+		handler, err := txmw.NewHandler(
+			ctx,
+			txmw.WithConds(conds),
+			txmw.WithOffset(offset),
+			txmw.WithLimit(limit),
+		)
+		if err != nil {
+			return err
+		}
+
+		txs, _, err := handler.GetTxs(ctx)
 		if err != nil {
 			return err
 		}

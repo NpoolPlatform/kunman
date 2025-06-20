@@ -4,19 +4,14 @@ import (
 	"context"
 	"fmt"
 
-	ledgergwname "github.com/NpoolPlatform/ledger-gateway/pkg/servicename"
-	ledgersvcname "github.com/NpoolPlatform/kunman/middleware/ledger/servicename"
-	ledgertypes "github.com/NpoolPlatform/kunman/message/basetypes/ledger/v1"
-	reviewtypes "github.com/NpoolPlatform/kunman/message/basetypes/review/v1"
-	withdrawmwpb "github.com/NpoolPlatform/kunman/message/ledger/middleware/v2/withdraw"
-	reviewmwpb "github.com/NpoolPlatform/kunman/message/review/middleware/v2/review"
 	asyncfeed "github.com/NpoolPlatform/kunman/cron/scheduler/base/asyncfeed"
 	basepersistent "github.com/NpoolPlatform/kunman/cron/scheduler/base/persistent"
 	types "github.com/NpoolPlatform/kunman/cron/scheduler/withdraw/created/types"
-	reviewsvcname "github.com/NpoolPlatform/kunman/middleware/review/servicename"
-
-	dtmcli "github.com/NpoolPlatform/dtm-cluster/pkg/dtm"
-	"github.com/dtm-labs/dtm/client/dtmcli/dtmimp"
+	ledgergwname "github.com/NpoolPlatform/kunman/gateway/ledger/servicename"
+	ledgertypes "github.com/NpoolPlatform/kunman/message/basetypes/ledger/v1"
+	reviewtypes "github.com/NpoolPlatform/kunman/message/basetypes/review/v1"
+	withdrawmw "github.com/NpoolPlatform/kunman/middleware/ledger/withdraw"
+	reviewmw "github.com/NpoolPlatform/kunman/middleware/review/review"
 
 	"github.com/google/uuid"
 )
@@ -27,42 +22,42 @@ func NewPersistent() basepersistent.Persistenter {
 	return &handler{}
 }
 
-func (p *handler) withUpdateWithdrawState(dispose *dtmcli.SagaDispose, withdraw *types.PersistentWithdraw, reviewID string) {
+func (p *handler) withUpdateWithdrawState(ctx context.Context, withdraw *types.PersistentWithdraw, reviewID string) error {
 	state := ledgertypes.WithdrawState_Reviewing
-	req := &withdrawmwpb.WithdrawReq{
-		ID:       &withdraw.ID,
-		State:    &state,
-		ReviewID: &reviewID,
-	}
-	dispose.Add(
-		ledgersvcname.ServiceDomain,
-		"ledger.middleware.withdraw.v2.Middleware/UpdateWithdraw",
-		"",
-		&withdrawmwpb.UpdateWithdrawRequest{
-			Info: req,
-		},
+
+	handler, err := withdrawmw.NewHandler(
+		ctx,
+		withdrawmw.WithID(&withdraw.ID, true),
+		withdrawmw.WithState(&state, true),
+		withdrawmw.WithReviewID(&reviewID, true),
 	)
+	if err != nil {
+		return err
+	}
+
+	_, err = handler.UpdateWithdraw(ctx)
+	return err
 }
 
-func (p *handler) withCreateReview(dispose *dtmcli.SagaDispose, withdraw *types.PersistentWithdraw, reviewID string) {
+func (p *handler) withCreateReview(ctx context.Context, withdraw *types.PersistentWithdraw, reviewID string) error {
 	serviceName := ledgergwname.ServiceDomain
 	objType := reviewtypes.ReviewObjectType_ObjectWithdrawal
-	req := &reviewmwpb.ReviewReq{
-		EntID:      &reviewID,
-		AppID:      &withdraw.AppID,
-		Domain:     &serviceName,
-		ObjectType: &objType,
-		ObjectID:   &withdraw.EntID,
-		Trigger:    &withdraw.ReviewTrigger,
-	}
-	dispose.Add(
-		reviewsvcname.ServiceDomain,
-		"review.middleware.review.v2.Middleware/CreateReview",
-		"review.middleware.review.v2.Middleware/DeleteReview",
-		&reviewmwpb.CreateReviewRequest{
-			Info: req,
-		},
+
+	handler, err := reviewmw.NewHandler(
+		ctx,
+		reviewmw.WithEntID(&reviewID, true),
+		reviewmw.WithAppID(&withdraw.AppID, true),
+		reviewmw.WithDomain(&serviceName, true),
+		reviewmw.WithObjectType(&objType, true),
+		reviewmw.WithObjectID(&withdraw.EntID, true),
+		reviewmw.WithTrigger(&withdraw.ReviewTrigger, true),
 	)
+	if err != nil {
+		return err
+	}
+
+	_, err = handler.CreateReview(ctx)
+	return err
 }
 
 func (p *handler) Update(ctx context.Context, withdraw interface{}, reward, notif, done chan interface{}) error {
@@ -73,15 +68,11 @@ func (p *handler) Update(ctx context.Context, withdraw interface{}, reward, noti
 
 	defer asyncfeed.AsyncFeed(ctx, _withdraw, done)
 
-	const timeoutSeconds = 10
-	sagaDispose := dtmcli.NewSagaDispose(dtmimp.TransOptions{
-		WaitResult:     true,
-		RequestTimeout: timeoutSeconds,
-	})
 	reviewID := uuid.NewString()
-	p.withCreateReview(sagaDispose, _withdraw, reviewID)
-	p.withUpdateWithdrawState(sagaDispose, _withdraw, reviewID)
-	if err := dtmcli.WithSaga(ctx, sagaDispose); err != nil {
+	if err := p.withCreateReview(ctx, _withdraw, reviewID); err != nil {
+		return err
+	}
+	if err := p.withUpdateWithdrawState(ctx, _withdraw, reviewID); err != nil {
 		return err
 	}
 

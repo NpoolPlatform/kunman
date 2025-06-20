@@ -4,13 +4,12 @@ import (
 	"context"
 	"fmt"
 
-	txmwcli "github.com/NpoolPlatform/kunman/middleware/chain/tx"
-	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
-	txmwpb "github.com/NpoolPlatform/kunman/message/chain/middleware/v1/tx"
-	sphinxproxypb "github.com/NpoolPlatform/message/npool/sphinxproxy"
 	asyncfeed "github.com/NpoolPlatform/kunman/cron/scheduler/base/asyncfeed"
 	basepersistent "github.com/NpoolPlatform/kunman/cron/scheduler/base/persistent"
 	types "github.com/NpoolPlatform/kunman/cron/scheduler/txqueue/wait/types"
+	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
+	txmw "github.com/NpoolPlatform/kunman/middleware/chain/tx"
+	sphinxproxypb "github.com/NpoolPlatform/message/npool/sphinxproxy"
 	sphinxproxycli "github.com/NpoolPlatform/sphinx-proxy/pkg/client"
 )
 
@@ -29,10 +28,16 @@ func (p *handler) Update(ctx context.Context, tx interface{}, reward, notif, don
 	defer asyncfeed.AsyncFeed(ctx, _tx, done)
 
 	if _tx.NewTxState != basetypes.TxState_TxStateTransferring {
-		if _, err := txmwcli.UpdateTx(ctx, &txmwpb.TxReq{
-			ID:    &_tx.ID,
-			State: &_tx.NewTxState,
-		}); err != nil {
+		handler, err := txmw.NewHandler(
+			ctx,
+			txmw.WithID(&_tx.ID, true),
+			txmw.WithState(&_tx.NewTxState, true),
+		)
+		if err != nil {
+			return err
+		}
+
+		if _, err := handler.UpdateTx(ctx); err != nil {
 			return err
 		}
 		return nil
@@ -52,10 +57,17 @@ func (p *handler) Update(ctx context.Context, tx interface{}, reward, notif, don
 	}
 
 	_tx.TransactionExist = true
-	if _, err := txmwcli.UpdateTx(ctx, &txmwpb.TxReq{
-		ID:    &_tx.ID,
-		State: &_tx.NewTxState,
-	}); err != nil {
+
+	handler, err := txmw.NewHandler(
+		ctx,
+		txmw.WithID(&_tx.ID, true),
+		txmw.WithState(&_tx.NewTxState, true),
+	)
+	if err != nil {
+		return err
+	}
+
+	if _, err := handler.UpdateTx(ctx); err != nil {
 		return err
 	}
 
