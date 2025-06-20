@@ -3,16 +3,16 @@ package sentinel
 import (
 	"context"
 
+	cancelablefeed "github.com/NpoolPlatform/kunman/cron/scheduler/base/cancelablefeed"
+	basesentinel "github.com/NpoolPlatform/kunman/cron/scheduler/base/sentinel"
+	types "github.com/NpoolPlatform/kunman/cron/scheduler/withdraw/rejected/prerejected/types"
 	"github.com/NpoolPlatform/kunman/framework/logger"
-	withdrawmwcli "github.com/NpoolPlatform/kunman/middleware/ledger/withdraw"
-	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 	ledgertypes "github.com/NpoolPlatform/kunman/message/basetypes/ledger/v1"
 	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	withdrawmwpb "github.com/NpoolPlatform/kunman/message/ledger/middleware/v2/withdraw"
-	cancelablefeed "github.com/NpoolPlatform/kunman/cron/scheduler/base/cancelablefeed"
-	basesentinel "github.com/NpoolPlatform/kunman/cron/scheduler/base/sentinel"
+	withdrawmw "github.com/NpoolPlatform/kunman/middleware/ledger/withdraw"
 	constant "github.com/NpoolPlatform/kunman/pkg/const"
-	types "github.com/NpoolPlatform/kunman/cron/scheduler/withdraw/rejected/prerejected/types"
+	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 )
 
 type handler struct{}
@@ -25,10 +25,22 @@ func (h *handler) scanWithdraws(ctx context.Context, exec chan interface{}) erro
 	offset := int32(0)
 	limit := constant.DefaultRowLimit
 
+	conds := &withdrawmwpb.Conds{
+		State: &basetypes.Uint32Val{Op: cruder.EQ, Value: uint32(ledgertypes.WithdrawState_PreRejected)},
+	}
+
 	for {
-		withdraws, _, err := withdrawmwcli.GetWithdraws(ctx, &withdrawmwpb.Conds{
-			State: &basetypes.Uint32Val{Op: cruder.EQ, Value: uint32(ledgertypes.WithdrawState_PreRejected)},
-		}, offset, limit)
+		handler, err := withdrawmw.NewHandler(
+			ctx,
+			withdrawmw.WithConds(conds),
+			withdrawmw.WithOffset(offset),
+			withdrawmw.WithLimit(limit),
+		)
+		if err != nil {
+			return err
+		}
+
+		withdraws, _, err := handler.GetWithdraws(ctx)
 		if err != nil {
 			return err
 		}

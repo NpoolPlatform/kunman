@@ -4,6 +4,7 @@ import (
 	"context"
 
 	"github.com/NpoolPlatform/kunman/api"
+	"github.com/NpoolPlatform/kunman/cron/scheduler/scheduler"
 	"github.com/NpoolPlatform/kunman/framework/action"
 	"github.com/NpoolPlatform/kunman/framework/logger"
 	"github.com/NpoolPlatform/kunman/framework/wlog"
@@ -21,13 +22,17 @@ var runCmd = &cli.Command{
 	Action: func(c *cli.Context) error {
 		InitializeFlags(c)
 
-		return action.Run(
+		err := action.Run(
 			c.Context,
 			run,
 			rpcRegister,
 			rpcGatewayRegister,
 			watch,
 		)
+
+		scheduler.Finalize(c.Context)
+
+		return err
 	},
 }
 
@@ -46,6 +51,7 @@ func shutdown(ctx context.Context) {
 
 func watch(ctx context.Context, cancel context.CancelFunc) error {
 	go shutdown(ctx)
+	scheduler.Initialize(ctx, cancel)
 	return nil
 }
 

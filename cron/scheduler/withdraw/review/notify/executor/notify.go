@@ -3,12 +3,9 @@ package executor
 import (
 	"context"
 
-	accountmwcli "github.com/NpoolPlatform/kunman/middleware/account/account"
-	appmwcli "github.com/NpoolPlatform/kunman/middleware/appuser/app"
-	usermwcli "github.com/NpoolPlatform/kunman/middleware/appuser/user"
-	coinmwcli "github.com/NpoolPlatform/kunman/middleware/chain/coin"
+	asyncfeed "github.com/NpoolPlatform/kunman/cron/scheduler/base/asyncfeed"
+	types "github.com/NpoolPlatform/kunman/cron/scheduler/withdraw/review/notify/types"
 	"github.com/NpoolPlatform/kunman/framework/logger"
-	cruder "github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 	accountmwpb "github.com/NpoolPlatform/kunman/message/account/middleware/v1/account"
 	appmwpb "github.com/NpoolPlatform/kunman/message/appuser/middleware/v1/app"
 	usermwpb "github.com/NpoolPlatform/kunman/message/appuser/middleware/v1/user"
@@ -16,8 +13,11 @@ import (
 	coinmwpb "github.com/NpoolPlatform/kunman/message/chain/middleware/v1/coin"
 	ledgerwithdrawmwpb "github.com/NpoolPlatform/kunman/message/ledger/middleware/v2/withdraw"
 	withdrawreviewnotifypb "github.com/NpoolPlatform/kunman/message/scheduler/middleware/v1/withdraw/review/notify"
-	asyncfeed "github.com/NpoolPlatform/kunman/cron/scheduler/base/asyncfeed"
-	types "github.com/NpoolPlatform/kunman/cron/scheduler/withdraw/review/notify/types"
+	accountmw "github.com/NpoolPlatform/kunman/middleware/account/account"
+	appmw "github.com/NpoolPlatform/kunman/middleware/appuser/app"
+	usermw "github.com/NpoolPlatform/kunman/middleware/appuser/user"
+	coinmw "github.com/NpoolPlatform/kunman/middleware/chain/coin"
+	cruder "github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 )
 
 type withdrawReviewNotifyHandler struct {
@@ -38,9 +38,20 @@ func (h *withdrawReviewNotifyHandler) getAccounts(ctx context.Context) error {
 		accountIDs = append(accountIDs, withdraw.AccountID)
 	}
 
-	accounts, _, err := accountmwcli.GetAccounts(ctx, &accountmwpb.Conds{
+	conds := &accountmwpb.Conds{
 		EntIDs: &basetypes.StringSliceVal{Op: cruder.IN, Value: accountIDs},
-	}, 0, int32(len(accountIDs)))
+	}
+	handler, err := accountmw.NewHandler(
+		ctx,
+		accountmw.WithConds(conds),
+		accountmw.WithOffset(0),
+		accountmw.WithLimit(int32(len(accountIDs))),
+	)
+	if err != nil {
+		return err
+	}
+
+	accounts, _, err := handler.GetAccounts(ctx)
 	if err != nil {
 		return err
 	}
@@ -59,9 +70,20 @@ func (h *withdrawReviewNotifyHandler) getApps(ctx context.Context) error {
 		appIDs = append(appIDs, withdraw.AppID)
 	}
 
-	apps, _, err := appmwcli.GetApps(ctx, &appmwpb.Conds{
+	conds := &appmwpb.Conds{
 		EntIDs: &basetypes.StringSliceVal{Op: cruder.IN, Value: appIDs},
-	}, 0, int32(len(appIDs)))
+	}
+	handler, err := appmw.NewHandler(
+		ctx,
+		appmw.WithConds(conds),
+		appmw.WithOffset(0),
+		appmw.WithLimit(int32(len(appIDs))),
+	)
+	if err != nil {
+		return err
+	}
+
+	apps, _, err := handler.GetApps(ctx)
 	if err != nil {
 		return err
 	}
@@ -80,9 +102,20 @@ func (h *withdrawReviewNotifyHandler) getAppUsers(ctx context.Context) error {
 		userIDs = append(userIDs, withdraw.UserID)
 	}
 
-	users, _, err := usermwcli.GetUsers(ctx, &usermwpb.Conds{
+	conds := &usermwpb.Conds{
 		EntIDs: &basetypes.StringSliceVal{Op: cruder.IN, Value: userIDs},
-	}, 0, int32(len(userIDs)))
+	}
+	handler, err := usermw.NewHandler(
+		ctx,
+		usermw.WithConds(conds),
+		usermw.WithOffset(0),
+		usermw.WithLimit(int32(len(userIDs))),
+	)
+	if err != nil {
+		return err
+	}
+
+	users, _, err := handler.GetUsers(ctx)
 	if err != nil {
 		return err
 	}
@@ -101,9 +134,20 @@ func (h *withdrawReviewNotifyHandler) getCoins(ctx context.Context) error {
 		coinTypeIDs = append(coinTypeIDs, withdraw.CoinTypeID)
 	}
 
-	coins, _, err := coinmwcli.GetCoins(ctx, &coinmwpb.Conds{
+	conds := &coinmwpb.Conds{
 		EntIDs: &basetypes.StringSliceVal{Op: cruder.IN, Value: coinTypeIDs},
-	}, 0, int32(len(coinTypeIDs)))
+	}
+	handler, err := coinmw.NewHandler(
+		ctx,
+		coinmw.WithConds(conds),
+		coinmw.WithOffset(0),
+		coinmw.WithLimit(int32(len(coinTypeIDs))),
+	)
+	if err != nil {
+		return err
+	}
+
+	coins, _, err := handler.GetCoins(ctx)
 	if err != nil {
 		return err
 	}

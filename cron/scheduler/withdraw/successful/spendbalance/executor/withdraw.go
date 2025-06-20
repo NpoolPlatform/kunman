@@ -4,11 +4,11 @@ import (
 	"context"
 	"fmt"
 
-	txmwcli "github.com/NpoolPlatform/kunman/middleware/chain/tx"
-	"github.com/NpoolPlatform/kunman/framework/logger"
-	withdrawmwpb "github.com/NpoolPlatform/kunman/message/ledger/middleware/v2/withdraw"
 	asyncfeed "github.com/NpoolPlatform/kunman/cron/scheduler/base/asyncfeed"
 	types "github.com/NpoolPlatform/kunman/cron/scheduler/withdraw/successful/spendbalance/types"
+	"github.com/NpoolPlatform/kunman/framework/logger"
+	withdrawmwpb "github.com/NpoolPlatform/kunman/message/ledger/middleware/v2/withdraw"
+	txmw "github.com/NpoolPlatform/kunman/middleware/chain/tx"
 
 	"github.com/shopspring/decimal"
 )
@@ -23,7 +23,15 @@ type withdrawHandler struct {
 }
 
 func (h *withdrawHandler) getWithdrawFeeAmount(ctx context.Context) error {
-	tx, err := txmwcli.GetTx(ctx, h.PlatformTransactionID)
+	handler, err := txmw.NewHandler(
+		ctx,
+		txmw.WithEntID(&h.PlatformTransactionID, true),
+	)
+	if err != nil {
+		return err
+	}
+
+	tx, err := handler.GetTx(ctx)
 	if err != nil {
 		return err
 	}

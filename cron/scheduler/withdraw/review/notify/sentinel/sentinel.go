@@ -7,15 +7,15 @@ import (
 	"os"
 	"time"
 
+	cancelablefeed "github.com/NpoolPlatform/kunman/cron/scheduler/base/cancelablefeed"
+	basesentinel "github.com/NpoolPlatform/kunman/cron/scheduler/base/sentinel"
 	timedef "github.com/NpoolPlatform/kunman/framework/const/time"
-	ledgerwithdrawmwcli "github.com/NpoolPlatform/kunman/middleware/ledger/withdraw"
-	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 	ledgertypes "github.com/NpoolPlatform/kunman/message/basetypes/ledger/v1"
 	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	ledgerwithdrawmwpb "github.com/NpoolPlatform/kunman/message/ledger/middleware/v2/withdraw"
-	cancelablefeed "github.com/NpoolPlatform/kunman/cron/scheduler/base/cancelablefeed"
-	basesentinel "github.com/NpoolPlatform/kunman/cron/scheduler/base/sentinel"
+	ledgerwithdrawmw "github.com/NpoolPlatform/kunman/middleware/ledger/withdraw"
 	constant "github.com/NpoolPlatform/kunman/pkg/const"
+	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 
 	"github.com/google/uuid"
 )
@@ -44,10 +44,22 @@ func (h *handler) scanWithdraws(ctx context.Context, exec chan interface{}) erro
 	limit := constant.DefaultRowLimit
 	withdraws := []*ledgerwithdrawmwpb.Withdraw{}
 
+	conds := &ledgerwithdrawmwpb.Conds{
+		State: &basetypes.Uint32Val{Op: cruder.EQ, Value: uint32(ledgertypes.WithdrawState_Reviewing)},
+	}
+
 	for {
-		_withdraws, _, err := ledgerwithdrawmwcli.GetWithdraws(ctx, &ledgerwithdrawmwpb.Conds{
-			State: &basetypes.Uint32Val{Op: cruder.EQ, Value: uint32(ledgertypes.WithdrawState_Reviewing)},
-		}, offset, limit)
+		handler, err := ledgerwithdrawmw.NewHandler(
+			ctx,
+			ledgerwithdrawmw.WithConds(conds),
+			ledgerwithdrawmw.WithOffset(offset),
+			ledgerwithdrawmw.WithLimit(limit),
+		)
+		if err != nil {
+			return err
+		}
+
+		_withdraws, _, err := handler.GetWithdraws(ctx)
 		if err != nil {
 			return err
 		}

@@ -4,13 +4,13 @@ import (
 	"context"
 	"fmt"
 
-	txmwcli "github.com/NpoolPlatform/kunman/middleware/chain/tx"
+	asyncfeed "github.com/NpoolPlatform/kunman/cron/scheduler/base/asyncfeed"
+	types "github.com/NpoolPlatform/kunman/cron/scheduler/withdraw/transferring/types"
 	"github.com/NpoolPlatform/kunman/framework/logger"
 	ledgertypes "github.com/NpoolPlatform/kunman/message/basetypes/ledger/v1"
 	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
 	withdrawmwpb "github.com/NpoolPlatform/kunman/message/ledger/middleware/v2/withdraw"
-	asyncfeed "github.com/NpoolPlatform/kunman/cron/scheduler/base/asyncfeed"
-	types "github.com/NpoolPlatform/kunman/cron/scheduler/withdraw/transferring/types"
+	txmw "github.com/NpoolPlatform/kunman/middleware/chain/tx"
 )
 
 type withdrawHandler struct {
@@ -23,7 +23,15 @@ type withdrawHandler struct {
 }
 
 func (h *withdrawHandler) checkTransfer(ctx context.Context) error {
-	tx, err := txmwcli.GetTx(ctx, h.PlatformTransactionID)
+	handler, err := txmw.NewHandler(
+		ctx,
+		txmw.WithEntID(&h.PlatformTransactionID, true),
+	)
+	if err != nil {
+		return err
+	}
+
+	tx, err := handler.GetTx(ctx)
 	if err != nil {
 		return err
 	}

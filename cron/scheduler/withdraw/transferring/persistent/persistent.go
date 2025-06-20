@@ -4,11 +4,10 @@ import (
 	"context"
 	"fmt"
 
-	withdrawmwcli "github.com/NpoolPlatform/kunman/middleware/ledger/withdraw"
-	withdrawmwpb "github.com/NpoolPlatform/kunman/message/ledger/middleware/v2/withdraw"
 	asyncfeed "github.com/NpoolPlatform/kunman/cron/scheduler/base/asyncfeed"
 	basepersistent "github.com/NpoolPlatform/kunman/cron/scheduler/base/persistent"
 	types "github.com/NpoolPlatform/kunman/cron/scheduler/withdraw/transferring/types"
+	withdrawmw "github.com/NpoolPlatform/kunman/middleware/ledger/withdraw"
 )
 
 type handler struct{}
@@ -25,11 +24,17 @@ func (p *handler) Update(ctx context.Context, withdraw interface{}, reward, noti
 
 	defer asyncfeed.AsyncFeed(ctx, _withdraw, done)
 
-	if _, err := withdrawmwcli.UpdateWithdraw(ctx, &withdrawmwpb.WithdrawReq{
-		ID:                 &_withdraw.ID,
-		State:              &_withdraw.NewWithdrawState,
-		ChainTransactionID: &_withdraw.ChainTxID,
-	}); err != nil {
+	handler, err := withdrawmw.NewHandler(
+		ctx,
+		withdrawmw.WithID(&_withdraw.ID, true),
+		withdrawmw.WithState(&_withdraw.NewWithdrawState, true),
+		withdrawmw.WithChainTransactionID(&_withdraw.ChainTxID, true),
+	)
+	if err != nil {
+		return err
+	}
+
+	if _, err := handler.UpdateWithdraw(ctx); err != nil {
 		return err
 	}
 
