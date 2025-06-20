@@ -7,11 +7,10 @@
 package v1
 
 import (
-	reflect "reflect"
-	sync "sync"
-
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
+	reflect "reflect"
+	sync "sync"
 )
 
 const (
@@ -1004,7 +1003,7 @@ type GoodState int32
 const (
 	GoodState_DefaultGoodState GoodState = 0
 	GoodState_GoodStatePreWait GoodState = 9
-	GoodState_GoodStateWait    GoodState = 10 // npool-schedual start proccess from wait state
+	GoodState_GoodStateWait    GoodState = 10 // npool-scheduler start process from wait state
 	// for miningpoolstock
 	GoodState_GoodStateCreateGoodUser GoodState = 20
 	GoodState_GoodStateCheckHashRate  GoodState = 30
@@ -1420,31 +1419,29 @@ func file_basetypes_good_v1_enums_proto_rawDescGZIP() []byte {
 	return file_basetypes_good_v1_enums_proto_rawDescData
 }
 
-var (
-	file_basetypes_good_v1_enums_proto_enumTypes = make([]protoimpl.EnumInfo, 20)
-	file_basetypes_good_v1_enums_proto_goTypes   = []interface{}{
-		(BenefitType)(0),           // 0: basetypes.good.v1.BenefitType
-		(GoodType)(0),              // 1: basetypes.good.v1.GoodType
-		(BenefitState)(0),          // 2: basetypes.good.v1.BenefitState
-		(CancelMode)(0),            // 3: basetypes.good.v1.CancelMode
-		(GoodLabel)(0),             // 4: basetypes.good.v1.GoodLabel
-		(GoodTopMostType)(0),       // 5: basetypes.good.v1.GoodTopMostType
-		(GoodTopMostConstraint)(0), // 6: basetypes.good.v1.GoodTopMostConstraint
-		(GoodStartMode)(0),         // 7: basetypes.good.v1.GoodStartMode
-		(StockLockState)(0),        // 8: basetypes.good.v1.StockLockState
-		(AppStockLockState)(0),     // 9: basetypes.good.v1.AppStockLockState
-		(GoodUnitType)(0),          // 10: basetypes.good.v1.GoodUnitType
-		(GoodUnitCalculateType)(0), // 11: basetypes.good.v1.GoodUnitCalculateType
-		(GoodDurationType)(0),      // 12: basetypes.good.v1.GoodDurationType
-		(GoodSettlementType)(0),    // 13: basetypes.good.v1.GoodSettlementType
-		(GoodSaleMode)(0),          // 14: basetypes.good.v1.GoodSaleMode
-		(GoodStockMode)(0),         // 15: basetypes.good.v1.GoodStockMode
-		(GoodCommentHideReason)(0), // 16: basetypes.good.v1.GoodCommentHideReason
-		(GoodState)(0),             // 17: basetypes.good.v1.GoodState
-		(MiningGoodStockState)(0),  // 18: basetypes.good.v1.MiningGoodStockState
-		(ContractState)(0),         // 19: basetypes.good.v1.ContractState
-	}
-)
+var file_basetypes_good_v1_enums_proto_enumTypes = make([]protoimpl.EnumInfo, 20)
+var file_basetypes_good_v1_enums_proto_goTypes = []interface{}{
+	(BenefitType)(0),           // 0: basetypes.good.v1.BenefitType
+	(GoodType)(0),              // 1: basetypes.good.v1.GoodType
+	(BenefitState)(0),          // 2: basetypes.good.v1.BenefitState
+	(CancelMode)(0),            // 3: basetypes.good.v1.CancelMode
+	(GoodLabel)(0),             // 4: basetypes.good.v1.GoodLabel
+	(GoodTopMostType)(0),       // 5: basetypes.good.v1.GoodTopMostType
+	(GoodTopMostConstraint)(0), // 6: basetypes.good.v1.GoodTopMostConstraint
+	(GoodStartMode)(0),         // 7: basetypes.good.v1.GoodStartMode
+	(StockLockState)(0),        // 8: basetypes.good.v1.StockLockState
+	(AppStockLockState)(0),     // 9: basetypes.good.v1.AppStockLockState
+	(GoodUnitType)(0),          // 10: basetypes.good.v1.GoodUnitType
+	(GoodUnitCalculateType)(0), // 11: basetypes.good.v1.GoodUnitCalculateType
+	(GoodDurationType)(0),      // 12: basetypes.good.v1.GoodDurationType
+	(GoodSettlementType)(0),    // 13: basetypes.good.v1.GoodSettlementType
+	(GoodSaleMode)(0),          // 14: basetypes.good.v1.GoodSaleMode
+	(GoodStockMode)(0),         // 15: basetypes.good.v1.GoodStockMode
+	(GoodCommentHideReason)(0), // 16: basetypes.good.v1.GoodCommentHideReason
+	(GoodState)(0),             // 17: basetypes.good.v1.GoodState
+	(MiningGoodStockState)(0),  // 18: basetypes.good.v1.MiningGoodStockState
+	(ContractState)(0),         // 19: basetypes.good.v1.ContractState
+}
 var file_basetypes_good_v1_enums_proto_depIdxs = []int32{
 	0, // [0:0] is the sub-list for method output_type
 	0, // [0:0] is the sub-list for method input_type

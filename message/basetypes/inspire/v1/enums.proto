@@ -9,7 +9,7 @@ enum SettleType {
 
   // Divide commission according to order payment amount or good value
   GoodOrderPayment = 10;
-  // Divice commission according to order technique fee
+  // Divide commission according to order technique fee
   TechniqueServiceFee = 20;
 }
 

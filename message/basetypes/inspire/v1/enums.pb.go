@@ -7,11 +7,10 @@
 package v1
 
 import (
-	reflect "reflect"
-	sync "sync"
-
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
+	reflect "reflect"
+	sync "sync"
 )
 
 const (
@@ -27,7 +26,7 @@ const (
 	SettleType_DefaultSettleType SettleType = 0
 	// Divide commission according to order payment amount or good value
 	SettleType_GoodOrderPayment SettleType = 10
-	// Divice commission according to order technique fee
+	// Divide commission according to order technique fee
 	SettleType_TechniqueServiceFee SettleType = 20
 )
 
@@ -798,24 +797,22 @@ func file_basetypes_inspire_v1_enums_proto_rawDescGZIP() []byte {
 	return file_basetypes_inspire_v1_enums_proto_rawDescData
 }
 
-var (
-	file_basetypes_inspire_v1_enums_proto_enumTypes = make([]protoimpl.EnumInfo, 13)
-	file_basetypes_inspire_v1_enums_proto_goTypes   = []interface{}{
-		(SettleType)(0),           // 0: basetypes.inspire.v1.SettleType
-		(SettleMode)(0),           // 1: basetypes.inspire.v1.SettleMode
-		(SettleAmountType)(0),     // 2: basetypes.inspire.v1.SettleAmountType
-		(SettleInterval)(0),       // 3: basetypes.inspire.v1.SettleInterval
-		(CouponType)(0),           // 4: basetypes.inspire.v1.CouponType
-		(CouponConstraint)(0),     // 5: basetypes.inspire.v1.CouponConstraint
-		(CouponScope)(0),          // 6: basetypes.inspire.v1.CouponScope
-		(ControlType)(0),          // 7: basetypes.inspire.v1.ControlType
-		(CommissionType)(0),       // 8: basetypes.inspire.v1.CommissionType
-		(CommissionConfigType)(0), // 9: basetypes.inspire.v1.CommissionConfigType
-		(TaskType)(0),             // 10: basetypes.inspire.v1.TaskType
-		(TaskState)(0),            // 11: basetypes.inspire.v1.TaskState
-		(RewardState)(0),          // 12: basetypes.inspire.v1.RewardState
-	}
-)
+var file_basetypes_inspire_v1_enums_proto_enumTypes = make([]protoimpl.EnumInfo, 13)
+var file_basetypes_inspire_v1_enums_proto_goTypes = []interface{}{
+	(SettleType)(0),           // 0: basetypes.inspire.v1.SettleType
+	(SettleMode)(0),           // 1: basetypes.inspire.v1.SettleMode
+	(SettleAmountType)(0),     // 2: basetypes.inspire.v1.SettleAmountType
+	(SettleInterval)(0),       // 3: basetypes.inspire.v1.SettleInterval
+	(CouponType)(0),           // 4: basetypes.inspire.v1.CouponType
+	(CouponConstraint)(0),     // 5: basetypes.inspire.v1.CouponConstraint
+	(CouponScope)(0),          // 6: basetypes.inspire.v1.CouponScope
+	(ControlType)(0),          // 7: basetypes.inspire.v1.ControlType
+	(CommissionType)(0),       // 8: basetypes.inspire.v1.CommissionType
+	(CommissionConfigType)(0), // 9: basetypes.inspire.v1.CommissionConfigType
+	(TaskType)(0),             // 10: basetypes.inspire.v1.TaskType
+	(TaskState)(0),            // 11: basetypes.inspire.v1.TaskState
+	(RewardState)(0),          // 12: basetypes.inspire.v1.RewardState
+}
 var file_basetypes_inspire_v1_enums_proto_depIdxs = []int32{
 	0, // [0:0] is the sub-list for method output_type
 	0, // [0:0] is the sub-list for method input_type
