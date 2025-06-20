@@ -92,7 +92,10 @@ func Initialize(configPath, appName string, deps ...string) error {
 	namespaces := strings.Join(depServices, ",")
 
 	fmt.Printf("cluster: %v\n", envconf.EnvConf.EnvironmentTarget)
-	fmt.Printf("namespace: %v\n", namespaces)
+	fmt.Printf("namespaces\n")
+	for _, service := range depServices {
+		fmt.Printf("    %v\n", service)
+	}
 	fmt.Printf("appid: %v\n", appID)
 	fmt.Printf("serviceid: %v\n", serviceID)
 	fmt.Printf("logdir: %v\n", logDir)
