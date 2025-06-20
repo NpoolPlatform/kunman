@@ -25,7 +25,7 @@ func (h *queryHandler) selectLedger(stm *ent.LedgerQuery) {
 		entledger.FieldEntID,
 		entledger.FieldAppID,
 		entledger.FieldUserID,
-		entledger.FieldCoinTypeID,
+		entledger.FieldCurrencyID,
 		entledger.FieldIncoming,
 		entledger.FieldOutcoming,
 		entledger.FieldLocked,

@@ -24,7 +24,7 @@ func (h *createHandler) lockBalance(ctx context.Context, tx *ent.Tx) error {
 		Where(
 			entledger.AppID(*h.AppID),
 			entledger.UserID(*h.UserID),
-			entledger.CoinTypeID(*h.CoinTypeID),
+			entledger.CurrencyID(*h.CoinTypeID),
 			entledger.DeletedAt(0),
 		).
 		ForUpdate().
@@ -39,7 +39,7 @@ func (h *createHandler) lockBalance(ctx context.Context, tx *ent.Tx) error {
 		&ledgercrud.Req{
 			AppID:      h.AppID,
 			UserID:     h.UserID,
-			CoinTypeID: h.CoinTypeID,
+			CurrencyID: h.CoinTypeID,
 			Locked:     h.Amount,
 			Spendable:  &spendable,
 		},

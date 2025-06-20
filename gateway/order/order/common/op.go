@@ -949,7 +949,7 @@ func (h *OrderOpHandler) WithLockBalances(ctx context.Context) error {
 	balances := []*ledgermwpb.LockBalance{}
 	for _, req := range h.PaymentBalanceReqs {
 		balances = append(balances, &ledgermwpb.LockBalance{
-			CoinTypeID: *req.CoinTypeID,
+			CurrencyID: *req.CoinTypeID,
 			Amount:     *req.Amount,
 		})
 	}
@@ -1135,7 +1135,7 @@ func (h *OrderOpHandler) WithLockCommissions(ctx context.Context) error {
 	balances := map[string][]*ledgermwpb.LockBalance{}
 	for _, statement := range h.CommissionLedgerStatements {
 		balances[statement.UserID] = append(balances[statement.UserID], &ledgermwpb.LockBalance{
-			CoinTypeID: statement.CoinTypeID,
+			CurrencyID: statement.CurrencyID,
 			Amount:     statement.Amount,
 		})
 	}

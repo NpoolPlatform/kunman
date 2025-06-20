@@ -141,11 +141,11 @@ func WithLockID(id *string, must bool) func(context.Context, *Handler) error {
 	}
 }
 
-func WithCoinTypeID(id *string, must bool) func(context.Context, *Handler) error {
+func WithCurrencyID(id *string, must bool) func(context.Context, *Handler) error {
 	return func(ctx context.Context, h *Handler) error {
 		if id == nil {
 			if must {
-				return fmt.Errorf("invalid coin type id")
+				return fmt.Errorf("invalid currency id")
 			}
 			return nil
 		}
@@ -153,7 +153,20 @@ func WithCoinTypeID(id *string, must bool) func(context.Context, *Handler) error
 		if err != nil {
 			return err
 		}
-		h.CoinTypeID = &_id
+		h.CurrencyID = &_id
+		return nil
+	}
+}
+
+func WithCurrencyType(e *types.CurrencyType, must bool) func(context.Context, *Handler) error {
+	return func(ctx context.Context, h *Handler) error {
+		if e == nil {
+			if must {
+				return fmt.Errorf("invalid currencytype")
+			}
+			return nil
+		}
+		h.CurrencyType = e
 		return nil
 	}
 }
@@ -265,7 +278,7 @@ func WithRollback(b *bool, must bool) func(context.Context, *Handler) error {
 func WithBalances(balances []*npool.LockBalance, must bool) func(context.Context, *Handler) error {
 	return func(ctx context.Context, h *Handler) error {
 		for _, balance := range balances {
-			coinTypeID, err := uuid.Parse(balance.CoinTypeID)
+			coinTypeID, err := uuid.Parse(balance.CurrencyID)
 			if err != nil {
 				return err
 			}
@@ -274,7 +287,7 @@ func WithBalances(balances []*npool.LockBalance, must bool) func(context.Context
 				return err
 			}
 			h.Balances = append(h.Balances, &LockBalance{
-				CoinTypeID: coinTypeID,
+				CurrencyID: coinTypeID,
 				Amount:     amount,
 			})
 		}
@@ -331,27 +344,27 @@ func WithConds(conds *npool.Conds) func(context.Context, *Handler) error {
 				Val: id,
 			}
 		}
-		if conds.CoinTypeID != nil {
-			id, err := uuid.Parse(conds.GetCoinTypeID().GetValue())
+		if conds.CurrencyID != nil {
+			id, err := uuid.Parse(conds.GetCurrencyID().GetValue())
 			if err != nil {
 				return err
 			}
-			h.Conds.CoinTypeID = &cruder.Cond{
-				Op:  conds.GetCoinTypeID().GetOp(),
+			h.Conds.CurrencyID = &cruder.Cond{
+				Op:  conds.GetCurrencyID().GetOp(),
 				Val: id,
 			}
 		}
-		if len(conds.GetCoinTypeIDs().GetValue()) > 0 {
+		if len(conds.GetCurrencyIDs().GetValue()) > 0 {
 			ids := []uuid.UUID{}
-			for _, val := range conds.GetCoinTypeIDs().GetValue() {
+			for _, val := range conds.GetCurrencyIDs().GetValue() {
 				id, err := uuid.Parse(val)
 				if err != nil {
 					return err
 				}
 				ids = append(ids, id)
 			}
-			h.Conds.CoinTypeIDs = &cruder.Cond{
-				Op:  conds.GetCoinTypeIDs().GetOp(),
+			h.Conds.CurrencyIDs = &cruder.Cond{
+				Op:  conds.GetCurrencyIDs().GetOp(),
 				Val: ids,
 			}
 		}

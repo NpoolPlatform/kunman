@@ -126,10 +126,11 @@ func (h *paymentHandler) constructStatement(ctx context.Context, transfer *payme
 		EntID:      func() *string { s := uuid.NewString(); return &s }(),
 		AppID:      &h.AppID,
 		UserID:     &h.UserID,
-		CoinTypeID: &transfer.CoinTypeID,
-		IOType:     func() *ledgertypes.IOType { e := ledgertypes.IOType_Incoming; return &e }(),
-		IOSubType:  func() *ledgertypes.IOSubType { e := ledgertypes.IOSubType_ObseletePayment; return &e }(),
-		Amount:     func() *string { s := bal.Sub(startAmount).String(); return &s }(),
+		CurrencyID: &transfer.CoinTypeID,
+		// TODO: currency type
+		IOType:    func() *ledgertypes.IOType { e := ledgertypes.IOType_Incoming; return &e }(),
+		IOSubType: func() *ledgertypes.IOSubType { e := ledgertypes.IOSubType_ObseletePayment; return &e }(),
+		Amount:    func() *string { s := bal.Sub(startAmount).String(); return &s }(),
 		IOExtra: func() *string {
 			s := fmt.Sprintf(
 				`{"OrderID":"%v", "PaymentID": "%v", "Reason": "ObseletePayment"}`,

@@ -4,6 +4,7 @@ import (
 	"errors"
 
 	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
+	types "github.com/NpoolPlatform/kunman/message/basetypes/ledger/v1"
 	ent "github.com/NpoolPlatform/kunman/middleware/ledger/db/ent/generated"
 	entledger "github.com/NpoolPlatform/kunman/middleware/ledger/db/ent/generated/ledger"
 	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
@@ -13,16 +14,17 @@ import (
 )
 
 type Req struct {
-	ID         *uint32
-	EntID      *uuid.UUID
-	AppID      *uuid.UUID
-	UserID     *uuid.UUID
-	CoinTypeID *uuid.UUID
-	Incoming   *decimal.Decimal
-	Outcoming  *decimal.Decimal
-	Locked     *decimal.Decimal
-	Spendable  *decimal.Decimal
-	DeletedAt  *uint32
+	ID           *uint32
+	EntID        *uuid.UUID
+	AppID        *uuid.UUID
+	UserID       *uuid.UUID
+	CurrencyID   *uuid.UUID
+	CurrencyType *types.CurrencyType
+	Incoming     *decimal.Decimal
+	Outcoming    *decimal.Decimal
+	Locked       *decimal.Decimal
+	Spendable    *decimal.Decimal
+	DeletedAt    *uint32
 }
 
 func CreateSet(c *ent.LedgerCreate, in *Req) *ent.LedgerCreate {
@@ -38,8 +40,11 @@ func CreateSet(c *ent.LedgerCreate, in *Req) *ent.LedgerCreate {
 	if in.UserID != nil {
 		c.SetUserID(*in.UserID)
 	}
-	if in.CoinTypeID != nil {
-		c.SetCoinTypeID(*in.CoinTypeID)
+	if in.CurrencyID != nil {
+		c.SetCurrencyID(*in.CurrencyID)
+	}
+	if in.CurrencyType != nil {
+		c.SetCurrencyType(in.CurrencyType.String())
 	}
 	if in.Incoming != nil {
 		c.SetIncoming(*in.Incoming)
@@ -133,12 +138,12 @@ type Conds struct {
 	EntIDs      *cruder.Cond
 	AppID       *cruder.Cond
 	UserID      *cruder.Cond
-	CoinTypeID  *cruder.Cond
+	CurrencyID  *cruder.Cond
 	Incoming    *cruder.Cond
 	Outcoming   *cruder.Cond
 	Spendable   *cruder.Cond
 	Locked      *cruder.Cond
-	CoinTypeIDs *cruder.Cond
+	CurrencyIDs *cruder.Cond
 }
 
 func SetQueryConds(q *ent.LedgerQuery, conds *Conds) (*ent.LedgerQuery, error) { //nolint
@@ -194,16 +199,16 @@ func SetQueryConds(q *ent.LedgerQuery, conds *Conds) (*ent.LedgerQuery, error) {
 			return nil, wlog.Errorf("invalid user id op field %v", conds.UserID.Op)
 		}
 	}
-	if conds.CoinTypeID != nil {
-		coinTypeID, ok := conds.CoinTypeID.Val.(uuid.UUID)
+	if conds.CurrencyID != nil {
+		coinTypeID, ok := conds.CurrencyID.Val.(uuid.UUID)
 		if !ok {
-			return nil, wlog.Errorf("invalid coin type id")
+			return nil, wlog.Errorf("invalid currency id")
 		}
-		switch conds.CoinTypeID.Op {
+		switch conds.CurrencyID.Op {
 		case cruder.EQ:
-			q.Where(entledger.CoinTypeID(coinTypeID))
+			q.Where(entledger.CurrencyID(coinTypeID))
 		default:
-			return nil, wlog.Errorf("invalid coin type id op field %v", conds.CoinTypeID.Op)
+			return nil, wlog.Errorf("invalid currency id op field %v", conds.CurrencyID.Op)
 		}
 	}
 	if conds.Incoming != nil {
@@ -258,16 +263,16 @@ func SetQueryConds(q *ent.LedgerQuery, conds *Conds) (*ent.LedgerQuery, error) {
 			return nil, wlog.Errorf("invalid locked op field %v", conds.Locked.Op)
 		}
 	}
-	if conds.CoinTypeIDs != nil {
-		ids, ok := conds.CoinTypeIDs.Val.([]uuid.UUID)
+	if conds.CurrencyIDs != nil {
+		ids, ok := conds.CurrencyIDs.Val.([]uuid.UUID)
 		if !ok {
-			return nil, wlog.Errorf("invalid coin type ids %v", conds.CoinTypeIDs.Val)
+			return nil, wlog.Errorf("invalid currency ids %v", conds.CurrencyIDs.Val)
 		}
-		switch conds.CoinTypeIDs.Op {
+		switch conds.CurrencyIDs.Op {
 		case cruder.IN:
-			q.Where(entledger.CoinTypeIDIn(ids...))
+			q.Where(entledger.CurrencyIDIn(ids...))
 		default:
-			return nil, wlog.Errorf("invalid coin type ids op field %v", conds.CoinTypeIDs.Op)
+			return nil, wlog.Errorf("invalid currency ids op field %v", conds.CurrencyIDs.Op)
 		}
 	}
 	return q, nil

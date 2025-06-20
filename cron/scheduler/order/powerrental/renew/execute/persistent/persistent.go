@@ -24,7 +24,7 @@ func (p *handler) withLockBalances(ctx context.Context, order *types.PersistentO
 		for _, req := range order.FeeOrderReqs {
 			for _, balance := range req.PaymentBalances {
 				_balances = append(_balances, &ledgermwpb.LockBalance{
-					CoinTypeID: *balance.CoinTypeID,
+					CurrencyID: *balance.CoinTypeID,
 					Amount:     *balance.Amount,
 				})
 			}

@@ -54,7 +54,7 @@ func (p *handler) withCreateStatements(ctx context.Context, order *types.Persist
 		reqs = append(reqs, &ledgerstatementmwpb.StatementReq{
 			AppID:      &order.AppID,
 			UserID:     &order.UserID,
-			CoinTypeID: &paymentTransfer.CoinTypeID,
+			CurrencyID: &paymentTransfer.CoinTypeID,
 			IOType:     func() *ledgertypes.IOType { e := ledgertypes.IOType_Incoming; return &e }(),
 			IOSubType:  func() *ledgertypes.IOSubType { e := ledgertypes.IOSubType_Payment; return &e }(),
 			Amount:     paymentTransfer.IncomingAmount,
@@ -62,7 +62,7 @@ func (p *handler) withCreateStatements(ctx context.Context, order *types.Persist
 		}, &ledgerstatementmwpb.StatementReq{
 			AppID:      &order.AppID,
 			UserID:     &order.UserID,
-			CoinTypeID: &paymentTransfer.CoinTypeID,
+			CurrencyID: &paymentTransfer.CoinTypeID,
 			IOType:     func() *ledgertypes.IOType { e := ledgertypes.IOType_Outcoming; return &e }(),
 			IOSubType:  func() *ledgertypes.IOSubType { e := ledgertypes.IOSubType_Payment; return &e }(),
 			Amount:     &paymentTransfer.Amount,

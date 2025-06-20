@@ -31,7 +31,7 @@ func (h *createHandler) createOrUpdateProfit(ctx context.Context, tx *ent.Tx, re
 		&profitcrud.Conds{
 			AppID:      &cruder.Cond{Op: cruder.EQ, Val: *req.AppID},
 			UserID:     &cruder.Cond{Op: cruder.EQ, Val: *req.UserID},
-			CoinTypeID: &cruder.Cond{Op: cruder.EQ, Val: *req.CoinTypeID},
+			CoinTypeID: &cruder.Cond{Op: cruder.EQ, Val: *req.CurrencyID},
 		},
 	)
 	if err != nil {
@@ -51,7 +51,7 @@ func (h *createHandler) createOrUpdateProfit(ctx context.Context, tx *ent.Tx, re
 			&profitcrud.Req{
 				AppID:      req.AppID,
 				UserID:     req.UserID,
-				CoinTypeID: req.CoinTypeID,
+				CoinTypeID: req.CurrencyID,
 				Incoming:   req.Amount,
 			}).Save(ctx); err != nil {
 			return err
@@ -64,7 +64,7 @@ func (h *createHandler) createOrUpdateProfit(ctx context.Context, tx *ent.Tx, re
 		&profitcrud.Req{
 			AppID:      req.AppID,
 			UserID:     req.UserID,
-			CoinTypeID: req.CoinTypeID,
+			CoinTypeID: req.CurrencyID,
 			Incoming:   req.Amount,
 		},
 	)
@@ -81,7 +81,7 @@ func (h *createHandler) createStatement(ctx context.Context, tx *ent.Tx, req *cr
 	stm, err := crud.SetQueryConds(tx.Statement.Query(), &crud.Conds{
 		AppID:      &cruder.Cond{Op: cruder.EQ, Val: *req.AppID},
 		UserID:     &cruder.Cond{Op: cruder.EQ, Val: *req.UserID},
-		CoinTypeID: &cruder.Cond{Op: cruder.EQ, Val: *req.CoinTypeID},
+		CurrencyID: &cruder.Cond{Op: cruder.EQ, Val: *req.CurrencyID},
 		IOType:     &cruder.Cond{Op: cruder.EQ, Val: *req.IOType},
 		IOSubType:  &cruder.Cond{Op: cruder.EQ, Val: *req.IOSubType},
 		IOExtra:    &cruder.Cond{Op: cruder.LIKE, Val: *req.IOExtra},
@@ -109,7 +109,7 @@ func (h *createHandler) createOrUpdateLedger(ctx context.Context, tx *ent.Tx, re
 	stm, err := ledgercrud.SetQueryConds(tx.Ledger.Query(), &ledgercrud.Conds{
 		AppID:      &cruder.Cond{Op: cruder.EQ, Val: *req.AppID},
 		UserID:     &cruder.Cond{Op: cruder.EQ, Val: *req.UserID},
-		CoinTypeID: &cruder.Cond{Op: cruder.EQ, Val: *req.CoinTypeID},
+		CurrencyID: &cruder.Cond{Op: cruder.EQ, Val: *req.CurrencyID},
 	})
 	if err != nil {
 		return err
@@ -141,13 +141,14 @@ func (h *createHandler) createOrUpdateLedger(ctx context.Context, tx *ent.Tx, re
 			return fmt.Errorf("insufficient funds")
 		}
 		if _, err := ledgercrud.CreateSet(tx.Ledger.Create(), &ledgercrud.Req{
-			AppID:      req.AppID,
-			UserID:     req.UserID,
-			CoinTypeID: req.CoinTypeID,
-			Incoming:   &incoming,
-			Outcoming:  &outcoming,
-			Locked:     &locked,
-			Spendable:  &spendable,
+			AppID:        req.AppID,
+			UserID:       req.UserID,
+			CurrencyID:   req.CurrencyID,
+			CurrencyType: req.CurrencyType,
+			Incoming:     &incoming,
+			Outcoming:    &outcoming,
+			Locked:       &locked,
+			Spendable:    &spendable,
 		}).Save(ctx); err != nil {
 			return err
 		}

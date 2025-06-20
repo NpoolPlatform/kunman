@@ -24,21 +24,21 @@ func (h *ledgeropHandler) getLedgers(ctx context.Context, tx *ent.Tx) error {
 			entledger.DeletedAt(0),
 		)
 	} else if len(h.Balances) > 0 {
-		coinTypeIDs := []uuid.UUID{}
+		currencyIDs := []uuid.UUID{}
 		for _, balance := range h.Balances {
-			coinTypeIDs = append(coinTypeIDs, balance.CoinTypeID)
+			currencyIDs = append(currencyIDs, balance.CurrencyID)
 		}
 		stm.Where(
 			entledger.AppID(*h.AppID),
 			entledger.UserID(*h.UserID),
-			entledger.CoinTypeIDIn(coinTypeIDs...),
+			entledger.CurrencyIDIn(currencyIDs...),
 			entledger.DeletedAt(0),
 		)
 	} else {
 		stm.Where(
 			entledger.AppID(*h.AppID),
 			entledger.UserID(*h.UserID),
-			entledger.CoinTypeID(*h.CoinTypeID),
+			entledger.CurrencyID(*h.CurrencyID),
 			entledger.DeletedAt(0),
 		)
 	}
@@ -53,9 +53,9 @@ func (h *ledgeropHandler) getLedgers(ctx context.Context, tx *ent.Tx) error {
 	return nil
 }
 
-func (h *ledgeropHandler) coinLedger(coinTypeID uuid.UUID) *ent.Ledger {
+func (h *ledgeropHandler) currencyLedger(currencyID uuid.UUID) *ent.Ledger {
 	for _, ledger := range h.ledgers {
-		if ledger.CoinTypeID == coinTypeID {
+		if ledger.CurrencyID == currencyID {
 			return ledger
 		}
 	}

@@ -62,7 +62,7 @@ func (h *settleHandler) createStatements(ctx context.Context, tx *ent.Tx) error 
 			stm, err := statementcrud.SetQueryConds(tx.Statement.Query(), &statementcrud.Conds{
 				AppID:      &cruder.Cond{Op: cruder.EQ, Val: ledger.AppID},
 				UserID:     &cruder.Cond{Op: cruder.EQ, Val: ledger.UserID},
-				CoinTypeID: &cruder.Cond{Op: cruder.EQ, Val: ledger.CoinTypeID},
+				CurrencyID: &cruder.Cond{Op: cruder.EQ, Val: ledger.CurrencyID},
 				IOType:     &cruder.Cond{Op: cruder.EQ, Val: ioType},
 				IOSubType:  &cruder.Cond{Op: cruder.EQ, Val: *h.IOSubType},
 				IOExtra:    &cruder.Cond{Op: cruder.LIKE, Val: *h.IOExtra},
@@ -75,17 +75,17 @@ func (h *settleHandler) createStatements(ctx context.Context, tx *ent.Tx) error 
 				return wlog.WrapError(err)
 			}
 			// Workaround: if we have same coins in this batch settle, we just check the first one
-			if _, ok := statementCreatables[ledger.CoinTypeID]; !ok && exist {
+			if _, ok := statementCreatables[ledger.CurrencyID]; !ok && exist {
 				return wlog.Errorf("statement already exist")
 			}
 
-			statementCreatables[ledger.CoinTypeID] = struct{}{}
+			statementCreatables[ledger.CurrencyID] = struct{}{}
 
 			if _, err := statementcrud.CreateSet(tx.Statement.Create(), &statementcrud.Req{
 				EntID:      &h.StatementIDs[i],
 				AppID:      &ledger.AppID,
 				UserID:     &ledger.UserID,
-				CoinTypeID: &ledger.CoinTypeID,
+				CurrencyID: &ledger.CurrencyID,
 				IOType:     &ioType,
 				IOSubType:  h.IOSubType,
 				IOExtra:    h.IOExtra,

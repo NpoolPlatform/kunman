@@ -5,7 +5,7 @@ import (
 
 	"github.com/shopspring/decimal"
 
-	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/ledger/v1"
+	types "github.com/NpoolPlatform/kunman/message/basetypes/ledger/v1"
 	ent "github.com/NpoolPlatform/kunman/middleware/ledger/db/ent/generated"
 	entstatement "github.com/NpoolPlatform/kunman/middleware/ledger/db/ent/generated/statement"
 	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
@@ -14,17 +14,18 @@ import (
 )
 
 type Req struct {
-	ID         *uint32
-	EntID      *uuid.UUID
-	AppID      *uuid.UUID
-	UserID     *uuid.UUID
-	CoinTypeID *uuid.UUID
-	IOType     *basetypes.IOType
-	IOSubType  *basetypes.IOSubType
-	Amount     *decimal.Decimal
-	IOExtra    *string
-	CreatedAt  *uint32
-	DeletedAt  *uint32
+	ID           *uint32
+	EntID        *uuid.UUID
+	AppID        *uuid.UUID
+	UserID       *uuid.UUID
+	CurrencyID   *uuid.UUID
+	CurrencyType *types.CurrencyType
+	IOType       *types.IOType
+	IOSubType    *types.IOSubType
+	Amount       *decimal.Decimal
+	IOExtra      *string
+	CreatedAt    *uint32
+	DeletedAt    *uint32
 }
 
 func CreateSet(c *ent.StatementCreate, in *Req) *ent.StatementCreate {
@@ -37,8 +38,11 @@ func CreateSet(c *ent.StatementCreate, in *Req) *ent.StatementCreate {
 	if in.UserID != nil {
 		c.SetUserID(*in.UserID)
 	}
-	if in.CoinTypeID != nil {
-		c.SetCoinTypeID(*in.CoinTypeID)
+	if in.CurrencyID != nil {
+		c.SetCurrencyID(*in.CurrencyID)
+	}
+	if in.CurrencyType != nil {
+		c.SetCurrencyType(in.CurrencyType.String())
 	}
 	if in.IOType != nil {
 		c.SetIoType(in.IOType.String())
@@ -69,7 +73,7 @@ type Conds struct {
 	EntID       *cruder.Cond
 	AppID       *cruder.Cond
 	UserID      *cruder.Cond
-	CoinTypeID  *cruder.Cond
+	CurrencyID  *cruder.Cond
 	IOType      *cruder.Cond
 	IOSubType   *cruder.Cond
 	Amount      *cruder.Cond
@@ -79,7 +83,7 @@ type Conds struct {
 	IDs         *cruder.Cond
 	EntIDs      *cruder.Cond
 	IOSubTypes  *cruder.Cond
-	CoinTypeIDs *cruder.Cond
+	CurrencyIDs *cruder.Cond
 	UserIDs     *cruder.Cond
 }
 
@@ -124,20 +128,20 @@ func SetQueryConds(q *ent.StatementQuery, conds *Conds) (*ent.StatementQuery, er
 			return nil, fmt.Errorf("invalid user id op field %v", conds.UserID.Op)
 		}
 	}
-	if conds.CoinTypeID != nil {
-		coinTypeID, ok := conds.CoinTypeID.Val.(uuid.UUID)
+	if conds.CurrencyID != nil {
+		coinTypeID, ok := conds.CurrencyID.Val.(uuid.UUID)
 		if !ok {
-			return nil, fmt.Errorf("invalid coin type id")
+			return nil, fmt.Errorf("invalid currency id")
 		}
-		switch conds.CoinTypeID.Op {
+		switch conds.CurrencyID.Op {
 		case cruder.EQ:
-			q.Where(entstatement.CoinTypeID(coinTypeID))
+			q.Where(entstatement.CurrencyID(coinTypeID))
 		default:
-			return nil, fmt.Errorf("invalid coin type id op field %v", conds.CoinTypeID.Op)
+			return nil, fmt.Errorf("invalid currency id op field %v", conds.CurrencyID.Op)
 		}
 	}
 	if conds.IOType != nil {
-		ioType, ok := conds.IOType.Val.(basetypes.IOType)
+		ioType, ok := conds.IOType.Val.(types.IOType)
 		if !ok {
 			return nil, fmt.Errorf("invalid io type %v", conds.IOType.Val)
 		}
@@ -149,7 +153,7 @@ func SetQueryConds(q *ent.StatementQuery, conds *Conds) (*ent.StatementQuery, er
 		}
 	}
 	if conds.IOSubType != nil {
-		ioSubType, ok := conds.IOSubType.Val.(basetypes.IOSubType)
+		ioSubType, ok := conds.IOSubType.Val.(types.IOSubType)
 		if !ok {
 			return nil, fmt.Errorf("invalid io type %v", conds.IOSubType.Val)
 		}
@@ -248,16 +252,16 @@ func SetQueryConds(q *ent.StatementQuery, conds *Conds) (*ent.StatementQuery, er
 			return nil, fmt.Errorf("invalid io sub types op field %v", conds.IOSubTypes.Op)
 		}
 	}
-	if conds.CoinTypeIDs != nil {
-		ids, ok := conds.CoinTypeIDs.Val.([]uuid.UUID)
+	if conds.CurrencyIDs != nil {
+		ids, ok := conds.CurrencyIDs.Val.([]uuid.UUID)
 		if !ok {
-			return nil, fmt.Errorf("invalid coin type ids %v", conds.CoinTypeIDs.Val)
+			return nil, fmt.Errorf("invalid currency ids %v", conds.CurrencyIDs.Val)
 		}
-		switch conds.CoinTypeIDs.Op {
+		switch conds.CurrencyIDs.Op {
 		case cruder.IN:
-			q.Where(entstatement.CoinTypeIDIn(ids...))
+			q.Where(entstatement.CurrencyIDIn(ids...))
 		default:
-			return nil, fmt.Errorf("invalid coin type ids op field %v", conds.CoinTypeIDs.Op)
+			return nil, fmt.Errorf("invalid currency ids op field %v", conds.CurrencyIDs.Op)
 		}
 	}
 	if conds.UserIDs != nil {

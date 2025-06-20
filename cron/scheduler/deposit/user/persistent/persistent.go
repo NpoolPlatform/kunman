@@ -44,7 +44,8 @@ func (p *handler) withCreateStatement(ctx context.Context, account *types.Persis
 		ledgerstatementmw.WithEntID(&id, true),
 		ledgerstatementmw.WithAppID(&account.AppID, true),
 		ledgerstatementmw.WithUserID(&account.UserID, true),
-		ledgerstatementmw.WithCoinTypeID(&account.CoinTypeID, true),
+		ledgerstatementmw.WithCurrencyID(&account.CoinTypeID, true),
+		// TODO: currency type
 		ledgerstatementmw.WithIOType(&ioType, true),
 		ledgerstatementmw.WithIOSubType(&ioSubType, true),
 		ledgerstatementmw.WithAmount(&account.DepositAmount, true),

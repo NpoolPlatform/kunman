@@ -32,7 +32,7 @@ func (p *handler) statement(account *types.PersistentAccount) *statementmwpb.Sta
 		EntID:      &id,
 		AppID:      &account.AppID,
 		UserID:     &account.UserID,
-		CoinTypeID: &account.CoinTypeID,
+		CurrencyID: &account.CoinTypeID,
 		IOType:     &ioType,
 		IOSubType:  &ioSubType,
 		Amount:     &account.DepositAmount,

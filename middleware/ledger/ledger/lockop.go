@@ -15,7 +15,7 @@ import (
 
 type LockBalance struct {
 	LedgerID   uuid.UUID
-	CoinTypeID uuid.UUID
+	CurrencyID uuid.UUID
 	Amount     decimal.Decimal
 }
 

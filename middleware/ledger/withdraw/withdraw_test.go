@@ -51,7 +51,7 @@ func createStatement(t *testing.T) {
 		context.Background(),
 		statement1.WithAppID(&ret.AppID, true),
 		statement1.WithUserID(&ret.UserID, true),
-		statement1.WithCoinTypeID(&ret.CoinTypeID, true),
+		statement1.WithCurrencyID(&ret.CoinTypeID, true),
 		statement1.WithIOExtra(&ioExtra, true),
 		statement1.WithIOType(&ioType, true),
 		statement1.WithIOSubType(&ioSubType, true),

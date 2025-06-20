@@ -279,7 +279,7 @@ func setup(t *testing.T) func(*testing.T) {
 		ledgerStatementReqs = append(ledgerStatementReqs, &ledgerstatementmwpb.StatementReq{
 			AppID:      &ret.AppID,
 			UserID:     &ret.UserID,
-			CoinTypeID: &balance.CoinTypeID,
+			CurrencyID: &balance.CoinTypeID,
 			Amount:     &circulation,
 			IOType:     ledgertypes.IOType_Incoming.Enum(),
 			IOSubType:  ledgertypes.IOSubType_Deposit.Enum(),

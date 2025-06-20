@@ -66,7 +66,7 @@ func (p *handler) withReturnSpent(ctx context.Context, order *types.PersistentOr
 		reqs = append(reqs, &ledgerstatementmwpb.StatementReq{
 			AppID:      &order.AppID,
 			UserID:     &order.UserID,
-			CoinTypeID: &payment.CoinTypeID,
+			CurrencyID: &payment.CoinTypeID,
 			IOType:     &ioType,
 			IOSubType:  &ioSubType,
 			Amount:     &payment.Amount,

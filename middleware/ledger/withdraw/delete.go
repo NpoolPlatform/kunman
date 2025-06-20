@@ -39,7 +39,7 @@ func (h *deleteHandler) unlockBalance(ctx context.Context, tx *ent.Tx) error {
 		Where(
 			entledger.AppID(info.AppID),
 			entledger.UserID(info.UserID),
-			entledger.CoinTypeID(info.CoinTypeID),
+			entledger.CurrencyID(info.CoinTypeID),
 			entledger.DeletedAt(0),
 		).
 		ForUpdate().
@@ -52,11 +52,12 @@ func (h *deleteHandler) unlockBalance(ctx context.Context, tx *ent.Tx) error {
 	stm, err := ledgercrud.UpdateSetWithValidate(
 		ledgerInfo,
 		&ledgercrud.Req{
-			AppID:      &info.AppID,
-			UserID:     &info.UserID,
-			CoinTypeID: &info.CoinTypeID,
-			Locked:     &locked,
-			Spendable:  &info.Amount,
+			AppID:        &info.AppID,
+			UserID:       &info.UserID,
+			CurrencyID:   &info.CoinTypeID,
+			CurrencyType: types.CurrencyType_CurrencyCrypto.Enum(),
+			Locked:       &locked,
+			Spendable:    &info.Amount,
 		},
 	)
 	if err != nil {

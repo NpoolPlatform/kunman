@@ -16,13 +16,12 @@ import (
 
 type Handler struct {
 	crud.Req
-	Rollback *bool
-	Reqs     []*crud.Req
-	StartAt  uint32
-	EndAT    uint32
-	Conds    *crud.Conds
-	Offset   int32
-	Limit    int32
+	Reqs    []*crud.Req
+	StartAt uint32
+	EndAT   uint32
+	Conds   *crud.Conds
+	Offset  int32
+	Limit   int32
 }
 
 func NewHandler(ctx context.Context, options ...func(context.Context, *Handler) error) (*Handler, error) {
@@ -99,11 +98,11 @@ func WithUserID(id *string, must bool) func(context.Context, *Handler) error {
 	}
 }
 
-func WithCoinTypeID(id *string, must bool) func(context.Context, *Handler) error {
+func WithCurrencyID(id *string, must bool) func(context.Context, *Handler) error {
 	return func(ctx context.Context, h *Handler) error {
 		if id == nil {
 			if must {
-				return fmt.Errorf("invalid coin type id")
+				return fmt.Errorf("invalid cointype id")
 			}
 			return nil
 		}
@@ -111,7 +110,20 @@ func WithCoinTypeID(id *string, must bool) func(context.Context, *Handler) error
 		if err != nil {
 			return err
 		}
-		h.CoinTypeID = &_id
+		h.CurrencyID = &_id
+		return nil
+	}
+}
+
+func WithCurrencyType(e *types.CurrencyType, must bool) func(context.Context, *Handler) error {
+	return func(ctx context.Context, h *Handler) error {
+		if e == nil {
+			if must {
+				return fmt.Errorf("invalid currencytype")
+			}
+			return nil
+		}
+		h.CurrencyType = e
 		return nil
 	}
 }
@@ -229,20 +241,6 @@ func WithEndAt(endAt uint32) func(context.Context, *Handler) error {
 	}
 }
 
-func WithRollback(rollback *bool, must bool) func(context.Context, *Handler) error {
-	return func(ctx context.Context, h *Handler) error {
-		if rollback == nil {
-			if must {
-				return fmt.Errorf("invalid rollback")
-			}
-			return nil
-		}
-		h.Rollback = rollback
-		return nil
-	}
-}
-
-// nolint
 func WithConds(conds *npool.Conds) func(context.Context, *Handler) error {
 	return func(ctx context.Context, h *Handler) error {
 		h.Conds = &crud.Conds{}
@@ -279,13 +277,13 @@ func WithConds(conds *npool.Conds) func(context.Context, *Handler) error {
 				Val: id,
 			}
 		}
-		if conds.CoinTypeID != nil {
-			id, err := uuid.Parse(conds.GetCoinTypeID().GetValue())
+		if conds.CurrencyID != nil {
+			id, err := uuid.Parse(conds.GetCurrencyID().GetValue())
 			if err != nil {
 				return err
 			}
-			h.Conds.CoinTypeID = &cruder.Cond{
-				Op:  conds.GetCoinTypeID().GetOp(),
+			h.Conds.CurrencyID = &cruder.Cond{
+				Op:  conds.GetCurrencyID().GetOp(),
 				Val: id,
 			}
 		}
@@ -328,17 +326,17 @@ func WithConds(conds *npool.Conds) func(context.Context, *Handler) error {
 			}
 			h.Conds.IOSubTypes = &cruder.Cond{Op: conds.GetIOSubTypes().GetOp(), Val: ioSubTypes}
 		}
-		if len(conds.GetCoinTypeIDs().GetValue()) > 0 {
+		if len(conds.GetCurrencyIDs().GetValue()) > 0 {
 			ids := []uuid.UUID{}
-			for _, val := range conds.GetCoinTypeIDs().GetValue() {
+			for _, val := range conds.GetCurrencyIDs().GetValue() {
 				id, err := uuid.Parse(val)
 				if err != nil {
 					return err
 				}
 				ids = append(ids, id)
 			}
-			h.Conds.CoinTypeIDs = &cruder.Cond{
-				Op:  conds.GetCoinTypeIDs().GetOp(),
+			h.Conds.CurrencyIDs = &cruder.Cond{
+				Op:  conds.GetCurrencyIDs().GetOp(),
 				Val: ids,
 			}
 		}
@@ -372,8 +370,8 @@ func WithReqs(reqs []*npool.StatementReq, must bool) func(context.Context, *Hand
 				if req.UserID == nil {
 					return fmt.Errorf("invalid user id")
 				}
-				if req.CoinTypeID == nil {
-					return fmt.Errorf("invalid coin type id")
+				if req.CurrencyID == nil {
+					return fmt.Errorf("invalid cointype id")
 				}
 				if req.Amount == nil {
 					return fmt.Errorf("invalid amount")
@@ -442,12 +440,12 @@ func WithReqs(reqs []*npool.StatementReq, must bool) func(context.Context, *Hand
 				}
 				_req.UserID = &_id
 			}
-			if req.CoinTypeID != nil {
-				_id, err := uuid.Parse(*req.CoinTypeID)
+			if req.CurrencyID != nil {
+				_id, err := uuid.Parse(*req.CurrencyID)
 				if err != nil {
 					return err
 				}
-				_req.CoinTypeID = &_id
+				_req.CurrencyID = &_id
 			}
 			if req.Amount != nil {
 				amount, err := decimal.NewFromString(*req.Amount)
@@ -476,9 +474,6 @@ func WithReqs(reqs []*npool.StatementReq, must bool) func(context.Context, *Hand
 			}
 			if req.IOSubType != nil {
 				_req.IOSubType = req.IOSubType
-			}
-			if req.Rollback != nil {
-				h.Rollback = req.Rollback
 			}
 			_reqs = append(_reqs, _req)
 		}

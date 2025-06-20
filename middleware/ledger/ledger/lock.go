@@ -24,7 +24,7 @@ func (h *lockHandler) lockBalance(ctx context.Context) error {
 	stm, err := ledgercrud.UpdateSetWithValidate(h.lop.ledgers[0], &ledgercrud.Req{
 		AppID:      h.AppID,
 		UserID:     h.UserID,
-		CoinTypeID: h.CoinTypeID,
+		CurrencyID: h.CurrencyID,
 		Locked:     h.Locked,
 		Spendable:  &spendable,
 	})
@@ -75,7 +75,7 @@ func (h *Handler) LockBalance(ctx context.Context) (*ledgermwpb.Ledger, error) {
 
 func (h *lockHandler) lockBalances(ctx context.Context) error {
 	for _, balance := range h.Balances {
-		ledger := h.lop.coinLedger(balance.CoinTypeID)
+		ledger := h.lop.currencyLedger(balance.CurrencyID)
 		if ledger == nil {
 			return fmt.Errorf("invalid ledger")
 		}
@@ -83,7 +83,7 @@ func (h *lockHandler) lockBalances(ctx context.Context) error {
 		stm, err := ledgercrud.UpdateSetWithValidate(ledger, &ledgercrud.Req{
 			AppID:      h.AppID,
 			UserID:     h.UserID,
-			CoinTypeID: &balance.CoinTypeID,
+			CurrencyID: &balance.CurrencyID,
 			Locked:     &balance.Amount,
 			Spendable:  &spendable,
 		})
@@ -119,7 +119,7 @@ func (h *Handler) LockBalancesWithTx(ctx context.Context, tx *ent.Tx) ([]*ledger
 		return nil, err
 	}
 	for _, balance := range h.Balances {
-		ledger := handler.lop.coinLedger(balance.CoinTypeID)
+		ledger := handler.lop.currencyLedger(balance.CurrencyID)
 		if ledger == nil {
 			return nil, fmt.Errorf("invalid ledger")
 		}

@@ -30,13 +30,13 @@ func init() {
 var (
 	appID      = uuid.NewString()
 	userID     = uuid.NewString()
-	coinTypeID = uuid.NewString()
+	currencyID = uuid.NewString()
 
 	deposit = statementmwpb.Statement{
 		EntID:        uuid.NewString(),
 		AppID:        appID,
 		UserID:       userID,
-		CoinTypeID:   coinTypeID,
+		CurrencyID:   currencyID,
 		Amount:       "100",
 		IOType:       basetypes.IOType_Incoming,
 		IOTypeStr:    basetypes.IOType_Incoming.String(),
@@ -48,7 +48,7 @@ var (
 		EntID:        uuid.NewString(),
 		AppID:        appID,
 		UserID:       userID,
-		CoinTypeID:   coinTypeID,
+		CurrencyID:   currencyID,
 		Amount:       "10",
 		IOType:       basetypes.IOType_Outcoming,
 		IOTypeStr:    basetypes.IOType_Outcoming.String(),
@@ -60,7 +60,7 @@ var (
 	ledgerResult = ledgermwpb.Ledger{
 		AppID:      appID,
 		UserID:     userID,
-		CoinTypeID: coinTypeID,
+		CurrencyID: currencyID,
 		Incoming:   "100",
 		Outcoming:  "10",
 		Locked:     "0",
@@ -74,7 +74,7 @@ func setup(t *testing.T) func(*testing.T) {
 			EntID:      &deposit.EntID,
 			AppID:      &appID,
 			UserID:     &userID,
-			CoinTypeID: &coinTypeID,
+			CurrencyID: &currencyID,
 			Amount:     &deposit.Amount,
 			IOType:     &deposit.IOType,
 			IOSubType:  &deposit.IOSubType,
@@ -102,7 +102,7 @@ func setup(t *testing.T) func(*testing.T) {
 			EntID:      &payment.EntID,
 			AppID:      &appID,
 			UserID:     &userID,
-			CoinTypeID: &coinTypeID,
+			CurrencyID: &currencyID,
 			Amount:     &payment.Amount,
 			IOType:     &payment.IOType,
 			IOSubType:  &payment.IOSubType,
@@ -146,7 +146,7 @@ func getLedgerOnly(t *testing.T) {
 	conds := ledgermwpb.Conds{
 		AppID:      &commonpb.StringVal{Op: cruder.EQ, Value: appID},
 		UserID:     &commonpb.StringVal{Op: cruder.EQ, Value: userID},
-		CoinTypeID: &commonpb.StringVal{Op: cruder.EQ, Value: coinTypeID},
+		CurrencyID: &commonpb.StringVal{Op: cruder.EQ, Value: currencyID},
 	}
 	handler, err := NewHandler(
 		context.Background(),

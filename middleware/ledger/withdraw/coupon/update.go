@@ -6,10 +6,9 @@ import (
 
 	"github.com/shopspring/decimal"
 
-	ledgercrud "github.com/NpoolPlatform/kunman/middleware/ledger/crud/ledger"
-
 	types "github.com/NpoolPlatform/kunman/message/basetypes/ledger/v1"
 	npool "github.com/NpoolPlatform/kunman/message/ledger/middleware/v2/withdraw/coupon"
+	ledgercrud "github.com/NpoolPlatform/kunman/middleware/ledger/crud/ledger"
 	statementcrud "github.com/NpoolPlatform/kunman/middleware/ledger/crud/ledger/statement"
 	crud "github.com/NpoolPlatform/kunman/middleware/ledger/crud/withdraw/coupon"
 	"github.com/NpoolPlatform/kunman/middleware/ledger/db"
@@ -52,7 +51,7 @@ func (h *updateHandler) createOrUpdateLedger(ctx context.Context, tx *ent.Tx) er
 		Where(
 			entledger.AppID(h.couponwithdraw.AppID),
 			entledger.UserID(h.couponwithdraw.UserID),
-			entledger.CoinTypeID(h.couponwithdraw.CoinTypeID),
+			entledger.CurrencyID(h.couponwithdraw.CoinTypeID),
 			entledger.DeletedAt(0),
 		).
 		ForUpdate().
@@ -67,7 +66,7 @@ func (h *updateHandler) createOrUpdateLedger(ctx context.Context, tx *ent.Tx) er
 		if _, err = ledgercrud.CreateSet(tx.Ledger.Create(), &ledgercrud.Req{
 			AppID:      &h.couponwithdraw.AppID,
 			UserID:     &h.couponwithdraw.UserID,
-			CoinTypeID: &h.couponwithdraw.CoinTypeID,
+			CurrencyID: &h.couponwithdraw.CoinTypeID,
 			Incoming:   &h.couponwithdraw.Amount,
 			Spendable:  &h.couponwithdraw.Amount,
 			Outcoming:  &zero,
@@ -120,13 +119,14 @@ func (h *updateHandler) createStatement(ctx context.Context, tx *ent.Tx) error {
 	if _, err := statementcrud.CreateSet(
 		tx.Statement.Create(),
 		&statementcrud.Req{
-			AppID:      &h.couponwithdraw.AppID,
-			UserID:     &h.couponwithdraw.UserID,
-			CoinTypeID: &h.couponwithdraw.CoinTypeID,
-			Amount:     &h.couponwithdraw.Amount,
-			IOType:     &ioType,
-			IOSubType:  &ioSubType,
-			IOExtra:    &ioExtra,
+			AppID:        &h.couponwithdraw.AppID,
+			UserID:       &h.couponwithdraw.UserID,
+			CurrencyID:   &h.couponwithdraw.CoinTypeID,
+			CurrencyType: types.CurrencyType_CurrencyCrypto.Enum(),
+			Amount:       &h.couponwithdraw.Amount,
+			IOType:       &ioType,
+			IOSubType:    &ioSubType,
+			IOExtra:      &ioExtra,
 		},
 	).Save(ctx); err != nil {
 		return err

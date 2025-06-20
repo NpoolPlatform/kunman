@@ -296,7 +296,7 @@ func (h *OrderHandler) GetUserLedgers(ctx context.Context) error {
 	conds := &ledgermwpb.Conds{
 		AppID:       &basetypes.StringVal{Op: cruder.EQ, Value: h.AppID},
 		UserID:      &basetypes.StringVal{Op: cruder.EQ, Value: h.UserID},
-		CoinTypeIDs: &basetypes.StringSliceVal{Op: cruder.IN, Value: coinTypeIDs},
+		CurrencyIDs: &basetypes.StringSliceVal{Op: cruder.IN, Value: coinTypeIDs},
 	}
 	handler, err := ledgermw.NewHandler(
 		ctx,
@@ -313,7 +313,7 @@ func (h *OrderHandler) GetUserLedgers(ctx context.Context) error {
 		return wlog.WrapError(err)
 	}
 	for _, ledger := range ledgers {
-		h.UserLedgers[ledger.CoinTypeID] = ledger
+		h.UserLedgers[ledger.CurrencyID] = ledger
 	}
 
 	return nil
@@ -461,7 +461,7 @@ func (h *OrderHandler) CalculateDeduction() (insufficientFunds bool, err error) 
 			continue
 		}
 		feeCoinAmount := feeUSDAmount.Div(currencyValue)
-		appCoin, ok := h.DeductionAppCoins[ledger.CoinTypeID]
+		appCoin, ok := h.DeductionAppCoins[ledger.CurrencyID]
 		if !ok {
 			return true, wlog.Errorf("invalid deductioncoin")
 		}

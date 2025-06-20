@@ -45,7 +45,7 @@ func (h *deleteHandler) updateProfit(req *crud.Req, ctx context.Context, tx *ent
 		&profitcrud.Conds{
 			AppID:      &cruder.Cond{Op: cruder.EQ, Val: statement.AppID},
 			UserID:     &cruder.Cond{Op: cruder.EQ, Val: statement.UserID},
-			CoinTypeID: &cruder.Cond{Op: cruder.EQ, Val: statement.CoinTypeID},
+			CoinTypeID: &cruder.Cond{Op: cruder.EQ, Val: statement.CurrencyID},
 		},
 	)
 	if err != nil {
@@ -89,7 +89,7 @@ func (h *deleteHandler) updateLedger(req *crud.Req, ctx context.Context, tx *ent
 		&ledgercrud.Conds{
 			AppID:      &cruder.Cond{Op: cruder.EQ, Val: statement.AppID},
 			UserID:     &cruder.Cond{Op: cruder.EQ, Val: statement.UserID},
-			CoinTypeID: &cruder.Cond{Op: cruder.EQ, Val: statement.CoinTypeID},
+			CurrencyID: &cruder.Cond{Op: cruder.EQ, Val: statement.CurrencyID},
 		})
 	if err != nil {
 		return err
@@ -193,9 +193,6 @@ func (h *Handler) DeleteStatements(ctx context.Context) ([]*npool.Statement, err
 		infos = append(infos, statements...)
 	}
 	if len(infos) != len(h.Reqs) {
-		if h.Rollback != nil && *h.Rollback {
-			return nil, nil
-		}
 		return nil, fmt.Errorf("statement not found")
 	}
 
@@ -247,9 +244,6 @@ func (h *Handler) DeleteStatement(ctx context.Context) (*npool.Statement, error)
 		return nil, err
 	}
 	if info == nil {
-		if h.Rollback != nil && *h.Rollback {
-			return nil, nil
-		}
 		return nil, fmt.Errorf("statement not found")
 	}
 	if h.ID == nil {

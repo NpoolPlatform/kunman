@@ -142,7 +142,7 @@ func (h *updateHandler) updateLedger(ctx context.Context, tx *ent.Tx) error {
 		Where(
 			entledger.AppID(h.withdraw.AppID),
 			entledger.UserID(h.withdraw.UserID),
-			entledger.CoinTypeID(h.withdraw.CoinTypeID),
+			entledger.CurrencyID(h.withdraw.CoinTypeID),
 			entledger.DeletedAt(0),
 		).
 		ForUpdate().
@@ -256,13 +256,14 @@ func (h *updateHandler) createStatement(ctx context.Context, tx *ent.Tx) error {
 	if _, err := statementcrud.CreateSet(
 		tx.Statement.Create(),
 		&statementcrud.Req{
-			AppID:      &h.withdraw.AppID,
-			UserID:     &h.withdraw.UserID,
-			CoinTypeID: &h.withdraw.CoinTypeID,
-			IOType:     &ioType,
-			IOSubType:  &ioSubType,
-			IOExtra:    &ioExtra,
-			Amount:     &h.withdraw.Amount,
+			AppID:        &h.withdraw.AppID,
+			UserID:       &h.withdraw.UserID,
+			CurrencyID:   &h.withdraw.CoinTypeID,
+			CurrencyType: types.CurrencyType_CurrencyCrypto.Enum(),
+			IOType:       &ioType,
+			IOSubType:    &ioSubType,
+			IOExtra:      &ioExtra,
+			Amount:       &h.withdraw.Amount,
 		},
 	).Save(ctx); err != nil {
 		return err

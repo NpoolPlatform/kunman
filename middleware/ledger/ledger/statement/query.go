@@ -26,7 +26,7 @@ func (h *queryHandler) selectStatement(stm *ent.StatementQuery) {
 		entstatement.FieldEntID,
 		entstatement.FieldAppID,
 		entstatement.FieldUserID,
-		entstatement.FieldCoinTypeID,
+		entstatement.FieldCurrencyID,
 		entstatement.FieldIoType,
 		entstatement.FieldIoSubType,
 		entstatement.FieldAmount,

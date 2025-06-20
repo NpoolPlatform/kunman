@@ -56,7 +56,7 @@ func (p *handler) withCreateIncomingStatements(ctx context.Context, order *types
 		reqs = append(reqs, &ledgerstatementmwpb.StatementReq{
 			AppID:      &order.AppID,
 			UserID:     &order.UserID,
-			CoinTypeID: &paymentTransfer.CoinTypeID,
+			CurrencyID: &paymentTransfer.CoinTypeID,
 			IOType:     &ioType,
 			IOSubType:  &ioSubType,
 			Amount:     paymentTransfer.IncomingAmount,

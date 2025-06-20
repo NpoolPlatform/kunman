@@ -56,7 +56,6 @@ func (p *handler) withUpdateOrderBenefitState(ctx context.Context, good *types.P
 func (p *handler) withCreateLedgerStatements(ctx context.Context, good *types.PersistentGood) error {
 	reqs := []*statementmwpb.StatementReq{}
 
-	rollback := true
 	ioType := ledgertypes.IOType_Incoming
 	ioSubType := ledgertypes.IOSubType_MiningBenefit
 
@@ -66,13 +65,12 @@ func (p *handler) withCreateLedgerStatements(ctx context.Context, good *types.Pe
 				EntID:      func() *string { s := uuid.NewString(); return &s }(),
 				AppID:      &reward.AppID,
 				UserID:     &reward.UserID,
-				CoinTypeID: &coinReward.CoinTypeID,
+				CurrencyID: &coinReward.CoinTypeID,
 				IOType:     &ioType,
 				IOSubType:  &ioSubType,
 				Amount:     &coinReward.Amount,
 				IOExtra:    &reward.Extra,
 				CreatedAt:  &good.LastRewardAt,
-				Rollback:   &rollback,
 			})
 		}
 	}
