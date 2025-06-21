@@ -3,7 +3,6 @@ package subscription
 import (
 	"context"
 
-	ordercommon "github.com/NpoolPlatform/kunman/api/order/order/common"
 	subscription1 "github.com/NpoolPlatform/kunman/gateway/order/subscription"
 	types "github.com/NpoolPlatform/kunman/message/basetypes/order/v1"
 	npool "github.com/NpoolPlatform/kunman/message/order/gateway/v1/subscription"
@@ -53,19 +52,12 @@ func (s *Server) CreateSubscriptionOrder(ctx context.Context, in *npool.CreateSu
 }
 
 func (s *Server) CreateUserSubscriptionOrder(ctx context.Context, in *npool.CreateUserSubscriptionOrderRequest) (*npool.CreateUserSubscriptionOrderResponse, error) {
-	if err := ordercommon.ValidateAdminCreateOrderType(in.GetOrderType()); err != nil {
-		logger.Sugar().Errorw(
-			"CreateUserSubscriptionOrder",
-			"In", in,
-		)
-		return &npool.CreateUserSubscriptionOrderResponse{}, status.Error(codes.InvalidArgument, err.Error())
-	}
 	handler, err := subscription1.NewHandler(
 		ctx,
 		subscription1.WithAppID(&in.AppID, true),
 		subscription1.WithUserID(&in.TargetUserID, true),
 		subscription1.WithAppGoodID(&in.AppGoodID, true),
-		subscription1.WithOrderType(&in.OrderType, true),
+		subscription1.WithOrderType(types.OrderType_Airdrop.Enum(), true),
 		subscription1.WithCreateMethod(func() *types.OrderCreateMethod { e := types.OrderCreateMethod_OrderCreatedByAdmin; return &e }(), true),
 	)
 	if err != nil {

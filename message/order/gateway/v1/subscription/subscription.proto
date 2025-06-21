@@ -163,7 +163,6 @@ message CreateUserSubscriptionOrderRequest {
     string AppID = 10;
     string TargetUserID = 20;
     string AppGoodID = 30;
-    basetypes.order.v1.OrderType OrderType = 60;
 }
 
 message CreateUserSubscriptionOrderResponse {
