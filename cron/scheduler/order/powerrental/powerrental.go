@@ -32,6 +32,12 @@ import (
 	renewexecute "github.com/NpoolPlatform/kunman/cron/scheduler/order/powerrental/renew/execute"
 	renewnotify "github.com/NpoolPlatform/kunman/cron/scheduler/order/powerrental/renew/notify"
 	renewwait "github.com/NpoolPlatform/kunman/cron/scheduler/order/powerrental/renew/wait"
+	"github.com/NpoolPlatform/kunman/cron/scheduler/order/powerrental/miningpool/checkpoolbalance"
+	"github.com/NpoolPlatform/kunman/cron/scheduler/order/powerrental/miningpool/checkproportion"
+	"github.com/NpoolPlatform/kunman/cron/scheduler/order/powerrental/miningpool/createorderuser"
+	"github.com/NpoolPlatform/kunman/cron/scheduler/order/powerrental/miningpool/deleteproportion"
+	"github.com/NpoolPlatform/kunman/cron/scheduler/order/powerrental/miningpool/setproportion"
+	"github.com/NpoolPlatform/kunman/cron/scheduler/order/powerrental/miningpool/setrevenueaddress"
 	"github.com/NpoolPlatform/kunman/framework/logger"
 )
 
@@ -75,6 +81,13 @@ func Initialize(ctx context.Context, cancel context.CancelFunc) {
 	renewcheck.Initialize(ctx, cancel, &running)
 	renewnotify.Initialize(ctx, cancel, &running)
 	renewexecute.Initialize(ctx, cancel, &running)
+
+	createorderuser.Initialize(ctx, cancel, &running)
+	checkproportion.Initialize(ctx, cancel, &running)
+	setproportion.Initialize(ctx, cancel, &running)
+	setrevenueaddress.Initialize(ctx, cancel, &running)
+	deleteproportion.Initialize(ctx, cancel, &running)
+	checkpoolbalance.Initialize(ctx, cancel, &running)
 }
 
 func Finalize(ctx context.Context) {
@@ -108,4 +121,11 @@ func Finalize(ctx context.Context) {
 	bookkeeping.Finalize(ctx)
 	paymentachievement.Finalize(ctx)
 	paymentunlockaccount.Finalize(ctx)
+
+	createorderuser.Finalize(ctx)
+	checkproportion.Finalize(ctx)
+	setproportion.Finalize(ctx)
+	setrevenueaddress.Finalize(ctx)
+	deleteproportion.Finalize(ctx)
+	checkpoolbalance.Finalize(ctx)
 }

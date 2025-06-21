@@ -24,6 +24,7 @@ import (
 	notifmwsvcname "github.com/NpoolPlatform/kunman/middleware/notif/servicename"
 	ordermwsvcname "github.com/NpoolPlatform/kunman/middleware/order/servicename"
 	reviewmwsvcname "github.com/NpoolPlatform/kunman/middleware/review/servicename"
+	miningpoolmwsvcname "github.com/NpoolPlatform/kunman/middleware/miningpool/servicename"
 	sphinxproxysvcname "github.com/NpoolPlatform/sphinx-proxy/pkg/servicename"
 
 	cli "github.com/urfave/cli/v2"
@@ -54,6 +55,7 @@ func main() {
 		ordermwsvcname.ServiceDomain,
 		g11nmwsvcname.ServiceDomain,
 		reviewmwsvcname.ServiceDomain,
+		miningpoolmwsvcname.ServiceDomain,
 		notifmwsvcname.ServiceDomain,
 		accountmwsvcname.ServiceDomain,
 		appusermwsvcname.ServiceDomain,

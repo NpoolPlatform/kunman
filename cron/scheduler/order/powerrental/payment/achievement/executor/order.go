@@ -58,7 +58,13 @@ func (h *orderHandler) getGoodMainCoin(ctx context.Context) (err error) {
 	}
 
 	h.goodMainCoin, err = handler.GetGoodCoinOnly(ctx)
-	return wlog.WrapError(err)
+	if err != nil {
+		return wlog.WrapError(err)
+	}
+	if h.goodMainCoin == nil {
+		return wlog.Errorf("invalid goodmaincoin")
+	}
+	return nil
 }
 
 func (h *orderHandler) calculateOrderStatements(ctx context.Context) (err error) {
