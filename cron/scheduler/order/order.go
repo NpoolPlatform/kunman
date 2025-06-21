@@ -7,6 +7,7 @@ import (
 	fee "github.com/NpoolPlatform/kunman/cron/scheduler/order/fee"
 	powerrental "github.com/NpoolPlatform/kunman/cron/scheduler/order/powerrental"
 	powerrentalsimulate "github.com/NpoolPlatform/kunman/cron/scheduler/order/powerrental/simulate"
+	subscription "github.com/NpoolPlatform/kunman/cron/scheduler/order/subscription"
 	"github.com/NpoolPlatform/kunman/framework/logger"
 )
 
@@ -21,6 +22,7 @@ func Initialize(ctx context.Context, cancel context.CancelFunc) {
 		"Subsystem", subsystem,
 	)
 	powerrental.Initialize(ctx, cancel)
+	subscription.Initialize(ctx, cancel)
 	fee.Initialize(ctx, cancel)
 	powerrentalsimulate.Initialize(ctx, cancel)
 }
@@ -31,5 +33,6 @@ func Finalize(ctx context.Context) {
 	}
 	powerrentalsimulate.Finalize(ctx)
 	fee.Finalize(ctx)
+	subscription.Finalize(ctx)
 	powerrental.Finalize(ctx)
 }

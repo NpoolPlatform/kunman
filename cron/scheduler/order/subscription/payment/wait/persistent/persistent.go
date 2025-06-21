@@ -1,0 +1,38 @@
+package persistent
+
+import (
+	"context"
+	"fmt"
+
+	asyncfeed "github.com/NpoolPlatform/kunman/cron/scheduler/base/asyncfeed"
+	basepersistent "github.com/NpoolPlatform/kunman/cron/scheduler/base/persistent"
+	types "github.com/NpoolPlatform/kunman/cron/scheduler/order/subscription/payment/wait/types"
+	subscriptionordermw "github.com/NpoolPlatform/kunman/middleware/order/subscription"
+)
+
+type handler struct{}
+
+func NewPersistent() basepersistent.Persistenter {
+	return &handler{}
+}
+
+func (p *handler) Update(ctx context.Context, order interface{}, reward, notif, done chan interface{}) error {
+	_order, ok := order.(*types.PersistentOrder)
+	if !ok {
+		return fmt.Errorf("invalid order")
+	}
+
+	defer asyncfeed.AsyncFeed(ctx, _order, done)
+
+	handler, err := subscriptionordermw.NewHandler(
+		ctx,
+		subscriptionordermw.WithID(&_order.ID, true),
+		subscriptionordermw.WithOrderState(&_order.NewOrderState, true),
+		subscriptionordermw.WithPaymentState(_order.NewPaymentState, true),
+	)
+	if err != nil {
+		return err
+	}
+
+	return handler.UpdateSubscriptionOrder(ctx)
+}
