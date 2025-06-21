@@ -7,6 +7,7 @@ import (
 
 	appcoin "github.com/NpoolPlatform/kunman/api/chain/app/coin"
 	"github.com/NpoolPlatform/kunman/api/chain/app/coin/description"
+	appfiat "github.com/NpoolPlatform/kunman/api/chain/app/fiat"
 	"github.com/NpoolPlatform/kunman/api/chain/chain"
 	"github.com/NpoolPlatform/kunman/api/chain/coin"
 	coincurrency "github.com/NpoolPlatform/kunman/api/chain/coin/currency"
@@ -38,6 +39,7 @@ func Register(server grpc.ServiceRegistrar) {
 	coincurrencyhis.Register(server)
 	coinfiatcurrencyhis.Register(server)
 	appcoin.Register(server)
+	appfiat.Register(server)
 	tx.Register(server)
 	description.Register(server)
 	fiat.Register(server)
@@ -71,6 +73,9 @@ func RegisterGateway(mux *runtime.ServeMux, endpoint string, opts []grpc.DialOpt
 		return err
 	}
 	if err := appcoin.RegisterGateway(mux, endpoint, opts); err != nil {
+		return err
+	}
+	if err := appfiat.RegisterGateway(mux, endpoint, opts); err != nil {
 		return err
 	}
 	if err := tx.RegisterGateway(mux, endpoint, opts); err != nil {
