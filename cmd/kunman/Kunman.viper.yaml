@@ -131,6 +131,7 @@ config:
     - ordersubscription
     - ordersubscriptioncreated
     - ordersubscriptionpaymentwait
+    - ordersubscriptionpaymentreceived
     - txqueue
     - txqueuecreated
     - txqueuetransferring
