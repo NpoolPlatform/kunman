@@ -130,6 +130,7 @@ config:
     - orderfeeexpiryrestorestock
     - ordersubscription
     - ordersubscriptioncreated
+    - ordersubscriptionpaymentwait
     - txqueue
     - txqueuecreated
     - txqueuetransferring

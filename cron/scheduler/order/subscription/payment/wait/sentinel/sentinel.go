@@ -31,7 +31,9 @@ func (h *handler) scanOrders(ctx context.Context, state ordertypes.OrderState, e
 			Value: []uint32{
 				uint32(ordertypes.PaymentType_PayWithBalanceOnly),
 				uint32(ordertypes.PaymentType_PayWithTransferOnly),
+				uint32(ordertypes.PaymentType_PayWithFiatOnly),
 				uint32(ordertypes.PaymentType_PayWithTransferAndBalance),
+				uint32(ordertypes.PaymentType_PayWithFiatAndBalance),
 				uint32(ordertypes.PaymentType_PayWithOffline),
 				uint32(ordertypes.PaymentType_PayWithNoPayment),
 			},

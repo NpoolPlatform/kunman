@@ -59,6 +59,8 @@ func GetCoins(ctx context.Context, coinTypeIDs []string) (map[string]*coinmwpb.C
 	handler, err := coinmw.NewHandler(
 		ctx,
 		coinmw.WithConds(conds),
+		coinmw.WithOffset(0),
+		coinmw.WithLimit(int32(len(coinTypeIDs))),
 	)
 	if err != nil {
 		return nil, err
