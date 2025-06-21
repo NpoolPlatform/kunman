@@ -15,6 +15,7 @@ import (
 	"entgo.io/ent/dialect"
 	"entgo.io/ent/dialect/sql"
 	"github.com/NpoolPlatform/kunman/middleware/chain/db/ent/generated/appcoin"
+	"github.com/NpoolPlatform/kunman/middleware/chain/db/ent/generated/appfiat"
 	"github.com/NpoolPlatform/kunman/middleware/chain/db/ent/generated/chainbase"
 	"github.com/NpoolPlatform/kunman/middleware/chain/db/ent/generated/coinbase"
 	"github.com/NpoolPlatform/kunman/middleware/chain/db/ent/generated/coindescription"
@@ -44,6 +45,8 @@ type Client struct {
 	Schema *migrate.Schema
 	// AppCoin is the client for interacting with the AppCoin builders.
 	AppCoin *AppCoinClient
+	// AppFiat is the client for interacting with the AppFiat builders.
+	AppFiat *AppFiatClient
 	// ChainBase is the client for interacting with the ChainBase builders.
 	ChainBase *ChainBaseClient
 	// CoinBase is the client for interacting with the CoinBase builders.
@@ -92,6 +95,7 @@ func NewClient(opts ...Option) *Client {
 func (c *Client) init() {
 	c.Schema = migrate.NewSchema(c.driver)
 	c.AppCoin = NewAppCoinClient(c.config)
+	c.AppFiat = NewAppFiatClient(c.config)
 	c.ChainBase = NewChainBaseClient(c.config)
 	c.CoinBase = NewCoinBaseClient(c.config)
 	c.CoinDescription = NewCoinDescriptionClient(c.config)
@@ -203,6 +207,7 @@ func (c *Client) Tx(ctx context.Context) (*Tx, error) {
 		ctx:                     ctx,
 		config:                  cfg,
 		AppCoin:                 NewAppCoinClient(cfg),
+		AppFiat:                 NewAppFiatClient(cfg),
 		ChainBase:               NewChainBaseClient(cfg),
 		CoinBase:                NewCoinBaseClient(cfg),
 		CoinDescription:         NewCoinDescriptionClient(cfg),
@@ -241,6 +246,7 @@ func (c *Client) BeginTx(ctx context.Context, opts *sql.TxOptions) (*Tx, error) 
 		ctx:                     ctx,
 		config:                  cfg,
 		AppCoin:                 NewAppCoinClient(cfg),
+		AppFiat:                 NewAppFiatClient(cfg),
 		ChainBase:               NewChainBaseClient(cfg),
 		CoinBase:                NewCoinBaseClient(cfg),
 		CoinDescription:         NewCoinDescriptionClient(cfg),
@@ -288,10 +294,10 @@ func (c *Client) Close() error {
 // In order to add hooks to a specific client, call: `client.Node.Use(...)`.
 func (c *Client) Use(hooks ...Hook) {
 	for _, n := range []interface{ Use(...Hook) }{
-		c.AppCoin, c.ChainBase, c.CoinBase, c.CoinDescription, c.CoinExtra, c.CoinFiat,
-		c.CoinFiatCurrency, c.CoinFiatCurrencyHistory, c.CoinUsedFor, c.Currency,
-		c.CurrencyFeed, c.CurrencyHistory, c.ExchangeRate, c.Fiat, c.FiatCurrency,
-		c.FiatCurrencyFeed, c.FiatCurrencyHistory, c.Setting, c.Tran,
+		c.AppCoin, c.AppFiat, c.ChainBase, c.CoinBase, c.CoinDescription, c.CoinExtra,
+		c.CoinFiat, c.CoinFiatCurrency, c.CoinFiatCurrencyHistory, c.CoinUsedFor,
+		c.Currency, c.CurrencyFeed, c.CurrencyHistory, c.ExchangeRate, c.Fiat,
+		c.FiatCurrency, c.FiatCurrencyFeed, c.FiatCurrencyHistory, c.Setting, c.Tran,
 	} {
 		n.Use(hooks...)
 	}
@@ -301,10 +307,10 @@ func (c *Client) Use(hooks ...Hook) {
 // In order to add interceptors to a specific client, call: `client.Node.Intercept(...)`.
 func (c *Client) Intercept(interceptors ...Interceptor) {
 	for _, n := range []interface{ Intercept(...Interceptor) }{
-		c.AppCoin, c.ChainBase, c.CoinBase, c.CoinDescription, c.CoinExtra, c.CoinFiat,
-		c.CoinFiatCurrency, c.CoinFiatCurrencyHistory, c.CoinUsedFor, c.Currency,
-		c.CurrencyFeed, c.CurrencyHistory, c.ExchangeRate, c.Fiat, c.FiatCurrency,
-		c.FiatCurrencyFeed, c.FiatCurrencyHistory, c.Setting, c.Tran,
+		c.AppCoin, c.AppFiat, c.ChainBase, c.CoinBase, c.CoinDescription, c.CoinExtra,
+		c.CoinFiat, c.CoinFiatCurrency, c.CoinFiatCurrencyHistory, c.CoinUsedFor,
+		c.Currency, c.CurrencyFeed, c.CurrencyHistory, c.ExchangeRate, c.Fiat,
+		c.FiatCurrency, c.FiatCurrencyFeed, c.FiatCurrencyHistory, c.Setting, c.Tran,
 	} {
 		n.Intercept(interceptors...)
 	}
@@ -315,6 +321,8 @@ func (c *Client) Mutate(ctx context.Context, m Mutation) (Value, error) {
 	switch m := m.(type) {
 	case *AppCoinMutation:
 		return c.AppCoin.mutate(ctx, m)
+	case *AppFiatMutation:
+		return c.AppFiat.mutate(ctx, m)
 	case *ChainBaseMutation:
 		return c.ChainBase.mutate(ctx, m)
 	case *CoinBaseMutation:
@@ -486,6 +494,139 @@ func (c *AppCoinClient) mutate(ctx context.Context, m *AppCoinMutation) (Value, 
 		return (&AppCoinDelete{config: c.config, hooks: c.Hooks(), mutation: m}).Exec(ctx)
 	default:
 		return nil, fmt.Errorf("generated: unknown AppCoin mutation op: %q", m.Op())
+	}
+}
+
+// AppFiatClient is a client for the AppFiat schema.
+type AppFiatClient struct {
+	config
+}
+
+// NewAppFiatClient returns a client for the AppFiat from the given config.
+func NewAppFiatClient(c config) *AppFiatClient {
+	return &AppFiatClient{config: c}
+}
+
+// Use adds a list of mutation hooks to the hooks stack.
+// A call to `Use(f, g, h)` equals to `appfiat.Hooks(f(g(h())))`.
+func (c *AppFiatClient) Use(hooks ...Hook) {
+	c.hooks.AppFiat = append(c.hooks.AppFiat, hooks...)
+}
+
+// Intercept adds a list of query interceptors to the interceptors stack.
+// A call to `Intercept(f, g, h)` equals to `appfiat.Intercept(f(g(h())))`.
+func (c *AppFiatClient) Intercept(interceptors ...Interceptor) {
+	c.inters.AppFiat = append(c.inters.AppFiat, interceptors...)
+}
+
+// Create returns a builder for creating a AppFiat entity.
+func (c *AppFiatClient) Create() *AppFiatCreate {
+	mutation := newAppFiatMutation(c.config, OpCreate)
+	return &AppFiatCreate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// CreateBulk returns a builder for creating a bulk of AppFiat entities.
+func (c *AppFiatClient) CreateBulk(builders ...*AppFiatCreate) *AppFiatCreateBulk {
+	return &AppFiatCreateBulk{config: c.config, builders: builders}
+}
+
+// MapCreateBulk creates a bulk creation builder from the given slice. For each item in the slice, the function creates
+// a builder and applies setFunc on it.
+func (c *AppFiatClient) MapCreateBulk(slice any, setFunc func(*AppFiatCreate, int)) *AppFiatCreateBulk {
+	rv := reflect.ValueOf(slice)
+	if rv.Kind() != reflect.Slice {
+		return &AppFiatCreateBulk{err: fmt.Errorf("calling to AppFiatClient.MapCreateBulk with wrong type %T, need slice", slice)}
+	}
+	builders := make([]*AppFiatCreate, rv.Len())
+	for i := 0; i < rv.Len(); i++ {
+		builders[i] = c.Create()
+		setFunc(builders[i], i)
+	}
+	return &AppFiatCreateBulk{config: c.config, builders: builders}
+}
+
+// Update returns an update builder for AppFiat.
+func (c *AppFiatClient) Update() *AppFiatUpdate {
+	mutation := newAppFiatMutation(c.config, OpUpdate)
+	return &AppFiatUpdate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOne returns an update builder for the given entity.
+func (c *AppFiatClient) UpdateOne(af *AppFiat) *AppFiatUpdateOne {
+	mutation := newAppFiatMutation(c.config, OpUpdateOne, withAppFiat(af))
+	return &AppFiatUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOneID returns an update builder for the given id.
+func (c *AppFiatClient) UpdateOneID(id uint32) *AppFiatUpdateOne {
+	mutation := newAppFiatMutation(c.config, OpUpdateOne, withAppFiatID(id))
+	return &AppFiatUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// Delete returns a delete builder for AppFiat.
+func (c *AppFiatClient) Delete() *AppFiatDelete {
+	mutation := newAppFiatMutation(c.config, OpDelete)
+	return &AppFiatDelete{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// DeleteOne returns a builder for deleting the given entity.
+func (c *AppFiatClient) DeleteOne(af *AppFiat) *AppFiatDeleteOne {
+	return c.DeleteOneID(af.ID)
+}
+
+// DeleteOneID returns a builder for deleting the given entity by its id.
+func (c *AppFiatClient) DeleteOneID(id uint32) *AppFiatDeleteOne {
+	builder := c.Delete().Where(appfiat.ID(id))
+	builder.mutation.id = &id
+	builder.mutation.op = OpDeleteOne
+	return &AppFiatDeleteOne{builder}
+}
+
+// Query returns a query builder for AppFiat.
+func (c *AppFiatClient) Query() *AppFiatQuery {
+	return &AppFiatQuery{
+		config: c.config,
+		ctx:    &QueryContext{Type: TypeAppFiat},
+		inters: c.Interceptors(),
+	}
+}
+
+// Get returns a AppFiat entity by its id.
+func (c *AppFiatClient) Get(ctx context.Context, id uint32) (*AppFiat, error) {
+	return c.Query().Where(appfiat.ID(id)).Only(ctx)
+}
+
+// GetX is like Get, but panics if an error occurs.
+func (c *AppFiatClient) GetX(ctx context.Context, id uint32) *AppFiat {
+	obj, err := c.Get(ctx, id)
+	if err != nil {
+		panic(err)
+	}
+	return obj
+}
+
+// Hooks returns the client hooks.
+func (c *AppFiatClient) Hooks() []Hook {
+	return c.hooks.AppFiat
+}
+
+// Interceptors returns the client interceptors.
+func (c *AppFiatClient) Interceptors() []Interceptor {
+	return c.inters.AppFiat
+}
+
+func (c *AppFiatClient) mutate(ctx context.Context, m *AppFiatMutation) (Value, error) {
+	switch m.Op() {
+	case OpCreate:
+		return (&AppFiatCreate{config: c.config, hooks: c.Hooks(), mutation: m}).Save(ctx)
+	case OpUpdate:
+		return (&AppFiatUpdate{config: c.config, hooks: c.Hooks(), mutation: m}).Save(ctx)
+	case OpUpdateOne:
+		return (&AppFiatUpdateOne{config: c.config, hooks: c.Hooks(), mutation: m}).Save(ctx)
+	case OpDelete, OpDeleteOne:
+		return (&AppFiatDelete{config: c.config, hooks: c.Hooks(), mutation: m}).Exec(ctx)
+	default:
+		return nil, fmt.Errorf("generated: unknown AppFiat mutation op: %q", m.Op())
 	}
 }
 
@@ -2886,13 +3027,13 @@ func (c *TranClient) mutate(ctx context.Context, m *TranMutation) (Value, error)
 // hooks and interceptors per client, for fast access.
 type (
 	hooks struct {
-		AppCoin, ChainBase, CoinBase, CoinDescription, CoinExtra, CoinFiat,
+		AppCoin, AppFiat, ChainBase, CoinBase, CoinDescription, CoinExtra, CoinFiat,
 		CoinFiatCurrency, CoinFiatCurrencyHistory, CoinUsedFor, Currency, CurrencyFeed,
 		CurrencyHistory, ExchangeRate, Fiat, FiatCurrency, FiatCurrencyFeed,
 		FiatCurrencyHistory, Setting, Tran []ent.Hook
 	}
 	inters struct {
-		AppCoin, ChainBase, CoinBase, CoinDescription, CoinExtra, CoinFiat,
+		AppCoin, AppFiat, ChainBase, CoinBase, CoinDescription, CoinExtra, CoinFiat,
 		CoinFiatCurrency, CoinFiatCurrencyHistory, CoinUsedFor, Currency, CurrencyFeed,
 		CurrencyHistory, ExchangeRate, Fiat, FiatCurrency, FiatCurrencyFeed,
 		FiatCurrencyHistory, Setting, Tran []ent.Interceptor

@@ -21,6 +21,18 @@ func (f AppCoinFunc) Mutate(ctx context.Context, m generated.Mutation) (generate
 	return nil, fmt.Errorf("unexpected mutation type %T. expect *generated.AppCoinMutation", m)
 }
 
+// The AppFiatFunc type is an adapter to allow the use of ordinary
+// function as AppFiat mutator.
+type AppFiatFunc func(context.Context, *generated.AppFiatMutation) (generated.Value, error)
+
+// Mutate calls f(ctx, m).
+func (f AppFiatFunc) Mutate(ctx context.Context, m generated.Mutation) (generated.Value, error) {
+	if mv, ok := m.(*generated.AppFiatMutation); ok {
+		return f(ctx, mv)
+	}
+	return nil, fmt.Errorf("unexpected mutation type %T. expect *generated.AppFiatMutation", m)
+}
+
 // The ChainBaseFunc type is an adapter to allow the use of ordinary
 // function as ChainBase mutator.
 type ChainBaseFunc func(context.Context, *generated.ChainBaseMutation) (generated.Value, error)

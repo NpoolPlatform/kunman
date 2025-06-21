@@ -9,6 +9,9 @@ import (
 // AppCoin is the predicate function for appcoin builders.
 type AppCoin func(*sql.Selector)
 
+// AppFiat is the predicate function for appfiat builders.
+type AppFiat func(*sql.Selector)
+
 // ChainBase is the predicate function for chainbase builders.
 type ChainBase func(*sql.Selector)
 

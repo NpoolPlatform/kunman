@@ -4,6 +4,7 @@ package generated
 
 import (
 	"github.com/NpoolPlatform/kunman/middleware/chain/db/ent/generated/appcoin"
+	"github.com/NpoolPlatform/kunman/middleware/chain/db/ent/generated/appfiat"
 	"github.com/NpoolPlatform/kunman/middleware/chain/db/ent/generated/chainbase"
 	"github.com/NpoolPlatform/kunman/middleware/chain/db/ent/generated/coinbase"
 	"github.com/NpoolPlatform/kunman/middleware/chain/db/ent/generated/coindescription"
@@ -108,6 +109,63 @@ func init() {
 	appcoinDescMaxAmountPerWithdraw := appcoinFields[12].Descriptor()
 	// appcoin.DefaultMaxAmountPerWithdraw holds the default value on creation for the max_amount_per_withdraw field.
 	appcoin.DefaultMaxAmountPerWithdraw = appcoinDescMaxAmountPerWithdraw.Default.(decimal.Decimal)
+	appfiatMixin := schema.AppFiat{}.Mixin()
+	appfiatMixinFields0 := appfiatMixin[0].Fields()
+	_ = appfiatMixinFields0
+	appfiatMixinFields1 := appfiatMixin[1].Fields()
+	_ = appfiatMixinFields1
+	appfiatFields := schema.AppFiat{}.Fields()
+	_ = appfiatFields
+	// appfiatDescCreatedAt is the schema descriptor for created_at field.
+	appfiatDescCreatedAt := appfiatMixinFields0[0].Descriptor()
+	// appfiat.DefaultCreatedAt holds the default value on creation for the created_at field.
+	appfiat.DefaultCreatedAt = appfiatDescCreatedAt.Default.(func() uint32)
+	// appfiatDescUpdatedAt is the schema descriptor for updated_at field.
+	appfiatDescUpdatedAt := appfiatMixinFields0[1].Descriptor()
+	// appfiat.DefaultUpdatedAt holds the default value on creation for the updated_at field.
+	appfiat.DefaultUpdatedAt = appfiatDescUpdatedAt.Default.(func() uint32)
+	// appfiat.UpdateDefaultUpdatedAt holds the default value on update for the updated_at field.
+	appfiat.UpdateDefaultUpdatedAt = appfiatDescUpdatedAt.UpdateDefault.(func() uint32)
+	// appfiatDescDeletedAt is the schema descriptor for deleted_at field.
+	appfiatDescDeletedAt := appfiatMixinFields0[2].Descriptor()
+	// appfiat.DefaultDeletedAt holds the default value on creation for the deleted_at field.
+	appfiat.DefaultDeletedAt = appfiatDescDeletedAt.Default.(func() uint32)
+	// appfiatDescEntID is the schema descriptor for ent_id field.
+	appfiatDescEntID := appfiatMixinFields1[1].Descriptor()
+	// appfiat.DefaultEntID holds the default value on creation for the ent_id field.
+	appfiat.DefaultEntID = appfiatDescEntID.Default.(func() uuid.UUID)
+	// appfiatDescAppID is the schema descriptor for app_id field.
+	appfiatDescAppID := appfiatFields[0].Descriptor()
+	// appfiat.DefaultAppID holds the default value on creation for the app_id field.
+	appfiat.DefaultAppID = appfiatDescAppID.Default.(func() uuid.UUID)
+	// appfiatDescFiatID is the schema descriptor for fiat_id field.
+	appfiatDescFiatID := appfiatFields[1].Descriptor()
+	// appfiat.DefaultFiatID holds the default value on creation for the fiat_id field.
+	appfiat.DefaultFiatID = appfiatDescFiatID.Default.(func() uuid.UUID)
+	// appfiatDescName is the schema descriptor for name field.
+	appfiatDescName := appfiatFields[2].Descriptor()
+	// appfiat.DefaultName holds the default value on creation for the name field.
+	appfiat.DefaultName = appfiatDescName.Default.(string)
+	// appfiatDescDisplayNames is the schema descriptor for display_names field.
+	appfiatDescDisplayNames := appfiatFields[3].Descriptor()
+	// appfiat.DefaultDisplayNames holds the default value on creation for the display_names field.
+	appfiat.DefaultDisplayNames = appfiatDescDisplayNames.Default.([]string)
+	// appfiatDescLogo is the schema descriptor for logo field.
+	appfiatDescLogo := appfiatFields[4].Descriptor()
+	// appfiat.DefaultLogo holds the default value on creation for the logo field.
+	appfiat.DefaultLogo = appfiatDescLogo.Default.(string)
+	// appfiatDescDisabled is the schema descriptor for disabled field.
+	appfiatDescDisabled := appfiatFields[5].Descriptor()
+	// appfiat.DefaultDisabled holds the default value on creation for the disabled field.
+	appfiat.DefaultDisabled = appfiatDescDisabled.Default.(bool)
+	// appfiatDescDisplay is the schema descriptor for display field.
+	appfiatDescDisplay := appfiatFields[6].Descriptor()
+	// appfiat.DefaultDisplay holds the default value on creation for the display field.
+	appfiat.DefaultDisplay = appfiatDescDisplay.Default.(bool)
+	// appfiatDescDisplayIndex is the schema descriptor for display_index field.
+	appfiatDescDisplayIndex := appfiatFields[7].Descriptor()
+	// appfiat.DefaultDisplayIndex holds the default value on creation for the display_index field.
+	appfiat.DefaultDisplayIndex = appfiatDescDisplayIndex.Default.(uint32)
 	chainbaseMixin := schema.ChainBase{}.Mixin()
 	chainbaseMixinFields0 := chainbaseMixin[0].Fields()
 	_ = chainbaseMixinFields0

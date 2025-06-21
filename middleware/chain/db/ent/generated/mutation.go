@@ -11,6 +11,7 @@ import (
 	"entgo.io/ent"
 	"entgo.io/ent/dialect/sql"
 	"github.com/NpoolPlatform/kunman/middleware/chain/db/ent/generated/appcoin"
+	"github.com/NpoolPlatform/kunman/middleware/chain/db/ent/generated/appfiat"
 	"github.com/NpoolPlatform/kunman/middleware/chain/db/ent/generated/chainbase"
 	"github.com/NpoolPlatform/kunman/middleware/chain/db/ent/generated/coinbase"
 	"github.com/NpoolPlatform/kunman/middleware/chain/db/ent/generated/coindescription"
@@ -44,6 +45,7 @@ const (
 
 	// Node types.
 	TypeAppCoin                 = "AppCoin"
+	TypeAppFiat                 = "AppFiat"
 	TypeChainBase               = "ChainBase"
 	TypeCoinBase                = "CoinBase"
 	TypeCoinDescription         = "CoinDescription"
@@ -1661,6 +1663,1240 @@ func (m *AppCoinMutation) ClearEdge(name string) error {
 // It returns an error if the edge is not defined in the schema.
 func (m *AppCoinMutation) ResetEdge(name string) error {
 	return fmt.Errorf("unknown AppCoin edge %s", name)
+}
+
+// AppFiatMutation represents an operation that mutates the AppFiat nodes in the graph.
+type AppFiatMutation struct {
+	config
+	op                  Op
+	typ                 string
+	id                  *uint32
+	created_at          *uint32
+	addcreated_at       *int32
+	updated_at          *uint32
+	addupdated_at       *int32
+	deleted_at          *uint32
+	adddeleted_at       *int32
+	ent_id              *uuid.UUID
+	app_id              *uuid.UUID
+	fiat_id             *uuid.UUID
+	name                *string
+	display_names       *[]string
+	appenddisplay_names []string
+	logo                *string
+	disabled            *bool
+	display             *bool
+	display_index       *uint32
+	adddisplay_index    *int32
+	clearedFields       map[string]struct{}
+	done                bool
+	oldValue            func(context.Context) (*AppFiat, error)
+	predicates          []predicate.AppFiat
+}
+
+var _ ent.Mutation = (*AppFiatMutation)(nil)
+
+// appfiatOption allows management of the mutation configuration using functional options.
+type appfiatOption func(*AppFiatMutation)
+
+// newAppFiatMutation creates new mutation for the AppFiat entity.
+func newAppFiatMutation(c config, op Op, opts ...appfiatOption) *AppFiatMutation {
+	m := &AppFiatMutation{
+		config:        c,
+		op:            op,
+		typ:           TypeAppFiat,
+		clearedFields: make(map[string]struct{}),
+	}
+	for _, opt := range opts {
+		opt(m)
+	}
+	return m
+}
+
+// withAppFiatID sets the ID field of the mutation.
+func withAppFiatID(id uint32) appfiatOption {
+	return func(m *AppFiatMutation) {
+		var (
+			err   error
+			once  sync.Once
+			value *AppFiat
+		)
+		m.oldValue = func(ctx context.Context) (*AppFiat, error) {
+			once.Do(func() {
+				if m.done {
+					err = errors.New("querying old values post mutation is not allowed")
+				} else {
+					value, err = m.Client().AppFiat.Get(ctx, id)
+				}
+			})
+			return value, err
+		}
+		m.id = &id
+	}
+}
+
+// withAppFiat sets the old AppFiat of the mutation.
+func withAppFiat(node *AppFiat) appfiatOption {
+	return func(m *AppFiatMutation) {
+		m.oldValue = func(context.Context) (*AppFiat, error) {
+			return node, nil
+		}
+		m.id = &node.ID
+	}
+}
+
+// Client returns a new `ent.Client` from the mutation. If the mutation was
+// executed in a transaction (ent.Tx), a transactional client is returned.
+func (m AppFiatMutation) Client() *Client {
+	client := &Client{config: m.config}
+	client.init()
+	return client
+}
+
+// Tx returns an `ent.Tx` for mutations that were executed in transactions;
+// it returns an error otherwise.
+func (m AppFiatMutation) Tx() (*Tx, error) {
+	if _, ok := m.driver.(*txDriver); !ok {
+		return nil, errors.New("generated: mutation is not running in a transaction")
+	}
+	tx := &Tx{config: m.config}
+	tx.init()
+	return tx, nil
+}
+
+// SetID sets the value of the id field. Note that this
+// operation is only accepted on creation of AppFiat entities.
+func (m *AppFiatMutation) SetID(id uint32) {
+	m.id = &id
+}
+
+// ID returns the ID value in the mutation. Note that the ID is only available
+// if it was provided to the builder or after it was returned from the database.
+func (m *AppFiatMutation) ID() (id uint32, exists bool) {
+	if m.id == nil {
+		return
+	}
+	return *m.id, true
+}
+
+// IDs queries the database and returns the entity ids that match the mutation's predicate.
+// That means, if the mutation is applied within a transaction with an isolation level such
+// as sql.LevelSerializable, the returned ids match the ids of the rows that will be updated
+// or updated by the mutation.
+func (m *AppFiatMutation) IDs(ctx context.Context) ([]uint32, error) {
+	switch {
+	case m.op.Is(OpUpdateOne | OpDeleteOne):
+		id, exists := m.ID()
+		if exists {
+			return []uint32{id}, nil
+		}
+		fallthrough
+	case m.op.Is(OpUpdate | OpDelete):
+		return m.Client().AppFiat.Query().Where(m.predicates...).IDs(ctx)
+	default:
+		return nil, fmt.Errorf("IDs is not allowed on %s operations", m.op)
+	}
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (m *AppFiatMutation) SetCreatedAt(u uint32) {
+	m.created_at = &u
+	m.addcreated_at = nil
+}
+
+// CreatedAt returns the value of the "created_at" field in the mutation.
+func (m *AppFiatMutation) CreatedAt() (r uint32, exists bool) {
+	v := m.created_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldCreatedAt returns the old "created_at" field's value of the AppFiat entity.
+// If the AppFiat object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *AppFiatMutation) OldCreatedAt(ctx context.Context) (v uint32, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldCreatedAt is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldCreatedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldCreatedAt: %w", err)
+	}
+	return oldValue.CreatedAt, nil
+}
+
+// AddCreatedAt adds u to the "created_at" field.
+func (m *AppFiatMutation) AddCreatedAt(u int32) {
+	if m.addcreated_at != nil {
+		*m.addcreated_at += u
+	} else {
+		m.addcreated_at = &u
+	}
+}
+
+// AddedCreatedAt returns the value that was added to the "created_at" field in this mutation.
+func (m *AppFiatMutation) AddedCreatedAt() (r int32, exists bool) {
+	v := m.addcreated_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetCreatedAt resets all changes to the "created_at" field.
+func (m *AppFiatMutation) ResetCreatedAt() {
+	m.created_at = nil
+	m.addcreated_at = nil
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (m *AppFiatMutation) SetUpdatedAt(u uint32) {
+	m.updated_at = &u
+	m.addupdated_at = nil
+}
+
+// UpdatedAt returns the value of the "updated_at" field in the mutation.
+func (m *AppFiatMutation) UpdatedAt() (r uint32, exists bool) {
+	v := m.updated_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldUpdatedAt returns the old "updated_at" field's value of the AppFiat entity.
+// If the AppFiat object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *AppFiatMutation) OldUpdatedAt(ctx context.Context) (v uint32, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldUpdatedAt is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldUpdatedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldUpdatedAt: %w", err)
+	}
+	return oldValue.UpdatedAt, nil
+}
+
+// AddUpdatedAt adds u to the "updated_at" field.
+func (m *AppFiatMutation) AddUpdatedAt(u int32) {
+	if m.addupdated_at != nil {
+		*m.addupdated_at += u
+	} else {
+		m.addupdated_at = &u
+	}
+}
+
+// AddedUpdatedAt returns the value that was added to the "updated_at" field in this mutation.
+func (m *AppFiatMutation) AddedUpdatedAt() (r int32, exists bool) {
+	v := m.addupdated_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetUpdatedAt resets all changes to the "updated_at" field.
+func (m *AppFiatMutation) ResetUpdatedAt() {
+	m.updated_at = nil
+	m.addupdated_at = nil
+}
+
+// SetDeletedAt sets the "deleted_at" field.
+func (m *AppFiatMutation) SetDeletedAt(u uint32) {
+	m.deleted_at = &u
+	m.adddeleted_at = nil
+}
+
+// DeletedAt returns the value of the "deleted_at" field in the mutation.
+func (m *AppFiatMutation) DeletedAt() (r uint32, exists bool) {
+	v := m.deleted_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldDeletedAt returns the old "deleted_at" field's value of the AppFiat entity.
+// If the AppFiat object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *AppFiatMutation) OldDeletedAt(ctx context.Context) (v uint32, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldDeletedAt is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldDeletedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldDeletedAt: %w", err)
+	}
+	return oldValue.DeletedAt, nil
+}
+
+// AddDeletedAt adds u to the "deleted_at" field.
+func (m *AppFiatMutation) AddDeletedAt(u int32) {
+	if m.adddeleted_at != nil {
+		*m.adddeleted_at += u
+	} else {
+		m.adddeleted_at = &u
+	}
+}
+
+// AddedDeletedAt returns the value that was added to the "deleted_at" field in this mutation.
+func (m *AppFiatMutation) AddedDeletedAt() (r int32, exists bool) {
+	v := m.adddeleted_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetDeletedAt resets all changes to the "deleted_at" field.
+func (m *AppFiatMutation) ResetDeletedAt() {
+	m.deleted_at = nil
+	m.adddeleted_at = nil
+}
+
+// SetEntID sets the "ent_id" field.
+func (m *AppFiatMutation) SetEntID(u uuid.UUID) {
+	m.ent_id = &u
+}
+
+// EntID returns the value of the "ent_id" field in the mutation.
+func (m *AppFiatMutation) EntID() (r uuid.UUID, exists bool) {
+	v := m.ent_id
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldEntID returns the old "ent_id" field's value of the AppFiat entity.
+// If the AppFiat object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *AppFiatMutation) OldEntID(ctx context.Context) (v uuid.UUID, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldEntID is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldEntID requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldEntID: %w", err)
+	}
+	return oldValue.EntID, nil
+}
+
+// ResetEntID resets all changes to the "ent_id" field.
+func (m *AppFiatMutation) ResetEntID() {
+	m.ent_id = nil
+}
+
+// SetAppID sets the "app_id" field.
+func (m *AppFiatMutation) SetAppID(u uuid.UUID) {
+	m.app_id = &u
+}
+
+// AppID returns the value of the "app_id" field in the mutation.
+func (m *AppFiatMutation) AppID() (r uuid.UUID, exists bool) {
+	v := m.app_id
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldAppID returns the old "app_id" field's value of the AppFiat entity.
+// If the AppFiat object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *AppFiatMutation) OldAppID(ctx context.Context) (v uuid.UUID, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldAppID is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldAppID requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldAppID: %w", err)
+	}
+	return oldValue.AppID, nil
+}
+
+// ClearAppID clears the value of the "app_id" field.
+func (m *AppFiatMutation) ClearAppID() {
+	m.app_id = nil
+	m.clearedFields[appfiat.FieldAppID] = struct{}{}
+}
+
+// AppIDCleared returns if the "app_id" field was cleared in this mutation.
+func (m *AppFiatMutation) AppIDCleared() bool {
+	_, ok := m.clearedFields[appfiat.FieldAppID]
+	return ok
+}
+
+// ResetAppID resets all changes to the "app_id" field.
+func (m *AppFiatMutation) ResetAppID() {
+	m.app_id = nil
+	delete(m.clearedFields, appfiat.FieldAppID)
+}
+
+// SetFiatID sets the "fiat_id" field.
+func (m *AppFiatMutation) SetFiatID(u uuid.UUID) {
+	m.fiat_id = &u
+}
+
+// FiatID returns the value of the "fiat_id" field in the mutation.
+func (m *AppFiatMutation) FiatID() (r uuid.UUID, exists bool) {
+	v := m.fiat_id
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldFiatID returns the old "fiat_id" field's value of the AppFiat entity.
+// If the AppFiat object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *AppFiatMutation) OldFiatID(ctx context.Context) (v uuid.UUID, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldFiatID is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldFiatID requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldFiatID: %w", err)
+	}
+	return oldValue.FiatID, nil
+}
+
+// ClearFiatID clears the value of the "fiat_id" field.
+func (m *AppFiatMutation) ClearFiatID() {
+	m.fiat_id = nil
+	m.clearedFields[appfiat.FieldFiatID] = struct{}{}
+}
+
+// FiatIDCleared returns if the "fiat_id" field was cleared in this mutation.
+func (m *AppFiatMutation) FiatIDCleared() bool {
+	_, ok := m.clearedFields[appfiat.FieldFiatID]
+	return ok
+}
+
+// ResetFiatID resets all changes to the "fiat_id" field.
+func (m *AppFiatMutation) ResetFiatID() {
+	m.fiat_id = nil
+	delete(m.clearedFields, appfiat.FieldFiatID)
+}
+
+// SetName sets the "name" field.
+func (m *AppFiatMutation) SetName(s string) {
+	m.name = &s
+}
+
+// Name returns the value of the "name" field in the mutation.
+func (m *AppFiatMutation) Name() (r string, exists bool) {
+	v := m.name
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldName returns the old "name" field's value of the AppFiat entity.
+// If the AppFiat object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *AppFiatMutation) OldName(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldName is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldName requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldName: %w", err)
+	}
+	return oldValue.Name, nil
+}
+
+// ClearName clears the value of the "name" field.
+func (m *AppFiatMutation) ClearName() {
+	m.name = nil
+	m.clearedFields[appfiat.FieldName] = struct{}{}
+}
+
+// NameCleared returns if the "name" field was cleared in this mutation.
+func (m *AppFiatMutation) NameCleared() bool {
+	_, ok := m.clearedFields[appfiat.FieldName]
+	return ok
+}
+
+// ResetName resets all changes to the "name" field.
+func (m *AppFiatMutation) ResetName() {
+	m.name = nil
+	delete(m.clearedFields, appfiat.FieldName)
+}
+
+// SetDisplayNames sets the "display_names" field.
+func (m *AppFiatMutation) SetDisplayNames(s []string) {
+	m.display_names = &s
+	m.appenddisplay_names = nil
+}
+
+// DisplayNames returns the value of the "display_names" field in the mutation.
+func (m *AppFiatMutation) DisplayNames() (r []string, exists bool) {
+	v := m.display_names
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldDisplayNames returns the old "display_names" field's value of the AppFiat entity.
+// If the AppFiat object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *AppFiatMutation) OldDisplayNames(ctx context.Context) (v []string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldDisplayNames is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldDisplayNames requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldDisplayNames: %w", err)
+	}
+	return oldValue.DisplayNames, nil
+}
+
+// AppendDisplayNames adds s to the "display_names" field.
+func (m *AppFiatMutation) AppendDisplayNames(s []string) {
+	m.appenddisplay_names = append(m.appenddisplay_names, s...)
+}
+
+// AppendedDisplayNames returns the list of values that were appended to the "display_names" field in this mutation.
+func (m *AppFiatMutation) AppendedDisplayNames() ([]string, bool) {
+	if len(m.appenddisplay_names) == 0 {
+		return nil, false
+	}
+	return m.appenddisplay_names, true
+}
+
+// ClearDisplayNames clears the value of the "display_names" field.
+func (m *AppFiatMutation) ClearDisplayNames() {
+	m.display_names = nil
+	m.appenddisplay_names = nil
+	m.clearedFields[appfiat.FieldDisplayNames] = struct{}{}
+}
+
+// DisplayNamesCleared returns if the "display_names" field was cleared in this mutation.
+func (m *AppFiatMutation) DisplayNamesCleared() bool {
+	_, ok := m.clearedFields[appfiat.FieldDisplayNames]
+	return ok
+}
+
+// ResetDisplayNames resets all changes to the "display_names" field.
+func (m *AppFiatMutation) ResetDisplayNames() {
+	m.display_names = nil
+	m.appenddisplay_names = nil
+	delete(m.clearedFields, appfiat.FieldDisplayNames)
+}
+
+// SetLogo sets the "logo" field.
+func (m *AppFiatMutation) SetLogo(s string) {
+	m.logo = &s
+}
+
+// Logo returns the value of the "logo" field in the mutation.
+func (m *AppFiatMutation) Logo() (r string, exists bool) {
+	v := m.logo
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldLogo returns the old "logo" field's value of the AppFiat entity.
+// If the AppFiat object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *AppFiatMutation) OldLogo(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldLogo is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldLogo requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldLogo: %w", err)
+	}
+	return oldValue.Logo, nil
+}
+
+// ClearLogo clears the value of the "logo" field.
+func (m *AppFiatMutation) ClearLogo() {
+	m.logo = nil
+	m.clearedFields[appfiat.FieldLogo] = struct{}{}
+}
+
+// LogoCleared returns if the "logo" field was cleared in this mutation.
+func (m *AppFiatMutation) LogoCleared() bool {
+	_, ok := m.clearedFields[appfiat.FieldLogo]
+	return ok
+}
+
+// ResetLogo resets all changes to the "logo" field.
+func (m *AppFiatMutation) ResetLogo() {
+	m.logo = nil
+	delete(m.clearedFields, appfiat.FieldLogo)
+}
+
+// SetDisabled sets the "disabled" field.
+func (m *AppFiatMutation) SetDisabled(b bool) {
+	m.disabled = &b
+}
+
+// Disabled returns the value of the "disabled" field in the mutation.
+func (m *AppFiatMutation) Disabled() (r bool, exists bool) {
+	v := m.disabled
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldDisabled returns the old "disabled" field's value of the AppFiat entity.
+// If the AppFiat object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *AppFiatMutation) OldDisabled(ctx context.Context) (v bool, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldDisabled is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldDisabled requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldDisabled: %w", err)
+	}
+	return oldValue.Disabled, nil
+}
+
+// ClearDisabled clears the value of the "disabled" field.
+func (m *AppFiatMutation) ClearDisabled() {
+	m.disabled = nil
+	m.clearedFields[appfiat.FieldDisabled] = struct{}{}
+}
+
+// DisabledCleared returns if the "disabled" field was cleared in this mutation.
+func (m *AppFiatMutation) DisabledCleared() bool {
+	_, ok := m.clearedFields[appfiat.FieldDisabled]
+	return ok
+}
+
+// ResetDisabled resets all changes to the "disabled" field.
+func (m *AppFiatMutation) ResetDisabled() {
+	m.disabled = nil
+	delete(m.clearedFields, appfiat.FieldDisabled)
+}
+
+// SetDisplay sets the "display" field.
+func (m *AppFiatMutation) SetDisplay(b bool) {
+	m.display = &b
+}
+
+// Display returns the value of the "display" field in the mutation.
+func (m *AppFiatMutation) Display() (r bool, exists bool) {
+	v := m.display
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldDisplay returns the old "display" field's value of the AppFiat entity.
+// If the AppFiat object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *AppFiatMutation) OldDisplay(ctx context.Context) (v bool, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldDisplay is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldDisplay requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldDisplay: %w", err)
+	}
+	return oldValue.Display, nil
+}
+
+// ClearDisplay clears the value of the "display" field.
+func (m *AppFiatMutation) ClearDisplay() {
+	m.display = nil
+	m.clearedFields[appfiat.FieldDisplay] = struct{}{}
+}
+
+// DisplayCleared returns if the "display" field was cleared in this mutation.
+func (m *AppFiatMutation) DisplayCleared() bool {
+	_, ok := m.clearedFields[appfiat.FieldDisplay]
+	return ok
+}
+
+// ResetDisplay resets all changes to the "display" field.
+func (m *AppFiatMutation) ResetDisplay() {
+	m.display = nil
+	delete(m.clearedFields, appfiat.FieldDisplay)
+}
+
+// SetDisplayIndex sets the "display_index" field.
+func (m *AppFiatMutation) SetDisplayIndex(u uint32) {
+	m.display_index = &u
+	m.adddisplay_index = nil
+}
+
+// DisplayIndex returns the value of the "display_index" field in the mutation.
+func (m *AppFiatMutation) DisplayIndex() (r uint32, exists bool) {
+	v := m.display_index
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldDisplayIndex returns the old "display_index" field's value of the AppFiat entity.
+// If the AppFiat object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *AppFiatMutation) OldDisplayIndex(ctx context.Context) (v uint32, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldDisplayIndex is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldDisplayIndex requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldDisplayIndex: %w", err)
+	}
+	return oldValue.DisplayIndex, nil
+}
+
+// AddDisplayIndex adds u to the "display_index" field.
+func (m *AppFiatMutation) AddDisplayIndex(u int32) {
+	if m.adddisplay_index != nil {
+		*m.adddisplay_index += u
+	} else {
+		m.adddisplay_index = &u
+	}
+}
+
+// AddedDisplayIndex returns the value that was added to the "display_index" field in this mutation.
+func (m *AppFiatMutation) AddedDisplayIndex() (r int32, exists bool) {
+	v := m.adddisplay_index
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ClearDisplayIndex clears the value of the "display_index" field.
+func (m *AppFiatMutation) ClearDisplayIndex() {
+	m.display_index = nil
+	m.adddisplay_index = nil
+	m.clearedFields[appfiat.FieldDisplayIndex] = struct{}{}
+}
+
+// DisplayIndexCleared returns if the "display_index" field was cleared in this mutation.
+func (m *AppFiatMutation) DisplayIndexCleared() bool {
+	_, ok := m.clearedFields[appfiat.FieldDisplayIndex]
+	return ok
+}
+
+// ResetDisplayIndex resets all changes to the "display_index" field.
+func (m *AppFiatMutation) ResetDisplayIndex() {
+	m.display_index = nil
+	m.adddisplay_index = nil
+	delete(m.clearedFields, appfiat.FieldDisplayIndex)
+}
+
+// Where appends a list predicates to the AppFiatMutation builder.
+func (m *AppFiatMutation) Where(ps ...predicate.AppFiat) {
+	m.predicates = append(m.predicates, ps...)
+}
+
+// WhereP appends storage-level predicates to the AppFiatMutation builder. Using this method,
+// users can use type-assertion to append predicates that do not depend on any generated package.
+func (m *AppFiatMutation) WhereP(ps ...func(*sql.Selector)) {
+	p := make([]predicate.AppFiat, len(ps))
+	for i := range ps {
+		p[i] = ps[i]
+	}
+	m.Where(p...)
+}
+
+// Op returns the operation name.
+func (m *AppFiatMutation) Op() Op {
+	return m.op
+}
+
+// SetOp allows setting the mutation operation.
+func (m *AppFiatMutation) SetOp(op Op) {
+	m.op = op
+}
+
+// Type returns the node type of this mutation (AppFiat).
+func (m *AppFiatMutation) Type() string {
+	return m.typ
+}
+
+// Fields returns all fields that were changed during this mutation. Note that in
+// order to get all numeric fields that were incremented/decremented, call
+// AddedFields().
+func (m *AppFiatMutation) Fields() []string {
+	fields := make([]string, 0, 12)
+	if m.created_at != nil {
+		fields = append(fields, appfiat.FieldCreatedAt)
+	}
+	if m.updated_at != nil {
+		fields = append(fields, appfiat.FieldUpdatedAt)
+	}
+	if m.deleted_at != nil {
+		fields = append(fields, appfiat.FieldDeletedAt)
+	}
+	if m.ent_id != nil {
+		fields = append(fields, appfiat.FieldEntID)
+	}
+	if m.app_id != nil {
+		fields = append(fields, appfiat.FieldAppID)
+	}
+	if m.fiat_id != nil {
+		fields = append(fields, appfiat.FieldFiatID)
+	}
+	if m.name != nil {
+		fields = append(fields, appfiat.FieldName)
+	}
+	if m.display_names != nil {
+		fields = append(fields, appfiat.FieldDisplayNames)
+	}
+	if m.logo != nil {
+		fields = append(fields, appfiat.FieldLogo)
+	}
+	if m.disabled != nil {
+		fields = append(fields, appfiat.FieldDisabled)
+	}
+	if m.display != nil {
+		fields = append(fields, appfiat.FieldDisplay)
+	}
+	if m.display_index != nil {
+		fields = append(fields, appfiat.FieldDisplayIndex)
+	}
+	return fields
+}
+
+// Field returns the value of a field with the given name. The second boolean
+// return value indicates that this field was not set, or was not defined in the
+// schema.
+func (m *AppFiatMutation) Field(name string) (ent.Value, bool) {
+	switch name {
+	case appfiat.FieldCreatedAt:
+		return m.CreatedAt()
+	case appfiat.FieldUpdatedAt:
+		return m.UpdatedAt()
+	case appfiat.FieldDeletedAt:
+		return m.DeletedAt()
+	case appfiat.FieldEntID:
+		return m.EntID()
+	case appfiat.FieldAppID:
+		return m.AppID()
+	case appfiat.FieldFiatID:
+		return m.FiatID()
+	case appfiat.FieldName:
+		return m.Name()
+	case appfiat.FieldDisplayNames:
+		return m.DisplayNames()
+	case appfiat.FieldLogo:
+		return m.Logo()
+	case appfiat.FieldDisabled:
+		return m.Disabled()
+	case appfiat.FieldDisplay:
+		return m.Display()
+	case appfiat.FieldDisplayIndex:
+		return m.DisplayIndex()
+	}
+	return nil, false
+}
+
+// OldField returns the old value of the field from the database. An error is
+// returned if the mutation operation is not UpdateOne, or the query to the
+// database failed.
+func (m *AppFiatMutation) OldField(ctx context.Context, name string) (ent.Value, error) {
+	switch name {
+	case appfiat.FieldCreatedAt:
+		return m.OldCreatedAt(ctx)
+	case appfiat.FieldUpdatedAt:
+		return m.OldUpdatedAt(ctx)
+	case appfiat.FieldDeletedAt:
+		return m.OldDeletedAt(ctx)
+	case appfiat.FieldEntID:
+		return m.OldEntID(ctx)
+	case appfiat.FieldAppID:
+		return m.OldAppID(ctx)
+	case appfiat.FieldFiatID:
+		return m.OldFiatID(ctx)
+	case appfiat.FieldName:
+		return m.OldName(ctx)
+	case appfiat.FieldDisplayNames:
+		return m.OldDisplayNames(ctx)
+	case appfiat.FieldLogo:
+		return m.OldLogo(ctx)
+	case appfiat.FieldDisabled:
+		return m.OldDisabled(ctx)
+	case appfiat.FieldDisplay:
+		return m.OldDisplay(ctx)
+	case appfiat.FieldDisplayIndex:
+		return m.OldDisplayIndex(ctx)
+	}
+	return nil, fmt.Errorf("unknown AppFiat field %s", name)
+}
+
+// SetField sets the value of a field with the given name. It returns an error if
+// the field is not defined in the schema, or if the type mismatched the field
+// type.
+func (m *AppFiatMutation) SetField(name string, value ent.Value) error {
+	switch name {
+	case appfiat.FieldCreatedAt:
+		v, ok := value.(uint32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetCreatedAt(v)
+		return nil
+	case appfiat.FieldUpdatedAt:
+		v, ok := value.(uint32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetUpdatedAt(v)
+		return nil
+	case appfiat.FieldDeletedAt:
+		v, ok := value.(uint32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetDeletedAt(v)
+		return nil
+	case appfiat.FieldEntID:
+		v, ok := value.(uuid.UUID)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetEntID(v)
+		return nil
+	case appfiat.FieldAppID:
+		v, ok := value.(uuid.UUID)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetAppID(v)
+		return nil
+	case appfiat.FieldFiatID:
+		v, ok := value.(uuid.UUID)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetFiatID(v)
+		return nil
+	case appfiat.FieldName:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetName(v)
+		return nil
+	case appfiat.FieldDisplayNames:
+		v, ok := value.([]string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetDisplayNames(v)
+		return nil
+	case appfiat.FieldLogo:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetLogo(v)
+		return nil
+	case appfiat.FieldDisabled:
+		v, ok := value.(bool)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetDisabled(v)
+		return nil
+	case appfiat.FieldDisplay:
+		v, ok := value.(bool)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetDisplay(v)
+		return nil
+	case appfiat.FieldDisplayIndex:
+		v, ok := value.(uint32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetDisplayIndex(v)
+		return nil
+	}
+	return fmt.Errorf("unknown AppFiat field %s", name)
+}
+
+// AddedFields returns all numeric fields that were incremented/decremented during
+// this mutation.
+func (m *AppFiatMutation) AddedFields() []string {
+	var fields []string
+	if m.addcreated_at != nil {
+		fields = append(fields, appfiat.FieldCreatedAt)
+	}
+	if m.addupdated_at != nil {
+		fields = append(fields, appfiat.FieldUpdatedAt)
+	}
+	if m.adddeleted_at != nil {
+		fields = append(fields, appfiat.FieldDeletedAt)
+	}
+	if m.adddisplay_index != nil {
+		fields = append(fields, appfiat.FieldDisplayIndex)
+	}
+	return fields
+}
+
+// AddedField returns the numeric value that was incremented/decremented on a field
+// with the given name. The second boolean return value indicates that this field
+// was not set, or was not defined in the schema.
+func (m *AppFiatMutation) AddedField(name string) (ent.Value, bool) {
+	switch name {
+	case appfiat.FieldCreatedAt:
+		return m.AddedCreatedAt()
+	case appfiat.FieldUpdatedAt:
+		return m.AddedUpdatedAt()
+	case appfiat.FieldDeletedAt:
+		return m.AddedDeletedAt()
+	case appfiat.FieldDisplayIndex:
+		return m.AddedDisplayIndex()
+	}
+	return nil, false
+}
+
+// AddField adds the value to the field with the given name. It returns an error if
+// the field is not defined in the schema, or if the type mismatched the field
+// type.
+func (m *AppFiatMutation) AddField(name string, value ent.Value) error {
+	switch name {
+	case appfiat.FieldCreatedAt:
+		v, ok := value.(int32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddCreatedAt(v)
+		return nil
+	case appfiat.FieldUpdatedAt:
+		v, ok := value.(int32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddUpdatedAt(v)
+		return nil
+	case appfiat.FieldDeletedAt:
+		v, ok := value.(int32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddDeletedAt(v)
+		return nil
+	case appfiat.FieldDisplayIndex:
+		v, ok := value.(int32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddDisplayIndex(v)
+		return nil
+	}
+	return fmt.Errorf("unknown AppFiat numeric field %s", name)
+}
+
+// ClearedFields returns all nullable fields that were cleared during this
+// mutation.
+func (m *AppFiatMutation) ClearedFields() []string {
+	var fields []string
+	if m.FieldCleared(appfiat.FieldAppID) {
+		fields = append(fields, appfiat.FieldAppID)
+	}
+	if m.FieldCleared(appfiat.FieldFiatID) {
+		fields = append(fields, appfiat.FieldFiatID)
+	}
+	if m.FieldCleared(appfiat.FieldName) {
+		fields = append(fields, appfiat.FieldName)
+	}
+	if m.FieldCleared(appfiat.FieldDisplayNames) {
+		fields = append(fields, appfiat.FieldDisplayNames)
+	}
+	if m.FieldCleared(appfiat.FieldLogo) {
+		fields = append(fields, appfiat.FieldLogo)
+	}
+	if m.FieldCleared(appfiat.FieldDisabled) {
+		fields = append(fields, appfiat.FieldDisabled)
+	}
+	if m.FieldCleared(appfiat.FieldDisplay) {
+		fields = append(fields, appfiat.FieldDisplay)
+	}
+	if m.FieldCleared(appfiat.FieldDisplayIndex) {
+		fields = append(fields, appfiat.FieldDisplayIndex)
+	}
+	return fields
+}
+
+// FieldCleared returns a boolean indicating if a field with the given name was
+// cleared in this mutation.
+func (m *AppFiatMutation) FieldCleared(name string) bool {
+	_, ok := m.clearedFields[name]
+	return ok
+}
+
+// ClearField clears the value of the field with the given name. It returns an
+// error if the field is not defined in the schema.
+func (m *AppFiatMutation) ClearField(name string) error {
+	switch name {
+	case appfiat.FieldAppID:
+		m.ClearAppID()
+		return nil
+	case appfiat.FieldFiatID:
+		m.ClearFiatID()
+		return nil
+	case appfiat.FieldName:
+		m.ClearName()
+		return nil
+	case appfiat.FieldDisplayNames:
+		m.ClearDisplayNames()
+		return nil
+	case appfiat.FieldLogo:
+		m.ClearLogo()
+		return nil
+	case appfiat.FieldDisabled:
+		m.ClearDisabled()
+		return nil
+	case appfiat.FieldDisplay:
+		m.ClearDisplay()
+		return nil
+	case appfiat.FieldDisplayIndex:
+		m.ClearDisplayIndex()
+		return nil
+	}
+	return fmt.Errorf("unknown AppFiat nullable field %s", name)
+}
+
+// ResetField resets all changes in the mutation for the field with the given name.
+// It returns an error if the field is not defined in the schema.
+func (m *AppFiatMutation) ResetField(name string) error {
+	switch name {
+	case appfiat.FieldCreatedAt:
+		m.ResetCreatedAt()
+		return nil
+	case appfiat.FieldUpdatedAt:
+		m.ResetUpdatedAt()
+		return nil
+	case appfiat.FieldDeletedAt:
+		m.ResetDeletedAt()
+		return nil
+	case appfiat.FieldEntID:
+		m.ResetEntID()
+		return nil
+	case appfiat.FieldAppID:
+		m.ResetAppID()
+		return nil
+	case appfiat.FieldFiatID:
+		m.ResetFiatID()
+		return nil
+	case appfiat.FieldName:
+		m.ResetName()
+		return nil
+	case appfiat.FieldDisplayNames:
+		m.ResetDisplayNames()
+		return nil
+	case appfiat.FieldLogo:
+		m.ResetLogo()
+		return nil
+	case appfiat.FieldDisabled:
+		m.ResetDisabled()
+		return nil
+	case appfiat.FieldDisplay:
+		m.ResetDisplay()
+		return nil
+	case appfiat.FieldDisplayIndex:
+		m.ResetDisplayIndex()
+		return nil
+	}
+	return fmt.Errorf("unknown AppFiat field %s", name)
+}
+
+// AddedEdges returns all edge names that were set/added in this mutation.
+func (m *AppFiatMutation) AddedEdges() []string {
+	edges := make([]string, 0, 0)
+	return edges
+}
+
+// AddedIDs returns all IDs (to other nodes) that were added for the given edge
+// name in this mutation.
+func (m *AppFiatMutation) AddedIDs(name string) []ent.Value {
+	return nil
+}
+
+// RemovedEdges returns all edge names that were removed in this mutation.
+func (m *AppFiatMutation) RemovedEdges() []string {
+	edges := make([]string, 0, 0)
+	return edges
+}
+
+// RemovedIDs returns all IDs (to other nodes) that were removed for the edge with
+// the given name in this mutation.
+func (m *AppFiatMutation) RemovedIDs(name string) []ent.Value {
+	return nil
+}
+
+// ClearedEdges returns all edge names that were cleared in this mutation.
+func (m *AppFiatMutation) ClearedEdges() []string {
+	edges := make([]string, 0, 0)
+	return edges
+}
+
+// EdgeCleared returns a boolean which indicates if the edge with the given name
+// was cleared in this mutation.
+func (m *AppFiatMutation) EdgeCleared(name string) bool {
+	return false
+}
+
+// ClearEdge clears the value of the edge with the given name. It returns an error
+// if that edge is not defined in the schema.
+func (m *AppFiatMutation) ClearEdge(name string) error {
+	return fmt.Errorf("unknown AppFiat unique edge %s", name)
+}
+
+// ResetEdge resets all changes to the edge with the given name in this mutation.
+// It returns an error if the edge is not defined in the schema.
+func (m *AppFiatMutation) ResetEdge(name string) error {
+	return fmt.Errorf("unknown AppFiat edge %s", name)
 }
 
 // ChainBaseMutation represents an operation that mutates the ChainBase nodes in the graph.

@@ -135,6 +135,30 @@ func (f AppCoinMutationRuleFunc) EvalMutation(ctx context.Context, m generated.M
 	return Denyf("generated/privacy: unexpected mutation type %T, expect *generated.AppCoinMutation", m)
 }
 
+// The AppFiatQueryRuleFunc type is an adapter to allow the use of ordinary
+// functions as a query rule.
+type AppFiatQueryRuleFunc func(context.Context, *generated.AppFiatQuery) error
+
+// EvalQuery return f(ctx, q).
+func (f AppFiatQueryRuleFunc) EvalQuery(ctx context.Context, q generated.Query) error {
+	if q, ok := q.(*generated.AppFiatQuery); ok {
+		return f(ctx, q)
+	}
+	return Denyf("generated/privacy: unexpected query type %T, expect *generated.AppFiatQuery", q)
+}
+
+// The AppFiatMutationRuleFunc type is an adapter to allow the use of ordinary
+// functions as a mutation rule.
+type AppFiatMutationRuleFunc func(context.Context, *generated.AppFiatMutation) error
+
+// EvalMutation calls f(ctx, m).
+func (f AppFiatMutationRuleFunc) EvalMutation(ctx context.Context, m generated.Mutation) error {
+	if m, ok := m.(*generated.AppFiatMutation); ok {
+		return f(ctx, m)
+	}
+	return Denyf("generated/privacy: unexpected mutation type %T, expect *generated.AppFiatMutation", m)
+}
+
 // The ChainBaseQueryRuleFunc type is an adapter to allow the use of ordinary
 // functions as a query rule.
 type ChainBaseQueryRuleFunc func(context.Context, *generated.ChainBaseQuery) error
@@ -604,6 +628,8 @@ func queryFilter(q generated.Query) (Filter, error) {
 	switch q := q.(type) {
 	case *generated.AppCoinQuery:
 		return q.Filter(), nil
+	case *generated.AppFiatQuery:
+		return q.Filter(), nil
 	case *generated.ChainBaseQuery:
 		return q.Filter(), nil
 	case *generated.CoinBaseQuery:
@@ -648,6 +674,8 @@ func queryFilter(q generated.Query) (Filter, error) {
 func mutationFilter(m generated.Mutation) (Filter, error) {
 	switch m := m.(type) {
 	case *generated.AppCoinMutation:
+		return m.Filter(), nil
+	case *generated.AppFiatMutation:
 		return m.Filter(), nil
 	case *generated.ChainBaseMutation:
 		return m.Filter(), nil

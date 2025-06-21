@@ -42,6 +42,35 @@ var (
 			},
 		},
 	}
+	// AppFiatsColumns holds the columns for the "app_fiats" table.
+	AppFiatsColumns = []*schema.Column{
+		{Name: "id", Type: field.TypeUint32, Increment: true},
+		{Name: "created_at", Type: field.TypeUint32},
+		{Name: "updated_at", Type: field.TypeUint32},
+		{Name: "deleted_at", Type: field.TypeUint32},
+		{Name: "ent_id", Type: field.TypeUUID, Unique: true},
+		{Name: "app_id", Type: field.TypeUUID, Nullable: true},
+		{Name: "fiat_id", Type: field.TypeUUID, Nullable: true},
+		{Name: "name", Type: field.TypeString, Nullable: true, Default: ""},
+		{Name: "display_names", Type: field.TypeJSON, Nullable: true},
+		{Name: "logo", Type: field.TypeString, Nullable: true, Default: ""},
+		{Name: "disabled", Type: field.TypeBool, Nullable: true, Default: false},
+		{Name: "display", Type: field.TypeBool, Nullable: true, Default: true},
+		{Name: "display_index", Type: field.TypeUint32, Nullable: true, Default: 0},
+	}
+	// AppFiatsTable holds the schema information for the "app_fiats" table.
+	AppFiatsTable = &schema.Table{
+		Name:       "app_fiats",
+		Columns:    AppFiatsColumns,
+		PrimaryKey: []*schema.Column{AppFiatsColumns[0]},
+		Indexes: []*schema.Index{
+			{
+				Name:    "appfiat_ent_id",
+				Unique:  true,
+				Columns: []*schema.Column{AppFiatsColumns[4]},
+			},
+		},
+	}
 	// ChainBasesColumns holds the columns for the "chain_bases" table.
 	ChainBasesColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeUint32, Increment: true},
@@ -562,6 +591,7 @@ var (
 	// Tables holds all the tables in the schema.
 	Tables = []*schema.Table{
 		AppCoinsTable,
+		AppFiatsTable,
 		ChainBasesTable,
 		CoinBasesTable,
 		CoinDescriptionsTable,

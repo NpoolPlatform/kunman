@@ -1,0 +1,62 @@
+syntax = "proto3";
+
+package chain.middleware.app.fiat.v1;
+
+option go_package = "github.com/NpoolPlatform/kunman/message/chain/middleware/v1/app/fiat";
+
+import "basetypes/v1/conds.proto";
+
+message FiatReq {
+  optional uint32 ID = 9;
+  optional string EntID = 10;
+  optional string AppID = 20;
+  optional string FiatID = 30;
+  optional string Name = 40;
+  repeated string DisplayNames = 41;
+  optional string Logo = 50;
+  optional bool Disabled = 120;
+  optional bool Display = 140;
+  optional uint32 DisplayIndex = 150;
+}
+
+message Fiat {
+  // @inject_tag: sql:"id"
+  uint32 ID = 9;
+  // @inject_tag: sql:"ent_id"
+  string EntID = 10;
+  // @inject_tag: sql:"app_id"
+  string AppID = 20;
+  // @inject_tag: sql:"fiat_id"
+  string FiatID = 30;
+  // @inject_tag: sql:"name"
+  string Name = 40;
+  // @inject_tag: sql:"fiat_name"
+  string FiatName = 41;
+  // @inject_tag: sql:"display_names"
+  string DisplayNamesStr = 42;
+  repeated string DisplayNames = 43;
+  // @inject_tag: sql:"logo"
+  string Logo = 50;
+  // @inject_tag: sql:"unit"
+  string Unit = 60;
+  // @inject_tag: sql:"disabled"
+  bool Disabled = 300;
+  // @inject_tag: sql:"created_at"
+  uint32 CreatedAt = 320;
+  // @inject_tag: sql:"updated_at"
+  uint32 UpdatedAt = 330;
+  // @inject_tag: sql:"display"
+  bool Display = 350;
+  // @inject_tag: sql:"display_index"
+  uint32 DisplayIndex = 360;
+}
+
+message Conds {
+  optional basetypes.v1.StringVal EntID = 10;
+  optional basetypes.v1.StringVal AppID = 20;
+  optional basetypes.v1.StringVal FiatID = 30;
+  optional basetypes.v1.BoolVal Disabled = 50;
+  optional basetypes.v1.StringSliceVal EntIDs = 60;
+  optional basetypes.v1.StringSliceVal FiatIDs = 70;
+}
+

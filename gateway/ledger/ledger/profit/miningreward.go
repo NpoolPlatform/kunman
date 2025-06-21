@@ -105,7 +105,7 @@ func (h *rewardHandler) getAppPowerRentals(ctx context.Context) error {
 }
 
 // TODO: here we should get orders which is in statement extra
-//nolint
+// nolint
 func (h *rewardHandler) getOrders(ctx context.Context) error {
 	offset := int32(0)
 	limit := constant.DefaultRowLimit

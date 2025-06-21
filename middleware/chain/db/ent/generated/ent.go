@@ -13,6 +13,7 @@ import (
 	"entgo.io/ent/dialect/sql"
 	"entgo.io/ent/dialect/sql/sqlgraph"
 	"github.com/NpoolPlatform/kunman/middleware/chain/db/ent/generated/appcoin"
+	"github.com/NpoolPlatform/kunman/middleware/chain/db/ent/generated/appfiat"
 	"github.com/NpoolPlatform/kunman/middleware/chain/db/ent/generated/chainbase"
 	"github.com/NpoolPlatform/kunman/middleware/chain/db/ent/generated/coinbase"
 	"github.com/NpoolPlatform/kunman/middleware/chain/db/ent/generated/coindescription"
@@ -92,6 +93,7 @@ func checkColumn(table, column string) error {
 	initCheck.Do(func() {
 		columnCheck = sql.NewColumnCheck(map[string]func(string) bool{
 			appcoin.Table:                 appcoin.ValidColumn,
+			appfiat.Table:                 appfiat.ValidColumn,
 			chainbase.Table:               chainbase.ValidColumn,
 			coinbase.Table:                coinbase.ValidColumn,
 			coindescription.Table:         coindescription.ValidColumn,

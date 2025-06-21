@@ -48,7 +48,7 @@ func (s *Server) GetCoinProfits(ctx context.Context, in *npool.GetCoinProfitsReq
 	}, nil
 }
 
-//nolint
+// nolint
 func (s *Server) GetGoodProfits(ctx context.Context, in *npool.GetGoodProfitsRequest) (*npool.GetGoodProfitsResponse, error) {
 	handler, err := profit1.NewHandler(
 		ctx,

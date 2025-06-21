@@ -128,7 +128,7 @@ func (h *goodProfitHandler) formalize() {
 	}
 }
 
-//nolint
+// nolint
 func (h *goodProfitHandler) getOrders(ctx context.Context) error {
 	offset := int32(0)
 	limit := constant.DefaultRowLimit

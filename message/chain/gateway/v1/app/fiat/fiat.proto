@@ -1,0 +1,107 @@
+syntax = "proto3";
+
+package chain.gateway.app.fiat.v1;
+
+option go_package = "github.com/NpoolPlatform/kunman/message/chain/gateway/v1/app/fiat";
+
+import "google/api/annotations.proto";
+
+// Service Name
+service Gateway {
+  rpc CreateFiat(CreateFiatRequest) returns (CreateFiatResponse) {
+    option (google.api.http) = {
+      post : "/v1/create/appfiat"
+      body : "*"
+    };
+  }
+  rpc GetFiats(GetFiatsRequest) returns (GetFiatsResponse) {
+    option (google.api.http) = {
+      post : "/v1/get/appfiats"
+      body : "*"
+    };
+  }
+  rpc GetAppFiats(GetAppFiatsRequest) returns (GetAppFiatsResponse) {
+    option (google.api.http) = {
+      post : "/v1/get/n/appfiats"
+      body : "*"
+    };
+  }
+  rpc UpdateFiat(UpdateFiatRequest) returns (UpdateFiatResponse) {
+    option (google.api.http) = {
+      post : "/v1/update/appfiat"
+      body : "*"
+    };
+  }
+  rpc DeleteFiat(DeleteFiatRequest) returns (DeleteFiatResponse) {
+    option (google.api.http) = {
+      post : "/v1/delete/appfiat"
+      body : "*"
+    };
+  }
+}
+
+message Fiat {
+  uint32 ID = 9;
+  string EntID = 10;
+  string AppID = 20;
+  string FiatID = 30;
+  string Name = 40;
+  repeated string DisplayNames = 43;
+  string Logo = 50;
+  string Unit = 60;
+  bool Disabled = 300;
+  uint32 CreatedAt = 320;
+  uint32 UpdatedAt = 330;
+  bool Display = 350;
+  uint32 DisplayIndex = 360;
+}
+
+message CreateFiatRequest {
+  string TargetAppID = 10;
+  string FiatID = 20;
+}
+
+message CreateFiatResponse { Fiat Info = 10; }
+
+message GetFiatsRequest {
+  string AppID = 10;
+  optional bool ForPay = 20;
+  int32 Offset = 30;
+  int32 Limit = 40;
+}
+
+message GetFiatsResponse {
+  repeated Fiat Infos = 10;
+  uint32 Total = 20;
+}
+
+message GetAppFiatsRequest {
+  string TargetAppID = 10;
+  int32 Offset = 20;
+  int32 Limit = 30;
+}
+
+message GetAppFiatsResponse {
+  repeated Fiat Infos = 10;
+  uint32 Total = 20;
+}
+
+message UpdateFiatRequest {
+  uint32 ID = 10;
+  string AppID = 20;
+  optional string Name = 50;
+  repeated string DisplayNames = 51;
+  optional string Logo = 60;
+  optional bool Disabled = 130;
+  optional bool Display = 140;
+  optional uint32 DisplayIndex = 150;
+}
+
+message UpdateFiatResponse { Fiat Info = 10; }
+
+message DeleteFiatRequest {
+  uint32 ID = 10;
+  string TargetAppID = 20;
+}
+
+message DeleteFiatResponse { Fiat Info = 10; }

@@ -170,3 +170,33 @@ func (h *Handler) GetTxs(ctx context.Context) ([]*npool.Tx, uint32, error) {
 	handler.formalize()
 	return handler.infos, handler.total, nil
 }
+
+func (h *Handler) GetTxOnly(ctx context.Context) (*npool.Tx, error) {
+	handler := &queryHandler{
+		Handler: h,
+	}
+
+	err := db.WithClient(ctx, func(_ctx context.Context, cli *ent.Client) error {
+		if err := handler.queryTxs(ctx, cli); err != nil {
+			return err
+		}
+		handler.queryJoin()
+		handler.stm.
+			Offset(0).
+			Limit(2).
+			Order(ent.Desc(enttx.FieldUpdatedAt))
+		return handler.scan(_ctx)
+	})
+	if err != nil {
+		return nil, err
+	}
+	if len(handler.infos) > 1 {
+		return nil, fmt.Errorf("invalid tx")
+	}
+	if len(handler.infos) == 0 {
+		return nil, nil
+	}
+
+	handler.formalize()
+	return handler.infos[0], nil
+}
