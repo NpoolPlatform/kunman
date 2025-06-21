@@ -134,6 +134,11 @@ config:
     - ordersubscriptionpaymentreceived
     - ordersubscriptionpaymentbookkeeping
     - ordersubscriptionpaymentspend
+    - ordersubscriptionpaymentstock
+    - ordersubscriptionpaymentachievement
+    - ordersubscriptionpaymentcommission
+    - ordersubscriptionpaymentunlockaccount
+    - ordersubscriptionpaymenttimeout
     - txqueue
     - txqueuecreated
     - txqueuetransferring

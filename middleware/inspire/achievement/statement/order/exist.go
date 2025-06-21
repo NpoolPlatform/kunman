@@ -23,7 +23,8 @@ func (h *Handler) ExistStatement(ctx context.Context) (exist bool, err error) {
 			return wlog.WrapError(err)
 		}
 		handler.queryJoin()
-		exist, err = handler.stmSelect.Exist(_ctx)
+		count, err := handler.stmSelect.Limit(1).Count(_ctx)
+		exist = count > 0
 		return wlog.WrapError(err)
 	})
 	if err != nil {
@@ -44,7 +45,8 @@ func (h *Handler) ExistStatementConds(ctx context.Context) (exist bool, err erro
 			return wlog.WrapError(err)
 		}
 		handler.queryJoin()
-		exist, err = handler.stmSelect.Exist(_ctx)
+		count, err := handler.stmSelect.Limit(1).Count(_ctx)
+		exist = count > 0
 		return wlog.WrapError(err)
 	})
 	if err != nil {
