@@ -240,9 +240,7 @@ message AdminCreateSubscriptionOrderRequest {
     string TargetAppID = 10;
     string TargetUserID = 20;
     string AppGoodID = 30;
-    string ParentOrderID = 40;
     uint32 LifeSeconds = 50;
-    basetypes.order.v1.OrderType OrderType = 60;
 }
 
 message AdminCreateSubscriptionOrderResponse {

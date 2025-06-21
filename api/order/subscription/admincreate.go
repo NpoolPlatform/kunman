@@ -3,7 +3,6 @@ package subscription
 import (
 	"context"
 
-	ordercommon "github.com/NpoolPlatform/kunman/api/order/order/common"
 	subscription1 "github.com/NpoolPlatform/kunman/gateway/order/subscription"
 	types "github.com/NpoolPlatform/kunman/message/basetypes/order/v1"
 	npool "github.com/NpoolPlatform/kunman/message/order/gateway/v1/subscription"
@@ -15,13 +14,6 @@ import (
 )
 
 func (s *Server) AdminCreateSubscriptionOrder(ctx context.Context, in *npool.AdminCreateSubscriptionOrderRequest) (*npool.AdminCreateSubscriptionOrderResponse, error) {
-	if err := ordercommon.ValidateAdminCreateOrderType(in.GetOrderType()); err != nil {
-		logger.Sugar().Errorw(
-			"AdminCreateSubscriptionOrder",
-			"In", in,
-		)
-		return &npool.AdminCreateSubscriptionOrderResponse{}, status.Error(codes.InvalidArgument, err.Error())
-	}
 	handler, err := subscription1.NewHandler(
 		ctx,
 		subscription1.WithAppID(&in.TargetAppID, true),

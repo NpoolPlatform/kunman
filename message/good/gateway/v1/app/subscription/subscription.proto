@@ -117,7 +117,6 @@ message UpdateAppSubscriptionRequest {
   string AppID = 30;
   string AppGoodID = 40;
 
-  optional basetypes.good.v1.GoodDurationType DurationDisplayType = 90;
   optional string Name = 100;
   optional string Banner = 120;
 
@@ -146,7 +145,6 @@ message AdminCreateAppSubscriptionRequest {
   string TargetAppID = 10;
   string GoodID = 20;
 
-  basetypes.good.v1.GoodDurationType DurationDisplayType = 70;
   string Name = 80;
   optional string Banner = 100;
 
@@ -162,7 +160,6 @@ message AdminUpdateAppSubscriptionRequest {
   string TargetAppID = 30;
   string AppGoodID = 40;
 
-  optional basetypes.good.v1.GoodDurationType DurationDisplayType = 90;
   optional string Name = 100;
   optional string Banner = 120;
 

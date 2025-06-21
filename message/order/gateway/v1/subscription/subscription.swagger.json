@@ -410,15 +410,9 @@
         "AppGoodID": {
           "type": "string"
         },
-        "ParentOrderID": {
-          "type": "string"
-        },
         "LifeSeconds": {
           "type": "integer",
           "format": "int64"
-        },
-        "OrderType": {
-          "$ref": "#/definitions/v1OrderType"
         }
       }
     },
