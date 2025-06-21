@@ -151,6 +151,8 @@ message CreateSubscriptionOrderRequest {
     repeated order.gateway.payment.v1.PaymentBalance Balances = 40;
     optional string PaymentTransferCoinTypeID = 50;
     optional string PaymentFiatID = 60;
+    optional string FiatPaymentRedirectURL = 61;
+    optional basetypes.order.v1.FiatPaymentChannel FiatPaymentChannel = 62;
     repeated string CouponIDs = 70;
     optional uint32 LifeSeconds = 80;
 }

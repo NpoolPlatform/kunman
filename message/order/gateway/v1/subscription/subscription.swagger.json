@@ -552,6 +552,12 @@
         "PaymentFiatID": {
           "type": "string"
         },
+        "FiatPaymentRedirectURL": {
+          "type": "string"
+        },
+        "FiatPaymentChannel": {
+          "$ref": "#/definitions/v1FiatPaymentChannel"
+        },
         "CouponIDs": {
           "type": "array",
           "items": {
@@ -865,6 +871,10 @@
         },
         "PaymentChannel": {
           "$ref": "#/definitions/v1FiatPaymentChannel"
+        },
+        "RedirectURL": {
+          "type": "string",
+          "title": "For payment channel like paypal"
         },
         "Amount": {
           "type": "string"
