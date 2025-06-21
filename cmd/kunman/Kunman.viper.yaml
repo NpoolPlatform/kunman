@@ -128,6 +128,8 @@ config:
     - orderfeeexpirycheck
     - orderfeeexpirypreexpired
     - orderfeeexpiryrestorestock
+    - ordersubscription
+    - ordersubscriptioncreated
     - txqueue
     - txqueuecreated
     - txqueuetransferring
