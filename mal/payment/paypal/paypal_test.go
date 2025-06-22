@@ -380,8 +380,30 @@ func createPayment(t *testing.T) {
 		WithCancelURL("http://localhost/cancel"),
 	)
 	if assert.Nil(t, err) {
-		_, err = cli.CreatePayment(context.Background())
+		resp, err := cli.CreatePayment(context.Background())
 		assert.Nil(t, err)
+
+		subscriptionOrder.PaymentFiats[0].ChannelPaymentID = resp.ID
+		fmt.Printf("\n\n\nAccess %v in browser to confirm payment\n\n\n", resp.ApproveLink())
+	}
+}
+
+func waitPayment(t *testing.T) {
+	for {
+		time.Sleep(10 * time.Second)
+		cli, err := NewPaymentClient(
+			context.Background(),
+			WithOrderID(subscriptionOrder.OrderID),
+			WithPaypalPaymentID(subscriptionOrder.PaymentFiats[0].ChannelPaymentID),
+		)
+		if assert.Nil(t, err) {
+			resp, err := cli.GetPayment(context.Background())
+			assert.Nil(t, err)
+
+			if resp.Approved() {
+				break
+			}
+		}
 	}
 }
 
@@ -403,4 +425,5 @@ func TestPaypal(t *testing.T) {
 	defer teardown(t)
 
 	t.Run("createPayment", createPayment)
+	t.Run("waitPayment", waitPayment)
 }

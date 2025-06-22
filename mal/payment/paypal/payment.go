@@ -63,6 +63,15 @@ type CreatePaymentResponse struct {
 	} `json:"payer"`
 }
 
+func (r *CreatePaymentResponse) ApproveLink() string {
+	for _, link := range r.Links {
+		if link.Rel == "approve" {
+			return link.Href
+		}
+	}
+	return ""
+}
+
 type ErrorResponse struct {
 	Name    string `json:"name"`
 	Message string `json:"message"`
@@ -70,6 +79,21 @@ type ErrorResponse struct {
 		Field string `json:"field"`
 		Issue string `json:"issue"`
 	} `json:"details"`
+}
+
+type PaypalPayment struct {
+	Id            string `json:"id"`
+	Status        string `json:"status"`
+	PurchaseUnits []struct {
+		Amount struct {
+			Total    string `json:"total"`
+			Currency string `json:"currency_code"`
+		} `json:"amount"`
+	} `json:"purchase_units"`
+}
+
+func (p *PaypalPayment) Approved() bool {
+	return p.Status == "APPROVED"
 }
 
 func (cli *PaymentClient) CreatePayment(ctx context.Context) (*CreatePaymentResponse, error) {
@@ -134,6 +158,34 @@ func (cli *PaymentClient) CreatePayment(ctx context.Context) (*CreatePaymentResp
 	return &paymentResponse, nil
 }
 
-func (cli *PaymentClient) CaptureOrder(ctx context.Context) error {
+func (cli *PaymentClient) GetPayment(ctx context.Context) (*PaypalPayment, error) {
+	accessToken, err := cli.GetAccessToken(ctx)
+	if err != nil {
+		return nil, wlog.WrapError(err)
+	}
+
+	client := resty.New()
+	defer client.Close()
+
+	var paymentResponse PaypalPayment
+	resp, err := client.
+		SetBaseURL(cli.config.BaseURL()).
+		R().
+		SetHeader("Authorization", "Bearer "+accessToken).
+		SetHeader("Content-Type", "application/json").
+		SetResult(&paymentResponse).
+		Get("/v2/checkout/orders/" + cli.PaypalPaymentID)
+	if err != nil {
+		return nil, wlog.WrapError(err)
+	}
+
+	if resp.StatusCode() != 200 {
+		return nil, wlog.Errorf("%v: %v", resp.StatusCode(), resp.String())
+	}
+
+	return &paymentResponse, nil
+}
+
+func (cli *PaymentClient) CapturePayment(ctx context.Context) error {
 	return nil
 }

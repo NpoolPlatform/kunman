@@ -72,7 +72,7 @@ func (h *orderHandler) FiatPaymentCurrency() string {
 func (h *orderHandler) FiatPaymentAmount() (string, error) {
 	amount, err := decimal.NewFromString(h.subscriptionOrder.PaymentFiats[0].Amount)
 	if err != nil {
-		return wlog.WrapError(err)
+		return "", wlog.WrapError(err)
 	}
 
 	return amount.Round(2).String(), nil

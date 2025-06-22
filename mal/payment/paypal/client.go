@@ -16,6 +16,8 @@ type PaymentClient struct {
 	CancelURL string
 
 	orderHandler *orderHandler
+
+	PaypalPaymentID string
 }
 
 func NewPaymentClient(ctx context.Context, options ...func(context.Context, *PaymentClient) error) (cli *PaymentClient, err error) {
@@ -64,6 +66,16 @@ func WithCancelURL(url string) func(context.Context, *PaymentClient) error {
 			return wlog.Errorf("invalid cancel url")
 		}
 		h.CancelURL = url
+		return nil
+	}
+}
+
+func WithPaypalPaymentID(s string) func(context.Context, *PaymentClient) error {
+	return func(ctx context.Context, h *PaymentClient) error {
+		if s == "" {
+			return wlog.Errorf("invalid paymentid")
+		}
+		h.PaypalPaymentID = s
 		return nil
 	}
 }

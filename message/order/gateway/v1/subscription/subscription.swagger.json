@@ -552,7 +552,10 @@
         "PaymentFiatID": {
           "type": "string"
         },
-        "FiatPaymentRedirectURL": {
+        "FiatPaymentReturnURL": {
+          "type": "string"
+        },
+        "FiatPaymentCancelURL": {
           "type": "string"
         },
         "FiatPaymentChannel": {
@@ -873,7 +876,7 @@
         "PaymentChannel": {
           "$ref": "#/definitions/v1FiatPaymentChannel"
         },
-        "RedirectURL": {
+        "PaymentApproveURL": {
           "type": "string",
           "title": "For payment channel like paypal"
         },
