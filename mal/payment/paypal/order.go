@@ -25,7 +25,7 @@ func (cli *PaymentClient) GetOrder(ctx context.Context) error {
 
 	_orderHandler, err := subscriptionordermw.NewHandler(
 		ctx,
-		subscriptionordermw.WithOrderID(&cli.OrderID, true),
+		subscriptionordermw.WithOrderID(cli.OrderID, true),
 	)
 	if err != nil {
 		return wlog.WrapError(err)

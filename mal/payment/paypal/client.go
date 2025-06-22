@@ -11,13 +11,18 @@ import (
 type PaymentClient struct {
 	config *Config
 
-	OrderID   string
+	OrderID   *string
 	ReturnURL string
 	CancelURL string
 
-	orderHandler *orderHandler
+	orderHandler   *orderHandler
+	appGoodHandler *appGoodHandler
 
+	// For single payment
 	PaypalPaymentID string
+
+	// For subscription plan
+	AppGoodID *string
 }
 
 func NewPaymentClient(ctx context.Context, options ...func(context.Context, *PaymentClient) error) (cli *PaymentClient, err error) {
@@ -33,8 +38,15 @@ func NewPaymentClient(ctx context.Context, options ...func(context.Context, *Pay
 		return nil, wlog.WrapError(err)
 	}
 
-	if err := cli.GetOrder(ctx); err != nil {
-		return nil, wlog.WrapError(err)
+	if cli.OrderID != nil {
+		if err := cli.GetOrder(ctx); err != nil {
+			return nil, wlog.WrapError(err)
+		}
+	}
+	if cli.AppGoodID != nil {
+		if err := cli.GetAppGood(ctx); err != nil {
+			return nil, wlog.WrapError(err)
+		}
 	}
 
 	return cli, nil
@@ -45,7 +57,17 @@ func WithOrderID(orderID string) func(context.Context, *PaymentClient) error {
 		if _, err := uuid.Parse(orderID); err != nil {
 			return wlog.WrapError(err)
 		}
-		h.OrderID = orderID
+		h.OrderID = &orderID
+		return nil
+	}
+}
+
+func WithAppGoodID(appGoodID string) func(context.Context, *PaymentClient) error {
+	return func(ctx context.Context, h *PaymentClient) error {
+		if _, err := uuid.Parse(appGoodID); err != nil {
+			return wlog.WrapError(err)
+		}
+		h.AppGoodID = &appGoodID
 		return nil
 	}
 }
