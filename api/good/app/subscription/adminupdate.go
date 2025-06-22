@@ -24,7 +24,6 @@ func (s *Server) AdminUpdateAppSubscription(ctx context.Context, in *npool.Admin
 		subscription1.WithBanner(in.Banner, false),
 
 		subscription1.WithEnableSetCommission(in.EnableSetCommission, false),
-		subscription1.WithUSDPrice(in.USDPrice, false),
 	)
 	if err != nil {
 		logger.Sugar().Errorw(

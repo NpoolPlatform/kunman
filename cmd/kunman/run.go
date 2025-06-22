@@ -8,6 +8,7 @@ import (
 	"github.com/NpoolPlatform/kunman/framework/action"
 	"github.com/NpoolPlatform/kunman/framework/logger"
 	"github.com/NpoolPlatform/kunman/framework/wlog"
+	"github.com/NpoolPlatform/kunman/gateway/webhook"
 	basalapi "github.com/NpoolPlatform/kunman/mal/basal/api"
 	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
 	cli "github.com/urfave/cli/v2"
@@ -51,7 +52,10 @@ func shutdown(ctx context.Context) {
 
 func watch(ctx context.Context, cancel context.CancelFunc) error {
 	go shutdown(ctx)
+
 	scheduler.Initialize(ctx, cancel)
+	webhook.Initialize()
+
 	return nil
 }
 
