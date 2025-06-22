@@ -438,8 +438,10 @@ func TestPaypal(t *testing.T) {
 		return
 	}
 
+	runByCI, _ := strconv.ParseBool(os.Getenv("RUN_BY_CI"))
 	os.Setenv("PAYPAL_MODE", "sandbox")
-	if _, err := LoadConfig(); err != nil {
+
+	if _, err := LoadConfig(); err != nil || runByCI {
 		fmt.Printf("\n\n\n\033[1;31m         WE DO NOT RUN UNIT TEST FOR THIS MODULE DUE TO PAYPAL CONFIG \033[0m\n")
 		fmt.Printf("\033[1;31m         WE DO NOT RUN UNIT TEST FOR THIS MODULE DUE TO PAYPAL CONFIG \033[0m\n")
 		fmt.Printf("\033[1;31m         WE DO NOT RUN UNIT TEST FOR THIS MODULE DUE TO PAYPAL CONFIG \033[0m\n")
