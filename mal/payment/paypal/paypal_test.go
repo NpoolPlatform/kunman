@@ -484,7 +484,9 @@ func waitSubscriptionApproved(t *testing.T) {
 			resp, err := cli.GetSubscription(context.Background())
 			assert.Nil(t, err)
 
-			fmt.Println(resp.ID, resp.Status)
+			if resp.Active() {
+				break
+			}
 		}
 	}
 }
@@ -498,7 +500,7 @@ func getSubscription(t *testing.T) {
 		resp, err := cli.GetSubscription(context.Background())
 		assert.Nil(t, err)
 
-		fmt.Println(resp)
+		fmt.Println(resp.ID, resp.BillingInfo.LastPayment.Time, resp.BillingInfo.LastPayment.Amount.String())
 	}
 }
 
@@ -521,10 +523,10 @@ func TestPaypal(t *testing.T) {
 	teardown := setup(t)
 	defer teardown(t)
 
-	// t.Run("createPayment", createPayment)
-	// t.Run("waitPaymentApproved", waitPaymentApproved)
-	// t.Run("capturePayment", capturePayment)
-	// t.Run("getPayment", getPayment)
+	t.Run("createPayment", createPayment)
+	t.Run("waitPaymentApproved", waitPaymentApproved)
+	t.Run("capturePayment", capturePayment)
+	t.Run("getPayment", getPayment)
 
 	t.Run("createPlan", createPlan)
 	t.Run("createSubscription", createSubscription)

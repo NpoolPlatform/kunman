@@ -9,6 +9,10 @@ type Amount struct {
 	Value        string `json:"value"`
 }
 
+func (a *Amount) String() string {
+	return fmt.Sprintf("%v %v", a.Value, a.CurrencyCode)
+}
+
 type Item struct {
 	Name       string `json:"name"`
 	Quantity   string `json:"quantity"`
@@ -191,6 +195,8 @@ type Subscriber struct {
 	EmailAddress    string           `json:"email_address"`
 	Phone           Phone            `json:"phone,omitempty"`
 	ShippingAddress *ShippingAddress `json:"shipping_address,omitempty"`
+	PayerID         *string          `json:"payer_id,omitempty"`
+	Tenant          *string          `json:"tenant,omitempty"`
 }
 
 type CreateSubscriptionRequest struct {
@@ -220,23 +226,6 @@ func (r *CreateSubscriptionResponse) ApproveLink() string {
 	return ""
 }
 
-type PlanDetails struct {
-	ID                 string         `json:"id"`
-	Name               string         `json:"name"`
-	Description        string         `json:"description,omitempty"`
-	Status             string         `json:"status"`
-	CreateTime         string         `json:"create_time"`
-	UpdateTime         string         `json:"update_time,omitempty"`
-	ProductID          string         `json:"product_id"`
-	BillingCycles      []BillingCycle `json:"billing_cycles"`
-	PaymentPreferences PaymentPref    `json:"payment_preferences"`
-	Taxes              TaxInfo        `json:"taxes"`
-	Links              []Link         `json:"links"`
-	QuantitySupported  bool           `json:"quantity_supported,omitempty"`
-	CustomizedPlan     interface{}    `json:"customized_plan,omitempty"`
-	PricingScheme      PricingScheme  `json:"pricing_scheme,omitempty"`
-}
-
 type BillingInfo struct {
 	LastPayment           LastPayment      `json:"last_payment"`
 	NextBillingTime       string           `json:"next_billing_time"`
@@ -261,61 +250,22 @@ type CycleExecution struct {
 	CurrentPeriodEnd     string `json:"current_period_end"`
 }
 
-type PaymentSource struct {
-	Card   Card          `json:"card,omitempty"`
-	PayPal PayPalAccount `json:"paypal,omitempty"`
-}
-
-type Card struct {
-	Brand       string `json:"brand"`
-	Last4       string `json:"last4"`
-	ExpiryMonth string `json:"expiry_month"`
-	ExpiryYear  string `json:"expiry_year"`
-	Name        string `json:"name,omitempty"`
-}
-
-type PayPalAccount struct {
-	EmailAddress string `json:"email_address"`
-}
-
-type SellerProtection struct {
-	Status            string   `json:"status"`
-	DisputeCategories []string `json:"dispute_categories"`
-}
-
-type SubscriptionMetadata struct {
-	CreatedAt string `json:"created_at"`
-	UpdatedAt string `json:"updated_at"`
-}
-
 type PaypalSubscription struct {
-	ID                    string               `json:"id"`
-	Status                string               `json:"status"`
-	StatusUpdateTime      string               `json:"status_update_time"`
-	Plan                  PlanDetails          `json:"plan"`
-	StartTime             string               `json:"start_time"`
-	CreateTime            string               `json:"create_time"`
-	UpdateTime            string               `json:"update_time"`
-	Quantity              string               `json:"quantity"`
-	ShippingAmount        Amount               `json:"shipping_amount,omitempty"`
-	Subscriber            Subscriber           `json:"subscriber"`
-	BillingInfo           BillingInfo          `json:"billing_info"`
-	Links                 []Link               `json:"links"`
-	CustomID              string               `json:"custom_id,omitempty"`
-	ApplicationContext    ApplicationContext   `json:"application_context,omitempty"`
-	Taxes                 TaxInfo              `json:"taxes,omitempty"`
-	ShippingAddress       ShippingAddress      `json:"shipping_address,omitempty"`
-	BillingCycle          BillingCycle         `json:"billing_cycle,omitempty"`
-	PaymentPreferences    PaymentPref          `json:"payment_preferences,omitempty"`
-	PricingScheme         PricingScheme        `json:"pricing_scheme,omitempty"`
-	PaymentSource         PaymentSource        `json:"payment_source,omitempty"`
-	LastPayment           LastPayment          `json:"last_payment,omitempty"`
-	NextBillingTime       string               `json:"next_billing_time,omitempty"`
-	OutstandingBalance    Amount               `json:"outstanding_balance,omitempty"`
-	FailedPaymentAttempts int                  `json:"failed_payment_attempts,omitempty"`
-	AutoRenewal           bool                 `json:"auto_renewal,omitempty"`
-	CustomizedPlan        interface{}          `json:"customized_plan,omitempty"`
-	SellerProtection      SellerProtection     `json:"seller_protection,omitempty"`
-	Dispute               interface{}          `json:"dispute,omitempty"`
-	Metadata              SubscriptionMetadata `json:"metadata,omitempty"`
+	ID               string      `json:"id"`
+	Status           string      `json:"status"`
+	StatusUpdateTime string      `json:"status_update_time"`
+	PlanID           string      `json:"plan_id"`
+	StartTime        string      `json:"start_time"`
+	Quantity         string      `json:"quantity"`
+	ShippingAmount   Amount      `json:"shipping_amount,omitempty"`
+	Subscriber       Subscriber  `json:"subscriber"`
+	BillingInfo      BillingInfo `json:"billing_info"`
+	CreateTime       string      `json:"create_time"`
+	UpdateTime       string      `json:"update_time"`
+	PlanOverridden   bool        `json:"plan_overridden"`
+	Links            []Link      `json:"links"`
+}
+
+func (p *PaypalSubscription) Active() bool {
+	return p.Status == "ACTIVE"
 }
