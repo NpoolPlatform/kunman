@@ -26,6 +26,9 @@ message SubscriptionReq {
     optional string PriceFiatID = 130;
     optional string FiatPrice = 140;
     optional string TrialFiatPrice = 150;
+
+    // Success create plan
+    optional string PlanID = 160;
 }
 
 message Subscription {

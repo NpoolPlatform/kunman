@@ -120,6 +120,20 @@ func (auc *AppUserCreate) SetNillablePhoneNo(s *string) *AppUserCreate {
 	return auc
 }
 
+// SetCountryCode sets the "country_code" field.
+func (auc *AppUserCreate) SetCountryCode(s string) *AppUserCreate {
+	auc.mutation.SetCountryCode(s)
+	return auc
+}
+
+// SetNillableCountryCode sets the "country_code" field if the given value is not nil.
+func (auc *AppUserCreate) SetNillableCountryCode(s *string) *AppUserCreate {
+	if s != nil {
+		auc.SetCountryCode(*s)
+	}
+	return auc
+}
+
 // SetImportFromApp sets the "import_from_app" field.
 func (auc *AppUserCreate) SetImportFromApp(u uuid.UUID) *AppUserCreate {
 	auc.mutation.SetImportFromApp(u)
@@ -203,6 +217,10 @@ func (auc *AppUserCreate) defaults() {
 		v := appuser.DefaultPhoneNo
 		auc.mutation.SetPhoneNo(v)
 	}
+	if _, ok := auc.mutation.CountryCode(); !ok {
+		v := appuser.DefaultCountryCode
+		auc.mutation.SetCountryCode(v)
+	}
 	if _, ok := auc.mutation.ImportFromApp(); !ok {
 		v := appuser.DefaultImportFromApp()
 		auc.mutation.SetImportFromApp(v)
@@ -283,6 +301,10 @@ func (auc *AppUserCreate) createSpec() (*AppUser, *sqlgraph.CreateSpec) {
 	if value, ok := auc.mutation.PhoneNo(); ok {
 		_spec.SetField(appuser.FieldPhoneNo, field.TypeString, value)
 		_node.PhoneNo = value
+	}
+	if value, ok := auc.mutation.CountryCode(); ok {
+		_spec.SetField(appuser.FieldCountryCode, field.TypeString, value)
+		_node.CountryCode = value
 	}
 	if value, ok := auc.mutation.ImportFromApp(); ok {
 		_spec.SetField(appuser.FieldImportFromApp, field.TypeUUID, value)
@@ -457,6 +479,24 @@ func (u *AppUserUpsert) UpdatePhoneNo() *AppUserUpsert {
 // ClearPhoneNo clears the value of the "phone_no" field.
 func (u *AppUserUpsert) ClearPhoneNo() *AppUserUpsert {
 	u.SetNull(appuser.FieldPhoneNo)
+	return u
+}
+
+// SetCountryCode sets the "country_code" field.
+func (u *AppUserUpsert) SetCountryCode(v string) *AppUserUpsert {
+	u.Set(appuser.FieldCountryCode, v)
+	return u
+}
+
+// UpdateCountryCode sets the "country_code" field to the value that was provided on create.
+func (u *AppUserUpsert) UpdateCountryCode() *AppUserUpsert {
+	u.SetExcluded(appuser.FieldCountryCode)
+	return u
+}
+
+// ClearCountryCode clears the value of the "country_code" field.
+func (u *AppUserUpsert) ClearCountryCode() *AppUserUpsert {
+	u.SetNull(appuser.FieldCountryCode)
 	return u
 }
 
@@ -663,6 +703,27 @@ func (u *AppUserUpsertOne) UpdatePhoneNo() *AppUserUpsertOne {
 func (u *AppUserUpsertOne) ClearPhoneNo() *AppUserUpsertOne {
 	return u.Update(func(s *AppUserUpsert) {
 		s.ClearPhoneNo()
+	})
+}
+
+// SetCountryCode sets the "country_code" field.
+func (u *AppUserUpsertOne) SetCountryCode(v string) *AppUserUpsertOne {
+	return u.Update(func(s *AppUserUpsert) {
+		s.SetCountryCode(v)
+	})
+}
+
+// UpdateCountryCode sets the "country_code" field to the value that was provided on create.
+func (u *AppUserUpsertOne) UpdateCountryCode() *AppUserUpsertOne {
+	return u.Update(func(s *AppUserUpsert) {
+		s.UpdateCountryCode()
+	})
+}
+
+// ClearCountryCode clears the value of the "country_code" field.
+func (u *AppUserUpsertOne) ClearCountryCode() *AppUserUpsertOne {
+	return u.Update(func(s *AppUserUpsert) {
+		s.ClearCountryCode()
 	})
 }
 
@@ -1038,6 +1099,27 @@ func (u *AppUserUpsertBulk) UpdatePhoneNo() *AppUserUpsertBulk {
 func (u *AppUserUpsertBulk) ClearPhoneNo() *AppUserUpsertBulk {
 	return u.Update(func(s *AppUserUpsert) {
 		s.ClearPhoneNo()
+	})
+}
+
+// SetCountryCode sets the "country_code" field.
+func (u *AppUserUpsertBulk) SetCountryCode(v string) *AppUserUpsertBulk {
+	return u.Update(func(s *AppUserUpsert) {
+		s.SetCountryCode(v)
+	})
+}
+
+// UpdateCountryCode sets the "country_code" field to the value that was provided on create.
+func (u *AppUserUpsertBulk) UpdateCountryCode() *AppUserUpsertBulk {
+	return u.Update(func(s *AppUserUpsert) {
+		s.UpdateCountryCode()
+	})
+}
+
+// ClearCountryCode clears the value of the "country_code" field.
+func (u *AppUserUpsertBulk) ClearCountryCode() *AppUserUpsertBulk {
+	return u.Update(func(s *AppUserUpsert) {
+		s.ClearCountryCode()
 	})
 }
 

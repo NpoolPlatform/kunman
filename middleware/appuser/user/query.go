@@ -80,6 +80,7 @@ func (h *queryHandler) queryJoinMyself(s *sql.Selector) {
 			t.C(entappuser.FieldAppID),
 			t.C(entappuser.FieldEmailAddress),
 			t.C(entappuser.FieldPhoneNo),
+			t.C(entappuser.FieldCountryCode),
 			t.C(entappuser.FieldImportFromApp),
 			t.C(entappuser.FieldCreatedAt),
 		)

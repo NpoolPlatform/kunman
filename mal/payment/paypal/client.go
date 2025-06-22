@@ -23,6 +23,11 @@ type PaymentClient struct {
 
 	// For subscription plan
 	AppGoodID *string
+
+	// For created subscription
+	PaypalPlanID string
+
+	PaypalSubscriptionID string
 }
 
 func NewPaymentClient(ctx context.Context, options ...func(context.Context, *PaymentClient) error) (cli *PaymentClient, err error) {
@@ -98,6 +103,26 @@ func WithPaypalPaymentID(s string) func(context.Context, *PaymentClient) error {
 			return wlog.Errorf("invalid paymentid")
 		}
 		h.PaypalPaymentID = s
+		return nil
+	}
+}
+
+func WithPaypalPlanID(s string) func(context.Context, *PaymentClient) error {
+	return func(ctx context.Context, h *PaymentClient) error {
+		if s == "" {
+			return wlog.Errorf("invalid planid")
+		}
+		h.PaypalPlanID = s
+		return nil
+	}
+}
+
+func WithPaypalSubscriptionID(s string) func(context.Context, *PaymentClient) error {
+	return func(ctx context.Context, h *PaymentClient) error {
+		if s == "" {
+			return wlog.Errorf("invalid subscriptionid")
+		}
+		h.PaypalSubscriptionID = s
 		return nil
 	}
 }

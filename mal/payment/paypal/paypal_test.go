@@ -93,6 +93,9 @@ var subscriptionOrder = npool.SubscriptionOrder{
 	PaymentType:  types.PaymentType_PayWithFiatAndBalance,
 }
 
+var paypalPlanID = ""
+var paypalSubscriptionID = ""
+
 func setup(t *testing.T) func(*testing.T) {
 	durationUnits := uint32(1)
 	durationQuota := uint32(2000)
@@ -116,6 +119,8 @@ func setup(t *testing.T) func(*testing.T) {
 	assert.Nil(t, err)
 
 	appSubscriptionEntID := uuid.NewString()
+	productID := "PROD-8VL330703E147442N"
+
 	h2, err := appsubscription1.NewHandler(
 		context.Background(),
 		appsubscription1.WithEntID(&appSubscriptionEntID, true),
@@ -124,6 +129,7 @@ func setup(t *testing.T) func(*testing.T) {
 		appsubscription1.WithAppGoodID(&subscriptionOrder.AppGoodID, true),
 		appsubscription1.WithName(&goodName, true),
 		appsubscription1.WithUSDPrice(&subscriptionOrder.GoodValueUSD, true),
+		appsubscription1.WithProductID(&productID, true),
 	)
 	assert.Nil(t, err)
 
@@ -140,13 +146,15 @@ func setup(t *testing.T) func(*testing.T) {
 	_, err = h3.CreateApp(context.Background())
 	assert.Nil(t, err)
 
-	phoneNO := fmt.Sprintf("+86%v", rand.Intn(100000000)+rand.Intn(1000000))
+	countryCode := "+86"
+	phoneNO := fmt.Sprintf("+86%v", 13900000000+rand.Intn(1000000))
 	emailAddress := fmt.Sprintf("%v@hhh.ccc", rand.Intn(100000000)+rand.Intn(4000000))
 
 	h4, err := usermw.NewHandler(
 		context.Background(),
 		usermw.WithEntID(&subscriptionOrder.UserID, true),
 		usermw.WithAppID(&subscriptionOrder.AppID, true),
+		usermw.WithCountryCode(&countryCode, true),
 		usermw.WithPhoneNO(&phoneNO, true),
 		usermw.WithEmailAddress(&emailAddress, true),
 		usermw.WithPasswordHash(&subscriptionOrder.AppID, true),
@@ -384,6 +392,7 @@ func createPayment(t *testing.T) {
 		assert.Nil(t, err)
 
 		subscriptionOrder.PaymentFiats[0].ChannelPaymentID = resp.ID
+		// TODO: update channel payment id
 		fmt.Printf("\n\n\nAccess %v in browser to confirm payment\n\n\n", resp.ApproveLink())
 	}
 }
@@ -433,6 +442,66 @@ func getPayment(t *testing.T) {
 	}
 }
 
+func createPlan(t *testing.T) {
+	cli, err := NewPaymentClient(
+		context.Background(),
+		WithAppGoodID(subscriptionOrder.AppGoodID),
+	)
+	if assert.Nil(t, err) {
+		resp, err := cli.CreatePlan(context.Background())
+		assert.Nil(t, err)
+
+		paypalPlanID = resp.ID
+	}
+}
+
+func createSubscription(t *testing.T) {
+	cli, err := NewPaymentClient(
+		context.Background(),
+		WithOrderID(subscriptionOrder.OrderID),
+		WithAppGoodID(subscriptionOrder.AppGoodID),
+		WithPaypalPlanID(paypalPlanID),
+		WithReturnURL("http://localhost/callback"),
+		WithCancelURL("http://localhost/cancel"),
+	)
+	if assert.Nil(t, err) {
+		resp, err := cli.CreateSubscription(context.Background())
+		assert.Nil(t, err)
+
+		fmt.Printf("\n\n\nAccess %v in browser to confirm subscription\n\n\n", resp.ApproveLink())
+		paypalSubscriptionID = resp.ID
+	}
+}
+
+func waitSubscriptionApproved(t *testing.T) {
+	for {
+		time.Sleep(10 * time.Second)
+		cli, err := NewPaymentClient(
+			context.Background(),
+			WithPaypalSubscriptionID(paypalSubscriptionID),
+		)
+		if assert.Nil(t, err) {
+			resp, err := cli.GetSubscription(context.Background())
+			assert.Nil(t, err)
+
+			fmt.Println(resp.ID, resp.Status)
+		}
+	}
+}
+
+func getSubscription(t *testing.T) {
+	cli, err := NewPaymentClient(
+		context.Background(),
+		WithPaypalSubscriptionID(paypalSubscriptionID),
+	)
+	if assert.Nil(t, err) {
+		resp, err := cli.GetSubscription(context.Background())
+		assert.Nil(t, err)
+
+		fmt.Println(resp)
+	}
+}
+
 func TestPaypal(t *testing.T) {
 	if runByGithubAction, err := strconv.ParseBool(os.Getenv("RUN_BY_GITHUB_ACTION")); err == nil && runByGithubAction {
 		return
@@ -452,8 +521,13 @@ func TestPaypal(t *testing.T) {
 	teardown := setup(t)
 	defer teardown(t)
 
-	t.Run("createPayment", createPayment)
-	t.Run("waitPaymentApproved", waitPaymentApproved)
-	t.Run("capturePayment", capturePayment)
-	t.Run("getPayment", getPayment)
+	// t.Run("createPayment", createPayment)
+	// t.Run("waitPaymentApproved", waitPaymentApproved)
+	// t.Run("capturePayment", capturePayment)
+	// t.Run("getPayment", getPayment)
+
+	t.Run("createPlan", createPlan)
+	t.Run("createSubscription", createSubscription)
+	t.Run("waitSubscriptionApproved", waitSubscriptionApproved)
+	t.Run("getSubscription", getSubscription)
 }

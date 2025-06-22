@@ -26,6 +26,8 @@ const (
 	FieldEmailAddress = "email_address"
 	// FieldPhoneNo holds the string denoting the phone_no field in the database.
 	FieldPhoneNo = "phone_no"
+	// FieldCountryCode holds the string denoting the country_code field in the database.
+	FieldCountryCode = "country_code"
 	// FieldImportFromApp holds the string denoting the import_from_app field in the database.
 	FieldImportFromApp = "import_from_app"
 	// Table holds the table name of the appuser in the database.
@@ -42,6 +44,7 @@ var Columns = []string{
 	FieldAppID,
 	FieldEmailAddress,
 	FieldPhoneNo,
+	FieldCountryCode,
 	FieldImportFromApp,
 }
 
@@ -72,6 +75,8 @@ var (
 	DefaultEmailAddress string
 	// DefaultPhoneNo holds the default value on creation for the "phone_no" field.
 	DefaultPhoneNo string
+	// DefaultCountryCode holds the default value on creation for the "country_code" field.
+	DefaultCountryCode string
 	// DefaultImportFromApp holds the default value on creation for the "import_from_app" field.
 	DefaultImportFromApp func() uuid.UUID
 )
@@ -117,6 +122,11 @@ func ByEmailAddress(opts ...sql.OrderTermOption) OrderOption {
 // ByPhoneNo orders the results by the phone_no field.
 func ByPhoneNo(opts ...sql.OrderTermOption) OrderOption {
 	return sql.OrderByField(FieldPhoneNo, opts...).ToFunc()
+}
+
+// ByCountryCode orders the results by the country_code field.
+func ByCountryCode(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldCountryCode, opts...).ToFunc()
 }
 
 // ByImportFromApp orders the results by the import_from_app field.

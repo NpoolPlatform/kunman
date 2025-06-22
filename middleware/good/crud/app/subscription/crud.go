@@ -14,6 +14,8 @@ type Req struct {
 	EntID     *uuid.UUID
 	AppGoodID *uuid.UUID
 	USDPrice  *decimal.Decimal
+	ProductID *string
+	PlanID    *string
 	DeletedAt *uint32
 }
 
@@ -27,12 +29,21 @@ func CreateSet(c *ent.AppSubscriptionCreate, req *Req) *ent.AppSubscriptionCreat
 	if req.USDPrice != nil {
 		c.SetUsdPrice(*req.USDPrice)
 	}
+	if req.ProductID != nil {
+		c.SetProductID(*req.ProductID)
+	}
+	if req.PlanID != nil {
+		c.SetPlanID(*req.PlanID)
+	}
 	return c
 }
 
 func UpdateSet(u *ent.AppSubscriptionUpdateOne, req *Req) *ent.AppSubscriptionUpdateOne {
 	if req.USDPrice != nil {
 		u.SetUsdPrice(*req.USDPrice)
+	}
+	if req.PlanID != nil {
+		u.SetPlanID(*req.PlanID)
 	}
 	if req.DeletedAt != nil {
 		u.SetDeletedAt(*req.DeletedAt)

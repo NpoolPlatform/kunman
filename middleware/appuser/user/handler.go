@@ -24,6 +24,7 @@ type Handler struct {
 	EntID              *uuid.UUID
 	AppID              *uuid.UUID
 	PhoneNO            *string
+	CountryCode        *string
 	EmailAddress       *string
 	ImportFromAppID    *uuid.UUID
 	Username           *string
@@ -166,6 +167,19 @@ func WithPhoneNO(phoneNO *string, must bool) func(context.Context, *Handler) err
 		h.Account = phoneNO
 		h.AccountType = &accountType
 		h.PhoneNO = phoneNO
+		return nil
+	}
+}
+
+func WithCountryCode(s *string, must bool) func(context.Context, *Handler) error {
+	return func(ctx context.Context, h *Handler) error {
+		if s == nil {
+			if must {
+				return fmt.Errorf("invalid countrycode")
+			}
+			return nil
+		}
+		h.CountryCode = s
 		return nil
 	}
 }

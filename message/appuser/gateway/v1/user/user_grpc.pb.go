@@ -8,7 +8,6 @@ package user
 
 import (
 	context "context"
-
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -284,84 +283,66 @@ type GatewayServer interface {
 }
 
 // UnimplementedGatewayServer must be embedded to have forward compatible implementations.
-type UnimplementedGatewayServer struct{}
+type UnimplementedGatewayServer struct {
+}
 
 func (UnimplementedGatewayServer) Signup(context.Context, *SignupRequest) (*SignupResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Signup not implemented")
 }
-
 func (UnimplementedGatewayServer) CreateUser(context.Context, *CreateUserRequest) (*CreateUserResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateUser not implemented")
 }
-
 func (UnimplementedGatewayServer) DeleteUser(context.Context, *DeleteUserRequest) (*DeleteUserResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteUser not implemented")
 }
-
 func (UnimplementedGatewayServer) CreateAppUser(context.Context, *CreateAppUserRequest) (*CreateAppUserResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateAppUser not implemented")
 }
-
 func (UnimplementedGatewayServer) UpdateUser(context.Context, *UpdateUserRequest) (*UpdateUserResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateUser not implemented")
 }
-
 func (UnimplementedGatewayServer) UpdateUserKol(context.Context, *UpdateUserKolRequest) (*UpdateUserKolResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateUserKol not implemented")
 }
-
 func (UnimplementedGatewayServer) UpdateAppUser(context.Context, *UpdateAppUserRequest) (*UpdateAppUserResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateAppUser not implemented")
 }
-
 func (UnimplementedGatewayServer) PreResetUser(context.Context, *PreResetUserRequest) (*PreResetUserResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method PreResetUser not implemented")
 }
-
 func (UnimplementedGatewayServer) ResetUser(context.Context, *ResetUserRequest) (*ResetUserResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ResetUser not implemented")
 }
-
 func (UnimplementedGatewayServer) GetUsers(context.Context, *GetUsersRequest) (*GetUsersResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetUsers not implemented")
 }
-
 func (UnimplementedGatewayServer) GetAppUsers(context.Context, *GetAppUsersRequest) (*GetAppUsersResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetAppUsers not implemented")
 }
-
 func (UnimplementedGatewayServer) Login(context.Context, *LoginRequest) (*LoginResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Login not implemented")
 }
-
 func (UnimplementedGatewayServer) LoginVerify(context.Context, *LoginVerifyRequest) (*LoginVerifyResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method LoginVerify not implemented")
 }
-
 func (UnimplementedGatewayServer) Logined(context.Context, *LoginedRequest) (*LoginedResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Logined not implemented")
 }
-
 func (UnimplementedGatewayServer) Logout(context.Context, *LogoutRequest) (*LogoutResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Logout not implemented")
 }
-
 func (UnimplementedGatewayServer) GetLoginHistories(context.Context, *GetLoginHistoriesRequest) (*GetLoginHistoriesResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetLoginHistories not implemented")
 }
-
 func (UnimplementedGatewayServer) BanUser(context.Context, *BanUserRequest) (*BanUserResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method BanUser not implemented")
 }
-
 func (UnimplementedGatewayServer) BanAppUser(context.Context, *BanAppUserRequest) (*BanAppUserResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method BanAppUser not implemented")
 }
-
 func (UnimplementedGatewayServer) BindUser(context.Context, *BindUserRequest) (*BindUserResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method BindUser not implemented")
 }
-
 func (UnimplementedGatewayServer) UnbindOAuth(context.Context, *UnbindOAuthRequest) (*UnbindOAuthResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UnbindOAuth not implemented")
 }

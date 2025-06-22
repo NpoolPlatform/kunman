@@ -139,6 +139,46 @@ func (asu *AppSubscriptionUpdate) ClearUsdPrice() *AppSubscriptionUpdate {
 	return asu
 }
 
+// SetProductID sets the "product_id" field.
+func (asu *AppSubscriptionUpdate) SetProductID(s string) *AppSubscriptionUpdate {
+	asu.mutation.SetProductID(s)
+	return asu
+}
+
+// SetNillableProductID sets the "product_id" field if the given value is not nil.
+func (asu *AppSubscriptionUpdate) SetNillableProductID(s *string) *AppSubscriptionUpdate {
+	if s != nil {
+		asu.SetProductID(*s)
+	}
+	return asu
+}
+
+// ClearProductID clears the value of the "product_id" field.
+func (asu *AppSubscriptionUpdate) ClearProductID() *AppSubscriptionUpdate {
+	asu.mutation.ClearProductID()
+	return asu
+}
+
+// SetPlanID sets the "plan_id" field.
+func (asu *AppSubscriptionUpdate) SetPlanID(s string) *AppSubscriptionUpdate {
+	asu.mutation.SetPlanID(s)
+	return asu
+}
+
+// SetNillablePlanID sets the "plan_id" field if the given value is not nil.
+func (asu *AppSubscriptionUpdate) SetNillablePlanID(s *string) *AppSubscriptionUpdate {
+	if s != nil {
+		asu.SetPlanID(*s)
+	}
+	return asu
+}
+
+// ClearPlanID clears the value of the "plan_id" field.
+func (asu *AppSubscriptionUpdate) ClearPlanID() *AppSubscriptionUpdate {
+	asu.mutation.ClearPlanID()
+	return asu
+}
+
 // Mutation returns the AppSubscriptionMutation object of the builder.
 func (asu *AppSubscriptionUpdate) Mutation() *AppSubscriptionMutation {
 	return asu.mutation
@@ -227,6 +267,18 @@ func (asu *AppSubscriptionUpdate) sqlSave(ctx context.Context) (n int, err error
 	}
 	if asu.mutation.UsdPriceCleared() {
 		_spec.ClearField(appsubscription.FieldUsdPrice, field.TypeOther)
+	}
+	if value, ok := asu.mutation.ProductID(); ok {
+		_spec.SetField(appsubscription.FieldProductID, field.TypeString, value)
+	}
+	if asu.mutation.ProductIDCleared() {
+		_spec.ClearField(appsubscription.FieldProductID, field.TypeString)
+	}
+	if value, ok := asu.mutation.PlanID(); ok {
+		_spec.SetField(appsubscription.FieldPlanID, field.TypeString, value)
+	}
+	if asu.mutation.PlanIDCleared() {
+		_spec.ClearField(appsubscription.FieldPlanID, field.TypeString)
 	}
 	_spec.AddModifiers(asu.modifiers...)
 	if n, err = sqlgraph.UpdateNodes(ctx, asu.driver, _spec); err != nil {
@@ -359,6 +411,46 @@ func (asuo *AppSubscriptionUpdateOne) ClearUsdPrice() *AppSubscriptionUpdateOne 
 	return asuo
 }
 
+// SetProductID sets the "product_id" field.
+func (asuo *AppSubscriptionUpdateOne) SetProductID(s string) *AppSubscriptionUpdateOne {
+	asuo.mutation.SetProductID(s)
+	return asuo
+}
+
+// SetNillableProductID sets the "product_id" field if the given value is not nil.
+func (asuo *AppSubscriptionUpdateOne) SetNillableProductID(s *string) *AppSubscriptionUpdateOne {
+	if s != nil {
+		asuo.SetProductID(*s)
+	}
+	return asuo
+}
+
+// ClearProductID clears the value of the "product_id" field.
+func (asuo *AppSubscriptionUpdateOne) ClearProductID() *AppSubscriptionUpdateOne {
+	asuo.mutation.ClearProductID()
+	return asuo
+}
+
+// SetPlanID sets the "plan_id" field.
+func (asuo *AppSubscriptionUpdateOne) SetPlanID(s string) *AppSubscriptionUpdateOne {
+	asuo.mutation.SetPlanID(s)
+	return asuo
+}
+
+// SetNillablePlanID sets the "plan_id" field if the given value is not nil.
+func (asuo *AppSubscriptionUpdateOne) SetNillablePlanID(s *string) *AppSubscriptionUpdateOne {
+	if s != nil {
+		asuo.SetPlanID(*s)
+	}
+	return asuo
+}
+
+// ClearPlanID clears the value of the "plan_id" field.
+func (asuo *AppSubscriptionUpdateOne) ClearPlanID() *AppSubscriptionUpdateOne {
+	asuo.mutation.ClearPlanID()
+	return asuo
+}
+
 // Mutation returns the AppSubscriptionMutation object of the builder.
 func (asuo *AppSubscriptionUpdateOne) Mutation() *AppSubscriptionMutation {
 	return asuo.mutation
@@ -477,6 +569,18 @@ func (asuo *AppSubscriptionUpdateOne) sqlSave(ctx context.Context) (_node *AppSu
 	}
 	if asuo.mutation.UsdPriceCleared() {
 		_spec.ClearField(appsubscription.FieldUsdPrice, field.TypeOther)
+	}
+	if value, ok := asuo.mutation.ProductID(); ok {
+		_spec.SetField(appsubscription.FieldProductID, field.TypeString, value)
+	}
+	if asuo.mutation.ProductIDCleared() {
+		_spec.ClearField(appsubscription.FieldProductID, field.TypeString)
+	}
+	if value, ok := asuo.mutation.PlanID(); ok {
+		_spec.SetField(appsubscription.FieldPlanID, field.TypeString, value)
+	}
+	if asuo.mutation.PlanIDCleared() {
+		_spec.ClearField(appsubscription.FieldPlanID, field.TypeString)
 	}
 	_spec.AddModifiers(asuo.modifiers...)
 	_node = &AppSubscription{config: asuo.config}

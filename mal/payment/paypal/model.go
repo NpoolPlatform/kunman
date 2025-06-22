@@ -162,3 +162,160 @@ type CreatePlanResponse struct {
 	CustomID           string         `json:"custom_id,omitempty"`
 	MetaData           *PlanMetaData  `json:"metadata,omitempty"`
 }
+
+type Name struct {
+	GivenName string `json:"given_name"`
+	Surname   string `json:"surname"`
+}
+
+type PhoneNumber struct {
+	CountryCode    string `json:"country_code"`
+	NationalNumber string `json:"national_number"`
+}
+
+type Phone struct {
+	PhoneType   string      `json:"phone_type"`
+	PhoneNumber PhoneNumber `json:"phone_number"`
+}
+
+type ShippingAddress struct {
+	AddressLine1 string `json:"address_line_1"`
+	AdminArea2   string `json:"admin_area_2"`
+	AdminArea1   string `json:"admin_area_1"`
+	PostalCode   string `json:"postal_code"`
+	CountryCode  string `json:"country_code"`
+}
+
+type Subscriber struct {
+	Name            Name             `json:"name"`
+	EmailAddress    string           `json:"email_address"`
+	Phone           Phone            `json:"phone,omitempty"`
+	ShippingAddress *ShippingAddress `json:"shipping_address,omitempty"`
+}
+
+type CreateSubscriptionRequest struct {
+	PlanID             string             `json:"plan_id"`
+	StartTime          string             `json:"start_time,omitempty"`
+	Subscriber         Subscriber         `json:"subscriber"`
+	CustomID           string             `json:"custom_id,omitempty"`
+	ApplicationContext ApplicationContext `json:"application_context"`
+}
+
+type CreateSubscriptionResponse struct {
+	ID         string     `json:"id"`
+	Status     string     `json:"status"`
+	PlanID     string     `json:"plan_id"`
+	StartTime  string     `json:"start_time"`
+	CreateTime string     `json:"create_time"`
+	Links      []Link     `json:"links"`
+	Subscriber Subscriber `json:"subscriber"`
+}
+
+func (r *CreateSubscriptionResponse) ApproveLink() string {
+	for _, link := range r.Links {
+		if link.Rel == "approve" {
+			return link.Href
+		}
+	}
+	return ""
+}
+
+type PlanDetails struct {
+	ID                 string         `json:"id"`
+	Name               string         `json:"name"`
+	Description        string         `json:"description,omitempty"`
+	Status             string         `json:"status"`
+	CreateTime         string         `json:"create_time"`
+	UpdateTime         string         `json:"update_time,omitempty"`
+	ProductID          string         `json:"product_id"`
+	BillingCycles      []BillingCycle `json:"billing_cycles"`
+	PaymentPreferences PaymentPref    `json:"payment_preferences"`
+	Taxes              TaxInfo        `json:"taxes"`
+	Links              []Link         `json:"links"`
+	QuantitySupported  bool           `json:"quantity_supported,omitempty"`
+	CustomizedPlan     interface{}    `json:"customized_plan,omitempty"`
+	PricingScheme      PricingScheme  `json:"pricing_scheme,omitempty"`
+}
+
+type BillingInfo struct {
+	LastPayment           LastPayment      `json:"last_payment"`
+	NextBillingTime       string           `json:"next_billing_time"`
+	FinalBillingTime      string           `json:"final_billing_time,omitempty"`
+	OutstandingBalance    Amount           `json:"outstanding_balance,omitempty"`
+	CycleExecutions       []CycleExecution `json:"cycle_executions"`
+	FailedPaymentAttempts int              `json:"failed_payment_attempts"`
+}
+
+type LastPayment struct {
+	Time   string `json:"time"`
+	Amount Amount `json:"amount"`
+}
+
+type CycleExecution struct {
+	CycleType            string `json:"cycle_type"`
+	TenureType           string `json:"tenure_type"`
+	Sequence             int    `json:"sequence"`
+	TotalCyclesCompleted int    `json:"total_cycles_completed"`
+	TotalCyclesRemaining int    `json:"total_cycles_remaining"`
+	CurrentPeriodStart   string `json:"current_period_start"`
+	CurrentPeriodEnd     string `json:"current_period_end"`
+}
+
+type PaymentSource struct {
+	Card   Card          `json:"card,omitempty"`
+	PayPal PayPalAccount `json:"paypal,omitempty"`
+}
+
+type Card struct {
+	Brand       string `json:"brand"`
+	Last4       string `json:"last4"`
+	ExpiryMonth string `json:"expiry_month"`
+	ExpiryYear  string `json:"expiry_year"`
+	Name        string `json:"name,omitempty"`
+}
+
+type PayPalAccount struct {
+	EmailAddress string `json:"email_address"`
+}
+
+type SellerProtection struct {
+	Status            string   `json:"status"`
+	DisputeCategories []string `json:"dispute_categories"`
+}
+
+type SubscriptionMetadata struct {
+	CreatedAt string `json:"created_at"`
+	UpdatedAt string `json:"updated_at"`
+}
+
+type PaypalSubscription struct {
+	ID                    string               `json:"id"`
+	Status                string               `json:"status"`
+	StatusUpdateTime      string               `json:"status_update_time"`
+	Plan                  PlanDetails          `json:"plan"`
+	StartTime             string               `json:"start_time"`
+	CreateTime            string               `json:"create_time"`
+	UpdateTime            string               `json:"update_time"`
+	Quantity              string               `json:"quantity"`
+	ShippingAmount        Amount               `json:"shipping_amount,omitempty"`
+	Subscriber            Subscriber           `json:"subscriber"`
+	BillingInfo           BillingInfo          `json:"billing_info"`
+	Links                 []Link               `json:"links"`
+	CustomID              string               `json:"custom_id,omitempty"`
+	ApplicationContext    ApplicationContext   `json:"application_context,omitempty"`
+	Taxes                 TaxInfo              `json:"taxes,omitempty"`
+	ShippingAddress       ShippingAddress      `json:"shipping_address,omitempty"`
+	BillingCycle          BillingCycle         `json:"billing_cycle,omitempty"`
+	PaymentPreferences    PaymentPref          `json:"payment_preferences,omitempty"`
+	PricingScheme         PricingScheme        `json:"pricing_scheme,omitempty"`
+	PaymentSource         PaymentSource        `json:"payment_source,omitempty"`
+	LastPayment           LastPayment          `json:"last_payment,omitempty"`
+	NextBillingTime       string               `json:"next_billing_time,omitempty"`
+	OutstandingBalance    Amount               `json:"outstanding_balance,omitempty"`
+	FailedPaymentAttempts int                  `json:"failed_payment_attempts,omitempty"`
+	AutoRenewal           bool                 `json:"auto_renewal,omitempty"`
+	CustomizedPlan        interface{}          `json:"customized_plan,omitempty"`
+	SellerProtection      SellerProtection     `json:"seller_protection,omitempty"`
+	Dispute               interface{}          `json:"dispute,omitempty"`
+	Metadata              SubscriptionMetadata `json:"metadata,omitempty"`
+}

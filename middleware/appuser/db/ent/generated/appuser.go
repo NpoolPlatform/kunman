@@ -31,6 +31,8 @@ type AppUser struct {
 	EmailAddress string `json:"email_address,omitempty"`
 	// PhoneNo holds the value of the "phone_no" field.
 	PhoneNo string `json:"phone_no,omitempty"`
+	// CountryCode holds the value of the "country_code" field.
+	CountryCode string `json:"country_code,omitempty"`
 	// ImportFromApp holds the value of the "import_from_app" field.
 	ImportFromApp uuid.UUID `json:"import_from_app,omitempty"`
 	selectValues  sql.SelectValues
@@ -43,7 +45,7 @@ func (*AppUser) scanValues(columns []string) ([]any, error) {
 		switch columns[i] {
 		case appuser.FieldID, appuser.FieldCreatedAt, appuser.FieldUpdatedAt, appuser.FieldDeletedAt:
 			values[i] = new(sql.NullInt64)
-		case appuser.FieldEmailAddress, appuser.FieldPhoneNo:
+		case appuser.FieldEmailAddress, appuser.FieldPhoneNo, appuser.FieldCountryCode:
 			values[i] = new(sql.NullString)
 		case appuser.FieldEntID, appuser.FieldAppID, appuser.FieldImportFromApp:
 			values[i] = new(uuid.UUID)
@@ -110,6 +112,12 @@ func (au *AppUser) assignValues(columns []string, values []any) error {
 			} else if value.Valid {
 				au.PhoneNo = value.String
 			}
+		case appuser.FieldCountryCode:
+			if value, ok := values[i].(*sql.NullString); !ok {
+				return fmt.Errorf("unexpected type %T for field country_code", values[i])
+			} else if value.Valid {
+				au.CountryCode = value.String
+			}
 		case appuser.FieldImportFromApp:
 			if value, ok := values[i].(*uuid.UUID); !ok {
 				return fmt.Errorf("unexpected type %T for field import_from_app", values[i])
@@ -172,6 +180,9 @@ func (au *AppUser) String() string {
 	builder.WriteString(", ")
 	builder.WriteString("phone_no=")
 	builder.WriteString(au.PhoneNo)
+	builder.WriteString(", ")
+	builder.WriteString("country_code=")
+	builder.WriteString(au.CountryCode)
 	builder.WriteString(", ")
 	builder.WriteString("import_from_app=")
 	builder.WriteString(fmt.Sprintf("%v", au.ImportFromApp))

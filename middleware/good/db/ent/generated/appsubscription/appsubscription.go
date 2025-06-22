@@ -25,6 +25,10 @@ const (
 	FieldAppGoodID = "app_good_id"
 	// FieldUsdPrice holds the string denoting the usd_price field in the database.
 	FieldUsdPrice = "usd_price"
+	// FieldProductID holds the string denoting the product_id field in the database.
+	FieldProductID = "product_id"
+	// FieldPlanID holds the string denoting the plan_id field in the database.
+	FieldPlanID = "plan_id"
 	// Table holds the table name of the appsubscription in the database.
 	Table = "app_subscriptions"
 )
@@ -38,6 +42,8 @@ var Columns = []string{
 	FieldDeletedAt,
 	FieldAppGoodID,
 	FieldUsdPrice,
+	FieldProductID,
+	FieldPlanID,
 }
 
 // ValidColumn reports if the column name is valid (part of the table columns).
@@ -65,6 +71,10 @@ var (
 	DefaultAppGoodID func() uuid.UUID
 	// DefaultUsdPrice holds the default value on creation for the "usd_price" field.
 	DefaultUsdPrice decimal.Decimal
+	// DefaultProductID holds the default value on creation for the "product_id" field.
+	DefaultProductID string
+	// DefaultPlanID holds the default value on creation for the "plan_id" field.
+	DefaultPlanID string
 )
 
 // OrderOption defines the ordering options for the AppSubscription queries.
@@ -103,4 +113,14 @@ func ByAppGoodID(opts ...sql.OrderTermOption) OrderOption {
 // ByUsdPrice orders the results by the usd_price field.
 func ByUsdPrice(opts ...sql.OrderTermOption) OrderOption {
 	return sql.OrderByField(FieldUsdPrice, opts...).ToFunc()
+}
+
+// ByProductID orders the results by the product_id field.
+func ByProductID(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldProductID, opts...).ToFunc()
+}
+
+// ByPlanID orders the results by the plan_id field.
+func ByPlanID(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldPlanID, opts...).ToFunc()
 }

@@ -146,6 +146,32 @@ func WithAppGoodID(s *string, must bool) func(context.Context, *Handler) error {
 	}
 }
 
+func WithProductID(s *string, must bool) func(context.Context, *Handler) error {
+	return func(ctx context.Context, h *Handler) error {
+		if s == nil {
+			if must {
+				return wlog.Errorf("invalid productid")
+			}
+			return nil
+		}
+		h.ProductID = s
+		return nil
+	}
+}
+
+func WithPlanID(s *string, must bool) func(context.Context, *Handler) error {
+	return func(ctx context.Context, h *Handler) error {
+		if s == nil {
+			if must {
+				return wlog.Errorf("invalid planid")
+			}
+			return nil
+		}
+		h.PlanID = s
+		return nil
+	}
+}
+
 func WithProductPage(s *string, must bool) func(context.Context, *Handler) error {
 	return func(ctx context.Context, h *Handler) error {
 		h.AppGoodBaseReq.ProductPage = s

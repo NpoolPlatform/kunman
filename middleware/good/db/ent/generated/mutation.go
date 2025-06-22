@@ -15695,6 +15695,8 @@ type AppSubscriptionMutation struct {
 	adddeleted_at *int32
 	app_good_id   *uuid.UUID
 	usd_price     *decimal.Decimal
+	product_id    *string
+	plan_id       *string
 	clearedFields map[string]struct{}
 	done          bool
 	oldValue      func(context.Context) (*AppSubscription, error)
@@ -16107,6 +16109,104 @@ func (m *AppSubscriptionMutation) ResetUsdPrice() {
 	delete(m.clearedFields, appsubscription.FieldUsdPrice)
 }
 
+// SetProductID sets the "product_id" field.
+func (m *AppSubscriptionMutation) SetProductID(s string) {
+	m.product_id = &s
+}
+
+// ProductID returns the value of the "product_id" field in the mutation.
+func (m *AppSubscriptionMutation) ProductID() (r string, exists bool) {
+	v := m.product_id
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldProductID returns the old "product_id" field's value of the AppSubscription entity.
+// If the AppSubscription object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *AppSubscriptionMutation) OldProductID(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldProductID is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldProductID requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldProductID: %w", err)
+	}
+	return oldValue.ProductID, nil
+}
+
+// ClearProductID clears the value of the "product_id" field.
+func (m *AppSubscriptionMutation) ClearProductID() {
+	m.product_id = nil
+	m.clearedFields[appsubscription.FieldProductID] = struct{}{}
+}
+
+// ProductIDCleared returns if the "product_id" field was cleared in this mutation.
+func (m *AppSubscriptionMutation) ProductIDCleared() bool {
+	_, ok := m.clearedFields[appsubscription.FieldProductID]
+	return ok
+}
+
+// ResetProductID resets all changes to the "product_id" field.
+func (m *AppSubscriptionMutation) ResetProductID() {
+	m.product_id = nil
+	delete(m.clearedFields, appsubscription.FieldProductID)
+}
+
+// SetPlanID sets the "plan_id" field.
+func (m *AppSubscriptionMutation) SetPlanID(s string) {
+	m.plan_id = &s
+}
+
+// PlanID returns the value of the "plan_id" field in the mutation.
+func (m *AppSubscriptionMutation) PlanID() (r string, exists bool) {
+	v := m.plan_id
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldPlanID returns the old "plan_id" field's value of the AppSubscription entity.
+// If the AppSubscription object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *AppSubscriptionMutation) OldPlanID(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldPlanID is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldPlanID requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldPlanID: %w", err)
+	}
+	return oldValue.PlanID, nil
+}
+
+// ClearPlanID clears the value of the "plan_id" field.
+func (m *AppSubscriptionMutation) ClearPlanID() {
+	m.plan_id = nil
+	m.clearedFields[appsubscription.FieldPlanID] = struct{}{}
+}
+
+// PlanIDCleared returns if the "plan_id" field was cleared in this mutation.
+func (m *AppSubscriptionMutation) PlanIDCleared() bool {
+	_, ok := m.clearedFields[appsubscription.FieldPlanID]
+	return ok
+}
+
+// ResetPlanID resets all changes to the "plan_id" field.
+func (m *AppSubscriptionMutation) ResetPlanID() {
+	m.plan_id = nil
+	delete(m.clearedFields, appsubscription.FieldPlanID)
+}
+
 // Where appends a list predicates to the AppSubscriptionMutation builder.
 func (m *AppSubscriptionMutation) Where(ps ...predicate.AppSubscription) {
 	m.predicates = append(m.predicates, ps...)
@@ -16141,7 +16241,7 @@ func (m *AppSubscriptionMutation) Type() string {
 // order to get all numeric fields that were incremented/decremented, call
 // AddedFields().
 func (m *AppSubscriptionMutation) Fields() []string {
-	fields := make([]string, 0, 6)
+	fields := make([]string, 0, 8)
 	if m.ent_id != nil {
 		fields = append(fields, appsubscription.FieldEntID)
 	}
@@ -16159,6 +16259,12 @@ func (m *AppSubscriptionMutation) Fields() []string {
 	}
 	if m.usd_price != nil {
 		fields = append(fields, appsubscription.FieldUsdPrice)
+	}
+	if m.product_id != nil {
+		fields = append(fields, appsubscription.FieldProductID)
+	}
+	if m.plan_id != nil {
+		fields = append(fields, appsubscription.FieldPlanID)
 	}
 	return fields
 }
@@ -16180,6 +16286,10 @@ func (m *AppSubscriptionMutation) Field(name string) (ent.Value, bool) {
 		return m.AppGoodID()
 	case appsubscription.FieldUsdPrice:
 		return m.UsdPrice()
+	case appsubscription.FieldProductID:
+		return m.ProductID()
+	case appsubscription.FieldPlanID:
+		return m.PlanID()
 	}
 	return nil, false
 }
@@ -16201,6 +16311,10 @@ func (m *AppSubscriptionMutation) OldField(ctx context.Context, name string) (en
 		return m.OldAppGoodID(ctx)
 	case appsubscription.FieldUsdPrice:
 		return m.OldUsdPrice(ctx)
+	case appsubscription.FieldProductID:
+		return m.OldProductID(ctx)
+	case appsubscription.FieldPlanID:
+		return m.OldPlanID(ctx)
 	}
 	return nil, fmt.Errorf("unknown AppSubscription field %s", name)
 }
@@ -16251,6 +16365,20 @@ func (m *AppSubscriptionMutation) SetField(name string, value ent.Value) error {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetUsdPrice(v)
+		return nil
+	case appsubscription.FieldProductID:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetProductID(v)
+		return nil
+	case appsubscription.FieldPlanID:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetPlanID(v)
 		return nil
 	}
 	return fmt.Errorf("unknown AppSubscription field %s", name)
@@ -16327,6 +16455,12 @@ func (m *AppSubscriptionMutation) ClearedFields() []string {
 	if m.FieldCleared(appsubscription.FieldUsdPrice) {
 		fields = append(fields, appsubscription.FieldUsdPrice)
 	}
+	if m.FieldCleared(appsubscription.FieldProductID) {
+		fields = append(fields, appsubscription.FieldProductID)
+	}
+	if m.FieldCleared(appsubscription.FieldPlanID) {
+		fields = append(fields, appsubscription.FieldPlanID)
+	}
 	return fields
 }
 
@@ -16346,6 +16480,12 @@ func (m *AppSubscriptionMutation) ClearField(name string) error {
 		return nil
 	case appsubscription.FieldUsdPrice:
 		m.ClearUsdPrice()
+		return nil
+	case appsubscription.FieldProductID:
+		m.ClearProductID()
+		return nil
+	case appsubscription.FieldPlanID:
+		m.ClearPlanID()
 		return nil
 	}
 	return fmt.Errorf("unknown AppSubscription nullable field %s", name)
@@ -16372,6 +16512,12 @@ func (m *AppSubscriptionMutation) ResetField(name string) error {
 		return nil
 	case appsubscription.FieldUsdPrice:
 		m.ResetUsdPrice()
+		return nil
+	case appsubscription.FieldProductID:
+		m.ResetProductID()
+		return nil
+	case appsubscription.FieldPlanID:
+		m.ResetPlanID()
 		return nil
 	}
 	return fmt.Errorf("unknown AppSubscription field %s", name)

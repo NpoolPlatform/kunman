@@ -167,6 +167,7 @@ message CreateUserRequest {
   string AppID = 10;
   optional string EmailAddress = 20;
   optional string PhoneNO = 30;
+  optional string CountryCode = 31;
 
   // Imported
   optional string ImportedFromAppID = 40;
@@ -202,6 +203,7 @@ message CreateAppUserRequest {
   string TargetAppID = 10;
   optional string EmailAddress = 20;
   optional string PhoneNO = 30;
+  optional string CountryCode = 31;
   string PasswordHash = 40;
 }
 

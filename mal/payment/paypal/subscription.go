@@ -2,6 +2,9 @@ package paypal
 
 import (
 	"context"
+	"encoding/json"
+	"io"
+	"net/http"
 
 	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
 
@@ -103,4 +106,103 @@ func (cli *PaymentClient) CreatePlan(ctx context.Context) (*CreatePlanResponse, 
 	}
 
 	return &planResponse, nil
+}
+
+func (cli *PaymentClient) CreateSubscription(ctx context.Context) (*CreateSubscriptionResponse, error) {
+	payload := CreateSubscriptionRequest{
+		PlanID: cli.PaypalPlanID,
+		Subscriber: Subscriber{
+			Name: Name{
+				GivenName: cli.orderHandler.GivenName(),
+				Surname:   cli.orderHandler.Surname(),
+			},
+			EmailAddress: cli.orderHandler.EmailAddress(),
+			Phone: Phone{
+				PhoneType: "MOBILE",
+				PhoneNumber: PhoneNumber{
+					CountryCode:    cli.orderHandler.CountryCode(),
+					NationalNumber: cli.orderHandler.NationalNumber(),
+				},
+			},
+		},
+		ApplicationContext: ApplicationContext{
+			ReturnURL: cli.ReturnURL,
+			CancelURL: cli.CancelURL,
+		},
+	}
+
+	accessToken, err := cli.GetAccessToken(ctx)
+	if err != nil {
+		return nil, wlog.WrapError(err)
+	}
+
+	client := resty.New()
+	defer client.Close()
+
+	var subscriptionResponse CreateSubscriptionResponse
+	resp, err := client.
+		SetBaseURL(cli.config.BaseURL()).
+		R().
+		SetHeader("Authorization", "Bearer "+accessToken).
+		SetHeader("Content-Type", "application/json").
+		SetBody(payload).
+		SetResult(&subscriptionResponse).
+		Post("/v1/billing/subscriptions")
+	if err != nil {
+		return nil, wlog.WrapError(err)
+	}
+
+	if resp.StatusCode() != http.StatusCreated {
+		var e ErrorResponse
+
+		bytes, err := io.ReadAll(resp.Body)
+		if err != nil {
+			return nil, wlog.Errorf("failed read body")
+		}
+
+		if err := json.Unmarshal(bytes, &e); err == nil {
+			return nil, wlog.Errorf("paypal error: %v - %v, %v", e.Name, e.Message, e.Details)
+		}
+		return nil, wlog.Errorf("%v: %v", resp.StatusCode(), resp.String())
+	}
+
+	return &subscriptionResponse, nil
+}
+
+func (cli *PaymentClient) GetSubscription(ctx context.Context) (*PaypalSubscription, error) {
+	accessToken, err := cli.GetAccessToken(ctx)
+	if err != nil {
+		return nil, wlog.WrapError(err)
+	}
+
+	client := resty.New()
+	defer client.Close()
+
+	var subscriptionResponse PaypalSubscription
+	resp, err := client.
+		SetBaseURL(cli.config.BaseURL()).
+		R().
+		SetHeader("Authorization", "Bearer "+accessToken).
+		SetHeader("Content-Type", "application/json").
+		SetResult(&subscriptionResponse).
+		Get("/v1/billing/subscriptions/" + cli.PaypalSubscriptionID)
+	if err != nil {
+		return nil, wlog.WrapError(err)
+	}
+
+	if resp.StatusCode() != http.StatusOK {
+		var e ErrorResponse
+
+		bytes, err := io.ReadAll(resp.Body)
+		if err != nil {
+			return nil, wlog.Errorf("failed read body")
+		}
+
+		if err := json.Unmarshal(bytes, &e); err == nil {
+			return nil, wlog.Errorf("paypal error: %v - %v, %v", e.Name, e.Message, e.Details)
+		}
+		return nil, wlog.Errorf("%v: %v", resp.StatusCode(), resp.String())
+	}
+
+	return &subscriptionResponse, nil
 }

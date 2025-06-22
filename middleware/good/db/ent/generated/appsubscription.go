@@ -29,7 +29,11 @@ type AppSubscription struct {
 	// AppGoodID holds the value of the "app_good_id" field.
 	AppGoodID uuid.UUID `json:"app_good_id,omitempty"`
 	// UsdPrice holds the value of the "usd_price" field.
-	UsdPrice     decimal.Decimal `json:"usd_price,omitempty"`
+	UsdPrice decimal.Decimal `json:"usd_price,omitempty"`
+	// ProductID holds the value of the "product_id" field.
+	ProductID string `json:"product_id,omitempty"`
+	// PlanID holds the value of the "plan_id" field.
+	PlanID       string `json:"plan_id,omitempty"`
 	selectValues sql.SelectValues
 }
 
@@ -42,6 +46,8 @@ func (*AppSubscription) scanValues(columns []string) ([]any, error) {
 			values[i] = new(decimal.Decimal)
 		case appsubscription.FieldID, appsubscription.FieldCreatedAt, appsubscription.FieldUpdatedAt, appsubscription.FieldDeletedAt:
 			values[i] = new(sql.NullInt64)
+		case appsubscription.FieldProductID, appsubscription.FieldPlanID:
+			values[i] = new(sql.NullString)
 		case appsubscription.FieldEntID, appsubscription.FieldAppGoodID:
 			values[i] = new(uuid.UUID)
 		default:
@@ -101,6 +107,18 @@ func (as *AppSubscription) assignValues(columns []string, values []any) error {
 			} else if value != nil {
 				as.UsdPrice = *value
 			}
+		case appsubscription.FieldProductID:
+			if value, ok := values[i].(*sql.NullString); !ok {
+				return fmt.Errorf("unexpected type %T for field product_id", values[i])
+			} else if value.Valid {
+				as.ProductID = value.String
+			}
+		case appsubscription.FieldPlanID:
+			if value, ok := values[i].(*sql.NullString); !ok {
+				return fmt.Errorf("unexpected type %T for field plan_id", values[i])
+			} else if value.Valid {
+				as.PlanID = value.String
+			}
 		default:
 			as.selectValues.Set(columns[i], values[i])
 		}
@@ -154,6 +172,12 @@ func (as *AppSubscription) String() string {
 	builder.WriteString(", ")
 	builder.WriteString("usd_price=")
 	builder.WriteString(fmt.Sprintf("%v", as.UsdPrice))
+	builder.WriteString(", ")
+	builder.WriteString("product_id=")
+	builder.WriteString(as.ProductID)
+	builder.WriteString(", ")
+	builder.WriteString("plan_id=")
+	builder.WriteString(as.PlanID)
 	builder.WriteByte(')')
 	return builder.String()
 }

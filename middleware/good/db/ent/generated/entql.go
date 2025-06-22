@@ -418,6 +418,8 @@ var schemaGraph = func() *sqlgraph.Schema {
 			appsubscription.FieldDeletedAt: {Type: field.TypeUint32, Column: appsubscription.FieldDeletedAt},
 			appsubscription.FieldAppGoodID: {Type: field.TypeUUID, Column: appsubscription.FieldAppGoodID},
 			appsubscription.FieldUsdPrice:  {Type: field.TypeOther, Column: appsubscription.FieldUsdPrice},
+			appsubscription.FieldProductID: {Type: field.TypeString, Column: appsubscription.FieldProductID},
+			appsubscription.FieldPlanID:    {Type: field.TypeString, Column: appsubscription.FieldPlanID},
 		},
 	}
 	graph.Nodes[16] = &sqlgraph.Node{
@@ -2587,6 +2589,16 @@ func (f *AppSubscriptionFilter) WhereAppGoodID(p entql.ValueP) {
 // WhereUsdPrice applies the entql other predicate on the usd_price field.
 func (f *AppSubscriptionFilter) WhereUsdPrice(p entql.OtherP) {
 	f.Where(p.Field(appsubscription.FieldUsdPrice))
+}
+
+// WhereProductID applies the entql string predicate on the product_id field.
+func (f *AppSubscriptionFilter) WhereProductID(p entql.StringP) {
+	f.Where(p.Field(appsubscription.FieldProductID))
+}
+
+// WherePlanID applies the entql string predicate on the plan_id field.
+func (f *AppSubscriptionFilter) WherePlanID(p entql.StringP) {
+	f.Where(p.Field(appsubscription.FieldPlanID))
 }
 
 // addPredicate implements the predicateAdder interface.

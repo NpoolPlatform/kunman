@@ -84,6 +84,16 @@ func UsdPrice(v decimal.Decimal) predicate.AppSubscription {
 	return predicate.AppSubscription(sql.FieldEQ(FieldUsdPrice, v))
 }
 
+// ProductID applies equality check predicate on the "product_id" field. It's identical to ProductIDEQ.
+func ProductID(v string) predicate.AppSubscription {
+	return predicate.AppSubscription(sql.FieldEQ(FieldProductID, v))
+}
+
+// PlanID applies equality check predicate on the "plan_id" field. It's identical to PlanIDEQ.
+func PlanID(v string) predicate.AppSubscription {
+	return predicate.AppSubscription(sql.FieldEQ(FieldPlanID, v))
+}
+
 // EntIDEQ applies the EQ predicate on the "ent_id" field.
 func EntIDEQ(v uuid.UUID) predicate.AppSubscription {
 	return predicate.AppSubscription(sql.FieldEQ(FieldEntID, v))
@@ -342,6 +352,156 @@ func UsdPriceIsNil() predicate.AppSubscription {
 // UsdPriceNotNil applies the NotNil predicate on the "usd_price" field.
 func UsdPriceNotNil() predicate.AppSubscription {
 	return predicate.AppSubscription(sql.FieldNotNull(FieldUsdPrice))
+}
+
+// ProductIDEQ applies the EQ predicate on the "product_id" field.
+func ProductIDEQ(v string) predicate.AppSubscription {
+	return predicate.AppSubscription(sql.FieldEQ(FieldProductID, v))
+}
+
+// ProductIDNEQ applies the NEQ predicate on the "product_id" field.
+func ProductIDNEQ(v string) predicate.AppSubscription {
+	return predicate.AppSubscription(sql.FieldNEQ(FieldProductID, v))
+}
+
+// ProductIDIn applies the In predicate on the "product_id" field.
+func ProductIDIn(vs ...string) predicate.AppSubscription {
+	return predicate.AppSubscription(sql.FieldIn(FieldProductID, vs...))
+}
+
+// ProductIDNotIn applies the NotIn predicate on the "product_id" field.
+func ProductIDNotIn(vs ...string) predicate.AppSubscription {
+	return predicate.AppSubscription(sql.FieldNotIn(FieldProductID, vs...))
+}
+
+// ProductIDGT applies the GT predicate on the "product_id" field.
+func ProductIDGT(v string) predicate.AppSubscription {
+	return predicate.AppSubscription(sql.FieldGT(FieldProductID, v))
+}
+
+// ProductIDGTE applies the GTE predicate on the "product_id" field.
+func ProductIDGTE(v string) predicate.AppSubscription {
+	return predicate.AppSubscription(sql.FieldGTE(FieldProductID, v))
+}
+
+// ProductIDLT applies the LT predicate on the "product_id" field.
+func ProductIDLT(v string) predicate.AppSubscription {
+	return predicate.AppSubscription(sql.FieldLT(FieldProductID, v))
+}
+
+// ProductIDLTE applies the LTE predicate on the "product_id" field.
+func ProductIDLTE(v string) predicate.AppSubscription {
+	return predicate.AppSubscription(sql.FieldLTE(FieldProductID, v))
+}
+
+// ProductIDContains applies the Contains predicate on the "product_id" field.
+func ProductIDContains(v string) predicate.AppSubscription {
+	return predicate.AppSubscription(sql.FieldContains(FieldProductID, v))
+}
+
+// ProductIDHasPrefix applies the HasPrefix predicate on the "product_id" field.
+func ProductIDHasPrefix(v string) predicate.AppSubscription {
+	return predicate.AppSubscription(sql.FieldHasPrefix(FieldProductID, v))
+}
+
+// ProductIDHasSuffix applies the HasSuffix predicate on the "product_id" field.
+func ProductIDHasSuffix(v string) predicate.AppSubscription {
+	return predicate.AppSubscription(sql.FieldHasSuffix(FieldProductID, v))
+}
+
+// ProductIDIsNil applies the IsNil predicate on the "product_id" field.
+func ProductIDIsNil() predicate.AppSubscription {
+	return predicate.AppSubscription(sql.FieldIsNull(FieldProductID))
+}
+
+// ProductIDNotNil applies the NotNil predicate on the "product_id" field.
+func ProductIDNotNil() predicate.AppSubscription {
+	return predicate.AppSubscription(sql.FieldNotNull(FieldProductID))
+}
+
+// ProductIDEqualFold applies the EqualFold predicate on the "product_id" field.
+func ProductIDEqualFold(v string) predicate.AppSubscription {
+	return predicate.AppSubscription(sql.FieldEqualFold(FieldProductID, v))
+}
+
+// ProductIDContainsFold applies the ContainsFold predicate on the "product_id" field.
+func ProductIDContainsFold(v string) predicate.AppSubscription {
+	return predicate.AppSubscription(sql.FieldContainsFold(FieldProductID, v))
+}
+
+// PlanIDEQ applies the EQ predicate on the "plan_id" field.
+func PlanIDEQ(v string) predicate.AppSubscription {
+	return predicate.AppSubscription(sql.FieldEQ(FieldPlanID, v))
+}
+
+// PlanIDNEQ applies the NEQ predicate on the "plan_id" field.
+func PlanIDNEQ(v string) predicate.AppSubscription {
+	return predicate.AppSubscription(sql.FieldNEQ(FieldPlanID, v))
+}
+
+// PlanIDIn applies the In predicate on the "plan_id" field.
+func PlanIDIn(vs ...string) predicate.AppSubscription {
+	return predicate.AppSubscription(sql.FieldIn(FieldPlanID, vs...))
+}
+
+// PlanIDNotIn applies the NotIn predicate on the "plan_id" field.
+func PlanIDNotIn(vs ...string) predicate.AppSubscription {
+	return predicate.AppSubscription(sql.FieldNotIn(FieldPlanID, vs...))
+}
+
+// PlanIDGT applies the GT predicate on the "plan_id" field.
+func PlanIDGT(v string) predicate.AppSubscription {
+	return predicate.AppSubscription(sql.FieldGT(FieldPlanID, v))
+}
+
+// PlanIDGTE applies the GTE predicate on the "plan_id" field.
+func PlanIDGTE(v string) predicate.AppSubscription {
+	return predicate.AppSubscription(sql.FieldGTE(FieldPlanID, v))
+}
+
+// PlanIDLT applies the LT predicate on the "plan_id" field.
+func PlanIDLT(v string) predicate.AppSubscription {
+	return predicate.AppSubscription(sql.FieldLT(FieldPlanID, v))
+}
+
+// PlanIDLTE applies the LTE predicate on the "plan_id" field.
+func PlanIDLTE(v string) predicate.AppSubscription {
+	return predicate.AppSubscription(sql.FieldLTE(FieldPlanID, v))
+}
+
+// PlanIDContains applies the Contains predicate on the "plan_id" field.
+func PlanIDContains(v string) predicate.AppSubscription {
+	return predicate.AppSubscription(sql.FieldContains(FieldPlanID, v))
+}
+
+// PlanIDHasPrefix applies the HasPrefix predicate on the "plan_id" field.
+func PlanIDHasPrefix(v string) predicate.AppSubscription {
+	return predicate.AppSubscription(sql.FieldHasPrefix(FieldPlanID, v))
+}
+
+// PlanIDHasSuffix applies the HasSuffix predicate on the "plan_id" field.
+func PlanIDHasSuffix(v string) predicate.AppSubscription {
+	return predicate.AppSubscription(sql.FieldHasSuffix(FieldPlanID, v))
+}
+
+// PlanIDIsNil applies the IsNil predicate on the "plan_id" field.
+func PlanIDIsNil() predicate.AppSubscription {
+	return predicate.AppSubscription(sql.FieldIsNull(FieldPlanID))
+}
+
+// PlanIDNotNil applies the NotNil predicate on the "plan_id" field.
+func PlanIDNotNil() predicate.AppSubscription {
+	return predicate.AppSubscription(sql.FieldNotNull(FieldPlanID))
+}
+
+// PlanIDEqualFold applies the EqualFold predicate on the "plan_id" field.
+func PlanIDEqualFold(v string) predicate.AppSubscription {
+	return predicate.AppSubscription(sql.FieldEqualFold(FieldPlanID, v))
+}
+
+// PlanIDContainsFold applies the ContainsFold predicate on the "plan_id" field.
+func PlanIDContainsFold(v string) predicate.AppSubscription {
+	return predicate.AppSubscription(sql.FieldContainsFold(FieldPlanID, v))
 }
 
 // And groups predicates with the AND operator between them.

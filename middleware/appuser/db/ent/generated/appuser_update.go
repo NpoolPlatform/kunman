@@ -158,6 +158,26 @@ func (auu *AppUserUpdate) ClearPhoneNo() *AppUserUpdate {
 	return auu
 }
 
+// SetCountryCode sets the "country_code" field.
+func (auu *AppUserUpdate) SetCountryCode(s string) *AppUserUpdate {
+	auu.mutation.SetCountryCode(s)
+	return auu
+}
+
+// SetNillableCountryCode sets the "country_code" field if the given value is not nil.
+func (auu *AppUserUpdate) SetNillableCountryCode(s *string) *AppUserUpdate {
+	if s != nil {
+		auu.SetCountryCode(*s)
+	}
+	return auu
+}
+
+// ClearCountryCode clears the value of the "country_code" field.
+func (auu *AppUserUpdate) ClearCountryCode() *AppUserUpdate {
+	auu.mutation.ClearCountryCode()
+	return auu
+}
+
 // SetImportFromApp sets the "import_from_app" field.
 func (auu *AppUserUpdate) SetImportFromApp(u uuid.UUID) *AppUserUpdate {
 	auu.mutation.SetImportFromApp(u)
@@ -272,6 +292,12 @@ func (auu *AppUserUpdate) sqlSave(ctx context.Context) (n int, err error) {
 	}
 	if auu.mutation.PhoneNoCleared() {
 		_spec.ClearField(appuser.FieldPhoneNo, field.TypeString)
+	}
+	if value, ok := auu.mutation.CountryCode(); ok {
+		_spec.SetField(appuser.FieldCountryCode, field.TypeString, value)
+	}
+	if auu.mutation.CountryCodeCleared() {
+		_spec.ClearField(appuser.FieldCountryCode, field.TypeString)
 	}
 	if value, ok := auu.mutation.ImportFromApp(); ok {
 		_spec.SetField(appuser.FieldImportFromApp, field.TypeUUID, value)
@@ -430,6 +456,26 @@ func (auuo *AppUserUpdateOne) ClearPhoneNo() *AppUserUpdateOne {
 	return auuo
 }
 
+// SetCountryCode sets the "country_code" field.
+func (auuo *AppUserUpdateOne) SetCountryCode(s string) *AppUserUpdateOne {
+	auuo.mutation.SetCountryCode(s)
+	return auuo
+}
+
+// SetNillableCountryCode sets the "country_code" field if the given value is not nil.
+func (auuo *AppUserUpdateOne) SetNillableCountryCode(s *string) *AppUserUpdateOne {
+	if s != nil {
+		auuo.SetCountryCode(*s)
+	}
+	return auuo
+}
+
+// ClearCountryCode clears the value of the "country_code" field.
+func (auuo *AppUserUpdateOne) ClearCountryCode() *AppUserUpdateOne {
+	auuo.mutation.ClearCountryCode()
+	return auuo
+}
+
 // SetImportFromApp sets the "import_from_app" field.
 func (auuo *AppUserUpdateOne) SetImportFromApp(u uuid.UUID) *AppUserUpdateOne {
 	auuo.mutation.SetImportFromApp(u)
@@ -574,6 +620,12 @@ func (auuo *AppUserUpdateOne) sqlSave(ctx context.Context) (_node *AppUser, err 
 	}
 	if auuo.mutation.PhoneNoCleared() {
 		_spec.ClearField(appuser.FieldPhoneNo, field.TypeString)
+	}
+	if value, ok := auuo.mutation.CountryCode(); ok {
+		_spec.SetField(appuser.FieldCountryCode, field.TypeString, value)
+	}
+	if auuo.mutation.CountryCodeCleared() {
+		_spec.ClearField(appuser.FieldCountryCode, field.TypeString)
 	}
 	if value, ok := auuo.mutation.ImportFromApp(); ok {
 		_spec.SetField(appuser.FieldImportFromApp, field.TypeUUID, value)

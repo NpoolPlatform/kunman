@@ -107,6 +107,34 @@ func (asc *AppSubscriptionCreate) SetNillableUsdPrice(d *decimal.Decimal) *AppSu
 	return asc
 }
 
+// SetProductID sets the "product_id" field.
+func (asc *AppSubscriptionCreate) SetProductID(s string) *AppSubscriptionCreate {
+	asc.mutation.SetProductID(s)
+	return asc
+}
+
+// SetNillableProductID sets the "product_id" field if the given value is not nil.
+func (asc *AppSubscriptionCreate) SetNillableProductID(s *string) *AppSubscriptionCreate {
+	if s != nil {
+		asc.SetProductID(*s)
+	}
+	return asc
+}
+
+// SetPlanID sets the "plan_id" field.
+func (asc *AppSubscriptionCreate) SetPlanID(s string) *AppSubscriptionCreate {
+	asc.mutation.SetPlanID(s)
+	return asc
+}
+
+// SetNillablePlanID sets the "plan_id" field if the given value is not nil.
+func (asc *AppSubscriptionCreate) SetNillablePlanID(s *string) *AppSubscriptionCreate {
+	if s != nil {
+		asc.SetPlanID(*s)
+	}
+	return asc
+}
+
 // SetID sets the "id" field.
 func (asc *AppSubscriptionCreate) SetID(u uint32) *AppSubscriptionCreate {
 	asc.mutation.SetID(u)
@@ -171,6 +199,14 @@ func (asc *AppSubscriptionCreate) defaults() {
 	if _, ok := asc.mutation.UsdPrice(); !ok {
 		v := appsubscription.DefaultUsdPrice
 		asc.mutation.SetUsdPrice(v)
+	}
+	if _, ok := asc.mutation.ProductID(); !ok {
+		v := appsubscription.DefaultProductID
+		asc.mutation.SetProductID(v)
+	}
+	if _, ok := asc.mutation.PlanID(); !ok {
+		v := appsubscription.DefaultPlanID
+		asc.mutation.SetPlanID(v)
 	}
 }
 
@@ -244,6 +280,14 @@ func (asc *AppSubscriptionCreate) createSpec() (*AppSubscription, *sqlgraph.Crea
 	if value, ok := asc.mutation.UsdPrice(); ok {
 		_spec.SetField(appsubscription.FieldUsdPrice, field.TypeOther, value)
 		_node.UsdPrice = value
+	}
+	if value, ok := asc.mutation.ProductID(); ok {
+		_spec.SetField(appsubscription.FieldProductID, field.TypeString, value)
+		_node.ProductID = value
+	}
+	if value, ok := asc.mutation.PlanID(); ok {
+		_spec.SetField(appsubscription.FieldPlanID, field.TypeString, value)
+		_node.PlanID = value
 	}
 	return _node, _spec
 }
@@ -396,6 +440,42 @@ func (u *AppSubscriptionUpsert) UpdateUsdPrice() *AppSubscriptionUpsert {
 // ClearUsdPrice clears the value of the "usd_price" field.
 func (u *AppSubscriptionUpsert) ClearUsdPrice() *AppSubscriptionUpsert {
 	u.SetNull(appsubscription.FieldUsdPrice)
+	return u
+}
+
+// SetProductID sets the "product_id" field.
+func (u *AppSubscriptionUpsert) SetProductID(v string) *AppSubscriptionUpsert {
+	u.Set(appsubscription.FieldProductID, v)
+	return u
+}
+
+// UpdateProductID sets the "product_id" field to the value that was provided on create.
+func (u *AppSubscriptionUpsert) UpdateProductID() *AppSubscriptionUpsert {
+	u.SetExcluded(appsubscription.FieldProductID)
+	return u
+}
+
+// ClearProductID clears the value of the "product_id" field.
+func (u *AppSubscriptionUpsert) ClearProductID() *AppSubscriptionUpsert {
+	u.SetNull(appsubscription.FieldProductID)
+	return u
+}
+
+// SetPlanID sets the "plan_id" field.
+func (u *AppSubscriptionUpsert) SetPlanID(v string) *AppSubscriptionUpsert {
+	u.Set(appsubscription.FieldPlanID, v)
+	return u
+}
+
+// UpdatePlanID sets the "plan_id" field to the value that was provided on create.
+func (u *AppSubscriptionUpsert) UpdatePlanID() *AppSubscriptionUpsert {
+	u.SetExcluded(appsubscription.FieldPlanID)
+	return u
+}
+
+// ClearPlanID clears the value of the "plan_id" field.
+func (u *AppSubscriptionUpsert) ClearPlanID() *AppSubscriptionUpsert {
+	u.SetNull(appsubscription.FieldPlanID)
 	return u
 }
 
@@ -563,6 +643,48 @@ func (u *AppSubscriptionUpsertOne) UpdateUsdPrice() *AppSubscriptionUpsertOne {
 func (u *AppSubscriptionUpsertOne) ClearUsdPrice() *AppSubscriptionUpsertOne {
 	return u.Update(func(s *AppSubscriptionUpsert) {
 		s.ClearUsdPrice()
+	})
+}
+
+// SetProductID sets the "product_id" field.
+func (u *AppSubscriptionUpsertOne) SetProductID(v string) *AppSubscriptionUpsertOne {
+	return u.Update(func(s *AppSubscriptionUpsert) {
+		s.SetProductID(v)
+	})
+}
+
+// UpdateProductID sets the "product_id" field to the value that was provided on create.
+func (u *AppSubscriptionUpsertOne) UpdateProductID() *AppSubscriptionUpsertOne {
+	return u.Update(func(s *AppSubscriptionUpsert) {
+		s.UpdateProductID()
+	})
+}
+
+// ClearProductID clears the value of the "product_id" field.
+func (u *AppSubscriptionUpsertOne) ClearProductID() *AppSubscriptionUpsertOne {
+	return u.Update(func(s *AppSubscriptionUpsert) {
+		s.ClearProductID()
+	})
+}
+
+// SetPlanID sets the "plan_id" field.
+func (u *AppSubscriptionUpsertOne) SetPlanID(v string) *AppSubscriptionUpsertOne {
+	return u.Update(func(s *AppSubscriptionUpsert) {
+		s.SetPlanID(v)
+	})
+}
+
+// UpdatePlanID sets the "plan_id" field to the value that was provided on create.
+func (u *AppSubscriptionUpsertOne) UpdatePlanID() *AppSubscriptionUpsertOne {
+	return u.Update(func(s *AppSubscriptionUpsert) {
+		s.UpdatePlanID()
+	})
+}
+
+// ClearPlanID clears the value of the "plan_id" field.
+func (u *AppSubscriptionUpsertOne) ClearPlanID() *AppSubscriptionUpsertOne {
+	return u.Update(func(s *AppSubscriptionUpsert) {
+		s.ClearPlanID()
 	})
 }
 
@@ -896,6 +1018,48 @@ func (u *AppSubscriptionUpsertBulk) UpdateUsdPrice() *AppSubscriptionUpsertBulk 
 func (u *AppSubscriptionUpsertBulk) ClearUsdPrice() *AppSubscriptionUpsertBulk {
 	return u.Update(func(s *AppSubscriptionUpsert) {
 		s.ClearUsdPrice()
+	})
+}
+
+// SetProductID sets the "product_id" field.
+func (u *AppSubscriptionUpsertBulk) SetProductID(v string) *AppSubscriptionUpsertBulk {
+	return u.Update(func(s *AppSubscriptionUpsert) {
+		s.SetProductID(v)
+	})
+}
+
+// UpdateProductID sets the "product_id" field to the value that was provided on create.
+func (u *AppSubscriptionUpsertBulk) UpdateProductID() *AppSubscriptionUpsertBulk {
+	return u.Update(func(s *AppSubscriptionUpsert) {
+		s.UpdateProductID()
+	})
+}
+
+// ClearProductID clears the value of the "product_id" field.
+func (u *AppSubscriptionUpsertBulk) ClearProductID() *AppSubscriptionUpsertBulk {
+	return u.Update(func(s *AppSubscriptionUpsert) {
+		s.ClearProductID()
+	})
+}
+
+// SetPlanID sets the "plan_id" field.
+func (u *AppSubscriptionUpsertBulk) SetPlanID(v string) *AppSubscriptionUpsertBulk {
+	return u.Update(func(s *AppSubscriptionUpsert) {
+		s.SetPlanID(v)
+	})
+}
+
+// UpdatePlanID sets the "plan_id" field to the value that was provided on create.
+func (u *AppSubscriptionUpsertBulk) UpdatePlanID() *AppSubscriptionUpsertBulk {
+	return u.Update(func(s *AppSubscriptionUpsert) {
+		s.UpdatePlanID()
+	})
+}
+
+// ClearPlanID clears the value of the "plan_id" field.
+func (u *AppSubscriptionUpsertBulk) ClearPlanID() *AppSubscriptionUpsertBulk {
+	return u.Update(func(s *AppSubscriptionUpsert) {
+		s.ClearPlanID()
 	})
 }
 

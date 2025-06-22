@@ -461,6 +461,8 @@ var (
 		{Name: "deleted_at", Type: field.TypeUint32},
 		{Name: "app_good_id", Type: field.TypeUUID, Nullable: true},
 		{Name: "usd_price", Type: field.TypeOther, Nullable: true, SchemaType: map[string]string{"mysql": "decimal(37,18)"}},
+		{Name: "product_id", Type: field.TypeString, Nullable: true, Default: ""},
+		{Name: "plan_id", Type: field.TypeString, Nullable: true, Default: ""},
 	}
 	// AppSubscriptionsTable holds the schema information for the "app_subscriptions" table.
 	AppSubscriptionsTable = &schema.Table{

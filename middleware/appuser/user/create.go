@@ -48,6 +48,7 @@ func (h *createHandler) createAppUser(ctx context.Context, tx *ent.Tx) error {
 			EntID:         h.EntID,
 			AppID:         h.AppID,
 			PhoneNO:       h.PhoneNO,
+			CountryCode:   h.CountryCode,
 			EmailAddress:  h.EmailAddress,
 			ImportFromApp: h.ImportFromAppID,
 		},

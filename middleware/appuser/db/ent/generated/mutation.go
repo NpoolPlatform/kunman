@@ -6242,6 +6242,7 @@ type AppUserMutation struct {
 	app_id          *uuid.UUID
 	email_address   *string
 	phone_no        *string
+	country_code    *string
 	import_from_app *uuid.UUID
 	clearedFields   map[string]struct{}
 	done            bool
@@ -6704,6 +6705,55 @@ func (m *AppUserMutation) ResetPhoneNo() {
 	delete(m.clearedFields, appuser.FieldPhoneNo)
 }
 
+// SetCountryCode sets the "country_code" field.
+func (m *AppUserMutation) SetCountryCode(s string) {
+	m.country_code = &s
+}
+
+// CountryCode returns the value of the "country_code" field in the mutation.
+func (m *AppUserMutation) CountryCode() (r string, exists bool) {
+	v := m.country_code
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldCountryCode returns the old "country_code" field's value of the AppUser entity.
+// If the AppUser object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *AppUserMutation) OldCountryCode(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldCountryCode is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldCountryCode requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldCountryCode: %w", err)
+	}
+	return oldValue.CountryCode, nil
+}
+
+// ClearCountryCode clears the value of the "country_code" field.
+func (m *AppUserMutation) ClearCountryCode() {
+	m.country_code = nil
+	m.clearedFields[appuser.FieldCountryCode] = struct{}{}
+}
+
+// CountryCodeCleared returns if the "country_code" field was cleared in this mutation.
+func (m *AppUserMutation) CountryCodeCleared() bool {
+	_, ok := m.clearedFields[appuser.FieldCountryCode]
+	return ok
+}
+
+// ResetCountryCode resets all changes to the "country_code" field.
+func (m *AppUserMutation) ResetCountryCode() {
+	m.country_code = nil
+	delete(m.clearedFields, appuser.FieldCountryCode)
+}
+
 // SetImportFromApp sets the "import_from_app" field.
 func (m *AppUserMutation) SetImportFromApp(u uuid.UUID) {
 	m.import_from_app = &u
@@ -6787,7 +6837,7 @@ func (m *AppUserMutation) Type() string {
 // order to get all numeric fields that were incremented/decremented, call
 // AddedFields().
 func (m *AppUserMutation) Fields() []string {
-	fields := make([]string, 0, 8)
+	fields := make([]string, 0, 9)
 	if m.created_at != nil {
 		fields = append(fields, appuser.FieldCreatedAt)
 	}
@@ -6808,6 +6858,9 @@ func (m *AppUserMutation) Fields() []string {
 	}
 	if m.phone_no != nil {
 		fields = append(fields, appuser.FieldPhoneNo)
+	}
+	if m.country_code != nil {
+		fields = append(fields, appuser.FieldCountryCode)
 	}
 	if m.import_from_app != nil {
 		fields = append(fields, appuser.FieldImportFromApp)
@@ -6834,6 +6887,8 @@ func (m *AppUserMutation) Field(name string) (ent.Value, bool) {
 		return m.EmailAddress()
 	case appuser.FieldPhoneNo:
 		return m.PhoneNo()
+	case appuser.FieldCountryCode:
+		return m.CountryCode()
 	case appuser.FieldImportFromApp:
 		return m.ImportFromApp()
 	}
@@ -6859,6 +6914,8 @@ func (m *AppUserMutation) OldField(ctx context.Context, name string) (ent.Value,
 		return m.OldEmailAddress(ctx)
 	case appuser.FieldPhoneNo:
 		return m.OldPhoneNo(ctx)
+	case appuser.FieldCountryCode:
+		return m.OldCountryCode(ctx)
 	case appuser.FieldImportFromApp:
 		return m.OldImportFromApp(ctx)
 	}
@@ -6918,6 +6975,13 @@ func (m *AppUserMutation) SetField(name string, value ent.Value) error {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetPhoneNo(v)
+		return nil
+	case appuser.FieldCountryCode:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetCountryCode(v)
 		return nil
 	case appuser.FieldImportFromApp:
 		v, ok := value.(uuid.UUID)
@@ -7004,6 +7068,9 @@ func (m *AppUserMutation) ClearedFields() []string {
 	if m.FieldCleared(appuser.FieldPhoneNo) {
 		fields = append(fields, appuser.FieldPhoneNo)
 	}
+	if m.FieldCleared(appuser.FieldCountryCode) {
+		fields = append(fields, appuser.FieldCountryCode)
+	}
 	if m.FieldCleared(appuser.FieldImportFromApp) {
 		fields = append(fields, appuser.FieldImportFromApp)
 	}
@@ -7029,6 +7096,9 @@ func (m *AppUserMutation) ClearField(name string) error {
 		return nil
 	case appuser.FieldPhoneNo:
 		m.ClearPhoneNo()
+		return nil
+	case appuser.FieldCountryCode:
+		m.ClearCountryCode()
 		return nil
 	case appuser.FieldImportFromApp:
 		m.ClearImportFromApp()
@@ -7061,6 +7131,9 @@ func (m *AppUserMutation) ResetField(name string) error {
 		return nil
 	case appuser.FieldPhoneNo:
 		m.ResetPhoneNo()
+		return nil
+	case appuser.FieldCountryCode:
+		m.ResetCountryCode()
 		return nil
 	case appuser.FieldImportFromApp:
 		m.ResetImportFromApp()

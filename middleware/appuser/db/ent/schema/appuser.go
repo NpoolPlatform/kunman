@@ -37,6 +37,10 @@ func (AppUser) Fields() []ent.Field {
 			Optional().
 			Default(""),
 		field.
+			String("country_code").
+			Optional().
+			Default(""),
+		field.
 			UUID("import_from_app", uuid.UUID{}).
 			Optional().
 			Default(func() uuid.UUID {

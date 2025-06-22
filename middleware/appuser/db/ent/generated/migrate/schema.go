@@ -178,6 +178,7 @@ var (
 		{Name: "app_id", Type: field.TypeUUID, Nullable: true},
 		{Name: "email_address", Type: field.TypeString, Nullable: true, Default: ""},
 		{Name: "phone_no", Type: field.TypeString, Nullable: true, Default: ""},
+		{Name: "country_code", Type: field.TypeString, Nullable: true, Default: ""},
 		{Name: "import_from_app", Type: field.TypeUUID, Nullable: true},
 	}
 	// AppUsersTable holds the schema information for the "app_users" table.

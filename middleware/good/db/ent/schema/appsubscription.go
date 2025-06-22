@@ -37,6 +37,14 @@ func (AppSubscription) Fields() []ent.Field {
 			}).
 			Optional().
 			Default(decimal.Decimal{}),
+		field.
+			String("product_id").
+			Optional().
+			Default(""),
+		field.
+			String("plan_id").
+			Optional().
+			Default(""),
 	}
 }
 

@@ -33,6 +33,7 @@ func (h *updateHandler) updateAppUser(ctx context.Context, tx *ent.Tx) error {
 		tx.AppUser.UpdateOneID(*h.ID),
 		&usercrud.Req{
 			PhoneNO:       h.PhoneNO,
+			CountryCode:   h.CountryCode,
 			EmailAddress:  h.EmailAddress,
 			ImportFromApp: h.ImportFromAppID,
 		}).Save(ctx)

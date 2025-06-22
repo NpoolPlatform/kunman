@@ -15,6 +15,7 @@ message UserReq {
   optional string AppID = 20;
   optional string EmailAddress = 30;
   optional string PhoneNO = 40;
+  optional string CountryCode = 41;
 
   // Imported
   optional string ImportedFromAppID = 50;
@@ -84,6 +85,8 @@ message User {
   string EmailAddress = 30;
   // @inject_tag: sql:"phone_no"
   string PhoneNO = 40;
+  // @inject_tag: sql:"country_code"
+  string CountryCode = 41;
 
   // Imported
   // @inject_tag: sql:"import_from_app"

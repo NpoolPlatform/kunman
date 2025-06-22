@@ -786,6 +786,14 @@ func init() {
 	appsubscriptionDescUsdPrice := appsubscriptionFields[1].Descriptor()
 	// appsubscription.DefaultUsdPrice holds the default value on creation for the usd_price field.
 	appsubscription.DefaultUsdPrice = appsubscriptionDescUsdPrice.Default.(decimal.Decimal)
+	// appsubscriptionDescProductID is the schema descriptor for product_id field.
+	appsubscriptionDescProductID := appsubscriptionFields[2].Descriptor()
+	// appsubscription.DefaultProductID holds the default value on creation for the product_id field.
+	appsubscription.DefaultProductID = appsubscriptionDescProductID.Default.(string)
+	// appsubscriptionDescPlanID is the schema descriptor for plan_id field.
+	appsubscriptionDescPlanID := appsubscriptionFields[3].Descriptor()
+	// appsubscription.DefaultPlanID holds the default value on creation for the plan_id field.
+	appsubscription.DefaultPlanID = appsubscriptionDescPlanID.Default.(string)
 	appsubscriptiononeshotMixin := schema.AppSubscriptionOneShot{}.Mixin()
 	appsubscriptiononeshotMixinFields0 := appsubscriptiononeshotMixin[0].Fields()
 	_ = appsubscriptiononeshotMixinFields0

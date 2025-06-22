@@ -106,6 +106,8 @@ message AppSubscription {
   string FiatPrice = 610;
   string TrialFiatPrice = 620;
 
+  string PlanID = 630;
+
   repeated good.middleware.app.good1.description.v1.DescriptionInfo
       Descriptions = 910;
   repeated good.middleware.app.good1.poster.v1.PosterInfo Posters = 920;

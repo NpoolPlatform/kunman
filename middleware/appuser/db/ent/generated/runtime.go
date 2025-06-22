@@ -354,8 +354,12 @@ func init() {
 	appuserDescPhoneNo := appuserFields[2].Descriptor()
 	// appuser.DefaultPhoneNo holds the default value on creation for the phone_no field.
 	appuser.DefaultPhoneNo = appuserDescPhoneNo.Default.(string)
+	// appuserDescCountryCode is the schema descriptor for country_code field.
+	appuserDescCountryCode := appuserFields[3].Descriptor()
+	// appuser.DefaultCountryCode holds the default value on creation for the country_code field.
+	appuser.DefaultCountryCode = appuserDescCountryCode.Default.(string)
 	// appuserDescImportFromApp is the schema descriptor for import_from_app field.
-	appuserDescImportFromApp := appuserFields[3].Descriptor()
+	appuserDescImportFromApp := appuserFields[4].Descriptor()
 	// appuser.DefaultImportFromApp holds the default value on creation for the import_from_app field.
 	appuser.DefaultImportFromApp = appuserDescImportFromApp.Default.(func() uuid.UUID)
 	appusercontrolMixin := schema.AppUserControl{}.Mixin()

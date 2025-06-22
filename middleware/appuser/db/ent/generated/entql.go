@@ -187,6 +187,7 @@ var schemaGraph = func() *sqlgraph.Schema {
 			appuser.FieldAppID:         {Type: field.TypeUUID, Column: appuser.FieldAppID},
 			appuser.FieldEmailAddress:  {Type: field.TypeString, Column: appuser.FieldEmailAddress},
 			appuser.FieldPhoneNo:       {Type: field.TypeString, Column: appuser.FieldPhoneNo},
+			appuser.FieldCountryCode:   {Type: field.TypeString, Column: appuser.FieldCountryCode},
 			appuser.FieldImportFromApp: {Type: field.TypeUUID, Column: appuser.FieldImportFromApp},
 		},
 	}
@@ -1099,6 +1100,11 @@ func (f *AppUserFilter) WhereEmailAddress(p entql.StringP) {
 // WherePhoneNo applies the entql string predicate on the phone_no field.
 func (f *AppUserFilter) WherePhoneNo(p entql.StringP) {
 	f.Where(p.Field(appuser.FieldPhoneNo))
+}
+
+// WhereCountryCode applies the entql string predicate on the country_code field.
+func (f *AppUserFilter) WhereCountryCode(p entql.StringP) {
+	f.Where(p.Field(appuser.FieldCountryCode))
 }
 
 // WhereImportFromApp applies the entql [16]byte predicate on the import_from_app field.
