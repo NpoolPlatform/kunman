@@ -376,12 +376,12 @@ func createPayment(t *testing.T) {
 	cli, err := NewPaymentClient(
 		context.Background(),
 		WithOrderID(subscriptionOrder.OrderID),
+		WithReturnURL("http://localhost/callback"),
+		WithCancelURL("http://localhost/cancel"),
 	)
 	if assert.Nil(t, err) {
-		resp, err := cli.CreatePayment(context.Background())
+		_, err = cli.CreatePayment(context.Background())
 		assert.Nil(t, err)
-
-		fmt.Println(resp)
 	}
 }
 

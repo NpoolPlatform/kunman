@@ -17,9 +17,16 @@ type Amount struct {
 	Value        string `json:"value"`
 }
 
+type Item struct {
+	Name       string `json:"name"`
+	Quantity   string `json:"quantity"`
+	UnitAmount Amount `json:"unit_amount"`
+}
+
 type PurchaseUnit struct {
 	Amount      Amount `json:"amount"`
 	Description string `json:"description"`
+	Items       []Item `json:"items"`
 }
 
 type ApplicationContext struct {
@@ -71,13 +78,18 @@ func (cli *PaymentClient) CreatePayment(ctx context.Context) (*CreatePaymentResp
 		return nil, wlog.WrapError(err)
 	}
 
+	amount, err := cli.orderHandler.FiatPaymentAmount()
+	if err != nil {
+		return nil, err
+	}
+
 	requestBody := CreatePaymentRequest{
 		Intent: "CAPTURE",
 		PurchaseUnits: []PurchaseUnit{
 			{
 				Amount: Amount{
 					CurrencyCode: cli.orderHandler.FiatPaymentCurrency(),
-					Value:        cli.orderHandler.FiatPaymentAmount(),
+					Value:        amount,
 				},
 				Description: fmt.Sprintf("Payment of %v", cli.OrderID),
 			},

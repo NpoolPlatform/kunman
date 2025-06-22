@@ -9,6 +9,8 @@ import (
 	subscriptionordermwpb "github.com/NpoolPlatform/kunman/message/order/middleware/v1/subscription"
 	fiatmw "github.com/NpoolPlatform/kunman/middleware/chain/fiat"
 	subscriptionordermw "github.com/NpoolPlatform/kunman/middleware/order/subscription"
+
+	"github.com/shopspring/decimal"
 )
 
 type orderHandler struct {
@@ -67,6 +69,11 @@ func (h *orderHandler) FiatPaymentCurrency() string {
 	return h.fiat.Unit
 }
 
-func (h *orderHandler) FiatPaymentAmount() string {
-	return h.subscriptionOrder.PaymentFiats[0].Amount
+func (h *orderHandler) FiatPaymentAmount() (string, error) {
+	amount, err := decimal.NewFromString(h.subscriptionOrder.PaymentFiats[0].Amount)
+	if err != nil {
+		return wlog.WrapError(err)
+	}
+
+	return amount.Round(2).String(), nil
 }
