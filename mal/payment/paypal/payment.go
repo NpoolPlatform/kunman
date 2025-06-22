@@ -13,6 +13,10 @@ import (
 )
 
 func (cli *PaymentClient) CreatePayment(ctx context.Context) (*CreatePaymentResponse, error) {
+	if cli.orderHandler.Paid() {
+		return nil, wlog.Errorf("order already paid")
+	}
+
 	accessToken, err := cli.GetAccessToken(ctx)
 	if err != nil {
 		return nil, wlog.WrapError(err)
@@ -23,7 +27,7 @@ func (cli *PaymentClient) CreatePayment(ctx context.Context) (*CreatePaymentResp
 		return nil, err
 	}
 
-	requestBody := CreatePaymentRequest{
+	payload := CreatePaymentRequest{
 		Intent: "CAPTURE",
 		PurchaseUnits: []PurchaseUnit{
 			{
@@ -50,7 +54,7 @@ func (cli *PaymentClient) CreatePayment(ctx context.Context) (*CreatePaymentResp
 		SetHeader("Content-Type", "application/json").
 		SetHeader("Authorization", fmt.Sprintf("Bearer %s", accessToken)).
 		SetHeader("Prefer", "return=representation").
-		SetBody(requestBody).
+		SetBody(payload).
 		SetResult(&paymentResponse).
 		Post("/v2/checkout/orders")
 	if err != nil {

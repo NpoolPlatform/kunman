@@ -16,6 +16,16 @@ message SubscriptionReq {
     optional string Name = 70;
     optional string Banner = 80;
     optional string USDPrice = 90;
+
+    // For payment channel like paypal
+    optional string ProductID = 100;
+    optional uint32 TrialUnits = 110;
+    optional string TrialUSDPrice = 120;
+
+    // For specific local market
+    optional string PriceFiatID = 130;
+    optional string FiatPrice = 140;
+    optional string TrialFiatPrice = 150;
 }
 
 message Subscription {
@@ -51,6 +61,21 @@ message Subscription {
     uint32 DailyBonusQuota = 180;
     // @inject_tag: sql:"usd_price"
     string USDPrice = 190;
+
+    // @inject_tag: sql:"product_id"
+    string ProductID = 200;
+    // @inject_tag: sql:"trail_units"
+    uint32 TrialUnits = 210;
+    // @inject_tag: sql:"trial_usd_price"
+    string TrialUSDPrice = 220;
+
+    // @inject_tag: sql:"price_fiat_id"
+    string PriceFiatID = 300;
+    // @inject_tag: sql:"fiat_price"
+    string FiatPrice = 310;
+    // @inject_tag: sql:"trial_fiat_price"
+    string TrialFiatPrice = 320;
+
     // @inject_tag: sql:"created_at"
     uint32 CreatedAt = 1000;
     // @inject_tag: sql:"updated_at"

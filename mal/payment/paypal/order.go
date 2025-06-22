@@ -77,3 +77,6 @@ func (h *orderHandler) FiatPaymentAmount() (string, error) {
 
 	return amount.Round(2).String(), nil
 }
+func (h *orderHandler) Paid() bool {
+	return h.subscriptionOrder.PaymentFiats[0].ChannelPaymentID != ""
+}

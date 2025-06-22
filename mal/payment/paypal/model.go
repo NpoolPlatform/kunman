@@ -113,7 +113,7 @@ type PaymentPref struct {
 	AutoBillOutstanding     bool    `json:"auto_bill_outstanding"`
 	SetupFee                *Amount `json:"setup_fee,omitempty"`
 	SetupFeeFailureAction   string  `json:"setup_fee_failure_action"`
-	PaymentFailureThreshold int     `json:"payment_failure_threshold"`
+	PaymentFailureThreshold uint32  `json:"payment_failure_threshold"`
 }
 
 type PricingScheme struct {
@@ -122,14 +122,14 @@ type PricingScheme struct {
 
 type CycleFrequency struct {
 	IntervalUnit  string `json:"interval_unit"`
-	IntervalCount int    `json:"interval_count"`
+	IntervalCount uint32 `json:"interval_count"`
 }
 
 type BillingCycle struct {
 	Frequency     CycleFrequency `json:"frequency"`
 	TenureType    string         `json:"tenure_type"`
-	Sequence      int            `json:"sequence"`
-	TotalCycles   int            `json:"total_cycles"`
+	Sequence      uint32         `json:"sequence"`
+	TotalCycles   uint32         `json:"total_cycles"`
 	PricingScheme PricingScheme  `json:"pricing_scheme"`
 }
 

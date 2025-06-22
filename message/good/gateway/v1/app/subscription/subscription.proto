@@ -98,6 +98,14 @@ message AppSubscription {
   string Banner = 410;
   bool EnableSetCommission = 440;
 
+  string ProductID = 500;
+  uint32 TrialUnits = 510;
+  string TrialUSDPrice = 520;
+
+  string PriceFiatID = 600;
+  string FiatPrice = 610;
+  string TrialFiatPrice = 620;
+
   repeated good.middleware.app.good1.description.v1.DescriptionInfo
       Descriptions = 910;
   repeated good.middleware.app.good1.poster.v1.PosterInfo Posters = 920;
@@ -122,6 +130,14 @@ message UpdateAppSubscriptionRequest {
 
   optional bool EnableSetCommission = 160;
   optional string USDPrice = 220;
+
+  optional string ProductID = 300;
+  optional uint32 TrialUnits = 310;
+  optional string TrialUSDPrice = 320;
+
+  optional string PriceFiatID = 400;
+  optional string FiatPrice = 410;
+  optional string TrialFiatPrice = 420;
 }
 
 message UpdateAppSubscriptionResponse { AppSubscription Info = 10; }
@@ -150,6 +166,14 @@ message AdminCreateAppSubscriptionRequest {
 
   optional bool EnableSetCommission = 140;
   string USDPrice = 200;
+
+  optional string ProductID = 300;
+  optional uint32 TrialUnits = 310;
+  optional string TrialUSDPrice = 320;
+
+  optional string PriceFiatID = 400;
+  optional string FiatPrice = 410;
+  optional string TrialFiatPrice = 420;
 }
 
 message AdminCreateAppSubscriptionResponse { AppSubscription Info = 10; }
@@ -164,7 +188,6 @@ message AdminUpdateAppSubscriptionRequest {
   optional string Banner = 120;
 
   optional bool EnableSetCommission = 160;
-  optional string USDPrice = 220;
 }
 
 message AdminUpdateAppSubscriptionResponse { AppSubscription Info = 10; }
