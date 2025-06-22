@@ -27,14 +27,14 @@ func init() {
 }
 
 var ret = npool.Subscription{
-	EntID:          uuid.NewString(),
-	AppID:          uuid.NewString(),
-	UserID:         uuid.NewString(),
-	AppGoodID:      uuid.NewString(),
-	NextExtendAt:   1,
-	PermanentQuota: 1,
-	ConsumedQuota:  0,
-	AutoExtend:     false,
+	EntID:              uuid.NewString(),
+	AppID:              uuid.NewString(),
+	UserID:             uuid.NewString(),
+	AppGoodID:          uuid.NewString(),
+	NextExtendAt:       1,
+	PermanentQuota:     1,
+	ConsumedQuota:      0,
+	PayWithCoinBalance: false,
 }
 
 func setup(t *testing.T) func(*testing.T) {
@@ -51,7 +51,7 @@ func createSubscription(t *testing.T) {
 		WithNextExtendAt(&ret.NextExtendAt, true),
 		WithPermanentQuota(&ret.PermanentQuota, true),
 		WithConsumedQuota(&ret.ConsumedQuota, true),
-		WithAutoExtend(&ret.AutoExtend, true),
+		WithPayWithCoinBalance(&ret.PayWithCoinBalance, true),
 	)
 	assert.Nil(t, err)
 
@@ -71,7 +71,7 @@ func updateSubscription(t *testing.T) {
 	ret.NextExtendAt = 10
 	ret.PermanentQuota = 10
 	ret.ConsumedQuota = 5
-	ret.AutoExtend = true
+	ret.PayWithCoinBalance = true
 
 	handler, err := NewHandler(
 		context.Background(),
@@ -79,7 +79,7 @@ func updateSubscription(t *testing.T) {
 		WithNextExtendAt(&ret.NextExtendAt, true),
 		WithPermanentQuota(&ret.PermanentQuota, true),
 		WithConsumedQuota(&ret.ConsumedQuota, true),
-		WithAutoExtend(&ret.AutoExtend, true),
+		WithPayWithCoinBalance(&ret.PayWithCoinBalance, true),
 	)
 	assert.Nil(t, err)
 

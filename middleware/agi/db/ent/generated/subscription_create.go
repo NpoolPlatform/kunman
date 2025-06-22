@@ -162,16 +162,58 @@ func (sc *SubscriptionCreate) SetNillableConsumedQuota(u *uint32) *SubscriptionC
 	return sc
 }
 
-// SetAutoExtend sets the "auto_extend" field.
-func (sc *SubscriptionCreate) SetAutoExtend(b bool) *SubscriptionCreate {
-	sc.mutation.SetAutoExtend(b)
+// SetPayWithCoinBalance sets the "pay_with_coin_balance" field.
+func (sc *SubscriptionCreate) SetPayWithCoinBalance(b bool) *SubscriptionCreate {
+	sc.mutation.SetPayWithCoinBalance(b)
 	return sc
 }
 
-// SetNillableAutoExtend sets the "auto_extend" field if the given value is not nil.
-func (sc *SubscriptionCreate) SetNillableAutoExtend(b *bool) *SubscriptionCreate {
+// SetNillablePayWithCoinBalance sets the "pay_with_coin_balance" field if the given value is not nil.
+func (sc *SubscriptionCreate) SetNillablePayWithCoinBalance(b *bool) *SubscriptionCreate {
 	if b != nil {
-		sc.SetAutoExtend(*b)
+		sc.SetPayWithCoinBalance(*b)
+	}
+	return sc
+}
+
+// SetSubscriptionID sets the "subscription_id" field.
+func (sc *SubscriptionCreate) SetSubscriptionID(s string) *SubscriptionCreate {
+	sc.mutation.SetSubscriptionID(s)
+	return sc
+}
+
+// SetNillableSubscriptionID sets the "subscription_id" field if the given value is not nil.
+func (sc *SubscriptionCreate) SetNillableSubscriptionID(s *string) *SubscriptionCreate {
+	if s != nil {
+		sc.SetSubscriptionID(*s)
+	}
+	return sc
+}
+
+// SetFiatPaymentChannel sets the "fiat_payment_channel" field.
+func (sc *SubscriptionCreate) SetFiatPaymentChannel(s string) *SubscriptionCreate {
+	sc.mutation.SetFiatPaymentChannel(s)
+	return sc
+}
+
+// SetNillableFiatPaymentChannel sets the "fiat_payment_channel" field if the given value is not nil.
+func (sc *SubscriptionCreate) SetNillableFiatPaymentChannel(s *string) *SubscriptionCreate {
+	if s != nil {
+		sc.SetFiatPaymentChannel(*s)
+	}
+	return sc
+}
+
+// SetLastPaymentAt sets the "last_payment_at" field.
+func (sc *SubscriptionCreate) SetLastPaymentAt(u uint32) *SubscriptionCreate {
+	sc.mutation.SetLastPaymentAt(u)
+	return sc
+}
+
+// SetNillableLastPaymentAt sets the "last_payment_at" field if the given value is not nil.
+func (sc *SubscriptionCreate) SetNillableLastPaymentAt(u *uint32) *SubscriptionCreate {
+	if u != nil {
+		sc.SetLastPaymentAt(*u)
 	}
 	return sc
 }
@@ -257,9 +299,21 @@ func (sc *SubscriptionCreate) defaults() {
 		v := subscription.DefaultConsumedQuota
 		sc.mutation.SetConsumedQuota(v)
 	}
-	if _, ok := sc.mutation.AutoExtend(); !ok {
-		v := subscription.DefaultAutoExtend
-		sc.mutation.SetAutoExtend(v)
+	if _, ok := sc.mutation.PayWithCoinBalance(); !ok {
+		v := subscription.DefaultPayWithCoinBalance
+		sc.mutation.SetPayWithCoinBalance(v)
+	}
+	if _, ok := sc.mutation.SubscriptionID(); !ok {
+		v := subscription.DefaultSubscriptionID
+		sc.mutation.SetSubscriptionID(v)
+	}
+	if _, ok := sc.mutation.FiatPaymentChannel(); !ok {
+		v := subscription.DefaultFiatPaymentChannel
+		sc.mutation.SetFiatPaymentChannel(v)
+	}
+	if _, ok := sc.mutation.LastPaymentAt(); !ok {
+		v := subscription.DefaultLastPaymentAt
+		sc.mutation.SetLastPaymentAt(v)
 	}
 }
 
@@ -350,9 +404,21 @@ func (sc *SubscriptionCreate) createSpec() (*Subscription, *sqlgraph.CreateSpec)
 		_spec.SetField(subscription.FieldConsumedQuota, field.TypeUint32, value)
 		_node.ConsumedQuota = value
 	}
-	if value, ok := sc.mutation.AutoExtend(); ok {
-		_spec.SetField(subscription.FieldAutoExtend, field.TypeBool, value)
-		_node.AutoExtend = value
+	if value, ok := sc.mutation.PayWithCoinBalance(); ok {
+		_spec.SetField(subscription.FieldPayWithCoinBalance, field.TypeBool, value)
+		_node.PayWithCoinBalance = value
+	}
+	if value, ok := sc.mutation.SubscriptionID(); ok {
+		_spec.SetField(subscription.FieldSubscriptionID, field.TypeString, value)
+		_node.SubscriptionID = value
+	}
+	if value, ok := sc.mutation.FiatPaymentChannel(); ok {
+		_spec.SetField(subscription.FieldFiatPaymentChannel, field.TypeString, value)
+		_node.FiatPaymentChannel = value
+	}
+	if value, ok := sc.mutation.LastPaymentAt(); ok {
+		_spec.SetField(subscription.FieldLastPaymentAt, field.TypeUint32, value)
+		_node.LastPaymentAt = value
 	}
 	return _node, _spec
 }
@@ -598,21 +664,81 @@ func (u *SubscriptionUpsert) ClearConsumedQuota() *SubscriptionUpsert {
 	return u
 }
 
-// SetAutoExtend sets the "auto_extend" field.
-func (u *SubscriptionUpsert) SetAutoExtend(v bool) *SubscriptionUpsert {
-	u.Set(subscription.FieldAutoExtend, v)
+// SetPayWithCoinBalance sets the "pay_with_coin_balance" field.
+func (u *SubscriptionUpsert) SetPayWithCoinBalance(v bool) *SubscriptionUpsert {
+	u.Set(subscription.FieldPayWithCoinBalance, v)
 	return u
 }
 
-// UpdateAutoExtend sets the "auto_extend" field to the value that was provided on create.
-func (u *SubscriptionUpsert) UpdateAutoExtend() *SubscriptionUpsert {
-	u.SetExcluded(subscription.FieldAutoExtend)
+// UpdatePayWithCoinBalance sets the "pay_with_coin_balance" field to the value that was provided on create.
+func (u *SubscriptionUpsert) UpdatePayWithCoinBalance() *SubscriptionUpsert {
+	u.SetExcluded(subscription.FieldPayWithCoinBalance)
 	return u
 }
 
-// ClearAutoExtend clears the value of the "auto_extend" field.
-func (u *SubscriptionUpsert) ClearAutoExtend() *SubscriptionUpsert {
-	u.SetNull(subscription.FieldAutoExtend)
+// ClearPayWithCoinBalance clears the value of the "pay_with_coin_balance" field.
+func (u *SubscriptionUpsert) ClearPayWithCoinBalance() *SubscriptionUpsert {
+	u.SetNull(subscription.FieldPayWithCoinBalance)
+	return u
+}
+
+// SetSubscriptionID sets the "subscription_id" field.
+func (u *SubscriptionUpsert) SetSubscriptionID(v string) *SubscriptionUpsert {
+	u.Set(subscription.FieldSubscriptionID, v)
+	return u
+}
+
+// UpdateSubscriptionID sets the "subscription_id" field to the value that was provided on create.
+func (u *SubscriptionUpsert) UpdateSubscriptionID() *SubscriptionUpsert {
+	u.SetExcluded(subscription.FieldSubscriptionID)
+	return u
+}
+
+// ClearSubscriptionID clears the value of the "subscription_id" field.
+func (u *SubscriptionUpsert) ClearSubscriptionID() *SubscriptionUpsert {
+	u.SetNull(subscription.FieldSubscriptionID)
+	return u
+}
+
+// SetFiatPaymentChannel sets the "fiat_payment_channel" field.
+func (u *SubscriptionUpsert) SetFiatPaymentChannel(v string) *SubscriptionUpsert {
+	u.Set(subscription.FieldFiatPaymentChannel, v)
+	return u
+}
+
+// UpdateFiatPaymentChannel sets the "fiat_payment_channel" field to the value that was provided on create.
+func (u *SubscriptionUpsert) UpdateFiatPaymentChannel() *SubscriptionUpsert {
+	u.SetExcluded(subscription.FieldFiatPaymentChannel)
+	return u
+}
+
+// ClearFiatPaymentChannel clears the value of the "fiat_payment_channel" field.
+func (u *SubscriptionUpsert) ClearFiatPaymentChannel() *SubscriptionUpsert {
+	u.SetNull(subscription.FieldFiatPaymentChannel)
+	return u
+}
+
+// SetLastPaymentAt sets the "last_payment_at" field.
+func (u *SubscriptionUpsert) SetLastPaymentAt(v uint32) *SubscriptionUpsert {
+	u.Set(subscription.FieldLastPaymentAt, v)
+	return u
+}
+
+// UpdateLastPaymentAt sets the "last_payment_at" field to the value that was provided on create.
+func (u *SubscriptionUpsert) UpdateLastPaymentAt() *SubscriptionUpsert {
+	u.SetExcluded(subscription.FieldLastPaymentAt)
+	return u
+}
+
+// AddLastPaymentAt adds v to the "last_payment_at" field.
+func (u *SubscriptionUpsert) AddLastPaymentAt(v uint32) *SubscriptionUpsert {
+	u.Add(subscription.FieldLastPaymentAt, v)
+	return u
+}
+
+// ClearLastPaymentAt clears the value of the "last_payment_at" field.
+func (u *SubscriptionUpsert) ClearLastPaymentAt() *SubscriptionUpsert {
+	u.SetNull(subscription.FieldLastPaymentAt)
 	return u
 }
 
@@ -888,24 +1014,94 @@ func (u *SubscriptionUpsertOne) ClearConsumedQuota() *SubscriptionUpsertOne {
 	})
 }
 
-// SetAutoExtend sets the "auto_extend" field.
-func (u *SubscriptionUpsertOne) SetAutoExtend(v bool) *SubscriptionUpsertOne {
+// SetPayWithCoinBalance sets the "pay_with_coin_balance" field.
+func (u *SubscriptionUpsertOne) SetPayWithCoinBalance(v bool) *SubscriptionUpsertOne {
 	return u.Update(func(s *SubscriptionUpsert) {
-		s.SetAutoExtend(v)
+		s.SetPayWithCoinBalance(v)
 	})
 }
 
-// UpdateAutoExtend sets the "auto_extend" field to the value that was provided on create.
-func (u *SubscriptionUpsertOne) UpdateAutoExtend() *SubscriptionUpsertOne {
+// UpdatePayWithCoinBalance sets the "pay_with_coin_balance" field to the value that was provided on create.
+func (u *SubscriptionUpsertOne) UpdatePayWithCoinBalance() *SubscriptionUpsertOne {
 	return u.Update(func(s *SubscriptionUpsert) {
-		s.UpdateAutoExtend()
+		s.UpdatePayWithCoinBalance()
 	})
 }
 
-// ClearAutoExtend clears the value of the "auto_extend" field.
-func (u *SubscriptionUpsertOne) ClearAutoExtend() *SubscriptionUpsertOne {
+// ClearPayWithCoinBalance clears the value of the "pay_with_coin_balance" field.
+func (u *SubscriptionUpsertOne) ClearPayWithCoinBalance() *SubscriptionUpsertOne {
 	return u.Update(func(s *SubscriptionUpsert) {
-		s.ClearAutoExtend()
+		s.ClearPayWithCoinBalance()
+	})
+}
+
+// SetSubscriptionID sets the "subscription_id" field.
+func (u *SubscriptionUpsertOne) SetSubscriptionID(v string) *SubscriptionUpsertOne {
+	return u.Update(func(s *SubscriptionUpsert) {
+		s.SetSubscriptionID(v)
+	})
+}
+
+// UpdateSubscriptionID sets the "subscription_id" field to the value that was provided on create.
+func (u *SubscriptionUpsertOne) UpdateSubscriptionID() *SubscriptionUpsertOne {
+	return u.Update(func(s *SubscriptionUpsert) {
+		s.UpdateSubscriptionID()
+	})
+}
+
+// ClearSubscriptionID clears the value of the "subscription_id" field.
+func (u *SubscriptionUpsertOne) ClearSubscriptionID() *SubscriptionUpsertOne {
+	return u.Update(func(s *SubscriptionUpsert) {
+		s.ClearSubscriptionID()
+	})
+}
+
+// SetFiatPaymentChannel sets the "fiat_payment_channel" field.
+func (u *SubscriptionUpsertOne) SetFiatPaymentChannel(v string) *SubscriptionUpsertOne {
+	return u.Update(func(s *SubscriptionUpsert) {
+		s.SetFiatPaymentChannel(v)
+	})
+}
+
+// UpdateFiatPaymentChannel sets the "fiat_payment_channel" field to the value that was provided on create.
+func (u *SubscriptionUpsertOne) UpdateFiatPaymentChannel() *SubscriptionUpsertOne {
+	return u.Update(func(s *SubscriptionUpsert) {
+		s.UpdateFiatPaymentChannel()
+	})
+}
+
+// ClearFiatPaymentChannel clears the value of the "fiat_payment_channel" field.
+func (u *SubscriptionUpsertOne) ClearFiatPaymentChannel() *SubscriptionUpsertOne {
+	return u.Update(func(s *SubscriptionUpsert) {
+		s.ClearFiatPaymentChannel()
+	})
+}
+
+// SetLastPaymentAt sets the "last_payment_at" field.
+func (u *SubscriptionUpsertOne) SetLastPaymentAt(v uint32) *SubscriptionUpsertOne {
+	return u.Update(func(s *SubscriptionUpsert) {
+		s.SetLastPaymentAt(v)
+	})
+}
+
+// AddLastPaymentAt adds v to the "last_payment_at" field.
+func (u *SubscriptionUpsertOne) AddLastPaymentAt(v uint32) *SubscriptionUpsertOne {
+	return u.Update(func(s *SubscriptionUpsert) {
+		s.AddLastPaymentAt(v)
+	})
+}
+
+// UpdateLastPaymentAt sets the "last_payment_at" field to the value that was provided on create.
+func (u *SubscriptionUpsertOne) UpdateLastPaymentAt() *SubscriptionUpsertOne {
+	return u.Update(func(s *SubscriptionUpsert) {
+		s.UpdateLastPaymentAt()
+	})
+}
+
+// ClearLastPaymentAt clears the value of the "last_payment_at" field.
+func (u *SubscriptionUpsertOne) ClearLastPaymentAt() *SubscriptionUpsertOne {
+	return u.Update(func(s *SubscriptionUpsert) {
+		s.ClearLastPaymentAt()
 	})
 }
 
@@ -1347,24 +1543,94 @@ func (u *SubscriptionUpsertBulk) ClearConsumedQuota() *SubscriptionUpsertBulk {
 	})
 }
 
-// SetAutoExtend sets the "auto_extend" field.
-func (u *SubscriptionUpsertBulk) SetAutoExtend(v bool) *SubscriptionUpsertBulk {
+// SetPayWithCoinBalance sets the "pay_with_coin_balance" field.
+func (u *SubscriptionUpsertBulk) SetPayWithCoinBalance(v bool) *SubscriptionUpsertBulk {
 	return u.Update(func(s *SubscriptionUpsert) {
-		s.SetAutoExtend(v)
+		s.SetPayWithCoinBalance(v)
 	})
 }
 
-// UpdateAutoExtend sets the "auto_extend" field to the value that was provided on create.
-func (u *SubscriptionUpsertBulk) UpdateAutoExtend() *SubscriptionUpsertBulk {
+// UpdatePayWithCoinBalance sets the "pay_with_coin_balance" field to the value that was provided on create.
+func (u *SubscriptionUpsertBulk) UpdatePayWithCoinBalance() *SubscriptionUpsertBulk {
 	return u.Update(func(s *SubscriptionUpsert) {
-		s.UpdateAutoExtend()
+		s.UpdatePayWithCoinBalance()
 	})
 }
 
-// ClearAutoExtend clears the value of the "auto_extend" field.
-func (u *SubscriptionUpsertBulk) ClearAutoExtend() *SubscriptionUpsertBulk {
+// ClearPayWithCoinBalance clears the value of the "pay_with_coin_balance" field.
+func (u *SubscriptionUpsertBulk) ClearPayWithCoinBalance() *SubscriptionUpsertBulk {
 	return u.Update(func(s *SubscriptionUpsert) {
-		s.ClearAutoExtend()
+		s.ClearPayWithCoinBalance()
+	})
+}
+
+// SetSubscriptionID sets the "subscription_id" field.
+func (u *SubscriptionUpsertBulk) SetSubscriptionID(v string) *SubscriptionUpsertBulk {
+	return u.Update(func(s *SubscriptionUpsert) {
+		s.SetSubscriptionID(v)
+	})
+}
+
+// UpdateSubscriptionID sets the "subscription_id" field to the value that was provided on create.
+func (u *SubscriptionUpsertBulk) UpdateSubscriptionID() *SubscriptionUpsertBulk {
+	return u.Update(func(s *SubscriptionUpsert) {
+		s.UpdateSubscriptionID()
+	})
+}
+
+// ClearSubscriptionID clears the value of the "subscription_id" field.
+func (u *SubscriptionUpsertBulk) ClearSubscriptionID() *SubscriptionUpsertBulk {
+	return u.Update(func(s *SubscriptionUpsert) {
+		s.ClearSubscriptionID()
+	})
+}
+
+// SetFiatPaymentChannel sets the "fiat_payment_channel" field.
+func (u *SubscriptionUpsertBulk) SetFiatPaymentChannel(v string) *SubscriptionUpsertBulk {
+	return u.Update(func(s *SubscriptionUpsert) {
+		s.SetFiatPaymentChannel(v)
+	})
+}
+
+// UpdateFiatPaymentChannel sets the "fiat_payment_channel" field to the value that was provided on create.
+func (u *SubscriptionUpsertBulk) UpdateFiatPaymentChannel() *SubscriptionUpsertBulk {
+	return u.Update(func(s *SubscriptionUpsert) {
+		s.UpdateFiatPaymentChannel()
+	})
+}
+
+// ClearFiatPaymentChannel clears the value of the "fiat_payment_channel" field.
+func (u *SubscriptionUpsertBulk) ClearFiatPaymentChannel() *SubscriptionUpsertBulk {
+	return u.Update(func(s *SubscriptionUpsert) {
+		s.ClearFiatPaymentChannel()
+	})
+}
+
+// SetLastPaymentAt sets the "last_payment_at" field.
+func (u *SubscriptionUpsertBulk) SetLastPaymentAt(v uint32) *SubscriptionUpsertBulk {
+	return u.Update(func(s *SubscriptionUpsert) {
+		s.SetLastPaymentAt(v)
+	})
+}
+
+// AddLastPaymentAt adds v to the "last_payment_at" field.
+func (u *SubscriptionUpsertBulk) AddLastPaymentAt(v uint32) *SubscriptionUpsertBulk {
+	return u.Update(func(s *SubscriptionUpsert) {
+		s.AddLastPaymentAt(v)
+	})
+}
+
+// UpdateLastPaymentAt sets the "last_payment_at" field to the value that was provided on create.
+func (u *SubscriptionUpsertBulk) UpdateLastPaymentAt() *SubscriptionUpsertBulk {
+	return u.Update(func(s *SubscriptionUpsert) {
+		s.UpdateLastPaymentAt()
+	})
+}
+
+// ClearLastPaymentAt clears the value of the "last_payment_at" field.
+func (u *SubscriptionUpsertBulk) ClearLastPaymentAt() *SubscriptionUpsertBulk {
+	return u.Update(func(s *SubscriptionUpsert) {
+		s.ClearLastPaymentAt()
 	})
 }
 

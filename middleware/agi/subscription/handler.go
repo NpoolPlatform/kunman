@@ -5,6 +5,7 @@ import (
 
 	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
 	npool "github.com/NpoolPlatform/kunman/message/agi/middleware/v1/subscription"
+	ordertypes "github.com/NpoolPlatform/kunman/message/basetypes/order/v1"
 	subscriptioncrud "github.com/NpoolPlatform/kunman/middleware/agi/crud/subscription"
 	constant "github.com/NpoolPlatform/kunman/pkg/const"
 	cruder "github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
@@ -151,15 +152,54 @@ func WithConsumedQuota(u *uint32, must bool) func(context.Context, *Handler) err
 	}
 }
 
-func WithAutoExtend(b *bool, must bool) func(context.Context, *Handler) error {
+func WithPayWithCoinBalance(b *bool, must bool) func(context.Context, *Handler) error {
 	return func(ctx context.Context, h *Handler) error {
 		if b == nil {
 			if must {
-				return wlog.Errorf("invalid autoextend")
+				return wlog.Errorf("invalid paywithautobalance")
 			}
 			return nil
 		}
-		h.AutoExtend = b
+		h.PayWithCoinBalance = b
+		return nil
+	}
+}
+
+func WithSubscriptioonID(s *string, must bool) func(context.Context, *Handler) error {
+	return func(ctx context.Context, h *Handler) error {
+		if s == nil {
+			if must {
+				return wlog.Errorf("invalid subscriptionid")
+			}
+			return nil
+		}
+		h.SubscriptionID = s
+		return nil
+	}
+}
+
+func WithFiatPaymentChannel(e *ordertypes.FiatPaymentChannel, must bool) func(context.Context, *Handler) error {
+	return func(ctx context.Context, h *Handler) error {
+		if e == nil {
+			if must {
+				return wlog.Errorf("invalid fiatpaymentchannel")
+			}
+			return nil
+		}
+		h.FiatPaymentChannel = e
+		return nil
+	}
+}
+
+func WithLastPaymentAt(u *uint32, must bool) func(context.Context, *Handler) error {
+	return func(ctx context.Context, h *Handler) error {
+		if u == nil {
+			if must {
+				return wlog.Errorf("invalid lastpaymentat")
+			}
+			return nil
+		}
+		h.LastPaymentAt = u
 		return nil
 	}
 }

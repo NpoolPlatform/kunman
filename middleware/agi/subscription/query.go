@@ -5,6 +5,7 @@ import (
 
 	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
 	npool "github.com/NpoolPlatform/kunman/message/agi/middleware/v1/subscription"
+	ordertypes "github.com/NpoolPlatform/kunman/message/basetypes/order/v1"
 	"github.com/NpoolPlatform/kunman/middleware/agi/db"
 	ent "github.com/NpoolPlatform/kunman/middleware/agi/db/ent/generated"
 )
@@ -19,7 +20,9 @@ func (h *queryHandler) scan(ctx context.Context) error {
 }
 
 func (h *queryHandler) formalize() {
-	// DO NOTHING
+	for _, info := range h.infos {
+		info.FiatPaymentChannel = ordertypes.FiatPaymentChannel(ordertypes.FiatPaymentChannel_value[info.FiatPaymentChannelStr])
+	}
 }
 
 func (h *Handler) GetSubscription(ctx context.Context) (*npool.Subscription, error) {

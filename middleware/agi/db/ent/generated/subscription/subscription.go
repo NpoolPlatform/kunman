@@ -32,8 +32,14 @@ const (
 	FieldPermanentQuota = "permanent_quota"
 	// FieldConsumedQuota holds the string denoting the consumed_quota field in the database.
 	FieldConsumedQuota = "consumed_quota"
-	// FieldAutoExtend holds the string denoting the auto_extend field in the database.
-	FieldAutoExtend = "auto_extend"
+	// FieldPayWithCoinBalance holds the string denoting the pay_with_coin_balance field in the database.
+	FieldPayWithCoinBalance = "pay_with_coin_balance"
+	// FieldSubscriptionID holds the string denoting the subscription_id field in the database.
+	FieldSubscriptionID = "subscription_id"
+	// FieldFiatPaymentChannel holds the string denoting the fiat_payment_channel field in the database.
+	FieldFiatPaymentChannel = "fiat_payment_channel"
+	// FieldLastPaymentAt holds the string denoting the last_payment_at field in the database.
+	FieldLastPaymentAt = "last_payment_at"
 	// Table holds the table name of the subscription in the database.
 	Table = "subscriptions"
 )
@@ -51,7 +57,10 @@ var Columns = []string{
 	FieldNextExtendAt,
 	FieldPermanentQuota,
 	FieldConsumedQuota,
-	FieldAutoExtend,
+	FieldPayWithCoinBalance,
+	FieldSubscriptionID,
+	FieldFiatPaymentChannel,
+	FieldLastPaymentAt,
 }
 
 // ValidColumn reports if the column name is valid (part of the table columns).
@@ -87,8 +96,14 @@ var (
 	DefaultPermanentQuota uint32
 	// DefaultConsumedQuota holds the default value on creation for the "consumed_quota" field.
 	DefaultConsumedQuota uint32
-	// DefaultAutoExtend holds the default value on creation for the "auto_extend" field.
-	DefaultAutoExtend bool
+	// DefaultPayWithCoinBalance holds the default value on creation for the "pay_with_coin_balance" field.
+	DefaultPayWithCoinBalance bool
+	// DefaultSubscriptionID holds the default value on creation for the "subscription_id" field.
+	DefaultSubscriptionID string
+	// DefaultFiatPaymentChannel holds the default value on creation for the "fiat_payment_channel" field.
+	DefaultFiatPaymentChannel string
+	// DefaultLastPaymentAt holds the default value on creation for the "last_payment_at" field.
+	DefaultLastPaymentAt uint32
 )
 
 // OrderOption defines the ordering options for the Subscription queries.
@@ -149,7 +164,22 @@ func ByConsumedQuota(opts ...sql.OrderTermOption) OrderOption {
 	return sql.OrderByField(FieldConsumedQuota, opts...).ToFunc()
 }
 
-// ByAutoExtend orders the results by the auto_extend field.
-func ByAutoExtend(opts ...sql.OrderTermOption) OrderOption {
-	return sql.OrderByField(FieldAutoExtend, opts...).ToFunc()
+// ByPayWithCoinBalance orders the results by the pay_with_coin_balance field.
+func ByPayWithCoinBalance(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldPayWithCoinBalance, opts...).ToFunc()
+}
+
+// BySubscriptionID orders the results by the subscription_id field.
+func BySubscriptionID(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldSubscriptionID, opts...).ToFunc()
+}
+
+// ByFiatPaymentChannel orders the results by the fiat_payment_channel field.
+func ByFiatPaymentChannel(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldFiatPaymentChannel, opts...).ToFunc()
+}
+
+// ByLastPaymentAt orders the results by the last_payment_at field.
+func ByLastPaymentAt(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldLastPaymentAt, opts...).ToFunc()
 }

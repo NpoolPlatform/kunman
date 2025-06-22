@@ -1991,30 +1991,34 @@ func (m *QuotaMutation) ResetEdge(name string) error {
 // SubscriptionMutation represents an operation that mutates the Subscription nodes in the graph.
 type SubscriptionMutation struct {
 	config
-	op                 Op
-	typ                string
-	id                 *uint32
-	created_at         *uint32
-	addcreated_at      *int32
-	updated_at         *uint32
-	addupdated_at      *int32
-	deleted_at         *uint32
-	adddeleted_at      *int32
-	ent_id             *uuid.UUID
-	app_id             *uuid.UUID
-	user_id            *uuid.UUID
-	app_good_id        *uuid.UUID
-	next_extend_at     *uint32
-	addnext_extend_at  *int32
-	permanent_quota    *uint32
-	addpermanent_quota *int32
-	consumed_quota     *uint32
-	addconsumed_quota  *int32
-	auto_extend        *bool
-	clearedFields      map[string]struct{}
-	done               bool
-	oldValue           func(context.Context) (*Subscription, error)
-	predicates         []predicate.Subscription
+	op                    Op
+	typ                   string
+	id                    *uint32
+	created_at            *uint32
+	addcreated_at         *int32
+	updated_at            *uint32
+	addupdated_at         *int32
+	deleted_at            *uint32
+	adddeleted_at         *int32
+	ent_id                *uuid.UUID
+	app_id                *uuid.UUID
+	user_id               *uuid.UUID
+	app_good_id           *uuid.UUID
+	next_extend_at        *uint32
+	addnext_extend_at     *int32
+	permanent_quota       *uint32
+	addpermanent_quota    *int32
+	consumed_quota        *uint32
+	addconsumed_quota     *int32
+	pay_with_coin_balance *bool
+	subscription_id       *string
+	fiat_payment_channel  *string
+	last_payment_at       *uint32
+	addlast_payment_at    *int32
+	clearedFields         map[string]struct{}
+	done                  bool
+	oldValue              func(context.Context) (*Subscription, error)
+	predicates            []predicate.Subscription
 }
 
 var _ ent.Mutation = (*SubscriptionMutation)(nil)
@@ -2682,53 +2686,221 @@ func (m *SubscriptionMutation) ResetConsumedQuota() {
 	delete(m.clearedFields, subscription.FieldConsumedQuota)
 }
 
-// SetAutoExtend sets the "auto_extend" field.
-func (m *SubscriptionMutation) SetAutoExtend(b bool) {
-	m.auto_extend = &b
+// SetPayWithCoinBalance sets the "pay_with_coin_balance" field.
+func (m *SubscriptionMutation) SetPayWithCoinBalance(b bool) {
+	m.pay_with_coin_balance = &b
 }
 
-// AutoExtend returns the value of the "auto_extend" field in the mutation.
-func (m *SubscriptionMutation) AutoExtend() (r bool, exists bool) {
-	v := m.auto_extend
+// PayWithCoinBalance returns the value of the "pay_with_coin_balance" field in the mutation.
+func (m *SubscriptionMutation) PayWithCoinBalance() (r bool, exists bool) {
+	v := m.pay_with_coin_balance
 	if v == nil {
 		return
 	}
 	return *v, true
 }
 
-// OldAutoExtend returns the old "auto_extend" field's value of the Subscription entity.
+// OldPayWithCoinBalance returns the old "pay_with_coin_balance" field's value of the Subscription entity.
 // If the Subscription object wasn't provided to the builder, the object is fetched from the database.
 // An error is returned if the mutation operation is not UpdateOne, or the database query fails.
-func (m *SubscriptionMutation) OldAutoExtend(ctx context.Context) (v bool, err error) {
+func (m *SubscriptionMutation) OldPayWithCoinBalance(ctx context.Context) (v bool, err error) {
 	if !m.op.Is(OpUpdateOne) {
-		return v, errors.New("OldAutoExtend is only allowed on UpdateOne operations")
+		return v, errors.New("OldPayWithCoinBalance is only allowed on UpdateOne operations")
 	}
 	if m.id == nil || m.oldValue == nil {
-		return v, errors.New("OldAutoExtend requires an ID field in the mutation")
+		return v, errors.New("OldPayWithCoinBalance requires an ID field in the mutation")
 	}
 	oldValue, err := m.oldValue(ctx)
 	if err != nil {
-		return v, fmt.Errorf("querying old value for OldAutoExtend: %w", err)
+		return v, fmt.Errorf("querying old value for OldPayWithCoinBalance: %w", err)
 	}
-	return oldValue.AutoExtend, nil
+	return oldValue.PayWithCoinBalance, nil
 }
 
-// ClearAutoExtend clears the value of the "auto_extend" field.
-func (m *SubscriptionMutation) ClearAutoExtend() {
-	m.auto_extend = nil
-	m.clearedFields[subscription.FieldAutoExtend] = struct{}{}
+// ClearPayWithCoinBalance clears the value of the "pay_with_coin_balance" field.
+func (m *SubscriptionMutation) ClearPayWithCoinBalance() {
+	m.pay_with_coin_balance = nil
+	m.clearedFields[subscription.FieldPayWithCoinBalance] = struct{}{}
 }
 
-// AutoExtendCleared returns if the "auto_extend" field was cleared in this mutation.
-func (m *SubscriptionMutation) AutoExtendCleared() bool {
-	_, ok := m.clearedFields[subscription.FieldAutoExtend]
+// PayWithCoinBalanceCleared returns if the "pay_with_coin_balance" field was cleared in this mutation.
+func (m *SubscriptionMutation) PayWithCoinBalanceCleared() bool {
+	_, ok := m.clearedFields[subscription.FieldPayWithCoinBalance]
 	return ok
 }
 
-// ResetAutoExtend resets all changes to the "auto_extend" field.
-func (m *SubscriptionMutation) ResetAutoExtend() {
-	m.auto_extend = nil
-	delete(m.clearedFields, subscription.FieldAutoExtend)
+// ResetPayWithCoinBalance resets all changes to the "pay_with_coin_balance" field.
+func (m *SubscriptionMutation) ResetPayWithCoinBalance() {
+	m.pay_with_coin_balance = nil
+	delete(m.clearedFields, subscription.FieldPayWithCoinBalance)
+}
+
+// SetSubscriptionID sets the "subscription_id" field.
+func (m *SubscriptionMutation) SetSubscriptionID(s string) {
+	m.subscription_id = &s
+}
+
+// SubscriptionID returns the value of the "subscription_id" field in the mutation.
+func (m *SubscriptionMutation) SubscriptionID() (r string, exists bool) {
+	v := m.subscription_id
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldSubscriptionID returns the old "subscription_id" field's value of the Subscription entity.
+// If the Subscription object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *SubscriptionMutation) OldSubscriptionID(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldSubscriptionID is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldSubscriptionID requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldSubscriptionID: %w", err)
+	}
+	return oldValue.SubscriptionID, nil
+}
+
+// ClearSubscriptionID clears the value of the "subscription_id" field.
+func (m *SubscriptionMutation) ClearSubscriptionID() {
+	m.subscription_id = nil
+	m.clearedFields[subscription.FieldSubscriptionID] = struct{}{}
+}
+
+// SubscriptionIDCleared returns if the "subscription_id" field was cleared in this mutation.
+func (m *SubscriptionMutation) SubscriptionIDCleared() bool {
+	_, ok := m.clearedFields[subscription.FieldSubscriptionID]
+	return ok
+}
+
+// ResetSubscriptionID resets all changes to the "subscription_id" field.
+func (m *SubscriptionMutation) ResetSubscriptionID() {
+	m.subscription_id = nil
+	delete(m.clearedFields, subscription.FieldSubscriptionID)
+}
+
+// SetFiatPaymentChannel sets the "fiat_payment_channel" field.
+func (m *SubscriptionMutation) SetFiatPaymentChannel(s string) {
+	m.fiat_payment_channel = &s
+}
+
+// FiatPaymentChannel returns the value of the "fiat_payment_channel" field in the mutation.
+func (m *SubscriptionMutation) FiatPaymentChannel() (r string, exists bool) {
+	v := m.fiat_payment_channel
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldFiatPaymentChannel returns the old "fiat_payment_channel" field's value of the Subscription entity.
+// If the Subscription object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *SubscriptionMutation) OldFiatPaymentChannel(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldFiatPaymentChannel is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldFiatPaymentChannel requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldFiatPaymentChannel: %w", err)
+	}
+	return oldValue.FiatPaymentChannel, nil
+}
+
+// ClearFiatPaymentChannel clears the value of the "fiat_payment_channel" field.
+func (m *SubscriptionMutation) ClearFiatPaymentChannel() {
+	m.fiat_payment_channel = nil
+	m.clearedFields[subscription.FieldFiatPaymentChannel] = struct{}{}
+}
+
+// FiatPaymentChannelCleared returns if the "fiat_payment_channel" field was cleared in this mutation.
+func (m *SubscriptionMutation) FiatPaymentChannelCleared() bool {
+	_, ok := m.clearedFields[subscription.FieldFiatPaymentChannel]
+	return ok
+}
+
+// ResetFiatPaymentChannel resets all changes to the "fiat_payment_channel" field.
+func (m *SubscriptionMutation) ResetFiatPaymentChannel() {
+	m.fiat_payment_channel = nil
+	delete(m.clearedFields, subscription.FieldFiatPaymentChannel)
+}
+
+// SetLastPaymentAt sets the "last_payment_at" field.
+func (m *SubscriptionMutation) SetLastPaymentAt(u uint32) {
+	m.last_payment_at = &u
+	m.addlast_payment_at = nil
+}
+
+// LastPaymentAt returns the value of the "last_payment_at" field in the mutation.
+func (m *SubscriptionMutation) LastPaymentAt() (r uint32, exists bool) {
+	v := m.last_payment_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldLastPaymentAt returns the old "last_payment_at" field's value of the Subscription entity.
+// If the Subscription object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *SubscriptionMutation) OldLastPaymentAt(ctx context.Context) (v uint32, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldLastPaymentAt is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldLastPaymentAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldLastPaymentAt: %w", err)
+	}
+	return oldValue.LastPaymentAt, nil
+}
+
+// AddLastPaymentAt adds u to the "last_payment_at" field.
+func (m *SubscriptionMutation) AddLastPaymentAt(u int32) {
+	if m.addlast_payment_at != nil {
+		*m.addlast_payment_at += u
+	} else {
+		m.addlast_payment_at = &u
+	}
+}
+
+// AddedLastPaymentAt returns the value that was added to the "last_payment_at" field in this mutation.
+func (m *SubscriptionMutation) AddedLastPaymentAt() (r int32, exists bool) {
+	v := m.addlast_payment_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ClearLastPaymentAt clears the value of the "last_payment_at" field.
+func (m *SubscriptionMutation) ClearLastPaymentAt() {
+	m.last_payment_at = nil
+	m.addlast_payment_at = nil
+	m.clearedFields[subscription.FieldLastPaymentAt] = struct{}{}
+}
+
+// LastPaymentAtCleared returns if the "last_payment_at" field was cleared in this mutation.
+func (m *SubscriptionMutation) LastPaymentAtCleared() bool {
+	_, ok := m.clearedFields[subscription.FieldLastPaymentAt]
+	return ok
+}
+
+// ResetLastPaymentAt resets all changes to the "last_payment_at" field.
+func (m *SubscriptionMutation) ResetLastPaymentAt() {
+	m.last_payment_at = nil
+	m.addlast_payment_at = nil
+	delete(m.clearedFields, subscription.FieldLastPaymentAt)
 }
 
 // Where appends a list predicates to the SubscriptionMutation builder.
@@ -2765,7 +2937,7 @@ func (m *SubscriptionMutation) Type() string {
 // order to get all numeric fields that were incremented/decremented, call
 // AddedFields().
 func (m *SubscriptionMutation) Fields() []string {
-	fields := make([]string, 0, 11)
+	fields := make([]string, 0, 14)
 	if m.created_at != nil {
 		fields = append(fields, subscription.FieldCreatedAt)
 	}
@@ -2796,8 +2968,17 @@ func (m *SubscriptionMutation) Fields() []string {
 	if m.consumed_quota != nil {
 		fields = append(fields, subscription.FieldConsumedQuota)
 	}
-	if m.auto_extend != nil {
-		fields = append(fields, subscription.FieldAutoExtend)
+	if m.pay_with_coin_balance != nil {
+		fields = append(fields, subscription.FieldPayWithCoinBalance)
+	}
+	if m.subscription_id != nil {
+		fields = append(fields, subscription.FieldSubscriptionID)
+	}
+	if m.fiat_payment_channel != nil {
+		fields = append(fields, subscription.FieldFiatPaymentChannel)
+	}
+	if m.last_payment_at != nil {
+		fields = append(fields, subscription.FieldLastPaymentAt)
 	}
 	return fields
 }
@@ -2827,8 +3008,14 @@ func (m *SubscriptionMutation) Field(name string) (ent.Value, bool) {
 		return m.PermanentQuota()
 	case subscription.FieldConsumedQuota:
 		return m.ConsumedQuota()
-	case subscription.FieldAutoExtend:
-		return m.AutoExtend()
+	case subscription.FieldPayWithCoinBalance:
+		return m.PayWithCoinBalance()
+	case subscription.FieldSubscriptionID:
+		return m.SubscriptionID()
+	case subscription.FieldFiatPaymentChannel:
+		return m.FiatPaymentChannel()
+	case subscription.FieldLastPaymentAt:
+		return m.LastPaymentAt()
 	}
 	return nil, false
 }
@@ -2858,8 +3045,14 @@ func (m *SubscriptionMutation) OldField(ctx context.Context, name string) (ent.V
 		return m.OldPermanentQuota(ctx)
 	case subscription.FieldConsumedQuota:
 		return m.OldConsumedQuota(ctx)
-	case subscription.FieldAutoExtend:
-		return m.OldAutoExtend(ctx)
+	case subscription.FieldPayWithCoinBalance:
+		return m.OldPayWithCoinBalance(ctx)
+	case subscription.FieldSubscriptionID:
+		return m.OldSubscriptionID(ctx)
+	case subscription.FieldFiatPaymentChannel:
+		return m.OldFiatPaymentChannel(ctx)
+	case subscription.FieldLastPaymentAt:
+		return m.OldLastPaymentAt(ctx)
 	}
 	return nil, fmt.Errorf("unknown Subscription field %s", name)
 }
@@ -2939,12 +3132,33 @@ func (m *SubscriptionMutation) SetField(name string, value ent.Value) error {
 		}
 		m.SetConsumedQuota(v)
 		return nil
-	case subscription.FieldAutoExtend:
+	case subscription.FieldPayWithCoinBalance:
 		v, ok := value.(bool)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
-		m.SetAutoExtend(v)
+		m.SetPayWithCoinBalance(v)
+		return nil
+	case subscription.FieldSubscriptionID:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetSubscriptionID(v)
+		return nil
+	case subscription.FieldFiatPaymentChannel:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetFiatPaymentChannel(v)
+		return nil
+	case subscription.FieldLastPaymentAt:
+		v, ok := value.(uint32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetLastPaymentAt(v)
 		return nil
 	}
 	return fmt.Errorf("unknown Subscription field %s", name)
@@ -2972,6 +3186,9 @@ func (m *SubscriptionMutation) AddedFields() []string {
 	if m.addconsumed_quota != nil {
 		fields = append(fields, subscription.FieldConsumedQuota)
 	}
+	if m.addlast_payment_at != nil {
+		fields = append(fields, subscription.FieldLastPaymentAt)
+	}
 	return fields
 }
 
@@ -2992,6 +3209,8 @@ func (m *SubscriptionMutation) AddedField(name string) (ent.Value, bool) {
 		return m.AddedPermanentQuota()
 	case subscription.FieldConsumedQuota:
 		return m.AddedConsumedQuota()
+	case subscription.FieldLastPaymentAt:
+		return m.AddedLastPaymentAt()
 	}
 	return nil, false
 }
@@ -3043,6 +3262,13 @@ func (m *SubscriptionMutation) AddField(name string, value ent.Value) error {
 		}
 		m.AddConsumedQuota(v)
 		return nil
+	case subscription.FieldLastPaymentAt:
+		v, ok := value.(int32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddLastPaymentAt(v)
+		return nil
 	}
 	return fmt.Errorf("unknown Subscription numeric field %s", name)
 }
@@ -3069,8 +3295,17 @@ func (m *SubscriptionMutation) ClearedFields() []string {
 	if m.FieldCleared(subscription.FieldConsumedQuota) {
 		fields = append(fields, subscription.FieldConsumedQuota)
 	}
-	if m.FieldCleared(subscription.FieldAutoExtend) {
-		fields = append(fields, subscription.FieldAutoExtend)
+	if m.FieldCleared(subscription.FieldPayWithCoinBalance) {
+		fields = append(fields, subscription.FieldPayWithCoinBalance)
+	}
+	if m.FieldCleared(subscription.FieldSubscriptionID) {
+		fields = append(fields, subscription.FieldSubscriptionID)
+	}
+	if m.FieldCleared(subscription.FieldFiatPaymentChannel) {
+		fields = append(fields, subscription.FieldFiatPaymentChannel)
+	}
+	if m.FieldCleared(subscription.FieldLastPaymentAt) {
+		fields = append(fields, subscription.FieldLastPaymentAt)
 	}
 	return fields
 }
@@ -3104,8 +3339,17 @@ func (m *SubscriptionMutation) ClearField(name string) error {
 	case subscription.FieldConsumedQuota:
 		m.ClearConsumedQuota()
 		return nil
-	case subscription.FieldAutoExtend:
-		m.ClearAutoExtend()
+	case subscription.FieldPayWithCoinBalance:
+		m.ClearPayWithCoinBalance()
+		return nil
+	case subscription.FieldSubscriptionID:
+		m.ClearSubscriptionID()
+		return nil
+	case subscription.FieldFiatPaymentChannel:
+		m.ClearFiatPaymentChannel()
+		return nil
+	case subscription.FieldLastPaymentAt:
+		m.ClearLastPaymentAt()
 		return nil
 	}
 	return fmt.Errorf("unknown Subscription nullable field %s", name)
@@ -3145,8 +3389,17 @@ func (m *SubscriptionMutation) ResetField(name string) error {
 	case subscription.FieldConsumedQuota:
 		m.ResetConsumedQuota()
 		return nil
-	case subscription.FieldAutoExtend:
-		m.ResetAutoExtend()
+	case subscription.FieldPayWithCoinBalance:
+		m.ResetPayWithCoinBalance()
+		return nil
+	case subscription.FieldSubscriptionID:
+		m.ResetSubscriptionID()
+		return nil
+	case subscription.FieldFiatPaymentChannel:
+		m.ResetFiatPaymentChannel()
+		return nil
+	case subscription.FieldLastPaymentAt:
+		m.ResetLastPaymentAt()
 		return nil
 	}
 	return fmt.Errorf("unknown Subscription field %s", name)

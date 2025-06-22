@@ -34,7 +34,18 @@ func (h *createHandler) constructSQL() {
 	_sql += comma + "next_extend_at"
 	_sql += comma + "permanent_quota"
 	_sql += comma + "consumed_quota"
-	_sql += comma + "auto_extend"
+	if h.PayWithCoinBalance != nil {
+		_sql += comma + "pay_with_coin_balance"
+	}
+	if h.SubscriptionID != nil {
+		_sql += comma + "subscription_id"
+	}
+	if h.FiatPaymentChannel != nil {
+		_sql += comma + "fiat_payment_channel"
+	}
+	if h.LastPaymentAt != nil {
+		_sql += comma + "last_payment_at"
+	}
 	_sql += comma + "created_at"
 	_sql += comma + "updated_at"
 	_sql += comma + "deleted_at"
@@ -53,7 +64,18 @@ func (h *createHandler) constructSQL() {
 	_sql += fmt.Sprintf("%v%v as next_extend_at", comma, *h.NextExtendAt)
 	_sql += fmt.Sprintf("%v%v as permanent_quota", comma, *h.PermanentQuota)
 	_sql += fmt.Sprintf("%v%v as consumed_quota", comma, *h.ConsumedQuota)
-	_sql += fmt.Sprintf("%v%v as auto_extend", comma, *h.AutoExtend)
+	if h.PayWithCoinBalance != nil {
+		_sql += fmt.Sprintf("%v%v as pay_with_coin_balance", comma, *h.PayWithCoinBalance)
+	}
+	if h.SubscriptionID != nil {
+		_sql += fmt.Sprintf("%v'%v' as subscriptioon_id", comma, *h.SubscriptionID)
+	}
+	if h.FiatPaymentChannel != nil {
+		_sql += fmt.Sprintf("%v'%v' as fiat_payment_channel", comma, h.FiatPaymentChannel.String())
+	}
+	if h.LastPaymentAt != nil {
+		_sql += fmt.Sprintf("%v%v as last_payment_at", comma, *h.LastPaymentAt)
+	}
 	_sql += fmt.Sprintf("%v%v as created_at", comma, now)
 	_sql += fmt.Sprintf("%v%v as updated_at", comma, now)
 	_sql += fmt.Sprintf("%v0 as deleted_at", comma)

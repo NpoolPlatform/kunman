@@ -149,8 +149,20 @@ func init() {
 	subscriptionDescConsumedQuota := subscriptionFields[5].Descriptor()
 	// subscription.DefaultConsumedQuota holds the default value on creation for the consumed_quota field.
 	subscription.DefaultConsumedQuota = subscriptionDescConsumedQuota.Default.(uint32)
-	// subscriptionDescAutoExtend is the schema descriptor for auto_extend field.
-	subscriptionDescAutoExtend := subscriptionFields[6].Descriptor()
-	// subscription.DefaultAutoExtend holds the default value on creation for the auto_extend field.
-	subscription.DefaultAutoExtend = subscriptionDescAutoExtend.Default.(bool)
+	// subscriptionDescPayWithCoinBalance is the schema descriptor for pay_with_coin_balance field.
+	subscriptionDescPayWithCoinBalance := subscriptionFields[6].Descriptor()
+	// subscription.DefaultPayWithCoinBalance holds the default value on creation for the pay_with_coin_balance field.
+	subscription.DefaultPayWithCoinBalance = subscriptionDescPayWithCoinBalance.Default.(bool)
+	// subscriptionDescSubscriptionID is the schema descriptor for subscription_id field.
+	subscriptionDescSubscriptionID := subscriptionFields[7].Descriptor()
+	// subscription.DefaultSubscriptionID holds the default value on creation for the subscription_id field.
+	subscription.DefaultSubscriptionID = subscriptionDescSubscriptionID.Default.(string)
+	// subscriptionDescFiatPaymentChannel is the schema descriptor for fiat_payment_channel field.
+	subscriptionDescFiatPaymentChannel := subscriptionFields[8].Descriptor()
+	// subscription.DefaultFiatPaymentChannel holds the default value on creation for the fiat_payment_channel field.
+	subscription.DefaultFiatPaymentChannel = subscriptionDescFiatPaymentChannel.Default.(string)
+	// subscriptionDescLastPaymentAt is the schema descriptor for last_payment_at field.
+	subscriptionDescLastPaymentAt := subscriptionFields[9].Descriptor()
+	// subscription.DefaultLastPaymentAt holds the default value on creation for the last_payment_at field.
+	subscription.DefaultLastPaymentAt = subscriptionDescLastPaymentAt.Default.(uint32)
 }

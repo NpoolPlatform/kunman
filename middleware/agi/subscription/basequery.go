@@ -57,7 +57,10 @@ func (h *baseQueryHandler) queryJoinMyself(s *sql.Selector) {
 			t1.C(entsubscription.FieldNextExtendAt),
 			t1.C(entsubscription.FieldPermanentQuota),
 			t1.C(entsubscription.FieldConsumedQuota),
-			t1.C(entsubscription.FieldAutoExtend),
+			t1.C(entsubscription.FieldPayWithCoinBalance),
+			t1.C(entsubscription.FieldSubscriptionID),
+			t1.C(entsubscription.FieldFiatPaymentChannel),
+			t1.C(entsubscription.FieldLastPaymentAt),
 			t1.C(entsubscription.FieldCreatedAt),
 			t1.C(entsubscription.FieldUpdatedAt),
 		)

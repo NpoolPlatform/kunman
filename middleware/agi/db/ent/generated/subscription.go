@@ -37,9 +37,15 @@ type Subscription struct {
 	PermanentQuota uint32 `json:"permanent_quota,omitempty"`
 	// ConsumedQuota holds the value of the "consumed_quota" field.
 	ConsumedQuota uint32 `json:"consumed_quota,omitempty"`
-	// AutoExtend holds the value of the "auto_extend" field.
-	AutoExtend   bool `json:"auto_extend,omitempty"`
-	selectValues sql.SelectValues
+	// PayWithCoinBalance holds the value of the "pay_with_coin_balance" field.
+	PayWithCoinBalance bool `json:"pay_with_coin_balance,omitempty"`
+	// SubscriptionID holds the value of the "subscription_id" field.
+	SubscriptionID string `json:"subscription_id,omitempty"`
+	// FiatPaymentChannel holds the value of the "fiat_payment_channel" field.
+	FiatPaymentChannel string `json:"fiat_payment_channel,omitempty"`
+	// LastPaymentAt holds the value of the "last_payment_at" field.
+	LastPaymentAt uint32 `json:"last_payment_at,omitempty"`
+	selectValues  sql.SelectValues
 }
 
 // scanValues returns the types for scanning values from sql.Rows.
@@ -47,10 +53,12 @@ func (*Subscription) scanValues(columns []string) ([]any, error) {
 	values := make([]any, len(columns))
 	for i := range columns {
 		switch columns[i] {
-		case subscription.FieldAutoExtend:
+		case subscription.FieldPayWithCoinBalance:
 			values[i] = new(sql.NullBool)
-		case subscription.FieldID, subscription.FieldCreatedAt, subscription.FieldUpdatedAt, subscription.FieldDeletedAt, subscription.FieldNextExtendAt, subscription.FieldPermanentQuota, subscription.FieldConsumedQuota:
+		case subscription.FieldID, subscription.FieldCreatedAt, subscription.FieldUpdatedAt, subscription.FieldDeletedAt, subscription.FieldNextExtendAt, subscription.FieldPermanentQuota, subscription.FieldConsumedQuota, subscription.FieldLastPaymentAt:
 			values[i] = new(sql.NullInt64)
+		case subscription.FieldSubscriptionID, subscription.FieldFiatPaymentChannel:
+			values[i] = new(sql.NullString)
 		case subscription.FieldEntID, subscription.FieldAppID, subscription.FieldUserID, subscription.FieldAppGoodID:
 			values[i] = new(uuid.UUID)
 		default:
@@ -134,11 +142,29 @@ func (s *Subscription) assignValues(columns []string, values []any) error {
 			} else if value.Valid {
 				s.ConsumedQuota = uint32(value.Int64)
 			}
-		case subscription.FieldAutoExtend:
+		case subscription.FieldPayWithCoinBalance:
 			if value, ok := values[i].(*sql.NullBool); !ok {
-				return fmt.Errorf("unexpected type %T for field auto_extend", values[i])
+				return fmt.Errorf("unexpected type %T for field pay_with_coin_balance", values[i])
 			} else if value.Valid {
-				s.AutoExtend = value.Bool
+				s.PayWithCoinBalance = value.Bool
+			}
+		case subscription.FieldSubscriptionID:
+			if value, ok := values[i].(*sql.NullString); !ok {
+				return fmt.Errorf("unexpected type %T for field subscription_id", values[i])
+			} else if value.Valid {
+				s.SubscriptionID = value.String
+			}
+		case subscription.FieldFiatPaymentChannel:
+			if value, ok := values[i].(*sql.NullString); !ok {
+				return fmt.Errorf("unexpected type %T for field fiat_payment_channel", values[i])
+			} else if value.Valid {
+				s.FiatPaymentChannel = value.String
+			}
+		case subscription.FieldLastPaymentAt:
+			if value, ok := values[i].(*sql.NullInt64); !ok {
+				return fmt.Errorf("unexpected type %T for field last_payment_at", values[i])
+			} else if value.Valid {
+				s.LastPaymentAt = uint32(value.Int64)
 			}
 		default:
 			s.selectValues.Set(columns[i], values[i])
@@ -206,8 +232,17 @@ func (s *Subscription) String() string {
 	builder.WriteString("consumed_quota=")
 	builder.WriteString(fmt.Sprintf("%v", s.ConsumedQuota))
 	builder.WriteString(", ")
-	builder.WriteString("auto_extend=")
-	builder.WriteString(fmt.Sprintf("%v", s.AutoExtend))
+	builder.WriteString("pay_with_coin_balance=")
+	builder.WriteString(fmt.Sprintf("%v", s.PayWithCoinBalance))
+	builder.WriteString(", ")
+	builder.WriteString("subscription_id=")
+	builder.WriteString(s.SubscriptionID)
+	builder.WriteString(", ")
+	builder.WriteString("fiat_payment_channel=")
+	builder.WriteString(s.FiatPaymentChannel)
+	builder.WriteString(", ")
+	builder.WriteString("last_payment_at=")
+	builder.WriteString(fmt.Sprintf("%v", s.LastPaymentAt))
 	builder.WriteByte(')')
 	return builder.String()
 }

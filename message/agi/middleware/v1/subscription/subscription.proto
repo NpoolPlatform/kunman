@@ -5,6 +5,7 @@ package agi.middleware.subscription.v1;
 option go_package = "github.com/NpoolPlatform/kunman/message/agi/middleware/v1/subscription";
 
 import "basetypes/agi/v1/enums.proto";
+import "basetypes/order/v1/enums.proto";
 import "basetypes/v1/conds.proto";
 
 message SubscriptionReq {
@@ -15,8 +16,14 @@ message SubscriptionReq {
     optional string AppGoodID = 50;
     optional uint32 NextExtendAt = 60;
     optional uint32 PermanentQuota = 70;
-    optional bool AutoExtend = 80;
     optional uint32 ConsumedQuota = 90;
+
+    optional bool PayWithCoinBalance = 91;
+
+    // For fiat payment
+    optional string SubscriptionID = 100;
+    optional basetypes.order.v1.FiatPaymentChannel FiatPaymentChannel = 110;
+    optional uint32 LastPaymentAt = 120;
 }
 
 message Subscription {
@@ -36,8 +43,17 @@ message Subscription {
     uint32 PermanentQuota = 70;
     // @inject_tag: sql:"consumed_quota"
     uint32 ConsumedQuota = 80;
-    // @inject_tag: sql:"auto_extend"
-    bool AutoExtend = 90;
+    // @inject_tag: sql:"pay_with_coin_balance"
+    bool PayWithCoinBalance = 81;
+
+    // @inject_tag: sql:"subscription_id"
+    string ScriptionID = 90;
+    // @inject_tag: sql:"fiat_payment_channel"
+    string FiatPaymentChannelStr = 100;
+    basetypes.order.v1.FiatPaymentChannel FiatPaymentChannel = 110;
+    // @inject_tag: sql:"last_payment_at"
+    uint32 LastPaymentAt = 120;
+
     // @inject_tag: sql:"created_at"
     uint32 CreatedAt = 1000;
     // @inject_tag: sql:"updated_at"

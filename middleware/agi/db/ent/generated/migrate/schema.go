@@ -73,7 +73,10 @@ var (
 		{Name: "next_extend_at", Type: field.TypeUint32, Nullable: true, Default: 0},
 		{Name: "permanent_quota", Type: field.TypeUint32, Nullable: true, Default: 0},
 		{Name: "consumed_quota", Type: field.TypeUint32, Nullable: true, Default: 0},
-		{Name: "auto_extend", Type: field.TypeBool, Nullable: true, Default: false},
+		{Name: "pay_with_coin_balance", Type: field.TypeBool, Nullable: true, Default: false},
+		{Name: "subscription_id", Type: field.TypeString, Nullable: true, Default: ""},
+		{Name: "fiat_payment_channel", Type: field.TypeString, Nullable: true, Default: ""},
+		{Name: "last_payment_at", Type: field.TypeUint32, Nullable: true, Default: 0},
 	}
 	// SubscriptionsTable holds the schema information for the "subscriptions" table.
 	SubscriptionsTable = &schema.Table{

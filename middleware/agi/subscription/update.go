@@ -33,8 +33,20 @@ func (h *updateHandler) constructSQL() error {
 		_sql += fmt.Sprintf("%vconsumed_quota = %v, ", set, *h.ConsumedQuota)
 		set = ""
 	}
-	if h.AutoExtend != nil {
-		_sql += fmt.Sprintf("%vauto_extend = %v, ", set, *h.AutoExtend)
+	if h.PayWithCoinBalance != nil {
+		_sql += fmt.Sprintf("%vpay_with_coin_balance = %v, ", set, *h.PayWithCoinBalance)
+		set = ""
+	}
+	if h.SubscriptionID != nil {
+		_sql += fmt.Sprintf("'%v'subscription_id = %v, ", set, *h.SubscriptionID)
+		set = ""
+	}
+	if h.FiatPaymentChannel != nil {
+		_sql += fmt.Sprintf("'%v'fiat_payment_channel = %v, ", set, h.FiatPaymentChannel.String())
+		set = ""
+	}
+	if h.LastPaymentAt != nil {
+		_sql += fmt.Sprintf("%vlast_payment_at = %v, ", set, *h.LastPaymentAt)
 		set = ""
 	}
 

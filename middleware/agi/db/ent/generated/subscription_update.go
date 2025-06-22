@@ -239,23 +239,90 @@ func (su *SubscriptionUpdate) ClearConsumedQuota() *SubscriptionUpdate {
 	return su
 }
 
-// SetAutoExtend sets the "auto_extend" field.
-func (su *SubscriptionUpdate) SetAutoExtend(b bool) *SubscriptionUpdate {
-	su.mutation.SetAutoExtend(b)
+// SetPayWithCoinBalance sets the "pay_with_coin_balance" field.
+func (su *SubscriptionUpdate) SetPayWithCoinBalance(b bool) *SubscriptionUpdate {
+	su.mutation.SetPayWithCoinBalance(b)
 	return su
 }
 
-// SetNillableAutoExtend sets the "auto_extend" field if the given value is not nil.
-func (su *SubscriptionUpdate) SetNillableAutoExtend(b *bool) *SubscriptionUpdate {
+// SetNillablePayWithCoinBalance sets the "pay_with_coin_balance" field if the given value is not nil.
+func (su *SubscriptionUpdate) SetNillablePayWithCoinBalance(b *bool) *SubscriptionUpdate {
 	if b != nil {
-		su.SetAutoExtend(*b)
+		su.SetPayWithCoinBalance(*b)
 	}
 	return su
 }
 
-// ClearAutoExtend clears the value of the "auto_extend" field.
-func (su *SubscriptionUpdate) ClearAutoExtend() *SubscriptionUpdate {
-	su.mutation.ClearAutoExtend()
+// ClearPayWithCoinBalance clears the value of the "pay_with_coin_balance" field.
+func (su *SubscriptionUpdate) ClearPayWithCoinBalance() *SubscriptionUpdate {
+	su.mutation.ClearPayWithCoinBalance()
+	return su
+}
+
+// SetSubscriptionID sets the "subscription_id" field.
+func (su *SubscriptionUpdate) SetSubscriptionID(s string) *SubscriptionUpdate {
+	su.mutation.SetSubscriptionID(s)
+	return su
+}
+
+// SetNillableSubscriptionID sets the "subscription_id" field if the given value is not nil.
+func (su *SubscriptionUpdate) SetNillableSubscriptionID(s *string) *SubscriptionUpdate {
+	if s != nil {
+		su.SetSubscriptionID(*s)
+	}
+	return su
+}
+
+// ClearSubscriptionID clears the value of the "subscription_id" field.
+func (su *SubscriptionUpdate) ClearSubscriptionID() *SubscriptionUpdate {
+	su.mutation.ClearSubscriptionID()
+	return su
+}
+
+// SetFiatPaymentChannel sets the "fiat_payment_channel" field.
+func (su *SubscriptionUpdate) SetFiatPaymentChannel(s string) *SubscriptionUpdate {
+	su.mutation.SetFiatPaymentChannel(s)
+	return su
+}
+
+// SetNillableFiatPaymentChannel sets the "fiat_payment_channel" field if the given value is not nil.
+func (su *SubscriptionUpdate) SetNillableFiatPaymentChannel(s *string) *SubscriptionUpdate {
+	if s != nil {
+		su.SetFiatPaymentChannel(*s)
+	}
+	return su
+}
+
+// ClearFiatPaymentChannel clears the value of the "fiat_payment_channel" field.
+func (su *SubscriptionUpdate) ClearFiatPaymentChannel() *SubscriptionUpdate {
+	su.mutation.ClearFiatPaymentChannel()
+	return su
+}
+
+// SetLastPaymentAt sets the "last_payment_at" field.
+func (su *SubscriptionUpdate) SetLastPaymentAt(u uint32) *SubscriptionUpdate {
+	su.mutation.ResetLastPaymentAt()
+	su.mutation.SetLastPaymentAt(u)
+	return su
+}
+
+// SetNillableLastPaymentAt sets the "last_payment_at" field if the given value is not nil.
+func (su *SubscriptionUpdate) SetNillableLastPaymentAt(u *uint32) *SubscriptionUpdate {
+	if u != nil {
+		su.SetLastPaymentAt(*u)
+	}
+	return su
+}
+
+// AddLastPaymentAt adds u to the "last_payment_at" field.
+func (su *SubscriptionUpdate) AddLastPaymentAt(u int32) *SubscriptionUpdate {
+	su.mutation.AddLastPaymentAt(u)
+	return su
+}
+
+// ClearLastPaymentAt clears the value of the "last_payment_at" field.
+func (su *SubscriptionUpdate) ClearLastPaymentAt() *SubscriptionUpdate {
+	su.mutation.ClearLastPaymentAt()
 	return su
 }
 
@@ -381,11 +448,32 @@ func (su *SubscriptionUpdate) sqlSave(ctx context.Context) (n int, err error) {
 	if su.mutation.ConsumedQuotaCleared() {
 		_spec.ClearField(subscription.FieldConsumedQuota, field.TypeUint32)
 	}
-	if value, ok := su.mutation.AutoExtend(); ok {
-		_spec.SetField(subscription.FieldAutoExtend, field.TypeBool, value)
+	if value, ok := su.mutation.PayWithCoinBalance(); ok {
+		_spec.SetField(subscription.FieldPayWithCoinBalance, field.TypeBool, value)
 	}
-	if su.mutation.AutoExtendCleared() {
-		_spec.ClearField(subscription.FieldAutoExtend, field.TypeBool)
+	if su.mutation.PayWithCoinBalanceCleared() {
+		_spec.ClearField(subscription.FieldPayWithCoinBalance, field.TypeBool)
+	}
+	if value, ok := su.mutation.SubscriptionID(); ok {
+		_spec.SetField(subscription.FieldSubscriptionID, field.TypeString, value)
+	}
+	if su.mutation.SubscriptionIDCleared() {
+		_spec.ClearField(subscription.FieldSubscriptionID, field.TypeString)
+	}
+	if value, ok := su.mutation.FiatPaymentChannel(); ok {
+		_spec.SetField(subscription.FieldFiatPaymentChannel, field.TypeString, value)
+	}
+	if su.mutation.FiatPaymentChannelCleared() {
+		_spec.ClearField(subscription.FieldFiatPaymentChannel, field.TypeString)
+	}
+	if value, ok := su.mutation.LastPaymentAt(); ok {
+		_spec.SetField(subscription.FieldLastPaymentAt, field.TypeUint32, value)
+	}
+	if value, ok := su.mutation.AddedLastPaymentAt(); ok {
+		_spec.AddField(subscription.FieldLastPaymentAt, field.TypeUint32, value)
+	}
+	if su.mutation.LastPaymentAtCleared() {
+		_spec.ClearField(subscription.FieldLastPaymentAt, field.TypeUint32)
 	}
 	_spec.AddModifiers(su.modifiers...)
 	if n, err = sqlgraph.UpdateNodes(ctx, su.driver, _spec); err != nil {
@@ -619,23 +707,90 @@ func (suo *SubscriptionUpdateOne) ClearConsumedQuota() *SubscriptionUpdateOne {
 	return suo
 }
 
-// SetAutoExtend sets the "auto_extend" field.
-func (suo *SubscriptionUpdateOne) SetAutoExtend(b bool) *SubscriptionUpdateOne {
-	suo.mutation.SetAutoExtend(b)
+// SetPayWithCoinBalance sets the "pay_with_coin_balance" field.
+func (suo *SubscriptionUpdateOne) SetPayWithCoinBalance(b bool) *SubscriptionUpdateOne {
+	suo.mutation.SetPayWithCoinBalance(b)
 	return suo
 }
 
-// SetNillableAutoExtend sets the "auto_extend" field if the given value is not nil.
-func (suo *SubscriptionUpdateOne) SetNillableAutoExtend(b *bool) *SubscriptionUpdateOne {
+// SetNillablePayWithCoinBalance sets the "pay_with_coin_balance" field if the given value is not nil.
+func (suo *SubscriptionUpdateOne) SetNillablePayWithCoinBalance(b *bool) *SubscriptionUpdateOne {
 	if b != nil {
-		suo.SetAutoExtend(*b)
+		suo.SetPayWithCoinBalance(*b)
 	}
 	return suo
 }
 
-// ClearAutoExtend clears the value of the "auto_extend" field.
-func (suo *SubscriptionUpdateOne) ClearAutoExtend() *SubscriptionUpdateOne {
-	suo.mutation.ClearAutoExtend()
+// ClearPayWithCoinBalance clears the value of the "pay_with_coin_balance" field.
+func (suo *SubscriptionUpdateOne) ClearPayWithCoinBalance() *SubscriptionUpdateOne {
+	suo.mutation.ClearPayWithCoinBalance()
+	return suo
+}
+
+// SetSubscriptionID sets the "subscription_id" field.
+func (suo *SubscriptionUpdateOne) SetSubscriptionID(s string) *SubscriptionUpdateOne {
+	suo.mutation.SetSubscriptionID(s)
+	return suo
+}
+
+// SetNillableSubscriptionID sets the "subscription_id" field if the given value is not nil.
+func (suo *SubscriptionUpdateOne) SetNillableSubscriptionID(s *string) *SubscriptionUpdateOne {
+	if s != nil {
+		suo.SetSubscriptionID(*s)
+	}
+	return suo
+}
+
+// ClearSubscriptionID clears the value of the "subscription_id" field.
+func (suo *SubscriptionUpdateOne) ClearSubscriptionID() *SubscriptionUpdateOne {
+	suo.mutation.ClearSubscriptionID()
+	return suo
+}
+
+// SetFiatPaymentChannel sets the "fiat_payment_channel" field.
+func (suo *SubscriptionUpdateOne) SetFiatPaymentChannel(s string) *SubscriptionUpdateOne {
+	suo.mutation.SetFiatPaymentChannel(s)
+	return suo
+}
+
+// SetNillableFiatPaymentChannel sets the "fiat_payment_channel" field if the given value is not nil.
+func (suo *SubscriptionUpdateOne) SetNillableFiatPaymentChannel(s *string) *SubscriptionUpdateOne {
+	if s != nil {
+		suo.SetFiatPaymentChannel(*s)
+	}
+	return suo
+}
+
+// ClearFiatPaymentChannel clears the value of the "fiat_payment_channel" field.
+func (suo *SubscriptionUpdateOne) ClearFiatPaymentChannel() *SubscriptionUpdateOne {
+	suo.mutation.ClearFiatPaymentChannel()
+	return suo
+}
+
+// SetLastPaymentAt sets the "last_payment_at" field.
+func (suo *SubscriptionUpdateOne) SetLastPaymentAt(u uint32) *SubscriptionUpdateOne {
+	suo.mutation.ResetLastPaymentAt()
+	suo.mutation.SetLastPaymentAt(u)
+	return suo
+}
+
+// SetNillableLastPaymentAt sets the "last_payment_at" field if the given value is not nil.
+func (suo *SubscriptionUpdateOne) SetNillableLastPaymentAt(u *uint32) *SubscriptionUpdateOne {
+	if u != nil {
+		suo.SetLastPaymentAt(*u)
+	}
+	return suo
+}
+
+// AddLastPaymentAt adds u to the "last_payment_at" field.
+func (suo *SubscriptionUpdateOne) AddLastPaymentAt(u int32) *SubscriptionUpdateOne {
+	suo.mutation.AddLastPaymentAt(u)
+	return suo
+}
+
+// ClearLastPaymentAt clears the value of the "last_payment_at" field.
+func (suo *SubscriptionUpdateOne) ClearLastPaymentAt() *SubscriptionUpdateOne {
+	suo.mutation.ClearLastPaymentAt()
 	return suo
 }
 
@@ -791,11 +946,32 @@ func (suo *SubscriptionUpdateOne) sqlSave(ctx context.Context) (_node *Subscript
 	if suo.mutation.ConsumedQuotaCleared() {
 		_spec.ClearField(subscription.FieldConsumedQuota, field.TypeUint32)
 	}
-	if value, ok := suo.mutation.AutoExtend(); ok {
-		_spec.SetField(subscription.FieldAutoExtend, field.TypeBool, value)
+	if value, ok := suo.mutation.PayWithCoinBalance(); ok {
+		_spec.SetField(subscription.FieldPayWithCoinBalance, field.TypeBool, value)
 	}
-	if suo.mutation.AutoExtendCleared() {
-		_spec.ClearField(subscription.FieldAutoExtend, field.TypeBool)
+	if suo.mutation.PayWithCoinBalanceCleared() {
+		_spec.ClearField(subscription.FieldPayWithCoinBalance, field.TypeBool)
+	}
+	if value, ok := suo.mutation.SubscriptionID(); ok {
+		_spec.SetField(subscription.FieldSubscriptionID, field.TypeString, value)
+	}
+	if suo.mutation.SubscriptionIDCleared() {
+		_spec.ClearField(subscription.FieldSubscriptionID, field.TypeString)
+	}
+	if value, ok := suo.mutation.FiatPaymentChannel(); ok {
+		_spec.SetField(subscription.FieldFiatPaymentChannel, field.TypeString, value)
+	}
+	if suo.mutation.FiatPaymentChannelCleared() {
+		_spec.ClearField(subscription.FieldFiatPaymentChannel, field.TypeString)
+	}
+	if value, ok := suo.mutation.LastPaymentAt(); ok {
+		_spec.SetField(subscription.FieldLastPaymentAt, field.TypeUint32, value)
+	}
+	if value, ok := suo.mutation.AddedLastPaymentAt(); ok {
+		_spec.AddField(subscription.FieldLastPaymentAt, field.TypeUint32, value)
+	}
+	if suo.mutation.LastPaymentAtCleared() {
+		_spec.ClearField(subscription.FieldLastPaymentAt, field.TypeUint32)
 	}
 	_spec.AddModifiers(suo.modifiers...)
 	_node = &Subscription{config: suo.config}

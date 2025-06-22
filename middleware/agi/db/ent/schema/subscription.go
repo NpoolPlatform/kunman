@@ -53,9 +53,21 @@ func (Subscription) Fields() []ent.Field {
 			Optional().
 			Default(0),
 		field.
-			Bool("auto_extend").
+			Bool("pay_with_coin_balance").
 			Optional().
 			Default(false),
+		field.
+			String("subscription_id").
+			Optional().
+			Default(""),
+		field.
+			String("fiat_payment_channel").
+			Optional().
+			Default(""),
+		field.
+			Uint32("last_payment_at").
+			Optional().
+			Default(0),
 	}
 }
 

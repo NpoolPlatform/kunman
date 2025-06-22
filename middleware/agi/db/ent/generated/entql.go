@@ -70,17 +70,20 @@ var schemaGraph = func() *sqlgraph.Schema {
 		},
 		Type: "Subscription",
 		Fields: map[string]*sqlgraph.FieldSpec{
-			subscription.FieldCreatedAt:      {Type: field.TypeUint32, Column: subscription.FieldCreatedAt},
-			subscription.FieldUpdatedAt:      {Type: field.TypeUint32, Column: subscription.FieldUpdatedAt},
-			subscription.FieldDeletedAt:      {Type: field.TypeUint32, Column: subscription.FieldDeletedAt},
-			subscription.FieldEntID:          {Type: field.TypeUUID, Column: subscription.FieldEntID},
-			subscription.FieldAppID:          {Type: field.TypeUUID, Column: subscription.FieldAppID},
-			subscription.FieldUserID:         {Type: field.TypeUUID, Column: subscription.FieldUserID},
-			subscription.FieldAppGoodID:      {Type: field.TypeUUID, Column: subscription.FieldAppGoodID},
-			subscription.FieldNextExtendAt:   {Type: field.TypeUint32, Column: subscription.FieldNextExtendAt},
-			subscription.FieldPermanentQuota: {Type: field.TypeUint32, Column: subscription.FieldPermanentQuota},
-			subscription.FieldConsumedQuota:  {Type: field.TypeUint32, Column: subscription.FieldConsumedQuota},
-			subscription.FieldAutoExtend:     {Type: field.TypeBool, Column: subscription.FieldAutoExtend},
+			subscription.FieldCreatedAt:          {Type: field.TypeUint32, Column: subscription.FieldCreatedAt},
+			subscription.FieldUpdatedAt:          {Type: field.TypeUint32, Column: subscription.FieldUpdatedAt},
+			subscription.FieldDeletedAt:          {Type: field.TypeUint32, Column: subscription.FieldDeletedAt},
+			subscription.FieldEntID:              {Type: field.TypeUUID, Column: subscription.FieldEntID},
+			subscription.FieldAppID:              {Type: field.TypeUUID, Column: subscription.FieldAppID},
+			subscription.FieldUserID:             {Type: field.TypeUUID, Column: subscription.FieldUserID},
+			subscription.FieldAppGoodID:          {Type: field.TypeUUID, Column: subscription.FieldAppGoodID},
+			subscription.FieldNextExtendAt:       {Type: field.TypeUint32, Column: subscription.FieldNextExtendAt},
+			subscription.FieldPermanentQuota:     {Type: field.TypeUint32, Column: subscription.FieldPermanentQuota},
+			subscription.FieldConsumedQuota:      {Type: field.TypeUint32, Column: subscription.FieldConsumedQuota},
+			subscription.FieldPayWithCoinBalance: {Type: field.TypeBool, Column: subscription.FieldPayWithCoinBalance},
+			subscription.FieldSubscriptionID:     {Type: field.TypeString, Column: subscription.FieldSubscriptionID},
+			subscription.FieldFiatPaymentChannel: {Type: field.TypeString, Column: subscription.FieldFiatPaymentChannel},
+			subscription.FieldLastPaymentAt:      {Type: field.TypeUint32, Column: subscription.FieldLastPaymentAt},
 		},
 	}
 	return graph
@@ -347,7 +350,22 @@ func (f *SubscriptionFilter) WhereConsumedQuota(p entql.Uint32P) {
 	f.Where(p.Field(subscription.FieldConsumedQuota))
 }
 
-// WhereAutoExtend applies the entql bool predicate on the auto_extend field.
-func (f *SubscriptionFilter) WhereAutoExtend(p entql.BoolP) {
-	f.Where(p.Field(subscription.FieldAutoExtend))
+// WherePayWithCoinBalance applies the entql bool predicate on the pay_with_coin_balance field.
+func (f *SubscriptionFilter) WherePayWithCoinBalance(p entql.BoolP) {
+	f.Where(p.Field(subscription.FieldPayWithCoinBalance))
+}
+
+// WhereSubscriptionID applies the entql string predicate on the subscription_id field.
+func (f *SubscriptionFilter) WhereSubscriptionID(p entql.StringP) {
+	f.Where(p.Field(subscription.FieldSubscriptionID))
+}
+
+// WhereFiatPaymentChannel applies the entql string predicate on the fiat_payment_channel field.
+func (f *SubscriptionFilter) WhereFiatPaymentChannel(p entql.StringP) {
+	f.Where(p.Field(subscription.FieldFiatPaymentChannel))
+}
+
+// WhereLastPaymentAt applies the entql uint32 predicate on the last_payment_at field.
+func (f *SubscriptionFilter) WhereLastPaymentAt(p entql.Uint32P) {
+	f.Where(p.Field(subscription.FieldLastPaymentAt))
 }

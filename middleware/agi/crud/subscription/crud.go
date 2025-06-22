@@ -2,6 +2,7 @@ package subscription
 
 import (
 	"github.com/NpoolPlatform/kunman/framework/wlog"
+	ordertypes "github.com/NpoolPlatform/kunman/message/basetypes/order/v1"
 	ent "github.com/NpoolPlatform/kunman/middleware/agi/db/ent/generated"
 	entsubscription "github.com/NpoolPlatform/kunman/middleware/agi/db/ent/generated/subscription"
 	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
@@ -10,16 +11,19 @@ import (
 )
 
 type Req struct {
-	ID             *uint32
-	EntID          *uuid.UUID
-	AppID          *uuid.UUID
-	UserID         *uuid.UUID
-	AppGoodID      *uuid.UUID
-	NextExtendAt   *uint32
-	PermanentQuota *uint32
-	ConsumedQuota  *uint32
-	AutoExtend     *bool
-	DeletedAt      *uint32
+	ID                 *uint32
+	EntID              *uuid.UUID
+	AppID              *uuid.UUID
+	UserID             *uuid.UUID
+	AppGoodID          *uuid.UUID
+	NextExtendAt       *uint32
+	PermanentQuota     *uint32
+	ConsumedQuota      *uint32
+	PayWithCoinBalance *bool
+	SubscriptionID     *string
+	FiatPaymentChannel *ordertypes.FiatPaymentChannel
+	LastPaymentAt      *uint32
+	DeletedAt          *uint32
 }
 
 func CreateSet(c *ent.SubscriptionCreate, req *Req) *ent.SubscriptionCreate {
@@ -44,8 +48,17 @@ func CreateSet(c *ent.SubscriptionCreate, req *Req) *ent.SubscriptionCreate {
 	if req.ConsumedQuota != nil {
 		c.SetConsumedQuota(*req.ConsumedQuota)
 	}
-	if req.AutoExtend != nil {
-		c.SetAutoExtend(*req.AutoExtend)
+	if req.PayWithCoinBalance != nil {
+		c.SetPayWithCoinBalance(*req.PayWithCoinBalance)
+	}
+	if req.SubscriptionID != nil {
+		c.SetSubscriptionID(*req.SubscriptionID)
+	}
+	if req.FiatPaymentChannel != nil {
+		c.SetFiatPaymentChannel(req.FiatPaymentChannel.String())
+	}
+	if req.LastPaymentAt != nil {
+		c.SetLastPaymentAt(*req.LastPaymentAt)
 	}
 	return c
 }
@@ -60,8 +73,17 @@ func UpdateSet(u *ent.SubscriptionUpdateOne, req *Req) *ent.SubscriptionUpdateOn
 	if req.ConsumedQuota != nil {
 		u.SetConsumedQuota(*req.ConsumedQuota)
 	}
-	if req.AutoExtend != nil {
-		u.SetAutoExtend(*req.AutoExtend)
+	if req.PayWithCoinBalance != nil {
+		u.SetPayWithCoinBalance(*req.PayWithCoinBalance)
+	}
+	if req.SubscriptionID != nil {
+		u.SetSubscriptionID(*req.SubscriptionID)
+	}
+	if req.FiatPaymentChannel != nil {
+		u.SetFiatPaymentChannel(req.FiatPaymentChannel.String())
+	}
+	if req.LastPaymentAt != nil {
+		u.SetLastPaymentAt(*req.LastPaymentAt)
 	}
 	if req.DeletedAt != nil {
 		u.SetDeletedAt(*req.DeletedAt)
