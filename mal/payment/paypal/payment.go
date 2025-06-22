@@ -96,6 +96,10 @@ func (p *PaypalPayment) Approved() bool {
 	return p.Status == "APPROVED"
 }
 
+func (p *PaypalPayment) String() string {
+	return fmt.Sprintf("%v: %v", p.Id, p.Status)
+}
+
 func (cli *PaymentClient) CreatePayment(ctx context.Context) (*CreatePaymentResponse, error) {
 	accessToken, err := cli.GetAccessToken(ctx)
 	if err != nil {
@@ -187,5 +191,27 @@ func (cli *PaymentClient) GetPayment(ctx context.Context) (*PaypalPayment, error
 }
 
 func (cli *PaymentClient) CapturePayment(ctx context.Context) error {
+	accessToken, err := cli.GetAccessToken(ctx)
+	if err != nil {
+		return wlog.WrapError(err)
+	}
+
+	client := resty.New()
+	defer client.Close()
+
+	resp, err := client.
+		SetBaseURL(cli.config.BaseURL()).
+		R().
+		SetHeader("Authorization", "Bearer "+accessToken).
+		SetHeader("Content-Type", "application/json").
+		Post("/v2/checkout/orders/" + cli.PaypalPaymentID + "/capture")
+	if err != nil {
+		return wlog.WrapError(err)
+	}
+
+	if resp.StatusCode() < 200 || resp.StatusCode() >= 300 {
+		return wlog.Errorf("%v: %v", resp.StatusCode(), resp.String())
+	}
+
 	return nil
 }

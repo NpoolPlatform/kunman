@@ -388,7 +388,7 @@ func createPayment(t *testing.T) {
 	}
 }
 
-func waitPayment(t *testing.T) {
+func waitPaymentApproved(t *testing.T) {
 	for {
 		time.Sleep(10 * time.Second)
 		cli, err := NewPaymentClient(
@@ -404,6 +404,32 @@ func waitPayment(t *testing.T) {
 				break
 			}
 		}
+	}
+}
+
+func capturePayment(t *testing.T) {
+	cli, err := NewPaymentClient(
+		context.Background(),
+		WithOrderID(subscriptionOrder.OrderID),
+		WithPaypalPaymentID(subscriptionOrder.PaymentFiats[0].ChannelPaymentID),
+	)
+	if assert.Nil(t, err) {
+		err = cli.CapturePayment(context.Background())
+		assert.Nil(t, err)
+	}
+}
+
+func getPayment(t *testing.T) {
+	cli, err := NewPaymentClient(
+		context.Background(),
+		WithOrderID(subscriptionOrder.OrderID),
+		WithPaypalPaymentID(subscriptionOrder.PaymentFiats[0].ChannelPaymentID),
+	)
+	if assert.Nil(t, err) {
+		resp, err := cli.GetPayment(context.Background())
+		assert.Nil(t, err)
+
+		fmt.Println(resp.String())
 	}
 }
 
@@ -425,5 +451,7 @@ func TestPaypal(t *testing.T) {
 	defer teardown(t)
 
 	t.Run("createPayment", createPayment)
-	t.Run("waitPayment", waitPayment)
+	t.Run("waitPaymentApproved", waitPaymentApproved)
+	t.Run("capturePayment", capturePayment)
+	t.Run("getPayment", getPayment)
 }
