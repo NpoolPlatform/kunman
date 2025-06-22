@@ -51,6 +51,8 @@ message PaymentFiatInfo {
     string FiatUnit = 30;
     string FiatLogo = 40;
     basetypes.order.v1.FiatPaymentChannel PaymentChannel = 50;
+    // For payment channel like paypal
+    string RedirectURL = 51;
     string Amount = 60;
     string USDCurrency = 70;
     string ChannelPaymentID = 80;
