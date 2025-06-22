@@ -20,19 +20,8 @@ type Token struct {
 	Expiry      time.Time
 }
 
-var config *Config
-
-func init() {
-	var err error
-
-	config, err = LoadConfig()
-	if err != nil {
-		panic("Invalid paypal config")
-	}
-}
-
-func cacheAccessToken(ctx context.Context, token *Token) error {
-	key := config.AccessTokenKey()
+func (cli *PaymentClient) cacheAccessToken(ctx context.Context, token *Token) error {
+	key := cli.config.AccessTokenKey()
 
 	data, err := json.Marshal(token)
 	if err != nil {
@@ -52,15 +41,17 @@ func cacheAccessToken(ctx context.Context, token *Token) error {
 	return nil
 }
 
-func refreshAccessToken(ctx context.Context) (*Token, error) {
+func (cli *PaymentClient) refreshAccessToken(ctx context.Context) (*Token, error) {
 	formData := url.Values{}
 	formData.Set("grant_type", "client_credentials")
 
-	cli := resty.New()
-	defer cli.Close()
+	_cli := resty.New()
+	defer _cli.Close()
 
-	resp, err := cli.R().
-		SetBasicAuth(config.ClientID, config.ClientSecret).
+	resp, err := _cli.
+		SetBaseURL(cli.config.AuthURL()).
+		R().
+		SetBasicAuth(cli.config.ClientID, cli.config.ClientSecret).
 		SetFormDataFromValues(formData).
 		SetResult(&Token{}).
 		Post("/v1/oauth2/token")
@@ -75,15 +66,15 @@ func refreshAccessToken(ctx context.Context) (*Token, error) {
 	token := resp.Result().(*Token)
 	token.Expiry = time.Now().Add(time.Second * time.Duration(token.ExpiresIn))
 
-	if err := cacheAccessToken(ctx, token); err != nil {
+	if err := cli.cacheAccessToken(ctx, token); err != nil {
 		return nil, err
 	}
 
 	return token, nil
 }
 
-func cachedAccessToken(ctx context.Context) (*Token, error) {
-	key := config.AccessTokenKey()
+func (cli *PaymentClient) cachedAccessToken(ctx context.Context) (*Token, error) {
+	key := cli.config.AccessTokenKey()
 
 	token, err := redis2.Get(key)
 	if err != nil {
@@ -98,13 +89,13 @@ func cachedAccessToken(ctx context.Context) (*Token, error) {
 	return _token, nil
 }
 
-func GetAccessToken(ctx context.Context) (string, error) {
-	cachedToken, err := cachedAccessToken(ctx)
+func (cli *PaymentClient) GetAccessToken(ctx context.Context) (string, error) {
+	cachedToken, err := cli.cachedAccessToken(ctx)
 	if err == nil && !cachedToken.Expiry.IsZero() && cachedToken.Expiry.After(time.Now().Add(5*time.Minute)) {
 		return cachedToken.AccessToken, nil
 	}
 
-	newToken, err := refreshAccessToken(ctx)
+	newToken, err := cli.refreshAccessToken(ctx)
 	if err != nil {
 		return "", wlog.WrapError(err)
 	}

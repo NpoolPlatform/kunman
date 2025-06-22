@@ -20,7 +20,9 @@ func (h *Handler) ConstructCreateSQL() string {
 	_sql += comma + "fiat_id"
 	_sql += comma + "payment_channel"
 	_sql += comma + "amount"
-	_sql += comma + "channel_payment_id"
+	if h.ChannelPaymentID != nil {
+		_sql += comma + "channel_payment_id"
+	}
 	_sql += comma + "usd_currency"
 	_sql += comma + "created_at"
 	_sql += comma + "updated_at"
@@ -37,7 +39,9 @@ func (h *Handler) ConstructCreateSQL() string {
 	_sql += fmt.Sprintf("%v'%v' as fiat_id", comma, *h.FiatID)
 	_sql += fmt.Sprintf("%v'%v' as payment_channel", comma, h.PaymentChannel.String())
 	_sql += fmt.Sprintf("%v'%v' as amount", comma, *h.Amount)
-	_sql += fmt.Sprintf("%v'%v' as channel_payment_id", comma, *h.ChannelPaymentID)
+	if h.ChannelPaymentID != nil {
+		_sql += fmt.Sprintf("%v'%v' as channel_payment_id", comma, *h.ChannelPaymentID)
+	}
 	_sql += fmt.Sprintf("%v'%v' as usd_currency", comma, *h.USDCurrency)
 	_sql += fmt.Sprintf("%v%v as created_at", comma, now)
 	_sql += fmt.Sprintf("%v%v as updated_at", comma, now)

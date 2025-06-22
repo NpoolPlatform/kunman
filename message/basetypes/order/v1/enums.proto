@@ -238,6 +238,7 @@ enum FiatPaymentChannel {
 
   PaymentChannelStripe = 10;
   PaymentChannelWechat = 20;
+  PaymentChannelPaypal = 30;
 }
 
 enum CompensateType {

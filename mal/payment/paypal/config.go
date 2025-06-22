@@ -53,7 +53,7 @@ func (c *Config) BaseURL() string {
 }
 
 func (c *Config) AuthURL() string {
-	if config.Sandbox() {
+	if c.Sandbox() {
 		return "https://www.sandbox.paypal.com"
 	}
 	return "https://www.paypal.com"
