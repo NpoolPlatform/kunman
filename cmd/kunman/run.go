@@ -6,10 +6,12 @@ import (
 	"github.com/NpoolPlatform/kunman/api"
 	"github.com/NpoolPlatform/kunman/cron/scheduler/scheduler"
 	"github.com/NpoolPlatform/kunman/framework/action"
+	"github.com/NpoolPlatform/kunman/framework/http"
 	"github.com/NpoolPlatform/kunman/framework/logger"
 	"github.com/NpoolPlatform/kunman/framework/wlog"
 	"github.com/NpoolPlatform/kunman/gateway/webhook"
 	basalapi "github.com/NpoolPlatform/kunman/mal/basal/api"
+	"github.com/go-chi/chi/v5"
 	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
 	cli "github.com/urfave/cli/v2"
 	"google.golang.org/grpc"
@@ -54,9 +56,11 @@ func watch(ctx context.Context, cancel context.CancelFunc) error {
 	go shutdown(ctx)
 
 	scheduler.Initialize(ctx, cancel)
-	webhook.Initialize()
 
-	return nil
+	return http.Run(func(r *chi.Mux) error {
+		webhook.Initialize(r)
+		return nil
+	})
 }
 
 func rpcRegister(server grpc.ServiceRegistrar) error {

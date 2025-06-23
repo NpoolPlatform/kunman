@@ -27,6 +27,7 @@ const (
 	KeyServiceID      = "serviceid"
 	KeyHostname       = "hostname"
 	KeyHTTPPort       = "http_port"
+	KeyHTTPPort2      = "http_port_2"
 	KeyGRPCPort       = "grpc_port"
 	KeyPrometheusPort = "prometheus_port"
 	KeyUsername       = "username"

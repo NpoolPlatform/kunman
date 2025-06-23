@@ -6,11 +6,11 @@ import (
 	"io"
 	"net/http"
 
-	"github.com/gorilla/mux"
-
 	logger "github.com/NpoolPlatform/kunman/framework/logger"
 
 	"github.com/NpoolPlatform/kunman/mal/payment/paypal"
+
+	"github.com/go-chi/chi/v5"
 )
 
 func onPaypalCallback(w http.ResponseWriter, r *http.Request) {
@@ -43,8 +43,6 @@ func onPaypalCallback(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusOK)
 }
 
-func Initialize() {
-	r := mux.NewRouter()
-
-	r.HandleFunc("/api/webhook/v1/paypak/callback", onPaypalCallback).Methods("POST")
+func Initialize(r *chi.Mux) {
+	r.Post("/api/webhook/v1/paypak/callback", onPaypalCallback)
 }

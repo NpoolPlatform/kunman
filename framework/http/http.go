@@ -45,14 +45,14 @@ func Run(routeRegister func(router *chi.Mux) error) error {
 		ID:          uuid.New().String(),
 		Name:        config.GetStringValueWithNameSpace("", config.KeyHostname),
 		Tags:        nil,
-		Port:        config.GetIntValueWithNameSpace("", config.KeyHTTPPort),
-		HealthzPort: config.GetIntValueWithNameSpace("", config.KeyHTTPPort),
+		Port:        config.GetIntValueWithNameSpace("", config.KeyHTTPPort2),
+		HealthzPort: config.GetIntValueWithNameSpace("", config.KeyHTTPPort2),
 	})
 	if err != nil {
 		return xerrors.Errorf("fail to register service: %v", err)
 	}
 
-	listen := fmt.Sprintf(":%v", config.GetIntValueWithNameSpace("", config.KeyHTTPPort))
+	listen := fmt.Sprintf(":%v", config.GetIntValueWithNameSpace("", config.KeyHTTPPort2))
 	logger.Sugar().Infof("Start HTTP server: %v", listen)
 
 	return http2.ListenAndServe(listen, r)
