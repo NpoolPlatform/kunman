@@ -101,7 +101,7 @@ func (h *orderHandler) Paid() bool {
 }
 
 func (h *orderHandler) CustomID() string {
-	return fmt.Sprintf("%v@%v@%v", h.user.EntID, h.user.AppID, h.subscriptionOrder.OrderID)
+	return fmt.Sprintf("%v@%v@%v", h.user.AppID, h.user.EntID, h.subscriptionOrder.OrderID)
 }
 
 func (h *orderHandler) GivenName() string {
