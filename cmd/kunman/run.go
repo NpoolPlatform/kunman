@@ -56,11 +56,15 @@ func watch(ctx context.Context, cancel context.CancelFunc) error {
 	go shutdown(ctx)
 
 	scheduler.Initialize(ctx, cancel)
-
-	return http.Run(func(r *chi.Mux) error {
-		webhook.Initialize(r)
-		return nil
-	})
+	go func() {
+		for {
+			_ = http.Run(func(r *chi.Mux) error {
+				webhook.Initialize(r)
+				return nil
+			})
+		}
+	}()
+	return nil
 }
 
 func rpcRegister(server grpc.ServiceRegistrar) error {
