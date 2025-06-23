@@ -68,6 +68,18 @@ func (Subscription) Fields() []ent.Field {
 			Uint32("last_payment_at").
 			Optional().
 			Default(0),
+		field.
+			String("last_updated_event_id").
+			Optional().
+			Default(""),
+		field.
+			Uint32("activated_at").
+			Optional().
+			Default(0),
+		field.
+			String("activated_event_id").
+			Optional().
+			Default(""),
 	}
 }
 

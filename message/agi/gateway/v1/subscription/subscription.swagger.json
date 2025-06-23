@@ -374,7 +374,7 @@
           "type": "boolean",
           "title": "@inject_tag: sql:\"pay_with_coin_balance\""
         },
-        "ScriptionID": {
+        "SubscriptionID": {
           "type": "string",
           "title": "@inject_tag: sql:\"subscription_id\""
         },
@@ -389,6 +389,19 @@
           "type": "integer",
           "format": "int64",
           "title": "@inject_tag: sql:\"last_payment_at\""
+        },
+        "LastUpdatedEventID": {
+          "type": "string",
+          "title": "@inject_tag: sql:\"last_updated_event_id\""
+        },
+        "ActivatedAt": {
+          "type": "integer",
+          "format": "int64",
+          "title": "@inject_tag: sql:\"activated_at\""
+        },
+        "ActivatedEventID": {
+          "type": "string",
+          "title": "@inject_tag: sql:\"activated_event_id\""
         },
         "CreatedAt": {
           "type": "integer",

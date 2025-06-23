@@ -23,6 +23,9 @@ type Req struct {
 	SubscriptionID     *string
 	FiatPaymentChannel *ordertypes.FiatPaymentChannel
 	LastPaymentAt      *uint32
+	LastUpdatedEventID *string
+	ActivatedAt        *uint32
+	ActivatedEventID   *string
 	DeletedAt          *uint32
 }
 
@@ -60,6 +63,15 @@ func CreateSet(c *ent.SubscriptionCreate, req *Req) *ent.SubscriptionCreate {
 	if req.LastPaymentAt != nil {
 		c.SetLastPaymentAt(*req.LastPaymentAt)
 	}
+	if req.LastUpdatedEventID != nil {
+		c.SetLastUpdatedEventID(*req.LastUpdatedEventID)
+	}
+	if req.ActivatedAt != nil {
+		c.SetActivatedAt(*req.ActivatedAt)
+	}
+	if req.ActivatedEventID != nil {
+		c.SetActivatedEventID(*req.ActivatedEventID)
+	}
 	return c
 }
 
@@ -84,6 +96,15 @@ func UpdateSet(u *ent.SubscriptionUpdateOne, req *Req) *ent.SubscriptionUpdateOn
 	}
 	if req.LastPaymentAt != nil {
 		u.SetLastPaymentAt(*req.LastPaymentAt)
+	}
+	if req.LastUpdatedEventID != nil {
+		u.SetLastUpdatedEventID(*req.LastUpdatedEventID)
+	}
+	if req.ActivatedAt != nil {
+		u.SetActivatedAt(*req.ActivatedAt)
+	}
+	if req.ActivatedEventID != nil {
+		u.SetActivatedEventID(*req.ActivatedEventID)
 	}
 	if req.DeletedAt != nil {
 		u.SetDeletedAt(*req.DeletedAt)

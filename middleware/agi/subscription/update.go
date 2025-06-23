@@ -49,6 +49,18 @@ func (h *updateHandler) constructSQL() error {
 		_sql += fmt.Sprintf("%vlast_payment_at = %v, ", set, *h.LastPaymentAt)
 		set = ""
 	}
+	if h.LastUpdatedEventID != nil {
+		_sql += fmt.Sprintf("%vlast_updated_event_id = '%v', ", set, *h.LastUpdatedEventID)
+		set = ""
+	}
+	if h.ActivatedAt != nil {
+		_sql += fmt.Sprintf("%vactivated_at = %v, ", set, *h.ActivatedAt)
+		set = ""
+	}
+	if h.ActivatedEventID != nil {
+		_sql += fmt.Sprintf("%vactivated_event_id = '%v', ", set, *h.ActivatedEventID)
+		set = ""
+	}
 
 	// TODO: implement increment operation
 

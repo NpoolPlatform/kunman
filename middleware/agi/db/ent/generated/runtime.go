@@ -165,4 +165,16 @@ func init() {
 	subscriptionDescLastPaymentAt := subscriptionFields[9].Descriptor()
 	// subscription.DefaultLastPaymentAt holds the default value on creation for the last_payment_at field.
 	subscription.DefaultLastPaymentAt = subscriptionDescLastPaymentAt.Default.(uint32)
+	// subscriptionDescLastUpdatedEventID is the schema descriptor for last_updated_event_id field.
+	subscriptionDescLastUpdatedEventID := subscriptionFields[10].Descriptor()
+	// subscription.DefaultLastUpdatedEventID holds the default value on creation for the last_updated_event_id field.
+	subscription.DefaultLastUpdatedEventID = subscriptionDescLastUpdatedEventID.Default.(string)
+	// subscriptionDescActivatedAt is the schema descriptor for activated_at field.
+	subscriptionDescActivatedAt := subscriptionFields[11].Descriptor()
+	// subscription.DefaultActivatedAt holds the default value on creation for the activated_at field.
+	subscription.DefaultActivatedAt = subscriptionDescActivatedAt.Default.(uint32)
+	// subscriptionDescActivatedEventID is the schema descriptor for activated_event_id field.
+	subscriptionDescActivatedEventID := subscriptionFields[12].Descriptor()
+	// subscription.DefaultActivatedEventID holds the default value on creation for the activated_event_id field.
+	subscription.DefaultActivatedEventID = subscriptionDescActivatedEventID.Default.(string)
 }

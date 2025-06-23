@@ -326,6 +326,73 @@ func (su *SubscriptionUpdate) ClearLastPaymentAt() *SubscriptionUpdate {
 	return su
 }
 
+// SetLastUpdatedEventID sets the "last_updated_event_id" field.
+func (su *SubscriptionUpdate) SetLastUpdatedEventID(s string) *SubscriptionUpdate {
+	su.mutation.SetLastUpdatedEventID(s)
+	return su
+}
+
+// SetNillableLastUpdatedEventID sets the "last_updated_event_id" field if the given value is not nil.
+func (su *SubscriptionUpdate) SetNillableLastUpdatedEventID(s *string) *SubscriptionUpdate {
+	if s != nil {
+		su.SetLastUpdatedEventID(*s)
+	}
+	return su
+}
+
+// ClearLastUpdatedEventID clears the value of the "last_updated_event_id" field.
+func (su *SubscriptionUpdate) ClearLastUpdatedEventID() *SubscriptionUpdate {
+	su.mutation.ClearLastUpdatedEventID()
+	return su
+}
+
+// SetActivatedAt sets the "activated_at" field.
+func (su *SubscriptionUpdate) SetActivatedAt(u uint32) *SubscriptionUpdate {
+	su.mutation.ResetActivatedAt()
+	su.mutation.SetActivatedAt(u)
+	return su
+}
+
+// SetNillableActivatedAt sets the "activated_at" field if the given value is not nil.
+func (su *SubscriptionUpdate) SetNillableActivatedAt(u *uint32) *SubscriptionUpdate {
+	if u != nil {
+		su.SetActivatedAt(*u)
+	}
+	return su
+}
+
+// AddActivatedAt adds u to the "activated_at" field.
+func (su *SubscriptionUpdate) AddActivatedAt(u int32) *SubscriptionUpdate {
+	su.mutation.AddActivatedAt(u)
+	return su
+}
+
+// ClearActivatedAt clears the value of the "activated_at" field.
+func (su *SubscriptionUpdate) ClearActivatedAt() *SubscriptionUpdate {
+	su.mutation.ClearActivatedAt()
+	return su
+}
+
+// SetActivatedEventID sets the "activated_event_id" field.
+func (su *SubscriptionUpdate) SetActivatedEventID(s string) *SubscriptionUpdate {
+	su.mutation.SetActivatedEventID(s)
+	return su
+}
+
+// SetNillableActivatedEventID sets the "activated_event_id" field if the given value is not nil.
+func (su *SubscriptionUpdate) SetNillableActivatedEventID(s *string) *SubscriptionUpdate {
+	if s != nil {
+		su.SetActivatedEventID(*s)
+	}
+	return su
+}
+
+// ClearActivatedEventID clears the value of the "activated_event_id" field.
+func (su *SubscriptionUpdate) ClearActivatedEventID() *SubscriptionUpdate {
+	su.mutation.ClearActivatedEventID()
+	return su
+}
+
 // Mutation returns the SubscriptionMutation object of the builder.
 func (su *SubscriptionUpdate) Mutation() *SubscriptionMutation {
 	return su.mutation
@@ -474,6 +541,27 @@ func (su *SubscriptionUpdate) sqlSave(ctx context.Context) (n int, err error) {
 	}
 	if su.mutation.LastPaymentAtCleared() {
 		_spec.ClearField(subscription.FieldLastPaymentAt, field.TypeUint32)
+	}
+	if value, ok := su.mutation.LastUpdatedEventID(); ok {
+		_spec.SetField(subscription.FieldLastUpdatedEventID, field.TypeString, value)
+	}
+	if su.mutation.LastUpdatedEventIDCleared() {
+		_spec.ClearField(subscription.FieldLastUpdatedEventID, field.TypeString)
+	}
+	if value, ok := su.mutation.ActivatedAt(); ok {
+		_spec.SetField(subscription.FieldActivatedAt, field.TypeUint32, value)
+	}
+	if value, ok := su.mutation.AddedActivatedAt(); ok {
+		_spec.AddField(subscription.FieldActivatedAt, field.TypeUint32, value)
+	}
+	if su.mutation.ActivatedAtCleared() {
+		_spec.ClearField(subscription.FieldActivatedAt, field.TypeUint32)
+	}
+	if value, ok := su.mutation.ActivatedEventID(); ok {
+		_spec.SetField(subscription.FieldActivatedEventID, field.TypeString, value)
+	}
+	if su.mutation.ActivatedEventIDCleared() {
+		_spec.ClearField(subscription.FieldActivatedEventID, field.TypeString)
 	}
 	_spec.AddModifiers(su.modifiers...)
 	if n, err = sqlgraph.UpdateNodes(ctx, su.driver, _spec); err != nil {
@@ -794,6 +882,73 @@ func (suo *SubscriptionUpdateOne) ClearLastPaymentAt() *SubscriptionUpdateOne {
 	return suo
 }
 
+// SetLastUpdatedEventID sets the "last_updated_event_id" field.
+func (suo *SubscriptionUpdateOne) SetLastUpdatedEventID(s string) *SubscriptionUpdateOne {
+	suo.mutation.SetLastUpdatedEventID(s)
+	return suo
+}
+
+// SetNillableLastUpdatedEventID sets the "last_updated_event_id" field if the given value is not nil.
+func (suo *SubscriptionUpdateOne) SetNillableLastUpdatedEventID(s *string) *SubscriptionUpdateOne {
+	if s != nil {
+		suo.SetLastUpdatedEventID(*s)
+	}
+	return suo
+}
+
+// ClearLastUpdatedEventID clears the value of the "last_updated_event_id" field.
+func (suo *SubscriptionUpdateOne) ClearLastUpdatedEventID() *SubscriptionUpdateOne {
+	suo.mutation.ClearLastUpdatedEventID()
+	return suo
+}
+
+// SetActivatedAt sets the "activated_at" field.
+func (suo *SubscriptionUpdateOne) SetActivatedAt(u uint32) *SubscriptionUpdateOne {
+	suo.mutation.ResetActivatedAt()
+	suo.mutation.SetActivatedAt(u)
+	return suo
+}
+
+// SetNillableActivatedAt sets the "activated_at" field if the given value is not nil.
+func (suo *SubscriptionUpdateOne) SetNillableActivatedAt(u *uint32) *SubscriptionUpdateOne {
+	if u != nil {
+		suo.SetActivatedAt(*u)
+	}
+	return suo
+}
+
+// AddActivatedAt adds u to the "activated_at" field.
+func (suo *SubscriptionUpdateOne) AddActivatedAt(u int32) *SubscriptionUpdateOne {
+	suo.mutation.AddActivatedAt(u)
+	return suo
+}
+
+// ClearActivatedAt clears the value of the "activated_at" field.
+func (suo *SubscriptionUpdateOne) ClearActivatedAt() *SubscriptionUpdateOne {
+	suo.mutation.ClearActivatedAt()
+	return suo
+}
+
+// SetActivatedEventID sets the "activated_event_id" field.
+func (suo *SubscriptionUpdateOne) SetActivatedEventID(s string) *SubscriptionUpdateOne {
+	suo.mutation.SetActivatedEventID(s)
+	return suo
+}
+
+// SetNillableActivatedEventID sets the "activated_event_id" field if the given value is not nil.
+func (suo *SubscriptionUpdateOne) SetNillableActivatedEventID(s *string) *SubscriptionUpdateOne {
+	if s != nil {
+		suo.SetActivatedEventID(*s)
+	}
+	return suo
+}
+
+// ClearActivatedEventID clears the value of the "activated_event_id" field.
+func (suo *SubscriptionUpdateOne) ClearActivatedEventID() *SubscriptionUpdateOne {
+	suo.mutation.ClearActivatedEventID()
+	return suo
+}
+
 // Mutation returns the SubscriptionMutation object of the builder.
 func (suo *SubscriptionUpdateOne) Mutation() *SubscriptionMutation {
 	return suo.mutation
@@ -972,6 +1127,27 @@ func (suo *SubscriptionUpdateOne) sqlSave(ctx context.Context) (_node *Subscript
 	}
 	if suo.mutation.LastPaymentAtCleared() {
 		_spec.ClearField(subscription.FieldLastPaymentAt, field.TypeUint32)
+	}
+	if value, ok := suo.mutation.LastUpdatedEventID(); ok {
+		_spec.SetField(subscription.FieldLastUpdatedEventID, field.TypeString, value)
+	}
+	if suo.mutation.LastUpdatedEventIDCleared() {
+		_spec.ClearField(subscription.FieldLastUpdatedEventID, field.TypeString)
+	}
+	if value, ok := suo.mutation.ActivatedAt(); ok {
+		_spec.SetField(subscription.FieldActivatedAt, field.TypeUint32, value)
+	}
+	if value, ok := suo.mutation.AddedActivatedAt(); ok {
+		_spec.AddField(subscription.FieldActivatedAt, field.TypeUint32, value)
+	}
+	if suo.mutation.ActivatedAtCleared() {
+		_spec.ClearField(subscription.FieldActivatedAt, field.TypeUint32)
+	}
+	if value, ok := suo.mutation.ActivatedEventID(); ok {
+		_spec.SetField(subscription.FieldActivatedEventID, field.TypeString, value)
+	}
+	if suo.mutation.ActivatedEventIDCleared() {
+		_spec.ClearField(subscription.FieldActivatedEventID, field.TypeString)
 	}
 	_spec.AddModifiers(suo.modifiers...)
 	_node = &Subscription{config: suo.config}

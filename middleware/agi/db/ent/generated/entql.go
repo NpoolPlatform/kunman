@@ -84,6 +84,9 @@ var schemaGraph = func() *sqlgraph.Schema {
 			subscription.FieldSubscriptionID:     {Type: field.TypeString, Column: subscription.FieldSubscriptionID},
 			subscription.FieldFiatPaymentChannel: {Type: field.TypeString, Column: subscription.FieldFiatPaymentChannel},
 			subscription.FieldLastPaymentAt:      {Type: field.TypeUint32, Column: subscription.FieldLastPaymentAt},
+			subscription.FieldLastUpdatedEventID: {Type: field.TypeString, Column: subscription.FieldLastUpdatedEventID},
+			subscription.FieldActivatedAt:        {Type: field.TypeUint32, Column: subscription.FieldActivatedAt},
+			subscription.FieldActivatedEventID:   {Type: field.TypeString, Column: subscription.FieldActivatedEventID},
 		},
 	}
 	return graph
@@ -368,4 +371,19 @@ func (f *SubscriptionFilter) WhereFiatPaymentChannel(p entql.StringP) {
 // WhereLastPaymentAt applies the entql uint32 predicate on the last_payment_at field.
 func (f *SubscriptionFilter) WhereLastPaymentAt(p entql.Uint32P) {
 	f.Where(p.Field(subscription.FieldLastPaymentAt))
+}
+
+// WhereLastUpdatedEventID applies the entql string predicate on the last_updated_event_id field.
+func (f *SubscriptionFilter) WhereLastUpdatedEventID(p entql.StringP) {
+	f.Where(p.Field(subscription.FieldLastUpdatedEventID))
+}
+
+// WhereActivatedAt applies the entql uint32 predicate on the activated_at field.
+func (f *SubscriptionFilter) WhereActivatedAt(p entql.Uint32P) {
+	f.Where(p.Field(subscription.FieldActivatedAt))
+}
+
+// WhereActivatedEventID applies the entql string predicate on the activated_event_id field.
+func (f *SubscriptionFilter) WhereActivatedEventID(p entql.StringP) {
+	f.Where(p.Field(subscription.FieldActivatedEventID))
 }

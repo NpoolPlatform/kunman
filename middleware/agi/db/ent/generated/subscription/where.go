@@ -123,6 +123,21 @@ func LastPaymentAt(v uint32) predicate.Subscription {
 	return predicate.Subscription(sql.FieldEQ(FieldLastPaymentAt, v))
 }
 
+// LastUpdatedEventID applies equality check predicate on the "last_updated_event_id" field. It's identical to LastUpdatedEventIDEQ.
+func LastUpdatedEventID(v string) predicate.Subscription {
+	return predicate.Subscription(sql.FieldEQ(FieldLastUpdatedEventID, v))
+}
+
+// ActivatedAt applies equality check predicate on the "activated_at" field. It's identical to ActivatedAtEQ.
+func ActivatedAt(v uint32) predicate.Subscription {
+	return predicate.Subscription(sql.FieldEQ(FieldActivatedAt, v))
+}
+
+// ActivatedEventID applies equality check predicate on the "activated_event_id" field. It's identical to ActivatedEventIDEQ.
+func ActivatedEventID(v string) predicate.Subscription {
+	return predicate.Subscription(sql.FieldEQ(FieldActivatedEventID, v))
+}
+
 // CreatedAtEQ applies the EQ predicate on the "created_at" field.
 func CreatedAtEQ(v uint32) predicate.Subscription {
 	return predicate.Subscription(sql.FieldEQ(FieldCreatedAt, v))
@@ -801,6 +816,206 @@ func LastPaymentAtIsNil() predicate.Subscription {
 // LastPaymentAtNotNil applies the NotNil predicate on the "last_payment_at" field.
 func LastPaymentAtNotNil() predicate.Subscription {
 	return predicate.Subscription(sql.FieldNotNull(FieldLastPaymentAt))
+}
+
+// LastUpdatedEventIDEQ applies the EQ predicate on the "last_updated_event_id" field.
+func LastUpdatedEventIDEQ(v string) predicate.Subscription {
+	return predicate.Subscription(sql.FieldEQ(FieldLastUpdatedEventID, v))
+}
+
+// LastUpdatedEventIDNEQ applies the NEQ predicate on the "last_updated_event_id" field.
+func LastUpdatedEventIDNEQ(v string) predicate.Subscription {
+	return predicate.Subscription(sql.FieldNEQ(FieldLastUpdatedEventID, v))
+}
+
+// LastUpdatedEventIDIn applies the In predicate on the "last_updated_event_id" field.
+func LastUpdatedEventIDIn(vs ...string) predicate.Subscription {
+	return predicate.Subscription(sql.FieldIn(FieldLastUpdatedEventID, vs...))
+}
+
+// LastUpdatedEventIDNotIn applies the NotIn predicate on the "last_updated_event_id" field.
+func LastUpdatedEventIDNotIn(vs ...string) predicate.Subscription {
+	return predicate.Subscription(sql.FieldNotIn(FieldLastUpdatedEventID, vs...))
+}
+
+// LastUpdatedEventIDGT applies the GT predicate on the "last_updated_event_id" field.
+func LastUpdatedEventIDGT(v string) predicate.Subscription {
+	return predicate.Subscription(sql.FieldGT(FieldLastUpdatedEventID, v))
+}
+
+// LastUpdatedEventIDGTE applies the GTE predicate on the "last_updated_event_id" field.
+func LastUpdatedEventIDGTE(v string) predicate.Subscription {
+	return predicate.Subscription(sql.FieldGTE(FieldLastUpdatedEventID, v))
+}
+
+// LastUpdatedEventIDLT applies the LT predicate on the "last_updated_event_id" field.
+func LastUpdatedEventIDLT(v string) predicate.Subscription {
+	return predicate.Subscription(sql.FieldLT(FieldLastUpdatedEventID, v))
+}
+
+// LastUpdatedEventIDLTE applies the LTE predicate on the "last_updated_event_id" field.
+func LastUpdatedEventIDLTE(v string) predicate.Subscription {
+	return predicate.Subscription(sql.FieldLTE(FieldLastUpdatedEventID, v))
+}
+
+// LastUpdatedEventIDContains applies the Contains predicate on the "last_updated_event_id" field.
+func LastUpdatedEventIDContains(v string) predicate.Subscription {
+	return predicate.Subscription(sql.FieldContains(FieldLastUpdatedEventID, v))
+}
+
+// LastUpdatedEventIDHasPrefix applies the HasPrefix predicate on the "last_updated_event_id" field.
+func LastUpdatedEventIDHasPrefix(v string) predicate.Subscription {
+	return predicate.Subscription(sql.FieldHasPrefix(FieldLastUpdatedEventID, v))
+}
+
+// LastUpdatedEventIDHasSuffix applies the HasSuffix predicate on the "last_updated_event_id" field.
+func LastUpdatedEventIDHasSuffix(v string) predicate.Subscription {
+	return predicate.Subscription(sql.FieldHasSuffix(FieldLastUpdatedEventID, v))
+}
+
+// LastUpdatedEventIDIsNil applies the IsNil predicate on the "last_updated_event_id" field.
+func LastUpdatedEventIDIsNil() predicate.Subscription {
+	return predicate.Subscription(sql.FieldIsNull(FieldLastUpdatedEventID))
+}
+
+// LastUpdatedEventIDNotNil applies the NotNil predicate on the "last_updated_event_id" field.
+func LastUpdatedEventIDNotNil() predicate.Subscription {
+	return predicate.Subscription(sql.FieldNotNull(FieldLastUpdatedEventID))
+}
+
+// LastUpdatedEventIDEqualFold applies the EqualFold predicate on the "last_updated_event_id" field.
+func LastUpdatedEventIDEqualFold(v string) predicate.Subscription {
+	return predicate.Subscription(sql.FieldEqualFold(FieldLastUpdatedEventID, v))
+}
+
+// LastUpdatedEventIDContainsFold applies the ContainsFold predicate on the "last_updated_event_id" field.
+func LastUpdatedEventIDContainsFold(v string) predicate.Subscription {
+	return predicate.Subscription(sql.FieldContainsFold(FieldLastUpdatedEventID, v))
+}
+
+// ActivatedAtEQ applies the EQ predicate on the "activated_at" field.
+func ActivatedAtEQ(v uint32) predicate.Subscription {
+	return predicate.Subscription(sql.FieldEQ(FieldActivatedAt, v))
+}
+
+// ActivatedAtNEQ applies the NEQ predicate on the "activated_at" field.
+func ActivatedAtNEQ(v uint32) predicate.Subscription {
+	return predicate.Subscription(sql.FieldNEQ(FieldActivatedAt, v))
+}
+
+// ActivatedAtIn applies the In predicate on the "activated_at" field.
+func ActivatedAtIn(vs ...uint32) predicate.Subscription {
+	return predicate.Subscription(sql.FieldIn(FieldActivatedAt, vs...))
+}
+
+// ActivatedAtNotIn applies the NotIn predicate on the "activated_at" field.
+func ActivatedAtNotIn(vs ...uint32) predicate.Subscription {
+	return predicate.Subscription(sql.FieldNotIn(FieldActivatedAt, vs...))
+}
+
+// ActivatedAtGT applies the GT predicate on the "activated_at" field.
+func ActivatedAtGT(v uint32) predicate.Subscription {
+	return predicate.Subscription(sql.FieldGT(FieldActivatedAt, v))
+}
+
+// ActivatedAtGTE applies the GTE predicate on the "activated_at" field.
+func ActivatedAtGTE(v uint32) predicate.Subscription {
+	return predicate.Subscription(sql.FieldGTE(FieldActivatedAt, v))
+}
+
+// ActivatedAtLT applies the LT predicate on the "activated_at" field.
+func ActivatedAtLT(v uint32) predicate.Subscription {
+	return predicate.Subscription(sql.FieldLT(FieldActivatedAt, v))
+}
+
+// ActivatedAtLTE applies the LTE predicate on the "activated_at" field.
+func ActivatedAtLTE(v uint32) predicate.Subscription {
+	return predicate.Subscription(sql.FieldLTE(FieldActivatedAt, v))
+}
+
+// ActivatedAtIsNil applies the IsNil predicate on the "activated_at" field.
+func ActivatedAtIsNil() predicate.Subscription {
+	return predicate.Subscription(sql.FieldIsNull(FieldActivatedAt))
+}
+
+// ActivatedAtNotNil applies the NotNil predicate on the "activated_at" field.
+func ActivatedAtNotNil() predicate.Subscription {
+	return predicate.Subscription(sql.FieldNotNull(FieldActivatedAt))
+}
+
+// ActivatedEventIDEQ applies the EQ predicate on the "activated_event_id" field.
+func ActivatedEventIDEQ(v string) predicate.Subscription {
+	return predicate.Subscription(sql.FieldEQ(FieldActivatedEventID, v))
+}
+
+// ActivatedEventIDNEQ applies the NEQ predicate on the "activated_event_id" field.
+func ActivatedEventIDNEQ(v string) predicate.Subscription {
+	return predicate.Subscription(sql.FieldNEQ(FieldActivatedEventID, v))
+}
+
+// ActivatedEventIDIn applies the In predicate on the "activated_event_id" field.
+func ActivatedEventIDIn(vs ...string) predicate.Subscription {
+	return predicate.Subscription(sql.FieldIn(FieldActivatedEventID, vs...))
+}
+
+// ActivatedEventIDNotIn applies the NotIn predicate on the "activated_event_id" field.
+func ActivatedEventIDNotIn(vs ...string) predicate.Subscription {
+	return predicate.Subscription(sql.FieldNotIn(FieldActivatedEventID, vs...))
+}
+
+// ActivatedEventIDGT applies the GT predicate on the "activated_event_id" field.
+func ActivatedEventIDGT(v string) predicate.Subscription {
+	return predicate.Subscription(sql.FieldGT(FieldActivatedEventID, v))
+}
+
+// ActivatedEventIDGTE applies the GTE predicate on the "activated_event_id" field.
+func ActivatedEventIDGTE(v string) predicate.Subscription {
+	return predicate.Subscription(sql.FieldGTE(FieldActivatedEventID, v))
+}
+
+// ActivatedEventIDLT applies the LT predicate on the "activated_event_id" field.
+func ActivatedEventIDLT(v string) predicate.Subscription {
+	return predicate.Subscription(sql.FieldLT(FieldActivatedEventID, v))
+}
+
+// ActivatedEventIDLTE applies the LTE predicate on the "activated_event_id" field.
+func ActivatedEventIDLTE(v string) predicate.Subscription {
+	return predicate.Subscription(sql.FieldLTE(FieldActivatedEventID, v))
+}
+
+// ActivatedEventIDContains applies the Contains predicate on the "activated_event_id" field.
+func ActivatedEventIDContains(v string) predicate.Subscription {
+	return predicate.Subscription(sql.FieldContains(FieldActivatedEventID, v))
+}
+
+// ActivatedEventIDHasPrefix applies the HasPrefix predicate on the "activated_event_id" field.
+func ActivatedEventIDHasPrefix(v string) predicate.Subscription {
+	return predicate.Subscription(sql.FieldHasPrefix(FieldActivatedEventID, v))
+}
+
+// ActivatedEventIDHasSuffix applies the HasSuffix predicate on the "activated_event_id" field.
+func ActivatedEventIDHasSuffix(v string) predicate.Subscription {
+	return predicate.Subscription(sql.FieldHasSuffix(FieldActivatedEventID, v))
+}
+
+// ActivatedEventIDIsNil applies the IsNil predicate on the "activated_event_id" field.
+func ActivatedEventIDIsNil() predicate.Subscription {
+	return predicate.Subscription(sql.FieldIsNull(FieldActivatedEventID))
+}
+
+// ActivatedEventIDNotNil applies the NotNil predicate on the "activated_event_id" field.
+func ActivatedEventIDNotNil() predicate.Subscription {
+	return predicate.Subscription(sql.FieldNotNull(FieldActivatedEventID))
+}
+
+// ActivatedEventIDEqualFold applies the EqualFold predicate on the "activated_event_id" field.
+func ActivatedEventIDEqualFold(v string) predicate.Subscription {
+	return predicate.Subscription(sql.FieldEqualFold(FieldActivatedEventID, v))
+}
+
+// ActivatedEventIDContainsFold applies the ContainsFold predicate on the "activated_event_id" field.
+func ActivatedEventIDContainsFold(v string) predicate.Subscription {
+	return predicate.Subscription(sql.FieldContainsFold(FieldActivatedEventID, v))
 }
 
 // And groups predicates with the AND operator between them.

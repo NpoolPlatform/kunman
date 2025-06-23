@@ -77,6 +77,9 @@ var (
 		{Name: "subscription_id", Type: field.TypeString, Nullable: true, Default: ""},
 		{Name: "fiat_payment_channel", Type: field.TypeString, Nullable: true, Default: ""},
 		{Name: "last_payment_at", Type: field.TypeUint32, Nullable: true, Default: 0},
+		{Name: "last_updated_event_id", Type: field.TypeString, Nullable: true, Default: ""},
+		{Name: "activated_at", Type: field.TypeUint32, Nullable: true, Default: 0},
+		{Name: "activated_event_id", Type: field.TypeString, Nullable: true, Default: ""},
 	}
 	// SubscriptionsTable holds the schema information for the "subscriptions" table.
 	SubscriptionsTable = &schema.Table{

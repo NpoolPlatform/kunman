@@ -61,6 +61,9 @@ func (h *baseQueryHandler) queryJoinMyself(s *sql.Selector) {
 			t1.C(entsubscription.FieldSubscriptionID),
 			t1.C(entsubscription.FieldFiatPaymentChannel),
 			t1.C(entsubscription.FieldLastPaymentAt),
+			t1.C(entsubscription.FieldLastUpdatedEventID),
+			t1.C(entsubscription.FieldActivatedAt),
+			t1.C(entsubscription.FieldActivatedEventID),
 			t1.C(entsubscription.FieldCreatedAt),
 			t1.C(entsubscription.FieldUpdatedAt),
 		)

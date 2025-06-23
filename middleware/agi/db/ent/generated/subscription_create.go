@@ -218,6 +218,48 @@ func (sc *SubscriptionCreate) SetNillableLastPaymentAt(u *uint32) *SubscriptionC
 	return sc
 }
 
+// SetLastUpdatedEventID sets the "last_updated_event_id" field.
+func (sc *SubscriptionCreate) SetLastUpdatedEventID(s string) *SubscriptionCreate {
+	sc.mutation.SetLastUpdatedEventID(s)
+	return sc
+}
+
+// SetNillableLastUpdatedEventID sets the "last_updated_event_id" field if the given value is not nil.
+func (sc *SubscriptionCreate) SetNillableLastUpdatedEventID(s *string) *SubscriptionCreate {
+	if s != nil {
+		sc.SetLastUpdatedEventID(*s)
+	}
+	return sc
+}
+
+// SetActivatedAt sets the "activated_at" field.
+func (sc *SubscriptionCreate) SetActivatedAt(u uint32) *SubscriptionCreate {
+	sc.mutation.SetActivatedAt(u)
+	return sc
+}
+
+// SetNillableActivatedAt sets the "activated_at" field if the given value is not nil.
+func (sc *SubscriptionCreate) SetNillableActivatedAt(u *uint32) *SubscriptionCreate {
+	if u != nil {
+		sc.SetActivatedAt(*u)
+	}
+	return sc
+}
+
+// SetActivatedEventID sets the "activated_event_id" field.
+func (sc *SubscriptionCreate) SetActivatedEventID(s string) *SubscriptionCreate {
+	sc.mutation.SetActivatedEventID(s)
+	return sc
+}
+
+// SetNillableActivatedEventID sets the "activated_event_id" field if the given value is not nil.
+func (sc *SubscriptionCreate) SetNillableActivatedEventID(s *string) *SubscriptionCreate {
+	if s != nil {
+		sc.SetActivatedEventID(*s)
+	}
+	return sc
+}
+
 // SetID sets the "id" field.
 func (sc *SubscriptionCreate) SetID(u uint32) *SubscriptionCreate {
 	sc.mutation.SetID(u)
@@ -314,6 +356,18 @@ func (sc *SubscriptionCreate) defaults() {
 	if _, ok := sc.mutation.LastPaymentAt(); !ok {
 		v := subscription.DefaultLastPaymentAt
 		sc.mutation.SetLastPaymentAt(v)
+	}
+	if _, ok := sc.mutation.LastUpdatedEventID(); !ok {
+		v := subscription.DefaultLastUpdatedEventID
+		sc.mutation.SetLastUpdatedEventID(v)
+	}
+	if _, ok := sc.mutation.ActivatedAt(); !ok {
+		v := subscription.DefaultActivatedAt
+		sc.mutation.SetActivatedAt(v)
+	}
+	if _, ok := sc.mutation.ActivatedEventID(); !ok {
+		v := subscription.DefaultActivatedEventID
+		sc.mutation.SetActivatedEventID(v)
 	}
 }
 
@@ -419,6 +473,18 @@ func (sc *SubscriptionCreate) createSpec() (*Subscription, *sqlgraph.CreateSpec)
 	if value, ok := sc.mutation.LastPaymentAt(); ok {
 		_spec.SetField(subscription.FieldLastPaymentAt, field.TypeUint32, value)
 		_node.LastPaymentAt = value
+	}
+	if value, ok := sc.mutation.LastUpdatedEventID(); ok {
+		_spec.SetField(subscription.FieldLastUpdatedEventID, field.TypeString, value)
+		_node.LastUpdatedEventID = value
+	}
+	if value, ok := sc.mutation.ActivatedAt(); ok {
+		_spec.SetField(subscription.FieldActivatedAt, field.TypeUint32, value)
+		_node.ActivatedAt = value
+	}
+	if value, ok := sc.mutation.ActivatedEventID(); ok {
+		_spec.SetField(subscription.FieldActivatedEventID, field.TypeString, value)
+		_node.ActivatedEventID = value
 	}
 	return _node, _spec
 }
@@ -739,6 +805,66 @@ func (u *SubscriptionUpsert) AddLastPaymentAt(v uint32) *SubscriptionUpsert {
 // ClearLastPaymentAt clears the value of the "last_payment_at" field.
 func (u *SubscriptionUpsert) ClearLastPaymentAt() *SubscriptionUpsert {
 	u.SetNull(subscription.FieldLastPaymentAt)
+	return u
+}
+
+// SetLastUpdatedEventID sets the "last_updated_event_id" field.
+func (u *SubscriptionUpsert) SetLastUpdatedEventID(v string) *SubscriptionUpsert {
+	u.Set(subscription.FieldLastUpdatedEventID, v)
+	return u
+}
+
+// UpdateLastUpdatedEventID sets the "last_updated_event_id" field to the value that was provided on create.
+func (u *SubscriptionUpsert) UpdateLastUpdatedEventID() *SubscriptionUpsert {
+	u.SetExcluded(subscription.FieldLastUpdatedEventID)
+	return u
+}
+
+// ClearLastUpdatedEventID clears the value of the "last_updated_event_id" field.
+func (u *SubscriptionUpsert) ClearLastUpdatedEventID() *SubscriptionUpsert {
+	u.SetNull(subscription.FieldLastUpdatedEventID)
+	return u
+}
+
+// SetActivatedAt sets the "activated_at" field.
+func (u *SubscriptionUpsert) SetActivatedAt(v uint32) *SubscriptionUpsert {
+	u.Set(subscription.FieldActivatedAt, v)
+	return u
+}
+
+// UpdateActivatedAt sets the "activated_at" field to the value that was provided on create.
+func (u *SubscriptionUpsert) UpdateActivatedAt() *SubscriptionUpsert {
+	u.SetExcluded(subscription.FieldActivatedAt)
+	return u
+}
+
+// AddActivatedAt adds v to the "activated_at" field.
+func (u *SubscriptionUpsert) AddActivatedAt(v uint32) *SubscriptionUpsert {
+	u.Add(subscription.FieldActivatedAt, v)
+	return u
+}
+
+// ClearActivatedAt clears the value of the "activated_at" field.
+func (u *SubscriptionUpsert) ClearActivatedAt() *SubscriptionUpsert {
+	u.SetNull(subscription.FieldActivatedAt)
+	return u
+}
+
+// SetActivatedEventID sets the "activated_event_id" field.
+func (u *SubscriptionUpsert) SetActivatedEventID(v string) *SubscriptionUpsert {
+	u.Set(subscription.FieldActivatedEventID, v)
+	return u
+}
+
+// UpdateActivatedEventID sets the "activated_event_id" field to the value that was provided on create.
+func (u *SubscriptionUpsert) UpdateActivatedEventID() *SubscriptionUpsert {
+	u.SetExcluded(subscription.FieldActivatedEventID)
+	return u
+}
+
+// ClearActivatedEventID clears the value of the "activated_event_id" field.
+func (u *SubscriptionUpsert) ClearActivatedEventID() *SubscriptionUpsert {
+	u.SetNull(subscription.FieldActivatedEventID)
 	return u
 }
 
@@ -1102,6 +1228,76 @@ func (u *SubscriptionUpsertOne) UpdateLastPaymentAt() *SubscriptionUpsertOne {
 func (u *SubscriptionUpsertOne) ClearLastPaymentAt() *SubscriptionUpsertOne {
 	return u.Update(func(s *SubscriptionUpsert) {
 		s.ClearLastPaymentAt()
+	})
+}
+
+// SetLastUpdatedEventID sets the "last_updated_event_id" field.
+func (u *SubscriptionUpsertOne) SetLastUpdatedEventID(v string) *SubscriptionUpsertOne {
+	return u.Update(func(s *SubscriptionUpsert) {
+		s.SetLastUpdatedEventID(v)
+	})
+}
+
+// UpdateLastUpdatedEventID sets the "last_updated_event_id" field to the value that was provided on create.
+func (u *SubscriptionUpsertOne) UpdateLastUpdatedEventID() *SubscriptionUpsertOne {
+	return u.Update(func(s *SubscriptionUpsert) {
+		s.UpdateLastUpdatedEventID()
+	})
+}
+
+// ClearLastUpdatedEventID clears the value of the "last_updated_event_id" field.
+func (u *SubscriptionUpsertOne) ClearLastUpdatedEventID() *SubscriptionUpsertOne {
+	return u.Update(func(s *SubscriptionUpsert) {
+		s.ClearLastUpdatedEventID()
+	})
+}
+
+// SetActivatedAt sets the "activated_at" field.
+func (u *SubscriptionUpsertOne) SetActivatedAt(v uint32) *SubscriptionUpsertOne {
+	return u.Update(func(s *SubscriptionUpsert) {
+		s.SetActivatedAt(v)
+	})
+}
+
+// AddActivatedAt adds v to the "activated_at" field.
+func (u *SubscriptionUpsertOne) AddActivatedAt(v uint32) *SubscriptionUpsertOne {
+	return u.Update(func(s *SubscriptionUpsert) {
+		s.AddActivatedAt(v)
+	})
+}
+
+// UpdateActivatedAt sets the "activated_at" field to the value that was provided on create.
+func (u *SubscriptionUpsertOne) UpdateActivatedAt() *SubscriptionUpsertOne {
+	return u.Update(func(s *SubscriptionUpsert) {
+		s.UpdateActivatedAt()
+	})
+}
+
+// ClearActivatedAt clears the value of the "activated_at" field.
+func (u *SubscriptionUpsertOne) ClearActivatedAt() *SubscriptionUpsertOne {
+	return u.Update(func(s *SubscriptionUpsert) {
+		s.ClearActivatedAt()
+	})
+}
+
+// SetActivatedEventID sets the "activated_event_id" field.
+func (u *SubscriptionUpsertOne) SetActivatedEventID(v string) *SubscriptionUpsertOne {
+	return u.Update(func(s *SubscriptionUpsert) {
+		s.SetActivatedEventID(v)
+	})
+}
+
+// UpdateActivatedEventID sets the "activated_event_id" field to the value that was provided on create.
+func (u *SubscriptionUpsertOne) UpdateActivatedEventID() *SubscriptionUpsertOne {
+	return u.Update(func(s *SubscriptionUpsert) {
+		s.UpdateActivatedEventID()
+	})
+}
+
+// ClearActivatedEventID clears the value of the "activated_event_id" field.
+func (u *SubscriptionUpsertOne) ClearActivatedEventID() *SubscriptionUpsertOne {
+	return u.Update(func(s *SubscriptionUpsert) {
+		s.ClearActivatedEventID()
 	})
 }
 
@@ -1631,6 +1827,76 @@ func (u *SubscriptionUpsertBulk) UpdateLastPaymentAt() *SubscriptionUpsertBulk {
 func (u *SubscriptionUpsertBulk) ClearLastPaymentAt() *SubscriptionUpsertBulk {
 	return u.Update(func(s *SubscriptionUpsert) {
 		s.ClearLastPaymentAt()
+	})
+}
+
+// SetLastUpdatedEventID sets the "last_updated_event_id" field.
+func (u *SubscriptionUpsertBulk) SetLastUpdatedEventID(v string) *SubscriptionUpsertBulk {
+	return u.Update(func(s *SubscriptionUpsert) {
+		s.SetLastUpdatedEventID(v)
+	})
+}
+
+// UpdateLastUpdatedEventID sets the "last_updated_event_id" field to the value that was provided on create.
+func (u *SubscriptionUpsertBulk) UpdateLastUpdatedEventID() *SubscriptionUpsertBulk {
+	return u.Update(func(s *SubscriptionUpsert) {
+		s.UpdateLastUpdatedEventID()
+	})
+}
+
+// ClearLastUpdatedEventID clears the value of the "last_updated_event_id" field.
+func (u *SubscriptionUpsertBulk) ClearLastUpdatedEventID() *SubscriptionUpsertBulk {
+	return u.Update(func(s *SubscriptionUpsert) {
+		s.ClearLastUpdatedEventID()
+	})
+}
+
+// SetActivatedAt sets the "activated_at" field.
+func (u *SubscriptionUpsertBulk) SetActivatedAt(v uint32) *SubscriptionUpsertBulk {
+	return u.Update(func(s *SubscriptionUpsert) {
+		s.SetActivatedAt(v)
+	})
+}
+
+// AddActivatedAt adds v to the "activated_at" field.
+func (u *SubscriptionUpsertBulk) AddActivatedAt(v uint32) *SubscriptionUpsertBulk {
+	return u.Update(func(s *SubscriptionUpsert) {
+		s.AddActivatedAt(v)
+	})
+}
+
+// UpdateActivatedAt sets the "activated_at" field to the value that was provided on create.
+func (u *SubscriptionUpsertBulk) UpdateActivatedAt() *SubscriptionUpsertBulk {
+	return u.Update(func(s *SubscriptionUpsert) {
+		s.UpdateActivatedAt()
+	})
+}
+
+// ClearActivatedAt clears the value of the "activated_at" field.
+func (u *SubscriptionUpsertBulk) ClearActivatedAt() *SubscriptionUpsertBulk {
+	return u.Update(func(s *SubscriptionUpsert) {
+		s.ClearActivatedAt()
+	})
+}
+
+// SetActivatedEventID sets the "activated_event_id" field.
+func (u *SubscriptionUpsertBulk) SetActivatedEventID(v string) *SubscriptionUpsertBulk {
+	return u.Update(func(s *SubscriptionUpsert) {
+		s.SetActivatedEventID(v)
+	})
+}
+
+// UpdateActivatedEventID sets the "activated_event_id" field to the value that was provided on create.
+func (u *SubscriptionUpsertBulk) UpdateActivatedEventID() *SubscriptionUpsertBulk {
+	return u.Update(func(s *SubscriptionUpsert) {
+		s.UpdateActivatedEventID()
+	})
+}
+
+// ClearActivatedEventID clears the value of the "activated_event_id" field.
+func (u *SubscriptionUpsertBulk) ClearActivatedEventID() *SubscriptionUpsertBulk {
+	return u.Update(func(s *SubscriptionUpsert) {
+		s.ClearActivatedEventID()
 	})
 }
 

@@ -138,6 +138,12 @@ func WithConds(conds *npool.Conds) func(context.Context, *Handler) error {
 				Val: ids,
 			}
 		}
+		if conds.Unit != nil {
+			h.Conds.Unit = &cruder.Cond{
+				Op:  conds.GetUnit().GetOp(),
+				Val: conds.GetUnit().GetValue(),
+			}
+		}
 		return nil
 	}
 }

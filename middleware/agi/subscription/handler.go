@@ -204,6 +204,45 @@ func WithLastPaymentAt(u *uint32, must bool) func(context.Context, *Handler) err
 	}
 }
 
+func WithLastUpdatedEventID(s *string, must bool) func(context.Context, *Handler) error {
+	return func(ctx context.Context, h *Handler) error {
+		if s == nil {
+			if must {
+				return wlog.Errorf("invalid lastupdatedeventid")
+			}
+			return nil
+		}
+		h.LastUpdatedEventID = s
+		return nil
+	}
+}
+
+func WithActivatedAt(u *uint32, must bool) func(context.Context, *Handler) error {
+	return func(ctx context.Context, h *Handler) error {
+		if u == nil {
+			if must {
+				return wlog.Errorf("invalid activatedat")
+			}
+			return nil
+		}
+		h.ActivatedAt = u
+		return nil
+	}
+}
+
+func WithActivatedEventID(s *string, must bool) func(context.Context, *Handler) error {
+	return func(ctx context.Context, h *Handler) error {
+		if s == nil {
+			if must {
+				return wlog.Errorf("invalid activatedeventid")
+			}
+			return nil
+		}
+		h.ActivatedEventID = s
+		return nil
+	}
+}
+
 func (h *Handler) withSubscriptionConds(conds *npool.Conds) error {
 	if conds.ID != nil {
 		h.SubscriptionConds.ID = &cruder.Cond{

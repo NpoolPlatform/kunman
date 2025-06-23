@@ -40,6 +40,12 @@ const (
 	FieldFiatPaymentChannel = "fiat_payment_channel"
 	// FieldLastPaymentAt holds the string denoting the last_payment_at field in the database.
 	FieldLastPaymentAt = "last_payment_at"
+	// FieldLastUpdatedEventID holds the string denoting the last_updated_event_id field in the database.
+	FieldLastUpdatedEventID = "last_updated_event_id"
+	// FieldActivatedAt holds the string denoting the activated_at field in the database.
+	FieldActivatedAt = "activated_at"
+	// FieldActivatedEventID holds the string denoting the activated_event_id field in the database.
+	FieldActivatedEventID = "activated_event_id"
 	// Table holds the table name of the subscription in the database.
 	Table = "subscriptions"
 )
@@ -61,6 +67,9 @@ var Columns = []string{
 	FieldSubscriptionID,
 	FieldFiatPaymentChannel,
 	FieldLastPaymentAt,
+	FieldLastUpdatedEventID,
+	FieldActivatedAt,
+	FieldActivatedEventID,
 }
 
 // ValidColumn reports if the column name is valid (part of the table columns).
@@ -104,6 +113,12 @@ var (
 	DefaultFiatPaymentChannel string
 	// DefaultLastPaymentAt holds the default value on creation for the "last_payment_at" field.
 	DefaultLastPaymentAt uint32
+	// DefaultLastUpdatedEventID holds the default value on creation for the "last_updated_event_id" field.
+	DefaultLastUpdatedEventID string
+	// DefaultActivatedAt holds the default value on creation for the "activated_at" field.
+	DefaultActivatedAt uint32
+	// DefaultActivatedEventID holds the default value on creation for the "activated_event_id" field.
+	DefaultActivatedEventID string
 )
 
 // OrderOption defines the ordering options for the Subscription queries.
@@ -182,4 +197,19 @@ func ByFiatPaymentChannel(opts ...sql.OrderTermOption) OrderOption {
 // ByLastPaymentAt orders the results by the last_payment_at field.
 func ByLastPaymentAt(opts ...sql.OrderTermOption) OrderOption {
 	return sql.OrderByField(FieldLastPaymentAt, opts...).ToFunc()
+}
+
+// ByLastUpdatedEventID orders the results by the last_updated_event_id field.
+func ByLastUpdatedEventID(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldLastUpdatedEventID, opts...).ToFunc()
+}
+
+// ByActivatedAt orders the results by the activated_at field.
+func ByActivatedAt(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldActivatedAt, opts...).ToFunc()
+}
+
+// ByActivatedEventID orders the results by the activated_event_id field.
+func ByActivatedEventID(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldActivatedEventID, opts...).ToFunc()
 }

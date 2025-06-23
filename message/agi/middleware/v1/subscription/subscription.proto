@@ -27,6 +27,8 @@ message SubscriptionReq {
     optional string LastUpdatedEventID = 130;
     optional uint32 ActivatedAt = 140;
     optional string ActiviatedEventID = 150;
+    optional bool Canceled = 160;
+    optional string CanceledEventID = 170;
 }
 
 message Subscription {
@@ -50,12 +52,19 @@ message Subscription {
     bool PayWithCoinBalance = 81;
 
     // @inject_tag: sql:"subscription_id"
-    string ScriptionID = 90;
+    string SubscriptionID = 90;
     // @inject_tag: sql:"fiat_payment_channel"
     string FiatPaymentChannelStr = 100;
     basetypes.order.v1.FiatPaymentChannel FiatPaymentChannel = 110;
     // @inject_tag: sql:"last_payment_at"
     uint32 LastPaymentAt = 120;
+
+    // @inject_tag: sql:"last_updated_event_id"
+    string LastUpdatedEventID = 130;
+    // @inject_tag: sql:"activated_at"
+    uint32 ActivatedAt = 140;
+    // @inject_tag: sql:"activated_event_id"
+    string ActivatedEventID = 150;
 
     // @inject_tag: sql:"created_at"
     uint32 CreatedAt = 1000;

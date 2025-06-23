@@ -2015,6 +2015,10 @@ type SubscriptionMutation struct {
 	fiat_payment_channel  *string
 	last_payment_at       *uint32
 	addlast_payment_at    *int32
+	last_updated_event_id *string
+	activated_at          *uint32
+	addactivated_at       *int32
+	activated_event_id    *string
 	clearedFields         map[string]struct{}
 	done                  bool
 	oldValue              func(context.Context) (*Subscription, error)
@@ -2903,6 +2907,174 @@ func (m *SubscriptionMutation) ResetLastPaymentAt() {
 	delete(m.clearedFields, subscription.FieldLastPaymentAt)
 }
 
+// SetLastUpdatedEventID sets the "last_updated_event_id" field.
+func (m *SubscriptionMutation) SetLastUpdatedEventID(s string) {
+	m.last_updated_event_id = &s
+}
+
+// LastUpdatedEventID returns the value of the "last_updated_event_id" field in the mutation.
+func (m *SubscriptionMutation) LastUpdatedEventID() (r string, exists bool) {
+	v := m.last_updated_event_id
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldLastUpdatedEventID returns the old "last_updated_event_id" field's value of the Subscription entity.
+// If the Subscription object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *SubscriptionMutation) OldLastUpdatedEventID(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldLastUpdatedEventID is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldLastUpdatedEventID requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldLastUpdatedEventID: %w", err)
+	}
+	return oldValue.LastUpdatedEventID, nil
+}
+
+// ClearLastUpdatedEventID clears the value of the "last_updated_event_id" field.
+func (m *SubscriptionMutation) ClearLastUpdatedEventID() {
+	m.last_updated_event_id = nil
+	m.clearedFields[subscription.FieldLastUpdatedEventID] = struct{}{}
+}
+
+// LastUpdatedEventIDCleared returns if the "last_updated_event_id" field was cleared in this mutation.
+func (m *SubscriptionMutation) LastUpdatedEventIDCleared() bool {
+	_, ok := m.clearedFields[subscription.FieldLastUpdatedEventID]
+	return ok
+}
+
+// ResetLastUpdatedEventID resets all changes to the "last_updated_event_id" field.
+func (m *SubscriptionMutation) ResetLastUpdatedEventID() {
+	m.last_updated_event_id = nil
+	delete(m.clearedFields, subscription.FieldLastUpdatedEventID)
+}
+
+// SetActivatedAt sets the "activated_at" field.
+func (m *SubscriptionMutation) SetActivatedAt(u uint32) {
+	m.activated_at = &u
+	m.addactivated_at = nil
+}
+
+// ActivatedAt returns the value of the "activated_at" field in the mutation.
+func (m *SubscriptionMutation) ActivatedAt() (r uint32, exists bool) {
+	v := m.activated_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldActivatedAt returns the old "activated_at" field's value of the Subscription entity.
+// If the Subscription object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *SubscriptionMutation) OldActivatedAt(ctx context.Context) (v uint32, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldActivatedAt is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldActivatedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldActivatedAt: %w", err)
+	}
+	return oldValue.ActivatedAt, nil
+}
+
+// AddActivatedAt adds u to the "activated_at" field.
+func (m *SubscriptionMutation) AddActivatedAt(u int32) {
+	if m.addactivated_at != nil {
+		*m.addactivated_at += u
+	} else {
+		m.addactivated_at = &u
+	}
+}
+
+// AddedActivatedAt returns the value that was added to the "activated_at" field in this mutation.
+func (m *SubscriptionMutation) AddedActivatedAt() (r int32, exists bool) {
+	v := m.addactivated_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ClearActivatedAt clears the value of the "activated_at" field.
+func (m *SubscriptionMutation) ClearActivatedAt() {
+	m.activated_at = nil
+	m.addactivated_at = nil
+	m.clearedFields[subscription.FieldActivatedAt] = struct{}{}
+}
+
+// ActivatedAtCleared returns if the "activated_at" field was cleared in this mutation.
+func (m *SubscriptionMutation) ActivatedAtCleared() bool {
+	_, ok := m.clearedFields[subscription.FieldActivatedAt]
+	return ok
+}
+
+// ResetActivatedAt resets all changes to the "activated_at" field.
+func (m *SubscriptionMutation) ResetActivatedAt() {
+	m.activated_at = nil
+	m.addactivated_at = nil
+	delete(m.clearedFields, subscription.FieldActivatedAt)
+}
+
+// SetActivatedEventID sets the "activated_event_id" field.
+func (m *SubscriptionMutation) SetActivatedEventID(s string) {
+	m.activated_event_id = &s
+}
+
+// ActivatedEventID returns the value of the "activated_event_id" field in the mutation.
+func (m *SubscriptionMutation) ActivatedEventID() (r string, exists bool) {
+	v := m.activated_event_id
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldActivatedEventID returns the old "activated_event_id" field's value of the Subscription entity.
+// If the Subscription object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *SubscriptionMutation) OldActivatedEventID(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldActivatedEventID is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldActivatedEventID requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldActivatedEventID: %w", err)
+	}
+	return oldValue.ActivatedEventID, nil
+}
+
+// ClearActivatedEventID clears the value of the "activated_event_id" field.
+func (m *SubscriptionMutation) ClearActivatedEventID() {
+	m.activated_event_id = nil
+	m.clearedFields[subscription.FieldActivatedEventID] = struct{}{}
+}
+
+// ActivatedEventIDCleared returns if the "activated_event_id" field was cleared in this mutation.
+func (m *SubscriptionMutation) ActivatedEventIDCleared() bool {
+	_, ok := m.clearedFields[subscription.FieldActivatedEventID]
+	return ok
+}
+
+// ResetActivatedEventID resets all changes to the "activated_event_id" field.
+func (m *SubscriptionMutation) ResetActivatedEventID() {
+	m.activated_event_id = nil
+	delete(m.clearedFields, subscription.FieldActivatedEventID)
+}
+
 // Where appends a list predicates to the SubscriptionMutation builder.
 func (m *SubscriptionMutation) Where(ps ...predicate.Subscription) {
 	m.predicates = append(m.predicates, ps...)
@@ -2937,7 +3109,7 @@ func (m *SubscriptionMutation) Type() string {
 // order to get all numeric fields that were incremented/decremented, call
 // AddedFields().
 func (m *SubscriptionMutation) Fields() []string {
-	fields := make([]string, 0, 14)
+	fields := make([]string, 0, 17)
 	if m.created_at != nil {
 		fields = append(fields, subscription.FieldCreatedAt)
 	}
@@ -2980,6 +3152,15 @@ func (m *SubscriptionMutation) Fields() []string {
 	if m.last_payment_at != nil {
 		fields = append(fields, subscription.FieldLastPaymentAt)
 	}
+	if m.last_updated_event_id != nil {
+		fields = append(fields, subscription.FieldLastUpdatedEventID)
+	}
+	if m.activated_at != nil {
+		fields = append(fields, subscription.FieldActivatedAt)
+	}
+	if m.activated_event_id != nil {
+		fields = append(fields, subscription.FieldActivatedEventID)
+	}
 	return fields
 }
 
@@ -3016,6 +3197,12 @@ func (m *SubscriptionMutation) Field(name string) (ent.Value, bool) {
 		return m.FiatPaymentChannel()
 	case subscription.FieldLastPaymentAt:
 		return m.LastPaymentAt()
+	case subscription.FieldLastUpdatedEventID:
+		return m.LastUpdatedEventID()
+	case subscription.FieldActivatedAt:
+		return m.ActivatedAt()
+	case subscription.FieldActivatedEventID:
+		return m.ActivatedEventID()
 	}
 	return nil, false
 }
@@ -3053,6 +3240,12 @@ func (m *SubscriptionMutation) OldField(ctx context.Context, name string) (ent.V
 		return m.OldFiatPaymentChannel(ctx)
 	case subscription.FieldLastPaymentAt:
 		return m.OldLastPaymentAt(ctx)
+	case subscription.FieldLastUpdatedEventID:
+		return m.OldLastUpdatedEventID(ctx)
+	case subscription.FieldActivatedAt:
+		return m.OldActivatedAt(ctx)
+	case subscription.FieldActivatedEventID:
+		return m.OldActivatedEventID(ctx)
 	}
 	return nil, fmt.Errorf("unknown Subscription field %s", name)
 }
@@ -3160,6 +3353,27 @@ func (m *SubscriptionMutation) SetField(name string, value ent.Value) error {
 		}
 		m.SetLastPaymentAt(v)
 		return nil
+	case subscription.FieldLastUpdatedEventID:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetLastUpdatedEventID(v)
+		return nil
+	case subscription.FieldActivatedAt:
+		v, ok := value.(uint32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetActivatedAt(v)
+		return nil
+	case subscription.FieldActivatedEventID:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetActivatedEventID(v)
+		return nil
 	}
 	return fmt.Errorf("unknown Subscription field %s", name)
 }
@@ -3189,6 +3403,9 @@ func (m *SubscriptionMutation) AddedFields() []string {
 	if m.addlast_payment_at != nil {
 		fields = append(fields, subscription.FieldLastPaymentAt)
 	}
+	if m.addactivated_at != nil {
+		fields = append(fields, subscription.FieldActivatedAt)
+	}
 	return fields
 }
 
@@ -3211,6 +3428,8 @@ func (m *SubscriptionMutation) AddedField(name string) (ent.Value, bool) {
 		return m.AddedConsumedQuota()
 	case subscription.FieldLastPaymentAt:
 		return m.AddedLastPaymentAt()
+	case subscription.FieldActivatedAt:
+		return m.AddedActivatedAt()
 	}
 	return nil, false
 }
@@ -3269,6 +3488,13 @@ func (m *SubscriptionMutation) AddField(name string, value ent.Value) error {
 		}
 		m.AddLastPaymentAt(v)
 		return nil
+	case subscription.FieldActivatedAt:
+		v, ok := value.(int32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddActivatedAt(v)
+		return nil
 	}
 	return fmt.Errorf("unknown Subscription numeric field %s", name)
 }
@@ -3306,6 +3532,15 @@ func (m *SubscriptionMutation) ClearedFields() []string {
 	}
 	if m.FieldCleared(subscription.FieldLastPaymentAt) {
 		fields = append(fields, subscription.FieldLastPaymentAt)
+	}
+	if m.FieldCleared(subscription.FieldLastUpdatedEventID) {
+		fields = append(fields, subscription.FieldLastUpdatedEventID)
+	}
+	if m.FieldCleared(subscription.FieldActivatedAt) {
+		fields = append(fields, subscription.FieldActivatedAt)
+	}
+	if m.FieldCleared(subscription.FieldActivatedEventID) {
+		fields = append(fields, subscription.FieldActivatedEventID)
 	}
 	return fields
 }
@@ -3350,6 +3585,15 @@ func (m *SubscriptionMutation) ClearField(name string) error {
 		return nil
 	case subscription.FieldLastPaymentAt:
 		m.ClearLastPaymentAt()
+		return nil
+	case subscription.FieldLastUpdatedEventID:
+		m.ClearLastUpdatedEventID()
+		return nil
+	case subscription.FieldActivatedAt:
+		m.ClearActivatedAt()
+		return nil
+	case subscription.FieldActivatedEventID:
+		m.ClearActivatedEventID()
 		return nil
 	}
 	return fmt.Errorf("unknown Subscription nullable field %s", name)
@@ -3400,6 +3644,15 @@ func (m *SubscriptionMutation) ResetField(name string) error {
 		return nil
 	case subscription.FieldLastPaymentAt:
 		m.ResetLastPaymentAt()
+		return nil
+	case subscription.FieldLastUpdatedEventID:
+		m.ResetLastUpdatedEventID()
+		return nil
+	case subscription.FieldActivatedAt:
+		m.ResetActivatedAt()
+		return nil
+	case subscription.FieldActivatedEventID:
+		m.ResetActivatedEventID()
 		return nil
 	}
 	return fmt.Errorf("unknown Subscription field %s", name)

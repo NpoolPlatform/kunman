@@ -45,7 +45,13 @@ type Subscription struct {
 	FiatPaymentChannel string `json:"fiat_payment_channel,omitempty"`
 	// LastPaymentAt holds the value of the "last_payment_at" field.
 	LastPaymentAt uint32 `json:"last_payment_at,omitempty"`
-	selectValues  sql.SelectValues
+	// LastUpdatedEventID holds the value of the "last_updated_event_id" field.
+	LastUpdatedEventID string `json:"last_updated_event_id,omitempty"`
+	// ActivatedAt holds the value of the "activated_at" field.
+	ActivatedAt uint32 `json:"activated_at,omitempty"`
+	// ActivatedEventID holds the value of the "activated_event_id" field.
+	ActivatedEventID string `json:"activated_event_id,omitempty"`
+	selectValues     sql.SelectValues
 }
 
 // scanValues returns the types for scanning values from sql.Rows.
@@ -55,9 +61,9 @@ func (*Subscription) scanValues(columns []string) ([]any, error) {
 		switch columns[i] {
 		case subscription.FieldPayWithCoinBalance:
 			values[i] = new(sql.NullBool)
-		case subscription.FieldID, subscription.FieldCreatedAt, subscription.FieldUpdatedAt, subscription.FieldDeletedAt, subscription.FieldNextExtendAt, subscription.FieldPermanentQuota, subscription.FieldConsumedQuota, subscription.FieldLastPaymentAt:
+		case subscription.FieldID, subscription.FieldCreatedAt, subscription.FieldUpdatedAt, subscription.FieldDeletedAt, subscription.FieldNextExtendAt, subscription.FieldPermanentQuota, subscription.FieldConsumedQuota, subscription.FieldLastPaymentAt, subscription.FieldActivatedAt:
 			values[i] = new(sql.NullInt64)
-		case subscription.FieldSubscriptionID, subscription.FieldFiatPaymentChannel:
+		case subscription.FieldSubscriptionID, subscription.FieldFiatPaymentChannel, subscription.FieldLastUpdatedEventID, subscription.FieldActivatedEventID:
 			values[i] = new(sql.NullString)
 		case subscription.FieldEntID, subscription.FieldAppID, subscription.FieldUserID, subscription.FieldAppGoodID:
 			values[i] = new(uuid.UUID)
@@ -166,6 +172,24 @@ func (s *Subscription) assignValues(columns []string, values []any) error {
 			} else if value.Valid {
 				s.LastPaymentAt = uint32(value.Int64)
 			}
+		case subscription.FieldLastUpdatedEventID:
+			if value, ok := values[i].(*sql.NullString); !ok {
+				return fmt.Errorf("unexpected type %T for field last_updated_event_id", values[i])
+			} else if value.Valid {
+				s.LastUpdatedEventID = value.String
+			}
+		case subscription.FieldActivatedAt:
+			if value, ok := values[i].(*sql.NullInt64); !ok {
+				return fmt.Errorf("unexpected type %T for field activated_at", values[i])
+			} else if value.Valid {
+				s.ActivatedAt = uint32(value.Int64)
+			}
+		case subscription.FieldActivatedEventID:
+			if value, ok := values[i].(*sql.NullString); !ok {
+				return fmt.Errorf("unexpected type %T for field activated_event_id", values[i])
+			} else if value.Valid {
+				s.ActivatedEventID = value.String
+			}
 		default:
 			s.selectValues.Set(columns[i], values[i])
 		}
@@ -243,6 +267,15 @@ func (s *Subscription) String() string {
 	builder.WriteString(", ")
 	builder.WriteString("last_payment_at=")
 	builder.WriteString(fmt.Sprintf("%v", s.LastPaymentAt))
+	builder.WriteString(", ")
+	builder.WriteString("last_updated_event_id=")
+	builder.WriteString(s.LastUpdatedEventID)
+	builder.WriteString(", ")
+	builder.WriteString("activated_at=")
+	builder.WriteString(fmt.Sprintf("%v", s.ActivatedAt))
+	builder.WriteString(", ")
+	builder.WriteString("activated_event_id=")
+	builder.WriteString(s.ActivatedEventID)
 	builder.WriteByte(')')
 	return builder.String()
 }

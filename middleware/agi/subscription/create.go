@@ -46,6 +46,15 @@ func (h *createHandler) constructSQL() {
 	if h.LastPaymentAt != nil {
 		_sql += comma + "last_payment_at"
 	}
+	if h.LastUpdatedEventID != nil {
+		_sql += comma + "last_updated_event_id"
+	}
+	if h.ActivatedAt != nil {
+		_sql += comma + "activated_at"
+	}
+	if h.ActivatedEventID != nil {
+		_sql += comma + "activated_event_id"
+	}
 	_sql += comma + "created_at"
 	_sql += comma + "updated_at"
 	_sql += comma + "deleted_at"
@@ -75,6 +84,15 @@ func (h *createHandler) constructSQL() {
 	}
 	if h.LastPaymentAt != nil {
 		_sql += fmt.Sprintf("%v%v as last_payment_at", comma, *h.LastPaymentAt)
+	}
+	if h.LastUpdatedEventID != nil {
+		_sql += fmt.Sprintf("%v'%v' as last_updated_event_id", comma, *h.LastUpdatedEventID)
+	}
+	if h.ActivatedAt != nil {
+		_sql += fmt.Sprintf("%v%v as activated_at", comma, *h.ActivatedAt)
+	}
+	if h.ActivatedEventID != nil {
+		_sql += fmt.Sprintf("%v'%v' as activated_event_id", comma, *h.ActivatedEventID)
 	}
 	_sql += fmt.Sprintf("%v%v as created_at", comma, now)
 	_sql += fmt.Sprintf("%v%v as updated_at", comma, now)

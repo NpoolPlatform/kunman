@@ -74,3 +74,33 @@ func (h *Handler) GetSubscriptions(ctx context.Context) ([]*npool.Subscription, 
 	handler.formalize()
 	return handler.infos, nil
 }
+
+func (h *Handler) GetSubscriptionOnly(ctx context.Context) (*npool.Subscription, error) {
+	handler := &queryHandler{
+		baseQueryHandler: &baseQueryHandler{
+			Handler: h,
+		},
+	}
+	var err error
+	err = db.WithClient(ctx, func(_ctx context.Context, cli *ent.Client) error {
+		if err = handler.querySubscriptions(cli); err != nil {
+			return wlog.WrapError(err)
+		}
+		handler.queryJoin()
+		handler.stmSelect.
+			Offset(0).
+			Limit(2)
+		return handler.scan(_ctx)
+	})
+	if err != nil {
+		return nil, wlog.WrapError(err)
+	}
+	if len(handler.infos) > 1 {
+		return nil, wlog.Errorf("invalid subscription")
+	}
+	if len(handler.infos) == 0 {
+		return nil, nil
+	}
+	handler.formalize()
+	return handler.infos[0], nil
+}
