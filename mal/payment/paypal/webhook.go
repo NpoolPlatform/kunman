@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"time"
 
+	logger "github.com/NpoolPlatform/kunman/framework/logger"
 	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
 	agisubscriptionmwpb "github.com/NpoolPlatform/kunman/message/agi/middleware/v1/subscription"
 	ordertypes "github.com/NpoolPlatform/kunman/message/basetypes/order/v1"
@@ -27,6 +28,13 @@ func (cli *PaymentClient) onSubscriptionActivated(ctx context.Context, event *We
 	if err := json.Unmarshal(event.Resource, &resource); err != nil {
 		return wlog.WrapError(err)
 	}
+
+	logger.Sugar().Infow(
+		"SubscriptionActivated",
+		"SubscriptionID", resource.ID,
+		"CustomID", resource.CustomID,
+		"PlanID", resource.PlanID,
+	)
 
 	appID, userID, orderID, err := CustomID2AppUserOrderID(resource.CustomID)
 	if err != nil {
@@ -118,6 +126,14 @@ func (cli *PaymentClient) onSubscriptionUpdated(ctx context.Context, event *Webh
 	if err := json.Unmarshal(event.Resource, &resource); err != nil {
 		return wlog.WrapError(err)
 	}
+
+	logger.Sugar().Infow(
+		"SubscriptionUpdated",
+		"SubscriptionID", resource.ID,
+		"CustomID", resource.CustomID,
+		"PlanID", resource.PlanID,
+		"LastPaymentTime", resource.BillingInfo.LastPayment.Time,
+	)
 
 	appID, userID, orderID, err := CustomID2AppUserOrderID(resource.CustomID)
 	if err != nil {
