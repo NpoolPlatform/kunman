@@ -3,7 +3,6 @@ package paypal
 import (
 	"context"
 	"encoding/json"
-	"time"
 
 	logger "github.com/NpoolPlatform/kunman/framework/logger"
 	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
@@ -100,18 +99,14 @@ func (cli *PaymentClient) onSubscriptionActivated(ctx context.Context, event *We
 		return nil
 	}
 
-	activatedAt, err := time.Parse(resource.BillingInfo.LastPayment.Time, "2024-05-01T00:00:00Z")
-	if err != nil {
-		return wlog.WrapError(err)
-	}
-	activatedAtUnix := uint32(activatedAt.Unix())
+	activatedAt := uint32(resource.BillingInfo.LastPayment.Time.Unix())
 
 	agiHandler, err = agisubscriptionmw.NewHandler(
 		ctx,
 		agisubscriptionmw.WithID(&agiSubscription.ID, true),
 		agisubscriptionmw.WithEntID(&agiSubscription.EntID, true),
-		agisubscriptionmw.WithActivatedAt(&activatedAtUnix, true),
-		agisubscriptionmw.WithLastPaymentAt(&activatedAtUnix, true),
+		agisubscriptionmw.WithActivatedAt(&activatedAt, true),
+		agisubscriptionmw.WithLastPaymentAt(&activatedAt, true),
 		agisubscriptionmw.WithActivatedEventID(&event.ID, true),
 	)
 	if err != nil {
@@ -181,11 +176,8 @@ func (cli *PaymentClient) onSubscriptionUpdated(ctx context.Context, event *Webh
 		return wlog.Errorf("Invalid agisubscription")
 	}
 
-	lastPaymentAt, err := time.Parse(resource.BillingInfo.LastPayment.Time, "2024-05-01T00:00:00Z")
-	if err != nil {
-		return wlog.WrapError(err)
-	}
-	if uint32(lastPaymentAt.Unix()) < agiSubscription.LastPaymentAt {
+	lastPaymentAt := uint32(resource.BillingInfo.LastPayment.Time.Unix())
+	if lastPaymentAt < agiSubscription.LastPaymentAt {
 		return nil
 	}
 	if event.ID == agiSubscription.LastUpdatedEventID {

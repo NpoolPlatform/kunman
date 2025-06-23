@@ -241,8 +241,8 @@ type BillingInfo struct {
 }
 
 type LastPayment struct {
-	Time   string `json:"time"`
-	Amount Amount `json:"amount"`
+	Time   time.Time `json:"time"`
+	Amount Amount    `json:"amount"`
 }
 
 type CycleExecution struct {
