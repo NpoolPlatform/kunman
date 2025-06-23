@@ -44,5 +44,5 @@ func onPaypalCallback(w http.ResponseWriter, r *http.Request) {
 }
 
 func Initialize(r *chi.Mux) {
-	r.Post("/api/webhook/v1/paypak/callback", onPaypalCallback)
+	r.Post("/api/webhook/v1/paypal/callback", onPaypalCallback)
 }
