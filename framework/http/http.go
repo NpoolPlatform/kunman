@@ -12,7 +12,6 @@ import (
 
 	"github.com/NpoolPlatform/kunman/framework/config"
 	"github.com/NpoolPlatform/kunman/framework/consul"
-	"github.com/NpoolPlatform/kunman/framework/logger"
 
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
@@ -53,10 +52,10 @@ func Run(routeRegister func(router *chi.Mux) error) error {
 	}
 
 	listen := fmt.Sprintf(":%v", config.GetIntValueWithNameSpace("", config.KeyHTTPPort2))
-	logger.Sugar().Infof("Start HTTP server: %v", listen)
+	fmt.Printf("Start HTTP server: %v\n", listen)
 
 	chi.Walk(r, func(method string, route string, _handler http2.Handler, _middlewares ...func(http2.Handler) http2.Handler) error {
-		fmt.Println("    %-8s  %s", method, route)
+		fmt.Printf("    %-8s  %s\n", method, route)
 		return nil
 	})
 
