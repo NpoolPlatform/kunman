@@ -28,6 +28,12 @@ func (h *Handler) CreateSubscription(ctx context.Context) (*npool.AppSubscriptio
 		appsubscriptionmw.WithBanner(h.Banner, true),
 		// appsubscriptionmw.WithEnableSetCommission(h.EnableSetCommission, true),
 		appsubscriptionmw.WithUSDPrice(h.USDPrice, true),
+		appsubscriptionmw.WithProductID(h.ProductID, false),
+		appsubscriptionmw.WithTrialUnits(h.TrialUnits, false),
+		appsubscriptionmw.WithTrialUSDPrice(h.TrialUSDPrice, false),
+		appsubscriptionmw.WithPriceFiatID(h.PriceFiatID, false),
+		appsubscriptionmw.WithFiatPrice(h.FiatPrice, false),
+		appsubscriptionmw.WithTrialFiatPrice(h.TrialFiatPrice, false),
 	)
 	if err != nil {
 		return nil, err

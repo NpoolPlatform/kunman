@@ -22,6 +22,14 @@ type Handler struct {
 	EnableSetCommission *bool
 	USDPrice            *string
 
+	ProductID     *string
+	TrialUnits    *uint32
+	TrialUSDPrice *string
+
+	PriceFiatID    *string
+	FiatPrice      *string
+	TrialFiatPrice *string
+
 	Offset int32
 	Limit  int32
 }
@@ -159,6 +167,96 @@ func WithUSDPrice(s *string, must bool) func(context.Context, *Handler) error {
 			return wlog.Errorf("invalid usdprice")
 		}
 		h.USDPrice = s
+		return nil
+	}
+}
+
+func WithProductID(s *string, must bool) func(context.Context, *Handler) error {
+	return func(ctx context.Context, h *Handler) error {
+		h.ProductID = s
+		return nil
+	}
+}
+
+func WithTrialUnits(u *uint32, must bool) func(context.Context, *Handler) error {
+	return func(ctx context.Context, h *Handler) error {
+		h.TrialUnits = u
+		return nil
+	}
+}
+
+func WithTrialUSDPrice(s *string, must bool) func(context.Context, *Handler) error {
+	return func(ctx context.Context, h *Handler) error {
+		if s == nil {
+			if must {
+				return wlog.Errorf("invalid trialusdprice")
+			}
+			return nil
+		}
+		amount, err := decimal.NewFromString(*s)
+		if err != nil {
+			return wlog.WrapError(err)
+		}
+		if amount.Cmp(decimal.NewFromInt(0)) <= 0 {
+			return wlog.Errorf("invalid trialusdprice")
+		}
+		h.TrialUSDPrice = s
+		return nil
+	}
+}
+
+func WithPriceFiatID(id *string, must bool) func(context.Context, *Handler) error {
+	return func(ctx context.Context, h *Handler) error {
+		if id == nil {
+			if must {
+				return wlog.Errorf("invalid pricefiatid")
+			}
+			return nil
+		}
+		if _, err := uuid.Parse(*id); err != nil {
+			return wlog.WrapError(err)
+		}
+		h.PriceFiatID = id
+		return nil
+	}
+}
+
+func WithFiatPrice(s *string, must bool) func(context.Context, *Handler) error {
+	return func(ctx context.Context, h *Handler) error {
+		if s == nil {
+			if must {
+				return wlog.Errorf("invalid fiatprice")
+			}
+			return nil
+		}
+		amount, err := decimal.NewFromString(*s)
+		if err != nil {
+			return wlog.WrapError(err)
+		}
+		if amount.Cmp(decimal.NewFromInt(0)) <= 0 {
+			return wlog.Errorf("invalid fiatprice")
+		}
+		h.FiatPrice = s
+		return nil
+	}
+}
+
+func WithTrialFiatPrice(s *string, must bool) func(context.Context, *Handler) error {
+	return func(ctx context.Context, h *Handler) error {
+		if s == nil {
+			if must {
+				return wlog.Errorf("invalid trialfiatprice")
+			}
+			return nil
+		}
+		amount, err := decimal.NewFromString(*s)
+		if err != nil {
+			return wlog.WrapError(err)
+		}
+		if amount.Cmp(decimal.NewFromInt(0)) <= 0 {
+			return wlog.Errorf("invalid trialfiatprice")
+		}
+		h.TrialFiatPrice = s
 		return nil
 	}
 }

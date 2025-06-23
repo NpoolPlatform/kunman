@@ -31,7 +31,6 @@ func (h *Handler) UpdateSubscription(ctx context.Context) (*npool.AppSubscriptio
 		appsubscriptionmw.WithName(h.Name, false),
 		appsubscriptionmw.WithBanner(h.Banner, false),
 		// appsubscriptionmw.WithEnableSetCommission(h.EnableSetCommission, false),
-		appsubscriptionmw.WithUSDPrice(h.USDPrice, false),
 	)
 	if err != nil {
 		return nil, err
