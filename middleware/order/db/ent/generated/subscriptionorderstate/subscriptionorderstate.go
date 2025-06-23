@@ -38,6 +38,8 @@ const (
 	FieldCancelState = "cancel_state"
 	// FieldCanceledAt holds the string denoting the canceled_at field in the database.
 	FieldCanceledAt = "canceled_at"
+	// FieldDealEventID holds the string denoting the deal_event_id field in the database.
+	FieldDealEventID = "deal_event_id"
 	// Table holds the table name of the subscriptionorderstate in the database.
 	Table = "subscription_order_states"
 )
@@ -58,6 +60,7 @@ var Columns = []string{
 	FieldPaymentState,
 	FieldCancelState,
 	FieldCanceledAt,
+	FieldDealEventID,
 }
 
 // ValidColumn reports if the column name is valid (part of the table columns).
@@ -99,6 +102,8 @@ var (
 	DefaultCancelState string
 	// DefaultCanceledAt holds the default value on creation for the "canceled_at" field.
 	DefaultCanceledAt uint32
+	// DefaultDealEventID holds the default value on creation for the "deal_event_id" field.
+	DefaultDealEventID string
 )
 
 // OrderOption defines the ordering options for the SubscriptionOrderState queries.
@@ -172,4 +177,9 @@ func ByCancelState(opts ...sql.OrderTermOption) OrderOption {
 // ByCanceledAt orders the results by the canceled_at field.
 func ByCanceledAt(opts ...sql.OrderTermOption) OrderOption {
 	return sql.OrderByField(FieldCanceledAt, opts...).ToFunc()
+}
+
+// ByDealEventID orders the results by the deal_event_id field.
+func ByDealEventID(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldDealEventID, opts...).ToFunc()
 }

@@ -1238,4 +1238,8 @@ func init() {
 	subscriptionorderstateDescCanceledAt := subscriptionorderstateFields[8].Descriptor()
 	// subscriptionorderstate.DefaultCanceledAt holds the default value on creation for the canceled_at field.
 	subscriptionorderstate.DefaultCanceledAt = subscriptionorderstateDescCanceledAt.Default.(uint32)
+	// subscriptionorderstateDescDealEventID is the schema descriptor for deal_event_id field.
+	subscriptionorderstateDescDealEventID := subscriptionorderstateFields[9].Descriptor()
+	// subscriptionorderstate.DefaultDealEventID holds the default value on creation for the deal_event_id field.
+	subscriptionorderstate.DefaultDealEventID = subscriptionorderstateDescDealEventID.Default.(string)
 }

@@ -42,7 +42,9 @@ type SubscriptionOrderState struct {
 	// CancelState holds the value of the "cancel_state" field.
 	CancelState string `json:"cancel_state,omitempty"`
 	// CanceledAt holds the value of the "canceled_at" field.
-	CanceledAt   uint32 `json:"canceled_at,omitempty"`
+	CanceledAt uint32 `json:"canceled_at,omitempty"`
+	// DealEventID holds the value of the "deal_event_id" field.
+	DealEventID  string `json:"deal_event_id,omitempty"`
 	selectValues sql.SelectValues
 }
 
@@ -55,7 +57,7 @@ func (*SubscriptionOrderState) scanValues(columns []string) ([]any, error) {
 			values[i] = new(sql.NullBool)
 		case subscriptionorderstate.FieldID, subscriptionorderstate.FieldCreatedAt, subscriptionorderstate.FieldUpdatedAt, subscriptionorderstate.FieldDeletedAt, subscriptionorderstate.FieldPaidAt, subscriptionorderstate.FieldCanceledAt:
 			values[i] = new(sql.NullInt64)
-		case subscriptionorderstate.FieldPaymentState, subscriptionorderstate.FieldCancelState:
+		case subscriptionorderstate.FieldPaymentState, subscriptionorderstate.FieldCancelState, subscriptionorderstate.FieldDealEventID:
 			values[i] = new(sql.NullString)
 		case subscriptionorderstate.FieldEntID, subscriptionorderstate.FieldOrderID, subscriptionorderstate.FieldPaymentID:
 			values[i] = new(uuid.UUID)
@@ -158,6 +160,12 @@ func (sos *SubscriptionOrderState) assignValues(columns []string, values []any) 
 			} else if value.Valid {
 				sos.CanceledAt = uint32(value.Int64)
 			}
+		case subscriptionorderstate.FieldDealEventID:
+			if value, ok := values[i].(*sql.NullString); !ok {
+				return fmt.Errorf("unexpected type %T for field deal_event_id", values[i])
+			} else if value.Valid {
+				sos.DealEventID = value.String
+			}
 		default:
 			sos.selectValues.Set(columns[i], values[i])
 		}
@@ -232,6 +240,9 @@ func (sos *SubscriptionOrderState) String() string {
 	builder.WriteString(", ")
 	builder.WriteString("canceled_at=")
 	builder.WriteString(fmt.Sprintf("%v", sos.CanceledAt))
+	builder.WriteString(", ")
+	builder.WriteString("deal_event_id=")
+	builder.WriteString(sos.DealEventID)
 	builder.WriteByte(')')
 	return builder.String()
 }

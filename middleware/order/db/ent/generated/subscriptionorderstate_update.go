@@ -292,6 +292,26 @@ func (sosu *SubscriptionOrderStateUpdate) ClearCanceledAt() *SubscriptionOrderSt
 	return sosu
 }
 
+// SetDealEventID sets the "deal_event_id" field.
+func (sosu *SubscriptionOrderStateUpdate) SetDealEventID(s string) *SubscriptionOrderStateUpdate {
+	sosu.mutation.SetDealEventID(s)
+	return sosu
+}
+
+// SetNillableDealEventID sets the "deal_event_id" field if the given value is not nil.
+func (sosu *SubscriptionOrderStateUpdate) SetNillableDealEventID(s *string) *SubscriptionOrderStateUpdate {
+	if s != nil {
+		sosu.SetDealEventID(*s)
+	}
+	return sosu
+}
+
+// ClearDealEventID clears the value of the "deal_event_id" field.
+func (sosu *SubscriptionOrderStateUpdate) ClearDealEventID() *SubscriptionOrderStateUpdate {
+	sosu.mutation.ClearDealEventID()
+	return sosu
+}
+
 // Mutation returns the SubscriptionOrderStateMutation object of the builder.
 func (sosu *SubscriptionOrderStateUpdate) Mutation() *SubscriptionOrderStateMutation {
 	return sosu.mutation
@@ -428,6 +448,12 @@ func (sosu *SubscriptionOrderStateUpdate) sqlSave(ctx context.Context) (n int, e
 	}
 	if sosu.mutation.CanceledAtCleared() {
 		_spec.ClearField(subscriptionorderstate.FieldCanceledAt, field.TypeUint32)
+	}
+	if value, ok := sosu.mutation.DealEventID(); ok {
+		_spec.SetField(subscriptionorderstate.FieldDealEventID, field.TypeString, value)
+	}
+	if sosu.mutation.DealEventIDCleared() {
+		_spec.ClearField(subscriptionorderstate.FieldDealEventID, field.TypeString)
 	}
 	_spec.AddModifiers(sosu.modifiers...)
 	if n, err = sqlgraph.UpdateNodes(ctx, sosu.driver, _spec); err != nil {
@@ -714,6 +740,26 @@ func (sosuo *SubscriptionOrderStateUpdateOne) ClearCanceledAt() *SubscriptionOrd
 	return sosuo
 }
 
+// SetDealEventID sets the "deal_event_id" field.
+func (sosuo *SubscriptionOrderStateUpdateOne) SetDealEventID(s string) *SubscriptionOrderStateUpdateOne {
+	sosuo.mutation.SetDealEventID(s)
+	return sosuo
+}
+
+// SetNillableDealEventID sets the "deal_event_id" field if the given value is not nil.
+func (sosuo *SubscriptionOrderStateUpdateOne) SetNillableDealEventID(s *string) *SubscriptionOrderStateUpdateOne {
+	if s != nil {
+		sosuo.SetDealEventID(*s)
+	}
+	return sosuo
+}
+
+// ClearDealEventID clears the value of the "deal_event_id" field.
+func (sosuo *SubscriptionOrderStateUpdateOne) ClearDealEventID() *SubscriptionOrderStateUpdateOne {
+	sosuo.mutation.ClearDealEventID()
+	return sosuo
+}
+
 // Mutation returns the SubscriptionOrderStateMutation object of the builder.
 func (sosuo *SubscriptionOrderStateUpdateOne) Mutation() *SubscriptionOrderStateMutation {
 	return sosuo.mutation
@@ -880,6 +926,12 @@ func (sosuo *SubscriptionOrderStateUpdateOne) sqlSave(ctx context.Context) (_nod
 	}
 	if sosuo.mutation.CanceledAtCleared() {
 		_spec.ClearField(subscriptionorderstate.FieldCanceledAt, field.TypeUint32)
+	}
+	if value, ok := sosuo.mutation.DealEventID(); ok {
+		_spec.SetField(subscriptionorderstate.FieldDealEventID, field.TypeString, value)
+	}
+	if sosuo.mutation.DealEventIDCleared() {
+		_spec.ClearField(subscriptionorderstate.FieldDealEventID, field.TypeString)
 	}
 	_spec.AddModifiers(sosuo.modifiers...)
 	_node = &SubscriptionOrderState{config: sosuo.config}

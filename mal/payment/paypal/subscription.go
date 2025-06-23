@@ -129,6 +129,7 @@ func (cli *PaymentClient) CreateSubscription(ctx context.Context) (*CreateSubscr
 			ReturnURL: cli.ReturnURL,
 			CancelURL: cli.CancelURL,
 		},
+		CustomID: cli.orderHandler.CustomID(),
 	}
 
 	accessToken, err := cli.GetAccessToken(ctx)

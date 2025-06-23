@@ -361,3 +361,62 @@ func (h *Handler) GetSubscriptionOrders(ctx context.Context) ([]*npool.Subscript
 
 	return handler.infos, handler.total, nil
 }
+
+func (h *Handler) GetSubscriptionOrderOnly(ctx context.Context) (*npool.SubscriptionOrder, error) {
+	handler := &queryHandler{
+		baseQueryHandler: &baseQueryHandler{
+			Handler: h,
+		},
+	}
+
+	var err error
+	err = db.WithClient(ctx, func(_ctx context.Context, cli *ent.Client) error {
+		handler.stmSelect, err = handler.queryOrderBases(cli)
+		if err != nil {
+			return wlog.WrapError(err)
+		}
+		handler.stmCount, err = handler.queryOrderBases(cli)
+		if err != nil {
+			return wlog.WrapError(err)
+		}
+
+		handler.queryJoin()
+		_total, err := handler.stmCount.Count(_ctx)
+		if err != nil {
+			return wlog.WrapError(err)
+		}
+		handler.total = uint32(_total)
+
+		handler.stmSelect.
+			Offset(0).
+			Limit(2).
+			Order(ent.Desc(entsubscriptionorder.FieldCreatedAt))
+
+		if err := handler.scan(_ctx); err != nil {
+			return wlog.WrapError(err)
+		}
+		if err := handler.queryPaymentBalances(_ctx, cli); err != nil {
+			return wlog.WrapError(err)
+		}
+		if err := handler.queryPaymentTransfers(_ctx, cli); err != nil {
+			return wlog.WrapError(err)
+		}
+		if err := handler.queryPaymentFiats(_ctx, cli); err != nil {
+			return wlog.WrapError(err)
+		}
+		return handler.queryOrderCoupons(_ctx, cli)
+	})
+	if err != nil {
+		return nil, wlog.WrapError(err)
+	}
+	if len(handler.infos) > 1 {
+		return nil, wlog.Errorf("invalid order")
+	}
+	if len(handler.infos) == 0 {
+		return nil, nil
+	}
+
+	handler.formalize()
+
+	return handler.infos[0], nil
+}

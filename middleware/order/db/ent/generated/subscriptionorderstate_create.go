@@ -204,6 +204,20 @@ func (sosc *SubscriptionOrderStateCreate) SetNillableCanceledAt(u *uint32) *Subs
 	return sosc
 }
 
+// SetDealEventID sets the "deal_event_id" field.
+func (sosc *SubscriptionOrderStateCreate) SetDealEventID(s string) *SubscriptionOrderStateCreate {
+	sosc.mutation.SetDealEventID(s)
+	return sosc
+}
+
+// SetNillableDealEventID sets the "deal_event_id" field if the given value is not nil.
+func (sosc *SubscriptionOrderStateCreate) SetNillableDealEventID(s *string) *SubscriptionOrderStateCreate {
+	if s != nil {
+		sosc.SetDealEventID(*s)
+	}
+	return sosc
+}
+
 // SetID sets the "id" field.
 func (sosc *SubscriptionOrderStateCreate) SetID(u uint32) *SubscriptionOrderStateCreate {
 	sosc.mutation.SetID(u)
@@ -296,6 +310,10 @@ func (sosc *SubscriptionOrderStateCreate) defaults() {
 	if _, ok := sosc.mutation.CanceledAt(); !ok {
 		v := subscriptionorderstate.DefaultCanceledAt
 		sosc.mutation.SetCanceledAt(v)
+	}
+	if _, ok := sosc.mutation.DealEventID(); !ok {
+		v := subscriptionorderstate.DefaultDealEventID
+		sosc.mutation.SetDealEventID(v)
 	}
 }
 
@@ -397,6 +415,10 @@ func (sosc *SubscriptionOrderStateCreate) createSpec() (*SubscriptionOrderState,
 	if value, ok := sosc.mutation.CanceledAt(); ok {
 		_spec.SetField(subscriptionorderstate.FieldCanceledAt, field.TypeUint32, value)
 		_node.CanceledAt = value
+	}
+	if value, ok := sosc.mutation.DealEventID(); ok {
+		_spec.SetField(subscriptionorderstate.FieldDealEventID, field.TypeString, value)
+		_node.DealEventID = value
 	}
 	return _node, _spec
 }
@@ -687,6 +709,24 @@ func (u *SubscriptionOrderStateUpsert) AddCanceledAt(v uint32) *SubscriptionOrde
 // ClearCanceledAt clears the value of the "canceled_at" field.
 func (u *SubscriptionOrderStateUpsert) ClearCanceledAt() *SubscriptionOrderStateUpsert {
 	u.SetNull(subscriptionorderstate.FieldCanceledAt)
+	return u
+}
+
+// SetDealEventID sets the "deal_event_id" field.
+func (u *SubscriptionOrderStateUpsert) SetDealEventID(v string) *SubscriptionOrderStateUpsert {
+	u.Set(subscriptionorderstate.FieldDealEventID, v)
+	return u
+}
+
+// UpdateDealEventID sets the "deal_event_id" field to the value that was provided on create.
+func (u *SubscriptionOrderStateUpsert) UpdateDealEventID() *SubscriptionOrderStateUpsert {
+	u.SetExcluded(subscriptionorderstate.FieldDealEventID)
+	return u
+}
+
+// ClearDealEventID clears the value of the "deal_event_id" field.
+func (u *SubscriptionOrderStateUpsert) ClearDealEventID() *SubscriptionOrderStateUpsert {
+	u.SetNull(subscriptionorderstate.FieldDealEventID)
 	return u
 }
 
@@ -1015,6 +1055,27 @@ func (u *SubscriptionOrderStateUpsertOne) UpdateCanceledAt() *SubscriptionOrderS
 func (u *SubscriptionOrderStateUpsertOne) ClearCanceledAt() *SubscriptionOrderStateUpsertOne {
 	return u.Update(func(s *SubscriptionOrderStateUpsert) {
 		s.ClearCanceledAt()
+	})
+}
+
+// SetDealEventID sets the "deal_event_id" field.
+func (u *SubscriptionOrderStateUpsertOne) SetDealEventID(v string) *SubscriptionOrderStateUpsertOne {
+	return u.Update(func(s *SubscriptionOrderStateUpsert) {
+		s.SetDealEventID(v)
+	})
+}
+
+// UpdateDealEventID sets the "deal_event_id" field to the value that was provided on create.
+func (u *SubscriptionOrderStateUpsertOne) UpdateDealEventID() *SubscriptionOrderStateUpsertOne {
+	return u.Update(func(s *SubscriptionOrderStateUpsert) {
+		s.UpdateDealEventID()
+	})
+}
+
+// ClearDealEventID clears the value of the "deal_event_id" field.
+func (u *SubscriptionOrderStateUpsertOne) ClearDealEventID() *SubscriptionOrderStateUpsertOne {
+	return u.Update(func(s *SubscriptionOrderStateUpsert) {
+		s.ClearDealEventID()
 	})
 }
 
@@ -1509,6 +1570,27 @@ func (u *SubscriptionOrderStateUpsertBulk) UpdateCanceledAt() *SubscriptionOrder
 func (u *SubscriptionOrderStateUpsertBulk) ClearCanceledAt() *SubscriptionOrderStateUpsertBulk {
 	return u.Update(func(s *SubscriptionOrderStateUpsert) {
 		s.ClearCanceledAt()
+	})
+}
+
+// SetDealEventID sets the "deal_event_id" field.
+func (u *SubscriptionOrderStateUpsertBulk) SetDealEventID(v string) *SubscriptionOrderStateUpsertBulk {
+	return u.Update(func(s *SubscriptionOrderStateUpsert) {
+		s.SetDealEventID(v)
+	})
+}
+
+// UpdateDealEventID sets the "deal_event_id" field to the value that was provided on create.
+func (u *SubscriptionOrderStateUpsertBulk) UpdateDealEventID() *SubscriptionOrderStateUpsertBulk {
+	return u.Update(func(s *SubscriptionOrderStateUpsert) {
+		s.UpdateDealEventID()
+	})
+}
+
+// ClearDealEventID clears the value of the "deal_event_id" field.
+func (u *SubscriptionOrderStateUpsertBulk) ClearDealEventID() *SubscriptionOrderStateUpsertBulk {
+	return u.Update(func(s *SubscriptionOrderStateUpsert) {
+		s.ClearDealEventID()
 	})
 }
 

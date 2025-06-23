@@ -764,7 +764,8 @@
         "DefaultOrderCreateMethod",
         "OrderCreatedByPurchase",
         "OrderCreatedByAdmin",
-        "OrderCreatedByRenew"
+        "OrderCreatedByRenew",
+        "OrderCreatedBySubscriptionExtension"
       ],
       "default": "DefaultOrderCreateMethod"
     },

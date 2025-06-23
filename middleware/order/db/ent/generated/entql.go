@@ -597,6 +597,7 @@ var schemaGraph = func() *sqlgraph.Schema {
 			subscriptionorderstate.FieldPaymentState:     {Type: field.TypeString, Column: subscriptionorderstate.FieldPaymentState},
 			subscriptionorderstate.FieldCancelState:      {Type: field.TypeString, Column: subscriptionorderstate.FieldCancelState},
 			subscriptionorderstate.FieldCanceledAt:       {Type: field.TypeUint32, Column: subscriptionorderstate.FieldCanceledAt},
+			subscriptionorderstate.FieldDealEventID:      {Type: field.TypeString, Column: subscriptionorderstate.FieldDealEventID},
 		},
 	}
 	return graph
@@ -2846,4 +2847,9 @@ func (f *SubscriptionOrderStateFilter) WhereCancelState(p entql.StringP) {
 // WhereCanceledAt applies the entql uint32 predicate on the canceled_at field.
 func (f *SubscriptionOrderStateFilter) WhereCanceledAt(p entql.Uint32P) {
 	f.Where(p.Field(subscriptionorderstate.FieldCanceledAt))
+}
+
+// WhereDealEventID applies the entql string predicate on the deal_event_id field.
+func (f *SubscriptionOrderStateFilter) WhereDealEventID(p entql.StringP) {
+	f.Where(p.Field(subscriptionorderstate.FieldDealEventID))
 }

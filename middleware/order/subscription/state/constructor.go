@@ -27,6 +27,9 @@ func (h *Handler) ConstructCreateSQL() string {
 	}
 	_sql += comma + "payment_state"
 	_sql += comma + "cancel_state"
+	if h.DealEventID != nil {
+		_sql += comma + "deal_event_id"
+	}
 	_sql += comma + "created_at"
 	_sql += comma + "updated_at"
 	_sql += comma + "deleted_at"
@@ -44,6 +47,9 @@ func (h *Handler) ConstructCreateSQL() string {
 	}
 	_sql += fmt.Sprintf("%v'%v' as payment_state", comma, types.PaymentState_PaymentStateWait.String())
 	_sql += fmt.Sprintf("%v'%v' as cancel_mode", comma, types.OrderState_DefaultOrderState.String())
+	if h.DealEventID != nil {
+		_sql += fmt.Sprintf("%v'%v' as deal_event_id", comma, *h.DealEventID)
+	}
 	_sql += fmt.Sprintf("%v%v as created_at", comma, now)
 	_sql += fmt.Sprintf("%v%v as updated_at", comma, now)
 	_sql += fmt.Sprintf("%v0 as deleted_at", comma)
@@ -99,6 +105,11 @@ func (h *Handler) ConstructUpdateSQL() (string, error) {
 	}
 	if h.CanceledAt != nil {
 		_sql += fmt.Sprintf("%vcanceled_at = %v, ", set, *h.CanceledAt)
+		set = ""
+	}
+	if h.DealEventID != nil {
+		// TODO: if we have deal event id, we shouldn't update it again
+		_sql += fmt.Sprintf("%vdeal_event_id = '%v', ", set, *h.DealEventID)
 		set = ""
 	}
 	if set != "" {

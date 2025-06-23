@@ -53,6 +53,8 @@ message SubscriptionOrderReq {
     repeated order.middleware.payment.v1.PaymentFiatReq PaymentFiats = 630;
 
     optional uint32 LifeSeconds = 640;
+    // When create subscription, it's activated event id, otherwise it's updated event id
+    optional string DealEventID = 650;
 }
 
 message SubscriptionOrder {
@@ -102,6 +104,8 @@ message SubscriptionOrder {
     string PromotionID = 340;
     // @inject_tag: sql:"life_seconds"
     uint32 LifeSeconds = 350;
+    // @inject_tag: sql:"deal_event_id"
+    string DealEventID = 360;
 
     // Power rental state information
     // @inject_tag: sql:"cancel_state"

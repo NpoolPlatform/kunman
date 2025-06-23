@@ -301,4 +301,5 @@ enum OrderCreateMethod {
   OrderCreatedByPurchase = 10;
   OrderCreatedByAdmin = 20;
   OrderCreatedByRenew = 30;
+  OrderCreatedBySubscriptionExtension = 40;
 }

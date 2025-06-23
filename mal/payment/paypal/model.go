@@ -1,7 +1,12 @@
 package paypal
 
 import (
+	"encoding/json"
 	"fmt"
+	"strings"
+	"time"
+
+	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
 )
 
 type Amount struct {
@@ -268,4 +273,54 @@ type PaypalSubscription struct {
 
 func (p *PaypalSubscription) Active() bool {
 	return p.Status == "ACTIVE"
+}
+
+type SubscriptionActivatedResource struct {
+	ID              string      `json:"id"`
+	PlanID          string      `json:"plan_id"`
+	Status          string      `json:"status"`
+	StartTime       string      `json:"start_time"`
+	NextBillingTime string      `json:"next_billing_time"`
+	Subscriber      Subscriber  `json:"subscriber"`
+	CustomID        string      `json:"custom_id"`
+	BillingInfo     BillingInfo `json:"billing_info"`
+}
+
+type SubscriptionUpdatedResource struct {
+	ID          string      `json:"id"`
+	PlanID      string      `json:"plan_id"`
+	Status      string      `json:"status"`
+	UpdateTime  string      `json:"update_time"`
+	Subscriber  Subscriber  `json:"subscriber"`
+	BillingInfo BillingInfo `json:"billing_info"`
+	CustomID    string      `json:"custom_id"`
+	AutoRenewal bool        `json:"auto_renewal"`
+}
+
+type SubscriptionCanceledResource struct {
+	ID          string      `json:"id"`
+	PlanID      string      `json:"plan_id"`
+	Status      string      `json:"status"`
+	CancelTime  string      `json:"cancel_time"`
+	Subscriber  Subscriber  `json:"subscriber"`
+	BillingInfo BillingInfo `json:"billing_info"`
+}
+
+type WebhookEvent struct {
+	ID           string          `json:"id"`
+	EventType    string          `json:"event_type"`
+	EventVersion string          `json:"event_version"`
+	CreateTime   time.Time       `json:"create_time"`
+	ResourceType string          `json:"resource_type"`
+	Summary      string          `json:"summary"`
+	Resource     json.RawMessage `json:"resource"`
+	Links        []Link          `json:"links"`
+}
+
+func CustomID2AppUserOrderID(customID string) (string, string, string, error) {
+	ids := strings.Split(customID, "@")
+	if len(ids) != 3 {
+		return "", "", "", wlog.Errorf("invalid customid")
+	}
+	return ids[0], ids[1], ids[2], nil
 }

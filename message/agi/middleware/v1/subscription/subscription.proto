@@ -24,6 +24,9 @@ message SubscriptionReq {
     optional string SubscriptionID = 100;
     optional basetypes.order.v1.FiatPaymentChannel FiatPaymentChannel = 110;
     optional uint32 LastPaymentAt = 120;
+    optional string LastUpdatedEventID = 130;
+    optional uint32 ActivatedAt = 140;
+    optional string ActiviatedEventID = 150;
 }
 
 message Subscription {

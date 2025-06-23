@@ -64,6 +64,10 @@ func (SubscriptionOrderState) Fields() []ent.Field {
 			Uint32("canceled_at").
 			Optional().
 			Default(0),
+		field.
+			String("deal_event_id").
+			Optional().
+			Default(""),
 	}
 }
 

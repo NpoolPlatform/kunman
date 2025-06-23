@@ -509,6 +509,19 @@ func WithPaymentID(id *string, must bool) func(context.Context, *Handler) error 
 	}
 }
 
+func WithDealEventID(id *string, must bool) func(context.Context, *Handler) error {
+	return func(ctx context.Context, h *Handler) error {
+		if id == nil {
+			if must {
+				return wlog.Errorf("invalid dealeventid")
+			}
+			return nil
+		}
+		h.SubscriptionOrderStateReq.DealEventID = id
+		return nil
+	}
+}
+
 func WithCouponIDs(ss []string, must bool) func(context.Context, *Handler) error {
 	return func(ctx context.Context, h *Handler) error {
 		for _, s := range ss {

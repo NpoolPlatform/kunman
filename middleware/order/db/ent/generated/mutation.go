@@ -25790,6 +25790,7 @@ type SubscriptionOrderStateMutation struct {
 	cancel_state       *string
 	canceled_at        *uint32
 	addcanceled_at     *int32
+	deal_event_id      *string
 	clearedFields      map[string]struct{}
 	done               bool
 	oldValue           func(context.Context) (*SubscriptionOrderState, error)
@@ -26587,6 +26588,55 @@ func (m *SubscriptionOrderStateMutation) ResetCanceledAt() {
 	delete(m.clearedFields, subscriptionorderstate.FieldCanceledAt)
 }
 
+// SetDealEventID sets the "deal_event_id" field.
+func (m *SubscriptionOrderStateMutation) SetDealEventID(s string) {
+	m.deal_event_id = &s
+}
+
+// DealEventID returns the value of the "deal_event_id" field in the mutation.
+func (m *SubscriptionOrderStateMutation) DealEventID() (r string, exists bool) {
+	v := m.deal_event_id
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldDealEventID returns the old "deal_event_id" field's value of the SubscriptionOrderState entity.
+// If the SubscriptionOrderState object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *SubscriptionOrderStateMutation) OldDealEventID(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldDealEventID is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldDealEventID requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldDealEventID: %w", err)
+	}
+	return oldValue.DealEventID, nil
+}
+
+// ClearDealEventID clears the value of the "deal_event_id" field.
+func (m *SubscriptionOrderStateMutation) ClearDealEventID() {
+	m.deal_event_id = nil
+	m.clearedFields[subscriptionorderstate.FieldDealEventID] = struct{}{}
+}
+
+// DealEventIDCleared returns if the "deal_event_id" field was cleared in this mutation.
+func (m *SubscriptionOrderStateMutation) DealEventIDCleared() bool {
+	_, ok := m.clearedFields[subscriptionorderstate.FieldDealEventID]
+	return ok
+}
+
+// ResetDealEventID resets all changes to the "deal_event_id" field.
+func (m *SubscriptionOrderStateMutation) ResetDealEventID() {
+	m.deal_event_id = nil
+	delete(m.clearedFields, subscriptionorderstate.FieldDealEventID)
+}
+
 // Where appends a list predicates to the SubscriptionOrderStateMutation builder.
 func (m *SubscriptionOrderStateMutation) Where(ps ...predicate.SubscriptionOrderState) {
 	m.predicates = append(m.predicates, ps...)
@@ -26621,7 +26671,7 @@ func (m *SubscriptionOrderStateMutation) Type() string {
 // order to get all numeric fields that were incremented/decremented, call
 // AddedFields().
 func (m *SubscriptionOrderStateMutation) Fields() []string {
-	fields := make([]string, 0, 13)
+	fields := make([]string, 0, 14)
 	if m.ent_id != nil {
 		fields = append(fields, subscriptionorderstate.FieldEntID)
 	}
@@ -26661,6 +26711,9 @@ func (m *SubscriptionOrderStateMutation) Fields() []string {
 	if m.canceled_at != nil {
 		fields = append(fields, subscriptionorderstate.FieldCanceledAt)
 	}
+	if m.deal_event_id != nil {
+		fields = append(fields, subscriptionorderstate.FieldDealEventID)
+	}
 	return fields
 }
 
@@ -26695,6 +26748,8 @@ func (m *SubscriptionOrderStateMutation) Field(name string) (ent.Value, bool) {
 		return m.CancelState()
 	case subscriptionorderstate.FieldCanceledAt:
 		return m.CanceledAt()
+	case subscriptionorderstate.FieldDealEventID:
+		return m.DealEventID()
 	}
 	return nil, false
 }
@@ -26730,6 +26785,8 @@ func (m *SubscriptionOrderStateMutation) OldField(ctx context.Context, name stri
 		return m.OldCancelState(ctx)
 	case subscriptionorderstate.FieldCanceledAt:
 		return m.OldCanceledAt(ctx)
+	case subscriptionorderstate.FieldDealEventID:
+		return m.OldDealEventID(ctx)
 	}
 	return nil, fmt.Errorf("unknown SubscriptionOrderState field %s", name)
 }
@@ -26829,6 +26886,13 @@ func (m *SubscriptionOrderStateMutation) SetField(name string, value ent.Value) 
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetCanceledAt(v)
+		return nil
+	case subscriptionorderstate.FieldDealEventID:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetDealEventID(v)
 		return nil
 	}
 	return fmt.Errorf("unknown SubscriptionOrderState field %s", name)
@@ -26950,6 +27014,9 @@ func (m *SubscriptionOrderStateMutation) ClearedFields() []string {
 	if m.FieldCleared(subscriptionorderstate.FieldCanceledAt) {
 		fields = append(fields, subscriptionorderstate.FieldCanceledAt)
 	}
+	if m.FieldCleared(subscriptionorderstate.FieldDealEventID) {
+		fields = append(fields, subscriptionorderstate.FieldDealEventID)
+	}
 	return fields
 }
 
@@ -26990,6 +27057,9 @@ func (m *SubscriptionOrderStateMutation) ClearField(name string) error {
 		return nil
 	case subscriptionorderstate.FieldCanceledAt:
 		m.ClearCanceledAt()
+		return nil
+	case subscriptionorderstate.FieldDealEventID:
+		m.ClearDealEventID()
 		return nil
 	}
 	return fmt.Errorf("unknown SubscriptionOrderState nullable field %s", name)
@@ -27037,6 +27107,9 @@ func (m *SubscriptionOrderStateMutation) ResetField(name string) error {
 		return nil
 	case subscriptionorderstate.FieldCanceledAt:
 		m.ResetCanceledAt()
+		return nil
+	case subscriptionorderstate.FieldDealEventID:
+		m.ResetDealEventID()
 		return nil
 	}
 	return fmt.Errorf("unknown SubscriptionOrderState field %s", name)

@@ -754,6 +754,7 @@ var (
 		{Name: "payment_state", Type: field.TypeString, Nullable: true, Default: "PaymentStateWait"},
 		{Name: "cancel_state", Type: field.TypeString, Nullable: true, Default: "DefaultOrderState"},
 		{Name: "canceled_at", Type: field.TypeUint32, Nullable: true, Default: 0},
+		{Name: "deal_event_id", Type: field.TypeString, Nullable: true, Default: ""},
 	}
 	// SubscriptionOrderStatesTable holds the schema information for the "subscription_order_states" table.
 	SubscriptionOrderStatesTable = &schema.Table{

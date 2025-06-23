@@ -118,6 +118,11 @@ func CanceledAt(v uint32) predicate.SubscriptionOrderState {
 	return predicate.SubscriptionOrderState(sql.FieldEQ(FieldCanceledAt, v))
 }
 
+// DealEventID applies equality check predicate on the "deal_event_id" field. It's identical to DealEventIDEQ.
+func DealEventID(v string) predicate.SubscriptionOrderState {
+	return predicate.SubscriptionOrderState(sql.FieldEQ(FieldDealEventID, v))
+}
+
 // EntIDEQ applies the EQ predicate on the "ent_id" field.
 func EntIDEQ(v uuid.UUID) predicate.SubscriptionOrderState {
 	return predicate.SubscriptionOrderState(sql.FieldEQ(FieldEntID, v))
@@ -686,6 +691,81 @@ func CanceledAtIsNil() predicate.SubscriptionOrderState {
 // CanceledAtNotNil applies the NotNil predicate on the "canceled_at" field.
 func CanceledAtNotNil() predicate.SubscriptionOrderState {
 	return predicate.SubscriptionOrderState(sql.FieldNotNull(FieldCanceledAt))
+}
+
+// DealEventIDEQ applies the EQ predicate on the "deal_event_id" field.
+func DealEventIDEQ(v string) predicate.SubscriptionOrderState {
+	return predicate.SubscriptionOrderState(sql.FieldEQ(FieldDealEventID, v))
+}
+
+// DealEventIDNEQ applies the NEQ predicate on the "deal_event_id" field.
+func DealEventIDNEQ(v string) predicate.SubscriptionOrderState {
+	return predicate.SubscriptionOrderState(sql.FieldNEQ(FieldDealEventID, v))
+}
+
+// DealEventIDIn applies the In predicate on the "deal_event_id" field.
+func DealEventIDIn(vs ...string) predicate.SubscriptionOrderState {
+	return predicate.SubscriptionOrderState(sql.FieldIn(FieldDealEventID, vs...))
+}
+
+// DealEventIDNotIn applies the NotIn predicate on the "deal_event_id" field.
+func DealEventIDNotIn(vs ...string) predicate.SubscriptionOrderState {
+	return predicate.SubscriptionOrderState(sql.FieldNotIn(FieldDealEventID, vs...))
+}
+
+// DealEventIDGT applies the GT predicate on the "deal_event_id" field.
+func DealEventIDGT(v string) predicate.SubscriptionOrderState {
+	return predicate.SubscriptionOrderState(sql.FieldGT(FieldDealEventID, v))
+}
+
+// DealEventIDGTE applies the GTE predicate on the "deal_event_id" field.
+func DealEventIDGTE(v string) predicate.SubscriptionOrderState {
+	return predicate.SubscriptionOrderState(sql.FieldGTE(FieldDealEventID, v))
+}
+
+// DealEventIDLT applies the LT predicate on the "deal_event_id" field.
+func DealEventIDLT(v string) predicate.SubscriptionOrderState {
+	return predicate.SubscriptionOrderState(sql.FieldLT(FieldDealEventID, v))
+}
+
+// DealEventIDLTE applies the LTE predicate on the "deal_event_id" field.
+func DealEventIDLTE(v string) predicate.SubscriptionOrderState {
+	return predicate.SubscriptionOrderState(sql.FieldLTE(FieldDealEventID, v))
+}
+
+// DealEventIDContains applies the Contains predicate on the "deal_event_id" field.
+func DealEventIDContains(v string) predicate.SubscriptionOrderState {
+	return predicate.SubscriptionOrderState(sql.FieldContains(FieldDealEventID, v))
+}
+
+// DealEventIDHasPrefix applies the HasPrefix predicate on the "deal_event_id" field.
+func DealEventIDHasPrefix(v string) predicate.SubscriptionOrderState {
+	return predicate.SubscriptionOrderState(sql.FieldHasPrefix(FieldDealEventID, v))
+}
+
+// DealEventIDHasSuffix applies the HasSuffix predicate on the "deal_event_id" field.
+func DealEventIDHasSuffix(v string) predicate.SubscriptionOrderState {
+	return predicate.SubscriptionOrderState(sql.FieldHasSuffix(FieldDealEventID, v))
+}
+
+// DealEventIDIsNil applies the IsNil predicate on the "deal_event_id" field.
+func DealEventIDIsNil() predicate.SubscriptionOrderState {
+	return predicate.SubscriptionOrderState(sql.FieldIsNull(FieldDealEventID))
+}
+
+// DealEventIDNotNil applies the NotNil predicate on the "deal_event_id" field.
+func DealEventIDNotNil() predicate.SubscriptionOrderState {
+	return predicate.SubscriptionOrderState(sql.FieldNotNull(FieldDealEventID))
+}
+
+// DealEventIDEqualFold applies the EqualFold predicate on the "deal_event_id" field.
+func DealEventIDEqualFold(v string) predicate.SubscriptionOrderState {
+	return predicate.SubscriptionOrderState(sql.FieldEqualFold(FieldDealEventID, v))
+}
+
+// DealEventIDContainsFold applies the ContainsFold predicate on the "deal_event_id" field.
+func DealEventIDContainsFold(v string) predicate.SubscriptionOrderState {
+	return predicate.SubscriptionOrderState(sql.FieldContainsFold(FieldDealEventID, v))
 }
 
 // And groups predicates with the AND operator between them.

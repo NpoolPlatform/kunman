@@ -21,6 +21,7 @@ type Req struct {
 	PaymentState     *types.PaymentState
 	CancelState      *types.OrderState
 	CanceledAt       *uint32
+	DealEventID      *string
 	DeletedAt        *uint32
 }
 
@@ -45,6 +46,9 @@ func CreateSet(c *ent.SubscriptionOrderStateCreate, req *Req) *ent.SubscriptionO
 	}
 	if req.PaymentState != nil {
 		c.SetPaymentState(req.PaymentState.String())
+	}
+	if req.DealEventID != nil {
+		c.SetDealEventID(*req.DealEventID)
 	}
 	return c
 }
@@ -73,6 +77,9 @@ func UpdateSet(u *ent.SubscriptionOrderStateUpdateOne, req *Req) *ent.Subscripti
 	}
 	if req.CanceledAt != nil {
 		u.SetCanceledAt(*req.CanceledAt)
+	}
+	if req.DealEventID != nil {
+		u.SetDealEventID(*req.DealEventID)
 	}
 	if req.DeletedAt != nil {
 		u.SetDeletedAt(*req.DeletedAt)
