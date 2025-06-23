@@ -29,6 +29,16 @@ const (
 	FieldProductID = "product_id"
 	// FieldPlanID holds the string denoting the plan_id field in the database.
 	FieldPlanID = "plan_id"
+	// FieldTrialUnits holds the string denoting the trial_units field in the database.
+	FieldTrialUnits = "trial_units"
+	// FieldTrialUsdPrice holds the string denoting the trial_usd_price field in the database.
+	FieldTrialUsdPrice = "trial_usd_price"
+	// FieldPriceFiatID holds the string denoting the price_fiat_id field in the database.
+	FieldPriceFiatID = "price_fiat_id"
+	// FieldFiatPrice holds the string denoting the fiat_price field in the database.
+	FieldFiatPrice = "fiat_price"
+	// FieldTrialFiatPrice holds the string denoting the trial_fiat_price field in the database.
+	FieldTrialFiatPrice = "trial_fiat_price"
 	// Table holds the table name of the appsubscription in the database.
 	Table = "app_subscriptions"
 )
@@ -44,6 +54,11 @@ var Columns = []string{
 	FieldUsdPrice,
 	FieldProductID,
 	FieldPlanID,
+	FieldTrialUnits,
+	FieldTrialUsdPrice,
+	FieldPriceFiatID,
+	FieldFiatPrice,
+	FieldTrialFiatPrice,
 }
 
 // ValidColumn reports if the column name is valid (part of the table columns).
@@ -75,6 +90,16 @@ var (
 	DefaultProductID string
 	// DefaultPlanID holds the default value on creation for the "plan_id" field.
 	DefaultPlanID string
+	// DefaultTrialUnits holds the default value on creation for the "trial_units" field.
+	DefaultTrialUnits uint32
+	// DefaultTrialUsdPrice holds the default value on creation for the "trial_usd_price" field.
+	DefaultTrialUsdPrice decimal.Decimal
+	// DefaultPriceFiatID holds the default value on creation for the "price_fiat_id" field.
+	DefaultPriceFiatID func() uuid.UUID
+	// DefaultFiatPrice holds the default value on creation for the "fiat_price" field.
+	DefaultFiatPrice decimal.Decimal
+	// DefaultTrialFiatPrice holds the default value on creation for the "trial_fiat_price" field.
+	DefaultTrialFiatPrice decimal.Decimal
 )
 
 // OrderOption defines the ordering options for the AppSubscription queries.
@@ -123,4 +148,29 @@ func ByProductID(opts ...sql.OrderTermOption) OrderOption {
 // ByPlanID orders the results by the plan_id field.
 func ByPlanID(opts ...sql.OrderTermOption) OrderOption {
 	return sql.OrderByField(FieldPlanID, opts...).ToFunc()
+}
+
+// ByTrialUnits orders the results by the trial_units field.
+func ByTrialUnits(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldTrialUnits, opts...).ToFunc()
+}
+
+// ByTrialUsdPrice orders the results by the trial_usd_price field.
+func ByTrialUsdPrice(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldTrialUsdPrice, opts...).ToFunc()
+}
+
+// ByPriceFiatID orders the results by the price_fiat_id field.
+func ByPriceFiatID(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldPriceFiatID, opts...).ToFunc()
+}
+
+// ByFiatPrice orders the results by the fiat_price field.
+func ByFiatPrice(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldFiatPrice, opts...).ToFunc()
+}
+
+// ByTrialFiatPrice orders the results by the trial_fiat_price field.
+func ByTrialFiatPrice(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldTrialFiatPrice, opts...).ToFunc()
 }

@@ -223,6 +223,90 @@ func WithUSDPrice(s *string, must bool) func(context.Context, *Handler) error {
 	}
 }
 
+func WithTrialUnits(u *uint32, must bool) func(context.Context, *Handler) error {
+	return func(ctx context.Context, h *Handler) error {
+		h.TrialUnits = u
+		return nil
+	}
+}
+
+func WithTrialUSDPrice(s *string, must bool) func(context.Context, *Handler) error {
+	return func(ctx context.Context, h *Handler) error {
+		if s == nil {
+			if must {
+				return wlog.Errorf("invalid trialusdprice")
+			}
+			return nil
+		}
+		amount, err := decimal.NewFromString(*s)
+		if err != nil {
+			return wlog.WrapError(err)
+		}
+		if amount.Cmp(decimal.NewFromInt(0)) <= 0 {
+			return wlog.Errorf("invalid trialusdprice")
+		}
+		h.TrialUSDPrice = &amount
+		return nil
+	}
+}
+
+func WithPriceFiatID(id *string, must bool) func(context.Context, *Handler) error {
+	return func(ctx context.Context, h *Handler) error {
+		if id == nil {
+			if must {
+				return wlog.Errorf("invalid pricefiatid")
+			}
+			return nil
+		}
+		_id, err := uuid.Parse(*id)
+		if err != nil {
+			return wlog.WrapError(err)
+		}
+		h.PriceFiatID = &_id
+		return nil
+	}
+}
+
+func WithFiatPrice(s *string, must bool) func(context.Context, *Handler) error {
+	return func(ctx context.Context, h *Handler) error {
+		if s == nil {
+			if must {
+				return wlog.Errorf("invalid fiatprice")
+			}
+			return nil
+		}
+		amount, err := decimal.NewFromString(*s)
+		if err != nil {
+			return wlog.WrapError(err)
+		}
+		if amount.Cmp(decimal.NewFromInt(0)) <= 0 {
+			return wlog.Errorf("invalid fiatprice")
+		}
+		h.FiatPrice = &amount
+		return nil
+	}
+}
+
+func WithTrialFiatPrice(s *string, must bool) func(context.Context, *Handler) error {
+	return func(ctx context.Context, h *Handler) error {
+		if s == nil {
+			if must {
+				return wlog.Errorf("invalid trialfiatprice")
+			}
+			return nil
+		}
+		amount, err := decimal.NewFromString(*s)
+		if err != nil {
+			return wlog.WrapError(err)
+		}
+		if amount.Cmp(decimal.NewFromInt(0)) <= 0 {
+			return wlog.Errorf("invalid trialfiatprice")
+		}
+		h.TrialFiatPrice = &amount
+		return nil
+	}
+}
+
 func (h *Handler) withSubscriptionConds(conds *npool.Conds) error {
 	if conds.GoodID != nil {
 		id, err := uuid.Parse(conds.GetGoodID().GetValue())

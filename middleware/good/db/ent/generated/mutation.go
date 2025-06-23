@@ -15683,24 +15683,30 @@ func (m *AppStockLockMutation) ResetEdge(name string) error {
 // AppSubscriptionMutation represents an operation that mutates the AppSubscription nodes in the graph.
 type AppSubscriptionMutation struct {
 	config
-	op            Op
-	typ           string
-	id            *uint32
-	ent_id        *uuid.UUID
-	created_at    *uint32
-	addcreated_at *int32
-	updated_at    *uint32
-	addupdated_at *int32
-	deleted_at    *uint32
-	adddeleted_at *int32
-	app_good_id   *uuid.UUID
-	usd_price     *decimal.Decimal
-	product_id    *string
-	plan_id       *string
-	clearedFields map[string]struct{}
-	done          bool
-	oldValue      func(context.Context) (*AppSubscription, error)
-	predicates    []predicate.AppSubscription
+	op               Op
+	typ              string
+	id               *uint32
+	ent_id           *uuid.UUID
+	created_at       *uint32
+	addcreated_at    *int32
+	updated_at       *uint32
+	addupdated_at    *int32
+	deleted_at       *uint32
+	adddeleted_at    *int32
+	app_good_id      *uuid.UUID
+	usd_price        *decimal.Decimal
+	product_id       *string
+	plan_id          *string
+	trial_units      *uint32
+	addtrial_units   *int32
+	trial_usd_price  *decimal.Decimal
+	price_fiat_id    *uuid.UUID
+	fiat_price       *decimal.Decimal
+	trial_fiat_price *decimal.Decimal
+	clearedFields    map[string]struct{}
+	done             bool
+	oldValue         func(context.Context) (*AppSubscription, error)
+	predicates       []predicate.AppSubscription
 }
 
 var _ ent.Mutation = (*AppSubscriptionMutation)(nil)
@@ -16207,6 +16213,272 @@ func (m *AppSubscriptionMutation) ResetPlanID() {
 	delete(m.clearedFields, appsubscription.FieldPlanID)
 }
 
+// SetTrialUnits sets the "trial_units" field.
+func (m *AppSubscriptionMutation) SetTrialUnits(u uint32) {
+	m.trial_units = &u
+	m.addtrial_units = nil
+}
+
+// TrialUnits returns the value of the "trial_units" field in the mutation.
+func (m *AppSubscriptionMutation) TrialUnits() (r uint32, exists bool) {
+	v := m.trial_units
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldTrialUnits returns the old "trial_units" field's value of the AppSubscription entity.
+// If the AppSubscription object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *AppSubscriptionMutation) OldTrialUnits(ctx context.Context) (v uint32, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldTrialUnits is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldTrialUnits requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldTrialUnits: %w", err)
+	}
+	return oldValue.TrialUnits, nil
+}
+
+// AddTrialUnits adds u to the "trial_units" field.
+func (m *AppSubscriptionMutation) AddTrialUnits(u int32) {
+	if m.addtrial_units != nil {
+		*m.addtrial_units += u
+	} else {
+		m.addtrial_units = &u
+	}
+}
+
+// AddedTrialUnits returns the value that was added to the "trial_units" field in this mutation.
+func (m *AppSubscriptionMutation) AddedTrialUnits() (r int32, exists bool) {
+	v := m.addtrial_units
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ClearTrialUnits clears the value of the "trial_units" field.
+func (m *AppSubscriptionMutation) ClearTrialUnits() {
+	m.trial_units = nil
+	m.addtrial_units = nil
+	m.clearedFields[appsubscription.FieldTrialUnits] = struct{}{}
+}
+
+// TrialUnitsCleared returns if the "trial_units" field was cleared in this mutation.
+func (m *AppSubscriptionMutation) TrialUnitsCleared() bool {
+	_, ok := m.clearedFields[appsubscription.FieldTrialUnits]
+	return ok
+}
+
+// ResetTrialUnits resets all changes to the "trial_units" field.
+func (m *AppSubscriptionMutation) ResetTrialUnits() {
+	m.trial_units = nil
+	m.addtrial_units = nil
+	delete(m.clearedFields, appsubscription.FieldTrialUnits)
+}
+
+// SetTrialUsdPrice sets the "trial_usd_price" field.
+func (m *AppSubscriptionMutation) SetTrialUsdPrice(d decimal.Decimal) {
+	m.trial_usd_price = &d
+}
+
+// TrialUsdPrice returns the value of the "trial_usd_price" field in the mutation.
+func (m *AppSubscriptionMutation) TrialUsdPrice() (r decimal.Decimal, exists bool) {
+	v := m.trial_usd_price
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldTrialUsdPrice returns the old "trial_usd_price" field's value of the AppSubscription entity.
+// If the AppSubscription object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *AppSubscriptionMutation) OldTrialUsdPrice(ctx context.Context) (v decimal.Decimal, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldTrialUsdPrice is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldTrialUsdPrice requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldTrialUsdPrice: %w", err)
+	}
+	return oldValue.TrialUsdPrice, nil
+}
+
+// ClearTrialUsdPrice clears the value of the "trial_usd_price" field.
+func (m *AppSubscriptionMutation) ClearTrialUsdPrice() {
+	m.trial_usd_price = nil
+	m.clearedFields[appsubscription.FieldTrialUsdPrice] = struct{}{}
+}
+
+// TrialUsdPriceCleared returns if the "trial_usd_price" field was cleared in this mutation.
+func (m *AppSubscriptionMutation) TrialUsdPriceCleared() bool {
+	_, ok := m.clearedFields[appsubscription.FieldTrialUsdPrice]
+	return ok
+}
+
+// ResetTrialUsdPrice resets all changes to the "trial_usd_price" field.
+func (m *AppSubscriptionMutation) ResetTrialUsdPrice() {
+	m.trial_usd_price = nil
+	delete(m.clearedFields, appsubscription.FieldTrialUsdPrice)
+}
+
+// SetPriceFiatID sets the "price_fiat_id" field.
+func (m *AppSubscriptionMutation) SetPriceFiatID(u uuid.UUID) {
+	m.price_fiat_id = &u
+}
+
+// PriceFiatID returns the value of the "price_fiat_id" field in the mutation.
+func (m *AppSubscriptionMutation) PriceFiatID() (r uuid.UUID, exists bool) {
+	v := m.price_fiat_id
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldPriceFiatID returns the old "price_fiat_id" field's value of the AppSubscription entity.
+// If the AppSubscription object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *AppSubscriptionMutation) OldPriceFiatID(ctx context.Context) (v uuid.UUID, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldPriceFiatID is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldPriceFiatID requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldPriceFiatID: %w", err)
+	}
+	return oldValue.PriceFiatID, nil
+}
+
+// ClearPriceFiatID clears the value of the "price_fiat_id" field.
+func (m *AppSubscriptionMutation) ClearPriceFiatID() {
+	m.price_fiat_id = nil
+	m.clearedFields[appsubscription.FieldPriceFiatID] = struct{}{}
+}
+
+// PriceFiatIDCleared returns if the "price_fiat_id" field was cleared in this mutation.
+func (m *AppSubscriptionMutation) PriceFiatIDCleared() bool {
+	_, ok := m.clearedFields[appsubscription.FieldPriceFiatID]
+	return ok
+}
+
+// ResetPriceFiatID resets all changes to the "price_fiat_id" field.
+func (m *AppSubscriptionMutation) ResetPriceFiatID() {
+	m.price_fiat_id = nil
+	delete(m.clearedFields, appsubscription.FieldPriceFiatID)
+}
+
+// SetFiatPrice sets the "fiat_price" field.
+func (m *AppSubscriptionMutation) SetFiatPrice(d decimal.Decimal) {
+	m.fiat_price = &d
+}
+
+// FiatPrice returns the value of the "fiat_price" field in the mutation.
+func (m *AppSubscriptionMutation) FiatPrice() (r decimal.Decimal, exists bool) {
+	v := m.fiat_price
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldFiatPrice returns the old "fiat_price" field's value of the AppSubscription entity.
+// If the AppSubscription object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *AppSubscriptionMutation) OldFiatPrice(ctx context.Context) (v decimal.Decimal, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldFiatPrice is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldFiatPrice requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldFiatPrice: %w", err)
+	}
+	return oldValue.FiatPrice, nil
+}
+
+// ClearFiatPrice clears the value of the "fiat_price" field.
+func (m *AppSubscriptionMutation) ClearFiatPrice() {
+	m.fiat_price = nil
+	m.clearedFields[appsubscription.FieldFiatPrice] = struct{}{}
+}
+
+// FiatPriceCleared returns if the "fiat_price" field was cleared in this mutation.
+func (m *AppSubscriptionMutation) FiatPriceCleared() bool {
+	_, ok := m.clearedFields[appsubscription.FieldFiatPrice]
+	return ok
+}
+
+// ResetFiatPrice resets all changes to the "fiat_price" field.
+func (m *AppSubscriptionMutation) ResetFiatPrice() {
+	m.fiat_price = nil
+	delete(m.clearedFields, appsubscription.FieldFiatPrice)
+}
+
+// SetTrialFiatPrice sets the "trial_fiat_price" field.
+func (m *AppSubscriptionMutation) SetTrialFiatPrice(d decimal.Decimal) {
+	m.trial_fiat_price = &d
+}
+
+// TrialFiatPrice returns the value of the "trial_fiat_price" field in the mutation.
+func (m *AppSubscriptionMutation) TrialFiatPrice() (r decimal.Decimal, exists bool) {
+	v := m.trial_fiat_price
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldTrialFiatPrice returns the old "trial_fiat_price" field's value of the AppSubscription entity.
+// If the AppSubscription object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *AppSubscriptionMutation) OldTrialFiatPrice(ctx context.Context) (v decimal.Decimal, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldTrialFiatPrice is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldTrialFiatPrice requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldTrialFiatPrice: %w", err)
+	}
+	return oldValue.TrialFiatPrice, nil
+}
+
+// ClearTrialFiatPrice clears the value of the "trial_fiat_price" field.
+func (m *AppSubscriptionMutation) ClearTrialFiatPrice() {
+	m.trial_fiat_price = nil
+	m.clearedFields[appsubscription.FieldTrialFiatPrice] = struct{}{}
+}
+
+// TrialFiatPriceCleared returns if the "trial_fiat_price" field was cleared in this mutation.
+func (m *AppSubscriptionMutation) TrialFiatPriceCleared() bool {
+	_, ok := m.clearedFields[appsubscription.FieldTrialFiatPrice]
+	return ok
+}
+
+// ResetTrialFiatPrice resets all changes to the "trial_fiat_price" field.
+func (m *AppSubscriptionMutation) ResetTrialFiatPrice() {
+	m.trial_fiat_price = nil
+	delete(m.clearedFields, appsubscription.FieldTrialFiatPrice)
+}
+
 // Where appends a list predicates to the AppSubscriptionMutation builder.
 func (m *AppSubscriptionMutation) Where(ps ...predicate.AppSubscription) {
 	m.predicates = append(m.predicates, ps...)
@@ -16241,7 +16513,7 @@ func (m *AppSubscriptionMutation) Type() string {
 // order to get all numeric fields that were incremented/decremented, call
 // AddedFields().
 func (m *AppSubscriptionMutation) Fields() []string {
-	fields := make([]string, 0, 8)
+	fields := make([]string, 0, 13)
 	if m.ent_id != nil {
 		fields = append(fields, appsubscription.FieldEntID)
 	}
@@ -16265,6 +16537,21 @@ func (m *AppSubscriptionMutation) Fields() []string {
 	}
 	if m.plan_id != nil {
 		fields = append(fields, appsubscription.FieldPlanID)
+	}
+	if m.trial_units != nil {
+		fields = append(fields, appsubscription.FieldTrialUnits)
+	}
+	if m.trial_usd_price != nil {
+		fields = append(fields, appsubscription.FieldTrialUsdPrice)
+	}
+	if m.price_fiat_id != nil {
+		fields = append(fields, appsubscription.FieldPriceFiatID)
+	}
+	if m.fiat_price != nil {
+		fields = append(fields, appsubscription.FieldFiatPrice)
+	}
+	if m.trial_fiat_price != nil {
+		fields = append(fields, appsubscription.FieldTrialFiatPrice)
 	}
 	return fields
 }
@@ -16290,6 +16577,16 @@ func (m *AppSubscriptionMutation) Field(name string) (ent.Value, bool) {
 		return m.ProductID()
 	case appsubscription.FieldPlanID:
 		return m.PlanID()
+	case appsubscription.FieldTrialUnits:
+		return m.TrialUnits()
+	case appsubscription.FieldTrialUsdPrice:
+		return m.TrialUsdPrice()
+	case appsubscription.FieldPriceFiatID:
+		return m.PriceFiatID()
+	case appsubscription.FieldFiatPrice:
+		return m.FiatPrice()
+	case appsubscription.FieldTrialFiatPrice:
+		return m.TrialFiatPrice()
 	}
 	return nil, false
 }
@@ -16315,6 +16612,16 @@ func (m *AppSubscriptionMutation) OldField(ctx context.Context, name string) (en
 		return m.OldProductID(ctx)
 	case appsubscription.FieldPlanID:
 		return m.OldPlanID(ctx)
+	case appsubscription.FieldTrialUnits:
+		return m.OldTrialUnits(ctx)
+	case appsubscription.FieldTrialUsdPrice:
+		return m.OldTrialUsdPrice(ctx)
+	case appsubscription.FieldPriceFiatID:
+		return m.OldPriceFiatID(ctx)
+	case appsubscription.FieldFiatPrice:
+		return m.OldFiatPrice(ctx)
+	case appsubscription.FieldTrialFiatPrice:
+		return m.OldTrialFiatPrice(ctx)
 	}
 	return nil, fmt.Errorf("unknown AppSubscription field %s", name)
 }
@@ -16380,6 +16687,41 @@ func (m *AppSubscriptionMutation) SetField(name string, value ent.Value) error {
 		}
 		m.SetPlanID(v)
 		return nil
+	case appsubscription.FieldTrialUnits:
+		v, ok := value.(uint32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetTrialUnits(v)
+		return nil
+	case appsubscription.FieldTrialUsdPrice:
+		v, ok := value.(decimal.Decimal)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetTrialUsdPrice(v)
+		return nil
+	case appsubscription.FieldPriceFiatID:
+		v, ok := value.(uuid.UUID)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetPriceFiatID(v)
+		return nil
+	case appsubscription.FieldFiatPrice:
+		v, ok := value.(decimal.Decimal)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetFiatPrice(v)
+		return nil
+	case appsubscription.FieldTrialFiatPrice:
+		v, ok := value.(decimal.Decimal)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetTrialFiatPrice(v)
+		return nil
 	}
 	return fmt.Errorf("unknown AppSubscription field %s", name)
 }
@@ -16397,6 +16739,9 @@ func (m *AppSubscriptionMutation) AddedFields() []string {
 	if m.adddeleted_at != nil {
 		fields = append(fields, appsubscription.FieldDeletedAt)
 	}
+	if m.addtrial_units != nil {
+		fields = append(fields, appsubscription.FieldTrialUnits)
+	}
 	return fields
 }
 
@@ -16411,6 +16756,8 @@ func (m *AppSubscriptionMutation) AddedField(name string) (ent.Value, bool) {
 		return m.AddedUpdatedAt()
 	case appsubscription.FieldDeletedAt:
 		return m.AddedDeletedAt()
+	case appsubscription.FieldTrialUnits:
+		return m.AddedTrialUnits()
 	}
 	return nil, false
 }
@@ -16441,6 +16788,13 @@ func (m *AppSubscriptionMutation) AddField(name string, value ent.Value) error {
 		}
 		m.AddDeletedAt(v)
 		return nil
+	case appsubscription.FieldTrialUnits:
+		v, ok := value.(int32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddTrialUnits(v)
+		return nil
 	}
 	return fmt.Errorf("unknown AppSubscription numeric field %s", name)
 }
@@ -16460,6 +16814,21 @@ func (m *AppSubscriptionMutation) ClearedFields() []string {
 	}
 	if m.FieldCleared(appsubscription.FieldPlanID) {
 		fields = append(fields, appsubscription.FieldPlanID)
+	}
+	if m.FieldCleared(appsubscription.FieldTrialUnits) {
+		fields = append(fields, appsubscription.FieldTrialUnits)
+	}
+	if m.FieldCleared(appsubscription.FieldTrialUsdPrice) {
+		fields = append(fields, appsubscription.FieldTrialUsdPrice)
+	}
+	if m.FieldCleared(appsubscription.FieldPriceFiatID) {
+		fields = append(fields, appsubscription.FieldPriceFiatID)
+	}
+	if m.FieldCleared(appsubscription.FieldFiatPrice) {
+		fields = append(fields, appsubscription.FieldFiatPrice)
+	}
+	if m.FieldCleared(appsubscription.FieldTrialFiatPrice) {
+		fields = append(fields, appsubscription.FieldTrialFiatPrice)
 	}
 	return fields
 }
@@ -16486,6 +16855,21 @@ func (m *AppSubscriptionMutation) ClearField(name string) error {
 		return nil
 	case appsubscription.FieldPlanID:
 		m.ClearPlanID()
+		return nil
+	case appsubscription.FieldTrialUnits:
+		m.ClearTrialUnits()
+		return nil
+	case appsubscription.FieldTrialUsdPrice:
+		m.ClearTrialUsdPrice()
+		return nil
+	case appsubscription.FieldPriceFiatID:
+		m.ClearPriceFiatID()
+		return nil
+	case appsubscription.FieldFiatPrice:
+		m.ClearFiatPrice()
+		return nil
+	case appsubscription.FieldTrialFiatPrice:
+		m.ClearTrialFiatPrice()
 		return nil
 	}
 	return fmt.Errorf("unknown AppSubscription nullable field %s", name)
@@ -16518,6 +16902,21 @@ func (m *AppSubscriptionMutation) ResetField(name string) error {
 		return nil
 	case appsubscription.FieldPlanID:
 		m.ResetPlanID()
+		return nil
+	case appsubscription.FieldTrialUnits:
+		m.ResetTrialUnits()
+		return nil
+	case appsubscription.FieldTrialUsdPrice:
+		m.ResetTrialUsdPrice()
+		return nil
+	case appsubscription.FieldPriceFiatID:
+		m.ResetPriceFiatID()
+		return nil
+	case appsubscription.FieldFiatPrice:
+		m.ResetFiatPrice()
+		return nil
+	case appsubscription.FieldTrialFiatPrice:
+		m.ResetTrialFiatPrice()
 		return nil
 	}
 	return fmt.Errorf("unknown AppSubscription field %s", name)

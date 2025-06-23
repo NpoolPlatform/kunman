@@ -412,14 +412,19 @@ var schemaGraph = func() *sqlgraph.Schema {
 		},
 		Type: "AppSubscription",
 		Fields: map[string]*sqlgraph.FieldSpec{
-			appsubscription.FieldEntID:     {Type: field.TypeUUID, Column: appsubscription.FieldEntID},
-			appsubscription.FieldCreatedAt: {Type: field.TypeUint32, Column: appsubscription.FieldCreatedAt},
-			appsubscription.FieldUpdatedAt: {Type: field.TypeUint32, Column: appsubscription.FieldUpdatedAt},
-			appsubscription.FieldDeletedAt: {Type: field.TypeUint32, Column: appsubscription.FieldDeletedAt},
-			appsubscription.FieldAppGoodID: {Type: field.TypeUUID, Column: appsubscription.FieldAppGoodID},
-			appsubscription.FieldUsdPrice:  {Type: field.TypeOther, Column: appsubscription.FieldUsdPrice},
-			appsubscription.FieldProductID: {Type: field.TypeString, Column: appsubscription.FieldProductID},
-			appsubscription.FieldPlanID:    {Type: field.TypeString, Column: appsubscription.FieldPlanID},
+			appsubscription.FieldEntID:          {Type: field.TypeUUID, Column: appsubscription.FieldEntID},
+			appsubscription.FieldCreatedAt:      {Type: field.TypeUint32, Column: appsubscription.FieldCreatedAt},
+			appsubscription.FieldUpdatedAt:      {Type: field.TypeUint32, Column: appsubscription.FieldUpdatedAt},
+			appsubscription.FieldDeletedAt:      {Type: field.TypeUint32, Column: appsubscription.FieldDeletedAt},
+			appsubscription.FieldAppGoodID:      {Type: field.TypeUUID, Column: appsubscription.FieldAppGoodID},
+			appsubscription.FieldUsdPrice:       {Type: field.TypeOther, Column: appsubscription.FieldUsdPrice},
+			appsubscription.FieldProductID:      {Type: field.TypeString, Column: appsubscription.FieldProductID},
+			appsubscription.FieldPlanID:         {Type: field.TypeString, Column: appsubscription.FieldPlanID},
+			appsubscription.FieldTrialUnits:     {Type: field.TypeUint32, Column: appsubscription.FieldTrialUnits},
+			appsubscription.FieldTrialUsdPrice:  {Type: field.TypeOther, Column: appsubscription.FieldTrialUsdPrice},
+			appsubscription.FieldPriceFiatID:    {Type: field.TypeUUID, Column: appsubscription.FieldPriceFiatID},
+			appsubscription.FieldFiatPrice:      {Type: field.TypeOther, Column: appsubscription.FieldFiatPrice},
+			appsubscription.FieldTrialFiatPrice: {Type: field.TypeOther, Column: appsubscription.FieldTrialFiatPrice},
 		},
 	}
 	graph.Nodes[16] = &sqlgraph.Node{
@@ -2599,6 +2604,31 @@ func (f *AppSubscriptionFilter) WhereProductID(p entql.StringP) {
 // WherePlanID applies the entql string predicate on the plan_id field.
 func (f *AppSubscriptionFilter) WherePlanID(p entql.StringP) {
 	f.Where(p.Field(appsubscription.FieldPlanID))
+}
+
+// WhereTrialUnits applies the entql uint32 predicate on the trial_units field.
+func (f *AppSubscriptionFilter) WhereTrialUnits(p entql.Uint32P) {
+	f.Where(p.Field(appsubscription.FieldTrialUnits))
+}
+
+// WhereTrialUsdPrice applies the entql other predicate on the trial_usd_price field.
+func (f *AppSubscriptionFilter) WhereTrialUsdPrice(p entql.OtherP) {
+	f.Where(p.Field(appsubscription.FieldTrialUsdPrice))
+}
+
+// WherePriceFiatID applies the entql [16]byte predicate on the price_fiat_id field.
+func (f *AppSubscriptionFilter) WherePriceFiatID(p entql.ValueP) {
+	f.Where(p.Field(appsubscription.FieldPriceFiatID))
+}
+
+// WhereFiatPrice applies the entql other predicate on the fiat_price field.
+func (f *AppSubscriptionFilter) WhereFiatPrice(p entql.OtherP) {
+	f.Where(p.Field(appsubscription.FieldFiatPrice))
+}
+
+// WhereTrialFiatPrice applies the entql other predicate on the trial_fiat_price field.
+func (f *AppSubscriptionFilter) WhereTrialFiatPrice(p entql.OtherP) {
+	f.Where(p.Field(appsubscription.FieldTrialFiatPrice))
 }
 
 // addPredicate implements the predicateAdder interface.

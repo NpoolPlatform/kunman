@@ -179,6 +179,113 @@ func (asu *AppSubscriptionUpdate) ClearPlanID() *AppSubscriptionUpdate {
 	return asu
 }
 
+// SetTrialUnits sets the "trial_units" field.
+func (asu *AppSubscriptionUpdate) SetTrialUnits(u uint32) *AppSubscriptionUpdate {
+	asu.mutation.ResetTrialUnits()
+	asu.mutation.SetTrialUnits(u)
+	return asu
+}
+
+// SetNillableTrialUnits sets the "trial_units" field if the given value is not nil.
+func (asu *AppSubscriptionUpdate) SetNillableTrialUnits(u *uint32) *AppSubscriptionUpdate {
+	if u != nil {
+		asu.SetTrialUnits(*u)
+	}
+	return asu
+}
+
+// AddTrialUnits adds u to the "trial_units" field.
+func (asu *AppSubscriptionUpdate) AddTrialUnits(u int32) *AppSubscriptionUpdate {
+	asu.mutation.AddTrialUnits(u)
+	return asu
+}
+
+// ClearTrialUnits clears the value of the "trial_units" field.
+func (asu *AppSubscriptionUpdate) ClearTrialUnits() *AppSubscriptionUpdate {
+	asu.mutation.ClearTrialUnits()
+	return asu
+}
+
+// SetTrialUsdPrice sets the "trial_usd_price" field.
+func (asu *AppSubscriptionUpdate) SetTrialUsdPrice(d decimal.Decimal) *AppSubscriptionUpdate {
+	asu.mutation.SetTrialUsdPrice(d)
+	return asu
+}
+
+// SetNillableTrialUsdPrice sets the "trial_usd_price" field if the given value is not nil.
+func (asu *AppSubscriptionUpdate) SetNillableTrialUsdPrice(d *decimal.Decimal) *AppSubscriptionUpdate {
+	if d != nil {
+		asu.SetTrialUsdPrice(*d)
+	}
+	return asu
+}
+
+// ClearTrialUsdPrice clears the value of the "trial_usd_price" field.
+func (asu *AppSubscriptionUpdate) ClearTrialUsdPrice() *AppSubscriptionUpdate {
+	asu.mutation.ClearTrialUsdPrice()
+	return asu
+}
+
+// SetPriceFiatID sets the "price_fiat_id" field.
+func (asu *AppSubscriptionUpdate) SetPriceFiatID(u uuid.UUID) *AppSubscriptionUpdate {
+	asu.mutation.SetPriceFiatID(u)
+	return asu
+}
+
+// SetNillablePriceFiatID sets the "price_fiat_id" field if the given value is not nil.
+func (asu *AppSubscriptionUpdate) SetNillablePriceFiatID(u *uuid.UUID) *AppSubscriptionUpdate {
+	if u != nil {
+		asu.SetPriceFiatID(*u)
+	}
+	return asu
+}
+
+// ClearPriceFiatID clears the value of the "price_fiat_id" field.
+func (asu *AppSubscriptionUpdate) ClearPriceFiatID() *AppSubscriptionUpdate {
+	asu.mutation.ClearPriceFiatID()
+	return asu
+}
+
+// SetFiatPrice sets the "fiat_price" field.
+func (asu *AppSubscriptionUpdate) SetFiatPrice(d decimal.Decimal) *AppSubscriptionUpdate {
+	asu.mutation.SetFiatPrice(d)
+	return asu
+}
+
+// SetNillableFiatPrice sets the "fiat_price" field if the given value is not nil.
+func (asu *AppSubscriptionUpdate) SetNillableFiatPrice(d *decimal.Decimal) *AppSubscriptionUpdate {
+	if d != nil {
+		asu.SetFiatPrice(*d)
+	}
+	return asu
+}
+
+// ClearFiatPrice clears the value of the "fiat_price" field.
+func (asu *AppSubscriptionUpdate) ClearFiatPrice() *AppSubscriptionUpdate {
+	asu.mutation.ClearFiatPrice()
+	return asu
+}
+
+// SetTrialFiatPrice sets the "trial_fiat_price" field.
+func (asu *AppSubscriptionUpdate) SetTrialFiatPrice(d decimal.Decimal) *AppSubscriptionUpdate {
+	asu.mutation.SetTrialFiatPrice(d)
+	return asu
+}
+
+// SetNillableTrialFiatPrice sets the "trial_fiat_price" field if the given value is not nil.
+func (asu *AppSubscriptionUpdate) SetNillableTrialFiatPrice(d *decimal.Decimal) *AppSubscriptionUpdate {
+	if d != nil {
+		asu.SetTrialFiatPrice(*d)
+	}
+	return asu
+}
+
+// ClearTrialFiatPrice clears the value of the "trial_fiat_price" field.
+func (asu *AppSubscriptionUpdate) ClearTrialFiatPrice() *AppSubscriptionUpdate {
+	asu.mutation.ClearTrialFiatPrice()
+	return asu
+}
+
 // Mutation returns the AppSubscriptionMutation object of the builder.
 func (asu *AppSubscriptionUpdate) Mutation() *AppSubscriptionMutation {
 	return asu.mutation
@@ -279,6 +386,39 @@ func (asu *AppSubscriptionUpdate) sqlSave(ctx context.Context) (n int, err error
 	}
 	if asu.mutation.PlanIDCleared() {
 		_spec.ClearField(appsubscription.FieldPlanID, field.TypeString)
+	}
+	if value, ok := asu.mutation.TrialUnits(); ok {
+		_spec.SetField(appsubscription.FieldTrialUnits, field.TypeUint32, value)
+	}
+	if value, ok := asu.mutation.AddedTrialUnits(); ok {
+		_spec.AddField(appsubscription.FieldTrialUnits, field.TypeUint32, value)
+	}
+	if asu.mutation.TrialUnitsCleared() {
+		_spec.ClearField(appsubscription.FieldTrialUnits, field.TypeUint32)
+	}
+	if value, ok := asu.mutation.TrialUsdPrice(); ok {
+		_spec.SetField(appsubscription.FieldTrialUsdPrice, field.TypeOther, value)
+	}
+	if asu.mutation.TrialUsdPriceCleared() {
+		_spec.ClearField(appsubscription.FieldTrialUsdPrice, field.TypeOther)
+	}
+	if value, ok := asu.mutation.PriceFiatID(); ok {
+		_spec.SetField(appsubscription.FieldPriceFiatID, field.TypeUUID, value)
+	}
+	if asu.mutation.PriceFiatIDCleared() {
+		_spec.ClearField(appsubscription.FieldPriceFiatID, field.TypeUUID)
+	}
+	if value, ok := asu.mutation.FiatPrice(); ok {
+		_spec.SetField(appsubscription.FieldFiatPrice, field.TypeOther, value)
+	}
+	if asu.mutation.FiatPriceCleared() {
+		_spec.ClearField(appsubscription.FieldFiatPrice, field.TypeOther)
+	}
+	if value, ok := asu.mutation.TrialFiatPrice(); ok {
+		_spec.SetField(appsubscription.FieldTrialFiatPrice, field.TypeOther, value)
+	}
+	if asu.mutation.TrialFiatPriceCleared() {
+		_spec.ClearField(appsubscription.FieldTrialFiatPrice, field.TypeOther)
 	}
 	_spec.AddModifiers(asu.modifiers...)
 	if n, err = sqlgraph.UpdateNodes(ctx, asu.driver, _spec); err != nil {
@@ -451,6 +591,113 @@ func (asuo *AppSubscriptionUpdateOne) ClearPlanID() *AppSubscriptionUpdateOne {
 	return asuo
 }
 
+// SetTrialUnits sets the "trial_units" field.
+func (asuo *AppSubscriptionUpdateOne) SetTrialUnits(u uint32) *AppSubscriptionUpdateOne {
+	asuo.mutation.ResetTrialUnits()
+	asuo.mutation.SetTrialUnits(u)
+	return asuo
+}
+
+// SetNillableTrialUnits sets the "trial_units" field if the given value is not nil.
+func (asuo *AppSubscriptionUpdateOne) SetNillableTrialUnits(u *uint32) *AppSubscriptionUpdateOne {
+	if u != nil {
+		asuo.SetTrialUnits(*u)
+	}
+	return asuo
+}
+
+// AddTrialUnits adds u to the "trial_units" field.
+func (asuo *AppSubscriptionUpdateOne) AddTrialUnits(u int32) *AppSubscriptionUpdateOne {
+	asuo.mutation.AddTrialUnits(u)
+	return asuo
+}
+
+// ClearTrialUnits clears the value of the "trial_units" field.
+func (asuo *AppSubscriptionUpdateOne) ClearTrialUnits() *AppSubscriptionUpdateOne {
+	asuo.mutation.ClearTrialUnits()
+	return asuo
+}
+
+// SetTrialUsdPrice sets the "trial_usd_price" field.
+func (asuo *AppSubscriptionUpdateOne) SetTrialUsdPrice(d decimal.Decimal) *AppSubscriptionUpdateOne {
+	asuo.mutation.SetTrialUsdPrice(d)
+	return asuo
+}
+
+// SetNillableTrialUsdPrice sets the "trial_usd_price" field if the given value is not nil.
+func (asuo *AppSubscriptionUpdateOne) SetNillableTrialUsdPrice(d *decimal.Decimal) *AppSubscriptionUpdateOne {
+	if d != nil {
+		asuo.SetTrialUsdPrice(*d)
+	}
+	return asuo
+}
+
+// ClearTrialUsdPrice clears the value of the "trial_usd_price" field.
+func (asuo *AppSubscriptionUpdateOne) ClearTrialUsdPrice() *AppSubscriptionUpdateOne {
+	asuo.mutation.ClearTrialUsdPrice()
+	return asuo
+}
+
+// SetPriceFiatID sets the "price_fiat_id" field.
+func (asuo *AppSubscriptionUpdateOne) SetPriceFiatID(u uuid.UUID) *AppSubscriptionUpdateOne {
+	asuo.mutation.SetPriceFiatID(u)
+	return asuo
+}
+
+// SetNillablePriceFiatID sets the "price_fiat_id" field if the given value is not nil.
+func (asuo *AppSubscriptionUpdateOne) SetNillablePriceFiatID(u *uuid.UUID) *AppSubscriptionUpdateOne {
+	if u != nil {
+		asuo.SetPriceFiatID(*u)
+	}
+	return asuo
+}
+
+// ClearPriceFiatID clears the value of the "price_fiat_id" field.
+func (asuo *AppSubscriptionUpdateOne) ClearPriceFiatID() *AppSubscriptionUpdateOne {
+	asuo.mutation.ClearPriceFiatID()
+	return asuo
+}
+
+// SetFiatPrice sets the "fiat_price" field.
+func (asuo *AppSubscriptionUpdateOne) SetFiatPrice(d decimal.Decimal) *AppSubscriptionUpdateOne {
+	asuo.mutation.SetFiatPrice(d)
+	return asuo
+}
+
+// SetNillableFiatPrice sets the "fiat_price" field if the given value is not nil.
+func (asuo *AppSubscriptionUpdateOne) SetNillableFiatPrice(d *decimal.Decimal) *AppSubscriptionUpdateOne {
+	if d != nil {
+		asuo.SetFiatPrice(*d)
+	}
+	return asuo
+}
+
+// ClearFiatPrice clears the value of the "fiat_price" field.
+func (asuo *AppSubscriptionUpdateOne) ClearFiatPrice() *AppSubscriptionUpdateOne {
+	asuo.mutation.ClearFiatPrice()
+	return asuo
+}
+
+// SetTrialFiatPrice sets the "trial_fiat_price" field.
+func (asuo *AppSubscriptionUpdateOne) SetTrialFiatPrice(d decimal.Decimal) *AppSubscriptionUpdateOne {
+	asuo.mutation.SetTrialFiatPrice(d)
+	return asuo
+}
+
+// SetNillableTrialFiatPrice sets the "trial_fiat_price" field if the given value is not nil.
+func (asuo *AppSubscriptionUpdateOne) SetNillableTrialFiatPrice(d *decimal.Decimal) *AppSubscriptionUpdateOne {
+	if d != nil {
+		asuo.SetTrialFiatPrice(*d)
+	}
+	return asuo
+}
+
+// ClearTrialFiatPrice clears the value of the "trial_fiat_price" field.
+func (asuo *AppSubscriptionUpdateOne) ClearTrialFiatPrice() *AppSubscriptionUpdateOne {
+	asuo.mutation.ClearTrialFiatPrice()
+	return asuo
+}
+
 // Mutation returns the AppSubscriptionMutation object of the builder.
 func (asuo *AppSubscriptionUpdateOne) Mutation() *AppSubscriptionMutation {
 	return asuo.mutation
@@ -581,6 +828,39 @@ func (asuo *AppSubscriptionUpdateOne) sqlSave(ctx context.Context) (_node *AppSu
 	}
 	if asuo.mutation.PlanIDCleared() {
 		_spec.ClearField(appsubscription.FieldPlanID, field.TypeString)
+	}
+	if value, ok := asuo.mutation.TrialUnits(); ok {
+		_spec.SetField(appsubscription.FieldTrialUnits, field.TypeUint32, value)
+	}
+	if value, ok := asuo.mutation.AddedTrialUnits(); ok {
+		_spec.AddField(appsubscription.FieldTrialUnits, field.TypeUint32, value)
+	}
+	if asuo.mutation.TrialUnitsCleared() {
+		_spec.ClearField(appsubscription.FieldTrialUnits, field.TypeUint32)
+	}
+	if value, ok := asuo.mutation.TrialUsdPrice(); ok {
+		_spec.SetField(appsubscription.FieldTrialUsdPrice, field.TypeOther, value)
+	}
+	if asuo.mutation.TrialUsdPriceCleared() {
+		_spec.ClearField(appsubscription.FieldTrialUsdPrice, field.TypeOther)
+	}
+	if value, ok := asuo.mutation.PriceFiatID(); ok {
+		_spec.SetField(appsubscription.FieldPriceFiatID, field.TypeUUID, value)
+	}
+	if asuo.mutation.PriceFiatIDCleared() {
+		_spec.ClearField(appsubscription.FieldPriceFiatID, field.TypeUUID)
+	}
+	if value, ok := asuo.mutation.FiatPrice(); ok {
+		_spec.SetField(appsubscription.FieldFiatPrice, field.TypeOther, value)
+	}
+	if asuo.mutation.FiatPriceCleared() {
+		_spec.ClearField(appsubscription.FieldFiatPrice, field.TypeOther)
+	}
+	if value, ok := asuo.mutation.TrialFiatPrice(); ok {
+		_spec.SetField(appsubscription.FieldTrialFiatPrice, field.TypeOther, value)
+	}
+	if asuo.mutation.TrialFiatPriceCleared() {
+		_spec.ClearField(appsubscription.FieldTrialFiatPrice, field.TypeOther)
 	}
 	_spec.AddModifiers(asuo.modifiers...)
 	_node = &AppSubscription{config: asuo.config}

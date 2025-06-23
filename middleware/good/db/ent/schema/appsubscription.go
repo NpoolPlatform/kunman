@@ -33,7 +33,7 @@ func (AppSubscription) Fields() []ent.Field {
 		field.
 			Other("usd_price", decimal.Decimal{}).
 			SchemaType(map[string]string{
-				dialect.MySQL: "decimal(37,18)",
+				dialect.MySQL: "decimal(6,2)",
 			}).
 			Optional().
 			Default(decimal.Decimal{}),
@@ -45,6 +45,37 @@ func (AppSubscription) Fields() []ent.Field {
 			String("plan_id").
 			Optional().
 			Default(""),
+		field.
+			Uint32("trial_units").
+			Optional().
+			Default(1),
+		field.
+			Other("trial_usd_price", decimal.Decimal{}).
+			SchemaType(map[string]string{
+				dialect.MySQL: "decimal(6,2)",
+			}).
+			Optional().
+			Default(decimal.Decimal{}),
+		field.
+			UUID("price_fiat_id", uuid.UUID{}).
+			Optional().
+			Default(func() uuid.UUID {
+				return uuid.UUID{}
+			}),
+		field.
+			Other("fiat_price", decimal.Decimal{}).
+			SchemaType(map[string]string{
+				dialect.MySQL: "decimal(6,2)",
+			}).
+			Optional().
+			Default(decimal.Decimal{}),
+		field.
+			Other("trial_fiat_price", decimal.Decimal{}).
+			SchemaType(map[string]string{
+				dialect.MySQL: "decimal(6,2)",
+			}).
+			Optional().
+			Default(decimal.Decimal{}),
 	}
 }
 

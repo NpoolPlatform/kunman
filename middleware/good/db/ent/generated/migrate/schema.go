@@ -460,9 +460,14 @@ var (
 		{Name: "updated_at", Type: field.TypeUint32},
 		{Name: "deleted_at", Type: field.TypeUint32},
 		{Name: "app_good_id", Type: field.TypeUUID, Nullable: true},
-		{Name: "usd_price", Type: field.TypeOther, Nullable: true, SchemaType: map[string]string{"mysql": "decimal(37,18)"}},
+		{Name: "usd_price", Type: field.TypeOther, Nullable: true, SchemaType: map[string]string{"mysql": "decimal(6,2)"}},
 		{Name: "product_id", Type: field.TypeString, Nullable: true, Default: ""},
 		{Name: "plan_id", Type: field.TypeString, Nullable: true, Default: ""},
+		{Name: "trial_units", Type: field.TypeUint32, Nullable: true, Default: 1},
+		{Name: "trial_usd_price", Type: field.TypeOther, Nullable: true, SchemaType: map[string]string{"mysql": "decimal(6,2)"}},
+		{Name: "price_fiat_id", Type: field.TypeUUID, Nullable: true},
+		{Name: "fiat_price", Type: field.TypeOther, Nullable: true, SchemaType: map[string]string{"mysql": "decimal(6,2)"}},
+		{Name: "trial_fiat_price", Type: field.TypeOther, Nullable: true, SchemaType: map[string]string{"mysql": "decimal(6,2)"}},
 	}
 	// AppSubscriptionsTable holds the schema information for the "app_subscriptions" table.
 	AppSubscriptionsTable = &schema.Table{

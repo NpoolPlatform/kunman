@@ -11,12 +11,17 @@ import (
 )
 
 type Req struct {
-	EntID     *uuid.UUID
-	AppGoodID *uuid.UUID
-	USDPrice  *decimal.Decimal
-	ProductID *string
-	PlanID    *string
-	DeletedAt *uint32
+	EntID          *uuid.UUID
+	AppGoodID      *uuid.UUID
+	USDPrice       *decimal.Decimal
+	ProductID      *string
+	PlanID         *string
+	TrialUnits     *uint32
+	TrialUSDPrice  *decimal.Decimal
+	PriceFiatID    *uuid.UUID
+	FiatPrice      *decimal.Decimal
+	TrialFiatPrice *decimal.Decimal
+	DeletedAt      *uint32
 }
 
 func CreateSet(c *ent.AppSubscriptionCreate, req *Req) *ent.AppSubscriptionCreate {
@@ -35,6 +40,21 @@ func CreateSet(c *ent.AppSubscriptionCreate, req *Req) *ent.AppSubscriptionCreat
 	if req.PlanID != nil {
 		c.SetPlanID(*req.PlanID)
 	}
+	if req.TrialUnits != nil {
+		c.SetTrialUnits(*req.TrialUnits)
+	}
+	if req.TrialUSDPrice != nil {
+		c.SetTrialUsdPrice(*req.TrialUSDPrice)
+	}
+	if req.PriceFiatID != nil {
+		c.SetPriceFiatID(*req.PriceFiatID)
+	}
+	if req.FiatPrice != nil {
+		c.SetFiatPrice(*req.FiatPrice)
+	}
+	if req.TrialFiatPrice != nil {
+		c.SetTrialFiatPrice(*req.TrialFiatPrice)
+	}
 	return c
 }
 
@@ -44,6 +64,21 @@ func UpdateSet(u *ent.AppSubscriptionUpdateOne, req *Req) *ent.AppSubscriptionUp
 	}
 	if req.PlanID != nil {
 		u.SetPlanID(*req.PlanID)
+	}
+	if req.TrialUnits != nil {
+		u.SetTrialUnits(*req.TrialUnits)
+	}
+	if req.TrialUSDPrice != nil {
+		u.SetTrialUsdPrice(*req.TrialUSDPrice)
+	}
+	if req.PriceFiatID != nil {
+		u.SetPriceFiatID(*req.PriceFiatID)
+	}
+	if req.FiatPrice != nil {
+		u.SetFiatPrice(*req.FiatPrice)
+	}
+	if req.TrialFiatPrice != nil {
+		u.SetTrialFiatPrice(*req.TrialFiatPrice)
 	}
 	if req.DeletedAt != nil {
 		u.SetDeletedAt(*req.DeletedAt)

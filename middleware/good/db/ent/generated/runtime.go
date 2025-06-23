@@ -794,6 +794,26 @@ func init() {
 	appsubscriptionDescPlanID := appsubscriptionFields[3].Descriptor()
 	// appsubscription.DefaultPlanID holds the default value on creation for the plan_id field.
 	appsubscription.DefaultPlanID = appsubscriptionDescPlanID.Default.(string)
+	// appsubscriptionDescTrialUnits is the schema descriptor for trial_units field.
+	appsubscriptionDescTrialUnits := appsubscriptionFields[4].Descriptor()
+	// appsubscription.DefaultTrialUnits holds the default value on creation for the trial_units field.
+	appsubscription.DefaultTrialUnits = appsubscriptionDescTrialUnits.Default.(uint32)
+	// appsubscriptionDescTrialUsdPrice is the schema descriptor for trial_usd_price field.
+	appsubscriptionDescTrialUsdPrice := appsubscriptionFields[5].Descriptor()
+	// appsubscription.DefaultTrialUsdPrice holds the default value on creation for the trial_usd_price field.
+	appsubscription.DefaultTrialUsdPrice = appsubscriptionDescTrialUsdPrice.Default.(decimal.Decimal)
+	// appsubscriptionDescPriceFiatID is the schema descriptor for price_fiat_id field.
+	appsubscriptionDescPriceFiatID := appsubscriptionFields[6].Descriptor()
+	// appsubscription.DefaultPriceFiatID holds the default value on creation for the price_fiat_id field.
+	appsubscription.DefaultPriceFiatID = appsubscriptionDescPriceFiatID.Default.(func() uuid.UUID)
+	// appsubscriptionDescFiatPrice is the schema descriptor for fiat_price field.
+	appsubscriptionDescFiatPrice := appsubscriptionFields[7].Descriptor()
+	// appsubscription.DefaultFiatPrice holds the default value on creation for the fiat_price field.
+	appsubscription.DefaultFiatPrice = appsubscriptionDescFiatPrice.Default.(decimal.Decimal)
+	// appsubscriptionDescTrialFiatPrice is the schema descriptor for trial_fiat_price field.
+	appsubscriptionDescTrialFiatPrice := appsubscriptionFields[8].Descriptor()
+	// appsubscription.DefaultTrialFiatPrice holds the default value on creation for the trial_fiat_price field.
+	appsubscription.DefaultTrialFiatPrice = appsubscriptionDescTrialFiatPrice.Default.(decimal.Decimal)
 	appsubscriptiononeshotMixin := schema.AppSubscriptionOneShot{}.Mixin()
 	appsubscriptiononeshotMixinFields0 := appsubscriptiononeshotMixin[0].Fields()
 	_ = appsubscriptiononeshotMixinFields0

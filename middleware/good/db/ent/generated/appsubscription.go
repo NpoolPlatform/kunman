@@ -33,8 +33,18 @@ type AppSubscription struct {
 	// ProductID holds the value of the "product_id" field.
 	ProductID string `json:"product_id,omitempty"`
 	// PlanID holds the value of the "plan_id" field.
-	PlanID       string `json:"plan_id,omitempty"`
-	selectValues sql.SelectValues
+	PlanID string `json:"plan_id,omitempty"`
+	// TrialUnits holds the value of the "trial_units" field.
+	TrialUnits uint32 `json:"trial_units,omitempty"`
+	// TrialUsdPrice holds the value of the "trial_usd_price" field.
+	TrialUsdPrice decimal.Decimal `json:"trial_usd_price,omitempty"`
+	// PriceFiatID holds the value of the "price_fiat_id" field.
+	PriceFiatID uuid.UUID `json:"price_fiat_id,omitempty"`
+	// FiatPrice holds the value of the "fiat_price" field.
+	FiatPrice decimal.Decimal `json:"fiat_price,omitempty"`
+	// TrialFiatPrice holds the value of the "trial_fiat_price" field.
+	TrialFiatPrice decimal.Decimal `json:"trial_fiat_price,omitempty"`
+	selectValues   sql.SelectValues
 }
 
 // scanValues returns the types for scanning values from sql.Rows.
@@ -42,13 +52,13 @@ func (*AppSubscription) scanValues(columns []string) ([]any, error) {
 	values := make([]any, len(columns))
 	for i := range columns {
 		switch columns[i] {
-		case appsubscription.FieldUsdPrice:
+		case appsubscription.FieldUsdPrice, appsubscription.FieldTrialUsdPrice, appsubscription.FieldFiatPrice, appsubscription.FieldTrialFiatPrice:
 			values[i] = new(decimal.Decimal)
-		case appsubscription.FieldID, appsubscription.FieldCreatedAt, appsubscription.FieldUpdatedAt, appsubscription.FieldDeletedAt:
+		case appsubscription.FieldID, appsubscription.FieldCreatedAt, appsubscription.FieldUpdatedAt, appsubscription.FieldDeletedAt, appsubscription.FieldTrialUnits:
 			values[i] = new(sql.NullInt64)
 		case appsubscription.FieldProductID, appsubscription.FieldPlanID:
 			values[i] = new(sql.NullString)
-		case appsubscription.FieldEntID, appsubscription.FieldAppGoodID:
+		case appsubscription.FieldEntID, appsubscription.FieldAppGoodID, appsubscription.FieldPriceFiatID:
 			values[i] = new(uuid.UUID)
 		default:
 			values[i] = new(sql.UnknownType)
@@ -119,6 +129,36 @@ func (as *AppSubscription) assignValues(columns []string, values []any) error {
 			} else if value.Valid {
 				as.PlanID = value.String
 			}
+		case appsubscription.FieldTrialUnits:
+			if value, ok := values[i].(*sql.NullInt64); !ok {
+				return fmt.Errorf("unexpected type %T for field trial_units", values[i])
+			} else if value.Valid {
+				as.TrialUnits = uint32(value.Int64)
+			}
+		case appsubscription.FieldTrialUsdPrice:
+			if value, ok := values[i].(*decimal.Decimal); !ok {
+				return fmt.Errorf("unexpected type %T for field trial_usd_price", values[i])
+			} else if value != nil {
+				as.TrialUsdPrice = *value
+			}
+		case appsubscription.FieldPriceFiatID:
+			if value, ok := values[i].(*uuid.UUID); !ok {
+				return fmt.Errorf("unexpected type %T for field price_fiat_id", values[i])
+			} else if value != nil {
+				as.PriceFiatID = *value
+			}
+		case appsubscription.FieldFiatPrice:
+			if value, ok := values[i].(*decimal.Decimal); !ok {
+				return fmt.Errorf("unexpected type %T for field fiat_price", values[i])
+			} else if value != nil {
+				as.FiatPrice = *value
+			}
+		case appsubscription.FieldTrialFiatPrice:
+			if value, ok := values[i].(*decimal.Decimal); !ok {
+				return fmt.Errorf("unexpected type %T for field trial_fiat_price", values[i])
+			} else if value != nil {
+				as.TrialFiatPrice = *value
+			}
 		default:
 			as.selectValues.Set(columns[i], values[i])
 		}
@@ -178,6 +218,21 @@ func (as *AppSubscription) String() string {
 	builder.WriteString(", ")
 	builder.WriteString("plan_id=")
 	builder.WriteString(as.PlanID)
+	builder.WriteString(", ")
+	builder.WriteString("trial_units=")
+	builder.WriteString(fmt.Sprintf("%v", as.TrialUnits))
+	builder.WriteString(", ")
+	builder.WriteString("trial_usd_price=")
+	builder.WriteString(fmt.Sprintf("%v", as.TrialUsdPrice))
+	builder.WriteString(", ")
+	builder.WriteString("price_fiat_id=")
+	builder.WriteString(fmt.Sprintf("%v", as.PriceFiatID))
+	builder.WriteString(", ")
+	builder.WriteString("fiat_price=")
+	builder.WriteString(fmt.Sprintf("%v", as.FiatPrice))
+	builder.WriteString(", ")
+	builder.WriteString("trial_fiat_price=")
+	builder.WriteString(fmt.Sprintf("%v", as.TrialFiatPrice))
 	builder.WriteByte(')')
 	return builder.String()
 }

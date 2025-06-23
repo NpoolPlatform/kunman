@@ -135,6 +135,76 @@ func (asc *AppSubscriptionCreate) SetNillablePlanID(s *string) *AppSubscriptionC
 	return asc
 }
 
+// SetTrialUnits sets the "trial_units" field.
+func (asc *AppSubscriptionCreate) SetTrialUnits(u uint32) *AppSubscriptionCreate {
+	asc.mutation.SetTrialUnits(u)
+	return asc
+}
+
+// SetNillableTrialUnits sets the "trial_units" field if the given value is not nil.
+func (asc *AppSubscriptionCreate) SetNillableTrialUnits(u *uint32) *AppSubscriptionCreate {
+	if u != nil {
+		asc.SetTrialUnits(*u)
+	}
+	return asc
+}
+
+// SetTrialUsdPrice sets the "trial_usd_price" field.
+func (asc *AppSubscriptionCreate) SetTrialUsdPrice(d decimal.Decimal) *AppSubscriptionCreate {
+	asc.mutation.SetTrialUsdPrice(d)
+	return asc
+}
+
+// SetNillableTrialUsdPrice sets the "trial_usd_price" field if the given value is not nil.
+func (asc *AppSubscriptionCreate) SetNillableTrialUsdPrice(d *decimal.Decimal) *AppSubscriptionCreate {
+	if d != nil {
+		asc.SetTrialUsdPrice(*d)
+	}
+	return asc
+}
+
+// SetPriceFiatID sets the "price_fiat_id" field.
+func (asc *AppSubscriptionCreate) SetPriceFiatID(u uuid.UUID) *AppSubscriptionCreate {
+	asc.mutation.SetPriceFiatID(u)
+	return asc
+}
+
+// SetNillablePriceFiatID sets the "price_fiat_id" field if the given value is not nil.
+func (asc *AppSubscriptionCreate) SetNillablePriceFiatID(u *uuid.UUID) *AppSubscriptionCreate {
+	if u != nil {
+		asc.SetPriceFiatID(*u)
+	}
+	return asc
+}
+
+// SetFiatPrice sets the "fiat_price" field.
+func (asc *AppSubscriptionCreate) SetFiatPrice(d decimal.Decimal) *AppSubscriptionCreate {
+	asc.mutation.SetFiatPrice(d)
+	return asc
+}
+
+// SetNillableFiatPrice sets the "fiat_price" field if the given value is not nil.
+func (asc *AppSubscriptionCreate) SetNillableFiatPrice(d *decimal.Decimal) *AppSubscriptionCreate {
+	if d != nil {
+		asc.SetFiatPrice(*d)
+	}
+	return asc
+}
+
+// SetTrialFiatPrice sets the "trial_fiat_price" field.
+func (asc *AppSubscriptionCreate) SetTrialFiatPrice(d decimal.Decimal) *AppSubscriptionCreate {
+	asc.mutation.SetTrialFiatPrice(d)
+	return asc
+}
+
+// SetNillableTrialFiatPrice sets the "trial_fiat_price" field if the given value is not nil.
+func (asc *AppSubscriptionCreate) SetNillableTrialFiatPrice(d *decimal.Decimal) *AppSubscriptionCreate {
+	if d != nil {
+		asc.SetTrialFiatPrice(*d)
+	}
+	return asc
+}
+
 // SetID sets the "id" field.
 func (asc *AppSubscriptionCreate) SetID(u uint32) *AppSubscriptionCreate {
 	asc.mutation.SetID(u)
@@ -207,6 +277,26 @@ func (asc *AppSubscriptionCreate) defaults() {
 	if _, ok := asc.mutation.PlanID(); !ok {
 		v := appsubscription.DefaultPlanID
 		asc.mutation.SetPlanID(v)
+	}
+	if _, ok := asc.mutation.TrialUnits(); !ok {
+		v := appsubscription.DefaultTrialUnits
+		asc.mutation.SetTrialUnits(v)
+	}
+	if _, ok := asc.mutation.TrialUsdPrice(); !ok {
+		v := appsubscription.DefaultTrialUsdPrice
+		asc.mutation.SetTrialUsdPrice(v)
+	}
+	if _, ok := asc.mutation.PriceFiatID(); !ok {
+		v := appsubscription.DefaultPriceFiatID()
+		asc.mutation.SetPriceFiatID(v)
+	}
+	if _, ok := asc.mutation.FiatPrice(); !ok {
+		v := appsubscription.DefaultFiatPrice
+		asc.mutation.SetFiatPrice(v)
+	}
+	if _, ok := asc.mutation.TrialFiatPrice(); !ok {
+		v := appsubscription.DefaultTrialFiatPrice
+		asc.mutation.SetTrialFiatPrice(v)
 	}
 }
 
@@ -288,6 +378,26 @@ func (asc *AppSubscriptionCreate) createSpec() (*AppSubscription, *sqlgraph.Crea
 	if value, ok := asc.mutation.PlanID(); ok {
 		_spec.SetField(appsubscription.FieldPlanID, field.TypeString, value)
 		_node.PlanID = value
+	}
+	if value, ok := asc.mutation.TrialUnits(); ok {
+		_spec.SetField(appsubscription.FieldTrialUnits, field.TypeUint32, value)
+		_node.TrialUnits = value
+	}
+	if value, ok := asc.mutation.TrialUsdPrice(); ok {
+		_spec.SetField(appsubscription.FieldTrialUsdPrice, field.TypeOther, value)
+		_node.TrialUsdPrice = value
+	}
+	if value, ok := asc.mutation.PriceFiatID(); ok {
+		_spec.SetField(appsubscription.FieldPriceFiatID, field.TypeUUID, value)
+		_node.PriceFiatID = value
+	}
+	if value, ok := asc.mutation.FiatPrice(); ok {
+		_spec.SetField(appsubscription.FieldFiatPrice, field.TypeOther, value)
+		_node.FiatPrice = value
+	}
+	if value, ok := asc.mutation.TrialFiatPrice(); ok {
+		_spec.SetField(appsubscription.FieldTrialFiatPrice, field.TypeOther, value)
+		_node.TrialFiatPrice = value
 	}
 	return _node, _spec
 }
@@ -476,6 +586,102 @@ func (u *AppSubscriptionUpsert) UpdatePlanID() *AppSubscriptionUpsert {
 // ClearPlanID clears the value of the "plan_id" field.
 func (u *AppSubscriptionUpsert) ClearPlanID() *AppSubscriptionUpsert {
 	u.SetNull(appsubscription.FieldPlanID)
+	return u
+}
+
+// SetTrialUnits sets the "trial_units" field.
+func (u *AppSubscriptionUpsert) SetTrialUnits(v uint32) *AppSubscriptionUpsert {
+	u.Set(appsubscription.FieldTrialUnits, v)
+	return u
+}
+
+// UpdateTrialUnits sets the "trial_units" field to the value that was provided on create.
+func (u *AppSubscriptionUpsert) UpdateTrialUnits() *AppSubscriptionUpsert {
+	u.SetExcluded(appsubscription.FieldTrialUnits)
+	return u
+}
+
+// AddTrialUnits adds v to the "trial_units" field.
+func (u *AppSubscriptionUpsert) AddTrialUnits(v uint32) *AppSubscriptionUpsert {
+	u.Add(appsubscription.FieldTrialUnits, v)
+	return u
+}
+
+// ClearTrialUnits clears the value of the "trial_units" field.
+func (u *AppSubscriptionUpsert) ClearTrialUnits() *AppSubscriptionUpsert {
+	u.SetNull(appsubscription.FieldTrialUnits)
+	return u
+}
+
+// SetTrialUsdPrice sets the "trial_usd_price" field.
+func (u *AppSubscriptionUpsert) SetTrialUsdPrice(v decimal.Decimal) *AppSubscriptionUpsert {
+	u.Set(appsubscription.FieldTrialUsdPrice, v)
+	return u
+}
+
+// UpdateTrialUsdPrice sets the "trial_usd_price" field to the value that was provided on create.
+func (u *AppSubscriptionUpsert) UpdateTrialUsdPrice() *AppSubscriptionUpsert {
+	u.SetExcluded(appsubscription.FieldTrialUsdPrice)
+	return u
+}
+
+// ClearTrialUsdPrice clears the value of the "trial_usd_price" field.
+func (u *AppSubscriptionUpsert) ClearTrialUsdPrice() *AppSubscriptionUpsert {
+	u.SetNull(appsubscription.FieldTrialUsdPrice)
+	return u
+}
+
+// SetPriceFiatID sets the "price_fiat_id" field.
+func (u *AppSubscriptionUpsert) SetPriceFiatID(v uuid.UUID) *AppSubscriptionUpsert {
+	u.Set(appsubscription.FieldPriceFiatID, v)
+	return u
+}
+
+// UpdatePriceFiatID sets the "price_fiat_id" field to the value that was provided on create.
+func (u *AppSubscriptionUpsert) UpdatePriceFiatID() *AppSubscriptionUpsert {
+	u.SetExcluded(appsubscription.FieldPriceFiatID)
+	return u
+}
+
+// ClearPriceFiatID clears the value of the "price_fiat_id" field.
+func (u *AppSubscriptionUpsert) ClearPriceFiatID() *AppSubscriptionUpsert {
+	u.SetNull(appsubscription.FieldPriceFiatID)
+	return u
+}
+
+// SetFiatPrice sets the "fiat_price" field.
+func (u *AppSubscriptionUpsert) SetFiatPrice(v decimal.Decimal) *AppSubscriptionUpsert {
+	u.Set(appsubscription.FieldFiatPrice, v)
+	return u
+}
+
+// UpdateFiatPrice sets the "fiat_price" field to the value that was provided on create.
+func (u *AppSubscriptionUpsert) UpdateFiatPrice() *AppSubscriptionUpsert {
+	u.SetExcluded(appsubscription.FieldFiatPrice)
+	return u
+}
+
+// ClearFiatPrice clears the value of the "fiat_price" field.
+func (u *AppSubscriptionUpsert) ClearFiatPrice() *AppSubscriptionUpsert {
+	u.SetNull(appsubscription.FieldFiatPrice)
+	return u
+}
+
+// SetTrialFiatPrice sets the "trial_fiat_price" field.
+func (u *AppSubscriptionUpsert) SetTrialFiatPrice(v decimal.Decimal) *AppSubscriptionUpsert {
+	u.Set(appsubscription.FieldTrialFiatPrice, v)
+	return u
+}
+
+// UpdateTrialFiatPrice sets the "trial_fiat_price" field to the value that was provided on create.
+func (u *AppSubscriptionUpsert) UpdateTrialFiatPrice() *AppSubscriptionUpsert {
+	u.SetExcluded(appsubscription.FieldTrialFiatPrice)
+	return u
+}
+
+// ClearTrialFiatPrice clears the value of the "trial_fiat_price" field.
+func (u *AppSubscriptionUpsert) ClearTrialFiatPrice() *AppSubscriptionUpsert {
+	u.SetNull(appsubscription.FieldTrialFiatPrice)
 	return u
 }
 
@@ -685,6 +891,118 @@ func (u *AppSubscriptionUpsertOne) UpdatePlanID() *AppSubscriptionUpsertOne {
 func (u *AppSubscriptionUpsertOne) ClearPlanID() *AppSubscriptionUpsertOne {
 	return u.Update(func(s *AppSubscriptionUpsert) {
 		s.ClearPlanID()
+	})
+}
+
+// SetTrialUnits sets the "trial_units" field.
+func (u *AppSubscriptionUpsertOne) SetTrialUnits(v uint32) *AppSubscriptionUpsertOne {
+	return u.Update(func(s *AppSubscriptionUpsert) {
+		s.SetTrialUnits(v)
+	})
+}
+
+// AddTrialUnits adds v to the "trial_units" field.
+func (u *AppSubscriptionUpsertOne) AddTrialUnits(v uint32) *AppSubscriptionUpsertOne {
+	return u.Update(func(s *AppSubscriptionUpsert) {
+		s.AddTrialUnits(v)
+	})
+}
+
+// UpdateTrialUnits sets the "trial_units" field to the value that was provided on create.
+func (u *AppSubscriptionUpsertOne) UpdateTrialUnits() *AppSubscriptionUpsertOne {
+	return u.Update(func(s *AppSubscriptionUpsert) {
+		s.UpdateTrialUnits()
+	})
+}
+
+// ClearTrialUnits clears the value of the "trial_units" field.
+func (u *AppSubscriptionUpsertOne) ClearTrialUnits() *AppSubscriptionUpsertOne {
+	return u.Update(func(s *AppSubscriptionUpsert) {
+		s.ClearTrialUnits()
+	})
+}
+
+// SetTrialUsdPrice sets the "trial_usd_price" field.
+func (u *AppSubscriptionUpsertOne) SetTrialUsdPrice(v decimal.Decimal) *AppSubscriptionUpsertOne {
+	return u.Update(func(s *AppSubscriptionUpsert) {
+		s.SetTrialUsdPrice(v)
+	})
+}
+
+// UpdateTrialUsdPrice sets the "trial_usd_price" field to the value that was provided on create.
+func (u *AppSubscriptionUpsertOne) UpdateTrialUsdPrice() *AppSubscriptionUpsertOne {
+	return u.Update(func(s *AppSubscriptionUpsert) {
+		s.UpdateTrialUsdPrice()
+	})
+}
+
+// ClearTrialUsdPrice clears the value of the "trial_usd_price" field.
+func (u *AppSubscriptionUpsertOne) ClearTrialUsdPrice() *AppSubscriptionUpsertOne {
+	return u.Update(func(s *AppSubscriptionUpsert) {
+		s.ClearTrialUsdPrice()
+	})
+}
+
+// SetPriceFiatID sets the "price_fiat_id" field.
+func (u *AppSubscriptionUpsertOne) SetPriceFiatID(v uuid.UUID) *AppSubscriptionUpsertOne {
+	return u.Update(func(s *AppSubscriptionUpsert) {
+		s.SetPriceFiatID(v)
+	})
+}
+
+// UpdatePriceFiatID sets the "price_fiat_id" field to the value that was provided on create.
+func (u *AppSubscriptionUpsertOne) UpdatePriceFiatID() *AppSubscriptionUpsertOne {
+	return u.Update(func(s *AppSubscriptionUpsert) {
+		s.UpdatePriceFiatID()
+	})
+}
+
+// ClearPriceFiatID clears the value of the "price_fiat_id" field.
+func (u *AppSubscriptionUpsertOne) ClearPriceFiatID() *AppSubscriptionUpsertOne {
+	return u.Update(func(s *AppSubscriptionUpsert) {
+		s.ClearPriceFiatID()
+	})
+}
+
+// SetFiatPrice sets the "fiat_price" field.
+func (u *AppSubscriptionUpsertOne) SetFiatPrice(v decimal.Decimal) *AppSubscriptionUpsertOne {
+	return u.Update(func(s *AppSubscriptionUpsert) {
+		s.SetFiatPrice(v)
+	})
+}
+
+// UpdateFiatPrice sets the "fiat_price" field to the value that was provided on create.
+func (u *AppSubscriptionUpsertOne) UpdateFiatPrice() *AppSubscriptionUpsertOne {
+	return u.Update(func(s *AppSubscriptionUpsert) {
+		s.UpdateFiatPrice()
+	})
+}
+
+// ClearFiatPrice clears the value of the "fiat_price" field.
+func (u *AppSubscriptionUpsertOne) ClearFiatPrice() *AppSubscriptionUpsertOne {
+	return u.Update(func(s *AppSubscriptionUpsert) {
+		s.ClearFiatPrice()
+	})
+}
+
+// SetTrialFiatPrice sets the "trial_fiat_price" field.
+func (u *AppSubscriptionUpsertOne) SetTrialFiatPrice(v decimal.Decimal) *AppSubscriptionUpsertOne {
+	return u.Update(func(s *AppSubscriptionUpsert) {
+		s.SetTrialFiatPrice(v)
+	})
+}
+
+// UpdateTrialFiatPrice sets the "trial_fiat_price" field to the value that was provided on create.
+func (u *AppSubscriptionUpsertOne) UpdateTrialFiatPrice() *AppSubscriptionUpsertOne {
+	return u.Update(func(s *AppSubscriptionUpsert) {
+		s.UpdateTrialFiatPrice()
+	})
+}
+
+// ClearTrialFiatPrice clears the value of the "trial_fiat_price" field.
+func (u *AppSubscriptionUpsertOne) ClearTrialFiatPrice() *AppSubscriptionUpsertOne {
+	return u.Update(func(s *AppSubscriptionUpsert) {
+		s.ClearTrialFiatPrice()
 	})
 }
 
@@ -1060,6 +1378,118 @@ func (u *AppSubscriptionUpsertBulk) UpdatePlanID() *AppSubscriptionUpsertBulk {
 func (u *AppSubscriptionUpsertBulk) ClearPlanID() *AppSubscriptionUpsertBulk {
 	return u.Update(func(s *AppSubscriptionUpsert) {
 		s.ClearPlanID()
+	})
+}
+
+// SetTrialUnits sets the "trial_units" field.
+func (u *AppSubscriptionUpsertBulk) SetTrialUnits(v uint32) *AppSubscriptionUpsertBulk {
+	return u.Update(func(s *AppSubscriptionUpsert) {
+		s.SetTrialUnits(v)
+	})
+}
+
+// AddTrialUnits adds v to the "trial_units" field.
+func (u *AppSubscriptionUpsertBulk) AddTrialUnits(v uint32) *AppSubscriptionUpsertBulk {
+	return u.Update(func(s *AppSubscriptionUpsert) {
+		s.AddTrialUnits(v)
+	})
+}
+
+// UpdateTrialUnits sets the "trial_units" field to the value that was provided on create.
+func (u *AppSubscriptionUpsertBulk) UpdateTrialUnits() *AppSubscriptionUpsertBulk {
+	return u.Update(func(s *AppSubscriptionUpsert) {
+		s.UpdateTrialUnits()
+	})
+}
+
+// ClearTrialUnits clears the value of the "trial_units" field.
+func (u *AppSubscriptionUpsertBulk) ClearTrialUnits() *AppSubscriptionUpsertBulk {
+	return u.Update(func(s *AppSubscriptionUpsert) {
+		s.ClearTrialUnits()
+	})
+}
+
+// SetTrialUsdPrice sets the "trial_usd_price" field.
+func (u *AppSubscriptionUpsertBulk) SetTrialUsdPrice(v decimal.Decimal) *AppSubscriptionUpsertBulk {
+	return u.Update(func(s *AppSubscriptionUpsert) {
+		s.SetTrialUsdPrice(v)
+	})
+}
+
+// UpdateTrialUsdPrice sets the "trial_usd_price" field to the value that was provided on create.
+func (u *AppSubscriptionUpsertBulk) UpdateTrialUsdPrice() *AppSubscriptionUpsertBulk {
+	return u.Update(func(s *AppSubscriptionUpsert) {
+		s.UpdateTrialUsdPrice()
+	})
+}
+
+// ClearTrialUsdPrice clears the value of the "trial_usd_price" field.
+func (u *AppSubscriptionUpsertBulk) ClearTrialUsdPrice() *AppSubscriptionUpsertBulk {
+	return u.Update(func(s *AppSubscriptionUpsert) {
+		s.ClearTrialUsdPrice()
+	})
+}
+
+// SetPriceFiatID sets the "price_fiat_id" field.
+func (u *AppSubscriptionUpsertBulk) SetPriceFiatID(v uuid.UUID) *AppSubscriptionUpsertBulk {
+	return u.Update(func(s *AppSubscriptionUpsert) {
+		s.SetPriceFiatID(v)
+	})
+}
+
+// UpdatePriceFiatID sets the "price_fiat_id" field to the value that was provided on create.
+func (u *AppSubscriptionUpsertBulk) UpdatePriceFiatID() *AppSubscriptionUpsertBulk {
+	return u.Update(func(s *AppSubscriptionUpsert) {
+		s.UpdatePriceFiatID()
+	})
+}
+
+// ClearPriceFiatID clears the value of the "price_fiat_id" field.
+func (u *AppSubscriptionUpsertBulk) ClearPriceFiatID() *AppSubscriptionUpsertBulk {
+	return u.Update(func(s *AppSubscriptionUpsert) {
+		s.ClearPriceFiatID()
+	})
+}
+
+// SetFiatPrice sets the "fiat_price" field.
+func (u *AppSubscriptionUpsertBulk) SetFiatPrice(v decimal.Decimal) *AppSubscriptionUpsertBulk {
+	return u.Update(func(s *AppSubscriptionUpsert) {
+		s.SetFiatPrice(v)
+	})
+}
+
+// UpdateFiatPrice sets the "fiat_price" field to the value that was provided on create.
+func (u *AppSubscriptionUpsertBulk) UpdateFiatPrice() *AppSubscriptionUpsertBulk {
+	return u.Update(func(s *AppSubscriptionUpsert) {
+		s.UpdateFiatPrice()
+	})
+}
+
+// ClearFiatPrice clears the value of the "fiat_price" field.
+func (u *AppSubscriptionUpsertBulk) ClearFiatPrice() *AppSubscriptionUpsertBulk {
+	return u.Update(func(s *AppSubscriptionUpsert) {
+		s.ClearFiatPrice()
+	})
+}
+
+// SetTrialFiatPrice sets the "trial_fiat_price" field.
+func (u *AppSubscriptionUpsertBulk) SetTrialFiatPrice(v decimal.Decimal) *AppSubscriptionUpsertBulk {
+	return u.Update(func(s *AppSubscriptionUpsert) {
+		s.SetTrialFiatPrice(v)
+	})
+}
+
+// UpdateTrialFiatPrice sets the "trial_fiat_price" field to the value that was provided on create.
+func (u *AppSubscriptionUpsertBulk) UpdateTrialFiatPrice() *AppSubscriptionUpsertBulk {
+	return u.Update(func(s *AppSubscriptionUpsert) {
+		s.UpdateTrialFiatPrice()
+	})
+}
+
+// ClearTrialFiatPrice clears the value of the "trial_fiat_price" field.
+func (u *AppSubscriptionUpsertBulk) ClearTrialFiatPrice() *AppSubscriptionUpsertBulk {
+	return u.Update(func(s *AppSubscriptionUpsert) {
+		s.ClearTrialFiatPrice()
 	})
 }
 

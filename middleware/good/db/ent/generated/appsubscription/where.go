@@ -94,6 +94,31 @@ func PlanID(v string) predicate.AppSubscription {
 	return predicate.AppSubscription(sql.FieldEQ(FieldPlanID, v))
 }
 
+// TrialUnits applies equality check predicate on the "trial_units" field. It's identical to TrialUnitsEQ.
+func TrialUnits(v uint32) predicate.AppSubscription {
+	return predicate.AppSubscription(sql.FieldEQ(FieldTrialUnits, v))
+}
+
+// TrialUsdPrice applies equality check predicate on the "trial_usd_price" field. It's identical to TrialUsdPriceEQ.
+func TrialUsdPrice(v decimal.Decimal) predicate.AppSubscription {
+	return predicate.AppSubscription(sql.FieldEQ(FieldTrialUsdPrice, v))
+}
+
+// PriceFiatID applies equality check predicate on the "price_fiat_id" field. It's identical to PriceFiatIDEQ.
+func PriceFiatID(v uuid.UUID) predicate.AppSubscription {
+	return predicate.AppSubscription(sql.FieldEQ(FieldPriceFiatID, v))
+}
+
+// FiatPrice applies equality check predicate on the "fiat_price" field. It's identical to FiatPriceEQ.
+func FiatPrice(v decimal.Decimal) predicate.AppSubscription {
+	return predicate.AppSubscription(sql.FieldEQ(FieldFiatPrice, v))
+}
+
+// TrialFiatPrice applies equality check predicate on the "trial_fiat_price" field. It's identical to TrialFiatPriceEQ.
+func TrialFiatPrice(v decimal.Decimal) predicate.AppSubscription {
+	return predicate.AppSubscription(sql.FieldEQ(FieldTrialFiatPrice, v))
+}
+
 // EntIDEQ applies the EQ predicate on the "ent_id" field.
 func EntIDEQ(v uuid.UUID) predicate.AppSubscription {
 	return predicate.AppSubscription(sql.FieldEQ(FieldEntID, v))
@@ -502,6 +527,256 @@ func PlanIDEqualFold(v string) predicate.AppSubscription {
 // PlanIDContainsFold applies the ContainsFold predicate on the "plan_id" field.
 func PlanIDContainsFold(v string) predicate.AppSubscription {
 	return predicate.AppSubscription(sql.FieldContainsFold(FieldPlanID, v))
+}
+
+// TrialUnitsEQ applies the EQ predicate on the "trial_units" field.
+func TrialUnitsEQ(v uint32) predicate.AppSubscription {
+	return predicate.AppSubscription(sql.FieldEQ(FieldTrialUnits, v))
+}
+
+// TrialUnitsNEQ applies the NEQ predicate on the "trial_units" field.
+func TrialUnitsNEQ(v uint32) predicate.AppSubscription {
+	return predicate.AppSubscription(sql.FieldNEQ(FieldTrialUnits, v))
+}
+
+// TrialUnitsIn applies the In predicate on the "trial_units" field.
+func TrialUnitsIn(vs ...uint32) predicate.AppSubscription {
+	return predicate.AppSubscription(sql.FieldIn(FieldTrialUnits, vs...))
+}
+
+// TrialUnitsNotIn applies the NotIn predicate on the "trial_units" field.
+func TrialUnitsNotIn(vs ...uint32) predicate.AppSubscription {
+	return predicate.AppSubscription(sql.FieldNotIn(FieldTrialUnits, vs...))
+}
+
+// TrialUnitsGT applies the GT predicate on the "trial_units" field.
+func TrialUnitsGT(v uint32) predicate.AppSubscription {
+	return predicate.AppSubscription(sql.FieldGT(FieldTrialUnits, v))
+}
+
+// TrialUnitsGTE applies the GTE predicate on the "trial_units" field.
+func TrialUnitsGTE(v uint32) predicate.AppSubscription {
+	return predicate.AppSubscription(sql.FieldGTE(FieldTrialUnits, v))
+}
+
+// TrialUnitsLT applies the LT predicate on the "trial_units" field.
+func TrialUnitsLT(v uint32) predicate.AppSubscription {
+	return predicate.AppSubscription(sql.FieldLT(FieldTrialUnits, v))
+}
+
+// TrialUnitsLTE applies the LTE predicate on the "trial_units" field.
+func TrialUnitsLTE(v uint32) predicate.AppSubscription {
+	return predicate.AppSubscription(sql.FieldLTE(FieldTrialUnits, v))
+}
+
+// TrialUnitsIsNil applies the IsNil predicate on the "trial_units" field.
+func TrialUnitsIsNil() predicate.AppSubscription {
+	return predicate.AppSubscription(sql.FieldIsNull(FieldTrialUnits))
+}
+
+// TrialUnitsNotNil applies the NotNil predicate on the "trial_units" field.
+func TrialUnitsNotNil() predicate.AppSubscription {
+	return predicate.AppSubscription(sql.FieldNotNull(FieldTrialUnits))
+}
+
+// TrialUsdPriceEQ applies the EQ predicate on the "trial_usd_price" field.
+func TrialUsdPriceEQ(v decimal.Decimal) predicate.AppSubscription {
+	return predicate.AppSubscription(sql.FieldEQ(FieldTrialUsdPrice, v))
+}
+
+// TrialUsdPriceNEQ applies the NEQ predicate on the "trial_usd_price" field.
+func TrialUsdPriceNEQ(v decimal.Decimal) predicate.AppSubscription {
+	return predicate.AppSubscription(sql.FieldNEQ(FieldTrialUsdPrice, v))
+}
+
+// TrialUsdPriceIn applies the In predicate on the "trial_usd_price" field.
+func TrialUsdPriceIn(vs ...decimal.Decimal) predicate.AppSubscription {
+	return predicate.AppSubscription(sql.FieldIn(FieldTrialUsdPrice, vs...))
+}
+
+// TrialUsdPriceNotIn applies the NotIn predicate on the "trial_usd_price" field.
+func TrialUsdPriceNotIn(vs ...decimal.Decimal) predicate.AppSubscription {
+	return predicate.AppSubscription(sql.FieldNotIn(FieldTrialUsdPrice, vs...))
+}
+
+// TrialUsdPriceGT applies the GT predicate on the "trial_usd_price" field.
+func TrialUsdPriceGT(v decimal.Decimal) predicate.AppSubscription {
+	return predicate.AppSubscription(sql.FieldGT(FieldTrialUsdPrice, v))
+}
+
+// TrialUsdPriceGTE applies the GTE predicate on the "trial_usd_price" field.
+func TrialUsdPriceGTE(v decimal.Decimal) predicate.AppSubscription {
+	return predicate.AppSubscription(sql.FieldGTE(FieldTrialUsdPrice, v))
+}
+
+// TrialUsdPriceLT applies the LT predicate on the "trial_usd_price" field.
+func TrialUsdPriceLT(v decimal.Decimal) predicate.AppSubscription {
+	return predicate.AppSubscription(sql.FieldLT(FieldTrialUsdPrice, v))
+}
+
+// TrialUsdPriceLTE applies the LTE predicate on the "trial_usd_price" field.
+func TrialUsdPriceLTE(v decimal.Decimal) predicate.AppSubscription {
+	return predicate.AppSubscription(sql.FieldLTE(FieldTrialUsdPrice, v))
+}
+
+// TrialUsdPriceIsNil applies the IsNil predicate on the "trial_usd_price" field.
+func TrialUsdPriceIsNil() predicate.AppSubscription {
+	return predicate.AppSubscription(sql.FieldIsNull(FieldTrialUsdPrice))
+}
+
+// TrialUsdPriceNotNil applies the NotNil predicate on the "trial_usd_price" field.
+func TrialUsdPriceNotNil() predicate.AppSubscription {
+	return predicate.AppSubscription(sql.FieldNotNull(FieldTrialUsdPrice))
+}
+
+// PriceFiatIDEQ applies the EQ predicate on the "price_fiat_id" field.
+func PriceFiatIDEQ(v uuid.UUID) predicate.AppSubscription {
+	return predicate.AppSubscription(sql.FieldEQ(FieldPriceFiatID, v))
+}
+
+// PriceFiatIDNEQ applies the NEQ predicate on the "price_fiat_id" field.
+func PriceFiatIDNEQ(v uuid.UUID) predicate.AppSubscription {
+	return predicate.AppSubscription(sql.FieldNEQ(FieldPriceFiatID, v))
+}
+
+// PriceFiatIDIn applies the In predicate on the "price_fiat_id" field.
+func PriceFiatIDIn(vs ...uuid.UUID) predicate.AppSubscription {
+	return predicate.AppSubscription(sql.FieldIn(FieldPriceFiatID, vs...))
+}
+
+// PriceFiatIDNotIn applies the NotIn predicate on the "price_fiat_id" field.
+func PriceFiatIDNotIn(vs ...uuid.UUID) predicate.AppSubscription {
+	return predicate.AppSubscription(sql.FieldNotIn(FieldPriceFiatID, vs...))
+}
+
+// PriceFiatIDGT applies the GT predicate on the "price_fiat_id" field.
+func PriceFiatIDGT(v uuid.UUID) predicate.AppSubscription {
+	return predicate.AppSubscription(sql.FieldGT(FieldPriceFiatID, v))
+}
+
+// PriceFiatIDGTE applies the GTE predicate on the "price_fiat_id" field.
+func PriceFiatIDGTE(v uuid.UUID) predicate.AppSubscription {
+	return predicate.AppSubscription(sql.FieldGTE(FieldPriceFiatID, v))
+}
+
+// PriceFiatIDLT applies the LT predicate on the "price_fiat_id" field.
+func PriceFiatIDLT(v uuid.UUID) predicate.AppSubscription {
+	return predicate.AppSubscription(sql.FieldLT(FieldPriceFiatID, v))
+}
+
+// PriceFiatIDLTE applies the LTE predicate on the "price_fiat_id" field.
+func PriceFiatIDLTE(v uuid.UUID) predicate.AppSubscription {
+	return predicate.AppSubscription(sql.FieldLTE(FieldPriceFiatID, v))
+}
+
+// PriceFiatIDIsNil applies the IsNil predicate on the "price_fiat_id" field.
+func PriceFiatIDIsNil() predicate.AppSubscription {
+	return predicate.AppSubscription(sql.FieldIsNull(FieldPriceFiatID))
+}
+
+// PriceFiatIDNotNil applies the NotNil predicate on the "price_fiat_id" field.
+func PriceFiatIDNotNil() predicate.AppSubscription {
+	return predicate.AppSubscription(sql.FieldNotNull(FieldPriceFiatID))
+}
+
+// FiatPriceEQ applies the EQ predicate on the "fiat_price" field.
+func FiatPriceEQ(v decimal.Decimal) predicate.AppSubscription {
+	return predicate.AppSubscription(sql.FieldEQ(FieldFiatPrice, v))
+}
+
+// FiatPriceNEQ applies the NEQ predicate on the "fiat_price" field.
+func FiatPriceNEQ(v decimal.Decimal) predicate.AppSubscription {
+	return predicate.AppSubscription(sql.FieldNEQ(FieldFiatPrice, v))
+}
+
+// FiatPriceIn applies the In predicate on the "fiat_price" field.
+func FiatPriceIn(vs ...decimal.Decimal) predicate.AppSubscription {
+	return predicate.AppSubscription(sql.FieldIn(FieldFiatPrice, vs...))
+}
+
+// FiatPriceNotIn applies the NotIn predicate on the "fiat_price" field.
+func FiatPriceNotIn(vs ...decimal.Decimal) predicate.AppSubscription {
+	return predicate.AppSubscription(sql.FieldNotIn(FieldFiatPrice, vs...))
+}
+
+// FiatPriceGT applies the GT predicate on the "fiat_price" field.
+func FiatPriceGT(v decimal.Decimal) predicate.AppSubscription {
+	return predicate.AppSubscription(sql.FieldGT(FieldFiatPrice, v))
+}
+
+// FiatPriceGTE applies the GTE predicate on the "fiat_price" field.
+func FiatPriceGTE(v decimal.Decimal) predicate.AppSubscription {
+	return predicate.AppSubscription(sql.FieldGTE(FieldFiatPrice, v))
+}
+
+// FiatPriceLT applies the LT predicate on the "fiat_price" field.
+func FiatPriceLT(v decimal.Decimal) predicate.AppSubscription {
+	return predicate.AppSubscription(sql.FieldLT(FieldFiatPrice, v))
+}
+
+// FiatPriceLTE applies the LTE predicate on the "fiat_price" field.
+func FiatPriceLTE(v decimal.Decimal) predicate.AppSubscription {
+	return predicate.AppSubscription(sql.FieldLTE(FieldFiatPrice, v))
+}
+
+// FiatPriceIsNil applies the IsNil predicate on the "fiat_price" field.
+func FiatPriceIsNil() predicate.AppSubscription {
+	return predicate.AppSubscription(sql.FieldIsNull(FieldFiatPrice))
+}
+
+// FiatPriceNotNil applies the NotNil predicate on the "fiat_price" field.
+func FiatPriceNotNil() predicate.AppSubscription {
+	return predicate.AppSubscription(sql.FieldNotNull(FieldFiatPrice))
+}
+
+// TrialFiatPriceEQ applies the EQ predicate on the "trial_fiat_price" field.
+func TrialFiatPriceEQ(v decimal.Decimal) predicate.AppSubscription {
+	return predicate.AppSubscription(sql.FieldEQ(FieldTrialFiatPrice, v))
+}
+
+// TrialFiatPriceNEQ applies the NEQ predicate on the "trial_fiat_price" field.
+func TrialFiatPriceNEQ(v decimal.Decimal) predicate.AppSubscription {
+	return predicate.AppSubscription(sql.FieldNEQ(FieldTrialFiatPrice, v))
+}
+
+// TrialFiatPriceIn applies the In predicate on the "trial_fiat_price" field.
+func TrialFiatPriceIn(vs ...decimal.Decimal) predicate.AppSubscription {
+	return predicate.AppSubscription(sql.FieldIn(FieldTrialFiatPrice, vs...))
+}
+
+// TrialFiatPriceNotIn applies the NotIn predicate on the "trial_fiat_price" field.
+func TrialFiatPriceNotIn(vs ...decimal.Decimal) predicate.AppSubscription {
+	return predicate.AppSubscription(sql.FieldNotIn(FieldTrialFiatPrice, vs...))
+}
+
+// TrialFiatPriceGT applies the GT predicate on the "trial_fiat_price" field.
+func TrialFiatPriceGT(v decimal.Decimal) predicate.AppSubscription {
+	return predicate.AppSubscription(sql.FieldGT(FieldTrialFiatPrice, v))
+}
+
+// TrialFiatPriceGTE applies the GTE predicate on the "trial_fiat_price" field.
+func TrialFiatPriceGTE(v decimal.Decimal) predicate.AppSubscription {
+	return predicate.AppSubscription(sql.FieldGTE(FieldTrialFiatPrice, v))
+}
+
+// TrialFiatPriceLT applies the LT predicate on the "trial_fiat_price" field.
+func TrialFiatPriceLT(v decimal.Decimal) predicate.AppSubscription {
+	return predicate.AppSubscription(sql.FieldLT(FieldTrialFiatPrice, v))
+}
+
+// TrialFiatPriceLTE applies the LTE predicate on the "trial_fiat_price" field.
+func TrialFiatPriceLTE(v decimal.Decimal) predicate.AppSubscription {
+	return predicate.AppSubscription(sql.FieldLTE(FieldTrialFiatPrice, v))
+}
+
+// TrialFiatPriceIsNil applies the IsNil predicate on the "trial_fiat_price" field.
+func TrialFiatPriceIsNil() predicate.AppSubscription {
+	return predicate.AppSubscription(sql.FieldIsNull(FieldTrialFiatPrice))
+}
+
+// TrialFiatPriceNotNil applies the NotNil predicate on the "trial_fiat_price" field.
+func TrialFiatPriceNotNil() predicate.AppSubscription {
+	return predicate.AppSubscription(sql.FieldNotNull(FieldTrialFiatPrice))
 }
 
 // And groups predicates with the AND operator between them.
