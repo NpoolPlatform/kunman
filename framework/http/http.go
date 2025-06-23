@@ -55,6 +55,11 @@ func Run(routeRegister func(router *chi.Mux) error) error {
 	listen := fmt.Sprintf(":%v", config.GetIntValueWithNameSpace("", config.KeyHTTPPort2))
 	logger.Sugar().Infof("Start HTTP server: %v", listen)
 
+	chi.Walk(r, func(method string, route string, _handler http2.Handler, _middlewares ...func(http2.Handler) http2.Handler) error {
+		fmt.Println("    %-8s  %s", method, route)
+		return nil
+	})
+
 	return http2.ListenAndServe(listen, r)
 }
 
