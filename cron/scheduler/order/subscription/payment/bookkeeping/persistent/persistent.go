@@ -47,6 +47,7 @@ func (p *handler) withUpdateOrderState(ctx context.Context, order *types.Persist
 
 func (p *handler) withCreateStatements(ctx context.Context, order *types.PersistentOrder) error {
 	reqs := []*ledgerstatementmwpb.StatementReq{}
+
 	for _, paymentTransfer := range order.XPaymentTransfers {
 		if paymentTransfer.IncomingAmount == nil {
 			continue
@@ -69,6 +70,27 @@ func (p *handler) withCreateStatements(ctx context.Context, order *types.Persist
 			IOSubType:    func() *ledgertypes.IOSubType { e := ledgertypes.IOSubType_Payment; return &e }(),
 			Amount:       &paymentTransfer.Amount,
 			IOExtra:      &paymentTransfer.OutcomingExtra,
+		})
+	}
+	for _, paymentFiat := range order.XPaymentFiats {
+		reqs = append(reqs, &ledgerstatementmwpb.StatementReq{
+			AppID:        &order.AppID,
+			UserID:       &order.UserID,
+			CurrencyID:   &paymentFiat.FiatID,
+			CurrencyType: ledgertypes.CurrencyType_CurrencyFiat.Enum(),
+			IOType:       func() *ledgertypes.IOType { e := ledgertypes.IOType_Incoming; return &e }(),
+			IOSubType:    func() *ledgertypes.IOSubType { e := ledgertypes.IOSubType_Payment; return &e }(),
+			Amount:       &paymentFiat.Amount,
+			IOExtra:      &paymentFiat.Extra,
+		}, &ledgerstatementmwpb.StatementReq{
+			AppID:        &order.AppID,
+			UserID:       &order.UserID,
+			CurrencyID:   &paymentFiat.FiatID,
+			CurrencyType: ledgertypes.CurrencyType_CurrencyFiat.Enum(),
+			IOType:       func() *ledgertypes.IOType { e := ledgertypes.IOType_Outcoming; return &e }(),
+			IOSubType:    func() *ledgertypes.IOSubType { e := ledgertypes.IOSubType_Payment; return &e }(),
+			Amount:       &paymentFiat.Amount,
+			IOExtra:      &paymentFiat.Extra,
 		})
 	}
 

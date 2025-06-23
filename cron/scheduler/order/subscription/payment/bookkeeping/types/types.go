@@ -17,8 +17,16 @@ type XPaymentTransfer struct {
 	OutcomingExtra        string
 }
 
+type XPaymentFiat struct {
+	PaymentFiatID string
+	FiatID        string
+	Amount        string
+	Extra         string
+}
+
 type PersistentOrder struct {
 	*subscriptionordermwpb.SubscriptionOrder
 	XPaymentTransfers []*XPaymentTransfer
+	XPaymentFiats     []*XPaymentFiat
 	Error             error
 }

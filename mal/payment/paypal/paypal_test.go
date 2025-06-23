@@ -488,9 +488,9 @@ func waitSubscriptionApproved(t *testing.T) {
 			assert.Nil(t, err)
 
 			if resp.Active() && actives >= 3 {
-				actives++
 				break
 			}
+			actives += 1
 		}
 	}
 }

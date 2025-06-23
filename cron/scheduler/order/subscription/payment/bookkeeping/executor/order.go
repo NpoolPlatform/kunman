@@ -10,6 +10,7 @@ import (
 	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
 	paymentaccountmwpb "github.com/NpoolPlatform/kunman/message/account/middleware/v1/payment"
 	coinmwpb "github.com/NpoolPlatform/kunman/message/chain/middleware/v1/coin"
+	fiatmwpb "github.com/NpoolPlatform/kunman/message/chain/middleware/v1/fiat"
 	subscriptionordermwpb "github.com/NpoolPlatform/kunman/message/order/middleware/v1/subscription"
 	schedcommon "github.com/NpoolPlatform/kunman/pkg/common"
 	sphinxproxypb "github.com/NpoolPlatform/message/npool/sphinxproxy"
@@ -25,10 +26,16 @@ type orderHandler struct {
 	notif                chan interface{}
 	paymentTransfers     []*types.XPaymentTransfer
 	paymentTransferCoins map[string]*coinmwpb.Coin
+	paymentFiats         map[string]*fiatmwpb.Fiat
+	xPaymentFiats        []*types.XPaymentFiat
 	paymentAccounts      map[string]*paymentaccountmwpb.Account
 }
 
 func (h *orderHandler) getPaymentCoins(ctx context.Context) (err error) {
+	if len(h.paymentTransfers) == 0 {
+		return nil
+	}
+
 	h.paymentTransferCoins, err = schedcommon.GetCoins(ctx, func() (coinTypeIDs []string) {
 		for _, paymentTransfer := range h.PaymentTransfers {
 			coinTypeIDs = append(coinTypeIDs, paymentTransfer.CoinTypeID)
@@ -46,6 +53,29 @@ func (h *orderHandler) getPaymentCoins(ctx context.Context) (err error) {
 	for _, paymentCoin := range h.paymentTransferCoins {
 		if !paymentCoin.ForPay {
 			return wlog.Errorf("invalid paymenttransfercoin")
+		}
+	}
+	return nil
+}
+
+func (h *orderHandler) getPaymentFiats(ctx context.Context) (err error) {
+	if len(h.PaymentFiats) == 0 {
+		return nil
+	}
+
+	h.paymentFiats, err = schedcommon.GetFiats(ctx, func() (fiatIDs []string) {
+		for _, paymentFiat := range h.PaymentFiats {
+			fiatIDs = append(fiatIDs, paymentFiat.FiatID)
+		}
+		return
+	}())
+	if err != nil {
+		return wlog.WrapError(err)
+	}
+
+	for _, paymentFiat := range h.PaymentFiats {
+		if _, ok := h.paymentFiats[paymentFiat.FiatID]; !ok {
+			return wlog.Errorf("invalid paymentfiat")
 		}
 	}
 	return nil
@@ -142,6 +172,24 @@ func (h *orderHandler) updatePaymentTransfers(ctx context.Context) error {
 	return nil
 }
 
+func (h *orderHandler) updatePaymentFiats() {
+	for _, paymentFiat := range h.PaymentFiats {
+		h.xPaymentFiats = append(h.xPaymentFiats, &types.XPaymentFiat{
+			PaymentFiatID: paymentFiat.EntID,
+			FiatID:        paymentFiat.FiatID,
+			Amount:        paymentFiat.Amount,
+			Extra: fmt.Sprintf(
+				`{"PaymentID":"%v","OrderID":"%v","GoodID":"%v","AppGoodID":"%v","PaymentType":"%v"}`,
+				h.PaymentID,
+				h.OrderID,
+				h.GoodID,
+				h.AppGoodID,
+				h.PaymentType,
+			),
+		})
+	}
+}
+
 //nolint:gocritic
 func (h *orderHandler) final(ctx context.Context, err *error) {
 	if *err != nil {
@@ -156,6 +204,7 @@ func (h *orderHandler) final(ctx context.Context, err *error) {
 	persistentOrder := &types.PersistentOrder{
 		SubscriptionOrder: h.SubscriptionOrder,
 		XPaymentTransfers: h.paymentTransfers,
+		XPaymentFiats:     h.xPaymentFiats,
 		Error:             *err,
 	}
 	if *err == nil {
@@ -175,11 +224,15 @@ func (h *orderHandler) exec(ctx context.Context) error {
 	if err = h.getPaymentCoins(ctx); err != nil {
 		return err
 	}
+	if err = h.getPaymentFiats(ctx); err != nil {
+		return err
+	}
 	if err = h.getPaymentAccounts(ctx); err != nil {
 		return err
 	}
 	if err = h.updatePaymentTransfers(ctx); err != nil {
 		return err
 	}
+	h.updatePaymentFiats()
 	return nil
 }

@@ -14,6 +14,7 @@ import (
 	rabbitmqconst "github.com/NpoolPlatform/kunman/framework/rabbitmq/const"
 	redisconst "github.com/NpoolPlatform/kunman/framework/redis/const"
 	accountmwsvcname "github.com/NpoolPlatform/kunman/middleware/account/servicename"
+	agimwsvcname "github.com/NpoolPlatform/kunman/middleware/agi/servicename"
 	appusermwsvcname "github.com/NpoolPlatform/kunman/middleware/appuser/servicename"
 	basalservicename "github.com/NpoolPlatform/kunman/middleware/basal/servicename"
 	chainmwsvcname "github.com/NpoolPlatform/kunman/middleware/chain/servicename"
@@ -25,7 +26,6 @@ import (
 	notifmwsvcname "github.com/NpoolPlatform/kunman/middleware/notif/servicename"
 	ordermwsvcname "github.com/NpoolPlatform/kunman/middleware/order/servicename"
 	reviewmwsvcname "github.com/NpoolPlatform/kunman/middleware/review/servicename"
-	agimwsvcname "github.com/NpoolPlatform/kunman/middleware/agi/servicename"
 	sphinxproxysvcname "github.com/NpoolPlatform/sphinx-proxy/pkg/servicename"
 
 	cli "github.com/urfave/cli/v2"

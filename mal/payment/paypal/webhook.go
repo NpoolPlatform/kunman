@@ -258,7 +258,7 @@ func (cli *PaymentClient) onSubscriptionUpdated(ctx context.Context, event *Webh
 		subscriptionordermw.WithAppGoodID(&subscriptionOrder.AppGoodID, true),
 		subscriptionordermw.WithPaymentFiats(func() []*paymentmwpb.PaymentFiatReq {
 			return []*paymentmwpb.PaymentFiatReq{
-				&paymentmwpb.PaymentFiatReq{
+				{
 					FiatID:         &fiat.EntID,
 					Amount:         &resource.BillingInfo.LastPayment.Amount.Value,
 					PaymentChannel: ordertypes.FiatPaymentChannel_PaymentChannelPaypal.Enum(),
