@@ -62,6 +62,9 @@ func watch(ctx context.Context, cancel context.CancelFunc) error {
 				webhook.Initialize(r)
 				return nil
 			})
+			if err := ctx.Err(); err != nil {
+				return
+			}
 		}
 	}()
 	return nil
