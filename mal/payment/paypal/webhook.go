@@ -46,7 +46,7 @@ func (cli *PaymentClient) OnWebhook(ctx context.Context, event *WebhookEvent) er
 		return cli.onSubscriptionUpdated(ctx, event)
 	case "BILLING.SUBSCRIPTION.SUSPENDED":
 		return cli.onSubscriptionSuspended(ctx, event)
-	case "BILLING.SUBSCRIPTION.CANCELLED":
+	case "BILLING.SUBSCRIPTION.CANCELED":
 		return cli.onSubscriptionCancelled(ctx, event)
 	default:
 		return wlog.Errorf("Unknown event type: %s", event.EventType)

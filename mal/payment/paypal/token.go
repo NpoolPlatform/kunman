@@ -20,7 +20,7 @@ type Token struct {
 	Expiry      time.Time
 }
 
-func (cli *PaymentClient) cacheAccessToken(ctx context.Context, token *Token) error {
+func (cli *PaymentClient) cacheAccessToken(token *Token) error {
 	key := cli.config.AccessTokenKey()
 
 	data, err := json.Marshal(token)
@@ -28,7 +28,7 @@ func (cli *PaymentClient) cacheAccessToken(ctx context.Context, token *Token) er
 		return wlog.WrapError(err)
 	}
 
-	expiry := token.Expiry.Sub(time.Now()) - 5*time.Minute
+	expiry := time.Until(token.Expiry) - 5*time.Minute
 	if expiry < 0 {
 		expiry = 1 * time.Minute
 	}
@@ -41,7 +41,7 @@ func (cli *PaymentClient) cacheAccessToken(ctx context.Context, token *Token) er
 	return nil
 }
 
-func (cli *PaymentClient) refreshAccessToken(ctx context.Context) (*Token, error) {
+func (cli *PaymentClient) refreshAccessToken() (*Token, error) {
 	formData := url.Values{}
 	formData.Set("grant_type", "client_credentials")
 
@@ -66,14 +66,14 @@ func (cli *PaymentClient) refreshAccessToken(ctx context.Context) (*Token, error
 	token := resp.Result().(*Token)
 	token.Expiry = time.Now().Add(time.Second * time.Duration(token.ExpiresIn))
 
-	if err := cli.cacheAccessToken(ctx, token); err != nil {
+	if err := cli.cacheAccessToken(token); err != nil {
 		return nil, err
 	}
 
 	return token, nil
 }
 
-func (cli *PaymentClient) cachedAccessToken(ctx context.Context) (*Token, error) {
+func (cli *PaymentClient) cachedAccessToken() (*Token, error) {
 	key := cli.config.AccessTokenKey()
 
 	token, err := redis2.Get(key)
@@ -90,12 +90,12 @@ func (cli *PaymentClient) cachedAccessToken(ctx context.Context) (*Token, error)
 }
 
 func (cli *PaymentClient) GetAccessToken(ctx context.Context) (string, error) {
-	cachedToken, err := cli.cachedAccessToken(ctx)
+	cachedToken, err := cli.cachedAccessToken()
 	if err == nil && !cachedToken.Expiry.IsZero() && cachedToken.Expiry.After(time.Now().Add(5*time.Minute)) {
 		return cachedToken.AccessToken, nil
 	}
 
-	newToken, err := cli.refreshAccessToken(ctx)
+	newToken, err := cli.refreshAccessToken()
 	if err != nil {
 		return "", wlog.WrapError(err)
 	}
