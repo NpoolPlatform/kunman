@@ -3,6 +3,9 @@ package paymentfiat
 import (
 	"fmt"
 	"time"
+
+	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
+	"github.com/NpoolPlatform/kunman/pkg/cruder/cruder"
 )
 
 func (h *Handler) ConstructCreateSQL() string {
@@ -56,4 +59,38 @@ func (h *Handler) ConstructCreateSQL() string {
 	_sql += "limit 1)"
 
 	return _sql
+}
+
+func (h *Handler) ConstructUpdateSQL() (string, error) {
+	// For each payment, we only have one payment fiat
+	if h.ID == nil && h.EntID == nil && h.PaymentID == nil {
+		return "", wlog.Errorf("invalid id")
+	}
+
+	set := "set "
+	now := uint32(time.Now().Unix())
+
+	_sql := "update payment_fiats "
+	if h.ChannelPaymentID != nil {
+		_sql += fmt.Sprintf("%vchannel_payment_id = '%v', ", set, *h.ChannelPaymentID)
+		set = ""
+	}
+	if set != "" {
+		return "", wlog.WrapError(cruder.ErrUpdateNothing)
+	}
+	_sql += fmt.Sprintf("updated_at = %v ", now)
+	whereAnd := "where"
+	if h.ID != nil {
+		_sql += fmt.Sprintf("where id = %v ", *h.ID)
+		whereAnd = "and"
+	}
+	if h.EntID != nil {
+		_sql += fmt.Sprintf("%v ent_id = '%v'", whereAnd, *h.EntID)
+		whereAnd = "and"
+	}
+	if h.PaymentID != nil {
+		_sql += fmt.Sprintf("%v payment_id = '%v'", whereAnd, *h.PaymentID)
+	}
+
+	return _sql, nil
 }

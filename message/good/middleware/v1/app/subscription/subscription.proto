@@ -79,6 +79,9 @@ message Subscription {
     // @inject_tag: sql:"trial_fiat_price"
     string TrialFiatPrice = 320;
 
+    // @inject_tag: sql:"plan_id"
+    string PlanID = 330;
+
     // @inject_tag: sql:"created_at"
     uint32 CreatedAt = 1000;
     // @inject_tag: sql:"updated_at"

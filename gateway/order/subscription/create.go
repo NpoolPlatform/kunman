@@ -74,6 +74,12 @@ func (h *Handler) CreateSubscriptionOrder(ctx context.Context) (*npool.Subscript
 	if err := handler.getAppSubscription(ctx); err != nil {
 		return nil, wlog.WrapError(err)
 	}
+	if err := handler.getAppOneShot(ctx); err != nil {
+		return nil, wlog.WrapError(err)
+	}
+	if err := handler.validateAppGood(); err != nil {
+		return nil, wlog.WrapError(err)
+	}
 	if err := handler.AcquirePaymentTransferAccount(ctx); err != nil {
 		return nil, wlog.WrapError(err)
 	}

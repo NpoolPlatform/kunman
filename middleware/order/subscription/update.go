@@ -15,6 +15,7 @@ import (
 	paymentbalance1 "github.com/NpoolPlatform/kunman/middleware/order/payment/balance"
 	paymentbalancelock1 "github.com/NpoolPlatform/kunman/middleware/order/payment/balance/lock"
 	paymentcommon "github.com/NpoolPlatform/kunman/middleware/order/payment/common"
+	paymentfiat1 "github.com/NpoolPlatform/kunman/middleware/order/payment/fiat"
 	paymenttransfer1 "github.com/NpoolPlatform/kunman/middleware/order/payment/transfer"
 	orderstm1 "github.com/NpoolPlatform/kunman/middleware/order/stm"
 	subscriptionorderstate1 "github.com/NpoolPlatform/kunman/middleware/order/subscription/state"
@@ -40,6 +41,7 @@ type updateHandler struct {
 	sqlPaymentBalanceLock     string
 	sqlPaymentBalances        []string
 	sqlPaymentTransfers       []string
+	sqlPaymentFiats           []string
 
 	sqlPayWithMeOrderStateBases         []string
 	sqlPayWithMeSubscriptionOrderStates []string
@@ -149,6 +151,26 @@ func (h *updateHandler) constructPaymentTransferSQLs(ctx context.Context) error 
 				return wlog.WrapError(err)
 			}
 			h.sqlPaymentTransfers = append(h.sqlPaymentTransfers, sql)
+		}
+	}
+	return nil
+}
+
+func (h *updateHandler) constructPaymentFiatSQLs(ctx context.Context) error {
+	for _, req := range h.PaymentFiatReqs {
+		handler, _ := paymentfiat1.NewHandler(ctx)
+		handler.Req = *req
+		if h.newPayment {
+			h.sqlPaymentFiats = append(h.sqlPaymentFiats, handler.ConstructCreateSQL())
+		} else {
+			sql, err := handler.ConstructUpdateSQL()
+			if err == cruder.ErrUpdateNothing {
+				continue
+			}
+			if err != nil {
+				return wlog.WrapError(err)
+			}
+			h.sqlPaymentFiats = append(h.sqlPaymentFiats, sql)
 		}
 	}
 	return nil
@@ -305,6 +327,23 @@ func (h *updateHandler) createOrUpdatePaymentTransfers(ctx context.Context, tx *
 		}
 		if h.newPayment {
 			return wlog.Errorf("fail create paymenttransfer")
+		}
+	}
+	return nil
+}
+
+func (h *updateHandler) createOrUpdatePaymentFiats(ctx context.Context, tx *ent.Tx) error {
+	for _, sql := range h.sqlPaymentFiats {
+		n, err := h.execSQL(ctx, tx, sql)
+		if err != nil {
+			return wlog.WrapError(err)
+		}
+		if n == 1 {
+			h.updateNothing = false
+			continue
+		}
+		if h.newPayment {
+			return wlog.Errorf("fail create paymentfiat")
 		}
 	}
 	return nil
@@ -640,6 +679,9 @@ func (h *Handler) UpdateSubscriptionOrderWithTx(ctx context.Context, tx *ent.Tx)
 	if err := handler.constructPaymentTransferSQLs(ctx); err != nil {
 		return wlog.WrapError(err)
 	}
+	if err := handler.constructPaymentFiatSQLs(ctx); err != nil {
+		return wlog.WrapError(err)
+	}
 	if err := handler.constructObseletePaymentBaseSQL(ctx); err != nil {
 		return wlog.WrapError(err)
 	}
@@ -672,6 +714,9 @@ func (h *Handler) UpdateSubscriptionOrderWithTx(ctx context.Context, tx *ent.Tx)
 		return wlog.WrapError(err)
 	}
 	if err := handler.createOrUpdatePaymentTransfers(ctx, tx); err != nil {
+		return wlog.WrapError(err)
+	}
+	if err := handler.createOrUpdatePaymentFiats(ctx, tx); err != nil {
 		return wlog.WrapError(err)
 	}
 	if handler.updateNothing {
