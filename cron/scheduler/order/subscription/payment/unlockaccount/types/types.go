@@ -8,4 +8,6 @@ type PersistentOrder struct {
 	*subscriptionordermwpb.SubscriptionOrder
 	PaymentAccountIDs          []uint32
 	ExistOrderCompletedHistory bool
+	UserSubscriptionID         uint32
+	OrderQuota                 uint32
 }

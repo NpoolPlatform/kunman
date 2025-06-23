@@ -271,6 +271,7 @@ func (cli *PaymentClient) onSubscriptionUpdated(ctx context.Context, event *Webh
 		subscriptionordermw.WithPaymentAmountUSD(&paymentAmountUSDStr, true),
 		subscriptionordermw.WithGoodValueUSD(&paymentAmountUSDStr, true),
 		subscriptionordermw.WithDealEventID(&event.ID, true),
+		subscriptionordermw.WithLifeSeconds(&subscriptionOrder.LifeSeconds, true),
 	)
 	if err != nil {
 		return wlog.WrapError(err)

@@ -8,11 +8,15 @@ import (
 	"github.com/NpoolPlatform/kunman/framework/logger"
 	"github.com/NpoolPlatform/kunman/framework/wlog"
 	paymentaccountmwpb "github.com/NpoolPlatform/kunman/message/account/middleware/v1/payment"
+	agisubscriptionmwpb "github.com/NpoolPlatform/kunman/message/agi/middleware/v1/subscription"
 	basetypes "github.com/NpoolPlatform/kunman/message/basetypes/v1"
+	appsubscriptionmwpb "github.com/NpoolPlatform/kunman/message/good/middleware/v1/app/subscription"
 	eventmwpb "github.com/NpoolPlatform/kunman/message/inspire/middleware/v1/event"
 	taskconfigmwpb "github.com/NpoolPlatform/kunman/message/inspire/middleware/v1/task/config"
 	taskusermwpb "github.com/NpoolPlatform/kunman/message/inspire/middleware/v1/task/user"
 	subscriptionordermwpb "github.com/NpoolPlatform/kunman/message/order/middleware/v1/subscription"
+	agisubscriptionmw "github.com/NpoolPlatform/kunman/middleware/agi/subscription"
+	appsubscriptionmw "github.com/NpoolPlatform/kunman/middleware/good/app/subscription"
 	eventmw "github.com/NpoolPlatform/kunman/middleware/inspire/event"
 	taskconfigmw "github.com/NpoolPlatform/kunman/middleware/inspire/task/config"
 	taskusermw "github.com/NpoolPlatform/kunman/middleware/inspire/task/user"
@@ -28,6 +32,8 @@ type orderHandler struct {
 	paymentAccounts                 map[string]*paymentaccountmwpb.Account
 	existOrderCompletedHistory      bool
 	existFirstOrderCompletedHistory bool
+	userSubscription                *agisubscriptionmwpb.Subscription
+	appSubscription                 *appsubscriptionmwpb.Subscription
 }
 
 func (h *orderHandler) payWithTransfer() bool {
@@ -53,6 +59,56 @@ func (h *orderHandler) getPaymentAccounts(ctx context.Context) (err error) {
 			return wlog.Errorf("invalid paymentaccount")
 		}
 	}
+	return nil
+}
+
+func (h *orderHandler) getUserSubscription(ctx context.Context) (err error) {
+	conds := &agisubscriptionmwpb.Conds{
+		AppID:  &basetypes.StringVal{Op: cruder.EQ, Value: h.AppID},
+		UserID: &basetypes.StringVal{Op: cruder.EQ, Value: h.UserID},
+	}
+	handler, err := agisubscriptionmw.NewHandler(
+		ctx,
+		agisubscriptionmw.WithConds(conds),
+	)
+	if err != nil {
+		return wlog.WrapError(err)
+	}
+
+	subscription, err := handler.GetSubscriptionOnly(ctx)
+	if err != nil {
+		return wlog.WrapError(err)
+	}
+	if subscription == nil {
+		return wlog.Errorf("Invalid agisubscription")
+	}
+
+	h.userSubscription = subscription
+	return nil
+}
+
+func (h *orderHandler) getAppSubscription(ctx context.Context) (err error) {
+	conds := &appsubscriptionmwpb.Conds{
+		AppGoodID: &basetypes.StringVal{Op: cruder.EQ, Value: h.AppGoodID},
+	}
+	handler, err := appsubscriptionmw.NewHandler(
+		ctx,
+		appsubscriptionmw.WithConds(conds),
+	)
+	if err != nil {
+		return wlog.WrapError(err)
+	}
+
+	appSubscription, err := handler.GetSubscriptionOnly(ctx)
+	if err != nil {
+		return wlog.WrapError(err)
+	}
+	if appSubscription == nil {
+		return wlog.Errorf("Invalid appsubscription")
+	}
+
+	h.appSubscription = appSubscription
+
 	return nil
 }
 
@@ -212,6 +268,8 @@ func (h *orderHandler) final(ctx context.Context, err *error) {
 			return
 		}(),
 		ExistOrderCompletedHistory: existOrderCompletedHistory,
+		UserSubscriptionID:         h.userSubscription.ID,
+		OrderQuota:                 h.appSubscription.DurationQuota,
 	}
 	if *err == nil {
 		asyncfeed.AsyncFeed(ctx, persistentOrder, h.persistent)
@@ -231,6 +289,12 @@ func (h *orderHandler) exec(ctx context.Context) error {
 		return nil
 	}
 	if err = h.getPaymentAccounts(ctx); err != nil {
+		return err
+	}
+	if err = h.getUserSubscription(ctx); err != nil {
+		return err
+	}
+	if err = h.getAppSubscription(ctx); err != nil {
 		return err
 	}
 
