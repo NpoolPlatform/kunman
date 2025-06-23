@@ -165,7 +165,7 @@ func WithPayWithCoinBalance(b *bool, must bool) func(context.Context, *Handler) 
 	}
 }
 
-func WithSubscriptioonID(s *string, must bool) func(context.Context, *Handler) error {
+func WithSubscriptionID(s *string, must bool) func(context.Context, *Handler) error {
 	return func(ctx context.Context, h *Handler) error {
 		if s == nil {
 			if must {

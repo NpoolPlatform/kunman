@@ -33,7 +33,6 @@ func (cli *PaymentClient) onSubscriptionActivated(ctx context.Context, event *We
 		"SubscriptionID", resource.ID,
 		"CustomID", resource.CustomID,
 		"PlanID", resource.PlanID,
-		"Event", event,
 	)
 
 	appID, userID, orderID, err := CustomID2AppUserOrderID(resource.CustomID)
@@ -104,12 +103,19 @@ func (cli *PaymentClient) onSubscriptionActivated(ctx context.Context, event *We
 	}
 
 	activatedAt := uint32(resource.BillingInfo.LastPayment.Time.Unix())
+	quota := uint32(0)
+	nextExtendAt := uint32(0)
 
 	agiHandler, err = agisubscriptionmw.NewHandler(
 		ctx,
 		agisubscriptionmw.WithAppID(&appID, true),
 		agisubscriptionmw.WithUserID(&userID, true),
+		agisubscriptionmw.WithAppGoodID(&subscriptionOrder.AppGoodID, true),
+		agisubscriptionmw.WithNextExtendAt(&nextExtendAt, true),
+		agisubscriptionmw.WithPermanentQuota(&quota, true),
+		agisubscriptionmw.WithConsumedQuota(&quota, true),
 		agisubscriptionmw.WithSubscriptionID(&resource.ID, true),
+		agisubscriptionmw.WithFiatPaymentChannel(ordertypes.FiatPaymentChannel_PaymentChannelPaypal.Enum(), true),
 		agisubscriptionmw.WithActivatedAt(&activatedAt, true),
 		agisubscriptionmw.WithLastPaymentAt(&activatedAt, true),
 		agisubscriptionmw.WithActivatedEventID(&event.ID, true),

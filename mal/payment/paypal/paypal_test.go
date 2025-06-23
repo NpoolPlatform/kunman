@@ -394,7 +394,7 @@ func createPayment(t *testing.T) {
 
 		subscriptionOrder.PaymentFiats[0].ChannelPaymentID = resp.ID
 		// TODO: update channel payment id
-		fmt.Printf("\n\n\nAccess %v in browser to confirm payment\n\n\n", resp.ApproveLink())
+		fmt.Printf("\n\n\nAccess %v in browser to confirm payment %v\n\n\n", resp.ApproveLink(), resp.ID)
 	}
 }
 
@@ -469,12 +469,14 @@ func createSubscription(t *testing.T) {
 		resp, err := cli.CreateSubscription(context.Background())
 		assert.Nil(t, err)
 
-		fmt.Printf("\n\n\nAccess %v in browser to confirm subscription\n\n\n", resp.ApproveLink())
+		fmt.Printf("\n\n\nAccess %v in browser to confirm subscription %v\n\n\n", resp.ApproveLink(), resp.ID)
 		paypalSubscriptionID = resp.ID
 	}
 }
 
 func waitSubscriptionApproved(t *testing.T) {
+	actives := 0
+
 	for {
 		time.Sleep(10 * time.Second)
 		cli, err := NewPaymentClient(
@@ -485,7 +487,8 @@ func waitSubscriptionApproved(t *testing.T) {
 			resp, err := cli.GetSubscription(context.Background())
 			assert.Nil(t, err)
 
-			if resp.Active() {
+			if resp.Active() && actives >= 3 {
+				actives++
 				break
 			}
 		}
