@@ -33,6 +33,7 @@ func (cli *PaymentClient) onSubscriptionActivated(ctx context.Context, event *We
 		"SubscriptionID", resource.ID,
 		"CustomID", resource.CustomID,
 		"PlanID", resource.PlanID,
+		"Event", event,
 	)
 
 	appID, userID, orderID, err := CustomID2AppUserOrderID(resource.CustomID)
@@ -56,6 +57,9 @@ func (cli *PaymentClient) onSubscriptionActivated(ctx context.Context, event *We
 	subscriptionOrder, err := orderHandler.GetSubscriptionOrderOnly(ctx)
 	if err != nil {
 		return wlog.WrapError(err)
+	}
+	if subscriptionOrder == nil {
+		return wlog.Errorf("invalid subscriptionorder")
 	}
 
 	orderHandler, err = subscriptionordermw.NewHandler(

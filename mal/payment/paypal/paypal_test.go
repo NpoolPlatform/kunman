@@ -357,7 +357,8 @@ func setup(t *testing.T) func(*testing.T) {
 	assert.Nil(t, err)
 
 	return func(*testing.T) {
-		_ = h10.DeleteSubscriptionOrder(context.Background())
+		// The order will be used on the webhook
+		// _ = h10.DeleteSubscriptionOrder(context.Background())
 		for _, h8 := range h8s {
 			_ = h8.DeleteCoupon(context.Background())
 		}
