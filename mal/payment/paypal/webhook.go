@@ -107,8 +107,9 @@ func (cli *PaymentClient) onSubscriptionActivated(ctx context.Context, event *We
 
 	agiHandler, err = agisubscriptionmw.NewHandler(
 		ctx,
-		agisubscriptionmw.WithID(&agiSubscription.ID, true),
-		agisubscriptionmw.WithEntID(&agiSubscription.EntID, true),
+		agisubscriptionmw.WithAppID(&appID, true),
+		agisubscriptionmw.WithUserID(&userID, true),
+		agisubscriptionmw.WithSubscriptionID(&resource.ID, true),
 		agisubscriptionmw.WithActivatedAt(&activatedAt, true),
 		agisubscriptionmw.WithLastPaymentAt(&activatedAt, true),
 		agisubscriptionmw.WithActivatedEventID(&event.ID, true),
@@ -117,7 +118,7 @@ func (cli *PaymentClient) onSubscriptionActivated(ctx context.Context, event *We
 		return wlog.WrapError(err)
 	}
 
-	return agiHandler.UpdateSubscription(ctx)
+	return agiHandler.CreateSubscription(ctx)
 }
 
 func (cli *PaymentClient) onSubscriptionUpdated(ctx context.Context, event *WebhookEvent) error {
