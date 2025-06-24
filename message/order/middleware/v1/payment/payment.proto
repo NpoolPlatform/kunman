@@ -132,6 +132,7 @@ message PaymentFiatReq {
     optional string Amount = 40;
     optional string ChannelPaymentID = 50;
     optional string USDCurrency = 60;
+    optional string ApproveLink = 70;
 }
 
 message PaymentFiatInfo {
@@ -150,6 +151,8 @@ message PaymentFiatInfo {
     string USDCurrency = 60;
     // @inject_tag: sql:"channel_payment_id"
     string ChannelPaymentID = 70;
+    // @inject_tag: sql:"approve_link"
+    string ApproveLink = 80;
     // @inject_tag: sql:"created_at"
     uint32 CreatedAt = 200;
 }

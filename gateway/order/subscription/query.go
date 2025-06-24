@@ -242,6 +242,7 @@ func (h *queryHandler) formalize() {
 				Amount:           fiat.Amount,
 				USDCurrency:      fiat.USDCurrency,
 				ChannelPaymentID: fiat.ChannelPaymentID,
+				ApproveLink:      fiat.ApproveLink,
 			}
 			_fiat, ok := h.fiats[fiat.FiatID]
 			if ok {

@@ -18636,6 +18636,7 @@ type PaymentFiatMutation struct {
 	amount             *decimal.Decimal
 	channel_payment_id *string
 	usd_currency       *decimal.Decimal
+	approve_link       *string
 	clearedFields      map[string]struct{}
 	done               bool
 	oldValue           func(context.Context) (*PaymentFiat, error)
@@ -19244,6 +19245,55 @@ func (m *PaymentFiatMutation) ResetUsdCurrency() {
 	delete(m.clearedFields, paymentfiat.FieldUsdCurrency)
 }
 
+// SetApproveLink sets the "approve_link" field.
+func (m *PaymentFiatMutation) SetApproveLink(s string) {
+	m.approve_link = &s
+}
+
+// ApproveLink returns the value of the "approve_link" field in the mutation.
+func (m *PaymentFiatMutation) ApproveLink() (r string, exists bool) {
+	v := m.approve_link
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldApproveLink returns the old "approve_link" field's value of the PaymentFiat entity.
+// If the PaymentFiat object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *PaymentFiatMutation) OldApproveLink(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldApproveLink is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldApproveLink requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldApproveLink: %w", err)
+	}
+	return oldValue.ApproveLink, nil
+}
+
+// ClearApproveLink clears the value of the "approve_link" field.
+func (m *PaymentFiatMutation) ClearApproveLink() {
+	m.approve_link = nil
+	m.clearedFields[paymentfiat.FieldApproveLink] = struct{}{}
+}
+
+// ApproveLinkCleared returns if the "approve_link" field was cleared in this mutation.
+func (m *PaymentFiatMutation) ApproveLinkCleared() bool {
+	_, ok := m.clearedFields[paymentfiat.FieldApproveLink]
+	return ok
+}
+
+// ResetApproveLink resets all changes to the "approve_link" field.
+func (m *PaymentFiatMutation) ResetApproveLink() {
+	m.approve_link = nil
+	delete(m.clearedFields, paymentfiat.FieldApproveLink)
+}
+
 // Where appends a list predicates to the PaymentFiatMutation builder.
 func (m *PaymentFiatMutation) Where(ps ...predicate.PaymentFiat) {
 	m.predicates = append(m.predicates, ps...)
@@ -19278,7 +19328,7 @@ func (m *PaymentFiatMutation) Type() string {
 // order to get all numeric fields that were incremented/decremented, call
 // AddedFields().
 func (m *PaymentFiatMutation) Fields() []string {
-	fields := make([]string, 0, 10)
+	fields := make([]string, 0, 11)
 	if m.ent_id != nil {
 		fields = append(fields, paymentfiat.FieldEntID)
 	}
@@ -19309,6 +19359,9 @@ func (m *PaymentFiatMutation) Fields() []string {
 	if m.usd_currency != nil {
 		fields = append(fields, paymentfiat.FieldUsdCurrency)
 	}
+	if m.approve_link != nil {
+		fields = append(fields, paymentfiat.FieldApproveLink)
+	}
 	return fields
 }
 
@@ -19337,6 +19390,8 @@ func (m *PaymentFiatMutation) Field(name string) (ent.Value, bool) {
 		return m.ChannelPaymentID()
 	case paymentfiat.FieldUsdCurrency:
 		return m.UsdCurrency()
+	case paymentfiat.FieldApproveLink:
+		return m.ApproveLink()
 	}
 	return nil, false
 }
@@ -19366,6 +19421,8 @@ func (m *PaymentFiatMutation) OldField(ctx context.Context, name string) (ent.Va
 		return m.OldChannelPaymentID(ctx)
 	case paymentfiat.FieldUsdCurrency:
 		return m.OldUsdCurrency(ctx)
+	case paymentfiat.FieldApproveLink:
+		return m.OldApproveLink(ctx)
 	}
 	return nil, fmt.Errorf("unknown PaymentFiat field %s", name)
 }
@@ -19444,6 +19501,13 @@ func (m *PaymentFiatMutation) SetField(name string, value ent.Value) error {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetUsdCurrency(v)
+		return nil
+	case paymentfiat.FieldApproveLink:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetApproveLink(v)
 		return nil
 	}
 	return fmt.Errorf("unknown PaymentFiat field %s", name)
@@ -19532,6 +19596,9 @@ func (m *PaymentFiatMutation) ClearedFields() []string {
 	if m.FieldCleared(paymentfiat.FieldUsdCurrency) {
 		fields = append(fields, paymentfiat.FieldUsdCurrency)
 	}
+	if m.FieldCleared(paymentfiat.FieldApproveLink) {
+		fields = append(fields, paymentfiat.FieldApproveLink)
+	}
 	return fields
 }
 
@@ -19563,6 +19630,9 @@ func (m *PaymentFiatMutation) ClearField(name string) error {
 		return nil
 	case paymentfiat.FieldUsdCurrency:
 		m.ClearUsdCurrency()
+		return nil
+	case paymentfiat.FieldApproveLink:
+		m.ClearApproveLink()
 		return nil
 	}
 	return fmt.Errorf("unknown PaymentFiat nullable field %s", name)
@@ -19601,6 +19671,9 @@ func (m *PaymentFiatMutation) ResetField(name string) error {
 		return nil
 	case paymentfiat.FieldUsdCurrency:
 		m.ResetUsdCurrency()
+		return nil
+	case paymentfiat.FieldApproveLink:
+		m.ResetApproveLink()
 		return nil
 	}
 	return fmt.Errorf("unknown PaymentFiat field %s", name)

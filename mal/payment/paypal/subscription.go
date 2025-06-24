@@ -4,7 +4,6 @@ import (
 	"context"
 	"encoding/json"
 	"io"
-	"fmt"
 	"net/http"
 
 	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
@@ -34,8 +33,6 @@ func (cli *PaymentClient) CreatePlan(ctx context.Context) (*CreatePlanResponse, 
 	if err != nil {
 		return nil, wlog.WrapError(err)
 	}
-
-	fmt.Println("===================", trialPrice, price)
 
 	sequence := uint32(1)
 

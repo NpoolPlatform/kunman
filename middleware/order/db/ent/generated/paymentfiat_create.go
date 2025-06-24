@@ -163,6 +163,20 @@ func (pfc *PaymentFiatCreate) SetNillableUsdCurrency(d *decimal.Decimal) *Paymen
 	return pfc
 }
 
+// SetApproveLink sets the "approve_link" field.
+func (pfc *PaymentFiatCreate) SetApproveLink(s string) *PaymentFiatCreate {
+	pfc.mutation.SetApproveLink(s)
+	return pfc
+}
+
+// SetNillableApproveLink sets the "approve_link" field if the given value is not nil.
+func (pfc *PaymentFiatCreate) SetNillableApproveLink(s *string) *PaymentFiatCreate {
+	if s != nil {
+		pfc.SetApproveLink(*s)
+	}
+	return pfc
+}
+
 // SetID sets the "id" field.
 func (pfc *PaymentFiatCreate) SetID(u uint32) *PaymentFiatCreate {
 	pfc.mutation.SetID(u)
@@ -243,6 +257,10 @@ func (pfc *PaymentFiatCreate) defaults() {
 	if _, ok := pfc.mutation.UsdCurrency(); !ok {
 		v := paymentfiat.DefaultUsdCurrency
 		pfc.mutation.SetUsdCurrency(v)
+	}
+	if _, ok := pfc.mutation.ApproveLink(); !ok {
+		v := paymentfiat.DefaultApproveLink
+		pfc.mutation.SetApproveLink(v)
 	}
 }
 
@@ -332,6 +350,10 @@ func (pfc *PaymentFiatCreate) createSpec() (*PaymentFiat, *sqlgraph.CreateSpec) 
 	if value, ok := pfc.mutation.UsdCurrency(); ok {
 		_spec.SetField(paymentfiat.FieldUsdCurrency, field.TypeOther, value)
 		_node.UsdCurrency = value
+	}
+	if value, ok := pfc.mutation.ApproveLink(); ok {
+		_spec.SetField(paymentfiat.FieldApproveLink, field.TypeString, value)
+		_node.ApproveLink = value
 	}
 	return _node, _spec
 }
@@ -556,6 +578,24 @@ func (u *PaymentFiatUpsert) UpdateUsdCurrency() *PaymentFiatUpsert {
 // ClearUsdCurrency clears the value of the "usd_currency" field.
 func (u *PaymentFiatUpsert) ClearUsdCurrency() *PaymentFiatUpsert {
 	u.SetNull(paymentfiat.FieldUsdCurrency)
+	return u
+}
+
+// SetApproveLink sets the "approve_link" field.
+func (u *PaymentFiatUpsert) SetApproveLink(v string) *PaymentFiatUpsert {
+	u.Set(paymentfiat.FieldApproveLink, v)
+	return u
+}
+
+// UpdateApproveLink sets the "approve_link" field to the value that was provided on create.
+func (u *PaymentFiatUpsert) UpdateApproveLink() *PaymentFiatUpsert {
+	u.SetExcluded(paymentfiat.FieldApproveLink)
+	return u
+}
+
+// ClearApproveLink clears the value of the "approve_link" field.
+func (u *PaymentFiatUpsert) ClearApproveLink() *PaymentFiatUpsert {
+	u.SetNull(paymentfiat.FieldApproveLink)
 	return u
 }
 
@@ -807,6 +847,27 @@ func (u *PaymentFiatUpsertOne) UpdateUsdCurrency() *PaymentFiatUpsertOne {
 func (u *PaymentFiatUpsertOne) ClearUsdCurrency() *PaymentFiatUpsertOne {
 	return u.Update(func(s *PaymentFiatUpsert) {
 		s.ClearUsdCurrency()
+	})
+}
+
+// SetApproveLink sets the "approve_link" field.
+func (u *PaymentFiatUpsertOne) SetApproveLink(v string) *PaymentFiatUpsertOne {
+	return u.Update(func(s *PaymentFiatUpsert) {
+		s.SetApproveLink(v)
+	})
+}
+
+// UpdateApproveLink sets the "approve_link" field to the value that was provided on create.
+func (u *PaymentFiatUpsertOne) UpdateApproveLink() *PaymentFiatUpsertOne {
+	return u.Update(func(s *PaymentFiatUpsert) {
+		s.UpdateApproveLink()
+	})
+}
+
+// ClearApproveLink clears the value of the "approve_link" field.
+func (u *PaymentFiatUpsertOne) ClearApproveLink() *PaymentFiatUpsertOne {
+	return u.Update(func(s *PaymentFiatUpsert) {
+		s.ClearApproveLink()
 	})
 }
 
@@ -1224,6 +1285,27 @@ func (u *PaymentFiatUpsertBulk) UpdateUsdCurrency() *PaymentFiatUpsertBulk {
 func (u *PaymentFiatUpsertBulk) ClearUsdCurrency() *PaymentFiatUpsertBulk {
 	return u.Update(func(s *PaymentFiatUpsert) {
 		s.ClearUsdCurrency()
+	})
+}
+
+// SetApproveLink sets the "approve_link" field.
+func (u *PaymentFiatUpsertBulk) SetApproveLink(v string) *PaymentFiatUpsertBulk {
+	return u.Update(func(s *PaymentFiatUpsert) {
+		s.SetApproveLink(v)
+	})
+}
+
+// UpdateApproveLink sets the "approve_link" field to the value that was provided on create.
+func (u *PaymentFiatUpsertBulk) UpdateApproveLink() *PaymentFiatUpsertBulk {
+	return u.Update(func(s *PaymentFiatUpsert) {
+		s.UpdateApproveLink()
+	})
+}
+
+// ClearApproveLink clears the value of the "approve_link" field.
+func (u *PaymentFiatUpsertBulk) ClearApproveLink() *PaymentFiatUpsertBulk {
+	return u.Update(func(s *PaymentFiatUpsert) {
+		s.ClearApproveLink()
 	})
 }
 

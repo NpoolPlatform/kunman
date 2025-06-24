@@ -446,6 +446,7 @@ var schemaGraph = func() *sqlgraph.Schema {
 			paymentfiat.FieldAmount:           {Type: field.TypeOther, Column: paymentfiat.FieldAmount},
 			paymentfiat.FieldChannelPaymentID: {Type: field.TypeString, Column: paymentfiat.FieldChannelPaymentID},
 			paymentfiat.FieldUsdCurrency:      {Type: field.TypeOther, Column: paymentfiat.FieldUsdCurrency},
+			paymentfiat.FieldApproveLink:      {Type: field.TypeString, Column: paymentfiat.FieldApproveLink},
 		},
 	}
 	graph.Nodes[17] = &sqlgraph.Node{
@@ -2242,6 +2243,11 @@ func (f *PaymentFiatFilter) WhereChannelPaymentID(p entql.StringP) {
 // WhereUsdCurrency applies the entql other predicate on the usd_currency field.
 func (f *PaymentFiatFilter) WhereUsdCurrency(p entql.OtherP) {
 	f.Where(p.Field(paymentfiat.FieldUsdCurrency))
+}
+
+// WhereApproveLink applies the entql string predicate on the approve_link field.
+func (f *PaymentFiatFilter) WhereApproveLink(p entql.StringP) {
+	f.Where(p.Field(paymentfiat.FieldApproveLink))
 }
 
 // addPredicate implements the predicateAdder interface.

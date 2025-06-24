@@ -219,6 +219,26 @@ func (pfu *PaymentFiatUpdate) ClearUsdCurrency() *PaymentFiatUpdate {
 	return pfu
 }
 
+// SetApproveLink sets the "approve_link" field.
+func (pfu *PaymentFiatUpdate) SetApproveLink(s string) *PaymentFiatUpdate {
+	pfu.mutation.SetApproveLink(s)
+	return pfu
+}
+
+// SetNillableApproveLink sets the "approve_link" field if the given value is not nil.
+func (pfu *PaymentFiatUpdate) SetNillableApproveLink(s *string) *PaymentFiatUpdate {
+	if s != nil {
+		pfu.SetApproveLink(*s)
+	}
+	return pfu
+}
+
+// ClearApproveLink clears the value of the "approve_link" field.
+func (pfu *PaymentFiatUpdate) ClearApproveLink() *PaymentFiatUpdate {
+	pfu.mutation.ClearApproveLink()
+	return pfu
+}
+
 // Mutation returns the PaymentFiatMutation object of the builder.
 func (pfu *PaymentFiatUpdate) Mutation() *PaymentFiatMutation {
 	return pfu.mutation
@@ -331,6 +351,12 @@ func (pfu *PaymentFiatUpdate) sqlSave(ctx context.Context) (n int, err error) {
 	}
 	if pfu.mutation.UsdCurrencyCleared() {
 		_spec.ClearField(paymentfiat.FieldUsdCurrency, field.TypeOther)
+	}
+	if value, ok := pfu.mutation.ApproveLink(); ok {
+		_spec.SetField(paymentfiat.FieldApproveLink, field.TypeString, value)
+	}
+	if pfu.mutation.ApproveLinkCleared() {
+		_spec.ClearField(paymentfiat.FieldApproveLink, field.TypeString)
 	}
 	_spec.AddModifiers(pfu.modifiers...)
 	if n, err = sqlgraph.UpdateNodes(ctx, pfu.driver, _spec); err != nil {
@@ -543,6 +569,26 @@ func (pfuo *PaymentFiatUpdateOne) ClearUsdCurrency() *PaymentFiatUpdateOne {
 	return pfuo
 }
 
+// SetApproveLink sets the "approve_link" field.
+func (pfuo *PaymentFiatUpdateOne) SetApproveLink(s string) *PaymentFiatUpdateOne {
+	pfuo.mutation.SetApproveLink(s)
+	return pfuo
+}
+
+// SetNillableApproveLink sets the "approve_link" field if the given value is not nil.
+func (pfuo *PaymentFiatUpdateOne) SetNillableApproveLink(s *string) *PaymentFiatUpdateOne {
+	if s != nil {
+		pfuo.SetApproveLink(*s)
+	}
+	return pfuo
+}
+
+// ClearApproveLink clears the value of the "approve_link" field.
+func (pfuo *PaymentFiatUpdateOne) ClearApproveLink() *PaymentFiatUpdateOne {
+	pfuo.mutation.ClearApproveLink()
+	return pfuo
+}
+
 // Mutation returns the PaymentFiatMutation object of the builder.
 func (pfuo *PaymentFiatUpdateOne) Mutation() *PaymentFiatMutation {
 	return pfuo.mutation
@@ -685,6 +731,12 @@ func (pfuo *PaymentFiatUpdateOne) sqlSave(ctx context.Context) (_node *PaymentFi
 	}
 	if pfuo.mutation.UsdCurrencyCleared() {
 		_spec.ClearField(paymentfiat.FieldUsdCurrency, field.TypeOther)
+	}
+	if value, ok := pfuo.mutation.ApproveLink(); ok {
+		_spec.SetField(paymentfiat.FieldApproveLink, field.TypeString, value)
+	}
+	if pfuo.mutation.ApproveLinkCleared() {
+		_spec.ClearField(paymentfiat.FieldApproveLink, field.TypeString)
 	}
 	_spec.AddModifiers(pfuo.modifiers...)
 	_node = &PaymentFiat{config: pfuo.config}

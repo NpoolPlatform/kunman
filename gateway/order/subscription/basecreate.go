@@ -216,11 +216,45 @@ func (h *baseCreateHandler) withCreateFiatSubscription(ctx context.Context) erro
 		return wlog.WrapError(err)
 	}
 
-	if _, err := cli.CreateSubscription(ctx); err != nil {
+	resp, err := cli.CreateSubscription(ctx)
+	if err != nil {
 		return wlog.WrapError(err)
 	}
 
-	return nil
+	handler, err := subscriptionordermw.NewHandler(
+		ctx,
+		subscriptionordermw.WithEntID(h.subscriptionOrderReq.EntID, false),
+	)
+	if err != nil {
+		return wlog.WrapError(err)
+	}
+
+	subscriptionOrder, err := handler.GetSubscriptionOrder(ctx)
+	if err != nil {
+		return wlog.WrapError(err)
+	}
+
+	approveLink := resp.ApproveLink()
+
+	handler, err = subscriptionordermw.NewHandler(
+		ctx,
+		subscriptionordermw.WithID(&subscriptionOrder.ID, true),
+		subscriptionordermw.WithPaymentFiats(func() (fiats []*paymentmwpb.PaymentFiatReq) {
+			for _, fiat := range subscriptionOrder.PaymentFiats {
+				fiats = append(fiats, &paymentmwpb.PaymentFiatReq{
+					EntID:          &fiat.EntID,
+					FiatID:         &fiat.FiatID,
+					Amount:         &fiat.Amount,
+					PaymentChannel: &fiat.PaymentChannel,
+					USDCurrency:    &fiat.USDCurrency,
+					ApproveLink:    &approveLink,
+				})
+			}
+			return
+		}(), true),
+	)
+
+	return handler.UpdateSubscriptionOrder(ctx)
 }
 
 func (h *baseCreateHandler) withCreateFiatPayment(ctx context.Context) error {

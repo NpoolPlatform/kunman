@@ -60,6 +60,10 @@ func (PaymentFiat) Fields() []ent.Field {
 			}).
 			Optional().
 			Default(decimal.Decimal{}),
+		field.
+			String("approve_link").
+			Optional().
+			Default(""),
 	}
 }
 

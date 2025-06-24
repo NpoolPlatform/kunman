@@ -549,6 +549,7 @@ var (
 		{Name: "amount", Type: field.TypeOther, Nullable: true, SchemaType: map[string]string{"mysql": "decimal(37,18)"}},
 		{Name: "channel_payment_id", Type: field.TypeString, Nullable: true, Default: ""},
 		{Name: "usd_currency", Type: field.TypeOther, Nullable: true, SchemaType: map[string]string{"mysql": "decimal(37, 18)"}},
+		{Name: "approve_link", Type: field.TypeString, Nullable: true, Default: ""},
 	}
 	// PaymentFiatsTable holds the schema information for the "payment_fiats" table.
 	PaymentFiatsTable = &schema.Table{

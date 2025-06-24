@@ -37,7 +37,9 @@ type PaymentFiat struct {
 	// ChannelPaymentID holds the value of the "channel_payment_id" field.
 	ChannelPaymentID string `json:"channel_payment_id,omitempty"`
 	// UsdCurrency holds the value of the "usd_currency" field.
-	UsdCurrency  decimal.Decimal `json:"usd_currency,omitempty"`
+	UsdCurrency decimal.Decimal `json:"usd_currency,omitempty"`
+	// ApproveLink holds the value of the "approve_link" field.
+	ApproveLink  string `json:"approve_link,omitempty"`
 	selectValues sql.SelectValues
 }
 
@@ -50,7 +52,7 @@ func (*PaymentFiat) scanValues(columns []string) ([]any, error) {
 			values[i] = new(decimal.Decimal)
 		case paymentfiat.FieldID, paymentfiat.FieldCreatedAt, paymentfiat.FieldUpdatedAt, paymentfiat.FieldDeletedAt:
 			values[i] = new(sql.NullInt64)
-		case paymentfiat.FieldPaymentChannel, paymentfiat.FieldChannelPaymentID:
+		case paymentfiat.FieldPaymentChannel, paymentfiat.FieldChannelPaymentID, paymentfiat.FieldApproveLink:
 			values[i] = new(sql.NullString)
 		case paymentfiat.FieldEntID, paymentfiat.FieldPaymentID, paymentfiat.FieldFiatID:
 			values[i] = new(uuid.UUID)
@@ -135,6 +137,12 @@ func (pf *PaymentFiat) assignValues(columns []string, values []any) error {
 			} else if value != nil {
 				pf.UsdCurrency = *value
 			}
+		case paymentfiat.FieldApproveLink:
+			if value, ok := values[i].(*sql.NullString); !ok {
+				return fmt.Errorf("unexpected type %T for field approve_link", values[i])
+			} else if value.Valid {
+				pf.ApproveLink = value.String
+			}
 		default:
 			pf.selectValues.Set(columns[i], values[i])
 		}
@@ -200,6 +208,9 @@ func (pf *PaymentFiat) String() string {
 	builder.WriteString(", ")
 	builder.WriteString("usd_currency=")
 	builder.WriteString(fmt.Sprintf("%v", pf.UsdCurrency))
+	builder.WriteString(", ")
+	builder.WriteString("approve_link=")
+	builder.WriteString(pf.ApproveLink)
 	builder.WriteByte(')')
 	return builder.String()
 }

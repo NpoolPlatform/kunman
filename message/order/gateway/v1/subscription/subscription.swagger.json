@@ -877,7 +877,7 @@
         "PaymentChannel": {
           "$ref": "#/definitions/v1FiatPaymentChannel"
         },
-        "PaymentApproveURL": {
+        "ApproveLink": {
           "type": "string",
           "title": "For payment channel like paypal"
         },

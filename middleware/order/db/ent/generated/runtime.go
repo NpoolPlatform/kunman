@@ -900,6 +900,10 @@ func init() {
 	paymentfiatDescUsdCurrency := paymentfiatFields[5].Descriptor()
 	// paymentfiat.DefaultUsdCurrency holds the default value on creation for the usd_currency field.
 	paymentfiat.DefaultUsdCurrency = paymentfiatDescUsdCurrency.Default.(decimal.Decimal)
+	// paymentfiatDescApproveLink is the schema descriptor for approve_link field.
+	paymentfiatDescApproveLink := paymentfiatFields[6].Descriptor()
+	// paymentfiat.DefaultApproveLink holds the default value on creation for the approve_link field.
+	paymentfiat.DefaultApproveLink = paymentfiatDescApproveLink.Default.(string)
 	paymenttransferMixin := schema.PaymentTransfer{}.Mixin()
 	paymenttransferMixinFields0 := paymenttransferMixin[0].Fields()
 	_ = paymenttransferMixinFields0

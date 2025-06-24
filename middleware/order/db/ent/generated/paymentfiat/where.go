@@ -104,6 +104,11 @@ func UsdCurrency(v decimal.Decimal) predicate.PaymentFiat {
 	return predicate.PaymentFiat(sql.FieldEQ(FieldUsdCurrency, v))
 }
 
+// ApproveLink applies equality check predicate on the "approve_link" field. It's identical to ApproveLinkEQ.
+func ApproveLink(v string) predicate.PaymentFiat {
+	return predicate.PaymentFiat(sql.FieldEQ(FieldApproveLink, v))
+}
+
 // EntIDEQ applies the EQ predicate on the "ent_id" field.
 func EntIDEQ(v uuid.UUID) predicate.PaymentFiat {
 	return predicate.PaymentFiat(sql.FieldEQ(FieldEntID, v))
@@ -612,6 +617,81 @@ func UsdCurrencyIsNil() predicate.PaymentFiat {
 // UsdCurrencyNotNil applies the NotNil predicate on the "usd_currency" field.
 func UsdCurrencyNotNil() predicate.PaymentFiat {
 	return predicate.PaymentFiat(sql.FieldNotNull(FieldUsdCurrency))
+}
+
+// ApproveLinkEQ applies the EQ predicate on the "approve_link" field.
+func ApproveLinkEQ(v string) predicate.PaymentFiat {
+	return predicate.PaymentFiat(sql.FieldEQ(FieldApproveLink, v))
+}
+
+// ApproveLinkNEQ applies the NEQ predicate on the "approve_link" field.
+func ApproveLinkNEQ(v string) predicate.PaymentFiat {
+	return predicate.PaymentFiat(sql.FieldNEQ(FieldApproveLink, v))
+}
+
+// ApproveLinkIn applies the In predicate on the "approve_link" field.
+func ApproveLinkIn(vs ...string) predicate.PaymentFiat {
+	return predicate.PaymentFiat(sql.FieldIn(FieldApproveLink, vs...))
+}
+
+// ApproveLinkNotIn applies the NotIn predicate on the "approve_link" field.
+func ApproveLinkNotIn(vs ...string) predicate.PaymentFiat {
+	return predicate.PaymentFiat(sql.FieldNotIn(FieldApproveLink, vs...))
+}
+
+// ApproveLinkGT applies the GT predicate on the "approve_link" field.
+func ApproveLinkGT(v string) predicate.PaymentFiat {
+	return predicate.PaymentFiat(sql.FieldGT(FieldApproveLink, v))
+}
+
+// ApproveLinkGTE applies the GTE predicate on the "approve_link" field.
+func ApproveLinkGTE(v string) predicate.PaymentFiat {
+	return predicate.PaymentFiat(sql.FieldGTE(FieldApproveLink, v))
+}
+
+// ApproveLinkLT applies the LT predicate on the "approve_link" field.
+func ApproveLinkLT(v string) predicate.PaymentFiat {
+	return predicate.PaymentFiat(sql.FieldLT(FieldApproveLink, v))
+}
+
+// ApproveLinkLTE applies the LTE predicate on the "approve_link" field.
+func ApproveLinkLTE(v string) predicate.PaymentFiat {
+	return predicate.PaymentFiat(sql.FieldLTE(FieldApproveLink, v))
+}
+
+// ApproveLinkContains applies the Contains predicate on the "approve_link" field.
+func ApproveLinkContains(v string) predicate.PaymentFiat {
+	return predicate.PaymentFiat(sql.FieldContains(FieldApproveLink, v))
+}
+
+// ApproveLinkHasPrefix applies the HasPrefix predicate on the "approve_link" field.
+func ApproveLinkHasPrefix(v string) predicate.PaymentFiat {
+	return predicate.PaymentFiat(sql.FieldHasPrefix(FieldApproveLink, v))
+}
+
+// ApproveLinkHasSuffix applies the HasSuffix predicate on the "approve_link" field.
+func ApproveLinkHasSuffix(v string) predicate.PaymentFiat {
+	return predicate.PaymentFiat(sql.FieldHasSuffix(FieldApproveLink, v))
+}
+
+// ApproveLinkIsNil applies the IsNil predicate on the "approve_link" field.
+func ApproveLinkIsNil() predicate.PaymentFiat {
+	return predicate.PaymentFiat(sql.FieldIsNull(FieldApproveLink))
+}
+
+// ApproveLinkNotNil applies the NotNil predicate on the "approve_link" field.
+func ApproveLinkNotNil() predicate.PaymentFiat {
+	return predicate.PaymentFiat(sql.FieldNotNull(FieldApproveLink))
+}
+
+// ApproveLinkEqualFold applies the EqualFold predicate on the "approve_link" field.
+func ApproveLinkEqualFold(v string) predicate.PaymentFiat {
+	return predicate.PaymentFiat(sql.FieldEqualFold(FieldApproveLink, v))
+}
+
+// ApproveLinkContainsFold applies the ContainsFold predicate on the "approve_link" field.
+func ApproveLinkContainsFold(v string) predicate.PaymentFiat {
+	return predicate.PaymentFiat(sql.FieldContainsFold(FieldApproveLink, v))
 }
 
 // And groups predicates with the AND operator between them.

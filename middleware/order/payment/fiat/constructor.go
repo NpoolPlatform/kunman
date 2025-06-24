@@ -27,6 +27,9 @@ func (h *Handler) ConstructCreateSQL() string {
 		_sql += comma + "channel_payment_id"
 	}
 	_sql += comma + "usd_currency"
+	if h.ApproveLink != nil {
+		_sql += comma + "approve_link"
+	}
 	_sql += comma + "created_at"
 	_sql += comma + "updated_at"
 	_sql += comma + "deleted_at"
@@ -46,6 +49,9 @@ func (h *Handler) ConstructCreateSQL() string {
 		_sql += fmt.Sprintf("%v'%v' as channel_payment_id", comma, *h.ChannelPaymentID)
 	}
 	_sql += fmt.Sprintf("%v'%v' as usd_currency", comma, *h.USDCurrency)
+	if h.ApproveLink != nil {
+		_sql += fmt.Sprintf("%v'%v' as approve_link", comma, *h.ApproveLink)
+	}
 	_sql += fmt.Sprintf("%v%v as created_at", comma, now)
 	_sql += fmt.Sprintf("%v%v as updated_at", comma, now)
 	_sql += fmt.Sprintf("%v0 as deleted_at", comma)
@@ -73,6 +79,10 @@ func (h *Handler) ConstructUpdateSQL() (string, error) {
 	_sql := "update payment_fiats "
 	if h.ChannelPaymentID != nil {
 		_sql += fmt.Sprintf("%vchannel_payment_id = '%v', ", set, *h.ChannelPaymentID)
+		set = ""
+	}
+	if h.ApproveLink != nil {
+		_sql += fmt.Sprintf("%vapprove_link = '%v', ", set, *h.ApproveLink)
 		set = ""
 	}
 	if set != "" {

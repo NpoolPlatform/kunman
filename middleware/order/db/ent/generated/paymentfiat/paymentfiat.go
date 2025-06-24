@@ -33,6 +33,8 @@ const (
 	FieldChannelPaymentID = "channel_payment_id"
 	// FieldUsdCurrency holds the string denoting the usd_currency field in the database.
 	FieldUsdCurrency = "usd_currency"
+	// FieldApproveLink holds the string denoting the approve_link field in the database.
+	FieldApproveLink = "approve_link"
 	// Table holds the table name of the paymentfiat in the database.
 	Table = "payment_fiats"
 )
@@ -50,6 +52,7 @@ var Columns = []string{
 	FieldAmount,
 	FieldChannelPaymentID,
 	FieldUsdCurrency,
+	FieldApproveLink,
 }
 
 // ValidColumn reports if the column name is valid (part of the table columns).
@@ -85,6 +88,8 @@ var (
 	DefaultChannelPaymentID string
 	// DefaultUsdCurrency holds the default value on creation for the "usd_currency" field.
 	DefaultUsdCurrency decimal.Decimal
+	// DefaultApproveLink holds the default value on creation for the "approve_link" field.
+	DefaultApproveLink string
 )
 
 // OrderOption defines the ordering options for the PaymentFiat queries.
@@ -143,4 +148,9 @@ func ByChannelPaymentID(opts ...sql.OrderTermOption) OrderOption {
 // ByUsdCurrency orders the results by the usd_currency field.
 func ByUsdCurrency(opts ...sql.OrderTermOption) OrderOption {
 	return sql.OrderByField(FieldUsdCurrency, opts...).ToFunc()
+}
+
+// ByApproveLink orders the results by the approve_link field.
+func ByApproveLink(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldApproveLink, opts...).ToFunc()
 }

@@ -189,6 +189,7 @@ func (h *queryHandler) queryPaymentFiats(ctx context.Context, cli *ent.Client) e
 		entpaymentfiat.FieldAmount,
 		entpaymentfiat.FieldChannelPaymentID,
 		entpaymentfiat.FieldUsdCurrency,
+		entpaymentfiat.FieldApproveLink,
 		entpaymentfiat.FieldCreatedAt,
 	).Scan(ctx, &h.paymentFiats)
 }

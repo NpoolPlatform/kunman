@@ -18,6 +18,7 @@ type Req struct {
 	Amount           *decimal.Decimal
 	ChannelPaymentID *string
 	USDCurrency      *decimal.Decimal
+	ApproveLink      *string
 	DeletedAt        *uint32
 }
 
@@ -43,10 +44,16 @@ func CreateSet(c *ent.PaymentFiatCreate, req *Req) *ent.PaymentFiatCreate {
 	if req.USDCurrency != nil {
 		c.SetUsdCurrency(*req.USDCurrency)
 	}
+	if req.ApproveLink != nil {
+		c.SetApproveLink(*req.ApproveLink)
+	}
 	return c
 }
 
 func UpdateSet(u *ent.PaymentFiatUpdateOne, req *Req) *ent.PaymentFiatUpdateOne {
+	if req.ApproveLink != nil {
+		u.SetApproveLink(*req.ApproveLink)
+	}
 	if req.DeletedAt != nil {
 		u.SetDeletedAt(*req.DeletedAt)
 	}
