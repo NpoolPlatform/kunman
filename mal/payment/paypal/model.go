@@ -198,7 +198,7 @@ type ShippingAddress struct {
 type Subscriber struct {
 	Name            Name             `json:"name"`
 	EmailAddress    string           `json:"email_address"`
-	Phone           Phone            `json:"phone,omitempty"`
+	Phone           *Phone            `json:"phone,omitempty"`
 	ShippingAddress *ShippingAddress `json:"shipping_address,omitempty"`
 	PayerID         *string          `json:"payer_id,omitempty"`
 	Tenant          *string          `json:"tenant,omitempty"`

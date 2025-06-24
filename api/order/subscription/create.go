@@ -24,6 +24,7 @@ func (s *Server) CreateSubscriptionOrder(ctx context.Context, in *npool.CreateSu
 		subscription1.WithPaymentBalances(in.Balances, true),
 		subscription1.WithPaymentTransferCoinTypeID(in.PaymentTransferCoinTypeID, false),
 		subscription1.WithPaymentFiatID(in.PaymentFiatID, false),
+		subscription1.WithFiatPaymentChannel(in.FiatPaymentChannel, false),
 		subscription1.WithCouponIDs(in.CouponIDs, true),
 		subscription1.WithLifeSeconds(in.LifeSeconds, false),
 	)

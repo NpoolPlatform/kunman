@@ -80,20 +80,32 @@ func (h *appGoodHandler) TrialUnits() uint32 {
 	return h.appSubscription.TrialUnits
 }
 
-func (h *appGoodHandler) TrialPrice() string {
+func (h *appGoodHandler) TrialPrice() (string, error) {
 	price, err := decimal.NewFromString(h.appSubscription.TrialFiatPrice)
 	if err == nil {
-		return price.Round(2).String()
+		if price.GreaterThan(decimal.NewFromInt(0)) {
+			return price.Round(2).String(), nil
+		}
 	}
-	return h.appSubscription.TrialUSDPrice
+	price, err = decimal.NewFromString(h.appSubscription.TrialUSDPrice)
+	if err != nil {
+		return "", wlog.WrapError(err)
+	}
+	return price.Round(2).String(), nil
 }
 
-func (h *appGoodHandler) Price() string {
+func (h *appGoodHandler) Price() (string, error) {
 	price, err := decimal.NewFromString(h.appSubscription.FiatPrice)
 	if err == nil {
-		return price.Round(2).String()
+		if price.GreaterThan(decimal.NewFromInt(0)) {
+			return price.Round(2).String(), nil
+		}
 	}
-	return h.appSubscription.USDPrice
+	price, err = decimal.NewFromString(h.appSubscription.USDPrice)
+	if err != nil {
+		return "", wlog.WrapError(err)
+	}
+	return price.Round(2).String(), nil
 }
 
 func (h *appGoodHandler) DurationUnits() uint32 {

@@ -4,6 +4,7 @@ import (
 	"context"
 	"encoding/json"
 	"io"
+	"fmt"
 	"net/http"
 
 	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
@@ -23,8 +24,20 @@ func (cli *PaymentClient) CreatePlan(ctx context.Context) (*CreatePlanResponse, 
 
 	durationUnits := cli.appGoodHandler.DurationUnits()
 	priceUnit := cli.appGoodHandler.PriceUnit()
-	trialPrice := cli.appGoodHandler.TrialPrice()
-	price := cli.appGoodHandler.Price()
+
+	trialPrice, err := cli.appGoodHandler.TrialPrice()
+	if err != nil {
+		return nil, wlog.WrapError(err)
+	}
+
+	price, err := cli.appGoodHandler.Price()
+	if err != nil {
+		return nil, wlog.WrapError(err)
+	}
+
+	fmt.Println("===================", trialPrice, price)
+
+	sequence := uint32(1)
 
 	if trialUnits > 0 {
 		billingCycles = append(billingCycles, BillingCycle{
@@ -33,7 +46,7 @@ func (cli *PaymentClient) CreatePlan(ctx context.Context) (*CreatePlanResponse, 
 				IntervalCount: durationUnits,
 			},
 			TenureType:  "TRIAL",
-			Sequence:    1,
+			Sequence:    sequence,
 			TotalCycles: trialUnits,
 			PricingScheme: PricingScheme{
 				FixedPrice: Amount{
@@ -42,6 +55,7 @@ func (cli *PaymentClient) CreatePlan(ctx context.Context) (*CreatePlanResponse, 
 				},
 			},
 		})
+		sequence += 1
 	}
 	billingCycles = append(billingCycles, BillingCycle{
 		Frequency: CycleFrequency{
@@ -49,7 +63,7 @@ func (cli *PaymentClient) CreatePlan(ctx context.Context) (*CreatePlanResponse, 
 			IntervalCount: durationUnits,
 		},
 		TenureType:  "REGULAR",
-		Sequence:    1,
+		Sequence:    sequence,
 		TotalCycles: 0,
 		PricingScheme: PricingScheme{
 			FixedPrice: Amount{
@@ -117,13 +131,13 @@ func (cli *PaymentClient) CreateSubscription(ctx context.Context) (*CreateSubscr
 				Surname:   cli.orderHandler.Surname(),
 			},
 			EmailAddress: cli.orderHandler.EmailAddress(),
-			Phone: Phone{
-				PhoneType: "MOBILE",
-				PhoneNumber: PhoneNumber{
-					CountryCode:    cli.orderHandler.CountryCode(),
-					NationalNumber: cli.orderHandler.NationalNumber(),
-				},
-			},
+			// Phone: &Phone{
+			// 	PhoneType: "MOBILE",
+			// 	PhoneNumber: PhoneNumber{
+			// 		CountryCode:    cli.orderHandler.CountryCode(),
+			// 		NationalNumber: cli.orderHandler.NationalNumber(),
+			// 	},
+			// },
 		},
 		ApplicationContext: ApplicationContext{
 			ReturnURL: cli.ReturnURL,

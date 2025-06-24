@@ -23,6 +23,14 @@ func (s *Server) AdminCreateAppSubscription(ctx context.Context, in *npool.Admin
 
 		subscription1.WithEnableSetCommission(in.EnableSetCommission, false),
 		subscription1.WithUSDPrice(&in.USDPrice, true),
+
+		subscription1.WithProductID(in.ProductID, false),
+		subscription1.WithTrialUnits(in.TrialUnits, false),
+		subscription1.WithTrialUSDPrice(in.TrialUSDPrice, false),
+
+		subscription1.WithPriceFiatID(in.PriceFiatID, false),
+		subscription1.WithFiatPrice(in.FiatPrice, false),
+		subscription1.WithTrialFiatPrice(in.TrialFiatPrice, false),
 	)
 	if err != nil {
 		logger.Sugar().Errorw(

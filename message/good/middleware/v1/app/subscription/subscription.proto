@@ -67,7 +67,7 @@ message Subscription {
 
     // @inject_tag: sql:"product_id"
     string ProductID = 200;
-    // @inject_tag: sql:"trail_units"
+    // @inject_tag: sql:"trial_units"
     uint32 TrialUnits = 210;
     // @inject_tag: sql:"trial_usd_price"
     string TrialUSDPrice = 220;

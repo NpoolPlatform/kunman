@@ -223,8 +223,8 @@ type Subscription struct {
 	USDPrice string `protobuf:"bytes,190,opt,name=USDPrice,proto3" json:"USDPrice,omitempty" sql:"usd_price"`
 	// @inject_tag: sql:"product_id"
 	ProductID string `protobuf:"bytes,200,opt,name=ProductID,proto3" json:"ProductID,omitempty" sql:"product_id"`
-	// @inject_tag: sql:"trail_units"
-	TrialUnits uint32 `protobuf:"varint,210,opt,name=TrialUnits,proto3" json:"TrialUnits,omitempty" sql:"trail_units"`
+	// @inject_tag: sql:"trial_units"
+	TrialUnits uint32 `protobuf:"varint,210,opt,name=TrialUnits,proto3" json:"TrialUnits,omitempty" sql:"trial_units"`
 	// @inject_tag: sql:"trial_usd_price"
 	TrialUSDPrice string `protobuf:"bytes,220,opt,name=TrialUSDPrice,proto3" json:"TrialUSDPrice,omitempty" sql:"trial_usd_price"`
 	// @inject_tag: sql:"price_fiat_id"

@@ -58,6 +58,14 @@ func (h *queryHandler) formalize() {
 			DurationQuota:   appSubscription.DurationQuota,
 			DailyBonusQuota: appSubscription.DailyBonusQuota,
 
+			ProductID: appSubscription.ProductID,
+			PlanID: appSubscription.PlanID,
+			TrialUnits: appSubscription.TrialUnits,
+			TrialUSDPrice: appSubscription.TrialUSDPrice,
+			PriceFiatID: appSubscription.PriceFiatID,
+			FiatPrice: appSubscription.FiatPrice,
+			TrialFiatPrice: appSubscription.TrialFiatPrice,
+
 			// Labels: appSubscription.Labels,
 
 			CreatedAt: appSubscription.CreatedAt,

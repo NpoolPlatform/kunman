@@ -259,6 +259,11 @@ func (h *baseQueryHandler) queryJoinAppSubscription(s *sql.Selector) error {
 		t1.C(entappsubscription.FieldUsdPrice),
 		t1.C(entappsubscription.FieldProductID),
 		t1.C(entappsubscription.FieldPlanID),
+		t1.C(entappsubscription.FieldTrialUsdPrice),
+		t1.C(entappsubscription.FieldTrialUnits),
+		t1.C(entappsubscription.FieldPriceFiatID),
+		t1.C(entappsubscription.FieldFiatPrice),
+		t1.C(entappsubscription.FieldTrialFiatPrice),
 	)
 	return nil
 }
