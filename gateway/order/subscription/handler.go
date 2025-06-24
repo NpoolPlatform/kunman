@@ -35,6 +35,7 @@ type Handler struct {
 	AdminSetCanceled          *bool
 	CreateMethod              *types.OrderCreateMethod
 	OrderType                 *types.OrderType
+	Domain                    *string
 	Offset                    int32
 	Limit                     int32
 }
@@ -307,6 +308,13 @@ func WithOrderType(orderType *types.OrderType, must bool) func(context.Context, 
 func WithLifeSeconds(u *uint32, must bool) func(context.Context, *Handler) error {
 	return func(ctx context.Context, h *Handler) error {
 		h.LifeSeconds = u
+		return nil
+	}
+}
+
+func WithDomain(s *string, must bool) func(context.Context, *Handler) error {
+	return func(ctx context.Context, h *Handler) error {
+		h.Domain = s
 		return nil
 	}
 }

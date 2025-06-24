@@ -2,18 +2,28 @@ package subscription
 
 import (
 	"context"
+	"os"
 
 	subscription1 "github.com/NpoolPlatform/kunman/gateway/order/subscription"
 	types "github.com/NpoolPlatform/kunman/message/basetypes/order/v1"
 	npool "github.com/NpoolPlatform/kunman/message/order/gateway/v1/subscription"
 
 	"google.golang.org/grpc/codes"
+	"google.golang.org/grpc/metadata"
 	"google.golang.org/grpc/status"
 
 	"github.com/NpoolPlatform/kunman/framework/logger"
 )
 
 func (s *Server) CreateSubscriptionOrder(ctx context.Context, in *npool.CreateSubscriptionOrderRequest) (*npool.CreateSubscriptionOrderResponse, error) {
+	domain := os.Getenv("PAYMENT_CALLBACK_DOMAIN")
+	metadata, ok := metadata.FromIncomingContext(ctx)
+	if ok {
+		if authorities := metadata[":authority"]; len(authorities) > 0 {
+			domain = authorities[0]
+		}
+	}
+
 	handler, err := subscription1.NewHandler(
 		ctx,
 		subscription1.WithAppID(&in.AppID, true),
@@ -27,6 +37,7 @@ func (s *Server) CreateSubscriptionOrder(ctx context.Context, in *npool.CreateSu
 		subscription1.WithFiatPaymentChannel(in.FiatPaymentChannel, false),
 		subscription1.WithCouponIDs(in.CouponIDs, true),
 		subscription1.WithLifeSeconds(in.LifeSeconds, false),
+		subscription1.WithDomain(&domain, true),
 	)
 	if err != nil {
 		logger.Sugar().Errorw(

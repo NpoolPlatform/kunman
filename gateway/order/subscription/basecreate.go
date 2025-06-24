@@ -2,6 +2,7 @@ package subscription
 
 import (
 	"context"
+	"fmt"
 
 	wlog "github.com/NpoolPlatform/kunman/framework/wlog"
 	ordercommon "github.com/NpoolPlatform/kunman/gateway/order/order/common"
@@ -208,8 +209,8 @@ func (h *baseCreateHandler) withCreateFiatSubscription(ctx context.Context) erro
 		paypal.WithOrderID(*h.OrderID),
 		paypal.WithAppGoodID(h.appSubscription.AppGoodID),
 		paypal.WithPaypalPlanID(h.appSubscription.PlanID),
-		paypal.WithReturnURL("/paypal/callback"),
-		paypal.WithCancelURL("/paypal/cancel"),
+		paypal.WithReturnURL(fmt.Sprintf("https://%v/paypal/callback", *h.Domain)),
+		paypal.WithCancelURL(fmt.Sprintf("https://%v/paypal/cancel", *h.Domain)),
 	)
 	if err != nil {
 		return wlog.WrapError(err)
@@ -230,8 +231,8 @@ func (h *baseCreateHandler) withCreateFiatPayment(ctx context.Context) error {
 	cli, err := paypal.NewPaymentClient(
 		ctx,
 		paypal.WithOrderID(*h.OrderID),
-		paypal.WithReturnURL("/paypal/callback"),
-		paypal.WithCancelURL("/paypal/cancel"),
+		paypal.WithReturnURL(fmt.Sprintf("https://%v/paypal/callback", *h.Domain)),
+		paypal.WithCancelURL(fmt.Sprintf("https://%v/paypal/cancel", *h.Domain)),
 	)
 	if err != nil {
 		return wlog.WrapError(err)
