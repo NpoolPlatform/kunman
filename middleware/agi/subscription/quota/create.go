@@ -31,7 +31,9 @@ func (h *createHandler) constructSQL() {
 	comma = ", "
 	_sql += comma + "user_id"
 	_sql += comma + "quota"
-	_sql += comma + "consumed_quota"
+	if h.ConsumedQuota != nil {
+		_sql += comma + "consumed_quota"
+	}
 	_sql += comma + "expired_at"
 	_sql += comma + "created_at"
 	_sql += comma + "updated_at"
@@ -48,7 +50,9 @@ func (h *createHandler) constructSQL() {
 	comma = ", "
 	_sql += fmt.Sprintf("%v'%v' as user_id", comma, *h.UserID)
 	_sql += fmt.Sprintf("%v%v as quota", comma, *h.Quota)
-	_sql += fmt.Sprintf("%v%v as consumed_quota", comma, *h.ConsumedQuota)
+	if h.ConsumedQuota != nil {
+		_sql += fmt.Sprintf("%v%v as consumed_quota", comma, *h.ConsumedQuota)
+	}
 	_sql += fmt.Sprintf("%v%v as expired_at", comma, *h.ExpiredAt)
 	_sql += fmt.Sprintf("%v%v as created_at", comma, now)
 	_sql += fmt.Sprintf("%v%v as updated_at", comma, now)

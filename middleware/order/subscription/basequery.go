@@ -298,6 +298,7 @@ func (h *baseQueryHandler) queryJoinSubscriptionOrderState(s *sql.Selector) erro
 		t.C(entsubscriptionorderstate.FieldAdminSetCanceled),
 		t.C(entsubscriptionorderstate.FieldPaymentState),
 		t.C(entsubscriptionorderstate.FieldCancelState),
+		t.C(entsubscriptionorderstate.FieldDealEventID),
 		t.C(entsubscriptionorderstate.FieldCanceledAt),
 	)
 	return nil

@@ -224,6 +224,7 @@ func (h *baseCreateHandler) withCreateFiatSubscription(ctx context.Context) erro
 	handler, err := subscriptionordermw.NewHandler(
 		ctx,
 		subscriptionordermw.WithEntID(h.subscriptionOrderReq.EntID, false),
+		subscriptionordermw.WithOrderID(h.subscriptionOrderReq.OrderID, true),
 	)
 	if err != nil {
 		return wlog.WrapError(err)
@@ -239,6 +240,8 @@ func (h *baseCreateHandler) withCreateFiatSubscription(ctx context.Context) erro
 	handler, err = subscriptionordermw.NewHandler(
 		ctx,
 		subscriptionordermw.WithID(&subscriptionOrder.ID, true),
+		subscriptionordermw.WithEntID(&subscriptionOrder.EntID, true),
+		subscriptionordermw.WithOrderID(&subscriptionOrder.OrderID, true),
 		subscriptionordermw.WithPaymentFiats(func() (fiats []*paymentmwpb.PaymentFiatReq) {
 			for _, fiat := range subscriptionOrder.PaymentFiats {
 				fiats = append(fiats, &paymentmwpb.PaymentFiatReq{

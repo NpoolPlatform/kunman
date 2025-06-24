@@ -185,7 +185,7 @@ func (h *orderHandler) preResolveNewState() bool {
 }
 
 func (h *orderHandler) validatePayment() error {
-	if !h.paymentNoPayment() && len(h.PaymentTransfers) == 0 && len(h.PaymentBalances) == 0 {
+	if !h.paymentNoPayment() && len(h.PaymentTransfers) == 0 && len(h.PaymentBalances) == 0 && len(h.PaymentFiats) == 0 {
 		return wlog.Errorf("invalid payment")
 	}
 	paymentAmountUSD := decimal.NewFromInt(0)
@@ -226,8 +226,8 @@ func (h *orderHandler) validatePayment() error {
 	if err != nil {
 		return wlog.WrapError(err)
 	}
-	if paymentAmountUSD.LessThan(shouldPaymentAmountUSD) {
-		return wlog.Errorf("invalid payment")
+	if paymentAmountUSD.Sub(shouldPaymentAmountUSD).Cmp(decimal.RequireFromString("-0.001")) < 0 {
+		return wlog.Errorf("invalid payment %v < %v", paymentAmountUSD, shouldPaymentAmountUSD)
 	}
 	return nil
 }

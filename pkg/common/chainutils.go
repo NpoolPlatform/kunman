@@ -30,6 +30,8 @@ func GetAppCoins(ctx context.Context, appID string, coinTypeIDs []string) (map[s
 	handler, err := appcoinmw.NewHandler(
 		ctx,
 		appcoinmw.WithConds(conds),
+		appcoinmw.WithOffset(0),
+		appcoinmw.WithLimit(int32(len(coinTypeIDs))),
 	)
 	if err != nil {
 		return nil, err
@@ -90,6 +92,8 @@ func GetFiats(ctx context.Context, fiatIDs []string) (map[string]*fiatmwpb.Fiat,
 	handler, err := fiatmw.NewHandler(
 		ctx,
 		fiatmw.WithConds(conds),
+		fiatmw.WithOffset(0),
+		fiatmw.WithLimit(int32(len(fiatIDs))),
 	)
 	if err != nil {
 		return nil, err

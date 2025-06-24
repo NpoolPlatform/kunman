@@ -268,8 +268,12 @@ func (h *orderHandler) final(ctx context.Context, err *error) {
 			return
 		}(),
 		ExistOrderCompletedHistory: existOrderCompletedHistory,
-		UserSubscriptionID:         h.userSubscription.ID,
-		OrderQuota:                 h.appSubscription.DurationQuota,
+	}
+	if h.userSubscription != nil {
+		persistentOrder.UserSubscriptionID = h.userSubscription.ID
+	}
+	if h.appSubscription != nil {
+		persistentOrder.OrderQuota = h.appSubscription.DurationQuota
 	}
 	if *err == nil {
 		asyncfeed.AsyncFeed(ctx, persistentOrder, h.persistent)
@@ -285,16 +289,16 @@ func (h *orderHandler) exec(ctx context.Context) error {
 
 	defer h.final(ctx, &err)
 
-	if able := h.checkUnlockable(); !able {
-		return nil
-	}
-	if err = h.getPaymentAccounts(ctx); err != nil {
-		return err
-	}
 	if err = h.getUserSubscription(ctx); err != nil {
 		return err
 	}
 	if err = h.getAppSubscription(ctx); err != nil {
+		return err
+	}
+	if able := h.checkUnlockable(); !able {
+		return nil
+	}
+	if err = h.getPaymentAccounts(ctx); err != nil {
 		return err
 	}
 

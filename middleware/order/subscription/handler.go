@@ -689,6 +689,7 @@ func WithPaymentFiats(bs []*paymentmiddlewarepb.PaymentFiatReq, must bool) func(
 
 			req.PaymentChannel = b.PaymentChannel
 			req.ChannelPaymentID = b.ChannelPaymentID
+			req.ApproveLink = b.ApproveLink
 
 			h.PaymentFiatReqs = append(h.PaymentFiatReqs, req)
 		}
